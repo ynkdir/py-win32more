@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISpiBusInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9929444a-54f2-48c6-b9-52-9c-32-fc-02-c6-69')
+    _iid_ = Guid('{9929444a-54f2-48c6-b952-9c32fc02c669}')
     @winrt_commethod(6)
     def get_ChipSelectLineCount(self) -> Int32: ...
     @winrt_commethod(7)
@@ -40,7 +40,7 @@ class ISpiBusInfo(ComPtr):
     SupportedDataBitLengths = property(get_SupportedDataBitLengths, None)
 class ISpiConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5283a37f-f935-4b9f-a7-a7-3a-78-90-af-a5-ce')
+    _iid_ = Guid('{5283a37f-f935-4b9f-a7a7-3a7890afa5ce}')
     @winrt_commethod(6)
     def get_ChipSelectLine(self) -> Int32: ...
     @winrt_commethod(7)
@@ -68,24 +68,24 @@ class ISpiConnectionSettings(ComPtr):
     SharingMode = property(get_SharingMode, put_SharingMode)
 class ISpiConnectionSettingsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ff99081e-10c4-44b7-9f-ea-a7-48-b5-a4-6f-31')
+    _iid_ = Guid('{ff99081e-10c4-44b7-9fea-a748b5a46f31}')
     @winrt_commethod(6)
     def Create(self, chipSelectLine: Int32) -> Windows.Devices.Spi.SpiConnectionSettings: ...
 class ISpiController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a8d3c829-9895-4159-a9-34-87-41-f1-ee-6d-27')
+    _iid_ = Guid('{a8d3c829-9895-4159-a934-8741f1ee6d27}')
     @winrt_commethod(6)
     def GetDevice(self, settings: Windows.Devices.Spi.SpiConnectionSettings) -> Windows.Devices.Spi.SpiDevice: ...
 class ISpiControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0d5229e2-138b-4e48-b9-64-4f-2f-79-b9-c5-a2')
+    _iid_ = Guid('{0d5229e2-138b-4e48-b964-4f2f79b9c5a2}')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Spi.SpiController]: ...
     @winrt_commethod(7)
     def GetControllersAsync(self, provider: Windows.Devices.Spi.Provider.ISpiProvider) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Spi.SpiController]]: ...
 class ISpiDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('05d5356d-11b6-4d39-84-d5-95-df-b4-c9-f2-ce')
+    _iid_ = Guid('{05d5356d-11b6-4d39-84d5-95dfb4c9f2ce}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -102,7 +102,7 @@ class ISpiDevice(ComPtr):
     ConnectionSettings = property(get_ConnectionSettings, None)
 class ISpiDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a278e559-5720-4d3f-bd-93-56-f5-ff-5a-58-79')
+    _iid_ = Guid('{a278e559-5720-4d3f-bd93-56f5ff5a5879}')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)

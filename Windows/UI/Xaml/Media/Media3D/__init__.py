@@ -124,7 +124,7 @@ class CompositeTransform3D(ComPtr):
     TranslateZProperty = property(get_TranslateZProperty, None)
 class ICompositeTransform3D(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8977cb01-af8d-4af5-b0-84-c0-8e-b9-70-4a-be')
+    _iid_ = Guid('{8977cb01-af8d-4af5-b084-c08eb9704abe}')
     @winrt_commethod(6)
     def get_CenterX(self) -> Double: ...
     @winrt_commethod(7)
@@ -187,7 +187,7 @@ class ICompositeTransform3D(ComPtr):
     TranslateZ = property(get_TranslateZ, put_TranslateZ)
 class ICompositeTransform3DStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ddbf4d67-2a25-48f3-98-08-c5-1e-c3-d5-5b-ec')
+    _iid_ = Guid('{ddbf4d67-2a25-48f3-9808-c51ec3d55bec}')
     @winrt_commethod(6)
     def get_CenterXProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -226,10 +226,10 @@ class ICompositeTransform3DStatics(ComPtr):
     TranslateZProperty = property(get_TranslateZProperty, None)
 class IMatrix3DHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e48c10ef-9927-4c9b-82-13-07-77-55-12-ba-04')
+    _iid_ = Guid('{e48c10ef-9927-4c9b-8213-07775512ba04}')
 class IMatrix3DHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9264545e-e158-4e74-88-99-68-91-60-bd-2f-8c')
+    _iid_ = Guid('{9264545e-e158-4e74-8899-689160bd2f8c}')
     @winrt_commethod(6)
     def get_Identity(self) -> Windows.UI.Xaml.Media.Media3D.Matrix3D: ...
     @winrt_commethod(7)
@@ -245,7 +245,7 @@ class IMatrix3DHelperStatics(ComPtr):
     Identity = property(get_Identity, None)
 class IPerspectiveTransform3D(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9a7b532a-30f9-40a1-96-c9-c5-9d-87-f9-5a-c3')
+    _iid_ = Guid('{9a7b532a-30f9-40a1-96c9-c59d87f95ac3}')
     @winrt_commethod(6)
     def get_Depth(self) -> Double: ...
     @winrt_commethod(7)
@@ -263,7 +263,7 @@ class IPerspectiveTransform3D(ComPtr):
     OffsetY = property(get_OffsetY, put_OffsetY)
 class IPerspectiveTransform3DStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8e6f6400-620c-48c7-84-4d-3f-09-84-da-5b-17')
+    _iid_ = Guid('{8e6f6400-620c-48c7-844d-3f0984da5b17}')
     @winrt_commethod(6)
     def get_DepthProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -275,10 +275,10 @@ class IPerspectiveTransform3DStatics(ComPtr):
     OffsetYProperty = property(get_OffsetYProperty, None)
 class ITransform3D(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ae3ed43a-a9fc-4c31-86-cd-56-d9-ca-25-1a-69')
+    _iid_ = Guid('{ae3ed43a-a9fc-4c31-86cd-56d9ca251a69}')
 class ITransform3DFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('052c1f7a-8d73-48cd-bb-b8-d0-04-34-ca-ae-5d')
+    _iid_ = Guid('{052c1f7a-8d73-48cd-bbb8-d00434caae5d}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Media3D.Transform3D: ...
 class Matrix3D(EasyCastStructure):

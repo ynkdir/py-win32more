@@ -306,7 +306,7 @@ class FolderInformation(ComPtr):
     Provider = property(get_Provider, None)
 class IFileInformationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('401d88be-960f-4d6d-a7-d0-1a-38-61-e7-6c-83')
+    _iid_ = Guid('{401d88be-960f-4d6d-a7d0-1a3861e76c83}')
     @winrt_commethod(6)
     def GetItemsAsync(self, startIndex: UInt32, maxItemsToRetrieve: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.BulkAccess.IStorageItemInformation]]: ...
     @winrt_commethod(7)
@@ -327,7 +327,7 @@ class IFileInformationFactory(ComPtr):
     def GetVirtualizedFoldersVector(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IFileInformationFactoryFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('84ea0e7d-e4a2-4f00-8a-fa-af-5e-0f-82-6b-d5')
+    _iid_ = Guid('{84ea0e7d-e4a2-4f00-8afa-af5e0f826bd5}')
     @winrt_commethod(6)
     def CreateWithMode(self, queryResult: Windows.Storage.Search.IStorageQueryResultBase, mode: Windows.Storage.FileProperties.ThumbnailMode) -> Windows.Storage.BulkAccess.FileInformationFactory: ...
     @winrt_commethod(7)
@@ -338,7 +338,7 @@ class IFileInformationFactoryFactory(ComPtr):
     def CreateWithModeAndSizeAndOptionsAndFlags(self, queryResult: Windows.Storage.Search.IStorageQueryResultBase, mode: Windows.Storage.FileProperties.ThumbnailMode, requestedThumbnailSize: UInt32, thumbnailOptions: Windows.Storage.FileProperties.ThumbnailOptions, delayLoad: Boolean) -> Windows.Storage.BulkAccess.FileInformationFactory: ...
 class IStorageItemInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('87a5cb8b-8972-4f40-8d-e0-d8-6f-b1-79-d8-fa')
+    _iid_ = Guid('{87a5cb8b-8972-4f40-8de0-d86fb179d8fa}')
     @winrt_commethod(6)
     def get_MusicProperties(self) -> Windows.Storage.FileProperties.MusicProperties: ...
     @winrt_commethod(7)

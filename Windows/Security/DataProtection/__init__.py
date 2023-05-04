@@ -26,12 +26,12 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUserDataAvailabilityStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a76582c9-06a2-4273-a8-03-83-4c-9f-87-fb-eb')
+    _iid_ = Guid('{a76582c9-06a2-4273-a803-834c9f87fbeb}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class IUserDataBufferUnprotectResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8efd0e90-fa9a-46a4-a3-77-01-ce-bf-1e-74-d8')
+    _iid_ = Guid('{8efd0e90-fa9a-46a4-a377-01cebf1e74d8}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.DataProtection.UserDataBufferUnprotectStatus: ...
     @winrt_commethod(7)
@@ -40,7 +40,7 @@ class IUserDataBufferUnprotectResult(ComPtr):
     UnprotectedBuffer = property(get_UnprotectedBuffer, None)
 class IUserDataProtectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1f13237d-b42e-4a88-94-80-0f-24-09-24-c8-76')
+    _iid_ = Guid('{1f13237d-b42e-4a88-9480-0f240924c876}')
     @winrt_commethod(6)
     def ProtectStorageItemAsync(self, storageItem: Windows.Storage.IStorageItem, availability: Windows.Security.DataProtection.UserDataAvailability) -> Windows.Foundation.IAsyncOperation[Windows.Security.DataProtection.UserDataStorageItemProtectionStatus]: ...
     @winrt_commethod(7)
@@ -57,14 +57,14 @@ class IUserDataProtectionManager(ComPtr):
     def remove_DataAvailabilityStateChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IUserDataProtectionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('977780e8-6dce-4fae-af-85-78-2a-c2-cf-45-72')
+    _iid_ = Guid('{977780e8-6dce-4fae-af85-782ac2cf4572}')
     @winrt_commethod(6)
     def TryGetDefault(self) -> Windows.Security.DataProtection.UserDataProtectionManager: ...
     @winrt_commethod(7)
     def TryGetForUser(self, user: Windows.System.User) -> Windows.Security.DataProtection.UserDataProtectionManager: ...
 class IUserDataStorageItemProtectionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5b6680f6-e87f-40a1-b1-9d-a6-18-7a-0c-66-2f')
+    _iid_ = Guid('{5b6680f6-e87f-40a1-b19d-a6187a0c662f}')
     @winrt_commethod(6)
     def get_Availability(self) -> Windows.Security.DataProtection.UserDataAvailability: ...
     Availability = property(get_Availability, None)

@@ -211,7 +211,7 @@ class BackgroundTaskBuilder(ComPtr):
     TaskGroup = property(get_TaskGroup, put_TaskGroup)
 class BackgroundTaskCanceledEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a6c4bac0-51f8-4c57-ac-3f-15-6d-d1-68-0c-4f')
+    _iid_ = Guid('{a6c4bac0-51f8-4c57-ac3f-156dd1680c4f}')
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskCanceledEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.ApplicationModel.Background.IBackgroundTaskInstance, reason: Windows.ApplicationModel.Background.BackgroundTaskCancellationReason) -> Void: ...
@@ -238,7 +238,7 @@ class BackgroundTaskCompletedEventArgs(ComPtr):
     InstanceId = property(get_InstanceId, None)
 class BackgroundTaskCompletedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5b38e929-a086-46a7-a6-78-43-91-35-82-2b-cf')
+    _iid_ = Guid('{5b38e929-a086-46a7-a678-439135822bcf}')
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskCompletedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.ApplicationModel.Background.BackgroundTaskRegistration, args: Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs) -> Void: ...
@@ -258,7 +258,7 @@ class BackgroundTaskProgressEventArgs(ComPtr):
     Progress = property(get_Progress, None)
 class BackgroundTaskProgressEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('46e0683c-8a88-4c99-80-4c-76-89-7f-62-77-a6')
+    _iid_ = Guid('{46e0683c-8a88-4c99-804c-76897f6277a6}')
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskProgressEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.ApplicationModel.Background.BackgroundTaskRegistration, args: Windows.ApplicationModel.Background.BackgroundTaskProgressEventArgs) -> Void: ...
@@ -563,7 +563,7 @@ class GeovisitTrigger(ComPtr):
     MonitoringScope = property(get_MonitoringScope, put_MonitoringScope)
 class IActivitySensorTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d0dd4342-e37b-4823-a5-fe-6b-31-df-ef-de-b0')
+    _iid_ = Guid('{d0dd4342-e37b-4823-a5fe-6b31dfefdeb0}')
     @winrt_commethod(6)
     def get_SubscribedActivities(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.Sensors.ActivityType]: ...
     @winrt_commethod(7)
@@ -578,19 +578,19 @@ class IActivitySensorTrigger(ComPtr):
     MinimumReportInterval = property(get_MinimumReportInterval, None)
 class IActivitySensorTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a72691c3-3837-44f7-83-1b-01-32-cc-87-2b-c3')
+    _iid_ = Guid('{a72691c3-3837-44f7-831b-0132cc872bc3}')
     @winrt_commethod(6)
     def Create(self, reportIntervalInMilliseconds: UInt32) -> Windows.ApplicationModel.Background.ActivitySensorTrigger: ...
 class IAlarmApplicationManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ca03fa3b-cce6-4de2-b0-9b-96-28-bd-33-bb-be')
+    _iid_ = Guid('{ca03fa3b-cce6-4de2-b09b-9628bd33bbbe}')
     @winrt_commethod(6)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.AlarmAccessStatus]: ...
     @winrt_commethod(7)
     def GetAccessStatus(self) -> Windows.ApplicationModel.Background.AlarmAccessStatus: ...
 class IAppBroadcastTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('74d4f496-8d37-44ec-94-81-2a-0b-98-54-eb-48')
+    _iid_ = Guid('{74d4f496-8d37-44ec-9481-2a0b9854eb48}')
     @winrt_commethod(6)
     def put_ProviderInfo(self, value: Windows.ApplicationModel.Background.AppBroadcastTriggerProviderInfo) -> Void: ...
     @winrt_commethod(7)
@@ -598,12 +598,12 @@ class IAppBroadcastTrigger(ComPtr):
     ProviderInfo = property(get_ProviderInfo, put_ProviderInfo)
 class IAppBroadcastTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('280b9f44-22f4-4618-a0-2e-e7-e4-11-eb-72-38')
+    _iid_ = Guid('{280b9f44-22f4-4618-a02e-e7e411eb7238}')
     @winrt_commethod(6)
     def CreateAppBroadcastTrigger(self, providerKey: WinRT_String) -> Windows.ApplicationModel.Background.AppBroadcastTrigger: ...
 class IAppBroadcastTriggerProviderInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f219352d-9de8-4420-9c-e2-5e-ff-8f-17-37-6b')
+    _iid_ = Guid('{f219352d-9de8-4420-9ce2-5eff8f17376b}')
     @winrt_commethod(6)
     def put_DisplayNameResource(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -636,26 +636,26 @@ class IAppBroadcastTriggerProviderInfo(ComPtr):
     MaxVideoHeight = property(get_MaxVideoHeight, put_MaxVideoHeight)
 class IApplicationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0b468630-9574-492c-9e-93-1a-3a-e6-33-5f-e9')
+    _iid_ = Guid('{0b468630-9574-492c-9e93-1a3ae6335fe9}')
     @winrt_commethod(6)
     def RequestAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.ApplicationTriggerResult]: ...
     @winrt_commethod(7)
     def RequestAsyncWithArguments(self, arguments: Windows.Foundation.Collections.ValueSet) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.ApplicationTriggerResult]: ...
 class IApplicationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('97dc6ab2-2219-4a9e-9c-5e-41-d0-47-f7-6e-82')
+    _iid_ = Guid('{97dc6ab2-2219-4a9e-9c5e-41d047f76e82}')
     @winrt_commethod(6)
     def get_Arguments(self) -> Windows.Foundation.Collections.ValueSet: ...
     Arguments = property(get_Arguments, None)
 class IAppointmentStoreNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('64d4040c-c201-42ad-aa-2a-e2-1b-a3-42-5b-6d')
+    _iid_ = Guid('{64d4040c-c201-42ad-aa2a-e21ba3425b6d}')
 class IBackgroundCondition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ae48a1ee-8951-400a-83-02-9c-9c-9a-2a-3a-3b')
+    _iid_ = Guid('{ae48a1ee-8951-400a-8302-9c9c9a2a3a3b}')
 class IBackgroundExecutionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e826ea58-66a9-4d41-83-d4-b4-c1-8c-87-b8-46')
+    _iid_ = Guid('{e826ea58-66a9-4d41-83d4-b4c18c87b846}')
     @winrt_commethod(6)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.BackgroundAccessStatus]: ...
     @winrt_commethod(7)
@@ -670,12 +670,12 @@ class IBackgroundExecutionManagerStatics(ComPtr):
     def GetAccessStatusForApplication(self, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.BackgroundAccessStatus: ...
 class IBackgroundExecutionManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('469b24ef-9bbb-4e18-99-9a-fd-65-12-93-1b-e9')
+    _iid_ = Guid('{469b24ef-9bbb-4e18-999a-fd6512931be9}')
     @winrt_commethod(6)
     def RequestAccessKindAsync(self, requestedAccess: Windows.ApplicationModel.Background.BackgroundAccessRequestKind, reason: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IBackgroundExecutionManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('98a5d3f6-5a25-5b6c-91-92-d7-7a-43-df-ed-c4')
+    _iid_ = Guid('{98a5d3f6-5a25-5b6c-9192-d77a43dfedc4}')
     @winrt_commethod(6)
     def RequestAccessKindForModernStandbyAsync(self, requestedAccess: Windows.ApplicationModel.Background.BackgroundAccessRequestKind, reason: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
@@ -684,12 +684,12 @@ class IBackgroundExecutionManagerStatics3(ComPtr):
     def GetAccessStatusForModernStandbyForApplication(self, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.BackgroundAccessStatus: ...
 class IBackgroundTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7d13d534-fd12-43ce-8c-22-ea-1f-f1-3c-06-df')
+    _iid_ = Guid('{7d13d534-fd12-43ce-8c22-ea1ff13c06df}')
     @winrt_commethod(6)
     def Run(self, taskInstance: Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> Void: ...
 class IBackgroundTaskBuilder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0351550e-3e64-4572-a9-3a-84-07-5a-37-c9-17')
+    _iid_ = Guid('{0351550e-3e64-4572-a93a-84075a37c917}')
     @winrt_commethod(6)
     def put_TaskEntryPoint(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -708,7 +708,7 @@ class IBackgroundTaskBuilder(ComPtr):
     Name = property(get_Name, put_Name)
 class IBackgroundTaskBuilder2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6ae7cfb1-104f-406d-8d-b6-84-4a-57-0f-42-bb')
+    _iid_ = Guid('{6ae7cfb1-104f-406d-8db6-844a570f42bb}')
     @winrt_commethod(6)
     def put_CancelOnConditionLoss(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -716,7 +716,7 @@ class IBackgroundTaskBuilder2(ComPtr):
     CancelOnConditionLoss = property(get_CancelOnConditionLoss, put_CancelOnConditionLoss)
 class IBackgroundTaskBuilder3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('28c74f4a-8ba9-4c09-a2-4f-19-68-3e-2c-92-4c')
+    _iid_ = Guid('{28c74f4a-8ba9-4c09-a24f-19683e2c924c}')
     @winrt_commethod(6)
     def put_IsNetworkRequested(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -724,7 +724,7 @@ class IBackgroundTaskBuilder3(ComPtr):
     IsNetworkRequested = property(get_IsNetworkRequested, put_IsNetworkRequested)
 class IBackgroundTaskBuilder4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4755e522-cba2-4e35-bd-16-a6-da-7f-1c-19-aa')
+    _iid_ = Guid('{4755e522-cba2-4e35-bd16-a6da7f1c19aa}')
     @winrt_commethod(6)
     def get_TaskGroup(self) -> Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
     @winrt_commethod(7)
@@ -732,12 +732,12 @@ class IBackgroundTaskBuilder4(ComPtr):
     TaskGroup = property(get_TaskGroup, put_TaskGroup)
 class IBackgroundTaskBuilder5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('077103f6-99f5-4af4-bc-ad-47-31-d0-33-0d-43')
+    _iid_ = Guid('{077103f6-99f5-4af4-bcad-4731d0330d43}')
     @winrt_commethod(6)
     def SetTaskEntryPointClsid(self, TaskEntryPoint: Guid) -> Void: ...
 class IBackgroundTaskCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('565d25cf-f209-48f4-99-67-2b-18-4f-7b-fb-f0')
+    _iid_ = Guid('{565d25cf-f209-48f4-9967-2b184f7bfbf0}')
     @winrt_commethod(6)
     def get_InstanceId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -745,12 +745,12 @@ class IBackgroundTaskCompletedEventArgs(ComPtr):
     InstanceId = property(get_InstanceId, None)
 class IBackgroundTaskDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('93cc156d-af27-4dd3-84-6e-24-ee-40-ca-dd-25')
+    _iid_ = Guid('{93cc156d-af27-4dd3-846e-24ee40cadd25}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IBackgroundTaskInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('865bda7a-21d8-4573-8f-32-92-8a-1b-06-41-f6')
+    _iid_ = Guid('{865bda7a-21d8-4573-8f32-928a1b0641f6}')
     @winrt_commethod(6)
     def get_InstanceId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -776,18 +776,18 @@ class IBackgroundTaskInstance(ComPtr):
     SuspendedCount = property(get_SuspendedCount, None)
 class IBackgroundTaskInstance2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4f7d0176-0c76-4fb4-89-6d-5d-e1-86-41-22-f6')
+    _iid_ = Guid('{4f7d0176-0c76-4fb4-896d-5de1864122f6}')
     @winrt_commethod(6)
     def GetThrottleCount(self, counter: Windows.ApplicationModel.Background.BackgroundTaskThrottleCounter) -> UInt32: ...
 class IBackgroundTaskInstance4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7f29f23c-aa04-4b08-97-b0-06-d8-74-cd-ab-f5')
+    _iid_ = Guid('{7f29f23c-aa04-4b08-97b0-06d874cdabf5}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
 class IBackgroundTaskProgressEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fb1468ac-8332-4d0a-95-32-03-ea-e6-84-da-31')
+    _iid_ = Guid('{fb1468ac-8332-4d0a-9532-03eae684da31}')
     @winrt_commethod(6)
     def get_InstanceId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -796,7 +796,7 @@ class IBackgroundTaskProgressEventArgs(ComPtr):
     Progress = property(get_Progress, None)
 class IBackgroundTaskRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('10654cc2-a26e-43bf-8c-12-1f-b4-0d-bf-bf-a0')
+    _iid_ = Guid('{10654cc2-a26e-43bf-8c12-1fb40dbfbfa0}')
     @winrt_commethod(6)
     def get_TaskId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -815,19 +815,19 @@ class IBackgroundTaskRegistration(ComPtr):
     Name = property(get_Name, None)
 class IBackgroundTaskRegistration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6138c703-bb86-4112-af-c3-7f-93-9b-16-6e-3b')
+    _iid_ = Guid('{6138c703-bb86-4112-afc3-7f939b166e3b}')
     @winrt_commethod(6)
     def get_Trigger(self) -> Windows.ApplicationModel.Background.IBackgroundTrigger: ...
     Trigger = property(get_Trigger, None)
 class IBackgroundTaskRegistration3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fe338195-9423-4d8b-83-0d-b1-dd-2c-7b-ad-d5')
+    _iid_ = Guid('{fe338195-9423-4d8b-830d-b1dd2c7badd5}')
     @winrt_commethod(6)
     def get_TaskGroup(self) -> Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
     TaskGroup = property(get_TaskGroup, None)
 class IBackgroundTaskRegistrationGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2ab1919a-871b-4167-8a-76-05-5c-d6-7b-5b-23')
+    _iid_ = Guid('{2ab1919a-871b-4167-8a76-055cd67b5b23}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -843,20 +843,20 @@ class IBackgroundTaskRegistrationGroup(ComPtr):
     AllTasks = property(get_AllTasks, None)
 class IBackgroundTaskRegistrationGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('83d92b69-44cf-4631-97-40-03-c7-d8-74-1b-c5')
+    _iid_ = Guid('{83d92b69-44cf-4631-9740-03c7d8741bc5}')
     @winrt_commethod(6)
     def Create(self, id: WinRT_String) -> Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
     @winrt_commethod(7)
     def CreateWithName(self, id: WinRT_String, name: WinRT_String) -> Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
 class IBackgroundTaskRegistrationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4c542f69-b000-42ba-a0-93-6a-56-3c-65-e3-f8')
+    _iid_ = Guid('{4c542f69-b000-42ba-a093-6a563c65e3f8}')
     @winrt_commethod(6)
     def get_AllTasks(self) -> Windows.Foundation.Collections.IMapView[Guid, Windows.ApplicationModel.Background.IBackgroundTaskRegistration]: ...
     AllTasks = property(get_AllTasks, None)
 class IBackgroundTaskRegistrationStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('174b671e-b20d-4fa9-ad-9a-e9-3a-d6-c7-1e-01')
+    _iid_ = Guid('{174b671e-b20d-4fa9-ad9a-e93ad6c71e01}')
     @winrt_commethod(6)
     def get_AllTaskGroups(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup]: ...
     @winrt_commethod(7)
@@ -864,22 +864,22 @@ class IBackgroundTaskRegistrationStatics2(ComPtr):
     AllTaskGroups = property(get_AllTaskGroups, None)
 class IBackgroundTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('84b3a058-6027-4b87-97-90-bd-f3-f7-57-db-d7')
+    _iid_ = Guid('{84b3a058-6027-4b87-9790-bdf3f757dbd7}')
 class IBackgroundWorkCostStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c740a662-c310-4b82-b3-e3-3b-cf-b9-e4-c7-7d')
+    _iid_ = Guid('{c740a662-c310-4b82-b3e3-3bcfb9e4c77d}')
     @winrt_commethod(6)
     def get_CurrentBackgroundWorkCost(self) -> Windows.ApplicationModel.Background.BackgroundWorkCostValue: ...
     CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost, None)
 class IBluetoothLEAdvertisementPublisherTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ab3e2612-25d3-48ae-87-24-d8-18-77-ae-61-29')
+    _iid_ = Guid('{ab3e2612-25d3-48ae-8724-d81877ae6129}')
     @winrt_commethod(6)
     def get_Advertisement(self) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement: ...
     Advertisement = property(get_Advertisement, None)
 class IBluetoothLEAdvertisementPublisherTrigger2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aa28d064-38f4-597d-b5-97-4e-55-58-8c-65-03')
+    _iid_ = Guid('{aa28d064-38f4-597d-b597-4e55588c6503}')
     @winrt_commethod(6)
     def get_PreferredTransmitPowerLevelInDBm(self) -> Windows.Foundation.IReference[Int16]: ...
     @winrt_commethod(7)
@@ -902,7 +902,7 @@ class IBluetoothLEAdvertisementPublisherTrigger2(ComPtr):
     IncludeTransmitPowerLevel = property(get_IncludeTransmitPowerLevel, put_IncludeTransmitPowerLevel)
 class IBluetoothLEAdvertisementWatcherTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1aab1819-bce1-48eb-a8-27-59-fb-7c-ee-52-a6')
+    _iid_ = Guid('{1aab1819-bce1-48eb-a827-59fb7cee52a6}')
     @winrt_commethod(6)
     def get_MinSamplingInterval(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -927,7 +927,7 @@ class IBluetoothLEAdvertisementWatcherTrigger(ComPtr):
     AdvertisementFilter = property(get_AdvertisementFilter, put_AdvertisementFilter)
 class IBluetoothLEAdvertisementWatcherTrigger2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('39b56799-eb39-5ab6-99-32-aa-9e-45-49-60-4d')
+    _iid_ = Guid('{39b56799-eb39-5ab6-9932-aa9e4549604d}')
     @winrt_commethod(6)
     def get_AllowExtendedAdvertisements(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -935,10 +935,10 @@ class IBluetoothLEAdvertisementWatcherTrigger2(ComPtr):
     AllowExtendedAdvertisements = property(get_AllowExtendedAdvertisements, put_AllowExtendedAdvertisements)
 class ICachedFileUpdaterTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e21caeeb-32f2-4d31-b5-53-b9-e0-1b-de-37-e0')
+    _iid_ = Guid('{e21caeeb-32f2-4d31-b553-b9e01bde37e0}')
 class ICachedFileUpdaterTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('71838c13-1314-47b4-95-97-dc-7e-24-8c-17-cc')
+    _iid_ = Guid('{71838c13-1314-47b4-9597-dc7e248c17cc}')
     @winrt_commethod(6)
     def get_UpdateTarget(self) -> Windows.Storage.Provider.CachedFileTarget: ...
     @winrt_commethod(7)
@@ -950,30 +950,30 @@ class ICachedFileUpdaterTriggerDetails(ComPtr):
     CanRequestUserInput = property(get_CanRequestUserInput, None)
 class IChatMessageNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('513b43bf-1d40-5c5d-78-f5-c9-23-fe-e3-73-9e')
+    _iid_ = Guid('{513b43bf-1d40-5c5d-78f5-c923fee3739e}')
 class IChatMessageReceivedNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3ea3760e-baf5-4077-88-e9-06-0c-f6-f0-c6-d5')
+    _iid_ = Guid('{3ea3760e-baf5-4077-88e9-060cf6f0c6d5}')
 class ICommunicationBlockingAppSetAsActiveTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fb91f28a-16a5-486d-97-4c-78-35-a8-47-7b-e2')
+    _iid_ = Guid('{fb91f28a-16a5-486d-974c-7835a8477be2}')
 class IContactStoreNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c833419b-4705-4571-9a-16-06-b9-97-bf-9c-96')
+    _iid_ = Guid('{c833419b-4705-4571-9a16-06b997bf9c96}')
 class IContentPrefetchTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('710627ee-04fa-440b-80-c0-17-32-02-19-9e-5d')
+    _iid_ = Guid('{710627ee-04fa-440b-80c0-173202199e5d}')
     @winrt_commethod(6)
     def get_WaitInterval(self) -> Windows.Foundation.TimeSpan: ...
     WaitInterval = property(get_WaitInterval, None)
 class IContentPrefetchTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c2643eda-8a03-409e-b8-c4-88-81-4c-28-cc-b6')
+    _iid_ = Guid('{c2643eda-8a03-409e-b8c4-88814c28ccb6}')
     @winrt_commethod(6)
     def Create(self, waitInterval: Windows.Foundation.TimeSpan) -> Windows.ApplicationModel.Background.ContentPrefetchTrigger: ...
 class ICustomSystemEventTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f3596798-cf6b-4ef4-a0-ca-29-cf-4a-27-8c-87')
+    _iid_ = Guid('{f3596798-cf6b-4ef4-a0ca-29cf4a278c87}')
     @winrt_commethod(6)
     def get_TriggerId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -982,12 +982,12 @@ class ICustomSystemEventTrigger(ComPtr):
     Recurrence = property(get_Recurrence, None)
 class ICustomSystemEventTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6bcb16c5-f2dc-41b2-9e-fd-b9-6b-dc-d1-3c-ed')
+    _iid_ = Guid('{6bcb16c5-f2dc-41b2-9efd-b96bdcd13ced}')
     @winrt_commethod(6)
     def Create(self, triggerId: WinRT_String, recurrence: Windows.ApplicationModel.Background.CustomSystemEventTriggerRecurrence) -> Windows.ApplicationModel.Background.CustomSystemEventTrigger: ...
 class IDeviceConnectionChangeTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('90875e64-3cdd-4efb-ab-1c-5b-3b-6a-60-ce-34')
+    _iid_ = Guid('{90875e64-3cdd-4efb-ab1c-5b3b6a60ce34}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1001,12 +1001,12 @@ class IDeviceConnectionChangeTrigger(ComPtr):
     MaintainConnection = property(get_MaintainConnection, put_MaintainConnection)
 class IDeviceConnectionChangeTriggerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c3ea246a-4efd-4498-aa-60-a4-e4-e3-b1-7a-b9')
+    _iid_ = Guid('{c3ea246a-4efd-4498-aa60-a4e4e3b17ab9}')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.DeviceConnectionChangeTrigger]: ...
 class IDeviceManufacturerNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('81278ab5-41ab-16da-86-c2-7f-7b-f0-91-2f-5b')
+    _iid_ = Guid('{81278ab5-41ab-16da-86c2-7f7bf0912f5b}')
     @winrt_commethod(6)
     def get_TriggerQualifier(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1015,54 +1015,54 @@ class IDeviceManufacturerNotificationTrigger(ComPtr):
     OneShot = property(get_OneShot, None)
 class IDeviceManufacturerNotificationTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7955de75-25bb-4153-a1-a2-30-29-fc-ab-b6-52')
+    _iid_ = Guid('{7955de75-25bb-4153-a1a2-3029fcabb652}')
     @winrt_commethod(6)
     def Create(self, triggerQualifier: WinRT_String, oneShot: Boolean) -> Windows.ApplicationModel.Background.DeviceManufacturerNotificationTrigger: ...
 class IDeviceServicingTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1ab217ad-6e34-49d3-9e-6f-17-f1-b6-df-a8-81')
+    _iid_ = Guid('{1ab217ad-6e34-49d3-9e6f-17f1b6dfa881}')
     @winrt_commethod(6)
     def RequestAsyncSimple(self, deviceId: WinRT_String, expectedDuration: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
     @winrt_commethod(7)
     def RequestAsyncWithArguments(self, deviceId: WinRT_String, expectedDuration: Windows.Foundation.TimeSpan, arguments: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
 class IDeviceUseTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0da68011-334f-4d57-b6-ec-6d-ca-64-b4-12-e4')
+    _iid_ = Guid('{0da68011-334f-4d57-b6ec-6dca64b412e4}')
     @winrt_commethod(6)
     def RequestAsyncSimple(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
     @winrt_commethod(7)
     def RequestAsyncWithArguments(self, deviceId: WinRT_String, arguments: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
 class IDeviceWatcherTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a4617fdd-8573-4260-be-fc-5b-ec-89-cb-69-3d')
+    _iid_ = Guid('{a4617fdd-8573-4260-befc-5bec89cb693d}')
 class IEmailStoreNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('986d06da-47eb-4268-a4-f2-f3-f7-71-88-38-8a')
+    _iid_ = Guid('{986d06da-47eb-4268-a4f2-f3f77188388a}')
 class IGattCharacteristicNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e25f8fc8-0696-474f-a7-32-f2-92-b0-ce-bc-5d')
+    _iid_ = Guid('{e25f8fc8-0696-474f-a732-f292b0cebc5d}')
     @winrt_commethod(6)
     def get_Characteristic(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic: ...
     Characteristic = property(get_Characteristic, None)
 class IGattCharacteristicNotificationTrigger2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9322a2c4-ae0e-42f2-b2-8c-f5-13-72-e6-92-45')
+    _iid_ = Guid('{9322a2c4-ae0e-42f2-b28c-f51372e69245}')
     @winrt_commethod(6)
     def get_EventTriggeringMode(self) -> Windows.Devices.Bluetooth.Background.BluetoothEventTriggeringMode: ...
     EventTriggeringMode = property(get_EventTriggeringMode, None)
 class IGattCharacteristicNotificationTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('57ba1995-b143-4575-9f-6b-fd-59-d9-3a-ce-1a')
+    _iid_ = Guid('{57ba1995-b143-4575-9f6b-fd59d93ace1a}')
     @winrt_commethod(6)
     def Create(self, characteristic: Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic) -> Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger: ...
 class IGattCharacteristicNotificationTriggerFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5998e91f-8a53-4e9f-a3-2c-23-cd-33-66-4c-ee')
+    _iid_ = Guid('{5998e91f-8a53-4e9f-a32c-23cd33664cee}')
     @winrt_commethod(6)
     def CreateWithEventTriggeringMode(self, characteristic: Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic, eventTriggeringMode: Windows.Devices.Bluetooth.Background.BluetoothEventTriggeringMode) -> Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger: ...
 class IGattServiceProviderTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ddc6a3e9-1557-4bd8-85-42-46-8a-a0-c6-96-f6')
+    _iid_ = Guid('{ddc6a3e9-1557-4bd8-8542-468aa0c696f6}')
     @winrt_commethod(6)
     def get_TriggerId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1076,7 +1076,7 @@ class IGattServiceProviderTrigger(ComPtr):
     AdvertisingParameters = property(get_AdvertisingParameters, put_AdvertisingParameters)
 class IGattServiceProviderTriggerResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3c4691b1-b198-4e84-ba-d4-cf-4a-d2-99-ed-3a')
+    _iid_ = Guid('{3c4691b1-b198-4e84-bad4-cf4ad299ed3a}')
     @winrt_commethod(6)
     def get_Trigger(self) -> Windows.ApplicationModel.Background.GattServiceProviderTrigger: ...
     @winrt_commethod(7)
@@ -1085,12 +1085,12 @@ class IGattServiceProviderTriggerResult(ComPtr):
     Error = property(get_Error, None)
 class IGattServiceProviderTriggerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b413a36a-e294-4591-a5-a6-64-89-1a-82-81-53')
+    _iid_ = Guid('{b413a36a-e294-4591-a5a6-64891a828153}')
     @winrt_commethod(6)
     def CreateAsync(self, triggerId: WinRT_String, serviceUuid: Guid) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.GattServiceProviderTriggerResult]: ...
 class IGeovisitTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4818edaa-04e1-4127-9a-4c-19-35-1b-8a-80-a4')
+    _iid_ = Guid('{4818edaa-04e1-4127-9a4c-19351b8a80a4}')
     @winrt_commethod(6)
     def get_MonitoringScope(self) -> Windows.Devices.Geolocation.VisitMonitoringScope: ...
     @winrt_commethod(7)
@@ -1098,18 +1098,18 @@ class IGeovisitTrigger(ComPtr):
     MonitoringScope = property(get_MonitoringScope, put_MonitoringScope)
 class ILocationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('47666a1c-6877-481e-80-26-ff-7e-14-a8-11-a0')
+    _iid_ = Guid('{47666a1c-6877-481e-8026-ff7e14a811a0}')
     @winrt_commethod(6)
     def get_TriggerType(self) -> Windows.ApplicationModel.Background.LocationTriggerType: ...
     TriggerType = property(get_TriggerType, None)
 class ILocationTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1106bb07-ff69-4e09-aa-8b-13-84-ea-47-5e-98')
+    _iid_ = Guid('{1106bb07-ff69-4e09-aa8b-1384ea475e98}')
     @winrt_commethod(6)
     def Create(self, triggerType: Windows.ApplicationModel.Background.LocationTriggerType) -> Windows.ApplicationModel.Background.LocationTrigger: ...
 class IMaintenanceTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('68184c83-fc22-4ce5-84-1a-72-39-a9-81-00-47')
+    _iid_ = Guid('{68184c83-fc22-4ce5-841a-7239a9810047}')
     @winrt_commethod(6)
     def get_FreshnessTime(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -1118,33 +1118,33 @@ class IMaintenanceTrigger(ComPtr):
     OneShot = property(get_OneShot, None)
 class IMaintenanceTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4b3ddb2e-97dd-4629-88-b0-b0-6c-f9-48-2a-e5')
+    _iid_ = Guid('{4b3ddb2e-97dd-4629-88b0-b06cf9482ae5}')
     @winrt_commethod(6)
     def Create(self, freshnessTime: UInt32, oneShot: Boolean) -> Windows.ApplicationModel.Background.MaintenanceTrigger: ...
 class IMediaProcessingTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9a95be65-8a52-4b30-90-11-cf-38-04-0e-a8-b0')
+    _iid_ = Guid('{9a95be65-8a52-4b30-9011-cf38040ea8b0}')
     @winrt_commethod(6)
     def RequestAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.MediaProcessingTriggerResult]: ...
     @winrt_commethod(7)
     def RequestAsyncWithArguments(self, arguments: Windows.Foundation.Collections.ValueSet) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.MediaProcessingTriggerResult]: ...
 class INetworkOperatorHotspotAuthenticationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e756c791-3001-4de5-83-c7-de-61-d8-88-31-d0')
+    _iid_ = Guid('{e756c791-3001-4de5-83c7-de61d88831d0}')
 class INetworkOperatorNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('90089cc6-63cd-480c-95-d1-6e-6a-ef-80-1e-4a')
+    _iid_ = Guid('{90089cc6-63cd-480c-95d1-6e6aef801e4a}')
     @winrt_commethod(6)
     def get_NetworkAccountId(self) -> WinRT_String: ...
     NetworkAccountId = property(get_NetworkAccountId, None)
 class INetworkOperatorNotificationTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0a223e00-27d7-4353-ad-b9-92-65-aa-ea-57-9d')
+    _iid_ = Guid('{0a223e00-27d7-4353-adb9-9265aaea579d}')
     @winrt_commethod(6)
     def Create(self, networkAccountId: WinRT_String) -> Windows.ApplicationModel.Background.NetworkOperatorNotificationTrigger: ...
 class IPhoneTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8dcfe99b-d4c5-49f1-b7-d3-82-e8-7a-0e-9d-de')
+    _iid_ = Guid('{8dcfe99b-d4c5-49f1-b7d3-82e87a0e9dde}')
     @winrt_commethod(6)
     def get_OneShot(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1153,20 +1153,20 @@ class IPhoneTrigger(ComPtr):
     TriggerType = property(get_TriggerType, None)
 class IPhoneTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a0d93cda-5fc1-48fb-a5-46-32-26-20-40-15-7b')
+    _iid_ = Guid('{a0d93cda-5fc1-48fb-a546-32262040157b}')
     @winrt_commethod(6)
     def Create(self, type: Windows.ApplicationModel.Calls.Background.PhoneTriggerType, oneShot: Boolean) -> Windows.ApplicationModel.Background.PhoneTrigger: ...
 class IPushNotificationTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6dd8ed1b-458e-4fc2-bc-2e-d5-66-4f-77-ed-19')
+    _iid_ = Guid('{6dd8ed1b-458e-4fc2-bc2e-d5664f77ed19}')
     @winrt_commethod(6)
     def Create(self, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.PushNotificationTrigger: ...
 class IRcsEndUserMessageAvailableTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('986d0d6a-b2f6-467f-a9-78-a4-40-91-c1-1a-66')
+    _iid_ = Guid('{986d0d6a-b2f6-467f-a978-a44091c11a66}')
 class IRfcommConnectionTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e8c4cae2-0b53-4464-93-94-fd-87-56-54-de-64')
+    _iid_ = Guid('{e8c4cae2-0b53-4464-9394-fd875654de64}')
     @winrt_commethod(6)
     def get_InboundConnection(self) -> Windows.Devices.Bluetooth.Background.RfcommInboundConnectionInformation: ...
     @winrt_commethod(7)
@@ -1190,66 +1190,66 @@ class IRfcommConnectionTrigger(ComPtr):
     RemoteHostName = property(get_RemoteHostName, put_RemoteHostName)
 class ISecondaryAuthenticationFactorAuthenticationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f237f327-5181-4f24-96-a7-70-0a-4e-5f-ac-62')
+    _iid_ = Guid('{f237f327-5181-4f24-96a7-700a4e5fac62}')
 class ISensorDataThresholdTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5bc0f372-d48b-4b7f-ab-ec-15-f9-ba-cc-12-e2')
+    _iid_ = Guid('{5bc0f372-d48b-4b7f-abec-15f9bacc12e2}')
 class ISensorDataThresholdTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('921fe675-7df0-4da3-97-b3-e5-44-ee-85-7f-e6')
+    _iid_ = Guid('{921fe675-7df0-4da3-97b3-e544ee857fe6}')
     @winrt_commethod(6)
     def Create(self, threshold: Windows.Devices.Sensors.ISensorDataThreshold) -> Windows.ApplicationModel.Background.SensorDataThresholdTrigger: ...
 class ISmartCardTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f53bc5ac-84ca-4972-8c-e9-e5-8f-97-b3-7a-50')
+    _iid_ = Guid('{f53bc5ac-84ca-4972-8ce9-e58f97b37a50}')
     @winrt_commethod(6)
     def get_TriggerType(self) -> Windows.Devices.SmartCards.SmartCardTriggerType: ...
     TriggerType = property(get_TriggerType, None)
 class ISmartCardTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('63bf54c3-89c1-4e00-a9-d3-97-c6-29-26-9d-ad')
+    _iid_ = Guid('{63bf54c3-89c1-4e00-a9d3-97c629269dad}')
     @winrt_commethod(6)
     def Create(self, triggerType: Windows.Devices.SmartCards.SmartCardTriggerType) -> Windows.ApplicationModel.Background.SmartCardTrigger: ...
 class ISmsMessageReceivedTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ea3ad8c8-6ba4-4ab2-8d-21-bc-6b-09-c7-75-64')
+    _iid_ = Guid('{ea3ad8c8-6ba4-4ab2-8d21-bc6b09c77564}')
     @winrt_commethod(6)
     def Create(self, filterRules: Windows.Devices.Sms.SmsFilterRules) -> Windows.ApplicationModel.Background.SmsMessageReceivedTrigger: ...
 class ISocketActivityTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a9bbf810-9dde-4f8a-83-e3-b0-e0-e7-a5-0d-70')
+    _iid_ = Guid('{a9bbf810-9dde-4f8a-83e3-b0e0e7a50d70}')
     @winrt_commethod(6)
     def get_IsWakeFromLowPowerSupported(self) -> Boolean: ...
     IsWakeFromLowPowerSupported = property(get_IsWakeFromLowPowerSupported, None)
 class IStorageLibraryChangeTrackerTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1eb0ffd0-5a85-499e-a8-88-82-46-07-12-4f-50')
+    _iid_ = Guid('{1eb0ffd0-5a85-499e-a888-824607124f50}')
     @winrt_commethod(6)
     def Create(self, tracker: Windows.Storage.StorageLibraryChangeTracker) -> Windows.ApplicationModel.Background.StorageLibraryChangeTrackerTrigger: ...
 class IStorageLibraryContentChangedTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1637e0a7-829c-45bc-92-9b-a1-e7-ea-78-d8-9b')
+    _iid_ = Guid('{1637e0a7-829c-45bc-929b-a1e7ea78d89b}')
 class IStorageLibraryContentChangedTriggerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7f9f1b39-5f90-4e12-91-4e-a7-d8-e0-bb-fb-18')
+    _iid_ = Guid('{7f9f1b39-5f90-4e12-914e-a7d8e0bbfb18}')
     @winrt_commethod(6)
     def Create(self, storageLibrary: Windows.Storage.StorageLibrary) -> Windows.ApplicationModel.Background.StorageLibraryContentChangedTrigger: ...
     @winrt_commethod(7)
     def CreateFromLibraries(self, storageLibraries: Windows.Foundation.Collections.IIterable[Windows.Storage.StorageLibrary]) -> Windows.ApplicationModel.Background.StorageLibraryContentChangedTrigger: ...
 class ISystemCondition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c15fb476-89c5-420b-ab-d3-fb-30-30-47-21-28')
+    _iid_ = Guid('{c15fb476-89c5-420b-abd3-fb3030472128}')
     @winrt_commethod(6)
     def get_ConditionType(self) -> Windows.ApplicationModel.Background.SystemConditionType: ...
     ConditionType = property(get_ConditionType, None)
 class ISystemConditionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d269d1f1-05a7-49ae-87-d7-16-b2-b8-b9-a5-53')
+    _iid_ = Guid('{d269d1f1-05a7-49ae-87d7-16b2b8b9a553}')
     @winrt_commethod(6)
     def Create(self, conditionType: Windows.ApplicationModel.Background.SystemConditionType) -> Windows.ApplicationModel.Background.SystemCondition: ...
 class ISystemTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1d80c776-3748-4463-8d-7e-27-6d-c1-39-ac-1c')
+    _iid_ = Guid('{1d80c776-3748-4463-8d7e-276dc139ac1c}')
     @winrt_commethod(6)
     def get_OneShot(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1258,12 +1258,12 @@ class ISystemTrigger(ComPtr):
     TriggerType = property(get_TriggerType, None)
 class ISystemTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e80423d4-8791-4579-81-26-87-ec-8a-aa-40-7a')
+    _iid_ = Guid('{e80423d4-8791-4579-8126-87ec8aaa407a}')
     @winrt_commethod(6)
     def Create(self, triggerType: Windows.ApplicationModel.Background.SystemTriggerType, oneShot: Boolean) -> Windows.ApplicationModel.Background.SystemTrigger: ...
 class ITimeTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('656e5556-0b2a-4377-ba-70-3b-45-a9-35-54-7f')
+    _iid_ = Guid('{656e5556-0b2a-4377-ba70-3b45a935547f}')
     @winrt_commethod(6)
     def get_FreshnessTime(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -1272,22 +1272,22 @@ class ITimeTrigger(ComPtr):
     OneShot = property(get_OneShot, None)
 class ITimeTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('38c682fe-9b54-45e6-b2-f3-26-9b-87-a6-f7-34')
+    _iid_ = Guid('{38c682fe-9b54-45e6-b2f3-269b87a6f734}')
     @winrt_commethod(6)
     def Create(self, freshnessTime: UInt32, oneShot: Boolean) -> Windows.ApplicationModel.Background.TimeTrigger: ...
 class IToastNotificationActionTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b09dfc27-6480-4349-81-25-97-b3-ef-aa-0a-3a')
+    _iid_ = Guid('{b09dfc27-6480-4349-8125-97b3efaa0a3a}')
     @winrt_commethod(6)
     def Create(self, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.ToastNotificationActionTrigger: ...
 class IToastNotificationHistoryChangedTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('81c6faad-8797-4785-81-b4-b0-cc-cb-73-d1-d9')
+    _iid_ = Guid('{81c6faad-8797-4785-81b4-b0cccb73d1d9}')
     @winrt_commethod(6)
     def Create(self, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
 class IUserNotificationChangedTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cad4436c-69ab-4e18-a4-8a-5e-d2-ac-43-59-57')
+    _iid_ = Guid('{cad4436c-69ab-4e18-a48a-5ed2ac435957}')
     @winrt_commethod(6)
     def Create(self, notificationKinds: Windows.UI.Notifications.NotificationKinds) -> Windows.ApplicationModel.Background.UserNotificationChangedTrigger: ...
 class LocationTrigger(ComPtr):

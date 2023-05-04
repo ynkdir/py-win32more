@@ -192,7 +192,7 @@ CoreInputViewXYFocusTransferDirection_Down: CoreInputViewXYFocusTransferDirectio
 CoreInputViewXYFocusTransferDirection_Left: CoreInputViewXYFocusTransferDirection = 3
 class ICoreFrameworkInputView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d77c94ae-46b8-5d4a-94-89-8d-de-c3-d6-39-a6')
+    _iid_ = Guid('{d77c94ae-46b8-5d4a-9489-8ddec3d639a6}')
     @winrt_commethod(6)
     def add_PrimaryViewAnimationStarting(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.Core.CoreFrameworkInputView, Windows.UI.ViewManagement.Core.CoreFrameworkInputViewAnimationStartingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -203,7 +203,7 @@ class ICoreFrameworkInputView(ComPtr):
     def remove_OcclusionsChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICoreFrameworkInputViewAnimationStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c0ec901c-bba4-501b-ae-8b-65-c9-e7-56-a7-19')
+    _iid_ = Guid('{c0ec901c-bba4-501b-ae8b-65c9e756a719}')
     @winrt_commethod(6)
     def get_Occlusions(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_commethod(7)
@@ -215,7 +215,7 @@ class ICoreFrameworkInputViewAnimationStartingEventArgs(ComPtr):
     AnimationDuration = property(get_AnimationDuration, None)
 class ICoreFrameworkInputViewOcclusionsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f36f4949-c82c-53d1-a7-5d-2b-2b-af-0d-9b-0d')
+    _iid_ = Guid('{f36f4949-c82c-53d1-a75d-2b2baf0d9b0d}')
     @winrt_commethod(6)
     def get_Occlusions(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_commethod(7)
@@ -224,14 +224,14 @@ class ICoreFrameworkInputViewOcclusionsChangedEventArgs(ComPtr):
     Handled = property(get_Handled, None)
 class ICoreFrameworkInputViewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6eebd9b6-eac2-5f8b-97-5f-77-2e-e3-e4-2e-eb')
+    _iid_ = Guid('{6eebd9b6-eac2-5f8b-975f-772ee3e42eeb}')
     @winrt_commethod(6)
     def GetForUIContext(self, context: Windows.UI.UIContext) -> Windows.UI.ViewManagement.Core.CoreFrameworkInputView: ...
     @winrt_commethod(7)
     def GetForCurrentView(self) -> Windows.UI.ViewManagement.Core.CoreFrameworkInputView: ...
 class ICoreInputView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c770cd7a-7001-4c32-bf-94-25-c1-f5-54-cb-f1')
+    _iid_ = Guid('{c770cd7a-7001-4c32-bf94-25c1f554cbf1}')
     @winrt_commethod(6)
     def add_OcclusionsChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.Core.CoreInputView, Windows.UI.ViewManagement.Core.CoreInputViewOcclusionsChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -244,7 +244,7 @@ class ICoreInputView(ComPtr):
     def TryHidePrimaryView(self) -> Boolean: ...
 class ICoreInputView2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0ed726c1-e09a-4ae8-ae-df-df-a4-85-7d-1a-01')
+    _iid_ = Guid('{0ed726c1-e09a-4ae8-aedf-dfa4857d1a01}')
     @winrt_commethod(6)
     def add_XYFocusTransferringFromPrimaryView(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.Core.CoreInputView, Windows.UI.ViewManagement.Core.CoreInputViewTransferringXYFocusEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -257,7 +257,7 @@ class ICoreInputView2(ComPtr):
     def TryTransferXYFocusToPrimaryView(self, origin: Windows.Foundation.Rect, direction: Windows.UI.ViewManagement.Core.CoreInputViewXYFocusTransferDirection) -> Boolean: ...
 class ICoreInputView3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bc941653-3ab9-4849-8f-58-46-e7-f0-35-3c-fc')
+    _iid_ = Guid('{bc941653-3ab9-4849-8f58-46e7f0353cfc}')
     @winrt_commethod(6)
     def TryShow(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -266,7 +266,7 @@ class ICoreInputView3(ComPtr):
     def TryHide(self) -> Boolean: ...
 class ICoreInputView4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('002863d6-d9ef-57eb-8c-ef-77-f6-ce-1b-7e-e7')
+    _iid_ = Guid('{002863d6-d9ef-57eb-8cef-77f6ce1b7ee7}')
     @winrt_commethod(6)
     def add_PrimaryViewShowing(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.Core.CoreInputView, Windows.UI.ViewManagement.Core.CoreInputViewShowingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -277,7 +277,7 @@ class ICoreInputView4(ComPtr):
     def remove_PrimaryViewHiding(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICoreInputView5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('136316e0-c6d5-5c57-81-1e-1a-d8-a9-9b-a6-ab')
+    _iid_ = Guid('{136316e0-c6d5-5c57-811e-1ad8a99ba6ab}')
     @winrt_commethod(6)
     def IsKindSupported(self, type: Windows.UI.ViewManagement.Core.CoreInputViewKind) -> Boolean: ...
     @winrt_commethod(7)
@@ -290,7 +290,7 @@ class ICoreInputView5(ComPtr):
     def remove_PrimaryViewAnimationStarting(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICoreInputViewAnimationStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a9144af2-b55c-5ea1-b8-ab-53-40-f3-e9-48-97')
+    _iid_ = Guid('{a9144af2-b55c-5ea1-b8ab-5340f3e94897}')
     @winrt_commethod(6)
     def get_Occlusions(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_commethod(7)
@@ -304,12 +304,12 @@ class ICoreInputViewAnimationStartingEventArgs(ComPtr):
     AnimationDuration = property(get_AnimationDuration, None)
 class ICoreInputViewHidingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('eada47bd-bac5-5336-84-8d-41-08-35-84-da-ad')
+    _iid_ = Guid('{eada47bd-bac5-5336-848d-41083584daad}')
     @winrt_commethod(6)
     def TryCancel(self) -> Boolean: ...
 class ICoreInputViewOcclusion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cc36ce06-3865-4177-b5-f5-8b-65-e0-b9-ce-84')
+    _iid_ = Guid('{cc36ce06-3865-4177-b5f5-8b65e0b9ce84}')
     @winrt_commethod(6)
     def get_OccludingRect(self) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)
@@ -318,7 +318,7 @@ class ICoreInputViewOcclusion(ComPtr):
     OcclusionKind = property(get_OcclusionKind, None)
 class ICoreInputViewOcclusionsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('be1027e8-b3ee-4df7-95-54-89-cd-c6-60-82-c2')
+    _iid_ = Guid('{be1027e8-b3ee-4df7-9554-89cdc66082c2}')
     @winrt_commethod(6)
     def get_Occlusions(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_commethod(7)
@@ -329,22 +329,22 @@ class ICoreInputViewOcclusionsChangedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ICoreInputViewShowingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ca52261b-fb9e-5daf-a9-8c-26-2b-8b-76-af-50')
+    _iid_ = Guid('{ca52261b-fb9e-5daf-a98c-262b8b76af50}')
     @winrt_commethod(6)
     def TryCancel(self) -> Boolean: ...
 class ICoreInputViewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7d9b97cd-edbe-49cf-a5-4f-33-7d-e0-52-90-7f')
+    _iid_ = Guid('{7d9b97cd-edbe-49cf-a54f-337de052907f}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.ViewManagement.Core.CoreInputView: ...
 class ICoreInputViewStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7ebc0862-d049-4e52-87-b0-1e-90-e9-8c-49-ed')
+    _iid_ = Guid('{7ebc0862-d049-4e52-87b0-1e90e98c49ed}')
     @winrt_commethod(6)
     def GetForUIContext(self, context: Windows.UI.UIContext) -> Windows.UI.ViewManagement.Core.CoreInputView: ...
 class ICoreInputViewTransferringXYFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('04de169f-ba02-4850-8b-55-d8-2d-03-ba-6d-7f')
+    _iid_ = Guid('{04de169f-ba02-4850-8b55-d82d03ba6d7f}')
     @winrt_commethod(6)
     def get_Origin(self) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)
@@ -363,7 +363,7 @@ class ICoreInputViewTransferringXYFocusEventArgs(ComPtr):
     KeepPrimaryViewVisible = property(get_KeepPrimaryViewVisible, put_KeepPrimaryViewVisible)
 class IUISettingsController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('78a51ac4-15c0-5a1b-a7-5b-ac-bf-9c-b8-bb-9e')
+    _iid_ = Guid('{78a51ac4-15c0-5a1b-a75b-acbf9cb8bb9e}')
     @winrt_commethod(6)
     def SetAdvancedEffectsEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -376,7 +376,7 @@ class IUISettingsController(ComPtr):
     def SetTextScaleFactor(self, value: Double) -> Void: ...
 class IUISettingsControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('eb3c68cc-c220-578c-81-19-7d-b3-24-ed-26-a6')
+    _iid_ = Guid('{eb3c68cc-c220-578c-8119-7db324ed26a6}')
     @winrt_commethod(6)
     def RequestDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.ViewManagement.Core.UISettingsController]: ...
 class UISettingsController(ComPtr):

@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IXboxLiveDeviceAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f5bbd279-3c86-4b57-a3-1a-b9-46-24-08-fd-01')
+    _iid_ = Guid('{f5bbd279-3c86-4b57-a31a-b9462408fd01}')
     @winrt_commethod(6)
     def add_SnapshotChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.XboxLive.XboxLiveDeviceAddress, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -50,7 +50,7 @@ class IXboxLiveDeviceAddress(ComPtr):
     NetworkAccessKind = property(get_NetworkAccessKind, None)
 class IXboxLiveDeviceAddressStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5954a819-4a79-4931-82-7c-7f-50-3e-96-32-63')
+    _iid_ = Guid('{5954a819-4a79-4931-827c-7f503e963263}')
     @winrt_commethod(6)
     def CreateFromSnapshotBase64(self, base64: WinRT_String) -> Windows.Networking.XboxLive.XboxLiveDeviceAddress: ...
     @winrt_commethod(7)
@@ -64,7 +64,7 @@ class IXboxLiveDeviceAddressStatics(ComPtr):
     MaxSnapshotBytesSize = property(get_MaxSnapshotBytesSize, None)
 class IXboxLiveEndpointPair(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1e9a839b-813e-44e0-b8-7f-c8-7a-09-34-75-e4')
+    _iid_ = Guid('{1e9a839b-813e-44e0-b87f-c87a093475e4}')
     @winrt_commethod(6)
     def add_StateChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.XboxLive.XboxLiveEndpointPair, Windows.Networking.XboxLive.XboxLiveEndpointPairStateChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -98,7 +98,7 @@ class IXboxLiveEndpointPair(ComPtr):
     LocalPort = property(get_LocalPort, None)
 class IXboxLiveEndpointPairCreationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d9a8bb95-2aab-4d1e-97-94-33-ec-c0-dc-f0-fe')
+    _iid_ = Guid('{d9a8bb95-2aab-4d1e-9794-33ecc0dcf0fe}')
     @winrt_commethod(6)
     def get_DeviceAddress(self) -> Windows.Networking.XboxLive.XboxLiveDeviceAddress: ...
     @winrt_commethod(7)
@@ -113,7 +113,7 @@ class IXboxLiveEndpointPairCreationResult(ComPtr):
     EndpointPair = property(get_EndpointPair, None)
 class IXboxLiveEndpointPairStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('592e3b55-de08-44e7-ac-3b-b9-b9-a1-69-58-3a')
+    _iid_ = Guid('{592e3b55-de08-44e7-ac3b-b9b9a169583a}')
     @winrt_commethod(6)
     def get_OldState(self) -> Windows.Networking.XboxLive.XboxLiveEndpointPairState: ...
     @winrt_commethod(7)
@@ -122,14 +122,14 @@ class IXboxLiveEndpointPairStateChangedEventArgs(ComPtr):
     NewState = property(get_NewState, None)
 class IXboxLiveEndpointPairStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('64316b30-217a-4243-8e-e1-67-29-28-1d-27-db')
+    _iid_ = Guid('{64316b30-217a-4243-8ee1-6729281d27db}')
     @winrt_commethod(6)
     def FindEndpointPairBySocketAddressBytes(self, localSocketAddress: c_char_p_no, remoteSocketAddress: c_char_p_no) -> Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
     @winrt_commethod(7)
     def FindEndpointPairByHostNamesAndPorts(self, localHostName: Windows.Networking.HostName, localPort: WinRT_String, remoteHostName: Windows.Networking.HostName, remotePort: WinRT_String) -> Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
 class IXboxLiveEndpointPairTemplate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6b286ecf-3457-40ce-b9-a1-c0-cf-e0-21-3e-a7')
+    _iid_ = Guid('{6b286ecf-3457-40ce-b9a1-c0cfe0213ea7}')
     @winrt_commethod(6)
     def add_InboundEndpointPairCreated(self, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate, Windows.Networking.XboxLive.XboxLiveInboundEndpointPairCreatedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -165,7 +165,7 @@ class IXboxLiveEndpointPairTemplate(ComPtr):
     EndpointPairs = property(get_EndpointPairs, None)
 class IXboxLiveEndpointPairTemplateStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1e13137b-737b-4a23-bc-64-08-70-f7-56-55-ba')
+    _iid_ = Guid('{1e13137b-737b-4a23-bc64-0870f75655ba}')
     @winrt_commethod(6)
     def GetTemplateByName(self, name: WinRT_String) -> Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate: ...
     @winrt_commethod(7)
@@ -173,13 +173,13 @@ class IXboxLiveEndpointPairTemplateStatics(ComPtr):
     Templates = property(get_Templates, None)
 class IXboxLiveInboundEndpointPairCreatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dc183b62-22ba-48d2-80-de-c2-39-68-bd-19-8b')
+    _iid_ = Guid('{dc183b62-22ba-48d2-80de-c23968bd198b}')
     @winrt_commethod(6)
     def get_EndpointPair(self) -> Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
     EndpointPair = property(get_EndpointPair, None)
 class IXboxLiveQualityOfServiceMeasurement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4d682bce-a5d6-47e6-a2-36-cf-de-5f-bd-f2-ed')
+    _iid_ = Guid('{4d682bce-a5d6-47e6-a236-cfde5fbdf2ed}')
     @winrt_commethod(6)
     def MeasureAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -222,7 +222,7 @@ class IXboxLiveQualityOfServiceMeasurement(ComPtr):
     PrivatePayloadResults = property(get_PrivatePayloadResults, None)
 class IXboxLiveQualityOfServiceMeasurementStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6e352dca-23cf-440a-b0-77-5e-30-85-7a-82-34')
+    _iid_ = Guid('{6e352dca-23cf-440a-b077-5e30857a8234}')
     @winrt_commethod(6)
     def PublishPrivatePayloadBytes(self, payload: c_char_p_no) -> Void: ...
     @winrt_commethod(7)
@@ -252,7 +252,7 @@ class IXboxLiveQualityOfServiceMeasurementStatics(ComPtr):
     MaxPrivatePayloadSize = property(get_MaxPrivatePayloadSize, None)
 class IXboxLiveQualityOfServiceMetricResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aeec53d1-3561-4782-b0-cf-d3-ae-29-d9-fa-87')
+    _iid_ = Guid('{aeec53d1-3561-4782-b0cf-d3ae29d9fa87}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurementStatus: ...
     @winrt_commethod(7)
@@ -267,7 +267,7 @@ class IXboxLiveQualityOfServiceMetricResult(ComPtr):
     Value = property(get_Value, None)
 class IXboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5a6302ae-6f38-41c0-9f-cc-ea-6c-b9-78-ca-fc')
+    _iid_ = Guid('{5a6302ae-6f38-41c0-9fcc-ea6cb978cafc}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurementStatus: ...
     @winrt_commethod(7)

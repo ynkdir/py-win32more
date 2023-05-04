@@ -96,7 +96,7 @@ class AutoRepeatModeChangeRequestedEventArgs(ComPtr):
     RequestedAutoRepeatMode = property(get_RequestedAutoRepeatMode, None)
 class IAudioBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('35175827-724b-4c6a-b1-30-f6-53-7f-9a-e0-d0')
+    _iid_ = Guid('{35175827-724b-4c6a-b130-f6537f9ae0d0}')
     @winrt_commethod(6)
     def get_Capacity(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -107,23 +107,23 @@ class IAudioBuffer(ComPtr):
     Length = property(get_Length, put_Length)
 class IAudioFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e36ac304-aab2-4277-9e-d0-43-ce-df-8e-29-c6')
+    _iid_ = Guid('{e36ac304-aab2-4277-9ed0-43cedf8e29c6}')
     @winrt_commethod(6)
     def LockBuffer(self, mode: Windows.Media.AudioBufferAccessMode) -> Windows.Media.AudioBuffer: ...
 class IAudioFrameFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('91a90ade-2422-40a6-b9-ad-30-d0-24-04-31-7d')
+    _iid_ = Guid('{91a90ade-2422-40a6-b9ad-30d02404317d}')
     @winrt_commethod(6)
     def Create(self, capacity: UInt32) -> Windows.Media.AudioFrame: ...
 class IAutoRepeatModeChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ea137efa-d852-438e-88-2b-c9-90-10-9a-78-f4')
+    _iid_ = Guid('{ea137efa-d852-438e-882b-c990109a78f4}')
     @winrt_commethod(6)
     def get_RequestedAutoRepeatMode(self) -> Windows.Media.MediaPlaybackAutoRepeatMode: ...
     RequestedAutoRepeatMode = property(get_RequestedAutoRepeatMode, None)
 class IImageDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cd0bc7ef-54e7-411f-99-33-f0-e9-8b-0a-96-d2')
+    _iid_ = Guid('{cd0bc7ef-54e7-411f-9933-f0e98b0a96d2}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -136,7 +136,7 @@ class IImageDisplayProperties(ComPtr):
     Subtitle = property(get_Subtitle, put_Subtitle)
 class IMediaControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('98f1fbe1-7a8d-42cb-b6-fe-8f-e6-98-26-4f-13')
+    _iid_ = Guid('{98f1fbe1-7a8d-42cb-b6fe-8fe698264f13}')
     @winrt_commethod(6)
     def add_SoundLevelChanged(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -210,12 +210,12 @@ class IMediaControl(ComPtr):
     AlbumArt = property(get_AlbumArt, put_AlbumArt)
 class IMediaExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('07915118-45df-442b-8a-3f-f7-82-6a-63-70-ab')
+    _iid_ = Guid('{07915118-45df-442b-8a3f-f7826a6370ab}')
     @winrt_commethod(6)
     def SetProperties(self, configuration: Windows.Foundation.Collections.IPropertySet) -> Void: ...
 class IMediaExtensionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4a25eaf5-242d-4dfb-97-f4-69-b7-c4-25-76-ff')
+    _iid_ = Guid('{4a25eaf5-242d-4dfb-97f4-69b7c42576ff}')
     @winrt_commethod(6)
     def RegisterSchemeHandler(self, activatableClassId: WinRT_String, scheme: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -242,12 +242,12 @@ class IMediaExtensionManager(ComPtr):
     def RegisterVideoEncoderWithSettings(self, activatableClassId: WinRT_String, inputSubtype: Guid, outputSubtype: Guid, configuration: Windows.Foundation.Collections.IPropertySet) -> Void: ...
 class IMediaExtensionManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5bcebf47-4043-4fed-ac-af-54-ec-29-df-b1-f7')
+    _iid_ = Guid('{5bcebf47-4043-4fed-acaf-54ec29dfb1f7}')
     @winrt_commethod(6)
     def RegisterMediaExtensionForAppService(self, extension: Windows.Media.IMediaExtension, connection: Windows.ApplicationModel.AppService.AppServiceConnection) -> Void: ...
 class IMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bfb52f8c-5943-47d8-8e-10-05-30-8a-a5-fb-d0')
+    _iid_ = Guid('{bfb52f8c-5943-47d8-8e10-05308aa5fbd0}')
     @winrt_commethod(6)
     def get_Type(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -279,7 +279,7 @@ class IMediaFrame(ComPtr):
     ExtendedProperties = property(get_ExtendedProperties, None)
 class IMediaMarker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1803def8-dca5-4b6f-9c-20-e3-d3-c0-64-36-25')
+    _iid_ = Guid('{1803def8-dca5-4b6f-9c20-e3d3c0643625}')
     @winrt_commethod(6)
     def get_Time(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -291,25 +291,25 @@ class IMediaMarker(ComPtr):
     Text = property(get_Text, None)
 class IMediaMarkerTypesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bb198040-482f-4743-88-32-45-85-38-21-ec-e0')
+    _iid_ = Guid('{bb198040-482f-4743-8832-45853821ece0}')
     @winrt_commethod(6)
     def get_Bookmark(self) -> WinRT_String: ...
     Bookmark = property(get_Bookmark, None)
 class IMediaMarkers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('afeab189-f8dd-466e-aa-10-92-0b-52-35-3f-df')
+    _iid_ = Guid('{afeab189-f8dd-466e-aa10-920b52353fdf}')
     @winrt_commethod(6)
     def get_Markers(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.IMediaMarker]: ...
     Markers = property(get_Markers, None)
 class IMediaProcessingTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('eb8564ac-a351-4f4e-b4-f0-9b-f2-40-89-93-db')
+    _iid_ = Guid('{eb8564ac-a351-4f4e-b4f0-9bf2408993db}')
     @winrt_commethod(6)
     def get_Arguments(self) -> Windows.Foundation.Collections.ValueSet: ...
     Arguments = property(get_Arguments, None)
 class IMediaTimelineController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8ed361f3-0b78-4360-bf-71-0c-84-19-99-ea-1b')
+    _iid_ = Guid('{8ed361f3-0b78-4360-bf71-0c841999ea1b}')
     @winrt_commethod(6)
     def Start(self) -> Void: ...
     @winrt_commethod(7)
@@ -339,7 +339,7 @@ class IMediaTimelineController(ComPtr):
     State = property(get_State, None)
 class IMediaTimelineController2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ef74ea38-9e72-4df9-83-55-6e-90-c8-1b-ba-dd')
+    _iid_ = Guid('{ef74ea38-9e72-4df9-8355-6e90c81bbadd}')
     @winrt_commethod(6)
     def get_Duration(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -360,13 +360,13 @@ class IMediaTimelineController2(ComPtr):
     IsLoopingEnabled = property(get_IsLoopingEnabled, put_IsLoopingEnabled)
 class IMediaTimelineControllerFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8821f81d-3e77-43fb-be-26-4f-c8-7a-04-48-34')
+    _iid_ = Guid('{8821f81d-3e77-43fb-be26-4fc87a044834}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class IMusicDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6bbf0c59-d0a0-4d26-92-a0-f9-78-e1-d1-8e-7b')
+    _iid_ = Guid('{6bbf0c59-d0a0-4d26-92a0-f978e1d18e7b}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -384,7 +384,7 @@ class IMusicDisplayProperties(ComPtr):
     Artist = property(get_Artist, put_Artist)
 class IMusicDisplayProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('00368462-97d3-44b9-b0-0f-00-8a-fc-ef-af-18')
+    _iid_ = Guid('{00368462-97d3-44b9-b00f-008afcefaf18}')
     @winrt_commethod(6)
     def get_AlbumTitle(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -400,7 +400,7 @@ class IMusicDisplayProperties2(ComPtr):
     Genres = property(get_Genres, None)
 class IMusicDisplayProperties3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4db51ac1-0681-4e8c-94-01-b8-15-9d-9e-ef-c7')
+    _iid_ = Guid('{4db51ac1-0681-4e8c-9401-b8159d9eefc7}')
     @winrt_commethod(6)
     def get_AlbumTrackCount(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -408,25 +408,25 @@ class IMusicDisplayProperties3(ComPtr):
     AlbumTrackCount = property(get_AlbumTrackCount, put_AlbumTrackCount)
 class IPlaybackPositionChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b4493f88-eb28-4961-9c-14-33-5e-44-f3-e1-25')
+    _iid_ = Guid('{b4493f88-eb28-4961-9c14-335e44f3e125}')
     @winrt_commethod(6)
     def get_RequestedPlaybackPosition(self) -> Windows.Foundation.TimeSpan: ...
     RequestedPlaybackPosition = property(get_RequestedPlaybackPosition, None)
 class IPlaybackRateChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2ce2c41f-3cd6-4f77-9b-a7-eb-27-c2-6a-21-40')
+    _iid_ = Guid('{2ce2c41f-3cd6-4f77-9ba7-eb27c26a2140}')
     @winrt_commethod(6)
     def get_RequestedPlaybackRate(self) -> Double: ...
     RequestedPlaybackRate = property(get_RequestedPlaybackRate, None)
 class IShuffleEnabledChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('49b593fe-4fd0-4666-a3-14-c0-e0-19-40-d3-02')
+    _iid_ = Guid('{49b593fe-4fd0-4666-a314-c0e01940d302}')
     @winrt_commethod(6)
     def get_RequestedShuffleEnabled(self) -> Boolean: ...
     RequestedShuffleEnabled = property(get_RequestedShuffleEnabled, None)
 class ISystemMediaTransportControls(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('99fa3ff4-1742-42a6-90-2e-08-7d-41-f9-65-ec')
+    _iid_ = Guid('{99fa3ff4-1742-42a6-902e-087d41f965ec}')
     @winrt_commethod(6)
     def get_PlaybackStatus(self) -> Windows.Media.MediaPlaybackStatus: ...
     @winrt_commethod(7)
@@ -503,7 +503,7 @@ class ISystemMediaTransportControls(ComPtr):
     IsChannelDownEnabled = property(get_IsChannelDownEnabled, put_IsChannelDownEnabled)
 class ISystemMediaTransportControls2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ea98d2f6-7f3c-4af2-a5-86-72-88-98-08-ef-b1')
+    _iid_ = Guid('{ea98d2f6-7f3c-4af2-a586-72889808efb1}')
     @winrt_commethod(6)
     def get_AutoRepeatMode(self) -> Windows.Media.MediaPlaybackAutoRepeatMode: ...
     @winrt_commethod(7)
@@ -539,13 +539,13 @@ class ISystemMediaTransportControls2(ComPtr):
     PlaybackRate = property(get_PlaybackRate, put_PlaybackRate)
 class ISystemMediaTransportControlsButtonPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b7f47116-a56f-4dc8-9e-11-92-03-1f-4a-87-c2')
+    _iid_ = Guid('{b7f47116-a56f-4dc8-9e11-92031f4a87c2}')
     @winrt_commethod(6)
     def get_Button(self) -> Windows.Media.SystemMediaTransportControlsButton: ...
     Button = property(get_Button, None)
 class ISystemMediaTransportControlsDisplayUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8abbc53e-fa55-4ecf-ad-8e-c9-84-e5-dd-15-50')
+    _iid_ = Guid('{8abbc53e-fa55-4ecf-ad8e-c984e5dd1550}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.Media.MediaPlaybackType: ...
     @winrt_commethod(7)
@@ -578,18 +578,18 @@ class ISystemMediaTransportControlsDisplayUpdater(ComPtr):
     ImageProperties = property(get_ImageProperties, None)
 class ISystemMediaTransportControlsPropertyChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d0ca0936-339b-4cb3-8e-eb-73-76-07-f5-6e-08')
+    _iid_ = Guid('{d0ca0936-339b-4cb3-8eeb-737607f56e08}')
     @winrt_commethod(6)
     def get_Property(self) -> Windows.Media.SystemMediaTransportControlsProperty: ...
     Property = property(get_Property, None)
 class ISystemMediaTransportControlsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('43ba380a-eca4-4832-91-ab-d4-15-fa-e4-84-c6')
+    _iid_ = Guid('{43ba380a-eca4-4832-91ab-d415fae484c6}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Media.SystemMediaTransportControls: ...
 class ISystemMediaTransportControlsTimelineProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5125316a-c3a2-475b-85-07-93-53-4d-c8-8f-15')
+    _iid_ = Guid('{5125316a-c3a2-475b-8507-93534dc88f15}')
     @winrt_commethod(6)
     def get_StartTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -617,7 +617,7 @@ class ISystemMediaTransportControlsTimelineProperties(ComPtr):
     Position = property(get_Position, put_Position)
 class IVideoDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5609fdb1-5d2d-4872-81-70-45-de-e5-bc-2f-5c')
+    _iid_ = Guid('{5609fdb1-5d2d-4872-8170-45dee5bc2f5c}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -630,19 +630,19 @@ class IVideoDisplayProperties(ComPtr):
     Subtitle = property(get_Subtitle, put_Subtitle)
 class IVideoDisplayProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b410e1ce-ab52-41ab-a4-86-cc-10-fa-b1-52-f9')
+    _iid_ = Guid('{b410e1ce-ab52-41ab-a486-cc10fab152f9}')
     @winrt_commethod(6)
     def get_Genres(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     Genres = property(get_Genres, None)
 class IVideoEffectsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1fcda5e8-baf1-4521-98-0c-3b-ce-bb-44-cf-38')
+    _iid_ = Guid('{1fcda5e8-baf1-4521-980c-3bcebb44cf38}')
     @winrt_commethod(6)
     def get_VideoStabilization(self) -> WinRT_String: ...
     VideoStabilization = property(get_VideoStabilization, None)
 class IVideoFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0cc06625-90fc-4c92-bd-95-7d-ed-21-81-9d-1c')
+    _iid_ = Guid('{0cc06625-90fc-4c92-bd95-7ded21819d1c}')
     @winrt_commethod(6)
     def get_SoftwareBitmap(self) -> Windows.Graphics.Imaging.SoftwareBitmap: ...
     @winrt_commethod(7)
@@ -653,19 +653,19 @@ class IVideoFrame(ComPtr):
     Direct3DSurface = property(get_Direct3DSurface, None)
 class IVideoFrame2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3837840d-336c-4366-8d-46-06-07-98-73-6c-5d')
+    _iid_ = Guid('{3837840d-336c-4366-8d46-060798736c5d}')
     @winrt_commethod(6)
     def CopyToWithBoundsAsync(self, frame: Windows.Media.VideoFrame, sourceBounds: Windows.Foundation.IReference[Windows.Graphics.Imaging.BitmapBounds], destinationBounds: Windows.Foundation.IReference[Windows.Graphics.Imaging.BitmapBounds]) -> Windows.Foundation.IAsyncAction: ...
 class IVideoFrameFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('014b6d69-2228-4c92-92-ff-50-c3-80-d3-e7-76')
+    _iid_ = Guid('{014b6d69-2228-4c92-92ff-50c380d3e776}')
     @winrt_commethod(6)
     def Create(self, format: Windows.Graphics.Imaging.BitmapPixelFormat, width: Int32, height: Int32) -> Windows.Media.VideoFrame: ...
     @winrt_commethod(7)
     def CreateWithAlpha(self, format: Windows.Graphics.Imaging.BitmapPixelFormat, width: Int32, height: Int32, alpha: Windows.Graphics.Imaging.BitmapAlphaMode) -> Windows.Media.VideoFrame: ...
 class IVideoFrameStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ab2a556f-6111-4b33-8e-c3-2b-20-9a-02-e1-7a')
+    _iid_ = Guid('{ab2a556f-6111-4b33-8ec3-2b209a02e17a}')
     @winrt_commethod(6)
     def CreateAsDirect3D11SurfaceBacked(self, format: Windows.Graphics.DirectX.DirectXPixelFormat, width: Int32, height: Int32) -> Windows.Media.VideoFrame: ...
     @winrt_commethod(7)

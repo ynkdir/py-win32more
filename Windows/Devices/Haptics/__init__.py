@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IKnownSimpleHapticsControllerWaveformsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef7-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef7-4cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_Click(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -42,7 +42,7 @@ class IKnownSimpleHapticsControllerWaveformsStatics(ComPtr):
     Release = property(get_Release, None)
 class IKnownSimpleHapticsControllerWaveformsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a7d24c27-b79d-510a-bf-79-ff-6d-49-17-3e-1d')
+    _iid_ = Guid('{a7d24c27-b79d-510a-bf79-ff6d49173e1d}')
     @winrt_commethod(6)
     def get_BrushContinuous(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -75,7 +75,7 @@ class IKnownSimpleHapticsControllerWaveformsStatics2(ComPtr):
     Success = property(get_Success, None)
 class ISimpleHapticsController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef9-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef9-4cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -106,7 +106,7 @@ class ISimpleHapticsController(ComPtr):
     IsReplayPauseIntervalSupported = property(get_IsReplayPauseIntervalSupported, None)
 class ISimpleHapticsControllerFeedback(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef8-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef8-4cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_Waveform(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -115,7 +115,7 @@ class ISimpleHapticsControllerFeedback(ComPtr):
     Duration = property(get_Duration, None)
 class IVibrationDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('40f21a3e-8844-47ff-b3-12-06-18-5a-38-44-da')
+    _iid_ = Guid('{40f21a3e-8844-47ff-b312-06185a3844da}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -124,7 +124,7 @@ class IVibrationDevice(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IVibrationDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('53e2eded-2290-4ac9-8e-b3-1a-84-12-2e-b7-1c')
+    _iid_ = Guid('{53e2eded-2290-4ac9-8eb3-1a84122eb71c}')
     @winrt_commethod(6)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Haptics.VibrationAccessStatus]: ...
     @winrt_commethod(7)

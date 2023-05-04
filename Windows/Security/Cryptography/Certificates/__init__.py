@@ -501,7 +501,7 @@ ExportOption_NotExportable: ExportOption = 0
 ExportOption_Exportable: ExportOption = 1
 class ICertificate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('333f740c-04d8-43b3-b2-78-8c-5f-cc-9b-e5-a0')
+    _iid_ = Guid('{333f740c-04d8-43b3-b278-8c5fcc9be5a0}')
     @winrt_commethod(6)
     def BuildChainAsync(self, certificates: Windows.Foundation.Collections.IIterable[Windows.Security.Cryptography.Certificates.Certificate]) -> Windows.Foundation.IAsyncOperation[Windows.Security.Cryptography.Certificates.CertificateChain]: ...
     @winrt_commethod(7)
@@ -543,7 +543,7 @@ class ICertificate(ComPtr):
     FriendlyName = property(get_FriendlyName, put_FriendlyName)
 class ICertificate2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('17b8374c-8a25-4d96-a4-92-8f-c2-9a-c4-fd-a6')
+    _iid_ = Guid('{17b8374c-8a25-4d96-a492-8fc29ac4fda6}')
     @winrt_commethod(6)
     def get_IsSecurityDeviceBound(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -564,7 +564,7 @@ class ICertificate2(ComPtr):
     SubjectAlternativeName = property(get_SubjectAlternativeName, None)
 class ICertificate3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('be51a966-ae5f-4652-ac-e7-c6-d7-e7-72-4c-f3')
+    _iid_ = Guid('{be51a966-ae5f-4652-ace7-c6d7e7724cf3}')
     @winrt_commethod(6)
     def get_IsPerUser(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -576,7 +576,7 @@ class ICertificate3(ComPtr):
     KeyStorageProviderName = property(get_KeyStorageProviderName, None)
 class ICertificateChain(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('20bf5385-3691-4501-a6-2c-fd-97-27-8b-31-ee')
+    _iid_ = Guid('{20bf5385-3691-4501-a62c-fd97278b31ee}')
     @winrt_commethod(6)
     def Validate(self) -> Windows.Security.Cryptography.Certificates.ChainValidationResult: ...
     @winrt_commethod(7)
@@ -585,7 +585,7 @@ class ICertificateChain(ComPtr):
     def GetCertificates(self, includeRoot: Boolean) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Cryptography.Certificates.Certificate]: ...
 class ICertificateEnrollmentManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8846ef3f-a986-48fb-9f-d7-9a-ec-06-93-5b-f1')
+    _iid_ = Guid('{8846ef3f-a986-48fb-9fd7-9aec06935bf1}')
     @winrt_commethod(6)
     def CreateRequestAsync(self, request: Windows.Security.Cryptography.Certificates.CertificateRequestProperties) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_commethod(7)
@@ -594,7 +594,7 @@ class ICertificateEnrollmentManagerStatics(ComPtr):
     def ImportPfxDataAsync(self, pfxData: WinRT_String, password: WinRT_String, exportable: Windows.Security.Cryptography.Certificates.ExportOption, keyProtectionLevel: Windows.Security.Cryptography.Certificates.KeyProtectionLevel, installOption: Windows.Security.Cryptography.Certificates.InstallOptions, friendlyName: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class ICertificateEnrollmentManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dc5b1c33-6429-4014-99-9c-5d-97-35-80-2d-1d')
+    _iid_ = Guid('{dc5b1c33-6429-4014-999c-5d9735802d1d}')
     @winrt_commethod(6)
     def get_UserCertificateEnrollmentManager(self) -> Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager: ...
     @winrt_commethod(7)
@@ -602,12 +602,12 @@ class ICertificateEnrollmentManagerStatics2(ComPtr):
     UserCertificateEnrollmentManager = property(get_UserCertificateEnrollmentManager, None)
 class ICertificateEnrollmentManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fdec82be-617c-425a-b7-2d-39-8b-26-ac-72-64')
+    _iid_ = Guid('{fdec82be-617c-425a-b72d-398b26ac7264}')
     @winrt_commethod(6)
     def ImportPfxDataToKspWithParametersAsync(self, pfxData: WinRT_String, password: WinRT_String, pfxImportParameters: Windows.Security.Cryptography.Certificates.PfxImportParameters) -> Windows.Foundation.IAsyncAction: ...
 class ICertificateExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('84cf0656-a9e6-454d-8e-45-2e-a7-c4-bc-d5-3b')
+    _iid_ = Guid('{84cf0656-a9e6-454d-8e45-2ea7c4bcd53b}')
     @winrt_commethod(6)
     def get_ObjectId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -627,12 +627,12 @@ class ICertificateExtension(ComPtr):
     Value = property(get_Value, put_Value)
 class ICertificateFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('17b4221c-4baf-44a2-96-08-04-fb-62-b1-69-42')
+    _iid_ = Guid('{17b4221c-4baf-44a2-9608-04fb62b16942}')
     @winrt_commethod(6)
     def CreateCertificate(self, certBlob: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Certificates.Certificate: ...
 class ICertificateKeyUsages(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6ac6206f-e1cf-486a-b4-85-a6-9c-83-e4-6f-d1')
+    _iid_ = Guid('{6ac6206f-e1cf-486a-b485-a69c83e46fd1}')
     @winrt_commethod(6)
     def get_EncipherOnly(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -675,7 +675,7 @@ class ICertificateKeyUsages(ComPtr):
     DigitalSignature = property(get_DigitalSignature, put_DigitalSignature)
 class ICertificateQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5b082a31-a728-4916-b5-ee-ff-cb-8a-cf-24-17')
+    _iid_ = Guid('{5b082a31-a728-4916-b5ee-ffcb8acf2417}')
     @winrt_commethod(6)
     def get_EnhancedKeyUsages(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(7)
@@ -701,7 +701,7 @@ class ICertificateQuery(ComPtr):
     HardwareOnly = property(get_HardwareOnly, put_HardwareOnly)
 class ICertificateQuery2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('935a0af7-0bd9-4f75-b8-c2-e2-7a-7f-74-ee-cd')
+    _iid_ = Guid('{935a0af7-0bd9-4f75-b8c2-e27a7f74eecd}')
     @winrt_commethod(6)
     def get_IncludeDuplicates(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -719,7 +719,7 @@ class ICertificateQuery2(ComPtr):
     StoreName = property(get_StoreName, put_StoreName)
 class ICertificateRequestProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('487e84f6-94e2-4dce-88-33-1a-70-0a-37-a2-9a')
+    _iid_ = Guid('{487e84f6-94e2-4dce-8833-1a700a37a29a}')
     @winrt_commethod(6)
     def get_Subject(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -767,7 +767,7 @@ class ICertificateRequestProperties(ComPtr):
     KeyStorageProviderName = property(get_KeyStorageProviderName, put_KeyStorageProviderName)
 class ICertificateRequestProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3da0c954-d73f-4ff3-a0-a6-06-77-c0-ad-a0-5b')
+    _iid_ = Guid('{3da0c954-d73f-4ff3-a0a6-0677c0ada05b}')
     @winrt_commethod(6)
     def get_SmartcardReaderName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -785,7 +785,7 @@ class ICertificateRequestProperties2(ComPtr):
     AttestationCredentialCertificate = property(get_AttestationCredentialCertificate, put_AttestationCredentialCertificate)
 class ICertificateRequestProperties3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e687f616-734d-46b1-9d-4c-6e-df-db-fc-84-5b')
+    _iid_ = Guid('{e687f616-734d-46b1-9d4c-6edfdbfc845b}')
     @winrt_commethod(6)
     def get_CurveName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -813,7 +813,7 @@ class ICertificateRequestProperties3(ComPtr):
     UseExistingKey = property(get_UseExistingKey, put_UseExistingKey)
 class ICertificateRequestProperties4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4e429ad2-1c61-4fea-b8-fe-13-5f-b1-9c-dc-e4')
+    _iid_ = Guid('{4e429ad2-1c61-4fea-b8fe-135fb19cdce4}')
     @winrt_commethod(6)
     def get_SuppressedDefaults(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(7)
@@ -825,20 +825,20 @@ class ICertificateRequestProperties4(ComPtr):
     Extensions = property(get_Extensions, None)
 class ICertificateStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b0bff720-344e-4331-af-14-a7-f7-a7-eb-c9-3a')
+    _iid_ = Guid('{b0bff720-344e-4331-af14-a7f7a7ebc93a}')
     @winrt_commethod(6)
     def Add(self, certificate: Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
     @winrt_commethod(7)
     def Delete(self, certificate: Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
 class ICertificateStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c7e68e4a-417d-4d1a-ba-bd-15-68-7e-54-99-74')
+    _iid_ = Guid('{c7e68e4a-417d-4d1a-babd-15687e549974}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     Name = property(get_Name, None)
 class ICertificateStoresStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fbecc739-c6fe-4de7-99-cf-74-c3-e5-96-e0-32')
+    _iid_ = Guid('{fbecc739-c6fe-4de7-99cf-74c3e596e032}')
     @winrt_commethod(6)
     def FindAllAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Security.Cryptography.Certificates.Certificate]]: ...
     @winrt_commethod(7)
@@ -853,12 +853,12 @@ class ICertificateStoresStatics(ComPtr):
     IntermediateCertificationAuthorities = property(get_IntermediateCertificationAuthorities, None)
 class ICertificateStoresStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fa900b79-a0d4-4b8c-bc-55-c0-a3-7e-b1-41-ed')
+    _iid_ = Guid('{fa900b79-a0d4-4b8c-bc55-c0a37eb141ed}')
     @winrt_commethod(6)
     def GetUserStoreByName(self, storeName: WinRT_String) -> Windows.Security.Cryptography.Certificates.UserCertificateStore: ...
 class IChainBuildingParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('422ba922-7c8d-47b7-b5-9b-b1-27-03-73-3a-c3')
+    _iid_ = Guid('{422ba922-7c8d-47b7-b59b-b12703733ac3}')
     @winrt_commethod(6)
     def get_EnhancedKeyUsages(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(7)
@@ -892,7 +892,7 @@ class IChainBuildingParameters(ComPtr):
     ExclusiveTrustRoots = property(get_ExclusiveTrustRoots, None)
 class IChainValidationParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c4743b4a-7eb0-4b56-a0-40-b9-c8-e6-55-dd-f3')
+    _iid_ = Guid('{c4743b4a-7eb0-4b56-a040-b9c8e655ddf3}')
     @winrt_commethod(6)
     def get_CertificateChainPolicy(self) -> Windows.Security.Cryptography.Certificates.CertificateChainPolicy: ...
     @winrt_commethod(7)
@@ -905,7 +905,7 @@ class IChainValidationParameters(ComPtr):
     ServerDnsName = property(get_ServerDnsName, put_ServerDnsName)
 class ICmsAttachedSignature(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('61899d9d-3757-4ecb-bd-dc-0c-a3-57-d7-a9-36')
+    _iid_ = Guid('{61899d9d-3757-4ecb-bddc-0ca357d7a936}')
     @winrt_commethod(6)
     def get_Certificates(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Cryptography.Certificates.Certificate]: ...
     @winrt_commethod(7)
@@ -919,17 +919,17 @@ class ICmsAttachedSignature(ComPtr):
     Signers = property(get_Signers, None)
 class ICmsAttachedSignatureFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d0c8fc15-f757-4c64-a3-62-52-cc-1c-77-cf-fb')
+    _iid_ = Guid('{d0c8fc15-f757-4c64-a362-52cc1c77cffb}')
     @winrt_commethod(6)
     def CreateCmsAttachedSignature(self, inputBlob: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Certificates.CmsAttachedSignature: ...
 class ICmsAttachedSignatureStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('87989c8e-b0ad-498d-a7-f5-78-b5-9b-ce-4b-36')
+    _iid_ = Guid('{87989c8e-b0ad-498d-a7f5-78b59bce4b36}')
     @winrt_commethod(6)
     def GenerateSignatureAsync(self, data: Windows.Storage.Streams.IBuffer, signers: Windows.Foundation.Collections.IIterable[Windows.Security.Cryptography.Certificates.CmsSignerInfo], certificates: Windows.Foundation.Collections.IIterable[Windows.Security.Cryptography.Certificates.Certificate]) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IBuffer]: ...
 class ICmsDetachedSignature(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0f1ef154-f65e-4536-83-39-59-44-08-1d-b2-ca')
+    _iid_ = Guid('{0f1ef154-f65e-4536-8339-5944081db2ca}')
     @winrt_commethod(6)
     def get_Certificates(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Cryptography.Certificates.Certificate]: ...
     @winrt_commethod(7)
@@ -940,17 +940,17 @@ class ICmsDetachedSignature(ComPtr):
     Signers = property(get_Signers, None)
 class ICmsDetachedSignatureFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c4ab3503-ae7f-4387-ad-19-00-f1-50-e4-8e-bb')
+    _iid_ = Guid('{c4ab3503-ae7f-4387-ad19-00f150e48ebb}')
     @winrt_commethod(6)
     def CreateCmsDetachedSignature(self, inputBlob: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Certificates.CmsDetachedSignature: ...
 class ICmsDetachedSignatureStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d114cfd-bf9b-4682-9b-e6-91-f5-7c-05-38-08')
+    _iid_ = Guid('{3d114cfd-bf9b-4682-9be6-91f57c053808}')
     @winrt_commethod(6)
     def GenerateSignatureAsync(self, data: Windows.Storage.Streams.IInputStream, signers: Windows.Foundation.Collections.IIterable[Windows.Security.Cryptography.Certificates.CmsSignerInfo], certificates: Windows.Foundation.Collections.IIterable[Windows.Security.Cryptography.Certificates.Certificate]) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IBuffer]: ...
 class ICmsSignerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('50d020db-1d2f-4c1a-b5-c5-d0-18-8f-f9-1f-47')
+    _iid_ = Guid('{50d020db-1d2f-4c1a-b5c5-d0188ff91f47}')
     @winrt_commethod(6)
     def get_Certificate(self) -> Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_commethod(7)
@@ -966,7 +966,7 @@ class ICmsSignerInfo(ComPtr):
     TimestampInfo = property(get_TimestampInfo, None)
 class ICmsTimestampInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2f5f00f2-2c18-4f88-84-35-c5-34-08-60-76-f5')
+    _iid_ = Guid('{2f5f00f2-2c18-4f88-8435-c534086076f5}')
     @winrt_commethod(6)
     def get_SigningCertificate(self) -> Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_commethod(7)
@@ -978,7 +978,7 @@ class ICmsTimestampInfo(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IKeyAlgorithmNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('479065d7-7ac7-4581-8c-3b-d0-70-27-14-04-48')
+    _iid_ = Guid('{479065d7-7ac7-4581-8c3b-d07027140448}')
     @winrt_commethod(6)
     def get_Rsa(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1005,7 +1005,7 @@ class IKeyAlgorithmNamesStatics(ComPtr):
     Ecdsa521 = property(get_Ecdsa521, None)
 class IKeyAlgorithmNamesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c99b5686-e1fd-4a4a-89-3d-a2-6f-33-dd-8b-b4')
+    _iid_ = Guid('{c99b5686-e1fd-4a4a-893d-a26f33dd8bb4}')
     @winrt_commethod(6)
     def get_Ecdsa(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1014,19 +1014,19 @@ class IKeyAlgorithmNamesStatics2(ComPtr):
     Ecdh = property(get_Ecdh, None)
 class IKeyAttestationHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1648e246-f644-4326-88-be-3a-f1-02-d3-0e-0c')
+    _iid_ = Guid('{1648e246-f644-4326-88be-3af102d30e0c}')
     @winrt_commethod(6)
     def DecryptTpmAttestationCredentialAsync(self, credential: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_commethod(7)
     def GetTpmAttestationCredentialId(self, credential: WinRT_String) -> WinRT_String: ...
 class IKeyAttestationHelperStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9c590b2c-a6c6-4a5e-9e-64-e8-5d-52-79-df-97')
+    _iid_ = Guid('{9c590b2c-a6c6-4a5e-9e64-e85d5279df97}')
     @winrt_commethod(6)
     def DecryptTpmAttestationCredentialWithContainerNameAsync(self, credential: WinRT_String, containerName: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
 class IKeyStorageProviderNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('af186ae0-5529-4602-bd-94-0a-ab-91-95-7b-5c')
+    _iid_ = Guid('{af186ae0-5529-4602-bd94-0aab91957b5c}')
     @winrt_commethod(6)
     def get_SoftwareKeyStorageProvider(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1038,13 +1038,13 @@ class IKeyStorageProviderNamesStatics(ComPtr):
     PlatformKeyStorageProvider = property(get_PlatformKeyStorageProvider, None)
 class IKeyStorageProviderNamesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('262d743d-9c2e-41cc-88-12-c4-d9-71-dd-7c-60')
+    _iid_ = Guid('{262d743d-9c2e-41cc-8812-c4d971dd7c60}')
     @winrt_commethod(6)
     def get_PassportKeyStorageProvider(self) -> WinRT_String: ...
     PassportKeyStorageProvider = property(get_PassportKeyStorageProvider, None)
 class IPfxImportParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('680d3511-9a08-47c8-86-4a-2e-dd-4d-8e-b4-6c')
+    _iid_ = Guid('{680d3511-9a08-47c8-864a-2edd4d8eb46c}')
     @winrt_commethod(6)
     def get_Exportable(self) -> Windows.Security.Cryptography.Certificates.ExportOption: ...
     @winrt_commethod(7)
@@ -1082,7 +1082,7 @@ class IPfxImportParameters(ComPtr):
     ReaderName = property(get_ReaderName, put_ReaderName)
 class IStandardCertificateStoreNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0c154adb-a496-41f8-8f-e5-9e-96-f3-6e-fb-f8')
+    _iid_ = Guid('{0c154adb-a496-41f8-8fe5-9e96f36efbf8}')
     @winrt_commethod(6)
     def get_Personal(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1094,7 +1094,7 @@ class IStandardCertificateStoreNamesStatics(ComPtr):
     IntermediateCertificationAuthorities = property(get_IntermediateCertificationAuthorities, None)
 class ISubjectAlternativeNameInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('582859f1-569d-4c20-be-7b-4e-1c-9a-0b-c5-2b')
+    _iid_ = Guid('{582859f1-569d-4c20-be7b-4e1c9a0bc52b}')
     @winrt_commethod(6)
     def get_EmailName(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(7)
@@ -1115,7 +1115,7 @@ class ISubjectAlternativeNameInfo(ComPtr):
     PrincipalName = property(get_PrincipalName, None)
 class ISubjectAlternativeNameInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('437a78c6-1c51-41ea-b3-4a-3d-65-43-98-a3-70')
+    _iid_ = Guid('{437a78c6-1c51-41ea-b34a-3d654398a370}')
     @winrt_commethod(6)
     def get_EmailNames(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(7)
@@ -1139,7 +1139,7 @@ class ISubjectAlternativeNameInfo2(ComPtr):
     Extension = property(get_Extension, None)
 class IUserCertificateEnrollmentManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('96313718-22e1-4819-b2-0b-ab-46-a6-ec-a0-6e')
+    _iid_ = Guid('{96313718-22e1-4819-b20b-ab46a6eca06e}')
     @winrt_commethod(6)
     def CreateRequestAsync(self, request: Windows.Security.Cryptography.Certificates.CertificateRequestProperties) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_commethod(7)
@@ -1150,12 +1150,12 @@ class IUserCertificateEnrollmentManager(ComPtr):
     def ImportPfxDataToKspAsync(self, pfxData: WinRT_String, password: WinRT_String, exportable: Windows.Security.Cryptography.Certificates.ExportOption, keyProtectionLevel: Windows.Security.Cryptography.Certificates.KeyProtectionLevel, installOption: Windows.Security.Cryptography.Certificates.InstallOptions, friendlyName: WinRT_String, keyStorageProvider: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IUserCertificateEnrollmentManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0dad9cb1-65de-492a-b8-6d-fc-5c-48-2c-37-47')
+    _iid_ = Guid('{0dad9cb1-65de-492a-b86d-fc5c482c3747}')
     @winrt_commethod(6)
     def ImportPfxDataToKspWithParametersAsync(self, pfxData: WinRT_String, password: WinRT_String, pfxImportParameters: Windows.Security.Cryptography.Certificates.PfxImportParameters) -> Windows.Foundation.IAsyncAction: ...
 class IUserCertificateStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c9fb1d83-789f-4b4e-91-80-04-5a-75-7a-ac-6d')
+    _iid_ = Guid('{c9fb1d83-789f-4b4e-9180-045a757aac6d}')
     @winrt_commethod(6)
     def RequestAddAsync(self, certificate: Windows.Security.Cryptography.Certificates.Certificate) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)

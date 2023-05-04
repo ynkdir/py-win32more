@@ -43,14 +43,14 @@ class HolographicKeyboardPlacementOverridePreview(ComPtr):
     def GetForCurrentView(cls: Windows.ApplicationModel.Preview.Holographic.IHolographicKeyboardPlacementOverridePreviewStatics) -> Windows.ApplicationModel.Preview.Holographic.HolographicKeyboardPlacementOverridePreview: ...
 class IHolographicApplicationPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fe038691-2a3a-45a9-a2-08-7b-ed-69-19-19-f3')
+    _iid_ = Guid('{fe038691-2a3a-45a9-a208-7bed691919f3}')
     @winrt_commethod(6)
     def IsCurrentViewPresentedOnHolographicDisplay(self) -> Boolean: ...
     @winrt_commethod(7)
     def IsHolographicActivation(self, activatedEventArgs: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Boolean: ...
 class IHolographicKeyboardPlacementOverridePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c8a8ce3a-dfde-5a14-8d-5f-18-2c-52-6d-d9-c4')
+    _iid_ = Guid('{c8a8ce3a-dfde-5a14-8d5f-182c526dd9c4}')
     @winrt_commethod(6)
     def SetPlacementOverride(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, topCenterPosition: Windows.Foundation.Numerics.Vector3, normal: Windows.Foundation.Numerics.Vector3) -> Void: ...
     @winrt_commethod(7)
@@ -59,7 +59,7 @@ class IHolographicKeyboardPlacementOverridePreview(ComPtr):
     def ResetPlacementOverride(self) -> Void: ...
 class IHolographicKeyboardPlacementOverridePreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('202e6039-1ff6-5a06-aa-c4-a5-e2-4f-a3-ec-4b')
+    _iid_ = Guid('{202e6039-1ff6-5a06-aac4-a5e24fa3ec4b}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.ApplicationModel.Preview.Holographic.HolographicKeyboardPlacementOverridePreview: ...
 make_head(_module, 'HolographicApplicationPreview')

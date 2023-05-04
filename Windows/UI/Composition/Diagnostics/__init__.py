@@ -52,7 +52,7 @@ class CompositionDebugSettings(ComPtr):
     HeatMaps = property(get_HeatMaps, None)
 class ICompositionDebugHeatMaps(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e49c90ac-2ff3-5805-71-8c-b7-25-ee-07-65-0f')
+    _iid_ = Guid('{e49c90ac-2ff3-5805-718c-b725ee07650f}')
     @winrt_commethod(6)
     def Hide(self, subtree: Windows.UI.Composition.Visual) -> Void: ...
     @winrt_commethod(7)
@@ -63,13 +63,13 @@ class ICompositionDebugHeatMaps(ComPtr):
     def ShowRedraw(self, subtree: Windows.UI.Composition.Visual) -> Void: ...
 class ICompositionDebugSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2831987e-1d82-4d38-b7-b7-ef-d1-1c-7b-c3-d1')
+    _iid_ = Guid('{2831987e-1d82-4d38-b7b7-efd11c7bc3d1}')
     @winrt_commethod(6)
     def get_HeatMaps(self) -> Windows.UI.Composition.Diagnostics.CompositionDebugHeatMaps: ...
     HeatMaps = property(get_HeatMaps, None)
 class ICompositionDebugSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('64ec1f1e-6af8-4af8-b8-14-c8-70-fd-5a-95-05')
+    _iid_ = Guid('{64ec1f1e-6af8-4af8-b814-c870fd5a9505}')
     @winrt_commethod(6)
     def TryGetSettings(self, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Diagnostics.CompositionDebugSettings: ...
 make_head(_module, 'CompositionDebugHeatMaps')

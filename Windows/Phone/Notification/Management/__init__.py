@@ -412,7 +412,7 @@ class EmailReadNotificationTriggerDetails(ComPtr):
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
 class IAccessoryManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0d04a12c-883d-4aa7-bc-a7-fa-4b-b8-bf-fe-e6')
+    _iid_ = Guid('{0d04a12c-883d-4aa7-bca7-fa4bb8bffee6}')
     @winrt_commethod(6)
     def RegisterAccessoryApp(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -511,7 +511,7 @@ class IAccessoryManager(ComPtr):
     BatterySaverState = property(get_BatterySaverState, None)
 class IAccessoryManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bacad44d-d393-46c6-b8-0c-15-fd-f4-4d-53-86')
+    _iid_ = Guid('{bacad44d-d393-46c6-b80c-15fdf44d5386}')
     @winrt_commethod(6)
     def RingDevice(self) -> Void: ...
     @winrt_commethod(7)
@@ -547,7 +547,7 @@ class IAccessoryManager2(ComPtr):
     VolumeInfo = property(get_VolumeInfo, None)
 class IAccessoryManager3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('81f75137-edc7-47e0-b2-f7-7e-57-7c-83-3f-7d')
+    _iid_ = Guid('{81f75137-edc7-47e0-b2f7-7e577c833f7d}')
     @winrt_commethod(6)
     def SnoozeAlarmByInstanceId(self, instanceId: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -558,7 +558,7 @@ class IAccessoryManager3(ComPtr):
     def DismissReminderByInstanceId(self, instanceId: WinRT_String) -> Void: ...
 class IAccessoryNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6968a7d4-e3ca-49cb-8c-87-2c-11-cd-ff-96-46')
+    _iid_ = Guid('{6968a7d4-e3ca-49cb-8c87-2c11cdff9646}')
     @winrt_commethod(6)
     def get_TimeCreated(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -578,7 +578,7 @@ class IAccessoryNotificationTriggerDetails(ComPtr):
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
 class IAlarmNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('38f5fa30-c738-4da2-90-8c-77-5d-83-c3-6a-bb')
+    _iid_ = Guid('{38f5fa30-c738-4da2-908c-775d83c36abb}')
     @winrt_commethod(6)
     def get_AlarmId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -593,13 +593,13 @@ class IAlarmNotificationTriggerDetails(ComPtr):
     ReminderState = property(get_ReminderState, None)
 class IAlarmNotificationTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cf16e06a-7155-40fe-a9-c2-7b-d2-12-7e-f8-53')
+    _iid_ = Guid('{cf16e06a-7155-40fe-a9c2-7bd2127ef853}')
     @winrt_commethod(6)
     def get_InstanceId(self) -> WinRT_String: ...
     InstanceId = property(get_InstanceId, None)
 class IAppNotificationInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2157bea5-e286-45d3-9b-ea-f7-90-fc-21-6e-0e')
+    _iid_ = Guid('{2157bea5-e286-45d3-9bea-f790fc216e0e}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -608,7 +608,7 @@ class IAppNotificationInfo(ComPtr):
     Name = property(get_Name, None)
 class IBinaryId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4f0da531-5595-44b4-91-81-ce-4e-fa-3f-c1-68')
+    _iid_ = Guid('{4f0da531-5595-44b4-9181-ce4efa3fc168}')
     @winrt_commethod(6)
     def get_Id(self) -> Byte: ...
     @winrt_commethod(7)
@@ -617,7 +617,7 @@ class IBinaryId(ComPtr):
     Length = property(get_Length, None)
 class ICalendarChangedNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4b8a3bfc-279d-42ab-9c-68-3e-87-97-7b-f2-16')
+    _iid_ = Guid('{4b8a3bfc-279d-42ab-9c68-3e87977bf216}')
     @winrt_commethod(6)
     def get_EventType(self) -> Windows.Phone.Notification.Management.CalendarChangedEvent: ...
     @winrt_commethod(7)
@@ -626,7 +626,7 @@ class ICalendarChangedNotificationTriggerDetails(ComPtr):
     ItemId = property(get_ItemId, None)
 class ICortanaTileNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dc0f01d5-1489-46bb-b7-3b-7f-90-06-7e-cf-27')
+    _iid_ = Guid('{dc0f01d5-1489-46bb-b73b-7f90067ecf27}')
     @winrt_commethod(6)
     def get_TileId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -659,7 +659,7 @@ class ICortanaTileNotificationTriggerDetails(ComPtr):
     Source = property(get_Source, None)
 class IEmailAccountInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dfbc02ab-bda0-4568-92-7e-b2-ed-e3-58-18-a1')
+    _iid_ = Guid('{dfbc02ab-bda0-4568-927e-b2ede35818a1}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -668,7 +668,7 @@ class IEmailAccountInfo(ComPtr):
     IsNotificationEnabled = property(get_IsNotificationEnabled, None)
 class IEmailFolderInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c207150e-e237-46d6-90-e6-4f-52-9e-ea-c1-e2')
+    _iid_ = Guid('{c207150e-e237-46d6-90e6-4f529eeac1e2}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -677,7 +677,7 @@ class IEmailFolderInfo(ComPtr):
     IsNotificationEnabled = property(get_IsNotificationEnabled, None)
 class IEmailNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f3b82612-46cf-4e70-8e-0d-7b-2e-04-ab-49-2b')
+    _iid_ = Guid('{f3b82612-46cf-4e70-8e0d-7b2e04ab492b}')
     @winrt_commethod(6)
     def get_AccountName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -698,13 +698,13 @@ class IEmailNotificationTriggerDetails(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IEmailNotificationTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('168067e3-c56f-4ec7-be-d1-f7-34-e0-8d-e5-b2')
+    _iid_ = Guid('{168067e3-c56f-4ec7-bed1-f734e08de5b2}')
     @winrt_commethod(6)
     def get_MessageEntryId(self) -> Windows.Phone.Notification.Management.BinaryId: ...
     MessageEntryId = property(get_MessageEntryId, None)
 class IEmailReadNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f5b7a087-06f3-4e3e-8c-42-32-5e-67-01-04-13')
+    _iid_ = Guid('{f5b7a087-06f3-4e3e-8c42-325e67010413}')
     @winrt_commethod(6)
     def get_AccountName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -719,7 +719,7 @@ class IEmailReadNotificationTriggerDetails(ComPtr):
     IsRead = property(get_IsRead, None)
 class IMediaControlsTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fab4648b-ae45-4548-91-ca-4a-b0-54-8e-33-b5')
+    _iid_ = Guid('{fab4648b-ae45-4548-91ca-4ab0548e33b5}')
     @winrt_commethod(6)
     def get_PlaybackStatus(self) -> Windows.Phone.Notification.Management.PlaybackStatus: ...
     @winrt_commethod(7)
@@ -728,7 +728,7 @@ class IMediaControlsTriggerDetails(ComPtr):
     MediaMetadata = property(get_MediaMetadata, None)
 class IMediaMetadata(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9b50ddf7-bb6c-4330-b3-cd-07-04-a5-4c-db-80')
+    _iid_ = Guid('{9b50ddf7-bb6c-4330-b3cd-0704a54cdb80}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -752,7 +752,7 @@ class IMediaMetadata(ComPtr):
     Thumbnail = property(get_Thumbnail, None)
 class IPhoneCallDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0c1b6f53-f071-483e-bf-33-eb-d4-4b-72-44-47')
+    _iid_ = Guid('{0c1b6f53-f071-483e-bf33-ebd44b724447}')
     @winrt_commethod(6)
     def get_PhoneLine(self) -> Guid: ...
     @winrt_commethod(7)
@@ -791,7 +791,7 @@ class IPhoneCallDetails(ComPtr):
     PresetTextResponses = property(get_PresetTextResponses, None)
 class IPhoneLineDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('47eb32dc-33ed-49b9-99-5c-a2-96-ba-c8-2b-77')
+    _iid_ = Guid('{47eb32dc-33ed-49b9-995c-a296bac82b77}')
     @winrt_commethod(6)
     def get_LineId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -812,13 +812,13 @@ class IPhoneLineDetails(ComPtr):
     RegistrationState = property(get_RegistrationState, None)
 class IPhoneLineDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b30cd77d-0147-498c-82-41-bf-0c-ab-c6-0a-25')
+    _iid_ = Guid('{b30cd77d-0147-498c-8241-bf0cabc60a25}')
     @winrt_commethod(6)
     def get_MissedCallCount(self) -> UInt32: ...
     MissedCallCount = property(get_MissedCallCount, None)
 class IPhoneNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ccc2fdf7-09c3-4118-91-bc-ca-63-23-a8-d3-83')
+    _iid_ = Guid('{ccc2fdf7-09c3-4118-91bc-ca6323a8d383}')
     @winrt_commethod(6)
     def get_PhoneNotificationType(self) -> Windows.Phone.Notification.Management.PhoneNotificationType: ...
     @winrt_commethod(7)
@@ -830,7 +830,7 @@ class IPhoneNotificationTriggerDetails(ComPtr):
     PhoneLineChangedId = property(get_PhoneLineChangedId, None)
 class IReminderNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5bddaa5d-9f61-4bf0-9f-eb-10-50-2b-c0-b0-c2')
+    _iid_ = Guid('{5bddaa5d-9f61-4bf0-9feb-10502bc0b0c2}')
     @winrt_commethod(6)
     def get_ReminderId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -854,13 +854,13 @@ class IReminderNotificationTriggerDetails(ComPtr):
     ReminderState = property(get_ReminderState, None)
 class IReminderNotificationTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e715f9c0-504d-4c0f-a6-b3-bc-b9-72-2c-6c-dd')
+    _iid_ = Guid('{e715f9c0-504d-4c0f-a6b3-bcb9722c6cdd}')
     @winrt_commethod(6)
     def get_InstanceId(self) -> WinRT_String: ...
     InstanceId = property(get_InstanceId, None)
 class ISpeedDialEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9240b6db-872c-46dc-b6-2a-be-45-41-b1-66-f8')
+    _iid_ = Guid('{9240b6db-872c-46dc-b62a-be4541b166f8}')
     @winrt_commethod(6)
     def get_PhoneNumber(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -872,7 +872,7 @@ class ISpeedDialEntry(ComPtr):
     ContactName = property(get_ContactName, None)
 class ITextResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e9cb74c3-2457-4cdb-81-10-72-f5-e8-e8-83-e8')
+    _iid_ = Guid('{e9cb74c3-2457-4cdb-8110-72f5e8e883e8}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -881,7 +881,7 @@ class ITextResponse(ComPtr):
     Content = property(get_Content, None)
 class IToastNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c9314895-4e6d-4e9d-af-ec-9e-92-1b-87-5a-e8')
+    _iid_ = Guid('{c9314895-4e6d-4e9d-afec-9e921b875ae8}')
     @winrt_commethod(6)
     def get_Text1(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -899,13 +899,13 @@ class IToastNotificationTriggerDetails(ComPtr):
     SuppressPopup = property(get_SuppressPopup, None)
 class IToastNotificationTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3e0479dd-cac4-4f60-af-a3-b9-25-d9-d8-3c-93')
+    _iid_ = Guid('{3e0479dd-cac4-4f60-afa3-b925d9d83c93}')
     @winrt_commethod(6)
     def get_InstanceId(self) -> WinRT_String: ...
     InstanceId = property(get_InstanceId, None)
 class IVolumeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('944dd118-7704-4481-b9-2e-d3-ed-3e-ce-63-22')
+    _iid_ = Guid('{944dd118-7704-4481-b92e-d3ed3ece6322}')
     @winrt_commethod(6)
     def get_SystemVolume(self) -> UInt32: ...
     @winrt_commethod(7)

@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPushNotificationChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2b28102e-ef0b-4f39-9b-8a-a3-c1-94-de-70-81')
+    _iid_ = Guid('{2b28102e-ef0b-4f39-9b8a-a3c194de7081}')
     @winrt_commethod(6)
     def get_Uri(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -42,7 +42,7 @@ class IPushNotificationChannel(ComPtr):
     ExpirationTime = property(get_ExpirationTime, None)
 class IPushNotificationChannelManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a4c45704-1182-42c7-88-90-f5-63-c4-89-0d-c4')
+    _iid_ = Guid('{a4c45704-1182-42c7-8890-f563c4890dc4}')
     @winrt_commethod(6)
     def CreatePushNotificationChannelForApplicationAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Networking.PushNotifications.PushNotificationChannel]: ...
     @winrt_commethod(7)
@@ -54,14 +54,14 @@ class IPushNotificationChannelManagerForUser(ComPtr):
     User = property(get_User, None)
 class IPushNotificationChannelManagerForUser2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c38b066a-7cc1-4dac-87-fd-be-6e-92-04-14-a4')
+    _iid_ = Guid('{c38b066a-7cc1-4dac-87fd-be6e920414a4}')
     @winrt_commethod(6)
     def CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync(self, appServerKey: Windows.Storage.Streams.IBuffer, channelId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Networking.PushNotifications.PushNotificationChannel]: ...
     @winrt_commethod(7)
     def CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsyncWithId(self, appServerKey: Windows.Storage.Streams.IBuffer, channelId: WinRT_String, appId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Networking.PushNotifications.PushNotificationChannel]: ...
 class IPushNotificationChannelManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8baf9b65-77a1-4588-bd-19-86-15-29-a9-dc-f0')
+    _iid_ = Guid('{8baf9b65-77a1-4588-bd19-861529a9dcf0}')
     @winrt_commethod(6)
     def CreatePushNotificationChannelForApplicationAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Networking.PushNotifications.PushNotificationChannel]: ...
     @winrt_commethod(7)
@@ -70,27 +70,27 @@ class IPushNotificationChannelManagerStatics(ComPtr):
     def CreatePushNotificationChannelForSecondaryTileAsync(self, tileId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Networking.PushNotifications.PushNotificationChannel]: ...
 class IPushNotificationChannelManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b444a65d-a7e9-4b28-95-0e-f3-75-a9-07-f9-df')
+    _iid_ = Guid('{b444a65d-a7e9-4b28-950e-f375a907f9df}')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser: ...
 class IPushNotificationChannelManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4701fefe-0ede-4a3f-ae-78-bf-a4-71-49-69-25')
+    _iid_ = Guid('{4701fefe-0ede-4a3f-ae78-bfa471496925}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser: ...
 class IPushNotificationChannelManagerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bc540efb-7820-5a5b-9c-01-b4-75-7f-77-40-25')
+    _iid_ = Guid('{bc540efb-7820-5a5b-9c01-b4757f774025}')
     @winrt_commethod(6)
     def add_ChannelsRevoked(self, handler: Windows.Foundation.EventHandler[Windows.Networking.PushNotifications.PushNotificationChannelsRevokedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ChannelsRevoked(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPushNotificationChannelsRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('20e1a24c-1a34-5beb-aa-e2-40-c2-32-c8-c1-40')
+    _iid_ = Guid('{20e1a24c-1a34-5beb-aae2-40c232c8c140}')
 class IPushNotificationReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d1065e0c-36cd-484c-b9-35-0a-99-b7-53-cf-00')
+    _iid_ = Guid('{d1065e0c-36cd-484c-b935-0a99b753cf00}')
     @winrt_commethod(6)
     def put_Cancel(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -113,13 +113,13 @@ class IPushNotificationReceivedEventArgs(ComPtr):
     RawNotification = property(get_RawNotification, None)
 class IRawNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1a227281-3b79-42ac-99-63-22-ab-00-d4-f0-b7')
+    _iid_ = Guid('{1a227281-3b79-42ac-9963-22ab00d4f0b7}')
     @winrt_commethod(6)
     def get_Content(self) -> WinRT_String: ...
     Content = property(get_Content, None)
 class IRawNotification2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e6d0cf19-0c6f-4cdd-94-24-ee-c5-be-01-4d-26')
+    _iid_ = Guid('{e6d0cf19-0c6f-4cdd-9424-eec5be014d26}')
     @winrt_commethod(6)
     def get_Headers(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]: ...
     @winrt_commethod(7)
@@ -128,7 +128,7 @@ class IRawNotification2(ComPtr):
     ChannelId = property(get_ChannelId, None)
 class IRawNotification3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('62737dde-8a73-424c-ab-44-56-35-f4-0a-96-e5')
+    _iid_ = Guid('{62737dde-8a73-424c-ab44-5635f40a96e5}')
     @winrt_commethod(6)
     def get_ContentBytes(self) -> Windows.Storage.Streams.IBuffer: ...
     ContentBytes = property(get_ContentBytes, None)

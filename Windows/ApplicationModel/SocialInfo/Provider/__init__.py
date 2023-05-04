@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISocialDashboardItemUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3cde9dc9-4800-46cd-86-9b-19-73-ec-68-5b-de')
+    _iid_ = Guid('{3cde9dc9-4800-46cd-869b-1973ec685bde}')
     @winrt_commethod(6)
     def get_OwnerRemoteId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -51,7 +51,7 @@ class ISocialDashboardItemUpdater(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
 class ISocialFeedUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7a0c0aa7-ed89-4bd5-a8-d9-15-f4-d9-86-1c-10')
+    _iid_ = Guid('{7a0c0aa7-ed89-4bd5-a8d9-15f4d9861c10}')
     @winrt_commethod(6)
     def get_OwnerRemoteId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -65,7 +65,7 @@ class ISocialFeedUpdater(ComPtr):
     Items = property(get_Items, None)
 class ISocialInfoProviderManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1b88e52b-7787-48d6-aa-12-d8-e8-f4-7a-b8-5a')
+    _iid_ = Guid('{1b88e52b-7787-48d6-aa12-d8e8f47ab85a}')
     @winrt_commethod(6)
     def CreateSocialFeedUpdaterAsync(self, kind: Windows.ApplicationModel.SocialInfo.SocialFeedKind, mode: Windows.ApplicationModel.SocialInfo.SocialFeedUpdateMode, ownerRemoteId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater]: ...
     @winrt_commethod(7)

@@ -61,7 +61,7 @@ GameServiceScoreKind_Number: GameServiceScoreKind = 0
 GameServiceScoreKind_Time: GameServiceScoreKind = 1
 class IGameService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2e2d5098-48a9-4efc-af-d6-8e-6d-a0-90-03-fb')
+    _iid_ = Guid('{2e2d5098-48a9-4efc-afd6-8e6da09003fb}')
     @winrt_commethod(6)
     def get_ServiceUri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -81,14 +81,14 @@ class IGameService(ComPtr):
     ServiceUri = property(get_ServiceUri, None)
 class IGameService2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d2364ef6-ea17-4be5-8d-8a-c8-60-88-5e-05-1f')
+    _iid_ = Guid('{d2364ef6-ea17-4be5-8d8a-c860885e051f}')
     @winrt_commethod(6)
     def NotifyPartnerTokenExpired(self, audienceUri: Windows.Foundation.Uri) -> Void: ...
     @winrt_commethod(7)
     def GetAuthenticationStatus(self) -> UInt32: ...
 class IGameServicePropertyCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('07e57fc8-debb-4609-9c-c8-52-9d-16-bc-2b-d9')
+    _iid_ = Guid('{07e57fc8-debb-4609-9cc8-529d16bc2bd9}')
     @winrt_commethod(6)
     def GetPropertyAsync(self, propertyName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Win32.System.WinRT.IInspectable_head]: ...
 make_head(_module, 'GameService')

@@ -28,12 +28,12 @@ class ClassicAppManager(ComPtr):
 DeploymentPreviewContract: UInt32 = 65536
 class IClassicAppManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e2fad668-882c-4f33-b0-35-0d-f7-b9-0d-67-e6')
+    _iid_ = Guid('{e2fad668-882c-4f33-b035-0df7b90d67e6}')
     @winrt_commethod(6)
     def FindInstalledApp(self, appUninstallKey: WinRT_String) -> Windows.Management.Deployment.Preview.InstalledClassicAppInfo: ...
 class IInstalledClassicAppInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0a7d3da3-65d0-4086-80-d6-06-10-d7-60-20-7d')
+    _iid_ = Guid('{0a7d3da3-65d0-4086-80d6-0610d760207d}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)

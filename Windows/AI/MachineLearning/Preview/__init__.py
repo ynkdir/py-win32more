@@ -44,7 +44,7 @@ FeatureElementKindPreview_Complex64: FeatureElementKindPreview = 14
 FeatureElementKindPreview_Complex128: FeatureElementKindPreview = 15
 class IImageVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7ae1fa72-029e-4dc5-a2-f8-5f-b7-63-15-41-50')
+    _iid_ = Guid('{7ae1fa72-029e-4dc5-a2f8-5fb763154150}')
     @winrt_commethod(6)
     def get_BitmapPixelFormat(self) -> Windows.Graphics.Imaging.BitmapPixelFormat: ...
     @winrt_commethod(7)
@@ -56,7 +56,7 @@ class IImageVariableDescriptorPreview(ComPtr):
     Height = property(get_Height, None)
 class IInferencingOptionsPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('47bc8205-4d36-47a9-8f-68-ff-cb-33-9d-d0-fc')
+    _iid_ = Guid('{47bc8205-4d36-47a9-8f68-ffcb339dd0fc}')
     @winrt_commethod(6)
     def get_PreferredDeviceKind(self) -> Windows.AI.MachineLearning.Preview.LearningModelDeviceKindPreview: ...
     @winrt_commethod(7)
@@ -84,7 +84,7 @@ class IInferencingOptionsPreview(ComPtr):
     ReclaimMemoryAfterEvaluation = property(get_ReclaimMemoryAfterEvaluation, put_ReclaimMemoryAfterEvaluation)
 class ILearningModelBindingPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('93c901e8-6c78-4b4f-ae-c1-a6-bb-9e-69-16-24')
+    _iid_ = Guid('{93c901e8-6c78-4b4f-aec1-a6bb9e691624}')
     @winrt_commethod(6)
     def Bind(self, name: WinRT_String, value: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
     @winrt_commethod(7)
@@ -93,12 +93,12 @@ class ILearningModelBindingPreview(ComPtr):
     def Clear(self) -> Void: ...
 class ILearningModelBindingPreviewFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('48b8219f-1e51-4d77-ae-50-3e-c1-64-ad-34-80')
+    _iid_ = Guid('{48b8219f-1e51-4d77-ae50-3ec164ad3480}')
     @winrt_commethod(6)
     def CreateFromModel(self, model: Windows.AI.MachineLearning.Preview.LearningModelPreview) -> Windows.AI.MachineLearning.Preview.LearningModelBindingPreview: ...
 class ILearningModelDescriptionPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f52c09c6-8611-40ad-8e-59-de-3f-d7-03-0a-40')
+    _iid_ = Guid('{f52c09c6-8611-40ad-8e59-de3fd7030a40}')
     @winrt_commethod(6)
     def get_Author(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -125,7 +125,7 @@ class ILearningModelDescriptionPreview(ComPtr):
     OutputFeatures = property(get_OutputFeatures, None)
 class ILearningModelEvaluationResultPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('df25ea9f-9863-4088-84-98-87-a1-f4-68-6f-92')
+    _iid_ = Guid('{df25ea9f-9863-4088-8498-87a1f4686f92}')
     @winrt_commethod(6)
     def get_CorrelationId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -134,7 +134,7 @@ class ILearningModelEvaluationResultPreview(ComPtr):
     Outputs = property(get_Outputs, None)
 class ILearningModelPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('049c266a-93b4-478c-ae-b8-70-15-7b-f0-ff-94')
+    _iid_ = Guid('{049c266a-93b4-478c-aeb8-70157bf0ff94}')
     @winrt_commethod(6)
     def EvaluateAsync(self, binding: Windows.AI.MachineLearning.Preview.LearningModelBindingPreview, correlationId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview]: ...
     @winrt_commethod(7)
@@ -149,14 +149,14 @@ class ILearningModelPreview(ComPtr):
     InferencingOptions = property(get_InferencingOptions, put_InferencingOptions)
 class ILearningModelPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('164bbb60-8465-4786-8b-93-2c-16-a8-92-89-d7')
+    _iid_ = Guid('{164bbb60-8465-4786-8b93-2c16a89289d7}')
     @winrt_commethod(6)
     def LoadModelFromStorageFileAsync(self, modelFile: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.AI.MachineLearning.Preview.LearningModelPreview]: ...
     @winrt_commethod(7)
     def LoadModelFromStreamAsync(self, modelStream: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.Foundation.IAsyncOperation[Windows.AI.MachineLearning.Preview.LearningModelPreview]: ...
 class ILearningModelVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b13df682-fc30-492b-8e-a0-ed-1f-53-c0-b0-38')
+    _iid_ = Guid('{b13df682-fc30-492b-8ea0-ed1f53c0b038}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -171,7 +171,7 @@ class ILearningModelVariableDescriptorPreview(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class IMapVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3cb38370-c02b-4236-b3-e8-6b-dc-a4-9c-31-29')
+    _iid_ = Guid('{3cb38370-c02b-4236-b3e8-6bdca49c3129}')
     @winrt_commethod(6)
     def get_KeyKind(self) -> Windows.AI.MachineLearning.Preview.FeatureElementKindPreview: ...
     @winrt_commethod(7)
@@ -186,13 +186,13 @@ class IMapVariableDescriptorPreview(ComPtr):
     Fields = property(get_Fields, None)
 class ISequenceVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9cd8f292-98b2-4530-a1-b6-2d-ed-5f-ec-bc-26')
+    _iid_ = Guid('{9cd8f292-98b2-4530-a1b6-2ded5fecbc26}')
     @winrt_commethod(6)
     def get_ElementType(self) -> Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview: ...
     ElementType = property(get_ElementType, None)
 class ITensorVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a80f501a-9aac-4233-97-84-ac-ea-f9-25-10-b5')
+    _iid_ = Guid('{a80f501a-9aac-4233-9784-aceaf92510b5}')
     @winrt_commethod(6)
     def get_DataType(self) -> Windows.AI.MachineLearning.Preview.FeatureElementKindPreview: ...
     @winrt_commethod(7)

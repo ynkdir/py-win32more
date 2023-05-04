@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPaymentAppCanMakePaymentTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0ce201f0-8b93-4eb6-8c-46-2e-4a-6c-6a-26-f6')
+    _iid_ = Guid('{0ce201f0-8b93-4eb6-8c46-2e4a6c6a26f6}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Payments.PaymentRequest: ...
     @winrt_commethod(7)
@@ -33,20 +33,20 @@ class IPaymentAppCanMakePaymentTriggerDetails(ComPtr):
     Request = property(get_Request, None)
 class IPaymentAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0e47aa53-8521-4969-a9-57-df-25-38-a3-a9-8f')
+    _iid_ = Guid('{0e47aa53-8521-4969-a957-df2538a3a98f}')
     @winrt_commethod(6)
     def RegisterAsync(self, supportedPaymentMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def UnregisterAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IPaymentAppManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a341ac28-fc89-4406-b4-d9-34-e7-fe-79-df-b6')
+    _iid_ = Guid('{a341ac28-fc89-4406-b4d9-34e7fe79dfb6}')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.ApplicationModel.Payments.Provider.PaymentAppManager: ...
     Current = property(get_Current, None)
 class IPaymentTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('62581da0-26a5-4e9b-a6-eb-66-60-6c-f0-01-d3')
+    _iid_ = Guid('{62581da0-26a5-4e9b-a6eb-66606cf001d3}')
     @winrt_commethod(6)
     def get_PaymentRequest(self) -> Windows.ApplicationModel.Payments.PaymentRequest: ...
     @winrt_commethod(7)
@@ -75,13 +75,13 @@ class IPaymentTransaction(ComPtr):
     PayerPhoneNumber = property(get_PayerPhoneNumber, put_PayerPhoneNumber)
 class IPaymentTransactionAcceptResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('060e3276-d30c-4817-95-a2-df-7a-e9-27-3b-56')
+    _iid_ = Guid('{060e3276-d30c-4817-95a2-df7ae9273b56}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.ApplicationModel.Payments.PaymentRequestCompletionStatus: ...
     Status = property(get_Status, None)
 class IPaymentTransactionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8d639750-ee0a-4df5-9b-1e-1c-0f-9e-c5-98-81')
+    _iid_ = Guid('{8d639750-ee0a-4df5-9b1e-1c0f9ec59881}')
     @winrt_commethod(6)
     def FromIdAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Payments.Provider.PaymentTransaction]: ...
 class PaymentAppCanMakePaymentTriggerDetails(ComPtr):

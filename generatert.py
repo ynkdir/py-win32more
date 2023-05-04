@@ -490,7 +490,7 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         return self.format_guid(v)
 
     def format_guid(self, v: list[int]) -> str:
-        return f"{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}-{v[4]:02x}-{v[5]:02x}-{v[6]:02x}-{v[7]:02x}-{v[8]:02x}-{v[9]:02x}-{v[10]:02x}"
+        return f"{{{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}{v[4]:02x}-{v[5]:02x}{v[6]:02x}{v[7]:02x}{v[8]:02x}{v[9]:02x}{v[10]:02x}}}"
 
     def get_property_key(self) -> tuple[str, int]:
         value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value

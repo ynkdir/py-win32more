@@ -30,7 +30,7 @@ class GameControllerProviderInfo(ComPtr):
     def GetProviderId(cls: Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics, provider: Windows.Gaming.Input.Custom.IGameControllerProvider) -> WinRT_String: ...
 class IGameControllerProviderInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0be1e6c5-d9bd-44ee-83-62-48-8b-2e-46-4b-fb')
+    _iid_ = Guid('{0be1e6c5-d9bd-44ee-8362-488b2e464bfb}')
     @winrt_commethod(6)
     def GetParentProviderId(self, provider: Windows.Gaming.Input.Custom.IGameControllerProvider) -> WinRT_String: ...
     @winrt_commethod(7)

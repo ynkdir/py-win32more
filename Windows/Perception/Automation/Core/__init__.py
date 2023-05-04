@@ -28,7 +28,7 @@ class CorePerceptionAutomation(ComPtr):
     def SetActivationFactoryProvider(cls: Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics, provider: Windows.Foundation.IGetActivationFactory) -> Void: ...
 class ICorePerceptionAutomationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0bb04541-4ce2-4923-9a-76-81-87-ec-c5-91-12')
+    _iid_ = Guid('{0bb04541-4ce2-4923-9a76-8187ecc59112}')
     @winrt_commethod(6)
     def SetActivationFactoryProvider(self, provider: Windows.Foundation.IGetActivationFactory) -> Void: ...
 PerceptionAutomationCoreContract: UInt32 = 65536

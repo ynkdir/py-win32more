@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUserDataAccountPartnerAccountInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5f200037-f6ef-4ec3-86-30-01-2c-59-c1-14-9f')
+    _iid_ = Guid('{5f200037-f6ef-4ec3-8630-012c59c1149f}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -36,7 +36,7 @@ class IUserDataAccountPartnerAccountInfo(ComPtr):
     AccountKind = property(get_AccountKind, None)
 class IUserDataAccountProviderAddAccountOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b9c72530-3f84-4b5d-8e-aa-45-e9-7a-a8-42-ed')
+    _iid_ = Guid('{b9c72530-3f84-4b5d-8eaa-45e97aa842ed}')
     @winrt_commethod(6)
     def get_ContentKinds(self) -> Windows.ApplicationModel.UserDataAccounts.UserDataAccountContentKinds: ...
     @winrt_commethod(7)
@@ -47,13 +47,13 @@ class IUserDataAccountProviderAddAccountOperation(ComPtr):
     PartnerAccountInfos = property(get_PartnerAccountInfos, None)
 class IUserDataAccountProviderOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a20aad63-888c-4a62-a3-dd-34-d0-7a-80-2b-2b')
+    _iid_ = Guid('{a20aad63-888c-4a62-a3dd-34d07a802b2b}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderOperationKind: ...
     Kind = property(get_Kind, None)
 class IUserDataAccountProviderResolveErrorsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6235dc15-bfcb-41e1-99-57-97-59-a2-88-46-cc')
+    _iid_ = Guid('{6235dc15-bfcb-41e1-9957-9759a28846cc}')
     @winrt_commethod(6)
     def get_UserDataAccountId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -61,7 +61,7 @@ class IUserDataAccountProviderResolveErrorsOperation(ComPtr):
     UserDataAccountId = property(get_UserDataAccountId, None)
 class IUserDataAccountProviderSettingsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('92034db7-8648-4f30-ac-fa-30-02-65-8c-a8-0d')
+    _iid_ = Guid('{92034db7-8648-4f30-acfa-3002658ca80d}')
     @winrt_commethod(6)
     def get_UserDataAccountId(self) -> WinRT_String: ...
     @winrt_commethod(7)

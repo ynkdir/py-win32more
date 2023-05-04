@@ -1588,7 +1588,7 @@ class ExpressionAnimation(ComPtr):
     Expression = property(get_Expression, put_Expression)
 class IAmbientLight(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a48130a1-b7c4-46f7-b9-bf-da-f4-3a-44-e6-ee')
+    _iid_ = Guid('{a48130a1-b7c4-46f7-b9bf-daf43a44e6ee}')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -1596,7 +1596,7 @@ class IAmbientLight(ComPtr):
     Color = property(get_Color, put_Color)
 class IAmbientLight2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3b64a6bf-5f97-4c94-86-e5-04-2d-d3-86-b2-7d')
+    _iid_ = Guid('{3b64a6bf-5f97-4c94-86e5-042dd386b27d}')
     @winrt_commethod(6)
     def get_Intensity(self) -> Single: ...
     @winrt_commethod(7)
@@ -1604,7 +1604,7 @@ class IAmbientLight2(ComPtr):
     Intensity = property(get_Intensity, put_Intensity)
 class IAnimationController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c934efd2-0722-4f5f-a4-e2-95-10-f3-d4-3b-f7')
+    _iid_ = Guid('{c934efd2-0722-4f5f-a4e2-9510f3d43bf7}')
     @winrt_commethod(6)
     def get_PlaybackRate(self) -> Single: ...
     @winrt_commethod(7)
@@ -1626,7 +1626,7 @@ class IAnimationController(ComPtr):
     ProgressBehavior = property(get_ProgressBehavior, put_ProgressBehavior)
 class IAnimationControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e71164df-651b-4800-b9-e5-6a-3b-cf-ed-33-65')
+    _iid_ = Guid('{e71164df-651b-4800-b9e5-6a3bcfed3365}')
     @winrt_commethod(6)
     def get_MaxPlaybackRate(self) -> Single: ...
     @winrt_commethod(7)
@@ -1635,12 +1635,12 @@ class IAnimationControllerStatics(ComPtr):
     MinPlaybackRate = property(get_MinPlaybackRate, None)
 class IAnimationObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e7141e0a-04b8-4fc5-a4-dc-19-53-92-e5-78-07')
+    _iid_ = Guid('{e7141e0a-04b8-4fc5-a4dc-195392e57807}')
     @winrt_commethod(6)
     def PopulatePropertyInfo(self, propertyName: WinRT_String, propertyInfo: Windows.UI.Composition.AnimationPropertyInfo) -> Void: ...
 class IAnimationPropertyInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f4716f05-ed77-4e3c-b3-28-5c-39-85-b3-73-8f')
+    _iid_ = Guid('{f4716f05-ed77-4e3c-b328-5c3985b3738f}')
     @winrt_commethod(6)
     def get_AccessMode(self) -> Windows.UI.Composition.AnimationPropertyAccessMode: ...
     @winrt_commethod(7)
@@ -1648,14 +1648,14 @@ class IAnimationPropertyInfo(ComPtr):
     AccessMode = property(get_AccessMode, put_AccessMode)
 class IAnimationPropertyInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('591720b4-7472-5218-8b-39-df-fe-61-5a-e6-da')
+    _iid_ = Guid('{591720b4-7472-5218-8b39-dffe615ae6da}')
     @winrt_commethod(6)
     def GetResolvedCompositionObject(self) -> Windows.UI.Composition.CompositionObject: ...
     @winrt_commethod(7)
     def GetResolvedCompositionObjectProperty(self) -> WinRT_String: ...
 class IBackEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b8560da4-5e3c-545d-b2-63-79-87-a2-bd-27-cb')
+    _iid_ = Guid('{b8560da4-5e3c-545d-b263-7987a2bd27cb}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_commethod(7)
@@ -1664,12 +1664,12 @@ class IBackEasingFunction(ComPtr):
     Amplitude = property(get_Amplitude, None)
 class IBooleanKeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('95e23a08-d1f4-4972-97-70-3e-fe-68-d8-2e-14')
+    _iid_ = Guid('{95e23a08-d1f4-4972-9770-3efe68d82e14}')
     @winrt_commethod(6)
     def InsertKeyFrame(self, normalizedProgressKey: Single, value: Boolean) -> Void: ...
 class IBounceEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e7fdb44b-aad5-5174-94-21-ee-f8-b7-5a-6a-43')
+    _iid_ = Guid('{e7fdb44b-aad5-5174-9421-eef8b75a6a43}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_commethod(7)
@@ -1681,7 +1681,7 @@ class IBounceEasingFunction(ComPtr):
     Bounciness = property(get_Bounciness, None)
 class IBounceScalarNaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('baa30dcc-a633-4618-9b-06-7f-7c-72-c8-7c-ff')
+    _iid_ = Guid('{baa30dcc-a633-4618-9b06-7f7c72c87cff}')
     @winrt_commethod(6)
     def get_Acceleration(self) -> Single: ...
     @winrt_commethod(7)
@@ -1694,7 +1694,7 @@ class IBounceScalarNaturalMotionAnimation(ComPtr):
     Restitution = property(get_Restitution, put_Restitution)
 class IBounceVector2NaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('da344196-2154-4b3c-88-aa-47-36-12-04-ec-cd')
+    _iid_ = Guid('{da344196-2154-4b3c-88aa-47361204eccd}')
     @winrt_commethod(6)
     def get_Acceleration(self) -> Single: ...
     @winrt_commethod(7)
@@ -1707,7 +1707,7 @@ class IBounceVector2NaturalMotionAnimation(ComPtr):
     Restitution = property(get_Restitution, put_Restitution)
 class IBounceVector3NaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('47dabc31-10d3-4518-86-f1-09-ca-f7-42-d1-13')
+    _iid_ = Guid('{47dabc31-10d3-4518-86f1-09caf742d113}')
     @winrt_commethod(6)
     def get_Acceleration(self) -> Single: ...
     @winrt_commethod(7)
@@ -1720,13 +1720,13 @@ class IBounceVector3NaturalMotionAnimation(ComPtr):
     Restitution = property(get_Restitution, put_Restitution)
 class ICircleEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1e07222a-6f82-5a28-87-48-2e-92-fc-46-ee-2b')
+    _iid_ = Guid('{1e07222a-6f82-5a28-8748-2e92fc46ee2b}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     Mode = property(get_Mode, None)
 class IColorKeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('93adb5e9-8e05-4593-84-a3-dc-a1-52-78-1e-56')
+    _iid_ = Guid('{93adb5e9-8e05-4593-84a3-dca152781e56}')
     @winrt_commethod(6)
     def get_InterpolationColorSpace(self) -> Windows.UI.Composition.CompositionColorSpace: ...
     @winrt_commethod(7)
@@ -1738,7 +1738,7 @@ class IColorKeyFrameAnimation(ComPtr):
     InterpolationColorSpace = property(get_InterpolationColorSpace, put_InterpolationColorSpace)
 class ICompositionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('464c4c2c-1caa-4061-9b-40-e1-3f-de-15-03-ca')
+    _iid_ = Guid('{464c4c2c-1caa-4061-9b40-e13fde1503ca}')
     @winrt_commethod(6)
     def ClearAllParameters(self) -> Void: ...
     @winrt_commethod(7)
@@ -1763,7 +1763,7 @@ class ICompositionAnimation(ComPtr):
     def SetVector4Parameter(self, key: WinRT_String, value: Windows.Foundation.Numerics.Vector4) -> Void: ...
 class ICompositionAnimation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('369b603e-a80f-4948-93-e3-ed-23-fb-38-c6-cb')
+    _iid_ = Guid('{369b603e-a80f-4948-93e3-ed23fb38c6cb}')
     @winrt_commethod(6)
     def SetBooleanParameter(self, key: WinRT_String, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -1773,24 +1773,24 @@ class ICompositionAnimation2(ComPtr):
     Target = property(get_Target, put_Target)
 class ICompositionAnimation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d51e030d-7da4-4bd7-bc-2d-f4-51-75-29-f4-3a')
+    _iid_ = Guid('{d51e030d-7da4-4bd7-bc2d-f4517529f43a}')
     @winrt_commethod(6)
     def get_InitialValueExpressions(self) -> Windows.UI.Composition.InitialValueExpressionCollection: ...
     InitialValueExpressions = property(get_InitialValueExpressions, None)
 class ICompositionAnimation4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('770137be-76bc-4e23-bf-ed-fe-9c-c2-0f-6e-c9')
+    _iid_ = Guid('{770137be-76bc-4e23-bfed-fe9cc20f6ec9}')
     @winrt_commethod(6)
     def SetExpressionReferenceParameter(self, parameterName: WinRT_String, source: Windows.UI.Composition.IAnimationObject) -> Void: ...
 class ICompositionAnimationBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1c2c2999-e818-48d3-a6-dd-d7-8c-82-f8-ac-e9')
+    _iid_ = Guid('{1c2c2999-e818-48d3-a6dd-d78c82f8ace9}')
 class ICompositionAnimationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('10f6c4fb-6e51-4c25-bb-d3-58-6a-9b-ec-3e-f4')
+    _iid_ = Guid('{10f6c4fb-6e51-4c25-bbd3-586a9bec3ef4}')
 class ICompositionAnimationGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5e7cc90c-cd14-4e07-8a-55-c7-25-27-aa-bd-ac')
+    _iid_ = Guid('{5e7cc90c-cd14-4e07-8a55-c72527aabdac}')
     @winrt_commethod(6)
     def get_Count(self) -> Int32: ...
     @winrt_commethod(7)
@@ -1802,19 +1802,19 @@ class ICompositionAnimationGroup(ComPtr):
     Count = property(get_Count, None)
 class ICompositionBackdropBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c5acae58-3898-499e-8d-7f-22-4e-91-28-6a-5d')
+    _iid_ = Guid('{c5acae58-3898-499e-8d7f-224e91286a5d}')
 class ICompositionBatchCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0d00dad0-9464-450a-a5-62-2e-26-98-b0-a8-12')
+    _iid_ = Guid('{0d00dad0-9464-450a-a562-2e2698b0a812}')
 class ICompositionBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ab0d7608-30c0-40e9-b5-68-b6-0a-6b-d1-fb-46')
+    _iid_ = Guid('{ab0d7608-30c0-40e9-b568-b60a6bd1fb46}')
 class ICompositionBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('da53fb4c-4650-47c4-ad-76-76-53-79-60-7e-d6')
+    _iid_ = Guid('{da53fb4c-4650-47c4-ad76-765379607ed6}')
 class ICompositionCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8253353e-b517-48bc-b1-e8-4b-35-61-a2-e1-81')
+    _iid_ = Guid('{8253353e-b517-48bc-b1e8-4b3561a2e181}')
     @winrt_commethod(6)
     def AreEffectsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1825,15 +1825,15 @@ class ICompositionCapabilities(ComPtr):
     def remove_Changed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICompositionCapabilitiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f7b7a86e-6416-49e5-8d-df-af-e9-49-e2-05-62')
+    _iid_ = Guid('{f7b7a86e-6416-49e5-8ddf-afe949e20562}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Composition.CompositionCapabilities: ...
 class ICompositionClip(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1ccd2a52-cfc7-4ace-99-83-14-6b-b8-eb-6a-3c')
+    _iid_ = Guid('{1ccd2a52-cfc7-4ace-9983-146bb8eb6a3c}')
 class ICompositionClip2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5893e069-3516-40e1-89-e0-5b-a9-24-92-72-35')
+    _iid_ = Guid('{5893e069-3516-40e1-89e0-5ba924927235}')
     @winrt_commethod(6)
     def get_AnchorPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -1871,10 +1871,10 @@ class ICompositionClip2(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class ICompositionClipFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b9484caf-20c7-4aed-ac-4a-9c-78-ba-13-02-cf')
+    _iid_ = Guid('{b9484caf-20c7-4aed-ac4a-9c78ba1302cf}')
 class ICompositionColorBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2b264c5e-bf35-4831-86-42-cf-70-c2-0f-ff-2f')
+    _iid_ = Guid('{2b264c5e-bf35-4831-8642-cf70c20fff2f}')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -1882,7 +1882,7 @@ class ICompositionColorBrush(ComPtr):
     Color = property(get_Color, put_Color)
 class ICompositionColorGradientStop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6f00ca92-c801-4e41-9a-8f-a5-3e-20-f5-77-78')
+    _iid_ = Guid('{6f00ca92-c801-4e41-9a8f-a53e20f57778}')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -1895,10 +1895,10 @@ class ICompositionColorGradientStop(ComPtr):
     Offset = property(get_Offset, put_Offset)
 class ICompositionColorGradientStopCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9f1d20ec-7b04-4b1d-90-bc-9f-a3-2c-0c-fd-26')
+    _iid_ = Guid('{9f1d20ec-7b04-4b1d-90bc-9fa32c0cfd26}')
 class ICompositionCommitBatch(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0d00dad0-ca07-4400-8c-8e-cb-5d-b0-85-59-cc')
+    _iid_ = Guid('{0d00dad0-ca07-4400-8c8e-cb5db08559cc}')
     @winrt_commethod(6)
     def get_IsActive(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1911,13 +1911,13 @@ class ICompositionCommitBatch(ComPtr):
     IsEnded = property(get_IsEnded, None)
 class ICompositionContainerShape(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4f5e859b-2e5b-44a8-98-2c-aa-0f-69-c1-60-59')
+    _iid_ = Guid('{4f5e859b-2e5b-44a8-982c-aa0f69c16059}')
     @winrt_commethod(6)
     def get_Shapes(self) -> Windows.UI.Composition.CompositionShapeCollection: ...
     Shapes = property(get_Shapes, None)
 class ICompositionDrawingSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a166c300-fad0-4d11-9e-67-e4-33-16-2f-f4-9e')
+    _iid_ = Guid('{a166c300-fad0-4d11-9e67-e433162ff49e}')
     @winrt_commethod(6)
     def get_AlphaMode(self) -> Windows.Graphics.DirectX.DirectXAlphaMode: ...
     @winrt_commethod(7)
@@ -1929,7 +1929,7 @@ class ICompositionDrawingSurface(ComPtr):
     Size = property(get_Size, None)
 class ICompositionDrawingSurface2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fad0e88b-e354-44e8-8e-3d-c4-88-0d-5a-21-3f')
+    _iid_ = Guid('{fad0e88b-e354-44e8-8e3d-c4880d5a213f}')
     @winrt_commethod(6)
     def get_SizeInt32(self) -> Windows.Graphics.SizeInt32: ...
     @winrt_commethod(7)
@@ -1945,16 +1945,16 @@ class ICompositionDrawingSurface2(ComPtr):
     SizeInt32 = property(get_SizeInt32, None)
 class ICompositionDrawingSurfaceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9497b00a-312d-46b9-9d-b3-41-2f-d7-94-64-c8')
+    _iid_ = Guid('{9497b00a-312d-46b9-9db3-412fd79464c8}')
 class ICompositionEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5145e356-bf79-4ea8-8c-c2-6b-5b-47-2e-6c-9a')
+    _iid_ = Guid('{5145e356-bf79-4ea8-8cc2-6b5b472e6c9a}')
 class ICompositionEasingFunctionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('60840774-3da0-4949-82-00-72-06-c0-01-90-a0')
+    _iid_ = Guid('{60840774-3da0-4949-8200-7206c00190a0}')
 class ICompositionEasingFunctionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('17a766b6-2936-53ea-b5-af-c6-42-f4-a6-10-83')
+    _iid_ = Guid('{17a766b6-2936-53ea-b5af-c642f4a61083}')
     @winrt_commethod(6)
     def CreateCubicBezierEasingFunction(self, owner: Windows.UI.Composition.Compositor, controlPoint1: Windows.Foundation.Numerics.Vector2, controlPoint2: Windows.Foundation.Numerics.Vector2) -> Windows.UI.Composition.CubicBezierEasingFunction: ...
     @winrt_commethod(7)
@@ -1979,14 +1979,14 @@ class ICompositionEasingFunctionStatics(ComPtr):
     def CreateSineEasingFunction(self, owner: Windows.UI.Composition.Compositor, mode: Windows.UI.Composition.CompositionEasingFunctionMode) -> Windows.UI.Composition.SineEasingFunction: ...
 class ICompositionEffectBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bf7f795e-83cc-44bf-a4-47-3e-3c-07-17-89-ec')
+    _iid_ = Guid('{bf7f795e-83cc-44bf-a447-3e3c071789ec}')
     @winrt_commethod(6)
     def GetSourceParameter(self, name: WinRT_String) -> Windows.UI.Composition.CompositionBrush: ...
     @winrt_commethod(7)
     def SetSourceParameter(self, name: WinRT_String, source: Windows.UI.Composition.CompositionBrush) -> Void: ...
 class ICompositionEffectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('be5624af-ba7e-4510-98-50-41-c0-b4-ff-74-df')
+    _iid_ = Guid('{be5624af-ba7e-4510-9850-41c0b4ff74df}')
     @winrt_commethod(6)
     def CreateBrush(self) -> Windows.UI.Composition.CompositionEffectBrush: ...
     @winrt_commethod(7)
@@ -1997,18 +1997,18 @@ class ICompositionEffectFactory(ComPtr):
     LoadStatus = property(get_LoadStatus, None)
 class ICompositionEffectSourceParameter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('858ab13a-3292-4e4e-b3-bb-2b-6c-65-44-a6-ee')
+    _iid_ = Guid('{858ab13a-3292-4e4e-b3bb-2b6c6544a6ee}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     Name = property(get_Name, None)
 class ICompositionEffectSourceParameterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b3d9f276-aba3-4724-ac-f3-d0-39-74-64-db-1c')
+    _iid_ = Guid('{b3d9f276-aba3-4724-acf3-d0397464db1c}')
     @winrt_commethod(6)
     def Create(self, name: WinRT_String) -> Windows.UI.Composition.CompositionEffectSourceParameter: ...
 class ICompositionEllipseGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4801f884-f6ad-4b93-af-a9-89-7b-64-e5-7b-1f')
+    _iid_ = Guid('{4801f884-f6ad-4b93-afa9-897b64e57b1f}')
     @winrt_commethod(6)
     def get_Center(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2021,7 +2021,7 @@ class ICompositionEllipseGeometry(ComPtr):
     Radius = property(get_Radius, put_Radius)
 class ICompositionGeometricClip(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c840b581-81c9-4444-a2-c1-cc-ae-ce-3a-50-e5')
+    _iid_ = Guid('{c840b581-81c9-4444-a2c1-ccaece3a50e5}')
     @winrt_commethod(6)
     def get_Geometry(self) -> Windows.UI.Composition.CompositionGeometry: ...
     @winrt_commethod(7)
@@ -2034,7 +2034,7 @@ class ICompositionGeometricClip(ComPtr):
     ViewBox = property(get_ViewBox, put_ViewBox)
 class ICompositionGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e985217c-6a17-4207-ab-d8-5f-d3-dd-61-2a-9d')
+    _iid_ = Guid('{e985217c-6a17-4207-abd8-5fd3dd612a9d}')
     @winrt_commethod(6)
     def get_TrimEnd(self) -> Single: ...
     @winrt_commethod(7)
@@ -2052,10 +2052,10 @@ class ICompositionGeometry(ComPtr):
     TrimStart = property(get_TrimStart, put_TrimStart)
 class ICompositionGeometryFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bffebfe1-8c25-480b-9f-56-fe-d6-b2-88-05-5d')
+    _iid_ = Guid('{bffebfe1-8c25-480b-9f56-fed6b288055d}')
 class ICompositionGradientBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1d9709e0-ffc6-4c0e-a9-ab-34-14-4d-4c-90-98')
+    _iid_ = Guid('{1d9709e0-ffc6-4c0e-a9ab-34144d4c9098}')
     @winrt_commethod(6)
     def get_AnchorPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2106,7 +2106,7 @@ class ICompositionGradientBrush(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class ICompositionGradientBrush2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('899dd5a1-b4c7-4b33-a1-b6-26-4a-dd-c2-6d-10')
+    _iid_ = Guid('{899dd5a1-b4c7-4b33-a1b6-264addc26d10}')
     @winrt_commethod(6)
     def get_MappingMode(self) -> Windows.UI.Composition.CompositionMappingMode: ...
     @winrt_commethod(7)
@@ -2114,10 +2114,10 @@ class ICompositionGradientBrush2(ComPtr):
     MappingMode = property(get_MappingMode, put_MappingMode)
 class ICompositionGradientBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('56d765d7-f189-48c9-9c-8d-94-da-f1-be-c0-10')
+    _iid_ = Guid('{56d765d7-f189-48c9-9c8d-94daf1bec010}')
 class ICompositionGraphicsDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fb22c6e1-80a2-4667-99-36-db-ea-f6-ee-fe-95')
+    _iid_ = Guid('{fb22c6e1-80a2-4667-9936-dbeaf6eefe95}')
     @winrt_commethod(6)
     def CreateDrawingSurface(self, sizePixels: Windows.Foundation.Size, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, alphaMode: Windows.Graphics.DirectX.DirectXAlphaMode) -> Windows.UI.Composition.CompositionDrawingSurface: ...
     @winrt_commethod(7)
@@ -2126,38 +2126,38 @@ class ICompositionGraphicsDevice(ComPtr):
     def remove_RenderingDeviceReplaced(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICompositionGraphicsDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0fb8bdf6-c0f0-4bcc-9f-b8-08-49-82-49-0d-7d')
+    _iid_ = Guid('{0fb8bdf6-c0f0-4bcc-9fb8-084982490d7d}')
     @winrt_commethod(6)
     def CreateDrawingSurface2(self, sizePixels: Windows.Graphics.SizeInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, alphaMode: Windows.Graphics.DirectX.DirectXAlphaMode) -> Windows.UI.Composition.CompositionDrawingSurface: ...
     @winrt_commethod(7)
     def CreateVirtualDrawingSurface(self, sizePixels: Windows.Graphics.SizeInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, alphaMode: Windows.Graphics.DirectX.DirectXAlphaMode) -> Windows.UI.Composition.CompositionVirtualDrawingSurface: ...
 class ICompositionGraphicsDevice3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('37f67514-d3ef-49d1-b6-9d-0d-8e-ab-eb-36-26')
+    _iid_ = Guid('{37f67514-d3ef-49d1-b69d-0d8eabeb3626}')
     @winrt_commethod(6)
     def CreateMipmapSurface(self, sizePixels: Windows.Graphics.SizeInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, alphaMode: Windows.Graphics.DirectX.DirectXAlphaMode) -> Windows.UI.Composition.CompositionMipmapSurface: ...
     @winrt_commethod(7)
     def Trim(self) -> Void: ...
 class ICompositionGraphicsDevice4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5a73bff9-a97f-4cf5-ba-46-98-ef-35-8e-71-b1')
+    _iid_ = Guid('{5a73bff9-a97f-4cf5-ba46-98ef358e71b1}')
     @winrt_commethod(6)
     def CaptureAsync(self, captureVisual: Windows.UI.Composition.Visual, size: Windows.Graphics.SizeInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, alphaMode: Windows.Graphics.DirectX.DirectXAlphaMode, sdrBoost: Single) -> Windows.Foundation.IAsyncOperation[Windows.UI.Composition.ICompositionSurface]: ...
 class ICompositionLight(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('41a6d7c2-2e5d-4bc1-b0-9e-8f-0a-03-e3-d8-d3')
+    _iid_ = Guid('{41a6d7c2-2e5d-4bc1-b09e-8f0a03e3d8d3}')
     @winrt_commethod(6)
     def get_Targets(self) -> Windows.UI.Composition.VisualUnorderedCollection: ...
     Targets = property(get_Targets, None)
 class ICompositionLight2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a7bcda72-f35d-425d-9b-98-23-f4-20-5f-66-69')
+    _iid_ = Guid('{a7bcda72-f35d-425d-9b98-23f4205f6669}')
     @winrt_commethod(6)
     def get_ExclusionsFromTargets(self) -> Windows.UI.Composition.VisualUnorderedCollection: ...
     ExclusionsFromTargets = property(get_ExclusionsFromTargets, None)
 class ICompositionLight3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4b0b00e4-df07-4959-b7-a4-4f-7e-42-33-f8-38')
+    _iid_ = Guid('{4b0b00e4-df07-4959-b7a4-4f7e4233f838}')
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2165,10 +2165,10 @@ class ICompositionLight3(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class ICompositionLightFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('069cf306-da3c-4b44-83-8a-5e-03-d5-1a-ce-55')
+    _iid_ = Guid('{069cf306-da3c-4b44-838a-5e03d51ace55}')
 class ICompositionLineGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dd7615a4-0c9a-4b67-8d-ce-44-0a-5b-f9-cd-ec')
+    _iid_ = Guid('{dd7615a4-0c9a-4b67-8dce-440a5bf9cdec}')
     @winrt_commethod(6)
     def get_Start(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2181,7 +2181,7 @@ class ICompositionLineGeometry(ComPtr):
     End = property(get_End, put_End)
 class ICompositionLinearGradientBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('983bc519-a9db-413c-a2-d8-2a-90-56-fc-52-5e')
+    _iid_ = Guid('{983bc519-a9db-413c-a2d8-2a9056fc525e}')
     @winrt_commethod(6)
     def get_EndPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2194,7 +2194,7 @@ class ICompositionLinearGradientBrush(ComPtr):
     StartPoint = property(get_StartPoint, put_StartPoint)
 class ICompositionMaskBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('522cf09e-be6b-4f41-be-49-f9-22-6d-47-1b-4a')
+    _iid_ = Guid('{522cf09e-be6b-4f41-be49-f9226d471b4a}')
     @winrt_commethod(6)
     def get_Mask(self) -> Windows.UI.Composition.CompositionBrush: ...
     @winrt_commethod(7)
@@ -2207,7 +2207,7 @@ class ICompositionMaskBrush(ComPtr):
     Source = property(get_Source, put_Source)
 class ICompositionMipmapSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4863675c-cf4a-4b1c-9e-ce-c5-ec-0c-2b-2f-e6')
+    _iid_ = Guid('{4863675c-cf4a-4b1c-9ece-c5ec0c2b2fe6}')
     @winrt_commethod(6)
     def get_LevelCount(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -2224,7 +2224,7 @@ class ICompositionMipmapSurface(ComPtr):
     SizeInt32 = property(get_SizeInt32, None)
 class ICompositionNineGridBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f25154e4-bc8c-4be7-b8-0f-86-85-b8-3c-01-86')
+    _iid_ = Guid('{f25154e4-bc8c-4be7-b80f-8685b83c0186}')
     @winrt_commethod(6)
     def get_BottomInset(self) -> Single: ...
     @winrt_commethod(7)
@@ -2285,7 +2285,7 @@ class ICompositionNineGridBrush(ComPtr):
     TopInsetScale = property(get_TopInsetScale, put_TopInsetScale)
 class ICompositionObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bcb4ad45-7609-4550-93-4f-16-00-2a-68-fd-ed')
+    _iid_ = Guid('{bcb4ad45-7609-4550-934f-16002a68fded}')
     @winrt_commethod(6)
     def get_Compositor(self) -> Windows.UI.Composition.Compositor: ...
     @winrt_commethod(7)
@@ -2301,7 +2301,7 @@ class ICompositionObject(ComPtr):
     Properties = property(get_Properties, None)
 class ICompositionObject2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ef874ea1-5cff-4b68-9e-30-a1-51-9d-08-ba-03')
+    _iid_ = Guid('{ef874ea1-5cff-4b68-9e30-a1519d08ba03}')
     @winrt_commethod(6)
     def get_Comment(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2318,41 +2318,41 @@ class ICompositionObject2(ComPtr):
     ImplicitAnimations = property(get_ImplicitAnimations, put_ImplicitAnimations)
 class ICompositionObject3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4bc27925-dacd-4cf2-98-b1-98-6b-76-e7-eb-e6')
+    _iid_ = Guid('{4bc27925-dacd-4cf2-98b1-986b76e7ebe6}')
     @winrt_commethod(6)
     def get_DispatcherQueue(self) -> Windows.System.DispatcherQueue: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
 class ICompositionObject4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0bb3784c-346b-4a7c-96-6b-73-10-96-65-53-d5')
+    _iid_ = Guid('{0bb3784c-346b-4a7c-966b-7310966553d5}')
     @winrt_commethod(6)
     def TryGetAnimationController(self, propertyName: WinRT_String) -> Windows.UI.Composition.AnimationController: ...
 class ICompositionObject5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1d7f391b-a130-5265-a6-2b-60-b8-e6-68-96-5a')
+    _iid_ = Guid('{1d7f391b-a130-5265-a62b-60b8e668965a}')
     @winrt_commethod(6)
     def StartAnimationWithController(self, propertyName: WinRT_String, animation: Windows.UI.Composition.CompositionAnimation, animationController: Windows.UI.Composition.AnimationController) -> Void: ...
 class ICompositionObjectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('51205c5e-558a-4f2a-8d-39-37-bf-e1-e2-0d-dd')
+    _iid_ = Guid('{51205c5e-558a-4f2a-8d39-37bfe1e20ddd}')
 class ICompositionObjectStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c1ed052f-1ba2-44ba-a9-04-6a-88-2a-0a-5a-db')
+    _iid_ = Guid('{c1ed052f-1ba2-44ba-a904-6a882a0a5adb}')
     @winrt_commethod(6)
     def StartAnimationWithIAnimationObject(self, target: Windows.UI.Composition.IAnimationObject, propertyName: WinRT_String, animation: Windows.UI.Composition.CompositionAnimation) -> Void: ...
     @winrt_commethod(7)
     def StartAnimationGroupWithIAnimationObject(self, target: Windows.UI.Composition.IAnimationObject, animation: Windows.UI.Composition.ICompositionAnimationBase) -> Void: ...
 class ICompositionPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('66da1d5f-2e10-4f22-8a-06-0a-81-51-91-9e-60')
+    _iid_ = Guid('{66da1d5f-2e10-4f22-8a06-0a8151919e60}')
 class ICompositionPathFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9c1e8c6a-0f33-4751-94-37-eb-3f-b9-d3-ab-07')
+    _iid_ = Guid('{9c1e8c6a-0f33-4751-9437-eb3fb9d3ab07}')
     @winrt_commethod(6)
     def Create(self, source: Windows.Graphics.IGeometrySource2D) -> Windows.UI.Composition.CompositionPath: ...
 class ICompositionPathGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0b6a417e-2c77-4c23-af-5e-63-04-c1-47-bb-61')
+    _iid_ = Guid('{0b6a417e-2c77-4c23-af5e-6304c147bb61}')
     @winrt_commethod(6)
     def get_Path(self) -> Windows.UI.Composition.CompositionPath: ...
     @winrt_commethod(7)
@@ -2360,7 +2360,7 @@ class ICompositionPathGeometry(ComPtr):
     Path = property(get_Path, put_Path)
 class ICompositionProjectedShadow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('285b8e72-4328-523f-bc-f2-55-57-c5-2c-3b-25')
+    _iid_ = Guid('{285b8e72-4328-523f-bcf2-5557c52c3b25}')
     @winrt_commethod(6)
     def get_BlurRadiusMultiplier(self) -> Single: ...
     @winrt_commethod(7)
@@ -2389,7 +2389,7 @@ class ICompositionProjectedShadow(ComPtr):
     Receivers = property(get_Receivers, None)
 class ICompositionProjectedShadowCaster(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b1d7d426-1e36-5a62-be-56-a1-61-12-fd-d1-48')
+    _iid_ = Guid('{b1d7d426-1e36-5a62-be56-a16112fdd148}')
     @winrt_commethod(6)
     def get_Brush(self) -> Windows.UI.Composition.CompositionBrush: ...
     @winrt_commethod(7)
@@ -2402,7 +2402,7 @@ class ICompositionProjectedShadowCaster(ComPtr):
     CastingVisual = property(get_CastingVisual, put_CastingVisual)
 class ICompositionProjectedShadowCasterCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d2525c0c-e07f-58a3-ac-91-37-f7-3e-e9-17-40')
+    _iid_ = Guid('{d2525c0c-e07f-58a3-ac91-37f73ee91740}')
     @winrt_commethod(6)
     def get_Count(self) -> Int32: ...
     @winrt_commethod(7)
@@ -2420,13 +2420,13 @@ class ICompositionProjectedShadowCasterCollection(ComPtr):
     Count = property(get_Count, None)
 class ICompositionProjectedShadowCasterCollectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('56fbb136-e94f-5299-ab-5b-6e-15-e3-8b-d8-99')
+    _iid_ = Guid('{56fbb136-e94f-5299-ab5b-6e15e38bd899}')
     @winrt_commethod(6)
     def get_MaxRespectedCasters(self) -> Int32: ...
     MaxRespectedCasters = property(get_MaxRespectedCasters, None)
 class ICompositionProjectedShadowReceiver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1377985a-6a49-536a-9b-e4-a9-6a-8e-52-98-a9')
+    _iid_ = Guid('{1377985a-6a49-536a-9be4-a96a8e5298a9}')
     @winrt_commethod(6)
     def get_ReceivingVisual(self) -> Windows.UI.Composition.Visual: ...
     @winrt_commethod(7)
@@ -2434,7 +2434,7 @@ class ICompositionProjectedShadowReceiver(ComPtr):
     ReceivingVisual = property(get_ReceivingVisual, put_ReceivingVisual)
 class ICompositionProjectedShadowReceiverUnorderedCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('02b3e3b7-27d2-599f-ac-4b-ab-78-7c-dd-e6-fd')
+    _iid_ = Guid('{02b3e3b7-27d2-599f-ac4b-ab787cdde6fd}')
     @winrt_commethod(6)
     def Add(self, value: Windows.UI.Composition.CompositionProjectedShadowReceiver) -> Void: ...
     @winrt_commethod(7)
@@ -2446,7 +2446,7 @@ class ICompositionProjectedShadowReceiverUnorderedCollection(ComPtr):
     Count = property(get_Count, None)
 class ICompositionPropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c9d6d202-5f67-4453-91-17-9e-ad-d4-30-d3-c2')
+    _iid_ = Guid('{c9d6d202-5f67-4453-9117-9eadd430d3c2}')
     @winrt_commethod(6)
     def InsertColor(self, propertyName: WinRT_String, value: Windows.UI.Color) -> Void: ...
     @winrt_commethod(7)
@@ -2481,14 +2481,14 @@ class ICompositionPropertySet(ComPtr):
     def TryGetVector4(self, propertyName: WinRT_String, value: POINTER(Windows.Foundation.Numerics.Vector4_head)) -> Windows.UI.Composition.CompositionGetValueStatus: ...
 class ICompositionPropertySet2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('de80731e-a211-4455-88-80-7d-0f-3f-6a-44-fd')
+    _iid_ = Guid('{de80731e-a211-4455-8880-7d0f3f6a44fd}')
     @winrt_commethod(6)
     def InsertBoolean(self, propertyName: WinRT_String, value: Boolean) -> Void: ...
     @winrt_commethod(7)
     def TryGetBoolean(self, propertyName: WinRT_String, value: POINTER(Boolean)) -> Windows.UI.Composition.CompositionGetValueStatus: ...
 class ICompositionRadialGradientBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d3b50c5-e3fa-4ce2-b9-fc-3e-e1-25-61-78-8f')
+    _iid_ = Guid('{3d3b50c5-e3fa-4ce2-b9fc-3ee12561788f}')
     @winrt_commethod(6)
     def get_EllipseCenter(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2506,7 +2506,7 @@ class ICompositionRadialGradientBrush(ComPtr):
     GradientOriginOffset = property(get_GradientOriginOffset, put_GradientOriginOffset)
 class ICompositionRectangleGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0cd51428-5356-4246-ae-cf-7a-0b-76-97-54-00')
+    _iid_ = Guid('{0cd51428-5356-4246-aecf-7a0b76975400}')
     @winrt_commethod(6)
     def get_Offset(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2519,7 +2519,7 @@ class ICompositionRectangleGeometry(ComPtr):
     Size = property(get_Size, put_Size)
 class ICompositionRoundedRectangleGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8770c822-1d50-4b8b-b0-13-7c-9a-0e-46-93-5f')
+    _iid_ = Guid('{8770c822-1d50-4b8b-b013-7c9a0e46935f}')
     @winrt_commethod(6)
     def get_CornerRadius(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2537,7 +2537,7 @@ class ICompositionRoundedRectangleGeometry(ComPtr):
     Size = property(get_Size, put_Size)
 class ICompositionScopedBatch(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0d00dad0-fb07-46fd-8c-72-62-80-d1-a3-d1-dd')
+    _iid_ = Guid('{0d00dad0-fb07-46fd-8c72-6280d1a3d1dd}')
     @winrt_commethod(6)
     def get_IsActive(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2556,13 +2556,13 @@ class ICompositionScopedBatch(ComPtr):
     IsEnded = property(get_IsEnded, None)
 class ICompositionShadow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('329e52e2-4335-49cc-b1-4a-37-78-2d-10-f0-c4')
+    _iid_ = Guid('{329e52e2-4335-49cc-b14a-37782d10f0c4}')
 class ICompositionShadowFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('221f492f-dcba-4b91-99-9e-1d-c2-17-a0-15-30')
+    _iid_ = Guid('{221f492f-dcba-4b91-999e-1dc217a01530}')
 class ICompositionShape(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b47ce2f7-9a88-42c4-9e-87-2e-50-0c-a8-68-8c')
+    _iid_ = Guid('{b47ce2f7-9a88-42c4-9e87-2e500ca8688c}')
     @winrt_commethod(6)
     def get_CenterPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2595,10 +2595,10 @@ class ICompositionShape(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class ICompositionShapeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1dfc36d0-b05a-44ef-82-b0-12-11-8b-cd-4c-d0')
+    _iid_ = Guid('{1dfc36d0-b05a-44ef-82b0-12118bcd4cd0}')
 class ICompositionSpriteShape(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('401b61bb-0007-4363-b1-f3-6b-cc-00-3f-b8-3e')
+    _iid_ = Guid('{401b61bb-0007-4363-b1f3-6bcc003fb83e}')
     @winrt_commethod(6)
     def get_FillBrush(self) -> Windows.UI.Composition.CompositionBrush: ...
     @winrt_commethod(7)
@@ -2659,7 +2659,7 @@ class ICompositionSpriteShape(ComPtr):
     StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
 class ICompositionSupportsSystemBackdrop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('397dafe4-b6c2-5bb9-95-1d-f5-70-7d-e8-b7-bc')
+    _iid_ = Guid('{397dafe4-b6c2-5bb9-951d-f5707de8b7bc}')
     @winrt_commethod(6)
     def get_SystemBackdrop(self) -> Windows.UI.Composition.CompositionBrush: ...
     @winrt_commethod(7)
@@ -2667,10 +2667,10 @@ class ICompositionSupportsSystemBackdrop(ComPtr):
     SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
 class ICompositionSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1527540d-42c7-47a6-a4-08-66-8f-79-a9-0d-fb')
+    _iid_ = Guid('{1527540d-42c7-47a6-a408-668f79a90dfb}')
 class ICompositionSurfaceBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ad016d79-1e4c-4c0d-9c-29-83-33-8c-87-c1-62')
+    _iid_ = Guid('{ad016d79-1e4c-4c0d-9c29-83338c87c162}')
     @winrt_commethod(6)
     def get_BitmapInterpolationMode(self) -> Windows.UI.Composition.CompositionBitmapInterpolationMode: ...
     @winrt_commethod(7)
@@ -2698,7 +2698,7 @@ class ICompositionSurfaceBrush(ComPtr):
     VerticalAlignmentRatio = property(get_VerticalAlignmentRatio, put_VerticalAlignmentRatio)
 class ICompositionSurfaceBrush2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d27174d5-64f5-4692-9d-c7-71-b6-1d-7e-58-80')
+    _iid_ = Guid('{d27174d5-64f5-4692-9dc7-71b61d7e5880}')
     @winrt_commethod(6)
     def get_AnchorPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -2736,7 +2736,7 @@ class ICompositionSurfaceBrush2(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class ICompositionSurfaceBrush3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('550bb289-1fe0-42e5-81-95-1e-ef-a8-7f-f0-8e')
+    _iid_ = Guid('{550bb289-1fe0-42e5-8195-1eefa87ff08e}')
     @winrt_commethod(6)
     def get_SnapToPixels(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2744,12 +2744,12 @@ class ICompositionSurfaceBrush3(ComPtr):
     SnapToPixels = property(get_SnapToPixels, put_SnapToPixels)
 class ICompositionSurfaceFacade(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e01622c8-2332-55c7-88-68-a7-31-2c-5c-22-9d')
+    _iid_ = Guid('{e01622c8-2332-55c7-8868-a7312c5c229d}')
     @winrt_commethod(6)
     def GetRealSurface(self) -> Windows.UI.Composition.ICompositionSurface: ...
 class ICompositionTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a1bea8ba-d726-4663-81-29-6b-5e-79-27-ff-a6')
+    _iid_ = Guid('{a1bea8ba-d726-4663-8129-6b5e7927ffa6}')
     @winrt_commethod(6)
     def get_Root(self) -> Windows.UI.Composition.Visual: ...
     @winrt_commethod(7)
@@ -2757,16 +2757,16 @@ class ICompositionTarget(ComPtr):
     Root = property(get_Root, put_Root)
 class ICompositionTargetFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('93cd9d2b-8516-4b14-a8-ce-f4-9e-21-19-ec-42')
+    _iid_ = Guid('{93cd9d2b-8516-4b14-a8ce-f49e2119ec42}')
 class ICompositionTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7cd54529-fbed-4112-ab-c5-18-59-06-dd-92-7c')
+    _iid_ = Guid('{7cd54529-fbed-4112-abc5-185906dd927c}')
 class ICompositionTransformFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aaaeca26-c149-517a-8f-72-6b-ff-7a-65-ce-08')
+    _iid_ = Guid('{aaaeca26-c149-517a-8f72-6bff7a65ce08}')
 class ICompositionViewBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b440bf07-068f-4537-84-c6-4e-cb-e0-19-e1-f4')
+    _iid_ = Guid('{b440bf07-068f-4537-84c6-4ecbe019e1f4}')
     @winrt_commethod(6)
     def get_HorizontalAlignmentRatio(self) -> Single: ...
     @winrt_commethod(7)
@@ -2794,15 +2794,15 @@ class ICompositionViewBox(ComPtr):
     VerticalAlignmentRatio = property(get_VerticalAlignmentRatio, put_VerticalAlignmentRatio)
 class ICompositionVirtualDrawingSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a9c384db-8740-4f94-8b-9d-b6-85-21-e7-86-3d')
+    _iid_ = Guid('{a9c384db-8740-4f94-8b9d-b68521e7863d}')
     @winrt_commethod(6)
     def Trim(self, rects: POINTER(Windows.Graphics.RectInt32_head)) -> Void: ...
 class ICompositionVirtualDrawingSurfaceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6766106c-d56b-4a49-b1-df-50-76-a0-62-07-68')
+    _iid_ = Guid('{6766106c-d56b-4a49-b1df-5076a0620768}')
 class ICompositionVisualSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b224d803-4f6e-4a3f-8c-ae-3d-c1-cd-a7-4f-c6')
+    _iid_ = Guid('{b224d803-4f6e-4a3f-8cae-3dc1cda74fc6}')
     @winrt_commethod(6)
     def get_SourceVisual(self) -> Windows.UI.Composition.Visual: ...
     @winrt_commethod(7)
@@ -2820,7 +2820,7 @@ class ICompositionVisualSurface(ComPtr):
     SourceSize = property(get_SourceSize, put_SourceSize)
 class ICompositor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b403ca50-7f8c-4e83-98-5f-cc-45-06-00-36-d8')
+    _iid_ = Guid('{b403ca50-7f8c-4e83-985f-cc45060036d8}')
     @winrt_commethod(6)
     def CreateColorKeyFrameAnimation(self) -> Windows.UI.Composition.ColorKeyFrameAnimation: ...
     @winrt_commethod(7)
@@ -2871,7 +2871,7 @@ class ICompositor(ComPtr):
     def GetCommitBatch(self, batchType: Windows.UI.Composition.CompositionBatchTypes) -> Windows.UI.Composition.CompositionCommitBatch: ...
 class ICompositor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('735081dc-5e24-45da-a3-8f-e3-2c-c3-49-a9-a0')
+    _iid_ = Guid('{735081dc-5e24-45da-a38f-e32cc349a9a0}')
     @winrt_commethod(6)
     def CreateAmbientLight(self) -> Windows.UI.Composition.AmbientLight: ...
     @winrt_commethod(7)
@@ -2900,12 +2900,12 @@ class ICompositor2(ComPtr):
     def CreateStepEasingFunctionWithStepCount(self, stepCount: Int32) -> Windows.UI.Composition.StepEasingFunction: ...
 class ICompositor3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c9dd8ef0-6eb1-4e3c-a6-58-67-5d-9c-64-d4-ab')
+    _iid_ = Guid('{c9dd8ef0-6eb1-4e3c-a658-675d9c64d4ab}')
     @winrt_commethod(6)
     def CreateHostBackdropBrush(self) -> Windows.UI.Composition.CompositionBackdropBrush: ...
 class ICompositor4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ae47e78a-7910-4425-a4-82-a0-5b-75-8a-dc-e9')
+    _iid_ = Guid('{ae47e78a-7910-4425-a482-a05b758adce9}')
     @winrt_commethod(6)
     def CreateColorGradientStop(self) -> Windows.UI.Composition.CompositionColorGradientStop: ...
     @winrt_commethod(7)
@@ -2920,7 +2920,7 @@ class ICompositor4(ComPtr):
     def CreateSpringVector3Animation(self) -> Windows.UI.Composition.SpringVector3NaturalMotionAnimation: ...
 class ICompositor5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('48ea31ad-7fcd-4076-a7-9c-90-cc-4b-85-2c-9b')
+    _iid_ = Guid('{48ea31ad-7fcd-4076-a79c-90cc4b852c9b}')
     @winrt_commethod(6)
     def get_Comment(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2965,7 +2965,7 @@ class ICompositor5(ComPtr):
     GlobalPlaybackRate = property(get_GlobalPlaybackRate, put_GlobalPlaybackRate)
 class ICompositor6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7a38b2bd-cec8-4eeb-83-0f-d8-d0-7a-ed-eb-c3')
+    _iid_ = Guid('{7a38b2bd-cec8-4eeb-830f-d8d07aedebc3}')
     @winrt_commethod(6)
     def CreateGeometricClip(self) -> Windows.UI.Composition.CompositionGeometricClip: ...
     @winrt_commethod(7)
@@ -2978,7 +2978,7 @@ class ICompositor6(ComPtr):
     def CreateBooleanKeyFrameAnimation(self) -> Windows.UI.Composition.BooleanKeyFrameAnimation: ...
 class ICompositor7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d3483fad-9a12-53ba-bf-c8-88-b7-ff-79-77-c6')
+    _iid_ = Guid('{d3483fad-9a12-53ba-bfc8-88b7ff7977c6}')
     @winrt_commethod(6)
     def get_DispatcherQueue(self) -> Windows.System.DispatcherQueue: ...
     @winrt_commethod(7)
@@ -2992,12 +2992,12 @@ class ICompositor7(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class ICompositor8(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9a0bdee2-fe7b-5f62-a3-66-9c-f8-ef-fe-21-12')
+    _iid_ = Guid('{9a0bdee2-fe7b-5f62-a366-9cf8effe2112}')
     @winrt_commethod(6)
     def CreateAnimationController(self) -> Windows.UI.Composition.AnimationController: ...
 class ICompositorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('080db93e-121e-4d97-8b-74-1d-fc-f9-19-87-ea')
+    _iid_ = Guid('{080db93e-121e-4d97-8b74-1dfcf91987ea}')
     @winrt_commethod(6)
     def get_MaxGlobalPlaybackRate(self) -> Single: ...
     @winrt_commethod(7)
@@ -3006,12 +3006,12 @@ class ICompositorStatics(ComPtr):
     MinGlobalPlaybackRate = property(get_MinGlobalPlaybackRate, None)
 class ICompositorWithBlurredWallpaperBackdropBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0d8fb190-f122-5b8d-9f-dd-54-3b-0d-8e-b7-f3')
+    _iid_ = Guid('{0d8fb190-f122-5b8d-9fdd-543b0d8eb7f3}')
     @winrt_commethod(6)
     def TryCreateBlurredWallpaperBackdropBrush(self) -> Windows.UI.Composition.CompositionBackdropBrush: ...
 class ICompositorWithProjectedShadow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a2e6330e-8a60-5a38-bb-85-b4-4e-a9-01-67-7c')
+    _iid_ = Guid('{a2e6330e-8a60-5a38-bb85-b44ea901677c}')
     @winrt_commethod(6)
     def CreateProjectedShadowCaster(self) -> Windows.UI.Composition.CompositionProjectedShadowCaster: ...
     @winrt_commethod(7)
@@ -3020,26 +3020,26 @@ class ICompositorWithProjectedShadow(ComPtr):
     def CreateProjectedShadowReceiver(self) -> Windows.UI.Composition.CompositionProjectedShadowReceiver: ...
 class ICompositorWithRadialGradient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('98b9c1a7-8e71-4b53-b4-a8-69-ba-5d-19-dc-5b')
+    _iid_ = Guid('{98b9c1a7-8e71-4b53-b4a8-69ba5d19dc5b}')
     @winrt_commethod(6)
     def CreateRadialGradientBrush(self) -> Windows.UI.Composition.CompositionRadialGradientBrush: ...
 class ICompositorWithVisualSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cfa1658b-0123-4551-88-91-89-bd-cc-40-32-2b')
+    _iid_ = Guid('{cfa1658b-0123-4551-8891-89bdcc40322b}')
     @winrt_commethod(6)
     def CreateVisualSurface(self) -> Windows.UI.Composition.CompositionVisualSurface: ...
 class IContainerVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('02f6bc74-ed20-4773-af-e6-d4-9b-4a-93-db-32')
+    _iid_ = Guid('{02f6bc74-ed20-4773-afe6-d49b4a93db32}')
     @winrt_commethod(6)
     def get_Children(self) -> Windows.UI.Composition.VisualCollection: ...
     Children = property(get_Children, None)
 class IContainerVisualFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0363a65b-c7da-4d9a-95-f4-69-b5-c8-df-67-0b')
+    _iid_ = Guid('{0363a65b-c7da-4d9a-95f4-69b5c8df670b}')
 class ICubicBezierEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('32350666-c1e8-44f9-96-b8-c9-8a-cf-0a-e6-98')
+    _iid_ = Guid('{32350666-c1e8-44f9-96b8-c98acf0ae698}')
     @winrt_commethod(6)
     def get_ControlPoint1(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -3048,7 +3048,7 @@ class ICubicBezierEasingFunction(ComPtr):
     ControlPoint2 = property(get_ControlPoint2, None)
 class IDelegatedInkTrailVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('856e60b1-e1ab-5b23-8e-3d-d5-13-f2-21-c9-98')
+    _iid_ = Guid('{856e60b1-e1ab-5b23-8e3d-d513f221c998}')
     @winrt_commethod(6)
     def AddTrailPoints(self, inkPoints: POINTER(Windows.UI.Composition.InkTrailPoint_head)) -> UInt32: ...
     @winrt_commethod(7)
@@ -3059,14 +3059,14 @@ class IDelegatedInkTrailVisual(ComPtr):
     def StartNewTrail(self, color: Windows.UI.Color) -> Void: ...
 class IDelegatedInkTrailVisualStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0daf6bd5-42c6-555c-92-67-e0-ac-66-3a-f8-36')
+    _iid_ = Guid('{0daf6bd5-42c6-555c-9267-e0ac663af836}')
     @winrt_commethod(6)
     def Create(self, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.DelegatedInkTrailVisual: ...
     @winrt_commethod(7)
     def CreateForSwapChain(self, compositor: Windows.UI.Composition.Compositor, swapChain: Windows.UI.Composition.ICompositionSurface) -> Windows.UI.Composition.DelegatedInkTrailVisual: ...
 class IDistantLight(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('318cfafc-5ce3-4b55-ab-5d-07-a0-03-53-ac-99')
+    _iid_ = Guid('{318cfafc-5ce3-4b55-ab5d-07a00353ac99}')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -3084,7 +3084,7 @@ class IDistantLight(ComPtr):
     Direction = property(get_Direction, put_Direction)
 class IDistantLight2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dbcdaa1c-294b-48d7-b6-0e-76-df-64-aa-39-2b')
+    _iid_ = Guid('{dbcdaa1c-294b-48d7-b60e-76df64aa392b}')
     @winrt_commethod(6)
     def get_Intensity(self) -> Single: ...
     @winrt_commethod(7)
@@ -3092,7 +3092,7 @@ class IDistantLight2(ComPtr):
     Intensity = property(get_Intensity, put_Intensity)
 class IDropShadow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cb977c07-a154-4851-85-e7-a8-92-4c-84-fa-d8')
+    _iid_ = Guid('{cb977c07-a154-4851-85e7-a8924c84fad8}')
     @winrt_commethod(6)
     def get_BlurRadius(self) -> Single: ...
     @winrt_commethod(7)
@@ -3120,7 +3120,7 @@ class IDropShadow(ComPtr):
     Opacity = property(get_Opacity, put_Opacity)
 class IDropShadow2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6c4218bc-15b9-4c2d-8d-4a-07-67-df-11-97-7a')
+    _iid_ = Guid('{6c4218bc-15b9-4c2d-8d4a-0767df11977a}')
     @winrt_commethod(6)
     def get_SourcePolicy(self) -> Windows.UI.Composition.CompositionDropShadowSourcePolicy: ...
     @winrt_commethod(7)
@@ -3128,7 +3128,7 @@ class IDropShadow2(ComPtr):
     SourcePolicy = property(get_SourcePolicy, put_SourcePolicy)
 class IElasticEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('66de6285-054e-5594-84-75-c2-2c-b5-1f-1b-d5')
+    _iid_ = Guid('{66de6285-054e-5594-8475-c22cb51f1bd5}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_commethod(7)
@@ -3140,7 +3140,7 @@ class IElasticEasingFunction(ComPtr):
     Springiness = property(get_Springiness, None)
 class IExponentialEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6f7d1a51-98d2-5638-a3-4a-00-48-65-54-c7-50')
+    _iid_ = Guid('{6f7d1a51-98d2-5638-a34a-00486554c750}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_commethod(7)
@@ -3149,7 +3149,7 @@ class IExponentialEasingFunction(ComPtr):
     Exponent = property(get_Exponent, None)
 class IExpressionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6acc5431-7d3d-4bf3-ab-b6-f4-4b-dc-48-88-c1')
+    _iid_ = Guid('{6acc5431-7d3d-4bf3-abb6-f44bdc4888c1}')
     @winrt_commethod(6)
     def get_Expression(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -3157,10 +3157,10 @@ class IExpressionAnimation(ComPtr):
     Expression = property(get_Expression, put_Expression)
 class IImplicitAnimationCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0598a3ff-0a92-4c9d-a4-27-b2-55-19-25-0d-bf')
+    _iid_ = Guid('{0598a3ff-0a92-4c9d-a427-b25519250dbf}')
 class IInsetClip(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1e73e647-84c7-477a-b4-74-58-80-e0-44-2e-15')
+    _iid_ = Guid('{1e73e647-84c7-477a-b474-5880e0442e15}')
     @winrt_commethod(6)
     def get_BottomInset(self) -> Single: ...
     @winrt_commethod(7)
@@ -3183,7 +3183,7 @@ class IInsetClip(ComPtr):
     TopInset = property(get_TopInset, put_TopInset)
 class IKeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('126e7f22-3ae9-4540-9a-8a-de-ae-8a-4a-4a-84')
+    _iid_ = Guid('{126e7f22-3ae9-4540-9a8a-deae8a4a4a84}')
     @winrt_commethod(6)
     def get_DelayTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -3218,7 +3218,7 @@ class IKeyFrameAnimation(ComPtr):
     StopBehavior = property(get_StopBehavior, put_StopBehavior)
 class IKeyFrameAnimation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f4b488bb-2940-4ec0-a4-1a-eb-6d-80-1a-2f-18')
+    _iid_ = Guid('{f4b488bb-2940-4ec0-a41a-eb6d801a2f18}')
     @winrt_commethod(6)
     def get_Direction(self) -> Windows.UI.Composition.AnimationDirection: ...
     @winrt_commethod(7)
@@ -3226,7 +3226,7 @@ class IKeyFrameAnimation2(ComPtr):
     Direction = property(get_Direction, put_Direction)
 class IKeyFrameAnimation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('845bf0b4-d8de-462f-87-53-c8-0d-43-c6-ff-5a')
+    _iid_ = Guid('{845bf0b4-d8de-462f-8753-c80d43c6ff5a}')
     @winrt_commethod(6)
     def get_DelayBehavior(self) -> Windows.UI.Composition.AnimationDelayBehavior: ...
     @winrt_commethod(7)
@@ -3234,10 +3234,10 @@ class IKeyFrameAnimation3(ComPtr):
     DelayBehavior = property(get_DelayBehavior, put_DelayBehavior)
 class IKeyFrameAnimationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bf0803f8-712a-4fc1-8c-87-97-08-59-ed-8d-2e')
+    _iid_ = Guid('{bf0803f8-712a-4fc1-8c87-970859ed8d2e}')
 class ILayerVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('af843985-0444-4887-8e-83-b4-0b-25-3f-82-2c')
+    _iid_ = Guid('{af843985-0444-4887-8e83-b40b253f822c}')
     @winrt_commethod(6)
     def get_Effect(self) -> Windows.UI.Composition.CompositionEffectBrush: ...
     @winrt_commethod(7)
@@ -3245,7 +3245,7 @@ class ILayerVisual(ComPtr):
     Effect = property(get_Effect, put_Effect)
 class ILayerVisual2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('98f9aeeb-6f23-49f1-90-b1-1f-59-a1-4f-bc-e3')
+    _iid_ = Guid('{98f9aeeb-6f23-49f1-90b1-1f59a14fbce3}')
     @winrt_commethod(6)
     def get_Shadow(self) -> Windows.UI.Composition.CompositionShadow: ...
     @winrt_commethod(7)
@@ -3253,10 +3253,10 @@ class ILayerVisual2(ComPtr):
     Shadow = property(get_Shadow, put_Shadow)
 class ILinearEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9400975a-c7a6-46b3-ac-f7-1a-26-8a-0a-11-7d')
+    _iid_ = Guid('{9400975a-c7a6-46b3-acf7-1a268a0a117d}')
 class INaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('438de12d-769b-4821-a9-49-28-4a-65-47-e8-73')
+    _iid_ = Guid('{438de12d-769b-4821-a949-284a6547e873}')
     @winrt_commethod(6)
     def get_DelayBehavior(self) -> Windows.UI.Composition.AnimationDelayBehavior: ...
     @winrt_commethod(7)
@@ -3274,17 +3274,17 @@ class INaturalMotionAnimation(ComPtr):
     StopBehavior = property(get_StopBehavior, put_StopBehavior)
 class INaturalMotionAnimationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f53acb06-cf6a-4387-a3-fe-52-21-f3-e7-e0-e0')
+    _iid_ = Guid('{f53acb06-cf6a-4387-a3fe-5221f3e7e0e0}')
 class IPathKeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9d0d18c9-1576-4b3f-be-60-1d-50-31-f5-e7-1b')
+    _iid_ = Guid('{9d0d18c9-1576-4b3f-be60-1d5031f5e71b}')
     @winrt_commethod(6)
     def InsertKeyFrame(self, normalizedProgressKey: Single, path: Windows.UI.Composition.CompositionPath) -> Void: ...
     @winrt_commethod(7)
     def InsertKeyFrameWithEasingFunction(self, normalizedProgressKey: Single, path: Windows.UI.Composition.CompositionPath, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class IPointLight(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b18545b3-0c5a-4ab0-be-dc-4f-35-46-94-82-72')
+    _iid_ = Guid('{b18545b3-0c5a-4ab0-bedc-4f3546948272}')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -3317,7 +3317,7 @@ class IPointLight(ComPtr):
     QuadraticAttenuation = property(get_QuadraticAttenuation, put_QuadraticAttenuation)
 class IPointLight2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('efe98f2c-0678-4f69-b1-64-a8-10-d9-95-bc-b7')
+    _iid_ = Guid('{efe98f2c-0678-4f69-b164-a810d995bcb7}')
     @winrt_commethod(6)
     def get_Intensity(self) -> Single: ...
     @winrt_commethod(7)
@@ -3325,7 +3325,7 @@ class IPointLight2(ComPtr):
     Intensity = property(get_Intensity, put_Intensity)
 class IPointLight3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4c0a8367-d4e9-468a-87-ae-7b-a4-3a-b2-94-85')
+    _iid_ = Guid('{4c0a8367-d4e9-468a-87ae-7ba43ab29485}')
     @winrt_commethod(6)
     def get_MinAttenuationCutoff(self) -> Single: ...
     @winrt_commethod(7)
@@ -3338,7 +3338,7 @@ class IPointLight3(ComPtr):
     MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
 class IPowerEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c3ff53d6-138b-5815-89-1a-b7-f6-15-cc-c5-63')
+    _iid_ = Guid('{c3ff53d6-138b-5815-891a-b7f615ccc563}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_commethod(7)
@@ -3347,14 +3347,14 @@ class IPowerEasingFunction(ComPtr):
     Power = property(get_Power, None)
 class IQuaternionKeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('404e5835-ecf6-4240-85-20-67-12-79-cf-36-bc')
+    _iid_ = Guid('{404e5835-ecf6-4240-8520-671279cf36bc}')
     @winrt_commethod(6)
     def InsertKeyFrame(self, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Quaternion) -> Void: ...
     @winrt_commethod(7)
     def InsertKeyFrameWithEasingFunction(self, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Quaternion, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class IRectangleClip(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b3e7549e-00b4-5b53-8b-e8-35-3f-6c-43-31-01')
+    _iid_ = Guid('{b3e7549e-00b4-5b53-8be8-353f6c433101}')
     @winrt_commethod(6)
     def get_Bottom(self) -> Single: ...
     @winrt_commethod(7)
@@ -3397,7 +3397,7 @@ class IRectangleClip(ComPtr):
     TopRightRadius = property(get_TopRightRadius, put_TopRightRadius)
 class IRedirectVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8cc6e340-8b75-5422-b0-6f-09-ff-e9-f8-61-7e')
+    _iid_ = Guid('{8cc6e340-8b75-5422-b06f-09ffe9f8617e}')
     @winrt_commethod(6)
     def get_Source(self) -> Windows.UI.Composition.Visual: ...
     @winrt_commethod(7)
@@ -3405,20 +3405,20 @@ class IRedirectVisual(ComPtr):
     Source = property(get_Source, put_Source)
 class IRenderingDeviceReplacedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3a31ac7d-28bf-4e7a-85-24-71-67-9d-48-0f-38')
+    _iid_ = Guid('{3a31ac7d-28bf-4e7a-8524-71679d480f38}')
     @winrt_commethod(6)
     def get_GraphicsDevice(self) -> Windows.UI.Composition.CompositionGraphicsDevice: ...
     GraphicsDevice = property(get_GraphicsDevice, None)
 class IScalarKeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ae288fa9-252c-4b95-a7-25-bf-85-e3-80-00-a1')
+    _iid_ = Guid('{ae288fa9-252c-4b95-a725-bf85e38000a1}')
     @winrt_commethod(6)
     def InsertKeyFrame(self, normalizedProgressKey: Single, value: Single) -> Void: ...
     @winrt_commethod(7)
     def InsertKeyFrameWithEasingFunction(self, normalizedProgressKey: Single, value: Single, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class IScalarNaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('94a94581-bf92-495b-b5-bd-d2-c6-59-43-07-37')
+    _iid_ = Guid('{94a94581-bf92-495b-b5bd-d2c659430737}')
     @winrt_commethod(6)
     def get_FinalValue(self) -> Windows.Foundation.IReference[Single]: ...
     @winrt_commethod(7)
@@ -3436,10 +3436,10 @@ class IScalarNaturalMotionAnimation(ComPtr):
     InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class IScalarNaturalMotionAnimationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('835aa4fc-671c-41dd-af-48-ae-8d-ef-8b-15-29')
+    _iid_ = Guid('{835aa4fc-671c-41dd-af48-ae8def8b1529}')
 class IShapeVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f2bd13c3-ba7e-4b0f-91-26-ff-b7-53-6b-81-76')
+    _iid_ = Guid('{f2bd13c3-ba7e-4b0f-9126-ffb7536b8176}')
     @winrt_commethod(6)
     def get_Shapes(self) -> Windows.UI.Composition.CompositionShapeCollection: ...
     @winrt_commethod(7)
@@ -3450,13 +3450,13 @@ class IShapeVisual(ComPtr):
     ViewBox = property(get_ViewBox, put_ViewBox)
 class ISineEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f1b518bf-9563-5474-bd-13-44-b2-df-4b-1d-58')
+    _iid_ = Guid('{f1b518bf-9563-5474-bd13-44b2df4b1d58}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     Mode = property(get_Mode, None)
 class ISpotLight(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5a9fe273-44a1-4f95-a4-22-8f-a5-11-6b-db-44')
+    _iid_ = Guid('{5a9fe273-44a1-4f95-a422-8fa5116bdb44}')
     @winrt_commethod(6)
     def get_ConstantAttenuation(self) -> Single: ...
     @winrt_commethod(7)
@@ -3519,7 +3519,7 @@ class ISpotLight(ComPtr):
     QuadraticAttenuation = property(get_QuadraticAttenuation, put_QuadraticAttenuation)
 class ISpotLight2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('64ee615e-0686-4dea-a9-e8-bc-3a-8c-70-14-59')
+    _iid_ = Guid('{64ee615e-0686-4dea-a9e8-bc3a8c701459}')
     @winrt_commethod(6)
     def get_InnerConeIntensity(self) -> Single: ...
     @winrt_commethod(7)
@@ -3532,7 +3532,7 @@ class ISpotLight2(ComPtr):
     OuterConeIntensity = property(get_OuterConeIntensity, put_OuterConeIntensity)
 class ISpotLight3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e4d03eea-131f-480e-85-9e-b8-27-05-b7-43-60')
+    _iid_ = Guid('{e4d03eea-131f-480e-859e-b82705b74360}')
     @winrt_commethod(6)
     def get_MinAttenuationCutoff(self) -> Single: ...
     @winrt_commethod(7)
@@ -3545,7 +3545,7 @@ class ISpotLight3(ComPtr):
     MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
 class ISpringScalarNaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0572a95f-37f9-4fbe-b8-7b-5c-d0-3a-89-50-1c')
+    _iid_ = Guid('{0572a95f-37f9-4fbe-b87b-5cd03a89501c}')
     @winrt_commethod(6)
     def get_DampingRatio(self) -> Single: ...
     @winrt_commethod(7)
@@ -3558,7 +3558,7 @@ class ISpringScalarNaturalMotionAnimation(ComPtr):
     Period = property(get_Period, put_Period)
 class ISpringVector2NaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('23f494b5-ee73-4f0f-a4-23-40-2b-94-6d-f4-b3')
+    _iid_ = Guid('{23f494b5-ee73-4f0f-a423-402b946df4b3}')
     @winrt_commethod(6)
     def get_DampingRatio(self) -> Single: ...
     @winrt_commethod(7)
@@ -3571,7 +3571,7 @@ class ISpringVector2NaturalMotionAnimation(ComPtr):
     Period = property(get_Period, put_Period)
 class ISpringVector3NaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6c8749df-d57b-4794-8e-2d-ce-cb-11-e1-94-e5')
+    _iid_ = Guid('{6c8749df-d57b-4794-8e2d-cecb11e194e5}')
     @winrt_commethod(6)
     def get_DampingRatio(self) -> Single: ...
     @winrt_commethod(7)
@@ -3584,7 +3584,7 @@ class ISpringVector3NaturalMotionAnimation(ComPtr):
     Period = property(get_Period, put_Period)
 class ISpriteVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('08e05581-1ad1-4f97-97-57-40-2d-76-e4-23-3b')
+    _iid_ = Guid('{08e05581-1ad1-4f97-9757-402d76e4233b}')
     @winrt_commethod(6)
     def get_Brush(self) -> Windows.UI.Composition.CompositionBrush: ...
     @winrt_commethod(7)
@@ -3592,7 +3592,7 @@ class ISpriteVisual(ComPtr):
     Brush = property(get_Brush, put_Brush)
 class ISpriteVisual2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('588c9664-997a-4850-91-fe-53-cb-58-f8-1c-e9')
+    _iid_ = Guid('{588c9664-997a-4850-91fe-53cb58f81ce9}')
     @winrt_commethod(6)
     def get_Shadow(self) -> Windows.UI.Composition.CompositionShadow: ...
     @winrt_commethod(7)
@@ -3600,7 +3600,7 @@ class ISpriteVisual2(ComPtr):
     Shadow = property(get_Shadow, put_Shadow)
 class IStepEasingFunction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d0caa74b-560c-4a0b-a5-f6-20-6c-a8-c3-ec-d6')
+    _iid_ = Guid('{d0caa74b-560c-4a0b-a5f6-206ca8c3ecd6}')
     @winrt_commethod(6)
     def get_FinalStep(self) -> Int32: ...
     @winrt_commethod(7)
@@ -3628,14 +3628,14 @@ class IStepEasingFunction(ComPtr):
     StepCount = property(get_StepCount, put_StepCount)
 class IVector2KeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('df414515-4e29-4f11-b5-5e-bf-2a-6e-b3-62-94')
+    _iid_ = Guid('{df414515-4e29-4f11-b55e-bf2a6eb36294}')
     @winrt_commethod(6)
     def InsertKeyFrame(self, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector2) -> Void: ...
     @winrt_commethod(7)
     def InsertKeyFrameWithEasingFunction(self, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector2, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class IVector2NaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0f3e0b7d-e512-479d-a0-0c-77-c9-3a-30-a3-95')
+    _iid_ = Guid('{0f3e0b7d-e512-479d-a00c-77c93a30a395}')
     @winrt_commethod(6)
     def get_FinalValue(self) -> Windows.Foundation.IReference[Windows.Foundation.Numerics.Vector2]: ...
     @winrt_commethod(7)
@@ -3653,17 +3653,17 @@ class IVector2NaturalMotionAnimation(ComPtr):
     InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class IVector2NaturalMotionAnimationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8c74ff61-0761-48a2-bd-db-6a-fc-c5-2b-89-d8')
+    _iid_ = Guid('{8c74ff61-0761-48a2-bddb-6afcc52b89d8}')
 class IVector3KeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c8039daa-a281-43c2-a7-3d-b6-8e-3c-53-3c-40')
+    _iid_ = Guid('{c8039daa-a281-43c2-a73d-b68e3c533c40}')
     @winrt_commethod(6)
     def InsertKeyFrame(self, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector3) -> Void: ...
     @winrt_commethod(7)
     def InsertKeyFrameWithEasingFunction(self, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector3, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class IVector3NaturalMotionAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9c17042c-e2ca-45ad-96-9e-4e-78-b7-b9-ad-41')
+    _iid_ = Guid('{9c17042c-e2ca-45ad-969e-4e78b7b9ad41}')
     @winrt_commethod(6)
     def get_FinalValue(self) -> Windows.Foundation.IReference[Windows.Foundation.Numerics.Vector3]: ...
     @winrt_commethod(7)
@@ -3681,17 +3681,17 @@ class IVector3NaturalMotionAnimation(ComPtr):
     InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class IVector3NaturalMotionAnimationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('21a81d2f-0880-457b-ac-87-b6-09-01-8c-87-6d')
+    _iid_ = Guid('{21a81d2f-0880-457b-ac87-b609018c876d}')
 class IVector4KeyFrameAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2457945b-addd-4385-96-06-b6-a3-d5-e4-e1-b9')
+    _iid_ = Guid('{2457945b-addd-4385-9606-b6a3d5e4e1b9}')
     @winrt_commethod(6)
     def InsertKeyFrame(self, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector4) -> Void: ...
     @winrt_commethod(7)
     def InsertKeyFrameWithEasingFunction(self, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector4, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class IVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('117e202d-a859-4c89-87-3b-c2-aa-56-67-88-e3')
+    _iid_ = Guid('{117e202d-a859-4c89-873b-c2aa566788e3}')
     @winrt_commethod(6)
     def get_AnchorPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
@@ -3777,7 +3777,7 @@ class IVisual(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class IVisual2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3052b611-56c3-4c3e-8b-f3-f6-e1-ad-47-3f-06')
+    _iid_ = Guid('{3052b611-56c3-4c3e-8bf3-f6e1ad473f06}')
     @winrt_commethod(6)
     def get_ParentForTransform(self) -> Windows.UI.Composition.Visual: ...
     @winrt_commethod(7)
@@ -3795,7 +3795,7 @@ class IVisual2(ComPtr):
     RelativeSizeAdjustment = property(get_RelativeSizeAdjustment, put_RelativeSizeAdjustment)
 class IVisual3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('30be580d-f4b6-4ab7-80-dd-37-38-cb-ac-9f-2c')
+    _iid_ = Guid('{30be580d-f4b6-4ab7-80dd-3738cbac9f2c}')
     @winrt_commethod(6)
     def get_IsHitTestVisible(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -3803,7 +3803,7 @@ class IVisual3(ComPtr):
     IsHitTestVisible = property(get_IsHitTestVisible, put_IsHitTestVisible)
 class IVisual4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9476bf11-e24b-5bf9-9e-be-62-74-10-9b-27-11')
+    _iid_ = Guid('{9476bf11-e24b-5bf9-9ebe-6274109b2711}')
     @winrt_commethod(6)
     def get_IsPixelSnappingEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -3811,7 +3811,7 @@ class IVisual4(ComPtr):
     IsPixelSnappingEnabled = property(get_IsPixelSnappingEnabled, put_IsPixelSnappingEnabled)
 class IVisualCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8b745505-fd3e-4a98-84-a8-e9-49-46-8c-6b-cb')
+    _iid_ = Guid('{8b745505-fd3e-4a98-84a8-e949468c6bcb}')
     @winrt_commethod(6)
     def get_Count(self) -> Int32: ...
     @winrt_commethod(7)
@@ -3829,18 +3829,18 @@ class IVisualCollection(ComPtr):
     Count = property(get_Count, None)
 class IVisualElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('01e64612-1d82-42f4-8e-3f-a7-22-de-d3-3f-c7')
+    _iid_ = Guid('{01e64612-1d82-42f4-8e3f-a722ded33fc7}')
 class IVisualElement2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('993ae8a0-6057-5e40-91-8c-e0-6e-0b-7e-7c-64')
+    _iid_ = Guid('{993ae8a0-6057-5e40-918c-e06e0b7e7c64}')
     @winrt_commethod(6)
     def GetVisualInternal(self) -> Windows.UI.Composition.Visual: ...
 class IVisualFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ad0ff93e-b502-4eb5-87-b4-9a-38-a7-1d-01-37')
+    _iid_ = Guid('{ad0ff93e-b502-4eb5-87b4-9a38a71d0137}')
 class IVisualUnorderedCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('338faa70-54c8-40a7-80-29-c9-ce-eb-0a-a2-50')
+    _iid_ = Guid('{338faa70-54c8-40a7-8029-c9ceeb0aa250}')
     @winrt_commethod(6)
     def get_Count(self) -> Int32: ...
     @winrt_commethod(7)

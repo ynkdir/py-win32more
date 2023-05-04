@@ -39,7 +39,7 @@ class DataProtectionProvider(ComPtr):
     def UnprotectStreamAsync(self: Windows.Security.Cryptography.DataProtection.IDataProtectionProvider, src: Windows.Storage.Streams.IInputStream, dest: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncAction: ...
 class IDataProtectionProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('09639948-ed22-4270-bd-1c-6d-72-c0-0f-87-87')
+    _iid_ = Guid('{09639948-ed22-4270-bd1c-6d72c00f8787}')
     @winrt_commethod(6)
     def ProtectAsync(self, data: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IBuffer]: ...
     @winrt_commethod(7)
@@ -50,7 +50,7 @@ class IDataProtectionProvider(ComPtr):
     def UnprotectStreamAsync(self, src: Windows.Storage.Streams.IInputStream, dest: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncAction: ...
 class IDataProtectionProviderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('adf33dac-4932-4cdf-ac-41-72-14-33-35-14-ca')
+    _iid_ = Guid('{adf33dac-4932-4cdf-ac41-7214333514ca}')
     @winrt_commethod(6)
     def CreateOverloadExplicit(self, protectionDescriptor: WinRT_String) -> Windows.Security.Cryptography.DataProtection.DataProtectionProvider: ...
 make_head(_module, 'DataProtectionProvider')

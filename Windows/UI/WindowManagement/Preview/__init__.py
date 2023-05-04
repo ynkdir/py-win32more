@@ -24,10 +24,10 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWindowManagementPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4ef55b0d-561d-513c-a6-7c-2c-02-b6-9c-ef-41')
+    _iid_ = Guid('{4ef55b0d-561d-513c-a67c-2c02b69cef41}')
 class IWindowManagementPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0f9725c6-c004-5a23-8f-d2-8d-09-2c-e2-70-4a')
+    _iid_ = Guid('{0f9725c6-c004-5a23-8fd2-8d092ce2704a}')
     @winrt_commethod(6)
     def SetPreferredMinSize(self, window: Windows.UI.WindowManagement.AppWindow, preferredFrameMinSize: Windows.Foundation.Size) -> Void: ...
 class WindowManagementPreview(ComPtr):

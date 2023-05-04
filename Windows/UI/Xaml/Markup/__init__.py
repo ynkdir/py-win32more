@@ -27,53 +27,53 @@ def __getattr__(name):
     return getattr(_module, name)
 class IComponentConnector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f6790987-e6e5-47f2-92-c6-ec-cc-e4-ba-15-9a')
+    _iid_ = Guid('{f6790987-e6e5-47f2-92c6-eccce4ba159a}')
     @winrt_commethod(6)
     def Connect(self, connectionId: Int32, target: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class IComponentConnector2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dc8f368b-eccc-498e-b1-39-91-14-22-54-d7-ae')
+    _iid_ = Guid('{dc8f368b-eccc-498e-b139-91142254d7ae}')
     @winrt_commethod(6)
     def GetBindingConnector(self, connectionId: Int32, target: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.UI.Xaml.Markup.IComponentConnector: ...
 class IDataTemplateComponent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('08429dc8-8ab0-4747-aa-9a-fe-ad-fc-8d-a8-e1')
+    _iid_ = Guid('{08429dc8-8ab0-4747-aa9a-feadfc8da8e1}')
     @winrt_commethod(6)
     def Recycle(self) -> Void: ...
     @winrt_commethod(7)
     def ProcessBindings(self, item: Windows.Win32.System.WinRT.IInspectable_head, itemIndex: Int32, phase: Int32, nextPhase: POINTER(Int32)) -> Void: ...
 class IMarkupExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1ee3416d-562b-486e-9e-e5-0f-0c-bc-c8-04-8c')
+    _iid_ = Guid('{1ee3416d-562b-486e-9ee5-0f0cbcc8048c}')
 class IMarkupExtensionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('65329c05-fb5a-4567-9d-55-5c-df-ba-da-27-39')
+    _iid_ = Guid('{65329c05-fb5a-4567-9d55-5cdfbada2739}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Markup.MarkupExtension: ...
 class IMarkupExtensionOverrides(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('393779bf-b9c0-4ffb-a5-7f-58-e7-35-6e-42-5f')
+    _iid_ = Guid('{393779bf-b9c0-4ffb-a57f-58e7356e425f}')
     @winrt_commethod(6)
     def ProvideValue(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IXamlBinaryWriter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('829d2ad3-620a-46f6-84-5d-43-6a-05-92-71-00')
+    _iid_ = Guid('{829d2ad3-620a-46f6-845d-436a05927100}')
 class IXamlBinaryWriterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0d8ed07a-9b82-4aa8-b6-8b-02-6f-2d-e1-cc-86')
+    _iid_ = Guid('{0d8ed07a-9b82-4aa8-b68b-026f2de1cc86}')
     @winrt_commethod(6)
     def Write(self, inputStreams: Windows.Foundation.Collections.IVector[Windows.Storage.Streams.IRandomAccessStream], outputStreams: Windows.Foundation.Collections.IVector[Windows.Storage.Streams.IRandomAccessStream], xamlMetadataProvider: Windows.UI.Xaml.Markup.IXamlMetadataProvider) -> Windows.UI.Xaml.Markup.XamlBinaryWriterErrorInformation: ...
 class IXamlBindScopeDiagnostics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f264a29d-bded-43aa-a5-b0-26-ac-21-a8-1e-b8')
+    _iid_ = Guid('{f264a29d-bded-43aa-a5b0-26ac21a81eb8}')
     @winrt_commethod(6)
     def Disable(self, lineNumber: Int32, columnNumber: Int32) -> Void: ...
 class IXamlBindingHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('faa6fb06-8ab9-4ef7-8a-e7-fb-d3-0b-bf-d0-6d')
+    _iid_ = Guid('{faa6fb06-8ab9-4ef7-8ae7-fbd30bbfd06d}')
 class IXamlBindingHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f65cfb71-c80c-4ffa-86-ee-55-87-54-ee-33-6d')
+    _iid_ = Guid('{f65cfb71-c80c-4ffa-86ee-558754ee336d}')
     @winrt_commethod(6)
     def get_DataTemplateComponentProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -123,15 +123,15 @@ class IXamlBindingHelperStatics(ComPtr):
     DataTemplateComponentProperty = property(get_DataTemplateComponentProperty, None)
 class IXamlMarkupHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d0e6673c-5342-44ef-85-a7-ed-32-7a-73-9d-9a')
+    _iid_ = Guid('{d0e6673c-5342-44ef-85a7-ed327a739d9a}')
 class IXamlMarkupHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c9bc3725-f34f-445c-81-a2-6b-72-a5-e8-f0-72')
+    _iid_ = Guid('{c9bc3725-f34f-445c-81a2-6b72a5e8f072}')
     @winrt_commethod(6)
     def UnloadObject(self, element: Windows.UI.Xaml.DependencyObject) -> Void: ...
 class IXamlMember(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c541f58c-43a9-4216-b7-18-e0-b1-1b-14-e9-3e')
+    _iid_ = Guid('{c541f58c-43a9-4216-b718-e0b11b14e93e}')
     @winrt_commethod(6)
     def get_IsAttachable(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -156,7 +156,7 @@ class IXamlMember(ComPtr):
     Type = property(get_Type, None)
 class IXamlMetadataProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b3765d69-68a5-4b32-88-61-fd-b9-0c-1f-58-36')
+    _iid_ = Guid('{b3765d69-68a5-4b32-8861-fdb90c1f5836}')
     @winrt_commethod(6)
     def GetXamlType(self, type: Windows.UI.Xaml.Interop.TypeName) -> Windows.UI.Xaml.Markup.IXamlType: ...
     @winrt_commethod(7)
@@ -165,17 +165,17 @@ class IXamlMetadataProvider(ComPtr):
     def GetXmlnsDefinitions(self) -> POINTER(Windows.UI.Xaml.Markup.XmlnsDefinition_head): ...
 class IXamlReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('24374cf1-cceb-48bf-a5-14-41-b0-18-6f-84-c2')
+    _iid_ = Guid('{24374cf1-cceb-48bf-a514-41b0186f84c2}')
 class IXamlReaderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9891c6bd-534f-4955-b8-5a-8a-8d-c0-dc-a6-02')
+    _iid_ = Guid('{9891c6bd-534f-4955-b85a-8a8dc0dca602}')
     @winrt_commethod(6)
     def Load(self, xaml: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(7)
     def LoadWithInitialTemplateValidation(self, xaml: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IXamlType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7920eab1-a2e5-479a-bd-50-6c-ef-3c-0b-49-70')
+    _iid_ = Guid('{7920eab1-a2e5-479a-bd50-6cef3c0b4970}')
     @winrt_commethod(6)
     def get_BaseType(self) -> Windows.UI.Xaml.Markup.IXamlType: ...
     @winrt_commethod(7)
@@ -226,7 +226,7 @@ class IXamlType(ComPtr):
     UnderlyingType = property(get_UnderlyingType, None)
 class IXamlType2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9f0c6e3b-433b-56ad-8f-69-78-a4-dd-3e-64-f9')
+    _iid_ = Guid('{9f0c6e3b-433b-56ad-8f69-78a4dd3e64f9}')
     @winrt_commethod(6)
     def get_BoxedType(self) -> Windows.UI.Xaml.Markup.IXamlType: ...
     BoxedType = property(get_BoxedType, None)

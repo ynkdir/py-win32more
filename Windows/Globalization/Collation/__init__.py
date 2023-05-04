@@ -52,7 +52,7 @@ class CharacterGroupings(ComPtr):
     Size = property(get_Size, None)
 class ICharacterGrouping(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fae761bb-805d-4bb0-95-bb-c1-f7-c3-e8-eb-8e')
+    _iid_ = Guid('{fae761bb-805d-4bb0-95bb-c1f7c3e8eb8e}')
     @winrt_commethod(6)
     def get_First(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -61,12 +61,12 @@ class ICharacterGrouping(ComPtr):
     Label = property(get_Label, None)
 class ICharacterGroupings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b8d20a75-d4cf-4055-80-e5-ce-16-9c-22-64-96')
+    _iid_ = Guid('{b8d20a75-d4cf-4055-80e5-ce169c226496}')
     @winrt_commethod(6)
     def Lookup(self, text: WinRT_String) -> WinRT_String: ...
 class ICharacterGroupingsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('99ea9fd9-886d-4401-9f-98-69-c8-2d-4c-2f-78')
+    _iid_ = Guid('{99ea9fd9-886d-4401-9f98-69c82d4c2f78}')
     @winrt_commethod(6)
     def Create(self, language: WinRT_String) -> Windows.Globalization.Collation.CharacterGroupings: ...
 make_head(_module, 'CharacterGrouping')

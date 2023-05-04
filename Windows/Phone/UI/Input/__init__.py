@@ -53,7 +53,7 @@ class HardwareButtons(ComPtr):
     def remove_CameraReleased(cls: Windows.Phone.UI.Input.IHardwareButtonsStatics2, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IBackPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f6f555ff-64ec-42a2-b9-3b-2f-bc-0c-36-a1-21')
+    _iid_ = Guid('{f6f555ff-64ec-42a2-b93b-2fbc0c36a121}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -61,17 +61,17 @@ class IBackPressedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ICameraEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b4063bda-201f-473d-bc-69-e9-e4-ac-57-c9-d0')
+    _iid_ = Guid('{b4063bda-201f-473d-bc69-e9e4ac57c9d0}')
 class IHardwareButtonsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('594b8780-da66-4fd8-a7-76-75-06-bd-0c-bf-a7')
+    _iid_ = Guid('{594b8780-da66-4fd8-a776-7506bd0cbfa7}')
     @winrt_commethod(6)
     def add_BackPressed(self, handler: Windows.Foundation.EventHandler[Windows.Phone.UI.Input.BackPressedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_BackPressed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IHardwareButtonsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('39c6c274-993f-40dd-85-4c-83-1a-89-34-b9-2e')
+    _iid_ = Guid('{39c6c274-993f-40dd-854c-831a8934b92e}')
     @winrt_commethod(6)
     def add_CameraHalfPressed(self, handler: Windows.Foundation.EventHandler[Windows.Phone.UI.Input.CameraEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)

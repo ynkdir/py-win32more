@@ -22,20 +22,20 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPlatformTelemetryClientStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9bf3f25d-d5c3-4eea-8d-be-9c-8d-bb-0d-9d-8f')
+    _iid_ = Guid('{9bf3f25d-d5c3-4eea-8dbe-9c8dbb0d9d8f}')
     @winrt_commethod(6)
     def Register(self, id: WinRT_String) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
     @winrt_commethod(7)
     def RegisterWithSettings(self, id: WinRT_String, settings: Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
 class IPlatformTelemetryRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4d8518ab-2292-49bd-a1-5a-3d-71-d2-14-51-12')
+    _iid_ = Guid('{4d8518ab-2292-49bd-a15a-3d71d2145112}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationStatus: ...
     Status = property(get_Status, None)
 class IPlatformTelemetryRegistrationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('819a8582-ca19-415e-bb-79-9c-22-4b-fa-3a-73')
+    _iid_ = Guid('{819a8582-ca19-415e-bb79-9c224bfa3a73}')
     @winrt_commethod(6)
     def get_StorageSize(self) -> UInt32: ...
     @winrt_commethod(7)

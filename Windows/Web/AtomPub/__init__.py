@@ -86,7 +86,7 @@ class AtomPubClient(ComPtr):
     BypassCacheOnRetrieve = property(get_BypassCacheOnRetrieve, put_BypassCacheOnRetrieve)
 class IAtomPubClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('35392c38-cded-4d4c-96-37-05-f1-5c-1c-94-06')
+    _iid_ = Guid('{35392c38-cded-4d4c-9637-05f15c1c9406}')
     @winrt_commethod(6)
     def RetrieveServiceDocumentAsync(self, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Web.AtomPub.ServiceDocument, Windows.Web.Syndication.RetrievalProgress]: ...
     @winrt_commethod(7)
@@ -111,12 +111,12 @@ class IAtomPubClient(ComPtr):
     def CancelAsyncOperations(self) -> Void: ...
 class IAtomPubClientFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('49d55012-57cb-4bde-ab-9f-26-10-b1-72-77-7b')
+    _iid_ = Guid('{49d55012-57cb-4bde-ab9f-2610b172777b}')
     @winrt_commethod(6)
     def CreateAtomPubClientWithCredentials(self, serverCredential: Windows.Security.Credentials.PasswordCredential) -> Windows.Web.AtomPub.AtomPubClient: ...
 class IResourceCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7f5fd609-bc88-41d4-88-fa-3d-e6-70-4d-42-8e')
+    _iid_ = Guid('{7f5fd609-bc88-41d4-88fa-3de6704d428e}')
     @winrt_commethod(6)
     def get_Title(self) -> Windows.Web.Syndication.ISyndicationText: ...
     @winrt_commethod(7)
@@ -131,13 +131,13 @@ class IResourceCollection(ComPtr):
     Accepts = property(get_Accepts, None)
 class IServiceDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8b7ec771-2ab3-4dbe-8b-cc-77-8f-92-b7-5e-51')
+    _iid_ = Guid('{8b7ec771-2ab3-4dbe-8bcc-778f92b75e51}')
     @winrt_commethod(6)
     def get_Workspaces(self) -> Windows.Foundation.Collections.IVectorView[Windows.Web.AtomPub.Workspace]: ...
     Workspaces = property(get_Workspaces, None)
 class IWorkspace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b41da63b-a4b8-4036-89-c5-83-c3-12-66-ba-49')
+    _iid_ = Guid('{b41da63b-a4b8-4036-89c5-83c31266ba49}')
     @winrt_commethod(6)
     def get_Title(self) -> Windows.Web.Syndication.ISyndicationText: ...
     @winrt_commethod(7)

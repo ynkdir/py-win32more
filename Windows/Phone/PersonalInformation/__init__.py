@@ -183,7 +183,7 @@ ContactStoreSystemAccessMode_ReadOnly: ContactStoreSystemAccessMode = 0
 ContactStoreSystemAccessMode_ReadWrite: ContactStoreSystemAccessMode = 1
 class IContactAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5f24f927-94a9-44a2-a1-55-2d-0b-37-d1-dc-cd')
+    _iid_ = Guid('{5f24f927-94a9-44a2-a155-2d0b37d1dccd}')
     @winrt_commethod(6)
     def get_Country(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -211,7 +211,7 @@ class IContactAddress(ComPtr):
     StreetAddress = property(get_StreetAddress, put_StreetAddress)
 class IContactChangeRecord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b9d3f78f-513b-4742-be-00-cc-5c-5c-23-6b-04')
+    _iid_ = Guid('{b9d3f78f-513b-4742-be00-cc5c5c236b04}')
     @winrt_commethod(6)
     def get_ChangeType(self) -> Windows.Phone.PersonalInformation.ContactChangeType: ...
     @winrt_commethod(7)
@@ -226,7 +226,7 @@ class IContactChangeRecord(ComPtr):
     RemoteId = property(get_RemoteId, None)
 class IContactInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e2b51ffc-e792-4ab7-b1-5b-f2-e0-78-66-4d-ea')
+    _iid_ = Guid('{e2b51ffc-e792-4ab7-b15b-f2e078664dea}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -267,7 +267,7 @@ class IContactInformation(ComPtr):
     DisplayPicture = property(get_DisplayPicture, None)
 class IContactInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3198b20c-621e-4668-ac-38-d6-67-b8-7d-06-d5')
+    _iid_ = Guid('{3198b20c-621e-4668-ac38-d667b87d06d5}')
     @winrt_commethod(6)
     def get_DisplayPictureDate(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -275,12 +275,12 @@ class IContactInformation2(ComPtr):
     DisplayPictureDate = property(get_DisplayPictureDate, put_DisplayPictureDate)
 class IContactInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0f67bb29-03d0-4be6-b2-a5-fb-13-85-9f-12-02')
+    _iid_ = Guid('{0f67bb29-03d0-4be6-b2a5-fb13859f1202}')
     @winrt_commethod(6)
     def ParseVcardAsync(self, vcard: Windows.Storage.Streams.IInputStream) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.ContactInformation]: ...
 class IContactQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('580cab76-3f31-46c1-9a-50-42-4a-53-da-ca-e3')
+    _iid_ = Guid('{580cab76-3f31-46c1-9a50-424a53dacae3}')
     @winrt_commethod(6)
     def get_DesiredFields(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(7)
@@ -291,7 +291,7 @@ class IContactQueryOptions(ComPtr):
     OrderBy = property(get_OrderBy, put_OrderBy)
 class IContactQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c03db722-ecdb-4700-85-7e-3e-78-64-26-b0-4b')
+    _iid_ = Guid('{c03db722-ecdb-4700-857e-3e786426b04b}')
     @winrt_commethod(6)
     def GetContactCountAsync(self) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
     @winrt_commethod(7)
@@ -302,7 +302,7 @@ class IContactQueryResult(ComPtr):
     def GetCurrentQueryOptions(self) -> Windows.Phone.PersonalInformation.ContactQueryOptions: ...
 class IContactStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b2cd6fef-2bfd-4fad-85-52-4e-69-80-97-e8-eb')
+    _iid_ = Guid('{b2cd6fef-2bfd-4fad-8552-4e698097e8eb}')
     @winrt_commethod(6)
     def FindContactByRemoteIdAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.StoredContact]: ...
     @winrt_commethod(7)
@@ -326,19 +326,19 @@ class IContactStore(ComPtr):
     RevisionNumber = property(get_RevisionNumber, None)
 class IContactStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('65f1b64f-d653-43a7-b2-36-b3-0c-0f-4d-72-69')
+    _iid_ = Guid('{65f1b64f-d653-43a7-b236-b30c0f4d7269}')
     @winrt_commethod(6)
     def CreateMeContactAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.StoredContact]: ...
 class IContactStoreStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a804fe22-4beb-44cc-a5-72-67-a5-b9-2e-85-67')
+    _iid_ = Guid('{a804fe22-4beb-44cc-a572-67a5b92e8567}')
     @winrt_commethod(6)
     def CreateOrOpenAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.ContactStore]: ...
     @winrt_commethod(7)
     def CreateOrOpenWithOptionsAsync(self, access: Windows.Phone.PersonalInformation.ContactStoreSystemAccessMode, sharing: Windows.Phone.PersonalInformation.ContactStoreApplicationAccessMode) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.ContactStore]: ...
 class IKnownContactPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d5812b01-2ced-4ee6-b1-d6-09-4b-f8-8e-f0-b6')
+    _iid_ = Guid('{d5812b01-2ced-4ee6-b1d6-094bf88ef0b6}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -446,7 +446,7 @@ class IKnownContactPropertiesStatics(ComPtr):
     AlternateWorkTelephone = property(get_AlternateWorkTelephone, None)
 class IStoredContact(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b070b7b1-263d-4e71-ab-e7-59-1d-24-66-57-0e')
+    _iid_ = Guid('{b070b7b1-263d-4e71-abe7-591d2466570e}')
     @winrt_commethod(6)
     def get_Store(self) -> Windows.Phone.PersonalInformation.ContactStore: ...
     @winrt_commethod(7)
@@ -466,7 +466,7 @@ class IStoredContact(ComPtr):
     RemoteId = property(get_RemoteId, put_RemoteId)
 class IStoredContactFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('49ede921-c225-4fd9-89-c5-ce-cc-2c-8a-4b-79')
+    _iid_ = Guid('{49ede921-c225-4fd9-89c5-cecc2c8a4b79}')
     @winrt_commethod(6)
     def CreateStoredContact(self, store: Windows.Phone.PersonalInformation.ContactStore) -> Windows.Phone.PersonalInformation.StoredContact: ...
     @winrt_commethod(7)

@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IMdmAllowPolicyStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c39709e7-741c-41f2-a4-b6-31-4c-31-50-25-86')
+    _iid_ = Guid('{c39709e7-741c-41f2-a4b6-314c31502586}')
     @winrt_commethod(6)
     def IsBrowserAllowed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -33,12 +33,12 @@ class IMdmAllowPolicyStatics(ComPtr):
     def IsStoreAllowed(self) -> Boolean: ...
 class IMdmPolicyStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c99c7526-03d4-49f9-a9-93-43-ef-cc-d2-65-c4')
+    _iid_ = Guid('{c99c7526-03d4-49f9-a993-43efccd265c4}')
     @winrt_commethod(6)
     def GetMessagingSyncPolicy(self) -> Windows.Management.Workplace.MessagingSyncPolicy: ...
 class IWorkplaceSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e4676ffd-2d92-4c08-ba-d4-f6-59-0b-54-a6-d3')
+    _iid_ = Guid('{e4676ffd-2d92-4c08-bad4-f6590b54a6d3}')
     @winrt_commethod(6)
     def get_IsMicrosoftAccountOptional(self) -> Boolean: ...
     IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional, None)

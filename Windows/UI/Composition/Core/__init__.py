@@ -42,7 +42,7 @@ class CompositorController(ComPtr):
     Compositor = property(get_Compositor, None)
 class ICompositorController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2d75f35a-70a7-4395-ba-2d-ce-f0-b1-83-99-f9')
+    _iid_ = Guid('{2d75f35a-70a7-4395-ba2d-cef0b18399f9}')
     @winrt_commethod(6)
     def get_Compositor(self) -> Windows.UI.Composition.Compositor: ...
     @winrt_commethod(7)

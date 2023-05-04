@@ -32,7 +32,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('77a2a53e-7c74-437d-a2-90-3a-c0-d8-cd-56-55')
+    _iid_ = Guid('{77a2a53e-7c74-437d-a290-3ac0d8cd5655}')
     @winrt_commethod(6)
     def get_EventType(self) -> Windows.UI.Core.CoreAcceleratorKeyEventType: ...
     @winrt_commethod(7)
@@ -52,13 +52,13 @@ class IWebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IWebViewControlMoveFocusRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6b2a340d-4bd0-405e-b7-c1-1e-72-a4-92-f4-46')
+    _iid_ = Guid('{6b2a340d-4bd0-405e-b7c1-1e72a492f446}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.Web.UI.Interop.WebViewControlMoveFocusReason: ...
     Reason = property(get_Reason, None)
 class IWebViewControlProcess(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('02c723ec-98d6-424a-b6-3e-c6-13-6c-36-a0-f2')
+    _iid_ = Guid('{02c723ec-98d6-424a-b63e-c6136c36a0f2}')
     @winrt_commethod(6)
     def get_ProcessId(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -80,12 +80,12 @@ class IWebViewControlProcess(ComPtr):
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
 class IWebViewControlProcessFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('47b65cf9-a2d2-453c-b0-97-f6-77-9d-4b-8e-02')
+    _iid_ = Guid('{47b65cf9-a2d2-453c-b097-f6779d4b8e02}')
     @winrt_commethod(6)
     def CreateWithOptions(self, processOptions: Windows.Web.UI.Interop.WebViewControlProcessOptions) -> Windows.Web.UI.Interop.WebViewControlProcess: ...
 class IWebViewControlProcessOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1cca72a7-3bd6-4826-82-61-6c-81-89-50-5d-89')
+    _iid_ = Guid('{1cca72a7-3bd6-4826-8261-6c8189505d89}')
     @winrt_commethod(6)
     def put_EnterpriseId(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -98,7 +98,7 @@ class IWebViewControlProcessOptions(ComPtr):
     PrivateNetworkClientServerCapability = property(get_PrivateNetworkClientServerCapability, put_PrivateNetworkClientServerCapability)
 class IWebViewControlSite(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('133f47c6-12dc-4898-bd-47-04-96-7d-e6-48-ba')
+    _iid_ = Guid('{133f47c6-12dc-4898-bd47-04967de648ba}')
     @winrt_commethod(6)
     def get_Process(self) -> Windows.Web.UI.Interop.WebViewControlProcess: ...
     @winrt_commethod(7)
@@ -131,7 +131,7 @@ class IWebViewControlSite(ComPtr):
     IsVisible = property(get_IsVisible, put_IsVisible)
 class IWebViewControlSite2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d13b2e3f-48ee-4730-82-43-d2-ed-0c-05-60-6a')
+    _iid_ = Guid('{d13b2e3f-48ee-4730-8243-d2ed0c05606a}')
     @winrt_commethod(6)
     def add_GotFocus(self, handler: Windows.Foundation.TypedEventHandler[Windows.Web.UI.Interop.WebViewControl, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)

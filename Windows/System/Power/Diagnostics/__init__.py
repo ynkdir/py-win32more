@@ -42,7 +42,7 @@ class ForegroundEnergyDiagnostics(ComPtr):
     DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
 class IBackgroundEnergyDiagnosticsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d7663702-d3a6-46e0-8f-9b-50-b9-5b-b4-f9-c5')
+    _iid_ = Guid('{d7663702-d3a6-46e0-8f9b-50b95bb4f9c5}')
     @winrt_commethod(6)
     def get_DeviceSpecificConversionFactor(self) -> Double: ...
     @winrt_commethod(7)
@@ -52,7 +52,7 @@ class IBackgroundEnergyDiagnosticsStatics(ComPtr):
     DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
 class IForegroundEnergyDiagnosticsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('23ca0917-cd07-4609-be-15-8f-e8-94-c5-e4-1e')
+    _iid_ = Guid('{23ca0917-cd07-4609-be15-8fe894c5e41e}')
     @winrt_commethod(6)
     def get_DeviceSpecificConversionFactor(self) -> Double: ...
     @winrt_commethod(7)

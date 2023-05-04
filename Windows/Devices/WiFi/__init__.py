@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWiFiAdapter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a6c4e423-3d75-43a4-b9-de-11-e2-6b-72-d9-b0')
+    _iid_ = Guid('{a6c4e423-3d75-43a4-b9de-11e26b72d9b0}')
     @winrt_commethod(6)
     def get_NetworkAdapter(self) -> Windows.Networking.Connectivity.NetworkAdapter: ...
     @winrt_commethod(7)
@@ -49,14 +49,14 @@ class IWiFiAdapter(ComPtr):
     NetworkReport = property(get_NetworkReport, None)
 class IWiFiAdapter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5bc4501d-81e4-453d-94-30-1f-ca-fb-ad-d6-b6')
+    _iid_ = Guid('{5bc4501d-81e4-453d-9430-1fcafbadd6b6}')
     @winrt_commethod(6)
     def GetWpsConfigurationAsync(self, availableNetwork: Windows.Devices.WiFi.WiFiAvailableNetwork) -> Windows.Foundation.IAsyncOperation[Windows.Devices.WiFi.WiFiWpsConfigurationResult]: ...
     @winrt_commethod(7)
     def ConnectWithPasswordCredentialAndSsidAndConnectionMethodAsync(self, availableNetwork: Windows.Devices.WiFi.WiFiAvailableNetwork, reconnectionKind: Windows.Devices.WiFi.WiFiReconnectionKind, passwordCredential: Windows.Security.Credentials.PasswordCredential, ssid: WinRT_String, connectionMethod: Windows.Devices.WiFi.WiFiConnectionMethod) -> Windows.Foundation.IAsyncOperation[Windows.Devices.WiFi.WiFiConnectionResult]: ...
 class IWiFiAdapterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('da25fddd-d24c-43e3-aa-bd-c4-65-9f-73-0f-99')
+    _iid_ = Guid('{da25fddd-d24c-43e3-aabd-c4659f730f99}')
     @winrt_commethod(6)
     def FindAllAdaptersAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.WiFi.WiFiAdapter]]: ...
     @winrt_commethod(7)
@@ -67,7 +67,7 @@ class IWiFiAdapterStatics(ComPtr):
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.WiFi.WiFiAccessStatus]: ...
 class IWiFiAvailableNetwork(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('26e96246-183e-4704-98-26-71-b4-a2-f0-f6-68')
+    _iid_ = Guid('{26e96246-183e-4704-9826-71b4a2f0f668}')
     @winrt_commethod(6)
     def get_Uptime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -103,13 +103,13 @@ class IWiFiAvailableNetwork(ComPtr):
     IsWiFiDirect = property(get_IsWiFiDirect, None)
 class IWiFiConnectionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('143bdfd9-c37d-40be-a5-c8-85-7b-ce-85-a9-31')
+    _iid_ = Guid('{143bdfd9-c37d-40be-a5c8-857bce85a931}')
     @winrt_commethod(6)
     def get_ConnectionStatus(self) -> Windows.Devices.WiFi.WiFiConnectionStatus: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
 class IWiFiNetworkReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9524ded2-5911-445e-81-94-be-4f-1a-70-48-95')
+    _iid_ = Guid('{9524ded2-5911-445e-8194-be4f1a704895}')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -118,7 +118,7 @@ class IWiFiNetworkReport(ComPtr):
     AvailableNetworks = property(get_AvailableNetworks, None)
 class IWiFiOnDemandHotspotConnectTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a268eb58-68f5-59cf-8d-38-35-bf-44-b0-97-ef')
+    _iid_ = Guid('{a268eb58-68f5-59cf-8d38-35bf44b097ef}')
     @winrt_commethod(6)
     def get_RequestedNetwork(self) -> Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork: ...
     @winrt_commethod(7)
@@ -130,13 +130,13 @@ class IWiFiOnDemandHotspotConnectTriggerDetails(ComPtr):
     RequestedNetwork = property(get_RequestedNetwork, None)
 class IWiFiOnDemandHotspotConnectionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('911794a1-6c82-5de3-8a-4a-f9-ff-22-a4-95-7a')
+    _iid_ = Guid('{911794a1-6c82-5de3-8a4a-f9ff22a4957a}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.WiFi.WiFiOnDemandHotspotConnectStatus: ...
     Status = property(get_Status, None)
 class IWiFiOnDemandHotspotNetwork(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('18dc7115-a04e-507c-bb-af-b7-83-69-d2-9f-a7')
+    _iid_ = Guid('{18dc7115-a04e-507c-bbaf-b78369d29fa7}')
     @winrt_commethod(6)
     def GetProperties(self) -> Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties: ...
     @winrt_commethod(7)
@@ -146,7 +146,7 @@ class IWiFiOnDemandHotspotNetwork(ComPtr):
     Id = property(get_Id, None)
 class IWiFiOnDemandHotspotNetworkProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c810a1f2-c81d-5852-be-50-e4-bd-4d-81-e9-8d')
+    _iid_ = Guid('{c810a1f2-c81d-5852-be50-e4bd4d81e98d}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -184,12 +184,12 @@ class IWiFiOnDemandHotspotNetworkProperties(ComPtr):
     Password = property(get_Password, put_Password)
 class IWiFiOnDemandHotspotNetworkStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('00f5b8ac-80e7-5054-87-1c-87-39-f3-74-e3-c9')
+    _iid_ = Guid('{00f5b8ac-80e7-5054-871c-8739f374e3c9}')
     @winrt_commethod(6)
     def GetOrCreateById(self, networkId: Guid) -> Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork: ...
 class IWiFiWpsConfigurationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('67b49871-17ee-42d1-b1-4f-5a-11-f1-22-6f-b5')
+    _iid_ = Guid('{67b49871-17ee-42d1-b14f-5a11f1226fb5}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.WiFi.WiFiWpsConfigurationStatus: ...
     @winrt_commethod(7)

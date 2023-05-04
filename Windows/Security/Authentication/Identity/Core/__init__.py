@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IMicrosoftAccountMultiFactorAuthenticationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0fd340a5-f574-4320-a0-8e-0a-19-a8-23-22-aa')
+    _iid_ = Guid('{0fd340a5-f574-4320-a08e-0a19a82322aa}')
     @winrt_commethod(6)
     def GetOneTimePassCodeAsync(self, userAccountId: WinRT_String, codeLength: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo]: ...
     @winrt_commethod(7)
@@ -47,13 +47,13 @@ class IMicrosoftAccountMultiFactorAuthenticationManager(ComPtr):
     def DenySessionAsync(self, userAccountId: WinRT_String, sessionId: WinRT_String, sessionAuthenticationType: Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationType) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse]: ...
 class IMicrosoftAccountMultiFactorAuthenticatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d964c2e6-f446-4c71-8b-79-6e-a4-02-4a-a9-b8')
+    _iid_ = Guid('{d964c2e6-f446-4c71-8b79-6ea4024aa9b8}')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager: ...
     Current = property(get_Current, None)
 class IMicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4e23a9a0-e9fa-497a-95-de-6d-57-47-bf-97-4c')
+    _iid_ = Guid('{4e23a9a0-e9fa-497a-95de-6d5747bf974c}')
     @winrt_commethod(6)
     def get_Sessions(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo]: ...
     @winrt_commethod(7)
@@ -62,7 +62,7 @@ class IMicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
     ServiceResponse = property(get_ServiceResponse, None)
 class IMicrosoftAccountMultiFactorOneTimeCodedInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('82ba264b-d87c-4668-a9-76-40-cf-ae-54-7d-08')
+    _iid_ = Guid('{82ba264b-d87c-4668-a976-40cfae547d08}')
     @winrt_commethod(6)
     def get_Code(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -77,7 +77,7 @@ class IMicrosoftAccountMultiFactorOneTimeCodedInfo(ComPtr):
     ServiceResponse = property(get_ServiceResponse, None)
 class IMicrosoftAccountMultiFactorSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5f7eabb4-a278-4635-b7-65-b4-94-eb-26-0a-f4')
+    _iid_ = Guid('{5f7eabb4-a278-4635-b765-b494eb260af4}')
     @winrt_commethod(6)
     def get_UserAccountId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -101,7 +101,7 @@ class IMicrosoftAccountMultiFactorSessionInfo(ComPtr):
     ExpirationTime = property(get_ExpirationTime, None)
 class IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aa7ec5fb-da3f-4088-a2-0d-56-18-af-ad-b2-e5')
+    _iid_ = Guid('{aa7ec5fb-da3f-4088-a20d-5618afadb2e5}')
     @winrt_commethod(6)
     def get_Sessions(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo]: ...
     @winrt_commethod(7)

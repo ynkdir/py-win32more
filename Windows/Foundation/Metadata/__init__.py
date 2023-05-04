@@ -74,7 +74,7 @@ GCPressureAmount_Medium: GCPressureAmount = 1
 GCPressureAmount_High: GCPressureAmount = 2
 class IApiInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('997439fe-f681-4a11-b4-16-c1-3a-47-e8-ba-36')
+    _iid_ = Guid('{997439fe-f681-4a11-b416-c13a47e8ba36}')
     @winrt_commethod(6)
     def IsTypePresent(self, typeName: WinRT_String) -> Boolean: ...
     @winrt_commethod(7)

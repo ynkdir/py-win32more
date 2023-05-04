@@ -110,7 +110,7 @@ class CortanaSettings(ComPtr):
     IsVoiceActivationEnabled = property(get_IsVoiceActivationEnabled, put_IsVoiceActivationEnabled)
 class ICortanaActionableInsights(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('951ec6b1-fc83-586d-8b-84-24-52-c8-98-16-25')
+    _iid_ = Guid('{951ec6b1-fc83-586d-8b84-2452c8981625}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     @winrt_commethod(7)
@@ -130,7 +130,7 @@ class ICortanaActionableInsights(ComPtr):
     User = property(get_User, None)
 class ICortanaActionableInsightsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aac2bbcf-9782-5420-b8-1e-7a-e5-6a-f3-18-15')
+    _iid_ = Guid('{aac2bbcf-9782-5420-b81e-7ae56af31815}')
     @winrt_commethod(6)
     def get_ContentSourceWebLink(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -143,14 +143,14 @@ class ICortanaActionableInsightsOptions(ComPtr):
     SurroundingText = property(get_SurroundingText, put_SurroundingText)
 class ICortanaActionableInsightsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b5ded412-9d2f-5cb5-9b-05-35-6a-0b-83-6c-10')
+    _iid_ = Guid('{b5ded412-9d2f-5cb5-9b05-356a0b836c10}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Services.Cortana.CortanaActionableInsights: ...
     @winrt_commethod(7)
     def GetForUser(self, user: Windows.System.User) -> Windows.Services.Cortana.CortanaActionableInsights: ...
 class ICortanaPermissionsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('191330e0-8695-438a-95-45-3d-a4-e8-22-dd-b4')
+    _iid_ = Guid('{191330e0-8695-438a-9545-3da4e822ddb4}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -161,12 +161,12 @@ class ICortanaPermissionsManager(ComPtr):
     def RevokePermissionsAsync(self, permissions: Windows.Foundation.Collections.IIterable[Windows.Services.Cortana.CortanaPermission]) -> Windows.Foundation.IAsyncOperation[Windows.Services.Cortana.CortanaPermissionsChangeResult]: ...
 class ICortanaPermissionsManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('76b1e67a-b045-4414-9d-6d-2a-d3-a5-fe-3a-7e')
+    _iid_ = Guid('{76b1e67a-b045-4414-9d6d-2ad3a5fe3a7e}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Services.Cortana.CortanaPermissionsManager: ...
 class ICortanaSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('54d571a7-8062-40f4-ab-e7-de-df-d6-97-b0-19')
+    _iid_ = Guid('{54d571a7-8062-40f4-abe7-dedfd697b019}')
     @winrt_commethod(6)
     def get_HasUserConsentToVoiceActivation(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -177,7 +177,7 @@ class ICortanaSettings(ComPtr):
     IsVoiceActivationEnabled = property(get_IsVoiceActivationEnabled, put_IsVoiceActivationEnabled)
 class ICortanaSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8b2ccd7e-2ec0-446d-92-85-33-f0-7c-e8-ac-04')
+    _iid_ = Guid('{8b2ccd7e-2ec0-446d-9285-33f07ce8ac04}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)

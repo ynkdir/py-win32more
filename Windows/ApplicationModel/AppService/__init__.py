@@ -156,18 +156,18 @@ class AppServiceTriggerDetails(ComPtr):
     CallerRemoteConnectionToken = property(get_CallerRemoteConnectionToken, None)
 class IAppServiceCatalogStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ef0d2507-d132-4c85-83-95-3c-31-d5-a1-e9-41')
+    _iid_ = Guid('{ef0d2507-d132-4c85-8395-3c31d5a1e941}')
     @winrt_commethod(6)
     def FindAppServiceProvidersAsync(self, appServiceName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.AppInfo]]: ...
 class IAppServiceClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('de6016f6-cb03-4d35-ac-8d-cc-63-03-23-97-31')
+    _iid_ = Guid('{de6016f6-cb03-4d35-ac8d-cc6303239731}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.ApplicationModel.AppService.AppServiceClosedStatus: ...
     Status = property(get_Status, None)
 class IAppServiceConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9dd474a2-871f-4d52-89-a9-9e-09-05-31-bd-27')
+    _iid_ = Guid('{9dd474a2-871f-4d52-89a9-9e090531bd27}')
     @winrt_commethod(6)
     def get_AppServiceName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -192,7 +192,7 @@ class IAppServiceConnection(ComPtr):
     PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
 class IAppServiceConnection2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8bdfcd5f-2302-4fbd-80-61-52-51-1c-2f-8b-f9')
+    _iid_ = Guid('{8bdfcd5f-2302-4fbd-8061-52511c2f8bf9}')
     @winrt_commethod(6)
     def OpenRemoteAsync(self, remoteSystemConnectionRequest: Windows.System.RemoteSystems.RemoteSystemConnectionRequest) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.AppService.AppServiceConnectionStatus]: ...
     @winrt_commethod(7)
@@ -202,17 +202,17 @@ class IAppServiceConnection2(ComPtr):
     User = property(get_User, put_User)
 class IAppServiceConnectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('adc56ce9-d408-5673-86-37-82-7a-4b-27-41-68')
+    _iid_ = Guid('{adc56ce9-d408-5673-8637-827a4b274168}')
     @winrt_commethod(6)
     def SendStatelessMessageAsync(self, connection: Windows.ApplicationModel.AppService.AppServiceConnection, connectionRequest: Windows.System.RemoteSystems.RemoteSystemConnectionRequest, message: Windows.Foundation.Collections.ValueSet) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.AppService.StatelessAppServiceResponse]: ...
 class IAppServiceDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7e1b5322-eab0-4248-ae-04-fd-f9-38-38-e4-72')
+    _iid_ = Guid('{7e1b5322-eab0-4248-ae04-fdf93838e472}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IAppServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('20e58d9d-18de-4b01-80-ba-90-a7-62-04-e3-c8')
+    _iid_ = Guid('{20e58d9d-18de-4b01-80ba-90a76204e3c8}')
     @winrt_commethod(6)
     def get_Message(self) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_commethod(7)
@@ -220,7 +220,7 @@ class IAppServiceRequest(ComPtr):
     Message = property(get_Message, None)
 class IAppServiceRequestReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6e122360-ff65-44ae-9e-45-85-7f-e4-18-06-81')
+    _iid_ = Guid('{6e122360-ff65-44ae-9e45-857fe4180681}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.AppService.AppServiceRequest: ...
     @winrt_commethod(7)
@@ -228,7 +228,7 @@ class IAppServiceRequestReceivedEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IAppServiceResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8d503cec-9aa3-4e68-95-59-9d-e6-3e-37-2c-e4')
+    _iid_ = Guid('{8d503cec-9aa3-4e68-9559-9de63e372ce4}')
     @winrt_commethod(6)
     def get_Message(self) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_commethod(7)
@@ -237,7 +237,7 @@ class IAppServiceResponse(ComPtr):
     Status = property(get_Status, None)
 class IAppServiceTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('88a2dcac-ad28-41b8-80-bb-bd-f1-b2-16-9e-19')
+    _iid_ = Guid('{88a2dcac-ad28-41b8-80bb-bdf1b2169e19}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -249,24 +249,24 @@ class IAppServiceTriggerDetails(ComPtr):
     AppServiceConnection = property(get_AppServiceConnection, None)
 class IAppServiceTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e83d54b2-28cc-43f2-b4-65-c0-48-2e-59-e2-dc')
+    _iid_ = Guid('{e83d54b2-28cc-43f2-b465-c0482e59e2dc}')
     @winrt_commethod(6)
     def get_IsRemoteSystemConnection(self) -> Boolean: ...
     IsRemoteSystemConnection = property(get_IsRemoteSystemConnection, None)
 class IAppServiceTriggerDetails3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fbd71e21-7939-4e68-9e-3c-77-80-14-7a-ab-b6')
+    _iid_ = Guid('{fbd71e21-7939-4e68-9e3c-7780147aabb6}')
     @winrt_commethod(6)
     def CheckCallerForCapabilityAsync(self, capabilityName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IAppServiceTriggerDetails4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1185b180-8861-5e30-ab-55-1c-f4-d0-8b-bf-6d')
+    _iid_ = Guid('{1185b180-8861-5e30-ab55-1cf4d08bbf6d}')
     @winrt_commethod(6)
     def get_CallerRemoteConnectionToken(self) -> WinRT_String: ...
     CallerRemoteConnectionToken = property(get_CallerRemoteConnectionToken, None)
 class IStatelessAppServiceResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('43754af7-a9ec-52fe-82-e7-93-9b-68-dc-93-88')
+    _iid_ = Guid('{43754af7-a9ec-52fe-82e7-939b68dc9388}')
     @winrt_commethod(6)
     def get_Message(self) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_commethod(7)

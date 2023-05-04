@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISpatialGraphInteropFrameOfReferencePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a8271b23-735f-5729-a9-8e-e6-4e-d1-89-ab-c5')
+    _iid_ = Guid('{a8271b23-735f-5729-a98e-e64ed189abc5}')
     @winrt_commethod(6)
     def get_CoordinateSystem(self) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_commethod(7)
@@ -36,7 +36,7 @@ class ISpatialGraphInteropFrameOfReferencePreview(ComPtr):
     CoordinateSystemToNodeTransform = property(get_CoordinateSystemToNodeTransform, None)
 class ISpatialGraphInteropPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c042644c-20d8-4ed0-ae-f7-68-05-b8-e5-3f-55')
+    _iid_ = Guid('{c042644c-20d8-4ed0-aef7-6805b8e53f55}')
     @winrt_commethod(6)
     def CreateCoordinateSystemForNode(self, nodeId: Guid) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_commethod(7)
@@ -47,7 +47,7 @@ class ISpatialGraphInteropPreviewStatics(ComPtr):
     def CreateLocatorForNode(self, nodeId: Guid) -> Windows.Perception.Spatial.SpatialLocator: ...
 class ISpatialGraphInteropPreviewStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2490b15f-6cbd-4b1e-b7-65-31-e4-62-a3-2d-f2')
+    _iid_ = Guid('{2490b15f-6cbd-4b1e-b765-31e462a32df2}')
     @winrt_commethod(6)
     def TryCreateFrameOfReference(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem) -> Windows.Perception.Spatial.Preview.SpatialGraphInteropFrameOfReferencePreview: ...
     @winrt_commethod(7)

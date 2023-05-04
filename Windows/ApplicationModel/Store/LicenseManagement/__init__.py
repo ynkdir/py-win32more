@@ -25,19 +25,19 @@ def __getattr__(name):
     return getattr(_module, name)
 class ILicenseManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b5ac3ae0-da47-4f20-9a-23-09-18-2c-94-76-ff')
+    _iid_ = Guid('{b5ac3ae0-da47-4f20-9a23-09182c9476ff}')
     @winrt_commethod(6)
     def AddLicenseAsync(self, license: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def GetSatisfactionInfosAsync(self, contentIds: Windows.Foundation.Collections.IIterable[WinRT_String], keyIds: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionResult]: ...
 class ILicenseManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ab2ec47b-1f79-4480-b8-7e-2c-49-9e-60-1b-a3')
+    _iid_ = Guid('{ab2ec47b-1f79-4480-b87e-2c499e601ba3}')
     @winrt_commethod(6)
     def RefreshLicensesAsync(self, refreshOption: Windows.ApplicationModel.Store.LicenseManagement.LicenseRefreshOption) -> Windows.Foundation.IAsyncAction: ...
 class ILicenseSatisfactionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3ccbb08f-db31-48d5-83-84-fa-17-c8-14-74-e2')
+    _iid_ = Guid('{3ccbb08f-db31-48d5-8384-fa17c81474e2}')
     @winrt_commethod(6)
     def get_SatisfiedByDevice(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -61,7 +61,7 @@ class ILicenseSatisfactionInfo(ComPtr):
     IsSatisfied = property(get_IsSatisfied, None)
 class ILicenseSatisfactionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3c674f73-3c87-4ee1-82-01-f4-28-35-9b-d3-af')
+    _iid_ = Guid('{3c674f73-3c87-4ee1-8201-f428359bd3af}')
     @winrt_commethod(6)
     def get_LicenseSatisfactionInfos(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionInfo]: ...
     @winrt_commethod(7)

@@ -51,7 +51,7 @@ class CommunicationBlockingAppManager(ComPtr):
 CommunicationBlockingContract: UInt32 = 131072
 class ICommunicationBlockingAccessManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1c969998-9d2a-5db7-ed-d5-0c-e4-07-fc-25-95')
+    _iid_ = Guid('{1c969998-9d2a-5db7-edd5-0ce407fc2595}')
     @winrt_commethod(6)
     def get_IsBlockingActive(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -67,7 +67,7 @@ class ICommunicationBlockingAccessManagerStatics(ComPtr):
     IsBlockingActive = property(get_IsBlockingActive, None)
 class ICommunicationBlockingAppManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('77db58ec-14a6-4baa-94-2a-6a-67-3d-99-9b-f2')
+    _iid_ = Guid('{77db58ec-14a6-4baa-942a-6a673d999bf2}')
     @winrt_commethod(6)
     def get_IsCurrentAppActiveBlockingApp(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -75,7 +75,7 @@ class ICommunicationBlockingAppManagerStatics(ComPtr):
     IsCurrentAppActiveBlockingApp = property(get_IsCurrentAppActiveBlockingApp, None)
 class ICommunicationBlockingAppManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('14a68edd-ed88-457a-a3-64-a3-63-4d-6f-16-6d')
+    _iid_ = Guid('{14a68edd-ed88-457a-a364-a3634d6f166d}')
     @winrt_commethod(6)
     def RequestSetAsActiveBlockingAppAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 make_head(_module, 'CommunicationBlockingAccessManager')

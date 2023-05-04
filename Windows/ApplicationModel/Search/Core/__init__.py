@@ -26,10 +26,10 @@ def __getattr__(name):
     return getattr(_module, name)
 class IRequestingFocusOnKeyboardInputEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a1195f27-b1a7-41a2-87-9d-6a-68-68-7e-59-85')
+    _iid_ = Guid('{a1195f27-b1a7-41a2-879d-6a68687e5985}')
 class ISearchSuggestion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5b5554b0-1527-437b-95-c5-8d-18-d2-b8-af-55')
+    _iid_ = Guid('{5b5554b0-1527-437b-95c5-8d18d2b8af55}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.ApplicationModel.Search.Core.SearchSuggestionKind: ...
     @winrt_commethod(7)
@@ -50,7 +50,7 @@ class ISearchSuggestion(ComPtr):
     ImageAlternateText = property(get_ImageAlternateText, None)
 class ISearchSuggestionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3f0c50a1-cb9d-497b-b5-00-3c-04-ac-95-9a-d2')
+    _iid_ = Guid('{3f0c50a1-cb9d-497b-b500-3c04ac959ad2}')
     @winrt_commethod(6)
     def get_SearchHistoryEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -88,7 +88,7 @@ class ISearchSuggestionManager(ComPtr):
     Suggestions = property(get_Suggestions, None)
 class ISearchSuggestionsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6fd519e5-9e7e-4ab4-8b-e3-c7-6b-1b-d4-34-4a')
+    _iid_ = Guid('{6fd519e5-9e7e-4ab4-8be3-c76b1bd4344a}')
     @winrt_commethod(6)
     def get_QueryText(self) -> WinRT_String: ...
     @winrt_commethod(7)

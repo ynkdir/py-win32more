@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPreviewBuildsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fa07dd61-7e4f-59f7-7c-9f-de-f9-05-1c-5f-62')
+    _iid_ = Guid('{fa07dd61-7e4f-59f7-7c9f-def9051c5f62}')
     @winrt_commethod(6)
     def get_ArePreviewBuildsAllowed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -36,20 +36,20 @@ class IPreviewBuildsManager(ComPtr):
     ArePreviewBuildsAllowed = property(get_ArePreviewBuildsAllowed, put_ArePreviewBuildsAllowed)
 class IPreviewBuildsManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3e422887-b112-5a70-7d-a1-97-d7-8d-32-aa-29')
+    _iid_ = Guid('{3e422887-b112-5a70-7da1-97d78d32aa29}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Management.Update.PreviewBuildsManager: ...
     @winrt_commethod(7)
     def IsSupported(self) -> Boolean: ...
 class IPreviewBuildsState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a2f2903e-b223-5f63-75-46-3e-8e-ac-07-0a-2e')
+    _iid_ = Guid('{a2f2903e-b223-5f63-7546-3e8eac070a2e}')
     @winrt_commethod(6)
     def get_Properties(self) -> Windows.Foundation.Collections.ValueSet: ...
     Properties = property(get_Properties, None)
 class IWindowsUpdate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c3c88dd7-0ef3-52b2-a9-ad-66-bf-c6-bd-95-82')
+    _iid_ = Guid('{c3c88dd7-0ef3-52b2-a9ad-66bfc6bd9582}')
     @winrt_commethod(6)
     def get_ProviderId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -122,7 +122,7 @@ class IWindowsUpdate(ComPtr):
     ActionProgress = property(get_ActionProgress, None)
 class IWindowsUpdateActionCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2c44b950-a655-5321-ae-c1-ae-e7-62-92-21-31')
+    _iid_ = Guid('{2c44b950-a655-5321-aec1-aee762922131}')
     @winrt_commethod(6)
     def get_Update(self) -> Windows.Management.Update.WindowsUpdate: ...
     @winrt_commethod(7)
@@ -137,7 +137,7 @@ class IWindowsUpdateActionCompletedEventArgs(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IWindowsUpdateActionProgress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('83b22d8a-4bb0-549f-ba-39-59-72-48-82-d1-37')
+    _iid_ = Guid('{83b22d8a-4bb0-549f-ba39-59724882d137}')
     @winrt_commethod(6)
     def get_Action(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -146,7 +146,7 @@ class IWindowsUpdateActionProgress(ComPtr):
     Progress = property(get_Progress, None)
 class IWindowsUpdateActionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e6692c62-f697-51b7-ab-7f-e7-3e-5e-68-8f-12')
+    _iid_ = Guid('{e6692c62-f697-51b7-ab7f-e73e5e688f12}')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -161,7 +161,7 @@ class IWindowsUpdateActionResult(ComPtr):
     Action = property(get_Action, None)
 class IWindowsUpdateAdministrator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7a60181c-ba1e-5cf9-aa-65-30-41-20-b7-3d-72')
+    _iid_ = Guid('{7a60181c-ba1e-5cf9-aa65-304120b73d72}')
     @winrt_commethod(6)
     def StartAdministratorScan(self) -> Void: ...
     @winrt_commethod(7)
@@ -176,7 +176,7 @@ class IWindowsUpdateAdministrator(ComPtr):
     def GetUpdates(self) -> Windows.Foundation.Collections.IVectorView[Windows.Management.Update.WindowsUpdate]: ...
 class IWindowsUpdateAdministratorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('013e6d36-ef69-53bc-8d-b8-c4-03-bc-a5-50-ed')
+    _iid_ = Guid('{013e6d36-ef69-53bc-8db8-c403bca550ed}')
     @winrt_commethod(6)
     def GetRegisteredAdministrator(self, organizationName: WinRT_String) -> Windows.Management.Update.WindowsUpdateGetAdministratorResult: ...
     @winrt_commethod(7)
@@ -191,7 +191,7 @@ class IWindowsUpdateAdministratorStatics(ComPtr):
     def CancelRestartRequest(self, requestRestartToken: WinRT_String) -> Void: ...
 class IWindowsUpdateApprovalData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aadf5bfd-84db-59bc-85-e2-ad-4f-c1-f6-2f-7c')
+    _iid_ = Guid('{aadf5bfd-84db-59bc-85e2-ad4fc1f62f7c}')
     @winrt_commethod(6)
     def get_Seeker(self) -> Windows.Foundation.IReference[Boolean]: ...
     @winrt_commethod(7)
@@ -219,7 +219,7 @@ class IWindowsUpdateApprovalData(ComPtr):
     OptOutOfAutoReboot = property(get_OptOutOfAutoReboot, put_OptOutOfAutoReboot)
 class IWindowsUpdateAttentionRequiredInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('44df2579-74d3-5ffa-b6-ce-09-e1-87-e1-e0-ed')
+    _iid_ = Guid('{44df2579-74d3-5ffa-b6ce-09e187e1e0ed}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.Management.Update.WindowsUpdateAttentionRequiredReason: ...
     @winrt_commethod(7)
@@ -228,7 +228,7 @@ class IWindowsUpdateAttentionRequiredInfo(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IWindowsUpdateAttentionRequiredReasonChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0627abca-dbb8-524a-b1-d2-d9-df-00-4e-eb-31')
+    _iid_ = Guid('{0627abca-dbb8-524a-b1d2-d9df004eeb31}')
     @winrt_commethod(6)
     def get_Update(self) -> Windows.Management.Update.WindowsUpdate: ...
     @winrt_commethod(7)
@@ -237,7 +237,7 @@ class IWindowsUpdateAttentionRequiredReasonChangedEventArgs(ComPtr):
     Reason = property(get_Reason, None)
 class IWindowsUpdateGetAdministratorResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bb39ffc4-2c42-5b1c-89-95-34-33-41-c9-2c-50')
+    _iid_ = Guid('{bb39ffc4-2c42-5b1c-8995-343341c92c50}')
     @winrt_commethod(6)
     def get_Administrator(self) -> Windows.Management.Update.WindowsUpdateAdministrator: ...
     @winrt_commethod(7)
@@ -246,7 +246,7 @@ class IWindowsUpdateGetAdministratorResult(ComPtr):
     Status = property(get_Status, None)
 class IWindowsUpdateItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b222e44a-49b6-59bf-a0-33-ef-61-7c-d7-3a-98')
+    _iid_ = Guid('{b222e44a-49b6-59bf-a033-ef617cd73a98}')
     @winrt_commethod(6)
     def get_ProviderId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -273,7 +273,7 @@ class IWindowsUpdateItem(ComPtr):
     Operation = property(get_Operation, None)
 class IWindowsUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5dd966c0-a71a-5602-bb-d0-09-a7-0e-45-73-fa')
+    _iid_ = Guid('{5dd966c0-a71a-5602-bbd0-09a70e4573fa}')
     @winrt_commethod(6)
     def add_ScanningStateChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Management.Update.WindowsUpdateManager, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -317,12 +317,12 @@ class IWindowsUpdateManager(ComPtr):
     LastSuccessfulScanTimestamp = property(get_LastSuccessfulScanTimestamp, None)
 class IWindowsUpdateManagerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1b394df8-decb-5f44-b4-7c-6c-cf-3b-cf-db-37')
+    _iid_ = Guid('{1b394df8-decb-5f44-b47c-6ccf3bcfdb37}')
     @winrt_commethod(6)
     def CreateInstance(self, clientId: WinRT_String) -> Windows.Management.Update.WindowsUpdateManager: ...
 class IWindowsUpdateProgressChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bbfbdeeb-94c8-5aa7-b0-fb-66-c6-7c-23-3b-0a')
+    _iid_ = Guid('{bbfbdeeb-94c8-5aa7-b0fb-66c67c233b0a}')
     @winrt_commethod(6)
     def get_Update(self) -> Windows.Management.Update.WindowsUpdate: ...
     @winrt_commethod(7)
@@ -331,7 +331,7 @@ class IWindowsUpdateProgressChangedEventArgs(ComPtr):
     ActionProgress = property(get_ActionProgress, None)
 class IWindowsUpdateRestartRequestOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('38cfb7d3-4188-5222-90-5c-6c-44-43-c9-51-ee')
+    _iid_ = Guid('{38cfb7d3-4188-5222-905c-6c4443c951ee}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -369,12 +369,12 @@ class IWindowsUpdateRestartRequestOptions(ComPtr):
     OptOutOfAutoReboot = property(get_OptOutOfAutoReboot, put_OptOutOfAutoReboot)
 class IWindowsUpdateRestartRequestOptionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('75f41d04-0e17-50d0-8c-15-6b-9d-05-39-b3-a9')
+    _iid_ = Guid('{75f41d04-0e17-50d0-8c15-6b9d0539b3a9}')
     @winrt_commethod(6)
     def CreateInstance(self, title: WinRT_String, description: WinRT_String, moreInfoUrl: Windows.Foundation.Uri, complianceDeadlineInDays: Int32, complianceGracePeriodInDays: Int32) -> Windows.Management.Update.WindowsUpdateRestartRequestOptions: ...
 class IWindowsUpdateScanCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('95b6953e-ba5c-5fe8-b1-15-12-de-18-4a-6b-b0')
+    _iid_ = Guid('{95b6953e-ba5c-5fe8-b115-12de184a6bb0}')
     @winrt_commethod(6)
     def get_ProviderId(self) -> WinRT_String: ...
     @winrt_commethod(7)

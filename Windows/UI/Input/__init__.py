@@ -332,13 +332,13 @@ HoldingState_Completed: HoldingState = 1
 HoldingState_Canceled: HoldingState = 2
 class IAttachableInputObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9b822734-a3c1-542a-b2-f4-0e-32-b7-73-fb-07')
+    _iid_ = Guid('{9b822734-a3c1-542a-b2f4-0e32b773fb07}')
 class IAttachableInputObjectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a4c54c4e-42bc-58fa-a6-40-ea-15-16-f4-c0-6b')
+    _iid_ = Guid('{a4c54c4e-42bc-58fa-a640-ea1516f4c06b}')
 class ICrossSlidingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e9374738-6f88-41d9-87-20-78-e0-8e-39-83-49')
+    _iid_ = Guid('{e9374738-6f88-41d9-8720-78e08e398349}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -350,13 +350,13 @@ class ICrossSlidingEventArgs(ComPtr):
     CrossSlidingState = property(get_CrossSlidingState, None)
 class ICrossSlidingEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('eefb7d48-c070-59f3-8d-ab-bc-af-62-1d-86-87')
+    _iid_ = Guid('{eefb7d48-c070-59f3-8dab-bcaf621d8687}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     ContactCount = property(get_ContactCount, None)
 class IDraggingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1c905384-083c-4bd3-b5-59-17-9c-dd-eb-33-ec')
+    _iid_ = Guid('{1c905384-083c-4bd3-b559-179cddeb33ec}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -368,13 +368,13 @@ class IDraggingEventArgs(ComPtr):
     DraggingState = property(get_DraggingState, None)
 class IDraggingEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('71efdbf9-382a-55ca-b4-b9-00-81-23-c1-bf-1a')
+    _iid_ = Guid('{71efdbf9-382a-55ca-b4b9-008123c1bf1a}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     ContactCount = property(get_ContactCount, None)
 class IEdgeGesture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('580d5292-2ab1-49aa-a7-f0-33-bd-3f-8d-f9-f1')
+    _iid_ = Guid('{580d5292-2ab1-49aa-a7f0-33bd3f8df9f1}')
     @winrt_commethod(6)
     def add_Starting(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.EdgeGesture, Windows.UI.Input.EdgeGestureEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -389,18 +389,18 @@ class IEdgeGesture(ComPtr):
     def remove_Canceled(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IEdgeGestureEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('44fa4a24-2d09-42e1-8b-5e-36-82-08-79-6a-4c')
+    _iid_ = Guid('{44fa4a24-2d09-42e1-8b5e-368208796a4c}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.UI.Input.EdgeGestureKind: ...
     Kind = property(get_Kind, None)
 class IEdgeGestureStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bc6a8519-18ee-4043-98-39-4f-c5-84-d6-0a-14')
+    _iid_ = Guid('{bc6a8519-18ee-4043-9839-4fc584d60a14}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Input.EdgeGesture: ...
 class IGestureRecognizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b47a37bf-3d6b-4f88-83-e8-6d-cb-40-12-ff-b0')
+    _iid_ = Guid('{b47a37bf-3d6b-4f88-83e8-6dcb4012ffb0}')
     @winrt_commethod(6)
     def get_GestureSettings(self) -> Windows.UI.Input.GestureSettings: ...
     @winrt_commethod(7)
@@ -537,7 +537,7 @@ class IGestureRecognizer(ComPtr):
     MouseWheelParameters = property(get_MouseWheelParameters, None)
 class IGestureRecognizer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d646097f-6ef7-5746-8b-a8-8f-f2-20-6e-6f-3b')
+    _iid_ = Guid('{d646097f-6ef7-5746-8ba8-8ff2206e6f3b}')
     @winrt_commethod(6)
     def get_TapMinContactCount(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -580,7 +580,7 @@ class IGestureRecognizer2(ComPtr):
     TranslationMaxContactCount = property(get_TranslationMaxContactCount, put_TranslationMaxContactCount)
 class IHoldingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2bf755c5-e799-41b4-bb-40-24-2f-40-95-9b-71')
+    _iid_ = Guid('{2bf755c5-e799-41b4-bb40-242f40959b71}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -592,7 +592,7 @@ class IHoldingEventArgs(ComPtr):
     HoldingState = property(get_HoldingState, None)
 class IHoldingEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('141da9ea-4c79-5674-af-ea-49-3f-de-b9-1f-19')
+    _iid_ = Guid('{141da9ea-4c79-5674-afea-493fdeb91f19}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -601,7 +601,7 @@ class IHoldingEventArgs2(ComPtr):
     CurrentContactCount = property(get_CurrentContactCount, None)
 class IInputActivationListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5d6d4ed2-28c7-5ae3-aa-74-c9-18-a9-f2-43-ca')
+    _iid_ = Guid('{5d6d4ed2-28c7-5ae3-aa74-c918a9f243ca}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.UI.Input.InputActivationState: ...
     @winrt_commethod(7)
@@ -611,13 +611,13 @@ class IInputActivationListener(ComPtr):
     State = property(get_State, None)
 class IInputActivationListenerActivationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7699b465-1dcf-5791-b4-b9-6c-af-be-ed-20-56')
+    _iid_ = Guid('{7699b465-1dcf-5791-b4b9-6cafbeed2056}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.UI.Input.InputActivationState: ...
     State = property(get_State, None)
 class IKeyboardDeliveryInterceptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b4baf068-8f49-446c-8d-b5-8c-0f-fe-85-cc-9e')
+    _iid_ = Guid('{b4baf068-8f49-446c-8db5-8c0ffe85cc9e}')
     @winrt_commethod(6)
     def get_IsInterceptionEnabledWhenInForeground(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -633,12 +633,12 @@ class IKeyboardDeliveryInterceptor(ComPtr):
     IsInterceptionEnabledWhenInForeground = property(get_IsInterceptionEnabledWhenInForeground, put_IsInterceptionEnabledWhenInForeground)
 class IKeyboardDeliveryInterceptorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f9f63ba2-ceba-4755-8a-7e-14-c0-ff-ec-d2-39')
+    _iid_ = Guid('{f9f63ba2-ceba-4755-8a7e-14c0ffecd239}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Input.KeyboardDeliveryInterceptor: ...
 class IManipulationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b34ab22b-d19b-46ff-9f-38-de-c7-75-4b-b9-e7')
+    _iid_ = Guid('{b34ab22b-d19b-46ff-9f38-dec7754bb9e7}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -653,7 +653,7 @@ class IManipulationCompletedEventArgs(ComPtr):
     Velocities = property(get_Velocities, None)
 class IManipulationCompletedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f0c0dce7-30a9-5b96-88-6f-65-60-a8-5e-47-57')
+    _iid_ = Guid('{f0c0dce7-30a9-5b96-886f-6560a85e4757}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -662,7 +662,7 @@ class IManipulationCompletedEventArgs2(ComPtr):
     CurrentContactCount = property(get_CurrentContactCount, None)
 class IManipulationInertiaStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dd37a898-26bf-467a-9c-e5-cc-f3-fb-11-37-1e')
+    _iid_ = Guid('{dd37a898-26bf-467a-9ce5-ccf3fb11371e}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -680,13 +680,13 @@ class IManipulationInertiaStartingEventArgs(ComPtr):
     Velocities = property(get_Velocities, None)
 class IManipulationInertiaStartingEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c25409b8-f9fa-5a45-bd-97-dc-bb-b2-20-18-60')
+    _iid_ = Guid('{c25409b8-f9fa-5a45-bd97-dcbbb2201860}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     ContactCount = property(get_ContactCount, None)
 class IManipulationStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ddec873e-cfce-4932-8c-1d-3c-3d-01-1a-34-c0')
+    _iid_ = Guid('{ddec873e-cfce-4932-8c1d-3c3d011a34c0}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -698,13 +698,13 @@ class IManipulationStartedEventArgs(ComPtr):
     Cumulative = property(get_Cumulative, None)
 class IManipulationStartedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2da3db4e-e583-5055-af-aa-16-fd-98-65-31-a6')
+    _iid_ = Guid('{2da3db4e-e583-5055-afaa-16fd986531a6}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     ContactCount = property(get_ContactCount, None)
 class IManipulationUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cb354ce5-abb8-4f9f-b3-ce-81-81-aa-61-ad-82')
+    _iid_ = Guid('{cb354ce5-abb8-4f9f-b3ce-8181aa61ad82}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -722,7 +722,7 @@ class IManipulationUpdatedEventArgs(ComPtr):
     Velocities = property(get_Velocities, None)
 class IManipulationUpdatedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f3dfb96a-3306-5903-a1-c5-ff-97-57-a8-68-9e')
+    _iid_ = Guid('{f3dfb96a-3306-5903-a1c5-ff9757a8689e}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -731,7 +731,7 @@ class IManipulationUpdatedEventArgs2(ComPtr):
     CurrentContactCount = property(get_CurrentContactCount, None)
 class IMouseWheelParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ead0ca44-9ded-4037-81-49-5e-4c-c2-56-44-68')
+    _iid_ = Guid('{ead0ca44-9ded-4037-8149-5e4cc2564468}')
     @winrt_commethod(6)
     def get_CharTranslation(self) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -754,7 +754,7 @@ class IMouseWheelParameters(ComPtr):
     PageTranslation = property(get_PageTranslation, put_PageTranslation)
 class IPointerPoint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e995317d-7296-42d9-82-33-c5-be-73-b7-4a-4a')
+    _iid_ = Guid('{e995317d-7296-42d9-8233-c5be73b74a4a}')
     @winrt_commethod(6)
     def get_PointerDevice(self) -> Windows.Devices.Input.PointerDevice: ...
     @winrt_commethod(7)
@@ -781,7 +781,7 @@ class IPointerPoint(ComPtr):
     Properties = property(get_Properties, None)
 class IPointerPointProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c79d8a4b-c163-4ee7-80-3f-67-ce-79-f9-97-2d')
+    _iid_ = Guid('{c79d8a4b-c163-4ee7-803f-67ce79f9972d}')
     @winrt_commethod(6)
     def get_Pressure(self) -> Single: ...
     @winrt_commethod(7)
@@ -854,13 +854,13 @@ class IPointerPointProperties(ComPtr):
     PointerUpdateKind = property(get_PointerUpdateKind, None)
 class IPointerPointProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('22c3433a-c83b-41c0-a2-96-5e-23-2d-64-d6-af')
+    _iid_ = Guid('{22c3433a-c83b-41c0-a296-5e232d64d6af}')
     @winrt_commethod(6)
     def get_ZDistance(self) -> Windows.Foundation.IReference[Single]: ...
     ZDistance = property(get_ZDistance, None)
 class IPointerPointStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a506638d-2a1a-413e-bc-75-9f-38-38-1c-c0-69')
+    _iid_ = Guid('{a506638d-2a1a-413e-bc75-9f38381cc069}')
     @winrt_commethod(6)
     def GetCurrentPoint(self, pointerId: UInt32) -> Windows.UI.Input.PointerPoint: ...
     @winrt_commethod(7)
@@ -871,7 +871,7 @@ class IPointerPointStatics(ComPtr):
     def GetIntermediatePointsTransformed(self, pointerId: UInt32, transform: Windows.UI.Input.IPointerPointTransform) -> Windows.Foundation.Collections.IVector[Windows.UI.Input.PointerPoint]: ...
 class IPointerPointTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4d5fe14f-b87c-4028-bc-9c-59-e9-94-7f-b0-56')
+    _iid_ = Guid('{4d5fe14f-b87c-4028-bc9c-59e9947fb056}')
     @winrt_commethod(6)
     def get_Inverse(self) -> Windows.UI.Input.IPointerPointTransform: ...
     @winrt_commethod(7)
@@ -881,7 +881,7 @@ class IPointerPointTransform(ComPtr):
     Inverse = property(get_Inverse, None)
 class IPointerVisualizationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4d1e6461-84f7-499d-bd-91-2a-36-e2-b7-aa-a2')
+    _iid_ = Guid('{4d1e6461-84f7-499d-bd91-2a36e2b7aaa2}')
     @winrt_commethod(6)
     def put_IsContactFeedbackEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -894,12 +894,12 @@ class IPointerVisualizationSettings(ComPtr):
     IsBarrelButtonFeedbackEnabled = property(get_IsBarrelButtonFeedbackEnabled, put_IsBarrelButtonFeedbackEnabled)
 class IPointerVisualizationSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('68870edb-165b-4214-b4-f3-58-4e-ca-8c-8a-69')
+    _iid_ = Guid('{68870edb-165b-4214-b4f3-584eca8c8a69}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Input.PointerVisualizationSettings: ...
 class IRadialController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3055d1c8-df51-43d4-b2-3b-0e-10-37-46-7a-09')
+    _iid_ = Guid('{3055d1c8-df51-43d4-b23b-0e1037467a09}')
     @winrt_commethod(6)
     def get_Menu(self) -> Windows.UI.Input.RadialControllerMenu: ...
     @winrt_commethod(7)
@@ -943,7 +943,7 @@ class IRadialController(ComPtr):
     UseAutomaticHapticFeedback = property(get_UseAutomaticHapticFeedback, put_UseAutomaticHapticFeedback)
 class IRadialController2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577eff-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577eff-4cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def add_ButtonPressed(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.RadialController, Windows.UI.Input.RadialControllerButtonPressedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -958,19 +958,19 @@ class IRadialController2(ComPtr):
     def remove_ButtonReleased(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IRadialControllerButtonClickedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('206aa438-e651-11e5-bf-62-2c-27-d7-40-4e-85')
+    _iid_ = Guid('{206aa438-e651-11e5-bf62-2c27d7404e85}')
     @winrt_commethod(6)
     def get_Contact(self) -> Windows.UI.Input.RadialControllerScreenContact: ...
     Contact = property(get_Contact, None)
 class IRadialControllerButtonClickedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef3-3cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef3-3cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_SimpleHapticsController(self) -> Windows.Devices.Haptics.SimpleHapticsController: ...
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerButtonHoldingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577eee-3cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577eee-3cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_Contact(self) -> Windows.UI.Input.RadialControllerScreenContact: ...
     @winrt_commethod(7)
@@ -979,7 +979,7 @@ class IRadialControllerButtonHoldingEventArgs(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerButtonPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577eed-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577eed-4cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_Contact(self) -> Windows.UI.Input.RadialControllerScreenContact: ...
     @winrt_commethod(7)
@@ -988,7 +988,7 @@ class IRadialControllerButtonPressedEventArgs(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerButtonReleasedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577eef-3cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577eef-3cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_Contact(self) -> Windows.UI.Input.RadialControllerScreenContact: ...
     @winrt_commethod(7)
@@ -997,7 +997,7 @@ class IRadialControllerButtonReleasedEventArgs(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a6b79ecb-6a52-4430-91-0c-56-37-0a-9d-6b-42')
+    _iid_ = Guid('{a6b79ecb-6a52-4430-910c-56370a9d6b42}')
     @winrt_commethod(6)
     def SetDefaultMenuItems(self, buttons: Windows.Foundation.Collections.IIterable[Windows.UI.Input.RadialControllerSystemMenuItemKind]) -> Void: ...
     @winrt_commethod(7)
@@ -1006,7 +1006,7 @@ class IRadialControllerConfiguration(ComPtr):
     def TrySelectDefaultMenuItem(self, type: Windows.UI.Input.RadialControllerSystemMenuItemKind) -> Boolean: ...
 class IRadialControllerConfiguration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef7-3cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef7-3cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def put_ActiveControllerWhenMenuIsSuppressed(self, value: Windows.UI.Input.RadialController) -> Void: ...
     @winrt_commethod(7)
@@ -1019,12 +1019,12 @@ class IRadialControllerConfiguration2(ComPtr):
     IsMenuSuppressed = property(get_IsMenuSuppressed, put_IsMenuSuppressed)
 class IRadialControllerConfigurationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('79b6b0e5-069a-4486-a9-9d-8d-b7-72-b9-64-2f')
+    _iid_ = Guid('{79b6b0e5-069a-4486-a99d-8db772b9642f}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Input.RadialControllerConfiguration: ...
 class IRadialControllerConfigurationStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('53e08b17-e205-48d3-9c-af-80-ff-47-c4-d7-c7')
+    _iid_ = Guid('{53e08b17-e205-48d3-9caf-80ff47c4d7c7}')
     @winrt_commethod(6)
     def put_AppController(self, value: Windows.UI.Input.RadialController) -> Void: ...
     @winrt_commethod(7)
@@ -1037,13 +1037,13 @@ class IRadialControllerConfigurationStatics2(ComPtr):
     IsAppControllerEnabled = property(get_IsAppControllerEnabled, put_IsAppControllerEnabled)
 class IRadialControllerControlAcquiredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('206aa439-e651-11e5-bf-62-2c-27-d7-40-4e-85')
+    _iid_ = Guid('{206aa439-e651-11e5-bf62-2c27d7404e85}')
     @winrt_commethod(6)
     def get_Contact(self) -> Windows.UI.Input.RadialControllerScreenContact: ...
     Contact = property(get_Contact, None)
 class IRadialControllerControlAcquiredEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef4-3cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef4-3cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_IsButtonPressed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1052,7 +1052,7 @@ class IRadialControllerControlAcquiredEventArgs2(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerMenu(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8506b35d-f640-4412-ab-a0-ba-d0-77-e5-ea-8a')
+    _iid_ = Guid('{8506b35d-f640-4412-aba0-bad077e5ea8a}')
     @winrt_commethod(6)
     def get_Items(self) -> Windows.Foundation.Collections.IVector[Windows.UI.Input.RadialControllerMenuItem]: ...
     @winrt_commethod(7)
@@ -1069,7 +1069,7 @@ class IRadialControllerMenu(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class IRadialControllerMenuItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c80fc98d-ad0b-4c9c-8f-2f-13-6a-23-73-a6-ba')
+    _iid_ = Guid('{c80fc98d-ad0b-4c9c-8f2f-136a2373a6ba}')
     @winrt_commethod(6)
     def get_DisplayText(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1084,21 +1084,21 @@ class IRadialControllerMenuItem(ComPtr):
     Tag = property(get_Tag, put_Tag)
 class IRadialControllerMenuItemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('249e0887-d842-4524-9d-f8-e0-d6-47-ed-c8-87')
+    _iid_ = Guid('{249e0887-d842-4524-9df8-e0d647edc887}')
     @winrt_commethod(6)
     def CreateFromIcon(self, displayText: WinRT_String, icon: Windows.Storage.Streams.RandomAccessStreamReference) -> Windows.UI.Input.RadialControllerMenuItem: ...
     @winrt_commethod(7)
     def CreateFromKnownIcon(self, displayText: WinRT_String, value: Windows.UI.Input.RadialControllerMenuKnownIcon) -> Windows.UI.Input.RadialControllerMenuItem: ...
 class IRadialControllerMenuItemStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0cbb70be-7e3e-48bd-be-04-2c-7f-ca-a9-c1-ff')
+    _iid_ = Guid('{0cbb70be-7e3e-48bd-be04-2c7fcaa9c1ff}')
     @winrt_commethod(6)
     def CreateFromFontGlyph(self, displayText: WinRT_String, glyph: WinRT_String, fontFamily: WinRT_String) -> Windows.UI.Input.RadialControllerMenuItem: ...
     @winrt_commethod(7)
     def CreateFromFontGlyphWithUri(self, displayText: WinRT_String, glyph: WinRT_String, fontFamily: WinRT_String, fontUri: Windows.Foundation.Uri) -> Windows.UI.Input.RadialControllerMenuItem: ...
 class IRadialControllerRotationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('206aa435-e651-11e5-bf-62-2c-27-d7-40-4e-85')
+    _iid_ = Guid('{206aa435-e651-11e5-bf62-2c27d7404e85}')
     @winrt_commethod(6)
     def get_RotationDeltaInDegrees(self) -> Double: ...
     @winrt_commethod(7)
@@ -1107,7 +1107,7 @@ class IRadialControllerRotationChangedEventArgs(ComPtr):
     Contact = property(get_Contact, None)
 class IRadialControllerRotationChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577eec-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577eec-4cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_IsButtonPressed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1116,7 +1116,7 @@ class IRadialControllerRotationChangedEventArgs2(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerScreenContact(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('206aa434-e651-11e5-bf-62-2c-27-d7-40-4e-85')
+    _iid_ = Guid('{206aa434-e651-11e5-bf62-2c27d7404e85}')
     @winrt_commethod(6)
     def get_Bounds(self) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)
@@ -1125,13 +1125,13 @@ class IRadialControllerScreenContact(ComPtr):
     Position = property(get_Position, None)
 class IRadialControllerScreenContactContinuedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('206aa437-e651-11e5-bf-62-2c-27-d7-40-4e-85')
+    _iid_ = Guid('{206aa437-e651-11e5-bf62-2c27d7404e85}')
     @winrt_commethod(6)
     def get_Contact(self) -> Windows.UI.Input.RadialControllerScreenContact: ...
     Contact = property(get_Contact, None)
 class IRadialControllerScreenContactContinuedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef1-3cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef1-3cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_IsButtonPressed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1140,7 +1140,7 @@ class IRadialControllerScreenContactContinuedEventArgs2(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerScreenContactEndedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef2-3cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef2-3cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_IsButtonPressed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1149,13 +1149,13 @@ class IRadialControllerScreenContactEndedEventArgs(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerScreenContactStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('206aa436-e651-11e5-bf-62-2c-27-d7-40-4e-85')
+    _iid_ = Guid('{206aa436-e651-11e5-bf62-2c27d7404e85}')
     @winrt_commethod(6)
     def get_Contact(self) -> Windows.UI.Input.RadialControllerScreenContact: ...
     Contact = property(get_Contact, None)
 class IRadialControllerScreenContactStartedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577ef0-3cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577ef0-3cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
     def get_IsButtonPressed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1164,14 +1164,14 @@ class IRadialControllerScreenContactStartedEventArgs2(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IRadialControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('faded0b7-b84c-4894-87-aa-8f-25-aa-5f-28-8b')
+    _iid_ = Guid('{faded0b7-b84c-4894-87aa-8f25aa5f288b}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
     def CreateForCurrentView(self) -> Windows.UI.Input.RadialController: ...
 class IRightTappedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4cbf40bd-af7a-4a36-94-76-b1-dc-e1-41-70-9a')
+    _iid_ = Guid('{4cbf40bd-af7a-4a36-9476-b1dce141709a}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -1180,13 +1180,13 @@ class IRightTappedEventArgs(ComPtr):
     Position = property(get_Position, None)
 class IRightTappedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('61c7b7bb-9f57-5857-a3-3c-c5-8c-3d-fa-95-9e')
+    _iid_ = Guid('{61c7b7bb-9f57-5857-a33c-c58c3dfa959e}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     ContactCount = property(get_ContactCount, None)
 class ISystemButtonEventController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('59b893a9-73bc-52b5-ba-41-82-51-1b-2c-b4-6c')
+    _iid_ = Guid('{59b893a9-73bc-52b5-ba41-82511b2cb46c}')
     @winrt_commethod(6)
     def add_SystemFunctionButtonPressed(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.SystemButtonEventController, Windows.UI.Input.SystemFunctionButtonEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -1205,12 +1205,12 @@ class ISystemButtonEventController(ComPtr):
     def remove_SystemFunctionLockIndicatorChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ISystemButtonEventControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('632fb07b-20bd-5e15-af-4a-00-db-f2-06-4f-fa')
+    _iid_ = Guid('{632fb07b-20bd-5e15-af4a-00dbf2064ffa}')
     @winrt_commethod(6)
     def CreateForDispatcherQueue(self, queue: Windows.System.DispatcherQueue) -> Windows.UI.Input.SystemButtonEventController: ...
 class ISystemFunctionButtonEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4833896f-80d1-5dd6-92-a7-62-a5-08-ff-ef-5a')
+    _iid_ = Guid('{4833896f-80d1-5dd6-92a7-62a508ffef5a}')
     @winrt_commethod(6)
     def get_Timestamp(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -1221,7 +1221,7 @@ class ISystemFunctionButtonEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ISystemFunctionLockChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cd040608-fcf9-585c-be-ab-f1-d2-ea-f3-64-ab')
+    _iid_ = Guid('{cd040608-fcf9-585c-beab-f1d2eaf364ab}')
     @winrt_commethod(6)
     def get_Timestamp(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -1235,7 +1235,7 @@ class ISystemFunctionLockChangedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ISystemFunctionLockIndicatorChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b212b94e-7a6f-58ae-b3-04-ba-e6-1d-03-71-b9')
+    _iid_ = Guid('{b212b94e-7a6f-58ae-b304-bae61d0371b9}')
     @winrt_commethod(6)
     def get_Timestamp(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -1249,7 +1249,7 @@ class ISystemFunctionLockIndicatorChangedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ITappedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cfa126e4-253a-4c3c-95-3b-39-5c-37-ae-d3-09')
+    _iid_ = Guid('{cfa126e4-253a-4c3c-953b-395c37aed309}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -1261,7 +1261,7 @@ class ITappedEventArgs(ComPtr):
     TapCount = property(get_TapCount, None)
 class ITappedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('294388f2-177e-51d5-be-56-ee-08-66-fa-96-8c')
+    _iid_ = Guid('{294388f2-177e-51d5-be56-ee0866fa968c}')
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     ContactCount = property(get_ContactCount, None)

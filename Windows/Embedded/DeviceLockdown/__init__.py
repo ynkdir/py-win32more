@@ -42,13 +42,13 @@ class DeviceLockdownProfileInformation(ComPtr):
     Name = property(get_Name, None)
 class IDeviceLockdownProfileInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7980e14e-45b1-4a96-92-fc-62-75-6b-73-96-78')
+    _iid_ = Guid('{7980e14e-45b1-4a96-92fc-62756b739678}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     Name = property(get_Name, None)
 class IDeviceLockdownProfileStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('622f6965-f9a8-41a1-a6-91-88-cd-80-c7-a0-69')
+    _iid_ = Guid('{622f6965-f9a8-41a1-a691-88cd80c7a069}')
     @winrt_commethod(6)
     def GetSupportedLockdownProfiles(self) -> Windows.Foundation.Collections.IVectorView[Guid]: ...
     @winrt_commethod(7)

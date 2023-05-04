@@ -60,7 +60,7 @@ class DualSimTile(ComPtr):
 DualSimTileContract: UInt32 = 65536
 class IDualSimTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('143ab213-d05f-4041-a1-8c-3e-3f-cb-75-b4-1e')
+    _iid_ = Guid('{143ab213-d05f-4041-a18c-3e3fcb75b41e}')
     @winrt_commethod(6)
     def put_DisplayName(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -77,7 +77,7 @@ class IDualSimTile(ComPtr):
     IsPinnedToStart = property(get_IsPinnedToStart, None)
 class IDualSimTileStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('50567c9e-c58f-4dc9-b6-e8-fa-67-77-ee-eb-37')
+    _iid_ = Guid('{50567c9e-c58f-4dc9-b6e8-fa6777eeeb37}')
     @winrt_commethod(6)
     def GetTileForSim2(self) -> Windows.Phone.StartScreen.DualSimTile: ...
     @winrt_commethod(7)
@@ -96,7 +96,7 @@ class IDualSimTileStatics(ComPtr):
     def CreateToastNotifierForSim2(self) -> Windows.UI.Notifications.ToastNotifier: ...
 class IToastNotificationManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2717f54b-50df-4455-8e-6e-41-e0-fc-8e-13-ce')
+    _iid_ = Guid('{2717f54b-50df-4455-8e6e-41e0fc8e13ce}')
     @winrt_commethod(6)
     def CreateToastNotifierForSecondaryTile(self, tileId: WinRT_String) -> Windows.UI.Notifications.ToastNotifier: ...
 make_head(_module, 'DualSimTile')

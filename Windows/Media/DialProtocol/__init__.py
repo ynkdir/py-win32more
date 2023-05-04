@@ -155,7 +155,7 @@ class DialReceiverApp(ComPtr):
     Current = property(get_Current, None)
 class IDialApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('555ffbd3-45b7-49f3-bb-d7-30-2d-b6-08-46-46')
+    _iid_ = Guid('{555ffbd3-45b7-49f3-bbd7-302db6084646}')
     @winrt_commethod(6)
     def get_AppName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -167,7 +167,7 @@ class IDialApp(ComPtr):
     AppName = property(get_AppName, None)
 class IDialAppStateDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ddc4a4a1-f5de-400d-be-a4-8c-84-66-bb-29-61')
+    _iid_ = Guid('{ddc4a4a1-f5de-400d-bea4-8c8466bb2961}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.Media.DialProtocol.DialAppState: ...
     @winrt_commethod(7)
@@ -176,7 +176,7 @@ class IDialAppStateDetails(ComPtr):
     FullXml = property(get_FullXml, None)
 class IDialDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fff0edaf-759f-41d2-a2-0a-7f-29-ce-0b-37-84')
+    _iid_ = Guid('{fff0edaf-759f-41d2-a20a-7f29ce0b3784}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -184,7 +184,7 @@ class IDialDevice(ComPtr):
     Id = property(get_Id, None)
 class IDialDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bab7f3d5-5bfb-4eba-8b-32-b5-7c-5c-5e-e5-c9')
+    _iid_ = Guid('{bab7f3d5-5bfb-4eba-8b32-b57c5c5ee5c9}')
     @winrt_commethod(6)
     def get_FriendlyName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -193,7 +193,7 @@ class IDialDevice2(ComPtr):
     Thumbnail = property(get_Thumbnail, None)
 class IDialDevicePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ba7e520a-ff59-4f4b-bd-ac-d8-9f-49-5a-d6-e1')
+    _iid_ = Guid('{ba7e520a-ff59-4f4b-bdac-d89f495ad6e1}')
     @winrt_commethod(6)
     def get_Filter(self) -> Windows.Media.DialProtocol.DialDevicePickerFilter: ...
     @winrt_commethod(7)
@@ -226,19 +226,19 @@ class IDialDevicePicker(ComPtr):
     Appearance = property(get_Appearance, None)
 class IDialDevicePickerFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c17c93ba-86c0-485d-b8-d6-0f-9a-8f-64-15-90')
+    _iid_ = Guid('{c17c93ba-86c0-485d-b8d6-0f9a8f641590}')
     @winrt_commethod(6)
     def get_SupportedAppNames(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     SupportedAppNames = property(get_SupportedAppNames, None)
 class IDialDeviceSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('480b92ad-ac76-47eb-9c-06-a1-93-04-da-02-47')
+    _iid_ = Guid('{480b92ad-ac76-47eb-9c06-a19304da0247}')
     @winrt_commethod(6)
     def get_SelectedDialDevice(self) -> Windows.Media.DialProtocol.DialDevice: ...
     SelectedDialDevice = property(get_SelectedDialDevice, None)
 class IDialDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aa69cc95-01f8-4758-84-61-2b-bd-1c-dc-3c-f3')
+    _iid_ = Guid('{aa69cc95-01f8-4758-8461-2bbd1cdc3cf3}')
     @winrt_commethod(6)
     def GetDeviceSelector(self, appName: WinRT_String) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -247,25 +247,25 @@ class IDialDeviceStatics(ComPtr):
     def DeviceInfoSupportsDialAsync(self, device: Windows.Devices.Enumeration.DeviceInformation) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IDialDisconnectButtonClickedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('52765152-9c81-4e55-ad-c2-0e-be-99-cd-e3-b6')
+    _iid_ = Guid('{52765152-9c81-4e55-adc2-0ebe99cde3b6}')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Media.DialProtocol.DialDevice: ...
     Device = property(get_Device, None)
 class IDialReceiverApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fd3e7c57-5045-470e-b3-04-4d-d9-b1-3e-7d-11')
+    _iid_ = Guid('{fd3e7c57-5045-470e-b304-4dd9b13e7d11}')
     @winrt_commethod(6)
     def GetAdditionalDataAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]]: ...
     @winrt_commethod(7)
     def SetAdditionalDataAsync(self, additionalData: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> Windows.Foundation.IAsyncAction: ...
 class IDialReceiverApp2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('530c5805-9130-42ac-a5-04-19-77-dc-b2-ea-8a')
+    _iid_ = Guid('{530c5805-9130-42ac-a504-1977dcb2ea8a}')
     @winrt_commethod(6)
     def GetUniqueDeviceNameAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
 class IDialReceiverAppStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('53183a3c-4c36-4d02-b2-8a-f2-a9-da-38-ec-52')
+    _iid_ = Guid('{53183a3c-4c36-4d02-b28a-f2a9da38ec52}')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.Media.DialProtocol.DialReceiverApp: ...
     Current = property(get_Current, None)

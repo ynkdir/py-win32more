@@ -149,7 +149,7 @@ class FileUnprotectOptions(ComPtr):
     Audit = property(get_Audit, put_Audit)
 class IBufferProtectUnprotectResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('47995edc-6cec-4e3a-b2-51-9e-74-85-d7-9e-7a')
+    _iid_ = Guid('{47995edc-6cec-4e3a-b251-9e7485d79e7a}')
     @winrt_commethod(6)
     def get_Buffer(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -158,7 +158,7 @@ class IBufferProtectUnprotectResult(ComPtr):
     ProtectionInfo = property(get_ProtectionInfo, None)
 class IDataProtectionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8420b0c1-5e31-4405-95-40-3f-94-3a-f0-cb-26')
+    _iid_ = Guid('{8420b0c1-5e31-4405-9540-3f943af0cb26}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.EnterpriseData.DataProtectionStatus: ...
     @winrt_commethod(7)
@@ -167,7 +167,7 @@ class IDataProtectionInfo(ComPtr):
     Identity = property(get_Identity, None)
 class IDataProtectionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b6149b74-9144-4ee4-8a-8a-30-b5-f3-61-43-0e')
+    _iid_ = Guid('{b6149b74-9144-4ee4-8a8a-30b5f361430e}')
     @winrt_commethod(6)
     def ProtectAsync(self, data: Windows.Storage.Streams.IBuffer, identity: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.BufferProtectUnprotectResult]: ...
     @winrt_commethod(7)
@@ -182,7 +182,7 @@ class IDataProtectionManagerStatics(ComPtr):
     def GetStreamProtectionInfoAsync(self, protectedStream: Windows.Storage.Streams.IInputStream) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.DataProtectionInfo]: ...
 class IFileProtectionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4ee96486-147e-4dd0-8f-af-52-53-ed-91-ad-0c')
+    _iid_ = Guid('{4ee96486-147e-4dd0-8faf-5253ed91ad0c}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.EnterpriseData.FileProtectionStatus: ...
     @winrt_commethod(7)
@@ -194,13 +194,13 @@ class IFileProtectionInfo(ComPtr):
     Identity = property(get_Identity, None)
 class IFileProtectionInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('82123a4c-557a-498d-8e-94-94-4c-d5-83-64-32')
+    _iid_ = Guid('{82123a4c-557a-498d-8e94-944cd5836432}')
     @winrt_commethod(6)
     def get_IsProtectWhileOpenSupported(self) -> Boolean: ...
     IsProtectWhileOpenSupported = property(get_IsProtectWhileOpenSupported, None)
 class IFileProtectionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5846fc9b-e613-426b-bb-38-88-cb-a1-dc-9a-db')
+    _iid_ = Guid('{5846fc9b-e613-426b-bb38-88cba1dc9adb}')
     @winrt_commethod(6)
     def ProtectAsync(self, target: Windows.Storage.IStorageItem, identity: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.FileProtectionInfo]: ...
     @winrt_commethod(7)
@@ -217,7 +217,7 @@ class IFileProtectionManagerStatics(ComPtr):
     def CreateProtectedAndOpenAsync(self, parentFolder: Windows.Storage.IStorageFolder, desiredName: WinRT_String, identity: WinRT_String, collisionOption: Windows.Storage.CreationCollisionOption) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.ProtectedFileCreateResult]: ...
 class IFileProtectionManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('83d2a745-0483-41ab-b2-d5-bc-7f-23-d7-4e-bb')
+    _iid_ = Guid('{83d2a745-0483-41ab-b2d5-bc7f23d74ebb}')
     @winrt_commethod(6)
     def IsContainerAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
@@ -226,14 +226,14 @@ class IFileProtectionManagerStatics2(ComPtr):
     def SaveFileAsContainerWithSharingAsync(self, protectedFile: Windows.Storage.IStorageFile, sharedWithIdentities: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.ProtectedContainerExportResult]: ...
 class IFileProtectionManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6918849a-624f-46d6-b2-41-e9-cd-5f-df-3e-3f')
+    _iid_ = Guid('{6918849a-624f-46d6-b241-e9cd5fdf3e3f}')
     @winrt_commethod(6)
     def UnprotectAsync(self, target: Windows.Storage.IStorageItem) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.FileProtectionInfo]: ...
     @winrt_commethod(7)
     def UnprotectWithOptionsAsync(self, target: Windows.Storage.IStorageItem, options: Windows.Security.EnterpriseData.FileUnprotectOptions) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.FileProtectionInfo]: ...
 class IFileRevocationManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('256bbc3d-1c5d-4260-8c-75-91-44-cf-b7-8b-a9')
+    _iid_ = Guid('{256bbc3d-1c5d-4260-8c75-9144cfb78ba9}')
     @winrt_commethod(6)
     def ProtectAsync(self, storageItem: Windows.Storage.IStorageItem, enterpriseIdentity: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.FileProtectionStatus]: ...
     @winrt_commethod(7)
@@ -244,7 +244,7 @@ class IFileRevocationManagerStatics(ComPtr):
     def GetStatusAsync(self, storageItem: Windows.Storage.IStorageItem) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.FileProtectionStatus]: ...
 class IFileUnprotectOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7d1312f1-3b0d-4dd8-a1-f8-1e-c5-38-22-e2-f3')
+    _iid_ = Guid('{7d1312f1-3b0d-4dd8-a1f8-1ec53822e2f3}')
     @winrt_commethod(6)
     def put_Audit(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -252,18 +252,18 @@ class IFileUnprotectOptions(ComPtr):
     Audit = property(get_Audit, put_Audit)
 class IFileUnprotectOptionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('51aeb39c-da8c-4c3f-9b-fb-cb-73-a7-cc-e0-dd')
+    _iid_ = Guid('{51aeb39c-da8c-4c3f-9bfb-cb73a7cce0dd}')
     @winrt_commethod(6)
     def Create(self, audit: Boolean) -> Windows.Security.EnterpriseData.FileUnprotectOptions: ...
 class IProtectedAccessResumedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ac4dca59-5d80-4e95-8c-5f-85-39-45-0e-eb-e0')
+    _iid_ = Guid('{ac4dca59-5d80-4e95-8c5f-8539450eebe0}')
     @winrt_commethod(6)
     def get_Identities(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     Identities = property(get_Identities, None)
 class IProtectedAccessSuspendingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('75a193e0-a344-429f-b9-75-04-fc-1f-88-c1-85')
+    _iid_ = Guid('{75a193e0-a344-429f-b975-04fc1f88c185}')
     @winrt_commethod(6)
     def get_Identities(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(7)
@@ -274,7 +274,7 @@ class IProtectedAccessSuspendingEventArgs(ComPtr):
     Deadline = property(get_Deadline, None)
 class IProtectedContainerExportResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3948ef95-f7fb-4b42-af-b0-df-70-b4-15-43-c1')
+    _iid_ = Guid('{3948ef95-f7fb-4b42-afb0-df70b41543c1}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.EnterpriseData.ProtectedImportExportStatus: ...
     @winrt_commethod(7)
@@ -283,7 +283,7 @@ class IProtectedContainerExportResult(ComPtr):
     File = property(get_File, None)
 class IProtectedContainerImportResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cdb780d1-e7bb-4d1a-93-39-34-dc-41-14-9f-9b')
+    _iid_ = Guid('{cdb780d1-e7bb-4d1a-9339-34dc41149f9b}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.EnterpriseData.ProtectedImportExportStatus: ...
     @winrt_commethod(7)
@@ -292,13 +292,13 @@ class IProtectedContainerImportResult(ComPtr):
     File = property(get_File, None)
 class IProtectedContentRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('63686821-58b9-47ee-93-d9-f0-f7-41-cf-43-f0')
+    _iid_ = Guid('{63686821-58b9-47ee-93d9-f0f741cf43f0}')
     @winrt_commethod(6)
     def get_Identities(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     Identities = property(get_Identities, None)
 class IProtectedFileCreateResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('28e3ed6a-e9e7-4a03-9f-53-bd-b1-61-72-69-9b')
+    _iid_ = Guid('{28e3ed6a-e9e7-4a03-9f53-bdb16172699b}')
     @winrt_commethod(6)
     def get_File(self) -> Windows.Storage.StorageFile: ...
     @winrt_commethod(7)
@@ -310,7 +310,7 @@ class IProtectedFileCreateResult(ComPtr):
     ProtectionInfo = property(get_ProtectionInfo, None)
 class IProtectionPolicyAuditInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('425ab7e4-feb7-44fc-b3-bb-c3-c4-d7-ec-be-bb')
+    _iid_ = Guid('{425ab7e4-feb7-44fc-b3bb-c3c4d7ecbebb}')
     @winrt_commethod(6)
     def put_Action(self, value: Windows.Security.EnterpriseData.ProtectionPolicyAuditAction) -> Void: ...
     @winrt_commethod(7)
@@ -333,14 +333,14 @@ class IProtectionPolicyAuditInfo(ComPtr):
     TargetDescription = property(get_TargetDescription, put_TargetDescription)
 class IProtectionPolicyAuditInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7ed4180b-92e8-42d5-83-d4-25-44-0b-42-35-49')
+    _iid_ = Guid('{7ed4180b-92e8-42d5-83d4-25440b423549}')
     @winrt_commethod(6)
     def Create(self, action: Windows.Security.EnterpriseData.ProtectionPolicyAuditAction, dataDescription: WinRT_String, sourceDescription: WinRT_String, targetDescription: WinRT_String) -> Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo: ...
     @winrt_commethod(7)
     def CreateWithActionAndDataDescription(self, action: Windows.Security.EnterpriseData.ProtectionPolicyAuditAction, dataDescription: WinRT_String) -> Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo: ...
 class IProtectionPolicyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d5703e18-a08d-47e6-a2-40-99-34-d7-16-5e-b5')
+    _iid_ = Guid('{d5703e18-a08d-47e6-a240-9934d7165eb5}')
     @winrt_commethod(6)
     def put_Identity(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -348,7 +348,7 @@ class IProtectionPolicyManager(ComPtr):
     Identity = property(get_Identity, put_Identity)
 class IProtectionPolicyManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('abf7527a-8435-417f-99-b6-51-be-af-36-58-88')
+    _iid_ = Guid('{abf7527a-8435-417f-99b6-51beaf365888}')
     @winrt_commethod(6)
     def put_ShowEnterpriseIndicator(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -356,7 +356,7 @@ class IProtectionPolicyManager2(ComPtr):
     ShowEnterpriseIndicator = property(get_ShowEnterpriseIndicator, put_ShowEnterpriseIndicator)
 class IProtectionPolicyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c0bffc66-8c3d-4d56-88-04-c6-8f-0a-d3-2e-c5')
+    _iid_ = Guid('{c0bffc66-8c3d-4d56-8804-c68f0ad32ec5}')
     @winrt_commethod(6)
     def IsIdentityManaged(self, identity: WinRT_String) -> Boolean: ...
     @winrt_commethod(7)
@@ -389,7 +389,7 @@ class IProtectionPolicyManagerStatics(ComPtr):
     def RequestAccessAsync(self, sourceIdentity: WinRT_String, targetIdentity: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult]: ...
 class IProtectionPolicyManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b68f9a8c-39e0-4649-b2-e4-07-0a-b8-a5-79-b3')
+    _iid_ = Guid('{b68f9a8c-39e0-4649-b2e4-070ab8a579b3}')
     @winrt_commethod(6)
     def HasContentBeenRevokedSince(self, identity: WinRT_String, since: Windows.Foundation.DateTime) -> Boolean: ...
     @winrt_commethod(7)
@@ -411,7 +411,7 @@ class IProtectionPolicyManagerStatics2(ComPtr):
     IsProtectionEnabled = property(get_IsProtectionEnabled, None)
 class IProtectionPolicyManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('48ff9e8c-6a6f-4d9f-bc-ed-18-ab-53-7a-a0-15')
+    _iid_ = Guid('{48ff9e8c-6a6f-4d9f-bced-18ab537aa015}')
     @winrt_commethod(6)
     def RequestAccessWithAuditingInfoAsync(self, sourceIdentity: WinRT_String, targetIdentity: WinRT_String, auditInfo: Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult]: ...
     @winrt_commethod(7)
@@ -424,7 +424,7 @@ class IProtectionPolicyManagerStatics3(ComPtr):
     def LogAuditEvent(self, sourceIdentity: WinRT_String, targetIdentity: WinRT_String, auditInfo: Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo) -> Void: ...
 class IProtectionPolicyManagerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('20b794db-ccbd-490f-8c-83-49-cc-b7-7a-ea-6c')
+    _iid_ = Guid('{20b794db-ccbd-490f-8c83-49ccb77aea6c}')
     @winrt_commethod(6)
     def IsRoamableProtectionEnabled(self, identity: WinRT_String) -> Boolean: ...
     @winrt_commethod(7)
@@ -450,7 +450,7 @@ class IProtectionPolicyManagerStatics4(ComPtr):
     PrimaryManagedIdentity = property(get_PrimaryManagedIdentity, None)
 class IThreadNetworkContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fa4ea8e9-ef13-405a-b1-2c-d7-34-8c-6f-41-fc')
+    _iid_ = Guid('{fa4ea8e9-ef13-405a-b12c-d7348c6f41fc}')
 class ProtectedAccessResumedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.ProtectedAccessResumedEventArgs'

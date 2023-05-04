@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ILocalCategoriesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f49399f5-8261-4321-99-74-ef-92-d4-9a-8d-ca')
+    _iid_ = Guid('{f49399f5-8261-4321-9974-ef92d49a8dca}')
     @winrt_commethod(6)
     def get_BankAndCreditUnions(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -54,7 +54,7 @@ class ILocalCategoriesStatics(ComPtr):
     Shop = property(get_Shop, None)
 class ILocalLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bb0fe9ab-4502-4f2c-94-a9-0d-60-de-0e-21-63')
+    _iid_ = Guid('{bb0fe9ab-4502-4f2c-94a9-0d60de0e2163}')
     @winrt_commethod(6)
     def get_Address(self) -> Windows.Services.Maps.MapAddress: ...
     @winrt_commethod(7)
@@ -78,7 +78,7 @@ class ILocalLocation(ComPtr):
     DataAttribution = property(get_DataAttribution, None)
 class ILocalLocation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6e9e307c-ecb5-4ffc-bb-8c-ba-50-ba-8c-2d-c6')
+    _iid_ = Guid('{6e9e307c-ecb5-4ffc-bb8c-ba50ba8c2dc6}')
     @winrt_commethod(6)
     def get_Category(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -90,7 +90,7 @@ class ILocalLocation2(ComPtr):
     HoursOfOperation = property(get_HoursOfOperation, None)
 class ILocalLocationFinderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d09b6cc6-f338-4191-9f-d8-54-40-b9-a6-8f-52')
+    _iid_ = Guid('{d09b6cc6-f338-4191-9fd8-5440b9a68f52}')
     @winrt_commethod(6)
     def get_LocalLocations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     @winrt_commethod(7)
@@ -99,12 +99,12 @@ class ILocalLocationFinderResult(ComPtr):
     Status = property(get_Status, None)
 class ILocalLocationFinderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d2ef7344-a0de-48ca-81-a8-07-c7-dc-fd-37-ab')
+    _iid_ = Guid('{d2ef7344-a0de-48ca-81a8-07c7dcfd37ab}')
     @winrt_commethod(6)
     def FindLocalLocationsAsync(self, searchTerm: WinRT_String, searchArea: Windows.Devices.Geolocation.Geocircle, localCategory: WinRT_String, maxResults: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.LocalSearch.LocalLocationFinderResult]: ...
 class ILocalLocationHoursOfOperationItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('23548c72-a1c7-43f1-a4-f0-10-91-c3-9e-c6-40')
+    _iid_ = Guid('{23548c72-a1c7-43f1-a4f0-1091c39ec640}')
     @winrt_commethod(6)
     def get_Day(self) -> Windows.Globalization.DayOfWeek: ...
     @winrt_commethod(7)
@@ -116,7 +116,7 @@ class ILocalLocationHoursOfOperationItem(ComPtr):
     Span = property(get_Span, None)
 class ILocalLocationRatingInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cb1dab56-3354-4311-8b-c0-a2-d4-d5-eb-80-6e')
+    _iid_ = Guid('{cb1dab56-3354-4311-8bc0-a2d4d5eb806e}')
     @winrt_commethod(6)
     def get_AggregateRating(self) -> Windows.Foundation.IReference[Double]: ...
     @winrt_commethod(7)
@@ -128,7 +128,7 @@ class ILocalLocationRatingInfo(ComPtr):
     ProviderIdentifier = property(get_ProviderIdentifier, None)
 class IPlaceInfoHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dd1ca9a7-a9c6-491b-bc-09-e8-0f-ce-a4-8e-e6')
+    _iid_ = Guid('{dd1ca9a7-a9c6-491b-bc09-e80fcea48ee6}')
     @winrt_commethod(6)
     def CreateFromLocalLocation(self, location: Windows.Services.Maps.LocalSearch.LocalLocation) -> Windows.Services.Maps.PlaceInfo: ...
 class LocalCategories(ComPtr):

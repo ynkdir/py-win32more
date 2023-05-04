@@ -301,7 +301,7 @@ DomainConnectivityLevel_Unauthenticated: DomainConnectivityLevel = 1
 DomainConnectivityLevel_Authenticated: DomainConnectivityLevel = 2
 class IAttributedNetworkUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f769b039-eca2-45eb-ad-e1-b0-36-8b-75-6c-49')
+    _iid_ = Guid('{f769b039-eca2-45eb-ade1-b0368b756c49}')
     @winrt_commethod(6)
     def get_BytesSent(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -319,7 +319,7 @@ class IAttributedNetworkUsage(ComPtr):
     AttributionThumbnail = property(get_AttributionThumbnail, None)
 class ICellularApnContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6fa529f4-effd-4542-9a-b2-70-5b-bf-94-94-3a')
+    _iid_ = Guid('{6fa529f4-effd-4542-9ab2-705bbf94943a}')
     @winrt_commethod(6)
     def get_ProviderId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -352,7 +352,7 @@ class ICellularApnContext(ComPtr):
     AuthenticationType = property(get_AuthenticationType, put_AuthenticationType)
 class ICellularApnContext2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('76b0eb1a-ac49-4350-b1-e5-dc-47-63-bc-69-c7')
+    _iid_ = Guid('{76b0eb1a-ac49-4350-b1e5-dc4763bc69c7}')
     @winrt_commethod(6)
     def get_ProfileName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -360,7 +360,7 @@ class ICellularApnContext2(ComPtr):
     ProfileName = property(get_ProfileName, put_ProfileName)
 class IConnectionCost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bad7d829-3416-4b10-a2-02-ba-c0-b0-75-bd-ae')
+    _iid_ = Guid('{bad7d829-3416-4b10-a202-bac0b075bdae}')
     @winrt_commethod(6)
     def get_NetworkCostType(self) -> Windows.Networking.Connectivity.NetworkCostType: ...
     @winrt_commethod(7)
@@ -375,13 +375,13 @@ class IConnectionCost(ComPtr):
     ApproachingDataLimit = property(get_ApproachingDataLimit, None)
 class IConnectionCost2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8e113a05-e209-4549-bb-25-5e-0d-b6-91-cb-05')
+    _iid_ = Guid('{8e113a05-e209-4549-bb25-5e0db691cb05}')
     @winrt_commethod(6)
     def get_BackgroundDataUsageRestricted(self) -> Boolean: ...
     BackgroundDataUsageRestricted = property(get_BackgroundDataUsageRestricted, None)
 class IConnectionProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('71ba143c-598e-49d0-84-eb-8f-eb-ae-dc-c1-95')
+    _iid_ = Guid('{71ba143c-598e-49d0-84eb-8febaedcc195}')
     @winrt_commethod(6)
     def get_ProfileName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -405,7 +405,7 @@ class IConnectionProfile(ComPtr):
     NetworkSecuritySettings = property(get_NetworkSecuritySettings, None)
 class IConnectionProfile2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e2045145-4c9f-400c-91-50-7e-c7-d6-e2-88-8a')
+    _iid_ = Guid('{e2045145-4c9f-400c-9150-7ec7d6e2888a}')
     @winrt_commethod(6)
     def get_IsWwanConnectionProfile(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -431,17 +431,17 @@ class IConnectionProfile2(ComPtr):
     ServiceProviderGuid = property(get_ServiceProviderGuid, None)
 class IConnectionProfile3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('578c2528-4cd9-4161-80-45-20-1c-fd-5b-11-5c')
+    _iid_ = Guid('{578c2528-4cd9-4161-8045-201cfd5b115c}')
     @winrt_commethod(6)
     def GetAttributedNetworkUsageAsync(self, startTime: Windows.Foundation.DateTime, endTime: Windows.Foundation.DateTime, states: Windows.Networking.Connectivity.NetworkUsageStates) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.Connectivity.AttributedNetworkUsage]]: ...
 class IConnectionProfile4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7a2d42cd-81e0-4ae6-ab-ed-ab-9c-a1-3e-b7-14')
+    _iid_ = Guid('{7a2d42cd-81e0-4ae6-abed-ab9ca13eb714}')
     @winrt_commethod(6)
     def GetProviderNetworkUsageAsync(self, startTime: Windows.Foundation.DateTime, endTime: Windows.Foundation.DateTime, states: Windows.Networking.Connectivity.NetworkUsageStates) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.Connectivity.ProviderNetworkUsage]]: ...
 class IConnectionProfile5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('85361ec7-9c73-4be0-8f-14-57-8e-ec-71-ee-0e')
+    _iid_ = Guid('{85361ec7-9c73-4be0-8f14-578eec71ee0e}')
     @winrt_commethod(6)
     def get_CanDelete(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -449,12 +449,12 @@ class IConnectionProfile5(ComPtr):
     CanDelete = property(get_CanDelete, None)
 class IConnectionProfile6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dc27dfe2-7a6f-5d0e-95-89-2f-e2-e5-b6-f9-aa')
+    _iid_ = Guid('{dc27dfe2-7a6f-5d0e-9589-2fe2e5b6f9aa}')
     @winrt_commethod(6)
     def IsDomainAuthenticatedBy(self, kind: Windows.Networking.Connectivity.DomainAuthenticationKind) -> Boolean: ...
 class IConnectionProfileFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('204c7cc8-bd2d-4e8d-a4-b3-45-5e-c3-37-38-8a')
+    _iid_ = Guid('{204c7cc8-bd2d-4e8d-a4b3-455ec337388a}')
     @winrt_commethod(6)
     def put_IsConnected(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -482,7 +482,7 @@ class IConnectionProfileFilter(ComPtr):
     ServiceProviderGuid = property(get_ServiceProviderGuid, put_ServiceProviderGuid)
 class IConnectionProfileFilter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cd068ee1-c3fc-4fad-9d-dc-59-3f-aa-4b-78-85')
+    _iid_ = Guid('{cd068ee1-c3fc-4fad-9ddc-593faa4b7885}')
     @winrt_commethod(6)
     def put_IsRoaming(self, value: Windows.Foundation.IReference[Boolean]) -> Void: ...
     @winrt_commethod(7)
@@ -503,7 +503,7 @@ class IConnectionProfileFilter2(ComPtr):
     RawData = property(get_RawData, None)
 class IConnectionProfileFilter3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0aaa09c0-5014-447c-88-09-ae-e4-cb-0a-f9-4a')
+    _iid_ = Guid('{0aaa09c0-5014-447c-8809-aee4cb0af94a}')
     @winrt_commethod(6)
     def put_PurposeGuid(self, value: Windows.Foundation.IReference[Guid]) -> Void: ...
     @winrt_commethod(7)
@@ -511,13 +511,13 @@ class IConnectionProfileFilter3(ComPtr):
     PurposeGuid = property(get_PurposeGuid, put_PurposeGuid)
 class IConnectionSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ff905d4c-f83b-41b0-8a-0c-14-62-d9-c5-6b-73')
+    _iid_ = Guid('{ff905d4c-f83b-41b0-8a0c-1462d9c56b73}')
     @winrt_commethod(6)
     def get_ConnectionProfile(self) -> Windows.Networking.Connectivity.ConnectionProfile: ...
     ConnectionProfile = property(get_ConnectionProfile, None)
 class IConnectivityInterval(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4faa3fff-6746-4824-a9-64-ee-d8-e8-7f-87-09')
+    _iid_ = Guid('{4faa3fff-6746-4824-a964-eed8e87f8709}')
     @winrt_commethod(6)
     def get_StartTime(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -526,7 +526,7 @@ class IConnectivityInterval(ComPtr):
     ConnectionDuration = property(get_ConnectionDuration, None)
 class IConnectivityManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5120d4b1-4fb1-48b0-af-c9-42-e0-09-2a-81-64')
+    _iid_ = Guid('{5120d4b1-4fb1-48b0-afc9-42e0092a8164}')
     @winrt_commethod(6)
     def AcquireConnectionAsync(self, cellularApnContext: Windows.Networking.Connectivity.CellularApnContext) -> Windows.Foundation.IAsyncOperation[Windows.Networking.Connectivity.ConnectionSession]: ...
     @winrt_commethod(7)
@@ -535,7 +535,7 @@ class IConnectivityManagerStatics(ComPtr):
     def RemoveHttpRoutePolicy(self, routePolicy: Windows.Networking.Connectivity.RoutePolicy) -> Void: ...
 class IDataPlanStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('977a8b8c-3885-40f3-88-51-42-cd-2b-d5-68-bb')
+    _iid_ = Guid('{977a8b8c-3885-40f3-8851-42cd2bd568bb}')
     @winrt_commethod(6)
     def get_DataPlanUsage(self) -> Windows.Networking.Connectivity.DataPlanUsage: ...
     @winrt_commethod(7)
@@ -556,7 +556,7 @@ class IDataPlanStatus(ComPtr):
     MaxTransferSizeInMegabytes = property(get_MaxTransferSizeInMegabytes, None)
 class IDataPlanUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b921492d-3b44-47ff-b3-61-be-59-e6-9e-d1-b0')
+    _iid_ = Guid('{b921492d-3b44-47ff-b361-be59e69ed1b0}')
     @winrt_commethod(6)
     def get_MegabytesUsed(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -565,7 +565,7 @@ class IDataPlanUsage(ComPtr):
     LastSyncTime = property(get_LastSyncTime, None)
 class IDataUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c1431dd3-b146-4d39-b9-59-0c-69-b0-96-c5-12')
+    _iid_ = Guid('{c1431dd3-b146-4d39-b959-0c69b096c512}')
     @winrt_commethod(6)
     def get_BytesSent(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -574,7 +574,7 @@ class IDataUsage(ComPtr):
     BytesReceived = property(get_BytesReceived, None)
 class IIPInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d85145e0-138f-47d7-9b-3a-36-bb-48-8c-ef-33')
+    _iid_ = Guid('{d85145e0-138f-47d7-9b3a-36bb488cef33}')
     @winrt_commethod(6)
     def get_NetworkAdapter(self) -> Windows.Networking.Connectivity.NetworkAdapter: ...
     @winrt_commethod(7)
@@ -583,7 +583,7 @@ class IIPInformation(ComPtr):
     PrefixLength = property(get_PrefixLength, None)
 class ILanIdentifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('48aa53aa-1108-4546-a6-cb-9a-74-da-4b-7b-a0')
+    _iid_ = Guid('{48aa53aa-1108-4546-a6cb-9a74da4b7ba0}')
     @winrt_commethod(6)
     def get_InfrastructureId(self) -> Windows.Networking.Connectivity.LanIdentifierData: ...
     @winrt_commethod(7)
@@ -595,7 +595,7 @@ class ILanIdentifier(ComPtr):
     NetworkAdapterId = property(get_NetworkAdapterId, None)
 class ILanIdentifierData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a74e83c3-d639-45be-a3-6a-c4-e4-ae-af-6d-9b')
+    _iid_ = Guid('{a74e83c3-d639-45be-a36a-c4e4aeaf6d9b}')
     @winrt_commethod(6)
     def get_Type(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -604,7 +604,7 @@ class ILanIdentifierData(ComPtr):
     Value = property(get_Value, None)
 class INetworkAdapter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3b542e03-5388-496c-a8-a3-af-fd-39-ae-c2-e6')
+    _iid_ = Guid('{3b542e03-5388-496c-a8a3-affd39aec2e6}')
     @winrt_commethod(6)
     def get_OutboundMaxBitsPerSecond(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -624,7 +624,7 @@ class INetworkAdapter(ComPtr):
     NetworkAdapterId = property(get_NetworkAdapterId, None)
 class INetworkInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5074f851-950d-4165-9c-15-36-56-19-48-1e-ea')
+    _iid_ = Guid('{5074f851-950d-4165-9c15-365619481eea}')
     @winrt_commethod(6)
     def GetConnectionProfiles(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.Connectivity.ConnectionProfile]: ...
     @winrt_commethod(7)
@@ -643,12 +643,12 @@ class INetworkInformationStatics(ComPtr):
     def remove_NetworkStatusChanged(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class INetworkInformationStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('459ced14-2832-49b6-ba-6e-e2-65-f0-47-86-a8')
+    _iid_ = Guid('{459ced14-2832-49b6-ba6e-e265f04786a8}')
     @winrt_commethod(6)
     def FindConnectionProfilesAsync(self, pProfileFilter: Windows.Networking.Connectivity.ConnectionProfileFilter) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.Connectivity.ConnectionProfile]]: ...
 class INetworkItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('01bc4d39-f5e0-4567-a2-8c-42-08-0c-83-1b-2b')
+    _iid_ = Guid('{01bc4d39-f5e0-4567-a28c-42080c831b2b}')
     @winrt_commethod(6)
     def get_NetworkId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -656,7 +656,7 @@ class INetworkItem(ComPtr):
     NetworkId = property(get_NetworkId, None)
 class INetworkSecuritySettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7ca07e8d-917b-4b5f-b8-4d-28-f7-a5-ac-54-02')
+    _iid_ = Guid('{7ca07e8d-917b-4b5f-b84d-28f7a5ac5402}')
     @winrt_commethod(6)
     def get_NetworkAuthenticationType(self) -> Windows.Networking.Connectivity.NetworkAuthenticationType: ...
     @winrt_commethod(7)
@@ -665,7 +665,7 @@ class INetworkSecuritySettings(ComPtr):
     NetworkEncryptionType = property(get_NetworkEncryptionType, None)
 class INetworkStateChangeEventDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1f0cf333-d7a6-44dd-a4-e9-68-7c-47-6b-90-3d')
+    _iid_ = Guid('{1f0cf333-d7a6-44dd-a4e9-687c476b903d}')
     @winrt_commethod(6)
     def get_HasNewInternetConnectionProfile(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -686,7 +686,7 @@ class INetworkStateChangeEventDetails(ComPtr):
     HasNewWwanRegistrationState = property(get_HasNewWwanRegistrationState, None)
 class INetworkStateChangeEventDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d643c0e8-30d3-4f6a-ad-47-6a-18-73-ce-b3-c1')
+    _iid_ = Guid('{d643c0e8-30d3-4f6a-ad47-6a1873ceb3c1}')
     @winrt_commethod(6)
     def get_HasNewTetheringOperationalState(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -695,7 +695,7 @@ class INetworkStateChangeEventDetails2(ComPtr):
     HasNewTetheringClientCount = property(get_HasNewTetheringClientCount, None)
 class INetworkUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('49da8fce-9985-4927-bf-5b-07-2b-5c-65-f8-d9')
+    _iid_ = Guid('{49da8fce-9985-4927-bf5b-072b5c65f8d9}')
     @winrt_commethod(6)
     def get_BytesSent(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -716,7 +716,7 @@ class IPInformation(ComPtr):
     PrefixLength = property(get_PrefixLength, None)
 class IProviderNetworkUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5ec69e04-7931-48c8-b8-f3-46-30-0f-a4-27-28')
+    _iid_ = Guid('{5ec69e04-7931-48c8-b8f3-46300fa42728}')
     @winrt_commethod(6)
     def get_BytesSent(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -728,7 +728,7 @@ class IProviderNetworkUsage(ComPtr):
     ProviderId = property(get_ProviderId, None)
 class IProxyConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ef3a60b4-9004-4dd6-b7-d8-b3-e5-02-f4-aa-d0')
+    _iid_ = Guid('{ef3a60b4-9004-4dd6-b7d8-b3e502f4aad0}')
     @winrt_commethod(6)
     def get_ProxyUris(self) -> Windows.Foundation.Collections.IVectorView[Windows.Foundation.Uri]: ...
     @winrt_commethod(7)
@@ -737,7 +737,7 @@ class IProxyConfiguration(ComPtr):
     CanConnectDirectly = property(get_CanConnectDirectly, None)
 class IRoutePolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('11abc4ac-0fc7-42e4-87-42-56-99-23-b1-ca-11')
+    _iid_ = Guid('{11abc4ac-0fc7-42e4-8742-569923b1ca11}')
     @winrt_commethod(6)
     def get_ConnectionProfile(self) -> Windows.Networking.Connectivity.ConnectionProfile: ...
     @winrt_commethod(7)
@@ -749,17 +749,17 @@ class IRoutePolicy(ComPtr):
     HostNameType = property(get_HostNameType, None)
 class IRoutePolicyFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('36027933-a18e-4db5-a6-97-f5-8f-a7-36-4e-44')
+    _iid_ = Guid('{36027933-a18e-4db5-a697-f58fa7364e44}')
     @winrt_commethod(6)
     def CreateRoutePolicy(self, connectionProfile: Windows.Networking.Connectivity.ConnectionProfile, hostName: Windows.Networking.HostName, type: Windows.Networking.DomainNameType) -> Windows.Networking.Connectivity.RoutePolicy: ...
 class IWlanConnectionProfileDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('562098cb-b35a-4bf1-a8-84-b7-55-7e-88-ff-86')
+    _iid_ = Guid('{562098cb-b35a-4bf1-a884-b7557e88ff86}')
     @winrt_commethod(6)
     def GetConnectedSsid(self) -> WinRT_String: ...
 class IWwanConnectionProfileDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0e4da8fe-835f-4df3-82-fd-df-55-6e-bc-09-ef')
+    _iid_ = Guid('{0e4da8fe-835f-4df3-82fd-df556ebc09ef}')
     @winrt_commethod(6)
     def get_HomeProviderId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -772,7 +772,7 @@ class IWwanConnectionProfileDetails(ComPtr):
     AccessPointName = property(get_AccessPointName, None)
 class IWwanConnectionProfileDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7a754ede-a1ed-48b2-8e-92-b4-60-03-3d-52-e2')
+    _iid_ = Guid('{7a754ede-a1ed-48b2-8e92-b460033d52e2}')
     @winrt_commethod(6)
     def get_IPKind(self) -> Windows.Networking.Connectivity.WwanNetworkIPKind: ...
     @winrt_commethod(7)
@@ -926,7 +926,7 @@ class NetworkStateChangeEventDetails(ComPtr):
     HasNewTetheringClientCount = property(get_HasNewTetheringClientCount, None)
 class NetworkStatusChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('71ba143f-598e-49d0-84-eb-8f-eb-ae-dc-c1-95')
+    _iid_ = Guid('{71ba143f-598e-49d0-84eb-8febaedcc195}')
     _classid_ = 'Windows.Networking.Connectivity.NetworkStatusChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...

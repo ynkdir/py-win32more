@@ -164,7 +164,7 @@ class HttpDiagnosticSourceLocation(ComPtr):
 HttpDiagnosticsContract: UInt32 = 131072
 class IHttpDiagnosticProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bd811501-a056-4d39-b1-74-83-3b-7b-03-b0-2c')
+    _iid_ = Guid('{bd811501-a056-4d39-b174-833b7b03b02c}')
     @winrt_commethod(6)
     def Start(self) -> Void: ...
     @winrt_commethod(7)
@@ -183,7 +183,7 @@ class IHttpDiagnosticProvider(ComPtr):
     def remove_RequestResponseCompleted(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IHttpDiagnosticProviderRequestResponseCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('735f98ee-94f6-4532-b2-6e-61-e1-b1-e4-ef-d4')
+    _iid_ = Guid('{735f98ee-94f6-4532-b26e-61e1b1e4efd4}')
     @winrt_commethod(6)
     def get_ActivityId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -207,7 +207,7 @@ class IHttpDiagnosticProviderRequestResponseCompletedEventArgs(ComPtr):
     SourceLocations = property(get_SourceLocations, None)
 class IHttpDiagnosticProviderRequestResponseTimestamps(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e0afde10-55cf-4c01-91-d4-a2-05-57-d8-49-f0')
+    _iid_ = Guid('{e0afde10-55cf-4c01-91d4-a20557d849f0}')
     @winrt_commethod(6)
     def get_CacheCheckedTimestamp(self) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
     @winrt_commethod(7)
@@ -237,7 +237,7 @@ class IHttpDiagnosticProviderRequestResponseTimestamps(ComPtr):
     ResponseCompletedTimestamp = property(get_ResponseCompletedTimestamp, None)
 class IHttpDiagnosticProviderRequestSentEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3f5196d0-4c1f-4ebe-a5-7a-06-93-07-71-c5-0d')
+    _iid_ = Guid('{3f5196d0-4c1f-4ebe-a57a-06930771c50d}')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -261,7 +261,7 @@ class IHttpDiagnosticProviderRequestSentEventArgs(ComPtr):
     SourceLocations = property(get_SourceLocations, None)
 class IHttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a0a2566c-ab5f-4d66-bb-2d-08-4c-f4-16-35-d0')
+    _iid_ = Guid('{a0a2566c-ab5f-4d66-bb2d-084cf41635d0}')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -273,12 +273,12 @@ class IHttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     Message = property(get_Message, None)
 class IHttpDiagnosticProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5b824ec1-6a6c-47cc-af-ec-1e-86-bc-26-05-3b')
+    _iid_ = Guid('{5b824ec1-6a6c-47cc-afec-1e86bc26053b}')
     @winrt_commethod(6)
     def CreateFromProcessDiagnosticInfo(self, processDiagnosticInfo: Windows.System.Diagnostics.ProcessDiagnosticInfo) -> Windows.Web.Http.Diagnostics.HttpDiagnosticProvider: ...
 class IHttpDiagnosticSourceLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('54a9d260-8860-423f-b6-fa-d7-77-16-f6-47-a7')
+    _iid_ = Guid('{54a9d260-8860-423f-b6fa-d77716f647a7}')
     @winrt_commethod(6)
     def get_SourceUri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)

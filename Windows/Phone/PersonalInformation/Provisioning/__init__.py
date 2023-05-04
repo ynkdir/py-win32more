@@ -35,19 +35,19 @@ class ContactPartnerProvisioningManager(ComPtr):
     def AssociateSocialNetworkAccountAsync(cls: Windows.Phone.PersonalInformation.Provisioning.IContactPartnerProvisioningManagerStatics2, store: Windows.Phone.PersonalInformation.ContactStore, networkName: WinRT_String, networkAccountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IContactPartnerProvisioningManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c0d79a21-01af-4fd3-98-cd-b3-d6-56-de-15-f4')
+    _iid_ = Guid('{c0d79a21-01af-4fd3-98cd-b3d656de15f4}')
     @winrt_commethod(6)
     def AssociateNetworkAccountAsync(self, store: Windows.Phone.PersonalInformation.ContactStore, networkName: WinRT_String, networkAccountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ImportVcardToSystemAsync(self, stream: Windows.Storage.Streams.IInputStream) -> Windows.Foundation.IAsyncAction: ...
 class IContactPartnerProvisioningManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c26155f7-55ed-475d-93-34-c5-d4-84-c3-0f-1a')
+    _iid_ = Guid('{c26155f7-55ed-475d-9334-c5d484c30f1a}')
     @winrt_commethod(6)
     def AssociateSocialNetworkAccountAsync(self, store: Windows.Phone.PersonalInformation.ContactStore, networkName: WinRT_String, networkAccountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IMessagePartnerProvisioningManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8a1b0850-73c5-457c-bc-59-ed-7d-61-5c-05-a4')
+    _iid_ = Guid('{8a1b0850-73c5-457c-bc59-ed7d615c05a4}')
     @winrt_commethod(6)
     def ImportSmsToSystemAsync(self, incoming: Boolean, read: Boolean, body: WinRT_String, sender: WinRT_String, recipients: Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: Windows.Foundation.DateTime) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)

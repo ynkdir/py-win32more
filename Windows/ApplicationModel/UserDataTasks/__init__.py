@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUserDataTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7c6585d1-e0d4-4f99-ae-e2-bc-2d-5d-da-df-4c')
+    _iid_ = Guid('{7c6585d1-e0d4-4f99-aee2-bc2d5ddadf4c}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -97,13 +97,13 @@ class IUserDataTask(ComPtr):
     StartDate = property(get_StartDate, put_StartDate)
 class IUserDataTaskBatch(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('382da5fe-20b5-431c-8f-42-a5-d2-92-ec-93-0c')
+    _iid_ = Guid('{382da5fe-20b5-431c-8f42-a5d292ec930c}')
     @winrt_commethod(6)
     def get_Tasks(self) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.UserDataTasks.UserDataTask]: ...
     Tasks = property(get_Tasks, None)
 class IUserDataTaskList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('49412e39-7c1d-4df1-be-d3-31-4b-7c-bf-5e-4e')
+    _iid_ = Guid('{49412e39-7c1d-4df1-bed3-314b7cbf5e4e}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -152,7 +152,7 @@ class IUserDataTaskList(ComPtr):
     SyncManager = property(get_SyncManager, None)
 class IUserDataTaskListLimitedWriteOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7aa267f2-6078-4183-91-9e-4f-29-f1-9c-fa-e9')
+    _iid_ = Guid('{7aa267f2-6078-4183-919e-4f29f19cfae9}')
     @winrt_commethod(6)
     def TryCompleteTaskAsync(self, userDataTaskId: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_commethod(7)
@@ -163,7 +163,7 @@ class IUserDataTaskListLimitedWriteOperations(ComPtr):
     def TrySkipOccurrenceAsync(self, userDataTaskId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IUserDataTaskListSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8e591a95-1dcf-469f-93-ec-ba-48-bb-55-3c-6b')
+    _iid_ = Guid('{8e591a95-1dcf-469f-93ec-ba48bb553c6b}')
     @winrt_commethod(6)
     def get_LastAttemptedSyncTime(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -187,7 +187,7 @@ class IUserDataTaskListSyncManager(ComPtr):
     Status = property(get_Status, put_Status)
 class IUserDataTaskManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8451c914-e60b-48a9-92-11-7f-b8-a5-6c-b8-4c')
+    _iid_ = Guid('{8451c914-e60b-48a9-9211-7fb8a56cb84c}')
     @winrt_commethod(6)
     def RequestStoreAsync(self, accessType: Windows.ApplicationModel.UserDataTasks.UserDataTaskStoreAccessType) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskStore]: ...
     @winrt_commethod(7)
@@ -195,14 +195,14 @@ class IUserDataTaskManager(ComPtr):
     User = property(get_User, None)
 class IUserDataTaskManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b35539f8-c502-47fc-a8-1e-10-08-83-71-9d-55')
+    _iid_ = Guid('{b35539f8-c502-47fc-a81e-100883719d55}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskManager: ...
     @winrt_commethod(7)
     def GetForUser(self, user: Windows.System.User) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskManager: ...
 class IUserDataTaskQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('959f27ed-909a-4d30-8c-1b-33-1d-8f-e6-67-e2')
+    _iid_ = Guid('{959f27ed-909a-4d30-8c1b-331d8fe667e2}')
     @winrt_commethod(6)
     def get_SortProperty(self) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskQuerySortProperty: ...
     @winrt_commethod(7)
@@ -215,12 +215,12 @@ class IUserDataTaskQueryOptions(ComPtr):
     Kind = property(get_Kind, put_Kind)
 class IUserDataTaskReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('03e688b1-4ccf-4500-88-3b-e7-62-90-cf-ed-63')
+    _iid_ = Guid('{03e688b1-4ccf-4500-883b-e76290cfed63}')
     @winrt_commethod(6)
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch]: ...
 class IUserDataTaskRecurrenceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('73df80b0-27c6-40ce-b1-49-9c-d4-14-85-a6-9e')
+    _iid_ = Guid('{73df80b0-27c6-40ce-b149-9cd41485a69e}')
     @winrt_commethod(6)
     def get_Unit(self) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceUnit: ...
     @winrt_commethod(7)
@@ -263,7 +263,7 @@ class IUserDataTaskRecurrenceProperties(ComPtr):
     Day = property(get_Day, put_Day)
 class IUserDataTaskRegenerationProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('92ab0007-090e-4704-bb-5c-84-fc-0b-0d-9c-31')
+    _iid_ = Guid('{92ab0007-090e-4704-bb5c-84fc0b0d9c31}')
     @winrt_commethod(6)
     def get_Unit(self) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationUnit: ...
     @winrt_commethod(7)
@@ -286,7 +286,7 @@ class IUserDataTaskRegenerationProperties(ComPtr):
     Interval = property(get_Interval, put_Interval)
 class IUserDataTaskStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f06a9cb0-f1db-45ba-8a-62-08-60-04-c0-21-3d')
+    _iid_ = Guid('{f06a9cb0-f1db-45ba-8a62-086004c0213d}')
     @winrt_commethod(6)
     def CreateListAsync(self, name: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskList]: ...
     @winrt_commethod(7)

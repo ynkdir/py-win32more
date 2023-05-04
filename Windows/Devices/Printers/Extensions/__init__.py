@@ -24,7 +24,7 @@ def __getattr__(name):
 ExtensionsContract: UInt32 = 131072
 class IPrint3DWorkflow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c56f74bd-3669-4a66-ab-42-c8-15-19-30-cd-34')
+    _iid_ = Guid('{c56f74bd-3669-4a66-ab42-c8151930cd34}')
     @winrt_commethod(6)
     def get_DeviceID(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -41,14 +41,14 @@ class IPrint3DWorkflow(ComPtr):
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
 class IPrint3DWorkflow2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a2a6c54f-8ac1-4918-97-41-e3-4f-30-04-23-9e')
+    _iid_ = Guid('{a2a6c54f-8ac1-4918-9741-e34f3004239e}')
     @winrt_commethod(6)
     def add_PrinterChanged(self, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Devices.Printers.Extensions.Print3DWorkflow, Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrinterChanged(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPrint3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('19f8c858-5ac8-4b55-8a-5f-e6-15-67-da-fb-4d')
+    _iid_ = Guid('{19f8c858-5ac8-4b55-8a5f-e61567dafb4d}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Printers.Extensions.Print3DWorkflowStatus: ...
     @winrt_commethod(7)
@@ -60,18 +60,18 @@ class IPrint3DWorkflowPrintRequestedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class IPrint3DWorkflowPrinterChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('45226402-95fc-4847-93-b3-13-4d-bf-5c-60-f7')
+    _iid_ = Guid('{45226402-95fc-4847-93b3-134dbf5c60f7}')
     @winrt_commethod(6)
     def get_NewDeviceId(self) -> WinRT_String: ...
     NewDeviceId = property(get_NewDeviceId, None)
 class IPrintExtensionContextStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e70d9fc1-ff79-4aa4-8c-9b-0c-93-ae-df-de-8a')
+    _iid_ = Guid('{e70d9fc1-ff79-4aa4-8c9b-0c93aedfde8a}')
     @winrt_commethod(6)
     def FromDeviceId(self, deviceId: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IPrintNotificationEventDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e00e4c8a-4828-4da1-8b-b8-86-72-df-85-15-e7')
+    _iid_ = Guid('{e00e4c8a-4828-4da1-8bb8-8672df8515e7}')
     @winrt_commethod(6)
     def get_PrinterName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -82,7 +82,7 @@ class IPrintNotificationEventDetails(ComPtr):
     EventData = property(get_EventData, put_EventData)
 class IPrintTaskConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e3c22451-3aa4-4885-92-40-31-1f-5f-8f-be-9d')
+    _iid_ = Guid('{e3c22451-3aa4-4885-9240-311f5f8fbe9d}')
     @winrt_commethod(6)
     def get_PrinterExtensionContext(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(7)
@@ -92,7 +92,7 @@ class IPrintTaskConfiguration(ComPtr):
     PrinterExtensionContext = property(get_PrinterExtensionContext, None)
 class IPrintTaskConfigurationSaveRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('eeaf2fcb-621e-4b62-ac-77-b2-81-cc-e0-8d-60')
+    _iid_ = Guid('{eeaf2fcb-621e-4b62-ac77-b281cce08d60}')
     @winrt_commethod(6)
     def Cancel(self) -> Void: ...
     @winrt_commethod(7)
@@ -104,12 +104,12 @@ class IPrintTaskConfigurationSaveRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class IPrintTaskConfigurationSaveRequestedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e959d568-f729-44a4-87-1d-bd-06-28-69-6a-33')
+    _iid_ = Guid('{e959d568-f729-44a4-871d-bd0628696a33}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IPrintTaskConfigurationSaveRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e06c2879-0d61-4938-91-d0-96-a4-5b-ee-84-79')
+    _iid_ = Guid('{e06c2879-0d61-4938-91d0-96a45bee8479}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest: ...
     Request = property(get_Request, None)

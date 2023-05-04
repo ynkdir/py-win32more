@@ -24,10 +24,10 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPalmRejectionDelayZonePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('62b496cb-539d-5343-a6-5f-41-f5-30-0e-c7-0c')
+    _iid_ = Guid('{62b496cb-539d-5343-a65f-41f5300ec70c}')
 class IPalmRejectionDelayZonePreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cdef5ee0-93d0-53a9-8f-0e-9a-37-9f-8f-75-30')
+    _iid_ = Guid('{cdef5ee0-93d0-53a9-8f0e-9a379f8f7530}')
     @winrt_commethod(6)
     def CreateForVisual(self, inputPanelVisual: Windows.UI.Composition.Visual, inputPanelRect: Windows.Foundation.Rect) -> Windows.UI.Input.Inking.Preview.PalmRejectionDelayZonePreview: ...
     @winrt_commethod(7)

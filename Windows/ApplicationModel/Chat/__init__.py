@@ -697,7 +697,7 @@ ChatTransportInterpretedErrorCode_ServiceDenied: ChatTransportInterpretedErrorCo
 ChatTransportInterpretedErrorCode_Timeout: ChatTransportInterpretedErrorCode = 5
 class IChatCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3aff77bc-39c9-4dd1-ad-2d-39-64-dd-9d-40-3f')
+    _iid_ = Guid('{3aff77bc-39c9-4dd1-ad2d-3964dd9d403f}')
     @winrt_commethod(6)
     def get_IsOnline(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -715,21 +715,21 @@ class IChatCapabilities(ComPtr):
     IsIntegratedMessagingCapable = property(get_IsIntegratedMessagingCapable, None)
 class IChatCapabilitiesManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b57a2f30-7041-458e-b0-cf-7c-0d-9f-ea-33-3a')
+    _iid_ = Guid('{b57a2f30-7041-458e-b0cf-7c0d9fea333a}')
     @winrt_commethod(6)
     def GetCachedCapabilitiesAsync(self, address: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatCapabilities]: ...
     @winrt_commethod(7)
     def GetCapabilitiesFromNetworkAsync(self, address: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatCapabilities]: ...
 class IChatCapabilitiesManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e30d4274-d5c1-4ac9-9f-fc-40-e6-91-84-fe-c8')
+    _iid_ = Guid('{e30d4274-d5c1-4ac9-9ffc-40e69184fec8}')
     @winrt_commethod(6)
     def GetCachedCapabilitiesForTransportAsync(self, address: WinRT_String, transportId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatCapabilities]: ...
     @winrt_commethod(7)
     def GetCapabilitiesFromNetworkForTransportAsync(self, address: WinRT_String, transportId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatCapabilities]: ...
 class IChatConversation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a58c080d-1a6f-46dc-8f-3d-f5-02-86-60-b6-ee')
+    _iid_ = Guid('{a58c080d-1a6f-46dc-8f3d-f5028660b6ee}')
     @winrt_commethod(6)
     def get_HasUnreadMessages(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -775,7 +775,7 @@ class IChatConversation(ComPtr):
     ThreadingInfo = property(get_ThreadingInfo, None)
 class IChatConversation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0a030cd1-983a-47aa-9a-90-ee-48-ee-99-7b-59')
+    _iid_ = Guid('{0a030cd1-983a-47aa-9a90-ee48ee997b59}')
     @winrt_commethod(6)
     def get_CanModifyParticipants(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -783,14 +783,14 @@ class IChatConversation2(ComPtr):
     CanModifyParticipants = property(get_CanModifyParticipants, put_CanModifyParticipants)
 class IChatConversationReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('055136d2-de32-4a47-a9-3a-b3-dc-08-33-85-2b')
+    _iid_ = Guid('{055136d2-de32-4a47-a93a-b3dc0833852b}')
     @winrt_commethod(6)
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatConversation]]: ...
     @winrt_commethod(7)
     def ReadBatchWithCountAsync(self, count: Int32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatConversation]]: ...
 class IChatConversationThreadingInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('331c21dc-7a07-4422-a3-2c-24-be-7c-6d-ab-24')
+    _iid_ = Guid('{331c21dc-7a07-4422-a32c-24be7c6dab24}')
     @winrt_commethod(6)
     def get_ContactId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -816,13 +816,13 @@ class IChatConversationThreadingInfo(ComPtr):
     Kind = property(get_Kind, put_Kind)
 class IChatItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8751d000-ceb1-4243-b8-03-15-d4-5a-1d-d4-28')
+    _iid_ = Guid('{8751d000-ceb1-4243-b803-15d45a1dd428}')
     @winrt_commethod(6)
     def get_ItemKind(self) -> Windows.ApplicationModel.Chat.ChatItemKind: ...
     ItemKind = property(get_ItemKind, None)
 class IChatMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4b39052a-1142-5089-76-da-f2-db-3d-17-cd-05')
+    _iid_ = Guid('{4b39052a-1142-5089-76da-f2db3d17cd05}')
     @winrt_commethod(6)
     def get_Attachments(self) -> Windows.Foundation.Collections.IVector[Windows.ApplicationModel.Chat.ChatMessageAttachment]: ...
     @winrt_commethod(7)
@@ -874,7 +874,7 @@ class IChatMessage(ComPtr):
     TransportId = property(get_TransportId, put_TransportId)
 class IChatMessage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('86668332-543f-49f5-ac-71-6c-2a-fc-65-65-fd')
+    _iid_ = Guid('{86668332-543f-49f5-ac71-6c2afc6565fd}')
     @winrt_commethod(6)
     def get_EstimatedDownloadSize(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -953,13 +953,13 @@ class IChatMessage2(ComPtr):
     RecipientsDeliveryInfos = property(get_RecipientsDeliveryInfos, None)
 class IChatMessage3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('74eb2fb0-3ba7-459f-8e-0b-e8-af-0f-eb-d9-ad')
+    _iid_ = Guid('{74eb2fb0-3ba7-459f-8e0b-e8af0febd9ad}')
     @winrt_commethod(6)
     def get_RemoteId(self) -> WinRT_String: ...
     RemoteId = property(get_RemoteId, None)
 class IChatMessage4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2d144b0f-d2bf-460c-aa-68-6d-3f-84-83-c9-bf')
+    _iid_ = Guid('{2d144b0f-d2bf-460c-aa68-6d3f8483c9bf}')
     @winrt_commethod(6)
     def get_SyncId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -967,7 +967,7 @@ class IChatMessage4(ComPtr):
     SyncId = property(get_SyncId, put_SyncId)
 class IChatMessageAttachment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c7c4fd74-bf63-58eb-50-8c-8b-86-3f-f1-6b-67')
+    _iid_ = Guid('{c7c4fd74-bf63-58eb-508c-8b863ff16b67}')
     @winrt_commethod(6)
     def get_DataStreamReference(self) -> Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_commethod(7)
@@ -990,7 +990,7 @@ class IChatMessageAttachment(ComPtr):
     Text = property(get_Text, put_Text)
 class IChatMessageAttachment2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5ed99270-7dd1-4a87-a8-ce-ac-dd-87-d8-0d-c8')
+    _iid_ = Guid('{5ed99270-7dd1-4a87-a8ce-acdd87d80dc8}')
     @winrt_commethod(6)
     def get_Thumbnail(self) -> Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_commethod(7)
@@ -1008,17 +1008,17 @@ class IChatMessageAttachment2(ComPtr):
     OriginalFileName = property(get_OriginalFileName, put_OriginalFileName)
 class IChatMessageAttachmentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('205852a2-a356-5b71-6c-a9-66-c9-85-b7-d0-d5')
+    _iid_ = Guid('{205852a2-a356-5b71-6ca9-66c985b7d0d5}')
     @winrt_commethod(6)
     def CreateChatMessageAttachment(self, mimeType: WinRT_String, dataStreamReference: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.ApplicationModel.Chat.ChatMessageAttachment: ...
 class IChatMessageBlockingStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f6b9a380-cdea-11e4-88-30-08-00-20-0c-9a-66')
+    _iid_ = Guid('{f6b9a380-cdea-11e4-8830-0800200c9a66}')
     @winrt_commethod(6)
     def MarkMessageAsBlockedAsync(self, localChatMessageId: WinRT_String, blocked: Boolean) -> Windows.Foundation.IAsyncAction: ...
 class IChatMessageChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1c18c355-421e-54b8-6d-38-6b-3a-6c-82-fc-cc')
+    _iid_ = Guid('{1c18c355-421e-54b8-6d38-6b3a6c82fccc}')
     @winrt_commethod(6)
     def get_ChangeType(self) -> Windows.ApplicationModel.Chat.ChatMessageChangeType: ...
     @winrt_commethod(7)
@@ -1027,7 +1027,7 @@ class IChatMessageChange(ComPtr):
     Message = property(get_Message, None)
 class IChatMessageChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('14267020-28ce-5f26-7b-05-9a-5c-7c-ce-87-ca')
+    _iid_ = Guid('{14267020-28ce-5f26-7b05-9a5c7cce87ca}')
     @winrt_commethod(6)
     def AcceptChanges(self) -> Void: ...
     @winrt_commethod(7)
@@ -1036,7 +1036,7 @@ class IChatMessageChangeReader(ComPtr):
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatMessageChange]]: ...
 class IChatMessageChangeTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('60b7f066-70a0-5224-50-8c-24-2e-f7-c1-d0-6f')
+    _iid_ = Guid('{60b7f066-70a0-5224-508c-242ef7c1d06f}')
     @winrt_commethod(6)
     def Enable(self) -> Void: ...
     @winrt_commethod(7)
@@ -1045,24 +1045,24 @@ class IChatMessageChangeTracker(ComPtr):
     def Reset(self) -> Void: ...
 class IChatMessageChangedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fbc6b30c-788c-4dcc-ac-e7-62-82-38-29-68-cf')
+    _iid_ = Guid('{fbc6b30c-788c-4dcc-ace7-6282382968cf}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IChatMessageChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b6b73e2d-691c-4edf-86-60-6e-b9-89-68-92-e3')
+    _iid_ = Guid('{b6b73e2d-691c-4edf-8660-6eb9896892e3}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.ApplicationModel.Chat.ChatMessageChangedDeferral: ...
 class IChatMessageManager2Statics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1d45390f-9f4f-4e35-96-4e-1b-9c-a6-1a-c0-44')
+    _iid_ = Guid('{1d45390f-9f4f-4e35-964e-1b9ca61ac044}')
     @winrt_commethod(6)
     def RegisterTransportAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_commethod(7)
     def GetTransportAsync(self, transportId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatMessageTransport]: ...
 class IChatMessageManagerStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f15c60f7-d5e8-5e92-55-6d-e0-3b-60-25-31-04')
+    _iid_ = Guid('{f15c60f7-d5e8-5e92-556d-e03b60253104}')
     @winrt_commethod(6)
     def GetTransportsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatMessageTransport]]: ...
     @winrt_commethod(7)
@@ -1073,18 +1073,18 @@ class IChatMessageManagerStatic(ComPtr):
     def ShowSmsSettings(self) -> Void: ...
 class IChatMessageManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('208b830d-6755-48cc-9a-b3-fd-03-c4-63-fc-92')
+    _iid_ = Guid('{208b830d-6755-48cc-9ab3-fd03c463fc92}')
     @winrt_commethod(6)
     def RequestSyncManagerAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatSyncManager]: ...
 class IChatMessageNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fd344dfb-3063-4e17-85-86-c6-c0-82-62-e6-c0')
+    _iid_ = Guid('{fd344dfb-3063-4e17-8586-c6c08262e6c0}')
     @winrt_commethod(6)
     def get_ChatMessage(self) -> Windows.ApplicationModel.Chat.ChatMessage: ...
     ChatMessage = property(get_ChatMessage, None)
 class IChatMessageNotificationTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6bb522e0-aa07-4fd1-94-71-77-93-4f-b7-5e-e6')
+    _iid_ = Guid('{6bb522e0-aa07-4fd1-9471-77934fb75ee6}')
     @winrt_commethod(6)
     def get_ShouldDisplayToast(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1099,17 +1099,17 @@ class IChatMessageNotificationTriggerDetails2(ComPtr):
     ShouldUpdateActionCenter = property(get_ShouldUpdateActionCenter, None)
 class IChatMessageReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b6ea78ce-4489-56f9-76-aa-e2-04-68-25-14-cf')
+    _iid_ = Guid('{b6ea78ce-4489-56f9-76aa-e204682514cf}')
     @winrt_commethod(6)
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatMessage]]: ...
 class IChatMessageReader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('89643683-64bb-470d-9d-f4-0d-e8-be-1a-05-bf')
+    _iid_ = Guid('{89643683-64bb-470d-9df4-0de8be1a05bf}')
     @winrt_commethod(6)
     def ReadBatchWithCountAsync(self, count: Int32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatMessage]]: ...
 class IChatMessageStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('31f2fd01-ccf6-580b-49-76-0a-07-dd-5d-3b-47')
+    _iid_ = Guid('{31f2fd01-ccf6-580b-4976-0a07dd5d3b47}')
     @winrt_commethod(6)
     def get_ChangeTracker(self) -> Windows.ApplicationModel.Chat.ChatMessageChangeTracker: ...
     @winrt_commethod(7)
@@ -1137,7 +1137,7 @@ class IChatMessageStore(ComPtr):
     ChangeTracker = property(get_ChangeTracker, None)
 class IChatMessageStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ad4dc4ee-3ad4-491b-b3-11-ab-df-9b-b2-27-68')
+    _iid_ = Guid('{ad4dc4ee-3ad4-491b-b311-abdf9bb22768}')
     @winrt_commethod(6)
     def ForwardMessageAsync(self, localChatMessageId: WinRT_String, addresses: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatMessage]: ...
     @winrt_commethod(7)
@@ -1174,12 +1174,12 @@ class IChatMessageStore2(ComPtr):
     def remove_StoreChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IChatMessageStore3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9adbbb09-4345-4ec1-8b-74-b7-33-82-43-71-9c')
+    _iid_ = Guid('{9adbbb09-4345-4ec1-8b74-b7338243719c}')
     @winrt_commethod(6)
     def GetMessageBySyncIdAsync(self, syncId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatMessage]: ...
 class IChatMessageStoreChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('65c66fac-fe8c-46d4-91-19-57-b8-41-03-11-d5')
+    _iid_ = Guid('{65c66fac-fe8c-46d4-9119-57b8410311d5}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1188,7 +1188,7 @@ class IChatMessageStoreChangedEventArgs(ComPtr):
     Kind = property(get_Kind, None)
 class IChatMessageTransport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('63a9dbf8-e6b3-5c9a-5f-85-d4-79-25-b9-bd-18')
+    _iid_ = Guid('{63a9dbf8-e6b3-5c9a-5f85-d47925b9bd18}')
     @winrt_commethod(6)
     def get_IsAppSetAsNotificationProvider(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1205,7 +1205,7 @@ class IChatMessageTransport(ComPtr):
     TransportId = property(get_TransportId, None)
 class IChatMessageTransport2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('90a75622-d84a-4c22-a9-4d-54-44-44-ed-c8-a1')
+    _iid_ = Guid('{90a75622-d84a-4c22-a94d-544444edc8a1}')
     @winrt_commethod(6)
     def get_Configuration(self) -> Windows.ApplicationModel.Chat.ChatMessageTransportConfiguration: ...
     @winrt_commethod(7)
@@ -1214,7 +1214,7 @@ class IChatMessageTransport2(ComPtr):
     TransportKind = property(get_TransportKind, None)
 class IChatMessageTransportConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('879ff725-1a08-4aca-a0-75-33-55-12-63-12-e6')
+    _iid_ = Guid('{879ff725-1a08-4aca-a075-3355126312e6}')
     @winrt_commethod(6)
     def get_MaxAttachmentCount(self) -> Int32: ...
     @winrt_commethod(7)
@@ -1232,7 +1232,7 @@ class IChatMessageTransportConfiguration(ComPtr):
     ExtendedProperties = property(get_ExtendedProperties, None)
 class IChatMessageValidationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('25e93a03-28ec-5889-56-9b-7e-48-6b-12-6f-18')
+    _iid_ = Guid('{25e93a03-28ec-5889-569b-7e486b126f18}')
     @winrt_commethod(6)
     def get_MaxPartCount(self) -> Windows.Foundation.IReference[UInt32]: ...
     @winrt_commethod(7)
@@ -1247,7 +1247,7 @@ class IChatMessageValidationResult(ComPtr):
     Status = property(get_Status, None)
 class IChatQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2fd364a6-bf36-42f7-b7-e7-92-3c-0a-ab-fe-16')
+    _iid_ = Guid('{2fd364a6-bf36-42f7-b7e7-923c0aabfe16}')
     @winrt_commethod(6)
     def get_SearchString(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1255,7 +1255,7 @@ class IChatQueryOptions(ComPtr):
     SearchString = property(get_SearchString, put_SearchString)
 class IChatRecipientDeliveryInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ffc7b2a2-283c-4c0a-8a-0e-8c-33-bd-bf-05-45')
+    _iid_ = Guid('{ffc7b2a2-283c-4c0a-8a0e-8c33bdbf0545}')
     @winrt_commethod(6)
     def get_TransportAddress(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1288,14 +1288,14 @@ class IChatRecipientDeliveryInfo(ComPtr):
     Status = property(get_Status, None)
 class IChatSearchReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4665fe49-9020-4752-98-0d-39-61-23-25-f5-89')
+    _iid_ = Guid('{4665fe49-9020-4752-980d-39612325f589}')
     @winrt_commethod(6)
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.IChatItem]]: ...
     @winrt_commethod(7)
     def ReadBatchWithCountAsync(self, count: Int32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.IChatItem]]: ...
 class IChatSyncConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('09f869b2-69f4-4aff-82-b6-06-99-2f-f4-02-d2')
+    _iid_ = Guid('{09f869b2-69f4-4aff-82b6-06992ff402d2}')
     @winrt_commethod(6)
     def get_IsSyncEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1308,7 +1308,7 @@ class IChatSyncConfiguration(ComPtr):
     RestoreHistorySpan = property(get_RestoreHistorySpan, put_RestoreHistorySpan)
 class IChatSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7ba52c63-2650-486f-b4-b4-6b-d9-d3-d6-3c-84')
+    _iid_ = Guid('{7ba52c63-2650-486f-b4b4-6bd9d3d63c84}')
     @winrt_commethod(6)
     def get_Configuration(self) -> Windows.ApplicationModel.Chat.ChatSyncConfiguration: ...
     @winrt_commethod(7)
@@ -1324,7 +1324,7 @@ class IChatSyncManager(ComPtr):
     Configuration = property(get_Configuration, None)
 class IRcsEndUserMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d7cda5eb-cbd7-4f3b-85-26-b5-06-de-c3-5c-53')
+    _iid_ = Guid('{d7cda5eb-cbd7-4f3b-8526-b506dec35c53}')
     @winrt_commethod(6)
     def get_TransportId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1346,13 +1346,13 @@ class IRcsEndUserMessage(ComPtr):
     Actions = property(get_Actions, None)
 class IRcsEndUserMessageAction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('92378737-9b42-46d3-9d-5e-3c-1b-2d-ae-7c-b8')
+    _iid_ = Guid('{92378737-9b42-46d3-9d5e-3c1b2dae7cb8}')
     @winrt_commethod(6)
     def get_Label(self) -> WinRT_String: ...
     Label = property(get_Label, None)
 class IRcsEndUserMessageAvailableEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2d45ae01-3f89-41ea-97-02-9e-9e-d4-11-aa-98')
+    _iid_ = Guid('{2d45ae01-3f89-41ea-9702-9e9ed411aa98}')
     @winrt_commethod(6)
     def get_IsMessageAvailable(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1361,7 +1361,7 @@ class IRcsEndUserMessageAvailableEventArgs(ComPtr):
     Message = property(get_Message, None)
 class IRcsEndUserMessageAvailableTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5b97742d-351f-4692-b4-1e-1b-03-5d-c1-89-86')
+    _iid_ = Guid('{5b97742d-351f-4692-b41e-1b035dc18986}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1370,14 +1370,14 @@ class IRcsEndUserMessageAvailableTriggerDetails(ComPtr):
     Text = property(get_Text, None)
 class IRcsEndUserMessageManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3054ae5a-4d1f-4b59-94-33-12-6c-73-4e-86-a6')
+    _iid_ = Guid('{3054ae5a-4d1f-4b59-9433-126c734e86a6}')
     @winrt_commethod(6)
     def add_MessageAvailableChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Chat.RcsEndUserMessageManager, Windows.ApplicationModel.Chat.RcsEndUserMessageAvailableEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MessageAvailableChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IRcsManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7d270ac5-0abd-4f31-9b-99-a5-9e-71-a7-b7-31')
+    _iid_ = Guid('{7d270ac5-0abd-4f31-9b99-a59e71a7b731}')
     @winrt_commethod(6)
     def GetEndUserMessageManager(self) -> Windows.ApplicationModel.Chat.RcsEndUserMessageManager: ...
     @winrt_commethod(7)
@@ -1388,20 +1388,20 @@ class IRcsManagerStatics(ComPtr):
     def LeaveConversationAsync(self, conversation: Windows.ApplicationModel.Chat.ChatConversation) -> Windows.Foundation.IAsyncAction: ...
 class IRcsManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cd49ad18-ad8a-42aa-8e-eb-a7-98-a8-80-89-59')
+    _iid_ = Guid('{cd49ad18-ad8a-42aa-8eeb-a798a8808959}')
     @winrt_commethod(6)
     def add_TransportListChanged(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_TransportListChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IRcsServiceKindSupportedChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f47ea244-e783-4866-b3-a7-4e-5c-cf-02-30-70')
+    _iid_ = Guid('{f47ea244-e783-4866-b3a7-4e5ccf023070}')
     @winrt_commethod(6)
     def get_ServiceKind(self) -> Windows.ApplicationModel.Chat.RcsServiceKind: ...
     ServiceKind = property(get_ServiceKind, None)
 class IRcsTransport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fea34759-f37c-4319-85-46-ec-84-d2-1d-30-ff')
+    _iid_ = Guid('{fea34759-f37c-4319-8546-ec84d21d30ff}')
     @winrt_commethod(6)
     def get_ExtendedProperties(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]: ...
     @winrt_commethod(7)
@@ -1427,7 +1427,7 @@ class IRcsTransport(ComPtr):
     Configuration = property(get_Configuration, None)
 class IRcsTransportConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1fccb102-2472-4bb9-99-88-c1-21-1c-83-e8-a9')
+    _iid_ = Guid('{1fccb102-2472-4bb9-9988-c1211c83e8a9}')
     @winrt_commethod(6)
     def get_MaxAttachmentCount(self) -> Int32: ...
     @winrt_commethod(7)
@@ -1448,7 +1448,7 @@ class IRcsTransportConfiguration(ComPtr):
     WarningFileSizeInKilobytes = property(get_WarningFileSizeInKilobytes, None)
 class IRemoteParticipantComposingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1ec045a7-cfc9-45c9-98-76-44-9f-2b-c1-80-f5')
+    _iid_ = Guid('{1ec045a7-cfc9-45c9-9876-449f2bc180f5}')
     @winrt_commethod(6)
     def get_TransportId(self) -> WinRT_String: ...
     @winrt_commethod(7)

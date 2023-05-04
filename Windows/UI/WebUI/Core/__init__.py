@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWebUICommandBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a4fc0016-dbe5-41ad-8d-7b-14-69-8b-d6-91-1d')
+    _iid_ = Guid('{a4fc0016-dbe5-41ad-8d7b-14698bd6911d}')
     @winrt_commethod(6)
     def get_Visible(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -79,7 +79,7 @@ class IWebUICommandBar(ComPtr):
     SecondaryCommands = property(get_SecondaryCommands, None)
 class IWebUICommandBarBitmapIcon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('858f4f45-08d8-4a46-81-ec-00-01-5b-0b-1c-6c')
+    _iid_ = Guid('{858f4f45-08d8-4a46-81ec-00015b0b1c6c}')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -87,12 +87,12 @@ class IWebUICommandBarBitmapIcon(ComPtr):
     Uri = property(get_Uri, put_Uri)
 class IWebUICommandBarBitmapIconFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f3f7d78a-7673-444a-be-62-ac-12-d3-1c-22-31')
+    _iid_ = Guid('{f3f7d78a-7673-444a-be62-ac12d31c2231}')
     @winrt_commethod(6)
     def Create(self, uri: Windows.Foundation.Uri) -> Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon: ...
 class IWebUICommandBarConfirmationButton(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('86e7824a-e3d5-4eb6-b2-ff-8f-01-8a-17-21-05')
+    _iid_ = Guid('{86e7824a-e3d5-4eb6-b2ff-8f018a172105}')
     @winrt_commethod(6)
     def get_Text(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -104,13 +104,13 @@ class IWebUICommandBarConfirmationButton(ComPtr):
     Text = property(get_Text, put_Text)
 class IWebUICommandBarElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c9069ec2-284a-4633-8a-ad-63-7a-27-e2-82-c3')
+    _iid_ = Guid('{c9069ec2-284a-4633-8aad-637a27e282c3}')
 class IWebUICommandBarIcon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d587655d-2014-42be-96-9a-7d-14-ca-6c-8a-49')
+    _iid_ = Guid('{d587655d-2014-42be-969a-7d14ca6c8a49}')
 class IWebUICommandBarIconButton(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8f1bc93a-3a7c-4842-a0-cf-af-f6-ea-30-85-86')
+    _iid_ = Guid('{8f1bc93a-3a7c-4842-a0cf-aff6ea308586}')
     @winrt_commethod(6)
     def get_Enabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -142,24 +142,24 @@ class IWebUICommandBarIconButton(ComPtr):
     Icon = property(get_Icon, put_Icon)
 class IWebUICommandBarItemInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('304edbdd-e741-41ef-bd-c4-a4-5c-ea-2a-4f-70')
+    _iid_ = Guid('{304edbdd-e741-41ef-bdc4-a45cea2a4f70}')
     @winrt_commethod(6)
     def get_IsPrimaryCommand(self) -> Boolean: ...
     IsPrimaryCommand = property(get_IsPrimaryCommand, None)
 class IWebUICommandBarSizeChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fbf1e2f6-3029-4719-83-78-92-f8-2b-87-af-1e')
+    _iid_ = Guid('{fbf1e2f6-3029-4719-8378-92f82b87af1e}')
     @winrt_commethod(6)
     def get_Size(self) -> Windows.Foundation.Size: ...
     Size = property(get_Size, None)
 class IWebUICommandBarStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1449cdb9-a506-45be-8f-42-b2-83-7e-2f-e0-c9')
+    _iid_ = Guid('{1449cdb9-a506-45be-8f42-b2837e2fe0c9}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.WebUI.Core.WebUICommandBar: ...
 class IWebUICommandBarSymbolIcon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d4935477-fd26-46ed-86-58-1a-3f-44-00-e7-b3')
+    _iid_ = Guid('{d4935477-fd26-46ed-8658-1a3f4400e7b3}')
     @winrt_commethod(6)
     def get_Symbol(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -167,24 +167,24 @@ class IWebUICommandBarSymbolIcon(ComPtr):
     Symbol = property(get_Symbol, put_Symbol)
 class IWebUICommandBarSymbolIconFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('51be1a1f-3730-429e-b6-22-14-e2-b7-bf-6a-07')
+    _iid_ = Guid('{51be1a1f-3730-429e-b622-14e2b7bf6a07}')
     @winrt_commethod(6)
     def Create(self, symbol: WinRT_String) -> Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon: ...
 class MenuClosedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('435387c8-4dd0-4c52-94-89-d3-90-ce-77-21-d2')
+    _iid_ = Guid('{435387c8-4dd0-4c52-9489-d390ce7721d2}')
     _classid_ = 'Windows.UI.WebUI.Core.MenuClosedEventHandler'
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class MenuOpenedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('18dc0ad3-678f-4c19-89-63-cc-1c-49-a5-ef-9e')
+    _iid_ = Guid('{18dc0ad3-678f-4c19-8963-cc1c49a5ef9e}')
     _classid_ = 'Windows.UI.WebUI.Core.MenuOpenedEventHandler'
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class SizeChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d49cfe3c-dd2e-4c28-b6-27-30-3a-7f-91-1a-f5')
+    _iid_ = Guid('{d49cfe3c-dd2e-4c28-b627-303a7f911af5}')
     _classid_ = 'Windows.UI.WebUI.Core.SizeChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, eventArgs: Windows.UI.WebUI.Core.WebUICommandBarSizeChangedEventArgs) -> Void: ...

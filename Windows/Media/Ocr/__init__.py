@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IOcrEngine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5a14bc41-5b76-3140-b6-80-88-25-56-26-83-ac')
+    _iid_ = Guid('{5a14bc41-5b76-3140-b680-8825562683ac}')
     @winrt_commethod(6)
     def RecognizeAsync(self, bitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncOperation[Windows.Media.Ocr.OcrResult]: ...
     @winrt_commethod(7)
@@ -34,7 +34,7 @@ class IOcrEngine(ComPtr):
     RecognizerLanguage = property(get_RecognizerLanguage, None)
 class IOcrEngineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5bffa85a-3384-3540-99-40-69-91-20-d4-28-a8')
+    _iid_ = Guid('{5bffa85a-3384-3540-9940-699120d428a8}')
     @winrt_commethod(6)
     def get_MaxImageDimension(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -49,7 +49,7 @@ class IOcrEngineStatics(ComPtr):
     AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages, None)
 class IOcrLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0043a16f-e31f-3a24-89-9c-d4-44-bd-08-81-24')
+    _iid_ = Guid('{0043a16f-e31f-3a24-899c-d444bd088124}')
     @winrt_commethod(6)
     def get_Words(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Ocr.OcrWord]: ...
     @winrt_commethod(7)
@@ -58,7 +58,7 @@ class IOcrLine(ComPtr):
     Text = property(get_Text, None)
 class IOcrResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9bd235b2-175b-3d6a-92-e2-38-8c-20-6e-2f-63')
+    _iid_ = Guid('{9bd235b2-175b-3d6a-92e2-388c206e2f63}')
     @winrt_commethod(6)
     def get_Lines(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Ocr.OcrLine]: ...
     @winrt_commethod(7)
@@ -70,7 +70,7 @@ class IOcrResult(ComPtr):
     Text = property(get_Text, None)
 class IOcrWord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3c2a477a-5cd9-3525-ba-2a-23-d1-e0-a6-8a-1d')
+    _iid_ = Guid('{3c2a477a-5cd9-3525-ba2a-23d1e0a68a1d}')
     @winrt_commethod(6)
     def get_BoundingRect(self) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)

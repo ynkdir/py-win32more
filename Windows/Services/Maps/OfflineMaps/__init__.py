@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IOfflineMapPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a797673b-a5b5-4144-b5-25-e6-8c-88-62-66-4b')
+    _iid_ = Guid('{a797673b-a5b5-4144-b525-e68c8862664b}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Services.Maps.OfflineMaps.OfflineMapPackageStatus: ...
     @winrt_commethod(7)
@@ -46,7 +46,7 @@ class IOfflineMapPackage(ComPtr):
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
 class IOfflineMapPackageQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('55585411-39e1-4e41-a4-e1-5f-48-72-be-e1-99')
+    _iid_ = Guid('{55585411-39e1-4e41-a4e1-5f4872bee199}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryStatus: ...
     @winrt_commethod(7)
@@ -55,13 +55,13 @@ class IOfflineMapPackageQueryResult(ComPtr):
     Packages = property(get_Packages, None)
 class IOfflineMapPackageStartDownloadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d965b918-d4d6-4afe-93-78-3e-c7-1e-f1-1c-3d')
+    _iid_ = Guid('{d965b918-d4d6-4afe-9378-3ec71ef11c3d}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadStatus: ...
     Status = property(get_Status, None)
 class IOfflineMapPackageStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('185e7922-a831-4ab0-94-1f-69-98-fa-92-92-85')
+    _iid_ = Guid('{185e7922-a831-4ab0-941f-6998fa929285}')
     @winrt_commethod(6)
     def FindPackagesAsync(self, queryPoint: Windows.Devices.Geolocation.Geopoint) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult]: ...
     @winrt_commethod(7)

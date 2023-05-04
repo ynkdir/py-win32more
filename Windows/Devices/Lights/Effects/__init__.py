@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ILampArrayBitmapEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3238e065-d877-4627-89-e5-2a-88-f7-05-2f-a6')
+    _iid_ = Guid('{3238e065-d877-4627-89e5-2a88f7052fa6}')
     @winrt_commethod(6)
     def get_Duration(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -52,12 +52,12 @@ class ILampArrayBitmapEffect(ComPtr):
     SuggestedBitmapSize = property(get_SuggestedBitmapSize, None)
 class ILampArrayBitmapEffectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('13608090-e336-4c8f-90-53-a9-24-07-ca-7b-1d')
+    _iid_ = Guid('{13608090-e336-4c8f-9053-a92407ca7b1d}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: Windows.Devices.Lights.LampArray, lampIndexes: POINTER(Int32)) -> Windows.Devices.Lights.Effects.LampArrayBitmapEffect: ...
 class ILampArrayBitmapRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c8b4af9e-fe63-4d51-ba-bd-61-9d-ef-b4-54-ba')
+    _iid_ = Guid('{c8b4af9e-fe63-4d51-babd-619defb454ba}')
     @winrt_commethod(6)
     def get_SinceStarted(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -65,7 +65,7 @@ class ILampArrayBitmapRequestedEventArgs(ComPtr):
     SinceStarted = property(get_SinceStarted, None)
 class ILampArrayBlinkEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ebbf35f6-2fc5-4bb3-b3-c3-62-21-a7-68-0d-13')
+    _iid_ = Guid('{ebbf35f6-2fc5-4bb3-b3c3-6221a7680d13}')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -108,12 +108,12 @@ class ILampArrayBlinkEffect(ComPtr):
     RepetitionMode = property(get_RepetitionMode, put_RepetitionMode)
 class ILampArrayBlinkEffectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('879f1d97-9f50-49b2-a5-6f-01-3a-a0-8d-55-e0')
+    _iid_ = Guid('{879f1d97-9f50-49b2-a56f-013aa08d55e0}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: Windows.Devices.Lights.LampArray, lampIndexes: POINTER(Int32)) -> Windows.Devices.Lights.Effects.LampArrayBlinkEffect: ...
 class ILampArrayColorRampEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2b004437-40a7-432e-a0-b9-0d-57-0c-21-53-ff')
+    _iid_ = Guid('{2b004437-40a7-432e-a0b9-0d570c2153ff}')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -136,12 +136,12 @@ class ILampArrayColorRampEffect(ComPtr):
     CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
 class ILampArrayColorRampEffectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('520bd133-0c74-4df5-be-a7-48-99-e0-26-6b-0f')
+    _iid_ = Guid('{520bd133-0c74-4df5-bea7-4899e0266b0f}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: Windows.Devices.Lights.LampArray, lampIndexes: POINTER(Int32)) -> Windows.Devices.Lights.Effects.LampArrayColorRampEffect: ...
 class ILampArrayCustomEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ec579170-3c34-4876-81-8b-57-65-f7-8b-0e-e4')
+    _iid_ = Guid('{ec579170-3c34-4876-818b-5765f78b0ee4}')
     @winrt_commethod(6)
     def get_Duration(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -158,12 +158,12 @@ class ILampArrayCustomEffect(ComPtr):
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
 class ILampArrayCustomEffectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('68b4774d-63e5-4af0-a5-8b-3e-53-5b-94-e8-c9')
+    _iid_ = Guid('{68b4774d-63e5-4af0-a58b-3e535b94e8c9}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: Windows.Devices.Lights.LampArray, lampIndexes: POINTER(Int32)) -> Windows.Devices.Lights.Effects.LampArrayCustomEffect: ...
 class ILampArrayEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('11d45590-57fb-4546-b1-ce-86-31-07-f7-40-df')
+    _iid_ = Guid('{11d45590-57fb-4546-b1ce-863107f740df}')
     @winrt_commethod(6)
     def get_ZIndex(self) -> Int32: ...
     @winrt_commethod(7)
@@ -171,7 +171,7 @@ class ILampArrayEffect(ComPtr):
     ZIndex = property(get_ZIndex, put_ZIndex)
 class ILampArrayEffectPlaylist(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7de58bfe-6f61-4103-98-c7-d6-63-2f-7b-91-69')
+    _iid_ = Guid('{7de58bfe-6f61-4103-98c7-d6632f7b9169}')
     @winrt_commethod(6)
     def Append(self, effect: Windows.Devices.Lights.Effects.ILampArrayEffect) -> Void: ...
     @winrt_commethod(7)
@@ -199,7 +199,7 @@ class ILampArrayEffectPlaylist(ComPtr):
     RepetitionMode = property(get_RepetitionMode, put_RepetitionMode)
 class ILampArrayEffectPlaylistStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fb15235c-ea35-4c7f-a0-16-f3-bf-c6-a6-c4-7d')
+    _iid_ = Guid('{fb15235c-ea35-4c7f-a016-f3bfc6a6c47d}')
     @winrt_commethod(6)
     def StartAll(self, value: Windows.Foundation.Collections.IIterable[Windows.Devices.Lights.Effects.LampArrayEffectPlaylist]) -> Void: ...
     @winrt_commethod(7)
@@ -208,7 +208,7 @@ class ILampArrayEffectPlaylistStatics(ComPtr):
     def PauseAll(self, value: Windows.Foundation.Collections.IIterable[Windows.Devices.Lights.Effects.LampArrayEffectPlaylist]) -> Void: ...
 class ILampArraySolidEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('441f8213-43cc-4b33-80-eb-c6-dd-de-7d-c8-ed')
+    _iid_ = Guid('{441f8213-43cc-4b33-80eb-c6ddde7dc8ed}')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -231,12 +231,12 @@ class ILampArraySolidEffect(ComPtr):
     CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
 class ILampArraySolidEffectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f862a32c-5576-4341-96-1b-ae-e1-f1-3c-f9-dd')
+    _iid_ = Guid('{f862a32c-5576-4341-961b-aee1f13cf9dd}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: Windows.Devices.Lights.LampArray, lampIndexes: POINTER(Int32)) -> Windows.Devices.Lights.Effects.LampArraySolidEffect: ...
 class ILampArrayUpdateRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('73560d6a-576a-48af-85-39-67-ff-a0-ab-35-16')
+    _iid_ = Guid('{73560d6a-576a-48af-8539-67ffa0ab3516}')
     @winrt_commethod(6)
     def get_SinceStarted(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)

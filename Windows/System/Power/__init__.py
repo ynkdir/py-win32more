@@ -96,7 +96,7 @@ class ForegroundEnergyManager(ComPtr):
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
 class IBackgroundEnergyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b3161d95-1180-4376-96-e1-40-95-56-81-47-ce')
+    _iid_ = Guid('{b3161d95-1180-4376-96e1-4095568147ce}')
     @winrt_commethod(6)
     def get_LowUsageLevel(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -131,7 +131,7 @@ class IBackgroundEnergyManagerStatics(ComPtr):
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
 class IForegroundEnergyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9ff86872-e677-4814-9a-20-53-37-ca-73-2b-98')
+    _iid_ = Guid('{9ff86872-e677-4814-9a20-5337ca732b98}')
     @winrt_commethod(6)
     def get_LowUsageLevel(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -160,7 +160,7 @@ class IForegroundEnergyManagerStatics(ComPtr):
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
 class IPowerManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1394825d-62ce-4364-98-d5-aa-28-c7-fb-d1-5b')
+    _iid_ = Guid('{1394825d-62ce-4364-98d5-aa28c7fbd15b}')
     @winrt_commethod(6)
     def get_EnergySaverStatus(self) -> Windows.System.Power.EnergySaverStatus: ...
     @winrt_commethod(7)

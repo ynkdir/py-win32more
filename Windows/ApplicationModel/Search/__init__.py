@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ILocalContentSuggestionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('eeaeb062-743d-456e-84-a3-23-f0-6f-2d-15-d7')
+    _iid_ = Guid('{eeaeb062-743d-456e-84a3-23f06f2d15d7}')
     @winrt_commethod(6)
     def put_Enabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -45,7 +45,7 @@ class ILocalContentSuggestionSettings(ComPtr):
     PropertiesToMatch = property(get_PropertiesToMatch, None)
 class ISearchPane(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fdacec38-3700-4d73-91-a1-2f-99-86-74-23-8a')
+    _iid_ = Guid('{fdacec38-3700-4d73-91a1-2f998674238a}')
     @winrt_commethod(6)
     def put_SearchHistoryEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -105,7 +105,7 @@ class ISearchPane(ComPtr):
     ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
 class ISearchPaneQueryChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3c064fe9-2351-4248-a5-29-71-10-f4-64-a7-85')
+    _iid_ = Guid('{3c064fe9-2351-4248-a529-7110f464a785}')
     @winrt_commethod(6)
     def get_QueryText(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -117,7 +117,7 @@ class ISearchPaneQueryChangedEventArgs(ComPtr):
     LinguisticDetails = property(get_LinguisticDetails, None)
 class ISearchPaneQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('82fb460e-0940-4b6d-b8-d0-64-2b-30-98-9e-15')
+    _iid_ = Guid('{82fb460e-0940-4b6d-b8d0-642b30989e15}')
     @winrt_commethod(6)
     def get_QueryTextAlternatives(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(7)
@@ -129,7 +129,7 @@ class ISearchPaneQueryLinguisticDetails(ComPtr):
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
 class ISearchPaneQuerySubmittedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('143ba4fc-e9c5-4736-91-b2-e8-eb-9c-b8-83-56')
+    _iid_ = Guid('{143ba4fc-e9c5-4736-91b2-e8eb9cb88356}')
     @winrt_commethod(6)
     def get_QueryText(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -138,29 +138,29 @@ class ISearchPaneQuerySubmittedEventArgs(ComPtr):
     Language = property(get_Language, None)
 class ISearchPaneQuerySubmittedEventArgsWithLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('460c92e5-4c32-4538-a4-d4-b6-b4-40-0d-14-0f')
+    _iid_ = Guid('{460c92e5-4c32-4538-a4d4-b6b4400d140f}')
     @winrt_commethod(6)
     def get_LinguisticDetails(self) -> Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
     LinguisticDetails = property(get_LinguisticDetails, None)
 class ISearchPaneResultSuggestionChosenEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c8316cc0-aed2-41e0-bc-e0-c2-6c-a7-4f-85-ec')
+    _iid_ = Guid('{c8316cc0-aed2-41e0-bce0-c26ca74f85ec}')
     @winrt_commethod(6)
     def get_Tag(self) -> WinRT_String: ...
     Tag = property(get_Tag, None)
 class ISearchPaneStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9572adf1-8f1d-481f-a1-5b-c6-16-55-f1-6a-0e')
+    _iid_ = Guid('{9572adf1-8f1d-481f-a15b-c61655f16a0e}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.ApplicationModel.Search.SearchPane: ...
 class ISearchPaneStaticsWithHideThisApplication(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('00732830-50f1-4d03-99-ac-c6-64-4c-8e-d8-b5')
+    _iid_ = Guid('{00732830-50f1-4d03-99ac-c6644c8ed8b5}')
     @winrt_commethod(6)
     def HideThisApplication(self) -> Void: ...
 class ISearchPaneSuggestionsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('81b10b1c-e561-4093-9b-4d-2a-d4-82-79-4a-53')
+    _iid_ = Guid('{81b10b1c-e561-4093-9b4d-2ad482794a53}')
     @winrt_commethod(6)
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -171,24 +171,24 @@ class ISearchPaneSuggestionsRequest(ComPtr):
     SearchSuggestionCollection = property(get_SearchSuggestionCollection, None)
 class ISearchPaneSuggestionsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a0d009f7-8748-4ee2-ad-44-af-a6-be-99-7c-51')
+    _iid_ = Guid('{a0d009f7-8748-4ee2-ad44-afa6be997c51}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class ISearchPaneSuggestionsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c89b8a2f-ac56-4460-8d-2f-80-02-3b-ec-4f-c5')
+    _iid_ = Guid('{c89b8a2f-ac56-4460-8d2f-80023bec4fc5}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Search.SearchPaneSuggestionsRequest: ...
     Request = property(get_Request, None)
 class ISearchPaneVisibilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3c4d3046-ac4b-49f2-97-d6-02-0e-61-82-cb-9c')
+    _iid_ = Guid('{3c4d3046-ac4b-49f2-97d6-020e6182cb9c}')
     @winrt_commethod(6)
     def get_Visible(self) -> Boolean: ...
     Visible = property(get_Visible, None)
 class ISearchQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('46a1205b-69c9-4745-b7-2f-a8-a4-fc-8f-24-ae')
+    _iid_ = Guid('{46a1205b-69c9-4745-b72f-a8a4fc8f24ae}')
     @winrt_commethod(6)
     def get_QueryTextAlternatives(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(7)
@@ -200,12 +200,12 @@ class ISearchQueryLinguisticDetails(ComPtr):
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
 class ISearchQueryLinguisticDetailsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cac6c3b8-3c64-4dfd-ad-9f-47-9e-4d-40-65-a4')
+    _iid_ = Guid('{cac6c3b8-3c64-4dfd-ad9f-479e4d4065a4}')
     @winrt_commethod(6)
     def CreateInstance(self, queryTextAlternatives: Windows.Foundation.Collections.IIterable[WinRT_String], queryTextCompositionStart: UInt32, queryTextCompositionLength: UInt32) -> Windows.ApplicationModel.Search.SearchQueryLinguisticDetails: ...
 class ISearchSuggestionCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('323a8a4b-fbea-4446-ab-bc-3d-a7-91-5f-dd-3a')
+    _iid_ = Guid('{323a8a4b-fbea-4446-abbc-3da7915fdd3a}')
     @winrt_commethod(6)
     def get_Size(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -219,7 +219,7 @@ class ISearchSuggestionCollection(ComPtr):
     Size = property(get_Size, None)
 class ISearchSuggestionsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4e4e26a7-44e5-4039-90-99-60-00-ea-d1-f0-c6')
+    _iid_ = Guid('{4e4e26a7-44e5-4039-9099-6000ead1f0c6}')
     @winrt_commethod(6)
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -230,7 +230,7 @@ class ISearchSuggestionsRequest(ComPtr):
     SearchSuggestionCollection = property(get_SearchSuggestionCollection, None)
 class ISearchSuggestionsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b71598a9-c065-456d-a8-45-1e-cc-ec-5d-c2-8b')
+    _iid_ = Guid('{b71598a9-c065-456d-a845-1eccec5dc28b}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class LocalContentSuggestionSettings(ComPtr):

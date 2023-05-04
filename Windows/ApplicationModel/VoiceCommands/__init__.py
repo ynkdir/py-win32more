@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IVoiceCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('936f5273-ec82-42a6-a5-5c-d2-d7-9e-c6-f9-20')
+    _iid_ = Guid('{936f5273-ec82-42a6-a55c-d2d79ec6f920}')
     @winrt_commethod(6)
     def get_CommandName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -40,19 +40,19 @@ class IVoiceCommand(ComPtr):
     SpeechRecognitionResult = property(get_SpeechRecognitionResult, None)
 class IVoiceCommandCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c85e675d-fe42-432c-99-07-09-df-9f-cf-64-e8')
+    _iid_ = Guid('{c85e675d-fe42-432c-9907-09df9fcf64e8}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletionReason: ...
     Reason = property(get_Reason, None)
 class IVoiceCommandConfirmationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a022593e-8221-4526-b0-83-84-09-72-26-22-47')
+    _iid_ = Guid('{a022593e-8221-4526-b083-840972262247}')
     @winrt_commethod(6)
     def get_Confirmed(self) -> Boolean: ...
     Confirmed = property(get_Confirmed, None)
 class IVoiceCommandContentTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3eefe9f0-b8c7-4c76-a0-de-16-07-89-5e-e3-27')
+    _iid_ = Guid('{3eefe9f0-b8c7-4c76-a0de-1607895ee327}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -95,7 +95,7 @@ class IVoiceCommandContentTile(ComPtr):
     ContentTileType = property(get_ContentTileType, put_ContentTileType)
 class IVoiceCommandDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7972aad0-0974-4979-98-4b-cb-89-59-cd-61-ae')
+    _iid_ = Guid('{7972aad0-0974-4979-984b-cb8959cd61ae}')
     @winrt_commethod(6)
     def get_Language(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -106,7 +106,7 @@ class IVoiceCommandDefinition(ComPtr):
     Name = property(get_Name, None)
 class IVoiceCommandDefinitionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8fe7a69e-067e-4f16-a1-8c-5b-17-e9-49-99-40')
+    _iid_ = Guid('{8fe7a69e-067e-4f16-a18c-5b17e9499940}')
     @winrt_commethod(6)
     def InstallCommandDefinitionsFromStorageFileAsync(self, file: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -114,13 +114,13 @@ class IVoiceCommandDefinitionManagerStatics(ComPtr):
     InstalledCommandDefinitions = property(get_InstalledCommandDefinitions, None)
 class IVoiceCommandDisambiguationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ecc68cfe-c9ac-45df-a8-ea-fe-ea-08-ef-9c-5e')
+    _iid_ = Guid('{ecc68cfe-c9ac-45df-a8ea-feea08ef9c5e}')
     @winrt_commethod(6)
     def get_SelectedItem(self) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile: ...
     SelectedItem = property(get_SelectedItem, None)
 class IVoiceCommandResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0284b30e-8a3b-4cc4-a6-a1-ca-d5-be-27-16-b5')
+    _iid_ = Guid('{0284b30e-8a3b-4cc4-a6a1-cad5be2716b5}')
     @winrt_commethod(6)
     def get_Message(self) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage: ...
     @winrt_commethod(7)
@@ -141,7 +141,7 @@ class IVoiceCommandResponse(ComPtr):
     VoiceCommandContentTiles = property(get_VoiceCommandContentTiles, None)
 class IVoiceCommandResponseStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2932f813-0d3b-49f2-96-dd-62-50-19-bd-3b-5d')
+    _iid_ = Guid('{2932f813-0d3b-49f2-96dd-625019bd3b5d}')
     @winrt_commethod(6)
     def get_MaxSupportedVoiceCommandContentTiles(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -155,7 +155,7 @@ class IVoiceCommandResponseStatics(ComPtr):
     MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles, None)
 class IVoiceCommandServiceConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d894bb9f-21da-44a4-98-a2-fb-13-19-20-a9-cc')
+    _iid_ = Guid('{d894bb9f-21da-44a4-98a2-fb131920a9cc}')
     @winrt_commethod(6)
     def GetVoiceCommandAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.VoiceCommands.VoiceCommand]: ...
     @winrt_commethod(7)
@@ -179,12 +179,12 @@ class IVoiceCommandServiceConnection(ComPtr):
     Language = property(get_Language, None)
 class IVoiceCommandServiceConnectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('370ebffb-2d34-42df-87-70-07-4d-0f-33-46-97')
+    _iid_ = Guid('{370ebffb-2d34-42df-8770-074d0f334697}')
     @winrt_commethod(6)
     def FromAppServiceTriggerDetails(self, triggerDetails: Windows.ApplicationModel.AppService.AppServiceTriggerDetails) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection: ...
 class IVoiceCommandUserMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('674eb3c0-44f6-4f07-b9-79-4c-72-3f-c0-85-97')
+    _iid_ = Guid('{674eb3c0-44f6-4f07-b979-4c723fc08597}')
     @winrt_commethod(6)
     def get_DisplayMessage(self) -> WinRT_String: ...
     @winrt_commethod(7)

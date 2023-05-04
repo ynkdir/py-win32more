@@ -29,15 +29,15 @@ class CoreAppWindowPreview(ComPtr):
     def GetIdFromWindow(cls: Windows.UI.Core.Preview.ICoreAppWindowPreviewStatics, window: Windows.UI.WindowManagement.AppWindow) -> Int32: ...
 class ICoreAppWindowPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a4f6e665-365e-5fde-87-a5-95-43-c3-a1-5a-a8')
+    _iid_ = Guid('{a4f6e665-365e-5fde-87a5-9543c3a15aa8}')
 class ICoreAppWindowPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('33ac21be-423b-5db6-8a-8e-4d-c8-73-53-b7-5b')
+    _iid_ = Guid('{33ac21be-423b-5db6-8a8e-4dc87353b75b}')
     @winrt_commethod(6)
     def GetIdFromWindow(self, window: Windows.UI.WindowManagement.AppWindow) -> Int32: ...
 class ISystemNavigationCloseRequestedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('83d00de1-cbe5-4f31-84-14-36-1d-a0-46-51-8f')
+    _iid_ = Guid('{83d00de1-cbe5-4f31-8414-361da046518f}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -47,14 +47,14 @@ class ISystemNavigationCloseRequestedPreviewEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ISystemNavigationManagerPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ec5f0488-6425-4777-a5-36-cb-56-34-42-7f-0d')
+    _iid_ = Guid('{ec5f0488-6425-4777-a536-cb5634427f0d}')
     @winrt_commethod(6)
     def add_CloseRequested(self, handler: Windows.Foundation.EventHandler[Windows.UI.Core.Preview.SystemNavigationCloseRequestedPreviewEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_CloseRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ISystemNavigationManagerPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0e971360-df74-4bce-84-cb-bd-11-81-ac-0a-71')
+    _iid_ = Guid('{0e971360-df74-4bce-84cb-bd1181ac0a71}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Core.Preview.SystemNavigationManagerPreview: ...
 class SystemNavigationCloseRequestedPreviewEventArgs(ComPtr):

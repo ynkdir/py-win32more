@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IOemSupportInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8d2eae55-87ef-4266-86-d0-c4-af-be-b2-9b-b9')
+    _iid_ = Guid('{8d2eae55-87ef-4266-86d0-c4afbeb29bb9}')
     @winrt_commethod(6)
     def get_SupportLink(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -35,13 +35,13 @@ class IOemSupportInfo(ComPtr):
     SupportProvider = property(get_SupportProvider, None)
 class ISmbiosInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('080cca7c-637c-48c4-b7-28-f9-27-38-12-db-8e')
+    _iid_ = Guid('{080cca7c-637c-48c4-b728-f9273812db8e}')
     @winrt_commethod(6)
     def get_SerialNumber(self) -> WinRT_String: ...
     SerialNumber = property(get_SerialNumber, None)
 class ISystemSupportDeviceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('05880b99-8247-441b-a9-96-a1-78-4b-ab-79-a8')
+    _iid_ = Guid('{05880b99-8247-441b-a996-a1784bab79a8}')
     @winrt_commethod(6)
     def get_OperatingSystem(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -65,7 +65,7 @@ class ISystemSupportDeviceInfo(ComPtr):
     SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
 class ISystemSupportInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ef750974-c422-45d7-a4-4d-5c-1c-00-43-a2-b3')
+    _iid_ = Guid('{ef750974-c422-45d7-a44d-5c1c0043a2b3}')
     @winrt_commethod(6)
     def get_LocalSystemEdition(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -74,7 +74,7 @@ class ISystemSupportInfoStatics(ComPtr):
     OemSupportInfo = property(get_OemSupportInfo, None)
 class ISystemSupportInfoStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('33f349a4-3fa1-4986-aa-4b-05-74-20-45-5e-6d')
+    _iid_ = Guid('{33f349a4-3fa1-4986-aa4b-057420455e6d}')
     @winrt_commethod(6)
     def get_LocalDeviceInfo(self) -> Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo: ...
     LocalDeviceInfo = property(get_LocalDeviceInfo, None)

@@ -27,7 +27,7 @@ class HtmlUtilities(ComPtr):
     def ConvertToText(cls: Windows.Data.Html.IHtmlUtilities, html: WinRT_String) -> WinRT_String: ...
 class IHtmlUtilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fec00add-2399-4fac-b5-a7-05-e9-ac-d7-18-1d')
+    _iid_ = Guid('{fec00add-2399-4fac-b5a7-05e9acd7181d}')
     @winrt_commethod(6)
     def ConvertToText(self, html: WinRT_String) -> WinRT_String: ...
 make_head(_module, 'HtmlUtilities')

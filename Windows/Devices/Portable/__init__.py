@@ -23,14 +23,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class IServiceDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a88214e1-59c7-4a20-ab-a6-9f-67-07-93-72-30')
+    _iid_ = Guid('{a88214e1-59c7-4a20-aba6-9f6707937230}')
     @winrt_commethod(6)
     def GetDeviceSelector(self, serviceType: Windows.Devices.Portable.ServiceDeviceType) -> WinRT_String: ...
     @winrt_commethod(7)
     def GetDeviceSelectorFromServiceId(self, serviceId: Guid) -> WinRT_String: ...
 class IStorageDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5ece44ee-1b23-4dd2-86-52-bc-16-4f-00-31-28')
+    _iid_ = Guid('{5ece44ee-1b23-4dd2-8652-bc164f003128}')
     @winrt_commethod(6)
     def FromId(self, deviceId: WinRT_String) -> Windows.Storage.StorageFolder: ...
     @winrt_commethod(7)

@@ -42,7 +42,7 @@ class ContentRestrictionsBrowsePolicy(ComPtr):
     PreferredAgeRating = property(get_PreferredAgeRating, None)
 class IContentRestrictionsBrowsePolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8c0133a4-442e-461a-87-57-fa-d2-f5-bd-37-e4')
+    _iid_ = Guid('{8c0133a4-442e-461a-8757-fad2f5bd37e4}')
     @winrt_commethod(6)
     def get_GeographicRegion(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -54,7 +54,7 @@ class IContentRestrictionsBrowsePolicy(ComPtr):
     PreferredAgeRating = property(get_PreferredAgeRating, None)
 class IRatedContentDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('694866df-66b2-4dc3-96-b1-f0-90-ee-de-e2-55')
+    _iid_ = Guid('{694866df-66b2-4dc3-96b1-f090eedee255}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -82,12 +82,12 @@ class IRatedContentDescription(ComPtr):
     Ratings = property(get_Ratings, put_Ratings)
 class IRatedContentDescriptionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2e38df62-9b90-4fa6-89-c1-4b-8d-2f-fb-35-73')
+    _iid_ = Guid('{2e38df62-9b90-4fa6-89c1-4b8d2ffb3573}')
     @winrt_commethod(6)
     def Create(self, id: WinRT_String, title: WinRT_String, category: Windows.Media.ContentRestrictions.RatedContentCategory) -> Windows.Media.ContentRestrictions.RatedContentDescription: ...
 class IRatedContentRestrictions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3f7f23cb-ba07-4401-a4-9d-8b-92-22-20-57-23')
+    _iid_ = Guid('{3f7f23cb-ba07-4401-a49d-8b9222205723}')
     @winrt_commethod(6)
     def GetBrowsePolicyAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Media.ContentRestrictions.ContentRestrictionsBrowsePolicy]: ...
     @winrt_commethod(7)
@@ -100,7 +100,7 @@ class IRatedContentRestrictions(ComPtr):
     def remove_RestrictionsChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IRatedContentRestrictionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fb4b2996-c3bd-4910-96-19-97-cf-d0-69-4d-56')
+    _iid_ = Guid('{fb4b2996-c3bd-4910-9619-97cfd0694d56}')
     @winrt_commethod(6)
     def CreateWithMaxAgeRating(self, maxAgeRating: UInt32) -> Windows.Media.ContentRestrictions.RatedContentRestrictions: ...
 RatedContentCategory = Int32

@@ -328,7 +328,7 @@ HandPreference_LeftHanded: HandPreference = 0
 HandPreference_RightHanded: HandPreference = 1
 class IAccessibilitySettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fe0e8147-c4c0-4562-b9-62-13-27-b5-2a-d5-b9')
+    _iid_ = Guid('{fe0e8147-c4c0-4562-b962-1327b52ad5b9}')
     @winrt_commethod(6)
     def get_HighContrast(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -341,7 +341,7 @@ class IAccessibilitySettings(ComPtr):
     HighContrastScheme = property(get_HighContrastScheme, None)
 class IActivationViewSwitcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dca71bb6-7350-492b-aa-c7-c8-a1-3d-72-24-ad')
+    _iid_ = Guid('{dca71bb6-7350-492b-aac7-c8a13d7224ad}')
     @winrt_commethod(6)
     def ShowAsStandaloneAsync(self, viewId: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -350,7 +350,7 @@ class IActivationViewSwitcher(ComPtr):
     def IsViewPresentedOnActivationVirtualDesktop(self, viewId: Int32) -> Boolean: ...
 class IApplicationView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d222d519-4361-451e-96-c4-60-f4-f9-74-2d-b0')
+    _iid_ = Guid('{d222d519-4361-451e-96c4-60f4f9742db0}')
     @winrt_commethod(6)
     def get_Orientation(self) -> Windows.UI.ViewManagement.ApplicationViewOrientation: ...
     @winrt_commethod(7)
@@ -385,7 +385,7 @@ class IApplicationView(ComPtr):
     Id = property(get_Id, None)
 class IApplicationView2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e876b196-a545-40dc-b5-94-45-0c-ba-68-cc-00')
+    _iid_ = Guid('{e876b196-a545-40dc-b594-450cba68cc00}')
     @winrt_commethod(6)
     def get_SuppressSystemOverlays(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -405,7 +405,7 @@ class IApplicationView2(ComPtr):
     DesiredBoundsMode = property(get_DesiredBoundsMode, None)
 class IApplicationView3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('903c9ce5-793a-4fdf-a2-b2-af-1a-c2-1e-31-08')
+    _iid_ = Guid('{903c9ce5-793a-4fdf-a2b2-af1ac21e3108}')
     @winrt_commethod(6)
     def get_TitleBar(self) -> Windows.UI.ViewManagement.ApplicationViewTitleBar: ...
     @winrt_commethod(7)
@@ -429,7 +429,7 @@ class IApplicationView3(ComPtr):
     IsFullScreenMode = property(get_IsFullScreenMode, None)
 class IApplicationView4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('15e5cbec-9e0f-46b5-bc-3f-9b-f6-53-e7-4b-5e')
+    _iid_ = Guid('{15e5cbec-9e0f-46b5-bc3f-9bf653e74b5e}')
     @winrt_commethod(6)
     def get_ViewMode(self) -> Windows.UI.ViewManagement.ApplicationViewMode: ...
     @winrt_commethod(7)
@@ -443,7 +443,7 @@ class IApplicationView4(ComPtr):
     ViewMode = property(get_ViewMode, None)
 class IApplicationView7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a0369647-5faf-5aa6-9c-38-be-fb-b1-2a-07-1e')
+    _iid_ = Guid('{a0369647-5faf-5aa6-9c38-befbb12a071e}')
     @winrt_commethod(6)
     def get_PersistedStateId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -451,7 +451,7 @@ class IApplicationView7(ComPtr):
     PersistedStateId = property(get_PersistedStateId, put_PersistedStateId)
 class IApplicationView9(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9c6516f9-021a-5f01-93-e5-9b-da-d2-64-75-74')
+    _iid_ = Guid('{9c6516f9-021a-5f01-93e5-9bdad2647574}')
     @winrt_commethod(6)
     def get_WindowingEnvironment(self) -> Windows.UI.WindowManagement.WindowingEnvironment: ...
     @winrt_commethod(7)
@@ -459,32 +459,32 @@ class IApplicationView9(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
 class IApplicationViewConsolidatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('514449ec-7ea2-4de7-a6-a6-7d-fb-aa-eb-b6-fb')
+    _iid_ = Guid('{514449ec-7ea2-4de7-a6a6-7dfbaaebb6fb}')
     @winrt_commethod(6)
     def get_IsUserInitiated(self) -> Boolean: ...
     IsUserInitiated = property(get_IsUserInitiated, None)
 class IApplicationViewConsolidatedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1c199ecc-6dc1-40f4-af-ee-07-d9-ea-29-64-30')
+    _iid_ = Guid('{1c199ecc-6dc1-40f4-afee-07d9ea296430}')
     @winrt_commethod(6)
     def get_IsAppInitiated(self) -> Boolean: ...
     IsAppInitiated = property(get_IsAppInitiated, None)
 class IApplicationViewFullscreenStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bc792ebd-64fe-4b65-a0-c0-90-1c-e2-b6-86-36')
+    _iid_ = Guid('{bc792ebd-64fe-4b65-a0c0-901ce2b68636}')
     @winrt_commethod(6)
     def TryUnsnapToFullscreen(self) -> Boolean: ...
 class IApplicationViewInteropStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c446fb5d-4793-4896-a8-e2-be-57-a8-bb-0f-50')
+    _iid_ = Guid('{c446fb5d-4793-4896-a8e2-be57a8bb0f50}')
     @winrt_commethod(6)
     def GetApplicationViewIdForWindow(self, window: Windows.UI.Core.ICoreWindow) -> Int32: ...
 class IApplicationViewScaling(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1d0ddc23-23f3-4b2d-84-fe-74-bf-37-b4-8b-66')
+    _iid_ = Guid('{1d0ddc23-23f3-4b2d-84fe-74bf37b48b66}')
 class IApplicationViewScalingStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b08fecf0-b946-45c8-a5-e3-71-f5-aa-78-f8-61')
+    _iid_ = Guid('{b08fecf0-b946-45c8-a5e3-71f5aa78f861}')
     @winrt_commethod(6)
     def get_DisableLayoutScaling(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -492,7 +492,7 @@ class IApplicationViewScalingStatics(ComPtr):
     DisableLayoutScaling = property(get_DisableLayoutScaling, None)
 class IApplicationViewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('010a6306-c433-44e5-a9-f2-bd-84-d4-03-0a-95')
+    _iid_ = Guid('{010a6306-c433-44e5-a9f2-bd84d4030a95}')
     @winrt_commethod(6)
     def get_Value(self) -> Windows.UI.ViewManagement.ApplicationViewState: ...
     @winrt_commethod(7)
@@ -500,7 +500,7 @@ class IApplicationViewStatics(ComPtr):
     Value = property(get_Value, None)
 class IApplicationViewStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('af338ae5-cf64-423c-85-e5-f3-e7-24-48-fb-23')
+    _iid_ = Guid('{af338ae5-cf64-423c-85e5-f3e72448fb23}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.ViewManagement.ApplicationView: ...
     @winrt_commethod(7)
@@ -510,7 +510,7 @@ class IApplicationViewStatics2(ComPtr):
     TerminateAppOnFinalViewClose = property(get_TerminateAppOnFinalViewClose, put_TerminateAppOnFinalViewClose)
 class IApplicationViewStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a28d7594-8c41-4e13-97-19-51-64-79-6f-e4-c7')
+    _iid_ = Guid('{a28d7594-8c41-4e13-9719-5164796fe4c7}')
     @winrt_commethod(6)
     def get_PreferredLaunchWindowingMode(self) -> Windows.UI.ViewManagement.ApplicationViewWindowingMode: ...
     @winrt_commethod(7)
@@ -523,14 +523,14 @@ class IApplicationViewStatics3(ComPtr):
     PreferredLaunchViewSize = property(get_PreferredLaunchViewSize, put_PreferredLaunchViewSize)
 class IApplicationViewStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('08fd8d33-2611-5336-a3-15-d9-8e-63-66-c9-db')
+    _iid_ = Guid('{08fd8d33-2611-5336-a315-d98e6366c9db}')
     @winrt_commethod(6)
     def ClearAllPersistedState(self) -> Void: ...
     @winrt_commethod(7)
     def ClearPersistedState(self, key: WinRT_String) -> Void: ...
 class IApplicationViewSwitcherStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('975f2f1e-e656-4c5e-a0-a1-71-7c-6f-fa-7d-64')
+    _iid_ = Guid('{975f2f1e-e656-4c5e-a0a1-717c6ffa7d64}')
     @winrt_commethod(6)
     def DisableShowingMainViewOnActivation(self) -> Void: ...
     @winrt_commethod(7)
@@ -549,19 +549,19 @@ class IApplicationViewSwitcherStatics(ComPtr):
     def PrepareForCustomAnimatedSwitchAsync(self, toViewId: Int32, fromViewId: Int32, options: Windows.UI.ViewManagement.ApplicationViewSwitchingOptions) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IApplicationViewSwitcherStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('60e995cd-4fc2-48c4-b8-e3-39-5f-2b-9f-0f-c1')
+    _iid_ = Guid('{60e995cd-4fc2-48c4-b8e3-395f2b9f0fc1}')
     @winrt_commethod(6)
     def DisableSystemViewActivationPolicy(self) -> Void: ...
 class IApplicationViewSwitcherStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('92059420-80a7-486d-b2-1f-c7-a4-a2-42-a3-83')
+    _iid_ = Guid('{92059420-80a7-486d-b21f-c7a4a242a383}')
     @winrt_commethod(6)
     def TryShowAsViewModeAsync(self, viewId: Int32, viewMode: Windows.UI.ViewManagement.ApplicationViewMode) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
     def TryShowAsViewModeWithPreferencesAsync(self, viewId: Int32, viewMode: Windows.UI.ViewManagement.ApplicationViewMode, viewModePreferences: Windows.UI.ViewManagement.ViewModePreferences) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IApplicationViewTitleBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('00924ac0-932b-4a6b-9c-4b-dc-38-c8-24-78-ce')
+    _iid_ = Guid('{00924ac0-932b-4a6b-9c4b-dc38c82478ce}')
     @winrt_commethod(6)
     def put_ForegroundColor(self, value: Windows.Foundation.IReference[Windows.UI.Color]) -> Void: ...
     @winrt_commethod(7)
@@ -624,7 +624,7 @@ class IApplicationViewTitleBar(ComPtr):
     ButtonInactiveBackgroundColor = property(get_ButtonInactiveBackgroundColor, put_ButtonInactiveBackgroundColor)
 class IApplicationViewTransferContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8574bc63-3c17-408e-94-08-8a-1a-9e-a8-1b-fa')
+    _iid_ = Guid('{8574bc63-3c17-408e-9408-8a1a9ea81bfa}')
     @winrt_commethod(6)
     def get_ViewId(self) -> Int32: ...
     @winrt_commethod(7)
@@ -632,19 +632,19 @@ class IApplicationViewTransferContext(ComPtr):
     ViewId = property(get_ViewId, put_ViewId)
 class IApplicationViewTransferContextStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('15a89d92-dd79-4b0b-bc-47-d5-f1-95-f1-46-61')
+    _iid_ = Guid('{15a89d92-dd79-4b0b-bc47-d5f195f14661}')
     @winrt_commethod(6)
     def get_DataPackageFormatId(self) -> WinRT_String: ...
     DataPackageFormatId = property(get_DataPackageFormatId, None)
 class IApplicationViewWithContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bd55d512-9dc1-44fc-85-01-66-66-25-df-60-dc')
+    _iid_ = Guid('{bd55d512-9dc1-44fc-8501-666625df60dc}')
     @winrt_commethod(6)
     def get_UIContext(self) -> Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
 class IInputPane(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('640ada70-06f3-4c87-a6-78-98-29-c9-12-7c-28')
+    _iid_ = Guid('{640ada70-06f3-4c87-a678-9829c9127c28}')
     @winrt_commethod(6)
     def add_Showing(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.InputPane, Windows.UI.ViewManagement.InputPaneVisibilityEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -658,14 +658,14 @@ class IInputPane(ComPtr):
     OccludedRect = property(get_OccludedRect, None)
 class IInputPane2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8a6b3f26-7090-4793-94-4c-c3-f2-cd-e2-62-76')
+    _iid_ = Guid('{8a6b3f26-7090-4793-944c-c3f2cde26276}')
     @winrt_commethod(6)
     def TryShow(self) -> Boolean: ...
     @winrt_commethod(7)
     def TryHide(self) -> Boolean: ...
 class IInputPaneControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('088bb24f-962f-489d-aa-6e-c6-be-1a-0a-6e-52')
+    _iid_ = Guid('{088bb24f-962f-489d-aa6e-c6be1a0a6e52}')
     @winrt_commethod(6)
     def get_Visible(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -673,17 +673,17 @@ class IInputPaneControl(ComPtr):
     Visible = property(get_Visible, put_Visible)
 class IInputPaneStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('95f4af3a-ef47-424a-97-41-fd-28-15-eb-a2-bd')
+    _iid_ = Guid('{95f4af3a-ef47-424a-9741-fd2815eba2bd}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.ViewManagement.InputPane: ...
 class IInputPaneStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1b63529b-d9ec-4531-84-45-71-ba-b9-fb-82-8e')
+    _iid_ = Guid('{1b63529b-d9ec-4531-8445-71bab9fb828e}')
     @winrt_commethod(6)
     def GetForUIContext(self, context: Windows.UI.UIContext) -> Windows.UI.ViewManagement.InputPane: ...
 class IInputPaneVisibilityEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d243e016-d907-4fcc-bb-8d-f7-7b-aa-50-28-f1')
+    _iid_ = Guid('{d243e016-d907-4fcc-bb8d-f77baa5028f1}')
     @winrt_commethod(6)
     def get_OccludedRect(self) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)
@@ -694,7 +694,7 @@ class IInputPaneVisibilityEventArgs(ComPtr):
     EnsuredFocusedElementInView = property(get_EnsuredFocusedElementInView, put_EnsuredFocusedElementInView)
 class IProjectionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b65f913d-e2f0-4ffd-ba-95-34-24-16-47-e4-5c')
+    _iid_ = Guid('{b65f913d-e2f0-4ffd-ba95-34241647e45c}')
     @winrt_commethod(6)
     def StartProjectingAsync(self, projectionViewId: Int32, anchorViewId: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -710,7 +710,7 @@ class IProjectionManagerStatics(ComPtr):
     ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable, None)
 class IProjectionManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f33d2f43-2749-4cde-b9-77-c0-c4-1e-74-15-d1')
+    _iid_ = Guid('{f33d2f43-2749-4cde-b977-c0c41e7415d1}')
     @winrt_commethod(6)
     def StartProjectingWithDeviceInfoAsync(self, projectionViewId: Int32, anchorViewId: Int32, displayDeviceInfo: Windows.Devices.Enumeration.DeviceInformation) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -721,7 +721,7 @@ class IProjectionManagerStatics2(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class IStatusBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0ffcc5bf-98d0-4864-b1-e8-b3-f4-02-0b-e8-b4')
+    _iid_ = Guid('{0ffcc5bf-98d0-4864-b1e8-b3f4020be8b4}')
     @winrt_commethod(6)
     def ShowAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -757,7 +757,7 @@ class IStatusBar(ComPtr):
     OccludedRect = property(get_OccludedRect, None)
 class IStatusBarProgressIndicator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('76cb2670-a3d7-49cf-82-00-4f-3e-ed-ca-27-bb')
+    _iid_ = Guid('{76cb2670-a3d7-49cf-8200-4f3eedca27bb}')
     @winrt_commethod(6)
     def ShowAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -774,12 +774,12 @@ class IStatusBarProgressIndicator(ComPtr):
     ProgressValue = property(get_ProgressValue, put_ProgressValue)
 class IStatusBarStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8b463fdf-422f-4561-88-06-fb-12-89-ca-df-b7')
+    _iid_ = Guid('{8b463fdf-422f-4561-8806-fb1289cadfb7}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.ViewManagement.StatusBar: ...
 class IUISettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('85361600-1c63-4627-bc-b1-3a-89-e0-bc-9c-55')
+    _iid_ = Guid('{85361600-1c63-4627-bcb1-3a89e0bc9c55}')
     @winrt_commethod(6)
     def get_HandPreference(self) -> Windows.UI.ViewManagement.HandPreference: ...
     @winrt_commethod(7)
@@ -820,7 +820,7 @@ class IUISettings(ComPtr):
     MouseHoverTime = property(get_MouseHoverTime, None)
 class IUISettings2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bad82401-2721-44f9-bb-91-2b-b2-28-be-44-2f')
+    _iid_ = Guid('{bad82401-2721-44f9-bb91-2bb228be442f}')
     @winrt_commethod(6)
     def get_TextScaleFactor(self) -> Double: ...
     @winrt_commethod(7)
@@ -830,7 +830,7 @@ class IUISettings2(ComPtr):
     TextScaleFactor = property(get_TextScaleFactor, None)
 class IUISettings3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('03021be4-5254-4781-81-94-51-68-f7-d0-6d-7b')
+    _iid_ = Guid('{03021be4-5254-4781-8194-5168f7d06d7b}')
     @winrt_commethod(6)
     def GetColorValue(self, desiredColor: Windows.UI.ViewManagement.UIColorType) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -839,7 +839,7 @@ class IUISettings3(ComPtr):
     def remove_ColorValuesChanged(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IUISettings4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('52bb3002-919b-4d6b-9b-78-8d-d6-6f-f4-b9-3b')
+    _iid_ = Guid('{52bb3002-919b-4d6b-9b78-8dd66ff4b93b}')
     @winrt_commethod(6)
     def get_AdvancedEffectsEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -849,7 +849,7 @@ class IUISettings4(ComPtr):
     AdvancedEffectsEnabled = property(get_AdvancedEffectsEnabled, None)
 class IUISettings5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5349d588-0cb5-5f05-bd-34-70-6b-32-31-f0-bd')
+    _iid_ = Guid('{5349d588-0cb5-5f05-bd34-706b3231f0bd}')
     @winrt_commethod(6)
     def get_AutoHideScrollBars(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -859,7 +859,7 @@ class IUISettings5(ComPtr):
     AutoHideScrollBars = property(get_AutoHideScrollBars, None)
 class IUISettings6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aef19bd7-fe31-5a04-ad-a4-46-9a-ae-c6-df-a9')
+    _iid_ = Guid('{aef19bd7-fe31-5a04-ada4-469aaec6dfa9}')
     @winrt_commethod(6)
     def add_AnimationsEnabledChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.UISettings, Windows.UI.ViewManagement.UISettingsAnimationsEnabledChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -870,27 +870,27 @@ class IUISettings6(ComPtr):
     def remove_MessageDurationChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IUISettingsAnimationsEnabledChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0c7b4b3d-2ea1-533e-89-4d-41-5b-c5-24-3c-29')
+    _iid_ = Guid('{0c7b4b3d-2ea1-533e-894d-415bc5243c29}')
 class IUISettingsAutoHideScrollBarsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('87afd4b2-9146-5f02-8f-6b-06-d4-54-17-4c-0f')
+    _iid_ = Guid('{87afd4b2-9146-5f02-8f6b-06d454174c0f}')
 class IUISettingsMessageDurationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('338aad52-4a5d-5b59-80-02-d9-30-f6-08-fd-6e')
+    _iid_ = Guid('{338aad52-4a5d-5b59-8002-d930f608fd6e}')
 class IUIViewSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c63657f6-8850-470d-88-f8-45-5e-16-ea-2c-26')
+    _iid_ = Guid('{c63657f6-8850-470d-88f8-455e16ea2c26}')
     @winrt_commethod(6)
     def get_UserInteractionMode(self) -> Windows.UI.ViewManagement.UserInteractionMode: ...
     UserInteractionMode = property(get_UserInteractionMode, None)
 class IUIViewSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('595c97a5-f8f6-41cf-b0-fb-aa-cd-b8-1f-d5-f6')
+    _iid_ = Guid('{595c97a5-f8f6-41cf-b0fb-aacdb81fd5f6}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.ViewManagement.UIViewSettings: ...
 class IViewModePreferences(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('878fcd3a-0b99-42c9-84-d0-d3-f1-d4-03-55-4b')
+    _iid_ = Guid('{878fcd3a-0b99-42c9-84d0-d3f1d403554b}')
     @winrt_commethod(6)
     def get_ViewSizePreference(self) -> Windows.UI.ViewManagement.ViewSizePreference: ...
     @winrt_commethod(7)
@@ -903,7 +903,7 @@ class IViewModePreferences(ComPtr):
     CustomSize = property(get_CustomSize, put_CustomSize)
 class IViewModePreferencesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('69b60a65-5de5-40d8-83-06-38-33-df-7a-22-74')
+    _iid_ = Guid('{69b60a65-5de5-40d8-8306-3833df7a2274}')
     @winrt_commethod(6)
     def CreateDefault(self, mode: Windows.UI.ViewManagement.ApplicationViewMode) -> Windows.UI.ViewManagement.ViewModePreferences: ...
 class InputPane(ComPtr):

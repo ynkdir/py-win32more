@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IRemoteTextConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4e7bb02a-183e-5e66-b5-e4-3e-6e-5c-57-0c-f1')
+    _iid_ = Guid('{4e7bb02a-183e-5e66-b5e4-3e6e5c570cf1}')
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -37,7 +37,7 @@ class IRemoteTextConnection(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class IRemoteTextConnectionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('88e075c2-0cae-596c-85-0f-78-d3-45-cd-72-8b')
+    _iid_ = Guid('{88e075c2-0cae-596c-850f-78d345cd728b}')
     @winrt_commethod(6)
     def CreateInstance(self, connectionId: Guid, pduForwarder: Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler) -> Windows.System.RemoteDesktop.Input.RemoteTextConnection: ...
 class RemoteTextConnection(ComPtr):
@@ -60,7 +60,7 @@ class RemoteTextConnection(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class RemoteTextConnectionDataHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('099ffbc8-8bcb-41b5-b0-56-57-e7-70-21-bf-1b')
+    _iid_ = Guid('{099ffbc8-8bcb-41b5-b056-57e77021bf1b}')
     _classid_ = 'Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler'
     @winrt_commethod(3)
     def Invoke(self, pduData: c_char_p_no) -> Boolean: ...

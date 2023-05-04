@@ -57,7 +57,7 @@ class DiagnosticInvoker(ComPtr):
     IsSupported = property(get_IsSupported, None)
 class IDiagnosticActionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c265a296-e73b-4097-b2-8f-34-42-f0-3d-d8-31')
+    _iid_ = Guid('{c265a296-e73b-4097-b28f-3442f03dd831}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     @winrt_commethod(7)
@@ -66,17 +66,17 @@ class IDiagnosticActionResult(ComPtr):
     Results = property(get_Results, None)
 class IDiagnosticInvoker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('187b270a-02e3-4f86-84-fc-fd-d8-92-b5-94-0f')
+    _iid_ = Guid('{187b270a-02e3-4f86-84fc-fdd892b5940f}')
     @winrt_commethod(6)
     def RunDiagnosticActionAsync(self, context: Windows.Data.Json.JsonObject) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.System.Diagnostics.DiagnosticActionResult, Windows.System.Diagnostics.DiagnosticActionState]: ...
 class IDiagnosticInvoker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e3bf945c-155a-4b52-a8-ec-07-0c-44-f9-50-00')
+    _iid_ = Guid('{e3bf945c-155a-4b52-a8ec-070c44f95000}')
     @winrt_commethod(6)
     def RunDiagnosticActionFromStringAsync(self, context: WinRT_String) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.System.Diagnostics.DiagnosticActionResult, Windows.System.Diagnostics.DiagnosticActionState]: ...
 class IDiagnosticInvokerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5cfad8de-f15c-4554-a8-13-c1-13-c3-88-1b-09')
+    _iid_ = Guid('{5cfad8de-f15c-4554-a813-c113c3881b09}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.System.Diagnostics.DiagnosticInvoker: ...
     @winrt_commethod(7)
@@ -86,12 +86,12 @@ class IDiagnosticInvokerStatics(ComPtr):
     IsSupported = property(get_IsSupported, None)
 class IProcessCpuUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0bbb2472-c8bf-423a-a8-10-b5-59-ae-43-54-e2')
+    _iid_ = Guid('{0bbb2472-c8bf-423a-a810-b559ae4354e2}')
     @winrt_commethod(6)
     def GetReport(self) -> Windows.System.Diagnostics.ProcessCpuUsageReport: ...
 class IProcessCpuUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8a6d9cac-3987-4e2f-a1-19-6b-5f-a2-14-f1-b4')
+    _iid_ = Guid('{8a6d9cac-3987-4e2f-a119-6b5fa214f1b4}')
     @winrt_commethod(6)
     def get_KernelTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -100,7 +100,7 @@ class IProcessCpuUsageReport(ComPtr):
     UserTime = property(get_UserTime, None)
 class IProcessDiagnosticInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e830b04b-300e-4ee6-a0-ab-5b-5f-52-31-b4-34')
+    _iid_ = Guid('{e830b04b-300e-4ee6-a0ab-5b5f5231b434}')
     @winrt_commethod(6)
     def get_ProcessId(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -124,7 +124,7 @@ class IProcessDiagnosticInfo(ComPtr):
     CpuUsage = property(get_CpuUsage, None)
 class IProcessDiagnosticInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9558cb1a-3d0b-49ec-ab-70-4f-7a-11-28-05-de')
+    _iid_ = Guid('{9558cb1a-3d0b-49ec-ab70-4f7a112805de}')
     @winrt_commethod(6)
     def GetAppDiagnosticInfos(self) -> Windows.Foundation.Collections.IVector[Windows.System.AppDiagnosticInfo]: ...
     @winrt_commethod(7)
@@ -132,24 +132,24 @@ class IProcessDiagnosticInfo2(ComPtr):
     IsPackaged = property(get_IsPackaged, None)
 class IProcessDiagnosticInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2f41b260-b49f-428c-aa-0e-84-74-4f-49-ca-95')
+    _iid_ = Guid('{2f41b260-b49f-428c-aa0e-84744f49ca95}')
     @winrt_commethod(6)
     def GetForProcesses(self) -> Windows.Foundation.Collections.IVectorView[Windows.System.Diagnostics.ProcessDiagnosticInfo]: ...
     @winrt_commethod(7)
     def GetForCurrentProcess(self) -> Windows.System.Diagnostics.ProcessDiagnosticInfo: ...
 class IProcessDiagnosticInfoStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4a869897-9899-4a44-a2-9b-09-16-63-be-09-b6')
+    _iid_ = Guid('{4a869897-9899-4a44-a29b-091663be09b6}')
     @winrt_commethod(6)
     def TryGetForProcessId(self, processId: UInt32) -> Windows.System.Diagnostics.ProcessDiagnosticInfo: ...
 class IProcessDiskUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5ad78bfd-7e51-4e53-bf-aa-5a-6e-e1-aa-bb-f8')
+    _iid_ = Guid('{5ad78bfd-7e51-4e53-bfaa-5a6ee1aabbf8}')
     @winrt_commethod(6)
     def GetReport(self) -> Windows.System.Diagnostics.ProcessDiskUsageReport: ...
 class IProcessDiskUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('401627fd-535d-4c1f-81-b8-da-54-e1-be-63-5e')
+    _iid_ = Guid('{401627fd-535d-4c1f-81b8-da54e1be635e}')
     @winrt_commethod(6)
     def get_ReadOperationCount(self) -> Int64: ...
     @winrt_commethod(7)
@@ -170,12 +170,12 @@ class IProcessDiskUsageReport(ComPtr):
     OtherBytesCount = property(get_OtherBytesCount, None)
 class IProcessMemoryUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f50b229b-827c-42b7-b0-7c-0e-32-62-7e-6b-3e')
+    _iid_ = Guid('{f50b229b-827c-42b7-b07c-0e32627e6b3e}')
     @winrt_commethod(6)
     def GetReport(self) -> Windows.System.Diagnostics.ProcessMemoryUsageReport: ...
 class IProcessMemoryUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c2c77cba-1951-4685-85-32-7e-74-9e-cf-8e-eb')
+    _iid_ = Guid('{c2c77cba-1951-4685-8532-7e749ecf8eeb}')
     @winrt_commethod(6)
     def get_NonPagedPoolSizeInBytes(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -214,12 +214,12 @@ class IProcessMemoryUsageReport(ComPtr):
     WorkingSetSizeInBytes = property(get_WorkingSetSizeInBytes, None)
 class ISystemCpuUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6037b3ac-02d6-4234-83-62-7f-e3-ad-c8-1f-5f')
+    _iid_ = Guid('{6037b3ac-02d6-4234-8362-7fe3adc81f5f}')
     @winrt_commethod(6)
     def GetReport(self) -> Windows.System.Diagnostics.SystemCpuUsageReport: ...
 class ISystemCpuUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2c26d0b2-9483-4f62-ab-57-82-b2-9d-97-19-b8')
+    _iid_ = Guid('{2c26d0b2-9483-4f62-ab57-82b29d9719b8}')
     @winrt_commethod(6)
     def get_KernelTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -231,7 +231,7 @@ class ISystemCpuUsageReport(ComPtr):
     IdleTime = property(get_IdleTime, None)
 class ISystemDiagnosticInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a290fe05-dff3-407f-9a-1b-0b-2b-31-7c-a8-00')
+    _iid_ = Guid('{a290fe05-dff3-407f-9a1b-0b2b317ca800}')
     @winrt_commethod(6)
     def get_MemoryUsage(self) -> Windows.System.Diagnostics.SystemMemoryUsage: ...
     @winrt_commethod(7)
@@ -240,12 +240,12 @@ class ISystemDiagnosticInfo(ComPtr):
     CpuUsage = property(get_CpuUsage, None)
 class ISystemDiagnosticInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d404ac21-fc7d-45f0-9a-3f-39-20-3a-ed-9f-7e')
+    _iid_ = Guid('{d404ac21-fc7d-45f0-9a3f-39203aed9f7e}')
     @winrt_commethod(6)
     def GetForCurrentSystem(self) -> Windows.System.Diagnostics.SystemDiagnosticInfo: ...
 class ISystemDiagnosticInfoStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('79ded189-6af9-4da9-a4-22-15-f7-32-55-b3-eb')
+    _iid_ = Guid('{79ded189-6af9-4da9-a422-15f73255b3eb}')
     @winrt_commethod(6)
     def IsArchitectureSupported(self, type: Windows.System.ProcessorArchitecture) -> Boolean: ...
     @winrt_commethod(7)
@@ -253,12 +253,12 @@ class ISystemDiagnosticInfoStatics2(ComPtr):
     PreferredArchitecture = property(get_PreferredArchitecture, None)
 class ISystemMemoryUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('17ffc595-1702-49cf-aa-27-2f-0a-32-59-14-04')
+    _iid_ = Guid('{17ffc595-1702-49cf-aa27-2f0a32591404}')
     @winrt_commethod(6)
     def GetReport(self) -> Windows.System.Diagnostics.SystemMemoryUsageReport: ...
 class ISystemMemoryUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('38663c87-2a9f-403a-bd-19-2c-f3-e8-16-95-00')
+    _iid_ = Guid('{38663c87-2a9f-403a-bd19-2cf3e8169500}')
     @winrt_commethod(6)
     def get_TotalPhysicalSizeInBytes(self) -> UInt64: ...
     @winrt_commethod(7)

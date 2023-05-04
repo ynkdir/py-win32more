@@ -44,7 +44,7 @@ class DeviceUseDetails(ComPtr):
     Arguments = property(get_Arguments, None)
 class IDeviceServicingDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4aabee29-2344-4ac4-85-27-4a-8e-f6-90-56-45')
+    _iid_ = Guid('{4aabee29-2344-4ac4-8527-4a8ef6905645}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -56,7 +56,7 @@ class IDeviceServicingDetails(ComPtr):
     ExpectedDuration = property(get_ExpectedDuration, None)
 class IDeviceUseDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7d565141-557e-4154-b9-94-e4-f7-a1-1f-b3-23')
+    _iid_ = Guid('{7d565141-557e-4154-b994-e4f7a11fb323}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)

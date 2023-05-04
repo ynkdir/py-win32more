@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWiFiDirectAdvertisement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ab511a2d-2a06-49a1-a5-84-61-43-5c-79-05-a6')
+    _iid_ = Guid('{ab511a2d-2a06-49a1-a584-61435c7905a6}')
     @winrt_commethod(6)
     def get_InformationElements(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectInformationElement]: ...
     @winrt_commethod(7)
@@ -49,13 +49,13 @@ class IWiFiDirectAdvertisement(ComPtr):
     LegacySettings = property(get_LegacySettings, None)
 class IWiFiDirectAdvertisement2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b759aa46-d816-491b-91-7a-b4-0d-7d-c4-03-a2')
+    _iid_ = Guid('{b759aa46-d816-491b-917a-b40d7dc403a2}')
     @winrt_commethod(6)
     def get_SupportedConfigurationMethods(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod]: ...
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
 class IWiFiDirectAdvertisementPublisher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b35a2d1a-9b1f-45d9-92-5a-69-4d-66-df-68-ef')
+    _iid_ = Guid('{b35a2d1a-9b1f-45d9-925a-694d66df68ef}')
     @winrt_commethod(6)
     def get_Advertisement(self) -> Windows.Devices.WiFiDirect.WiFiDirectAdvertisement: ...
     @winrt_commethod(7)
@@ -72,7 +72,7 @@ class IWiFiDirectAdvertisementPublisher(ComPtr):
     Status = property(get_Status, None)
 class IWiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('aafde53c-5481-46e6-90-dd-32-11-65-18-f1-92')
+    _iid_ = Guid('{aafde53c-5481-46e6-90dd-32116518f192}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisherStatus: ...
     @winrt_commethod(7)
@@ -81,14 +81,14 @@ class IWiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     Error = property(get_Error, None)
 class IWiFiDirectConnectionListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('699c1b0d-8d13-4ee9-b9-ec-9c-72-f8-25-1f-7d')
+    _iid_ = Guid('{699c1b0d-8d13-4ee9-b9ec-9c72f8251f7d}')
     @winrt_commethod(6)
     def add_ConnectionRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.WiFiDirect.WiFiDirectConnectionListener, Windows.Devices.WiFiDirect.WiFiDirectConnectionRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ConnectionRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IWiFiDirectConnectionParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b2e55405-5702-4b16-a0-2c-bb-cd-21-ef-60-98')
+    _iid_ = Guid('{b2e55405-5702-4b16-a02c-bbcd21ef6098}')
     @winrt_commethod(6)
     def get_GroupOwnerIntent(self) -> Int16: ...
     @winrt_commethod(7)
@@ -96,7 +96,7 @@ class IWiFiDirectConnectionParameters(ComPtr):
     GroupOwnerIntent = property(get_GroupOwnerIntent, put_GroupOwnerIntent)
 class IWiFiDirectConnectionParameters2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ab3b0fbe-aa82-44b4-88-c8-e3-05-6b-89-80-1d')
+    _iid_ = Guid('{ab3b0fbe-aa82-44b4-88c8-e3056b89801d}')
     @winrt_commethod(6)
     def get_PreferenceOrderedConfigurationMethods(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod]: ...
     @winrt_commethod(7)
@@ -107,23 +107,23 @@ class IWiFiDirectConnectionParameters2(ComPtr):
     PreferredPairingProcedure = property(get_PreferredPairingProcedure, put_PreferredPairingProcedure)
 class IWiFiDirectConnectionParametersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('598af493-7642-456f-b9-d8-e8-a9-eb-1f-40-1a')
+    _iid_ = Guid('{598af493-7642-456f-b9d8-e8a9eb1f401a}')
     @winrt_commethod(6)
     def GetDevicePairingKinds(self, configurationMethod: Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod) -> Windows.Devices.Enumeration.DevicePairingKinds: ...
 class IWiFiDirectConnectionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8eb99605-914f-49c3-a6-14-d1-8d-c5-b1-9b-43')
+    _iid_ = Guid('{8eb99605-914f-49c3-a614-d18dc5b19b43}')
     @winrt_commethod(6)
     def get_DeviceInformation(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     DeviceInformation = property(get_DeviceInformation, None)
 class IWiFiDirectConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f99d20be-d38d-484f-82-15-e7-b6-5a-bf-24-4c')
+    _iid_ = Guid('{f99d20be-d38d-484f-8215-e7b65abf244c}')
     @winrt_commethod(6)
     def GetConnectionRequest(self) -> Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest: ...
 class IWiFiDirectDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('72deaaa8-72eb-4dae-8a-28-85-13-35-5d-27-77')
+    _iid_ = Guid('{72deaaa8-72eb-4dae-8a28-8513355d2777}')
     @winrt_commethod(6)
     def get_ConnectionStatus(self) -> Windows.Devices.WiFiDirect.WiFiDirectConnectionStatus: ...
     @winrt_commethod(7)
@@ -138,21 +138,21 @@ class IWiFiDirectDevice(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class IWiFiDirectDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e86cb57c-3aac-4851-a7-92-48-2a-af-93-1b-04')
+    _iid_ = Guid('{e86cb57c-3aac-4851-a792-482aaf931b04}')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.WiFiDirect.WiFiDirectDevice]: ...
 class IWiFiDirectDeviceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1a953e49-b103-437e-92-26-ab-67-97-13-42-f9')
+    _iid_ = Guid('{1a953e49-b103-437e-9226-ab67971342f9}')
     @winrt_commethod(6)
     def GetDeviceSelector(self, type: Windows.Devices.WiFiDirect.WiFiDirectDeviceSelectorType) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String, connectionParameters: Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters) -> Windows.Foundation.IAsyncOperation[Windows.Devices.WiFiDirect.WiFiDirectDevice]: ...
 class IWiFiDirectInformationElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('affb72d6-76bb-497e-ac-8b-dc-72-83-8b-c3-09')
+    _iid_ = Guid('{affb72d6-76bb-497e-ac8b-dc72838bc309}')
     @winrt_commethod(6)
     def get_Oui(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -170,14 +170,14 @@ class IWiFiDirectInformationElement(ComPtr):
     Value = property(get_Value, put_Value)
 class IWiFiDirectInformationElementStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dbd02f16-11a5-4e60-8c-aa-34-77-21-48-37-8a')
+    _iid_ = Guid('{dbd02f16-11a5-4e60-8caa-34772148378a}')
     @winrt_commethod(6)
     def CreateFromBuffer(self, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectInformationElement]: ...
     @winrt_commethod(7)
     def CreateFromDeviceInformation(self, deviceInformation: Windows.Devices.Enumeration.DeviceInformation) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectInformationElement]: ...
 class IWiFiDirectLegacySettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a64fdbba-f2fd-4567-a9-1b-f5-c2-f5-32-10-57')
+    _iid_ = Guid('{a64fdbba-f2fd-4567-a91b-f5c2f5321057}')
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
     @winrt_commethod(7)

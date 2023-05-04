@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUsbBulkInEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3c6e4846-06cf-42a9-9d-c2-97-1c-1b-14-b6-e3')
+    _iid_ = Guid('{3c6e4846-06cf-42a9-9dc2-971c1b14b6e3}')
     @winrt_commethod(6)
     def get_MaxPacketSize(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -37,7 +37,7 @@ class IUsbBulkInEndpointDescriptor(ComPtr):
     Pipe = property(get_Pipe, None)
 class IUsbBulkInPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f01d2d3b-4548-4d50-b3-26-d8-2c-da-be-12-20')
+    _iid_ = Guid('{f01d2d3b-4548-4d50-b326-d82cdabe1220}')
     @winrt_commethod(6)
     def get_MaxTransferSizeBytes(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -58,7 +58,7 @@ class IUsbBulkInPipe(ComPtr):
     InputStream = property(get_InputStream, None)
 class IUsbBulkOutEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2820847a-ffee-4f60-9b-e1-95-6c-ac-3e-cb-65')
+    _iid_ = Guid('{2820847a-ffee-4f60-9be1-956cac3ecb65}')
     @winrt_commethod(6)
     def get_MaxPacketSize(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -70,7 +70,7 @@ class IUsbBulkOutEndpointDescriptor(ComPtr):
     Pipe = property(get_Pipe, None)
 class IUsbBulkOutPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a8e9ee6e-0115-45aa-8b-21-37-b2-25-bc-ce-e7')
+    _iid_ = Guid('{a8e9ee6e-0115-45aa-8b21-37b225bccee7}')
     @winrt_commethod(6)
     def get_EndpointDescriptor(self) -> Windows.Devices.Usb.UsbBulkOutEndpointDescriptor: ...
     @winrt_commethod(7)
@@ -86,7 +86,7 @@ class IUsbBulkOutPipe(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class IUsbConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('68177429-36a9-46d7-b8-73-fc-68-92-51-ec-30')
+    _iid_ = Guid('{68177429-36a9-46d7-b873-fc689251ec30}')
     @winrt_commethod(6)
     def get_UsbInterfaces(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Usb.UsbInterface]: ...
     @winrt_commethod(7)
@@ -98,7 +98,7 @@ class IUsbConfiguration(ComPtr):
     Descriptors = property(get_Descriptors, None)
 class IUsbConfigurationDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f2176d92-b442-407a-82-07-7d-64-6c-03-85-f3')
+    _iid_ = Guid('{f2176d92-b442-407a-8207-7d646c0385f3}')
     @winrt_commethod(6)
     def get_ConfigurationValue(self) -> Byte: ...
     @winrt_commethod(7)
@@ -113,14 +113,14 @@ class IUsbConfigurationDescriptor(ComPtr):
     RemoteWakeup = property(get_RemoteWakeup, None)
 class IUsbConfigurationDescriptorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('424ced93-e740-40a1-92-bd-da-12-0e-a0-49-14')
+    _iid_ = Guid('{424ced93-e740-40a1-92bd-da120ea04914}')
     @winrt_commethod(6)
     def TryParse(self, descriptor: Windows.Devices.Usb.UsbDescriptor, parsed: POINTER(Windows.Devices.Usb.UsbConfigurationDescriptor)) -> Boolean: ...
     @winrt_commethod(7)
     def Parse(self, descriptor: Windows.Devices.Usb.UsbDescriptor) -> Windows.Devices.Usb.UsbConfigurationDescriptor: ...
 class IUsbControlRequestType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8e9465a6-d73d-46de-94-be-aa-e7-f0-7c-0f-5c')
+    _iid_ = Guid('{8e9465a6-d73d-46de-94be-aae7f07c0f5c}')
     @winrt_commethod(6)
     def get_Direction(self) -> Windows.Devices.Usb.UsbTransferDirection: ...
     @winrt_commethod(7)
@@ -143,7 +143,7 @@ class IUsbControlRequestType(ComPtr):
     AsByte = property(get_AsByte, put_AsByte)
 class IUsbDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0a89f216-5f9d-4874-89-04-da-9a-d3-f5-52-8f')
+    _iid_ = Guid('{0a89f216-5f9d-4874-8904-da9ad3f5528f}')
     @winrt_commethod(6)
     def get_Length(self) -> Byte: ...
     @winrt_commethod(7)
@@ -154,7 +154,7 @@ class IUsbDescriptor(ComPtr):
     DescriptorType = property(get_DescriptorType, None)
 class IUsbDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5249b992-c456-44d5-ad-5e-24-f5-a0-89-f6-3b')
+    _iid_ = Guid('{5249b992-c456-44d5-ad5e-24f5a089f63b}')
     @winrt_commethod(6)
     def SendControlOutTransferAsync(self, setupPacket: Windows.Devices.Usb.UsbSetupPacket, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
     @winrt_commethod(7)
@@ -174,7 +174,7 @@ class IUsbDevice(ComPtr):
     Configuration = property(get_Configuration, None)
 class IUsbDeviceClass(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('051942f9-845e-47eb-b1-2a-38-f2-f6-17-af-e7')
+    _iid_ = Guid('{051942f9-845e-47eb-b12a-38f2f617afe7}')
     @winrt_commethod(6)
     def get_ClassCode(self) -> Byte: ...
     @winrt_commethod(7)
@@ -192,10 +192,10 @@ class IUsbDeviceClass(ComPtr):
     ProtocolCode = property(get_ProtocolCode, put_ProtocolCode)
 class IUsbDeviceClasses(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('686f955d-9b92-4b30-97-81-c2-2c-55-ac-35-cb')
+    _iid_ = Guid('{686f955d-9b92-4b30-9781-c22c55ac35cb}')
 class IUsbDeviceClassesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b20b0527-c580-4599-a1-65-98-1b-4f-d0-32-30')
+    _iid_ = Guid('{b20b0527-c580-4599-a165-981b4fd03230}')
     @winrt_commethod(6)
     def get_CdcControl(self) -> Windows.Devices.Usb.UsbDeviceClass: ...
     @winrt_commethod(7)
@@ -225,7 +225,7 @@ class IUsbDeviceClassesStatics(ComPtr):
     VendorSpecific = property(get_VendorSpecific, None)
 class IUsbDeviceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1f48d1f6-ba97-4322-b9-2c-b5-b1-89-21-65-88')
+    _iid_ = Guid('{1f48d1f6-ba97-4322-b92c-b5b189216588}')
     @winrt_commethod(6)
     def get_BcdUsb(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -246,7 +246,7 @@ class IUsbDeviceDescriptor(ComPtr):
     NumberOfConfigurations = property(get_NumberOfConfigurations, None)
 class IUsbDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('066b85a2-09b7-4446-85-02-6f-e6-dc-aa-73-09')
+    _iid_ = Guid('{066b85a2-09b7-4446-8502-6fe6dcaa7309}')
     @winrt_commethod(6)
     def GetDeviceSelector(self, vendorId: UInt32, productId: UInt32, winUsbInterfaceClass: Guid) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -259,7 +259,7 @@ class IUsbDeviceStatics(ComPtr):
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Usb.UsbDevice]: ...
 class IUsbEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6b4862d9-8df7-4b40-ac-83-57-8f-13-9f-05-75')
+    _iid_ = Guid('{6b4862d9-8df7-4b40-ac83-578f139f0575}')
     @winrt_commethod(6)
     def get_EndpointNumber(self) -> Byte: ...
     @winrt_commethod(7)
@@ -283,14 +283,14 @@ class IUsbEndpointDescriptor(ComPtr):
     AsInterruptOutEndpointDescriptor = property(get_AsInterruptOutEndpointDescriptor, None)
 class IUsbEndpointDescriptorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c890b201-9a6a-495e-a8-2c-29-5b-9e-70-81-06')
+    _iid_ = Guid('{c890b201-9a6a-495e-a82c-295b9e708106}')
     @winrt_commethod(6)
     def TryParse(self, descriptor: Windows.Devices.Usb.UsbDescriptor, parsed: POINTER(Windows.Devices.Usb.UsbEndpointDescriptor)) -> Boolean: ...
     @winrt_commethod(7)
     def Parse(self, descriptor: Windows.Devices.Usb.UsbDescriptor) -> Windows.Devices.Usb.UsbEndpointDescriptor: ...
 class IUsbInterface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a0322b95-7f47-48ab-a7-27-67-8c-25-be-21-12')
+    _iid_ = Guid('{a0322b95-7f47-48ab-a727-678c25be2112}')
     @winrt_commethod(6)
     def get_BulkInPipes(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Usb.UsbBulkInPipe]: ...
     @winrt_commethod(7)
@@ -314,7 +314,7 @@ class IUsbInterface(ComPtr):
     Descriptors = property(get_Descriptors, None)
 class IUsbInterfaceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('199670c7-b7ee-4f90-8c-d5-94-a2-e2-57-59-8a')
+    _iid_ = Guid('{199670c7-b7ee-4f90-8cd5-94a2e257598a}')
     @winrt_commethod(6)
     def get_ClassCode(self) -> Byte: ...
     @winrt_commethod(7)
@@ -332,14 +332,14 @@ class IUsbInterfaceDescriptor(ComPtr):
     InterfaceNumber = property(get_InterfaceNumber, None)
 class IUsbInterfaceDescriptorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e34a9ff5-77d6-48b6-b0-be-16-c6-42-23-16-fe')
+    _iid_ = Guid('{e34a9ff5-77d6-48b6-b0be-16c6422316fe}')
     @winrt_commethod(6)
     def TryParse(self, descriptor: Windows.Devices.Usb.UsbDescriptor, parsed: POINTER(Windows.Devices.Usb.UsbInterfaceDescriptor)) -> Boolean: ...
     @winrt_commethod(7)
     def Parse(self, descriptor: Windows.Devices.Usb.UsbDescriptor) -> Windows.Devices.Usb.UsbInterfaceDescriptor: ...
 class IUsbInterfaceSetting(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1827bba7-8da7-4af7-8f-4c-7f-30-32-e7-81-f5')
+    _iid_ = Guid('{1827bba7-8da7-4af7-8f4c-7f3032e781f5}')
     @winrt_commethod(6)
     def get_BulkInEndpoints(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Usb.UsbBulkInEndpointDescriptor]: ...
     @winrt_commethod(7)
@@ -365,7 +365,7 @@ class IUsbInterfaceSetting(ComPtr):
     Descriptors = property(get_Descriptors, None)
 class IUsbInterruptInEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c0528967-c911-4c3a-86-b2-41-9c-2d-a8-90-39')
+    _iid_ = Guid('{c0528967-c911-4c3a-86b2-419c2da89039}')
     @winrt_commethod(6)
     def get_MaxPacketSize(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -380,13 +380,13 @@ class IUsbInterruptInEndpointDescriptor(ComPtr):
     Pipe = property(get_Pipe, None)
 class IUsbInterruptInEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b7b04092-1418-4936-82-09-29-9c-f5-60-55-83')
+    _iid_ = Guid('{b7b04092-1418-4936-8209-299cf5605583}')
     @winrt_commethod(6)
     def get_InterruptData(self) -> Windows.Storage.Streams.IBuffer: ...
     InterruptData = property(get_InterruptData, None)
 class IUsbInterruptInPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fa007116-84d7-48c7-8a-3f-4c-0b-23-5f-2e-a6')
+    _iid_ = Guid('{fa007116-84d7-48c7-8a3f-4c0b235f2ea6}')
     @winrt_commethod(6)
     def get_EndpointDescriptor(self) -> Windows.Devices.Usb.UsbInterruptInEndpointDescriptor: ...
     @winrt_commethod(7)
@@ -398,7 +398,7 @@ class IUsbInterruptInPipe(ComPtr):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
 class IUsbInterruptOutEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cc9fed81-10ca-4533-95-2d-9e-27-83-41-e8-0f')
+    _iid_ = Guid('{cc9fed81-10ca-4533-952d-9e278341e80f}')
     @winrt_commethod(6)
     def get_MaxPacketSize(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -413,7 +413,7 @@ class IUsbInterruptOutEndpointDescriptor(ComPtr):
     Pipe = property(get_Pipe, None)
 class IUsbInterruptOutPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e984c8a9-aaf9-49d0-b9-6c-f6-61-ab-4a-7f-95')
+    _iid_ = Guid('{e984c8a9-aaf9-49d0-b96c-f661ab4a7f95}')
     @winrt_commethod(6)
     def get_EndpointDescriptor(self) -> Windows.Devices.Usb.UsbInterruptOutEndpointDescriptor: ...
     @winrt_commethod(7)
@@ -429,7 +429,7 @@ class IUsbInterruptOutPipe(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class IUsbSetupPacket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('104ba132-c78f-4c51-b6-54-e4-9d-02-f2-cb-03')
+    _iid_ = Guid('{104ba132-c78f-4c51-b654-e49d02f2cb03}')
     @winrt_commethod(6)
     def get_RequestType(self) -> Windows.Devices.Usb.UsbControlRequestType: ...
     @winrt_commethod(7)
@@ -457,7 +457,7 @@ class IUsbSetupPacket(ComPtr):
     Length = property(get_Length, put_Length)
 class IUsbSetupPacketFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c9257d50-1b2e-4a41-a2-a7-33-8f-0c-ef-3c-14')
+    _iid_ = Guid('{c9257d50-1b2e-4a41-a2a7-338f0cef3c14}')
     @winrt_commethod(6)
     def CreateWithEightByteBuffer(self, eightByteBuffer: Windows.Storage.Streams.IBuffer) -> Windows.Devices.Usb.UsbSetupPacket: ...
 class UsbBulkInEndpointDescriptor(ComPtr):

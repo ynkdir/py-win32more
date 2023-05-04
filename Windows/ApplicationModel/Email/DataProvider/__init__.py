@@ -471,7 +471,7 @@ class EmailMailboxValidateCertificatesRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3b9c9dc7-37b2-4bf0-ae-30-7b-64-4a-1c-96-e1')
+    _iid_ = Guid('{3b9c9dc7-37b2-4bf0-ae30-7b644a1c96e1}')
     @winrt_commethod(6)
     def add_MailboxSyncRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Email.DataProvider.EmailDataProviderConnection, Windows.ApplicationModel.Email.DataProvider.EmailMailboxSyncManagerSyncRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -536,13 +536,13 @@ class IEmailDataProviderConnection(ComPtr):
     def Start(self) -> Void: ...
 class IEmailDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('8f3e4e50-341e-45f3-bb-a0-84-a0-05-e1-31-9a')
+    _iid_ = Guid('{8f3e4e50-341e-45f3-bba0-84a005e1319a}')
     @winrt_commethod(6)
     def get_Connection(self) -> Windows.ApplicationModel.Email.DataProvider.EmailDataProviderConnection: ...
     Connection = property(get_Connection, None)
 class IEmailMailboxCreateFolderRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('184d3775-c921-4c39-a3-09-e1-6c-9f-22-b0-4b')
+    _iid_ = Guid('{184d3775-c921-4c39-a309-e16c9f22b04b}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -558,7 +558,7 @@ class IEmailMailboxCreateFolderRequest(ComPtr):
     Name = property(get_Name, None)
 class IEmailMailboxCreateFolderRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('03e4c02c-241c-4ea9-a6-8f-ff-20-bc-5a-fc-85')
+    _iid_ = Guid('{03e4c02c-241c-4ea9-a68f-ff20bc5afc85}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxCreateFolderRequest: ...
     @winrt_commethod(7)
@@ -566,7 +566,7 @@ class IEmailMailboxCreateFolderRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxDeleteFolderRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9469e88a-a931-4779-92-3d-09-a3-ea-29-2e-29')
+    _iid_ = Guid('{9469e88a-a931-4779-923d-09a3ea292e29}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -579,7 +579,7 @@ class IEmailMailboxDeleteFolderRequest(ComPtr):
     EmailFolderId = property(get_EmailFolderId, None)
 class IEmailMailboxDeleteFolderRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b4d32d06-2332-4678-83-78-28-b5-79-33-68-46')
+    _iid_ = Guid('{b4d32d06-2332-4678-8378-28b579336846}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxDeleteFolderRequest: ...
     @winrt_commethod(7)
@@ -587,7 +587,7 @@ class IEmailMailboxDeleteFolderRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxDownloadAttachmentRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0b1dbbb4-750c-48e1-bc-e4-8d-58-96-84-ff-bc')
+    _iid_ = Guid('{0b1dbbb4-750c-48e1-bce4-8d589684ffbc}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -603,7 +603,7 @@ class IEmailMailboxDownloadAttachmentRequest(ComPtr):
     EmailAttachmentId = property(get_EmailAttachmentId, None)
 class IEmailMailboxDownloadAttachmentRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ccddc46d-ffa8-4877-9f-9d-fe-d7-bc-af-41-04')
+    _iid_ = Guid('{ccddc46d-ffa8-4877-9f9d-fed7bcaf4104}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadAttachmentRequest: ...
     @winrt_commethod(7)
@@ -611,7 +611,7 @@ class IEmailMailboxDownloadAttachmentRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxDownloadMessageRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('497b4187-5b4d-4b23-81-6c-f3-84-2b-eb-75-3e')
+    _iid_ = Guid('{497b4187-5b4d-4b23-816c-f3842beb753e}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -624,7 +624,7 @@ class IEmailMailboxDownloadMessageRequest(ComPtr):
     EmailMessageId = property(get_EmailMessageId, None)
 class IEmailMailboxDownloadMessageRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('470409ad-d0a0-4a5b-bb-2a-37-62-10-39-c5-3e')
+    _iid_ = Guid('{470409ad-d0a0-4a5b-bb2a-37621039c53e}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadMessageRequest: ...
     @winrt_commethod(7)
@@ -632,7 +632,7 @@ class IEmailMailboxDownloadMessageRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxEmptyFolderRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fe4b03ab-f86d-46d9-b4-ce-bc-8a-6d-9e-92-68')
+    _iid_ = Guid('{fe4b03ab-f86d-46d9-b4ce-bc8a6d9e9268}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -645,7 +645,7 @@ class IEmailMailboxEmptyFolderRequest(ComPtr):
     EmailFolderId = property(get_EmailFolderId, None)
 class IEmailMailboxEmptyFolderRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7183f484-985a-4ac0-b3-3f-ee-0e-26-27-a3-c0')
+    _iid_ = Guid('{7183f484-985a-4ac0-b33f-ee0e2627a3c0}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxEmptyFolderRequest: ...
     @winrt_commethod(7)
@@ -653,7 +653,7 @@ class IEmailMailboxEmptyFolderRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxForwardMeetingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('616d6af1-70d4-4832-b8-69-b8-05-42-ae-9b-e8')
+    _iid_ = Guid('{616d6af1-70d4-4832-b869-b80542ae9be8}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -681,7 +681,7 @@ class IEmailMailboxForwardMeetingRequest(ComPtr):
     Comment = property(get_Comment, None)
 class IEmailMailboxForwardMeetingRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2bd8f33a-2974-4759-a5-a5-58-f4-4d-3c-02-75')
+    _iid_ = Guid('{2bd8f33a-2974-4759-a5a5-58f44d3c0275}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequest: ...
     @winrt_commethod(7)
@@ -689,7 +689,7 @@ class IEmailMailboxForwardMeetingRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxGetAutoReplySettingsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9b380789-1e88-4e01-84-cc-13-86-ad-9a-2c-2f')
+    _iid_ = Guid('{9b380789-1e88-4e01-84cc-1386ad9a2c2f}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -702,7 +702,7 @@ class IEmailMailboxGetAutoReplySettingsRequest(ComPtr):
     RequestedFormat = property(get_RequestedFormat, None)
 class IEmailMailboxGetAutoReplySettingsRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d79f55c2-fd45-4004-8a-91-9b-ac-f3-8b-70-22')
+    _iid_ = Guid('{d79f55c2-fd45-4004-8a91-9bacf38b7022}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxGetAutoReplySettingsRequest: ...
     @winrt_commethod(7)
@@ -710,7 +710,7 @@ class IEmailMailboxGetAutoReplySettingsRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxMoveFolderRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('10ba2856-4a95-4068-91-cc-67-cc-7a-cf-45-4f')
+    _iid_ = Guid('{10ba2856-4a95-4068-91cc-67cc7acf454f}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -729,7 +729,7 @@ class IEmailMailboxMoveFolderRequest(ComPtr):
     NewFolderName = property(get_NewFolderName, None)
 class IEmailMailboxMoveFolderRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('38623020-14ba-4c88-86-98-72-39-e3-c8-aa-a7')
+    _iid_ = Guid('{38623020-14ba-4c88-8698-7239e3c8aaa7}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxMoveFolderRequest: ...
     @winrt_commethod(7)
@@ -737,7 +737,7 @@ class IEmailMailboxMoveFolderRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxProposeNewTimeForMeetingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5aeff152-9799-4f9f-a3-99-ff-07-f3-ee-f0-4e')
+    _iid_ = Guid('{5aeff152-9799-4f9f-a399-ff07f3eef04e}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -762,7 +762,7 @@ class IEmailMailboxProposeNewTimeForMeetingRequest(ComPtr):
     Comment = property(get_Comment, None)
 class IEmailMailboxProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('fb480b98-33ad-4a67-82-51-0f-9c-24-9b-6a-20')
+    _iid_ = Guid('{fb480b98-33ad-4a67-8251-0f9c249b6a20}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxProposeNewTimeForMeetingRequest: ...
     @winrt_commethod(7)
@@ -770,7 +770,7 @@ class IEmailMailboxProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxResolveRecipientsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('efa4cf70-7b39-4c9b-81-1e-41-ea-f4-3a-33-2d')
+    _iid_ = Guid('{efa4cf70-7b39-4c9b-811e-41eaf43a332d}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -783,7 +783,7 @@ class IEmailMailboxResolveRecipientsRequest(ComPtr):
     Recipients = property(get_Recipients, None)
 class IEmailMailboxResolveRecipientsRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('260f9e02-b2cf-40f8-8c-28-e3-ed-43-b1-e8-9a')
+    _iid_ = Guid('{260f9e02-b2cf-40f8-8c28-e3ed43b1e89a}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequest: ...
     @winrt_commethod(7)
@@ -791,7 +791,7 @@ class IEmailMailboxResolveRecipientsRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxServerSearchReadBatchRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('090eebdf-5a96-41d3-8a-d8-34-91-2f-9a-a6-0e')
+    _iid_ = Guid('{090eebdf-5a96-41d3-8ad8-34912f9aa60e}')
     @winrt_commethod(6)
     def get_SessionId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -815,7 +815,7 @@ class IEmailMailboxServerSearchReadBatchRequest(ComPtr):
     SuggestedBatchSize = property(get_SuggestedBatchSize, None)
 class IEmailMailboxServerSearchReadBatchRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('14101b4e-ed9e-45d1-ad-7a-cc-9b-7f-64-3a-e2')
+    _iid_ = Guid('{14101b4e-ed9e-45d1-ad7a-cc9b7f643ae2}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxServerSearchReadBatchRequest: ...
     @winrt_commethod(7)
@@ -823,7 +823,7 @@ class IEmailMailboxServerSearchReadBatchRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxSetAutoReplySettingsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('75a422d0-a88e-4e54-8d-c7-c2-43-18-6b-77-4e')
+    _iid_ = Guid('{75a422d0-a88e-4e54-8dc7-c243186b774e}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -836,7 +836,7 @@ class IEmailMailboxSetAutoReplySettingsRequest(ComPtr):
     AutoReplySettings = property(get_AutoReplySettings, None)
 class IEmailMailboxSetAutoReplySettingsRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('09da11ad-d7ca-4087-ac-86-53-fa-67-f7-62-46')
+    _iid_ = Guid('{09da11ad-d7ca-4087-ac86-53fa67f76246}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxSetAutoReplySettingsRequest: ...
     @winrt_commethod(7)
@@ -844,7 +844,7 @@ class IEmailMailboxSetAutoReplySettingsRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4e10e8e4-7e67-405a-b6-73-dc-60-c9-10-90-fc')
+    _iid_ = Guid('{4e10e8e4-7e67-405a-b673-dc60c91090fc}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -854,7 +854,7 @@ class IEmailMailboxSyncManagerSyncRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('439a031a-8fcc-4ae5-b9-b5-d4-34-e0-a6-5a-a8')
+    _iid_ = Guid('{439a031a-8fcc-4ae5-b9b5-d434e0a65aa8}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxSyncManagerSyncRequest: ...
     @winrt_commethod(7)
@@ -862,7 +862,7 @@ class IEmailMailboxSyncManagerSyncRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxUpdateMeetingResponseRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5b99ac93-b2cf-4888-ba-4f-30-6b-6b-66-df-30')
+    _iid_ = Guid('{5b99ac93-b2cf-4888-ba4f-306b6b66df30}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -887,7 +887,7 @@ class IEmailMailboxUpdateMeetingResponseRequest(ComPtr):
     SendUpdate = property(get_SendUpdate, None)
 class IEmailMailboxUpdateMeetingResponseRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6898d761-56c9-4f17-be-31-66-fd-a9-4b-a1-59')
+    _iid_ = Guid('{6898d761-56c9-4f17-be31-66fda94ba159}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxUpdateMeetingResponseRequest: ...
     @winrt_commethod(7)
@@ -895,7 +895,7 @@ class IEmailMailboxUpdateMeetingResponseRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IEmailMailboxValidateCertificatesRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('a94d3931-e11a-4f97-b8-1a-18-7a-70-a8-f4-1a')
+    _iid_ = Guid('{a94d3931-e11a-4f97-b81a-187a70a8f41a}')
     @winrt_commethod(6)
     def get_EmailMailboxId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -908,7 +908,7 @@ class IEmailMailboxValidateCertificatesRequest(ComPtr):
     Certificates = property(get_Certificates, None)
 class IEmailMailboxValidateCertificatesRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2583bf17-02ff-49fe-a7-3c-03-f3-75-66-c6-91')
+    _iid_ = Guid('{2583bf17-02ff-49fe-a73c-03f37566c691}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Email.DataProvider.EmailMailboxValidateCertificatesRequest: ...
     @winrt_commethod(7)

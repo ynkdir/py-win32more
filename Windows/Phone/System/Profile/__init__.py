@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IRetailModeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d7ded029-fdda-43e7-93-fb-e5-3a-b6-e8-9e-c3')
+    _iid_ = Guid('{d7ded029-fdda-43e7-93fb-e53ab6e89ec3}')
     @winrt_commethod(6)
     def get_RetailModeEnabled(self) -> Boolean: ...
     RetailModeEnabled = property(get_RetailModeEnabled, None)

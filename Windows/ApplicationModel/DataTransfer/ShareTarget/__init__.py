@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IQuickLink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('603e4308-f0be-4adc-ac-c9-8b-27-ab-9c-f5-56')
+    _iid_ = Guid('{603e4308-f0be-4adc-acc9-8b27ab9cf556}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -50,7 +50,7 @@ class IQuickLink(ComPtr):
     SupportedFileTypes = property(get_SupportedFileTypes, None)
 class IShareOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2246bab8-d0f8-41c1-a8-2a-41-37-db-65-04-fb')
+    _iid_ = Guid('{2246bab8-d0f8-41c1-a82a-4137db6504fb}')
     @winrt_commethod(6)
     def get_Data(self) -> Windows.ApplicationModel.DataTransfer.DataPackageView: ...
     @winrt_commethod(7)
@@ -73,12 +73,12 @@ class IShareOperation(ComPtr):
     QuickLinkId = property(get_QuickLinkId, None)
 class IShareOperation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0ffb97c1-9778-4a09-8e-5b-cb-5e-48-2d-05-55')
+    _iid_ = Guid('{0ffb97c1-9778-4a09-8e5b-cb5e482d0555}')
     @winrt_commethod(6)
     def DismissUI(self) -> Void: ...
 class IShareOperation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5ef6b382-b7a7-4571-a2-a6-99-4a-03-49-88-b2')
+    _iid_ = Guid('{5ef6b382-b7a7-4571-a2a6-994a034988b2}')
     @winrt_commethod(6)
     def get_Contacts(self) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.Contact]: ...
     Contacts = property(get_Contacts, None)

@@ -59,26 +59,26 @@ class Decompressor(ComPtr):
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
 class ICompressor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0ac3645a-57ac-4ee1-b7-02-84-d3-9d-54-24-e0')
+    _iid_ = Guid('{0ac3645a-57ac-4ee1-b702-84d39d5424e0}')
     @winrt_commethod(6)
     def FinishAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
     def DetachStream(self) -> Windows.Storage.Streams.IOutputStream: ...
 class ICompressorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5f3d96a4-2cfb-442c-a8-ba-d7-d1-1b-03-9d-a0')
+    _iid_ = Guid('{5f3d96a4-2cfb-442c-a8ba-d7d11b039da0}')
     @winrt_commethod(6)
     def CreateCompressor(self, underlyingStream: Windows.Storage.Streams.IOutputStream) -> Windows.Storage.Compression.Compressor: ...
     @winrt_commethod(7)
     def CreateCompressorEx(self, underlyingStream: Windows.Storage.Streams.IOutputStream, algorithm: Windows.Storage.Compression.CompressAlgorithm, blockSize: UInt32) -> Windows.Storage.Compression.Compressor: ...
 class IDecompressor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('b883fe46-d68a-4c8b-ad-a0-4e-e8-13-fc-52-83')
+    _iid_ = Guid('{b883fe46-d68a-4c8b-ada0-4ee813fc5283}')
     @winrt_commethod(6)
     def DetachStream(self) -> Windows.Storage.Streams.IInputStream: ...
 class IDecompressorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5337e252-1da2-42e1-88-34-03-79-d2-8d-74-2f')
+    _iid_ = Guid('{5337e252-1da2-42e1-8834-0379d28d742f}')
     @winrt_commethod(6)
     def CreateDecompressor(self, underlyingStream: Windows.Storage.Streams.IInputStream) -> Windows.Storage.Compression.Decompressor: ...
 make_head(_module, 'Compressor')

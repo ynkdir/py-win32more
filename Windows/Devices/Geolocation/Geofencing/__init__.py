@@ -112,7 +112,7 @@ class GeofenceStateChangeReport(ComPtr):
     RemovalReason = property(get_RemovalReason, None)
 class IGeofence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9c090823-edb8-47e0-82-45-5b-f6-1d-32-1f-2d')
+    _iid_ = Guid('{9c090823-edb8-47e0-8245-5bf61d321f2d}')
     @winrt_commethod(6)
     def get_StartTime(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -136,7 +136,7 @@ class IGeofence(ComPtr):
     SingleUse = property(get_SingleUse, None)
 class IGeofenceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('841f624b-325f-4b90-bc-a7-2b-80-22-a9-37-96')
+    _iid_ = Guid('{841f624b-325f-4b90-bca7-2b8022a93796}')
     @winrt_commethod(6)
     def Create(self, id: WinRT_String, geoshape: Windows.Devices.Geolocation.IGeoshape) -> Windows.Devices.Geolocation.Geofencing.Geofence: ...
     @winrt_commethod(7)
@@ -147,7 +147,7 @@ class IGeofenceFactory(ComPtr):
     def CreateWithMonitorStatesDwellTimeStartTimeAndDuration(self, id: WinRT_String, geoshape: Windows.Devices.Geolocation.IGeoshape, monitoredStates: Windows.Devices.Geolocation.Geofencing.MonitoredGeofenceStates, singleUse: Boolean, dwellTime: Windows.Foundation.TimeSpan, startTime: Windows.Foundation.DateTime, duration: Windows.Foundation.TimeSpan) -> Windows.Devices.Geolocation.Geofencing.Geofence: ...
 class IGeofenceMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('4c0f5f78-1c1f-4621-bb-bd-83-3b-92-24-72-26')
+    _iid_ = Guid('{4c0f5f78-1c1f-4621-bbbd-833b92247226}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Geolocation.Geofencing.GeofenceMonitorStatus: ...
     @winrt_commethod(7)
@@ -169,13 +169,13 @@ class IGeofenceMonitor(ComPtr):
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
 class IGeofenceMonitorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2dd32fcf-7e75-4899-ac-e3-2b-d0-a6-5c-ce-06')
+    _iid_ = Guid('{2dd32fcf-7e75-4899-ace3-2bd0a65cce06}')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.Devices.Geolocation.Geofencing.GeofenceMonitor: ...
     Current = property(get_Current, None)
 class IGeofenceStateChangeReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9a243c18-2464-4c89-be-05-b3-ff-ff-5b-ab-c5')
+    _iid_ = Guid('{9a243c18-2464-4c89-be05-b3ffff5babc5}')
     @winrt_commethod(6)
     def get_NewState(self) -> Windows.Devices.Geolocation.Geofencing.GeofenceState: ...
     @winrt_commethod(7)

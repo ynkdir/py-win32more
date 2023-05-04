@@ -23,14 +23,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class IVibrationDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1b4a6595-cfcd-4e08-92-fb-c1-90-6d-04-49-8c')
+    _iid_ = Guid('{1b4a6595-cfcd-4e08-92fb-c1906d04498c}')
     @winrt_commethod(6)
     def Vibrate(self, duration: Windows.Foundation.TimeSpan) -> Void: ...
     @winrt_commethod(7)
     def Cancel(self) -> Void: ...
 class IVibrationDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('332fd2f1-1c69-4c91-94-9e-4b-b6-7a-85-bd-c7')
+    _iid_ = Guid('{332fd2f1-1c69-4c91-949e-4bb67a85bdc7}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Phone.Devices.Notification.VibrationDevice: ...
 class VibrationDevice(ComPtr):

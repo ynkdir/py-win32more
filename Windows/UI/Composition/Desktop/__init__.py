@@ -28,7 +28,7 @@ class DesktopWindowTarget(ComPtr):
     IsTopmost = property(get_IsTopmost, None)
 class IDesktopWindowTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('6329d6ca-3366-490e-9d-b3-25-31-29-29-ac-51')
+    _iid_ = Guid('{6329d6ca-3366-490e-9db3-25312929ac51}')
     @winrt_commethod(6)
     def get_IsTopmost(self) -> Boolean: ...
     IsTopmost = property(get_IsTopmost, None)

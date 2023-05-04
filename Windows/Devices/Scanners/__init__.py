@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IImageScanner(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('53a88f78-5298-48a0-8d-a3-80-87-51-96-65-e0')
+    _iid_ = Guid('{53a88f78-5298-48a0-8da3-8087519665e0}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -53,7 +53,7 @@ class IImageScanner(ComPtr):
     AutoConfiguration = property(get_AutoConfiguration, None)
 class IImageScannerFeederConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('74bdacee-fa97-4c17-82-80-40-e3-9c-6d-cc-67')
+    _iid_ = Guid('{74bdacee-fa97-4c17-8280-40e39c6dcc67}')
     @winrt_commethod(6)
     def get_CanAutoDetectPageSize(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -100,7 +100,7 @@ class IImageScannerFeederConfiguration(ComPtr):
     ScanAhead = property(get_ScanAhead, put_ScanAhead)
 class IImageScannerFormatConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ae275d11-dadf-4010-bf-10-cc-a5-c8-3d-cb-b0')
+    _iid_ = Guid('{ae275d11-dadf-4010-bf10-cca5c83dcbb0}')
     @winrt_commethod(6)
     def get_DefaultFormat(self) -> Windows.Devices.Scanners.ImageScannerFormat: ...
     @winrt_commethod(7)
@@ -113,7 +113,7 @@ class IImageScannerFormatConfiguration(ComPtr):
     Format = property(get_Format, put_Format)
 class IImageScannerPreviewResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('08b7fe8e-8891-441d-be-9c-17-6f-a1-09-c8-bb')
+    _iid_ = Guid('{08b7fe8e-8891-441d-be9c-176fa109c8bb}')
     @winrt_commethod(6)
     def get_Succeeded(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -122,13 +122,13 @@ class IImageScannerPreviewResult(ComPtr):
     Format = property(get_Format, None)
 class IImageScannerScanResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c91624cd-9037-4e48-84-c1-ac-09-75-07-6b-c5')
+    _iid_ = Guid('{c91624cd-9037-4e48-84c1-ac0975076bc5}')
     @winrt_commethod(6)
     def get_ScannedFiles(self) -> Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile]: ...
     ScannedFiles = property(get_ScannedFiles, None)
 class IImageScannerSourceConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bfb50055-0b44-4c82-9e-89-20-5f-9c-23-4e-59')
+    _iid_ = Guid('{bfb50055-0b44-4c82-9e89-205f9c234e59}')
     @winrt_commethod(6)
     def get_MinScanArea(self) -> Windows.Foundation.Size: ...
     @winrt_commethod(7)
@@ -210,7 +210,7 @@ class IImageScannerSourceConfiguration(ComPtr):
     Contrast = property(get_Contrast, put_Contrast)
 class IImageScannerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('bc57e70e-d804-4477-9f-b5-b9-11-b5-47-38-97')
+    _iid_ = Guid('{bc57e70e-d804-4477-9fb5-b911b5473897}')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Scanners.ImageScanner]: ...
     @winrt_commethod(7)

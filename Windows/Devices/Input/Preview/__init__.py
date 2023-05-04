@@ -165,7 +165,7 @@ class GazePointPreview(ComPtr):
     HidInputReport = property(get_HidInputReport, None)
 class IGazeDevicePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e79e7ee9-b389-11e7-b2-01-c8-d3-ff-b7-57-21')
+    _iid_ = Guid('{e79e7ee9-b389-11e7-b201-c8d3ffb75721}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -186,13 +186,13 @@ class IGazeDevicePreview(ComPtr):
     ConfigurationState = property(get_ConfigurationState, None)
 class IGazeDeviceWatcherAddedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e79e7eed-b389-11e7-b2-01-c8-d3-ff-b7-57-21')
+    _iid_ = Guid('{e79e7eed-b389-11e7-b201-c8d3ffb75721}')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Devices.Input.Preview.GazeDevicePreview: ...
     Device = property(get_Device, None)
 class IGazeDeviceWatcherPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e79e7ee7-b389-11e7-b2-01-c8-d3-ff-b7-57-21')
+    _iid_ = Guid('{e79e7ee7-b389-11e7-b201-c8d3ffb75721}')
     @winrt_commethod(6)
     def add_Added(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Input.Preview.GazeDeviceWatcherPreview, Windows.Devices.Input.Preview.GazeDeviceWatcherAddedPreviewEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -215,19 +215,19 @@ class IGazeDeviceWatcherPreview(ComPtr):
     def Stop(self) -> Void: ...
 class IGazeDeviceWatcherRemovedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f2631f08-0e3f-431f-a6-06-50-b3-5a-f9-4a-1c')
+    _iid_ = Guid('{f2631f08-0e3f-431f-a606-50b35af94a1c}')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Devices.Input.Preview.GazeDevicePreview: ...
     Device = property(get_Device, None)
 class IGazeDeviceWatcherUpdatedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7fe830ef-7f08-4737-88-e1-4a-83-ae-4e-48-85')
+    _iid_ = Guid('{7fe830ef-7f08-4737-88e1-4a83ae4e4885}')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Devices.Input.Preview.GazeDevicePreview: ...
     Device = property(get_Device, None)
 class IGazeEnteredPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('2567bf43-1225-489f-9d-d1-da-a7-c5-0f-bf-4b')
+    _iid_ = Guid('{2567bf43-1225-489f-9dd1-daa7c50fbf4b}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -238,7 +238,7 @@ class IGazeEnteredPreviewEventArgs(ComPtr):
     CurrentPoint = property(get_CurrentPoint, None)
 class IGazeExitedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5d0af07e-7d83-40ef-9f-0a-fb-c1-bb-dc-c5-ac')
+    _iid_ = Guid('{5d0af07e-7d83-40ef-9f0a-fbc1bbdcc5ac}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -249,7 +249,7 @@ class IGazeExitedPreviewEventArgs(ComPtr):
     CurrentPoint = property(get_CurrentPoint, None)
 class IGazeInputSourcePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e79e7ee8-b389-11e7-b2-01-c8-d3-ff-b7-57-21')
+    _iid_ = Guid('{e79e7ee8-b389-11e7-b201-c8d3ffb75721}')
     @winrt_commethod(6)
     def add_GazeMoved(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Input.Preview.GazeInputSourcePreview, Windows.Devices.Input.Preview.GazeMovedPreviewEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -264,14 +264,14 @@ class IGazeInputSourcePreview(ComPtr):
     def remove_GazeExited(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IGazeInputSourcePreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e79e7ee6-b389-11e7-b2-01-c8-d3-ff-b7-57-21')
+    _iid_ = Guid('{e79e7ee6-b389-11e7-b201-c8d3ffb75721}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Devices.Input.Preview.GazeInputSourcePreview: ...
     @winrt_commethod(7)
     def CreateWatcher(self) -> Windows.Devices.Input.Preview.GazeDeviceWatcherPreview: ...
 class IGazeMovedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e79e7eeb-b389-11e7-b2-01-c8-d3-ff-b7-57-21')
+    _iid_ = Guid('{e79e7eeb-b389-11e7-b201-c8d3ffb75721}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -284,7 +284,7 @@ class IGazeMovedPreviewEventArgs(ComPtr):
     CurrentPoint = property(get_CurrentPoint, None)
 class IGazePointPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e79e7eea-b389-11e7-b2-01-c8-d3-ff-b7-57-21')
+    _iid_ = Guid('{e79e7eea-b389-11e7-b201-c8d3ffb75721}')
     @winrt_commethod(6)
     def get_SourceDevice(self) -> Windows.Devices.Input.Preview.GazeDevicePreview: ...
     @winrt_commethod(7)

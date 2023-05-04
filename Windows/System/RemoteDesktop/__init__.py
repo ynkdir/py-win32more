@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IInteractiveSessionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('60884631-dd3a-4576-9c-8d-e8-02-76-18-bd-ce')
+    _iid_ = Guid('{60884631-dd3a-4576-9c8d-e8027618bdce}')
     @winrt_commethod(6)
     def get_IsRemote(self) -> Boolean: ...
     IsRemote = property(get_IsRemote, None)

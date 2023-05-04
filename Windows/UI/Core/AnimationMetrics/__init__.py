@@ -103,7 +103,7 @@ AnimationEffectTarget_Tapped: AnimationEffectTarget = 19
 AnimationMetricsContract: UInt32 = 65536
 class IAnimationDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7d11a549-be3d-41de-b0-81-05-c1-49-96-2f-9b')
+    _iid_ = Guid('{7d11a549-be3d-41de-b081-05c149962f9b}')
     @winrt_commethod(6)
     def get_Animations(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Core.AnimationMetrics.IPropertyAnimation]: ...
     @winrt_commethod(7)
@@ -121,12 +121,12 @@ class IAnimationDescription(ComPtr):
     ZOrder = property(get_ZOrder, None)
 class IAnimationDescriptionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c6e27abe-c1fb-48b5-92-71-ec-c7-0a-c8-6e-f0')
+    _iid_ = Guid('{c6e27abe-c1fb-48b5-9271-ecc70ac86ef0}')
     @winrt_commethod(6)
     def CreateInstance(self, effect: Windows.UI.Core.AnimationMetrics.AnimationEffect, target: Windows.UI.Core.AnimationMetrics.AnimationEffectTarget) -> Windows.UI.Core.AnimationMetrics.AnimationDescription: ...
 class IOpacityAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('803aabe5-ee7e-455f-84-e9-25-06-af-b8-d2-b4')
+    _iid_ = Guid('{803aabe5-ee7e-455f-84e9-2506afb8d2b4}')
     @winrt_commethod(6)
     def get_InitialOpacity(self) -> Windows.Foundation.IReference[Single]: ...
     @winrt_commethod(7)
@@ -135,7 +135,7 @@ class IOpacityAnimation(ComPtr):
     FinalOpacity = property(get_FinalOpacity, None)
 class IPropertyAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3a01b4da-4d8c-411e-b6-15-1a-de-68-3a-99-03')
+    _iid_ = Guid('{3a01b4da-4d8c-411e-b615-1ade683a9903}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.UI.Core.AnimationMetrics.PropertyAnimationType: ...
     @winrt_commethod(7)
@@ -153,7 +153,7 @@ class IPropertyAnimation(ComPtr):
     Control2 = property(get_Control2, None)
 class IScaleAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('023552c7-71ab-428c-9c-9f-d3-17-80-96-49-95')
+    _iid_ = Guid('{023552c7-71ab-428c-9c9f-d31780964995}')
     @winrt_commethod(6)
     def get_InitialScaleX(self) -> Windows.Foundation.IReference[Single]: ...
     @winrt_commethod(7)
