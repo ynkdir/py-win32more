@@ -11,7 +11,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-PERCEPTIONFIELD_StateStream_TimeStamps: Guid = Guid('aa886119-f32f-49bf-92-ca-f9-dd-f7-84-d2-97')
+PERCEPTIONFIELD_StateStream_TimeStamps: Guid = Guid('{aa886119-f32f-49bf-92ca-f9ddf784d297}')
 class PERCEPTION_PAYLOAD_FIELD(EasyCastStructure):
     FieldId: Guid
     OffsetInBytes: UInt32

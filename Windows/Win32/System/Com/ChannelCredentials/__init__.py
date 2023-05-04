@@ -16,7 +16,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IChannelCredentials(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('181b448c-c17c-4b17-ac-6d-06-69-9b-93-19-8f')
+    _iid_ = Guid('{181b448c-c17c-4b17-ac6d-06699b93198f}')
     @commethod(7)
     def SetWindowsCredential(self, domain: Windows.Win32.Foundation.BSTR, username: Windows.Win32.Foundation.BSTR, password: Windows.Win32.Foundation.BSTR, impersonationLevel: Int32, allowNtlm: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

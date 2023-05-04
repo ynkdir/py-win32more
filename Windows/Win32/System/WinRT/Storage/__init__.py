@@ -41,32 +41,32 @@ HSO_SHARE_WRITE: HANDLE_SHARING_OPTIONS = 2
 HSO_SHARE_DELETE: HANDLE_SHARING_OPTIONS = 4
 class IOplockBreakingHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('826abe3d-3acd-47d3-84-f2-88-aa-ed-cf-63-04')
+    _iid_ = Guid('{826abe3d-3acd-47d3-84f2-88aaedcf6304}')
     @commethod(3)
     def OplockBreaking(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IRandomAccessStreamFileAccessMode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('332e5848-2e15-458e-85-c4-c9-11-c0-c3-d6-f4')
+    _iid_ = Guid('{332e5848-2e15-458e-85c4-c911c0c3d6f4}')
     @commethod(3)
     def GetMode(self, fileAccessMode: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStorageFolderHandleAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('df19938f-5462-48a0-be-65-d2-a3-27-1a-08-d6')
+    _iid_ = Guid('{df19938f-5462-48a0-be65-d2a3271a08d6}')
     @commethod(3)
     def Create(self, fileName: Windows.Win32.Foundation.PWSTR, creationOptions: Windows.Win32.System.WinRT.Storage.HANDLE_CREATION_OPTIONS, accessOptions: Windows.Win32.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS, sharingOptions: Windows.Win32.System.WinRT.Storage.HANDLE_SHARING_OPTIONS, options: Windows.Win32.System.WinRT.Storage.HANDLE_OPTIONS, oplockBreakingHandler: Windows.Win32.System.WinRT.Storage.IOplockBreakingHandler_head, interopHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStorageItemHandleAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5ca296b2-2c25-4d22-b7-85-b8-85-c8-20-1e-6a')
+    _iid_ = Guid('{5ca296b2-2c25-4d22-b785-b885c8201e6a}')
     @commethod(3)
     def Create(self, accessOptions: Windows.Win32.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS, sharingOptions: Windows.Win32.System.WinRT.Storage.HANDLE_SHARING_OPTIONS, options: Windows.Win32.System.WinRT.Storage.HANDLE_OPTIONS, oplockBreakingHandler: Windows.Win32.System.WinRT.Storage.IOplockBreakingHandler_head, interopHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUnbufferedFileHandleOplockCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d1019a0e-6243-4329-84-97-2e-75-89-4d-77-10')
+    _iid_ = Guid('{d1019a0e-6243-4329-8497-2e75894d7710}')
     @commethod(3)
     def OnBrokenCallback(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUnbufferedFileHandleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a65c9109-42ab-4b94-a7-b1-dd-2e-4e-68-51-5e')
+    _iid_ = Guid('{a65c9109-42ab-4b94-a7b1-dd2e4e68515e}')
     @commethod(3)
     def OpenUnbufferedFileHandle(self, oplockBreakCallback: Windows.Win32.System.WinRT.Storage.IUnbufferedFileHandleOplockCallback_head, fileHandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

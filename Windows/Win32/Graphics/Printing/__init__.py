@@ -679,19 +679,19 @@ MXDCOP_PRINTTICKET_FIXED_PAGE: UInt32 = 26
 MXDCOP_SET_S0PAGE: UInt32 = 28
 MXDCOP_SET_S0PAGE_RESOURCE: UInt32 = 30
 MXDCOP_SET_XPSPASSTHRU_MODE: UInt32 = 32
-CLSID_OEMRENDER: Guid = Guid('6d6abf26-9f38-11d1-88-2a-00-c0-4f-b9-61-ec')
-CLSID_OEMUI: Guid = Guid('abce80d7-9f46-11d1-88-2a-00-c0-4f-b9-61-ec')
-CLSID_OEMUIMXDC: Guid = Guid('4e144300-5b43-4288-93-2a-5e-4d-d6-d8-2b-ed')
-CLSID_OEMPTPROVIDER: Guid = Guid('91723892-45d2-48e2-9e-c9-56-23-79-da-f9-92')
+CLSID_OEMRENDER: Guid = Guid('{6d6abf26-9f38-11d1-882a-00c04fb961ec}')
+CLSID_OEMUI: Guid = Guid('{abce80d7-9f46-11d1-882a-00c04fb961ec}')
+CLSID_OEMUIMXDC: Guid = Guid('{4e144300-5b43-4288-932a-5e4dd6d82bed}')
+CLSID_OEMPTPROVIDER: Guid = Guid('{91723892-45d2-48e2-9ec9-562379daf992}')
 S_DEVCAP_OUTPUT_FULL_REPLACEMENT: Windows.Win32.Foundation.HRESULT = 318465
-CLSID_PTPROVIDER: Guid = Guid('46ac151b-8490-4531-96-cc-55-bf-2b-f1-9e-11')
+CLSID_PTPROVIDER: Guid = Guid('{46ac151b-8490-4531-96cc-55bf2bf19e11}')
 E_VERSION_NOT_SUPPORTED: UInt32 = 2147745793
 S_NO_CONFLICT: UInt32 = 262145
 S_CONFLICT_RESOLVED: UInt32 = 262146
-PRINTER_EXTENSION_DETAILEDREASON_PRINTER_STATUS: Guid = Guid('5d5a1704-dfd1-4181-8e-ee-81-5c-86-ed-ad-31')
-PRINTER_EXTENSION_REASON_PRINT_PREFERENCES: Guid = Guid('ec8f261f-267c-469f-b5-d6-39-33-02-3c-29-cc')
-PRINTER_EXTENSION_REASON_DRIVER_EVENT: Guid = Guid('23bb1328-63de-4293-91-5b-a6-a2-3d-92-9a-cb')
-FMTID_PrinterPropertyBag: Guid = Guid('75f9adca-097d-45c3-a6-e4-ba-b2-9e-27-6f-3e')
+PRINTER_EXTENSION_DETAILEDREASON_PRINTER_STATUS: Guid = Guid('{5d5a1704-dfd1-4181-8eee-815c86edad31}')
+PRINTER_EXTENSION_REASON_PRINT_PREFERENCES: Guid = Guid('{ec8f261f-267c-469f-b5d6-3933023c29cc}')
+PRINTER_EXTENSION_REASON_DRIVER_EVENT: Guid = Guid('{23bb1328-63de-4293-915b-a6a23d929acb}')
+FMTID_PrinterPropertyBag: Guid = Guid('{75f9adca-097d-45c3-a6e4-bab29e276f3e}')
 PRINTER_OEMINTF_VERSION: UInt32 = 65536
 OEM_MODE_PUBLISHER: UInt32 = 1
 OEMGI_GETSIGNATURE: UInt32 = 1
@@ -1466,12 +1466,12 @@ DISPID_PRINTERQUEUEVIEW: UInt32 = 12700
 DISPID_PRINTERQUEUEVIEW_SETVIEWRANGE: UInt32 = 12701
 DISPID_PRINTERQUEUEVIEW_EVENT: UInt32 = 12800
 DISPID_PRINTERQUEUEVIEW_EVENT_ONCHANGED: UInt32 = 12801
-NOTIFICATION_RELEASE: Guid = Guid('ba9a5027-a70e-4ae7-9b-7d-eb-3e-06-ad-41-57')
-PRINT_APP_BIDI_NOTIFY_CHANNEL: Guid = Guid('2abad223-b994-4aca-82-fc-45-71-b1-b5-85-ac')
-PRINT_PORT_MONITOR_NOTIFY_CHANNEL: Guid = Guid('25df3b0e-74a9-47f5-80-ce-79-b4-b1-eb-5c-58')
-GUID_DEVINTERFACE_USBPRINT: Guid = Guid('28d78fad-5a12-11d1-ae-5b-00-00-f8-03-a8-c2')
-GUID_DEVINTERFACE_IPPUSB_PRINT: Guid = Guid('f2f40381-f46d-4e51-bc-e7-62-de-6c-f2-d0-98')
-CLSID_XPSRASTERIZER_FACTORY: Guid = Guid('503e79bf-1d09-4764-9d-72-1e-b0-c6-59-67-c6')
+NOTIFICATION_RELEASE: Guid = Guid('{ba9a5027-a70e-4ae7-9b7d-eb3e06ad4157}')
+PRINT_APP_BIDI_NOTIFY_CHANNEL: Guid = Guid('{2abad223-b994-4aca-82fc-4571b1b585ac}')
+PRINT_PORT_MONITOR_NOTIFY_CHANNEL: Guid = Guid('{25df3b0e-74a9-47f5-80ce-79b4b1eb5c58}')
+GUID_DEVINTERFACE_USBPRINT: Guid = Guid('{28d78fad-5a12-11d1-ae5b-0000f803a8c2}')
+GUID_DEVINTERFACE_IPPUSB_PRINT: Guid = Guid('{f2f40381-f46d-4e51-bce7-62de6cf2d098}')
+CLSID_XPSRASTERIZER_FACTORY: Guid = Guid('{503e79bf-1d09-4764-9d72-1eb0c65967c6}')
 @winfunctype('COMPSTUI.dll')
 def CommonPropertySheetUIA(hWndOwner: Windows.Win32.Foundation.HWND, pfnPropSheetUI: Windows.Win32.Graphics.Printing.PFNPROPSHEETUI, lParam: Windows.Win32.Foundation.LPARAM, pResult: POINTER(UInt32)) -> Int32: ...
 @winfunctype('COMPSTUI.dll')
@@ -1940,9 +1940,9 @@ BIDI_BLOB: BIDI_TYPE = 7
 class BINARY_CONTAINER(EasyCastStructure):
     cbBuf: UInt32
     pData: POINTER(Byte)
-BidiRequest = Guid('b9162a23-45f9-47cc-80-f5-fe-0f-e9-b9-e1-a2')
-BidiRequestContainer = Guid('fc5b8a24-db05-4a01-83-88-22-ed-f6-c2-bb-ba')
-BidiSpl = Guid('2a614240-a4c5-4c33-bd-87-1b-c7-09-33-16-39')
+BidiRequest = Guid('{b9162a23-45f9-47cc-80f5-fe0fe9b9e1a2}')
+BidiRequestContainer = Guid('{fc5b8a24-db05-4a01-8388-22edf6c2bbba}')
+BidiSpl = Guid('{2a614240-a4c5-4c33-bd87-1bc709331639}')
 class BranchOfficeJobData(EasyCastStructure):
     eEventType: Windows.Win32.Graphics.Printing.EBranchOfficeJobEventType
     JobId: UInt32
@@ -2492,7 +2492,7 @@ class IAsyncGetSrvReferralCookie(ComPtr):
     def FinishAsyncCallWithData(self, param0: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IBidiAsyncNotifyChannel(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyChannel
-    _iid_ = Guid('532818f7-921b-4fb2-bf-f8-2f-4f-d5-2e-be-bf')
+    _iid_ = Guid('{532818f7-921b-4fb2-bff8-2f4fd52ebebf}')
     @commethod(5)
     def CreateNotificationChannel(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -2505,7 +2505,7 @@ class IBidiAsyncNotifyChannel(ComPtr):
     def AsyncCloseChannel(self, param0: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyDataObject_head, param1: Windows.Win32.Graphics.Printing.IPrintAsyncCookie_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IBidiRequest(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f348bd7-4b47-4755-8a-9d-0f-42-2d-f3-dc-89')
+    _iid_ = Guid('{8f348bd7-4b47-4755-8a9d-0f422df3dc89}')
     @commethod(3)
     def SetSchema(self, pszSchema: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2518,7 +2518,7 @@ class IBidiRequest(ComPtr):
     def GetEnumCount(self, pdwTotal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBidiRequestContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d752f6c0-94a8-4275-a7-7d-8f-1d-1a-11-21-ae')
+    _iid_ = Guid('{d752f6c0-94a8-4275-a77d-8f1d1a1121ae}')
     @commethod(3)
     def AddRequest(self, pRequest: Windows.Win32.Graphics.Printing.IBidiRequest_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2527,7 +2527,7 @@ class IBidiRequestContainer(ComPtr):
     def GetRequestCount(self, puCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBidiSpl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d580dc0e-de39-4649-ba-a8-bf-0b-85-a0-3a-97')
+    _iid_ = Guid('{d580dc0e-de39-4649-baa8-bf0b85a03a97}')
     @commethod(3)
     def BindDevice(self, pszDeviceName: Windows.Win32.Foundation.PWSTR, dwAccess: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2538,7 +2538,7 @@ class IBidiSpl(ComPtr):
     def MultiSendRecv(self, pszAction: Windows.Win32.Foundation.PWSTR, pRequestContainer: Windows.Win32.Graphics.Printing.IBidiRequestContainer_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IBidiSpl2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0e8f51b8-8273-4906-8e-7b-be-45-3f-fd-2e-2b')
+    _iid_ = Guid('{0e8f51b8-8273-4906-8e7b-be453ffd2e2b}')
     @commethod(3)
     def BindDevice(self, pszDeviceName: Windows.Win32.Foundation.PWSTR, dwAccess: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2549,7 +2549,7 @@ class IBidiSpl2(ComPtr):
     def SendRecvXMLStream(self, pSRequest: Windows.Win32.System.Com.IStream_head, ppSResponse: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFixedDocument(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f222ca9f-9968-4db9-81-bd-ab-ae-bf-15-f9-3f')
+    _iid_ = Guid('{f222ca9f-9968-4db9-81bd-abaebf15f93f}')
     @commethod(3)
     def GetUri(self, uri: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2558,7 +2558,7 @@ class IFixedDocument(ComPtr):
     def SetPrintTicket(self, pPrintTicket: Windows.Win32.Graphics.Printing.IPartPrintTicket_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFixedDocumentSequence(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8028d181-2c32-4249-84-93-1b-fb-22-04-55-74')
+    _iid_ = Guid('{8028d181-2c32-4249-8493-1bfb22045574}')
     @commethod(3)
     def GetUri(self, uri: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2567,7 +2567,7 @@ class IFixedDocumentSequence(ComPtr):
     def SetPrintTicket(self, pPrintTicket: Windows.Win32.Graphics.Printing.IPartPrintTicket_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFixedPage(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPartBase
-    _iid_ = Guid('3d9f6448-7e95-4cb5-94-fb-01-80-c2-88-3a-57')
+    _iid_ = Guid('{3d9f6448-7e95-4cb5-94fb-0180c2883a57}')
     @commethod(7)
     def GetPrintTicket(self, ppPrintTicket: POINTER(Windows.Win32.Graphics.Printing.IPartPrintTicket_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2584,12 +2584,12 @@ class IFixedPage(ComPtr):
     def GetXpsPartIterator(self, pXpsPartIt: POINTER(Windows.Win32.Graphics.Printing.IXpsPartIterator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IImgCreateErrorInfo(ComPtr):
     extends: Windows.Win32.System.Ole.ICreateErrorInfo
-    _iid_ = Guid('1c55a64c-07cd-4fb5-90-f7-b7-53-d9-1f-0c-9e')
+    _iid_ = Guid('{1c55a64c-07cd-4fb5-90f7-b753d91f0c9e}')
     @commethod(8)
     def AttachToErrorInfo(self, pErrorInfo: POINTER(Windows.Win32.Graphics.Printing.ImgErrorInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IImgErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IErrorInfo
-    _iid_ = Guid('2bce4ece-d30e-445a-94-23-68-29-be-94-5a-d8')
+    _iid_ = Guid('{2bce4ece-d30e-445a-9423-6829be945ad8}')
     @commethod(8)
     def GetDeveloperDescription(self, pbstrDevDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -2606,7 +2606,7 @@ class IImgErrorInfo(ComPtr):
     def DetachErrorInfo(self, pErrorInfo: POINTER(Windows.Win32.Graphics.Printing.ImgErrorInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInterFilterCommunicator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4daf1e69-81fd-462d-94-0f-8c-d3-dd-f5-6f-ca')
+    _iid_ = Guid('{4daf1e69-81fd-462d-940f-8cd3ddf56fca}')
     @commethod(3)
     def RequestReader(self, ppIReader: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2623,7 +2623,7 @@ class INVOC(EasyCastStructure):
     loOffset: UInt32
 class IPartBase(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('36d51e28-369e-43ba-a6-66-95-40-c6-2c-3f-58')
+    _iid_ = Guid('{36d51e28-369e-43ba-a666-9540c62c3f58}')
     @commethod(3)
     def GetUri(self, uri: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2634,15 +2634,15 @@ class IPartBase(ComPtr):
     def SetPartCompression(self, compression: Windows.Win32.Graphics.Printing.EXpsCompressionOptions) -> Windows.Win32.Foundation.HRESULT: ...
 class IPartColorProfile(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPartBase
-    _iid_ = Guid('63cca95b-7d18-4762-b1-5e-98-65-86-93-d2-4a')
+    _iid_ = Guid('{63cca95b-7d18-4762-b15e-98658693d24a}')
 class IPartDiscardControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cc350c00-095b-42a5-bf-0f-c8-78-0e-da-db-3c')
+    _iid_ = Guid('{cc350c00-095b-42a5-bf0f-c8780edadb3c}')
     @commethod(3)
     def GetDiscardProperties(self, uriSentinelPage: POINTER(Windows.Win32.Foundation.BSTR), uriPartToDiscard: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPartFont(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPartBase
-    _iid_ = Guid('e07fe0ab-1124-43d0-a8-65-e8-ff-b6-a3-ea-82')
+    _iid_ = Guid('{e07fe0ab-1124-43d0-a865-e8ffb6a3ea82}')
     @commethod(7)
     def GetFontProperties(self, pContentType: POINTER(Windows.Win32.Foundation.BSTR), pFontOptions: POINTER(Windows.Win32.Graphics.Printing.EXpsFontOptions)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2651,25 +2651,25 @@ class IPartFont(ComPtr):
     def SetFontOptions(self, options: Windows.Win32.Graphics.Printing.EXpsFontOptions) -> Windows.Win32.Foundation.HRESULT: ...
 class IPartFont2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPartFont
-    _iid_ = Guid('511e025f-d6cb-43be-bf-65-63-fe-88-51-5a-39')
+    _iid_ = Guid('{511e025f-d6cb-43be-bf65-63fe88515a39}')
     @commethod(10)
     def GetFontRestriction(self, pRestriction: POINTER(Windows.Win32.Graphics.Printing.EXpsFontRestriction)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPartImage(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPartBase
-    _iid_ = Guid('725f2e3c-401a-4705-9d-e0-fe-6f-13-53-b8-7f')
+    _iid_ = Guid('{725f2e3c-401a-4705-9de0-fe6f1353b87f}')
     @commethod(7)
     def GetImageProperties(self, pContentType: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetImageContent(self, pContentType: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IPartPrintTicket(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPartBase
-    _iid_ = Guid('4a0f50f6-f9a2-41f0-99-e7-5a-e9-55-be-8e-9e')
+    _iid_ = Guid('{4a0f50f6-f9a2-41f0-99e7-5ae955be8e9e}')
 class IPartResourceDictionary(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPartBase
-    _iid_ = Guid('16cfce6d-e744-4fb3-b4-74-f1-d5-4f-02-4a-01')
+    _iid_ = Guid('{16cfce6d-e744-4fb3-b474-f1d54f024a01}')
 class IPartThumbnail(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPartBase
-    _iid_ = Guid('027ed1c9-ba39-4cc5-aa-55-7e-c3-a0-de-17-1a')
+    _iid_ = Guid('{027ed1c9-ba39-4cc5-aa55-7ec3a0de171a}')
     @commethod(7)
     def GetThumbnailProperties(self, pContentType: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2686,35 +2686,35 @@ class IPrintAsyncNewChannelCookie(ComPtr):
     def FinishAsyncCallWithData(self, param0: POINTER(Windows.Win32.Graphics.Printing.IPrintAsyncNotifyChannel_head), param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintAsyncNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('532818f7-921b-4fb2-bf-f8-2f-4f-d5-2e-be-bf')
+    _iid_ = Guid('{532818f7-921b-4fb2-bff8-2f4fd52ebebf}')
     @commethod(3)
     def CreatePrintAsyncNotifyChannel(self, param0: UInt32, param1: POINTER(Guid), param2: Windows.Win32.Graphics.Printing.PrintAsyncNotifyUserFilter, param3: Windows.Win32.Graphics.Printing.PrintAsyncNotifyConversationStyle, param4: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyCallback_head, param5: POINTER(Windows.Win32.Graphics.Printing.IPrintAsyncNotifyChannel_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreatePrintAsyncNotifyRegistration(self, param0: POINTER(Guid), param1: Windows.Win32.Graphics.Printing.PrintAsyncNotifyUserFilter, param2: Windows.Win32.Graphics.Printing.PrintAsyncNotifyConversationStyle, param3: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyCallback_head, param4: POINTER(Windows.Win32.Graphics.Printing.IPrintAsyncNotifyRegistration_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintAsyncNotifyCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7def34c1-9d92-4c99-b3-b3-db-94-a9-d4-19-1b')
+    _iid_ = Guid('{7def34c1-9d92-4c99-b3b3-db94a9d4191b}')
     @commethod(3)
     def OnEventNotify(self, pChannel: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyChannel_head, pData: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ChannelClosed(self, pChannel: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyChannel_head, pData: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintAsyncNotifyChannel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4a5031b1-1f3f-4db0-a4-62-45-30-ed-8b-04-51')
+    _iid_ = Guid('{4a5031b1-1f3f-4db0-a462-4530ed8b0451}')
     @commethod(3)
     def SendNotification(self, pData: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CloseChannel(self, pData: Windows.Win32.Graphics.Printing.IPrintAsyncNotifyDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintAsyncNotifyDataObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('77cf513e-5d49-4789-9f-30-d0-82-2b-33-5c-0d')
+    _iid_ = Guid('{77cf513e-5d49-4789-9f30-d0822b335c0d}')
     @commethod(3)
     def AcquireData(self, ppNotificationData: POINTER(POINTER(Byte)), pSize: POINTER(UInt32), ppSchema: POINTER(POINTER(Guid))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseData(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintAsyncNotifyRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0f6f27b6-6f86-4591-92-03-64-c3-bf-ad-ed-fe')
+    _iid_ = Guid('{0f6f27b6-6f86-4591-9203-64c3bfadedfe}')
     @commethod(3)
     def RegisterForNotifications(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2733,12 +2733,12 @@ class IPrintBidiAsyncNotifyRegistration(ComPtr):
     def AsyncGetNewChannel(self, param0: Windows.Win32.Graphics.Printing.IPrintAsyncNewChannelCookie_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintClassObjectFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9af593dd-9b02-48a8-9b-ad-69-ac-e4-23-f8-8b')
+    _iid_ = Guid('{9af593dd-9b02-48a8-9bad-69ace423f88b}')
     @commethod(3)
     def GetPrintClassObject(self, pszPrinterName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppNewObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintCoreHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a89ec53e-3905-49c6-9c-1a-c0-a8-81-17-fd-b6')
+    _iid_ = Guid('{a89ec53e-3905-49c6-9c1a-c0a88117fdb6}')
     @commethod(3)
     def GetOption(self, pDevmode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head), cbSize: UInt32, pszFeatureRequested: Windows.Win32.Foundation.PSTR, ppszOption: POINTER(Windows.Win32.Foundation.PSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2759,7 +2759,7 @@ class IPrintCoreHelper(ComPtr):
     def CreateInstanceOfMSXMLObject(self, rclsid: POINTER(Guid), pUnkOuter: Windows.Win32.System.Com.IUnknown_head, dwClsContext: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintCoreHelperPS(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintCoreHelper
-    _iid_ = Guid('c2c14f6f-95d3-4d63-96-cf-6b-d9-e6-c9-07-c2')
+    _iid_ = Guid('{c2c14f6f-95d3-4d63-96cf-6bd9e6c907c2}')
     @commethod(12)
     def GetGlobalAttribute(self, pszAttribute: Windows.Win32.Foundation.PSTR, pdwDataType: POINTER(UInt32), ppbData: POINTER(POINTER(Byte)), pcbSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -2768,19 +2768,19 @@ class IPrintCoreHelperPS(ComPtr):
     def GetOptionAttribute(self, pszFeatureKeyword: Windows.Win32.Foundation.PSTR, pszOptionKeyword: Windows.Win32.Foundation.PSTR, pszAttribute: Windows.Win32.Foundation.PSTR, pdwDataType: POINTER(UInt32), ppbData: POINTER(POINTER(Byte)), pcbSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintCoreHelperUni(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintCoreHelper
-    _iid_ = Guid('7e8e51d6-e5ee-4426-81-7b-95-8b-94-44-eb-79')
+    _iid_ = Guid('{7e8e51d6-e5ee-4426-817b-958b9444eb79}')
     @commethod(12)
     def CreateGDLSnapshot(self, pDevmode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head), cbSize: UInt32, dwFlags: UInt32, ppSnapshotStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def CreateDefaultGDLSnapshot(self, dwFlags: UInt32, ppSnapshotStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintCoreHelperUni2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintCoreHelperUni
-    _iid_ = Guid('6c8afdfc-ead0-4d2d-80-71-9b-f0-17-5a-6c-3a')
+    _iid_ = Guid('{6c8afdfc-ead0-4d2d-8071-9bf0175a6c3a}')
     @commethod(14)
     def GetNamedCommand(self, pDevmode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head), cbSize: UInt32, pszCommandName: Windows.Win32.Foundation.PWSTR, ppCommandBytes: POINTER(POINTER(Byte)), pcbCommandSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintCoreUI2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintOemDriverUI
-    _iid_ = Guid('085ccfca-3adf-4c9e-b4-91-d8-51-a6-ed-c9-97')
+    _iid_ = Guid('{085ccfca-3adf-4c9e-b491-d851a6edc997}')
     @commethod(6)
     def GetOptions(self, poemuiobj: POINTER(Windows.Win32.Graphics.Printing.OEMUIOBJ_head), dwFlags: UInt32, pmszFeaturesRequested: POINTER(SByte), cbIn: UInt32, pmszFeatureOptionBuf: Windows.Win32.Foundation.PSTR, cbSize: UInt32, pcbNeeded: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2803,7 +2803,7 @@ class IPrintCoreUI2(ComPtr):
     def QuerySimulationSupport(self, hPrinter: Windows.Win32.Foundation.HANDLE, dwLevel: UInt32, pCaps: POINTER(Byte), cbSize: UInt32, pcbNeeded: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintJob(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b771dab8-1282-41b7-85-8c-f2-06-e4-d2-05-77')
+    _iid_ = Guid('{b771dab8-1282-41b7-858c-f206e4d20577}')
     @commethod(3)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2820,7 +2820,7 @@ class IPrintJob(ComPtr):
     def RequestCancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintJobCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('72b82a24-a598-4e87-89-5f-cd-b2-3a-49-e9-dc')
+    _iid_ = Guid('{72b82a24-a598-4e87-895f-cdb23a49e9dc}')
     @commethod(7)
     def get_Count(self, pulCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2829,14 +2829,14 @@ class IPrintJobCollection(ComPtr):
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintOemCommon(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7f42285e-91d5-11d1-88-20-00-c0-4f-b9-61-ec')
+    _iid_ = Guid('{7f42285e-91d5-11d1-8820-00c04fb961ec}')
     @commethod(3)
     def GetInfo(self, dwMode: UInt32, pBuffer: c_void_p, cbSize: UInt32, pcbNeeded: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DevMode(self, dwMode: UInt32, pOemDMParam: POINTER(Windows.Win32.Graphics.Printing.OEMDMPARAM_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintOemDriverUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('92b05d50-78bc-11d1-94-80-00-a0-c9-06-40-b8')
+    _iid_ = Guid('{92b05d50-78bc-11d1-9480-00a0c90640b8}')
     @commethod(3)
     def DrvGetDriverSetting(self, pci: c_void_p, Feature: Windows.Win32.Foundation.PSTR, pOutput: c_void_p, cbSize: UInt32, pcbNeeded: POINTER(UInt32), pdwOptionsReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2845,7 +2845,7 @@ class IPrintOemDriverUI(ComPtr):
     def DrvUpdateUISetting(self, pci: c_void_p, pOptItem: c_void_p, dwPreviousSelection: UInt32, dwMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintOemUI(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintOemCommon
-    _iid_ = Guid('c6a7a9d0-774c-11d1-94-7f-00-a0-c9-06-40-b8')
+    _iid_ = Guid('{c6a7a9d0-774c-11d1-947f-00a0c90640b8}')
     @commethod(5)
     def PublishDriverInterface(self, pIUnknown: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -2872,7 +2872,7 @@ class IPrintOemUI(ComPtr):
     def UpdateExternalFonts(self, hPrinter: Windows.Win32.Foundation.HANDLE, hHeap: Windows.Win32.Foundation.HANDLE, pwstrCartridges: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintOemUI2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintOemUI
-    _iid_ = Guid('292515f9-b54b-489b-92-75-ba-b5-68-21-39-5e')
+    _iid_ = Guid('{292515f9-b54b-489b-9275-bab56821395e}')
     @commethod(17)
     def QueryJobAttributes(self, hPrinter: Windows.Win32.Foundation.HANDLE, pDevmode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head), dwLevel: UInt32, lpAttributeInfo: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -2881,7 +2881,7 @@ class IPrintOemUI2(ComPtr):
     def DocumentEvent(self, hPrinter: Windows.Win32.Foundation.HANDLE, hdc: Windows.Win32.Graphics.Gdi.HDC, iEsc: Int32, cbIn: UInt32, pvIn: c_void_p, cbOut: UInt32, pvOut: c_void_p, piResult: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintOemUIMXDC(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7349d725-e2c1-4dca-af-b5-c1-3e-91-bc-93-06')
+    _iid_ = Guid('{7349d725-e2c1-4dca-afb5-c13e91bc9306}')
     @commethod(3)
     def AdjustImageableArea(self, hPrinter: Windows.Win32.Foundation.HANDLE, cbDevMode: UInt32, pDevMode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head), cbOEMDM: UInt32, pOEMDM: c_void_p, prclImageableArea: POINTER(Windows.Win32.Foundation.RECTL_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2890,7 +2890,7 @@ class IPrintOemUIMXDC(ComPtr):
     def AdjustDPI(self, hPrinter: Windows.Win32.Foundation.HANDLE, cbDevMode: UInt32, pDevMode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head), cbOEMDM: UInt32, pOEMDM: c_void_p, pDPI: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintPipelineFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cdb62fc0-8bed-434e-86-fb-a2-ca-e5-5f-19-ea')
+    _iid_ = Guid('{cdb62fc0-8bed-434e-86fb-a2cae55f19ea}')
     @commethod(3)
     def InitializeFilter(self, pINegotiation: Windows.Win32.Graphics.Printing.IInterFilterCommunicator_head, pIPropertyBag: Windows.Win32.Graphics.Printing.IPrintPipelinePropertyBag_head, pIPipelineControl: Windows.Win32.Graphics.Printing.IPrintPipelineManagerControl_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2899,19 +2899,19 @@ class IPrintPipelineFilter(ComPtr):
     def StartOperation(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintPipelineManagerControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('aa3e4910-5889-4681-91-ef-82-3a-d4-ed-4e-44')
+    _iid_ = Guid('{aa3e4910-5889-4681-91ef-823ad4ed4e44}')
     @commethod(3)
     def RequestShutdown(self, hrReason: Windows.Win32.Foundation.HRESULT, pReason: Windows.Win32.Graphics.Printing.IImgErrorInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FilterFinished(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintPipelineProgressReport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('edc12c7c-ed40-4ea5-96-a6-5e-43-97-49-7a-61')
+    _iid_ = Guid('{edc12c7c-ed40-4ea5-96a6-5e4397497a61}')
     @commethod(3)
     def ReportProgress(self, update: Windows.Win32.Graphics.Printing.EXpsJobConsumption) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintPipelinePropertyBag(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8b8c99dc-7892-4a95-8a-04-57-42-2e-9f-bb-47')
+    _iid_ = Guid('{8b8c99dc-7892-4a95-8a04-57422e9fbb47}')
     @commethod(3)
     def AddProperty(self, pszName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2920,7 +2920,7 @@ class IPrintPipelinePropertyBag(ComPtr):
     def DeleteProperty(self, pszName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
 class IPrintPreviewDxgiPackageTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1a6dd0ad-1e2a-4e99-a5-ba-91-f1-78-18-29-0e')
+    _iid_ = Guid('{1a6dd0ad-1e2a-4e99-a5ba-91f17818290e}')
     @commethod(3)
     def SetJobPageCount(self, countType: Windows.Win32.Graphics.Printing.PageCountType, count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2929,31 +2929,31 @@ class IPrintPreviewDxgiPackageTarget(ComPtr):
     def InvalidatePreview(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintReadStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4d47a67c-66cc-4430-85-0e-da-f4-66-fe-5b-c4')
+    _iid_ = Guid('{4d47a67c-66cc-4430-850e-daf466fe5bc4}')
     @commethod(3)
     def Seek(self, dlibMove: Int64, dwOrigin: UInt32, plibNewPosition: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReadBytes(self, pvBuffer: c_void_p, cbRequested: UInt32, pcbRead: POINTER(UInt32), pbEndOfFile: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintReadStreamFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('acb971e3-df8d-4fc2-be-e6-06-09-d1-5f-3c-f9')
+    _iid_ = Guid('{acb971e3-df8d-4fc2-bee6-0609d15f3cf9}')
     @commethod(3)
     def GetStream(self, ppStream: POINTER(Windows.Win32.Graphics.Printing.IPrintReadStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaAsyncOperation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('143c8dcb-d37f-47f7-88-e8-6b-1d-21-f2-c5-f7')
+    _iid_ = Guid('{143c8dcb-d37f-47f7-88e8-6b1d21f2c5f7}')
     @commethod(7)
     def Start(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaAsyncOperationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('23adbb16-0133-4906-b2-9a-1d-ce-1d-02-63-79')
+    _iid_ = Guid('{23adbb16-0133-4906-b29a-1dce1d026379}')
     @commethod(7)
     def Completed(self, pTicket: Windows.Win32.Graphics.Printing.IPrintSchemaTicket_head, hrOperation: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaCapabilities(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaElement
-    _iid_ = Guid('5a577640-501d-4927-bc-d0-5e-f5-7a-7e-d1-75')
+    _iid_ = Guid('{5a577640-501d-4927-bcd0-5ef57a7ed175}')
     @commethod(10)
     def GetFeatureByKeyName(self, bstrKeyName: Windows.Win32.Foundation.BSTR, ppFeature: POINTER(Windows.Win32.Graphics.Printing.IPrintSchemaFeature_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -2970,17 +2970,17 @@ class IPrintSchemaCapabilities(ComPtr):
     def GetOptions(self, pFeature: Windows.Win32.Graphics.Printing.IPrintSchemaFeature_head, ppOptionCollection: POINTER(Windows.Win32.Graphics.Printing.IPrintSchemaOptionCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaCapabilities2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaCapabilities
-    _iid_ = Guid('b58845f4-9970-4d87-a6-36-16-9f-b8-2e-d6-42')
+    _iid_ = Guid('{b58845f4-9970-4d87-a636-169fb82ed642}')
     @commethod(17)
     def GetParameterDefinition(self, bstrName: Windows.Win32.Foundation.BSTR, bstrNamespaceUri: Windows.Win32.Foundation.BSTR, ppParameterDefinition: POINTER(Windows.Win32.Graphics.Printing.IPrintSchemaParameterDefinition_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaDisplayableElement(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaElement
-    _iid_ = Guid('af45af49-d6aa-407d-bf-87-39-12-23-6e-9d-94')
+    _iid_ = Guid('{af45af49-d6aa-407d-bf87-3912236e9d94}')
     @commethod(10)
     def get_DisplayName(self, pbstrDisplayName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('724c1646-e64b-4bbf-8e-b4-d4-5e-4f-d5-80-da')
+    _iid_ = Guid('{724c1646-e64b-4bbf-8eb4-d45e4fd580da}')
     @commethod(7)
     def get_XmlNode(self, ppXmlNode: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2989,7 +2989,7 @@ class IPrintSchemaElement(ComPtr):
     def get_NamespaceUri(self, pbstrNamespaceUri: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaFeature(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaDisplayableElement
-    _iid_ = Guid('ef189461-5d62-4626-8e-57-ff-83-58-3c-48-26')
+    _iid_ = Guid('{ef189461-5d62-4626-8e57-ff83583c4826}')
     @commethod(11)
     def get_SelectedOption(self, ppOption: POINTER(Windows.Win32.Graphics.Printing.IPrintSchemaOption_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -3002,12 +3002,12 @@ class IPrintSchemaFeature(ComPtr):
     def get_DisplayUI(self, pbShow: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaNUpOption(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaOption
-    _iid_ = Guid('1f6342f2-d848-42e3-89-95-c1-0a-9e-f9-a3-ba')
+    _iid_ = Guid('{1f6342f2-d848-42e3-8995-c10a9ef9a3ba}')
     @commethod(14)
     def get_PagesPerSheet(self, pulPagesPerSheet: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaOption(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaDisplayableElement
-    _iid_ = Guid('66bb2f51-5844-4997-8d-70-4b-7c-c2-21-cf-92')
+    _iid_ = Guid('{66bb2f51-5844-4997-8d70-4b7cc221cf92}')
     @commethod(11)
     def get_Selected(self, pbIsSelected: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -3016,7 +3016,7 @@ class IPrintSchemaOption(ComPtr):
     def GetPropertyValue(self, bstrName: Windows.Win32.Foundation.BSTR, bstrNamespaceUri: Windows.Win32.Foundation.BSTR, ppXmlValueNode: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaOptionCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('baecb0bd-a946-4771-bc-30-e8-b2-4f-8d-45-c1')
+    _iid_ = Guid('{baecb0bd-a946-4771-bc30-e8b24f8d45c1}')
     @commethod(7)
     def get_Count(self, pulCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3025,7 +3025,7 @@ class IPrintSchemaOptionCollection(ComPtr):
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaPageImageableSize(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaElement
-    _iid_ = Guid('7c85bf5e-dc7c-4f61-83-9b-41-07-e1-c9-b6-8e')
+    _iid_ = Guid('{7c85bf5e-dc7c-4f61-839b-4107e1c9b68e}')
     @commethod(10)
     def get_ImageableSizeWidthInMicrons(self, pulImageableSizeWidth: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -3040,14 +3040,14 @@ class IPrintSchemaPageImageableSize(ComPtr):
     def get_ExtentHeightInMicrons(self, pulExtentHeight: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaPageMediaSizeOption(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaOption
-    _iid_ = Guid('68746729-f493-4830-a1-0f-69-02-87-74-60-5d')
+    _iid_ = Guid('{68746729-f493-4830-a10f-69028774605d}')
     @commethod(14)
     def get_WidthInMicrons(self, pulWidth: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_HeightInMicrons(self, pulHeight: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaParameterDefinition(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaDisplayableElement
-    _iid_ = Guid('b5ade81e-0e61-4fe1-81-c6-c3-33-e4-ff-e0-f1')
+    _iid_ = Guid('{b5ade81e-0e61-4fe1-81c6-c333e4ffe0f1}')
     @commethod(11)
     def get_UserInputRequired(self, pbIsRequired: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -3060,14 +3060,14 @@ class IPrintSchemaParameterDefinition(ComPtr):
     def get_RangeMax(self, pRangeMax: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaParameterInitializer(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaElement
-    _iid_ = Guid('52027082-0b74-4648-95-64-82-8c-c6-cb-65-6c')
+    _iid_ = Guid('{52027082-0b74-4648-9564-828cc6cb656c}')
     @commethod(10)
     def get_Value(self, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def put_Value(self, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaTicket(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaElement
-    _iid_ = Guid('e480b861-4708-4e6d-a5-b4-a2-b4-ee-b9-ba-a4')
+    _iid_ = Guid('{e480b861-4708-4e6d-a5b4-a2b4eeb9baa4}')
     @commethod(10)
     def GetFeatureByKeyName(self, bstrKeyName: Windows.Win32.Foundation.BSTR, ppFeature: POINTER(Windows.Win32.Graphics.Printing.IPrintSchemaFeature_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -3086,12 +3086,12 @@ class IPrintSchemaTicket(ComPtr):
     def put_JobCopiesAllDocuments(self, ulJobCopiesAllDocuments: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaTicket2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaTicket
-    _iid_ = Guid('2ec1f844-766a-47a1-91-f4-2e-eb-61-90-f8-0c')
+    _iid_ = Guid('{2ec1f844-766a-47a1-91f4-2eeb6190f80c}')
     @commethod(18)
     def GetParameterInitializer(self, bstrName: Windows.Win32.Foundation.BSTR, bstrNamespaceUri: Windows.Win32.Foundation.BSTR, ppParameterInitializer: POINTER(Windows.Win32.Graphics.Printing.IPrintSchemaParameterInitializer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintTicketProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bb5116db-0a23-4c3a-a6-b6-89-e5-55-8d-fb-5d')
+    _iid_ = Guid('{bb5116db-0a23-4c3a-a6b6-89e5558dfb5d}')
     @commethod(3)
     def GetSupportedVersions(self, hPrinter: Windows.Win32.Foundation.HANDLE, ppVersions: POINTER(POINTER(Int32)), cVersions: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3108,7 +3108,7 @@ class IPrintTicketProvider(ComPtr):
     def ValidatePrintTicket(self, pBaseTicket: Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument2_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintTicketProvider2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrintTicketProvider
-    _iid_ = Guid('b8a70ab2-3dfc-4fec-a0-74-51-1b-13-c6-51-cb')
+    _iid_ = Guid('{b8a70ab2-3dfc-4fec-a074-511b13c651cb}')
     @commethod(10)
     def GetPrintDeviceCapabilities(self, pPrintTicket: Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument2_head, ppDeviceCapabilities: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -3119,29 +3119,29 @@ class IPrintUnidiAsyncNotifyRegistration(ComPtr):
     def AsyncGetNotification(self, param0: Windows.Win32.Graphics.Printing.IAsyncGetSendNotificationCookie_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintWriteStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('65bb7f1b-371e-4571-8a-c7-91-2f-51-0c-1a-38')
+    _iid_ = Guid('{65bb7f1b-371e-4571-8ac7-912f510c1a38}')
     @commethod(3)
     def WriteBytes(self, pvBuffer: c_void_p, cbBuffer: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self) -> Void: ...
 class IPrintWriteStreamFlush(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('07d11ff8-1753-4873-b7-49-6c-da-f0-68-e4-c3')
+    _iid_ = Guid('{07d11ff8-1753-4873-b749-6cdaf068e4c3}')
     @commethod(3)
     def FlushData(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterBidiSetRequestCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c52d32dd-f2b4-4052-85-02-ec-43-05-ec-b7-1f')
+    _iid_ = Guid('{c52d32dd-f2b4-4052-8502-ec4305ecb71f}')
     @commethod(3)
     def Completed(self, bstrResponse: Windows.Win32.Foundation.BSTR, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterExtensionAsyncOperation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('108d6a23-6a4b-4552-94-48-68-b4-27-18-6a-cd')
+    _iid_ = Guid('{108d6a23-6a4b-4552-9448-68b427186acd}')
     @commethod(3)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterExtensionContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('39843bf2-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
+    _iid_ = Guid('{39843bf2-c4d2-41fd-b4b2-aedbee5e1900}')
     @commethod(7)
     def get_PrinterQueue(self, ppQueue: POINTER(Windows.Win32.Graphics.Printing.IPrinterQueue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3152,7 +3152,7 @@ class IPrinterExtensionContext(ComPtr):
     def get_UserProperties(self, ppPropertyBag: POINTER(Windows.Win32.Graphics.Printing.IPrinterPropertyBag_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterExtensionContextCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('fb476970-9bab-4861-81-1e-3e-98-b0-c5-ad-df')
+    _iid_ = Guid('{fb476970-9bab-4861-811e-3e98b0c5addf}')
     @commethod(7)
     def get_Count(self, pulCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3161,14 +3161,14 @@ class IPrinterExtensionContextCollection(ComPtr):
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterExtensionEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('c093cb63-5ef5-4585-af-8e-4d-56-37-48-7b-57')
+    _iid_ = Guid('{c093cb63-5ef5-4585-af8e-4d5637487b57}')
     @commethod(7)
     def OnDriverEvent(self, pEventArgs: Windows.Win32.Graphics.Printing.IPrinterExtensionEventArgs_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def OnPrinterQueuesEnumerated(self, pContextCollection: Windows.Win32.Graphics.Printing.IPrinterExtensionContextCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterExtensionEventArgs(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrinterExtensionContext
-    _iid_ = Guid('39843bf4-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
+    _iid_ = Guid('{39843bf4-c4d2-41fd-b4b2-aedbee5e1900}')
     @commethod(11)
     def get_BidiNotification(self, pbstrBidiNotification: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -3185,21 +3185,21 @@ class IPrinterExtensionEventArgs(ComPtr):
     def get_WindowParent(self, phwndParent: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterExtensionManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('93c6eb8c-b001-4355-96-29-8e-8a-1b-3f-8e-77')
+    _iid_ = Guid('{93c6eb8c-b001-4355-9629-8e8a1b3f8e77}')
     @commethod(3)
     def EnableEvents(self, printerDriverId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DisableEvents(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterExtensionRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('39843bf3-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
+    _iid_ = Guid('{39843bf3-c4d2-41fd-b4b2-aedbee5e1900}')
     @commethod(7)
     def Cancel(self, hrStatus: Windows.Win32.Foundation.HRESULT, bstrLogMessage: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Complete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterPropertyBag(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('fea77364-df95-4a23-a9-05-01-9b-79-a8-e4-81')
+    _iid_ = Guid('{fea77364-df95-4a23-a905-019b79a8e481}')
     @commethod(7)
     def GetBool(self, bstrName: Windows.Win32.Foundation.BSTR, pbValue: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3222,7 +3222,7 @@ class IPrinterPropertyBag(ComPtr):
     def GetWriteStream(self, bstrName: Windows.Win32.Foundation.BSTR, ppValue: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterQueue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3580a828-07fe-4b94-ac-1a-75-7d-9d-2d-30-56')
+    _iid_ = Guid('{3580a828-07fe-4b94-ac1a-757d9d2d3056}')
     @commethod(7)
     def get_Handle(self, phPrinter: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3233,29 +3233,29 @@ class IPrinterQueue(ComPtr):
     def GetProperties(self, ppPropertyBag: POINTER(Windows.Win32.Graphics.Printing.IPrinterPropertyBag_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterQueue2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrinterQueue
-    _iid_ = Guid('8cd444e8-c9bb-49b3-8e-38-e0-32-09-41-61-31')
+    _iid_ = Guid('{8cd444e8-c9bb-49b3-8e38-e03209416131}')
     @commethod(11)
     def SendBidiSetRequestAsync(self, bstrBidiRequest: Windows.Win32.Foundation.BSTR, pCallback: Windows.Win32.Graphics.Printing.IPrinterBidiSetRequestCallback_head, ppAsyncOperation: POINTER(Windows.Win32.Graphics.Printing.IPrinterExtensionAsyncOperation_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetPrinterQueueView(self, ulViewOffset: UInt32, ulViewSize: UInt32, ppJobView: POINTER(Windows.Win32.Graphics.Printing.IPrinterQueueView_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterQueueEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('214685f6-7b78-4681-87-e0-49-5f-73-92-73-d1')
+    _iid_ = Guid('{214685f6-7b78-4681-87e0-495f739273d1}')
     @commethod(7)
     def OnBidiResponseReceived(self, bstrResponse: Windows.Win32.Foundation.BSTR, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterQueueView(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('476e2969-3b2b-4b3f-82-77-cf-f6-05-60-42-aa')
+    _iid_ = Guid('{476e2969-3b2b-4b3f-8277-cff6056042aa}')
     @commethod(7)
     def SetViewRange(self, ulViewOffset: UInt32, ulViewSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterQueueViewEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('c5b6042b-fd21-404a-a0-ef-e2-fb-b5-2b-90-80')
+    _iid_ = Guid('{c5b6042b-fd21-404a-a0ef-e2fbb52b9080}')
     @commethod(7)
     def OnChanged(self, pCollection: Windows.Win32.Graphics.Printing.IPrintJobCollection_head, ulViewOffset: UInt32, ulViewSize: UInt32, ulCountJobsInPrintQueue: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterScriptContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('066acbca-8881-49c9-bb-98-fa-e1-6b-48-89-e1')
+    _iid_ = Guid('{066acbca-8881-49c9-bb98-fae16b4889e1}')
     @commethod(7)
     def get_DriverProperties(self, ppPropertyBag: POINTER(Windows.Win32.Graphics.Printing.IPrinterScriptablePropertyBag_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3264,7 +3264,7 @@ class IPrinterScriptContext(ComPtr):
     def get_UserProperties(self, ppPropertyBag: POINTER(Windows.Win32.Graphics.Printing.IPrinterScriptablePropertyBag_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterScriptablePropertyBag(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('91c7765f-ed57-49ad-8b-01-dc-24-81-6a-52-94')
+    _iid_ = Guid('{91c7765f-ed57-49ad-8b01-dc24816a5294}')
     @commethod(7)
     def GetBool(self, bstrName: Windows.Win32.Foundation.BSTR, pbValue: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3287,19 +3287,19 @@ class IPrinterScriptablePropertyBag(ComPtr):
     def GetWriteStream(self, bstrName: Windows.Win32.Foundation.BSTR, ppStream: POINTER(Windows.Win32.Graphics.Printing.IPrinterScriptableStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterScriptablePropertyBag2(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrinterScriptablePropertyBag
-    _iid_ = Guid('2a1c53c4-8638-4b3e-b5-18-27-73-c9-45-56-a3')
+    _iid_ = Guid('{2a1c53c4-8638-4b3e-b518-2773c94556a3}')
     @commethod(17)
     def GetReadStreamAsXML(self, bstrName: Windows.Win32.Foundation.BSTR, ppXmlNode: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterScriptableSequentialStream(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('2072838a-316f-467a-a9-49-27-f6-8c-44-a8-54')
+    _iid_ = Guid('{2072838a-316f-467a-a949-27f68c44a854}')
     @commethod(7)
     def Read(self, cbRead: Int32, ppArray: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Write(self, pArray: Windows.Win32.System.Com.IDispatch_head, pcbWritten: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinterScriptableStream(ComPtr):
     extends: Windows.Win32.Graphics.Printing.IPrinterScriptableSequentialStream
-    _iid_ = Guid('7edf9a92-4750-41a5-a1-7f-87-9a-6f-4f-7d-cb')
+    _iid_ = Guid('{7edf9a92-4750-41a5-a17f-879a6f4f7dcb}')
     @commethod(9)
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -3308,14 +3308,14 @@ class IPrinterScriptableStream(ComPtr):
     def SetSize(self, lSize: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsDocument(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e8d907db-62a9-4a95-ab-e7-e0-17-63-dd-30-f8')
+    _iid_ = Guid('{e8d907db-62a9-4a95-abe7-e01763dd30f8}')
     @commethod(3)
     def GetThumbnail(self, ppThumbnail: POINTER(Windows.Win32.Graphics.Printing.IPartThumbnail_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetThumbnail(self, pThumbnail: Windows.Win32.Graphics.Printing.IPartThumbnail_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsDocumentConsumer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4368d8a2-4181-4a9f-b2-95-3d-9a-38-bb-9b-a0')
+    _iid_ = Guid('{4368d8a2-4181-4a9f-b295-3d9a38bb9ba0}')
     @commethod(3)
     def SendXpsUnknown(self, pUnknown: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3332,12 +3332,12 @@ class IXpsDocumentConsumer(ComPtr):
     def GetNewEmptyPart(self, uri: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppNewObject: POINTER(c_void_p), ppWriteStream: POINTER(Windows.Win32.Graphics.Printing.IPrintWriteStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsDocumentProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b8cf8530-5562-47c4-ab-67-b1-f6-9e-cf-96-1e')
+    _iid_ = Guid('{b8cf8530-5562-47c4-ab67-b1f69ecf961e}')
     @commethod(3)
     def GetXpsPart(self, ppIXpsPart: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsPartIterator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0021d3cd-af6f-42ab-99-99-14-bc-82-a6-2d-2e')
+    _iid_ = Guid('{0021d3cd-af6f-42ab-9999-14bc82a62d2e}')
     @commethod(3)
     def Reset(self) -> Void: ...
     @commethod(4)
@@ -3348,29 +3348,29 @@ class IXpsPartIterator(ComPtr):
     def Next(self) -> Void: ...
 class IXpsRasterizationFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e094808a-24c6-482b-a3-a7-c2-1a-c9-b5-5f-17')
+    _iid_ = Guid('{e094808a-24c6-482b-a3a7-c21ac9b55f17}')
     @commethod(3)
     def CreateRasterizer(self, xpsPage: Windows.Win32.Storage.Xps.IXpsOMPage_head, DPI: Single, nonTextRenderingMode: Windows.Win32.Graphics.Printing.XPSRAS_RENDERING_MODE, textRenderingMode: Windows.Win32.Graphics.Printing.XPSRAS_RENDERING_MODE, ppIXPSRasterizer: POINTER(Windows.Win32.Graphics.Printing.IXpsRasterizer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsRasterizationFactory1(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2d6e5f77-6414-4a1e-a8-e0-d4-19-4c-e6-a2-6f')
+    _iid_ = Guid('{2d6e5f77-6414-4a1e-a8e0-d4194ce6a26f}')
     @commethod(3)
     def CreateRasterizer(self, xpsPage: Windows.Win32.Storage.Xps.IXpsOMPage_head, DPI: Single, nonTextRenderingMode: Windows.Win32.Graphics.Printing.XPSRAS_RENDERING_MODE, textRenderingMode: Windows.Win32.Graphics.Printing.XPSRAS_RENDERING_MODE, pixelFormat: Windows.Win32.Graphics.Printing.XPSRAS_PIXEL_FORMAT, ppIXPSRasterizer: POINTER(Windows.Win32.Graphics.Printing.IXpsRasterizer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsRasterizationFactory2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9c16ce3e-10f5-41fd-9d-dc-68-26-66-9c-2f-f6')
+    _iid_ = Guid('{9c16ce3e-10f5-41fd-9ddc-6826669c2ff6}')
     @commethod(3)
     def CreateRasterizer(self, xpsPage: Windows.Win32.Storage.Xps.IXpsOMPage_head, DPIX: Single, DPIY: Single, nonTextRenderingMode: Windows.Win32.Graphics.Printing.XPSRAS_RENDERING_MODE, textRenderingMode: Windows.Win32.Graphics.Printing.XPSRAS_RENDERING_MODE, pixelFormat: Windows.Win32.Graphics.Printing.XPSRAS_PIXEL_FORMAT, backgroundColor: Windows.Win32.Graphics.Printing.XPSRAS_BACKGROUND_COLOR, ppIXpsRasterizer: POINTER(Windows.Win32.Graphics.Printing.IXpsRasterizer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsRasterizer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7567cfc8-c156-47a8-9d-ac-11-a2-ae-5b-dd-6b')
+    _iid_ = Guid('{7567cfc8-c156-47a8-9dac-11a2ae5bdd6b}')
     @commethod(3)
     def RasterizeRect(self, x: Int32, y: Int32, width: Int32, height: Int32, notificationCallback: Windows.Win32.Graphics.Printing.IXpsRasterizerNotificationCallback_head, bitmap: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmap_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetMinimalLineWidth(self, width: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsRasterizerNotificationCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9ab8fd0d-cb94-49c2-9c-b0-97-ec-1d-54-69-d2')
+    _iid_ = Guid('{9ab8fd0d-cb94-49c2-9cb0-97ec1d5469d2}')
     @commethod(3)
     def Continue(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ImgErrorInfo(EasyCastStructure):
@@ -4452,7 +4452,7 @@ class PrintPropertyValue(EasyCastStructure):
         class _propertyBlob_e__Struct(EasyCastStructure):
             cbBuf: UInt32
             pBuf: c_void_p
-PrintSchemaAsyncOperation = Guid('43b2f83d-10f2-48ab-83-1b-55-fd-bd-bd-34-a4')
+PrintSchemaAsyncOperation = Guid('{43b2f83d-10f2-48ab-831b-55fdbdbd34a4}')
 PrintSchemaConstrainedSetting = Int32
 PrintSchemaConstrainedSetting_None: PrintSchemaConstrainedSetting = 0
 PrintSchemaConstrainedSetting_PrintTicket: PrintSchemaConstrainedSetting = 1
@@ -4465,9 +4465,9 @@ PrintSchemaParameterDataType_String: PrintSchemaParameterDataType = 2
 PrintSchemaSelectionType = Int32
 PrintSchemaSelectionType_PickOne: PrintSchemaSelectionType = 0
 PrintSchemaSelectionType_PickMany: PrintSchemaSelectionType = 1
-PrinterExtensionManager = Guid('331b60da-9e90-4dd0-9c-84-ea-c4-e6-59-b6-1f')
-PrinterQueue = Guid('eb54c230-798c-4c9e-b4-61-29-fa-d0-40-39-b1')
-PrinterQueueView = Guid('eb54c231-798c-4c9e-b4-61-29-fa-d0-40-39-b1')
+PrinterExtensionManager = Guid('{331b60da-9e90-4dd0-9c84-eac4e659b61f}')
+PrinterQueue = Guid('{eb54c230-798c-4c9e-b461-29fad04039b1}')
+PrinterQueueView = Guid('{eb54c231-798c-4c9e-b461-29fad04039b1}')
 @winfunctype_pointer
 def ROUTER_NOTIFY_CALLBACK(dwCommand: UInt32, pContext: c_void_p, dwColor: UInt32, pNofityInfo: POINTER(Windows.Win32.Graphics.Printing.PRINTER_NOTIFY_INFO_head), fdwFlags: UInt32, pdwResult: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 class SETRESULT_INFO(EasyCastStructure):

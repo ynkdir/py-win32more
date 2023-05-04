@@ -18,14 +18,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPrintManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c5435a42-8d43-4e7b-a6-8a-ef-31-1e-39-20-87')
+    _iid_ = Guid('{c5435a42-8d43-4e7b-a68a-ef311e392087}')
     @commethod(6)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), printManager: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ShowPrintUIForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintWorkflowConfigurationNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c056be0a-9ee2-450a-98-23-96-4f-00-06-f2-bb')
+    _iid_ = Guid('{c056be0a-9ee2-450a-9823-964f0006f2bb}')
     @commethod(3)
     def get_PrinterQueue(self, value: POINTER(Windows.Win32.Graphics.Printing.IPrinterQueue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -34,19 +34,19 @@ class IPrintWorkflowConfigurationNative(ComPtr):
     def get_UserProperties(self, value: POINTER(Windows.Win32.Graphics.Printing.IPrinterPropertyBag_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintWorkflowObjectModelSourceFileContentNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('68c9e477-993e-4052-8a-c6-45-4e-ff-58-db-9d')
+    _iid_ = Guid('{68c9e477-993e-4052-8ac6-454eff58db9d}')
     @commethod(3)
     def StartXpsOMGeneration(self, receiver: Windows.Win32.System.WinRT.Printing.IPrintWorkflowXpsReceiver_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_ObjectFactory(self, value: POINTER(Windows.Win32.Storage.Xps.IXpsOMObjectFactory1_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintWorkflowXpsObjectModelTargetPackageNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7d96bc74-9b54-4ca1-ad-3a-97-9c-3d-44-dd-ac')
+    _iid_ = Guid('{7d96bc74-9b54-4ca1-ad3a-979c3d44ddac}')
     @commethod(3)
     def get_DocumentPackageTarget(self, value: POINTER(Windows.Win32.Storage.Xps.IXpsDocumentPackageTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintWorkflowXpsReceiver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('04097374-77b8-47f6-81-67-aa-e2-9d-4c-f8-4b')
+    _iid_ = Guid('{04097374-77b8-47f6-8167-aae29d4cf84b}')
     @commethod(3)
     def SetDocumentSequencePrintTicket(self, documentSequencePrintTicket: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -59,12 +59,12 @@ class IPrintWorkflowXpsReceiver(ComPtr):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintWorkflowXpsReceiver2(ComPtr):
     extends: Windows.Win32.System.WinRT.Printing.IPrintWorkflowXpsReceiver
-    _iid_ = Guid('023bcc0c-dfab-4a61-b0-74-49-0c-69-95-58-0d')
+    _iid_ = Guid('{023bcc0c-dfab-4a61-b074-490c6995580d}')
     @commethod(8)
     def Failed(self, XpsError: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrinting3DManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('9ca31010-1484-4587-b2-6b-dd-df-9f-9c-ae-cd')
+    _iid_ = Guid('{9ca31010-1484-4587-b26b-dddf9f9caecd}')
     @commethod(6)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), printManager: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)

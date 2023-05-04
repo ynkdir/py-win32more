@@ -18,19 +18,19 @@ WSB_MAX_OB_STATUS_ENTRY: UInt32 = 5
 WSBAPP_ASYNC_IN_PROGRESS: Windows.Win32.Foundation.HRESULT = 7995396
 class IWsbApplicationAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0843f6f7-895c-44a6-b0-c2-05-a5-02-2a-a3-a1')
+    _iid_ = Guid('{0843f6f7-895c-44a6-b0c2-05a5022aa3a1}')
     @commethod(3)
     def QueryStatus(self, phrResult: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Abort(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWsbApplicationBackupSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1eff3510-4a27-46ad-b9-e0-08-33-2f-0f-4f-6d')
+    _iid_ = Guid('{1eff3510-4a27-46ad-b9e0-08332f0f4f6d}')
     @commethod(3)
     def CheckConsistency(self, wszWriterMetadata: Windows.Win32.Foundation.PWSTR, wszComponentName: Windows.Win32.Foundation.PWSTR, wszComponentLogicalPath: Windows.Win32.Foundation.PWSTR, cVolumes: UInt32, rgwszSourceVolumePath: POINTER(Windows.Win32.Foundation.PWSTR), rgwszSnapshotVolumePath: POINTER(Windows.Win32.Foundation.PWSTR), ppAsync: POINTER(Windows.Win32.System.ServerBackup.IWsbApplicationAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWsbApplicationRestoreSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8d3bdb38-4ee8-4718-85-f9-c7-db-c4-ab-77-aa')
+    _iid_ = Guid('{8d3bdb38-4ee8-4718-85f9-c7dbc4ab77aa}')
     @commethod(3)
     def PreRestore(self, wszWriterMetadata: Windows.Win32.Foundation.PWSTR, wszComponentName: Windows.Win32.Foundation.PWSTR, wszComponentLogicalPath: Windows.Win32.Foundation.PWSTR, bNoRollForward: Windows.Win32.Foundation.BOOLEAN) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -35,440 +35,440 @@ AXIS_X: AXIS = 0
 AXIS_Y: AXIS = 1
 AXIS_Z: AXIS = 2
 AXIS_MAX: AXIS = 3
-GUID_DEVINTERFACE_SENSOR: Guid = Guid('ba1bb692-9b7a-4833-9a-1e-52-5e-d1-34-e7-e2')
-SENSOR_EVENT_STATE_CHANGED: Guid = Guid('bfd96016-6bd7-4560-ad-34-f2-f6-60-7e-8f-81')
-SENSOR_EVENT_DATA_UPDATED: Guid = Guid('2ed0f2a4-0087-41d3-87-db-67-73-37-0b-3c-88')
-SENSOR_EVENT_PROPERTY_CHANGED: Guid = Guid('2358f099-84c9-4d3d-90-df-c2-42-1e-2b-20-45')
-SENSOR_EVENT_ACCELEROMETER_SHAKE: Guid = Guid('825f5a94-0f48-4396-9c-a0-6e-cb-5c-99-d9-15')
-SENSOR_EVENT_PARAMETER_COMMON_GUID: Guid = Guid('64346e30-8728-4b34-bd-f6-4f-52-44-2c-5c-28')
+GUID_DEVINTERFACE_SENSOR: Guid = Guid('{ba1bb692-9b7a-4833-9a1e-525ed134e7e2}')
+SENSOR_EVENT_STATE_CHANGED: Guid = Guid('{bfd96016-6bd7-4560-ad34-f2f6607e8f81}')
+SENSOR_EVENT_DATA_UPDATED: Guid = Guid('{2ed0f2a4-0087-41d3-87db-6773370b3c88}')
+SENSOR_EVENT_PROPERTY_CHANGED: Guid = Guid('{2358f099-84c9-4d3d-90df-c2421e2b2045}')
+SENSOR_EVENT_ACCELEROMETER_SHAKE: Guid = Guid('{825f5a94-0f48-4396-9ca0-6ecb5c99d915}')
+SENSOR_EVENT_PARAMETER_COMMON_GUID: Guid = Guid('{64346e30-8728-4b34-bdf6-4f52442c5c28}')
 def SENSOR_EVENT_PARAMETER_EVENT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64346e30-8728-4b34-bd-f6-4f-52-44-2c-5c-28'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{64346e30-8728-4b34-bdf6-4f52442c5c28}'), pid=2)
 def SENSOR_EVENT_PARAMETER_STATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('64346e30-8728-4b34-bd-f6-4f-52-44-2c-5c-28'), pid=3)
-SENSOR_ERROR_PARAMETER_COMMON_GUID: Guid = Guid('77112bcd-fce1-4f43-b8-b8-a8-82-56-ad-b4-b3')
-SENSOR_PROPERTY_COMMON_GUID: Guid = Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{64346e30-8728-4b34-bdf6-4f52442c5c28}'), pid=3)
+SENSOR_ERROR_PARAMETER_COMMON_GUID: Guid = Guid('{77112bcd-fce1-4f43-b8b8-a88256adb4b3}')
+SENSOR_PROPERTY_COMMON_GUID: Guid = Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}')
 def SENSOR_PROPERTY_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=2)
 def SENSOR_PROPERTY_STATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=3)
 def SENSOR_PROPERTY_PERSISTENT_UNIQUE_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=5)
 def SENSOR_PROPERTY_MANUFACTURER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=6)
 def SENSOR_PROPERTY_MODEL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=7)
 def SENSOR_PROPERTY_SERIAL_NUMBER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=8)
 def SENSOR_PROPERTY_FRIENDLY_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=9)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=9)
 def SENSOR_PROPERTY_DESCRIPTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=10)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=10)
 def SENSOR_PROPERTY_CONNECTION_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=11)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=11)
 def SENSOR_PROPERTY_MIN_REPORT_INTERVAL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=12)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=12)
 def SENSOR_PROPERTY_CURRENT_REPORT_INTERVAL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=13)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=13)
 def SENSOR_PROPERTY_CHANGE_SENSITIVITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=14)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=14)
 def SENSOR_PROPERTY_DEVICE_PATH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=15)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=15)
 def SENSOR_PROPERTY_LIGHT_RESPONSE_CURVE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=16)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=16)
 def SENSOR_PROPERTY_ACCURACY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=17)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=17)
 def SENSOR_PROPERTY_RESOLUTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=18)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=18)
 def SENSOR_PROPERTY_LOCATION_DESIRED_ACCURACY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=19)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=19)
 def SENSOR_PROPERTY_RANGE_MINIMUM():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=20)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=20)
 def SENSOR_PROPERTY_RANGE_MAXIMUM():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=21)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=21)
 def SENSOR_PROPERTY_HID_USAGE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=22)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=22)
 def SENSOR_PROPERTY_RADIO_STATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=23)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=23)
 def SENSOR_PROPERTY_RADIO_STATE_PREVIOUS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('7f8383ec-d3ec-495c-a8-cf-b8-bb-e8-5c-29-20'), pid=24)
-SENSOR_CATEGORY_ALL: Guid = Guid('c317c286-c468-4288-99-75-d4-c4-58-7c-44-2c')
-SENSOR_CATEGORY_LOCATION: Guid = Guid('bfa794e4-f964-4fdb-90-f6-51-05-6b-fe-4b-44')
-SENSOR_CATEGORY_ENVIRONMENTAL: Guid = Guid('323439aa-7f66-492b-ba-0c-73-e9-aa-0a-65-d5')
-SENSOR_CATEGORY_MOTION: Guid = Guid('cd09daf1-3b2e-4c3d-b5-98-b5-e5-ff-93-fd-46')
-SENSOR_CATEGORY_ORIENTATION: Guid = Guid('9e6c04b6-96fe-4954-b7-26-68-68-2a-47-3f-69')
-SENSOR_CATEGORY_MECHANICAL: Guid = Guid('8d131d68-8ef7-4656-80-b5-cc-cb-d9-37-91-c5')
-SENSOR_CATEGORY_ELECTRICAL: Guid = Guid('fb73fcd8-fc4a-483c-ac-58-27-b6-91-c6-be-ff')
-SENSOR_CATEGORY_BIOMETRIC: Guid = Guid('ca19690f-a2c7-477d-a9-9e-99-ec-6e-2b-56-48')
-SENSOR_CATEGORY_LIGHT: Guid = Guid('17a665c0-9063-4216-b2-02-5c-7a-25-5e-18-ce')
-SENSOR_CATEGORY_SCANNER: Guid = Guid('b000e77e-f5b5-420f-81-5d-02-70-a7-26-f2-70')
-SENSOR_CATEGORY_OTHER: Guid = Guid('2c90e7a9-f4c9-4fa2-af-37-56-d4-71-fe-5a-3d')
-SENSOR_CATEGORY_UNSUPPORTED: Guid = Guid('2beae7fa-19b0-48c5-a1-f6-b5-48-0d-c2-06-b0')
-SENSOR_TYPE_LOCATION_GPS: Guid = Guid('ed4ca589-327a-4ff9-a5-60-91-da-4b-48-27-5e')
-SENSOR_TYPE_LOCATION_STATIC: Guid = Guid('095f8184-0fa9-4445-8e-6e-b7-0f-32-0b-6b-4c')
-SENSOR_TYPE_LOCATION_LOOKUP: Guid = Guid('3b2eae4a-72ce-436d-96-d2-3c-5b-85-70-e9-87')
-SENSOR_TYPE_LOCATION_TRIANGULATION: Guid = Guid('691c341a-5406-4fe1-94-2f-22-46-cb-eb-39-e0')
-SENSOR_TYPE_LOCATION_OTHER: Guid = Guid('9b2d0566-0368-4f71-b8-8d-53-3f-13-20-31-de')
-SENSOR_TYPE_LOCATION_BROADCAST: Guid = Guid('d26988cf-5162-4039-bb-17-4c-58-b6-98-e4-4a')
-SENSOR_TYPE_LOCATION_DEAD_RECKONING: Guid = Guid('1a37d538-f28b-42da-9f-ce-a9-d0-a2-a6-d8-29')
-SENSOR_TYPE_ENVIRONMENTAL_TEMPERATURE: Guid = Guid('04fd0ec4-d5da-45fa-95-a9-5d-b3-8e-e1-93-06')
-SENSOR_TYPE_ENVIRONMENTAL_ATMOSPHERIC_PRESSURE: Guid = Guid('0e903829-ff8a-4a93-97-df-3d-cb-de-40-22-88')
-SENSOR_TYPE_ENVIRONMENTAL_HUMIDITY: Guid = Guid('5c72bf67-bd7e-4257-99-0b-98-a3-ba-3b-40-0a')
-SENSOR_TYPE_ENVIRONMENTAL_WIND_SPEED: Guid = Guid('dd50607b-a45f-42cd-8e-fd-ec-61-76-1c-42-26')
-SENSOR_TYPE_ENVIRONMENTAL_WIND_DIRECTION: Guid = Guid('9ef57a35-9306-434d-af-09-37-fa-5a-9c-00-bd')
-SENSOR_TYPE_ACCELEROMETER_1D: Guid = Guid('c04d2387-7340-4cc2-99-1e-3b-18-cb-8e-f2-f4')
-SENSOR_TYPE_ACCELEROMETER_2D: Guid = Guid('b2c517a8-f6b5-4ba6-a4-23-5d-f5-60-b4-cc-07')
-SENSOR_TYPE_ACCELEROMETER_3D: Guid = Guid('c2fb0f5f-e2d2-4c78-bc-d0-35-2a-95-82-81-9d')
-SENSOR_TYPE_MOTION_DETECTOR: Guid = Guid('5c7c1a12-30a5-43b9-a4-b2-cf-09-ec-5b-7b-e8')
-SENSOR_TYPE_GYROMETER_1D: Guid = Guid('fa088734-f552-4584-83-24-ed-fa-f6-49-65-2c')
-SENSOR_TYPE_GYROMETER_2D: Guid = Guid('31ef4f83-919b-48bf-8d-e0-5d-7a-9d-24-05-56')
-SENSOR_TYPE_GYROMETER_3D: Guid = Guid('09485f5a-759e-42c2-bd-4b-a3-49-b7-5c-86-43')
-SENSOR_TYPE_SPEEDOMETER: Guid = Guid('6bd73c1f-0bb4-4310-81-b2-df-c1-8a-52-bf-94')
-SENSOR_TYPE_COMPASS_1D: Guid = Guid('a415f6c5-cb50-49d0-8e-62-a8-27-0b-d7-a2-6c')
-SENSOR_TYPE_COMPASS_2D: Guid = Guid('15655cc0-997a-4d30-84-db-57-ca-ba-36-48-bb')
-SENSOR_TYPE_COMPASS_3D: Guid = Guid('76b5ce0d-17dd-414d-93-a1-e1-27-f4-0b-df-6e')
-SENSOR_TYPE_INCLINOMETER_1D: Guid = Guid('b96f98c5-7a75-4ba7-94-e9-ac-86-8c-96-6d-d8')
-SENSOR_TYPE_INCLINOMETER_2D: Guid = Guid('ab140f6d-83eb-4264-b7-0b-b1-6a-5b-25-6a-01')
-SENSOR_TYPE_INCLINOMETER_3D: Guid = Guid('b84919fb-ea85-4976-84-44-6f-6f-5c-6d-31-db')
-SENSOR_TYPE_DISTANCE_1D: Guid = Guid('5f14ab2f-1407-4306-a9-3f-b1-db-ab-e4-f9-c0')
-SENSOR_TYPE_DISTANCE_2D: Guid = Guid('5cf9a46c-a9a2-4e55-b6-a1-a0-4a-af-a9-5a-92')
-SENSOR_TYPE_DISTANCE_3D: Guid = Guid('a20cae31-0e25-4772-9f-e5-96-60-8a-13-54-b2')
-SENSOR_TYPE_AGGREGATED_QUADRANT_ORIENTATION: Guid = Guid('9f81f1af-c4ab-4307-99-04-c8-28-bf-b9-08-29')
-SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION: Guid = Guid('cdb5d8f7-3cfd-41c8-85-42-cc-e6-22-cf-5d-6e')
-SENSOR_TYPE_AGGREGATED_SIMPLE_DEVICE_ORIENTATION: Guid = Guid('86a19291-0482-402c-bf-4c-ad-da-c5-2b-1c-39')
-SENSOR_TYPE_VOLTAGE: Guid = Guid('c5484637-4fb7-4953-98-b8-a5-6d-8a-a1-fb-1e')
-SENSOR_TYPE_CURRENT: Guid = Guid('5adc9fce-15a0-4bbe-a1-ad-2d-38-a9-ae-83-1c')
-SENSOR_TYPE_CAPACITANCE: Guid = Guid('ca2ffb1c-2317-49c0-a0-b4-b6-3c-e6-34-61-a0')
-SENSOR_TYPE_RESISTANCE: Guid = Guid('9993d2c8-c157-4a52-a7-b5-19-5c-76-03-72-31')
-SENSOR_TYPE_INDUCTANCE: Guid = Guid('dc1d933f-c435-4c7d-a2-fe-60-71-92-a5-24-d3')
-SENSOR_TYPE_ELECTRICAL_POWER: Guid = Guid('212f10f5-14ab-4376-9a-43-a7-79-40-98-c2-fe')
-SENSOR_TYPE_POTENTIOMETER: Guid = Guid('2b3681a9-cadc-45aa-a6-ff-54-95-7c-8b-b4-40')
-SENSOR_TYPE_FREQUENCY: Guid = Guid('8cd2cbb6-73e6-4640-a7-09-72-ae-8f-b6-0d-7f')
-SENSOR_TYPE_BOOLEAN_SWITCH: Guid = Guid('9c7e371f-1041-460b-8d-5c-71-e4-75-2e-35-0c')
-SENSOR_TYPE_MULTIVALUE_SWITCH: Guid = Guid('b3ee4d76-37a4-4402-b2-5e-99-c6-0a-77-5f-a1')
-SENSOR_TYPE_FORCE: Guid = Guid('c2ab2b02-1a1c-4778-a8-1b-95-4a-17-88-cc-75')
-SENSOR_TYPE_SCALE: Guid = Guid('c06dd92c-7feb-438e-9b-f6-82-20-7f-ff-5b-b8')
-SENSOR_TYPE_PRESSURE: Guid = Guid('26d31f34-6352-41cf-b7-93-ea-07-13-d5-3d-77')
-SENSOR_TYPE_STRAIN: Guid = Guid('c6d1ec0e-6803-4361-ad-3d-85-bc-c5-8c-6d-29')
-SENSOR_TYPE_BOOLEAN_SWITCH_ARRAY: Guid = Guid('545c8ba5-b143-4545-86-8f-ca-7f-d9-86-b4-f6')
-SENSOR_TYPE_HUMAN_PRESENCE: Guid = Guid('c138c12b-ad52-451c-93-75-87-f5-18-ff-10-c6')
-SENSOR_TYPE_HUMAN_PROXIMITY: Guid = Guid('5220dae9-3179-4430-9f-90-06-26-6d-2a-34-de')
-SENSOR_TYPE_TOUCH: Guid = Guid('17db3018-06c4-4f7d-81-af-92-74-b7-59-9c-27')
-SENSOR_TYPE_AMBIENT_LIGHT: Guid = Guid('97f115c8-599a-4153-88-94-d2-d1-28-99-91-8a')
-SENSOR_TYPE_RFID_SCANNER: Guid = Guid('44328ef5-02dd-4e8d-ad-5d-92-49-83-2b-2e-ca')
-SENSOR_TYPE_BARCODE_SCANNER: Guid = Guid('990b3d8f-85bb-45ff-91-4d-99-8c-04-f3-72-df')
-SENSOR_TYPE_CUSTOM: Guid = Guid('e83af229-8640-4d18-a2-13-e2-26-75-eb-b2-c3')
-SENSOR_TYPE_UNKNOWN: Guid = Guid('10ba83e3-ef4f-41ed-98-85-a8-7d-64-35-a8-e1')
-SENSOR_DATA_TYPE_COMMON_GUID: Guid = Guid('db5e0cf2-cf1f-4c18-b4-6c-d8-60-11-d6-21-50')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}'), pid=24)
+SENSOR_CATEGORY_ALL: Guid = Guid('{c317c286-c468-4288-9975-d4c4587c442c}')
+SENSOR_CATEGORY_LOCATION: Guid = Guid('{bfa794e4-f964-4fdb-90f6-51056bfe4b44}')
+SENSOR_CATEGORY_ENVIRONMENTAL: Guid = Guid('{323439aa-7f66-492b-ba0c-73e9aa0a65d5}')
+SENSOR_CATEGORY_MOTION: Guid = Guid('{cd09daf1-3b2e-4c3d-b598-b5e5ff93fd46}')
+SENSOR_CATEGORY_ORIENTATION: Guid = Guid('{9e6c04b6-96fe-4954-b726-68682a473f69}')
+SENSOR_CATEGORY_MECHANICAL: Guid = Guid('{8d131d68-8ef7-4656-80b5-cccbd93791c5}')
+SENSOR_CATEGORY_ELECTRICAL: Guid = Guid('{fb73fcd8-fc4a-483c-ac58-27b691c6beff}')
+SENSOR_CATEGORY_BIOMETRIC: Guid = Guid('{ca19690f-a2c7-477d-a99e-99ec6e2b5648}')
+SENSOR_CATEGORY_LIGHT: Guid = Guid('{17a665c0-9063-4216-b202-5c7a255e18ce}')
+SENSOR_CATEGORY_SCANNER: Guid = Guid('{b000e77e-f5b5-420f-815d-0270a726f270}')
+SENSOR_CATEGORY_OTHER: Guid = Guid('{2c90e7a9-f4c9-4fa2-af37-56d471fe5a3d}')
+SENSOR_CATEGORY_UNSUPPORTED: Guid = Guid('{2beae7fa-19b0-48c5-a1f6-b5480dc206b0}')
+SENSOR_TYPE_LOCATION_GPS: Guid = Guid('{ed4ca589-327a-4ff9-a560-91da4b48275e}')
+SENSOR_TYPE_LOCATION_STATIC: Guid = Guid('{095f8184-0fa9-4445-8e6e-b70f320b6b4c}')
+SENSOR_TYPE_LOCATION_LOOKUP: Guid = Guid('{3b2eae4a-72ce-436d-96d2-3c5b8570e987}')
+SENSOR_TYPE_LOCATION_TRIANGULATION: Guid = Guid('{691c341a-5406-4fe1-942f-2246cbeb39e0}')
+SENSOR_TYPE_LOCATION_OTHER: Guid = Guid('{9b2d0566-0368-4f71-b88d-533f132031de}')
+SENSOR_TYPE_LOCATION_BROADCAST: Guid = Guid('{d26988cf-5162-4039-bb17-4c58b698e44a}')
+SENSOR_TYPE_LOCATION_DEAD_RECKONING: Guid = Guid('{1a37d538-f28b-42da-9fce-a9d0a2a6d829}')
+SENSOR_TYPE_ENVIRONMENTAL_TEMPERATURE: Guid = Guid('{04fd0ec4-d5da-45fa-95a9-5db38ee19306}')
+SENSOR_TYPE_ENVIRONMENTAL_ATMOSPHERIC_PRESSURE: Guid = Guid('{0e903829-ff8a-4a93-97df-3dcbde402288}')
+SENSOR_TYPE_ENVIRONMENTAL_HUMIDITY: Guid = Guid('{5c72bf67-bd7e-4257-990b-98a3ba3b400a}')
+SENSOR_TYPE_ENVIRONMENTAL_WIND_SPEED: Guid = Guid('{dd50607b-a45f-42cd-8efd-ec61761c4226}')
+SENSOR_TYPE_ENVIRONMENTAL_WIND_DIRECTION: Guid = Guid('{9ef57a35-9306-434d-af09-37fa5a9c00bd}')
+SENSOR_TYPE_ACCELEROMETER_1D: Guid = Guid('{c04d2387-7340-4cc2-991e-3b18cb8ef2f4}')
+SENSOR_TYPE_ACCELEROMETER_2D: Guid = Guid('{b2c517a8-f6b5-4ba6-a423-5df560b4cc07}')
+SENSOR_TYPE_ACCELEROMETER_3D: Guid = Guid('{c2fb0f5f-e2d2-4c78-bcd0-352a9582819d}')
+SENSOR_TYPE_MOTION_DETECTOR: Guid = Guid('{5c7c1a12-30a5-43b9-a4b2-cf09ec5b7be8}')
+SENSOR_TYPE_GYROMETER_1D: Guid = Guid('{fa088734-f552-4584-8324-edfaf649652c}')
+SENSOR_TYPE_GYROMETER_2D: Guid = Guid('{31ef4f83-919b-48bf-8de0-5d7a9d240556}')
+SENSOR_TYPE_GYROMETER_3D: Guid = Guid('{09485f5a-759e-42c2-bd4b-a349b75c8643}')
+SENSOR_TYPE_SPEEDOMETER: Guid = Guid('{6bd73c1f-0bb4-4310-81b2-dfc18a52bf94}')
+SENSOR_TYPE_COMPASS_1D: Guid = Guid('{a415f6c5-cb50-49d0-8e62-a8270bd7a26c}')
+SENSOR_TYPE_COMPASS_2D: Guid = Guid('{15655cc0-997a-4d30-84db-57caba3648bb}')
+SENSOR_TYPE_COMPASS_3D: Guid = Guid('{76b5ce0d-17dd-414d-93a1-e127f40bdf6e}')
+SENSOR_TYPE_INCLINOMETER_1D: Guid = Guid('{b96f98c5-7a75-4ba7-94e9-ac868c966dd8}')
+SENSOR_TYPE_INCLINOMETER_2D: Guid = Guid('{ab140f6d-83eb-4264-b70b-b16a5b256a01}')
+SENSOR_TYPE_INCLINOMETER_3D: Guid = Guid('{b84919fb-ea85-4976-8444-6f6f5c6d31db}')
+SENSOR_TYPE_DISTANCE_1D: Guid = Guid('{5f14ab2f-1407-4306-a93f-b1dbabe4f9c0}')
+SENSOR_TYPE_DISTANCE_2D: Guid = Guid('{5cf9a46c-a9a2-4e55-b6a1-a04aafa95a92}')
+SENSOR_TYPE_DISTANCE_3D: Guid = Guid('{a20cae31-0e25-4772-9fe5-96608a1354b2}')
+SENSOR_TYPE_AGGREGATED_QUADRANT_ORIENTATION: Guid = Guid('{9f81f1af-c4ab-4307-9904-c828bfb90829}')
+SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION: Guid = Guid('{cdb5d8f7-3cfd-41c8-8542-cce622cf5d6e}')
+SENSOR_TYPE_AGGREGATED_SIMPLE_DEVICE_ORIENTATION: Guid = Guid('{86a19291-0482-402c-bf4c-addac52b1c39}')
+SENSOR_TYPE_VOLTAGE: Guid = Guid('{c5484637-4fb7-4953-98b8-a56d8aa1fb1e}')
+SENSOR_TYPE_CURRENT: Guid = Guid('{5adc9fce-15a0-4bbe-a1ad-2d38a9ae831c}')
+SENSOR_TYPE_CAPACITANCE: Guid = Guid('{ca2ffb1c-2317-49c0-a0b4-b63ce63461a0}')
+SENSOR_TYPE_RESISTANCE: Guid = Guid('{9993d2c8-c157-4a52-a7b5-195c76037231}')
+SENSOR_TYPE_INDUCTANCE: Guid = Guid('{dc1d933f-c435-4c7d-a2fe-607192a524d3}')
+SENSOR_TYPE_ELECTRICAL_POWER: Guid = Guid('{212f10f5-14ab-4376-9a43-a7794098c2fe}')
+SENSOR_TYPE_POTENTIOMETER: Guid = Guid('{2b3681a9-cadc-45aa-a6ff-54957c8bb440}')
+SENSOR_TYPE_FREQUENCY: Guid = Guid('{8cd2cbb6-73e6-4640-a709-72ae8fb60d7f}')
+SENSOR_TYPE_BOOLEAN_SWITCH: Guid = Guid('{9c7e371f-1041-460b-8d5c-71e4752e350c}')
+SENSOR_TYPE_MULTIVALUE_SWITCH: Guid = Guid('{b3ee4d76-37a4-4402-b25e-99c60a775fa1}')
+SENSOR_TYPE_FORCE: Guid = Guid('{c2ab2b02-1a1c-4778-a81b-954a1788cc75}')
+SENSOR_TYPE_SCALE: Guid = Guid('{c06dd92c-7feb-438e-9bf6-82207fff5bb8}')
+SENSOR_TYPE_PRESSURE: Guid = Guid('{26d31f34-6352-41cf-b793-ea0713d53d77}')
+SENSOR_TYPE_STRAIN: Guid = Guid('{c6d1ec0e-6803-4361-ad3d-85bcc58c6d29}')
+SENSOR_TYPE_BOOLEAN_SWITCH_ARRAY: Guid = Guid('{545c8ba5-b143-4545-868f-ca7fd986b4f6}')
+SENSOR_TYPE_HUMAN_PRESENCE: Guid = Guid('{c138c12b-ad52-451c-9375-87f518ff10c6}')
+SENSOR_TYPE_HUMAN_PROXIMITY: Guid = Guid('{5220dae9-3179-4430-9f90-06266d2a34de}')
+SENSOR_TYPE_TOUCH: Guid = Guid('{17db3018-06c4-4f7d-81af-9274b7599c27}')
+SENSOR_TYPE_AMBIENT_LIGHT: Guid = Guid('{97f115c8-599a-4153-8894-d2d12899918a}')
+SENSOR_TYPE_RFID_SCANNER: Guid = Guid('{44328ef5-02dd-4e8d-ad5d-9249832b2eca}')
+SENSOR_TYPE_BARCODE_SCANNER: Guid = Guid('{990b3d8f-85bb-45ff-914d-998c04f372df}')
+SENSOR_TYPE_CUSTOM: Guid = Guid('{e83af229-8640-4d18-a213-e22675ebb2c3}')
+SENSOR_TYPE_UNKNOWN: Guid = Guid('{10ba83e3-ef4f-41ed-9885-a87d6435a8e1}')
+SENSOR_DATA_TYPE_COMMON_GUID: Guid = Guid('{db5e0cf2-cf1f-4c18-b46c-d86011d62150}')
 def SENSOR_DATA_TYPE_TIMESTAMP():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('db5e0cf2-cf1f-4c18-b4-6c-d8-60-11-d6-21-50'), pid=2)
-SENSOR_DATA_TYPE_LOCATION_GUID: Guid = Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{db5e0cf2-cf1f-4c18-b46c-d86011d62150}'), pid=2)
+SENSOR_DATA_TYPE_LOCATION_GUID: Guid = Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}')
 def SENSOR_DATA_TYPE_LATITUDE_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=2)
 def SENSOR_DATA_TYPE_LONGITUDE_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=3)
 def SENSOR_DATA_TYPE_ALTITUDE_SEALEVEL_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=4)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=4)
 def SENSOR_DATA_TYPE_ALTITUDE_ELLIPSOID_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=5)
 def SENSOR_DATA_TYPE_SPEED_KNOTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=6)
 def SENSOR_DATA_TYPE_TRUE_HEADING_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=7)
 def SENSOR_DATA_TYPE_MAGNETIC_HEADING_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=8)
 def SENSOR_DATA_TYPE_MAGNETIC_VARIATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=9)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=9)
 def SENSOR_DATA_TYPE_FIX_QUALITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=10)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=10)
 def SENSOR_DATA_TYPE_FIX_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=11)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=11)
 def SENSOR_DATA_TYPE_POSITION_DILUTION_OF_PRECISION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=12)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=12)
 def SENSOR_DATA_TYPE_HORIZONAL_DILUTION_OF_PRECISION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=13)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=13)
 def SENSOR_DATA_TYPE_VERTICAL_DILUTION_OF_PRECISION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=14)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=14)
 def SENSOR_DATA_TYPE_SATELLITES_USED_COUNT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=15)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=15)
 def SENSOR_DATA_TYPE_SATELLITES_USED_PRNS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=16)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=16)
 def SENSOR_DATA_TYPE_SATELLITES_IN_VIEW():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=17)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=17)
 def SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_PRNS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=18)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=18)
 def SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_ELEVATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=19)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=19)
 def SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_AZIMUTH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=20)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=20)
 def SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_STN_RATIO():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=21)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=21)
 def SENSOR_DATA_TYPE_ERROR_RADIUS_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=22)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=22)
 def SENSOR_DATA_TYPE_ADDRESS1():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=23)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=23)
 def SENSOR_DATA_TYPE_ADDRESS2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=24)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=24)
 def SENSOR_DATA_TYPE_CITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=25)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=25)
 def SENSOR_DATA_TYPE_STATE_PROVINCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=26)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=26)
 def SENSOR_DATA_TYPE_POSTALCODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=27)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=27)
 def SENSOR_DATA_TYPE_COUNTRY_REGION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=28)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=28)
 def SENSOR_DATA_TYPE_ALTITUDE_ELLIPSOID_ERROR_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=29)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=29)
 def SENSOR_DATA_TYPE_ALTITUDE_SEALEVEL_ERROR_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=30)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=30)
 def SENSOR_DATA_TYPE_GPS_SELECTION_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=31)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=31)
 def SENSOR_DATA_TYPE_GPS_OPERATION_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=32)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=32)
 def SENSOR_DATA_TYPE_GPS_STATUS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=33)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=33)
 def SENSOR_DATA_TYPE_GEOIDAL_SEPARATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=34)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=34)
 def SENSOR_DATA_TYPE_DGPS_DATA_AGE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=35)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=35)
 def SENSOR_DATA_TYPE_ALTITUDE_ANTENNA_SEALEVEL_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=36)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=36)
 def SENSOR_DATA_TYPE_DIFFERENTIAL_REFERENCE_STATION_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=37)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=37)
 def SENSOR_DATA_TYPE_NMEA_SENTENCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=38)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=38)
 def SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=39)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=39)
 def SENSOR_DATA_TYPE_LOCATION_SOURCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=40)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=40)
 def SENSOR_DATA_TYPE_SATELLITES_USED_PRNS_AND_CONSTELLATIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('055c74d8-ca6f-47d6-95-c6-1e-d3-63-7a-0f-f4'), pid=41)
-SENSOR_DATA_TYPE_ENVIRONMENTAL_GUID: Guid = Guid('8b0aa2f1-2d57-42ee-8c-c0-4d-27-62-2b-46-c4')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}'), pid=41)
+SENSOR_DATA_TYPE_ENVIRONMENTAL_GUID: Guid = Guid('{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}')
 def SENSOR_DATA_TYPE_TEMPERATURE_CELSIUS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8b0aa2f1-2d57-42ee-8c-c0-4d-27-62-2b-46-c4'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}'), pid=2)
 def SENSOR_DATA_TYPE_RELATIVE_HUMIDITY_PERCENT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8b0aa2f1-2d57-42ee-8c-c0-4d-27-62-2b-46-c4'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}'), pid=3)
 def SENSOR_DATA_TYPE_ATMOSPHERIC_PRESSURE_BAR():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8b0aa2f1-2d57-42ee-8c-c0-4d-27-62-2b-46-c4'), pid=4)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}'), pid=4)
 def SENSOR_DATA_TYPE_WIND_DIRECTION_DEGREES_ANTICLOCKWISE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8b0aa2f1-2d57-42ee-8c-c0-4d-27-62-2b-46-c4'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}'), pid=5)
 def SENSOR_DATA_TYPE_WIND_SPEED_METERS_PER_SECOND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('8b0aa2f1-2d57-42ee-8c-c0-4d-27-62-2b-46-c4'), pid=6)
-SENSOR_DATA_TYPE_MOTION_GUID: Guid = Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}'), pid=6)
+SENSOR_DATA_TYPE_MOTION_GUID: Guid = Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}')
 def SENSOR_DATA_TYPE_ACCELERATION_X_G():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=2)
 def SENSOR_DATA_TYPE_ACCELERATION_Y_G():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=3)
 def SENSOR_DATA_TYPE_ACCELERATION_Z_G():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=4)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=4)
 def SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_X_DEGREES_PER_SECOND_SQUARED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=5)
 def SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_Y_DEGREES_PER_SECOND_SQUARED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=6)
 def SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_Z_DEGREES_PER_SECOND_SQUARED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=7)
 def SENSOR_DATA_TYPE_SPEED_METERS_PER_SECOND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=8)
 def SENSOR_DATA_TYPE_MOTION_STATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=9)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=9)
 def SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=10)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=10)
 def SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=11)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=11)
 def SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('3f8a69a2-07c5-4e48-a9-65-cd-79-7a-ab-56-d5'), pid=12)
-SENSOR_DATA_TYPE_ORIENTATION_GUID: Guid = Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3f8a69a2-07c5-4e48-a965-cd797aab56d5}'), pid=12)
+SENSOR_DATA_TYPE_ORIENTATION_GUID: Guid = Guid('{1637d8a2-4248-4275-865d-558de84aedfd}')
 def SENSOR_DATA_TYPE_TILT_X_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=2)
 def SENSOR_DATA_TYPE_TILT_Y_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=3)
 def SENSOR_DATA_TYPE_TILT_Z_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=4)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=4)
 def SENSOR_DATA_TYPE_MAGNETIC_HEADING_X_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=5)
 def SENSOR_DATA_TYPE_MAGNETIC_HEADING_Y_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=6)
 def SENSOR_DATA_TYPE_MAGNETIC_HEADING_Z_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=7)
 def SENSOR_DATA_TYPE_DISTANCE_X_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=8)
 def SENSOR_DATA_TYPE_DISTANCE_Y_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=9)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=9)
 def SENSOR_DATA_TYPE_DISTANCE_Z_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=10)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=10)
 def SENSOR_DATA_TYPE_MAGNETIC_HEADING_COMPENSATED_MAGNETIC_NORTH_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=11)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=11)
 def SENSOR_DATA_TYPE_MAGNETIC_HEADING_COMPENSATED_TRUE_NORTH_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=12)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=12)
 def SENSOR_DATA_TYPE_MAGNETIC_HEADING_MAGNETIC_NORTH_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=13)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=13)
 def SENSOR_DATA_TYPE_MAGNETIC_HEADING_TRUE_NORTH_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=14)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=14)
 def SENSOR_DATA_TYPE_QUADRANT_ANGLE_DEGREES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=15)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=15)
 def SENSOR_DATA_TYPE_ROTATION_MATRIX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=16)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=16)
 def SENSOR_DATA_TYPE_QUATERNION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=17)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=17)
 def SENSOR_DATA_TYPE_SIMPLE_DEVICE_ORIENTATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=18)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=18)
 def SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=19)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=19)
 def SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=20)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=20)
 def SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=21)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=21)
 def SENSOR_DATA_TYPE_MAGNETOMETER_ACCURACY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1637d8a2-4248-4275-86-5d-55-8d-e8-4a-ed-fd'), pid=22)
-SENSOR_DATA_TYPE_GUID_MECHANICAL_GUID: Guid = Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1637d8a2-4248-4275-865d-558de84aedfd}'), pid=22)
+SENSOR_DATA_TYPE_GUID_MECHANICAL_GUID: Guid = Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}')
 def SENSOR_DATA_TYPE_BOOLEAN_SWITCH_STATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}'), pid=2)
 def SENSOR_DATA_TYPE_MULTIVALUE_SWITCH_STATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}'), pid=3)
 def SENSOR_DATA_TYPE_FORCE_NEWTONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df'), pid=4)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}'), pid=4)
 def SENSOR_DATA_TYPE_ABSOLUTE_PRESSURE_PASCAL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}'), pid=5)
 def SENSOR_DATA_TYPE_GAUGE_PRESSURE_PASCAL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}'), pid=6)
 def SENSOR_DATA_TYPE_STRAIN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}'), pid=7)
 def SENSOR_DATA_TYPE_WEIGHT_KILOGRAMS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}'), pid=8)
 def SENSOR_DATA_TYPE_BOOLEAN_SWITCH_ARRAY_STATES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('38564a7c-f2f2-49bb-9b-2b-ba-60-f6-6a-58-df'), pid=10)
-SENSOR_DATA_TYPE_BIOMETRIC_GUID: Guid = Guid('2299288a-6d9e-4b0b-b7-ec-35-28-f8-9e-40-af')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}'), pid=10)
+SENSOR_DATA_TYPE_BIOMETRIC_GUID: Guid = Guid('{2299288a-6d9e-4b0b-b7ec-3528f89e40af}')
 def SENSOR_DATA_TYPE_HUMAN_PRESENCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2299288a-6d9e-4b0b-b7-ec-35-28-f8-9e-40-af'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2299288a-6d9e-4b0b-b7ec-3528f89e40af}'), pid=2)
 def SENSOR_DATA_TYPE_HUMAN_PROXIMITY_METERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2299288a-6d9e-4b0b-b7-ec-35-28-f8-9e-40-af'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2299288a-6d9e-4b0b-b7ec-3528f89e40af}'), pid=3)
 def SENSOR_DATA_TYPE_TOUCH_STATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('2299288a-6d9e-4b0b-b7-ec-35-28-f8-9e-40-af'), pid=4)
-SENSOR_DATA_TYPE_LIGHT_GUID: Guid = Guid('e4c77ce2-dcb7-46e9-84-39-4f-ec-54-88-33-a6')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2299288a-6d9e-4b0b-b7ec-3528f89e40af}'), pid=4)
+SENSOR_DATA_TYPE_LIGHT_GUID: Guid = Guid('{e4c77ce2-dcb7-46e9-8439-4fec548833a6}')
 def SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e4c77ce2-dcb7-46e9-84-39-4f-ec-54-88-33-a6'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e4c77ce2-dcb7-46e9-8439-4fec548833a6}'), pid=2)
 def SENSOR_DATA_TYPE_LIGHT_TEMPERATURE_KELVIN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e4c77ce2-dcb7-46e9-84-39-4f-ec-54-88-33-a6'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e4c77ce2-dcb7-46e9-8439-4fec548833a6}'), pid=3)
 def SENSOR_DATA_TYPE_LIGHT_CHROMACITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e4c77ce2-dcb7-46e9-84-39-4f-ec-54-88-33-a6'), pid=4)
-SENSOR_DATA_TYPE_SCANNER_GUID: Guid = Guid('d7a59a3c-3421-44ab-8d-3a-9d-e8-ab-6c-4c-ae')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e4c77ce2-dcb7-46e9-8439-4fec548833a6}'), pid=4)
+SENSOR_DATA_TYPE_SCANNER_GUID: Guid = Guid('{d7a59a3c-3421-44ab-8d3a-9de8ab6c4cae}')
 def SENSOR_DATA_TYPE_RFID_TAG_40_BIT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d7a59a3c-3421-44ab-8d-3a-9d-e8-ab-6c-4c-ae'), pid=2)
-SENSOR_DATA_TYPE_ELECTRICAL_GUID: Guid = Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d7a59a3c-3421-44ab-8d3a-9de8ab6c4cae}'), pid=2)
+SENSOR_DATA_TYPE_ELECTRICAL_GUID: Guid = Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}')
 def SENSOR_DATA_TYPE_VOLTAGE_VOLTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}'), pid=2)
 def SENSOR_DATA_TYPE_CURRENT_AMPS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}'), pid=3)
 def SENSOR_DATA_TYPE_CAPACITANCE_FARAD():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42'), pid=4)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}'), pid=4)
 def SENSOR_DATA_TYPE_RESISTANCE_OHMS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}'), pid=5)
 def SENSOR_DATA_TYPE_INDUCTANCE_HENRY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}'), pid=6)
 def SENSOR_DATA_TYPE_ELECTRICAL_POWER_WATTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}'), pid=7)
 def SENSOR_DATA_TYPE_ELECTRICAL_PERCENT_OF_RANGE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}'), pid=8)
 def SENSOR_DATA_TYPE_ELECTRICAL_FREQUENCY_HERTZ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('bbb246d1-e242-4780-a2-d3-cd-ed-84-f3-58-42'), pid=9)
-SENSOR_DATA_TYPE_CUSTOM_GUID: Guid = Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{bbb246d1-e242-4780-a2d3-cded84f35842}'), pid=9)
+SENSOR_DATA_TYPE_CUSTOM_GUID: Guid = Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}')
 def SENSOR_DATA_TYPE_CUSTOM_USAGE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=5)
 def SENSOR_DATA_TYPE_CUSTOM_BOOLEAN_ARRAY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=6)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE1():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=7)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=8)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE3():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=9)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=9)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE4():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=10)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=10)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE5():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=11)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=11)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE6():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=12)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=12)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE7():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=13)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=13)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE8():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=14)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=14)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE9():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=15)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=15)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE10():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=16)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=16)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE11():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=17)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=17)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE12():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=18)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=18)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE13():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=19)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=19)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE14():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=20)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=20)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE15():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=21)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=21)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE16():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=22)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=22)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE17():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=23)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=23)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE18():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=24)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=24)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE19():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=25)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=25)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE20():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=26)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=26)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE21():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=27)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=27)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE22():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=28)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=28)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE23():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=29)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=29)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE24():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=30)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=30)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE25():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=31)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=31)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE26():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=32)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=32)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE27():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=33)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=33)
 def SENSOR_DATA_TYPE_CUSTOM_VALUE28():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('b14c764f-07cf-41e8-9d-82-eb-e3-d0-77-6a-6f'), pid=34)
-SENSOR_PROPERTY_TEST_GUID: Guid = Guid('e1e962f4-6e65-45f7-9c-36-d4-87-b7-b1-bd-34')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}'), pid=34)
+SENSOR_PROPERTY_TEST_GUID: Guid = Guid('{e1e962f4-6e65-45f7-9c36-d487b7b1bd34}')
 def SENSOR_PROPERTY_CLEAR_ASSISTANCE_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e1e962f4-6e65-45f7-9c-36-d4-87-b7-b1-bd-34'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e1e962f4-6e65-45f7-9c36-d487b7b1bd34}'), pid=2)
 def SENSOR_PROPERTY_TURN_ON_OFF_NMEA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e1e962f4-6e65-45f7-9c-36-d4-87-b7-b1-bd-34'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e1e962f4-6e65-45f7-9c36-d487b7b1bd34}'), pid=3)
 GNSS_CLEAR_ALL_ASSISTANCE_DATA: UInt32 = 1
-GUID_SensorCategory_All: Guid = Guid('c317c286-c468-4288-99-75-d4-c4-58-7c-44-2c')
-GUID_SensorCategory_Biometric: Guid = Guid('ca19690f-a2c7-477d-a9-9e-99-ec-6e-2b-56-48')
-GUID_SensorCategory_Electrical: Guid = Guid('fb73fcd8-fc4a-483c-ac-58-27-b6-91-c6-be-ff')
-GUID_SensorCategory_Environmental: Guid = Guid('323439aa-7f66-492b-ba-0c-73-e9-aa-0a-65-d5')
-GUID_SensorCategory_Light: Guid = Guid('17a665c0-9063-4216-b2-02-5c-7a-25-5e-18-ce')
-GUID_SensorCategory_Location: Guid = Guid('bfa794e4-f964-4fdb-90-f6-51-05-6b-fe-4b-44')
-GUID_SensorCategory_Mechanical: Guid = Guid('8d131d68-8ef7-4656-80-b5-cc-cb-d9-37-91-c5')
-GUID_SensorCategory_Motion: Guid = Guid('cd09daf1-3b2e-4c3d-b5-98-b5-e5-ff-93-fd-46')
-GUID_SensorCategory_Orientation: Guid = Guid('9e6c04b6-96fe-4954-b7-26-68-68-2a-47-3f-69')
-GUID_SensorCategory_Other: Guid = Guid('2c90e7a9-f4c9-4fa2-af-37-56-d4-71-fe-5a-3d')
-GUID_SensorCategory_PersonalActivity: Guid = Guid('f1609081-1e12-412b-a1-4d-cb-b0-e9-5b-d2-e5')
-GUID_SensorCategory_Scanner: Guid = Guid('b000e77e-f5b5-420f-81-5d-02-70-a7-26-f2-70')
-GUID_SensorCategory_Unsupported: Guid = Guid('2beae7fa-19b0-48c5-a1-f6-b5-48-0d-c2-06-b0')
-GUID_SensorType_Accelerometer3D: Guid = Guid('c2fb0f5f-e2d2-4c78-bc-d0-35-2a-95-82-81-9d')
-GUID_SensorType_ActivityDetection: Guid = Guid('9d9e0118-1807-4f2e-96-e4-2c-e5-71-42-e1-96')
-GUID_SensorType_AmbientLight: Guid = Guid('97f115c8-599a-4153-88-94-d2-d1-28-99-91-8a')
-GUID_SensorType_Barometer: Guid = Guid('0e903829-ff8a-4a93-97-df-3d-cb-de-40-22-88')
-GUID_SensorType_Custom: Guid = Guid('e83af229-8640-4d18-a2-13-e2-26-75-eb-b2-c3')
-GUID_SensorType_FloorElevation: Guid = Guid('ade4987f-7ac4-4dfa-97-22-0a-02-71-81-c7-47')
-GUID_SensorType_GeomagneticOrientation: Guid = Guid('e77195f8-2d1f-4823-97-1b-1c-44-67-55-6c-9d')
-GUID_SensorType_GravityVector: Guid = Guid('03b52c73-bb76-463f-95-24-38-de-76-eb-70-0b')
-GUID_SensorType_Gyrometer3D: Guid = Guid('09485f5a-759e-42c2-bd-4b-a3-49-b7-5c-86-43')
-GUID_SensorType_Humidity: Guid = Guid('5c72bf67-bd7e-4257-99-0b-98-a3-ba-3b-40-0a')
-GUID_SensorType_LinearAccelerometer: Guid = Guid('038b0283-97b4-41c8-bc-24-5f-f1-aa-48-fe-c7')
-GUID_SensorType_Magnetometer3D: Guid = Guid('55e5effb-15c7-40df-86-98-a8-4b-7c-86-3c-53')
-GUID_SensorType_Orientation: Guid = Guid('cdb5d8f7-3cfd-41c8-85-42-cc-e6-22-cf-5d-6e')
-GUID_SensorType_Pedometer: Guid = Guid('b19f89af-e3eb-444b-8d-ea-20-25-75-a7-15-99')
-GUID_SensorType_Proximity: Guid = Guid('5220dae9-3179-4430-9f-90-06-26-6d-2a-34-de')
-GUID_SensorType_RelativeOrientation: Guid = Guid('40993b51-4706-44dc-98-d5-c9-20-c0-37-ff-ab')
-GUID_SensorType_SimpleDeviceOrientation: Guid = Guid('86a19291-0482-402c-bf-4c-ad-da-c5-2b-1c-39')
-GUID_SensorType_Temperature: Guid = Guid('04fd0ec4-d5da-45fa-95-a9-5d-b3-8e-e1-93-06')
-GUID_SensorType_HingeAngle: Guid = Guid('82358065-f4c4-4da1-b2-72-13-c2-33-32-a2-07')
+GUID_SensorCategory_All: Guid = Guid('{c317c286-c468-4288-9975-d4c4587c442c}')
+GUID_SensorCategory_Biometric: Guid = Guid('{ca19690f-a2c7-477d-a99e-99ec6e2b5648}')
+GUID_SensorCategory_Electrical: Guid = Guid('{fb73fcd8-fc4a-483c-ac58-27b691c6beff}')
+GUID_SensorCategory_Environmental: Guid = Guid('{323439aa-7f66-492b-ba0c-73e9aa0a65d5}')
+GUID_SensorCategory_Light: Guid = Guid('{17a665c0-9063-4216-b202-5c7a255e18ce}')
+GUID_SensorCategory_Location: Guid = Guid('{bfa794e4-f964-4fdb-90f6-51056bfe4b44}')
+GUID_SensorCategory_Mechanical: Guid = Guid('{8d131d68-8ef7-4656-80b5-cccbd93791c5}')
+GUID_SensorCategory_Motion: Guid = Guid('{cd09daf1-3b2e-4c3d-b598-b5e5ff93fd46}')
+GUID_SensorCategory_Orientation: Guid = Guid('{9e6c04b6-96fe-4954-b726-68682a473f69}')
+GUID_SensorCategory_Other: Guid = Guid('{2c90e7a9-f4c9-4fa2-af37-56d471fe5a3d}')
+GUID_SensorCategory_PersonalActivity: Guid = Guid('{f1609081-1e12-412b-a14d-cbb0e95bd2e5}')
+GUID_SensorCategory_Scanner: Guid = Guid('{b000e77e-f5b5-420f-815d-0270a726f270}')
+GUID_SensorCategory_Unsupported: Guid = Guid('{2beae7fa-19b0-48c5-a1f6-b5480dc206b0}')
+GUID_SensorType_Accelerometer3D: Guid = Guid('{c2fb0f5f-e2d2-4c78-bcd0-352a9582819d}')
+GUID_SensorType_ActivityDetection: Guid = Guid('{9d9e0118-1807-4f2e-96e4-2ce57142e196}')
+GUID_SensorType_AmbientLight: Guid = Guid('{97f115c8-599a-4153-8894-d2d12899918a}')
+GUID_SensorType_Barometer: Guid = Guid('{0e903829-ff8a-4a93-97df-3dcbde402288}')
+GUID_SensorType_Custom: Guid = Guid('{e83af229-8640-4d18-a213-e22675ebb2c3}')
+GUID_SensorType_FloorElevation: Guid = Guid('{ade4987f-7ac4-4dfa-9722-0a027181c747}')
+GUID_SensorType_GeomagneticOrientation: Guid = Guid('{e77195f8-2d1f-4823-971b-1c4467556c9d}')
+GUID_SensorType_GravityVector: Guid = Guid('{03b52c73-bb76-463f-9524-38de76eb700b}')
+GUID_SensorType_Gyrometer3D: Guid = Guid('{09485f5a-759e-42c2-bd4b-a349b75c8643}')
+GUID_SensorType_Humidity: Guid = Guid('{5c72bf67-bd7e-4257-990b-98a3ba3b400a}')
+GUID_SensorType_LinearAccelerometer: Guid = Guid('{038b0283-97b4-41c8-bc24-5ff1aa48fec7}')
+GUID_SensorType_Magnetometer3D: Guid = Guid('{55e5effb-15c7-40df-8698-a84b7c863c53}')
+GUID_SensorType_Orientation: Guid = Guid('{cdb5d8f7-3cfd-41c8-8542-cce622cf5d6e}')
+GUID_SensorType_Pedometer: Guid = Guid('{b19f89af-e3eb-444b-8dea-202575a71599}')
+GUID_SensorType_Proximity: Guid = Guid('{5220dae9-3179-4430-9f90-06266d2a34de}')
+GUID_SensorType_RelativeOrientation: Guid = Guid('{40993b51-4706-44dc-98d5-c920c037ffab}')
+GUID_SensorType_SimpleDeviceOrientation: Guid = Guid('{86a19291-0482-402c-bf4c-addac52b1c39}')
+GUID_SensorType_Temperature: Guid = Guid('{04fd0ec4-d5da-45fa-95a9-5db38ee19306}')
+GUID_SensorType_HingeAngle: Guid = Guid('{82358065-f4c4-4da1-b272-13c23332a207}')
 SENSOR_PROPERTY_LIST_HEADER_SIZE: UInt32 = 8
 @winfunctype('SensorsUtilsV2.dll')
 def GetPerformanceTime(TimeMs: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
@@ -566,14 +566,14 @@ HUMAN_PRESENCE_DETECTION_TYPE_COUNT = Int32
 HUMAN_PRESENCE_DETECTION_TYPE_COUNT_HumanPresenceDetectionTypeCount: HUMAN_PRESENCE_DETECTION_TYPE_COUNT = 4
 class ILocationPermissions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d5fb0a7f-e74e-44f5-8e-02-48-06-86-3a-27-4f')
+    _iid_ = Guid('{d5fb0a7f-e74e-44f5-8e02-4806863a274f}')
     @commethod(3)
     def GetGlobalLocationPermission(self, pfEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CheckLocationCapability(self, dwClientThreadId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5fa08f80-2657-458e-af-75-46-f7-3f-a6-ac-5c')
+    _iid_ = Guid('{5fa08f80-2657-458e-af75-46f73fa6ac5c}')
     @commethod(3)
     def GetID(self, pID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -606,7 +606,7 @@ class ISensor(ComPtr):
     def SetEventSink(self, pEvents: Windows.Win32.Devices.Sensors.ISensorEvents_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('23571e11-e545-4dd8-a3-37-b8-9b-f4-4b-10-df')
+    _iid_ = Guid('{23571e11-e545-4dd8-a337-b89bf44b10df}')
     @commethod(3)
     def GetAt(self, ulIndex: UInt32, ppSensor: POINTER(Windows.Win32.Devices.Sensors.ISensor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -621,7 +621,7 @@ class ISensorCollection(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorDataReport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0ab9df9b-c4b5-4796-88-98-04-70-70-6a-2e-1d')
+    _iid_ = Guid('{0ab9df9b-c4b5-4796-8898-0470706a2e1d}')
     @commethod(3)
     def GetTimestamp(self, pTimeStamp: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -630,7 +630,7 @@ class ISensorDataReport(ComPtr):
     def GetSensorValues(self, pKeys: Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head, ppValues: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5d8dcc91-4641-47e7-b7-c3-b7-4f-48-a6-c3-91')
+    _iid_ = Guid('{5d8dcc91-4641-47e7-b7c3-b74f48a6c391}')
     @commethod(3)
     def OnStateChanged(self, pSensor: Windows.Win32.Devices.Sensors.ISensor_head, state: Windows.Win32.Devices.Sensors.SensorState) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -641,7 +641,7 @@ class ISensorEvents(ComPtr):
     def OnLeave(self, ID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bd77db67-45a8-42dc-8d-00-6d-cf-15-f8-37-7a')
+    _iid_ = Guid('{bd77db67-45a8-42dc-8d00-6dcf15f8377a}')
     @commethod(3)
     def GetSensorsByCategory(self, sensorCategory: POINTER(Guid), ppSensorsFound: POINTER(Windows.Win32.Devices.Sensors.ISensorCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -654,7 +654,7 @@ class ISensorManager(ComPtr):
     def RequestPermissions(self, hParent: Windows.Win32.Foundation.HWND, pSensors: Windows.Win32.Devices.Sensors.ISensorCollection_head, fModal: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9b3b0b86-266a-4aad-b2-1f-fd-e5-50-10-01-b7')
+    _iid_ = Guid('{9b3b0b86-266a-4aad-b21f-fde5501001b7}')
     @commethod(3)
     def OnSensorEnter(self, pSensor: Windows.Win32.Devices.Sensors.ISensor_head, state: Windows.Win32.Devices.Sensors.SensorState) -> Windows.Win32.Foundation.HRESULT: ...
 LOCATION_DESIRED_ACCURACY = Int32
@@ -744,14 +744,14 @@ SimpleDeviceOrientation_Rotated180DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTA
 SimpleDeviceOrientation_Rotated270DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 3
 SimpleDeviceOrientation_Faceup: SIMPLE_DEVICE_ORIENTATION = 4
 SimpleDeviceOrientation_Facedown: SIMPLE_DEVICE_ORIENTATION = 5
-Sensor = Guid('e97ced00-523a-4133-bf-6f-d3-a2-da-e7-f6-ba')
-SensorCollection = Guid('79c43adb-a429-469f-aa-39-2f-2b-74-b7-59-37')
+Sensor = Guid('{e97ced00-523a-4133-bf6f-d3a2dae7f6ba}')
+SensorCollection = Guid('{79c43adb-a429-469f-aa39-2f2b74b75937}')
 SensorConnectionType = Int32
 SENSOR_CONNECTION_TYPE_PC_INTEGRATED: SensorConnectionType = 0
 SENSOR_CONNECTION_TYPE_PC_ATTACHED: SensorConnectionType = 1
 SENSOR_CONNECTION_TYPE_PC_EXTERNAL: SensorConnectionType = 2
-SensorDataReport = Guid('4ea9d6ef-694b-4218-88-16-cc-da-8d-a7-4b-ba')
-SensorManager = Guid('77a1c827-fcd2-4689-89-15-9d-61-3c-c5-fa-3e')
+SensorDataReport = Guid('{4ea9d6ef-694b-4218-8816-ccda8da74bba}')
+SensorManager = Guid('{77a1c827-fcd2-4689-8915-9d613cc5fa3e}')
 SensorState = Int32
 SENSOR_STATE_MIN: SensorState = 0
 SENSOR_STATE_READY: SensorState = 0

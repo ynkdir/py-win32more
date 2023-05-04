@@ -36,7 +36,7 @@ DEDUP_PT_MaxChunkSizeBytes: DEDUP_SET_PARAM_TYPE = 2
 DEDUP_PT_AvgChunkSizeBytes: DEDUP_SET_PARAM_TYPE = 3
 DEDUP_PT_InvariantChunking: DEDUP_SET_PARAM_TYPE = 4
 DEDUP_PT_DisableStrongHashComputation: DEDUP_SET_PARAM_TYPE = 5
-DedupBackupSupport = Guid('73d6b2ad-2984-4715-b2-e3-92-4c-14-97-44-dd')
+DedupBackupSupport = Guid('{73d6b2ad-2984-4715-b2e3-924c149744dd}')
 class DedupChunk(EasyCastStructure):
     Hash: Windows.Win32.Storage.DataDeduplication.DedupHash
     Flags: Windows.Win32.Storage.DataDeduplication.DedupChunkFlags
@@ -51,7 +51,7 @@ DedupChunkingAlgorithm_V1: DedupChunkingAlgorithm = 1
 DedupCompressionAlgorithm = Int32
 DedupCompressionAlgorithm_Unknonwn: DedupCompressionAlgorithm = 0
 DedupCompressionAlgorithm_Xpress: DedupCompressionAlgorithm = 1
-DedupDataPort = Guid('8f107207-1829-48b2-a6-4b-e6-1f-8e-0d-9a-cb')
+DedupDataPort = Guid('{8f107207-1829-48b2-a64b-e61f8e0d9acb}')
 DedupDataPortManagerOption = Int32
 DedupDataPortManagerOption_None: DedupDataPortManagerOption = 0
 DedupDataPortManagerOption_AutoStart: DedupDataPortManagerOption = 1
@@ -87,12 +87,12 @@ class DedupStreamEntry(EasyCastStructure):
     Offset: UInt64
 class IDedupBackupSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c719d963-2b2d-415e-ac-f7-7e-b7-ca-59-6f-f4')
+    _iid_ = Guid('{c719d963-2b2d-415e-acf7-7eb7ca596ff4}')
     @commethod(3)
     def RestoreFiles(self, NumberOfFiles: UInt32, FileFullPaths: POINTER(Windows.Win32.Foundation.BSTR), Store: Windows.Win32.Storage.DataDeduplication.IDedupReadFileCallback_head, Flags: UInt32, FileResults: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDedupChunkLibrary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bb5144d7-2720-4dcc-87-77-78-59-74-16-ec-23')
+    _iid_ = Guid('{bb5144d7-2720-4dcc-8777-78597416ec23}')
     @commethod(3)
     def InitializeForPushBuffers(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -103,7 +103,7 @@ class IDedupChunkLibrary(ComPtr):
     def StartChunking(self, iidIteratorInterfaceID: Guid, ppChunksEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDedupDataPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7963d734-40a9-4ea3-bb-f6-5a-89-d2-6f-7a-e8')
+    _iid_ = Guid('{7963d734-40a9-4ea3-bbf6-5a89d26f7ae8}')
     @commethod(3)
     def GetStatus(self, pStatus: POINTER(Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus), pDataHeadroomMb: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -130,7 +130,7 @@ class IDedupDataPort(ComPtr):
     def GetRequestResults(self, RequestId: Guid, MaxWaitMs: UInt32, pBatchResult: POINTER(Windows.Win32.Foundation.HRESULT), pBatchCount: POINTER(UInt32), pStatus: POINTER(Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus), ppItemResults: POINTER(POINTER(Windows.Win32.Foundation.HRESULT))) -> Windows.Win32.Foundation.HRESULT: ...
 class IDedupDataPortManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('44677452-b90a-445e-81-92-cd-cf-e8-15-11-fb')
+    _iid_ = Guid('{44677452-b90a-445e-8192-cdcfe81511fb}')
     @commethod(3)
     def GetConfiguration(self, pMinChunkSize: POINTER(UInt32), pMaxChunkSize: POINTER(UInt32), pChunkingAlgorithm: POINTER(Windows.Win32.Storage.DataDeduplication.DedupChunkingAlgorithm), pHashingAlgorithm: POINTER(Windows.Win32.Storage.DataDeduplication.DedupHashingAlgorithm), pCompressionAlgorithm: POINTER(Windows.Win32.Storage.DataDeduplication.DedupCompressionAlgorithm)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -139,7 +139,7 @@ class IDedupDataPortManager(ComPtr):
     def GetVolumeDataPort(self, Options: UInt32, Path: Windows.Win32.Foundation.BSTR, ppDataPort: POINTER(Windows.Win32.Storage.DataDeduplication.IDedupDataPort_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDedupIterateChunksHash32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('90b584d3-72aa-400f-97-67-ca-d8-66-a5-a2-d8')
+    _iid_ = Guid('{90b584d3-72aa-400f-9767-cad866a5a2d8}')
     @commethod(3)
     def PushBuffer(self, pBuffer: POINTER(Byte), ulBufferLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -150,7 +150,7 @@ class IDedupIterateChunksHash32(ComPtr):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDedupReadFileCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7bacc67a-2f1d-42d0-89-7e-6f-f6-2d-d5-33-bb')
+    _iid_ = Guid('{7bacc67a-2f1d-42d0-897e-6ff62dd533bb}')
     @commethod(3)
     def ReadBackupFile(self, FileFullPath: Windows.Win32.Foundation.BSTR, FileOffset: Int64, SizeToRead: UInt32, FileBuffer: POINTER(Byte), ReturnedSize: POINTER(UInt32), Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

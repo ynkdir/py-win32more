@@ -32,14 +32,14 @@ WHV_SYNIC_MESSAGE_SIZE: UInt32 = 256
 VM_GENCOUNTER_SYMBOLIC_LINK_NAME: String = '\\VmGenerationCounter'
 IOCTL_VMGENCOUNTER_READ: UInt32 = 3325956
 HDV_PCI_BAR_COUNT: UInt32 = 6
-HV_GUID_ZERO: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-00')
-HV_GUID_BROADCAST: Guid = Guid('ffffffff-ffff-ffff-ff-ff-ff-ff-ff-ff-ff-ff')
-HV_GUID_CHILDREN: Guid = Guid('90db8b89-0d35-4f79-8c-e9-49-ea-0a-c8-b7-cd')
-HV_GUID_LOOPBACK: Guid = Guid('e0e16197-dd56-4a10-91-95-5e-e7-a1-55-a8-38')
-HV_GUID_PARENT: Guid = Guid('a42e7cda-d03f-480c-9c-c2-a4-de-20-ab-b8-78')
-HV_GUID_SILOHOST: Guid = Guid('36bd0c5c-7276-4223-88-ba-7d-03-b6-54-c5-68')
-HV_GUID_VSOCK_TEMPLATE: Guid = Guid('00000000-facb-11e6-bd-58-64-00-6a-79-86-d3')
-GUID_DEVINTERFACE_VM_GENCOUNTER: Guid = Guid('3ff2c92b-6598-4e60-8e-1c-0c-cf-49-27-e3-19')
+HV_GUID_ZERO: Guid = Guid('{00000000-0000-0000-0000-000000000000}')
+HV_GUID_BROADCAST: Guid = Guid('{ffffffff-ffff-ffff-ffff-ffffffffffff}')
+HV_GUID_CHILDREN: Guid = Guid('{90db8b89-0d35-4f79-8ce9-49ea0ac8b7cd}')
+HV_GUID_LOOPBACK: Guid = Guid('{e0e16197-dd56-4a10-9195-5ee7a155a838}')
+HV_GUID_PARENT: Guid = Guid('{a42e7cda-d03f-480c-9cc2-a4de20abb878}')
+HV_GUID_SILOHOST: Guid = Guid('{36bd0c5c-7276-4223-88ba-7d03b654c568}')
+HV_GUID_VSOCK_TEMPLATE: Guid = Guid('{00000000-facb-11e6-bd58-64006a7986d3}')
+GUID_DEVINTERFACE_VM_GENCOUNTER: Guid = Guid('{3ff2c92b-6598-4e60-8e1c-0ccf4927e319}')
 @winfunctype('WinHvPlatform.dll')
 def WHvGetCapability(CapabilityCode: Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE, CapabilityBuffer: c_void_p, CapabilityBufferSizeInBytes: UInt32, WrittenSizeInBytes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')

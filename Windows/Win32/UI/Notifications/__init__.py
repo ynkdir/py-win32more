@@ -15,7 +15,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class INotificationActivationCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('53e31837-6600-4a81-93-95-75-cf-fe-74-6f-94')
+    _iid_ = Guid('{53e31837-6600-4a81-9395-75cffe746f94}')
     @commethod(3)
     def Activate(self, appUserModelId: Windows.Win32.Foundation.PWSTR, invokedArgs: Windows.Win32.Foundation.PWSTR, data: POINTER(Windows.Win32.UI.Notifications.NOTIFICATION_USER_INPUT_DATA_head), count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class NOTIFICATION_USER_INPUT_DATA(EasyCastStructure):

@@ -327,33 +327,33 @@ GESTURE_DOUBLE_TAP: UInt32 = 61681
 GESTURE_TRIPLE_TAP: UInt32 = 61682
 GESTURE_QUAD_TAP: UInt32 = 61683
 FACILITY_INK: UInt32 = 40
-GUID_PACKETPROPERTY_GUID_X: Guid = Guid('598a6a8f-52c0-4ba0-93-af-af-35-74-11-a5-61')
-GUID_PACKETPROPERTY_GUID_Y: Guid = Guid('b53f9f75-04e0-4498-a7-ee-c3-0d-bb-5a-90-11')
-GUID_PACKETPROPERTY_GUID_Z: Guid = Guid('735adb30-0ebb-4788-a0-e4-0f-31-64-90-05-5d')
-GUID_PACKETPROPERTY_GUID_PACKET_STATUS: Guid = Guid('6e0e07bf-afe7-4cf7-87-d1-af-64-46-20-84-18')
-GUID_PACKETPROPERTY_GUID_TIMER_TICK: Guid = Guid('436510c5-fed3-45d1-8b-76-71-d3-ea-7a-82-9d')
-GUID_PACKETPROPERTY_GUID_SERIAL_NUMBER: Guid = Guid('78a81b56-0935-4493-ba-ae-00-54-1a-8a-16-c4')
-GUID_PACKETPROPERTY_GUID_NORMAL_PRESSURE: Guid = Guid('7307502d-f9f4-4e18-b3-f2-2c-e1-b1-a3-61-0c')
-GUID_PACKETPROPERTY_GUID_TANGENT_PRESSURE: Guid = Guid('6da4488b-5244-41ec-90-5b-32-d8-9a-b8-08-09')
-GUID_PACKETPROPERTY_GUID_BUTTON_PRESSURE: Guid = Guid('8b7fefc4-96aa-4bfe-ac-26-8a-5f-0b-e0-7b-f5')
-GUID_PACKETPROPERTY_GUID_X_TILT_ORIENTATION: Guid = Guid('a8d07b3a-8bf0-40b0-95-a9-b8-0a-6b-b7-87-bf')
-GUID_PACKETPROPERTY_GUID_Y_TILT_ORIENTATION: Guid = Guid('0e932389-1d77-43af-ac-00-5b-95-0d-6d-4b-2d')
-GUID_PACKETPROPERTY_GUID_AZIMUTH_ORIENTATION: Guid = Guid('029123b4-8828-410b-b2-50-a0-53-65-95-e5-dc')
-GUID_PACKETPROPERTY_GUID_ALTITUDE_ORIENTATION: Guid = Guid('82dec5c7-f6ba-4906-89-4f-66-d6-8d-fc-45-6c')
-GUID_PACKETPROPERTY_GUID_TWIST_ORIENTATION: Guid = Guid('0d324960-13b2-41e4-ac-e6-7a-e9-d4-3d-2d-3b')
-GUID_PACKETPROPERTY_GUID_PITCH_ROTATION: Guid = Guid('7f7e57b7-be37-4be1-a3-56-7a-84-16-0e-18-93')
-GUID_PACKETPROPERTY_GUID_ROLL_ROTATION: Guid = Guid('5d5d5e56-6ba9-4c5b-9f-b0-85-1c-91-71-4e-56')
-GUID_PACKETPROPERTY_GUID_YAW_ROTATION: Guid = Guid('6a849980-7c3a-45b7-aa-82-90-a2-62-95-0e-89')
-GUID_PACKETPROPERTY_GUID_WIDTH: Guid = Guid('baabe94d-2712-48f5-be-9d-8f-8b-5e-a0-71-1a')
-GUID_PACKETPROPERTY_GUID_HEIGHT: Guid = Guid('e61858d2-e447-4218-9d-3f-18-86-5c-20-3d-f4')
-GUID_PACKETPROPERTY_GUID_FINGERCONTACTCONFIDENCE: Guid = Guid('e706c804-57f0-4f00-8a-0c-85-3d-57-78-9b-e9')
-GUID_PACKETPROPERTY_GUID_DEVICE_CONTACT_ID: Guid = Guid('02585b91-049b-4750-96-15-df-89-48-ab-3c-9c')
+GUID_PACKETPROPERTY_GUID_X: Guid = Guid('{598a6a8f-52c0-4ba0-93af-af357411a561}')
+GUID_PACKETPROPERTY_GUID_Y: Guid = Guid('{b53f9f75-04e0-4498-a7ee-c30dbb5a9011}')
+GUID_PACKETPROPERTY_GUID_Z: Guid = Guid('{735adb30-0ebb-4788-a0e4-0f316490055d}')
+GUID_PACKETPROPERTY_GUID_PACKET_STATUS: Guid = Guid('{6e0e07bf-afe7-4cf7-87d1-af6446208418}')
+GUID_PACKETPROPERTY_GUID_TIMER_TICK: Guid = Guid('{436510c5-fed3-45d1-8b76-71d3ea7a829d}')
+GUID_PACKETPROPERTY_GUID_SERIAL_NUMBER: Guid = Guid('{78a81b56-0935-4493-baae-00541a8a16c4}')
+GUID_PACKETPROPERTY_GUID_NORMAL_PRESSURE: Guid = Guid('{7307502d-f9f4-4e18-b3f2-2ce1b1a3610c}')
+GUID_PACKETPROPERTY_GUID_TANGENT_PRESSURE: Guid = Guid('{6da4488b-5244-41ec-905b-32d89ab80809}')
+GUID_PACKETPROPERTY_GUID_BUTTON_PRESSURE: Guid = Guid('{8b7fefc4-96aa-4bfe-ac26-8a5f0be07bf5}')
+GUID_PACKETPROPERTY_GUID_X_TILT_ORIENTATION: Guid = Guid('{a8d07b3a-8bf0-40b0-95a9-b80a6bb787bf}')
+GUID_PACKETPROPERTY_GUID_Y_TILT_ORIENTATION: Guid = Guid('{0e932389-1d77-43af-ac00-5b950d6d4b2d}')
+GUID_PACKETPROPERTY_GUID_AZIMUTH_ORIENTATION: Guid = Guid('{029123b4-8828-410b-b250-a0536595e5dc}')
+GUID_PACKETPROPERTY_GUID_ALTITUDE_ORIENTATION: Guid = Guid('{82dec5c7-f6ba-4906-894f-66d68dfc456c}')
+GUID_PACKETPROPERTY_GUID_TWIST_ORIENTATION: Guid = Guid('{0d324960-13b2-41e4-ace6-7ae9d43d2d3b}')
+GUID_PACKETPROPERTY_GUID_PITCH_ROTATION: Guid = Guid('{7f7e57b7-be37-4be1-a356-7a84160e1893}')
+GUID_PACKETPROPERTY_GUID_ROLL_ROTATION: Guid = Guid('{5d5d5e56-6ba9-4c5b-9fb0-851c91714e56}')
+GUID_PACKETPROPERTY_GUID_YAW_ROTATION: Guid = Guid('{6a849980-7c3a-45b7-aa82-90a262950e89}')
+GUID_PACKETPROPERTY_GUID_WIDTH: Guid = Guid('{baabe94d-2712-48f5-be9d-8f8b5ea0711a}')
+GUID_PACKETPROPERTY_GUID_HEIGHT: Guid = Guid('{e61858d2-e447-4218-9d3f-18865c203df4}')
+GUID_PACKETPROPERTY_GUID_FINGERCONTACTCONFIDENCE: Guid = Guid('{e706c804-57f0-4f00-8a0c-853d57789be9}')
+GUID_PACKETPROPERTY_GUID_DEVICE_CONTACT_ID: Guid = Guid('{02585b91-049b-4750-9615-df8948ab3c9c}')
 InkMinTransparencyValue: Int32 = 0
 InkMaxTransparencyValue: Int32 = 255
 InkCollectorClipInkToMargin: Int32 = 0
 InkCollectorDefaultMargin: Int32 = -2147483648
-GUID_GESTURE_DATA: Guid = Guid('41e4ec0f-26aa-455a-9a-a5-2c-d3-6c-f6-3f-b9')
-GUID_DYNAMIC_RENDERER_CACHED_DATA: Guid = Guid('bf531b92-25bf-4a95-89-ad-0e-47-6b-34-b4-f5')
+GUID_GESTURE_DATA: Guid = Guid('{41e4ec0f-26aa-455a-9aa5-2cd36cf63fb9}')
+GUID_DYNAMIC_RENDERER_CACHED_DATA: Guid = Guid('{bf531b92-25bf-4a95-89ad-0e476b34b4f5}')
 @winfunctype('inkobjcore.dll')
 def CreateRecognizer(pCLSID: POINTER(Guid), phrec: POINTER(Windows.Win32.UI.TabletPC.HRECOGNIZER)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('inkobjcore.dll')
@@ -893,7 +893,7 @@ DISPID_SEStrokesRemoved: DISPID_StrokeEvent = 2
 class DYNAMIC_RENDERER_CACHED_DATA(EasyCastStructure):
     strokeId: Int32
     dynamicRenderer: Windows.Win32.UI.TabletPC.IDynamicRenderer_head
-DynamicRenderer = Guid('ecd32aea-746f-4dcb-bf-68-08-27-57-fa-ff-18')
+DynamicRenderer = Guid('{ecd32aea-746f-4dcb-bf68-082757faff18}')
 EventMask = Int32
 EventMask_InPlaceStateChanging: EventMask = 1
 EventMask_InPlaceStateChanged: EventMask = 2
@@ -943,16 +943,16 @@ class GESTURE_DATA(EasyCastStructure):
 GET_DANDIDATE_FLAGS = Int32
 TCF_ALLOW_RECOGNITION: GET_DANDIDATE_FLAGS = 1
 TCF_FORCE_RECOGNITION: GET_DANDIDATE_FLAGS = 2
-GestureRecognizer = Guid('ea30c654-c62c-441f-ac-00-95-f9-a1-96-78-2c')
+GestureRecognizer = Guid('{ea30c654-c62c-441f-ac00-95f9a196782c}')
 HRECOALT = IntPtr
 HRECOCONTEXT = IntPtr
 HRECOGNIZER = IntPtr
 HRECOLATTICE = IntPtr
 HRECOWORDLIST = IntPtr
-HandwrittenTextInsertion = Guid('9f074ee2-e6e9-4d8a-a0-47-eb-5b-5c-3c-55-da')
+HandwrittenTextInsertion = Guid('{9f074ee2-e6e9-4d8a-a047-eb5b5c3c55da}')
 class IDynamicRenderer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a079468e-7165-46f9-b7-af-98-ad-01-a9-30-09')
+    _iid_ = Guid('{a079468e-7165-46f9-b7af-98ad01a93009}')
     @commethod(3)
     def get_Enabled(self, bEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -997,7 +997,7 @@ class IEC_STROKEINFO(EasyCastStructure):
     Stroke: Windows.Win32.UI.TabletPC.IInkStrokeDisp_head
 class IGestureRecognizer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ae9ef86b-7054-45e3-ae-22-31-74-dc-88-11-b7')
+    _iid_ = Guid('{ae9ef86b-7054-45e3-ae22-3174dc8811b7}')
     @commethod(3)
     def get_Enabled(self, pfEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1012,17 +1012,17 @@ class IGestureRecognizer(ComPtr):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHandwrittenTextInsertion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('56fdea97-ecd6-43e7-aa-3a-81-6b-e7-78-58-60')
+    _iid_ = Guid('{56fdea97-ecd6-43e7-aa3a-816be7785860}')
     @commethod(3)
     def InsertRecognitionResultsArray(self, psaAlternates: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), locale: UInt32, fAlternateContainsAutoSpacingInformation: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def InsertInkRecognitionResult(self, pIInkRecoResult: Windows.Win32.UI.TabletPC.IInkRecognitionResult_head, locale: UInt32, fAlternateContainsAutoSpacingInformation: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IInk(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('03f8e511-43a1-11d3-8b-b6-00-80-c7-d6-ba-d5')
+    _iid_ = Guid('{03f8e511-43a1-11d3-8bb6-0080c7d6bad5}')
 class IInkCollector(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f0f060b5-8b1f-4a7c-89-ec-88-06-92-58-8a-4f')
+    _iid_ = Guid('{f0f060b5-8b1f-4a7c-89ec-880692588a4f}')
     @commethod(7)
     def get_hWnd(self, CurrentWindow: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1105,7 +1105,7 @@ class IInkCollector(ComPtr):
     def SetEventInterest(self, EventId: Windows.Win32.UI.TabletPC.InkCollectorEventInterest, Listen: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkCursor(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('ad30c630-40c5-4350-84-05-9c-71-01-2f-c5-58')
+    _iid_ = Guid('{ad30c630-40c5-4350-8405-9c71012fc558}')
     @commethod(7)
     def get_Name(self, Name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1122,7 +1122,7 @@ class IInkCursor(ComPtr):
     def get_Buttons(self, Buttons: POINTER(Windows.Win32.UI.TabletPC.IInkCursorButtons_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkCursorButton(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('85ef9417-1d59-49b2-a1-3c-70-2c-85-43-08-94')
+    _iid_ = Guid('{85ef9417-1d59-49b2-a13c-702c85430894}')
     @commethod(7)
     def get_Name(self, Name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1131,7 +1131,7 @@ class IInkCursorButton(ComPtr):
     def get_State(self, CurrentState: POINTER(Windows.Win32.UI.TabletPC.InkCursorButtonState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkCursorButtons(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3671cc40-b624-4671-9f-a0-db-11-9d-95-2d-54')
+    _iid_ = Guid('{3671cc40-b624-4671-9fa0-db119d952d54}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1140,7 +1140,7 @@ class IInkCursorButtons(ComPtr):
     def Item(self, Identifier: Windows.Win32.System.Variant.VARIANT, Button: POINTER(Windows.Win32.UI.TabletPC.IInkCursorButton_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkCursors(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('a248c1ac-c698-4e06-9e-5c-d5-7f-77-c7-e6-47')
+    _iid_ = Guid('{a248c1ac-c698-4e06-9e5c-d57f77c7e647}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1149,7 +1149,7 @@ class IInkCursors(ComPtr):
     def Item(self, Index: Int32, Cursor: POINTER(Windows.Win32.UI.TabletPC.IInkCursor_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkCustomStrokes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('7e23a88f-c30e-420f-9b-db-28-90-25-43-f0-c1')
+    _iid_ = Guid('{7e23a88f-c30e-420f-9bdb-28902543f0c1}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1164,7 +1164,7 @@ class IInkCustomStrokes(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkDisp(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('9d398fa0-c4e2-4fcd-99-73-97-5c-aa-f4-7e-a6')
+    _iid_ = Guid('{9d398fa0-c4e2-4fcd-9973-975caaf47ea6}')
     @commethod(7)
     def get_Strokes(self, Strokes: POINTER(Windows.Win32.UI.TabletPC.IInkStrokes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1217,7 +1217,7 @@ class IInkDisp(ComPtr):
     def ClipboardPaste(self, x: Int32, y: Int32, DataObject: Windows.Win32.System.Com.IDataObject_head, Strokes: POINTER(Windows.Win32.UI.TabletPC.IInkStrokes_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkDivider(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('5de00405-f9a4-4651-b0-c5-c3-17-de-fd-58-b9')
+    _iid_ = Guid('{5de00405-f9a4-4651-b0c5-c317defd58b9}')
     @commethod(7)
     def get_Strokes(self, Strokes: POINTER(Windows.Win32.UI.TabletPC.IInkStrokes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1234,14 +1234,14 @@ class IInkDivider(ComPtr):
     def Divide(self, InkDivisionResult: POINTER(Windows.Win32.UI.TabletPC.IInkDivisionResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkDivisionResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('2dbec0a7-74c7-4b38-81-eb-aa-8e-f0-c2-49-00')
+    _iid_ = Guid('{2dbec0a7-74c7-4b38-81eb-aa8ef0c24900}')
     @commethod(7)
     def get_Strokes(self, Strokes: POINTER(Windows.Win32.UI.TabletPC.IInkStrokes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def ResultByType(self, divisionType: Windows.Win32.UI.TabletPC.InkDivisionType, InkDivisionUnits: POINTER(Windows.Win32.UI.TabletPC.IInkDivisionUnits_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkDivisionUnit(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('85aee342-48b0-4244-9d-d5-1e-d4-35-41-0f-ab')
+    _iid_ = Guid('{85aee342-48b0-4244-9dd5-1ed435410fab}')
     @commethod(7)
     def get_Strokes(self, Strokes: POINTER(Windows.Win32.UI.TabletPC.IInkStrokes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1252,7 +1252,7 @@ class IInkDivisionUnit(ComPtr):
     def get_RotationTransform(self, RotationTransform: POINTER(Windows.Win32.UI.TabletPC.IInkTransform_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkDivisionUnits(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('1bb5ddc2-31cc-4135-ab-82-2c-66-c9-f0-0c-41')
+    _iid_ = Guid('{1bb5ddc2-31cc-4135-ab82-2c66c9f00c41}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1261,7 +1261,7 @@ class IInkDivisionUnits(ComPtr):
     def Item(self, Index: Int32, InkDivisionUnit: POINTER(Windows.Win32.UI.TabletPC.IInkDivisionUnit_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkDrawingAttributes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('bf519b75-0a15-4623-ad-c9-c0-0d-43-6a-80-92')
+    _iid_ = Guid('{bf519b75-0a15-4623-adc9-c00d436a8092}')
     @commethod(7)
     def get_Color(self, CurrentColor: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1304,7 +1304,7 @@ class IInkDrawingAttributes(ComPtr):
     def Clone(self, DrawingAttributes: POINTER(Windows.Win32.UI.TabletPC.IInkDrawingAttributes_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkEdit(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f2127a19-fbfb-4aed-84-64-3f-36-d7-8c-fe-fb')
+    _iid_ = Guid('{f2127a19-fbfb-4aed-8464-3f36d78cfefb}')
     @commethod(7)
     def get_Status(self, pStatus: POINTER(Windows.Win32.UI.TabletPC.InkEditStatus)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1461,7 +1461,7 @@ class IInkEdit(ComPtr):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkExtendedProperties(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('89f2a8be-95a9-4530-8b-8f-88-e9-71-e3-e2-5f')
+    _iid_ = Guid('{89f2a8be-95a9-4530-8b8f-88e971e3e25f}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1478,7 +1478,7 @@ class IInkExtendedProperties(ComPtr):
     def DoesPropertyExist(self, Guid: Windows.Win32.Foundation.BSTR, DoesPropertyExist: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkExtendedProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('db489209-b7c3-411d-90-f6-15-48-cf-ff-27-1e')
+    _iid_ = Guid('{db489209-b7c3-411d-90f6-1548cfff271e}')
     @commethod(7)
     def get_Guid(self, Guid: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1487,7 +1487,7 @@ class IInkExtendedProperty(ComPtr):
     def put_Data(self, Data: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkGesture(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3bdc0a97-04e5-4e26-b8-13-18-f0-52-d4-1d-ef')
+    _iid_ = Guid('{3bdc0a97-04e5-4e26-b813-18f052d41def}')
     @commethod(7)
     def get_Confidence(self, Confidence: POINTER(Windows.Win32.UI.TabletPC.InkRecognitionConfidence)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1496,7 +1496,7 @@ class IInkGesture(ComPtr):
     def GetHotPoint(self, X: POINTER(Int32), Y: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkLineInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9c1c5ad6-f22f-4de4-b4-53-a2-cc-48-2e-7c-33')
+    _iid_ = Guid('{9c1c5ad6-f22f-4de4-b453-a2cc482e7c33}')
     @commethod(3)
     def SetFormat(self, pim: POINTER(Windows.Win32.UI.TabletPC.INKMETRIC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1511,7 +1511,7 @@ class IInkLineInfo(ComPtr):
     def Recognize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkOverlay(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b82a463b-c1c5-45a3-99-7c-de-ab-56-51-b6-7a')
+    _iid_ = Guid('{b82a463b-c1c5-45a3-997c-deab5651b67a}')
     @commethod(7)
     def get_hWnd(self, CurrentWindow: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1622,7 +1622,7 @@ class IInkOverlay(ComPtr):
     def SetEventInterest(self, EventId: Windows.Win32.UI.TabletPC.InkCollectorEventInterest, Listen: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkPicture(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e85662e0-379a-40d7-9b-5c-75-7d-23-3f-99-23')
+    _iid_ = Guid('{e85662e0-379a-40d7-9b5c-757d233f9923}')
     @commethod(7)
     def get_hWnd(self, CurrentWindow: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1743,7 +1743,7 @@ class IInkPicture(ComPtr):
     def put_Enabled(self, vbool: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognitionAlternate(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b7e660ad-77e4-429b-ad-da-87-37-80-d1-fc-4a')
+    _iid_ = Guid('{b7e660ad-77e4-429b-adda-873780d1fc4a}')
     @commethod(7)
     def get_String(self, RecoString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1776,7 +1776,7 @@ class IInkRecognitionAlternate(ComPtr):
     def GetPropertyValue(self, PropertyType: Windows.Win32.Foundation.BSTR, PropertyValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognitionAlternates(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('286a167f-9f19-4c61-9d-53-4f-07-be-62-2b-84')
+    _iid_ = Guid('{286a167f-9f19-4c61-9d53-4f07be622b84}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1787,7 +1787,7 @@ class IInkRecognitionAlternates(ComPtr):
     def Item(self, Index: Int32, InkRecoAlternate: POINTER(Windows.Win32.UI.TabletPC.IInkRecognitionAlternate_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognitionResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3bc129a8-86cd-45ad-bd-e8-e0-d3-2d-61-c1-6d')
+    _iid_ = Guid('{3bc129a8-86cd-45ad-bde8-e0d32d61c16d}')
     @commethod(7)
     def get_TopString(self, TopString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1804,7 +1804,7 @@ class IInkRecognitionResult(ComPtr):
     def SetResultOnStrokes(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognizer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('782bf7cf-034b-4396-8a-32-3a-18-33-cf-6b-56')
+    _iid_ = Guid('{782bf7cf-034b-4396-8a32-3a1833cf6b56}')
     @commethod(7)
     def get_Name(self, Name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1821,14 +1821,14 @@ class IInkRecognizer(ComPtr):
     def CreateRecognizerContext(self, Context: POINTER(Windows.Win32.UI.TabletPC.IInkRecognizerContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognizer2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('6110118a-3a75-4ad6-b2-aa-04-b2-b7-2b-be-65')
+    _iid_ = Guid('{6110118a-3a75-4ad6-b2aa-04b2b72bbe65}')
     @commethod(7)
     def get_Id(self, pbstrId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_UnicodeRanges(self, UnicodeRanges: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognizerContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('c68f52f9-32a3-4625-90-6c-44-fc-23-b4-09-58')
+    _iid_ = Guid('{c68f52f9-32a3-4625-906c-44fc23b40958}')
     @commethod(7)
     def get_Strokes(self, Strokes: POINTER(Windows.Win32.UI.TabletPC.IInkStrokes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1879,14 +1879,14 @@ class IInkRecognizerContext(ComPtr):
     def IsStringSupported(self, String: Windows.Win32.Foundation.BSTR, Supported: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognizerContext2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d6f0e32f-73d8-408e-8e-9f-5f-ea-59-2c-36-3f')
+    _iid_ = Guid('{d6f0e32f-73d8-408e-8e9f-5fea592c363f}')
     @commethod(7)
     def get_EnabledUnicodeRanges(self, UnicodeRanges: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_EnabledUnicodeRanges(self, UnicodeRanges: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognizerGuide(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d934be07-7b84-4208-91-36-83-c2-09-94-e9-05')
+    _iid_ = Guid('{d934be07-7b84-4208-9136-83c20994e905}')
     @commethod(7)
     def get_WritingBox(self, Rectangle: POINTER(Windows.Win32.UI.TabletPC.IInkRectangle_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1913,7 +1913,7 @@ class IInkRecognizerGuide(ComPtr):
     def put_GuideData(self, recoGuide: Windows.Win32.UI.TabletPC.InkRecoGuide) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRecognizers(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('9ccc4f12-b0b7-4a8b-bf-58-4a-ec-a4-e8-ce-fd')
+    _iid_ = Guid('{9ccc4f12-b0b7-4a8b-bf58-4aeca4e8cefd}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1924,7 +1924,7 @@ class IInkRecognizers(ComPtr):
     def Item(self, Index: Int32, InkRecognizer: POINTER(Windows.Win32.UI.TabletPC.IInkRecognizer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRectangle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('9794ff82-6071-4717-8a-8b-6a-c7-c6-4a-68-6e')
+    _iid_ = Guid('{9794ff82-6071-4717-8a8b-6ac7c64a686e}')
     @commethod(7)
     def get_Top(self, Units: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1951,7 +1951,7 @@ class IInkRectangle(ComPtr):
     def SetRectangle(self, Top: Int32, Left: Int32, Bottom: Int32, Right: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkRenderer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e6257a9c-b511-4f4c-a8-b0-a7-db-c9-50-6b-83')
+    _iid_ = Guid('{e6257a9c-b511-4f4c-a8b0-a7dbc9506b83}')
     @commethod(7)
     def GetViewTransform(self, ViewTransform: Windows.Win32.UI.TabletPC.IInkTransform_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1984,7 +1984,7 @@ class IInkRenderer(ComPtr):
     def ScaleTransform(self, HorizontalMultiplier: Single, VerticalMultiplier: Single, ApplyOnPenWidth: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkStrokeDisp(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('43242fea-91d1-4a72-96-3e-fb-b9-18-29-cf-a2')
+    _iid_ = Guid('{43242fea-91d1-4a72-963e-fbb91829cfa2}')
     @commethod(7)
     def get_ID(self, ID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2053,7 +2053,7 @@ class IInkStrokeDisp(ComPtr):
     def ScaleTransform(self, HorizontalMultiplier: Single, VerticalMultiplier: Single) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkStrokes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f1f4c9d8-590a-4963-b3-ae-19-35-67-1b-b6-f3')
+    _iid_ = Guid('{f1f4c9d8-590a-4963-b3ae-1935671bb6f3}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2096,7 +2096,7 @@ class IInkStrokes(ComPtr):
     def RemoveRecognitionResult(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkTablet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('2de25eaa-6ef8-42d5-ae-e9-18-5b-c8-1b-91-2d')
+    _iid_ = Guid('{2de25eaa-6ef8-42d5-aee9-185bc81b912d}')
     @commethod(7)
     def get_Name(self, Name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2111,19 +2111,19 @@ class IInkTablet(ComPtr):
     def GetPropertyMetrics(self, propertyName: Windows.Win32.Foundation.BSTR, Minimum: POINTER(Int32), Maximum: POINTER(Int32), Units: POINTER(Windows.Win32.UI.TabletPC.TabletPropertyMetricUnit), Resolution: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkTablet2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('90c91ad2-fa36-49d6-95-16-ce-8d-57-0f-6f-85')
+    _iid_ = Guid('{90c91ad2-fa36-49d6-9516-ce8d570f6f85}')
     @commethod(7)
     def get_DeviceKind(self, Kind: POINTER(Windows.Win32.UI.TabletPC.TabletDeviceKind)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkTablet3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('7e313997-1327-41dd-8c-a9-79-f2-4b-e1-72-50')
+    _iid_ = Guid('{7e313997-1327-41dd-8ca9-79f24be17250}')
     @commethod(7)
     def get_IsMultiTouch(self, pIsMultiTouch: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_MaximumCursors(self, pMaximumCursors: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkTablets(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('112086d9-7779-4535-a6-99-86-2b-43-ac-18-63')
+    _iid_ = Guid('{112086d9-7779-4535-a699-862b43ac1863}')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2136,7 +2136,7 @@ class IInkTablets(ComPtr):
     def IsPacketPropertySupported(self, packetPropertyName: Windows.Win32.Foundation.BSTR, Supported: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkTransform(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('615f1d43-8703-4565-88-e2-82-01-d2-ec-d7-b7')
+    _iid_ = Guid('{615f1d43-8703-4565-88e2-8201d2ecd7b7}')
     @commethod(7)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2183,7 +2183,7 @@ class IInkTransform(ComPtr):
     def put_Data(self, XForm: Windows.Win32.Graphics.Gdi.XFORM) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkWordList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('76ba3491-cb2f-406b-99-61-0e-0c-4c-da-ae-f2')
+    _iid_ = Guid('{76ba3491-cb2f-406b-9961-0e0c4cdaaef2}')
     @commethod(7)
     def AddWord(self, NewWord: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2192,12 +2192,12 @@ class IInkWordList(ComPtr):
     def Merge(self, MergeWordList: Windows.Win32.UI.TabletPC.IInkWordList_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkWordList2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('14542586-11bf-4f5f-b6-e7-49-d0-74-4a-ab-6e')
+    _iid_ = Guid('{14542586-11bf-4f5f-b6e7-49d0744aab6e}')
     @commethod(7)
     def AddWords(self, NewWords: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IInputPanelWindowHandle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4af81847-fdc4-4fc3-ad-0b-42-24-79-c1-b9-35')
+    _iid_ = Guid('{4af81847-fdc4-4fc3-ad0b-422479c1b935}')
     @commethod(3)
     def get_AttachedEditWindow32(self, AttachedEditWindow: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2208,7 +2208,7 @@ class IInputPanelWindowHandle(ComPtr):
     def put_AttachedEditWindow64(self, AttachedEditWindow: Int64) -> Windows.Win32.Foundation.HRESULT: ...
 class IMathInputControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('eba615aa-fac6-4738-ba-5f-ff-09-e9-fe-47-3e')
+    _iid_ = Guid('{eba615aa-fac6-4738-ba5f-ff09e9fe473e}')
     @commethod(7)
     def Show(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2255,7 +2255,7 @@ IMF_ITALIC: INK_METRIC_FLAGS = 2
 IMF_BOLD: INK_METRIC_FLAGS = 4
 class IPenInputPanel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('fa7a4083-5747-4040-a1-82-0b-0e-9f-d4-fa-c7')
+    _iid_ = Guid('{fa7a4083-5747-4040-a182-0b0e9fd4fac7}')
     @commethod(7)
     def get_Busy(self, Busy: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2308,7 +2308,7 @@ class IPenInputPanel(ComPtr):
     def EnableTsf(self, Enable: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IRealTimeStylus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a8bb5d22-3144-4a7b-93-cd-f3-4a-16-be-51-3a')
+    _iid_ = Guid('{a8bb5d22-3144-4a7b-93cd-f34a16be513a}')
     @commethod(3)
     def get_Enabled(self, pfEnable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2373,31 +2373,31 @@ class IRealTimeStylus(ComPtr):
     def GetPacketDescriptionData(self, tcid: UInt32, pfInkToDeviceScaleX: POINTER(Single), pfInkToDeviceScaleY: POINTER(Single), pcPacketProperties: POINTER(UInt32), ppPacketProperties: POINTER(POINTER(Windows.Win32.UI.TabletPC.PACKET_PROPERTY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IRealTimeStylus2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b5f2a6cd-3179-4a3e-b9-c4-bb-58-65-96-2b-e2')
+    _iid_ = Guid('{b5f2a6cd-3179-4a3e-b9c4-bb5865962be2}')
     @commethod(3)
     def get_FlicksEnabled(self, pfEnable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_FlicksEnabled(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IRealTimeStylus3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d70230a3-6986-4051-b5-7a-1c-f6-9f-4d-9d-b5')
+    _iid_ = Guid('{d70230a3-6986-4051-b57a-1cf69f4d9db5}')
     @commethod(3)
     def get_MultiTouchEnabled(self, pfEnable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_MultiTouchEnabled(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IRealTimeStylusSynchronization(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('aa87eab8-ab4a-4cea-b5-cb-46-d8-4c-6a-25-09')
+    _iid_ = Guid('{aa87eab8-ab4a-4cea-b5cb-46d84c6a2509}')
     @commethod(3)
     def AcquireLock(self, lock: Windows.Win32.UI.TabletPC.RealTimeStylusLockType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseLock(self, lock: Windows.Win32.UI.TabletPC.RealTimeStylusLockType) -> Windows.Win32.Foundation.HRESULT: ...
 class ISketchInk(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b4563688-98eb-4646-b2-79-44-da-14-d4-57-48')
+    _iid_ = Guid('{b4563688-98eb-4646-b279-44da14d45748}')
 class IStrokeBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a5fd4e2d-c44b-4092-91-77-26-09-05-eb-67-2b')
+    _iid_ = Guid('{a5fd4e2d-c44b-4092-9177-260905eb672b}')
     @commethod(3)
     def CreateStroke(self, cPktBuffLength: UInt32, pPackets: POINTER(Int32), cPacketProperties: UInt32, pPacketProperties: POINTER(Windows.Win32.UI.TabletPC.PACKET_PROPERTY_head), fInkToDeviceScaleX: Single, fInkToDeviceScaleY: Single, ppIInkStroke: POINTER(Windows.Win32.UI.TabletPC.IInkStrokeDisp_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2412,10 +2412,10 @@ class IStrokeBuilder(ComPtr):
     def putref_Ink(self, piInkObj: Windows.Win32.UI.TabletPC.IInkDisp_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IStylusAsyncPlugin(ComPtr):
     extends: Windows.Win32.UI.TabletPC.IStylusPlugin
-    _iid_ = Guid('a7cca85a-31bc-4cd2-aa-dc-32-89-a3-af-11-c8')
+    _iid_ = Guid('{a7cca85a-31bc-4cd2-aadc-3289a3af11c8}')
 class IStylusPlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a81436d8-4757-4fd1-a1-85-13-3f-97-c6-c5-45')
+    _iid_ = Guid('{a81436d8-4757-4fd1-a185-133f97c6c545}')
     @commethod(3)
     def RealTimeStylusEnabled(self, piRtsSrc: Windows.Win32.UI.TabletPC.IRealTimeStylus_head, cTcidCount: UInt32, pTcids: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2452,10 +2452,10 @@ class IStylusPlugin(ComPtr):
     def DataInterest(self, pDataInterest: POINTER(Windows.Win32.UI.TabletPC.RealTimeStylusDataInterest)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStylusSyncPlugin(ComPtr):
     extends: Windows.Win32.UI.TabletPC.IStylusPlugin
-    _iid_ = Guid('a157b174-482f-4d71-a3-f6-3a-41-dd-d1-1b-e9')
+    _iid_ = Guid('{a157b174-482f-4d71-a3f6-3a41ddd11be9}')
 class ITextInputPanel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6b6a65a5-6af3-46c2-b6-ea-56-cd-1f-80-df-71')
+    _iid_ = Guid('{6b6a65a5-6af3-46c2-b6ea-56cd1f80df71}')
     @commethod(3)
     def get_AttachedEditWindow(self, AttachedEditWindow: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2508,7 +2508,7 @@ class ITextInputPanel(ComPtr):
     def Unadvise(self, EventSink: Windows.Win32.UI.TabletPC.ITextInputPanelEventSink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextInputPanelEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('27560408-8e64-4fe1-80-4e-42-12-01-58-4b-31')
+    _iid_ = Guid('{27560408-8e64-4fe1-804e-421201584b31}')
     @commethod(3)
     def InPlaceStateChanging(self, oldInPlaceState: Windows.Win32.UI.TabletPC.InPlaceState, newInPlaceState: Windows.Win32.UI.TabletPC.InPlaceState) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2535,12 +2535,12 @@ class ITextInputPanelEventSink(ComPtr):
     def TextInserted(self, Ink: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextInputPanelRunInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f424568-1920-48cc-98-11-a9-93-cb-f5-ad-ba')
+    _iid_ = Guid('{9f424568-1920-48cc-9811-a993cbf5adba}')
     @commethod(3)
     def IsTipRunning(self, pfRunning: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITipAutoCompleteClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5e078e03-8265-4bbe-94-87-d2-42-ed-be-f9-10')
+    _iid_ = Guid('{5e078e03-8265-4bbe-9487-d242edbef910}')
     @commethod(3)
     def AdviseProvider(self, hWndField: Windows.Win32.Foundation.HWND, pIProvider: Windows.Win32.UI.TabletPC.ITipAutoCompleteProvider_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2553,7 +2553,7 @@ class ITipAutoCompleteClient(ComPtr):
     def RequestShowUI(self, hWndList: Windows.Win32.Foundation.HWND, pfAllowShowing: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITipAutoCompleteProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7c6cf46d-8404-46b9-ad-33-f5-b6-03-6d-40-07')
+    _iid_ = Guid('{7c6cf46d-8404-46b9-ad33-f5b6036d4007}')
     @commethod(3)
     def UpdatePendingText(self, bstrPendingText: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2566,7 +2566,7 @@ InPlaceState = Int32
 InPlaceState_Auto: InPlaceState = 0
 InPlaceState_HoverTarget: InPlaceState = 1
 InPlaceState_Expanded: InPlaceState = 2
-Ink = Guid('13de4a42-8d21-4c8e-bf-9c-8f-69-cb-06-8f-ca')
+Ink = Guid('{13de4a42-8d21-4c8e-bf9c-8f69cb068fca}')
 InkApplicationGesture = Int32
 IAG_AllGestures: InkApplicationGesture = 0
 IAG_NoGesture: InkApplicationGesture = 61440
@@ -2639,7 +2639,7 @@ InkCollectionMode = Int32
 ICM_InkOnly: InkCollectionMode = 0
 ICM_GestureOnly: InkCollectionMode = 1
 ICM_InkAndGesture: InkCollectionMode = 2
-InkCollector = Guid('43fb1553-ad74-4ee8-88-e4-3e-6d-aa-c9-15-db')
+InkCollector = Guid('{43fb1553-ad74-4ee8-88e4-3e6daac915db}')
 InkCollectorEventInterest = Int32
 ICEI_DefaultEvents: InkCollectorEventInterest = -1
 ICEI_CursorDown: InkCollectorEventInterest = 0
@@ -2663,18 +2663,18 @@ InkCursorButtonState = Int32
 ICBS_Unavailable: InkCursorButtonState = 0
 ICBS_Up: InkCursorButtonState = 1
 ICBS_Down: InkCursorButtonState = 2
-InkDisp = Guid('937c1a34-151d-4610-9c-a6-a8-cc-9b-db-5d-83')
+InkDisp = Guid('{937c1a34-151d-4610-9ca6-a8cc9bdb5d83}')
 InkDisplayMode = Int32
 IDM_Ink: InkDisplayMode = 0
 IDM_Text: InkDisplayMode = 1
-InkDivider = Guid('8854f6a0-4683-4ae7-91-91-75-2f-e6-46-12-c3')
+InkDivider = Guid('{8854f6a0-4683-4ae7-9191-752fe64612c3}')
 InkDivisionType = Int32
 IDT_Segment: InkDivisionType = 0
 IDT_Line: InkDivisionType = 1
 IDT_Paragraph: InkDivisionType = 2
 IDT_Drawing: InkDivisionType = 3
-InkDrawingAttributes = Guid('d8bf32a2-05a5-44c3-b3-aa-5e-80-ac-7d-25-76')
-InkEdit = Guid('e5ca59f5-57c4-4dd8-9b-d6-1d-ee-ed-d2-7a-f4')
+InkDrawingAttributes = Guid('{d8bf32a2-05a5-44c3-b3aa-5e80ac7d2576}')
+InkEdit = Guid('{e5ca59f5-57c4-4dd8-9bd6-1deeedd27af4}')
 InkEditStatus = Int32
 IES_Idle: InkEditStatus = 0
 IES_Collecting: InkEditStatus = 1
@@ -2711,7 +2711,7 @@ IMP_ArrowQuestion: InkMousePointer = 12
 IMP_SizeAll: InkMousePointer = 13
 IMP_Hand: InkMousePointer = 14
 IMP_Custom: InkMousePointer = 99
-InkOverlay = Guid('65d00646-cde3-4a88-91-63-67-69-f0-f1-a9-7d')
+InkOverlay = Guid('{65d00646-cde3-4a88-9163-6769f0f1a97d}')
 InkOverlayAttachMode = Int32
 IOAM_Behind: InkOverlayAttachMode = 0
 IOAM_InFront: InkOverlayAttachMode = 1
@@ -2734,7 +2734,7 @@ IPF_InkSerializedFormat: InkPersistenceFormat = 0
 IPF_Base64InkSerializedFormat: InkPersistenceFormat = 1
 IPF_GIF: InkPersistenceFormat = 2
 IPF_Base64GIF: InkPersistenceFormat = 3
-InkPicture = Guid('04a1e553-fe36-4fde-86-5e-34-41-94-e6-94-24')
+InkPicture = Guid('{04a1e553-fe36-4fde-865e-344194e69424}')
 InkPictureSizeMode = Int32
 IPSM_AutoSize: InkPictureSizeMode = 0
 IPSM_CenterImage: InkPictureSizeMode = 1
@@ -2820,11 +2820,11 @@ InkRecognizerCharacterAutoCompletionMode = Int32
 IRCACM_Full: InkRecognizerCharacterAutoCompletionMode = 0
 IRCACM_Prefix: InkRecognizerCharacterAutoCompletionMode = 1
 IRCACM_Random: InkRecognizerCharacterAutoCompletionMode = 2
-InkRecognizerContext = Guid('aac46a37-9229-4fc0-8c-ce-44-97-56-9b-f4-d1')
-InkRecognizerGuide = Guid('8770d941-a63a-4671-a3-75-28-55-a1-8e-ba-73')
-InkRecognizers = Guid('9fd4e808-f6e6-4e65-98-d3-aa-39-05-4c-12-55')
-InkRectangle = Guid('43b07326-aae0-4b62-a8-3d-5f-d7-68-b7-35-3c')
-InkRenderer = Guid('9c1cc6e4-d7eb-4eeb-90-91-15-a7-c8-79-1e-d9')
+InkRecognizerContext = Guid('{aac46a37-9229-4fc0-8cce-4497569bf4d1}')
+InkRecognizerGuide = Guid('{8770d941-a63a-4671-a375-2855a18eba73}')
+InkRecognizers = Guid('{9fd4e808-f6e6-4e65-98d3-aa39054c1255}')
+InkRectangle = Guid('{43b07326-aae0-4b62-a83d-5fd768b7353c}')
+InkRenderer = Guid('{9c1cc6e4-d7eb-4eeb-9091-15a7c8791ed9}')
 InkSelectionConstants = Int32
 ISC_FirstElement: InkSelectionConstants = 0
 ISC_AllElements: InkSelectionConstants = -1
@@ -2832,7 +2832,7 @@ InkShiftKeyModifierFlags = Int32
 IKM_Shift: InkShiftKeyModifierFlags = 1
 IKM_Control: InkShiftKeyModifierFlags = 2
 IKM_Alt: InkShiftKeyModifierFlags = 4
-InkStrokes = Guid('48f491bc-240e-4860-b0-79-a1-e9-4d-3d-2c-86')
+InkStrokes = Guid('{48f491bc-240e-4860-b079-a1e94d3d2c86}')
 InkSystemGesture = Int32
 ISG_Tap: InkSystemGesture = 16
 ISG_DoubleTap: InkSystemGesture = 17
@@ -2844,9 +2844,9 @@ ISG_HoldLeave: InkSystemGesture = 22
 ISG_HoverEnter: InkSystemGesture = 23
 ISG_HoverLeave: InkSystemGesture = 24
 ISG_Flick: InkSystemGesture = 31
-InkTablets = Guid('6e4fcb12-510a-4d40-93-04-1d-a1-0a-e9-14-7c')
-InkTransform = Guid('e3d5d93c-1663-4a78-a1-a7-22-37-5d-fe-ba-ee')
-InkWordList = Guid('9de85094-f71f-44f1-84-71-15-a2-fa-76-fc-f3')
+InkTablets = Guid('{6e4fcb12-510a-4d40-9304-1da10ae9147c}')
+InkTransform = Guid('{e3d5d93c-1663-4a78-a1a7-22375dfebaee}')
+InkWordList = Guid('{9de85094-f71f-44f1-8471-15a2fa76fcf3}')
 InteractionMode = Int32
 InteractionMode_InPlace: InteractionMode = 0
 InteractionMode_Floating: InteractionMode = 1
@@ -2886,7 +2886,7 @@ MICUIELEMENTSTATE_NORMAL: MICUIELEMENTSTATE = 1
 MICUIELEMENTSTATE_HOT: MICUIELEMENTSTATE = 2
 MICUIELEMENTSTATE_PRESSED: MICUIELEMENTSTATE = 3
 MICUIELEMENTSTATE_DISABLED: MICUIELEMENTSTATE = 4
-MathInputControl = Guid('c561816c-14d8-4090-83-0c-98-d9-94-b2-1c-7b')
+MathInputControl = Guid('{c561816c-14d8-4090-830c-98d994b21c7b}')
 MouseButton = Int32
 NO_BUTTON: MouseButton = 0
 LEFT_BUTTON: MouseButton = 1
@@ -2934,8 +2934,8 @@ PT_Default: PanelType = 0
 PT_Inactive: PanelType = 1
 PT_Handwriting: PanelType = 2
 PT_Keyboard: PanelType = 3
-PenInputPanel = Guid('f744e496-1b5a-489e-81-dc-fb-d7-ac-62-98-a8')
-PenInputPanel_Internal = Guid('802b1fb9-056b-4720-b0-cc-80-d2-3b-71-17-1e')
+PenInputPanel = Guid('{f744e496-1b5a-489e-81dc-fbd7ac6298a8}')
+PenInputPanel_Internal = Guid('{802b1fb9-056b-4720-b0cc-80d23b71171e}')
 @winfunctype_pointer
 def PfnRecoCallback(param0: UInt32, param1: POINTER(Byte), param2: Windows.Win32.UI.TabletPC.HRECOCONTEXT) -> Windows.Win32.Foundation.HRESULT: ...
 class RECO_ATTRS(EasyCastStructure):
@@ -2988,7 +2988,7 @@ class RECO_RANGE(EasyCastStructure):
 RECO_TYPE = Int32
 RECO_TYPE_WSTRING: RECO_TYPE = 0
 RECO_TYPE_WCHAR: RECO_TYPE = 1
-RealTimeStylus = Guid('e26b366d-f998-43ce-83-6f-cb-6d-90-44-32-b0')
+RealTimeStylus = Guid('{e26b366d-f998-43ce-836f-cb6d904432b0}')
 RealTimeStylusDataInterest = Int32
 RTSDI_AllData: RealTimeStylusDataInterest = -1
 RTSDI_None: RealTimeStylusDataInterest = 0
@@ -3050,8 +3050,8 @@ SHR_W: SelectionHitResult = 6
 SHR_N: SelectionHitResult = 7
 SHR_S: SelectionHitResult = 8
 SHR_Selection: SelectionHitResult = 9
-SketchInk = Guid('f0291081-e87c-4e07-97-da-a0-a0-37-61-e5-86')
-StrokeBuilder = Guid('e810cee7-6e51-4cb0-aa-3a-0b-98-5b-70-da-f7')
+SketchInk = Guid('{f0291081-e87c-4e07-97da-a0a03761e586}')
+StrokeBuilder = Guid('{e810cee7-6e51-4cb0-aa3a-0b985b70daf7}')
 class StylusInfo(EasyCastStructure):
     tcid: UInt32
     cid: UInt32
@@ -3078,8 +3078,8 @@ TPMU_Radians: TabletPropertyMetricUnit = 4
 TPMU_Seconds: TabletPropertyMetricUnit = 5
 TPMU_Pounds: TabletPropertyMetricUnit = 6
 TPMU_Grams: TabletPropertyMetricUnit = 7
-TextInputPanel = Guid('f9b189d7-228b-4f2b-86-50-b9-7f-59-e0-2c-8c')
-TipAutoCompleteClient = Guid('807c1e6c-1d00-453f-b9-20-b6-1b-b7-cd-d9-97')
+TextInputPanel = Guid('{f9b189d7-228b-4f2b-8650-b97f59e02c8c}')
+TipAutoCompleteClient = Guid('{807c1e6c-1d00-453f-b920-b61bb7cdd997}')
 VisualState = Int32
 VisualState_InPlace: VisualState = 0
 VisualState_Floating: VisualState = 1
@@ -3088,31 +3088,31 @@ VisualState_DockedBottom: VisualState = 3
 VisualState_Closed: VisualState = 4
 class _IInkCollectorEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('11a583f2-712d-4fea-ab-cf-ab-4a-f3-8e-a0-6b')
+    _iid_ = Guid('{11a583f2-712d-4fea-abcf-ab4af38ea06b}')
 class _IInkEditEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e3b0b797-a72e-46db-a0-d7-6c-9e-ba-8e-9b-bc')
+    _iid_ = Guid('{e3b0b797-a72e-46db-a0d7-6c9eba8e9bbc}')
 class _IInkEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('427b1865-ca3f-479a-83-a9-0f-42-0f-2a-00-73')
+    _iid_ = Guid('{427b1865-ca3f-479a-83a9-0f420f2a0073}')
 class _IInkOverlayEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('31179b69-e563-489e-b1-6f-71-2f-1e-8a-06-51')
+    _iid_ = Guid('{31179b69-e563-489e-b16f-712f1e8a0651}')
 class _IInkPictureEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('60ff4fee-22ff-4484-ac-c1-d3-08-d9-cd-7e-a3')
+    _iid_ = Guid('{60ff4fee-22ff-4484-acc1-d308d9cd7ea3}')
 class _IInkRecognitionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('17bce92f-2e21-47fd-9d-33-3c-6a-fb-fd-8c-59')
+    _iid_ = Guid('{17bce92f-2e21-47fd-9d33-3c6afbfd8c59}')
 class _IInkStrokesEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f33053ec-5d25-430a-92-8f-76-a6-49-1d-de-15')
+    _iid_ = Guid('{f33053ec-5d25-430a-928f-76a6491dde15}')
 class _IMathInputControlEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('683336b5-a47d-4358-96-f9-87-5a-47-2a-e7-0a')
+    _iid_ = Guid('{683336b5-a47d-4358-96f9-875a472ae70a}')
 class _IPenInputPanelEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b7e489da-3719-439f-84-8f-e7-ac-bd-82-0f-17')
+    _iid_ = Guid('{b7e489da-3719-439f-848f-e7acbd820f17}')
 make_head(_module, 'CHARACTER_RANGE')
 make_head(_module, 'DYNAMIC_RENDERER_CACHED_DATA')
 make_head(_module, 'FLICK_DATA')

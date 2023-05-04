@@ -28,9 +28,9 @@ class ATTACHLIST(EasyCastStructure):
     lpIAttached: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_INT_head)
 DIRECTDRAW_VERSION: UInt32 = 1792
 _FACDD: UInt32 = 2166
-CLSID_DirectDraw: Guid = Guid('d7b70ee0-4340-11cf-b0-63-00-20-af-c2-cd-35')
-CLSID_DirectDraw7: Guid = Guid('3c305196-50db-11d3-9c-fe-00-c0-4f-d9-30-c5')
-CLSID_DirectDrawClipper: Guid = Guid('593817a0-7db3-11cf-a2-de-00-aa-00-b9-33-56')
+CLSID_DirectDraw: Guid = Guid('{d7b70ee0-4340-11cf-b063-0020afc2cd35}')
+CLSID_DirectDraw7: Guid = Guid('{3c305196-50db-11d3-9cfe-00c04fd930c5}')
+CLSID_DirectDrawClipper: Guid = Guid('{593817a0-7db3-11cf-a2de-00aa00b93356}')
 DDENUM_ATTACHEDSECONDARYDEVICES: Int32 = 1
 DDENUM_DETACHEDSECONDARYDEVICES: Int32 = 2
 DDENUM_NONDISPLAYDEVICES: Int32 = 4
@@ -464,26 +464,26 @@ DDENUMRET_OK: UInt32 = 1
 DDERR_NOTINITIALIZED: Int32 = -2147221008
 OBJECT_ISROOT: Int32 = -2147483648
 DDUNSUPPORTEDMODE: UInt32 = 4294967295
-GUID_MiscellaneousCallbacks: Guid = Guid('efd60cc0-49e7-11d0-88-9d-00-aa-00-bb-b7-6a')
-GUID_VideoPortCallbacks: Guid = Guid('efd60cc1-49e7-11d0-88-9d-00-aa-00-bb-b7-6a')
-GUID_ColorControlCallbacks: Guid = Guid('efd60cc2-49e7-11d0-88-9d-00-aa-00-bb-b7-6a')
-GUID_VideoPortCaps: Guid = Guid('efd60cc3-49e7-11d0-88-9d-00-aa-00-bb-b7-6a')
-GUID_D3DCallbacks2: Guid = Guid('0ba584e1-70b6-11d0-88-9d-00-aa-00-bb-b7-6a')
-GUID_D3DCallbacks3: Guid = Guid('ddf41230-ec0a-11d0-a9-b6-00-aa-00-c0-99-3e')
-GUID_NonLocalVidMemCaps: Guid = Guid('86c4fa80-8d84-11d0-94-e8-00-c0-4f-c3-41-37')
-GUID_KernelCallbacks: Guid = Guid('80863800-6b06-11d0-9b-06-00-a0-c9-03-a3-b8')
-GUID_KernelCaps: Guid = Guid('ffaa7540-7aa8-11d0-9b-06-00-a0-c9-03-a3-b8')
-GUID_D3DExtendedCaps: Guid = Guid('7de41f80-9d93-11d0-89-ab-00-a0-c9-05-41-29')
-GUID_ZPixelFormats: Guid = Guid('93869880-36cf-11d1-9b-1b-00-aa-00-bb-b8-ae')
-GUID_DDMoreSurfaceCaps: Guid = Guid('3b8a0466-f269-11d1-88-0b-00-c0-4f-d9-30-c5')
-GUID_DDStereoMode: Guid = Guid('f828169c-a8e8-11d2-a1-f2-00-a0-c9-83-ea-f6')
-GUID_OptSurfaceKmodeInfo: Guid = Guid('e05c8472-51d4-11d1-8c-ce-00-a0-c9-06-29-a8')
-GUID_OptSurfaceUmodeInfo: Guid = Guid('9d792804-5fa8-11d1-8c-d0-00-a0-c9-06-29-a8')
-GUID_UserModeDriverInfo: Guid = Guid('f0b0e8e2-5f97-11d1-8c-d0-00-a0-c9-06-29-a8')
-GUID_UserModeDriverPassword: Guid = Guid('97f861b6-60a1-11d1-8c-d0-00-a0-c9-06-29-a8')
-GUID_D3DParseUnknownCommandCallback: Guid = Guid('2e04ffa0-98e4-11d1-8c-e1-00-a0-c9-06-29-a8')
-GUID_MotionCompCallbacks: Guid = Guid('b1122b40-5da5-11d1-8f-cf-00-c0-4f-c2-9b-4e')
-GUID_Miscellaneous2Callbacks: Guid = Guid('406b2f00-3e5a-11d1-b6-40-00-aa-00-a1-f9-6a')
+GUID_MiscellaneousCallbacks: Guid = Guid('{efd60cc0-49e7-11d0-889d-00aa00bbb76a}')
+GUID_VideoPortCallbacks: Guid = Guid('{efd60cc1-49e7-11d0-889d-00aa00bbb76a}')
+GUID_ColorControlCallbacks: Guid = Guid('{efd60cc2-49e7-11d0-889d-00aa00bbb76a}')
+GUID_VideoPortCaps: Guid = Guid('{efd60cc3-49e7-11d0-889d-00aa00bbb76a}')
+GUID_D3DCallbacks2: Guid = Guid('{0ba584e1-70b6-11d0-889d-00aa00bbb76a}')
+GUID_D3DCallbacks3: Guid = Guid('{ddf41230-ec0a-11d0-a9b6-00aa00c0993e}')
+GUID_NonLocalVidMemCaps: Guid = Guid('{86c4fa80-8d84-11d0-94e8-00c04fc34137}')
+GUID_KernelCallbacks: Guid = Guid('{80863800-6b06-11d0-9b06-00a0c903a3b8}')
+GUID_KernelCaps: Guid = Guid('{ffaa7540-7aa8-11d0-9b06-00a0c903a3b8}')
+GUID_D3DExtendedCaps: Guid = Guid('{7de41f80-9d93-11d0-89ab-00a0c9054129}')
+GUID_ZPixelFormats: Guid = Guid('{93869880-36cf-11d1-9b1b-00aa00bbb8ae}')
+GUID_DDMoreSurfaceCaps: Guid = Guid('{3b8a0466-f269-11d1-880b-00c04fd930c5}')
+GUID_DDStereoMode: Guid = Guid('{f828169c-a8e8-11d2-a1f2-00a0c983eaf6}')
+GUID_OptSurfaceKmodeInfo: Guid = Guid('{e05c8472-51d4-11d1-8cce-00a0c90629a8}')
+GUID_OptSurfaceUmodeInfo: Guid = Guid('{9d792804-5fa8-11d1-8cd0-00a0c90629a8}')
+GUID_UserModeDriverInfo: Guid = Guid('{f0b0e8e2-5f97-11d1-8cd0-00a0c90629a8}')
+GUID_UserModeDriverPassword: Guid = Guid('{97f861b6-60a1-11d1-8cd0-00a0c90629a8}')
+GUID_D3DParseUnknownCommandCallback: Guid = Guid('{2e04ffa0-98e4-11d1-8ce1-00a0c90629a8}')
+GUID_MotionCompCallbacks: Guid = Guid('{b1122b40-5da5-11d1-8fcf-00c04fc29b4e}')
+GUID_Miscellaneous2Callbacks: Guid = Guid('{406b2f00-3e5a-11d1-b640-00aa00a1f96a}')
 DDPF_NOVEL_TEXTURE_FORMAT: Int32 = 1048576
 DDPF_D3DFORMAT: Int32 = 2097152
 D3DFORMAT_OP_TEXTURE: Int32 = 1
@@ -774,14 +774,14 @@ DDRAWI_VPORTSETCOLOR: UInt32 = 2
 DDRAWI_GETCOLOR: UInt32 = 1
 DDRAWI_SETCOLOR: UInt32 = 2
 DDMCQUERY_READ: UInt32 = 1
-GUID_D3DCaps: Guid = Guid('7bf06991-8794-11d0-91-39-08-00-36-d2-ef-02')
-GUID_D3DCallbacks: Guid = Guid('7bf06990-8794-11d0-91-39-08-00-36-d2-ef-02')
-GUID_DDMoreCaps: Guid = Guid('880baf30-b030-11d0-8e-a7-00-60-97-97-ea-5b')
-GUID_NTCallbacks: Guid = Guid('6fe9ecde-df89-11d1-9d-b0-00-60-08-27-71-ba')
-GUID_GetHeapAlignment: Guid = Guid('42e02f16-7b41-11d2-8b-ff-00-a0-c9-83-ea-f6')
-GUID_UpdateNonLocalHeap: Guid = Guid('42e02f17-7b41-11d2-8b-ff-00-a0-c9-83-ea-f6')
-GUID_NTPrivateDriverCaps: Guid = Guid('fad16a23-7b66-11d2-83-d7-00-c0-4f-7c-e5-8c')
-GUID_VPE2Callbacks: Guid = Guid('52882147-2d47-469a-a0-d1-03-45-58-90-f6-c8')
+GUID_D3DCaps: Guid = Guid('{7bf06991-8794-11d0-9139-080036d2ef02}')
+GUID_D3DCallbacks: Guid = Guid('{7bf06990-8794-11d0-9139-080036d2ef02}')
+GUID_DDMoreCaps: Guid = Guid('{880baf30-b030-11d0-8ea7-00609797ea5b}')
+GUID_NTCallbacks: Guid = Guid('{6fe9ecde-df89-11d1-9db0-0060082771ba}')
+GUID_GetHeapAlignment: Guid = Guid('{42e02f16-7b41-11d2-8bff-00a0c983eaf6}')
+GUID_UpdateNonLocalHeap: Guid = Guid('{42e02f17-7b41-11d2-8bff-00a0c983eaf6}')
+GUID_NTPrivateDriverCaps: Guid = Guid('{fad16a23-7b66-11d2-83d7-00c04f7ce58c}')
+GUID_VPE2Callbacks: Guid = Guid('{52882147-2d47-469a-a0d1-03455890f6c8}')
 DDSCAPS_COMMANDBUFFER: Int32 = 1024
 DDHAL_PLEASEALLOC_USERMEM: Int32 = 4
 DDHAL_CB32_MAPMEMORY: Int32 = -2147483648
@@ -837,13 +837,13 @@ SURFACEALIGN_DISCARDABLE: Int32 = 1
 VMEMHEAP_LINEAR: Int32 = 1
 VMEMHEAP_RECTANGULAR: Int32 = 2
 VMEMHEAP_ALIGNMENT: Int32 = 4
-DDVPTYPE_E_HREFH_VREFH: Guid = Guid('54f39980-da60-11cf-9b-06-00-a0-c9-03-a3-b8')
-DDVPTYPE_E_HREFH_VREFL: Guid = Guid('92783220-da60-11cf-9b-06-00-a0-c9-03-a3-b8')
-DDVPTYPE_E_HREFL_VREFH: Guid = Guid('a07a02e0-da60-11cf-9b-06-00-a0-c9-03-a3-b8')
-DDVPTYPE_E_HREFL_VREFL: Guid = Guid('e09c77e0-da60-11cf-9b-06-00-a0-c9-03-a3-b8')
-DDVPTYPE_CCIR656: Guid = Guid('fca326a0-da60-11cf-9b-06-00-a0-c9-03-a3-b8')
-DDVPTYPE_BROOKTREE: Guid = Guid('1352a560-da61-11cf-9b-06-00-a0-c9-03-a3-b8')
-DDVPTYPE_PHILIPS: Guid = Guid('332cf160-da61-11cf-9b-06-00-a0-c9-03-a3-b8')
+DDVPTYPE_E_HREFH_VREFH: Guid = Guid('{54f39980-da60-11cf-9b06-00a0c903a3b8}')
+DDVPTYPE_E_HREFH_VREFL: Guid = Guid('{92783220-da60-11cf-9b06-00a0c903a3b8}')
+DDVPTYPE_E_HREFL_VREFH: Guid = Guid('{a07a02e0-da60-11cf-9b06-00a0c903a3b8}')
+DDVPTYPE_E_HREFL_VREFL: Guid = Guid('{e09c77e0-da60-11cf-9b06-00a0c903a3b8}')
+DDVPTYPE_CCIR656: Guid = Guid('{fca326a0-da60-11cf-9b06-00a0c903a3b8}')
+DDVPTYPE_BROOKTREE: Guid = Guid('{1352a560-da61-11cf-9b06-00a0c903a3b8}')
+DDVPTYPE_PHILIPS: Guid = Guid('{332cf160-da61-11cf-9b06-00a0c903a3b8}')
 DDVPD_WIDTH: Int32 = 1
 DDVPD_HEIGHT: Int32 = 2
 DDVPD_ID: Int32 = 4
@@ -932,7 +932,7 @@ DDVPCREATE_VBIONLY: Int32 = 1
 DDVPCREATE_VIDEOONLY: Int32 = 2
 DDVPSTATUS_VBIONLY: Int32 = 1
 DDVPSTATUS_VIDEOONLY: Int32 = 2
-GUID_DxApi: Guid = Guid('8a79bef0-b915-11d0-91-44-08-00-36-d2-ef-02')
+GUID_DxApi: Guid = Guid('{8a79bef0-b915-11d0-9144-080036d2ef02}')
 MDL_MAPPED_TO_SYSTEM_VA: UInt32 = 1
 MDL_PAGES_LOCKED: UInt32 = 2
 MDL_SOURCE_IS_NONPAGED_POOL: UInt32 = 4
@@ -3469,7 +3469,7 @@ class HEAPALIGNMENT(EasyCastStructure):
     FlipTarget: Windows.Win32.Graphics.DirectDraw.SURFACEALIGNMENT
 class IDDVideoPortContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6c142760-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('{6c142760-a733-11ce-a521-0020af0be560}')
     @commethod(3)
     def CreateVideoPort(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTDESC_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDrawVideoPort_head), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3480,7 +3480,7 @@ class IDDVideoPortContainer(ComPtr):
     def QueryVideoPortStatus(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDraw(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6c14db80-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('{6c14db80-a733-11ce-a521-0020af0be560}')
     @commethod(3)
     def Compact(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3523,7 +3523,7 @@ class IDirectDraw(ComPtr):
     def WaitForVerticalBlank(self, param0: UInt32, param1: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDraw2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b3a6f3e0-2b43-11cf-a2-de-00-aa-00-b9-33-56')
+    _iid_ = Guid('{b3a6f3e0-2b43-11cf-a2de-00aa00b93356}')
     @commethod(3)
     def Compact(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3568,7 +3568,7 @@ class IDirectDraw2(ComPtr):
     def GetAvailableVidMem(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSCAPS_head), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDraw4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9c59509a-39bd-11d1-8c-4a-00-c0-4f-d9-30-c5')
+    _iid_ = Guid('{9c59509a-39bd-11d1-8c4a-00c04fd930c5}')
     @commethod(3)
     def Compact(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3621,7 +3621,7 @@ class IDirectDraw4(ComPtr):
     def GetDeviceIdentifier(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDDEVICEIDENTIFIER_head), param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDraw7(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('15e65ec0-3b9c-11d2-b9-2f-00-60-97-97-ea-5b')
+    _iid_ = Guid('{15e65ec0-3b9c-11d2-b92f-00609797ea5b}')
     @commethod(3)
     def Compact(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3678,7 +3678,7 @@ class IDirectDraw7(ComPtr):
     def EvaluateMode(self, param0: UInt32, param1: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawClipper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6c14db85-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('{6c14db85-a733-11ce-a521-0020af0be560}')
     @commethod(3)
     def GetClipList(self, param0: POINTER(Windows.Win32.Foundation.RECT_head), param1: POINTER(Windows.Win32.Graphics.Gdi.RGNDATA_head), param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3693,21 +3693,21 @@ class IDirectDrawClipper(ComPtr):
     def SetHWnd(self, param0: UInt32, param1: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawColorControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4b9f0ee0-0d7e-11d0-9b-06-00-a0-c9-03-a3-b8')
+    _iid_ = Guid('{4b9f0ee0-0d7e-11d0-9b06-00a0c903a3b8}')
     @commethod(3)
     def GetColorControls(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDCOLORCONTROL_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetColorControls(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDCOLORCONTROL_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawGammaControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('69c11c3e-b46b-11d1-ad-7a-00-c0-4f-c2-9b-4e')
+    _iid_ = Guid('{69c11c3e-b46b-11d1-ad7a-00c04fc29b4e}')
     @commethod(3)
     def GetGammaRamp(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGAMMARAMP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetGammaRamp(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGAMMARAMP_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawKernel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8d56c120-6a08-11d0-9b-06-00-a0-c9-03-a3-b8')
+    _iid_ = Guid('{8d56c120-6a08-11d0-9b06-00a0c903a3b8}')
     @commethod(3)
     def GetCaps(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDKERNELCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3716,7 +3716,7 @@ class IDirectDrawKernel(ComPtr):
     def ReleaseKernelHandle(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawPalette(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6c14db84-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('{6c14db84-a733-11ce-a521-0020af0be560}')
     @commethod(3)
     def GetCaps(self, param0: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3727,7 +3727,7 @@ class IDirectDrawPalette(ComPtr):
     def SetEntries(self, param0: UInt32, param1: UInt32, param2: UInt32, param3: POINTER(Windows.Win32.Graphics.Gdi.PALETTEENTRY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6c14db81-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('{6c14db81-a733-11ce-a521-0020af0be560}')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3796,7 +3796,7 @@ class IDirectDrawSurface(ComPtr):
     def UpdateOverlayZOrder(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('57805885-6eec-11cf-94-41-a8-23-03-c1-0e-27')
+    _iid_ = Guid('{57805885-6eec-11cf-9441-a82303c10e27}')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3871,7 +3871,7 @@ class IDirectDrawSurface2(ComPtr):
     def PageUnlock(self, param0: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('da044e00-69b2-11d0-a1-d5-00-aa-00-b8-df-bb')
+    _iid_ = Guid('{da044e00-69b2-11d0-a1d5-00aa00b8dfbb}')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface3_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3948,7 +3948,7 @@ class IDirectDrawSurface3(ComPtr):
     def SetSurfaceDesc(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0b2b8630-ad35-11d0-8e-a6-00-60-97-97-ea-5b')
+    _iid_ = Guid('{0b2b8630-ad35-11d0-8ea6-00609797ea5b}')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -4035,7 +4035,7 @@ class IDirectDrawSurface4(ComPtr):
     def ChangeUniquenessValue(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface7(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('06675a80-3b9b-11d2-b9-2f-00-60-97-97-ea-5b')
+    _iid_ = Guid('{06675a80-3b9b-11d2-b92f-00609797ea5b}')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -4130,14 +4130,14 @@ class IDirectDrawSurface7(ComPtr):
     def GetLOD(self, param0: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurfaceKernel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('60755da0-6a40-11d0-9b-06-00-a0-c9-03-a3-b8')
+    _iid_ = Guid('{60755da0-6a40-11d0-9b06-00a0c903a3b8}')
     @commethod(3)
     def GetKernelHandle(self, param0: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseKernelHandle(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawVideoPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b36d93e0-2b43-11cf-a2-de-00-aa-00-b9-33-56')
+    _iid_ = Guid('{b36d93e0-2b43-11cf-a2de-00aa00b93356}')
     @commethod(3)
     def Flip(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -4168,7 +4168,7 @@ class IDirectDrawVideoPort(ComPtr):
     def WaitForSync(self, param0: UInt32, param1: UInt32, param2: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawVideoPortNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a655fb94-0589-4e57-b3-33-56-7a-89-46-8c-88')
+    _iid_ = Guid('{a655fb94-0589-4e57-b333-567a89468c88}')
     @commethod(3)
     def AcquireNotification(self, param0: POINTER(Windows.Win32.Foundation.HANDLE), param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTNOTIFY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -57,16 +57,16 @@ D3D_SHADER_FEATURE_RESOURCE_DESCRIPTOR_HEAP_INDEXING: UInt32 = 33554432
 D3D_SHADER_FEATURE_SAMPLER_DESCRIPTOR_HEAP_INDEXING: UInt32 = 67108864
 D3D_SHADER_FEATURE_WAVE_MMA: UInt32 = 134217728
 D3D_SHADER_FEATURE_ATOMIC_INT64_ON_DESCRIPTOR_HEAP_RESOURCE: UInt32 = 268435456
-WKPDID_D3DDebugObjectName: Guid = Guid('429b8c22-9188-4b0c-87-42-ac-b0-bf-85-c2-00')
-WKPDID_D3DDebugObjectNameW: Guid = Guid('4cca5fd8-921f-42c8-85-66-70-ca-f2-a9-b7-41')
-WKPDID_CommentStringW: Guid = Guid('d0149dc0-90e8-4ec8-81-44-e9-00-ad-26-6b-b2')
-WKPDID_D3D12UniqueObjectId: Guid = Guid('1b39de15-ec04-4bae-ba-4d-8c-ef-79-fc-04-c1')
+WKPDID_D3DDebugObjectName: Guid = Guid('{429b8c22-9188-4b0c-8742-acb0bf85c200}')
+WKPDID_D3DDebugObjectNameW: Guid = Guid('{4cca5fd8-921f-42c8-8566-70caf2a9b741}')
+WKPDID_CommentStringW: Guid = Guid('{d0149dc0-90e8-4ec8-8144-e900ad266bb2}')
+WKPDID_D3D12UniqueObjectId: Guid = Guid('{1b39de15-ec04-4bae-ba4d-8cef79fc04c1}')
 D3D_COMPONENT_MASK_X: UInt32 = 1
 D3D_COMPONENT_MASK_Y: UInt32 = 2
 D3D_COMPONENT_MASK_Z: UInt32 = 4
 D3D_COMPONENT_MASK_W: UInt32 = 8
-D3D_TEXTURE_LAYOUT_ROW_MAJOR: Guid = Guid('b5dc234f-72bb-4bec-97-05-8c-f2-58-df-6b-6c')
-D3D_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE: Guid = Guid('4c0f29e3-3f5f-4d35-84-c9-bc-09-83-b6-2c-28')
+D3D_TEXTURE_LAYOUT_ROW_MAJOR: Guid = Guid('{b5dc234f-72bb-4bec-9705-8cf258df6b6c}')
+D3D_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE: Guid = Guid('{4c0f29e3-3f5f-4d35-84c9-bc0983b62c28}')
 class D3DMATRIX(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
@@ -713,14 +713,14 @@ D3D11_TESSELLATOR_PARTITIONING_FRACTIONAL_ODD: D3D_TESSELLATOR_PARTITIONING = 3
 D3D11_TESSELLATOR_PARTITIONING_FRACTIONAL_EVEN: D3D_TESSELLATOR_PARTITIONING = 4
 class ID3DBlob(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8ba5fb08-5195-40e2-ac-58-0d-98-9c-3a-01-02')
+    _iid_ = Guid('{8ba5fb08-5195-40e2-ac58-0d989c3a0102}')
     @commethod(3)
     def GetBufferPointer(self) -> c_void_p: ...
     @commethod(4)
     def GetBufferSize(self) -> UIntPtr: ...
 class ID3DDestructionNotifier(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a06eb39a-50da-425b-8c-31-4e-ec-d6-c2-70-f3')
+    _iid_ = Guid('{a06eb39a-50da-425b-8c31-4eecd6c270f3}')
     @commethod(3)
     def RegisterDestructionCallback(self, callbackFn: Windows.Win32.Graphics.Direct3D.PFN_DESTRUCTION_CALLBACK, pData: c_void_p, pCallbackID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

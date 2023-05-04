@@ -398,7 +398,7 @@ szFORCE_KEY_PROTECTION: String = 'ForceKeyProtection'
 dwFORCE_KEY_PROTECTION_DISABLED: UInt32 = 0
 dwFORCE_KEY_PROTECTION_USER_SELECT: UInt32 = 1
 dwFORCE_KEY_PROTECTION_HIGH: UInt32 = 2
-CRYPTPROTECT_DEFAULT_PROVIDER: Guid = Guid('df9d8cd0-1501-11d1-8c-7a-00-c0-4f-c2-97-eb')
+CRYPTPROTECT_DEFAULT_PROVIDER: Guid = Guid('{df9d8cd0-1501-11d1-8c7a-00c04fc297eb}')
 CRYPTPROTECT_PROMPT_ON_UNPROTECT: UInt32 = 1
 CRYPTPROTECT_PROMPT_ON_PROTECT: UInt32 = 2
 CRYPTPROTECT_PROMPT_RESERVED: UInt32 = 4
@@ -3879,10 +3879,10 @@ ENUM_SETUPPROP_PARENTCANAME: CASetupProperty = 13
 ENUM_SETUPPROP_REQUESTFILE: CASetupProperty = 14
 ENUM_SETUPPROP_WEBCAMACHINE: CASetupProperty = 15
 ENUM_SETUPPROP_WEBCANAME: CASetupProperty = 16
-CCertSrvSetup = Guid('961f180f-f55c-413d-a9-b3-7d-2a-f4-d8-e4-2f')
-CCertSrvSetupKeyInformation = Guid('38373906-5433-4633-b0-fb-29-b7-e7-82-62-e1')
-CCertificateEnrollmentPolicyServerSetup = Guid('afe2fa32-41b1-459d-a5-de-49-ad-d8-a7-21-82')
-CCertificateEnrollmentServerSetup = Guid('9902f3bc-88af-4cf8-ae-62-71-40-53-15-52-b6')
+CCertSrvSetup = Guid('{961f180f-f55c-413d-a9b3-7d2af4d8e42f}')
+CCertSrvSetupKeyInformation = Guid('{38373906-5433-4633-b0fb-29b7e78262e1}')
+CCertificateEnrollmentPolicyServerSetup = Guid('{afe2fa32-41b1-459d-a5de-49add8a72182}')
+CCertificateEnrollmentServerSetup = Guid('{9902f3bc-88af-4cf8-ae62-7140531552b6}')
 CEPSetupProperty = Int32
 ENUM_CEPSETUPPROP_AUTHENTICATION: CEPSetupProperty = 0
 ENUM_CEPSETUPPROP_SSLCERTHASH: CEPSetupProperty = 1
@@ -4682,7 +4682,7 @@ class CMC_TAGGED_REQUEST(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         pTaggedCertRequest: POINTER(Windows.Win32.Security.Cryptography.CMC_TAGGED_CERT_REQUEST_head)
-CMSCEPSetup = Guid('aa4f5c02-8e7c-49c4-94-fa-67-a5-cc-5e-ad-b4')
+CMSCEPSetup = Guid('{aa4f5c02-8e7c-49c4-94fa-67a5cc5eadb4}')
 class CMSG_CMS_RECIPIENT_INFO(EasyCastStructure):
     dwRecipientChoice: UInt32
     Anonymous: _Anonymous_e__Union
@@ -5951,7 +5951,7 @@ HandleType_Transform: HandleType = 3
 HandleType_Hash: HandleType = 4
 class ICertSrvSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b760a1bb-4784-44c0-8f-12-55-5f-07-80-ff-25')
+    _iid_ = Guid('{b760a1bb-4784-44c0-8f12-555f0780ff25}')
     @commethod(7)
     def get_CAErrorId(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -5994,7 +5994,7 @@ class ICertSrvSetup(ComPtr):
     def PostUnInstall(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ICertSrvSetupKeyInformation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('6ba73778-36da-4c39-8a-85-bc-fa-7d-00-07-93')
+    _iid_ = Guid('{6ba73778-36da-4c39-8a85-bcfa7d000793}')
     @commethod(7)
     def get_ProviderName(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -6021,7 +6021,7 @@ class ICertSrvSetupKeyInformation(ComPtr):
     def put_ExistingCACertificate(self, varVal: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class ICertSrvSetupKeyInformationCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e65c8b00-e58f-41f9-a9-ec-a2-8d-74-27-c8-44')
+    _iid_ = Guid('{e65c8b00-e58f-41f9-a9ec-a28d7427c844}')
     @commethod(7)
     def get__NewEnum(self, ppVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -6032,7 +6032,7 @@ class ICertSrvSetupKeyInformationCollection(ComPtr):
     def Add(self, pIKeyInformation: Windows.Win32.Security.Cryptography.ICertSrvSetupKeyInformation_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ICertificateEnrollmentPolicyServerSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('859252cc-238c-4a88-b8-fd-a3-7e-7d-04-e6-8b')
+    _iid_ = Guid('{859252cc-238c-4a88-b8fd-a37e7d04e68b}')
     @commethod(7)
     def get_ErrorString(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -6047,7 +6047,7 @@ class ICertificateEnrollmentPolicyServerSetup(ComPtr):
     def UnInstall(self, pAuthKeyBasedRenewal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICertificateEnrollmentServerSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('70027fdb-9dd9-4921-89-44-b3-5c-b3-1b-d2-ec')
+    _iid_ = Guid('{70027fdb-9dd9-4921-8944-b35cb31bd2ec}')
     @commethod(7)
     def get_ErrorString(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -6064,7 +6064,7 @@ class ICertificateEnrollmentServerSetup(ComPtr):
     def UnInstall(self, pCAConfig: POINTER(Windows.Win32.System.Variant.VARIANT_head), pAuthentication: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMSCEPSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('4f7761bb-9f3b-4592-9e-e0-9a-73-25-9c-31-3e')
+    _iid_ = Guid('{4f7761bb-9f3b-4592-9ee0-9a73259c313e}')
     @commethod(7)
     def get_MSCEPErrorId(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

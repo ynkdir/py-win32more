@@ -18,10 +18,10 @@ def __getattr__(name):
     return getattr(_module, name)
 UI_ALL_COMMANDS: UInt32 = 0
 UI_COLLECTION_INVALIDINDEX: UInt32 = 4294967295
-LIBID_UIRibbon: Guid = Guid('942f35c2-e83b-45ef-b0-85-ac-29-5d-d6-3d-5b')
+LIBID_UIRibbon: Guid = Guid('{942f35c2-e83b-45ef-b085-ac295dd63d5b}')
 class IUIApplication(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d428903c-729a-491d-91-0d-68-2a-08-ff-25-22')
+    _iid_ = Guid('{d428903c-729a-491d-910d-682a08ff2522}')
     @commethod(3)
     def OnViewChanged(self, viewId: UInt32, typeID: Windows.Win32.UI.Ribbon.UI_VIEWTYPE, view: Windows.Win32.System.Com.IUnknown_head, verb: Windows.Win32.UI.Ribbon.UI_VIEWVERB, uReasonCode: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -30,7 +30,7 @@ class IUIApplication(ComPtr):
     def OnDestroyUICommand(self, commandId: UInt32, typeID: Windows.Win32.UI.Ribbon.UI_COMMANDTYPE, commandHandler: Windows.Win32.UI.Ribbon.IUICommandHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUICollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('df4f45bf-6f9d-4dd7-9d-68-d8-f9-cd-18-c4-db')
+    _iid_ = Guid('{df4f45bf-6f9d-4dd7-9d68-d8f9cd18c4db}')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -47,34 +47,34 @@ class IUICollection(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUICollectionChangedEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6502ae91-a14d-44b5-bb-d0-62-aa-cc-58-1d-52')
+    _iid_ = Guid('{6502ae91-a14d-44b5-bbd0-62aacc581d52}')
     @commethod(3)
     def OnChanged(self, action: Windows.Win32.UI.Ribbon.UI_COLLECTIONCHANGE, oldIndex: UInt32, oldItem: Windows.Win32.System.Com.IUnknown_head, newIndex: UInt32, newItem: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUICommandHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('75ae0a2d-dc03-4c9f-88-83-06-96-60-d0-be-b6')
+    _iid_ = Guid('{75ae0a2d-dc03-4c9f-8883-069660d0beb6}')
     @commethod(3)
     def Execute(self, commandId: UInt32, verb: Windows.Win32.UI.Ribbon.UI_EXECUTIONVERB, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), currentValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), commandExecutionProperties: Windows.Win32.UI.Ribbon.IUISimplePropertySet_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UpdateProperty(self, commandId: UInt32, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), currentValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), newValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIContextualUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('eea11f37-7c46-437c-8e-55-b5-21-22-b2-92-93')
+    _iid_ = Guid('{eea11f37-7c46-437c-8e55-b52122b29293}')
     @commethod(3)
     def ShowAtLocation(self, x: Int32, y: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIEventLogger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ec3e1034-dbf4-41a1-95-d5-03-e0-f1-02-6e-05')
+    _iid_ = Guid('{ec3e1034-dbf4-41a1-95d5-03e0f1026e05}')
     @commethod(3)
     def OnUIEvent(self, pEventParams: POINTER(Windows.Win32.UI.Ribbon.UI_EVENTPARAMS_head)) -> Void: ...
 class IUIEventingManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3be6ea7f-9a9b-4198-93-68-9b-0f-92-3b-d5-34')
+    _iid_ = Guid('{3be6ea7f-9a9b-4198-9368-9b0f923bd534}')
     @commethod(3)
     def SetEventLogger(self, eventLogger: Windows.Win32.UI.Ribbon.IUIEventLogger_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIFramework(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f4f0385d-6872-43a8-ad-09-4c-33-9c-b3-f5-c5')
+    _iid_ = Guid('{f4f0385d-6872-43a8-ad09-4c339cb3f5c5}')
     @commethod(3)
     def Initialize(self, frameWnd: Windows.Win32.Foundation.HWND, application: Windows.Win32.UI.Ribbon.IUIApplication_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -95,17 +95,17 @@ class IUIFramework(ComPtr):
     def SetModes(self, iModes: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIImage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('23c8c838-4de6-436b-ab-01-55-54-bb-7c-30-dd')
+    _iid_ = Guid('{23c8c838-4de6-436b-ab01-5554bb7c30dd}')
     @commethod(3)
     def GetBitmap(self, bitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIImageFromBitmap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('18aba7f3-4c1c-4ba2-bf-6c-f5-c3-32-6f-a8-16')
+    _iid_ = Guid('{18aba7f3-4c1c-4ba2-bf6c-f5c3326fa816}')
     @commethod(3)
     def CreateImage(self, bitmap: Windows.Win32.Graphics.Gdi.HBITMAP, options: Windows.Win32.UI.Ribbon.UI_OWNERSHIP, image: POINTER(Windows.Win32.UI.Ribbon.IUIImage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIRibbon(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('803982ab-370a-4f7e-a9-e7-87-84-03-6a-6e-26')
+    _iid_ = Guid('{803982ab-370a-4f7e-a9e7-8784036a6e26}')
     @commethod(3)
     def GetHeight(self, cy: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -114,11 +114,11 @@ class IUIRibbon(ComPtr):
     def SaveSettingsToStream(self, pStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUISimplePropertySet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c205bb48-5b1c-4219-a1-06-15-bd-0a-5f-24-e2')
+    _iid_ = Guid('{c205bb48-5b1c-4219-a106-15bd0a5f24e2}')
     @commethod(3)
     def GetValue(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), value: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-UIRibbonFramework = Guid('926749fa-2615-4987-88-45-c3-3e-65-f2-b9-57')
-UIRibbonImageFromBitmapFactory = Guid('0f7434b6-59b6-4250-99-9e-d1-68-d6-ae-42-93')
+UIRibbonFramework = Guid('{926749fa-2615-4987-8845-c33e65f2b957}')
+UIRibbonImageFromBitmapFactory = Guid('{0f7434b6-59b6-4250-999e-d168d6ae4293}')
 UI_COLLECTIONCHANGE = Int32
 UI_COLLECTIONCHANGE_INSERT: UI_COLLECTIONCHANGE = 0
 UI_COLLECTIONCHANGE_REMOVE: UI_COLLECTIONCHANGE = 1

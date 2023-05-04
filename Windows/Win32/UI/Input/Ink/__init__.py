@@ -15,22 +15,22 @@ def __getattr__(name):
     return getattr(_module, name)
 class IInkCommitRequestHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fabea3fc-b108-45b6-a9-fc-8d-08-fa-9f-85-cf')
+    _iid_ = Guid('{fabea3fc-b108-45b6-a9fc-8d08fa9f85cf}')
     @commethod(3)
     def OnCommitRequested(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkD2DRenderer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('407fb1de-f85a-4150-97-cf-b7-fb-27-4f-b4-f8')
+    _iid_ = Guid('{407fb1de-f85a-4150-97cf-b7fb274fb4f8}')
     @commethod(3)
     def Draw(self, pD2D1DeviceContext: Windows.Win32.System.Com.IUnknown_head, pInkStrokeIterable: Windows.Win32.System.Com.IUnknown_head, fHighContrast: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkD2DRenderer2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0a95dcd9-4578-4b71-b2-0b-bf-66-4d-4b-fe-ee')
+    _iid_ = Guid('{0a95dcd9-4578-4b71-b20b-bf664d4bfeee}')
     @commethod(3)
     def Draw(self, pD2D1DeviceContext: Windows.Win32.System.Com.IUnknown_head, pInkStrokeIterable: Windows.Win32.System.Com.IUnknown_head, highContrastAdjustment: Windows.Win32.UI.Input.Ink.INK_HIGH_CONTRAST_ADJUSTMENT) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkDesktopHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4ce7d875-a981-4140-a1-ff-ad-93-25-8e-8d-59')
+    _iid_ = Guid('{4ce7d875-a981-4140-a1ff-ad93258e8d59}')
     @commethod(3)
     def QueueWorkItem(self, workItem: Windows.Win32.UI.Input.Ink.IInkHostWorkItem_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -39,12 +39,12 @@ class IInkDesktopHost(ComPtr):
     def CreateAndInitializeInkPresenter(self, rootVisual: Windows.Win32.System.Com.IUnknown_head, width: Single, height: Single, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkHostWorkItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ccda0a9a-1b78-4632-bb-96-97-80-06-62-e2-6c')
+    _iid_ = Guid('{ccda0a9a-1b78-4632-bb96-97800662e26c}')
     @commethod(3)
     def Invoke(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkPresenterDesktop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('73f3c0d9-2e8b-48f3-89-5e-20-cb-d2-7b-72-3b')
+    _iid_ = Guid('{73f3c0d9-2e8b-48f3-895e-20cbd27b723b}')
     @commethod(3)
     def SetRootVisual(self, rootVisual: Windows.Win32.System.Com.IUnknown_head, device: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -59,8 +59,8 @@ INK_HIGH_CONTRAST_ADJUSTMENT = Int32
 USE_SYSTEM_COLORS_WHEN_NECESSARY: INK_HIGH_CONTRAST_ADJUSTMENT = 0
 USE_SYSTEM_COLORS: INK_HIGH_CONTRAST_ADJUSTMENT = 1
 USE_ORIGINAL_COLORS: INK_HIGH_CONTRAST_ADJUSTMENT = 2
-InkD2DRenderer = Guid('4044e60c-7b01-4671-a9-7c-04-e0-21-0a-07-a5')
-InkDesktopHost = Guid('062584a6-f830-4bdc-a4-d2-0a-10-ab-06-2b-1d')
+InkD2DRenderer = Guid('{4044e60c-7b01-4671-a97c-04e0210a07a5}')
+InkDesktopHost = Guid('{062584a6-f830-4bdc-a4d2-0a10ab062b1d}')
 make_head(_module, 'IInkCommitRequestHandler')
 make_head(_module, 'IInkD2DRenderer')
 make_head(_module, 'IInkD2DRenderer2')

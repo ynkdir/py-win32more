@@ -15,10 +15,10 @@ def __getattr__(name):
     return getattr(_module, name)
 class IDummyMBNUCMExt(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('dcbbbab6-ffff-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-ffff-4bbb-aaee-338e368af6fa}')
 class IMbnConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-200d-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-200d-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def get_ConnectionID(self, ConnectionID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -35,21 +35,21 @@ class IMbnConnection(ComPtr):
     def GetActivationNetworkError(self, networkError: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-200b-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-200b-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetProvisionedContexts(self, provisionedContexts: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetProvisionedContext(self, provisionedContexts: Windows.Win32.NetworkManagement.MobileBroadband.MBN_CONTEXT, providerID: Windows.Win32.Foundation.PWSTR, requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionContextEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-200c-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-200c-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnProvisionedContextListChange(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnectionContext_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnSetProvisionedContextComplete(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnectionContext_head, requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-200e-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-200e-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnConnectComplete(self, newConnection: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnection_head, requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -60,21 +60,21 @@ class IMbnConnectionEvents(ComPtr):
     def OnVoiceCallStateChange(self, newConnection: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-201d-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-201d-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetConnection(self, connectionID: Windows.Win32.Foundation.PWSTR, mbnConnection: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetConnections(self, mbnConnections: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-201e-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-201e-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnConnectionArrival(self, newConnection: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnConnectionRemoval(self, oldConnection: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionProfile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2010-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2010-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetProfileXmlData(self, profileData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -83,12 +83,12 @@ class IMbnConnectionProfile(ComPtr):
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionProfileEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2011-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2011-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnProfileUpdate(self, newProfile: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnectionProfile_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionProfileManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-200f-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-200f-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetConnectionProfiles(self, mbnInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnInterface_head, connectionProfiles: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -97,14 +97,14 @@ class IMbnConnectionProfileManager(ComPtr):
     def CreateConnectionProfile(self, xmlProfile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnConnectionProfileManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-201f-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-201f-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnConnectionProfileArrival(self, newConnectionProfile: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnectionProfile_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnConnectionProfileRemoval(self, oldConnectionProfile: Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnectionProfile_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnDeviceService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b3bb9a71-dc70-4be9-a4-da-78-86-ae-8b-19-1b')
+    _iid_ = Guid('{b3bb9a71-dc70-4be9-a4da-7886ae8b191b}')
     @commethod(3)
     def QuerySupportedCommands(self, requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -131,12 +131,12 @@ class IMbnDeviceService(ComPtr):
     def get_IsDataSessionOpen(self, value: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnDeviceServiceStateEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5d3ff196-89ee-49d8-8b-60-33-ff-dd-ff-c5-8d')
+    _iid_ = Guid('{5d3ff196-89ee-49d8-8b60-33ffddffc58d}')
     @commethod(3)
     def OnSessionsStateChange(self, interfaceID: Windows.Win32.Foundation.BSTR, stateChange: Windows.Win32.NetworkManagement.MobileBroadband.MBN_DEVICE_SERVICE_SESSIONS_STATE) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnDeviceServicesContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fc5ac347-1592-4068-80-bb-6a-57-58-01-50-d8')
+    _iid_ = Guid('{fc5ac347-1592-4068-80bb-6a57580150d8}')
     @commethod(3)
     def EnumerateDeviceServices(self, deviceServices: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -147,7 +147,7 @@ class IMbnDeviceServicesContext(ComPtr):
     def get_MaxDataSize(self, maxDataSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnDeviceServicesEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0a900c19-6824-4e97-b7-6e-cf-23-9d-0c-a6-42')
+    _iid_ = Guid('{0a900c19-6824-4e97-b76e-cf239d0ca642}')
     @commethod(3)
     def OnQuerySupportedCommandsComplete(self, deviceService: Windows.Win32.NetworkManagement.MobileBroadband.IMbnDeviceService_head, commandIDList: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), status: Windows.Win32.Foundation.HRESULT, requestID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -172,12 +172,12 @@ class IMbnDeviceServicesEvents(ComPtr):
     def OnInterfaceStateChange(self, interfaceID: Windows.Win32.Foundation.BSTR, stateChange: Windows.Win32.NetworkManagement.MobileBroadband.MBN_DEVICE_SERVICES_INTERFACE_STATE) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnDeviceServicesManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('20a26258-6811-4478-ac-1d-13-32-4e-45-e4-1c')
+    _iid_ = Guid('{20a26258-6811-4478-ac1d-13324e45e41c}')
     @commethod(3)
     def GetDeviceServicesContext(self, networkInterfaceID: Windows.Win32.Foundation.BSTR, mbnDevicesContext: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.IMbnDeviceServicesContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnInterface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2001-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2001-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def get_InterfaceID(self, InterfaceID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -202,7 +202,7 @@ class IMbnInterface(ComPtr):
     def GetConnection(self, mbnConnection: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.IMbnConnection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnInterfaceEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2002-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2002-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnInterfaceCapabilityAvailable(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnInterface_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -221,21 +221,21 @@ class IMbnInterfaceEvents(ComPtr):
     def OnScanNetworkComplete(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnInterface_head, requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnInterfaceManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-201b-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-201b-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetInterface(self, interfaceID: Windows.Win32.Foundation.PWSTR, mbnInterface: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.IMbnInterface_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetInterfaces(self, mbnInterfaces: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnInterfaceManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-201c-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-201c-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnInterfaceArrival(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnInterface_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnInterfaceRemoval(self, oldInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnInterface_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnMultiCarrier(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2020-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2020-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def SetHomeProvider(self, homeProvider: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.MBN_PROVIDER2_head), requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -250,7 +250,7 @@ class IMbnMultiCarrier(ComPtr):
     def ScanNetwork(self, requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnMultiCarrierEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcdddab6-2021-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcdddab6-2021-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnSetHomeProviderComplete(self, mbnInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnMultiCarrier_head, requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -263,7 +263,7 @@ class IMbnMultiCarrierEvents(ComPtr):
     def OnInterfaceCapabilityChange(self, mbnInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnMultiCarrier_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnPin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2007-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2007-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def get_PinType(self, PinType: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -288,7 +288,7 @@ class IMbnPin(ComPtr):
     def GetPinManager(self, pinManager: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.IMbnPinManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnPinEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2008-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2008-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnEnableComplete(self, pin: Windows.Win32.NetworkManagement.MobileBroadband.IMbnPin_head, pinInfo: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_INFO_head), requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -301,7 +301,7 @@ class IMbnPinEvents(ComPtr):
     def OnUnblockComplete(self, Pin: Windows.Win32.NetworkManagement.MobileBroadband.IMbnPin_head, pinInfo: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_INFO_head), requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnPinManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2005-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2005-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetPinList(self, pinList: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -310,14 +310,14 @@ class IMbnPinManager(ComPtr):
     def GetPinState(self, requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnPinManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2006-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2006-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnPinListAvailable(self, pinManager: Windows.Win32.NetworkManagement.MobileBroadband.IMbnPinManager_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnGetPinStateComplete(self, pinManager: Windows.Win32.NetworkManagement.MobileBroadband.IMbnPinManager_head, pinInfo: Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_INFO, requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnRadio(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dccccab6-201f-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dccccab6-201f-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def get_SoftwareRadioState(self, SoftwareRadioState: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.MBN_RADIO)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -326,14 +326,14 @@ class IMbnRadio(ComPtr):
     def SetSoftwareRadioState(self, radioState: Windows.Win32.NetworkManagement.MobileBroadband.MBN_RADIO, requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnRadioEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcdddab6-201f-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcdddab6-201f-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnRadioStateChange(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnRadio_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnSetSoftwareRadioStateComplete(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnRadio_head, requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2009-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2009-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetRegisterState(self, registerState: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.MBN_REGISTER_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -356,7 +356,7 @@ class IMbnRegistration(ComPtr):
     def SetRegisterMode(self, registerMode: Windows.Win32.NetworkManagement.MobileBroadband.MBN_REGISTER_MODE, providerID: Windows.Win32.Foundation.PWSTR, dataClass: UInt32, requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnRegistrationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-200a-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-200a-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnRegisterModeAvailable(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnRegistration_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -367,29 +367,29 @@ class IMbnRegistrationEvents(ComPtr):
     def OnSetRegisterModeComplete(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnRegistration_head, requestID: UInt32, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnServiceActivation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2017-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2017-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def Activate(self, vendorSpecificData: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnServiceActivationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2018-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2018-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnActivationComplete(self, serviceActivation: Windows.Win32.NetworkManagement.MobileBroadband.IMbnServiceActivation_head, vendorSpecificData: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), requestID: UInt32, status: Windows.Win32.Foundation.HRESULT, networkError: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnSignal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2003-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2003-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetSignalStrength(self, signalStrength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSignalError(self, signalError: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnSignalEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2004-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2004-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnSignalStateChange(self, newInterface: Windows.Win32.NetworkManagement.MobileBroadband.IMbnSignal_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnSms(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2015-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2015-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def GetSmsConfiguration(self, smsConfiguration: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.IMbnSmsConfiguration_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -408,7 +408,7 @@ class IMbnSms(ComPtr):
     def GetSmsStatus(self, smsStatusInfo: POINTER(Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_STATUS_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnSmsConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2012-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2012-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def get_ServiceCenterAddress(self, scAddress: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -423,7 +423,7 @@ class IMbnSmsConfiguration(ComPtr):
     def put_SmsFormat(self, smsFormat: Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_FORMAT) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnSmsEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2016-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2016-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnSmsConfigurationChange(self, sms: Windows.Win32.NetworkManagement.MobileBroadband.IMbnSms_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -440,7 +440,7 @@ class IMbnSmsEvents(ComPtr):
     def OnSmsStatusChange(self, sms: Windows.Win32.NetworkManagement.MobileBroadband.IMbnSms_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnSmsReadMsgPdu(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2013-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2013-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def get_Index(self, Index: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -451,7 +451,7 @@ class IMbnSmsReadMsgPdu(ComPtr):
     def get_Message(self, Message: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnSmsReadMsgTextCdma(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2014-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2014-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def get_Index(self, Index: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -470,7 +470,7 @@ class IMbnSmsReadMsgTextCdma(ComPtr):
     def get_Message(self, Message: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnSubscriberInformation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('459ecc43-bcf5-11dc-a8-a8-00-13-21-f1-40-5f')
+    _iid_ = Guid('{459ecc43-bcf5-11dc-a8a8-001321f1405f}')
     @commethod(3)
     def get_SubscriberID(self, SubscriberID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -479,14 +479,14 @@ class IMbnSubscriberInformation(ComPtr):
     def get_TelephoneNumbers(self, TelephoneNumbers: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnVendorSpecificEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-201a-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-201a-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def OnEventNotification(self, vendorOperation: Windows.Win32.NetworkManagement.MobileBroadband.IMbnVendorSpecificOperation_head, vendorSpecificData: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnSetVendorSpecificComplete(self, vendorOperation: Windows.Win32.NetworkManagement.MobileBroadband.IMbnVendorSpecificOperation_head, vendorSpecificData: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), requestID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMbnVendorSpecificOperation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dcbbbab6-2019-4bbb-aa-ee-33-8e-36-8a-f6-fa')
+    _iid_ = Guid('{dcbbbab6-2019-4bbb-aaee-338e368af6fa}')
     @commethod(3)
     def SetVendorSpecific(self, vendorSpecificData: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), requestID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 MBN_ACTIVATION_STATE = Int32
@@ -753,10 +753,10 @@ MBN_VOICE_CLASS_NONE: MBN_VOICE_CLASS = 0
 MBN_VOICE_CLASS_NO_VOICE: MBN_VOICE_CLASS = 1
 MBN_VOICE_CLASS_SEPARATE_VOICE_DATA: MBN_VOICE_CLASS = 2
 MBN_VOICE_CLASS_SIMULTANEOUS_VOICE_DATA: MBN_VOICE_CLASS = 3
-MbnConnectionManager = Guid('bdfee05c-4418-11dd-90-ed-00-1c-25-7c-cf-f1')
-MbnConnectionProfileManager = Guid('bdfee05a-4418-11dd-90-ed-00-1c-25-7c-cf-f1')
-MbnDeviceServicesManager = Guid('2269daa3-2a9f-4165-a5-01-ce-00-a6-f7-a7-5b')
-MbnInterfaceManager = Guid('bdfee05b-4418-11dd-90-ed-00-1c-25-7c-cf-f1')
+MbnConnectionManager = Guid('{bdfee05c-4418-11dd-90ed-001c257ccff1}')
+MbnConnectionProfileManager = Guid('{bdfee05a-4418-11dd-90ed-001c257ccff1}')
+MbnDeviceServicesManager = Guid('{2269daa3-2a9f-4165-a501-ce00a6f7a75b}')
+MbnInterfaceManager = Guid('{bdfee05b-4418-11dd-90ed-001c257ccff1}')
 WWAEXT_SMS_CONSTANTS = Int32
 MBN_MESSAGE_INDEX_NONE: WWAEXT_SMS_CONSTANTS = 0
 MBN_CDMA_SHORT_MSG_SIZE_UNKNOWN: WWAEXT_SMS_CONSTANTS = 0

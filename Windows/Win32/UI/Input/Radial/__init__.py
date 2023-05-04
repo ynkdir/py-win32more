@@ -15,17 +15,17 @@ def __getattr__(name):
     return getattr(_module, name)
 class IRadialControllerConfigurationInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('787cdaac-3186-476d-87-e4-b9-37-4a-7b-99-70')
+    _iid_ = Guid('{787cdaac-3186-476d-87e4-b9374a7b9970}')
     @commethod(6)
     def GetForWindow(self, hwnd: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRadialControllerIndependentInputSourceInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3d577eff-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('{3d577eff-4cee-11e6-b535-001bdc06ab3b}')
     @commethod(6)
     def CreateForWindow(self, hwnd: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRadialControllerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1b0535c9-57ad-45c1-9d-79-ad-5c-34-36-05-13')
+    _iid_ = Guid('{1b0535c9-57ad-45c1-9d79-ad5c34360513}')
     @commethod(6)
     def CreateForWindow(self, hwnd: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'IRadialControllerConfigurationInterop')

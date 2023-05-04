@@ -21,7 +21,7 @@ def CreateDirect3D11DeviceFromDXGIDevice(dxgiDevice: Windows.Win32.Graphics.Dxgi
 def CreateDirect3D11SurfaceFromDXGISurface(dgxiSurface: Windows.Win32.Graphics.Dxgi.IDXGISurface_head, graphicsSurface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DDxgiInterfaceAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a9b3d012-3df2-4ee3-b8-d1-86-95-f4-57-d3-c1')
+    _iid_ = Guid('{a9b3d012-3df2-4ee3-b8d1-8695f457d3c1}')
     @commethod(3)
     def GetInterface(self, iid: POINTER(Guid), p: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'IDirect3DDxgiInterfaceAccess')

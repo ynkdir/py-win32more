@@ -17,14 +17,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class IDisplayDeviceInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('64338358-366a-471b-bd-56-dd-8e-f4-8e-43-9b')
+    _iid_ = Guid('{64338358-366a-471b-bd56-dd8ef48e439b}')
     @commethod(3)
     def CreateSharedHandle(self, pObject: Windows.Win32.System.WinRT.IInspectable_head, pSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), Access: UInt32, Name: Windows.Win32.System.WinRT.HSTRING, pHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OpenSharedHandle(self, NTHandle: Windows.Win32.Foundation.HANDLE, riid: Guid, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDisplayPathInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a6ba4205-e59e-4e71-b2-5b-4e-43-6d-21-ee-3d')
+    _iid_ = Guid('{a6ba4205-e59e-4e71-b25b-4e436d21ee3d}')
     @commethod(3)
     def CreateSourcePresentationHandle(self, pValue: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -98,25 +98,25 @@ WCN_NO_SUBTYPE: UInt32 = 4294967294
 WCN_FLAG_DISCOVERY_VE: UInt32 = 1
 WCN_FLAG_AUTHENTICATED_VE: UInt32 = 2
 WCN_FLAG_ENCRYPTED_VE: UInt32 = 4
-SID_WcnProvider: Guid = Guid('c100beca-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
+SID_WcnProvider: Guid = Guid('{c100beca-d33a-4a4b-bf23-bbef4663d017}')
 def PKEY_WCN_DeviceType_Category():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8b-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=16)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=16)
 def PKEY_WCN_DeviceType_SubCategoryOUI():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8b-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=17)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=17)
 def PKEY_WCN_DeviceType_SubCategory():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8b-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=18)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=18)
 def PKEY_WCN_SSID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8b-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=32)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=32)
 class IWCNConnectNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c100be9f-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
+    _iid_ = Guid('{c100be9f-d33a-4a4b-bf23-bbef4663d017}')
     @commethod(3)
     def ConnectSucceeded(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ConnectFailed(self, hrFailure: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IWCNDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c100be9c-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
+    _iid_ = Guid('{c100be9c-d33a-4a4b-bf23-bbef4663d017}')
     @commethod(3)
     def SetPassword(self, Type: Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_PASSWORD_TYPE, dwPasswordLength: UInt32, pbPassword: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -139,7 +139,7 @@ class IWCNDevice(ComPtr):
     def Unadvise(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetNFCPasswordParams(self, Type: Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_PASSWORD_TYPE, dwOOBPasswordID: UInt32, dwPasswordLength: UInt32, pbPassword: POINTER(Byte), dwRemotePublicKeyHashLength: UInt32, pbRemotePublicKeyHash: POINTER(Byte), dwDHKeyBlobLength: UInt32, pbDHKeyBlob: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-WCNDeviceObject = Guid('c100bea7-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
+WCNDeviceObject = Guid('{c100bea7-d33a-4a4b-bf23-bbef4663d017}')
 WCN_ATTRIBUTE_TYPE = Int32
 WCN_TYPE_AP_CHANNEL: WCN_ATTRIBUTE_TYPE = 0
 WCN_TYPE_ASSOCIATION_STATE: WCN_ATTRIBUTE_TYPE = 1

@@ -454,10 +454,10 @@ class ADS_VLV(EasyCastStructure):
     pszTarget: Windows.Win32.Foundation.PWSTR
     dwContextIDLength: UInt32
     lpContextID: POINTER(Byte)
-ADSystemInfo = Guid('50b6327f-afd1-11d2-9c-b9-00-00-f8-7a-36-9e')
-ADsSecurityUtility = Guid('f270c64a-ffb8-4ae4-85-fe-3a-75-e5-34-79-66')
-AccessControlEntry = Guid('b75ac000-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
-AccessControlList = Guid('b85ea052-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
+ADSystemInfo = Guid('{50b6327f-afd1-11d2-9cb9-0000f87a369e}')
+ADsSecurityUtility = Guid('{f270c64a-ffb8-4ae4-85fe-3a75e5347966}')
+AccessControlEntry = Guid('{b75ac000-9bdd-11d0-852c-00c04fd8d503}')
+AccessControlList = Guid('{b85ea052-9bdd-11d0-852c-00c04fd8d503}')
 WM_ADSPROP_NOTIFY_PAGEINIT: UInt32 = 2125
 WM_ADSPROP_NOTIFY_PAGEHWND: UInt32 = 2126
 WM_ADSPROP_NOTIFY_CHANGE: UInt32 = 2127
@@ -466,7 +466,7 @@ WM_ADSPROP_NOTIFY_SETFOCUS: UInt32 = 2129
 WM_ADSPROP_NOTIFY_FOREGROUND: UInt32 = 2130
 WM_ADSPROP_NOTIFY_EXIT: UInt32 = 2131
 WM_ADSPROP_NOTIFY_ERROR: UInt32 = 2134
-CLSID_CommonQuery: Guid = Guid('83bc5ec0-6f2a-11d0-a1-c4-00-aa-00-c1-6e-65')
+CLSID_CommonQuery: Guid = Guid('{83bc5ec0-6f2a-11d0-a1c4-00aa00c16e65}')
 QUERYFORM_CHANGESFORMLIST: UInt64 = 1
 QUERYFORM_CHANGESOPTFORMLIST: UInt64 = 2
 CQFF_NOGLOBALPAGES: UInt32 = 1
@@ -492,7 +492,7 @@ OQWF_SAVEQUERYONOK: UInt32 = 512
 OQWF_HIDEMENUS: UInt32 = 1024
 OQWF_HIDESEARCHUI: UInt32 = 2048
 OQWF_PARAMISPROPERTYBAG: UInt32 = 2147483648
-CLSID_DsAdminCreateObj: Guid = Guid('e301a009-f901-11d2-82-b9-00-c0-4f-68-92-8b')
+CLSID_DsAdminCreateObj: Guid = Guid('{e301a009-f901-11d2-82b9-00c04f68928b}')
 DSA_NEWOBJ_CTX_PRECOMMIT: UInt32 = 1
 DSA_NEWOBJ_CTX_COMMIT: UInt32 = 2
 DSA_NEWOBJ_CTX_POSTCOMMIT: UInt32 = 3
@@ -503,11 +503,11 @@ DSA_NOTIFY_MOV: UInt32 = 4
 DSA_NOTIFY_PROP: UInt32 = 8
 DSA_NOTIFY_FLAG_ADDITIONAL_DATA: UInt32 = 2
 DSA_NOTIFY_FLAG_FORCE_ADDITIONAL_DATA: UInt32 = 1
-CLSID_MicrosoftDS: Guid = Guid('fe1290f0-cfbd-11cf-a3-30-00-aa-00-c1-6e-65')
-CLSID_DsPropertyPages: Guid = Guid('0d45d530-764b-11d0-a1-ca-00-aa-00-c1-6e-65')
-CLSID_DsDomainTreeBrowser: Guid = Guid('1698790a-e2b4-11d0-b0-b1-00-c0-4f-d8-dc-a6')
-CLSID_DsDisplaySpecifier: Guid = Guid('1ab4a8c0-6a0b-11d2-ad-49-00-c0-4f-a3-1a-86')
-CLSID_DsFolderProperties: Guid = Guid('9e51e0d0-6e0f-11d2-96-01-00-c0-4f-a3-1a-86')
+CLSID_MicrosoftDS: Guid = Guid('{fe1290f0-cfbd-11cf-a330-00aa00c16e65}')
+CLSID_DsPropertyPages: Guid = Guid('{0d45d530-764b-11d0-a1ca-00aa00c16e65}')
+CLSID_DsDomainTreeBrowser: Guid = Guid('{1698790a-e2b4-11d0-b0b1-00c04fd8dca6}')
+CLSID_DsDisplaySpecifier: Guid = Guid('{1ab4a8c0-6a0b-11d2-ad49-00c04fa31a86}')
+CLSID_DsFolderProperties: Guid = Guid('{9e51e0d0-6e0f-11d2-9601-00c04fa31a86}')
 DSOBJECT_ISCONTAINER: UInt32 = 1
 DSOBJECT_READONLYPAGES: UInt32 = 2147483648
 DSPROVIDER_UNUSED_0: UInt32 = 1
@@ -629,17 +629,17 @@ DS_GFTI_UPDATE_TDO: UInt32 = 1
 DS_GFTI_VALID_FLAGS: UInt32 = 1
 DS_ONLY_DO_SITE_NAME: UInt32 = 1
 DS_NOTIFY_AFTER_SITE_RECORDS: UInt32 = 2
-CLSID_DsQuery: Guid = Guid('8a23e65e-31c2-11d0-89-1c-00-a0-24-ab-2d-bb')
-CLSID_DsFindObjects: Guid = Guid('83ee3fe1-57d9-11d0-b9-32-00-a0-24-ab-2d-bb')
-CLSID_DsFindPeople: Guid = Guid('83ee3fe2-57d9-11d0-b9-32-00-a0-24-ab-2d-bb')
-CLSID_DsFindPrinter: Guid = Guid('b577f070-7ee2-11d0-91-3f-00-aa-00-c1-6e-65')
-CLSID_DsFindComputer: Guid = Guid('16006700-87ad-11d0-91-40-00-aa-00-c1-6e-65')
-CLSID_DsFindVolume: Guid = Guid('c1b3cbf1-886a-11d0-91-40-00-aa-00-c1-6e-65')
-CLSID_DsFindContainer: Guid = Guid('c1b3cbf2-886a-11d0-91-40-00-aa-00-c1-6e-65')
-CLSID_DsFindAdvanced: Guid = Guid('83ee3fe3-57d9-11d0-b9-32-00-a0-24-ab-2d-bb')
-CLSID_DsFindDomainController: Guid = Guid('538c7b7e-d25e-11d0-97-42-00-a0-c9-06-af-45')
-CLSID_DsFindWriteableDomainController: Guid = Guid('7cbef079-aa84-444b-bc-70-68-e4-12-83-ea-bc')
-CLSID_DsFindFrsMembers: Guid = Guid('94ce4b18-b3d3-11d1-b9-b4-00-c0-4f-d8-d5-b0')
+CLSID_DsQuery: Guid = Guid('{8a23e65e-31c2-11d0-891c-00a024ab2dbb}')
+CLSID_DsFindObjects: Guid = Guid('{83ee3fe1-57d9-11d0-b932-00a024ab2dbb}')
+CLSID_DsFindPeople: Guid = Guid('{83ee3fe2-57d9-11d0-b932-00a024ab2dbb}')
+CLSID_DsFindPrinter: Guid = Guid('{b577f070-7ee2-11d0-913f-00aa00c16e65}')
+CLSID_DsFindComputer: Guid = Guid('{16006700-87ad-11d0-9140-00aa00c16e65}')
+CLSID_DsFindVolume: Guid = Guid('{c1b3cbf1-886a-11d0-9140-00aa00c16e65}')
+CLSID_DsFindContainer: Guid = Guid('{c1b3cbf2-886a-11d0-9140-00aa00c16e65}')
+CLSID_DsFindAdvanced: Guid = Guid('{83ee3fe3-57d9-11d0-b932-00a024ab2dbb}')
+CLSID_DsFindDomainController: Guid = Guid('{538c7b7e-d25e-11d0-9742-00a0c906af45}')
+CLSID_DsFindWriteableDomainController: Guid = Guid('{7cbef079-aa84-444b-bc70-68e41283eabc}')
+CLSID_DsFindFrsMembers: Guid = Guid('{94ce4b18-b3d3-11d1-b9b4-00c04fd8d5b0}')
 DSQPF_NOSAVE: UInt32 = 1
 DSQPF_SAVELOCATION: UInt32 = 2
 DSQPF_SHOWHIDDENOBJECTS: UInt32 = 4
@@ -1155,7 +1155,7 @@ hrAfterInitialization: Windows.Win32.Foundation.HRESULT = -939522246
 hrLogCorrupted: Windows.Win32.Foundation.HRESULT = -939522244
 hrInvalidOperation: Windows.Win32.Foundation.HRESULT = -939522190
 hrAccessDenied: Windows.Win32.Foundation.HRESULT = -939522189
-CLSID_DsObjectPicker: Guid = Guid('17d6ccd8-3b7b-11d2-b9-e0-00-c0-4f-d8-db-f7')
+CLSID_DsObjectPicker: Guid = Guid('{17d6ccd8-3b7b-11d2-b9e0-00c04fd8dbf7}')
 @winfunctype('ACTIVEDS.dll')
 def ADsGetObject(lpszPathName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ACTIVEDS.dll')
@@ -1472,7 +1472,7 @@ def DsGetDcNextW(GetDcContextHandle: Windows.Win32.Foundation.HANDLE, SockAddres
 def DsGetDcNextA(GetDcContextHandle: Windows.Win32.Foundation.HANDLE, SockAddressCount: POINTER(UInt32), SockAddresses: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKET_ADDRESS_head)), DnsHostName: POINTER(Windows.Win32.Foundation.PSTR)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsGetDcCloseW(GetDcContextHandle: Windows.Win32.Networking.ActiveDirectory.GetDcContextHandle) -> Void: ...
-BackLink = Guid('fcbf906f-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+BackLink = Guid('{fcbf906f-4080-11d1-a3ac-00c04fb950dc}')
 class CQFORM(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: UInt32
@@ -1488,9 +1488,9 @@ class CQPAGE(EasyCastStructure):
     idPageTemplate: Int32
     pDlgProc: Windows.Win32.UI.WindowsAndMessaging.DLGPROC
     lParam: Windows.Win32.Foundation.LPARAM
-CaseIgnoreList = Guid('15f88a55-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
-DNWithBinary = Guid('7e99c0a3-f935-11d2-ba-96-00-c0-4f-b6-d0-d1')
-DNWithString = Guid('334857cc-f934-11d2-ba-96-00-c0-4f-b6-d0-d1')
+CaseIgnoreList = Guid('{15f88a55-4680-11d1-a3b4-00c04fb950dc}')
+DNWithBinary = Guid('{7e99c0a3-f935-11d2-ba96-00c04fb6d0d1}')
+DNWithString = Guid('{334857cc-f934-11d2-ba96-00c04fb6d0d1}')
 class DOMAINDESC(EasyCastStructure):
     pszName: Windows.Win32.Foundation.PWSTR
     pszPath: Windows.Win32.Foundation.PWSTR
@@ -2153,14 +2153,14 @@ DS_SPN_WRITE_OP = Int32
 DS_SPN_ADD_SPN_OP: DS_SPN_WRITE_OP = 0
 DS_SPN_REPLACE_SPN_OP: DS_SPN_WRITE_OP = 1
 DS_SPN_DELETE_SPN_OP: DS_SPN_WRITE_OP = 2
-Email = Guid('8f92a857-478e-11d1-a3-b4-00-c0-4f-b9-50-dc')
-FaxNumber = Guid('a5062215-4681-11d1-a3-b4-00-c0-4f-b9-50-dc')
+Email = Guid('{8f92a857-478e-11d1-a3b4-00c04fb950dc}')
+FaxNumber = Guid('{a5062215-4681-11d1-a3b4-00c04fb950dc}')
 class GetDcContextHandle(EasyCastStructure):
     Value: IntPtr
-Hold = Guid('b3ad3e13-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+Hold = Guid('{b3ad3e13-4080-11d1-a3ac-00c04fb950dc}')
 class IADs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('fd8256d0-fd15-11ce-ab-c4-02-60-8c-9e-75-53')
+    _iid_ = Guid('{fd8256d0-fd15-11ce-abc4-02608c9e7553}')
     @commethod(7)
     def get_Name(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2189,7 +2189,7 @@ class IADs(ComPtr):
     def GetInfoEx(self, vProperties: Windows.Win32.System.Variant.VARIANT, lnReserved: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsADSystemInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('5bb11929-afd1-11d2-9c-b9-00-00-f8-7a-36-9e')
+    _iid_ = Guid('{5bb11929-afd1-11d2-9cb9-0000f87a369e}')
     @commethod(7)
     def get_UserName(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2218,7 +2218,7 @@ class IADsADSystemInfo(ComPtr):
     def GetTrees(self, pvTrees: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsAccessControlEntry(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b4f3a14c-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{b4f3a14c-9bdd-11d0-852c-00c04fd8d503}')
     @commethod(7)
     def get_AccessMask(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2249,7 +2249,7 @@ class IADsAccessControlEntry(ComPtr):
     def put_Trustee(self, bstrTrustee: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsAccessControlList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b7ee91cc-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{b7ee91cc-9bdd-11d0-852c-00c04fd8d503}')
     @commethod(7)
     def get_AclRevision(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2268,7 +2268,7 @@ class IADsAccessControlList(ComPtr):
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsAcl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('8452d3ab-0869-11d1-a3-77-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{8452d3ab-0869-11d1-a377-00c04fb950dc}')
     @commethod(7)
     def get_ProtectedAttrName(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2285,7 +2285,7 @@ class IADsAcl(ComPtr):
     def CopyAcl(self, ppAcl: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsAggregatee(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1346ce8c-9039-11d0-85-28-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{1346ce8c-9039-11d0-8528-00c04fd8d503}')
     @commethod(3)
     def ConnectAsAggregatee(self, pOuterUnknown: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2296,14 +2296,14 @@ class IADsAggregatee(ComPtr):
     def RestoreInterface(self, riid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsAggregator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('52db5fb0-941f-11d0-85-29-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{52db5fb0-941f-11d0-8529-00c04fd8d503}')
     @commethod(3)
     def ConnectAsAggregator(self, pAggregatee: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DisconnectAsAggregator(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsBackLink(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('fd1302bd-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{fd1302bd-4080-11d1-a3ac-00c04fb950dc}')
     @commethod(7)
     def get_RemoteID(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2314,14 +2314,14 @@ class IADsBackLink(ComPtr):
     def put_ObjectName(self, bstrObjectName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsCaseIgnoreList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('7b66b533-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{7b66b533-4680-11d1-a3b4-00c04fb950dc}')
     @commethod(7)
     def get_CaseIgnoreList(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_CaseIgnoreList(self, vCaseIgnoreList: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsClass(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('c8f93dd0-4ae0-11cf-9e-73-00-aa-00-4a-56-91')
+    _iid_ = Guid('{c8f93dd0-4ae0-11cf-9e73-00aa004a5691}')
     @commethod(20)
     def get_PrimaryInterface(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2384,7 +2384,7 @@ class IADsClass(ComPtr):
     def Qualifiers(self, ppQualifiers: POINTER(Windows.Win32.Networking.ActiveDirectory.IADsCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('72b945e0-253b-11cf-a9-88-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{72b945e0-253b-11cf-a988-00aa006bc149}')
     @commethod(7)
     def get__NewEnum(self, ppEnumerator: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2395,7 +2395,7 @@ class IADsCollection(ComPtr):
     def GetObject(self, bstrName: Windows.Win32.Foundation.BSTR, pvItem: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsComputer(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('efe3cc70-1d9f-11cf-b1-f3-02-60-8c-9e-75-53')
+    _iid_ = Guid('{efe3cc70-1d9f-11cf-b1f3-02608c9e7553}')
     @commethod(20)
     def get_ComputerID(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2462,14 +2462,14 @@ class IADsComputer(ComPtr):
     def put_NetAddresses(self, vNetAddresses: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsComputerOperations(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('ef497680-1d9f-11cf-b1-f3-02-60-8c-9e-75-53')
+    _iid_ = Guid('{ef497680-1d9f-11cf-b1f3-02608c9e7553}')
     @commethod(20)
     def Status(self, ppObject: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def Shutdown(self, bReboot: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsContainer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('001677d0-fd16-11ce-ab-c4-02-60-8c-9e-75-53')
+    _iid_ = Guid('{001677d0-fd16-11ce-abc4-02608c9e7553}')
     @commethod(7)
     def get_Count(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2494,7 +2494,7 @@ class IADsContainer(ComPtr):
     def MoveHere(self, SourceName: Windows.Win32.Foundation.BSTR, NewName: Windows.Win32.Foundation.BSTR, ppObject: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsDNWithBinary(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('7e99c0a2-f935-11d2-ba-96-00-c0-4f-b6-d0-d1')
+    _iid_ = Guid('{7e99c0a2-f935-11d2-ba96-00c04fb6d0d1}')
     @commethod(7)
     def get_BinaryValue(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2505,7 +2505,7 @@ class IADsDNWithBinary(ComPtr):
     def put_DNString(self, bstrDNString: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsDNWithString(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('370df02e-f934-11d2-ba-96-00-c0-4f-b6-d0-d1')
+    _iid_ = Guid('{370df02e-f934-11d2-ba96-00c04fb6d0d1}')
     @commethod(7)
     def get_StringValue(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2516,12 +2516,12 @@ class IADsDNWithString(ComPtr):
     def put_DNString(self, bstrDNString: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsDeleteOps(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b2bd0902-8878-11d1-8c-21-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{b2bd0902-8878-11d1-8c21-00c04fd8d503}')
     @commethod(7)
     def DeleteObject(self, lnFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsDomain(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('00e4c220-fd16-11ce-ab-c4-02-60-8c-9e-75-53')
+    _iid_ = Guid('{00e4c220-fd16-11ce-abc4-02608c9e7553}')
     @commethod(20)
     def get_IsWorkgroup(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2558,7 +2558,7 @@ class IADsDomain(ComPtr):
     def put_LockoutObservationInterval(self, lnLockoutObservationInterval: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsEmail(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('97af011a-478e-11d1-a3-b4-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{97af011a-478e-11d1-a3b4-00c04fb950dc}')
     @commethod(7)
     def get_Type(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2569,7 +2569,7 @@ class IADsEmail(ComPtr):
     def put_Address(self, bstrAddress: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsExtension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3d35553c-d2b0-11d1-b1-7b-00-00-f8-75-93-a0')
+    _iid_ = Guid('{3d35553c-d2b0-11d1-b17b-0000f87593a0}')
     @commethod(3)
     def Operate(self, dwCode: UInt32, varData1: Windows.Win32.System.Variant.VARIANT, varData2: Windows.Win32.System.Variant.VARIANT, varData3: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2578,7 +2578,7 @@ class IADsExtension(ComPtr):
     def PrivateInvoke(self, dispidMember: Int32, riid: POINTER(Guid), lcid: UInt32, wFlags: UInt16, pdispparams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pexcepinfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsFaxNumber(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('a910dea9-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{a910dea9-4680-11d1-a3b4-00c04fb950dc}')
     @commethod(7)
     def get_TelephoneNumber(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2589,7 +2589,7 @@ class IADsFaxNumber(ComPtr):
     def put_Parameters(self, vParameters: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsFileService(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADsService
-    _iid_ = Guid('a89d1900-31ca-11cf-a9-8a-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{a89d1900-31ca-11cf-a98a-00aa006bc149}')
     @commethod(44)
     def get_Description(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
@@ -2600,14 +2600,14 @@ class IADsFileService(ComPtr):
     def put_MaxUserCount(self, lnMaxUserCount: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsFileServiceOperations(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADsServiceOperations
-    _iid_ = Guid('a02ded10-31ca-11cf-a9-8a-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{a02ded10-31ca-11cf-a98a-00aa006bc149}')
     @commethod(26)
     def Sessions(self, ppSessions: POINTER(Windows.Win32.Networking.ActiveDirectory.IADsCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def Resources(self, ppResources: POINTER(Windows.Win32.Networking.ActiveDirectory.IADsCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsFileShare(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('eb6dcaf0-4b83-11cf-a9-95-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{eb6dcaf0-4b83-11cf-a995-00aa006bc149}')
     @commethod(20)
     def get_CurrentUserCount(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2628,7 +2628,7 @@ class IADsFileShare(ComPtr):
     def put_MaxUserCount(self, lnMaxUserCount: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsGroup(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('27636b00-410f-11cf-b1-ff-02-60-8c-9e-75-53')
+    _iid_ = Guid('{27636b00-410f-11cf-b1ff-02608c9e7553}')
     @commethod(20)
     def get_Description(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2643,7 +2643,7 @@ class IADsGroup(ComPtr):
     def Remove(self, bstrItemToBeRemoved: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsHold(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b3eb3b37-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{b3eb3b37-4080-11d1-a3ac-00c04fb950dc}')
     @commethod(7)
     def get_ObjectName(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2654,7 +2654,7 @@ class IADsHold(ComPtr):
     def put_Amount(self, lnAmount: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsLargeInteger(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('9068270b-0939-11d1-8b-e1-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{9068270b-0939-11d1-8be1-00c04fd8d503}')
     @commethod(7)
     def get_HighPart(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2665,7 +2665,7 @@ class IADsLargeInteger(ComPtr):
     def put_LowPart(self, lnLowPart: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsLocality(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('a05e03a2-effe-11cf-8a-bc-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{a05e03a2-effe-11cf-8abc-00c04fd8d503}')
     @commethod(20)
     def get_Description(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2684,7 +2684,7 @@ class IADsLocality(ComPtr):
     def put_SeeAlso(self, vSeeAlso: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsMembers(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('451a0030-72ec-11cf-b0-3b-00-aa-00-6e-09-75')
+    _iid_ = Guid('{451a0030-72ec-11cf-b03b-00aa006e0975}')
     @commethod(7)
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2695,7 +2695,7 @@ class IADsMembers(ComPtr):
     def put_Filter(self, pvFilter: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsNameTranslate(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b1b272a3-3625-11d1-a3-a4-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{b1b272a3-3625-11d1-a3a4-00c04fb950dc}')
     @commethod(7)
     def put_ChaseReferral(self, lnChaseReferral: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2712,14 +2712,14 @@ class IADsNameTranslate(ComPtr):
     def GetEx(self, lnFormatType: Int32, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsNamespaces(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('28b96ba0-b330-11cf-a9-ad-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{28b96ba0-b330-11cf-a9ad-00aa006bc149}')
     @commethod(20)
     def get_DefaultContainer(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_DefaultContainer(self, bstrDefaultContainer: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsNetAddress(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b21a50a9-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{b21a50a9-4080-11d1-a3ac-00c04fb950dc}')
     @commethod(7)
     def get_AddressType(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2730,7 +2730,7 @@ class IADsNetAddress(ComPtr):
     def put_Address(self, vAddress: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsO(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('a1cd2dc6-effe-11cf-8a-bc-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{a1cd2dc6-effe-11cf-8abc-00c04fd8d503}')
     @commethod(20)
     def get_Description(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2757,7 +2757,7 @@ class IADsO(ComPtr):
     def put_SeeAlso(self, vSeeAlso: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsOU(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('a2f733b8-effe-11cf-8a-bc-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{a2f733b8-effe-11cf-8abc-00c04fd8d503}')
     @commethod(20)
     def get_Description(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2788,26 +2788,26 @@ class IADsOU(ComPtr):
     def put_BusinessCategory(self, bstrBusinessCategory: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsObjectOptions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('46f14fda-232b-11d1-a8-08-00-c0-4f-d8-d5-a8')
+    _iid_ = Guid('{46f14fda-232b-11d1-a808-00c04fd8d5a8}')
     @commethod(7)
     def GetOption(self, lnOption: Int32, pvValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetOption(self, lnOption: Int32, vValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsOctetList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('7b28b80f-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{7b28b80f-4680-11d1-a3b4-00c04fb950dc}')
     @commethod(7)
     def get_OctetList(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_OctetList(self, vOctetList: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsOpenDSObject(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('ddf2891e-0f9c-11d0-8a-d4-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{ddf2891e-0f9c-11d0-8ad4-00c04fd8d503}')
     @commethod(7)
     def OpenDSObject(self, lpszDNName: Windows.Win32.Foundation.BSTR, lpszUserName: Windows.Win32.Foundation.BSTR, lpszPassword: Windows.Win32.Foundation.BSTR, lnReserved: Int32, ppOleDsObj: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPath(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b287fcd5-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{b287fcd5-4080-11d1-a3ac-00c04fb950dc}')
     @commethod(7)
     def get_Type(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2822,7 +2822,7 @@ class IADsPath(ComPtr):
     def put_Path(self, bstrPath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPathname(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d592aed4-f420-11d0-a3-6e-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{d592aed4-f420-11d0-a36e-00c04fb950dc}')
     @commethod(7)
     def Set(self, bstrADsPath: Windows.Win32.Foundation.BSTR, lnSetType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2847,14 +2847,14 @@ class IADsPathname(ComPtr):
     def put_EscapedMode(self, lnEscapedMode: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPostalAddress(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('7adecf29-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{7adecf29-4680-11d1-a3b4-00c04fb950dc}')
     @commethod(7)
     def get_PostalAddress(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_PostalAddress(self, vPostalAddress: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPrintJob(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('32fb6780-1ed0-11cf-a9-88-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{32fb6780-1ed0-11cf-a988-00aa006bc149}')
     @commethod(20)
     def get_HostPrintQueue(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2893,7 +2893,7 @@ class IADsPrintJob(ComPtr):
     def put_NotifyPath(self, bstrNotifyPath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPrintJobOperations(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('9a52db30-1ecf-11cf-a9-88-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{9a52db30-1ecf-11cf-a988-00aa006bc149}')
     @commethod(20)
     def get_Status(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2910,7 +2910,7 @@ class IADsPrintJobOperations(ComPtr):
     def Resume(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPrintQueue(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('b15160d0-1226-11cf-a9-85-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{b15160d0-1226-11cf-a985-00aa006bc149}')
     @commethod(20)
     def get_PrinterPath(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2965,7 +2965,7 @@ class IADsPrintQueue(ComPtr):
     def put_NetAddresses(self, vNetAddresses: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPrintQueueOperations(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('124be5c0-156e-11cf-a9-86-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{124be5c0-156e-11cf-a986-00aa006bc149}')
     @commethod(20)
     def get_Status(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -2978,7 +2978,7 @@ class IADsPrintQueueOperations(ComPtr):
     def Purge(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsProperty(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('c8f93dd3-4ae0-11cf-9e-73-00-aa-00-4a-56-91')
+    _iid_ = Guid('{c8f93dd3-4ae0-11cf-9e73-00aa004a5691}')
     @commethod(20)
     def get_OID(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -3003,7 +3003,7 @@ class IADsProperty(ComPtr):
     def Qualifiers(self, ppQualifiers: POINTER(Windows.Win32.Networking.ActiveDirectory.IADsCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPropertyEntry(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('05792c8e-941f-11d0-85-29-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{05792c8e-941f-11d0-8529-00c04fd8d503}')
     @commethod(7)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3024,7 +3024,7 @@ class IADsPropertyEntry(ComPtr):
     def put_Values(self, vValues: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPropertyList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('c6f602b6-8f69-11d0-85-28-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{c6f602b6-8f69-11d0-8528-00c04fd8d503}')
     @commethod(7)
     def get_PropertyCount(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3045,7 +3045,7 @@ class IADsPropertyList(ComPtr):
     def PurgePropertyList(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPropertyValue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('79fa9ad0-a97c-11d0-85-34-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{79fa9ad0-a97c-11d0-8534-00c04fd8d503}')
     @commethod(7)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3098,14 +3098,14 @@ class IADsPropertyValue(ComPtr):
     def put_UTCTime(self, daUTCTime: Double) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsPropertyValue2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('306e831c-5bc7-11d1-a3-b8-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{306e831c-5bc7-11d1-a3b8-00c04fb950dc}')
     @commethod(7)
     def GetObjectProperty(self, lnADsType: POINTER(Int32), pvProp: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def PutObjectProperty(self, lnADsType: Int32, vProp: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsReplicaPointer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f60fb803-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{f60fb803-4080-11d1-a3ac-00c04fb950dc}')
     @commethod(7)
     def get_ServerName(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3128,7 +3128,7 @@ class IADsReplicaPointer(ComPtr):
     def put_ReplicaAddressHints(self, vReplicaAddressHints: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsResource(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('34a05b20-4aab-11cf-ae-2c-00-aa-00-6e-bf-b9')
+    _iid_ = Guid('{34a05b20-4aab-11cf-ae2c-00aa006ebfb9}')
     @commethod(20)
     def get_User(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -3139,7 +3139,7 @@ class IADsResource(ComPtr):
     def get_LockCount(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsSecurityDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b8c787ca-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{b8c787ca-9bdd-11d0-852c-00c04fd8d503}')
     @commethod(7)
     def get_Revision(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3184,7 +3184,7 @@ class IADsSecurityDescriptor(ComPtr):
     def CopySecurityDescriptor(self, ppSecurityDescriptor: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsSecurityUtility(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('a63251b2-5f21-474b-ab-52-4a-8e-fa-d1-08-95')
+    _iid_ = Guid('{a63251b2-5f21-474b-ab52-4a8efad10895}')
     @commethod(7)
     def GetSecurityDescriptor(self, varPath: Windows.Win32.System.Variant.VARIANT, lPathFormat: Int32, lFormat: Int32, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3197,7 +3197,7 @@ class IADsSecurityUtility(ComPtr):
     def put_SecurityMask(self, lnSecurityMask: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsService(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('68af66e0-31ca-11cf-a9-8a-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{68af66e0-31ca-11cf-a98a-00aa006bc149}')
     @commethod(20)
     def get_HostComputer(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -3248,7 +3248,7 @@ class IADsService(ComPtr):
     def put_Dependencies(self, vDependencies: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsServiceOperations(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('5d7b33f0-31ca-11cf-a9-8a-00-aa-00-6b-c1-49')
+    _iid_ = Guid('{5d7b33f0-31ca-11cf-a98a-00aa006bc149}')
     @commethod(20)
     def get_Status(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -3263,7 +3263,7 @@ class IADsServiceOperations(ComPtr):
     def SetPassword(self, bstrNewPassword: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsSession(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('398b7da0-4aab-11cf-ae-2c-00-aa-00-6e-bf-b9')
+    _iid_ = Guid('{398b7da0-4aab-11cf-ae2c-00aa006ebfb9}')
     @commethod(20)
     def get_User(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -3278,14 +3278,14 @@ class IADsSession(ComPtr):
     def get_IdleTime(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsSyntax(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('c8f93dd2-4ae0-11cf-9e-73-00-aa-00-4a-56-91')
+    _iid_ = Guid('{c8f93dd2-4ae0-11cf-9e73-00aa004a5691}')
     @commethod(20)
     def get_OleAutoDataType(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_OleAutoDataType(self, lnOleAutoDataType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsTimestamp(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b2f5a901-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{b2f5a901-4080-11d1-a3ac-00c04fb950dc}')
     @commethod(7)
     def get_WholeSeconds(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3296,7 +3296,7 @@ class IADsTimestamp(ComPtr):
     def put_EventID(self, lnEventID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsTypedName(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b371a349-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+    _iid_ = Guid('{b371a349-4080-11d1-a3ac-00c04fb950dc}')
     @commethod(7)
     def get_ObjectName(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3311,7 +3311,7 @@ class IADsTypedName(ComPtr):
     def put_Interval(self, lnInterval: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsUser(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IADs
-    _iid_ = Guid('3e37e320-17e2-11cf-ab-c4-02-60-8c-9e-75-53')
+    _iid_ = Guid('{3e37e320-17e2-11cf-abc4-02608c9e7553}')
     @commethod(20)
     def get_BadLoginAddress(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -3496,7 +3496,7 @@ class IADsUser(ComPtr):
     def ChangePassword(self, bstrOldPassword: Windows.Win32.Foundation.BSTR, bstrNewPassword: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IADsWinNTSystemInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('6c6d65dc-afd1-11d2-9c-b9-00-00-f8-7a-36-9e')
+    _iid_ = Guid('{6c6d65dc-afd1-11d2-9cb9-0000f87a369e}')
     @commethod(7)
     def get_UserName(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3507,12 +3507,12 @@ class IADsWinNTSystemInfo(ComPtr):
     def get_PDC(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICommonQuery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ab50dec0-6f1d-11d0-a1-c4-00-aa-00-c1-6e-65')
+    _iid_ = Guid('{ab50dec0-6f1d-11d0-a1c4-00aa00c16e65}')
     @commethod(3)
     def OpenQueryWindow(self, hwndParent: Windows.Win32.Foundation.HWND, pQueryWnd: POINTER(Windows.Win32.Networking.ActiveDirectory.OPENQUERYWINDOW_head), ppDataObject: POINTER(Windows.Win32.System.Com.IDataObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectoryObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e798de2c-22e4-11d0-84-fe-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{e798de2c-22e4-11d0-84fe-00c04fd8d503}')
     @commethod(3)
     def GetObjectInformation(self, ppObjInfo: POINTER(POINTER(Windows.Win32.Networking.ActiveDirectory.ADS_OBJECT_INFO_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3525,7 +3525,7 @@ class IDirectoryObject(ComPtr):
     def DeleteDSObject(self, pszRDNName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectorySchemaMgmt(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('75db3b9c-a4d8-11d0-a7-9c-00-c0-4f-d8-d5-a8')
+    _iid_ = Guid('{75db3b9c-a4d8-11d0-a79c-00c04fd8d5a8}')
     @commethod(3)
     def EnumAttributes(self, ppszAttrNames: POINTER(Windows.Win32.Foundation.PWSTR), dwNumAttributes: UInt32, ppAttrDefinition: POINTER(POINTER(Windows.Win32.Networking.ActiveDirectory.ADS_ATTR_DEF_head)), pdwNumAttributes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3544,7 +3544,7 @@ class IDirectorySchemaMgmt(ComPtr):
     def DeleteClassDefinition(self, pszClassName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectorySearch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('109ba8ec-92f0-11d0-a7-90-00-c0-4f-d8-d5-a8')
+    _iid_ = Guid('{109ba8ec-92f0-11d0-a790-00c04fd8d5a8}')
     @commethod(3)
     def SetSearchPreference(self, pSearchPrefs: POINTER(Windows.Win32.Networking.ActiveDirectory.ADS_SEARCHPREF_INFO_head), dwNumPrefs: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3567,21 +3567,21 @@ class IDirectorySearch(ComPtr):
     def CloseSearchHandle(self, hSearchResult: Windows.Win32.Networking.ActiveDirectory.ADS_SEARCH_HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 class IDsAdminCreateObj(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('53554a38-f902-11d2-82-b9-00-c0-4f-68-92-8b')
+    _iid_ = Guid('{53554a38-f902-11d2-82b9-00c04f68928b}')
     @commethod(3)
     def Initialize(self, pADsContainerObj: Windows.Win32.Networking.ActiveDirectory.IADsContainer_head, pADsCopySource: Windows.Win32.Networking.ActiveDirectory.IADs_head, lpszClassName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateModal(self, hwndParent: Windows.Win32.Foundation.HWND, ppADsObj: POINTER(Windows.Win32.Networking.ActiveDirectory.IADs_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDsAdminNewObj(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f2573587-e6fc-11d2-82-af-00-c0-4f-68-92-8b')
+    _iid_ = Guid('{f2573587-e6fc-11d2-82af-00c04f68928b}')
     @commethod(3)
     def SetButtons(self, nCurrIndex: UInt32, bValid: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPageCounts(self, pnTotal: POINTER(Int32), pnStartIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDsAdminNewObjExt(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6088eae2-e7bf-11d2-82-af-00-c0-4f-68-92-8b')
+    _iid_ = Guid('{6088eae2-e7bf-11d2-82af-00c04f68928b}')
     @commethod(3)
     def Initialize(self, pADsContainerObj: Windows.Win32.Networking.ActiveDirectory.IADsContainer_head, pADsCopySource: Windows.Win32.Networking.ActiveDirectory.IADs_head, lpszClassName: Windows.Win32.Foundation.PWSTR, pDsAdminNewObj: Windows.Win32.Networking.ActiveDirectory.IDsAdminNewObj_head, pDispInfo: POINTER(Windows.Win32.Networking.ActiveDirectory.DSA_NEWOBJ_DISPINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3596,14 +3596,14 @@ class IDsAdminNewObjExt(ComPtr):
     def GetSummaryInfo(self, pBstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDsAdminNewObjPrimarySite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('be2b487e-f904-11d2-82-b9-00-c0-4f-68-92-8b')
+    _iid_ = Guid('{be2b487e-f904-11d2-82b9-00c04f68928b}')
     @commethod(3)
     def CreateNew(self, pszName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDsAdminNotifyHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e4a2b8b3-5a18-11d2-97-c1-00-a0-c9-a0-6d-2d')
+    _iid_ = Guid('{e4a2b8b3-5a18-11d2-97c1-00a0c9a06d2d}')
     @commethod(3)
     def Initialize(self, pExtraInfo: Windows.Win32.System.Com.IDataObject_head, puEventFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3614,7 +3614,7 @@ class IDsAdminNotifyHandler(ComPtr):
     def End(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDsBrowseDomainTree(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7cabcf1e-78f5-11d2-96-0c-00-c0-4f-a3-1a-86')
+    _iid_ = Guid('{7cabcf1e-78f5-11d2-960c-00c04fa31a86}')
     @commethod(3)
     def BrowseTo(self, hwndParent: Windows.Win32.Foundation.HWND, ppszTargetPath: POINTER(Windows.Win32.Foundation.PWSTR), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3627,7 +3627,7 @@ class IDsBrowseDomainTree(ComPtr):
     def SetComputer(self, pszComputerName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszPassword: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IDsDisplaySpecifier(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1ab4a8c0-6a0b-11d2-ad-49-00-c0-4f-a3-1a-86')
+    _iid_ = Guid('{1ab4a8c0-6a0b-11d2-ad49-00c04fa31a86}')
     @commethod(3)
     def SetServer(self, pszServer: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszPassword: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3652,19 +3652,19 @@ class IDsDisplaySpecifier(ComPtr):
     def GetAttributeADsType(self, pszAttributeName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Networking.ActiveDirectory.ADSTYPE: ...
 class IDsObjectPicker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0c87e64e-3b7a-11d2-b9-e0-00-c0-4f-d8-db-f7')
+    _iid_ = Guid('{0c87e64e-3b7a-11d2-b9e0-00c04fd8dbf7}')
     @commethod(3)
     def Initialize(self, pInitInfo: POINTER(Windows.Win32.Networking.ActiveDirectory.DSOP_INIT_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def InvokeDialog(self, hwndParent: Windows.Win32.Foundation.HWND, ppdoSelections: POINTER(Windows.Win32.System.Com.IDataObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDsObjectPickerCredentials(ComPtr):
     extends: Windows.Win32.Networking.ActiveDirectory.IDsObjectPicker
-    _iid_ = Guid('e2d3ec9b-d041-445a-8f-16-47-48-de-8f-b1-cf')
+    _iid_ = Guid('{e2d3ec9b-d041-445a-8f16-4748de8fb1cf}')
     @commethod(5)
     def SetCredentials(self, szUserName: Windows.Win32.Foundation.PWSTR, szPassword: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IPersistQuery(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
-    _iid_ = Guid('1a3114b8-a62e-11d0-a6-c5-00-a0-c9-06-af-45')
+    _iid_ = Guid('{1a3114b8-a62e-11d0-a6c5-00a0c906af45}')
     @commethod(4)
     def WriteString(self, pSection: Windows.Win32.Foundation.PWSTR, pValueName: Windows.Win32.Foundation.PWSTR, pValue: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -3681,7 +3681,7 @@ class IPersistQuery(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrivateDispatch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('86ab4bbe-65f6-11d1-8c-13-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{86ab4bbe-65f6-11d1-8c13-00c04fd8d503}')
     @commethod(3)
     def ADSIInitializeDispatchManager(self, dwExtensionId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3694,14 +3694,14 @@ class IPrivateDispatch(ComPtr):
     def ADSIInvoke(self, dispidMember: Int32, riid: POINTER(Guid), lcid: UInt32, wFlags: UInt16, pdispparams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pexcepinfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrivateUnknown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('89126bab-6ead-11d1-8c-18-00-c0-4f-d8-d5-03')
+    _iid_ = Guid('{89126bab-6ead-11d1-8c18-00c04fd8d503}')
     @commethod(3)
     def ADSIInitializeObject(self, lpszUserName: Windows.Win32.Foundation.BSTR, lpszPassword: Windows.Win32.Foundation.BSTR, lnReserved: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ADSIReleaseObject(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IQueryForm(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8cfcee30-39bd-11d0-b8-d1-00-a0-24-ab-2d-bb')
+    _iid_ = Guid('{8cfcee30-39bd-11d0-b8d1-00a024ab2dbb}')
     @commethod(3)
     def Initialize(self, hkForm: Windows.Win32.System.Registry.HKEY) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3716,9 +3716,9 @@ def LPCQADDPAGESPROC(lParam: Windows.Win32.Foundation.LPARAM, clsidForm: POINTER
 def LPCQPAGEPROC(pPage: POINTER(Windows.Win32.Networking.ActiveDirectory.CQPAGE_head), hwnd: Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPDSENUMATTRIBUTES(lParam: Windows.Win32.Foundation.LPARAM, pszAttributeName: Windows.Win32.Foundation.PWSTR, pszDisplayName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-LargeInteger = Guid('927971f5-0939-11d1-8b-e1-00-c0-4f-d8-d5-03')
-NameTranslate = Guid('274fae1f-3626-11d1-a3-a4-00-c0-4f-b9-50-dc')
-NetAddress = Guid('b0b71247-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+LargeInteger = Guid('{927971f5-0939-11d1-8be1-00c04fd8d503}')
+NameTranslate = Guid('{274fae1f-3626-11d1-a3a4-00c04fb950dc}')
+NetAddress = Guid('{b0b71247-4080-11d1-a3ac-00c04fb950dc}')
 class OPENQUERYWINDOW(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: UInt32
@@ -3730,13 +3730,13 @@ class OPENQUERYWINDOW(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         pFormParameters: c_void_p
         ppbFormParameters: Windows.Win32.System.Com.StructuredStorage.IPropertyBag_head
-OctetList = Guid('1241400f-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
-Path = Guid('b2538919-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
-Pathname = Guid('080d0d78-f421-11d0-a3-6e-00-c0-4f-b9-50-dc')
-PostalAddress = Guid('0a75afcd-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
-PropertyEntry = Guid('72d3edc2-a4c4-11d0-85-33-00-c0-4f-d8-d5-03')
-PropertyValue = Guid('7b9e38b0-a97c-11d0-85-34-00-c0-4f-d8-d5-03')
-ReplicaPointer = Guid('f5d1badf-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
+OctetList = Guid('{1241400f-4680-11d1-a3b4-00c04fb950dc}')
+Path = Guid('{b2538919-4080-11d1-a3ac-00c04fb950dc}')
+Pathname = Guid('{080d0d78-f421-11d0-a36e-00c04fb950dc}')
+PostalAddress = Guid('{0a75afcd-4680-11d1-a3b4-00c04fb950dc}')
+PropertyEntry = Guid('{72d3edc2-a4c4-11d0-8533-00c04fd8d503}')
+PropertyValue = Guid('{7b9e38b0-a97c-11d0-8534-00c04fd8d503}')
+ReplicaPointer = Guid('{f5d1badf-4080-11d1-a3ac-00c04fb950dc}')
 class SCHEDULE(EasyCastStructure):
     Size: UInt32
     Bandwidth: UInt32
@@ -3745,10 +3745,10 @@ class SCHEDULE(EasyCastStructure):
 class SCHEDULE_HEADER(EasyCastStructure):
     Type: UInt32
     Offset: UInt32
-SecurityDescriptor = Guid('b958f73c-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
-Timestamp = Guid('b2bed2eb-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
-TypedName = Guid('b33143cb-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
-WinNTSystemInfo = Guid('66182ec4-afd1-11d2-9c-b9-00-00-f8-7a-36-9e')
+SecurityDescriptor = Guid('{b958f73c-9bdd-11d0-852c-00c04fd8d503}')
+Timestamp = Guid('{b2bed2eb-4080-11d1-a3ac-00c04fb950dc}')
+TypedName = Guid('{b33143cb-4080-11d1-a3ac-00c04fb950dc}')
+WinNTSystemInfo = Guid('{66182ec4-afd1-11d2-9cb9-0000f87a369e}')
 make_head(_module, 'ADSPROPERROR')
 make_head(_module, 'ADSPROPINITPARAMS')
 make_head(_module, 'ADSVALUE')

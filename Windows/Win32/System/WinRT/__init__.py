@@ -202,7 +202,7 @@ class HSTRING_HEADER(EasyCastStructure):
     data: IntPtr
 class IAccountsSettingsPaneInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('d3ee12ad-3865-4362-97-46-b7-5a-68-2d-f0-e6')
+    _iid_ = Guid('{d3ee12ad-3865-4362-9746-b75a682df0e6}')
     @commethod(6)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), accountsSettingsPane: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -211,32 +211,32 @@ class IAccountsSettingsPaneInterop(ComPtr):
     def ShowAddAccountForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), asyncAction: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActivationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('00000035-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000035-0000-0000-c000-000000000046}')
     @commethod(6)
     def ActivateInstance(self, instance: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAgileReference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c03f6a43-65a4-9818-98-7e-e0-b8-10-d2-a6-f2')
+    _iid_ = Guid('{c03f6a43-65a4-9818-987e-e0b810d2a6f2}')
     @commethod(3)
     def Resolve(self, riid: POINTER(Guid), ppvObjectReference: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IApartmentShutdown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a2f05a09-27a2-42b5-bc-0e-ac-16-3e-f4-9d-9b')
+    _iid_ = Guid('{a2f05a09-27a2-42b5-bc0e-ac163ef49d9b}')
     @commethod(3)
     def OnUninitialize(self, ui64ApartmentIdentifier: UInt64) -> Void: ...
 class IAppServiceConnectionExtendedExecution(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('65219584-f9cb-4ae3-81-f9-a2-8a-6c-a4-50-d9')
+    _iid_ = Guid('{65219584-f9cb-4ae3-81f9-a28a6ca450d9}')
     @commethod(3)
     def OpenForExtendedExecutionAsync(self, riid: POINTER(Guid), operation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBufferByteAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('905a0fef-bc53-11df-8c-49-00-1e-4f-c6-86-da')
+    _iid_ = Guid('{905a0fef-bc53-11df-8c49-001e4fc686da}')
     @commethod(3)
     def Buffer(self, value: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
 class ICastingController(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f0a56423-a664-4fbd-8b-43-40-9a-45-e8-d9-a1')
+    _iid_ = Guid('{f0a56423-a664-4fbd-8b43-409a45e8d9a1}')
     @commethod(3)
     def Initialize(self, castingEngine: Windows.Win32.System.Com.IUnknown_head, castingSource: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -249,28 +249,28 @@ class ICastingController(ComPtr):
     def UnAdvise(self, cookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ICastingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c79a6cb7-bebd-47a6-a2-ad-4d-45-ad-79-c7-bc')
+    _iid_ = Guid('{c79a6cb7-bebd-47a6-a2ad-4d45ad79c7bc}')
     @commethod(3)
     def OnStateChanged(self, newState: Windows.Win32.System.WinRT.CASTING_CONNECTION_STATE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnError(self, errorStatus: Windows.Win32.System.WinRT.CASTING_CONNECTION_ERROR_STATUS, errorMessage: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ICastingSourceInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('45101ab7-7c3a-4bce-95-00-12-c0-90-24-b2-98')
+    _iid_ = Guid('{45101ab7-7c3a-4bce-9500-12c09024b298}')
     @commethod(3)
     def GetController(self, controller: POINTER(Windows.Win32.System.WinRT.ICastingController_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetProperties(self, props: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.INamedPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoreInputInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('40bfe3e3-b75a-4479-ac-96-47-53-65-74-9b-b8')
+    _iid_ = Guid('{40bfe3e3-b75a-4479-ac96-475365749bb8}')
     @commethod(3)
     def SetInputSource(self, value: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_MessageHandled(self, value: Byte) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoreWindowAdapterInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7a5b6fd1-cd73-4b6c-9c-f4-2e-86-9e-af-47-0a')
+    _iid_ = Guid('{7a5b6fd1-cd73-4b6c-9cf4-2e869eaf470a}')
     @commethod(6)
     def get_AppActivationClientAdapter(self, value: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -289,21 +289,21 @@ class ICoreWindowAdapterInterop(ComPtr):
     def SetWindowClientAdapter(self, value: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoreWindowComponentInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0576ab31-a310-4c40-ba-31-fd-37-e0-29-8d-fa')
+    _iid_ = Guid('{0576ab31-a310-4c40-ba31-fd37e0298dfa}')
     @commethod(3)
     def ConfigureComponentInput(self, hostViewInstanceId: UInt32, hwndHost: Windows.Win32.Foundation.HWND, inputSourceVisual: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetViewInstanceId(self, componentViewInstanceId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoreWindowInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('45d64a29-a63e-4cb6-b4-98-57-81-d2-98-cb-4f')
+    _iid_ = Guid('{45d64a29-a63e-4cb6-b498-5781d298cb4f}')
     @commethod(3)
     def get_WindowHandle(self, hwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_MessageHandled(self, value: Byte) -> Windows.Win32.Foundation.HRESULT: ...
 class ICorrelationVectorInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('83c78b3c-d88b-4950-aa-6e-22-b8-d2-2a-ab-d3')
+    _iid_ = Guid('{83c78b3c-d88b-4950-aa6e-22b8d22aabd3}')
     @commethod(6)
     def get_LastCorrelationVectorForThread(self, cv: POINTER(Windows.Win32.System.WinRT.HSTRING)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -312,27 +312,27 @@ class ICorrelationVectorInformation(ComPtr):
     def put_NextCorrelationVectorForThread(self, cv: Windows.Win32.System.WinRT.HSTRING) -> Windows.Win32.Foundation.HRESULT: ...
 class ICorrelationVectorSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('152b8a3b-b9b9-4685-b5-6e-97-48-47-bc-75-45')
+    _iid_ = Guid('{152b8a3b-b9b9-4685-b56e-974847bc7545}')
     @commethod(3)
     def get_CorrelationVector(self, cv: POINTER(Windows.Win32.System.WinRT.HSTRING)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDragDropManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5ad8cba7-4c01-4dac-90-74-82-78-94-29-2d-63')
+    _iid_ = Guid('{5ad8cba7-4c01-4dac-9074-827894292d63}')
     @commethod(6)
     def GetForWindow(self, hwnd: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHolographicSpaceInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5c4ee536-6a98-4b86-a1-70-58-70-13-d6-fd-4b')
+    _iid_ = Guid('{5c4ee536-6a98-4b86-a170-587013d6fd4b}')
     @commethod(6)
     def CreateForWindow(self, window: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), holographicSpace: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInputPaneInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('75cf2c57-9195-4931-83-32-f0-b4-09-e9-16-af')
+    _iid_ = Guid('{75cf2c57-9195-4931-8332-f0b409e916af}')
     @commethod(6)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), inputPane: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInspectable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('af86e2e0-b12d-4c6a-9c-5a-d7-aa-65-10-1e-90')
+    _iid_ = Guid('{af86e2e0-b12d-4c6a-9c5a-d7aa65101e90}')
     @commethod(3)
     def GetIids(self, iidCount: POINTER(UInt32), iids: POINTER(POINTER(Guid))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -341,12 +341,12 @@ class IInspectable(ComPtr):
     def GetTrustLevel(self, trustLevel: POINTER(Windows.Win32.System.WinRT.TrustLevel)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILanguageExceptionErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('04a2dbf3-df83-116c-09-46-08-12-ab-f6-e0-7d')
+    _iid_ = Guid('{04a2dbf3-df83-116c-0946-0812abf6e07d}')
     @commethod(3)
     def GetLanguageException(self, languageException: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILanguageExceptionErrorInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.ILanguageExceptionErrorInfo
-    _iid_ = Guid('5746e5c4-5b97-424c-b6-20-28-22-91-57-34-dd')
+    _iid_ = Guid('{5746e5c4-5b97-424c-b620-2822915734dd}')
     @commethod(4)
     def GetPreviousLanguageExceptionErrorInfo(self, previousLanguageExceptionErrorInfo: POINTER(Windows.Win32.System.WinRT.ILanguageExceptionErrorInfo2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -355,96 +355,96 @@ class ILanguageExceptionErrorInfo2(ComPtr):
     def GetPropagationContextHead(self, propagatedLanguageExceptionErrorInfoHead: POINTER(Windows.Win32.System.WinRT.ILanguageExceptionErrorInfo2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILanguageExceptionStackBackTrace(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cbe53fb5-f967-4258-8d-34-42-f5-e2-58-33-de')
+    _iid_ = Guid('{cbe53fb5-f967-4258-8d34-42f5e25833de}')
     @commethod(3)
     def GetStackBackTrace(self, maxFramesToCapture: UInt32, stackBackTrace: POINTER(UIntPtr), framesCaptured: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILanguageExceptionTransform(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('feb5a271-a6cd-45ce-88-0a-69-67-06-ba-dc-65')
+    _iid_ = Guid('{feb5a271-a6cd-45ce-880a-696706badc65}')
     @commethod(3)
     def GetTransformedRestrictedErrorInfo(self, restrictedErrorInfo: POINTER(Windows.Win32.System.WinRT.IRestrictedErrorInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMemoryBufferByteAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5b0d3235-4dba-4d44-86-5e-8f-1d-0e-4f-d0-4d')
+    _iid_ = Guid('{5b0d3235-4dba-4d44-865e-8f1d0e4fd04d}')
     @commethod(3)
     def GetBuffer(self, value: POINTER(POINTER(Byte)), capacity: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMessageDispatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f5f84c8f-cfd0-4cd6-b6-6b-c5-d2-6f-f1-68-9d')
+    _iid_ = Guid('{f5f84c8f-cfd0-4cd6-b66b-c5d26ff1689d}')
     @commethod(6)
     def PumpMessages(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPlayToManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('24394699-1f2c-4eb3-8c-d7-0e-c1-da-42-a5-40')
+    _iid_ = Guid('{24394699-1f2c-4eb3-8cd7-0ec1da42a540}')
     @commethod(6)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), playToManager: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ShowPlayToUIForWindow(self, appWindow: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class IRestrictedErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('82ba7092-4c88-427d-a7-bc-16-dd-93-fe-b6-7e')
+    _iid_ = Guid('{82ba7092-4c88-427d-a7bc-16dd93feb67e}')
     @commethod(3)
     def GetErrorDetails(self, description: POINTER(Windows.Win32.Foundation.BSTR), error: POINTER(Windows.Win32.Foundation.HRESULT), restrictedDescription: POINTER(Windows.Win32.Foundation.BSTR), capabilitySid: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetReference(self, reference: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IShareWindowCommandEventArgsInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6571a721-643d-43d4-ac-a4-6b-6f-5f-30-f1-ad')
+    _iid_ = Guid('{6571a721-643d-43d4-aca4-6b6f5f30f1ad}')
     @commethod(3)
     def GetWindow(self, value: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
 class IShareWindowCommandSourceInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('461a191f-8424-43a6-a0-fa-34-51-a2-2f-56-ab')
+    _iid_ = Guid('{461a191f-8424-43a6-a0fa-3451a22f56ab}')
     @commethod(3)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), shareWindowCommandSource: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpatialInteractionManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('5c4ee536-6a98-4b86-a1-70-58-70-13-d6-fd-4b')
+    _iid_ = Guid('{5c4ee536-6a98-4b86-a170-587013d6fd4b}')
     @commethod(6)
     def GetForWindow(self, window: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), spatialInteractionManager: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISystemMediaTransportControlsInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('ddb0472d-c911-4a1f-86-d9-dc-3d-71-a9-5f-5a')
+    _iid_ = Guid('{ddb0472d-c911-4a1f-86d9-dc3d71a95f5a}')
     @commethod(6)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), mediaTransportControl: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIViewSettingsInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('3694dbf9-8f68-44be-8f-f5-19-5c-98-ed-e8-a6')
+    _iid_ = Guid('{3694dbf9-8f68-44be-8ff5-195c98ede8a6}')
     @commethod(6)
     def GetForWindow(self, hwnd: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUserActivityInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('1ade314d-0e0a-40d9-82-4c-9a-08-8a-50-05-9f')
+    _iid_ = Guid('{1ade314d-0e0a-40d9-824c-9a088a50059f}')
     @commethod(6)
     def CreateSessionForWindow(self, window: Windows.Win32.Foundation.HWND, iid: POINTER(Guid), value: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUserActivityRequestManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('dd69f876-9699-4715-90-95-e3-7e-a3-0d-fa-1b')
+    _iid_ = Guid('{dd69f876-9699-4715-9095-e37ea30dfa1b}')
     @commethod(6)
     def GetForWindow(self, window: Windows.Win32.Foundation.HWND, iid: POINTER(Guid), value: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUserActivitySourceHostInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c15df8bc-8844-487a-b8-5b-75-78-e0-f6-14-19')
+    _iid_ = Guid('{c15df8bc-8844-487a-b85b-7578e0f61419}')
     @commethod(6)
     def SetActivitySourceHost(self, activitySourceHost: Windows.Win32.System.WinRT.HSTRING) -> Windows.Win32.Foundation.HRESULT: ...
 class IUserConsentVerifierInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('39e050c3-4e74-441a-8d-c0-b8-11-04-df-94-9c')
+    _iid_ = Guid('{39e050c3-4e74-441a-8dc0-b81104df949c}')
     @commethod(6)
     def RequestVerificationForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, message: Windows.Win32.System.WinRT.HSTRING, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWeakReference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000037-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000037-0000-0000-c000-000000000046}')
     @commethod(3)
     def Resolve(self, riid: POINTER(Guid), objectReference: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWeakReferenceSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000038-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000038-0000-0000-c000-000000000046}')
     @commethod(3)
     def GetWeakReference(self, weakReference: POINTER(Windows.Win32.System.WinRT.IWeakReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebAuthenticationCoreManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f4b8e804-811e-4436-b6-9c-44-cb-67-b7-20-84')
+    _iid_ = Guid('{f4b8e804-811e-4436-b69c-44cb67b72084}')
     @commethod(6)
     def RequestTokenForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, request: Windows.Win32.System.WinRT.IInspectable_head, riid: POINTER(Guid), asyncInfo: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)

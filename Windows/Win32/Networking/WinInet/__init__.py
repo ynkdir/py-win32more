@@ -1780,14 +1780,14 @@ HTTP_WEB_SOCKET_CLOSE_OPERATION: HTTP_WEB_SOCKET_OPERATION = 2
 HTTP_WEB_SOCKET_SHUTDOWN_OPERATION: HTTP_WEB_SOCKET_OPERATION = 3
 class IDialBranding(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8aecafa9-4306-43cc-8c-5a-76-5f-29-79-cc-16')
+    _iid_ = Guid('{8aecafa9-4306-43cc-8c5a-765f2979cc16}')
     @commethod(3)
     def Initialize(self, pwzConnectoid: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetBitmap(self, dwIndex: UInt32, phBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDialEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('39fd782b-7905-40d5-91-48-3c-9b-19-04-23-d5')
+    _iid_ = Guid('{39fd782b-7905-40d5-9148-3c9b190423d5}')
     @commethod(3)
     def Initialize(self, pwzConnectoid: Windows.Win32.Foundation.PWSTR, pIDES: Windows.Win32.Networking.WinInet.IDialEventSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1804,7 +1804,7 @@ class IDialEngine(ComPtr):
     def GetConnectHandle(self, pdwHandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDialEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2d86f4ff-6e2d-4488-b2-e9-69-34-af-d4-1b-ea')
+    _iid_ = Guid('{2d86f4ff-6e2d-4488-b2e9-6934afd41bea}')
     @commethod(3)
     def OnEvent(self, dwEvent: UInt32, dwStatus: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 INTERNET_ACCESS_TYPE = UInt32
@@ -2124,12 +2124,12 @@ class INTERNET_VERSION_INFO(EasyCastStructure):
     dwMinorVersion: UInt32
 class IProofOfPossessionCookieInfoManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cdaece56-4edf-43df-b1-13-88-e4-55-6f-a1-bb')
+    _iid_ = Guid('{cdaece56-4edf-43df-b113-88e4556fa1bb}')
     @commethod(3)
     def GetCookieInfoForUri(self, uri: Windows.Win32.Foundation.PWSTR, cookieInfoCount: POINTER(UInt32), cookieInfo: POINTER(POINTER(Windows.Win32.Networking.WinInet.ProofOfPossessionCookieInfo_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IProofOfPossessionCookieInfoManager2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('15e41407-b42f-4ae7-99-66-34-a0-87-b2-d7-13')
+    _iid_ = Guid('{15e41407-b42f-4ae7-9966-34a087b2d713}')
     @commethod(3)
     def GetCookieInfoWithUriForAccount(self, webAccount: Windows.Win32.System.WinRT.IInspectable_head, uri: Windows.Win32.Foundation.PWSTR, cookieInfoCount: POINTER(UInt32), cookieInfo: POINTER(POINTER(Windows.Win32.Networking.WinInet.ProofOfPossessionCookieInfo_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IncomingCookieState(EasyCastStructure):
@@ -2171,7 +2171,7 @@ class ProofOfPossessionCookieInfo(EasyCastStructure):
     data: Windows.Win32.Foundation.PWSTR
     flags: UInt32
     p3pHeader: Windows.Win32.Foundation.PWSTR
-ProofOfPossessionCookieInfoManager = Guid('a9927f85-a304-4390-8b-23-a7-5f-1c-66-86-00')
+ProofOfPossessionCookieInfoManager = Guid('{a9927f85-a304-4390-8b23-a75f1c668600}')
 REQUEST_TIMES = Int32
 REQUEST_TIMES_NameResolutionStart: REQUEST_TIMES = 0
 REQUEST_TIMES_NameResolutionEnd: REQUEST_TIMES = 1

@@ -2502,8 +2502,8 @@ AVICOMPRESSF_INTERLEAVE: UInt32 = 1
 AVICOMPRESSF_DATARATE: UInt32 = 2
 AVICOMPRESSF_KEYFRAMES: UInt32 = 4
 AVICOMPRESSF_VALID: UInt32 = 8
-CLSID_AVISimpleUnMarshal: Guid = Guid('00020009-0000-0000-c0-00-00-00-00-00-00-46')
-CLSID_AVIFile: Guid = Guid('00020000-0000-0000-c0-00-00-00-00-00-00-46')
+CLSID_AVISimpleUnMarshal: Guid = Guid('{00020009-0000-0000-c000-000000000046}')
+CLSID_AVIFile: Guid = Guid('{00020000-0000-0000-c000-000000000046}')
 AVIFILEHANDLER_CANREAD: UInt32 = 1
 AVIFILEHANDLER_CANWRITE: UInt32 = 2
 AVIFILEHANDLER_CANACCEPTNONRGB: UInt32 = 4
@@ -5322,7 +5322,7 @@ HMMIO = IntPtr
 HVIDEO = IntPtr
 class IAVIEditStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020024-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020024-0000-0000-c000-000000000046}')
     @commethod(3)
     def Cut(self, plStart: POINTER(Int32), plLength: POINTER(Int32), ppResult: POINTER(Windows.Win32.Media.Multimedia.IAVIStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -5335,7 +5335,7 @@ class IAVIEditStream(ComPtr):
     def SetInfo(self, lpInfo: POINTER(Windows.Win32.Media.Multimedia.AVISTREAMINFOW_head), cbInfo: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IAVIFile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020020-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020020-0000-0000-c000-000000000046}')
     @commethod(3)
     def Info(self, pfi: POINTER(Windows.Win32.Media.Multimedia.AVIFILEINFOW_head), lSize: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -5352,12 +5352,12 @@ class IAVIFile(ComPtr):
     def DeleteStream(self, fccType: UInt32, lParam: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IAVIPersistFile(ComPtr):
     extends: Windows.Win32.System.Com.IPersistFile
-    _iid_ = Guid('00020025-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020025-0000-0000-c000-000000000046}')
     @commethod(9)
     def Reserved1(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IAVIStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020021-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020021-0000-0000-c000-000000000046}')
     @commethod(3)
     def Create(self, lParam1: Windows.Win32.Foundation.LPARAM, lParam2: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -5382,7 +5382,7 @@ class IAVIStream(ComPtr):
     def SetInfo(self, lpInfo: POINTER(Windows.Win32.Media.Multimedia.AVISTREAMINFOW_head), cbInfo: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IAVIStreaming(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020022-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020022-0000-0000-c000-000000000046}')
     @commethod(3)
     def Begin(self, lStart: Int32, lEnd: Int32, lRate: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -5499,7 +5499,7 @@ class ICSETSTATUSPROC(EasyCastStructure):
     Status: IntPtr
 class IGetFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020023-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020023-0000-0000-c000-000000000046}')
     @commethod(3)
     def GetFrame(self, lPos: Int32) -> c_void_p: ...
     @commethod(4)
@@ -5651,7 +5651,7 @@ class JPEGINFOHEADER(EasyCastStructure):
     JPEGHSubSampling: UInt32
     JPEGVSubSampling: UInt32
     _pack_ = 1
-KSDATAFORMAT_SUBTYPE_IEEE_FLOAT = Guid('00000003-0000-0010-80-00-00-aa-00-38-9b-71')
+KSDATAFORMAT_SUBTYPE_IEEE_FLOAT = Guid('{00000003-0000-0010-8000-00aa00389b71}')
 @winfunctype_pointer
 def LPFNEXTDEVIO(lParam: Windows.Win32.Foundation.LPARAM, dwFlags: UInt32, dwIoControlCode: UInt32, lpInBuffer: c_void_p, nInBufferSize: UInt32, lpOutBuffer: c_void_p, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

@@ -28,7 +28,7 @@ class D3D9ON12_ARGS(EasyCastStructure):
     NodeMask: UInt32
 class IDirect3DDevice9On12(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e7fda234-b589-4049-94-0d-88-78-97-75-31-c8')
+    _iid_ = Guid('{e7fda234-b589-4049-940d-8878977531c8}')
     @commethod(3)
     def GetD3D12Device(self, riid: POINTER(Guid), ppvDevice: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

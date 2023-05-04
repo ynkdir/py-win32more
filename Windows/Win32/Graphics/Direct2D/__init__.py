@@ -22,72 +22,72 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 D2D1_DEFAULT_FLATTENING_TOLERANCE: Single = 0.25
-CLSID_D2D12DAffineTransform: Guid = Guid('6aa97485-6354-4cfc-90-8c-e4-a7-4f-62-c9-6c')
-CLSID_D2D13DPerspectiveTransform: Guid = Guid('c2844d0b-3d86-46e7-85-ba-52-6c-92-40-f3-fb')
-CLSID_D2D13DTransform: Guid = Guid('e8467b04-ec61-4b8a-b5-de-d4-d7-3d-eb-ea-5a')
-CLSID_D2D1ArithmeticComposite: Guid = Guid('fc151437-049a-4784-a2-4a-f1-c4-da-f2-09-87')
-CLSID_D2D1Atlas: Guid = Guid('913e2be4-fdcf-4fe2-a5-f0-24-54-f1-4f-f4-08')
-CLSID_D2D1BitmapSource: Guid = Guid('5fb6c24d-c6dd-4231-94-04-50-f4-d5-c3-25-2d')
-CLSID_D2D1Blend: Guid = Guid('81c5b77b-13f8-4cdd-ad-20-c8-90-54-7a-c6-5d')
-CLSID_D2D1Border: Guid = Guid('2a2d49c0-4acf-43c7-8c-6a-7c-4a-27-87-4d-27')
-CLSID_D2D1Brightness: Guid = Guid('8cea8d1e-77b0-4986-b3-b9-2f-0c-0e-ae-78-87')
-CLSID_D2D1ColorManagement: Guid = Guid('1a28524c-fdd6-4aa4-ae-8f-83-7e-b8-26-7b-37')
-CLSID_D2D1ColorMatrix: Guid = Guid('921f03d6-641c-47df-85-2d-b4-bb-61-53-ae-11')
-CLSID_D2D1Composite: Guid = Guid('48fc9f51-f6ac-48f1-8b-58-3b-28-ac-46-f7-6d')
-CLSID_D2D1ConvolveMatrix: Guid = Guid('407f8c08-5533-4331-a3-41-23-cc-38-77-84-3e')
-CLSID_D2D1Crop: Guid = Guid('e23f7110-0e9a-4324-af-47-6a-2c-0c-46-f3-5b')
-CLSID_D2D1DirectionalBlur: Guid = Guid('174319a6-58e9-49b2-bb-63-ca-f2-c8-11-a3-db')
-CLSID_D2D1DiscreteTransfer: Guid = Guid('90866fcd-488e-454b-af-06-e5-04-1b-66-c3-6c')
-CLSID_D2D1DisplacementMap: Guid = Guid('edc48364-0417-4111-94-50-43-84-5f-a9-f8-90')
-CLSID_D2D1DistantDiffuse: Guid = Guid('3e7efd62-a32d-46d4-a8-3c-52-78-88-9a-c9-54')
-CLSID_D2D1DistantSpecular: Guid = Guid('428c1ee5-77b8-4450-8a-b5-72-21-9c-21-ab-da')
-CLSID_D2D1DpiCompensation: Guid = Guid('6c26c5c7-34e0-46fc-9c-fd-e5-82-37-06-e2-28')
-CLSID_D2D1Flood: Guid = Guid('61c23c20-ae69-4d8e-94-cf-50-07-8d-f6-38-f2')
-CLSID_D2D1GammaTransfer: Guid = Guid('409444c4-c419-41a0-b0-c1-8c-d0-c0-a1-8e-42')
-CLSID_D2D1GaussianBlur: Guid = Guid('1feb6d69-2fe6-4ac9-8c-58-1d-7f-93-e7-a6-a5')
-CLSID_D2D1Scale: Guid = Guid('9daf9369-3846-4d0e-a4-4e-0c-60-79-34-a5-d7')
-CLSID_D2D1Histogram: Guid = Guid('881db7d0-f7ee-4d4d-a6-d2-46-97-ac-c6-6e-e8')
-CLSID_D2D1HueRotation: Guid = Guid('0f4458ec-4b32-491b-9e-85-bd-73-f4-4d-3e-b6')
-CLSID_D2D1LinearTransfer: Guid = Guid('ad47c8fd-63ef-4acc-9b-51-67-97-9c-03-6c-06')
-CLSID_D2D1LuminanceToAlpha: Guid = Guid('41251ab7-0beb-46f8-9d-a7-59-e9-3f-cc-e5-de')
-CLSID_D2D1Morphology: Guid = Guid('eae6c40d-626a-4c2d-bf-cb-39-10-01-ab-e2-02')
-CLSID_D2D1OpacityMetadata: Guid = Guid('6c53006a-4450-4199-aa-5b-ad-16-56-fe-ce-5e')
-CLSID_D2D1PointDiffuse: Guid = Guid('b9e303c3-c08c-4f91-8b-7b-38-65-6b-c4-8c-20')
-CLSID_D2D1PointSpecular: Guid = Guid('09c3ca26-3ae2-4f09-9e-bc-ed-38-65-d5-3f-22')
-CLSID_D2D1Premultiply: Guid = Guid('06eab419-deed-4018-80-d2-3e-1d-47-1a-de-b2')
-CLSID_D2D1Saturation: Guid = Guid('5cb2d9cf-327d-459f-a0-ce-40-c0-b2-08-6b-f7')
-CLSID_D2D1Shadow: Guid = Guid('c67ea361-1863-4e69-89-db-69-5d-3e-9a-5b-6b')
-CLSID_D2D1SpotDiffuse: Guid = Guid('818a1105-7932-44f4-aa-86-08-ae-7b-2f-2c-93')
-CLSID_D2D1SpotSpecular: Guid = Guid('edae421e-7654-4a37-9d-b8-71-ac-c1-be-b3-c1')
-CLSID_D2D1TableTransfer: Guid = Guid('5bf818c3-5e43-48cb-b6-31-86-83-96-d6-a1-d4')
-CLSID_D2D1Tile: Guid = Guid('b0784138-3b76-4bc5-b1-3b-0f-a2-ad-02-65-9f')
-CLSID_D2D1Turbulence: Guid = Guid('cf2bb6ae-889a-4ad7-ba-29-a2-fd-73-2c-9f-c9')
-CLSID_D2D1UnPremultiply: Guid = Guid('fb9ac489-ad8d-41ed-99-99-bb-63-47-d1-10-f7')
-CLSID_D2D1YCbCr: Guid = Guid('99503cc1-66c7-45c9-a8-75-8a-d8-a7-91-44-01')
-CLSID_D2D1Contrast: Guid = Guid('b648a78a-0ed5-4f80-a9-4a-8e-82-5a-ca-6b-77')
-CLSID_D2D1RgbToHue: Guid = Guid('23f3e5ec-91e8-4d3d-ad-0a-af-ad-c1-00-4a-a1')
-CLSID_D2D1HueToRgb: Guid = Guid('7b78a6bd-0141-4def-8a-52-63-56-ee-0c-bd-d5')
-CLSID_D2D1ChromaKey: Guid = Guid('74c01f5b-2a0d-408c-88-e2-c7-a3-c7-19-77-42')
-CLSID_D2D1Emboss: Guid = Guid('b1c5eb2b-0348-43f0-81-07-49-57-ca-cb-a2-ae')
-CLSID_D2D1Exposure: Guid = Guid('b56c8cfa-f634-41ee-be-e0-ff-a6-17-10-60-04')
-CLSID_D2D1Grayscale: Guid = Guid('36dde0eb-3725-42e0-83-6d-52-fb-20-ae-e6-44')
-CLSID_D2D1Invert: Guid = Guid('e0c3784d-cb39-4e84-b6-fd-6b-72-f0-81-02-63')
-CLSID_D2D1Posterize: Guid = Guid('2188945e-33a3-4366-b7-bc-08-6b-d0-2d-08-84')
-CLSID_D2D1Sepia: Guid = Guid('3a1af410-5f1d-4dbe-84-df-91-5d-a7-9b-71-53')
-CLSID_D2D1Sharpen: Guid = Guid('c9b887cb-c5ff-4dc5-97-79-27-3d-cf-41-7c-7d')
-CLSID_D2D1Straighten: Guid = Guid('4da47b12-79a3-4fb0-82-37-bb-c3-b2-a4-de-08')
-CLSID_D2D1TemperatureTint: Guid = Guid('89176087-8af9-4a08-ae-b1-89-5f-38-db-17-66')
-CLSID_D2D1Vignette: Guid = Guid('c00c40be-5e67-4ca3-95-b4-f4-b0-2c-11-51-35')
-CLSID_D2D1EdgeDetection: Guid = Guid('eff583ca-cb07-4aa9-ac-5d-2c-c4-4c-76-46-0f')
-CLSID_D2D1HighlightsShadows: Guid = Guid('cadc8384-323f-4c7e-a3-61-2e-2b-24-df-6e-e4')
-CLSID_D2D1LookupTable3D: Guid = Guid('349e0eda-0088-4a79-9c-a3-c7-e3-00-20-20-20')
-CLSID_D2D1Opacity: Guid = Guid('811d79a4-de28-4454-80-94-c6-46-85-f8-bd-4c')
-CLSID_D2D1AlphaMask: Guid = Guid('c80ecff0-3fd5-4f05-83-28-c5-d1-72-4b-4f-0a')
-CLSID_D2D1CrossFade: Guid = Guid('12f575e8-4db1-485f-9a-84-03-a0-7d-d3-82-9f')
-CLSID_D2D1Tint: Guid = Guid('36312b17-f7dd-4014-91-5d-ff-ca-76-8c-f2-11')
+CLSID_D2D12DAffineTransform: Guid = Guid('{6aa97485-6354-4cfc-908c-e4a74f62c96c}')
+CLSID_D2D13DPerspectiveTransform: Guid = Guid('{c2844d0b-3d86-46e7-85ba-526c9240f3fb}')
+CLSID_D2D13DTransform: Guid = Guid('{e8467b04-ec61-4b8a-b5de-d4d73debea5a}')
+CLSID_D2D1ArithmeticComposite: Guid = Guid('{fc151437-049a-4784-a24a-f1c4daf20987}')
+CLSID_D2D1Atlas: Guid = Guid('{913e2be4-fdcf-4fe2-a5f0-2454f14ff408}')
+CLSID_D2D1BitmapSource: Guid = Guid('{5fb6c24d-c6dd-4231-9404-50f4d5c3252d}')
+CLSID_D2D1Blend: Guid = Guid('{81c5b77b-13f8-4cdd-ad20-c890547ac65d}')
+CLSID_D2D1Border: Guid = Guid('{2a2d49c0-4acf-43c7-8c6a-7c4a27874d27}')
+CLSID_D2D1Brightness: Guid = Guid('{8cea8d1e-77b0-4986-b3b9-2f0c0eae7887}')
+CLSID_D2D1ColorManagement: Guid = Guid('{1a28524c-fdd6-4aa4-ae8f-837eb8267b37}')
+CLSID_D2D1ColorMatrix: Guid = Guid('{921f03d6-641c-47df-852d-b4bb6153ae11}')
+CLSID_D2D1Composite: Guid = Guid('{48fc9f51-f6ac-48f1-8b58-3b28ac46f76d}')
+CLSID_D2D1ConvolveMatrix: Guid = Guid('{407f8c08-5533-4331-a341-23cc3877843e}')
+CLSID_D2D1Crop: Guid = Guid('{e23f7110-0e9a-4324-af47-6a2c0c46f35b}')
+CLSID_D2D1DirectionalBlur: Guid = Guid('{174319a6-58e9-49b2-bb63-caf2c811a3db}')
+CLSID_D2D1DiscreteTransfer: Guid = Guid('{90866fcd-488e-454b-af06-e5041b66c36c}')
+CLSID_D2D1DisplacementMap: Guid = Guid('{edc48364-0417-4111-9450-43845fa9f890}')
+CLSID_D2D1DistantDiffuse: Guid = Guid('{3e7efd62-a32d-46d4-a83c-5278889ac954}')
+CLSID_D2D1DistantSpecular: Guid = Guid('{428c1ee5-77b8-4450-8ab5-72219c21abda}')
+CLSID_D2D1DpiCompensation: Guid = Guid('{6c26c5c7-34e0-46fc-9cfd-e5823706e228}')
+CLSID_D2D1Flood: Guid = Guid('{61c23c20-ae69-4d8e-94cf-50078df638f2}')
+CLSID_D2D1GammaTransfer: Guid = Guid('{409444c4-c419-41a0-b0c1-8cd0c0a18e42}')
+CLSID_D2D1GaussianBlur: Guid = Guid('{1feb6d69-2fe6-4ac9-8c58-1d7f93e7a6a5}')
+CLSID_D2D1Scale: Guid = Guid('{9daf9369-3846-4d0e-a44e-0c607934a5d7}')
+CLSID_D2D1Histogram: Guid = Guid('{881db7d0-f7ee-4d4d-a6d2-4697acc66ee8}')
+CLSID_D2D1HueRotation: Guid = Guid('{0f4458ec-4b32-491b-9e85-bd73f44d3eb6}')
+CLSID_D2D1LinearTransfer: Guid = Guid('{ad47c8fd-63ef-4acc-9b51-67979c036c06}')
+CLSID_D2D1LuminanceToAlpha: Guid = Guid('{41251ab7-0beb-46f8-9da7-59e93fcce5de}')
+CLSID_D2D1Morphology: Guid = Guid('{eae6c40d-626a-4c2d-bfcb-391001abe202}')
+CLSID_D2D1OpacityMetadata: Guid = Guid('{6c53006a-4450-4199-aa5b-ad1656fece5e}')
+CLSID_D2D1PointDiffuse: Guid = Guid('{b9e303c3-c08c-4f91-8b7b-38656bc48c20}')
+CLSID_D2D1PointSpecular: Guid = Guid('{09c3ca26-3ae2-4f09-9ebc-ed3865d53f22}')
+CLSID_D2D1Premultiply: Guid = Guid('{06eab419-deed-4018-80d2-3e1d471adeb2}')
+CLSID_D2D1Saturation: Guid = Guid('{5cb2d9cf-327d-459f-a0ce-40c0b2086bf7}')
+CLSID_D2D1Shadow: Guid = Guid('{c67ea361-1863-4e69-89db-695d3e9a5b6b}')
+CLSID_D2D1SpotDiffuse: Guid = Guid('{818a1105-7932-44f4-aa86-08ae7b2f2c93}')
+CLSID_D2D1SpotSpecular: Guid = Guid('{edae421e-7654-4a37-9db8-71acc1beb3c1}')
+CLSID_D2D1TableTransfer: Guid = Guid('{5bf818c3-5e43-48cb-b631-868396d6a1d4}')
+CLSID_D2D1Tile: Guid = Guid('{b0784138-3b76-4bc5-b13b-0fa2ad02659f}')
+CLSID_D2D1Turbulence: Guid = Guid('{cf2bb6ae-889a-4ad7-ba29-a2fd732c9fc9}')
+CLSID_D2D1UnPremultiply: Guid = Guid('{fb9ac489-ad8d-41ed-9999-bb6347d110f7}')
+CLSID_D2D1YCbCr: Guid = Guid('{99503cc1-66c7-45c9-a875-8ad8a7914401}')
+CLSID_D2D1Contrast: Guid = Guid('{b648a78a-0ed5-4f80-a94a-8e825aca6b77}')
+CLSID_D2D1RgbToHue: Guid = Guid('{23f3e5ec-91e8-4d3d-ad0a-afadc1004aa1}')
+CLSID_D2D1HueToRgb: Guid = Guid('{7b78a6bd-0141-4def-8a52-6356ee0cbdd5}')
+CLSID_D2D1ChromaKey: Guid = Guid('{74c01f5b-2a0d-408c-88e2-c7a3c7197742}')
+CLSID_D2D1Emboss: Guid = Guid('{b1c5eb2b-0348-43f0-8107-4957cacba2ae}')
+CLSID_D2D1Exposure: Guid = Guid('{b56c8cfa-f634-41ee-bee0-ffa617106004}')
+CLSID_D2D1Grayscale: Guid = Guid('{36dde0eb-3725-42e0-836d-52fb20aee644}')
+CLSID_D2D1Invert: Guid = Guid('{e0c3784d-cb39-4e84-b6fd-6b72f0810263}')
+CLSID_D2D1Posterize: Guid = Guid('{2188945e-33a3-4366-b7bc-086bd02d0884}')
+CLSID_D2D1Sepia: Guid = Guid('{3a1af410-5f1d-4dbe-84df-915da79b7153}')
+CLSID_D2D1Sharpen: Guid = Guid('{c9b887cb-c5ff-4dc5-9779-273dcf417c7d}')
+CLSID_D2D1Straighten: Guid = Guid('{4da47b12-79a3-4fb0-8237-bbc3b2a4de08}')
+CLSID_D2D1TemperatureTint: Guid = Guid('{89176087-8af9-4a08-aeb1-895f38db1766}')
+CLSID_D2D1Vignette: Guid = Guid('{c00c40be-5e67-4ca3-95b4-f4b02c115135}')
+CLSID_D2D1EdgeDetection: Guid = Guid('{eff583ca-cb07-4aa9-ac5d-2cc44c76460f}')
+CLSID_D2D1HighlightsShadows: Guid = Guid('{cadc8384-323f-4c7e-a361-2e2b24df6ee4}')
+CLSID_D2D1LookupTable3D: Guid = Guid('{349e0eda-0088-4a79-9ca3-c7e300202020}')
+CLSID_D2D1Opacity: Guid = Guid('{811d79a4-de28-4454-8094-c64685f8bd4c}')
+CLSID_D2D1AlphaMask: Guid = Guid('{c80ecff0-3fd5-4f05-8328-c5d1724b4f0a}')
+CLSID_D2D1CrossFade: Guid = Guid('{12f575e8-4db1-485f-9a84-03a07dd3829f}')
+CLSID_D2D1Tint: Guid = Guid('{36312b17-f7dd-4014-915d-ffca768cf211}')
 D2D1_SCENE_REFERRED_SDR_WHITE_LEVEL: Single = 80
-CLSID_D2D1WhiteLevelAdjustment: Guid = Guid('44a1cadb-6cdd-4818-8f-f4-26-c1-cf-e9-5b-db')
-CLSID_D2D1HdrToneMap: Guid = Guid('7b0b748d-4610-4486-a9-0c-99-9d-9a-2e-2b-11')
+CLSID_D2D1WhiteLevelAdjustment: Guid = Guid('{44a1cadb-6cdd-4818-8ff4-26c1cfe95bdb}')
+CLSID_D2D1HdrToneMap: Guid = Guid('{7b0b748d-4610-4486-a90c-999d9a2e2b11}')
 D2D1_APPEND_ALIGNED_ELEMENT: UInt32 = 4294967295
 FACILITY_D2D: UInt32 = 2201
 @winfunctype('d2d1.dll')
@@ -1376,12 +1376,12 @@ D2D1_YCBCR_PROP_INTERPOLATION_MODE: D2D1_YCBCR_PROP = 2
 D2D1_YCBCR_PROP_FORCE_DWORD: D2D1_YCBCR_PROP = 4294967295
 class ID2D1AnalysisTransform(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0359dc30-95e6-4568-90-55-27-72-0d-13-0e-93')
+    _iid_ = Guid('{0359dc30-95e6-4568-9055-27720d130e93}')
     @commethod(3)
     def ProcessAnalysisResults(self, analysisData: POINTER(Byte), analysisDataCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Bitmap(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Image
-    _iid_ = Guid('a2296057-ea42-4099-98-3b-53-9f-b6-50-54-26')
+    _iid_ = Guid('{a2296057-ea42-4099-983b-539fb6505426}')
     @commethod(4)
     def GetSize(self) -> Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_F: ...
     @commethod(5)
@@ -1398,7 +1398,7 @@ class ID2D1Bitmap(ComPtr):
     def CopyFromMemory(self, dstRect: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_U_head), srcData: c_void_p, pitch: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Bitmap1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Bitmap
-    _iid_ = Guid('a898a84c-3873-4588-b0-8b-eb-bf-97-8d-f0-41')
+    _iid_ = Guid('{a898a84c-3873-4588-b08b-ebbf978df041}')
     @commethod(11)
     def GetColorContext(self, colorContext: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1ColorContext_head)) -> Void: ...
     @commethod(12)
@@ -1411,7 +1411,7 @@ class ID2D1Bitmap1(ComPtr):
     def Unmap(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1BitmapBrush(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Brush
-    _iid_ = Guid('2cd906aa-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906aa-12e2-11dc-9fed-001143a055f9}')
     @commethod(8)
     def SetExtendModeX(self, extendModeX: Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE) -> Void: ...
     @commethod(9)
@@ -1430,26 +1430,26 @@ class ID2D1BitmapBrush(ComPtr):
     def GetBitmap(self, bitmap: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Bitmap_head)) -> Void: ...
 class ID2D1BitmapBrush1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1BitmapBrush
-    _iid_ = Guid('41343a53-e41a-49a2-91-cd-21-79-3b-bb-62-e5')
+    _iid_ = Guid('{41343a53-e41a-49a2-91cd-21793bbb62e5}')
     @commethod(16)
     def SetInterpolationMode1(self, interpolationMode: Windows.Win32.Graphics.Direct2D.D2D1_INTERPOLATION_MODE) -> Void: ...
     @commethod(17)
     def GetInterpolationMode1(self) -> Windows.Win32.Graphics.Direct2D.D2D1_INTERPOLATION_MODE: ...
 class ID2D1BitmapRenderTarget(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1RenderTarget
-    _iid_ = Guid('2cd90695-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd90695-12e2-11dc-9fed-001143a055f9}')
     @commethod(57)
     def GetBitmap(self, bitmap: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Bitmap_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1BlendTransform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1ConcreteTransform
-    _iid_ = Guid('63ac0b32-ba44-450f-88-06-7f-4c-a1-ff-2f-1b')
+    _iid_ = Guid('{63ac0b32-ba44-450f-8806-7f4ca1ff2f1b}')
     @commethod(6)
     def SetDescription(self, description: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head)) -> Void: ...
     @commethod(7)
     def GetDescription(self, description: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head)) -> Void: ...
 class ID2D1BorderTransform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1ConcreteTransform
-    _iid_ = Guid('4998735c-3a19-473c-97-81-65-68-47-e3-a3-47')
+    _iid_ = Guid('{4998735c-3a19-473c-9781-656847e3a347}')
     @commethod(6)
     def SetExtendModeX(self, extendMode: Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE) -> Void: ...
     @commethod(7)
@@ -1460,14 +1460,14 @@ class ID2D1BorderTransform(ComPtr):
     def GetExtendModeY(self) -> Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
 class ID2D1BoundsAdjustmentTransform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1TransformNode
-    _iid_ = Guid('90f732e2-5092-4606-a8-19-86-51-97-0b-ac-cd')
+    _iid_ = Guid('{90f732e2-5092-4606-a819-8651970baccd}')
     @commethod(4)
     def SetOutputBounds(self, outputBounds: POINTER(Windows.Win32.Foundation.RECT_head)) -> Void: ...
     @commethod(5)
     def GetOutputBounds(self, outputBounds: POINTER(Windows.Win32.Foundation.RECT_head)) -> Void: ...
 class ID2D1Brush(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('2cd906a8-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a8-12e2-11dc-9fed-001143a055f9}')
     @commethod(4)
     def SetOpacity(self, opacity: Single) -> Void: ...
     @commethod(5)
@@ -1478,7 +1478,7 @@ class ID2D1Brush(ComPtr):
     def GetTransform(self, transform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
 class ID2D1ColorContext(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('1c4820bb-5771-4518-a5-81-2f-e4-dd-0e-c6-57')
+    _iid_ = Guid('{1c4820bb-5771-4518-a581-2fe4dd0ec657}')
     @commethod(4)
     def GetColorSpace(self) -> Windows.Win32.Graphics.Direct2D.D2D1_COLOR_SPACE: ...
     @commethod(5)
@@ -1487,7 +1487,7 @@ class ID2D1ColorContext(ComPtr):
     def GetProfile(self, profile: POINTER(Byte), profileSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1ColorContext1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1ColorContext
-    _iid_ = Guid('1ab42875-c57f-4be9-bd-85-9c-d7-8d-6f-55-ee')
+    _iid_ = Guid('{1ab42875-c57f-4be9-bd85-9cd78d6f55ee}')
     @commethod(7)
     def GetColorContextType(self) -> Windows.Win32.Graphics.Direct2D.D2D1_COLOR_CONTEXT_TYPE: ...
     @commethod(8)
@@ -1496,14 +1496,14 @@ class ID2D1ColorContext1(ComPtr):
     def GetSimpleColorProfile(self, simpleProfile: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1CommandList(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Image
-    _iid_ = Guid('b4f34a19-2383-4d76-94-f6-ec-34-36-57-c3-dc')
+    _iid_ = Guid('{b4f34a19-2383-4d76-94f6-ec343657c3dc}')
     @commethod(4)
     def Stream(self, sink: Windows.Win32.Graphics.Direct2D.ID2D1CommandSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1CommandSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('54d7898a-a061-40a7-be-c7-e4-65-bc-ba-2c-4f')
+    _iid_ = Guid('{54d7898a-a061-40a7-bec7-e465bcba2c4f}')
     @commethod(3)
     def BeginDraw(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1556,12 +1556,12 @@ class ID2D1CommandSink(ComPtr):
     def PopLayer(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1CommandSink1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1CommandSink
-    _iid_ = Guid('9eb767fd-4269-4467-b8-c2-eb-30-cb-30-57-43')
+    _iid_ = Guid('{9eb767fd-4269-4467-b8c2-eb30cb305743}')
     @commethod(28)
     def SetPrimitiveBlend1(self, primitiveBlend: Windows.Win32.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1CommandSink2(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1CommandSink1
-    _iid_ = Guid('3bab440e-417e-47df-a2-e2-bc-0b-e6-a0-09-16')
+    _iid_ = Guid('{3bab440e-417e-47df-a2e2-bc0be6a00916}')
     @commethod(29)
     def DrawInk(self, ink: Windows.Win32.Graphics.Direct2D.ID2D1Ink_head, brush: Windows.Win32.Graphics.Direct2D.ID2D1Brush_head, inkStyle: Windows.Win32.Graphics.Direct2D.ID2D1InkStyle_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
@@ -1570,22 +1570,22 @@ class ID2D1CommandSink2(ComPtr):
     def DrawGdiMetafile(self, gdiMetafile: Windows.Win32.Graphics.Direct2D.ID2D1GdiMetafile_head, destinationRectangle: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangle: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1CommandSink3(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1CommandSink2
-    _iid_ = Guid('18079135-4cf3-4868-bc-8e-06-06-7e-6d-24-2d')
+    _iid_ = Guid('{18079135-4cf3-4868-bc8e-06067e6d242d}')
     @commethod(32)
     def DrawSpriteBatch(self, spriteBatch: Windows.Win32.Graphics.Direct2D.ID2D1SpriteBatch_head, startIndex: UInt32, spriteCount: UInt32, bitmap: Windows.Win32.Graphics.Direct2D.ID2D1Bitmap_head, interpolationMode: Windows.Win32.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE, spriteOptions: Windows.Win32.Graphics.Direct2D.D2D1_SPRITE_OPTIONS) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1CommandSink4(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1CommandSink3
-    _iid_ = Guid('c78a6519-40d6-4218-b2-de-be-ee-b7-44-bb-3e')
+    _iid_ = Guid('{c78a6519-40d6-4218-b2de-beeeb744bb3e}')
     @commethod(33)
     def SetPrimitiveBlend2(self, primitiveBlend: Windows.Win32.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1CommandSink5(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1CommandSink4
-    _iid_ = Guid('7047dd26-b1e7-44a7-95-9a-83-49-e2-14-4f-a8')
+    _iid_ = Guid('{7047dd26-b1e7-44a7-959a-8349e2144fa8}')
     @commethod(34)
     def BlendImage(self, image: Windows.Win32.Graphics.Direct2D.ID2D1Image_head, blendMode: Windows.Win32.Graphics.Direct2D.Common.D2D1_BLEND_MODE, targetOffset: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F_head), imageRectangle: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head), interpolationMode: Windows.Win32.Graphics.Direct2D.D2D1_INTERPOLATION_MODE) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1ComputeInfo(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1RenderInfo
-    _iid_ = Guid('5598b14b-9fd7-48b7-9b-db-8f-09-64-eb-38-bc')
+    _iid_ = Guid('{5598b14b-9fd7-48b7-9bdb-8f0964eb38bc}')
     @commethod(7)
     def SetComputeShaderConstantBuffer(self, buffer: POINTER(Byte), bufferCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1594,26 +1594,26 @@ class ID2D1ComputeInfo(ComPtr):
     def SetResourceTexture(self, textureIndex: UInt32, resourceTexture: Windows.Win32.Graphics.Direct2D.ID2D1ResourceTexture_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1ComputeTransform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Transform
-    _iid_ = Guid('0d85573c-01e3-4f7d-bf-d9-0d-60-60-8b-f3-c3')
+    _iid_ = Guid('{0d85573c-01e3-4f7d-bfd9-0d60608bf3c3}')
     @commethod(7)
     def SetComputeInfo(self, computeInfo: Windows.Win32.Graphics.Direct2D.ID2D1ComputeInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def CalculateThreadgroups(self, outputRect: POINTER(Windows.Win32.Foundation.RECT_head), dimensionX: POINTER(UInt32), dimensionY: POINTER(UInt32), dimensionZ: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1ConcreteTransform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1TransformNode
-    _iid_ = Guid('1a799d8a-69f7-4e4c-9f-ed-43-7c-cc-66-84-cc')
+    _iid_ = Guid('{1a799d8a-69f7-4e4c-9fed-437ccc6684cc}')
     @commethod(4)
     def SetOutputBuffer(self, bufferPrecision: Windows.Win32.Graphics.Direct2D.D2D1_BUFFER_PRECISION, channelDepth: Windows.Win32.Graphics.Direct2D.D2D1_CHANNEL_DEPTH) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetCached(self, isCached: Windows.Win32.Foundation.BOOL) -> Void: ...
 class ID2D1DCRenderTarget(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1RenderTarget
-    _iid_ = Guid('1c51bc64-de61-46fd-98-99-63-a5-d8-f0-39-50')
+    _iid_ = Guid('{1c51bc64-de61-46fd-9899-63a5d8f03950}')
     @commethod(57)
     def BindDC(self, hDC: Windows.Win32.Graphics.Gdi.HDC, pSubRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Device(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('47dd575d-ac05-4cdd-80-49-9b-02-cd-16-f4-4c')
+    _iid_ = Guid('{47dd575d-ac05-4cdd-8049-9b02cd16f44c}')
     @commethod(4)
     def CreateDeviceContext(self, options: Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -1626,7 +1626,7 @@ class ID2D1Device(ComPtr):
     def ClearResources(self, millisecondsSinceUse: UInt32) -> Void: ...
 class ID2D1Device1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Device
-    _iid_ = Guid('d21768e1-23a4-4823-a1-4b-7c-3e-ba-85-d6-58')
+    _iid_ = Guid('{d21768e1-23a4-4823-a14b-7c3eba85d658}')
     @commethod(9)
     def GetRenderingPriority(self) -> Windows.Win32.Graphics.Direct2D.D2D1_RENDERING_PRIORITY: ...
     @commethod(10)
@@ -1635,7 +1635,7 @@ class ID2D1Device1(ComPtr):
     def CreateDeviceContext(self, options: Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext1: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext1_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Device2(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Device1
-    _iid_ = Guid('a44472e1-8dfb-4e60-84-92-6e-28-61-c9-ca-8b')
+    _iid_ = Guid('{a44472e1-8dfb-4e60-8492-6e2861c9ca8b}')
     @commethod(12)
     def CreateDeviceContext(self, options: Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext2: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1644,12 +1644,12 @@ class ID2D1Device2(ComPtr):
     def GetDxgiDevice(self, dxgiDevice: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Device3(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Device2
-    _iid_ = Guid('852f2087-802c-4037-ab-60-ff-2e-7e-e6-fc-01')
+    _iid_ = Guid('{852f2087-802c-4037-ab60-ff2e7ee6fc01}')
     @commethod(15)
     def CreateDeviceContext(self, options: Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext3: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext3_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Device4(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Device3
-    _iid_ = Guid('d7bdb159-5683-4a46-bc-9c-72-dc-72-0b-85-8b')
+    _iid_ = Guid('{d7bdb159-5683-4a46-bc9c-72dc720b858b}')
     @commethod(16)
     def CreateDeviceContext(self, options: Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext4: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext4_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
@@ -1658,17 +1658,17 @@ class ID2D1Device4(ComPtr):
     def GetMaximumColorGlyphCacheMemory(self) -> UInt64: ...
 class ID2D1Device5(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Device4
-    _iid_ = Guid('d55ba0a4-6405-4694-ae-f5-08-ee-1a-43-58-b4')
+    _iid_ = Guid('{d55ba0a4-6405-4694-aef5-08ee1a4358b4}')
     @commethod(19)
     def CreateDeviceContext(self, options: Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext5: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext5_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Device6(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Device5
-    _iid_ = Guid('7bfef914-2d75-4bad-be-87-e1-8d-db-07-7b-6d')
+    _iid_ = Guid('{7bfef914-2d75-4bad-be87-e18ddb077b6d}')
     @commethod(20)
     def CreateDeviceContext(self, options: Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext6: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext6_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1DeviceContext(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1RenderTarget
-    _iid_ = Guid('e8f7fe7a-191c-466d-ad-95-97-56-78-bd-a9-98')
+    _iid_ = Guid('{e8f7fe7a-191c-466d-ad95-975678bda998}')
     @commethod(57)
     def CreateBitmap(self, size: Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_U, sourceData: c_void_p, pitch: UInt32, bitmapProperties: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES1_head), bitmap: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Bitmap1_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(58)
@@ -1741,7 +1741,7 @@ class ID2D1DeviceContext(ComPtr):
     def FillOpacityMask(self, opacityMask: Windows.Win32.Graphics.Direct2D.ID2D1Bitmap_head, brush: Windows.Win32.Graphics.Direct2D.ID2D1Brush_head, destinationRectangle: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangle: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
 class ID2D1DeviceContext1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext
-    _iid_ = Guid('d37f57e4-6908-459f-a1-99-e7-2f-24-f7-99-87')
+    _iid_ = Guid('{d37f57e4-6908-459f-a199-e72f24f79987}')
     @commethod(92)
     def CreateFilledGeometryRealization(self, geometry: Windows.Win32.Graphics.Direct2D.ID2D1Geometry_head, flatteningTolerance: Single, geometryRealization: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1GeometryRealization_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(93)
@@ -1750,7 +1750,7 @@ class ID2D1DeviceContext1(ComPtr):
     def DrawGeometryRealization(self, geometryRealization: Windows.Win32.Graphics.Direct2D.ID2D1GeometryRealization_head, brush: Windows.Win32.Graphics.Direct2D.ID2D1Brush_head) -> Void: ...
 class ID2D1DeviceContext2(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext1
-    _iid_ = Guid('394ea6a3-0c34-4321-95-0b-6c-a2-0f-0b-e6-c7')
+    _iid_ = Guid('{394ea6a3-0c34-4321-950b-6ca20f0be6c7}')
     @commethod(95)
     def CreateInk(self, startPoint: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_INK_POINT_head), ink: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Ink_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(96)
@@ -1775,14 +1775,14 @@ class ID2D1DeviceContext2(ComPtr):
     def CreateTransformedImageSource(self, imageSource: Windows.Win32.Graphics.Direct2D.ID2D1ImageSource_head, properties: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head), transformedImageSource: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1TransformedImageSource_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1DeviceContext3(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext2
-    _iid_ = Guid('235a7496-8351-414c-bc-d4-66-72-ab-2d-8e-00')
+    _iid_ = Guid('{235a7496-8351-414c-bcd4-6672ab2d8e00}')
     @commethod(106)
     def CreateSpriteBatch(self, spriteBatch: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1SpriteBatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(107)
     def DrawSpriteBatch(self, spriteBatch: Windows.Win32.Graphics.Direct2D.ID2D1SpriteBatch_head, startIndex: UInt32, spriteCount: UInt32, bitmap: Windows.Win32.Graphics.Direct2D.ID2D1Bitmap_head, interpolationMode: Windows.Win32.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE, spriteOptions: Windows.Win32.Graphics.Direct2D.D2D1_SPRITE_OPTIONS) -> Void: ...
 class ID2D1DeviceContext4(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext3
-    _iid_ = Guid('8c427831-3d90-4476-b6-47-c4-fa-e3-49-e4-db')
+    _iid_ = Guid('{8c427831-3d90-4476-b647-c4fae349e4db}')
     @commethod(108)
     def CreateSvgGlyphStyle(self, svgGlyphStyle: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1SvgGlyphStyle_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(109)
@@ -1799,7 +1799,7 @@ class ID2D1DeviceContext4(ComPtr):
     def GetSvgGlyphImage(self, glyphOrigin: Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F, fontFace: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head, fontEmSize: Single, glyphIndex: UInt16, isSideways: Windows.Win32.Foundation.BOOL, worldTransform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), defaultFillBrush: Windows.Win32.Graphics.Direct2D.ID2D1Brush_head, svgGlyphStyle: Windows.Win32.Graphics.Direct2D.ID2D1SvgGlyphStyle_head, colorPaletteIndex: UInt32, glyphTransform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), glyphImage: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1CommandList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1DeviceContext5(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext4
-    _iid_ = Guid('7836d248-68cc-4df6-b9-e8-de-99-1b-f6-2e-b7')
+    _iid_ = Guid('{7836d248-68cc-4df6-b9e8-de991bf62eb7}')
     @commethod(115)
     def CreateSvgDocument(self, inputXmlStream: Windows.Win32.System.Com.IStream_head, viewportSize: Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_F, svgDocument: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1SvgDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(116)
@@ -1810,12 +1810,12 @@ class ID2D1DeviceContext5(ComPtr):
     def CreateColorContextFromSimpleColorProfile(self, simpleProfile: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head), colorContext: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1ColorContext1_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1DeviceContext6(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext5
-    _iid_ = Guid('985f7e37-4ed0-4a19-98-a3-15-b0-ed-fd-e3-06')
+    _iid_ = Guid('{985f7e37-4ed0-4a19-98a3-15b0edfde306}')
     @commethod(119)
     def BlendImage(self, image: Windows.Win32.Graphics.Direct2D.ID2D1Image_head, blendMode: Windows.Win32.Graphics.Direct2D.Common.D2D1_BLEND_MODE, targetOffset: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F_head), imageRectangle: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head), interpolationMode: Windows.Win32.Graphics.Direct2D.D2D1_INTERPOLATION_MODE) -> Void: ...
 class ID2D1DrawInfo(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1RenderInfo
-    _iid_ = Guid('693ce632-7f2f-45de-93-fe-18-d8-8b-37-aa-21')
+    _iid_ = Guid('{693ce632-7f2f-45de-93fe-18d88b37aa21}')
     @commethod(7)
     def SetPixelShaderConstantBuffer(self, buffer: POINTER(Byte), bufferCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1828,12 +1828,12 @@ class ID2D1DrawInfo(ComPtr):
     def SetVertexProcessing(self, vertexBuffer: Windows.Win32.Graphics.Direct2D.ID2D1VertexBuffer_head, vertexOptions: Windows.Win32.Graphics.Direct2D.D2D1_VERTEX_OPTIONS, blendDescription: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head), vertexRange: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_VERTEX_RANGE_head), vertexShader: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1DrawTransform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Transform
-    _iid_ = Guid('36bfdcb6-9739-435d-a3-0d-a6-53-be-ff-6a-6f')
+    _iid_ = Guid('{36bfdcb6-9739-435d-a30d-a653beff6a6f}')
     @commethod(7)
     def SetDrawInfo(self, drawInfo: Windows.Win32.Graphics.Direct2D.ID2D1DrawInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1DrawingStateBlock(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('28506e39-ebf6-46a1-bb-47-fd-85-56-5a-b9-57')
+    _iid_ = Guid('{28506e39-ebf6-46a1-bb47-fd85565ab957}')
     @commethod(4)
     def GetDescription(self, stateDescription: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head)) -> Void: ...
     @commethod(5)
@@ -1844,14 +1844,14 @@ class ID2D1DrawingStateBlock(ComPtr):
     def GetTextRenderingParams(self, textRenderingParams: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams_head)) -> Void: ...
 class ID2D1DrawingStateBlock1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1DrawingStateBlock
-    _iid_ = Guid('689f1f85-c72e-4e33-8f-19-85-75-4e-fd-5a-ce')
+    _iid_ = Guid('{689f1f85-c72e-4e33-8f19-85754efd5ace}')
     @commethod(8)
     def GetDescription(self, stateDescription: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head)) -> Void: ...
     @commethod(9)
     def SetDescription(self, stateDescription: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head)) -> Void: ...
 class ID2D1Effect(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Properties
-    _iid_ = Guid('28211a43-7d89-476f-81-81-2d-61-59-b2-20-ad')
+    _iid_ = Guid('{28211a43-7d89-476f-8181-2d6159b220ad}')
     @commethod(14)
     def SetInput(self, index: UInt32, input: Windows.Win32.Graphics.Direct2D.ID2D1Image_head, invalidate: Windows.Win32.Foundation.BOOL) -> Void: ...
     @commethod(15)
@@ -1864,7 +1864,7 @@ class ID2D1Effect(ComPtr):
     def GetOutput(self, outputImage: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Image_head)) -> Void: ...
 class ID2D1EffectContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3d9f916b-27dc-4ad7-b4-f1-64-94-53-40-f5-63')
+    _iid_ = Guid('{3d9f916b-27dc-4ad7-b4f1-64945340f563}')
     @commethod(3)
     def GetDpi(self, dpiX: POINTER(Single), dpiY: POINTER(Single)) -> Void: ...
     @commethod(4)
@@ -1909,19 +1909,19 @@ class ID2D1EffectContext(ComPtr):
     def IsBufferPrecisionSupported(self, bufferPrecision: Windows.Win32.Graphics.Direct2D.D2D1_BUFFER_PRECISION) -> Windows.Win32.Foundation.BOOL: ...
 class ID2D1EffectContext1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1EffectContext
-    _iid_ = Guid('84ab595a-fc81-4546-ba-cd-e8-ef-4d-8a-be-7a')
+    _iid_ = Guid('{84ab595a-fc81-4546-bacd-e8ef4d8abe7a}')
     @commethod(24)
     def CreateLookupTable3D(self, precision: Windows.Win32.Graphics.Direct2D.D2D1_BUFFER_PRECISION, extents: POINTER(UInt32), data: POINTER(Byte), dataCount: UInt32, strides: POINTER(UInt32), lookupTable: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1LookupTable3D_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1EffectContext2(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1EffectContext1
-    _iid_ = Guid('577ad2a0-9fc7-4dda-8b-18-da-b8-10-14-00-52')
+    _iid_ = Guid('{577ad2a0-9fc7-4dda-8b18-dab810140052}')
     @commethod(25)
     def CreateColorContextFromDxgiColorSpace(self, colorSpace: Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, colorContext: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1ColorContext1_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def CreateColorContextFromSimpleColorProfile(self, simpleProfile: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head), colorContext: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1ColorContext1_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1EffectImpl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a248fd3f-3e6c-4e63-9f-03-7f-68-ec-c9-1d-b9')
+    _iid_ = Guid('{a248fd3f-3e6c-4e63-9f03-7f68ecc91db9}')
     @commethod(3)
     def Initialize(self, effectContext: Windows.Win32.Graphics.Direct2D.ID2D1EffectContext_head, transformGraph: Windows.Win32.Graphics.Direct2D.ID2D1TransformGraph_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1930,12 +1930,12 @@ class ID2D1EffectImpl(ComPtr):
     def SetGraph(self, transformGraph: Windows.Win32.Graphics.Direct2D.ID2D1TransformGraph_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1EllipseGeometry(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Geometry
-    _iid_ = Guid('2cd906a4-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a4-12e2-11dc-9fed-001143a055f9}')
     @commethod(17)
     def GetEllipse(self, ellipse: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_ELLIPSE_head)) -> Void: ...
 class ID2D1Factory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('06152247-6f50-465a-92-45-11-8b-fd-3b-60-07')
+    _iid_ = Guid('{06152247-6f50-465a-9245-118bfd3b6007}')
     @commethod(3)
     def ReloadSystemMetrics(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1966,7 +1966,7 @@ class ID2D1Factory(ComPtr):
     def CreateDCRenderTarget(self, renderTargetProperties: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head), dcRenderTarget: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1DCRenderTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Factory1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Factory
-    _iid_ = Guid('bb12d362-daee-4b9a-aa-1d-14-ba-40-1c-fa-1f')
+    _iid_ = Guid('{bb12d362-daee-4b9a-aa1d-14ba401cfa1f}')
     @commethod(17)
     def CreateDevice(self, dxgiDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, d2dDevice: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Device_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -1989,68 +1989,68 @@ class ID2D1Factory1(ComPtr):
     def GetEffectProperties(self, effectId: POINTER(Guid), properties: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Properties_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Factory2(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Factory1
-    _iid_ = Guid('94f81a73-9212-4376-9c-58-b1-6a-3a-0d-39-92')
+    _iid_ = Guid('{94f81a73-9212-4376-9c58-b16a3a0d3992}')
     @commethod(27)
     def CreateDevice(self, dxgiDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, d2dDevice1: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Device1_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Factory3(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Factory2
-    _iid_ = Guid('0869759f-4f00-413f-b0-3e-2b-da-45-40-4d-0f')
+    _iid_ = Guid('{0869759f-4f00-413f-b03e-2bda45404d0f}')
     @commethod(28)
     def CreateDevice(self, dxgiDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, d2dDevice2: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Device2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Factory4(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Factory3
-    _iid_ = Guid('bd4ec2d2-0662-4bee-ba-8e-6f-29-f0-32-e0-96')
+    _iid_ = Guid('{bd4ec2d2-0662-4bee-ba8e-6f29f032e096}')
     @commethod(29)
     def CreateDevice(self, dxgiDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, d2dDevice3: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Device3_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Factory5(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Factory4
-    _iid_ = Guid('c4349994-838e-4b0f-8c-ab-44-99-7d-9e-ea-cc')
+    _iid_ = Guid('{c4349994-838e-4b0f-8cab-44997d9eeacc}')
     @commethod(30)
     def CreateDevice(self, dxgiDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, d2dDevice4: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Device4_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Factory6(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Factory5
-    _iid_ = Guid('f9976f46-f642-44c1-97-ca-da-32-ea-2a-26-35')
+    _iid_ = Guid('{f9976f46-f642-44c1-97ca-da32ea2a2635}')
     @commethod(31)
     def CreateDevice(self, dxgiDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, d2dDevice5: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Device5_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Factory7(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Factory6
-    _iid_ = Guid('bdc2bdd3-b96c-4de6-bd-f7-99-d4-74-54-54-de')
+    _iid_ = Guid('{bdc2bdd3-b96c-4de6-bdf7-99d4745454de}')
     @commethod(32)
     def CreateDevice(self, dxgiDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, d2dDevice6: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Device6_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1GdiInteropRenderTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e0db51c3-6f77-4bae-b3-d5-e4-75-09-b3-58-38')
+    _iid_ = Guid('{e0db51c3-6f77-4bae-b3d5-e47509b35838}')
     @commethod(3)
     def GetDC(self, mode: Windows.Win32.Graphics.Direct2D.D2D1_DC_INITIALIZE_MODE, hdc: POINTER(Windows.Win32.Graphics.Gdi.HDC)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseDC(self, update: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1GdiMetafile(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('2f543dc3-cfc1-4211-86-4f-cf-d9-1c-6f-33-95')
+    _iid_ = Guid('{2f543dc3-cfc1-4211-864f-cfd91c6f3395}')
     @commethod(4)
     def Stream(self, sink: Windows.Win32.Graphics.Direct2D.ID2D1GdiMetafileSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetBounds(self, bounds: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1GdiMetafile1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1GdiMetafile
-    _iid_ = Guid('2e69f9e8-dd3f-4bf9-95-ba-c0-4f-49-d7-88-df')
+    _iid_ = Guid('{2e69f9e8-dd3f-4bf9-95ba-c04f49d788df}')
     @commethod(6)
     def GetDpi(self, dpiX: POINTER(Single), dpiY: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetSourceBounds(self, bounds: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1GdiMetafileSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('82237326-8111-4f7c-bc-f4-b5-c1-17-55-64-fe')
+    _iid_ = Guid('{82237326-8111-4f7c-bcf4-b5c1175564fe}')
     @commethod(3)
     def ProcessRecord(self, recordType: UInt32, recordData: c_void_p, recordDataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1GdiMetafileSink1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1GdiMetafileSink
-    _iid_ = Guid('fd0ecb6b-91e6-411e-86-55-39-5e-76-0f-91-b4')
+    _iid_ = Guid('{fd0ecb6b-91e6-411e-8655-395e760f91b4}')
     @commethod(4)
     def ProcessRecord(self, recordType: UInt32, recordData: c_void_p, recordDataSize: UInt32, flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Geometry(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('2cd906a1-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a1-12e2-11dc-9fed-001143a055f9}')
     @commethod(4)
     def GetBounds(self, worldTransform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), bounds: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2079,7 +2079,7 @@ class ID2D1Geometry(ComPtr):
     def Widen(self, strokeWidth: Single, strokeStyle: Windows.Win32.Graphics.Direct2D.ID2D1StrokeStyle_head, worldTransform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, geometrySink: Windows.Win32.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1GeometryGroup(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Geometry
-    _iid_ = Guid('2cd906a6-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a6-12e2-11dc-9fed-001143a055f9}')
     @commethod(17)
     def GetFillMode(self) -> Windows.Win32.Graphics.Direct2D.Common.D2D1_FILL_MODE: ...
     @commethod(18)
@@ -2088,10 +2088,10 @@ class ID2D1GeometryGroup(ComPtr):
     def GetSourceGeometries(self, geometries: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Geometry_head), geometriesCount: UInt32) -> Void: ...
 class ID2D1GeometryRealization(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('a16907d7-bc02-4801-99-e8-8c-f7-f4-85-f7-74')
+    _iid_ = Guid('{a16907d7-bc02-4801-99e8-8cf7f485f774}')
 class ID2D1GeometrySink(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink
-    _iid_ = Guid('2cd9069f-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd9069f-12e2-11dc-9fed-001143a055f9}')
     @commethod(10)
     def AddLine(self, point: Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F) -> Void: ...
     @commethod(11)
@@ -2104,14 +2104,14 @@ class ID2D1GeometrySink(ComPtr):
     def AddArc(self, arc: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_ARC_SEGMENT_head)) -> Void: ...
 class ID2D1GradientMesh(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('f292e401-c050-4cde-83-d7-04-96-2d-3b-23-c2')
+    _iid_ = Guid('{f292e401-c050-4cde-83d7-04962d3b23c2}')
     @commethod(4)
     def GetPatchCount(self) -> UInt32: ...
     @commethod(5)
     def GetPatches(self, startIndex: UInt32, patches: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_GRADIENT_MESH_PATCH_head), patchesCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1GradientStopCollection(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('2cd906a7-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a7-12e2-11dc-9fed-001143a055f9}')
     @commethod(4)
     def GetGradientStopCount(self) -> UInt32: ...
     @commethod(5)
@@ -2122,7 +2122,7 @@ class ID2D1GradientStopCollection(ComPtr):
     def GetExtendMode(self) -> Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
 class ID2D1GradientStopCollection1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection
-    _iid_ = Guid('ae1572f4-5dd0-4777-99-8b-92-79-47-2a-e6-3b')
+    _iid_ = Guid('{ae1572f4-5dd0-4777-998b-9279472ae63b}')
     @commethod(8)
     def GetGradientStops1(self, gradientStops: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_GRADIENT_STOP_head), gradientStopsCount: UInt32) -> Void: ...
     @commethod(9)
@@ -2135,7 +2135,7 @@ class ID2D1GradientStopCollection1(ComPtr):
     def GetColorInterpolationMode(self) -> Windows.Win32.Graphics.Direct2D.D2D1_COLOR_INTERPOLATION_MODE: ...
 class ID2D1HwndRenderTarget(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1RenderTarget
-    _iid_ = Guid('2cd90698-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd90698-12e2-11dc-9fed-001143a055f9}')
     @commethod(57)
     def CheckWindowState(self) -> Windows.Win32.Graphics.Direct2D.D2D1_WINDOW_STATE: ...
     @commethod(58)
@@ -2144,10 +2144,10 @@ class ID2D1HwndRenderTarget(ComPtr):
     def GetHwnd(self) -> Windows.Win32.Foundation.HWND: ...
 class ID2D1Image(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('65019f75-8da2-497c-b3-2c-df-a3-4e-48-ed-e6')
+    _iid_ = Guid('{65019f75-8da2-497c-b32c-dfa34e48ede6}')
 class ID2D1ImageBrush(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Brush
-    _iid_ = Guid('fe9e984d-3f95-407c-b5-db-cb-94-d4-e8-f8-7c')
+    _iid_ = Guid('{fe9e984d-3f95-407c-b5db-cb94d4e8f87c}')
     @commethod(8)
     def SetImage(self, image: Windows.Win32.Graphics.Direct2D.ID2D1Image_head) -> Void: ...
     @commethod(9)
@@ -2170,14 +2170,14 @@ class ID2D1ImageBrush(ComPtr):
     def GetSourceRectangle(self, sourceRectangle: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
 class ID2D1ImageSource(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Image
-    _iid_ = Guid('c9b664e5-74a1-4378-9a-c2-ee-fc-37-a3-f4-d8')
+    _iid_ = Guid('{c9b664e5-74a1-4378-9ac2-eefc37a3f4d8}')
     @commethod(4)
     def OfferResources(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def TryReclaimResources(self, resourcesDiscarded: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1ImageSourceFromWic(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1ImageSource
-    _iid_ = Guid('77395441-1c8f-4555-86-83-f5-0d-ab-0f-e7-92')
+    _iid_ = Guid('{77395441-1c8f-4555-8683-f50dab0fe792}')
     @commethod(6)
     def EnsureCached(self, rectangleToFill: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_U_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2186,7 +2186,7 @@ class ID2D1ImageSourceFromWic(ComPtr):
     def GetSource(self, wicBitmapSource: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapSource_head)) -> Void: ...
 class ID2D1Ink(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('b499923b-7029-478f-a8-b3-43-2c-7c-5f-53-12')
+    _iid_ = Guid('{b499923b-7029-478f-a8b3-432c7c5f5312}')
     @commethod(4)
     def SetStartPoint(self, startPoint: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_INK_POINT_head)) -> Void: ...
     @commethod(5)
@@ -2209,7 +2209,7 @@ class ID2D1Ink(ComPtr):
     def GetBounds(self, inkStyle: Windows.Win32.Graphics.Direct2D.ID2D1InkStyle_head, worldTransform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), bounds: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1InkStyle(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('bae8b344-23fc-4071-8c-b5-d0-5d-6f-07-38-48')
+    _iid_ = Guid('{bae8b344-23fc-4071-8cb5-d05d6f073848}')
     @commethod(4)
     def SetNibTransform(self, transform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
     @commethod(5)
@@ -2220,12 +2220,12 @@ class ID2D1InkStyle(ComPtr):
     def GetNibShape(self) -> Windows.Win32.Graphics.Direct2D.D2D1_INK_NIB_SHAPE: ...
 class ID2D1Layer(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('2cd9069b-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd9069b-12e2-11dc-9fed-001143a055f9}')
     @commethod(4)
     def GetSize(self) -> Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_F: ...
 class ID2D1LinearGradientBrush(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Brush
-    _iid_ = Guid('2cd906ab-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906ab-12e2-11dc-9fed-001143a055f9}')
     @commethod(8)
     def SetStartPoint(self, startPoint: Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F) -> Void: ...
     @commethod(9)
@@ -2238,15 +2238,15 @@ class ID2D1LinearGradientBrush(ComPtr):
     def GetGradientStopCollection(self, gradientStopCollection: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection_head)) -> Void: ...
 class ID2D1LookupTable3D(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('53dd9855-a3b0-4d5b-82-e1-26-e2-5c-5e-57-97')
+    _iid_ = Guid('{53dd9855-a3b0-4d5b-82e1-26e25c5e5797}')
 class ID2D1Mesh(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('2cd906c2-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906c2-12e2-11dc-9fed-001143a055f9}')
     @commethod(4)
     def Open(self, tessellationSink: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1TessellationSink_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Multithread(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('31e6e7bc-e0ff-4d46-8c-64-a0-a8-c4-1c-15-d3')
+    _iid_ = Guid('{31e6e7bc-e0ff-4d46-8c64-a0a8c41c15d3}')
     @commethod(3)
     def GetMultithreadProtected(self) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
@@ -2255,14 +2255,14 @@ class ID2D1Multithread(ComPtr):
     def Leave(self) -> Void: ...
 class ID2D1OffsetTransform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1TransformNode
-    _iid_ = Guid('3fe6adea-7643-4f53-bd-14-a0-ce-63-f2-40-42')
+    _iid_ = Guid('{3fe6adea-7643-4f53-bd14-a0ce63f24042}')
     @commethod(4)
     def SetOffset(self, offset: Windows.Win32.Foundation.POINT) -> Void: ...
     @commethod(5)
     def GetOffset(self) -> Windows.Win32.Foundation.POINT: ...
 class ID2D1PathGeometry(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Geometry
-    _iid_ = Guid('2cd906a5-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a5-12e2-11dc-9fed-001143a055f9}')
     @commethod(17)
     def Open(self, geometrySink: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1GeometrySink_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -2273,19 +2273,19 @@ class ID2D1PathGeometry(ComPtr):
     def GetFigureCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1PathGeometry1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1PathGeometry
-    _iid_ = Guid('62baa2d2-ab54-41b7-b8-72-78-7e-01-06-a4-21')
+    _iid_ = Guid('{62baa2d2-ab54-41b7-b872-787e0106a421}')
     @commethod(21)
     def ComputePointAndSegmentAtLength(self, length: Single, startSegment: UInt32, worldTransform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, pointDescription: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_POINT_DESCRIPTION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1PrintControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2c1d867d-c290-41c8-ae-7e-34-a9-87-02-e9-a5')
+    _iid_ = Guid('{2c1d867d-c290-41c8-ae7e-34a98702e9a5}')
     @commethod(3)
     def AddPage(self, commandList: Windows.Win32.Graphics.Direct2D.ID2D1CommandList_head, pageSize: Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_F, pagePrintTicketStream: Windows.Win32.System.Com.IStream_head, tag1: POINTER(UInt64), tag2: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Properties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('483473d7-cd46-4f9d-9d-3a-31-12-aa-80-15-9d')
+    _iid_ = Guid('{483473d7-cd46-4f9d-9d3a-3112aa80159d}')
     @commethod(3)
     def GetPropertyCount(self) -> UInt32: ...
     @commethod(4)
@@ -2310,7 +2310,7 @@ class ID2D1Properties(ComPtr):
     def GetSubProperties(self, index: UInt32, subProperties: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Properties_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1RadialGradientBrush(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Brush
-    _iid_ = Guid('2cd906ac-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906ac-12e2-11dc-9fed-001143a055f9}')
     @commethod(8)
     def SetCenter(self, center: Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F) -> Void: ...
     @commethod(9)
@@ -2331,12 +2331,12 @@ class ID2D1RadialGradientBrush(ComPtr):
     def GetGradientStopCollection(self, gradientStopCollection: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection_head)) -> Void: ...
 class ID2D1RectangleGeometry(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Geometry
-    _iid_ = Guid('2cd906a2-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a2-12e2-11dc-9fed-001143a055f9}')
     @commethod(17)
     def GetRect(self, rect: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
 class ID2D1RenderInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('519ae1bd-d19a-420d-b8-49-36-4f-59-47-76-b7')
+    _iid_ = Guid('{519ae1bd-d19a-420d-b849-364f594776b7}')
     @commethod(3)
     def SetInputDescription(self, inputIndex: UInt32, inputDescription: Windows.Win32.Graphics.Direct2D.D2D1_INPUT_DESCRIPTION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2347,7 +2347,7 @@ class ID2D1RenderInfo(ComPtr):
     def SetInstructionCountHint(self, instructionCount: UInt32) -> Void: ...
 class ID2D1RenderTarget(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('2cd90694-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd90694-12e2-11dc-9fed-001143a055f9}')
     @commethod(4)
     def CreateBitmap(self, size: Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_U, srcData: c_void_p, pitch: UInt32, bitmapProperties: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES_head), bitmap: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Bitmap_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2456,36 +2456,36 @@ class ID2D1RenderTarget(ComPtr):
     def IsSupported(self, renderTargetProperties: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head)) -> Windows.Win32.Foundation.BOOL: ...
 class ID2D1Resource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2cd90691-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd90691-12e2-11dc-9fed-001143a055f9}')
     @commethod(3)
     def GetFactory(self, factory: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Factory_head)) -> Void: ...
 class ID2D1ResourceTexture(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('688d15c3-02b0-438d-b1-3a-d1-b4-4c-32-c3-9a')
+    _iid_ = Guid('{688d15c3-02b0-438d-b13a-d1b44c32c39a}')
     @commethod(3)
     def Update(self, minimumExtents: POINTER(UInt32), maximimumExtents: POINTER(UInt32), strides: POINTER(UInt32), dimensions: UInt32, data: POINTER(Byte), dataCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1RoundedRectangleGeometry(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Geometry
-    _iid_ = Guid('2cd906a3-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a3-12e2-11dc-9fed-001143a055f9}')
     @commethod(17)
     def GetRoundedRect(self, roundedRect: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_ROUNDED_RECT_head)) -> Void: ...
 class ID2D1SolidColorBrush(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Brush
-    _iid_ = Guid('2cd906a9-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906a9-12e2-11dc-9fed-001143a055f9}')
     @commethod(8)
     def SetColor(self, color: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D1_COLOR_F_head)) -> Void: ...
     @commethod(9)
     def GetColor(self) -> Windows.Win32.Graphics.Direct2D.Common.D2D1_COLOR_F: ...
 class ID2D1SourceTransform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Transform
-    _iid_ = Guid('db1800dd-0c34-4cf9-be-90-31-cc-0a-56-53-e1')
+    _iid_ = Guid('{db1800dd-0c34-4cf9-be90-31cc0a5653e1}')
     @commethod(7)
     def SetRenderInfo(self, renderInfo: Windows.Win32.Graphics.Direct2D.ID2D1RenderInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Draw(self, target: Windows.Win32.Graphics.Direct2D.ID2D1Bitmap1_head, drawRect: POINTER(Windows.Win32.Foundation.RECT_head), targetOrigin: Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2U) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1SpriteBatch(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('4dc583bf-3a10-438a-87-22-e9-76-52-24-f1-f1')
+    _iid_ = Guid('{4dc583bf-3a10-438a-8722-e9765224f1f1}')
     @commethod(4)
     def AddSprites(self, spriteCount: UInt32, destinationRectangles: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangles: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_U_head), colors: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D1_COLOR_F_head), transforms: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), destinationRectanglesStride: UInt32, sourceRectanglesStride: UInt32, colorsStride: UInt32, transformsStride: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2498,7 +2498,7 @@ class ID2D1SpriteBatch(ComPtr):
     def Clear(self) -> Void: ...
 class ID2D1StrokeStyle(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('2cd9069d-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd9069d-12e2-11dc-9fed-001143a055f9}')
     @commethod(4)
     def GetStartCap(self) -> Windows.Win32.Graphics.Direct2D.D2D1_CAP_STYLE: ...
     @commethod(5)
@@ -2519,19 +2519,19 @@ class ID2D1StrokeStyle(ComPtr):
     def GetDashes(self, dashes: POINTER(Single), dashesCount: UInt32) -> Void: ...
 class ID2D1StrokeStyle1(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1StrokeStyle
-    _iid_ = Guid('10a72a66-e91c-43f4-99-3f-dd-f4-b8-2b-0b-4a')
+    _iid_ = Guid('{10a72a66-e91c-43f4-993f-ddf4b82b0b4a}')
     @commethod(13)
     def GetStrokeTransformType(self) -> Windows.Win32.Graphics.Direct2D.D2D1_STROKE_TRANSFORM_TYPE: ...
 class ID2D1SvgAttribute(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('c9cdb0dd-f8c9-4e70-b7-c2-30-1c-80-29-2c-5e')
+    _iid_ = Guid('{c9cdb0dd-f8c9-4e70-b7c2-301c80292c5e}')
     @commethod(4)
     def GetElement(self, element: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1SvgElement_head)) -> Void: ...
     @commethod(5)
     def Clone(self, attribute: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1SvgAttribute_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1SvgDocument(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('86b88e4d-afa4-4d7b-88-e4-68-a5-1c-4a-0a-ec')
+    _iid_ = Guid('{86b88e4d-afa4-4d7b-88e4-68a51c4a0aec}')
     @commethod(4)
     def SetViewportSize(self, viewportSize: Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_F) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2556,7 +2556,7 @@ class ID2D1SvgDocument(ComPtr):
     def CreatePathData(self, segmentData: POINTER(Single), segmentDataCount: UInt32, commands: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND), commandsCount: UInt32, pathData: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1SvgPathData_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1SvgElement(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('ac7b67a6-183e-49c1-a8-23-0e-be-40-b0-db-29')
+    _iid_ = Guid('{ac7b67a6-183e-49c1-a823-0ebe40b0db29}')
     @commethod(4)
     def GetDocument(self, document: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1SvgDocument_head)) -> Void: ...
     @commethod(5)
@@ -2619,7 +2619,7 @@ class ID2D1SvgElement(ComPtr):
     def GetAttributeValueLength(self, name: Windows.Win32.Foundation.PWSTR, type: Windows.Win32.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE, valueLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1SvgGlyphStyle(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Resource
-    _iid_ = Guid('af671749-d241-4db8-8e-41-dc-c2-e5-c1-a4-38')
+    _iid_ = Guid('{af671749-d241-4db8-8e41-dcc2e5c1a438}')
     @commethod(4)
     def SetFill(self, brush: Windows.Win32.Graphics.Direct2D.ID2D1Brush_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2632,7 +2632,7 @@ class ID2D1SvgGlyphStyle(ComPtr):
     def GetStroke(self, brush: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Brush_head), strokeWidth: POINTER(Single), dashes: POINTER(Single), dashesCount: UInt32, dashOffset: POINTER(Single)) -> Void: ...
 class ID2D1SvgPaint(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1SvgAttribute
-    _iid_ = Guid('d59bab0a-68a2-455b-a5-dc-9e-b2-85-4e-24-90')
+    _iid_ = Guid('{d59bab0a-68a2-455b-a5dc-9eb2854e2490}')
     @commethod(6)
     def SetPaintType(self, paintType: Windows.Win32.Graphics.Direct2D.D2D1_SVG_PAINT_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2649,7 +2649,7 @@ class ID2D1SvgPaint(ComPtr):
     def GetIdLength(self) -> UInt32: ...
 class ID2D1SvgPathData(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1SvgAttribute
-    _iid_ = Guid('c095e4f4-bb98-43d6-97-45-4d-1b-84-ec-98-88')
+    _iid_ = Guid('{c095e4f4-bb98-43d6-9745-4d1b84ec9888}')
     @commethod(6)
     def RemoveSegmentDataAtEnd(self, dataCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2670,7 +2670,7 @@ class ID2D1SvgPathData(ComPtr):
     def CreatePathGeometry(self, fillMode: Windows.Win32.Graphics.Direct2D.Common.D2D1_FILL_MODE, pathGeometry: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1PathGeometry1_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1SvgPointCollection(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1SvgAttribute
-    _iid_ = Guid('9dbe4c0d-3572-4dd9-98-25-55-30-81-3b-b7-12')
+    _iid_ = Guid('{9dbe4c0d-3572-4dd9-9825-5530813bb712}')
     @commethod(6)
     def RemovePointsAtEnd(self, pointsCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2681,7 +2681,7 @@ class ID2D1SvgPointCollection(ComPtr):
     def GetPointsCount(self) -> UInt32: ...
 class ID2D1SvgStrokeDashArray(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1SvgAttribute
-    _iid_ = Guid('f1c0ca52-92a3-4f00-b4-ce-f3-56-91-ef-d9-d9')
+    _iid_ = Guid('{f1c0ca52-92a3-4f00-b4ce-f35691efd9d9}')
     @commethod(6)
     def RemoveDashesAtEnd(self, dashesCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2696,14 +2696,14 @@ class ID2D1SvgStrokeDashArray(ComPtr):
     def GetDashesCount(self) -> UInt32: ...
 class ID2D1TessellationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2cd906c1-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906c1-12e2-11dc-9fed-001143a055f9}')
     @commethod(3)
     def AddTriangles(self, triangles: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_TRIANGLE_head), trianglesCount: UInt32) -> Void: ...
     @commethod(4)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1Transform(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1TransformNode
-    _iid_ = Guid('ef1a287d-342a-4f76-8f-db-da-0d-6e-a9-f9-2b')
+    _iid_ = Guid('{ef1a287d-342a-4f76-8fdb-da0d6ea9f92b}')
     @commethod(4)
     def MapOutputRectToInputRects(self, outputRect: POINTER(Windows.Win32.Foundation.RECT_head), inputRects: POINTER(Windows.Win32.Foundation.RECT_head), inputRectsCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2712,7 +2712,7 @@ class ID2D1Transform(ComPtr):
     def MapInvalidRect(self, inputIndex: UInt32, invalidInputRect: Windows.Win32.Foundation.RECT, invalidOutputRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1TransformGraph(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('13d29038-c3e6-4034-90-81-13-b5-3a-41-79-92')
+    _iid_ = Guid('{13d29038-c3e6-4034-9081-13b53a417992}')
     @commethod(3)
     def GetInputCount(self) -> UInt32: ...
     @commethod(4)
@@ -2733,26 +2733,26 @@ class ID2D1TransformGraph(ComPtr):
     def SetPassthroughGraph(self, effectInputIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID2D1TransformNode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b2efe1e7-729f-4102-94-9f-50-5f-a2-1b-f6-66')
+    _iid_ = Guid('{b2efe1e7-729f-4102-949f-505fa21bf666}')
     @commethod(3)
     def GetInputCount(self) -> UInt32: ...
 class ID2D1TransformedGeometry(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Geometry
-    _iid_ = Guid('2cd906bb-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('{2cd906bb-12e2-11dc-9fed-001143a055f9}')
     @commethod(17)
     def GetSourceGeometry(self, sourceGeometry: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1Geometry_head)) -> Void: ...
     @commethod(18)
     def GetTransform(self, transform: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
 class ID2D1TransformedImageSource(ComPtr):
     extends: Windows.Win32.Graphics.Direct2D.ID2D1Image
-    _iid_ = Guid('7f1f79e5-2796-416c-8f-55-70-0f-91-14-45-e5')
+    _iid_ = Guid('{7f1f79e5-2796-416c-8f55-700f911445e5}')
     @commethod(4)
     def GetSource(self, imageSource: POINTER(Windows.Win32.Graphics.Direct2D.ID2D1ImageSource_head)) -> Void: ...
     @commethod(5)
     def GetProperties(self, properties: POINTER(Windows.Win32.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head)) -> Void: ...
 class ID2D1VertexBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9b8b1336-00a5-4668-92-b7-ce-d5-d8-bf-9b-7b')
+    _iid_ = Guid('{9b8b1336-00a5-4668-92b7-ced5d8bf9b7b}')
     @commethod(3)
     def Map(self, data: POINTER(POINTER(Byte)), bufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

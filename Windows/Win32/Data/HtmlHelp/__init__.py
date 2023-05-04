@@ -109,15 +109,15 @@ HHN_LAST: UInt32 = 4294966417
 HHN_NAVCOMPLETE: UInt32 = 4294966436
 HHN_TRACK: UInt32 = 4294966435
 HHN_WINDOW_CREATE: UInt32 = 4294966434
-CLSID_IITPropList: Guid = Guid('4662daae-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
+CLSID_IITPropList: Guid = Guid('{4662daae-d393-11d0-9a56-00c04fb68bf7}')
 PROP_ADD: UInt32 = 0
 PROP_DELETE: UInt32 = 1
 PROP_UPDATE: UInt32 = 2
 TYPE_VALUE: UInt32 = 0
 TYPE_POINTER: UInt32 = 1
 TYPE_STRING: UInt32 = 2
-CLSID_IITDatabase: Guid = Guid('66673452-8c23-11d0-a8-4e-00-aa-00-6c-7d-01')
-CLSID_IITDatabaseLocal: Guid = Guid('4662daa9-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
+CLSID_IITDatabase: Guid = Guid('{66673452-8c23-11d0-a84e-00aa006c7d01}')
+CLSID_IITDatabaseLocal: Guid = Guid('{4662daa9-d393-11d0-9a56-00c04fb68bf7}')
 STDPROP_UID: UInt32 = 1
 STDPROP_TITLE: UInt32 = 2
 STDPROP_USERDATA: UInt32 = 3
@@ -137,14 +137,14 @@ STDPROP_USERPROP_MAX: UInt32 = 2147483647
 SZ_WWDEST_GLOBAL: String = 'GLOBAL'
 SZ_WWDEST_KEY: String = 'KEY'
 SZ_WWDEST_OCC: String = 'OCC'
-CLSID_IITCmdInt: Guid = Guid('4662daa2-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
-CLSID_IITSvMgr: Guid = Guid('4662daa3-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
-CLSID_IITWordWheelUpdate: Guid = Guid('4662daa5-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
-CLSID_IITGroupUpdate: Guid = Guid('4662daa4-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
-CLSID_IITIndexBuild: Guid = Guid('8fa0d5aa-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
-CLSID_IITWWFilterBuild: Guid = Guid('8fa0d5ab-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
-CLSID_IITWordWheel: Guid = Guid('d73725c2-8c12-11d0-a8-4e-00-aa-00-6c-7d-01')
-CLSID_IITWordWheelLocal: Guid = Guid('4662daa8-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
+CLSID_IITCmdInt: Guid = Guid('{4662daa2-d393-11d0-9a56-00c04fb68bf7}')
+CLSID_IITSvMgr: Guid = Guid('{4662daa3-d393-11d0-9a56-00c04fb68bf7}')
+CLSID_IITWordWheelUpdate: Guid = Guid('{4662daa5-d393-11d0-9a56-00c04fb68bf7}')
+CLSID_IITGroupUpdate: Guid = Guid('{4662daa4-d393-11d0-9a56-00c04fb68bf7}')
+CLSID_IITIndexBuild: Guid = Guid('{8fa0d5aa-dedf-11d0-9a61-00c04fb68bf7}')
+CLSID_IITWWFilterBuild: Guid = Guid('{8fa0d5ab-dedf-11d0-9a61-00c04fb68bf7}')
+CLSID_IITWordWheel: Guid = Guid('{d73725c2-8c12-11d0-a84e-00aa006c7d01}')
+CLSID_IITWordWheelLocal: Guid = Guid('{4662daa8-d393-11d0-9a56-00c04fb68bf7}')
 ITWW_OPEN_NOCONNECT: UInt32 = 1
 ITWW_CBKEY_MAX: UInt32 = 1024
 IITWBC_BREAK_ACCEPT_WILDCARDS: UInt32 = 1
@@ -211,10 +211,10 @@ E_NOTINIT: Windows.Win32.Foundation.HRESULT = -2147479420
 E_RESULTSETEMPTY: Windows.Win32.Foundation.HRESULT = -2147479419
 E_TOOMANYCOLUMNS: Windows.Win32.Foundation.HRESULT = -2147479418
 E_NOKEYPROP: Windows.Win32.Foundation.HRESULT = -2147479417
-CLSID_IITResultSet: Guid = Guid('4662daa7-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
+CLSID_IITResultSet: Guid = Guid('{4662daa7-d393-11d0-9a56-00c04fb68bf7}')
 MAX_COLUMNS: UInt32 = 256
-CLSID_ITStdBreaker: Guid = Guid('4662daaf-d393-11d0-9a-56-00-c0-4f-b6-8b-f7')
-CLSID_ITEngStemmer: Guid = Guid('8fa0d5a8-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
+CLSID_ITStdBreaker: Guid = Guid('{4662daaf-d393-11d0-9a56-00c04fb68bf7}')
+CLSID_ITEngStemmer: Guid = Guid('{8fa0d5a8-dedf-11d0-9a61-00c04fb68bf7}')
 HHWIN_NAVTYPE_TOC: Int32 = 0
 HHWIN_NAVTYPE_INDEX: Int32 = 1
 HHWIN_NAVTYPE_SEARCH: Int32 = 2
@@ -412,7 +412,7 @@ HH_MAX_TABS_CUSTOM: HTML_HELP_COMMAND = 9
 HH_FTS_DEFAULT_PROXIMITY: HTML_HELP_COMMAND = -1
 class IITDatabase(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8fa0d5a2-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
+    _iid_ = Guid('{8fa0d5a2-dedf-11d0-9a61-00c04fb68bf7}')
     @commethod(3)
     def Open(self, lpszHost: Windows.Win32.Foundation.PWSTR, lpszMoniker: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -425,7 +425,7 @@ class IITDatabase(ComPtr):
     def GetObjectPersistence(self, lpwszObject: Windows.Win32.Foundation.PWSTR, dwObjInstance: UInt32, ppvPersistence: POINTER(c_void_p), fStream: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IITPropList(ComPtr):
     extends: Windows.Win32.System.Com.IPersistStreamInit
-    _iid_ = Guid('1f403bb1-9997-11d0-a8-50-00-aa-00-6c-7d-01')
+    _iid_ = Guid('{1f403bb1-9997-11d0-a850-00aa006c7d01}')
     @commethod(9)
     def Set(self, PropID: UInt32, lpszwString: Windows.Win32.Foundation.PWSTR, dwOperation: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -464,7 +464,7 @@ class IITPropList(ComPtr):
     def SaveToMem(self, lpvData: c_void_p, dwBufSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IITResultSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3bb91d41-998b-11d0-a8-50-00-aa-00-6c-7d-01')
+    _iid_ = Guid('{3bb91d41-998b-11d0-a850-00aa006c7d01}')
     @commethod(3)
     def SetColumnPriority(self, lColumnIndex: Int32, ColumnPriority: Windows.Win32.Data.HtmlHelp.PRIORITY) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -527,14 +527,14 @@ class IITResultSet(ComPtr):
     def GetColumnStatus(self, lpColStatus: POINTER(Windows.Win32.Data.HtmlHelp.COLUMNSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStemSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
+    _iid_ = Guid('{fe77c330-7f42-11ce-be57-00aa0051fe20}')
     @commethod(3)
     def PutAltWord(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PutWord(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IStemmerConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8fa0d5a7-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
+    _iid_ = Guid('{8fa0d5a7-dedf-11d0-9a61-00c04fb68bf7}')
     @commethod(3)
     def SetLocaleInfo(self, dwCodePageID: UInt32, lcid: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -547,7 +547,7 @@ class IStemmerConfig(ComPtr):
     def LoadExternalStemmerData(self, pStream: Windows.Win32.System.Com.IStream_head, dwExtDataType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWordBreakerConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8fa0d5a6-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
+    _iid_ = Guid('{8fa0d5a6-dedf-11d0-9a61-00c04fb68bf7}')
     @commethod(3)
     def SetLocaleInfo(self, dwCodePageID: UInt32, lcid: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

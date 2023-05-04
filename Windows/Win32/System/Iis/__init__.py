@@ -21,7 +21,7 @@ IISADMIN_EXTENSIONS_CLSID_MD_KEYA: String = 'LM/IISADMIN/EXTENSIONS/DCOMCLSIDS'
 IISADMIN_EXTENSIONS_CLSID_MD_KEYW: String = 'LM/IISADMIN/EXTENSIONS/DCOMCLSIDS'
 IISADMIN_EXTENSIONS_CLSID_MD_KEY: String = 'LM/IISADMIN/EXTENSIONS/DCOMCLSIDS'
 ADMINDATA_MAX_NAME_LEN: UInt32 = 256
-CLSID_MSAdminBase_W: Guid = Guid('a9e69610-b80d-11d0-b9-b9-00-a0-c9-22-e7-50')
+CLSID_MSAdminBase_W: Guid = Guid('{a9e69610-b80d-11d0-b9b9-00a0c922e750}')
 IMGCHG_SIZE: UInt32 = 1
 IMGCHG_VIEW: UInt32 = 2
 IMGCHG_COMPLETE: UInt32 = 4
@@ -46,7 +46,7 @@ DWN_DOWNLOADONLY: UInt32 = 64
 DWN_FORCEDITHER: UInt32 = 128
 DWN_RAWIMAGE: UInt32 = 256
 DWN_MIRRORIMAGE: UInt32 = 512
-CLSID_IImgCtx: Guid = Guid('3050f3d6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+CLSID_IImgCtx: Guid = Guid('{3050f3d6-98b5-11cf-bb82-00aa00bdce0b}')
 IIS_MD_LOCAL_MACHINE_PATH: String = 'LM'
 IIS_MD_INSTANCE_ROOT: String = 'Root'
 IIS_MD_ISAPI_FILTERS: String = '/Filters'
@@ -736,12 +736,12 @@ IIS_CLASS_MIMEMAP_W: String = 'IIsMimeMap'
 IIS_CLASS_CERTMAPPER_W: String = 'IIsCertMapper'
 IIS_CLASS_COMPRESS_SCHEMES_W: String = 'IIsCompressionSchemes'
 IIS_CLASS_COMPRESS_SCHEME_W: String = 'IIsCompressionScheme'
-CLSID_IisServiceControl: Guid = Guid('e8fb8621-588f-11d2-9d-61-00-c0-4f-79-c5-fe')
-LIBID_IISRSTALib: Guid = Guid('e8fb8614-588f-11d2-9d-61-00-c0-4f-79-c5-fe')
+CLSID_IisServiceControl: Guid = Guid('{e8fb8621-588f-11d2-9d61-00c04f79c5fe}')
+LIBID_IISRSTALib: Guid = Guid('{e8fb8614-588f-11d2-9d61-00c04f79c5fe}')
 IIS_WEBSOCKET: String = 'websockets'
 IIS_WEBSOCKET_SERVER_VARIABLE: String = 'IIS_WEBSOCK'
-LIBID_WAMREGLib: Guid = Guid('29822aa8-f302-11d0-99-53-00-c0-4f-d9-19-c1')
-CLSID_WamAdmin: Guid = Guid('61738644-f196-11d0-99-53-00-c0-4f-d9-19-c1')
+LIBID_WAMREGLib: Guid = Guid('{29822aa8-f302-11d0-9953-00c04fd919c1}')
+CLSID_WamAdmin: Guid = Guid('{61738644-f196-11d0-9953-00c04fd919c1}')
 APPSTATUS_STOPPED: UInt32 = 0
 APPSTATUS_RUNNING: UInt32 = 1
 APPSTATUS_NOTDEFINED: UInt32 = 2
@@ -796,12 +796,12 @@ MD_WARNING_SAVE_FAILED: Int32 = 837641
 MD_ERROR_IISAO_INVALID_SCHEMA: Int32 = -2146646000
 MD_ERROR_READ_METABASE_FILE: Int32 = -2146645991
 MD_ERROR_NO_SESSION_KEY: Int32 = -2146645987
-LIBID_ASPTypeLibrary: Guid = Guid('d97a6da0-a85c-11cf-83-ae-00-a0-c9-0c-2b-d8')
-CLSID_Request: Guid = Guid('920c25d0-25d9-11d0-a5-5f-00-a0-c9-0c-20-91')
-CLSID_Response: Guid = Guid('46e19ba0-25dd-11d0-a5-5f-00-a0-c9-0c-20-91')
-CLSID_Session: Guid = Guid('509f8f20-25de-11d0-a5-5f-00-a0-c9-0c-20-91')
-CLSID_Server: Guid = Guid('a506d160-25e0-11d0-a5-5f-00-a0-c9-0c-20-91')
-CLSID_ScriptingContext: Guid = Guid('d97a6da0-a868-11cf-83-ae-11-b0-c9-0c-2b-d8')
+LIBID_ASPTypeLibrary: Guid = Guid('{d97a6da0-a85c-11cf-83ae-00a0c90c2bd8}')
+CLSID_Request: Guid = Guid('{920c25d0-25d9-11d0-a55f-00a0c90c2091}')
+CLSID_Response: Guid = Guid('{46e19ba0-25dd-11d0-a55f-00a0c90c2091}')
+CLSID_Session: Guid = Guid('{509f8f20-25de-11d0-a55f-00a0c90c2091}')
+CLSID_Server: Guid = Guid('{a506d160-25e0-11d0-a55f-00a0c90c2091}')
+CLSID_ScriptingContext: Guid = Guid('{d97a6da0-a868-11cf-83ae-11b0c90c2bd8}')
 HSE_VERSION_MAJOR: UInt32 = 8
 HSE_VERSION_MINOR: UInt32 = 0
 HSE_LOG_BUFFER_LEN: UInt32 = 80
@@ -933,13 +933,13 @@ DISPID_HTTPREQUEST_SETAUTOLOGONPOLICY: UInt32 = 18
 HTTP_TRACE_EVENT_FLAG_STATIC_DESCRIPTIVE_FIELDS: UInt32 = 1
 HTTP_TRACE_LEVEL_START: UInt32 = 6
 HTTP_TRACE_LEVEL_END: UInt32 = 7
-GUID_IIS_ALL_TRACE_PROVIDERS: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-00')
-GUID_IIS_WWW_SERVER_TRACE_PROVIDER: Guid = Guid('3a2a4e84-4c21-4981-ae-10-3f-da-0d-9b-0f-83')
-GUID_IIS_WWW_SERVER_V2_TRACE_PROVIDER: Guid = Guid('de4649c9-15e8-4fea-9d-85-1c-dd-a5-20-c3-34')
-GUID_IIS_ASPNET_TRACE_PROVIDER: Guid = Guid('aff081fe-0247-4275-9c-4e-02-1f-3d-c1-da-35')
-GUID_IIS_ASP_TRACE_TRACE_PROVIDER: Guid = Guid('06b94d9a-b15e-456e-a4-ef-37-c9-84-a2-cb-4b')
-GUID_IIS_WWW_GLOBAL_TRACE_PROVIDER: Guid = Guid('d55d3bc9-cba9-44df-82-7e-13-2d-3a-45-96-c2')
-GUID_IIS_ISAPI_TRACE_PROVIDER: Guid = Guid('a1c2040e-8840-4c31-ba-11-98-71-03-1a-19-ea')
+GUID_IIS_ALL_TRACE_PROVIDERS: Guid = Guid('{00000000-0000-0000-0000-000000000000}')
+GUID_IIS_WWW_SERVER_TRACE_PROVIDER: Guid = Guid('{3a2a4e84-4c21-4981-ae10-3fda0d9b0f83}')
+GUID_IIS_WWW_SERVER_V2_TRACE_PROVIDER: Guid = Guid('{de4649c9-15e8-4fea-9d85-1cdda520c334}')
+GUID_IIS_ASPNET_TRACE_PROVIDER: Guid = Guid('{aff081fe-0247-4275-9c4e-021f3dc1da35}')
+GUID_IIS_ASP_TRACE_TRACE_PROVIDER: Guid = Guid('{06b94d9a-b15e-456e-a4ef-37c984a2cb4b}')
+GUID_IIS_WWW_GLOBAL_TRACE_PROVIDER: Guid = Guid('{d55d3bc9-cba9-44df-827e-132d3a4596c2}')
+GUID_IIS_ISAPI_TRACE_PROVIDER: Guid = Guid('{a1c2040e-8840-4c31-ba11-9871031a19ea}')
 WEB_CORE_DLL_NAME: String = 'hwebcore.dll'
 WEB_CORE_ACTIVATE_DLL_ENTRY: String = 'WebCoreActivate'
 WEB_CORE_SHUTDOWN_DLL_ENTRY: String = 'WebCoreShutdown'
@@ -954,56 +954,56 @@ def HttpFilterProc(pfc: POINTER(Windows.Win32.System.Iis.HTTP_FILTER_CONTEXT_hea
 def GetFilterVersion(pVer: POINTER(Windows.Win32.System.Iis.HTTP_FILTER_VERSION_head)) -> Windows.Win32.Foundation.BOOL: ...
 class AsyncIFtpAuthenticationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c24efb65-9f3e-4996-8f-b1-ce-16-69-16-ba-b5')
+    _iid_ = Guid('{c24efb65-9f3e-4996-8fb1-ce166916bab5}')
     @commethod(3)
     def Begin_AuthenticateUser(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszPassword: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_AuthenticateUser(self, ppszCanonicalUserName: POINTER(Windows.Win32.Foundation.PWSTR), pfAuthenticated: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpAuthorizationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('860dc339-07e5-4a5c-9c-61-88-20-ce-a0-12-bc')
+    _iid_ = Guid('{860dc339-07e5-4a5c-9c61-8820cea012bc}')
     @commethod(3)
     def Begin_GetUserAccessPermission(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszVirtualPath: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_GetUserAccessPermission(self, pFtpAccess: POINTER(Windows.Win32.System.Iis.FTP_ACCESS)) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpHomeDirectoryProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('73f81638-6295-42bd-a2-be-4a-65-7f-7c-47-9c')
+    _iid_ = Guid('{73f81638-6295-42bd-a2be-4a657f7c479c}')
     @commethod(3)
     def Begin_GetUserHomeDirectoryData(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_GetUserHomeDirectoryData(self, ppszHomeDirectoryData: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpLogProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00a0ae46-2498-48b2-95-e6-df-67-8e-d7-d4-9f')
+    _iid_ = Guid('{00a0ae46-2498-48b2-95e6-df678ed7d49f}')
     @commethod(3)
     def Begin_Log(self, pLoggingParameters: POINTER(Windows.Win32.System.Iis.LOGGING_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_Log(self) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpPostprocessProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a16b2542-9694-4eb1-a5-64-6c-2e-91-fd-c1-33')
+    _iid_ = Guid('{a16b2542-9694-4eb1-a564-6c2e91fdc133}')
     @commethod(3)
     def Begin_HandlePostprocess(self, pPostProcessParameters: POINTER(Windows.Win32.System.Iis.POST_PROCESS_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_HandlePostprocess(self, pFtpProcessStatus: POINTER(Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpPreprocessProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6ff5fd8f-fd8e-48b1-a3-e0-bf-70-73-db-4d-b5')
+    _iid_ = Guid('{6ff5fd8f-fd8e-48b1-a3e0-bf7073db4db5}')
     @commethod(3)
     def Begin_HandlePreprocess(self, pPreProcessParameters: POINTER(Windows.Win32.System.Iis.PRE_PROCESS_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_HandlePreprocess(self, pFtpProcessStatus: POINTER(Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpRoleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3e83bf99-70ec-41ca-84-b6-ac-a7-c7-a6-2c-af')
+    _iid_ = Guid('{3e83bf99-70ec-41ca-84b6-aca7c7a62caf}')
     @commethod(3)
     def Begin_IsUserInRole(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszRole: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_IsUserInRole(self, pfIsInRole: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIMSAdminBaseSinkW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a9e69613-b80d-11d0-b9-b9-00-a0-c9-22-e7-50')
+    _iid_ = Guid('{a9e69613-b80d-11d0-b9b9-00a0c922e750}')
     @commethod(3)
     def Begin_SinkNotify(self, dwMDNumElements: UInt32, pcoChangeList: POINTER(Windows.Win32.System.Iis.MD_CHANGE_OBJECT_W_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1017,7 +1017,7 @@ class CERT_CONTEXT_EX(EasyCastStructure):
     cbAllocated: UInt32
     dwCertificateFlags: UInt32
 class CONFIGURATION_ENTRY(EasyCastStructure):
-    _uuid_ = Guid('9e04226f-e38c-419e-a4-48-62-de-3b-3a-8f-43')
+    _uuid_ = Guid('{9e04226f-e38c-419e-a448-62de3b3a8f43}')
     bstrKey: Windows.Win32.Foundation.BSTR
     bstrValue: Windows.Win32.Foundation.BSTR
 class EXTENSION_CONTROL_BLOCK(EasyCastStructure):
@@ -1048,7 +1048,7 @@ FTP_PROCESS_CONTINUE: FTP_PROCESS_STATUS = 0
 FTP_PROCESS_CLOSE_SESSION: FTP_PROCESS_STATUS = 1
 FTP_PROCESS_TERMINATE_SESSION: FTP_PROCESS_STATUS = 2
 FTP_PROCESS_REJECT_COMMAND: FTP_PROCESS_STATUS = 3
-FtpProvider = Guid('70bdc667-33b2-45f0-ac-52-c3-ca-46-f7-a6-56')
+FtpProvider = Guid('{70bdc667-33b2-45f0-ac52-c3ca46f7a656}')
 HCONN = c_void_p
 class HSE_CUSTOM_ERROR_INFO(EasyCastStructure):
     pszStatus: Windows.Win32.Foundation.PSTR
@@ -1241,7 +1241,7 @@ HTTP_TRACE_TYPE_LPCGUID: HTTP_TRACE_TYPE = 72
 HTTP_TRACE_TYPE_BOOL: HTTP_TRACE_TYPE = 11
 class IADMEXT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('51dfe970-f6f2-11d0-b9-bd-00-a0-c9-22-e7-50')
+    _iid_ = Guid('{51dfe970-f6f2-11d0-b9bd-00a0c922e750}')
     @commethod(3)
     def Initialize(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1250,47 +1250,47 @@ class IADMEXT(ComPtr):
     def Terminate(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFtpAuthenticationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4659f95c-d5a8-4707-b2-fc-6f-d5-79-42-46-cf')
+    _iid_ = Guid('{4659f95c-d5a8-4707-b2fc-6fd5794246cf}')
     @commethod(3)
     def AuthenticateUser(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszPassword: Windows.Win32.Foundation.PWSTR, ppszCanonicalUserName: POINTER(Windows.Win32.Foundation.PWSTR), pfAuthenticated: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFtpAuthorizationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a50ae7a1-a35a-42b4-a4-f3-f4-f7-05-7a-05-d1')
+    _iid_ = Guid('{a50ae7a1-a35a-42b4-a4f3-f4f7057a05d1}')
     @commethod(3)
     def GetUserAccessPermission(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszVirtualPath: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pFtpAccess: POINTER(Windows.Win32.System.Iis.FTP_ACCESS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFtpHomeDirectoryProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0933b392-18dd-4097-8b-9c-83-32-5c-35-d9-a6')
+    _iid_ = Guid('{0933b392-18dd-4097-8b9c-83325c35d9a6}')
     @commethod(3)
     def GetUserHomeDirectoryData(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, ppszHomeDirectoryData: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFtpLogProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a18a94cc-8299-4408-81-6c-7c-3b-ac-a1-a4-0e')
+    _iid_ = Guid('{a18a94cc-8299-4408-816c-7c3baca1a40e}')
     @commethod(3)
     def Log(self, pLoggingParameters: POINTER(Windows.Win32.System.Iis.LOGGING_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFtpPostprocessProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4522cbc6-16cd-49ad-86-53-9a-2c-57-9e-42-80')
+    _iid_ = Guid('{4522cbc6-16cd-49ad-8653-9a2c579e4280}')
     @commethod(3)
     def HandlePostprocess(self, pPostProcessParameters: POINTER(Windows.Win32.System.Iis.POST_PROCESS_PARAMETERS_head), pFtpProcessStatus: POINTER(Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFtpPreprocessProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a3c19b60-5a28-471a-8f-93-ab-30-41-1c-ee-82')
+    _iid_ = Guid('{a3c19b60-5a28-471a-8f93-ab30411cee82}')
     @commethod(3)
     def HandlePreprocess(self, pPreProcessParameters: POINTER(Windows.Win32.System.Iis.PRE_PROCESS_PARAMETERS_head), pFtpProcessStatus: POINTER(Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFtpProviderConstruct(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4d1a3f7b-412d-447c-b1-99-64-f9-67-e9-a2-da')
+    _iid_ = Guid('{4d1a3f7b-412d-447c-b199-64f967e9a2da}')
     @commethod(3)
     def Construct(self, configurationEntries: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFtpRoleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('909c850d-8ca0-4674-96-b8-cc-29-41-53-57-25')
+    _iid_ = Guid('{909c850d-8ca0-4674-96b8-cc2941535725}')
     @commethod(3)
     def IsUserInRole(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszRole: Windows.Win32.Foundation.PWSTR, pfIsInRole: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMSAdminBase2W(ComPtr):
     extends: Windows.Win32.System.Iis.IMSAdminBaseW
-    _iid_ = Guid('8298d101-f992-43b7-8e-ca-50-52-d8-85-b9-95')
+    _iid_ = Guid('{8298d101-f992-43b7-8eca-5052d885b995}')
     @commethod(34)
     def BackupWithPasswd(self, pszMDBackupLocation: Windows.Win32.Foundation.PWSTR, dwMDVersion: UInt32, dwMDFlags: UInt32, pszPasswd: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
@@ -1305,19 +1305,19 @@ class IMSAdminBase2W(ComPtr):
     def EnumHistory(self, pszMDHistoryLocation: Windows.Win32.Foundation.PWSTR, pdwMDMajorVersion: POINTER(UInt32), pdwMDMinorVersion: POINTER(UInt32), pftMDHistoryTime: POINTER(Windows.Win32.Foundation.FILETIME_head), dwMDEnumIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMSAdminBase3W(ComPtr):
     extends: Windows.Win32.System.Iis.IMSAdminBase2W
-    _iid_ = Guid('f612954d-3b0b-4c56-95-63-22-7b-7b-e6-24-b4')
+    _iid_ = Guid('{f612954d-3b0b-4c56-9563-227b7be624b4}')
     @commethod(40)
     def GetChildPaths(self, hMDHandle: UInt32, pszMDPath: Windows.Win32.Foundation.PWSTR, cchMDBufferSize: UInt32, pszBuffer: Windows.Win32.Foundation.PWSTR, pcchMDRequiredBufferSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMSAdminBaseSinkW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a9e69612-b80d-11d0-b9-b9-00-a0-c9-22-e7-50')
+    _iid_ = Guid('{a9e69612-b80d-11d0-b9b9-00a0c922e750}')
     @commethod(3)
     def SinkNotify(self, dwMDNumElements: UInt32, pcoChangeList: POINTER(Windows.Win32.System.Iis.MD_CHANGE_OBJECT_W_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ShutdownNotify(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMSAdminBaseW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('70b51430-b6ca-11d0-b9-b9-00-a0-c9-22-e7-50')
+    _iid_ = Guid('{70b51430-b6ca-11d0-b9b9-00a0c922e750}')
     @commethod(3)
     def AddKey(self, hMDHandle: UInt32, pszMDPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1382,11 +1382,11 @@ class IMSAdminBaseW(ComPtr):
     def GetServerGuid(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMSImpExpHelpW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('29ff67ff-8050-480f-9f-30-cc-41-63-5f-2f-9d')
+    _iid_ = Guid('{29ff67ff-8050-480f-9f30-cc41635f2f9d}')
     @commethod(3)
     def EnumeratePathsInFile(self, pszFileName: Windows.Win32.Foundation.PWSTR, pszKeyType: Windows.Win32.Foundation.PWSTR, dwMDBufferSize: UInt32, pszBuffer: Windows.Win32.Foundation.PWSTR, pdwMDRequiredBufferSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class LOGGING_PARAMETERS(EasyCastStructure):
-    _uuid_ = Guid('6c678262-fc37-406e-84-e8-e9-c6-a5-75-7c-dc')
+    _uuid_ = Guid('{6c678262-fc37-406e-84e8-e9c6a5757cdc}')
     pszSessionId: Windows.Win32.Foundation.PWSTR
     pszSiteName: Windows.Win32.Foundation.PWSTR
     pszUserName: Windows.Win32.Foundation.PWSTR
@@ -1475,7 +1475,7 @@ def PFN_WEB_CORE_SET_METADATA_DLL_ENTRY(pszMetadataType: Windows.Win32.Foundatio
 @winfunctype_pointer
 def PFN_WEB_CORE_SHUTDOWN(fImmediate: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class POST_PROCESS_PARAMETERS(EasyCastStructure):
-    _uuid_ = Guid('53337595-9165-4a8b-a2-02-7d-5d-bf-7e-4b-8b')
+    _uuid_ = Guid('{53337595-9165-4a8b-a202-7d5dbf7e4b8b}')
     pszSessionId: Windows.Win32.Foundation.PWSTR
     pszSiteName: Windows.Win32.Foundation.PWSTR
     pszUserName: Windows.Win32.Foundation.PWSTR
@@ -1497,7 +1497,7 @@ class POST_PROCESS_PARAMETERS(EasyCastStructure):
     BytesSentPerSession: UInt64
     BytesReceivedPerSession: UInt64
 class PRE_PROCESS_PARAMETERS(EasyCastStructure):
-    _uuid_ = Guid('07c3d591-cead-4702-ab-ab-a7-08-86-af-38-a3')
+    _uuid_ = Guid('{07c3d591-cead-4702-abab-a70886af38a3}')
     pszSessionId: Windows.Win32.Foundation.PWSTR
     pszSiteName: Windows.Win32.Foundation.PWSTR
     pszUserName: Windows.Win32.Foundation.PWSTR

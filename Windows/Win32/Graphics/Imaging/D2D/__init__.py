@@ -17,7 +17,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWICImageEncoder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('04c75bf8-3ce1-473b-ac-c5-3c-c4-f5-e9-49-99')
+    _iid_ = Guid('{04c75bf8-3ce1-473b-acc5-3cc4f5e94999}')
     @commethod(3)
     def WriteFrame(self, pImage: Windows.Win32.Graphics.Direct2D.ID2D1Image_head, pFrameEncode: Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode_head, pImageParameters: POINTER(Windows.Win32.Graphics.Imaging.WICImageParameters_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -26,7 +26,7 @@ class IWICImageEncoder(ComPtr):
     def WriteThumbnail(self, pImage: Windows.Win32.Graphics.Direct2D.ID2D1Image_head, pEncoder: Windows.Win32.Graphics.Imaging.IWICBitmapEncoder_head, pImageParameters: POINTER(Windows.Win32.Graphics.Imaging.WICImageParameters_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWICImagingFactory2(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICImagingFactory
-    _iid_ = Guid('7b816b45-1996-4476-b1-32-de-9e-24-7c-8a-f0')
+    _iid_ = Guid('{7b816b45-1996-4476-b132-de9e247c8af0}')
     @commethod(28)
     def CreateImageEncoder(self, pD2DDevice: Windows.Win32.Graphics.Direct2D.ID2D1Device_head, ppWICImageEncoder: POINTER(Windows.Win32.Graphics.Imaging.D2D.IWICImageEncoder_head)) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'IWICImageEncoder')
