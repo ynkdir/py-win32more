@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IInstalledVoicesStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.IInstalledVoicesStatic'
     _iid_ = Guid('{7d526ecc-7533-4c3f-85be-888c2baeebdc}')
     @winrt_commethod(6)
     def get_AllVoices(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.SpeechSynthesis.VoiceInformation]: ...
@@ -36,17 +37,20 @@ class IInstalledVoicesStatic(ComPtr):
     DefaultVoice = property(get_DefaultVoice, None)
 class IInstalledVoicesStatic2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.IInstalledVoicesStatic2'
     _iid_ = Guid('{64255f2e-358d-4058-be9a-fd3fcb423530}')
     @winrt_commethod(6)
     def TrySetDefaultVoiceAsync(self, voice: Windows.Media.SpeechSynthesis.VoiceInformation) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ISpeechSynthesisStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesisStream'
     _iid_ = Guid('{83e46e93-244c-4622-ba0b-6229c4d0d65d}')
     @winrt_commethod(6)
     def get_Markers(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.IMediaMarker]: ...
     Markers = property(get_Markers, None)
 class ISpeechSynthesizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizer'
     _iid_ = Guid('{ce9f7c76-97f4-4ced-ad68-d51c458e45c6}')
     @winrt_commethod(6)
     def SynthesizeTextToStreamAsync(self, text: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Media.SpeechSynthesis.SpeechSynthesisStream]: ...
@@ -59,12 +63,14 @@ class ISpeechSynthesizer(ComPtr):
     Voice = property(get_Voice, put_Voice)
 class ISpeechSynthesizer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizer2'
     _iid_ = Guid('{a7c5ecb2-4339-4d6a-bbf8-c7a4f1544c2e}')
     @winrt_commethod(6)
     def get_Options(self) -> Windows.Media.SpeechSynthesis.SpeechSynthesizerOptions: ...
     Options = property(get_Options, None)
 class ISpeechSynthesizerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions'
     _iid_ = Guid('{a0e23871-cc3d-43c9-91b1-ee185324d83d}')
     @winrt_commethod(6)
     def get_IncludeWordBoundaryMetadata(self) -> Boolean: ...
@@ -78,6 +84,7 @@ class ISpeechSynthesizerOptions(ComPtr):
     IncludeSentenceBoundaryMetadata = property(get_IncludeSentenceBoundaryMetadata, put_IncludeSentenceBoundaryMetadata)
 class ISpeechSynthesizerOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions2'
     _iid_ = Guid('{1cbef60e-119c-4bed-b118-d250c3a25793}')
     @winrt_commethod(6)
     def get_AudioVolume(self) -> Double: ...
@@ -96,6 +103,7 @@ class ISpeechSynthesizerOptions2(ComPtr):
     AudioPitch = property(get_AudioPitch, put_AudioPitch)
 class ISpeechSynthesizerOptions3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions3'
     _iid_ = Guid('{401ed877-902c-4814-a582-a5d0c0769fa8}')
     @winrt_commethod(6)
     def get_AppendedSilence(self) -> Windows.Media.SpeechSynthesis.SpeechAppendedSilence: ...
@@ -109,6 +117,7 @@ class ISpeechSynthesizerOptions3(ComPtr):
     PunctuationSilence = property(get_PunctuationSilence, put_PunctuationSilence)
 class IVoiceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechSynthesis.IVoiceInformation'
     _iid_ = Guid('{b127d6a4-1291-4604-aa9c-83134083352c}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...

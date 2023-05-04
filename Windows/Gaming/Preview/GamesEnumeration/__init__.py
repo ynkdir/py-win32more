@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class GameList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameList'
     @winrt_classmethod
     def MergeEntriesAsync(cls: Windows.Gaming.Preview.GamesEnumeration.IGameListStatics2, left: Windows.Gaming.Preview.GamesEnumeration.GameListEntry, right: Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Windows.Foundation.IAsyncOperation[Windows.Gaming.Preview.GamesEnumeration.GameListEntry]: ...
     @winrt_classmethod
@@ -52,8 +53,8 @@ GameListCategory_ConfirmedBySystem: GameListCategory = 1
 GameListCategory_ConfirmedByUser: GameListCategory = 2
 class GameListChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{25f6a421-d8f5-4d91-b40e-53d5e86fde64}')
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameListChangedEventHandler'
+    _iid_ = Guid('{25f6a421-d8f5-4d91-b40e-53d5e86fde64}')
     @winrt_commethod(3)
     def Invoke(self, game: Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Void: ...
 class GameListEntry(ComPtr):
@@ -101,8 +102,8 @@ GameListEntryLaunchableState_ByUserProvidedPath: GameListEntryLaunchableState = 
 GameListEntryLaunchableState_ByTile: GameListEntryLaunchableState = 3
 class GameListRemovedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{10c5648f-6c8f-4712-9b38-474bc22e76d8}')
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameListRemovedEventHandler'
+    _iid_ = Guid('{10c5648f-6c8f-4712-9b38-474bc22e76d8}')
     @winrt_commethod(3)
     def Invoke(self, identifier: WinRT_String) -> Void: ...
 class GameModeConfiguration(ComPtr):
@@ -167,6 +168,7 @@ class GameModeUserConfiguration(ComPtr):
     GamingRelatedProcessNames = property(get_GamingRelatedProcessNames, None)
 class IGameListEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListEntry'
     _iid_ = Guid('{735924d3-811f-4494-b69c-c641a0c61543}')
     @winrt_commethod(6)
     def get_DisplayInfo(self) -> Windows.ApplicationModel.AppDisplayInfo: ...
@@ -183,6 +185,7 @@ class IGameListEntry(ComPtr):
     Properties = property(get_Properties, None)
 class IGameListEntry2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListEntry2'
     _iid_ = Guid('{d84a8f8b-8749-4a25-90d3-f6c5a427886d}')
     @winrt_commethod(6)
     def get_LaunchableState(self) -> Windows.Gaming.Preview.GamesEnumeration.GameListEntryLaunchableState: ...
@@ -207,6 +210,7 @@ class IGameListEntry2(ComPtr):
     GameModeConfiguration = property(get_GameModeConfiguration, None)
 class IGameListStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListStatics'
     _iid_ = Guid('{2ddd0f6f-9c66-4b05-945c-d6ed78491b8c}')
     @winrt_commethod(6)
     def FindAllAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Gaming.Preview.GamesEnumeration.GameListEntry]]: ...
@@ -226,6 +230,7 @@ class IGameListStatics(ComPtr):
     def remove_GameUpdated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IGameListStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListStatics2'
     _iid_ = Guid('{395f2098-ea1a-45aa-9268-a83905686f27}')
     @winrt_commethod(6)
     def MergeEntriesAsync(self, left: Windows.Gaming.Preview.GamesEnumeration.GameListEntry, right: Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Windows.Foundation.IAsyncOperation[Windows.Gaming.Preview.GamesEnumeration.GameListEntry]: ...
@@ -233,6 +238,7 @@ class IGameListStatics2(ComPtr):
     def UnmergeEntryAsync(self, mergedEntry: Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Gaming.Preview.GamesEnumeration.GameListEntry]]: ...
 class IGameModeConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameModeConfiguration'
     _iid_ = Guid('{78e591af-b142-4ef0-8830-55bc2be4f5ea}')
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
@@ -281,6 +287,7 @@ class IGameModeConfiguration(ComPtr):
     AffinitizeToExclusiveCpus = property(get_AffinitizeToExclusiveCpus, put_AffinitizeToExclusiveCpus)
 class IGameModeUserConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfiguration'
     _iid_ = Guid('{72d34af4-756b-470f-a0c2-ba62a90795db}')
     @winrt_commethod(6)
     def get_GamingRelatedProcessNames(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
@@ -289,6 +296,7 @@ class IGameModeUserConfiguration(ComPtr):
     GamingRelatedProcessNames = property(get_GamingRelatedProcessNames, None)
 class IGameModeUserConfigurationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfigurationStatics'
     _iid_ = Guid('{6e50d97c-66ea-478e-a4a1-f57c0e8d00e7}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration: ...

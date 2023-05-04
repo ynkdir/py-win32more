@@ -23,12 +23,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class GameControllerProviderInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Input.Preview.GameControllerProviderInfo'
     @winrt_classmethod
     def GetParentProviderId(cls: Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics, provider: Windows.Gaming.Input.Custom.IGameControllerProvider) -> WinRT_String: ...
     @winrt_classmethod
     def GetProviderId(cls: Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics, provider: Windows.Gaming.Input.Custom.IGameControllerProvider) -> WinRT_String: ...
 class IGameControllerProviderInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics'
     _iid_ = Guid('{0be1e6c5-d9bd-44ee-8362-488b2e464bfb}')
     @winrt_commethod(6)
     def GetParentProviderId(self, provider: Windows.Gaming.Input.Custom.IGameControllerProvider) -> WinRT_String: ...

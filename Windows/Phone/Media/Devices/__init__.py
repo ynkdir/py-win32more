@@ -54,6 +54,7 @@ AvailableAudioRoutingEndpoints_Speakerphone: AvailableAudioRoutingEndpoints = 2
 AvailableAudioRoutingEndpoints_Bluetooth: AvailableAudioRoutingEndpoints = 4
 class IAudioRoutingManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Media.Devices.IAudioRoutingManager'
     _iid_ = Guid('{79340d20-71cc-4526-9f29-fc8d2486418b}')
     @winrt_commethod(6)
     def GetAudioEndpoint(self) -> Windows.Phone.Media.Devices.AudioRoutingEndpoint: ...
@@ -68,6 +69,7 @@ class IAudioRoutingManager(ComPtr):
     AvailableAudioEndpoints = property(get_AvailableAudioEndpoints, None)
 class IAudioRoutingManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Media.Devices.IAudioRoutingManagerStatics'
     _iid_ = Guid('{977fb2a4-5590-4a6f-adde-6a3d0ad58250}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Phone.Media.Devices.AudioRoutingManager: ...

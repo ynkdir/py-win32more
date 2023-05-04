@@ -28,6 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUserActivity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivity'
     _iid_ = Guid('{fc103e9e-2cab-4d36-aea2-b4bb556cef0f}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.ApplicationModel.UserActivities.UserActivityState: ...
@@ -69,11 +70,13 @@ class IUserActivity(ComPtr):
     ContentInfo = property(get_ContentInfo, put_ContentInfo)
 class IUserActivity2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivity2'
     _iid_ = Guid('{9dc40c62-08c4-47ac-aa9c-2bb2221c55fd}')
     @winrt_commethod(6)
     def ToJson(self) -> WinRT_String: ...
 class IUserActivity3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivity3'
     _iid_ = Guid('{e7697744-e1a2-5147-8e06-55f1eeef271c}')
     @winrt_commethod(6)
     def get_IsRoamable(self) -> Boolean: ...
@@ -82,6 +85,7 @@ class IUserActivity3(ComPtr):
     IsRoamable = property(get_IsRoamable, put_IsRoamable)
 class IUserActivityAttribution(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityAttribution'
     _iid_ = Guid('{34a5c8b5-86dd-4aec-a491-6a4faea5d22e}')
     @winrt_commethod(6)
     def get_IconUri(self) -> Windows.Foundation.Uri: ...
@@ -100,11 +104,13 @@ class IUserActivityAttribution(ComPtr):
     AddImageQuery = property(get_AddImageQuery, put_AddImageQuery)
 class IUserActivityAttributionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityAttributionFactory'
     _iid_ = Guid('{e62bd252-c566-4f42-9974-916c4d76377e}')
     @winrt_commethod(6)
     def CreateWithUri(self, iconUri: Windows.Foundation.Uri) -> Windows.ApplicationModel.UserActivities.UserActivityAttribution: ...
 class IUserActivityChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityChannel'
     _iid_ = Guid('{bac0f8b8-a0e4-483b-b948-9cbabd06070c}')
     @winrt_commethod(6)
     def GetOrCreateUserActivityAsync(self, activityId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserActivities.UserActivity]: ...
@@ -114,6 +120,7 @@ class IUserActivityChannel(ComPtr):
     def DeleteAllActivitiesAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IUserActivityChannel2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityChannel2'
     _iid_ = Guid('{1698e35b-eb7e-4ea0-bf17-a459e8be706c}')
     @winrt_commethod(6)
     def GetRecentUserActivitiesAsync(self, maxUniqueActivities: Int32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.ApplicationModel.UserActivities.UserActivitySessionHistoryItem]]: ...
@@ -121,11 +128,13 @@ class IUserActivityChannel2(ComPtr):
     def GetSessionHistoryItemsForUserActivityAsync(self, activityId: WinRT_String, startTime: Windows.Foundation.DateTime) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.ApplicationModel.UserActivities.UserActivitySessionHistoryItem]]: ...
 class IUserActivityChannelStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityChannelStatics'
     _iid_ = Guid('{c8c005ab-198d-4d80-abb2-c9775ec4a729}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.ApplicationModel.UserActivities.UserActivityChannel: ...
 class IUserActivityChannelStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityChannelStatics2'
     _iid_ = Guid('{8e87de30-aa4f-4624-9ad0-d40f3ba0317c}')
     @winrt_commethod(6)
     def DisableAutoSessionCreation(self) -> Void: ...
@@ -133,31 +142,37 @@ class IUserActivityChannelStatics2(ComPtr):
     def TryGetForWebAccount(self, account: Windows.Security.Credentials.WebAccount) -> Windows.ApplicationModel.UserActivities.UserActivityChannel: ...
 class IUserActivityChannelStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityChannelStatics3'
     _iid_ = Guid('{53bc4ddb-bbdf-5984-802a-5305874e205c}')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.ApplicationModel.UserActivities.UserActivityChannel: ...
 class IUserActivityContentInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityContentInfo'
     _iid_ = Guid('{b399e5ad-137f-409d-822d-e1af27ce08dc}')
     @winrt_commethod(6)
     def ToJson(self) -> WinRT_String: ...
 class IUserActivityContentInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityContentInfoStatics'
     _iid_ = Guid('{9988c34b-0386-4bc9-968a-8200b004144f}')
     @winrt_commethod(6)
     def FromJson(self, value: WinRT_String) -> Windows.ApplicationModel.UserActivities.UserActivityContentInfo: ...
 class IUserActivityFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityFactory'
     _iid_ = Guid('{7c385758-361d-4a67-8a3b-34ca2978f9a3}')
     @winrt_commethod(6)
     def CreateWithActivityId(self, activityId: WinRT_String) -> Windows.ApplicationModel.UserActivities.UserActivity: ...
 class IUserActivityRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityRequest'
     _iid_ = Guid('{a0ef6355-cf35-4ff0-8833-50cb4b72e06d}')
     @winrt_commethod(6)
     def SetUserActivity(self, activity: Windows.ApplicationModel.UserActivities.UserActivity) -> Void: ...
 class IUserActivityRequestManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityRequestManager'
     _iid_ = Guid('{0c30be4e-903d-48d6-82d4-4043ed57791b}')
     @winrt_commethod(6)
     def add_UserActivityRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.UserActivities.UserActivityRequestManager, Windows.ApplicationModel.UserActivities.UserActivityRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -165,11 +180,13 @@ class IUserActivityRequestManager(ComPtr):
     def remove_UserActivityRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IUserActivityRequestManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityRequestManagerStatics'
     _iid_ = Guid('{c0392df1-224a-432c-81e5-0c76b4c4cefa}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.ApplicationModel.UserActivities.UserActivityRequestManager: ...
 class IUserActivityRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityRequestedEventArgs'
     _iid_ = Guid('{a4cc7a4c-8229-4cfd-a3bc-c61d318575a4}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.UserActivities.UserActivityRequest: ...
@@ -178,12 +195,14 @@ class IUserActivityRequestedEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IUserActivitySession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivitySession'
     _iid_ = Guid('{ae434d78-24fa-44a3-ad48-6eda61aa1924}')
     @winrt_commethod(6)
     def get_ActivityId(self) -> WinRT_String: ...
     ActivityId = property(get_ActivityId, None)
 class IUserActivitySessionHistoryItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivitySessionHistoryItem'
     _iid_ = Guid('{e8d59bd3-3e5d-49fd-98d7-6da97521e255}')
     @winrt_commethod(6)
     def get_UserActivity(self) -> Windows.ApplicationModel.UserActivities.UserActivity: ...
@@ -196,6 +215,7 @@ class IUserActivitySessionHistoryItem(ComPtr):
     EndTime = property(get_EndTime, None)
 class IUserActivityStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityStatics'
     _iid_ = Guid('{8c8fd333-0e09-47f6-9ac7-95cf5c39367b}')
     @winrt_commethod(6)
     def TryParseFromJson(self, json: WinRT_String) -> Windows.ApplicationModel.UserActivities.UserActivity: ...
@@ -205,6 +225,7 @@ class IUserActivityStatics(ComPtr):
     def ToJsonArray(self, activities: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.UserActivities.UserActivity]) -> WinRT_String: ...
 class IUserActivityVisualElements(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityVisualElements'
     _iid_ = Guid('{94757513-262f-49ef-bbbf-9b75d2e85250}')
     @winrt_commethod(6)
     def get_DisplayText(self) -> WinRT_String: ...
@@ -233,6 +254,7 @@ class IUserActivityVisualElements(ComPtr):
     Content = property(get_Content, put_Content)
 class IUserActivityVisualElements2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityVisualElements2'
     _iid_ = Guid('{caae7fc7-3eef-4359-825c-9d51b9220de3}')
     @winrt_commethod(6)
     def get_AttributionDisplayText(self) -> WinRT_String: ...

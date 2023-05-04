@@ -42,6 +42,7 @@ class AddAppointmentOperation(ComPtr):
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
 class AppointmentsProviderLaunchActionVerbs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs'
     @winrt_classmethod
     def get_ShowAppointmentDetails(cls: Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics2) -> WinRT_String: ...
     @winrt_classmethod
@@ -59,6 +60,7 @@ class AppointmentsProviderLaunchActionVerbs(ComPtr):
     ShowTimeFrame = property(get_ShowTimeFrame, None)
 class IAddAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.IAddAppointmentOperation'
     _iid_ = Guid('{ec4a9af3-620d-4c69-add7-9794e918081f}')
     @winrt_commethod(6)
     def get_AppointmentInformation(self) -> Windows.ApplicationModel.Appointments.Appointment: ...
@@ -76,6 +78,7 @@ class IAddAppointmentOperation(ComPtr):
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
 class IAppointmentsProviderLaunchActionVerbsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics'
     _iid_ = Guid('{36dbba28-9e2e-49c6-8ef7-3ab7a5dcc8b8}')
     @winrt_commethod(6)
     def get_AddAppointment(self) -> WinRT_String: ...
@@ -91,12 +94,14 @@ class IAppointmentsProviderLaunchActionVerbsStatics(ComPtr):
     ShowTimeFrame = property(get_ShowTimeFrame, None)
 class IAppointmentsProviderLaunchActionVerbsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics2'
     _iid_ = Guid('{ef9049a4-af21-473c-88dc-76cd89f60ca5}')
     @winrt_commethod(6)
     def get_ShowAppointmentDetails(self) -> WinRT_String: ...
     ShowAppointmentDetails = property(get_ShowAppointmentDetails, None)
 class IRemoveAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.IRemoveAppointmentOperation'
     _iid_ = Guid('{08b66aba-fe33-46cd-a50c-a8ffb3260537}')
     @winrt_commethod(6)
     def get_AppointmentId(self) -> WinRT_String: ...
@@ -117,6 +122,7 @@ class IRemoveAppointmentOperation(ComPtr):
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
 class IReplaceAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.IReplaceAppointmentOperation'
     _iid_ = Guid('{f4903d9b-9e61-4de2-a732-2687c07d1de8}')
     @winrt_commethod(6)
     def get_AppointmentId(self) -> WinRT_String: ...

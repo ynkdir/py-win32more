@@ -31,18 +31,21 @@ class ErrorReceivedEventArgs(ComPtr):
     Error = property(get_Error, None)
 class IErrorReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.SerialCommunication.IErrorReceivedEventArgs'
     _iid_ = Guid('{fcc6bf59-1283-4d8a-bfdf-566b33ddb28f}')
     @winrt_commethod(6)
     def get_Error(self) -> Windows.Devices.SerialCommunication.SerialError: ...
     Error = property(get_Error, None)
 class IPinChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.SerialCommunication.IPinChangedEventArgs'
     _iid_ = Guid('{a2bf1db0-fc9c-4607-93d0-fa5e8343ee22}')
     @winrt_commethod(6)
     def get_PinChange(self) -> Windows.Devices.SerialCommunication.SerialPinChange: ...
     PinChange = property(get_PinChange, None)
 class ISerialDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.SerialCommunication.ISerialDevice'
     _iid_ = Guid('{e187ccc6-2210-414f-b65a-f5553a03372a}')
     @winrt_commethod(6)
     def get_BaudRate(self) -> UInt32: ...
@@ -131,6 +134,7 @@ class ISerialDevice(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class ISerialDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.SerialCommunication.ISerialDeviceStatics'
     _iid_ = Guid('{058c4a70-0836-4993-ae1a-b61ae3be056b}')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...

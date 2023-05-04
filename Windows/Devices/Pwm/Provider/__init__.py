@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPwmControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Pwm.Provider.IPwmControllerProvider'
     _iid_ = Guid('{1300593b-e2e3-40a4-b7d9-48dff0377a52}')
     @winrt_commethod(6)
     def get_PinCount(self) -> Int32: ...
@@ -50,6 +51,7 @@ class IPwmControllerProvider(ComPtr):
     MinFrequency = property(get_MinFrequency, None)
 class IPwmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Pwm.Provider.IPwmProvider'
     _iid_ = Guid('{a3301228-52f1-47b0-9349-66ba43d25902}')
     @winrt_commethod(6)
     def GetControllers(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Pwm.Provider.IPwmControllerProvider]: ...

@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPlaylist(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Playlists.IPlaylist'
     _iid_ = Guid('{803736f5-cf44-4d97-83b3-7a089e9ab663}')
     @winrt_commethod(6)
     def get_Files(self) -> Windows.Foundation.Collections.IVector[Windows.Storage.StorageFile]: ...
@@ -37,6 +38,7 @@ class IPlaylist(ComPtr):
     Files = property(get_Files, None)
 class IPlaylistStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Playlists.IPlaylistStatics'
     _iid_ = Guid('{c5c331cd-81f9-4ff3-95b9-70b6ff046b68}')
     @winrt_commethod(6)
     def LoadAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Media.Playlists.Playlist]: ...

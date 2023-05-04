@@ -32,6 +32,7 @@ AuthenticationProtocol_CredSsp: AuthenticationProtocol = 5
 AuthenticationProtocol_Custom: AuthenticationProtocol = 6
 class CredentialPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.UI.CredentialPicker'
     @winrt_classmethod
     def PickWithOptionsAsync(cls: Windows.Security.Credentials.UI.ICredentialPickerStatics, options: Windows.Security.Credentials.UI.CredentialPickerOptions) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
     @winrt_classmethod
@@ -125,6 +126,7 @@ CredentialSaveOption_Selected: CredentialSaveOption = 1
 CredentialSaveOption_Hidden: CredentialSaveOption = 2
 class ICredentialPickerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.UI.ICredentialPickerOptions'
     _iid_ = Guid('{965a0b4c-95fa-467f-992b-0b22e5859bf6}')
     @winrt_commethod(6)
     def put_Caption(self, value: WinRT_String) -> Void: ...
@@ -178,6 +180,7 @@ class ICredentialPickerOptions(ComPtr):
     CredentialSaveOption = property(get_CredentialSaveOption, put_CredentialSaveOption)
 class ICredentialPickerResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.UI.ICredentialPickerResults'
     _iid_ = Guid('{1948f99a-cc30-410c-9c38-cc0884c5b3d7}')
     @winrt_commethod(6)
     def get_ErrorCode(self) -> UInt32: ...
@@ -202,6 +205,7 @@ class ICredentialPickerResults(ComPtr):
     CredentialPassword = property(get_CredentialPassword, None)
 class ICredentialPickerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.UI.ICredentialPickerStatics'
     _iid_ = Guid('{aa3a5c73-c9ea-4782-99fb-e6d7e938e12d}')
     @winrt_commethod(6)
     def PickWithOptionsAsync(self, options: Windows.Security.Credentials.UI.CredentialPickerOptions) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
@@ -211,6 +215,7 @@ class ICredentialPickerStatics(ComPtr):
     def PickWithCaptionAsync(self, targetName: WinRT_String, message: WinRT_String, caption: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
 class IUserConsentVerifierStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.UI.IUserConsentVerifierStatics'
     _iid_ = Guid('{af4f3f91-564c-4ddc-b8b5-973447627c65}')
     @winrt_commethod(6)
     def CheckAvailabilityAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.UserConsentVerifierAvailability]: ...
@@ -226,6 +231,7 @@ UserConsentVerificationResult_RetriesExhausted: UserConsentVerificationResult = 
 UserConsentVerificationResult_Canceled: UserConsentVerificationResult = 6
 class UserConsentVerifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.UI.UserConsentVerifier'
     @winrt_classmethod
     def CheckAvailabilityAsync(cls: Windows.Security.Credentials.UI.IUserConsentVerifierStatics) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.UserConsentVerifierAvailability]: ...
     @winrt_classmethod

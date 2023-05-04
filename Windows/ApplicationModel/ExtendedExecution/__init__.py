@@ -69,12 +69,14 @@ class ExtendedExecutionSession(ComPtr):
     PercentProgress = property(get_PercentProgress, put_PercentProgress)
 class IExtendedExecutionRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionRevokedEventArgs'
     _iid_ = Guid('{bfbc9f16-63b5-4c0b-aad6-828af5373ec3}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedReason: ...
     Reason = property(get_Reason, None)
 class IExtendedExecutionSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession'
     _iid_ = Guid('{af908a2d-118b-48f1-9308-0c4fc41e200f}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionReason: ...

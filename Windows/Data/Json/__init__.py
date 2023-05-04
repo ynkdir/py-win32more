@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IJsonArray(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonArray'
     _iid_ = Guid('{08c1ddb6-0cbd-4a9a-b5d3-2f852dc37e81}')
     @winrt_commethod(6)
     def GetObjectAt(self, index: UInt32) -> Windows.Data.Json.JsonObject: ...
@@ -37,6 +38,7 @@ class IJsonArray(ComPtr):
     def GetBooleanAt(self, index: UInt32) -> Boolean: ...
 class IJsonArrayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonArrayStatics'
     _iid_ = Guid('{db1434a9-e164-499f-93e2-8a8f49bb90ba}')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Data.Json.JsonArray: ...
@@ -44,11 +46,13 @@ class IJsonArrayStatics(ComPtr):
     def TryParse(self, input: WinRT_String, result: POINTER(Windows.Data.Json.JsonArray)) -> Boolean: ...
 class IJsonErrorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonErrorStatics2'
     _iid_ = Guid('{404030da-87d0-436c-83ab-fc7b12c0cc26}')
     @winrt_commethod(6)
     def GetJsonStatus(self, hresult: Int32) -> Windows.Data.Json.JsonErrorStatus: ...
 class IJsonObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonObject'
     _iid_ = Guid('{064e24dd-29c2-4f83-9ac1-9ee11578beb3}')
     @winrt_commethod(6)
     def GetNamedValue(self, name: WinRT_String) -> Windows.Data.Json.JsonValue: ...
@@ -66,6 +70,7 @@ class IJsonObject(ComPtr):
     def GetNamedBoolean(self, name: WinRT_String) -> Boolean: ...
 class IJsonObjectStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonObjectStatics'
     _iid_ = Guid('{2289f159-54de-45d8-abcc-22603fa066a0}')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Data.Json.JsonObject: ...
@@ -73,6 +78,7 @@ class IJsonObjectStatics(ComPtr):
     def TryParse(self, input: WinRT_String, result: POINTER(Windows.Data.Json.JsonObject)) -> Boolean: ...
 class IJsonObjectWithDefaultValues(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonObjectWithDefaultValues'
     _iid_ = Guid('{d960d2a2-b7f0-4f00-8e44-d82cf415ea13}')
     @winrt_commethod(6)
     def GetNamedValueOrDefault(self, name: WinRT_String, defaultValue: Windows.Data.Json.JsonValue) -> Windows.Data.Json.JsonValue: ...
@@ -88,6 +94,7 @@ class IJsonObjectWithDefaultValues(ComPtr):
     def GetNamedBooleanOrDefault(self, name: WinRT_String, defaultValue: Boolean) -> Boolean: ...
 class IJsonValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonValue'
     _iid_ = Guid('{a3219ecb-f0b3-4dcd-beee-19d48cd3ed1e}')
     @winrt_commethod(6)
     def get_ValueType(self) -> Windows.Data.Json.JsonValueType: ...
@@ -106,6 +113,7 @@ class IJsonValue(ComPtr):
     ValueType = property(get_ValueType, None)
 class IJsonValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonValueStatics'
     _iid_ = Guid('{5f6b544a-2f53-48e1-91a3-f78b50a6345c}')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Data.Json.JsonValue: ...
@@ -119,6 +127,7 @@ class IJsonValueStatics(ComPtr):
     def CreateStringValue(self, input: WinRT_String) -> Windows.Data.Json.JsonValue: ...
 class IJsonValueStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.IJsonValueStatics2'
     _iid_ = Guid('{1d9ecbe4-3fe8-4335-8392-93d8e36865f0}')
     @winrt_commethod(6)
     def CreateNullValue(self) -> Windows.Data.Json.JsonValue: ...
@@ -188,6 +197,7 @@ class JsonArray(ComPtr):
     Size = property(get_Size, None)
 class JsonError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Json.JsonError'
     @winrt_classmethod
     def GetJsonStatus(cls: Windows.Data.Json.IJsonErrorStatics2, hresult: Int32) -> Windows.Data.Json.JsonErrorStatus: ...
 JsonErrorStatus = Int32

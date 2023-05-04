@@ -28,6 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IMediaTranscoder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Transcoding.IMediaTranscoder'
     _iid_ = Guid('{190c99d2-a0aa-4d34-86bc-eed1b12c2f5b}')
     @winrt_commethod(6)
     def put_TrimStartTime(self, value: Windows.Foundation.TimeSpan) -> Void: ...
@@ -65,6 +66,7 @@ class IMediaTranscoder(ComPtr):
     HardwareAccelerationEnabled = property(get_HardwareAccelerationEnabled, put_HardwareAccelerationEnabled)
 class IMediaTranscoder2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Transcoding.IMediaTranscoder2'
     _iid_ = Guid('{40531d74-35e0-4f04-8574-ca8bc4e5a082}')
     @winrt_commethod(6)
     def PrepareMediaStreamSourceTranscodeAsync(self, source: Windows.Media.Core.IMediaSource, destination: Windows.Storage.Streams.IRandomAccessStream, profile: Windows.Media.MediaProperties.MediaEncodingProfile) -> Windows.Foundation.IAsyncOperation[Windows.Media.Transcoding.PrepareTranscodeResult]: ...
@@ -75,6 +77,7 @@ class IMediaTranscoder2(ComPtr):
     VideoProcessingAlgorithm = property(get_VideoProcessingAlgorithm, put_VideoProcessingAlgorithm)
 class IPrepareTranscodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Transcoding.IPrepareTranscodeResult'
     _iid_ = Guid('{05f25dce-994f-4a34-9d68-97ccce1730d6}')
     @winrt_commethod(6)
     def get_CanTranscode(self) -> Boolean: ...

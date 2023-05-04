@@ -70,6 +70,7 @@ class AdcController(ComPtr):
     ChannelMode = property(get_ChannelMode, put_ChannelMode)
 class IAdcChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Adc.IAdcChannel'
     _iid_ = Guid('{040bf414-2588-4a56-abef-73a260acc60a}')
     @winrt_commethod(6)
     def get_Controller(self) -> Windows.Devices.Adc.AdcController: ...
@@ -80,6 +81,7 @@ class IAdcChannel(ComPtr):
     Controller = property(get_Controller, None)
 class IAdcController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Adc.IAdcController'
     _iid_ = Guid('{2a76e4b0-a896-4219-86b6-ea8cdce98f56}')
     @winrt_commethod(6)
     def get_ChannelCount(self) -> Int32: ...
@@ -104,11 +106,13 @@ class IAdcController(ComPtr):
     ChannelMode = property(get_ChannelMode, put_ChannelMode)
 class IAdcControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Adc.IAdcControllerStatics'
     _iid_ = Guid('{cce98e0c-01f8-4891-bc3b-be53ef279ca4}')
     @winrt_commethod(6)
     def GetControllersAsync(self, provider: Windows.Devices.Adc.Provider.IAdcProvider) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Adc.AdcController]]: ...
 class IAdcControllerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Adc.IAdcControllerStatics2'
     _iid_ = Guid('{a2b93b1d-977b-4f5a-a5fe-a6abaffe6484}')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Adc.AdcController]: ...

@@ -189,6 +189,7 @@ ContactStoreSystemAccessMode_ReadOnly: ContactStoreSystemAccessMode = 0
 ContactStoreSystemAccessMode_ReadWrite: ContactStoreSystemAccessMode = 1
 class IContactAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactAddress'
     _iid_ = Guid('{5f24f927-94a9-44a2-a155-2d0b37d1dccd}')
     @winrt_commethod(6)
     def get_Country(self) -> WinRT_String: ...
@@ -217,6 +218,7 @@ class IContactAddress(ComPtr):
     StreetAddress = property(get_StreetAddress, put_StreetAddress)
 class IContactChangeRecord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactChangeRecord'
     _iid_ = Guid('{b9d3f78f-513b-4742-be00-cc5c5c236b04}')
     @winrt_commethod(6)
     def get_ChangeType(self) -> Windows.Phone.PersonalInformation.ContactChangeType: ...
@@ -232,6 +234,7 @@ class IContactChangeRecord(ComPtr):
     RemoteId = property(get_RemoteId, None)
 class IContactInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactInformation'
     _iid_ = Guid('{e2b51ffc-e792-4ab7-b15b-f2e078664dea}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
@@ -273,6 +276,7 @@ class IContactInformation(ComPtr):
     DisplayPicture = property(get_DisplayPicture, None)
 class IContactInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactInformation2'
     _iid_ = Guid('{3198b20c-621e-4668-ac38-d667b87d06d5}')
     @winrt_commethod(6)
     def get_DisplayPictureDate(self) -> Windows.Foundation.DateTime: ...
@@ -281,11 +285,13 @@ class IContactInformation2(ComPtr):
     DisplayPictureDate = property(get_DisplayPictureDate, put_DisplayPictureDate)
 class IContactInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactInformationStatics'
     _iid_ = Guid('{0f67bb29-03d0-4be6-b2a5-fb13859f1202}')
     @winrt_commethod(6)
     def ParseVcardAsync(self, vcard: Windows.Storage.Streams.IInputStream) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.ContactInformation]: ...
 class IContactQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactQueryOptions'
     _iid_ = Guid('{580cab76-3f31-46c1-9a50-424a53dacae3}')
     @winrt_commethod(6)
     def get_DesiredFields(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
@@ -297,6 +303,7 @@ class IContactQueryOptions(ComPtr):
     OrderBy = property(get_OrderBy, put_OrderBy)
 class IContactQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactQueryResult'
     _iid_ = Guid('{c03db722-ecdb-4700-857e-3e786426b04b}')
     @winrt_commethod(6)
     def GetContactCountAsync(self) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
@@ -308,6 +315,7 @@ class IContactQueryResult(ComPtr):
     def GetCurrentQueryOptions(self) -> Windows.Phone.PersonalInformation.ContactQueryOptions: ...
 class IContactStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactStore'
     _iid_ = Guid('{b2cd6fef-2bfd-4fad-8552-4e698097e8eb}')
     @winrt_commethod(6)
     def FindContactByRemoteIdAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.StoredContact]: ...
@@ -332,11 +340,13 @@ class IContactStore(ComPtr):
     RevisionNumber = property(get_RevisionNumber, None)
 class IContactStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactStore2'
     _iid_ = Guid('{65f1b64f-d653-43a7-b236-b30c0f4d7269}')
     @winrt_commethod(6)
     def CreateMeContactAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.StoredContact]: ...
 class IContactStoreStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IContactStoreStatics'
     _iid_ = Guid('{a804fe22-4beb-44cc-a572-67a5b92e8567}')
     @winrt_commethod(6)
     def CreateOrOpenAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.ContactStore]: ...
@@ -344,6 +354,7 @@ class IContactStoreStatics(ComPtr):
     def CreateOrOpenWithOptionsAsync(self, access: Windows.Phone.PersonalInformation.ContactStoreSystemAccessMode, sharing: Windows.Phone.PersonalInformation.ContactStoreApplicationAccessMode) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.ContactStore]: ...
 class IKnownContactPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IKnownContactPropertiesStatics'
     _iid_ = Guid('{d5812b01-2ced-4ee6-b1d6-094bf88ef0b6}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
@@ -452,6 +463,7 @@ class IKnownContactPropertiesStatics(ComPtr):
     AlternateWorkTelephone = property(get_AlternateWorkTelephone, None)
 class IStoredContact(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IStoredContact'
     _iid_ = Guid('{b070b7b1-263d-4e71-abe7-591d2466570e}')
     @winrt_commethod(6)
     def get_Store(self) -> Windows.Phone.PersonalInformation.ContactStore: ...
@@ -472,6 +484,7 @@ class IStoredContact(ComPtr):
     RemoteId = property(get_RemoteId, put_RemoteId)
 class IStoredContactFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.IStoredContactFactory'
     _iid_ = Guid('{49ede921-c225-4fd9-89c5-cecc2c8a4b79}')
     @winrt_commethod(6)
     def CreateStoredContact(self, store: Windows.Phone.PersonalInformation.ContactStore) -> Windows.Phone.PersonalInformation.StoredContact: ...
@@ -479,6 +492,7 @@ class IStoredContactFactory(ComPtr):
     def CreateStoredContactFromInformation(self, store: Windows.Phone.PersonalInformation.ContactStore, contact: Windows.Phone.PersonalInformation.ContactInformation) -> Windows.Phone.PersonalInformation.StoredContact: ...
 class KnownContactProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.PersonalInformation.KnownContactProperties'
     @winrt_classmethod
     def get_DisplayName(cls: Windows.Phone.PersonalInformation.IKnownContactPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod

@@ -479,6 +479,7 @@ class AllJoynSessionMemberRemovedEventArgs(ComPtr):
     UniqueName = property(get_UniqueName, None)
 class AllJoynStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.AllJoynStatus'
     @winrt_classmethod
     def get_Ok(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
     @winrt_classmethod
@@ -549,6 +550,7 @@ class AllJoynWatcherStoppedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class IAllJoynAboutData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAboutData'
     _iid_ = Guid('{e5a9bf00-1fa2-4839-93ef-f9df404890f7}')
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
@@ -606,6 +608,7 @@ class IAllJoynAboutData(ComPtr):
     AppId = property(get_AppId, put_AppId)
 class IAllJoynAboutDataView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAboutDataView'
     _iid_ = Guid('{6823111f-6212-4934-9c48-e19ca4984288}')
     @winrt_commethod(6)
     def get_Status(self) -> Int32: ...
@@ -657,6 +660,7 @@ class IAllJoynAboutDataView(ComPtr):
     Manufacturer = property(get_Manufacturer, None)
 class IAllJoynAboutDataViewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAboutDataViewStatics'
     _iid_ = Guid('{57edb688-0c5e-416e-88b5-39b32d25c47d}')
     @winrt_commethod(6)
     def GetDataBySessionPortAsync(self, uniqueName: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment, sessionPort: UInt16) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
@@ -664,11 +668,13 @@ class IAllJoynAboutDataViewStatics(ComPtr):
     def GetDataBySessionPortWithLanguageAsync(self, uniqueName: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment, sessionPort: UInt16, language: Windows.Globalization.Language) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
 class IAllJoynAcceptSessionJoiner(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoiner'
     _iid_ = Guid('{4da817d2-cd1d-4023-a7c4-16def89c28df}')
     @winrt_commethod(6)
     def Accept(self) -> Void: ...
 class IAllJoynAcceptSessionJoinerEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs'
     _iid_ = Guid('{4efb5365-3e8a-4257-8f10-539ce0d56c0f}')
     @winrt_commethod(6)
     def get_UniqueName(self) -> WinRT_String: ...
@@ -689,11 +695,13 @@ class IAllJoynAcceptSessionJoinerEventArgs(ComPtr):
     SameNetwork = property(get_SameNetwork, None)
 class IAllJoynAcceptSessionJoinerEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgsFactory'
     _iid_ = Guid('{b4435bc0-6145-429e-84db-d5bfe772b14f}')
     @winrt_commethod(6)
     def Create(self, uniqueName: WinRT_String, sessionPort: UInt16, trafficType: Windows.Devices.AllJoyn.AllJoynTrafficType, proximity: Byte, acceptSessionJoiner: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoiner) -> Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs: ...
 class IAllJoynAuthenticationCompleteEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAuthenticationCompleteEventArgs'
     _iid_ = Guid('{97b4701c-15dc-4b53-b6a4-7d134300d7bf}')
     @winrt_commethod(6)
     def get_AuthenticationMechanism(self) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
@@ -706,6 +714,7 @@ class IAllJoynAuthenticationCompleteEventArgs(ComPtr):
     Succeeded = property(get_Succeeded, None)
 class IAllJoynBusAttachment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusAttachment'
     _iid_ = Guid('{f309f153-1eed-42c3-a20e-436d41fe62f6}')
     @winrt_commethod(6)
     def get_AboutData(self) -> Windows.Devices.AllJoyn.AllJoynAboutData: ...
@@ -746,6 +755,7 @@ class IAllJoynBusAttachment(ComPtr):
     AuthenticationMechanisms = property(get_AuthenticationMechanisms, None)
 class IAllJoynBusAttachment2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusAttachment2'
     _iid_ = Guid('{3474cb1e-2368-43b2-b43e-6a3ac1278d98}')
     @winrt_commethod(6)
     def GetAboutDataAsync(self, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
@@ -761,11 +771,13 @@ class IAllJoynBusAttachment2(ComPtr):
     def remove_SessionJoined(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IAllJoynBusAttachmentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusAttachmentFactory'
     _iid_ = Guid('{642ef1a4-ad85-4ddf-90ae-604452b22288}')
     @winrt_commethod(6)
     def Create(self, connectionSpecification: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
 class IAllJoynBusAttachmentStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusAttachmentStateChangedEventArgs'
     _iid_ = Guid('{d82e75f4-c02a-41ec-a8d5-eab1558953aa}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.Devices.AllJoyn.AllJoynBusAttachmentState: ...
@@ -775,6 +787,7 @@ class IAllJoynBusAttachmentStateChangedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class IAllJoynBusAttachmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusAttachmentStatics'
     _iid_ = Guid('{839d4d3d-1051-40d7-872a-8d0141115b1f}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
@@ -782,6 +795,7 @@ class IAllJoynBusAttachmentStatics(ComPtr):
     def GetWatcher(self, requiredInterfaces: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Devices.Enumeration.DeviceWatcher: ...
 class IAllJoynBusObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusObject'
     _iid_ = Guid('{e8fd825e-f73a-490c-8804-04e026643047}')
     @winrt_commethod(6)
     def Start(self) -> Void: ...
@@ -801,6 +815,7 @@ class IAllJoynBusObject(ComPtr):
     Session = property(get_Session, None)
 class IAllJoynBusObjectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusObjectFactory'
     _iid_ = Guid('{2c2f9f0b-8e02-4f9c-ac27-ea6dad5d3b50}')
     @winrt_commethod(6)
     def Create(self, objectPath: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynBusObject: ...
@@ -808,17 +823,20 @@ class IAllJoynBusObjectFactory(ComPtr):
     def CreateWithBusAttachment(self, objectPath: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment) -> Windows.Devices.AllJoyn.AllJoynBusObject: ...
 class IAllJoynBusObjectStoppedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgs'
     _iid_ = Guid('{de102115-ef8e-4d42-b93b-a2ae74519766}')
     @winrt_commethod(6)
     def get_Status(self) -> Int32: ...
     Status = property(get_Status, None)
 class IAllJoynBusObjectStoppedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgsFactory'
     _iid_ = Guid('{6b22fd48-d0a3-4255-953a-4772b4028073}')
     @winrt_commethod(6)
     def Create(self, status: Int32) -> Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs: ...
 class IAllJoynCredentials(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynCredentials'
     _iid_ = Guid('{824650f2-a190-40b1-abab-349ec244dfaa}')
     @winrt_commethod(6)
     def get_AuthenticationMechanism(self) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
@@ -840,6 +858,7 @@ class IAllJoynCredentials(ComPtr):
     Timeout = property(get_Timeout, put_Timeout)
 class IAllJoynCredentialsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynCredentialsRequestedEventArgs'
     _iid_ = Guid('{6a87e34e-b069-4b80-9e1a-41bc837c65d2}')
     @winrt_commethod(6)
     def get_AttemptCount(self) -> UInt16: ...
@@ -857,6 +876,7 @@ class IAllJoynCredentialsRequestedEventArgs(ComPtr):
     RequestedUserName = property(get_RequestedUserName, None)
 class IAllJoynCredentialsVerificationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs'
     _iid_ = Guid('{800a7612-b805-44af-a2e1-792ab655a2d0}')
     @winrt_commethod(6)
     def get_AuthenticationMechanism(self) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
@@ -882,33 +902,39 @@ class IAllJoynCredentialsVerificationRequestedEventArgs(ComPtr):
     PeerIntermediateCertificates = property(get_PeerIntermediateCertificates, None)
 class IAllJoynMessageInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynMessageInfo'
     _iid_ = Guid('{ff2b0127-2c12-4859-aa3a-c74461ee814c}')
     @winrt_commethod(6)
     def get_SenderUniqueName(self) -> WinRT_String: ...
     SenderUniqueName = property(get_SenderUniqueName, None)
 class IAllJoynMessageInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynMessageInfoFactory'
     _iid_ = Guid('{34664c2a-8289-43d4-b4a8-3f4de359f043}')
     @winrt_commethod(6)
     def Create(self, senderUniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynMessageInfo: ...
 class IAllJoynProducer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynProducer'
     _iid_ = Guid('{9d084679-469b-495a-a710-ac50f123069f}')
     @winrt_commethod(6)
     def SetBusObject(self, busObject: Windows.Devices.AllJoyn.AllJoynBusObject) -> Void: ...
 class IAllJoynProducerStoppedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynProducerStoppedEventArgs'
     _iid_ = Guid('{51309770-4937-492d-8080-236439987ceb}')
     @winrt_commethod(6)
     def get_Status(self) -> Int32: ...
     Status = property(get_Status, None)
 class IAllJoynProducerStoppedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynProducerStoppedEventArgsFactory'
     _iid_ = Guid('{56529961-b219-4d6e-9f78-fa3f99fa8fe5}')
     @winrt_commethod(6)
     def Create(self, status: Int32) -> Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs: ...
 class IAllJoynServiceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynServiceInfo'
     _iid_ = Guid('{4cbe8209-b93e-4182-999b-ddd000f9c575}')
     @winrt_commethod(6)
     def get_UniqueName(self) -> WinRT_String: ...
@@ -921,27 +947,32 @@ class IAllJoynServiceInfo(ComPtr):
     SessionPort = property(get_SessionPort, None)
 class IAllJoynServiceInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynServiceInfoFactory'
     _iid_ = Guid('{7581dabd-fe03-4f4b-94a4-f02fdcbd11b8}')
     @winrt_commethod(6)
     def Create(self, uniqueName: WinRT_String, objectPath: WinRT_String, sessionPort: UInt16) -> Windows.Devices.AllJoyn.AllJoynServiceInfo: ...
 class IAllJoynServiceInfoRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgs'
     _iid_ = Guid('{3057a95f-1d3f-41f3-8969-e32792627396}')
     @winrt_commethod(6)
     def get_UniqueName(self) -> WinRT_String: ...
     UniqueName = property(get_UniqueName, None)
 class IAllJoynServiceInfoRemovedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgsFactory'
     _iid_ = Guid('{0dbf8627-9aff-4955-9227-6953baf41569}')
     @winrt_commethod(6)
     def Create(self, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs: ...
 class IAllJoynServiceInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynServiceInfoStatics'
     _iid_ = Guid('{5678570a-603a-49fc-b750-0ef13609213c}')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynServiceInfo]: ...
 class IAllJoynSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSession'
     _iid_ = Guid('{e8d11b0c-c0d4-406c-88a9-a93efa85d4b1}')
     @winrt_commethod(6)
     def get_Id(self) -> Int32: ...
@@ -965,50 +996,59 @@ class IAllJoynSession(ComPtr):
     Status = property(get_Status, None)
 class IAllJoynSessionJoinedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgs'
     _iid_ = Guid('{9e9f5bd0-b5d7-47c5-8dab-b040cc192871}')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Devices.AllJoyn.AllJoynSession: ...
     Session = property(get_Session, None)
 class IAllJoynSessionJoinedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgsFactory'
     _iid_ = Guid('{6824d689-d6cb-4d9e-a09e-35806870b17f}')
     @winrt_commethod(6)
     def Create(self, session: Windows.Devices.AllJoyn.AllJoynSession) -> Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs: ...
 class IAllJoynSessionLostEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgs'
     _iid_ = Guid('{e766a48a-8bb8-4954-ae67-d2fa43d1f96b}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.Devices.AllJoyn.AllJoynSessionLostReason: ...
     Reason = property(get_Reason, None)
 class IAllJoynSessionLostEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgsFactory'
     _iid_ = Guid('{13bbfd32-d2f4-49c9-980e-2805e13586b1}')
     @winrt_commethod(6)
     def Create(self, reason: Windows.Devices.AllJoyn.AllJoynSessionLostReason) -> Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs: ...
 class IAllJoynSessionMemberAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgs'
     _iid_ = Guid('{49a2798a-0dd1-46c1-9cd6-27190e503a5e}')
     @winrt_commethod(6)
     def get_UniqueName(self) -> WinRT_String: ...
     UniqueName = property(get_UniqueName, None)
 class IAllJoynSessionMemberAddedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgsFactory'
     _iid_ = Guid('{341de352-1d33-40a1-a1d3-e5777020e1f1}')
     @winrt_commethod(6)
     def Create(self, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs: ...
 class IAllJoynSessionMemberRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgs'
     _iid_ = Guid('{409a219f-aa4a-4893-b430-baa1b63c6219}')
     @winrt_commethod(6)
     def get_UniqueName(self) -> WinRT_String: ...
     UniqueName = property(get_UniqueName, None)
 class IAllJoynSessionMemberRemovedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgsFactory'
     _iid_ = Guid('{c4d355e8-42b8-4b67-b757-d0cfcad59280}')
     @winrt_commethod(6)
     def Create(self, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs: ...
 class IAllJoynSessionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionStatics'
     _iid_ = Guid('{9e05d604-a06c-46d4-b46c-0b0b54105b44}')
     @winrt_commethod(6)
     def GetFromServiceInfoAsync(self, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynSession]: ...
@@ -1016,6 +1056,7 @@ class IAllJoynSessionStatics(ComPtr):
     def GetFromServiceInfoAndBusAttachmentAsync(self, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynSession]: ...
 class IAllJoynStatusStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynStatusStatics'
     _iid_ = Guid('{d0b7a17e-0d29-4da9-8ac6-54c554bedbc5}')
     @winrt_commethod(6)
     def get_Ok(self) -> Int32: ...
@@ -1073,12 +1114,14 @@ class IAllJoynStatusStatics(ComPtr):
     InvalidArgument8 = property(get_InvalidArgument8, None)
 class IAllJoynWatcherStoppedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgs'
     _iid_ = Guid('{c9fca03b-701d-4aa8-97dd-a2bb0a8f5fa3}')
     @winrt_commethod(6)
     def get_Status(self) -> Int32: ...
     Status = property(get_Status, None)
 class IAllJoynWatcherStoppedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgsFactory'
     _iid_ = Guid('{878fa5a8-2d50-47e1-904a-20bf0d48c782}')
     @winrt_commethod(6)
     def Create(self, status: Int32) -> Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs: ...

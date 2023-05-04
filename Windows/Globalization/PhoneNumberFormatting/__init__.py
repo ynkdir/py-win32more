@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPhoneNumberFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatter'
     _iid_ = Guid('{1556b49e-bad4-4b4a-900d-4407adb7c981}')
     @winrt_commethod(6)
     def Format(self, number: Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo) -> WinRT_String: ...
@@ -36,6 +37,7 @@ class IPhoneNumberFormatter(ComPtr):
     def FormatStringWithLeftToRightMarkers(self, number: WinRT_String) -> WinRT_String: ...
 class IPhoneNumberFormatterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics'
     _iid_ = Guid('{5ca6f931-84d9-414b-ab4e-a0552c878602}')
     @winrt_commethod(6)
     def TryCreate(self, regionCode: WinRT_String, phoneNumber: POINTER(Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter)) -> Void: ...
@@ -47,6 +49,7 @@ class IPhoneNumberFormatterStatics(ComPtr):
     def WrapWithLeftToRightMarkers(self, number: WinRT_String) -> WinRT_String: ...
 class IPhoneNumberInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfo'
     _iid_ = Guid('{1c7ce4dd-c8b4-4ea3-9aef-b342e2c5b417}')
     @winrt_commethod(6)
     def get_CountryCode(self) -> Int32: ...
@@ -68,11 +71,13 @@ class IPhoneNumberInfo(ComPtr):
     PhoneNumber = property(get_PhoneNumber, None)
 class IPhoneNumberInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoFactory'
     _iid_ = Guid('{8202b964-adaa-4cff-8fcf-17e7516a28ff}')
     @winrt_commethod(6)
     def Create(self, number: WinRT_String) -> Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo: ...
 class IPhoneNumberInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoStatics'
     _iid_ = Guid('{5b3f4f6a-86a9-40e9-8649-6d61161928d4}')
     @winrt_commethod(6)
     def TryParse(self, input: WinRT_String, phoneNumber: POINTER(Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo)) -> Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult: ...

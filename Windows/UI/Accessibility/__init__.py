@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IScreenReaderPositionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Accessibility.IScreenReaderPositionChangedEventArgs'
     _iid_ = Guid('{557eb5e5-54d0-5ccd-9fc5-ed33357f8a9f}')
     @winrt_commethod(6)
     def get_ScreenPositionInRawPixels(self) -> Windows.Foundation.Rect: ...
@@ -32,6 +33,7 @@ class IScreenReaderPositionChangedEventArgs(ComPtr):
     IsReadingText = property(get_IsReadingText, None)
 class IScreenReaderService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Accessibility.IScreenReaderService'
     _iid_ = Guid('{19475427-eac0-50d3-bdd9-9b487a226256}')
     @winrt_commethod(6)
     def get_CurrentScreenReaderPosition(self) -> Windows.UI.Accessibility.ScreenReaderPositionChangedEventArgs: ...

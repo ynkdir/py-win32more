@@ -77,6 +77,7 @@ class CustomSensorReadingChangedEventArgs(ComPtr):
     Reading = property(get_Reading, None)
 class ICustomSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.Custom.ICustomSensor'
     _iid_ = Guid('{a136f9ad-4034-4b4d-99dd-531aac649c09}')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.Custom.CustomSensorReading: ...
@@ -97,6 +98,7 @@ class ICustomSensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class ICustomSensor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.Custom.ICustomSensor2'
     _iid_ = Guid('{20db3111-ec58-4d9f-bfbd-e77825088510}')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
@@ -108,6 +110,7 @@ class ICustomSensor2(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class ICustomSensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.Custom.ICustomSensorReading'
     _iid_ = Guid('{64004f4d-446a-4366-a87a-5f963268ec53}')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
@@ -117,18 +120,21 @@ class ICustomSensorReading(ComPtr):
     Properties = property(get_Properties, None)
 class ICustomSensorReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.Custom.ICustomSensorReading2'
     _iid_ = Guid('{223c98ea-bf73-4992-9a48-d3c897594ccb}')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     PerformanceCount = property(get_PerformanceCount, None)
 class ICustomSensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.Custom.ICustomSensorReadingChangedEventArgs'
     _iid_ = Guid('{6b202023-cffd-4cc1-8ff0-e21823d76fcc}')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.Custom.CustomSensorReading: ...
     Reading = property(get_Reading, None)
 class ICustomSensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.Custom.ICustomSensorStatics'
     _iid_ = Guid('{992052cf-f422-4c7d-836b-e7dc74a7124b}')
     @winrt_commethod(6)
     def GetDeviceSelector(self, interfaceId: Guid) -> WinRT_String: ...

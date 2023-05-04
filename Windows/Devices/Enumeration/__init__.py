@@ -519,18 +519,21 @@ class EnclosureLocation(ComPtr):
     RotationAngleInDegreesClockwise = property(get_RotationAngleInDegreesClockwise, None)
 class IDeviceAccessChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceAccessChangedEventArgs'
     _iid_ = Guid('{deda0bcc-4f9d-4f58-9dba-a9bc800408d5}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Enumeration.DeviceAccessStatus: ...
     Status = property(get_Status, None)
 class IDeviceAccessChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceAccessChangedEventArgs2'
     _iid_ = Guid('{82523262-934b-4b30-a178-adc39f2f2be3}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     Id = property(get_Id, None)
 class IDeviceAccessInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceAccessInformation'
     _iid_ = Guid('{0baa9a73-6de5-4915-8ddd-9a0554a6f545}')
     @winrt_commethod(6)
     def add_AccessChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Enumeration.DeviceAccessInformation, Windows.Devices.Enumeration.DeviceAccessChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -541,6 +544,7 @@ class IDeviceAccessInformation(ComPtr):
     CurrentStatus = property(get_CurrentStatus, None)
 class IDeviceAccessInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceAccessInformationStatics'
     _iid_ = Guid('{574bd3d3-5f30-45cd-8a94-724fe5973084}')
     @winrt_commethod(6)
     def CreateFromId(self, deviceId: WinRT_String) -> Windows.Devices.Enumeration.DeviceAccessInformation: ...
@@ -550,18 +554,21 @@ class IDeviceAccessInformationStatics(ComPtr):
     def CreateFromDeviceClass(self, deviceClass: Windows.Devices.Enumeration.DeviceClass) -> Windows.Devices.Enumeration.DeviceAccessInformation: ...
 class IDeviceConnectionChangeTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceConnectionChangeTriggerDetails'
     _iid_ = Guid('{b8578c0c-bbc1-484b-bffa-7b31dcc200b2}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IDeviceDisconnectButtonClickedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceDisconnectButtonClickedEventArgs'
     _iid_ = Guid('{8e44b56d-f902-4a00-b536-f37992e6a2a7}')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     Device = property(get_Device, None)
 class IDeviceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformation'
     _iid_ = Guid('{aba0fb95-4398-489d-8e44-e6130927011f}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -589,6 +596,7 @@ class IDeviceInformation(ComPtr):
     Properties = property(get_Properties, None)
 class IDeviceInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformation2'
     _iid_ = Guid('{f156a638-7997-48d9-a10c-269d46533f48}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.Devices.Enumeration.DeviceInformationKind: ...
@@ -598,6 +606,7 @@ class IDeviceInformation2(ComPtr):
     Pairing = property(get_Pairing, None)
 class IDeviceInformationCustomPairing(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationCustomPairing'
     _iid_ = Guid('{85138c02-4ee6-4914-8370-107a39144c0e}')
     @winrt_commethod(6)
     def PairAsync(self, pairingKindsSupported: Windows.Devices.Enumeration.DevicePairingKinds) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Enumeration.DevicePairingResult]: ...
@@ -611,6 +620,7 @@ class IDeviceInformationCustomPairing(ComPtr):
     def remove_PairingRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IDeviceInformationPairing(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationPairing'
     _iid_ = Guid('{2c4769f5-f684-40d5-8469-e8dbaab70485}')
     @winrt_commethod(6)
     def get_IsPaired(self) -> Boolean: ...
@@ -624,6 +634,7 @@ class IDeviceInformationPairing(ComPtr):
     CanPair = property(get_CanPair, None)
 class IDeviceInformationPairing2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationPairing2'
     _iid_ = Guid('{f68612fd-0aee-4328-85cc-1c742bb1790d}')
     @winrt_commethod(6)
     def get_ProtectionLevel(self) -> Windows.Devices.Enumeration.DevicePairingProtectionLevel: ...
@@ -637,16 +648,19 @@ class IDeviceInformationPairing2(ComPtr):
     Custom = property(get_Custom, None)
 class IDeviceInformationPairingStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationPairingStatics'
     _iid_ = Guid('{e915c408-36d4-49a1-bf13-514173799b6b}')
     @winrt_commethod(6)
     def TryRegisterForAllInboundPairingRequests(self, pairingKindsSupported: Windows.Devices.Enumeration.DevicePairingKinds) -> Boolean: ...
 class IDeviceInformationPairingStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationPairingStatics2'
     _iid_ = Guid('{04de5372-b7b7-476b-a74f-c5836a704d98}')
     @winrt_commethod(6)
     def TryRegisterForAllInboundPairingRequestsWithProtectionLevel(self, pairingKindsSupported: Windows.Devices.Enumeration.DevicePairingKinds, minProtectionLevel: Windows.Devices.Enumeration.DevicePairingProtectionLevel) -> Boolean: ...
 class IDeviceInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationStatics'
     _iid_ = Guid('{c17f100e-3a46-4a78-8013-769dc9b97390}')
     @winrt_commethod(6)
     def CreateFromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Enumeration.DeviceInformation]: ...
@@ -670,6 +684,7 @@ class IDeviceInformationStatics(ComPtr):
     def CreateWatcherAqsFilterAndAdditionalProperties(self, aqsFilter: WinRT_String, additionalProperties: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Devices.Enumeration.DeviceWatcher: ...
 class IDeviceInformationStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationStatics2'
     _iid_ = Guid('{493b4f34-a84f-45fd-9167-15d1cb1bd1f9}')
     @winrt_commethod(6)
     def GetAqsFilterFromDeviceClass(self, deviceClass: Windows.Devices.Enumeration.DeviceClass) -> WinRT_String: ...
@@ -681,6 +696,7 @@ class IDeviceInformationStatics2(ComPtr):
     def CreateWatcherWithKindAqsFilterAndAdditionalProperties(self, aqsFilter: WinRT_String, additionalProperties: Windows.Foundation.Collections.IIterable[WinRT_String], kind: Windows.Devices.Enumeration.DeviceInformationKind) -> Windows.Devices.Enumeration.DeviceWatcher: ...
 class IDeviceInformationUpdate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationUpdate'
     _iid_ = Guid('{8f315305-d972-44b7-a37e-9e822c78213b}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -690,12 +706,14 @@ class IDeviceInformationUpdate(ComPtr):
     Properties = property(get_Properties, None)
 class IDeviceInformationUpdate2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationUpdate2'
     _iid_ = Guid('{5d9d148c-a873-485e-baa6-aa620788e3cc}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.Devices.Enumeration.DeviceInformationKind: ...
     Kind = property(get_Kind, None)
 class IDevicePairingRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePairingRequestedEventArgs'
     _iid_ = Guid('{f717fc56-de6b-487f-8376-0180aca69963}')
     @winrt_commethod(6)
     def get_DeviceInformation(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
@@ -714,11 +732,13 @@ class IDevicePairingRequestedEventArgs(ComPtr):
     Pin = property(get_Pin, None)
 class IDevicePairingRequestedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePairingRequestedEventArgs2'
     _iid_ = Guid('{c83752d9-e4d3-4db0-a360-a105e437dbdc}')
     @winrt_commethod(6)
     def AcceptWithPasswordCredential(self, passwordCredential: Windows.Security.Credentials.PasswordCredential) -> Void: ...
 class IDevicePairingResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePairingResult'
     _iid_ = Guid('{072b02bf-dd95-4025-9b37-de51adba37b7}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Enumeration.DevicePairingResultStatus: ...
@@ -728,9 +748,11 @@ class IDevicePairingResult(ComPtr):
     ProtectionLevelUsed = property(get_ProtectionLevelUsed, None)
 class IDevicePairingSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePairingSettings'
     _iid_ = Guid('{482cb27c-83bb-420e-be51-6602b222de54}')
 class IDevicePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePicker'
     _iid_ = Guid('{84997aa2-034a-4440-8813-7d0bd479bf5a}')
     @winrt_commethod(6)
     def get_Filter(self) -> Windows.Devices.Enumeration.DevicePickerFilter: ...
@@ -767,6 +789,7 @@ class IDevicePicker(ComPtr):
     RequestedProperties = property(get_RequestedProperties, None)
 class IDevicePickerAppearance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePickerAppearance'
     _iid_ = Guid('{e69a12c6-e627-4ed8-9b6c-460af445e56d}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
@@ -805,6 +828,7 @@ class IDevicePickerAppearance(ComPtr):
     SelectedAccentColor = property(get_SelectedAccentColor, put_SelectedAccentColor)
 class IDevicePickerFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePickerFilter'
     _iid_ = Guid('{91db92a2-57cb-48f1-9b59-a59b7a1f02a2}')
     @winrt_commethod(6)
     def get_SupportedDeviceClasses(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.Enumeration.DeviceClass]: ...
@@ -814,18 +838,21 @@ class IDevicePickerFilter(ComPtr):
     SupportedDeviceSelectors = property(get_SupportedDeviceSelectors, None)
 class IDeviceSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceSelectedEventArgs'
     _iid_ = Guid('{269edade-1d2f-4940-8402-4156b81d3c77}')
     @winrt_commethod(6)
     def get_SelectedDevice(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     SelectedDevice = property(get_SelectedDevice, None)
 class IDeviceUnpairingResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceUnpairingResult'
     _iid_ = Guid('{66f44ad3-79d9-444b-92cf-a92ef72571c7}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Enumeration.DeviceUnpairingResultStatus: ...
     Status = property(get_Status, None)
 class IDeviceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceWatcher'
     _iid_ = Guid('{c9eab97d-8f6b-4f96-a9f4-abc814e22271}')
     @winrt_commethod(6)
     def add_Added(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Enumeration.DeviceWatcher, Windows.Devices.Enumeration.DeviceInformation]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -856,11 +883,13 @@ class IDeviceWatcher(ComPtr):
     Status = property(get_Status, None)
 class IDeviceWatcher2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceWatcher2'
     _iid_ = Guid('{ff08456e-ed14-49e9-9a69-8117c54ae971}')
     @winrt_commethod(6)
     def GetBackgroundTrigger(self, requestedEventKinds: Windows.Foundation.Collections.IIterable[Windows.Devices.Enumeration.DeviceWatcherEventKind]) -> Windows.ApplicationModel.Background.DeviceWatcherTrigger: ...
 class IDeviceWatcherEvent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceWatcherEvent'
     _iid_ = Guid('{74aa9c0b-1dbd-47fd-b635-3cc556d0ff8b}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.Devices.Enumeration.DeviceWatcherEventKind: ...
@@ -873,12 +902,14 @@ class IDeviceWatcherEvent(ComPtr):
     DeviceInformationUpdate = property(get_DeviceInformationUpdate, None)
 class IDeviceWatcherTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceWatcherTriggerDetails'
     _iid_ = Guid('{38808119-4cb7-4e57-a56d-776d07cbfef9}')
     @winrt_commethod(6)
     def get_DeviceWatcherEvents(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Enumeration.DeviceWatcherEvent]: ...
     DeviceWatcherEvents = property(get_DeviceWatcherEvents, None)
 class IEnclosureLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IEnclosureLocation'
     _iid_ = Guid('{42340a27-5810-459c-aabb-c65e1f813ecf}')
     @winrt_commethod(6)
     def get_InDock(self) -> Boolean: ...
@@ -891,6 +922,7 @@ class IEnclosureLocation(ComPtr):
     Panel = property(get_Panel, None)
 class IEnclosureLocation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IEnclosureLocation2'
     _iid_ = Guid('{2885995b-e07d-485d-8a9e-bdf29aef4f66}')
     @winrt_commethod(6)
     def get_RotationAngleInDegreesClockwise(self) -> UInt32: ...

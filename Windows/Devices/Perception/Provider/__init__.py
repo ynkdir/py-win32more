@@ -28,6 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IKnownPerceptionFrameKindStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics'
     _iid_ = Guid('{3ae651d6-9669-4106-9fae-4835c1b96104}')
     @winrt_commethod(6)
     def get_Color(self) -> WinRT_String: ...
@@ -40,17 +41,20 @@ class IKnownPerceptionFrameKindStatics(ComPtr):
     Infrared = property(get_Infrared, None)
 class IPerceptionControlGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionControlGroup'
     _iid_ = Guid('{172c4882-2fd9-4c4e-ba34-fdf20a73dde5}')
     @winrt_commethod(6)
     def get_FrameProviderIds(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     FrameProviderIds = property(get_FrameProviderIds, None)
 class IPerceptionControlGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionControlGroupFactory'
     _iid_ = Guid('{2f1af2e0-baf1-453b-bed4-cd9d4619154c}')
     @winrt_commethod(6)
     def Create(self, ids: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Devices.Perception.Provider.PerceptionControlGroup: ...
 class IPerceptionCorrelation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionCorrelation'
     _iid_ = Guid('{b4131a82-dff5-4047-8a19-3b4d805f7176}')
     @winrt_commethod(6)
     def get_TargetId(self) -> WinRT_String: ...
@@ -63,33 +67,39 @@ class IPerceptionCorrelation(ComPtr):
     Orientation = property(get_Orientation, None)
 class IPerceptionCorrelationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionCorrelationFactory'
     _iid_ = Guid('{d4a6c425-2884-4a8f-8134-2835d7286cbf}')
     @winrt_commethod(6)
     def Create(self, targetId: WinRT_String, position: Windows.Foundation.Numerics.Vector3, orientation: Windows.Foundation.Numerics.Quaternion) -> Windows.Devices.Perception.Provider.PerceptionCorrelation: ...
 class IPerceptionCorrelationGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionCorrelationGroup'
     _iid_ = Guid('{752a0906-36a7-47bb-9b79-56cc6b746770}')
     @winrt_commethod(6)
     def get_RelativeLocations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Perception.Provider.PerceptionCorrelation]: ...
     RelativeLocations = property(get_RelativeLocations, None)
 class IPerceptionCorrelationGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionCorrelationGroupFactory'
     _iid_ = Guid('{7dfe2088-63df-48ed-83b1-4ab829132995}')
     @winrt_commethod(6)
     def Create(self, relativeLocations: Windows.Foundation.Collections.IIterable[Windows.Devices.Perception.Provider.PerceptionCorrelation]) -> Windows.Devices.Perception.Provider.PerceptionCorrelationGroup: ...
 class IPerceptionFaceAuthenticationGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFaceAuthenticationGroup'
     _iid_ = Guid('{e8019814-4a91-41b0-83a6-881a1775353e}')
     @winrt_commethod(6)
     def get_FrameProviderIds(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     FrameProviderIds = property(get_FrameProviderIds, None)
 class IPerceptionFaceAuthenticationGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFaceAuthenticationGroupFactory'
     _iid_ = Guid('{e68a05d4-b60c-40f4-bcb9-f24d46467320}')
     @winrt_commethod(6)
     def Create(self, ids: Windows.Foundation.Collections.IIterable[WinRT_String], startHandler: Windows.Devices.Perception.Provider.PerceptionStartFaceAuthenticationHandler, stopHandler: Windows.Devices.Perception.Provider.PerceptionStopFaceAuthenticationHandler) -> Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup: ...
 class IPerceptionFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrame'
     _iid_ = Guid('{7cfe7825-54bb-4d9d-bec5-8ef66151d2ac}')
     @winrt_commethod(6)
     def get_RelativeTime(self) -> Windows.Foundation.TimeSpan: ...
@@ -104,6 +114,7 @@ class IPerceptionFrame(ComPtr):
     FrameData = property(get_FrameData, None)
 class IPerceptionFrameProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrameProvider'
     _iid_ = Guid('{794f7ab9-b37d-3b33-a10d-30626419ce65}')
     @winrt_commethod(6)
     def get_FrameProviderInfo(self) -> Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo: ...
@@ -122,6 +133,7 @@ class IPerceptionFrameProvider(ComPtr):
     Properties = property(get_Properties, None)
 class IPerceptionFrameProviderInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrameProviderInfo'
     _iid_ = Guid('{cca959e8-797e-4e83-9b87-036a74142fc4}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -150,11 +162,13 @@ class IPerceptionFrameProviderInfo(ComPtr):
     Hidden = property(get_Hidden, put_Hidden)
 class IPerceptionFrameProviderManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrameProviderManager'
     _iid_ = Guid('{a959ce07-ead3-33df-8ec1-b924abe019c4}')
     @winrt_commethod(6)
     def GetFrameProvider(self, frameProviderInfo: Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo) -> Windows.Devices.Perception.Provider.IPerceptionFrameProvider: ...
 class IPerceptionFrameProviderManagerServiceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics'
     _iid_ = Guid('{ae8386e6-cad9-4359-8f96-8eae51810526}')
     @winrt_commethod(6)
     def RegisterFrameProviderInfo(self, manager: Windows.Devices.Perception.Provider.IPerceptionFrameProviderManager, frameProviderInfo: Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo) -> Void: ...
@@ -178,6 +192,7 @@ class IPerceptionFrameProviderManagerServiceStatics(ComPtr):
     def PublishFrameForProvider(self, provider: Windows.Devices.Perception.Provider.IPerceptionFrameProvider, frame: Windows.Devices.Perception.Provider.PerceptionFrame) -> Void: ...
 class IPerceptionPropertyChangeRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionPropertyChangeRequest'
     _iid_ = Guid('{3c5aeb51-350b-4df8-9414-59e09815510b}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -194,6 +209,7 @@ class IPerceptionPropertyChangeRequest(ComPtr):
     Status = property(get_Status, put_Status)
 class IPerceptionVideoFrameAllocator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocator'
     _iid_ = Guid('{4c38a7da-fdd8-4ed4-a039-2a6f9b235038}')
     @winrt_commethod(6)
     def AllocateFrame(self) -> Windows.Devices.Perception.Provider.PerceptionFrame: ...
@@ -201,11 +217,13 @@ class IPerceptionVideoFrameAllocator(ComPtr):
     def CopyFromVideoFrame(self, frame: Windows.Media.VideoFrame) -> Windows.Devices.Perception.Provider.PerceptionFrame: ...
 class IPerceptionVideoFrameAllocatorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocatorFactory'
     _iid_ = Guid('{1a58b0e1-e91a-481e-b876-a89e2bbc6b33}')
     @winrt_commethod(6)
     def Create(self, maxOutstandingFrameCountForWrite: UInt32, format: Windows.Graphics.Imaging.BitmapPixelFormat, resolution: Windows.Foundation.Size, alpha: Windows.Graphics.Imaging.BitmapAlphaMode) -> Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator: ...
 class KnownPerceptionFrameKind(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.KnownPerceptionFrameKind'
     @winrt_classmethod
     def get_Color(cls: Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -305,6 +323,7 @@ class PerceptionFrameProviderInfo(ComPtr):
     Hidden = property(get_Hidden, put_Hidden)
 class PerceptionFrameProviderManagerService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService'
     @winrt_classmethod
     def RegisterFrameProviderInfo(cls: Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics, manager: Windows.Devices.Perception.Provider.IPerceptionFrameProviderManager, frameProviderInfo: Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo) -> Void: ...
     @winrt_classmethod
@@ -344,14 +363,14 @@ class PerceptionPropertyChangeRequest(ComPtr):
     Status = property(get_Status, put_Status)
 class PerceptionStartFaceAuthenticationHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{74816d2a-2090-4670-8c48-ef39e7ff7c26}')
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionStartFaceAuthenticationHandler'
+    _iid_ = Guid('{74816d2a-2090-4670-8c48-ef39e7ff7c26}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup) -> Boolean: ...
 class PerceptionStopFaceAuthenticationHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{387ee6aa-89cd-481e-aade-dd92f70b2ad7}')
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionStopFaceAuthenticationHandler'
+    _iid_ = Guid('{387ee6aa-89cd-481e-aade-dd92f70b2ad7}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup) -> Void: ...
 class PerceptionVideoFrameAllocator(ComPtr):

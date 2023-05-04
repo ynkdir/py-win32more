@@ -23,16 +23,19 @@ def __getattr__(name):
     return getattr(_module, name)
 class IXsltProcessor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Xml.Xsl.IXsltProcessor'
     _iid_ = Guid('{7b64703f-550c-48c6-a90f-93a5b964518f}')
     @winrt_commethod(6)
     def TransformToString(self, inputNode: Windows.Data.Xml.Dom.IXmlNode) -> WinRT_String: ...
 class IXsltProcessor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Xml.Xsl.IXsltProcessor2'
     _iid_ = Guid('{8da45c56-97a5-44cb-a8be-27d86280c70a}')
     @winrt_commethod(6)
     def TransformToDocument(self, inputNode: Windows.Data.Xml.Dom.IXmlNode) -> Windows.Data.Xml.Dom.XmlDocument: ...
 class IXsltProcessorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Xml.Xsl.IXsltProcessorFactory'
     _iid_ = Guid('{274146c0-9a51-4663-bf30-0ef742146f20}')
     @winrt_commethod(6)
     def CreateInstance(self, document: Windows.Data.Xml.Dom.XmlDocument) -> Windows.Data.Xml.Xsl.XsltProcessor: ...

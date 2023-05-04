@@ -348,6 +348,7 @@ class GeovisitTriggerDetails(ComPtr):
     def ReadReports(self: Windows.Devices.Geolocation.IGeovisitTriggerDetails) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Geolocation.Geovisit]: ...
 class ICivicAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.ICivicAddress'
     _iid_ = Guid('{a8567a1a-64f4-4d48-bcea-f6b008eca34c}')
     @winrt_commethod(6)
     def get_Country(self) -> WinRT_String: ...
@@ -366,6 +367,7 @@ class ICivicAddress(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IGeoboundingBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeoboundingBox'
     _iid_ = Guid('{0896c80b-274f-43da-9a06-cbfcdaeb4ec2}')
     @winrt_commethod(6)
     def get_NorthwestCorner(self) -> Windows.Devices.Geolocation.BasicGeoposition: ...
@@ -384,6 +386,7 @@ class IGeoboundingBox(ComPtr):
     MaxAltitude = property(get_MaxAltitude, None)
 class IGeoboundingBoxFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeoboundingBoxFactory'
     _iid_ = Guid('{4dfba589-0411-4abc-b3b5-5bbccb57d98c}')
     @winrt_commethod(6)
     def Create(self, northwestCorner: Windows.Devices.Geolocation.BasicGeoposition, southeastCorner: Windows.Devices.Geolocation.BasicGeoposition) -> Windows.Devices.Geolocation.GeoboundingBox: ...
@@ -393,6 +396,7 @@ class IGeoboundingBoxFactory(ComPtr):
     def CreateWithAltitudeReferenceAndSpatialReference(self, northwestCorner: Windows.Devices.Geolocation.BasicGeoposition, southeastCorner: Windows.Devices.Geolocation.BasicGeoposition, altitudeReferenceSystem: Windows.Devices.Geolocation.AltitudeReferenceSystem, spatialReferenceId: UInt32) -> Windows.Devices.Geolocation.GeoboundingBox: ...
 class IGeoboundingBoxStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeoboundingBoxStatics'
     _iid_ = Guid('{67b80708-e61a-4cd0-841b-93233792b5ca}')
     @winrt_commethod(6)
     def TryCompute(self, positions: Windows.Foundation.Collections.IIterable[Windows.Devices.Geolocation.BasicGeoposition]) -> Windows.Devices.Geolocation.GeoboundingBox: ...
@@ -402,6 +406,7 @@ class IGeoboundingBoxStatics(ComPtr):
     def TryComputeWithAltitudeReferenceAndSpatialReference(self, positions: Windows.Foundation.Collections.IIterable[Windows.Devices.Geolocation.BasicGeoposition], altitudeRefSystem: Windows.Devices.Geolocation.AltitudeReferenceSystem, spatialReferenceId: UInt32) -> Windows.Devices.Geolocation.GeoboundingBox: ...
 class IGeocircle(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocircle'
     _iid_ = Guid('{39e45843-a7f9-4e63-92a7-ba0c28d124b1}')
     @winrt_commethod(6)
     def get_Center(self) -> Windows.Devices.Geolocation.BasicGeoposition: ...
@@ -411,6 +416,7 @@ class IGeocircle(ComPtr):
     Radius = property(get_Radius, None)
 class IGeocircleFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocircleFactory'
     _iid_ = Guid('{afd6531f-72b1-4f7d-87cc-4ed4c9849c05}')
     @winrt_commethod(6)
     def Create(self, position: Windows.Devices.Geolocation.BasicGeoposition, radius: Double) -> Windows.Devices.Geolocation.Geocircle: ...
@@ -420,6 +426,7 @@ class IGeocircleFactory(ComPtr):
     def CreateWithAltitudeReferenceSystemAndSpatialReferenceId(self, position: Windows.Devices.Geolocation.BasicGeoposition, radius: Double, altitudeReferenceSystem: Windows.Devices.Geolocation.AltitudeReferenceSystem, spatialReferenceId: UInt32) -> Windows.Devices.Geolocation.Geocircle: ...
 class IGeocoordinate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocoordinate'
     _iid_ = Guid('{ee21a3aa-976a-4c70-803d-083ea55bcbc4}')
     @winrt_commethod(6)
     def get_Latitude(self) -> Double: ...
@@ -447,6 +454,7 @@ class IGeocoordinate(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IGeocoordinateSatelliteData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocoordinateSatelliteData'
     _iid_ = Guid('{c32a74d9-2608-474c-912c-06dd490f4af7}')
     @winrt_commethod(6)
     def get_PositionDilutionOfPrecision(self) -> Windows.Foundation.IReference[Double]: ...
@@ -459,6 +467,7 @@ class IGeocoordinateSatelliteData(ComPtr):
     VerticalDilutionOfPrecision = property(get_VerticalDilutionOfPrecision, None)
 class IGeocoordinateSatelliteData2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocoordinateSatelliteData2'
     _iid_ = Guid('{761c8cfd-a19d-5a51-80f5-71676115483e}')
     @winrt_commethod(6)
     def get_GeometricDilutionOfPrecision(self) -> Windows.Foundation.IReference[Double]: ...
@@ -468,12 +477,14 @@ class IGeocoordinateSatelliteData2(ComPtr):
     TimeDilutionOfPrecision = property(get_TimeDilutionOfPrecision, None)
 class IGeocoordinateWithPoint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocoordinateWithPoint'
     _iid_ = Guid('{feea0525-d22c-4d46-b527-0b96066fc7db}')
     @winrt_commethod(6)
     def get_Point(self) -> Windows.Devices.Geolocation.Geopoint: ...
     Point = property(get_Point, None)
 class IGeocoordinateWithPositionData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocoordinateWithPositionData'
     _iid_ = Guid('{95e634be-dbd6-40ac-b8f2-a65c0340d9a6}')
     @winrt_commethod(6)
     def get_PositionSource(self) -> Windows.Devices.Geolocation.PositionSource: ...
@@ -483,18 +494,21 @@ class IGeocoordinateWithPositionData(ComPtr):
     SatelliteData = property(get_SatelliteData, None)
 class IGeocoordinateWithPositionSourceTimestamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocoordinateWithPositionSourceTimestamp'
     _iid_ = Guid('{8543fc02-c9f1-4610-afe0-8bc3a6a87036}')
     @winrt_commethod(6)
     def get_PositionSourceTimestamp(self) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
     PositionSourceTimestamp = property(get_PositionSourceTimestamp, None)
 class IGeocoordinateWithRemoteSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeocoordinateWithRemoteSource'
     _iid_ = Guid('{397cebd7-ee38-5f3b-8900-c4a7bc9cf953}')
     @winrt_commethod(6)
     def get_IsRemoteSource(self) -> Boolean: ...
     IsRemoteSource = property(get_IsRemoteSource, None)
 class IGeolocator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeolocator'
     _iid_ = Guid('{a9c3bf62-4524-4989-8aa9-de019d2e551f}')
     @winrt_commethod(6)
     def get_DesiredAccuracy(self) -> Windows.Devices.Geolocation.PositionAccuracy: ...
@@ -528,11 +542,13 @@ class IGeolocator(ComPtr):
     LocationStatus = property(get_LocationStatus, None)
 class IGeolocator2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeolocator2'
     _iid_ = Guid('{d1b42e6d-8891-43b4-ad36-27c6fe9a97b1}')
     @winrt_commethod(6)
     def AllowFallbackToConsentlessPositions(self) -> Void: ...
 class IGeolocatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeolocatorStatics'
     _iid_ = Guid('{9a8e7571-2df5-4591-9f87-eb5fd894e9b7}')
     @winrt_commethod(6)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Geolocation.GeolocationAccessStatus]: ...
@@ -542,6 +558,7 @@ class IGeolocatorStatics(ComPtr):
     def GetGeopositionHistoryWithDurationAsync(self, startTime: Windows.Foundation.DateTime, duration: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Geolocation.Geoposition]]: ...
 class IGeolocatorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeolocatorStatics2'
     _iid_ = Guid('{993011a2-fa1c-4631-a71d-0dbeb1250d9c}')
     @winrt_commethod(6)
     def get_IsDefaultGeopositionRecommended(self) -> Boolean: ...
@@ -553,6 +570,7 @@ class IGeolocatorStatics2(ComPtr):
     DefaultGeoposition = property(get_DefaultGeoposition, put_DefaultGeoposition)
 class IGeolocatorWithScalarAccuracy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeolocatorWithScalarAccuracy'
     _iid_ = Guid('{96f5d3c1-b80f-460a-994d-a96c47a51aa4}')
     @winrt_commethod(6)
     def get_DesiredAccuracyInMeters(self) -> Windows.Foundation.IReference[UInt32]: ...
@@ -561,12 +579,14 @@ class IGeolocatorWithScalarAccuracy(ComPtr):
     DesiredAccuracyInMeters = property(get_DesiredAccuracyInMeters, put_DesiredAccuracyInMeters)
 class IGeopath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeopath'
     _iid_ = Guid('{e53fd7b9-2da4-4714-a652-de8593289898}')
     @winrt_commethod(6)
     def get_Positions(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Geolocation.BasicGeoposition]: ...
     Positions = property(get_Positions, None)
 class IGeopathFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeopathFactory'
     _iid_ = Guid('{27bea9c8-c7e7-4359-9b9b-fca3e05ef593}')
     @winrt_commethod(6)
     def Create(self, positions: Windows.Foundation.Collections.IIterable[Windows.Devices.Geolocation.BasicGeoposition]) -> Windows.Devices.Geolocation.Geopath: ...
@@ -576,12 +596,14 @@ class IGeopathFactory(ComPtr):
     def CreateWithAltitudeReferenceAndSpatialReference(self, positions: Windows.Foundation.Collections.IIterable[Windows.Devices.Geolocation.BasicGeoposition], altitudeReferenceSystem: Windows.Devices.Geolocation.AltitudeReferenceSystem, spatialReferenceId: UInt32) -> Windows.Devices.Geolocation.Geopath: ...
 class IGeopoint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeopoint'
     _iid_ = Guid('{6bfa00eb-e56e-49bb-9caf-cbaa78a8bcef}')
     @winrt_commethod(6)
     def get_Position(self) -> Windows.Devices.Geolocation.BasicGeoposition: ...
     Position = property(get_Position, None)
 class IGeopointFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeopointFactory'
     _iid_ = Guid('{db6b8d33-76bd-4e30-8af7-a844dc37b7a0}')
     @winrt_commethod(6)
     def Create(self, position: Windows.Devices.Geolocation.BasicGeoposition) -> Windows.Devices.Geolocation.Geopoint: ...
@@ -591,6 +613,7 @@ class IGeopointFactory(ComPtr):
     def CreateWithAltitudeReferenceSystemAndSpatialReferenceId(self, position: Windows.Devices.Geolocation.BasicGeoposition, altitudeReferenceSystem: Windows.Devices.Geolocation.AltitudeReferenceSystem, spatialReferenceId: UInt32) -> Windows.Devices.Geolocation.Geopoint: ...
 class IGeoposition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeoposition'
     _iid_ = Guid('{c18d0454-7d41-4ff7-a957-9dffb4ef7f5b}')
     @winrt_commethod(6)
     def get_Coordinate(self) -> Windows.Devices.Geolocation.Geocoordinate: ...
@@ -600,12 +623,14 @@ class IGeoposition(ComPtr):
     CivicAddress = property(get_CivicAddress, None)
 class IGeoposition2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeoposition2'
     _iid_ = Guid('{7f62f697-8671-4b0d-86f8-474a8496187c}')
     @winrt_commethod(6)
     def get_VenueData(self) -> Windows.Devices.Geolocation.VenueData: ...
     VenueData = property(get_VenueData, None)
 class IGeoshape(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeoshape'
     _iid_ = Guid('{c99ca2af-c729-43c1-8fab-d6dec914df7e}')
     @winrt_commethod(6)
     def get_GeoshapeType(self) -> Windows.Devices.Geolocation.GeoshapeType: ...
@@ -618,6 +643,7 @@ class IGeoshape(ComPtr):
     AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
 class IGeovisit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeovisit'
     _iid_ = Guid('{b1877a76-9ef6-41ab-a0dd-793ece76e2de}')
     @winrt_commethod(6)
     def get_Position(self) -> Windows.Devices.Geolocation.Geoposition: ...
@@ -630,6 +656,7 @@ class IGeovisit(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IGeovisitMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeovisitMonitor'
     _iid_ = Guid('{80118aaf-5944-4591-83c1-396647f54f2c}')
     @winrt_commethod(6)
     def get_MonitoringScope(self) -> Windows.Devices.Geolocation.VisitMonitoringScope: ...
@@ -644,34 +671,40 @@ class IGeovisitMonitor(ComPtr):
     MonitoringScope = property(get_MonitoringScope, None)
 class IGeovisitMonitorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeovisitMonitorStatics'
     _iid_ = Guid('{bcf976a7-bbf2-4cdd-95cf-554c82edfb87}')
     @winrt_commethod(6)
     def GetLastReportAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Geolocation.Geovisit]: ...
 class IGeovisitStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeovisitStateChangedEventArgs'
     _iid_ = Guid('{ceb4d1ff-8b53-4968-beed-4cecd029ce15}')
     @winrt_commethod(6)
     def get_Visit(self) -> Windows.Devices.Geolocation.Geovisit: ...
     Visit = property(get_Visit, None)
 class IGeovisitTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IGeovisitTriggerDetails'
     _iid_ = Guid('{ea770d9e-d1c9-454b-99b7-b2f8cdd2482f}')
     @winrt_commethod(6)
     def ReadReports(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Geolocation.Geovisit]: ...
 class IPositionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IPositionChangedEventArgs'
     _iid_ = Guid('{37859ce5-9d1e-46c5-bf3b-6ad8cac1a093}')
     @winrt_commethod(6)
     def get_Position(self) -> Windows.Devices.Geolocation.Geoposition: ...
     Position = property(get_Position, None)
 class IStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IStatusChangedEventArgs'
     _iid_ = Guid('{3453d2da-8c93-4111-a205-9aecfc9be5c0}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Geolocation.PositionStatus: ...
     Status = property(get_Status, None)
 class IVenueData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.IVenueData'
     _iid_ = Guid('{66f39187-60e3-4b2f-b527-4f53f1c3c677}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...

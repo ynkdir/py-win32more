@@ -346,6 +346,7 @@ AutoUpdateTimeZoneStatus_TimedOut: AutoUpdateTimeZoneStatus = 1
 AutoUpdateTimeZoneStatus_Failed: AutoUpdateTimeZoneStatus = 2
 class DateTimeSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.DateTimeSettings'
     @winrt_classmethod
     def SetSystemDateTime(cls: Windows.System.IDateTimeSettingsStatics, utcDateTime: Windows.Foundation.DateTime) -> Void: ...
 DiagnosticAccessStatus = Int32
@@ -389,8 +390,8 @@ class DispatcherQueueController(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class DispatcherQueueHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{dfa2dc9c-1a2d-4917-98f2-939af1d6e0c8}')
     _classid_ = 'Windows.System.DispatcherQueueHandler'
+    _iid_ = Guid('{dfa2dc9c-1a2d-4917-98f2-939af1d6e0c8}')
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 DispatcherQueuePriority = Int32
@@ -444,6 +445,7 @@ class FolderLauncherOptions(ComPtr):
     DesiredRemainingView = property(get_DesiredRemainingView, put_DesiredRemainingView)
 class IAppActivationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppActivationResult'
     _iid_ = Guid('{6b528900-f46e-4eb0-aa6c-38af557cf9ed}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
@@ -453,12 +455,14 @@ class IAppActivationResult(ComPtr):
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
 class IAppDiagnosticInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppDiagnosticInfo'
     _iid_ = Guid('{e348a69a-8889-4ca3-be07-d5ffff5f0804}')
     @winrt_commethod(6)
     def get_AppInfo(self) -> Windows.ApplicationModel.AppInfo: ...
     AppInfo = property(get_AppInfo, None)
 class IAppDiagnosticInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppDiagnosticInfo2'
     _iid_ = Guid('{df46fbd7-191a-446c-9473-8fbc2374a354}')
     @winrt_commethod(6)
     def GetResourceGroups(self) -> Windows.Foundation.Collections.IVector[Windows.System.AppResourceGroupInfo]: ...
@@ -466,16 +470,19 @@ class IAppDiagnosticInfo2(ComPtr):
     def CreateResourceGroupWatcher(self) -> Windows.System.AppResourceGroupInfoWatcher: ...
 class IAppDiagnosticInfo3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppDiagnosticInfo3'
     _iid_ = Guid('{c895c63d-dd61-4c65-babd-81a10b4f9815}')
     @winrt_commethod(6)
     def LaunchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.System.AppActivationResult]: ...
 class IAppDiagnosticInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppDiagnosticInfoStatics'
     _iid_ = Guid('{ce6925bf-10ca-40c8-a9ca-c5c96501866e}')
     @winrt_commethod(6)
     def RequestInfoAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.System.AppDiagnosticInfo]]: ...
 class IAppDiagnosticInfoStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppDiagnosticInfoStatics2'
     _iid_ = Guid('{05b24b86-1000-4c90-bb9f-7235071c50fe}')
     @winrt_commethod(6)
     def CreateWatcher(self) -> Windows.System.AppDiagnosticInfoWatcher: ...
@@ -489,6 +496,7 @@ class IAppDiagnosticInfoStatics2(ComPtr):
     def RequestInfoForAppUserModelId(self, appUserModelId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.System.AppDiagnosticInfo]]: ...
 class IAppDiagnosticInfoWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppDiagnosticInfoWatcher'
     _iid_ = Guid('{75575070-01d3-489a-9325-52f9cc6ede0a}')
     @winrt_commethod(6)
     def add_Added(self, handler: Windows.Foundation.TypedEventHandler[Windows.System.AppDiagnosticInfoWatcher, Windows.System.AppDiagnosticInfoWatcherEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -515,18 +523,21 @@ class IAppDiagnosticInfoWatcher(ComPtr):
     Status = property(get_Status, None)
 class IAppDiagnosticInfoWatcherEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppDiagnosticInfoWatcherEventArgs'
     _iid_ = Guid('{7017c716-e1da-4c65-99df-046dff5be71a}')
     @winrt_commethod(6)
     def get_AppDiagnosticInfo(self) -> Windows.System.AppDiagnosticInfo: ...
     AppDiagnosticInfo = property(get_AppDiagnosticInfo, None)
 class IAppExecutionStateChangeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppExecutionStateChangeResult'
     _iid_ = Guid('{6f039bf0-f91b-4df8-ae77-3033ccb69114}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class IAppMemoryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppMemoryReport'
     _iid_ = Guid('{6d65339b-4d6f-45bc-9c5e-e49b3ff2758d}')
     @winrt_commethod(6)
     def get_PrivateCommitUsage(self) -> UInt64: ...
@@ -542,12 +553,14 @@ class IAppMemoryReport(ComPtr):
     TotalCommitLimit = property(get_TotalCommitLimit, None)
 class IAppMemoryReport2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppMemoryReport2'
     _iid_ = Guid('{5f7f3738-51b7-42dc-b7ed-79ba46d28857}')
     @winrt_commethod(6)
     def get_ExpectedTotalCommitLimit(self) -> UInt64: ...
     ExpectedTotalCommitLimit = property(get_ExpectedTotalCommitLimit, None)
 class IAppMemoryUsageLimitChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppMemoryUsageLimitChangingEventArgs'
     _iid_ = Guid('{79f86664-feca-4da5-9e40-2bc63efdc979}')
     @winrt_commethod(6)
     def get_OldLimit(self) -> UInt64: ...
@@ -557,6 +570,7 @@ class IAppMemoryUsageLimitChangingEventArgs(ComPtr):
     NewLimit = property(get_NewLimit, None)
 class IAppResourceGroupBackgroundTaskReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppResourceGroupBackgroundTaskReport'
     _iid_ = Guid('{2566e74e-b05d-40c2-9dc1-1a4f039ea120}')
     @winrt_commethod(6)
     def get_TaskId(self) -> Guid: ...
@@ -572,6 +586,7 @@ class IAppResourceGroupBackgroundTaskReport(ComPtr):
     EntryPoint = property(get_EntryPoint, None)
 class IAppResourceGroupInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppResourceGroupInfo'
     _iid_ = Guid('{b913f77a-e807-49f4-845e-7b8bdcfe8ee7}')
     @winrt_commethod(6)
     def get_InstanceId(self) -> Guid: ...
@@ -589,6 +604,7 @@ class IAppResourceGroupInfo(ComPtr):
     IsShared = property(get_IsShared, None)
 class IAppResourceGroupInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppResourceGroupInfo2'
     _iid_ = Guid('{ee9b236d-d305-4d6b-92f7-6afdad72dedc}')
     @winrt_commethod(6)
     def StartSuspendAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.System.AppExecutionStateChangeResult]: ...
@@ -598,6 +614,7 @@ class IAppResourceGroupInfo2(ComPtr):
     def StartTerminateAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.System.AppExecutionStateChangeResult]: ...
 class IAppResourceGroupInfoWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppResourceGroupInfoWatcher'
     _iid_ = Guid('{d9b0a0fd-6e5a-4c72-8b17-09fec4a212bd}')
     @winrt_commethod(6)
     def add_Added(self, handler: Windows.Foundation.TypedEventHandler[Windows.System.AppResourceGroupInfoWatcher, Windows.System.AppResourceGroupInfoWatcherEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -628,6 +645,7 @@ class IAppResourceGroupInfoWatcher(ComPtr):
     Status = property(get_Status, None)
 class IAppResourceGroupInfoWatcherEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppResourceGroupInfoWatcherEventArgs'
     _iid_ = Guid('{7a787637-6302-4d2f-bf89-1c12d0b2a6b9}')
     @winrt_commethod(6)
     def get_AppDiagnosticInfos(self) -> Windows.Foundation.Collections.IVectorView[Windows.System.AppDiagnosticInfo]: ...
@@ -637,6 +655,7 @@ class IAppResourceGroupInfoWatcherEventArgs(ComPtr):
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
 class IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs'
     _iid_ = Guid('{1bdbedd7-fee6-4fd4-98dd-e92a2cc299f3}')
     @winrt_commethod(6)
     def get_AppDiagnosticInfos(self) -> Windows.Foundation.Collections.IVectorView[Windows.System.AppDiagnosticInfo]: ...
@@ -646,6 +665,7 @@ class IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs(ComPtr):
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
 class IAppResourceGroupMemoryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppResourceGroupMemoryReport'
     _iid_ = Guid('{2c8c06b1-7db1-4c51-a225-7fae2d49e431}')
     @winrt_commethod(6)
     def get_CommitUsageLimit(self) -> UInt64: ...
@@ -661,6 +681,7 @@ class IAppResourceGroupMemoryReport(ComPtr):
     TotalCommitUsage = property(get_TotalCommitUsage, None)
 class IAppResourceGroupStateReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppResourceGroupStateReport'
     _iid_ = Guid('{52849f18-2f70-4236-ab40-d04db0c7b931}')
     @winrt_commethod(6)
     def get_ExecutionState(self) -> Windows.System.AppResourceGroupExecutionState: ...
@@ -670,6 +691,7 @@ class IAppResourceGroupStateReport(ComPtr):
     EnergyQuotaState = property(get_EnergyQuotaState, None)
 class IAppUriHandlerHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerHost'
     _iid_ = Guid('{5d50cac5-92d2-5409-b56f-7f73e10ea4c3}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -678,6 +700,7 @@ class IAppUriHandlerHost(ComPtr):
     Name = property(get_Name, put_Name)
 class IAppUriHandlerHost2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerHost2'
     _iid_ = Guid('{3a0bee95-29e4-51bf-8095-a3c068e3c72a}')
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
@@ -686,11 +709,13 @@ class IAppUriHandlerHost2(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class IAppUriHandlerHostFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerHostFactory'
     _iid_ = Guid('{257c3c96-ce04-5f98-96bb-3ebd3e9275bb}')
     @winrt_commethod(6)
     def CreateInstance(self, name: WinRT_String) -> Windows.System.AppUriHandlerHost: ...
 class IAppUriHandlerRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerRegistration'
     _iid_ = Guid('{6f73aeb1-4569-5c3f-9ba0-99123eea32c3}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -704,6 +729,7 @@ class IAppUriHandlerRegistration(ComPtr):
     User = property(get_User, None)
 class IAppUriHandlerRegistration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerRegistration2'
     _iid_ = Guid('{d54dac97-cb39-5f1f-883e-01853730bd6d}')
     @winrt_commethod(6)
     def GetAllHosts(self) -> Windows.Foundation.Collections.IVector[Windows.System.AppUriHandlerHost]: ...
@@ -714,6 +740,7 @@ class IAppUriHandlerRegistration2(ComPtr):
     PackageFamilyName = property(get_PackageFamilyName, None)
 class IAppUriHandlerRegistrationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerRegistrationManager'
     _iid_ = Guid('{e62c9a52-ac94-5750-ac1b-6cfb6f250263}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
@@ -722,12 +749,14 @@ class IAppUriHandlerRegistrationManager(ComPtr):
     User = property(get_User, None)
 class IAppUriHandlerRegistrationManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerRegistrationManager2'
     _iid_ = Guid('{bddfcaf1-b51a-5e69-aefd-7088d9f2b123}')
     @winrt_commethod(6)
     def get_PackageFamilyName(self) -> WinRT_String: ...
     PackageFamilyName = property(get_PackageFamilyName, None)
 class IAppUriHandlerRegistrationManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerRegistrationManagerStatics'
     _iid_ = Guid('{d5cedd9f-5729-5b76-a1d4-0285f295c124}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.System.AppUriHandlerRegistrationManager: ...
@@ -735,6 +764,7 @@ class IAppUriHandlerRegistrationManagerStatics(ComPtr):
     def GetForUser(self, user: Windows.System.User) -> Windows.System.AppUriHandlerRegistrationManager: ...
 class IAppUriHandlerRegistrationManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IAppUriHandlerRegistrationManagerStatics2'
     _iid_ = Guid('{14f78379-6890-5080-90a7-98824a7f079e}')
     @winrt_commethod(6)
     def GetForPackage(self, packageFamilyName: WinRT_String) -> Windows.System.AppUriHandlerRegistrationManager: ...
@@ -742,11 +772,13 @@ class IAppUriHandlerRegistrationManagerStatics2(ComPtr):
     def GetForPackageForUser(self, packageFamilyName: WinRT_String, user: Windows.System.User) -> Windows.System.AppUriHandlerRegistrationManager: ...
 class IDateTimeSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IDateTimeSettingsStatics'
     _iid_ = Guid('{5d2150d1-47ee-48ab-a52b-9f1954278d82}')
     @winrt_commethod(6)
     def SetSystemDateTime(self, utcDateTime: Windows.Foundation.DateTime) -> Void: ...
 class IDispatcherQueue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IDispatcherQueue'
     _iid_ = Guid('{603e88e4-a338-4ffe-a457-a5cfb9ceb899}')
     @winrt_commethod(6)
     def CreateTimer(self) -> Windows.System.DispatcherQueueTimer: ...
@@ -764,12 +796,14 @@ class IDispatcherQueue(ComPtr):
     def remove_ShutdownCompleted(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IDispatcherQueue2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IDispatcherQueue2'
     _iid_ = Guid('{c822c647-30ef-506e-bd1e-a647ae6675ff}')
     @winrt_commethod(6)
     def get_HasThreadAccess(self) -> Boolean: ...
     HasThreadAccess = property(get_HasThreadAccess, None)
 class IDispatcherQueueController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IDispatcherQueueController'
     _iid_ = Guid('{22f34e66-50db-4e36-a98d-61c01b384d20}')
     @winrt_commethod(6)
     def get_DispatcherQueue(self) -> Windows.System.DispatcherQueue: ...
@@ -778,21 +812,25 @@ class IDispatcherQueueController(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class IDispatcherQueueControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IDispatcherQueueControllerStatics'
     _iid_ = Guid('{0a6c98e0-5198-49a2-a313-3f70d1f13c27}')
     @winrt_commethod(6)
     def CreateOnDedicatedThread(self) -> Windows.System.DispatcherQueueController: ...
 class IDispatcherQueueShutdownStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IDispatcherQueueShutdownStartingEventArgs'
     _iid_ = Guid('{c4724c4c-ff97-40c0-a226-cc0aaa545e89}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class IDispatcherQueueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IDispatcherQueueStatics'
     _iid_ = Guid('{a96d83d7-9371-4517-9245-d0824ac12c74}')
     @winrt_commethod(6)
     def GetForCurrentThread(self) -> Windows.System.DispatcherQueue: ...
 class IDispatcherQueueTimer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IDispatcherQueueTimer'
     _iid_ = Guid('{5feabb1d-a31c-4727-b1ac-37454649d56a}')
     @winrt_commethod(6)
     def get_Interval(self) -> Windows.Foundation.TimeSpan: ...
@@ -817,12 +855,14 @@ class IDispatcherQueueTimer(ComPtr):
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
 class IFolderLauncherOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IFolderLauncherOptions'
     _iid_ = Guid('{bb91c27d-6b87-432a-bd04-776c6f5fb2ab}')
     @winrt_commethod(6)
     def get_ItemsToSelect(self) -> Windows.Foundation.Collections.IVector[Windows.Storage.IStorageItem]: ...
     ItemsToSelect = property(get_ItemsToSelect, None)
 class IKnownUserPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IKnownUserPropertiesStatics'
     _iid_ = Guid('{7755911a-70c5-48e5-b637-5ba3441e4ee4}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
@@ -853,12 +893,14 @@ class IKnownUserPropertiesStatics(ComPtr):
     SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri, None)
 class IKnownUserPropertiesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IKnownUserPropertiesStatics2'
     _iid_ = Guid('{5b450782-f620-577e-b1b3-dd56644d79b1}')
     @winrt_commethod(6)
     def get_AgeEnforcementRegion(self) -> WinRT_String: ...
     AgeEnforcementRegion = property(get_AgeEnforcementRegion, None)
 class ILaunchUriResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILaunchUriResult'
     _iid_ = Guid('{ec27a8df-f6d5-45ca-913a-70a40c5c8221}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.System.LaunchUriStatus: ...
@@ -868,6 +910,7 @@ class ILaunchUriResult(ComPtr):
     Result = property(get_Result, None)
 class ILauncherOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherOptions'
     _iid_ = Guid('{bafa21d8-b071-4cd8-853e-341203e557d3}')
     @winrt_commethod(6)
     def get_TreatAsUntrusted(self) -> Boolean: ...
@@ -904,6 +947,7 @@ class ILauncherOptions(ComPtr):
     ContentType = property(get_ContentType, put_ContentType)
 class ILauncherOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherOptions2'
     _iid_ = Guid('{3ba08eb4-6e40-4dce-a1a3-2f53950afb49}')
     @winrt_commethod(6)
     def get_TargetApplicationPackageFamilyName(self) -> WinRT_String: ...
@@ -917,6 +961,7 @@ class ILauncherOptions2(ComPtr):
     NeighboringFilesQuery = property(get_NeighboringFilesQuery, put_NeighboringFilesQuery)
 class ILauncherOptions3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherOptions3'
     _iid_ = Guid('{f0770655-4b63-4e3a-9107-4e687841923a}')
     @winrt_commethod(6)
     def get_IgnoreAppUriHandlers(self) -> Boolean: ...
@@ -925,6 +970,7 @@ class ILauncherOptions3(ComPtr):
     IgnoreAppUriHandlers = property(get_IgnoreAppUriHandlers, put_IgnoreAppUriHandlers)
 class ILauncherOptions4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherOptions4'
     _iid_ = Guid('{ef6fd10e-e6fb-4814-a44e-57e8b9d9a01b}')
     @winrt_commethod(6)
     def get_LimitPickerToCurrentAppAndAppUriHandlers(self) -> Boolean: ...
@@ -933,6 +979,7 @@ class ILauncherOptions4(ComPtr):
     LimitPickerToCurrentAppAndAppUriHandlers = property(get_LimitPickerToCurrentAppAndAppUriHandlers, put_LimitPickerToCurrentAppAndAppUriHandlers)
 class ILauncherStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherStatics'
     _iid_ = Guid('{277151c3-9e3e-42f6-91a4-5dfdeb232451}')
     @winrt_commethod(6)
     def LaunchFileAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -944,6 +991,7 @@ class ILauncherStatics(ComPtr):
     def LaunchUriWithOptionsAsync(self, uri: Windows.Foundation.Uri, options: Windows.System.LauncherOptions) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ILauncherStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherStatics2'
     _iid_ = Guid('{59ba2fbb-24cb-4c02-a4c4-8294569d54f1}')
     @winrt_commethod(6)
     def LaunchUriForResultsAsync(self, uri: Windows.Foundation.Uri, options: Windows.System.LauncherOptions) -> Windows.Foundation.IAsyncOperation[Windows.System.LaunchUriResult]: ...
@@ -967,6 +1015,7 @@ class ILauncherStatics2(ComPtr):
     def FindFileHandlersAsync(self, extension: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.AppInfo]]: ...
 class ILauncherStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherStatics3'
     _iid_ = Guid('{234261a8-9db3-4683-aa42-dc6f51d33847}')
     @winrt_commethod(6)
     def LaunchFolderAsync(self, folder: Windows.Storage.IStorageFolder) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -974,6 +1023,7 @@ class ILauncherStatics3(ComPtr):
     def LaunchFolderWithOptionsAsync(self, folder: Windows.Storage.IStorageFolder, options: Windows.System.FolderLauncherOptions) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ILauncherStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherStatics4'
     _iid_ = Guid('{b9ec819f-b5a5-41c6-b3b3-dd1b3178bcf2}')
     @winrt_commethod(6)
     def QueryAppUriSupportAsync(self, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.System.LaunchQuerySupportStatus]: ...
@@ -993,6 +1043,7 @@ class ILauncherStatics4(ComPtr):
     def LaunchUriForResultsWithDataForUserAsync(self, user: Windows.System.User, uri: Windows.Foundation.Uri, options: Windows.System.LauncherOptions, inputData: Windows.Foundation.Collections.ValueSet) -> Windows.Foundation.IAsyncOperation[Windows.System.LaunchUriResult]: ...
 class ILauncherStatics5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherStatics5'
     _iid_ = Guid('{5b24ef84-d895-5fea-9153-1ac49aed9ba9}')
     @winrt_commethod(6)
     def LaunchFolderPathAsync(self, path: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -1004,6 +1055,7 @@ class ILauncherStatics5(ComPtr):
     def LaunchFolderPathWithOptionsForUserAsync(self, user: Windows.System.User, path: WinRT_String, options: Windows.System.FolderLauncherOptions) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ILauncherUIOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherUIOptions'
     _iid_ = Guid('{1b25da6e-8aa6-41e9-8251-4165f5985f49}')
     @winrt_commethod(6)
     def get_InvocationPoint(self) -> Windows.Foundation.IReference[Windows.Foundation.Point]: ...
@@ -1022,6 +1074,7 @@ class ILauncherUIOptions(ComPtr):
     PreferredPlacement = property(get_PreferredPlacement, put_PreferredPlacement)
 class ILauncherViewOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ILauncherViewOptions'
     _iid_ = Guid('{8a9b29f1-7ca7-49de-9bd3-3c5b7184f616}')
     @winrt_commethod(6)
     def get_DesiredRemainingView(self) -> Windows.UI.ViewManagement.ViewSizePreference: ...
@@ -1030,6 +1083,7 @@ class ILauncherViewOptions(ComPtr):
     DesiredRemainingView = property(get_DesiredRemainingView, put_DesiredRemainingView)
 class IMemoryManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IMemoryManagerStatics'
     _iid_ = Guid('{5c6c279c-d7ca-4779-9188-4057219ce64c}')
     @winrt_commethod(6)
     def get_AppMemoryUsage(self) -> UInt64: ...
@@ -1054,6 +1108,7 @@ class IMemoryManagerStatics(ComPtr):
     AppMemoryUsageLevel = property(get_AppMemoryUsageLevel, None)
 class IMemoryManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IMemoryManagerStatics2'
     _iid_ = Guid('{6eee351f-6d62-423f-9479-b01f9c9f7669}')
     @winrt_commethod(6)
     def GetAppMemoryReport(self) -> Windows.System.AppMemoryReport: ...
@@ -1061,17 +1116,20 @@ class IMemoryManagerStatics2(ComPtr):
     def GetProcessMemoryReport(self) -> Windows.System.ProcessMemoryReport: ...
 class IMemoryManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IMemoryManagerStatics3'
     _iid_ = Guid('{149b59ce-92ad-4e35-89eb-50dfb4c0d91c}')
     @winrt_commethod(6)
     def TrySetAppMemoryUsageLimit(self, value: UInt64) -> Boolean: ...
 class IMemoryManagerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IMemoryManagerStatics4'
     _iid_ = Guid('{c5a94828-e84e-4886-8a0d-44b3190e3b72}')
     @winrt_commethod(6)
     def get_ExpectedAppMemoryUsageLimit(self) -> UInt64: ...
     ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit, None)
 class IProcessLauncherOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IProcessLauncherOptions'
     _iid_ = Guid('{3080b9cf-f444-4a83-beaf-a549a0f3229c}')
     @winrt_commethod(6)
     def get_StandardInput(self) -> Windows.Storage.Streams.IInputStream: ...
@@ -1095,12 +1153,14 @@ class IProcessLauncherOptions(ComPtr):
     WorkingDirectory = property(get_WorkingDirectory, put_WorkingDirectory)
 class IProcessLauncherResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IProcessLauncherResult'
     _iid_ = Guid('{544c8934-86d8-4991-8e75-ece8a43b6b6d}')
     @winrt_commethod(6)
     def get_ExitCode(self) -> UInt32: ...
     ExitCode = property(get_ExitCode, None)
 class IProcessLauncherStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IProcessLauncherStatics'
     _iid_ = Guid('{33ab66e7-2d0e-448b-a6a0-c13c3836d09c}')
     @winrt_commethod(6)
     def RunToCompletionAsync(self, fileName: WinRT_String, args: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.System.ProcessLauncherResult]: ...
@@ -1108,6 +1168,7 @@ class IProcessLauncherStatics(ComPtr):
     def RunToCompletionAsyncWithOptions(self, fileName: WinRT_String, args: WinRT_String, options: Windows.System.ProcessLauncherOptions) -> Windows.Foundation.IAsyncOperation[Windows.System.ProcessLauncherResult]: ...
 class IProcessMemoryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IProcessMemoryReport'
     _iid_ = Guid('{087305a8-9b70-4782-8741-3a982b6ce5e4}')
     @winrt_commethod(6)
     def get_PrivateWorkingSetUsage(self) -> UInt64: ...
@@ -1117,11 +1178,13 @@ class IProcessMemoryReport(ComPtr):
     TotalWorkingSetUsage = property(get_TotalWorkingSetUsage, None)
 class IProtocolForResultsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IProtocolForResultsOperation'
     _iid_ = Guid('{d581293a-6de9-4d28-9378-f86782e182bb}')
     @winrt_commethod(6)
     def ReportCompleted(self, data: Windows.Foundation.Collections.ValueSet) -> Void: ...
 class IRemoteLauncherOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IRemoteLauncherOptions'
     _iid_ = Guid('{9e3a2788-2891-4cdf-a2d6-9dff7d02e693}')
     @winrt_commethod(6)
     def get_FallbackUri(self) -> Windows.Foundation.Uri: ...
@@ -1133,6 +1196,7 @@ class IRemoteLauncherOptions(ComPtr):
     PreferredAppIds = property(get_PreferredAppIds, None)
 class IRemoteLauncherStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IRemoteLauncherStatics'
     _iid_ = Guid('{d7db7a93-a30c-48b7-9f21-051026a4e517}')
     @winrt_commethod(6)
     def LaunchUriAsync(self, remoteSystemConnectionRequest: Windows.System.RemoteSystems.RemoteSystemConnectionRequest, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.System.RemoteLaunchUriStatus]: ...
@@ -1142,6 +1206,7 @@ class IRemoteLauncherStatics(ComPtr):
     def LaunchUriWithDataAsync(self, remoteSystemConnectionRequest: Windows.System.RemoteSystems.RemoteSystemConnectionRequest, uri: Windows.Foundation.Uri, options: Windows.System.RemoteLauncherOptions, inputData: Windows.Foundation.Collections.ValueSet) -> Windows.Foundation.IAsyncOperation[Windows.System.RemoteLaunchUriStatus]: ...
 class IShutdownManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IShutdownManagerStatics'
     _iid_ = Guid('{72e247ed-dd5b-4d6c-b1d0-c57a7bbb5f94}')
     @winrt_commethod(6)
     def BeginShutdown(self, shutdownKind: Windows.System.ShutdownKind, timeout: Windows.Foundation.TimeSpan) -> Void: ...
@@ -1149,6 +1214,7 @@ class IShutdownManagerStatics(ComPtr):
     def CancelShutdown(self) -> Void: ...
 class IShutdownManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IShutdownManagerStatics2'
     _iid_ = Guid('{0f69a02f-9c34-43c7-a8c3-70b30a7f7504}')
     @winrt_commethod(6)
     def IsPowerStateSupported(self, powerState: Windows.System.PowerState) -> Boolean: ...
@@ -1158,6 +1224,7 @@ class IShutdownManagerStatics2(ComPtr):
     def EnterPowerStateWithTimeSpan(self, powerState: Windows.System.PowerState, wakeUpAfter: Windows.Foundation.TimeSpan) -> Void: ...
 class ITimeZoneSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ITimeZoneSettingsStatics'
     _iid_ = Guid('{9b3b2bea-a101-41ae-9fbd-028728bab73d}')
     @winrt_commethod(6)
     def get_CurrentTimeZoneDisplayName(self) -> WinRT_String: ...
@@ -1172,11 +1239,13 @@ class ITimeZoneSettingsStatics(ComPtr):
     CanChangeTimeZone = property(get_CanChangeTimeZone, None)
 class ITimeZoneSettingsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ITimeZoneSettingsStatics2'
     _iid_ = Guid('{555c0db8-39a8-49fa-b4f6-a2c7fc2842ec}')
     @winrt_commethod(6)
     def AutoUpdateTimeZoneAsync(self, timeout: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.System.AutoUpdateTimeZoneStatus]: ...
 class IUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUser'
     _iid_ = Guid('{df9a26c6-e746-4bcd-b5d4-120103c4209b}')
     @winrt_commethod(6)
     def get_NonRoamableId(self) -> WinRT_String: ...
@@ -1195,16 +1264,19 @@ class IUser(ComPtr):
     Type = property(get_Type, None)
 class IUser2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUser2'
     _iid_ = Guid('{98ba5628-a6e3-518e-89d9-d3b2b1991a10}')
     @winrt_commethod(6)
     def CheckUserAgeConsentGroupAsync(self, consentGroup: Windows.System.UserAgeConsentGroup) -> Windows.Foundation.IAsyncOperation[Windows.System.UserAgeConsentResult]: ...
 class IUserAuthenticationStatusChangeDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserAuthenticationStatusChangeDeferral'
     _iid_ = Guid('{88b59568-bb30-42fb-a270-e9902e40efa7}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IUserAuthenticationStatusChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserAuthenticationStatusChangingEventArgs'
     _iid_ = Guid('{8c030f28-a711-4c1e-ab48-04179c15938f}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.System.UserAuthenticationStatusChangeDeferral: ...
@@ -1219,18 +1291,21 @@ class IUserAuthenticationStatusChangingEventArgs(ComPtr):
     CurrentStatus = property(get_CurrentStatus, None)
 class IUserChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserChangedEventArgs'
     _iid_ = Guid('{086459dc-18c6-48db-bc99-724fb9203ccc}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
 class IUserChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserChangedEventArgs2'
     _iid_ = Guid('{6b2ccb44-6f01-560c-97ad-fc7f32ec581f}')
     @winrt_commethod(6)
     def get_ChangedPropertyKinds(self) -> Windows.Foundation.Collections.IVectorView[Windows.System.UserWatcherUpdateKind]: ...
     ChangedPropertyKinds = property(get_ChangedPropertyKinds, None)
 class IUserDeviceAssociationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserDeviceAssociationChangedEventArgs'
     _iid_ = Guid('{bd1f6f6c-bb5d-4d7b-a5f0-c8cd11a38d42}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
@@ -1243,6 +1318,7 @@ class IUserDeviceAssociationChangedEventArgs(ComPtr):
     OldUser = property(get_OldUser, None)
 class IUserDeviceAssociationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserDeviceAssociationStatics'
     _iid_ = Guid('{7e491e14-f85a-4c07-8da9-7fe3d0542343}')
     @winrt_commethod(6)
     def FindUserFromDeviceId(self, deviceId: WinRT_String) -> Windows.System.User: ...
@@ -1252,6 +1328,7 @@ class IUserDeviceAssociationStatics(ComPtr):
     def remove_UserDeviceAssociationChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IUserPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserPicker'
     _iid_ = Guid('{7d548008-f1e3-4a6c-8ddc-a9bb0f488aed}')
     @winrt_commethod(6)
     def get_AllowGuestAccounts(self) -> Boolean: ...
@@ -1267,11 +1344,13 @@ class IUserPicker(ComPtr):
     SuggestedSelectedUser = property(get_SuggestedSelectedUser, put_SuggestedSelectedUser)
 class IUserPickerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserPickerStatics'
     _iid_ = Guid('{de3290dc-7e73-4df6-a1ae-4d7eca82b40d}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
 class IUserStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserStatics'
     _iid_ = Guid('{155eb23b-242a-45e0-a2e9-3171fc6a7fdd}')
     @winrt_commethod(6)
     def CreateWatcher(self) -> Windows.System.UserWatcher: ...
@@ -1285,11 +1364,13 @@ class IUserStatics(ComPtr):
     def GetFromId(self, nonRoamableId: WinRT_String) -> Windows.System.User: ...
 class IUserStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserStatics2'
     _iid_ = Guid('{74a37e11-2eb5-4487-b0d5-2c6790e013e9}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.System.User: ...
 class IUserWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.IUserWatcher'
     _iid_ = Guid('{155eb23b-242a-45e0-a2e9-3171fc6a7fbb}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.System.UserWatcherStatus: ...
@@ -1328,6 +1409,7 @@ class IUserWatcher(ComPtr):
     Status = property(get_Status, None)
 class KnownUserProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.KnownUserProperties'
     @winrt_classmethod
     def get_AgeEnforcementRegion(cls: Windows.System.IKnownUserPropertiesStatics2) -> WinRT_String: ...
     @winrt_classmethod
@@ -1390,6 +1472,7 @@ LaunchUriStatus_ProtocolUnavailable: LaunchUriStatus = 2
 LaunchUriStatus_Unknown: LaunchUriStatus = 3
 class Launcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Launcher'
     @winrt_classmethod
     def LaunchFolderPathAsync(cls: Windows.System.ILauncherStatics5, path: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
@@ -1531,6 +1614,7 @@ class LauncherUIOptions(ComPtr):
     PreferredPlacement = property(get_PreferredPlacement, put_PreferredPlacement)
 class MemoryManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.MemoryManager'
     @winrt_classmethod
     def get_ExpectedAppMemoryUsageLimit(cls: Windows.System.IMemoryManagerStatics4) -> UInt64: ...
     @winrt_classmethod
@@ -1566,6 +1650,7 @@ PowerState_ConnectedStandby: PowerState = 0
 PowerState_SleepS3: PowerState = 1
 class ProcessLauncher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ProcessLauncher'
     @winrt_classmethod
     def RunToCompletionAsync(cls: Windows.System.IProcessLauncherStatics, fileName: WinRT_String, args: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.System.ProcessLauncherResult]: ...
     @winrt_classmethod
@@ -1638,6 +1723,7 @@ RemoteLaunchUriStatus_DeniedByLocalSystem: RemoteLaunchUriStatus = 6
 RemoteLaunchUriStatus_DeniedByRemoteSystem: RemoteLaunchUriStatus = 7
 class RemoteLauncher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.RemoteLauncher'
     @winrt_classmethod
     def LaunchUriAsync(cls: Windows.System.IRemoteLauncherStatics, remoteSystemConnectionRequest: Windows.System.RemoteSystems.RemoteSystemConnectionRequest, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.System.RemoteLaunchUriStatus]: ...
     @winrt_classmethod
@@ -1663,6 +1749,7 @@ ShutdownKind_Shutdown: ShutdownKind = 0
 ShutdownKind_Restart: ShutdownKind = 1
 class ShutdownManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.ShutdownManager'
     @winrt_classmethod
     def IsPowerStateSupported(cls: Windows.System.IShutdownManagerStatics2, powerState: Windows.System.PowerState) -> Boolean: ...
     @winrt_classmethod
@@ -1676,6 +1763,7 @@ class ShutdownManager(ComPtr):
 SystemManagementContract: UInt32 = 458752
 class TimeZoneSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.TimeZoneSettings'
     @winrt_classmethod
     def AutoUpdateTimeZoneAsync(cls: Windows.System.ITimeZoneSettingsStatics2, timeout: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.System.AutoUpdateTimeZoneStatus]: ...
     @winrt_classmethod
@@ -1769,6 +1857,7 @@ class UserChangedEventArgs(ComPtr):
     ChangedPropertyKinds = property(get_ChangedPropertyKinds, None)
 class UserDeviceAssociation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.UserDeviceAssociation'
     @winrt_classmethod
     def FindUserFromDeviceId(cls: Windows.System.IUserDeviceAssociationStatics, deviceId: WinRT_String) -> Windows.System.User: ...
     @winrt_classmethod

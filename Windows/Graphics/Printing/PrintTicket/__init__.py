@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPrintTicketCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketCapabilities'
     _iid_ = Guid('{8c45508b-bbdc-4256-a142-2fd615ecb416}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -86,6 +87,7 @@ class IPrintTicketCapabilities(ComPtr):
     PageResolutionFeature = property(get_PageResolutionFeature, None)
 class IPrintTicketFeature(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketFeature'
     _iid_ = Guid('{e7607d6a-59f5-4103-8858-b97710963d39}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -113,6 +115,7 @@ class IPrintTicketFeature(ComPtr):
     SelectionType = property(get_SelectionType, None)
 class IPrintTicketOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketOption'
     _iid_ = Guid('{b086cf90-b367-4e4b-bd48-9c78a0bb31ce}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -136,6 +139,7 @@ class IPrintTicketOption(ComPtr):
     DisplayName = property(get_DisplayName, None)
 class IPrintTicketParameterDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterDefinition'
     _iid_ = Guid('{d6bab4e4-2962-4c01-b7f3-9a9294eb8335}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -160,6 +164,7 @@ class IPrintTicketParameterDefinition(ComPtr):
     RangeMax = property(get_RangeMax, None)
 class IPrintTicketParameterInitializer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterInitializer'
     _iid_ = Guid('{5e3335bb-a0a5-48b1-9d5c-07116ddc597a}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -177,6 +182,7 @@ class IPrintTicketParameterInitializer(ComPtr):
     Value = property(get_Value, put_Value)
 class IPrintTicketValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketValue'
     _iid_ = Guid('{66b30a32-244d-4e22-a98b-bb3cf1f2dd91}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.Graphics.Printing.PrintTicket.PrintTicketValueType: ...
@@ -187,6 +193,7 @@ class IPrintTicketValue(ComPtr):
     Type = property(get_Type, None)
 class IWorkflowPrintTicket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicket'
     _iid_ = Guid('{41d52285-35e8-448e-a8c5-e4b6a2cf826c}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -260,6 +267,7 @@ class IWorkflowPrintTicket(ComPtr):
     PageResolutionFeature = property(get_PageResolutionFeature, None)
 class IWorkflowPrintTicketValidationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketValidationResult'
     _iid_ = Guid('{0ad1f392-da7b-4a36-bf36-6a99a62e2059}')
     @winrt_commethod(6)
     def get_Validated(self) -> Boolean: ...

@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISoundLevelBrokerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Core.Preview.ISoundLevelBrokerStatics'
     _iid_ = Guid('{6a633961-dbed-464c-a09a-33412f5caa3f}')
     @winrt_commethod(6)
     def get_SoundLevel(self) -> Windows.Media.SoundLevel: ...
@@ -34,6 +35,7 @@ class ISoundLevelBrokerStatics(ComPtr):
     SoundLevel = property(get_SoundLevel, None)
 class SoundLevelBroker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Core.Preview.SoundLevelBroker'
     @winrt_classmethod
     def get_SoundLevel(cls: Windows.Media.Core.Preview.ISoundLevelBrokerStatics) -> Windows.Media.SoundLevel: ...
     @winrt_classmethod

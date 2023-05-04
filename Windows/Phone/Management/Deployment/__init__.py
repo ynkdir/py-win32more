@@ -48,6 +48,7 @@ class Enterprise(ComPtr):
     Status = property(get_Status, None)
 class EnterpriseEnrollmentManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.EnterpriseEnrollmentManager'
     @winrt_classmethod
     def get_EnrolledEnterprises(cls: Windows.Phone.Management.Deployment.IEnterpriseEnrollmentManager) -> Windows.Foundation.Collections.IVectorView[Windows.Phone.Management.Deployment.Enterprise]: ...
     @winrt_classmethod
@@ -81,6 +82,7 @@ EnterpriseStatus_Revoked: EnterpriseStatus = 2
 EnterpriseStatus_Expired: EnterpriseStatus = 3
 class IEnterprise(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.IEnterprise'
     _iid_ = Guid('{96592f8d-856c-4426-a947-b06307718078}')
     @winrt_commethod(6)
     def get_Id(self) -> Guid: ...
@@ -102,6 +104,7 @@ class IEnterprise(ComPtr):
     Status = property(get_Status, None)
 class IEnterpriseEnrollmentManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.IEnterpriseEnrollmentManager'
     _iid_ = Guid('{20f9f390-2c69-41d8-88e6-e4b3884026cb}')
     @winrt_commethod(6)
     def get_EnrolledEnterprises(self) -> Windows.Foundation.Collections.IVectorView[Windows.Phone.Management.Deployment.Enterprise]: ...
@@ -117,6 +120,7 @@ class IEnterpriseEnrollmentManager(ComPtr):
     CurrentEnterprise = property(get_CurrentEnterprise, None)
 class IEnterpriseEnrollmentResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.IEnterpriseEnrollmentResult'
     _iid_ = Guid('{9ff71ce6-90db-4342-b326-1729aa91301c}')
     @winrt_commethod(6)
     def get_EnrolledEnterprise(self) -> Windows.Phone.Management.Deployment.Enterprise: ...
@@ -126,6 +130,7 @@ class IEnterpriseEnrollmentResult(ComPtr):
     Status = property(get_Status, None)
 class IInstallationManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.IInstallationManagerStatics'
     _iid_ = Guid('{929aa738-8d49-42ac-80c9-b4ad793c43f2}')
     @winrt_commethod(6)
     def AddPackageAsync(self, title: WinRT_String, sourceLocation: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Phone.Management.Deployment.PackageInstallResult, UInt32]: ...
@@ -139,6 +144,7 @@ class IInstallationManagerStatics(ComPtr):
     def FindPackages(self) -> Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Package]: ...
 class IInstallationManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.IInstallationManagerStatics2'
     _iid_ = Guid('{7c6c2cbd-fa4a-4c8e-ab97-d959452f19e5}')
     @winrt_commethod(6)
     def RemovePackageAsync(self, packageFullName: WinRT_String, removalOptions: Windows.Management.Deployment.RemovalOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Phone.Management.Deployment.PackageInstallResult, UInt32]: ...
@@ -148,6 +154,7 @@ class IInstallationManagerStatics2(ComPtr):
     def FindPackagesByNamePublisher(self, packageName: WinRT_String, packagePublisher: WinRT_String) -> Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Package]: ...
 class IPackageInstallResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.IPackageInstallResult'
     _iid_ = Guid('{33e8eed5-0f7e-4473-967c-7d6e1c0e7de1}')
     @winrt_commethod(6)
     def get_ProductId(self) -> WinRT_String: ...
@@ -157,12 +164,14 @@ class IPackageInstallResult(ComPtr):
     InstallState = property(get_InstallState, None)
 class IPackageInstallResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.IPackageInstallResult2'
     _iid_ = Guid('{7149d909-3ff9-41ed-a717-2bc65ffc61d2}')
     @winrt_commethod(6)
     def get_ErrorText(self) -> WinRT_String: ...
     ErrorText = property(get_ErrorText, None)
 class InstallationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Management.Deployment.InstallationManager'
     @winrt_classmethod
     def RemovePackageAsync(cls: Windows.Phone.Management.Deployment.IInstallationManagerStatics2, packageFullName: WinRT_String, removalOptions: Windows.Management.Deployment.RemovalOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Phone.Management.Deployment.PackageInstallResult, UInt32]: ...
     @winrt_classmethod

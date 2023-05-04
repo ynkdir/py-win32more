@@ -138,6 +138,7 @@ DnssdServiceWatcherStatus_Stopped: DnssdServiceWatcherStatus = 4
 DnssdServiceWatcherStatus_Aborted: DnssdServiceWatcherStatus = 5
 class IDnssdRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdRegistrationResult'
     _iid_ = Guid('{3d786ad2-e606-5350-73ea-7e97f066162f}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationStatus: ...
@@ -150,6 +151,7 @@ class IDnssdRegistrationResult(ComPtr):
     HasInstanceNameChanged = property(get_HasInstanceNameChanged, None)
 class IDnssdServiceInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstance'
     _iid_ = Guid('{e246db7e-98a5-4ca1-b9e4-c253d33c35ff}')
     @winrt_commethod(6)
     def get_DnssdServiceInstanceName(self) -> WinRT_String: ...
@@ -189,11 +191,13 @@ class IDnssdServiceInstance(ComPtr):
     TextAttributes = property(get_TextAttributes, None)
 class IDnssdServiceInstanceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstanceFactory'
     _iid_ = Guid('{6cb061a1-c478-4331-9684-4af2186c0a2b}')
     @winrt_commethod(6)
     def Create(self, dnssdServiceInstanceName: WinRT_String, hostName: Windows.Networking.HostName, port: UInt16) -> Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance: ...
 class IDnssdServiceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher'
     _iid_ = Guid('{cc34d9c1-db7d-4b69-983d-c6f83f205682}')
     @winrt_commethod(6)
     def add_Added(self, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]) -> Windows.Foundation.EventRegistrationToken: ...

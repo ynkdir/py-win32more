@@ -176,8 +176,8 @@ class CallControl(ComPtr):
 CallControlContract: UInt32 = 65536
 class CallControlEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{596f759f-50df-4454-bc63-4d3d01b61958}')
     _classid_ = 'Windows.Media.Devices.CallControlEventHandler'
+    _iid_ = Guid('{596f759f-50df-4454-bc63-4d3d01b61958}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Devices.CallControl) -> Void: ...
 class CameraOcclusionInfo(ComPtr):
@@ -274,8 +274,8 @@ class DialRequestedEventArgs(ComPtr):
     Contact = property(get_Contact, None)
 class DialRequestedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{5abbffdb-c21f-4bc4-891b-257e28c1b1a4}')
     _classid_ = 'Windows.Media.Devices.DialRequestedEventHandler'
+    _iid_ = Guid('{5abbffdb-c21f-4bc4-891b-257e28c1b1a4}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.DialRequestedEventArgs) -> Void: ...
 class DigitalWindowBounds(ComPtr):
@@ -578,6 +578,7 @@ HdrVideoMode_On: HdrVideoMode = 1
 HdrVideoMode_Auto: HdrVideoMode = 2
 class IAdvancedPhotoCaptureSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedPhotoCaptureSettings'
     _iid_ = Guid('{08f3863a-0018-445b-93d2-646d1c5ed05c}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.Media.Devices.AdvancedPhotoMode: ...
@@ -586,6 +587,7 @@ class IAdvancedPhotoCaptureSettings(ComPtr):
     Mode = property(get_Mode, put_Mode)
 class IAdvancedPhotoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedPhotoControl'
     _iid_ = Guid('{c5b15486-9001-4682-9309-68eae0080eec}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -600,6 +602,7 @@ class IAdvancedPhotoControl(ComPtr):
     Mode = property(get_Mode, None)
 class IAdvancedVideoCaptureDeviceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController'
     _iid_ = Guid('{de6ff4d3-2b96-4583-80ab-b5b01dc6a8d7}')
     @winrt_commethod(6)
     def SetDeviceProperty(self, propertyId: WinRT_String, propertyValue: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
@@ -607,17 +610,20 @@ class IAdvancedVideoCaptureDeviceController(ComPtr):
     def GetDeviceProperty(self, propertyId: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IAdvancedVideoCaptureDeviceController10(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController10'
     _iid_ = Guid('{c621b82d-d6f0-5c1b-a388-a6e938407146}')
     @winrt_commethod(6)
     def get_CameraOcclusionInfo(self) -> Windows.Media.Devices.CameraOcclusionInfo: ...
     CameraOcclusionInfo = property(get_CameraOcclusionInfo, None)
 class IAdvancedVideoCaptureDeviceController11(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController11'
     _iid_ = Guid('{d5b65ae2-3772-580c-a630-e75de9106904}')
     @winrt_commethod(6)
     def TryAcquireExclusiveControl(self, deviceId: WinRT_String, mode: Windows.Media.Capture.MediaCaptureDeviceExclusiveControlReleaseMode) -> Boolean: ...
 class IAdvancedVideoCaptureDeviceController2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController2'
     _iid_ = Guid('{8bb94f8f-f11a-43db-b402-11930b80ae56}')
     @winrt_commethod(6)
     def get_LowLagPhotoSequence(self) -> Windows.Media.Devices.LowLagPhotoSequenceControl: ...
@@ -659,6 +665,7 @@ class IAdvancedVideoCaptureDeviceController2(ComPtr):
     PrimaryUse = property(get_PrimaryUse, put_PrimaryUse)
 class IAdvancedVideoCaptureDeviceController3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController3'
     _iid_ = Guid('{a98b8f34-ee0d-470c-b9f0-4229c4bbd089}')
     @winrt_commethod(6)
     def get_VariablePhotoSequenceController(self) -> Windows.Media.Devices.Core.VariablePhotoSequenceController: ...
@@ -671,6 +678,7 @@ class IAdvancedVideoCaptureDeviceController3(ComPtr):
     ZoomControl = property(get_ZoomControl, None)
 class IAdvancedVideoCaptureDeviceController4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController4'
     _iid_ = Guid('{ea9fbfaf-d371-41c3-9a17-824a87ebdfd2}')
     @winrt_commethod(6)
     def get_ExposurePriorityVideoControl(self) -> Windows.Media.Devices.ExposurePriorityVideoControl: ...
@@ -691,6 +699,7 @@ class IAdvancedVideoCaptureDeviceController4(ComPtr):
     AdvancedPhotoControl = property(get_AdvancedPhotoControl, None)
 class IAdvancedVideoCaptureDeviceController5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController5'
     _iid_ = Guid('{33512b17-b9cb-4a23-b875-f9eaab535492}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -705,30 +714,35 @@ class IAdvancedVideoCaptureDeviceController5(ComPtr):
     Id = property(get_Id, None)
 class IAdvancedVideoCaptureDeviceController6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController6'
     _iid_ = Guid('{b6563a53-68a1-44b7-9f89-b5fa97ac0cbe}')
     @winrt_commethod(6)
     def get_VideoTemporalDenoisingControl(self) -> Windows.Media.Devices.VideoTemporalDenoisingControl: ...
     VideoTemporalDenoisingControl = property(get_VideoTemporalDenoisingControl, None)
 class IAdvancedVideoCaptureDeviceController7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController7'
     _iid_ = Guid('{8d2927f0-a054-50e7-b7df-7c04234d10f0}')
     @winrt_commethod(6)
     def get_InfraredTorchControl(self) -> Windows.Media.Devices.InfraredTorchControl: ...
     InfraredTorchControl = property(get_InfraredTorchControl, None)
 class IAdvancedVideoCaptureDeviceController8(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController8'
     _iid_ = Guid('{d843f010-e7fb-595b-9a78-0e54c4532b43}')
     @winrt_commethod(6)
     def get_PanelBasedOptimizationControl(self) -> Windows.Media.Devices.PanelBasedOptimizationControl: ...
     PanelBasedOptimizationControl = property(get_PanelBasedOptimizationControl, None)
 class IAdvancedVideoCaptureDeviceController9(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController9'
     _iid_ = Guid('{8bdca95d-0255-51bc-a10d-5a169ec1625a}')
     @winrt_commethod(6)
     def get_DigitalWindowControl(self) -> Windows.Media.Devices.DigitalWindowControl: ...
     DigitalWindowControl = property(get_DigitalWindowControl, None)
 class IAudioDeviceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAudioDeviceController'
     _iid_ = Guid('{edd4a388-79c7-4f7c-90e8-ef934b21580a}')
     @winrt_commethod(6)
     def put_Muted(self, value: Boolean) -> Void: ...
@@ -742,6 +756,7 @@ class IAudioDeviceController(ComPtr):
     VolumePercent = property(get_VolumePercent, put_VolumePercent)
 class IAudioDeviceModule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAudioDeviceModule'
     _iid_ = Guid('{86cfac36-47c1-4b33-9852-8773ec4be123}')
     @winrt_commethod(6)
     def get_ClassId(self) -> WinRT_String: ...
@@ -762,6 +777,7 @@ class IAudioDeviceModule(ComPtr):
     MinorVersion = property(get_MinorVersion, None)
 class IAudioDeviceModuleNotificationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAudioDeviceModuleNotificationEventArgs'
     _iid_ = Guid('{e3e3ccaf-224c-48be-956b-9a13134e96e8}')
     @winrt_commethod(6)
     def get_Module(self) -> Windows.Media.Devices.AudioDeviceModule: ...
@@ -771,6 +787,7 @@ class IAudioDeviceModuleNotificationEventArgs(ComPtr):
     NotificationData = property(get_NotificationData, None)
 class IAudioDeviceModulesManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAudioDeviceModulesManager'
     _iid_ = Guid('{6aa40c4d-960a-4d1c-b318-0022604547ed}')
     @winrt_commethod(6)
     def add_ModuleNotificationReceived(self, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Devices.AudioDeviceModulesManager, Windows.Media.Devices.AudioDeviceModuleNotificationEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -782,11 +799,13 @@ class IAudioDeviceModulesManager(ComPtr):
     def FindAll(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Devices.AudioDeviceModule]: ...
 class IAudioDeviceModulesManagerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAudioDeviceModulesManagerFactory'
     _iid_ = Guid('{8db03670-e64d-4773-96c0-bc7ebf0e063f}')
     @winrt_commethod(6)
     def Create(self, deviceId: WinRT_String) -> Windows.Media.Devices.AudioDeviceModulesManager: ...
 class ICallControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ICallControl'
     _iid_ = Guid('{a520d0d6-ae8d-45db-8011-ca49d3b3e578}')
     @winrt_commethod(6)
     def IndicateNewIncomingCall(self, enableRinger: Boolean, callerId: WinRT_String) -> UInt64: ...
@@ -825,6 +844,7 @@ class ICallControl(ComPtr):
     HasRinger = property(get_HasRinger, None)
 class ICallControlStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ICallControlStatics'
     _iid_ = Guid('{03945ad5-85ab-40e1-af19-56c94303b019}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Media.Devices.CallControl: ...
@@ -832,6 +852,7 @@ class ICallControlStatics(ComPtr):
     def FromId(self, deviceId: WinRT_String) -> Windows.Media.Devices.CallControl: ...
 class ICameraOcclusionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ICameraOcclusionInfo'
     _iid_ = Guid('{af6c4ad0-a84d-5db6-be58-a5da21cfe011}')
     @winrt_commethod(6)
     def GetState(self) -> Windows.Media.Devices.CameraOcclusionState: ...
@@ -843,6 +864,7 @@ class ICameraOcclusionInfo(ComPtr):
     def remove_StateChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICameraOcclusionState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ICameraOcclusionState'
     _iid_ = Guid('{430adeb8-6842-5e55-9bde-04b4ef3a8a57}')
     @winrt_commethod(6)
     def get_IsOccluded(self) -> Boolean: ...
@@ -851,12 +873,14 @@ class ICameraOcclusionState(ComPtr):
     IsOccluded = property(get_IsOccluded, None)
 class ICameraOcclusionStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ICameraOcclusionStateChangedEventArgs'
     _iid_ = Guid('{8512d848-c0de-57ca-a1ca-fb2c3d23df55}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.Media.Devices.CameraOcclusionState: ...
     State = property(get_State, None)
 class IDefaultAudioDeviceChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IDefaultAudioDeviceChangedEventArgs'
     _iid_ = Guid('{110f882f-1c05-4657-a18e-47c9b69f07ab}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -866,6 +890,7 @@ class IDefaultAudioDeviceChangedEventArgs(ComPtr):
     Role = property(get_Role, None)
 class IDialRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IDialRequestedEventArgs'
     _iid_ = Guid('{037b929e-953c-4286-8866-4f0f376c855a}')
     @winrt_commethod(6)
     def Handled(self) -> Void: ...
@@ -874,6 +899,7 @@ class IDialRequestedEventArgs(ComPtr):
     Contact = property(get_Contact, None)
 class IDigitalWindowBounds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IDigitalWindowBounds'
     _iid_ = Guid('{dd4f21dd-d173-5c6b-8c25-bdd26d5122b1}')
     @winrt_commethod(6)
     def get_NormalizedOriginTop(self) -> Double: ...
@@ -892,6 +918,7 @@ class IDigitalWindowBounds(ComPtr):
     Scale = property(get_Scale, put_Scale)
 class IDigitalWindowCapability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IDigitalWindowCapability'
     _iid_ = Guid('{d78bad2c-f721-5244-a196-b56ccbec606c}')
     @winrt_commethod(6)
     def get_Width(self) -> Int32: ...
@@ -913,6 +940,7 @@ class IDigitalWindowCapability(ComPtr):
     NormalizedFieldOfViewLimit = property(get_NormalizedFieldOfViewLimit, None)
 class IDigitalWindowControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IDigitalWindowControl'
     _iid_ = Guid('{23b69eff-65d2-53ea-8780-de582b48b544}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
@@ -936,6 +964,7 @@ class IDigitalWindowControl(ComPtr):
     SupportedCapabilities = property(get_SupportedCapabilities, None)
 class IExposureCompensationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IExposureCompensationControl'
     _iid_ = Guid('{81c8e834-dcec-4011-a610-1f3847e64aca}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -956,6 +985,7 @@ class IExposureCompensationControl(ComPtr):
     Value = property(get_Value, None)
 class IExposureControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IExposureControl'
     _iid_ = Guid('{09e8cbe2-ad96-4f28-a0e0-96ed7e1b5fd2}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -981,6 +1011,7 @@ class IExposureControl(ComPtr):
     Value = property(get_Value, None)
 class IExposurePriorityVideoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IExposurePriorityVideoControl'
     _iid_ = Guid('{2cb240a3-5168-4271-9ea5-47621a98a352}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -992,6 +1023,7 @@ class IExposurePriorityVideoControl(ComPtr):
     Enabled = property(get_Enabled, put_Enabled)
 class IFlashControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IFlashControl'
     _iid_ = Guid('{def41dbe-7d68-45e3-8c0f-be7bb32837d0}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1024,6 +1056,7 @@ class IFlashControl(ComPtr):
     PowerPercent = property(get_PowerPercent, put_PowerPercent)
 class IFlashControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IFlashControl2'
     _iid_ = Guid('{7d29cc9e-75e1-4af7-bd7d-4e38e1c06cd6}')
     @winrt_commethod(6)
     def get_AssistantLightSupported(self) -> Boolean: ...
@@ -1035,6 +1068,7 @@ class IFlashControl2(ComPtr):
     AssistantLightEnabled = property(get_AssistantLightEnabled, put_AssistantLightEnabled)
 class IFocusControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IFocusControl'
     _iid_ = Guid('{c0d889f6-5228-4453-b153-85606592b238}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1067,6 +1101,7 @@ class IFocusControl(ComPtr):
     Value = property(get_Value, None)
 class IFocusControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IFocusControl2'
     _iid_ = Guid('{3f7cff48-c534-4e9e-94c3-52ef2afd5d07}')
     @winrt_commethod(6)
     def get_FocusChangedSupported(self) -> Boolean: ...
@@ -1097,6 +1132,7 @@ class IFocusControl2(ComPtr):
     FocusState = property(get_FocusState, None)
 class IFocusSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IFocusSettings'
     _iid_ = Guid('{79958f6b-3263-4275-85d6-aeae891c96ee}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.Media.Devices.FocusMode: ...
@@ -1130,6 +1166,7 @@ class IFocusSettings(ComPtr):
     DisableDriverFallback = property(get_DisableDriverFallback, put_DisableDriverFallback)
 class IHdrVideoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IHdrVideoControl'
     _iid_ = Guid('{55d8e2d0-30c0-43bf-9b9a-9799d70ced94}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1144,6 +1181,7 @@ class IHdrVideoControl(ComPtr):
     Mode = property(get_Mode, put_Mode)
 class IInfraredTorchControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IInfraredTorchControl'
     _iid_ = Guid('{1cba2c83-6cb6-5a04-a6fc-3be7b33ff056}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
@@ -1172,6 +1210,7 @@ class IInfraredTorchControl(ComPtr):
     Power = property(get_Power, put_Power)
 class IIsoSpeedControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IIsoSpeedControl'
     _iid_ = Guid('{27b6c322-25ad-4f1b-aaab-524ab376ca33}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1186,6 +1225,7 @@ class IIsoSpeedControl(ComPtr):
     Preset = property(get_Preset, None)
 class IIsoSpeedControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IIsoSpeedControl2'
     _iid_ = Guid('{6f1578f2-6d77-4f8a-8c2f-6130b6395053}')
     @winrt_commethod(6)
     def get_Min(self) -> UInt32: ...
@@ -1208,12 +1248,14 @@ class IIsoSpeedControl2(ComPtr):
     Auto = property(get_Auto, None)
 class IKeypadPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IKeypadPressedEventArgs'
     _iid_ = Guid('{d3a43900-b4fa-49cd-9442-89af6568f601}')
     @winrt_commethod(6)
     def get_TelephonyKey(self) -> Windows.Media.Devices.TelephonyKey: ...
     TelephonyKey = property(get_TelephonyKey, None)
 class ILowLagPhotoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ILowLagPhotoControl'
     _iid_ = Guid('{6d5c4dd0-fadf-415d-aee6-3baa529300c9}')
     @winrt_commethod(6)
     def GetHighestConcurrentFrameRate(self, captureProperties: Windows.Media.MediaProperties.IMediaEncodingProperties) -> Windows.Media.MediaProperties.MediaRatio: ...
@@ -1239,6 +1281,7 @@ class ILowLagPhotoControl(ComPtr):
     HardwareAcceleratedThumbnailSupported = property(get_HardwareAcceleratedThumbnailSupported, None)
 class ILowLagPhotoSequenceControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ILowLagPhotoSequenceControl'
     _iid_ = Guid('{3dcf909d-6d16-409c-bafe-b9a594c6fde6}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1283,6 +1326,7 @@ class ILowLagPhotoSequenceControl(ComPtr):
     HardwareAcceleratedThumbnailSupported = property(get_HardwareAcceleratedThumbnailSupported, None)
 class IMediaDeviceControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IMediaDeviceControl'
     _iid_ = Guid('{efa8dfa9-6f75-4863-ba0b-583f3036b4de}')
     @winrt_commethod(6)
     def get_Capabilities(self) -> Windows.Media.Devices.MediaDeviceControlCapabilities: ...
@@ -1297,6 +1341,7 @@ class IMediaDeviceControl(ComPtr):
     Capabilities = property(get_Capabilities, None)
 class IMediaDeviceControlCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IMediaDeviceControlCapabilities'
     _iid_ = Guid('{23005816-eb85-43e2-b92b-8240d5ee70ec}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1318,6 +1363,7 @@ class IMediaDeviceControlCapabilities(ComPtr):
     AutoModeSupported = property(get_AutoModeSupported, None)
 class IMediaDeviceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IMediaDeviceController'
     _iid_ = Guid('{f6f8f5ce-209a-48fb-86fc-d44578f317e6}')
     @winrt_commethod(6)
     def GetAvailableMediaStreamProperties(self, mediaStreamType: Windows.Media.Capture.MediaStreamType) -> Windows.Foundation.Collections.IVectorView[Windows.Media.MediaProperties.IMediaEncodingProperties]: ...
@@ -1327,6 +1373,7 @@ class IMediaDeviceController(ComPtr):
     def SetMediaStreamPropertiesAsync(self, mediaStreamType: Windows.Media.Capture.MediaStreamType, mediaEncodingProperties: Windows.Media.MediaProperties.IMediaEncodingProperties) -> Windows.Foundation.IAsyncAction: ...
 class IMediaDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IMediaDeviceStatics'
     _iid_ = Guid('{aa2d9a40-909f-4bba-bf8b-0c0d296f14f0}')
     @winrt_commethod(6)
     def GetAudioCaptureSelector(self) -> WinRT_String: ...
@@ -1348,6 +1395,7 @@ class IMediaDeviceStatics(ComPtr):
     def remove_DefaultAudioRenderDeviceChanged(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IModuleCommandResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IModuleCommandResult'
     _iid_ = Guid('{520d1eb4-1374-4c7d-b1e4-39dcdf3eae4e}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Devices.SendCommandStatus: ...
@@ -1357,6 +1405,7 @@ class IModuleCommandResult(ComPtr):
     Result = property(get_Result, None)
 class IOpticalImageStabilizationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IOpticalImageStabilizationControl'
     _iid_ = Guid('{bfad9c1d-00bc-423b-8eb2-a0178ca94247}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1371,6 +1420,7 @@ class IOpticalImageStabilizationControl(ComPtr):
     Mode = property(get_Mode, put_Mode)
 class IPanelBasedOptimizationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IPanelBasedOptimizationControl'
     _iid_ = Guid('{33323223-6247-5419-a5a4-3d808645d917}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
@@ -1382,6 +1432,7 @@ class IPanelBasedOptimizationControl(ComPtr):
     Panel = property(get_Panel, put_Panel)
 class IPhotoConfirmationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IPhotoConfirmationControl'
     _iid_ = Guid('{c8f3f363-ff5e-4582-a9a8-0550f85a4a76}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1398,11 +1449,13 @@ class IPhotoConfirmationControl(ComPtr):
     PixelFormat = property(get_PixelFormat, put_PixelFormat)
 class IRedialRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IRedialRequestedEventArgs'
     _iid_ = Guid('{7eb55209-76ab-4c31-b40e-4b58379d580c}')
     @winrt_commethod(6)
     def Handled(self) -> Void: ...
 class IRegionOfInterest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IRegionOfInterest'
     _iid_ = Guid('{e5ecc834-ce66-4e05-a78f-cf391a5ec2d1}')
     @winrt_commethod(6)
     def get_AutoFocusEnabled(self) -> Boolean: ...
@@ -1426,6 +1479,7 @@ class IRegionOfInterest(ComPtr):
     Bounds = property(get_Bounds, put_Bounds)
 class IRegionOfInterest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IRegionOfInterest2'
     _iid_ = Guid('{19fe2a91-73aa-4d51-8a9d-56ccf7db7f54}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.Media.Devices.RegionOfInterestType: ...
@@ -1444,6 +1498,7 @@ class IRegionOfInterest2(ComPtr):
     Weight = property(get_Weight, put_Weight)
 class IRegionsOfInterestControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IRegionsOfInterestControl'
     _iid_ = Guid('{c323f527-ab0b-4558-8b5b-df5693db0378}')
     @winrt_commethod(6)
     def get_MaxRegions(self) -> UInt32: ...
@@ -1465,6 +1520,7 @@ class IRegionsOfInterestControl(ComPtr):
     AutoExposureSupported = property(get_AutoExposureSupported, None)
 class ISceneModeControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ISceneModeControl'
     _iid_ = Guid('{d48e5af7-8d59-4854-8c62-12c70ba89b7c}')
     @winrt_commethod(6)
     def get_SupportedModes(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Devices.CaptureSceneMode]: ...
@@ -1476,6 +1532,7 @@ class ISceneModeControl(ComPtr):
     Value = property(get_Value, None)
 class ITorchControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.ITorchControl'
     _iid_ = Guid('{a6053665-8250-416c-919a-724296afa306}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1495,6 +1552,7 @@ class ITorchControl(ComPtr):
     PowerPercent = property(get_PowerPercent, put_PowerPercent)
 class IVideoDeviceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IVideoDeviceController'
     _iid_ = Guid('{99555575-2e2e-40b8-b6c7-f82d10013210}')
     @winrt_commethod(6)
     def get_Brightness(self) -> Windows.Media.Devices.MediaDeviceControl: ...
@@ -1535,6 +1593,7 @@ class IVideoDeviceController(ComPtr):
     Focus = property(get_Focus, None)
 class IVideoDeviceControllerGetDevicePropertyResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IVideoDeviceControllerGetDevicePropertyResult'
     _iid_ = Guid('{c5d88395-6ed5-4790-8b5d-0ef13935d0f8}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyStatus: ...
@@ -1544,6 +1603,7 @@ class IVideoDeviceControllerGetDevicePropertyResult(ComPtr):
     Value = property(get_Value, None)
 class IVideoTemporalDenoisingControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IVideoTemporalDenoisingControl'
     _iid_ = Guid('{7ab34735-3e2a-4a32-baff-4358c4fbdd57}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1558,6 +1618,7 @@ class IVideoTemporalDenoisingControl(ComPtr):
     Mode = property(get_Mode, put_Mode)
 class IWhiteBalanceControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IWhiteBalanceControl'
     _iid_ = Guid('{781f047e-7162-49c8-a8f9-9481c565363e}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1583,6 +1644,7 @@ class IWhiteBalanceControl(ComPtr):
     Value = property(get_Value, None)
 class IZoomControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IZoomControl'
     _iid_ = Guid('{3a1e0b12-32da-4c17-bfd7-8d0c73c8f5a5}')
     @winrt_commethod(6)
     def get_Supported(self) -> Boolean: ...
@@ -1603,6 +1665,7 @@ class IZoomControl(ComPtr):
     Value = property(get_Value, put_Value)
 class IZoomControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IZoomControl2'
     _iid_ = Guid('{69843db0-2e99-4641-8529-184f319d1671}')
     @winrt_commethod(6)
     def get_SupportedModes(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Devices.ZoomTransitionMode]: ...
@@ -1614,6 +1677,7 @@ class IZoomControl2(ComPtr):
     Mode = property(get_Mode, None)
 class IZoomSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IZoomSettings'
     _iid_ = Guid('{6ad66b24-14b4-4bfd-b18f-88fe24463b52}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.Media.Devices.ZoomTransitionMode: ...
@@ -1714,8 +1778,8 @@ class KeypadPressedEventArgs(ComPtr):
     TelephonyKey = property(get_TelephonyKey, None)
 class KeypadPressedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{e637a454-c527-422c-8926-c9af83b559a0}')
     _classid_ = 'Windows.Media.Devices.KeypadPressedEventHandler'
+    _iid_ = Guid('{e637a454-c527-422c-8926-c9af83b559a0}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.KeypadPressedEventArgs) -> Void: ...
 class LowLagPhotoControl(ComPtr):
@@ -1812,6 +1876,7 @@ MediaCapturePauseBehavior_RetainHardwareResources: MediaCapturePauseBehavior = 0
 MediaCapturePauseBehavior_ReleaseHardwareResources: MediaCapturePauseBehavior = 1
 class MediaDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.MediaDevice'
     @winrt_classmethod
     def GetAudioCaptureSelector(cls: Windows.Media.Devices.IMediaDeviceStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -1933,8 +1998,8 @@ class RedialRequestedEventArgs(ComPtr):
     def Handled(self: Windows.Media.Devices.IRedialRequestedEventArgs) -> Void: ...
 class RedialRequestedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{baf257d1-4ebd-4b84-9f47-6ec43d75d8b1}')
     _classid_ = 'Windows.Media.Devices.RedialRequestedEventHandler'
+    _iid_ = Guid('{baf257d1-4ebd-4b84-9f47-6ec43d75d8b1}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.RedialRequestedEventArgs) -> Void: ...
 class RegionOfInterest(ComPtr):

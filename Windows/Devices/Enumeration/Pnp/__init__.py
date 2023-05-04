@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPnpObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.Pnp.IPnpObject'
     _iid_ = Guid('{95c66258-733b-4a8f-93a3-db078ac870c1}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.Devices.Enumeration.Pnp.PnpObjectType: ...
@@ -39,6 +40,7 @@ class IPnpObject(ComPtr):
     Properties = property(get_Properties, None)
 class IPnpObjectStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.Pnp.IPnpObjectStatics'
     _iid_ = Guid('{b3c32a3d-d168-4660-bbf3-a733b14b6e01}')
     @winrt_commethod(6)
     def CreateFromIdAsync(self, type: Windows.Devices.Enumeration.Pnp.PnpObjectType, id: WinRT_String, requestedProperties: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Enumeration.Pnp.PnpObject]: ...
@@ -52,6 +54,7 @@ class IPnpObjectStatics(ComPtr):
     def CreateWatcherAqsFilter(self, type: Windows.Devices.Enumeration.Pnp.PnpObjectType, requestedProperties: Windows.Foundation.Collections.IIterable[WinRT_String], aqsFilter: WinRT_String) -> Windows.Devices.Enumeration.Pnp.PnpObjectWatcher: ...
 class IPnpObjectUpdate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate'
     _iid_ = Guid('{6f59e812-001e-4844-bcc6-432886856a17}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.Devices.Enumeration.Pnp.PnpObjectType: ...
@@ -64,6 +67,7 @@ class IPnpObjectUpdate(ComPtr):
     Properties = property(get_Properties, None)
 class IPnpObjectWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher'
     _iid_ = Guid('{83c95ca8-4772-4a7a-aca8-e48c42a89c44}')
     @winrt_commethod(6)
     def add_Added(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, Windows.Devices.Enumeration.Pnp.PnpObject]) -> Windows.Foundation.EventRegistrationToken: ...

@@ -140,12 +140,14 @@ class ElementCompositionPreview(ComPtr):
 HostingContract: UInt32 = 327680
 class IDesignerAppExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IDesignerAppExitedEventArgs'
     _iid_ = Guid('{f6aac86a-0cad-410c-8f62-dc2936151c74}')
     @winrt_commethod(6)
     def get_ExitCode(self) -> UInt32: ...
     ExitCode = property(get_ExitCode, None)
 class IDesignerAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IDesignerAppManager'
     _iid_ = Guid('{a6272caa-d5c6-40cb-abd9-27ba43831bb7}')
     @winrt_commethod(6)
     def get_AppUserModelId(self) -> WinRT_String: ...
@@ -160,11 +162,13 @@ class IDesignerAppManager(ComPtr):
     AppUserModelId = property(get_AppUserModelId, None)
 class IDesignerAppManagerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IDesignerAppManagerFactory'
     _iid_ = Guid('{8f9d633b-1266-4c0e-8499-0db85bbd4c43}')
     @winrt_commethod(6)
     def Create(self, appUserModelId: WinRT_String) -> Windows.UI.Xaml.Hosting.DesignerAppManager: ...
 class IDesignerAppView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IDesignerAppView'
     _iid_ = Guid('{5c777cea-dd71-4a84-a56f-dacb4b14706f}')
     @winrt_commethod(6)
     def get_ApplicationViewId(self) -> Int32: ...
@@ -182,6 +186,7 @@ class IDesignerAppView(ComPtr):
     ViewSize = property(get_ViewSize, None)
 class IDesktopWindowXamlSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource'
     _iid_ = Guid('{d585bfe1-00ff-51be-ba1d-a1329956ea0a}')
     @winrt_commethod(6)
     def get_Content(self) -> Windows.UI.Xaml.UIElement: ...
@@ -203,26 +208,31 @@ class IDesktopWindowXamlSource(ComPtr):
     HasFocus = property(get_HasFocus, None)
 class IDesktopWindowXamlSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory'
     _iid_ = Guid('{5cd61dc0-2561-56e1-8e75-6e44173805e3}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Hosting.DesktopWindowXamlSource: ...
 class IDesktopWindowXamlSourceGotFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs'
     _iid_ = Guid('{39be4849-d9cc-5b70-8f05-1ad9a4aaa342}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest: ...
     Request = property(get_Request, None)
 class IDesktopWindowXamlSourceTakeFocusRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceTakeFocusRequestedEventArgs'
     _iid_ = Guid('{fe61e4b9-a7af-52b3-bdb9-c3305c0b8df2}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest: ...
     Request = property(get_Request, None)
 class IElementCompositionPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IElementCompositionPreview'
     _iid_ = Guid('{b6f1a676-cfe6-46ac-acf6-c4687bb65e60}')
 class IElementCompositionPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IElementCompositionPreviewStatics'
     _iid_ = Guid('{08c92b38-ec99-4c55-bc85-a1c180b27646}')
     @winrt_commethod(6)
     def GetElementVisual(self, element: Windows.UI.Xaml.UIElement) -> Windows.UI.Composition.Visual: ...
@@ -234,6 +244,7 @@ class IElementCompositionPreviewStatics(ComPtr):
     def GetScrollViewerManipulationPropertySet(self, scrollViewer: Windows.UI.Xaml.Controls.ScrollViewer) -> Windows.UI.Composition.CompositionPropertySet: ...
 class IElementCompositionPreviewStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IElementCompositionPreviewStatics2'
     _iid_ = Guid('{24148fbb-23d6-4f37-ba0c-0733e799722d}')
     @winrt_commethod(6)
     def SetImplicitShowAnimation(self, element: Windows.UI.Xaml.UIElement, animation: Windows.UI.Composition.ICompositionAnimationBase) -> Void: ...
@@ -245,6 +256,7 @@ class IElementCompositionPreviewStatics2(ComPtr):
     def GetPointerPositionPropertySet(self, targetElement: Windows.UI.Xaml.UIElement) -> Windows.UI.Composition.CompositionPropertySet: ...
 class IElementCompositionPreviewStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IElementCompositionPreviewStatics3'
     _iid_ = Guid('{843bc4c3-c105-59fe-a3d1-373c1d3e6fbc}')
     @winrt_commethod(6)
     def SetAppWindowContent(self, appWindow: Windows.UI.WindowManagement.AppWindow, xamlContent: Windows.UI.Xaml.UIElement) -> Void: ...
@@ -252,14 +264,17 @@ class IElementCompositionPreviewStatics3(ComPtr):
     def GetAppWindowContent(self, appWindow: Windows.UI.WindowManagement.AppWindow) -> Windows.UI.Xaml.UIElement: ...
 class IWindowsXamlManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IWindowsXamlManager'
     _iid_ = Guid('{56096c31-1aa0-5288-8818-6e74a2dcaff5}')
 class IWindowsXamlManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IWindowsXamlManagerStatics'
     _iid_ = Guid('{28258a12-7d82-505b-b210-712b04a58882}')
     @winrt_commethod(6)
     def InitializeForCurrentThread(self) -> Windows.UI.Xaml.Hosting.WindowsXamlManager: ...
 class IXamlSourceFocusNavigationRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest'
     _iid_ = Guid('{fbb93bb5-1496-5a80-ac00-e757359755e6}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationReason: ...
@@ -272,6 +287,7 @@ class IXamlSourceFocusNavigationRequest(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
 class IXamlSourceFocusNavigationRequestFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequestFactory'
     _iid_ = Guid('{e746ab8f-b4ef-5390-97e5-cc0a2779c574}')
     @winrt_commethod(6)
     def CreateInstance(self, reason: Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationReason) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest: ...
@@ -281,17 +297,20 @@ class IXamlSourceFocusNavigationRequestFactory(ComPtr):
     def CreateInstanceWithHintRectAndCorrelationId(self, reason: Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationReason, hintRect: Windows.Foundation.Rect, correlationId: Guid) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest: ...
 class IXamlSourceFocusNavigationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationResult'
     _iid_ = Guid('{88d55a5f-9603-5d8f-9cc7-d1c4070d9801}')
     @winrt_commethod(6)
     def get_WasFocusMoved(self) -> Boolean: ...
     WasFocusMoved = property(get_WasFocusMoved, None)
 class IXamlSourceFocusNavigationResultFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationResultFactory'
     _iid_ = Guid('{43bbadbf-f9e1-5527-b8c5-09339ff2ca76}')
     @winrt_commethod(6)
     def CreateInstance(self, focusMoved: Boolean) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult: ...
 class IXamlUIPresenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlUIPresenter'
     _iid_ = Guid('{a714944a-1619-4fc6-b31b-89512ef022a2}')
     @winrt_commethod(6)
     def get_RootElement(self) -> Windows.UI.Xaml.UIElement: ...
@@ -316,21 +335,25 @@ class IXamlUIPresenter(ComPtr):
     ThemeResourcesXaml = property(get_ThemeResourcesXaml, put_ThemeResourcesXaml)
 class IXamlUIPresenterHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlUIPresenterHost'
     _iid_ = Guid('{aafb84cd-9f6d-4f80-ac2c-0e6cb9f31659}')
     @winrt_commethod(6)
     def ResolveFileResource(self, path: WinRT_String) -> WinRT_String: ...
 class IXamlUIPresenterHost2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlUIPresenterHost2'
     _iid_ = Guid('{61595672-7ca4-4a21-b56a-88f4812388ca}')
     @winrt_commethod(6)
     def GetGenericXamlFilePath(self) -> WinRT_String: ...
 class IXamlUIPresenterHost3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlUIPresenterHost3'
     _iid_ = Guid('{b14292bf-7320-41bb-9f26-4d6fd34db45a}')
     @winrt_commethod(6)
     def ResolveDictionaryResource(self, dictionary: Windows.UI.Xaml.ResourceDictionary, dictionaryKey: Windows.Win32.System.WinRT.IInspectable_head, suggestedValue: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IXamlUIPresenterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlUIPresenterStatics'
     _iid_ = Guid('{71eaeac8-45e1-4192-85aa-3a422edd23cf}')
     @winrt_commethod(6)
     def get_CompleteTimelinesAutomatically(self) -> Boolean: ...
@@ -343,6 +366,7 @@ class IXamlUIPresenterStatics(ComPtr):
     CompleteTimelinesAutomatically = property(get_CompleteTimelinesAutomatically, put_CompleteTimelinesAutomatically)
 class IXamlUIPresenterStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Hosting.IXamlUIPresenterStatics2'
     _iid_ = Guid('{5c6b68d2-cf1c-4f53-bf09-6a745f7a9703}')
     @winrt_commethod(6)
     def GetFlyoutPlacementTargetInfo(self, placementTarget: Windows.UI.Xaml.FrameworkElement, preferredPlacement: Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode, targetPreferredPlacement: POINTER(Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode), allowFallbacks: POINTER(Boolean)) -> Windows.Foundation.Rect: ...

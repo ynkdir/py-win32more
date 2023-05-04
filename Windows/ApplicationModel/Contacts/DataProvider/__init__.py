@@ -150,6 +150,7 @@ class ContactListSyncManagerSyncRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IContactDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderConnection'
     _iid_ = Guid('{1a398a52-8c9d-4d6f-a4e0-111e9a125a30}')
     @winrt_commethod(6)
     def add_SyncRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection, Windows.ApplicationModel.Contacts.DataProvider.ContactListSyncManagerSyncRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -163,6 +164,7 @@ class IContactDataProviderConnection(ComPtr):
     def Start(self) -> Void: ...
 class IContactDataProviderConnection2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderConnection2'
     _iid_ = Guid('{a1d327b0-196c-4bfd-8f0f-c68d67f249d3}')
     @winrt_commethod(6)
     def add_CreateOrUpdateContactRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection, Windows.ApplicationModel.Contacts.DataProvider.ContactListCreateOrUpdateContactRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -174,12 +176,14 @@ class IContactDataProviderConnection2(ComPtr):
     def remove_DeleteContactRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IContactDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderTriggerDetails'
     _iid_ = Guid('{527104be-3c62-43c8-9ae7-db531685cd99}')
     @winrt_commethod(6)
     def get_Connection(self) -> Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection: ...
     Connection = property(get_Connection, None)
 class IContactListCreateOrUpdateContactRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactListCreateOrUpdateContactRequest'
     _iid_ = Guid('{b4af411f-c849-47d0-b119-91cf605b2f2a}')
     @winrt_commethod(6)
     def get_ContactListId(self) -> WinRT_String: ...
@@ -193,6 +197,7 @@ class IContactListCreateOrUpdateContactRequest(ComPtr):
     Contact = property(get_Contact, None)
 class IContactListCreateOrUpdateContactRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactListCreateOrUpdateContactRequestEventArgs'
     _iid_ = Guid('{851c1690-1a51-4b0c-aeef-1240ac5bed75}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Contacts.DataProvider.ContactListCreateOrUpdateContactRequest: ...
@@ -201,6 +206,7 @@ class IContactListCreateOrUpdateContactRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IContactListDeleteContactRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactListDeleteContactRequest'
     _iid_ = Guid('{5e114687-ce03-4de5-8557-9ccf552d472a}')
     @winrt_commethod(6)
     def get_ContactListId(self) -> WinRT_String: ...
@@ -214,6 +220,7 @@ class IContactListDeleteContactRequest(ComPtr):
     ContactId = property(get_ContactId, None)
 class IContactListDeleteContactRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactListDeleteContactRequestEventArgs'
     _iid_ = Guid('{b22054a1-e8fa-4db5-9389-2d12ee7d15ee}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequest: ...
@@ -222,6 +229,7 @@ class IContactListDeleteContactRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IContactListServerSearchReadBatchRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactListServerSearchReadBatchRequest'
     _iid_ = Guid('{ba776a97-4030-4925-9fb4-143b295e653b}')
     @winrt_commethod(6)
     def get_SessionId(self) -> WinRT_String: ...
@@ -243,6 +251,7 @@ class IContactListServerSearchReadBatchRequest(ComPtr):
     SuggestedBatchSize = property(get_SuggestedBatchSize, None)
 class IContactListServerSearchReadBatchRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactListServerSearchReadBatchRequestEventArgs'
     _iid_ = Guid('{1a27e87b-69d7-4e4e-8042-861cba61471e}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Contacts.DataProvider.ContactListServerSearchReadBatchRequest: ...
@@ -251,6 +260,7 @@ class IContactListServerSearchReadBatchRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IContactListSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactListSyncManagerSyncRequest'
     _iid_ = Guid('{3c0e57a4-c4e7-4970-9a8f-9a66a2bb6c1a}')
     @winrt_commethod(6)
     def get_ContactListId(self) -> WinRT_String: ...
@@ -261,6 +271,7 @@ class IContactListSyncManagerSyncRequest(ComPtr):
     ContactListId = property(get_ContactListId, None)
 class IContactListSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactListSyncManagerSyncRequestEventArgs'
     _iid_ = Guid('{158e4dac-446d-4f10-afc2-02683ec533a6}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Contacts.DataProvider.ContactListSyncManagerSyncRequest: ...

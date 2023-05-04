@@ -22,6 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ApiInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Foundation.Metadata.ApiInformation'
     @winrt_classmethod
     def IsTypePresent(cls: Windows.Foundation.Metadata.IApiInformationStatics, typeName: WinRT_String) -> Boolean: ...
     @winrt_classmethod
@@ -73,6 +74,7 @@ GCPressureAmount_Medium: GCPressureAmount = 1
 GCPressureAmount_High: GCPressureAmount = 2
 class IApiInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Foundation.Metadata.IApiInformationStatics'
     _iid_ = Guid('{997439fe-f681-4a11-b416-c13a47e8ba36}')
     @winrt_commethod(6)
     def IsTypePresent(self, typeName: WinRT_String) -> Boolean: ...

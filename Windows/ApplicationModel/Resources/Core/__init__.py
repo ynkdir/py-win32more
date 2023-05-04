@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class INamedResource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.INamedResource'
     _iid_ = Guid('{1c98c219-0b13-4240-89a5-d495dc189a00}')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
@@ -44,6 +45,7 @@ class INamedResource(ComPtr):
     Candidates = property(get_Candidates, None)
 class IResourceCandidate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceCandidate'
     _iid_ = Guid('{af5207d9-c433-4764-b3fd-8fa6bfbcbadc}')
     @winrt_commethod(6)
     def get_Qualifiers(self) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceQualifier]: ...
@@ -66,17 +68,20 @@ class IResourceCandidate(ComPtr):
     ValueAsString = property(get_ValueAsString, None)
 class IResourceCandidate2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceCandidate2'
     _iid_ = Guid('{69e5b468-f6fc-4013-aaa2-d53f1757d3b5}')
     @winrt_commethod(6)
     def GetValueAsStreamAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStream]: ...
 class IResourceCandidate3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceCandidate3'
     _iid_ = Guid('{08ae97f8-517a-4674-958c-4a3c7cd2cc6b}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.ApplicationModel.Resources.Core.ResourceCandidateKind: ...
     Kind = property(get_Kind, None)
 class IResourceContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceContext'
     _iid_ = Guid('{2fa22f4b-707e-4b27-ad0d-d0d8cd468fd2}')
     @winrt_commethod(6)
     def get_QualifierValues(self) -> Windows.Foundation.Collections.IObservableMap[WinRT_String, WinRT_String]: ...
@@ -96,11 +101,13 @@ class IResourceContext(ComPtr):
     Languages = property(get_Languages, put_Languages)
 class IResourceContextStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceContextStatics'
     _iid_ = Guid('{98be9d6c-6338-4b31-99df-b2b442f17149}')
     @winrt_commethod(6)
     def CreateMatchingContext(self, result: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Resources.Core.ResourceQualifier]) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
 class IResourceContextStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceContextStatics2'
     _iid_ = Guid('{41f752ef-12af-41b9-ab36-b1eb4b512460}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
@@ -114,16 +121,19 @@ class IResourceContextStatics2(ComPtr):
     def GetForViewIndependentUse(self) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
 class IResourceContextStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceContextStatics3'
     _iid_ = Guid('{20cf492c-af0f-450b-9da6-106dd0c29a39}')
     @winrt_commethod(6)
     def SetGlobalQualifierValueWithPersistence(self, key: WinRT_String, value: WinRT_String, persistence: Windows.ApplicationModel.Resources.Core.ResourceQualifierPersistence) -> Void: ...
 class IResourceContextStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceContextStatics4'
     _iid_ = Guid('{22eb9ccd-fb31-4bfa-b86b-df9d9d7bdc39}')
     @winrt_commethod(6)
     def GetForUIContext(self, context: Windows.UI.UIContext) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
 class IResourceManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceManager'
     _iid_ = Guid('{f744d97b-9988-44fb-abd6-5378844cfa8b}')
     @winrt_commethod(6)
     def get_MainResourceMap(self) -> Windows.ApplicationModel.Resources.Core.ResourceMap: ...
@@ -140,6 +150,7 @@ class IResourceManager(ComPtr):
     DefaultContext = property(get_DefaultContext, None)
 class IResourceManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceManager2'
     _iid_ = Guid('{9d66fe6c-a4d7-4c23-9e85-675f304c252d}')
     @winrt_commethod(6)
     def GetAllNamedResourcesForPackage(self, packageName: WinRT_String, resourceLayoutInfo: Windows.ApplicationModel.Resources.Core.ResourceLayoutInfo) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.NamedResource]: ...
@@ -147,6 +158,7 @@ class IResourceManager2(ComPtr):
     def GetAllSubtreesForPackage(self, packageName: WinRT_String, resourceLayoutInfo: Windows.ApplicationModel.Resources.Core.ResourceLayoutInfo) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceMap]: ...
 class IResourceManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceManagerStatics'
     _iid_ = Guid('{1cc0fdfc-69ee-4e43-9901-47f12687baf7}')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.ApplicationModel.Resources.Core.ResourceManager: ...
@@ -155,6 +167,7 @@ class IResourceManagerStatics(ComPtr):
     Current = property(get_Current, None)
 class IResourceMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceMap'
     _iid_ = Guid('{72284824-db8c-42f8-b08c-53ff357dad82}')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
@@ -167,6 +180,7 @@ class IResourceMap(ComPtr):
     Uri = property(get_Uri, None)
 class IResourceQualifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceQualifier'
     _iid_ = Guid('{785da5b2-4afd-4376-a888-c5f9a6b7a05c}')
     @winrt_commethod(6)
     def get_QualifierName(self) -> WinRT_String: ...

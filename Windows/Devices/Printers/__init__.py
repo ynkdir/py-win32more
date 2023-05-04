@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IIppAttributeError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppAttributeError'
     _iid_ = Guid('{750feda1-9eef-5c39-93e4-46149bbcef27}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.Devices.Printers.IppAttributeErrorReason: ...
@@ -37,6 +38,7 @@ class IIppAttributeError(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IIppAttributeValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppAttributeValue'
     _iid_ = Guid('{99407fed-e2bb-59a3-988b-28a974052a26}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.Devices.Printers.IppAttributeValueKind: ...
@@ -79,6 +81,7 @@ class IIppAttributeValue(ComPtr):
     Kind = property(get_Kind, None)
 class IIppAttributeValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppAttributeValueStatics'
     _iid_ = Guid('{10d43942-dd94-5998-b235-afafb6fa7935}')
     @winrt_commethod(6)
     def CreateUnsupported(self) -> Windows.Devices.Printers.IppAttributeValue: ...
@@ -160,6 +163,7 @@ class IIppAttributeValueStatics(ComPtr):
     def CreateMimeMediaArray(self, values: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Devices.Printers.IppAttributeValue: ...
 class IIppIntegerRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppIntegerRange'
     _iid_ = Guid('{92907346-c3ea-5ed6-bdb1-3752c62c6f7f}')
     @winrt_commethod(6)
     def get_Start(self) -> Int32: ...
@@ -169,11 +173,13 @@ class IIppIntegerRange(ComPtr):
     End = property(get_End, None)
 class IIppIntegerRangeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppIntegerRangeFactory'
     _iid_ = Guid('{75d4ecae-f87e-54ad-b5d0-465204db7553}')
     @winrt_commethod(6)
     def CreateInstance(self, start: Int32, end: Int32) -> Windows.Devices.Printers.IppIntegerRange: ...
 class IIppPrintDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppPrintDevice'
     _iid_ = Guid('{d748ac56-76f3-5dc6-afd4-c2a8686b9359}')
     @winrt_commethod(6)
     def get_PrinterName(self) -> WinRT_String: ...
@@ -191,6 +197,7 @@ class IIppPrintDevice(ComPtr):
     PrinterUri = property(get_PrinterUri, None)
 class IIppPrintDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppPrintDevice2'
     _iid_ = Guid('{f7c844c9-9d21-5c63-ac20-3676915be2d7}')
     @winrt_commethod(6)
     def GetMaxSupportedPdfSize(self) -> UInt64: ...
@@ -202,6 +209,7 @@ class IIppPrintDevice2(ComPtr):
     def GetPdlPassthroughProvider(self) -> Windows.Devices.Printers.PdlPassthroughProvider: ...
 class IIppPrintDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppPrintDeviceStatics'
     _iid_ = Guid('{7dc19f08-7f20-52ab-94a7-894b83b2a17e}')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
@@ -213,6 +221,7 @@ class IIppPrintDeviceStatics(ComPtr):
     def IsIppPrinter(self, printerName: WinRT_String) -> Boolean: ...
 class IIppResolution(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppResolution'
     _iid_ = Guid('{cb493f86-6bf3-56f5-86ce-263d08aead63}')
     @winrt_commethod(6)
     def get_Width(self) -> Int32: ...
@@ -225,11 +234,13 @@ class IIppResolution(ComPtr):
     Unit = property(get_Unit, None)
 class IIppResolutionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppResolutionFactory'
     _iid_ = Guid('{e481c2ae-251a-5326-b173-95543ed99a35}')
     @winrt_commethod(6)
     def CreateInstance(self, width: Int32, height: Int32, unit: Windows.Devices.Printers.IppResolutionUnit) -> Windows.Devices.Printers.IppResolution: ...
 class IIppSetAttributesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppSetAttributesResult'
     _iid_ = Guid('{7d1c7f55-aa9d-58a3-90e9-17bdc5281f07}')
     @winrt_commethod(6)
     def get_Succeeded(self) -> Boolean: ...
@@ -239,6 +250,7 @@ class IIppSetAttributesResult(ComPtr):
     AttributeErrors = property(get_AttributeErrors, None)
 class IIppTextWithLanguage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppTextWithLanguage'
     _iid_ = Guid('{326447a6-5149-5936-90e8-0c736036bf77}')
     @winrt_commethod(6)
     def get_Language(self) -> WinRT_String: ...
@@ -248,11 +260,13 @@ class IIppTextWithLanguage(ComPtr):
     Value = property(get_Value, None)
 class IIppTextWithLanguageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppTextWithLanguageFactory'
     _iid_ = Guid('{ca4a1e8d-2968-5775-997c-8a46f1a574ed}')
     @winrt_commethod(6)
     def CreateInstance(self, language: WinRT_String, text: WinRT_String) -> Windows.Devices.Printers.IppTextWithLanguage: ...
 class IPageConfigurationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IPageConfigurationSettings'
     _iid_ = Guid('{b6fc1e02-5331-54ff-95a0-1fcb76bb97a9}')
     @winrt_commethod(6)
     def get_OrientationSource(self) -> Windows.Devices.Printers.PageConfigurationSource: ...
@@ -266,6 +280,7 @@ class IPageConfigurationSettings(ComPtr):
     SizeSource = property(get_SizeSource, put_SizeSource)
 class IPdlPassthroughProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IPdlPassthroughProvider'
     _iid_ = Guid('{23c71dd2-6117-553f-9378-180af5849a49}')
     @winrt_commethod(6)
     def get_SupportedPdlContentTypes(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
@@ -276,6 +291,7 @@ class IPdlPassthroughProvider(ComPtr):
     SupportedPdlContentTypes = property(get_SupportedPdlContentTypes, None)
 class IPdlPassthroughTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IPdlPassthroughTarget'
     _iid_ = Guid('{9840be79-67f8-5385-a5b9-e8c96e0fca76}')
     @winrt_commethod(6)
     def get_PrintJobId(self) -> Int32: ...
@@ -286,12 +302,14 @@ class IPdlPassthroughTarget(ComPtr):
     PrintJobId = property(get_PrintJobId, None)
 class IPrint3DDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IPrint3DDevice'
     _iid_ = Guid('{041c3d19-9713-42a2-9813-7dc3337428d3}')
     @winrt_commethod(6)
     def get_PrintSchema(self) -> Windows.Devices.Printers.PrintSchema: ...
     PrintSchema = property(get_PrintSchema, None)
 class IPrint3DDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IPrint3DDeviceStatics'
     _iid_ = Guid('{fde3620a-67cd-41b7-a344-5150a1fd75b5}')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Printers.Print3DDevice]: ...
@@ -299,6 +317,7 @@ class IPrint3DDeviceStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class IPrintSchema(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IPrintSchema'
     _iid_ = Guid('{c2b98316-26b8-4bfb-8138-9f962c22a35b}')
     @winrt_commethod(6)
     def GetDefaultPrintTicketAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...

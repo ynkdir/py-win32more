@@ -260,6 +260,7 @@ class AppointmentDataProviderTriggerDetails(ComPtr):
     Connection = property(get_Connection, None)
 class IAppointmentCalendarCancelMeetingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequest'
     _iid_ = Guid('{49460f8d-6434-40d7-ad46-6297419314d1}')
     @winrt_commethod(6)
     def get_AppointmentCalendarLocalId(self) -> WinRT_String: ...
@@ -285,6 +286,7 @@ class IAppointmentCalendarCancelMeetingRequest(ComPtr):
     NotifyInvitees = property(get_NotifyInvitees, None)
 class IAppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequestEventArgs'
     _iid_ = Guid('{1a79be16-7f30-4e35-beef-9d2c7b6dcae1}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequest: ...
@@ -293,6 +295,7 @@ class IAppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IAppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequest'
     _iid_ = Guid('{2e62f2b2-ca96-48ac-9124-406b19fefa70}')
     @winrt_commethod(6)
     def get_AppointmentCalendarLocalId(self) -> WinRT_String: ...
@@ -312,6 +315,7 @@ class IAppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
     ChangedProperties = property(get_ChangedProperties, None)
 class IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs'
     _iid_ = Guid('{cf8ded28-002e-4bf7-8e9d-5e20d49aa3ba}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequest: ...
@@ -320,6 +324,7 @@ class IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IAppointmentCalendarForwardMeetingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequest'
     _iid_ = Guid('{82e5ee56-26b6-4253-8a8f-6cf5f2ff7884}')
     @winrt_commethod(6)
     def get_AppointmentCalendarLocalId(self) -> WinRT_String: ...
@@ -348,6 +353,7 @@ class IAppointmentCalendarForwardMeetingRequest(ComPtr):
     Comment = property(get_Comment, None)
 class IAppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequestEventArgs'
     _iid_ = Guid('{3109151a-23a2-42fd-9c82-c9a60d59f8a8}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest: ...
@@ -356,6 +362,7 @@ class IAppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IAppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequest'
     _iid_ = Guid('{ce1c63f5-edf6-43c3-82b7-be6b368c6900}')
     @winrt_commethod(6)
     def get_AppointmentCalendarLocalId(self) -> WinRT_String: ...
@@ -384,6 +391,7 @@ class IAppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
     Comment = property(get_Comment, None)
 class IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs'
     _iid_ = Guid('{d2d777d8-fed1-4280-a3ba-2e1f47609aa2}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequest: ...
@@ -392,6 +400,7 @@ class IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IAppointmentCalendarSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequest'
     _iid_ = Guid('{12ab382b-7163-4a56-9a4e-7223a84adf46}')
     @winrt_commethod(6)
     def get_AppointmentCalendarLocalId(self) -> WinRT_String: ...
@@ -402,6 +411,7 @@ class IAppointmentCalendarSyncManagerSyncRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
 class IAppointmentCalendarSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequestEventArgs'
     _iid_ = Guid('{ca17c6f7-0284-4edd-87ba-4d8f69dcf5c0}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequest: ...
@@ -410,6 +420,7 @@ class IAppointmentCalendarSyncManagerSyncRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IAppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequest'
     _iid_ = Guid('{a36d608c-c29d-4b94-b086-7e9ff7bd84a0}')
     @winrt_commethod(6)
     def get_AppointmentCalendarLocalId(self) -> WinRT_String: ...
@@ -438,6 +449,7 @@ class IAppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
     SendUpdate = property(get_SendUpdate, None)
 class IAppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequestEventArgs'
     _iid_ = Guid('{88759883-97bf-479d-aed5-0be8ce567d1e}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequest: ...
@@ -446,6 +458,7 @@ class IAppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IAppointmentDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderConnection'
     _iid_ = Guid('{f3dd9d83-3254-465f-abdb-928046552cf4}')
     @winrt_commethod(6)
     def add_SyncRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderConnection, Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -475,6 +488,7 @@ class IAppointmentDataProviderConnection(ComPtr):
     def Start(self) -> Void: ...
 class IAppointmentDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderTriggerDetails'
     _iid_ = Guid('{b3283c01-7e12-4e5e-b1ef-74fb68ac6f2a}')
     @winrt_commethod(6)
     def get_Connection(self) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderConnection: ...

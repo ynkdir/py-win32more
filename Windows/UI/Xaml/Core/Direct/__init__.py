@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IXamlDirect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Core.Direct.IXamlDirect'
     _iid_ = Guid('{5ffa1295-add2-590f-a051-70989b866ade}')
     @winrt_commethod(6)
     def GetObject(self, xamlDirectObject: Windows.UI.Xaml.Core.Direct.IXamlDirectObject) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -134,9 +135,11 @@ class IXamlDirect(ComPtr):
     def RemoveEventHandler(self, xamlDirectObject: Windows.UI.Xaml.Core.Direct.IXamlDirectObject, eventIndex: Windows.UI.Xaml.Core.Direct.XamlEventIndex, handler: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class IXamlDirectObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Core.Direct.IXamlDirectObject'
     _iid_ = Guid('{10614a82-cee4-4645-ba25-d071ce778355}')
 class IXamlDirectStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Core.Direct.IXamlDirectStatics'
     _iid_ = Guid('{321887cc-14e4-5c6f-878d-fbb604ad7d17}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.UI.Xaml.Core.Direct.XamlDirect: ...

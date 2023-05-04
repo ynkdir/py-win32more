@@ -68,6 +68,7 @@ class Direct3D11CaptureFramePool(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class GraphicsCaptureAccess(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.GraphicsCaptureAccess'
     @winrt_classmethod
     def RequestAccessAsync(cls: Windows.Graphics.Capture.IGraphicsCaptureAccessStatics, request: Windows.Graphics.Capture.GraphicsCaptureAccessKind) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus]: ...
 GraphicsCaptureAccessKind = Int32
@@ -123,6 +124,7 @@ class GraphicsCaptureSession(ComPtr):
     IsBorderRequired = property(get_IsBorderRequired, put_IsBorderRequired)
 class IDirect3D11CaptureFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFrame'
     _iid_ = Guid('{fa50c623-38da-4b32-acf3-fa9734ad800e}')
     @winrt_commethod(6)
     def get_Surface(self) -> Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface: ...
@@ -135,6 +137,7 @@ class IDirect3D11CaptureFrame(ComPtr):
     ContentSize = property(get_ContentSize, None)
 class IDirect3D11CaptureFramePool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFramePool'
     _iid_ = Guid('{24eb6d22-1975-422e-82e7-780dbd8ddf24}')
     @winrt_commethod(6)
     def Recreate(self, device: Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, numberOfBuffers: Int32, size: Windows.Graphics.SizeInt32) -> Void: ...
@@ -151,21 +154,25 @@ class IDirect3D11CaptureFramePool(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class IDirect3D11CaptureFramePoolStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFramePoolStatics'
     _iid_ = Guid('{7784056a-67aa-4d53-ae54-1088d5a8ca21}')
     @winrt_commethod(6)
     def Create(self, device: Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, numberOfBuffers: Int32, size: Windows.Graphics.SizeInt32) -> Windows.Graphics.Capture.Direct3D11CaptureFramePool: ...
 class IDirect3D11CaptureFramePoolStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFramePoolStatics2'
     _iid_ = Guid('{589b103f-6bbc-5df5-a991-02e28b3b66d5}')
     @winrt_commethod(6)
     def CreateFreeThreaded(self, device: Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, numberOfBuffers: Int32, size: Windows.Graphics.SizeInt32) -> Windows.Graphics.Capture.Direct3D11CaptureFramePool: ...
 class IGraphicsCaptureAccessStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureAccessStatics'
     _iid_ = Guid('{743ed370-06ec-5040-a58a-901f0f757095}')
     @winrt_commethod(6)
     def RequestAccessAsync(self, request: Windows.Graphics.Capture.GraphicsCaptureAccessKind) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus]: ...
 class IGraphicsCaptureItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureItem'
     _iid_ = Guid('{79c3f95b-31f7-4ec2-a464-632ef5d30760}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
@@ -179,11 +186,13 @@ class IGraphicsCaptureItem(ComPtr):
     Size = property(get_Size, None)
 class IGraphicsCaptureItemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureItemStatics'
     _iid_ = Guid('{a87ebea5-457c-5788-ab47-0cf1d3637e74}')
     @winrt_commethod(6)
     def CreateFromVisual(self, visual: Windows.UI.Composition.Visual) -> Windows.Graphics.Capture.GraphicsCaptureItem: ...
 class IGraphicsCaptureItemStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureItemStatics2'
     _iid_ = Guid('{3b92acc9-e584-5862-bf5c-9c316c6d2dbb}')
     @winrt_commethod(6)
     def TryCreateFromWindowId(self, windowId: Windows.UI.WindowId) -> Windows.Graphics.Capture.GraphicsCaptureItem: ...
@@ -191,16 +200,19 @@ class IGraphicsCaptureItemStatics2(ComPtr):
     def TryCreateFromDisplayId(self, displayId: Windows.Graphics.DisplayId) -> Windows.Graphics.Capture.GraphicsCaptureItem: ...
 class IGraphicsCapturePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCapturePicker'
     _iid_ = Guid('{5a1711b3-ad79-4b4a-9336-1318fdde3539}')
     @winrt_commethod(6)
     def PickSingleItemAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Graphics.Capture.GraphicsCaptureItem]: ...
 class IGraphicsCaptureSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureSession'
     _iid_ = Guid('{814e42a9-f70f-4ad7-939b-fddcc6eb880d}')
     @winrt_commethod(6)
     def StartCapture(self) -> Void: ...
 class IGraphicsCaptureSession2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureSession2'
     _iid_ = Guid('{2c39ae40-7d2e-5044-804e-8b6799d4cf9e}')
     @winrt_commethod(6)
     def get_IsCursorCaptureEnabled(self) -> Boolean: ...
@@ -209,6 +221,7 @@ class IGraphicsCaptureSession2(ComPtr):
     IsCursorCaptureEnabled = property(get_IsCursorCaptureEnabled, put_IsCursorCaptureEnabled)
 class IGraphicsCaptureSession3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureSession3'
     _iid_ = Guid('{f2cdd966-22ae-5ea1-9596-3a289344c3be}')
     @winrt_commethod(6)
     def get_IsBorderRequired(self) -> Boolean: ...
@@ -217,6 +230,7 @@ class IGraphicsCaptureSession3(ComPtr):
     IsBorderRequired = property(get_IsBorderRequired, put_IsBorderRequired)
 class IGraphicsCaptureSessionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureSessionStatics'
     _iid_ = Guid('{2224a540-5974-49aa-b232-0882536f4cb5}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...

@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ILockApplicationHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.LockScreen.ILockApplicationHost'
     _iid_ = Guid('{38ee31ad-d94f-4e7c-81fa-4f4436506281}')
     @winrt_commethod(6)
     def RequestUnlock(self) -> Void: ...
@@ -34,11 +35,13 @@ class ILockApplicationHost(ComPtr):
     def remove_Unlocking(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ILockApplicationHostStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.LockScreen.ILockApplicationHostStatics'
     _iid_ = Guid('{f48fab8e-23d7-4e63-96a1-666ff52d3b2c}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.ApplicationModel.LockScreen.LockApplicationHost: ...
 class ILockScreenBadge(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.LockScreen.ILockScreenBadge'
     _iid_ = Guid('{e95105d9-2bff-4db0-9b4f-3824778b9c9a}')
     @winrt_commethod(6)
     def get_Logo(self) -> Windows.Storage.Streams.IRandomAccessStream: ...
@@ -56,6 +59,7 @@ class ILockScreenBadge(ComPtr):
     AutomationName = property(get_AutomationName, None)
 class ILockScreenInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.LockScreen.ILockScreenInfo'
     _iid_ = Guid('{f59aa65c-9711-4dc9-a630-95b6cb8cdad0}')
     @winrt_commethod(6)
     def add_LockScreenImageChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.LockScreen.LockScreenInfo, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -87,11 +91,13 @@ class ILockScreenInfo(ComPtr):
     AlarmIcon = property(get_AlarmIcon, None)
 class ILockScreenUnlockingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.LockScreen.ILockScreenUnlockingDeferral'
     _iid_ = Guid('{7e7d1ad6-5203-43e7-9bd6-7c3947d1e3fe}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class ILockScreenUnlockingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.LockScreen.ILockScreenUnlockingEventArgs'
     _iid_ = Guid('{44e6c007-75fb-4abb-9f8b-824748900c71}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.ApplicationModel.LockScreen.LockScreenUnlockingDeferral: ...

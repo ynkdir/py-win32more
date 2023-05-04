@@ -24,12 +24,13 @@ def __getattr__(name):
     return getattr(_module, name)
 class HostMessageReceivedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{faf26ffa-8ce1-4cc1-b278-322d31a5e4a3}')
     _classid_ = 'Windows.Security.Isolation.HostMessageReceivedCallback'
+    _iid_ = Guid('{faf26ffa-8ce1-4cc1-b278-322d31a5e4a3}')
     @winrt_commethod(3)
     def Invoke(self, receiverId: Guid, message: Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
 class IIsolatedWindowsEnvironment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironment'
     _iid_ = Guid('{41d24597-c328-4467-b37f-4dfc6f60b6bc}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -56,6 +57,7 @@ class IIsolatedWindowsEnvironment(ComPtr):
     Id = property(get_Id, None)
 class IIsolatedWindowsEnvironment2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironment2'
     _iid_ = Guid('{2d365f39-88bd-4ab4-93cf-7e2bcef337c0}')
     @winrt_commethod(6)
     def PostMessageToReceiverAsync(self, receiverId: Guid, message: Windows.Foundation.Collections.IIterable[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.IAsyncOperation[Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
@@ -63,6 +65,7 @@ class IIsolatedWindowsEnvironment2(ComPtr):
     def PostMessageToReceiverWithTelemetryAsync(self, receiverId: Guid, message: Windows.Foundation.Collections.IIterable[Windows.Win32.System.WinRT.IInspectable_head], telemetryParameters: Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters) -> Windows.Foundation.IAsyncOperation[Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
 class IIsolatedWindowsEnvironment3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironment3'
     _iid_ = Guid('{cb7fc7d2-d06e-4c26-8ada-dacdaaad03f5}')
     @winrt_commethod(6)
     def GetUserInfo(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentUserInfo: ...
@@ -72,11 +75,13 @@ class IIsolatedWindowsEnvironment3(ComPtr):
     def ShareFileWithTelemetryAsync(self, filePath: WinRT_String, options: Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions, telemetryParameters: Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters) -> Windows.Foundation.IAsyncOperation[Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileResult]: ...
 class IIsolatedWindowsEnvironment4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironment4'
     _iid_ = Guid('{11e3701a-dd9e-4f1b-812c-4020f307f93c}')
     @winrt_commethod(6)
     def ChangePriority(self, Priority: Windows.Security.Isolation.IsolatedWindowsEnvironmentCreationPriority) -> Void: ...
 class IIsolatedWindowsEnvironmentCreateResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentCreateResult'
     _iid_ = Guid('{ef9a5e58-dcd7-45c2-9c85-ab642a715e8e}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateStatus: ...
@@ -89,11 +94,13 @@ class IIsolatedWindowsEnvironmentCreateResult(ComPtr):
     Environment = property(get_Environment, None)
 class IIsolatedWindowsEnvironmentCreateResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentCreateResult2'
     _iid_ = Guid('{a547dbc7-61d4-4fb8-ab5c-edefa3d388ad}')
     @winrt_commethod(6)
     def ChangeCreationPriority(self, priority: Windows.Security.Isolation.IsolatedWindowsEnvironmentCreationPriority) -> Void: ...
 class IIsolatedWindowsEnvironmentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory'
     _iid_ = Guid('{1aca93e7-e804-454d-8466-f9897c20b0f6}')
     @winrt_commethod(6)
     def CreateAsync(self, options: Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateResult, Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateProgress]: ...
@@ -105,6 +112,7 @@ class IIsolatedWindowsEnvironmentFactory(ComPtr):
     def FindByOwnerId(self, environmentOwnerId: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Isolation.IsolatedWindowsEnvironment]: ...
 class IIsolatedWindowsEnvironmentFile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentFile'
     _iid_ = Guid('{4d5ae1ef-029f-4101-8c35-fe91bf9cd5f0}')
     @winrt_commethod(6)
     def get_Id(self) -> Guid: ...
@@ -116,6 +124,7 @@ class IIsolatedWindowsEnvironmentFile(ComPtr):
     HostPath = property(get_HostPath, None)
 class IIsolatedWindowsEnvironmentFile2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentFile2'
     _iid_ = Guid('{4eeb8dec-ad5d-4b0a-b754-f36c3d46d684}')
     @winrt_commethod(6)
     def get_GuestPath(self) -> WinRT_String: ...
@@ -125,6 +134,7 @@ class IIsolatedWindowsEnvironmentFile2(ComPtr):
     IsReadOnly = property(get_IsReadOnly, None)
 class IIsolatedWindowsEnvironmentHostStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics'
     _iid_ = Guid('{2c0e22c7-05a0-517a-b81c-6ee8790c381f}')
     @winrt_commethod(6)
     def get_IsReady(self) -> Boolean: ...
@@ -134,6 +144,7 @@ class IIsolatedWindowsEnvironmentHostStatics(ComPtr):
     HostErrors = property(get_HostErrors, None)
 class IIsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentLaunchFileResult'
     _iid_ = Guid('{685d4176-f6e0-4569-b1aa-215c0ff5b257}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileStatus: ...
@@ -146,6 +157,7 @@ class IIsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     File = property(get_File, None)
 class IIsolatedWindowsEnvironmentOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions'
     _iid_ = Guid('{b71d98f7-61f0-4008-b207-0bf9eb2d76f2}')
     @winrt_commethod(6)
     def get_EnvironmentOwnerId(self) -> WinRT_String: ...
@@ -192,6 +204,7 @@ class IIsolatedWindowsEnvironmentOptions(ComPtr):
     AllowCameraAndMicrophoneAccess = property(get_AllowCameraAndMicrophoneAccess, put_AllowCameraAndMicrophoneAccess)
 class IIsolatedWindowsEnvironmentOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions2'
     _iid_ = Guid('{10d7cc31-8b8f-4b9d-b22c-617103b55b08}')
     @winrt_commethod(6)
     def get_WindowAnnotationOverride(self) -> WinRT_String: ...
@@ -200,6 +213,7 @@ class IIsolatedWindowsEnvironmentOptions2(ComPtr):
     WindowAnnotationOverride = property(get_WindowAnnotationOverride, put_WindowAnnotationOverride)
 class IIsolatedWindowsEnvironmentOptions3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions3'
     _iid_ = Guid('{98d5aa23-161f-4cd9-8a9c-269b30122b0d}')
     @winrt_commethod(6)
     def get_AllowedClipboardFormatsToEnvironment(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentAllowedClipboardFormats: ...
@@ -218,6 +232,7 @@ class IIsolatedWindowsEnvironmentOptions3(ComPtr):
     CreationPriority = property(get_CreationPriority, put_CreationPriority)
 class IIsolatedWindowsEnvironmentOwnerRegistrationData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationData'
     _iid_ = Guid('{f888ec22-e8cf-56c0-b1df-90af4ad80e84}')
     @winrt_commethod(6)
     def get_ShareableFolders(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
@@ -233,6 +248,7 @@ class IIsolatedWindowsEnvironmentOwnerRegistrationData(ComPtr):
     ActivationFileExtensions = property(get_ActivationFileExtensions, None)
 class IIsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationResult'
     _iid_ = Guid('{6dab9451-6169-55df-8f51-790e99d7277d}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationStatus: ...
@@ -242,6 +258,7 @@ class IIsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IIsolatedWindowsEnvironmentOwnerRegistrationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationStatics'
     _iid_ = Guid('{10951754-204b-5ec9-9de3-df792d074a61}')
     @winrt_commethod(6)
     def Register(self, ownerName: WinRT_String, ownerRegistrationData: Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationResult: ...
@@ -249,6 +266,7 @@ class IIsolatedWindowsEnvironmentOwnerRegistrationStatics(ComPtr):
     def Unregister(self, ownerName: WinRT_String) -> Void: ...
 class IIsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentPostMessageResult'
     _iid_ = Guid('{0dfa28fa-2ef0-4d8f-b341-3171b2df93b1}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageStatus: ...
@@ -258,6 +276,7 @@ class IIsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IIsolatedWindowsEnvironmentProcess(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentProcess'
     _iid_ = Guid('{a858c3ef-8172-4f10-af93-cbe60af88d09}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentProcessState: ...
@@ -273,6 +292,7 @@ class IIsolatedWindowsEnvironmentProcess(ComPtr):
     ExitCode = property(get_ExitCode, None)
 class IIsolatedWindowsEnvironmentShareFileRequestOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileRequestOptions'
     _iid_ = Guid('{c9190ed8-0fd0-4946-bb88-117a60737b61}')
     @winrt_commethod(6)
     def get_AllowWrite(self) -> Boolean: ...
@@ -281,6 +301,7 @@ class IIsolatedWindowsEnvironmentShareFileRequestOptions(ComPtr):
     AllowWrite = property(get_AllowWrite, put_AllowWrite)
 class IIsolatedWindowsEnvironmentShareFileResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileResult'
     _iid_ = Guid('{aec7caa7-9ac6-4bf5-8b91-5c1adf0d7d00}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileStatus: ...
@@ -293,6 +314,7 @@ class IIsolatedWindowsEnvironmentShareFileResult(ComPtr):
     File = property(get_File, None)
 class IIsolatedWindowsEnvironmentShareFolderRequestOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderRequestOptions'
     _iid_ = Guid('{c405eb7d-7053-4f6a-9b87-746846ed19b2}')
     @winrt_commethod(6)
     def get_AllowWrite(self) -> Boolean: ...
@@ -301,6 +323,7 @@ class IIsolatedWindowsEnvironmentShareFolderRequestOptions(ComPtr):
     AllowWrite = property(get_AllowWrite, put_AllowWrite)
 class IIsolatedWindowsEnvironmentShareFolderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderResult'
     _iid_ = Guid('{556ba72e-ca9d-4211-b143-1cedc86eb2fe}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderStatus: ...
@@ -310,6 +333,7 @@ class IIsolatedWindowsEnvironmentShareFolderResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IIsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentStartProcessResult'
     _iid_ = Guid('{8fa1dc2f-57da-4bb5-9c06-fa072d2032e2}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessStatus: ...
@@ -322,6 +346,7 @@ class IIsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     Process = property(get_Process, None)
 class IIsolatedWindowsEnvironmentTelemetryParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentTelemetryParameters'
     _iid_ = Guid('{ebdb3cab-7a3a-4524-a0f4-f96e284d33cd}')
     @winrt_commethod(6)
     def get_CorrelationId(self) -> Guid: ...
@@ -330,6 +355,7 @@ class IIsolatedWindowsEnvironmentTelemetryParameters(ComPtr):
     CorrelationId = property(get_CorrelationId, put_CorrelationId)
 class IIsolatedWindowsEnvironmentUserInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentUserInfo'
     _iid_ = Guid('{8a9c75ae-69ba-4001-96fc-19a02703b340}')
     @winrt_commethod(6)
     def get_EnvironmentUserSid(self) -> WinRT_String: ...
@@ -341,11 +367,13 @@ class IIsolatedWindowsEnvironmentUserInfo(ComPtr):
     EnvironmentUserName = property(get_EnvironmentUserName, None)
 class IIsolatedWindowsEnvironmentUserInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentUserInfo2'
     _iid_ = Guid('{b0bdd5dd-91d7-481e-94f2-2a5a6bdf9383}')
     @winrt_commethod(6)
     def TryWaitForSignInWithProgressAsync(self) -> Windows.Foundation.IAsyncOperationWithProgress[Boolean, Windows.Security.Isolation.IsolatedWindowsEnvironmentSignInProgress]: ...
 class IIsolatedWindowsHostMessengerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics'
     _iid_ = Guid('{06e444bb-53c0-4889-8fa3-53592e37cf21}')
     @winrt_commethod(6)
     def PostMessageToReceiver(self, receiverId: Guid, message: Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
@@ -353,6 +381,7 @@ class IIsolatedWindowsHostMessengerStatics(ComPtr):
     def GetFileId(self, filePath: WinRT_String) -> Guid: ...
 class IIsolatedWindowsHostMessengerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics2'
     _iid_ = Guid('{55ef9ebc-0444-42ad-832d-1b89c089d1ca}')
     @winrt_commethod(6)
     def RegisterHostMessageReceiver(self, receiverId: Guid, hostMessageReceivedCallback: Windows.Security.Isolation.HostMessageReceivedCallback) -> Void: ...
@@ -469,6 +498,7 @@ class IsolatedWindowsEnvironmentFile(ComPtr):
     IsReadOnly = property(get_IsReadOnly, None)
 class IsolatedWindowsEnvironmentHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentHost'
     @winrt_classmethod
     def get_IsReady(cls: Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> Boolean: ...
     @winrt_classmethod
@@ -572,6 +602,7 @@ class IsolatedWindowsEnvironmentOptions(ComPtr):
     CreationPriority = property(get_CreationPriority, put_CreationPriority)
 class IsolatedWindowsEnvironmentOwnerRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration'
     @winrt_classmethod
     def Register(cls: Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationStatics, ownerName: WinRT_String, ownerRegistrationData: Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationResult: ...
     @winrt_classmethod
@@ -763,6 +794,7 @@ class IsolatedWindowsEnvironmentUserInfo(ComPtr):
     EnvironmentUserName = property(get_EnvironmentUserName, None)
 class IsolatedWindowsHostMessenger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsHostMessenger'
     @winrt_classmethod
     def RegisterHostMessageReceiver(cls: Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics2, receiverId: Guid, hostMessageReceivedCallback: Windows.Security.Isolation.HostMessageReceivedCallback) -> Void: ...
     @winrt_classmethod
@@ -773,8 +805,8 @@ class IsolatedWindowsHostMessenger(ComPtr):
     def GetFileId(cls: Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics, filePath: WinRT_String) -> Guid: ...
 class MessageReceivedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{f5b4c8ff-1d9d-4995-9fea-4d15257c0757}')
     _classid_ = 'Windows.Security.Isolation.MessageReceivedCallback'
+    _iid_ = Guid('{f5b4c8ff-1d9d-4995-9fea-4d15257c0757}')
     @winrt_commethod(3)
     def Invoke(self, receiverId: Guid, message: Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
 make_head(_module, 'HostMessageReceivedCallback')

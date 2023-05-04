@@ -22,6 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class BackgroundEnergyDiagnostics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics'
     @winrt_classmethod
     def get_DeviceSpecificConversionFactor(cls: Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics) -> Double: ...
     @winrt_classmethod
@@ -31,6 +32,7 @@ class BackgroundEnergyDiagnostics(ComPtr):
     DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
 class ForegroundEnergyDiagnostics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics'
     @winrt_classmethod
     def get_DeviceSpecificConversionFactor(cls: Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics) -> Double: ...
     @winrt_classmethod
@@ -40,6 +42,7 @@ class ForegroundEnergyDiagnostics(ComPtr):
     DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
 class IBackgroundEnergyDiagnosticsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics'
     _iid_ = Guid('{d7663702-d3a6-46e0-8f9b-50b95bb4f9c5}')
     @winrt_commethod(6)
     def get_DeviceSpecificConversionFactor(self) -> Double: ...
@@ -50,6 +53,7 @@ class IBackgroundEnergyDiagnosticsStatics(ComPtr):
     DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
 class IForegroundEnergyDiagnosticsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics'
     _iid_ = Guid('{23ca0917-cd07-4609-be15-8fe894c5e41e}')
     @winrt_commethod(6)
     def get_DeviceSpecificConversionFactor(self) -> Double: ...

@@ -339,6 +339,7 @@ class FullScreenPresentationConfiguration(ComPtr):
     IsExclusive = property(get_IsExclusive, put_IsExclusive)
 class IAppWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindow'
     _iid_ = Guid('{663014a6-b75e-5dbd-995c-f0117fa3fb61}')
     @winrt_commethod(6)
     def get_Content(self) -> Windows.UI.UIContentRoot: ...
@@ -410,6 +411,7 @@ class IAppWindow(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
 class IAppWindowChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowChangedEventArgs'
     _iid_ = Guid('{1de1f3be-a655-55ad-b2b6-eb240f880356}')
     @winrt_commethod(6)
     def get_DidAvailableWindowPresentationsChange(self) -> Boolean: ...
@@ -437,6 +439,7 @@ class IAppWindowChangedEventArgs(ComPtr):
     DidWindowPresentationChange = property(get_DidWindowPresentationChange, None)
 class IAppWindowCloseRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowCloseRequestedEventArgs'
     _iid_ = Guid('{e9ff01da-e7a2-57a8-8b5e-39c4003afdbb}')
     @winrt_commethod(6)
     def get_Cancel(self) -> Boolean: ...
@@ -447,18 +450,21 @@ class IAppWindowCloseRequestedEventArgs(ComPtr):
     Cancel = property(get_Cancel, put_Cancel)
 class IAppWindowClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowClosedEventArgs'
     _iid_ = Guid('{cc7df816-9520-5a06-821e-456ad8b358aa}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.UI.WindowManagement.AppWindowClosedReason: ...
     Reason = property(get_Reason, None)
 class IAppWindowFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowFrame'
     _iid_ = Guid('{9ee22601-7e5d-52af-846b-01dc6c296567}')
     @winrt_commethod(6)
     def get_DragRegionVisuals(self) -> Windows.Foundation.Collections.IVector[Windows.UI.Composition.IVisualElement]: ...
     DragRegionVisuals = property(get_DragRegionVisuals, None)
 class IAppWindowFrameStyle(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowFrameStyle'
     _iid_ = Guid('{ac412946-e1ac-5230-944a-c60873dcf4a9}')
     @winrt_commethod(6)
     def GetFrameStyle(self) -> Windows.UI.WindowManagement.AppWindowFrameStyle: ...
@@ -466,6 +472,7 @@ class IAppWindowFrameStyle(ComPtr):
     def SetFrameStyle(self, frameStyle: Windows.UI.WindowManagement.AppWindowFrameStyle) -> Void: ...
 class IAppWindowPlacement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowPlacement'
     _iid_ = Guid('{03dc815e-e7a9-5857-9c03-7d670594410e}')
     @winrt_commethod(6)
     def get_DisplayRegion(self) -> Windows.UI.WindowManagement.DisplayRegion: ...
@@ -478,15 +485,18 @@ class IAppWindowPlacement(ComPtr):
     Size = property(get_Size, None)
 class IAppWindowPresentationConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowPresentationConfiguration'
     _iid_ = Guid('{b5a43ee3-df33-5e67-bd31-1072457300df}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.UI.WindowManagement.AppWindowPresentationKind: ...
     Kind = property(get_Kind, None)
 class IAppWindowPresentationConfigurationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowPresentationConfigurationFactory'
     _iid_ = Guid('{fd3606a6-7875-5de8-84ff-6351ee13dd0d}')
 class IAppWindowPresenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowPresenter'
     _iid_ = Guid('{5ae9ed73-e1fd-5317-ad78-5a3ed271bbde}')
     @winrt_commethod(6)
     def GetConfiguration(self) -> Windows.UI.WindowManagement.AppWindowPresentationConfiguration: ...
@@ -498,6 +508,7 @@ class IAppWindowPresenter(ComPtr):
     def RequestPresentationByKind(self, presentationKind: Windows.UI.WindowManagement.AppWindowPresentationKind) -> Boolean: ...
 class IAppWindowStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowStatics'
     _iid_ = Guid('{ff1f3ea3-b769-50ef-9873-108cd0e89746}')
     @winrt_commethod(6)
     def TryCreateAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.WindowManagement.AppWindow]: ...
@@ -507,6 +518,7 @@ class IAppWindowStatics(ComPtr):
     def ClearPersistedState(self, key: WinRT_String) -> Void: ...
 class IAppWindowTitleBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowTitleBar'
     _iid_ = Guid('{6e932c84-f644-541d-a2d7-0c262437842d}')
     @winrt_commethod(6)
     def get_BackgroundColor(self) -> Windows.Foundation.IReference[Windows.UI.Color]: ...
@@ -580,12 +592,14 @@ class IAppWindowTitleBar(ComPtr):
     IsVisible = property(get_IsVisible, None)
 class IAppWindowTitleBarOcclusion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowTitleBarOcclusion'
     _iid_ = Guid('{fea3cffd-2ccf-5fc3-aeae-f843876bf37e}')
     @winrt_commethod(6)
     def get_OccludingRect(self) -> Windows.Foundation.Rect: ...
     OccludingRect = property(get_OccludingRect, None)
 class IAppWindowTitleBarVisibility(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IAppWindowTitleBarVisibility'
     _iid_ = Guid('{a215a4e3-6e7e-5651-8c3b-624819528154}')
     @winrt_commethod(6)
     def GetPreferredVisibility(self) -> Windows.UI.WindowManagement.AppWindowTitleBarVisibility: ...
@@ -593,12 +607,15 @@ class IAppWindowTitleBarVisibility(ComPtr):
     def SetPreferredVisibility(self, visibilityMode: Windows.UI.WindowManagement.AppWindowTitleBarVisibility) -> Void: ...
 class ICompactOverlayPresentationConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.ICompactOverlayPresentationConfiguration'
     _iid_ = Guid('{a7e5750f-5730-56c6-8e1f-d63ff4d7980d}')
 class IDefaultPresentationConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IDefaultPresentationConfiguration'
     _iid_ = Guid('{d8c2b53b-2168-5703-a853-d525589fe2b9}')
 class IDisplayRegion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IDisplayRegion'
     _iid_ = Guid('{db50c3a2-4094-5f47-8cb1-ea01ddafaa94}')
     @winrt_commethod(6)
     def get_DisplayMonitorDeviceId(self) -> WinRT_String: ...
@@ -621,6 +638,7 @@ class IDisplayRegion(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
 class IFullScreenPresentationConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IFullScreenPresentationConfiguration'
     _iid_ = Guid('{43d3dcd8-d2a8-503d-a626-15533d6d5f62}')
     @winrt_commethod(6)
     def get_IsExclusive(self) -> Boolean: ...
@@ -629,11 +647,13 @@ class IFullScreenPresentationConfiguration(ComPtr):
     IsExclusive = property(get_IsExclusive, put_IsExclusive)
 class IWindowServicesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IWindowServicesStatics'
     _iid_ = Guid('{cff4d519-50a6-5c64-97f6-c2d96add7f42}')
     @winrt_commethod(6)
     def FindAllTopLevelWindowIds(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.WindowId]: ...
 class IWindowingEnvironment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IWindowingEnvironment'
     _iid_ = Guid('{264363c0-2a49-5417-b3ae-48a71c63a3bd}')
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
@@ -649,21 +669,25 @@ class IWindowingEnvironment(ComPtr):
     Kind = property(get_Kind, None)
 class IWindowingEnvironmentAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IWindowingEnvironmentAddedEventArgs'
     _iid_ = Guid('{ff2a5b7f-f183-5c66-99b2-429082069299}')
     @winrt_commethod(6)
     def get_WindowingEnvironment(self) -> Windows.UI.WindowManagement.WindowingEnvironment: ...
     WindowingEnvironment = property(get_WindowingEnvironment, None)
 class IWindowingEnvironmentChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IWindowingEnvironmentChangedEventArgs'
     _iid_ = Guid('{4160cfc6-023d-5e9a-b431-350e67dc978a}')
 class IWindowingEnvironmentRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IWindowingEnvironmentRemovedEventArgs'
     _iid_ = Guid('{2e5b5473-beff-5e53-9316-7e775fe568b3}')
     @winrt_commethod(6)
     def get_WindowingEnvironment(self) -> Windows.UI.WindowManagement.WindowingEnvironment: ...
     WindowingEnvironment = property(get_WindowingEnvironment, None)
 class IWindowingEnvironmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.IWindowingEnvironmentStatics'
     _iid_ = Guid('{874e9fb7-c642-55ab-8aa2-162f734a9a72}')
     @winrt_commethod(6)
     def FindAll(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.WindowManagement.WindowingEnvironment]: ...
@@ -671,6 +695,7 @@ class IWindowingEnvironmentStatics(ComPtr):
     def FindAllWithKind(self, kind: Windows.UI.WindowManagement.WindowingEnvironmentKind) -> Windows.Foundation.Collections.IVectorView[Windows.UI.WindowManagement.WindowingEnvironment]: ...
 class WindowServices(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WindowManagement.WindowServices'
     @winrt_classmethod
     def FindAllTopLevelWindowIds(cls: Windows.UI.WindowManagement.IWindowServicesStatics) -> Windows.Foundation.Collections.IVectorView[Windows.UI.WindowId]: ...
 class WindowingEnvironment(ComPtr):

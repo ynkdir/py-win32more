@@ -1297,11 +1297,10 @@ class PyGenerator:
             if ii.custom_attributes.has_default():
                 writer.write(f"    default_interface: {ii.generic_fullname}\n")
                 break
+        writer.write(f"    _classid_ = '{td.namespace}.{name}'\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
-        if "Abstract" not in td.attributes:
-            writer.write(f"    _classid_ = '{td.namespace}.{name}'\n")
         for ca in td.custom_attributes.get_activatable():
             if ca.fixed_arguments[0].type.kind == "Type":
                 factory = ca["_typedef"]

@@ -66,6 +66,7 @@ AppCapabilityAccessStatus_UserPromptRequired: AppCapabilityAccessStatus = 3
 AppCapabilityAccessStatus_Allowed: AppCapabilityAccessStatus = 4
 class IAppCapability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapability'
     _iid_ = Guid('{4c49d915-8a2a-4295-9437-2df7c396aff4}')
     @winrt_commethod(6)
     def get_CapabilityName(self) -> WinRT_String: ...
@@ -83,6 +84,7 @@ class IAppCapability(ComPtr):
     User = property(get_User, None)
 class IAppCapability2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapability2'
     _iid_ = Guid('{11c7ccb6-c74f-50a3-b960-88008767d939}')
     @winrt_commethod(6)
     def get_DisplayMessage(self) -> WinRT_String: ...
@@ -91,9 +93,11 @@ class IAppCapability2(ComPtr):
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
 class IAppCapabilityAccessChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityAccessChangedEventArgs'
     _iid_ = Guid('{0a578d15-bdd7-457e-8cca-6f53bd2e5944}')
 class IAppCapabilityStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityStatics'
     _iid_ = Guid('{7c353e2a-46ee-44e5-af3d-6ad3fc49bd22}')
     @winrt_commethod(6)
     def RequestAccessForCapabilitiesAsync(self, capabilityNames: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus]]: ...

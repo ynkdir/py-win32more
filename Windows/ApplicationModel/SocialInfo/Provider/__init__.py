@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISocialDashboardItemUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.ISocialDashboardItemUpdater'
     _iid_ = Guid('{3cde9dc9-4800-46cd-869b-1973ec685bde}')
     @winrt_commethod(6)
     def get_OwnerRemoteId(self) -> WinRT_String: ...
@@ -51,6 +52,7 @@ class ISocialDashboardItemUpdater(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
 class ISocialFeedUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater'
     _iid_ = Guid('{7a0c0aa7-ed89-4bd5-a8d9-15f4d9861c10}')
     @winrt_commethod(6)
     def get_OwnerRemoteId(self) -> WinRT_String: ...
@@ -65,6 +67,7 @@ class ISocialFeedUpdater(ComPtr):
     Items = property(get_Items, None)
 class ISocialInfoProviderManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics'
     _iid_ = Guid('{1b88e52b-7787-48d6-aa12-d8e8f47ab85a}')
     @winrt_commethod(6)
     def CreateSocialFeedUpdaterAsync(self, kind: Windows.ApplicationModel.SocialInfo.SocialFeedKind, mode: Windows.ApplicationModel.SocialInfo.SocialFeedUpdateMode, ownerRemoteId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater]: ...
@@ -122,6 +125,7 @@ class SocialFeedUpdater(ComPtr):
     Items = property(get_Items, None)
 class SocialInfoProviderManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager'
     @winrt_classmethod
     def CreateSocialFeedUpdaterAsync(cls: Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics, kind: Windows.ApplicationModel.SocialInfo.SocialFeedKind, mode: Windows.ApplicationModel.SocialInfo.SocialFeedUpdateMode, ownerRemoteId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater]: ...
     @winrt_classmethod

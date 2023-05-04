@@ -34,8 +34,8 @@ class AddPagesEventArgs(ComPtr):
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class AddPagesEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{d4b57970-57a0-4209-847c-c093b54bc729}')
     _classid_ = 'Windows.UI.Xaml.Printing.AddPagesEventHandler'
+    _iid_ = Guid('{d4b57970-57a0-4209-847c-c093b54bc729}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.AddPagesEventArgs) -> Void: ...
 class GetPreviewPageEventArgs(ComPtr):
@@ -49,24 +49,27 @@ class GetPreviewPageEventArgs(ComPtr):
     PageNumber = property(get_PageNumber, None)
 class GetPreviewPageEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{ccb3e9ed-9c11-4e50-ab49-e98086bbfdef}')
     _classid_ = 'Windows.UI.Xaml.Printing.GetPreviewPageEventHandler'
+    _iid_ = Guid('{ccb3e9ed-9c11-4e50-ab49-e98086bbfdef}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.GetPreviewPageEventArgs) -> Void: ...
 class IAddPagesEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Printing.IAddPagesEventArgs'
     _iid_ = Guid('{e2e52be5-056c-4420-9795-cb3526ce0c20}')
     @winrt_commethod(6)
     def get_PrintTaskOptions(self) -> Windows.Graphics.Printing.PrintTaskOptions: ...
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class IGetPreviewPageEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Printing.IGetPreviewPageEventArgs'
     _iid_ = Guid('{a43d703d-dea9-4df6-a7ed-35049cd485c7}')
     @winrt_commethod(6)
     def get_PageNumber(self) -> Int32: ...
     PageNumber = property(get_PageNumber, None)
 class IPaginateEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Printing.IPaginateEventArgs'
     _iid_ = Guid('{ed945fd6-79ab-42b7-930a-3d6e09011d21}')
     @winrt_commethod(6)
     def get_PrintTaskOptions(self) -> Windows.Graphics.Printing.PrintTaskOptions: ...
@@ -76,6 +79,7 @@ class IPaginateEventArgs(ComPtr):
     CurrentPreviewPageNumber = property(get_CurrentPreviewPageNumber, None)
 class IPrintDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Printing.IPrintDocument'
     _iid_ = Guid('{e44327c3-a999-485b-b1d8-72dc517821e6}')
     @winrt_commethod(6)
     def get_DocumentSource(self) -> Windows.Graphics.Printing.IPrintDocumentSource: ...
@@ -104,11 +108,13 @@ class IPrintDocument(ComPtr):
     DocumentSource = property(get_DocumentSource, None)
 class IPrintDocumentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Printing.IPrintDocumentFactory'
     _iid_ = Guid('{fb87b18f-2606-4a2f-99d4-a7cdbc35d7c7}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Printing.PrintDocument: ...
 class IPrintDocumentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Printing.IPrintDocumentStatics'
     _iid_ = Guid('{fd970a3c-b152-49e0-a6bd-6aa6477e43c7}')
     @winrt_commethod(6)
     def get_DocumentSourceProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -127,8 +133,8 @@ class PaginateEventArgs(ComPtr):
     CurrentPreviewPageNumber = property(get_CurrentPreviewPageNumber, None)
 class PaginateEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{0cc05b61-811b-4a32-9965-13eb78dbb01b}')
     _classid_ = 'Windows.UI.Xaml.Printing.PaginateEventHandler'
+    _iid_ = Guid('{0cc05b61-811b-4a32-9965-13eb78dbb01b}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...
 PreviewPageCountType = Int32

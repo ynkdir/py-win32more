@@ -113,6 +113,7 @@ HdmiDisplayPixelEncoding_Ycc422: HdmiDisplayPixelEncoding = 2
 HdmiDisplayPixelEncoding_Ycc420: HdmiDisplayPixelEncoding = 3
 class IHdmiDisplayInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayInformation'
     _iid_ = Guid('{130b3c0a-f565-476e-abd5-ea05aee74c69}')
     @winrt_commethod(6)
     def GetSupportedDisplayModes(self) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Display.Core.HdmiDisplayMode]: ...
@@ -132,11 +133,13 @@ class IHdmiDisplayInformation(ComPtr):
     def remove_DisplayModesChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IHdmiDisplayInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayInformationStatics'
     _iid_ = Guid('{6ce6b260-f42a-4a15-914c-7b8e2a5a65df}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Graphics.Display.Core.HdmiDisplayInformation: ...
 class IHdmiDisplayMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayMode'
     _iid_ = Guid('{0c06d5ad-1b90-4f51-9981-ef5a1c0ddf66}')
     @winrt_commethod(6)
     def get_ResolutionWidthInRawPixels(self) -> UInt32: ...
@@ -172,6 +175,7 @@ class IHdmiDisplayMode(ComPtr):
     Is2086MetadataSupported = property(get_Is2086MetadataSupported, None)
 class IHdmiDisplayMode2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayMode2'
     _iid_ = Guid('{07cd4e9f-4b3c-42b8-84e7-895368718af2}')
     @winrt_commethod(6)
     def get_IsDolbyVisionLowLatencySupported(self) -> Boolean: ...

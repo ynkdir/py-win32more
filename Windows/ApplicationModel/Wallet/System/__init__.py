@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWalletItemSystemStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore'
     _iid_ = Guid('{522e2bff-96a2-4a17-8d19-fe1d9f837561}')
     @winrt_commethod(6)
     def GetItemsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Wallet.WalletItem]]: ...
@@ -39,6 +40,7 @@ class IWalletItemSystemStore(ComPtr):
     def LaunchAppForItemAsync(self, item: Windows.ApplicationModel.Wallet.WalletItem) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IWalletItemSystemStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore2'
     _iid_ = Guid('{f98d3a4e-be00-4fdd-9734-6c113c1ac1cb}')
     @winrt_commethod(6)
     def add_ItemsChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Wallet.System.WalletItemSystemStore, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -46,6 +48,7 @@ class IWalletItemSystemStore2(ComPtr):
     def remove_ItemsChanged(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IWalletManagerSystemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Wallet.System.IWalletManagerSystemStatics'
     _iid_ = Guid('{bee8eb89-2634-4b9a-8b23-ee8903c91fe0}')
     @winrt_commethod(6)
     def RequestStoreAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Wallet.System.WalletItemSystemStore]: ...
@@ -73,6 +76,7 @@ class WalletItemSystemStore(ComPtr):
     def remove_ItemsChanged(self: Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore2, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class WalletManagerSystem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Wallet.System.WalletManagerSystem'
     @winrt_classmethod
     def RequestStoreAsync(cls: Windows.ApplicationModel.Wallet.System.IWalletManagerSystemStatics) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Wallet.System.WalletItemSystemStore]: ...
 make_head(_module, 'IWalletItemSystemStore')

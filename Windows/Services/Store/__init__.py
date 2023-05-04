@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IStoreAcquireLicenseResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreAcquireLicenseResult'
     _iid_ = Guid('{fbd7946d-f040-4cb3-9a39-29bcecdbe22d}')
     @winrt_commethod(6)
     def get_StorePackageLicense(self) -> Windows.Services.Store.StorePackageLicense: ...
@@ -36,6 +37,7 @@ class IStoreAcquireLicenseResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IStoreAppLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreAppLicense'
     _iid_ = Guid('{f389f9de-73c0-45ce-9bab-b2fe3e5eafd3}')
     @winrt_commethod(6)
     def get_SkuStoreId(self) -> WinRT_String: ...
@@ -66,12 +68,14 @@ class IStoreAppLicense(ComPtr):
     TrialUniqueId = property(get_TrialUniqueId, None)
 class IStoreAppLicense2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreAppLicense2'
     _iid_ = Guid('{b4666e91-4443-40b3-993f-28904435bdc6}')
     @winrt_commethod(6)
     def get_IsDiscLicense(self) -> Boolean: ...
     IsDiscLicense = property(get_IsDiscLicense, None)
 class IStoreAvailability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreAvailability'
     _iid_ = Guid('{fa060325-0ffd-4493-ad43-f1f9918f69fa}')
     @winrt_commethod(6)
     def get_StoreId(self) -> WinRT_String: ...
@@ -91,6 +95,7 @@ class IStoreAvailability(ComPtr):
     ExtendedJsonData = property(get_ExtendedJsonData, None)
 class IStoreCanAcquireLicenseResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreCanAcquireLicenseResult'
     _iid_ = Guid('{3a693db3-0088-482f-86d5-bd46522663ad}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
@@ -103,6 +108,7 @@ class IStoreCanAcquireLicenseResult(ComPtr):
     Status = property(get_Status, None)
 class IStoreCollectionData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreCollectionData'
     _iid_ = Guid('{8aa4c3b3-5bb3-441a-2ab4-4dab73d5ce67}')
     @winrt_commethod(6)
     def get_IsTrial(self) -> Boolean: ...
@@ -130,6 +136,7 @@ class IStoreCollectionData(ComPtr):
     ExtendedJsonData = property(get_ExtendedJsonData, None)
 class IStoreConsumableResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreConsumableResult'
     _iid_ = Guid('{ea5dab72-6a00-4052-be5b-bfdab4433352}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Services.Store.StoreConsumableStatus: ...
@@ -145,6 +152,7 @@ class IStoreConsumableResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IStoreContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreContext'
     _iid_ = Guid('{ac98b6be-f4fd-4912-babd-5035e5e8bcab}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
@@ -191,11 +199,13 @@ class IStoreContext(ComPtr):
     User = property(get_User, None)
 class IStoreContext2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreContext2'
     _iid_ = Guid('{18bc54da-7bd9-452c-9116-3bbd06ffc63a}')
     @winrt_commethod(6)
     def FindStoreProductForPackageAsync(self, productKinds: Windows.Foundation.Collections.IIterable[WinRT_String], package: Windows.ApplicationModel.Package) -> Windows.Foundation.IAsyncOperation[Windows.Services.Store.StoreProductResult]: ...
 class IStoreContext3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreContext3'
     _iid_ = Guid('{e26226ca-1a01-4730-85a6-ecc896e4ae38}')
     @winrt_commethod(6)
     def get_CanSilentlyDownloadStorePackageUpdates(self) -> Boolean: ...
@@ -228,6 +238,7 @@ class IStoreContext3(ComPtr):
     CanSilentlyDownloadStorePackageUpdates = property(get_CanSilentlyDownloadStorePackageUpdates, None)
 class IStoreContext4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreContext4'
     _iid_ = Guid('{af9c6f69-bea1-4bf4-8e74-ae03e206c6b0}')
     @winrt_commethod(6)
     def RequestRateAndReviewAppAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Services.Store.StoreRateAndReviewResult]: ...
@@ -235,6 +246,7 @@ class IStoreContext4(ComPtr):
     def SetInstallOrderForAssociatedStoreQueueItemsAsync(self, items: Windows.Foundation.Collections.IIterable[Windows.Services.Store.StoreQueueItem]) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Services.Store.StoreQueueItem]]: ...
 class IStoreContextStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreContextStatics'
     _iid_ = Guid('{9c06ee5f-15c0-4e72-9330-d6191cebd19c}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Services.Store.StoreContext: ...
@@ -242,6 +254,7 @@ class IStoreContextStatics(ComPtr):
     def GetForUser(self, user: Windows.System.User) -> Windows.Services.Store.StoreContext: ...
 class IStoreImage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreImage'
     _iid_ = Guid('{081fd248-adb4-4b64-a993-784789926ed5}')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
@@ -260,6 +273,7 @@ class IStoreImage(ComPtr):
     Caption = property(get_Caption, None)
 class IStoreLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreLicense'
     _iid_ = Guid('{26dc9579-4c4f-4f30-bc89-649f60e36055}')
     @winrt_commethod(6)
     def get_SkuStoreId(self) -> WinRT_String: ...
@@ -278,6 +292,7 @@ class IStoreLicense(ComPtr):
     InAppOfferToken = property(get_InAppOfferToken, None)
 class IStorePackageInstallOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePackageInstallOptions'
     _iid_ = Guid('{1d3d630c-0ccd-44dd-8c59-80810a729973}')
     @winrt_commethod(6)
     def get_AllowForcedAppRestart(self) -> Boolean: ...
@@ -286,6 +301,7 @@ class IStorePackageInstallOptions(ComPtr):
     AllowForcedAppRestart = property(get_AllowForcedAppRestart, put_AllowForcedAppRestart)
 class IStorePackageLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePackageLicense'
     _iid_ = Guid('{0c465714-14e1-4973-bd14-f77724271e99}')
     @winrt_commethod(6)
     def add_LicenseLost(self, handler: Windows.Foundation.TypedEventHandler[Windows.Services.Store.StorePackageLicense, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -301,6 +317,7 @@ class IStorePackageLicense(ComPtr):
     IsValid = property(get_IsValid, None)
 class IStorePackageUpdate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePackageUpdate'
     _iid_ = Guid('{140fa150-3cbf-4a35-b91f-48271c31b072}')
     @winrt_commethod(6)
     def get_Package(self) -> Windows.ApplicationModel.Package: ...
@@ -310,6 +327,7 @@ class IStorePackageUpdate(ComPtr):
     Mandatory = property(get_Mandatory, None)
 class IStorePackageUpdateResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePackageUpdateResult'
     _iid_ = Guid('{e79142ed-61f9-4893-b4fe-cf191603af7b}')
     @winrt_commethod(6)
     def get_OverallState(self) -> Windows.Services.Store.StorePackageUpdateState: ...
@@ -319,12 +337,14 @@ class IStorePackageUpdateResult(ComPtr):
     StorePackageUpdateStatuses = property(get_StorePackageUpdateStatuses, None)
 class IStorePackageUpdateResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePackageUpdateResult2'
     _iid_ = Guid('{071d012e-bc62-4f2e-87ea-99d801aeaf98}')
     @winrt_commethod(6)
     def get_StoreQueueItems(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Store.StoreQueueItem]: ...
     StoreQueueItems = property(get_StoreQueueItems, None)
 class IStorePrice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePrice'
     _iid_ = Guid('{55ba94c4-15f1-407c-8f06-006380f4df0b}')
     @winrt_commethod(6)
     def get_FormattedBasePrice(self) -> WinRT_String: ...
@@ -346,6 +366,7 @@ class IStorePrice(ComPtr):
     FormattedRecurrencePrice = property(get_FormattedRecurrencePrice, None)
 class IStoreProduct(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreProduct'
     _iid_ = Guid('{320e2c52-d760-450a-a42b-67d1e901ac90}')
     @winrt_commethod(6)
     def get_StoreId(self) -> WinRT_String: ...
@@ -400,12 +421,14 @@ class IStoreProduct(ComPtr):
     InAppOfferToken = property(get_InAppOfferToken, None)
 class IStoreProductOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreProductOptions'
     _iid_ = Guid('{5b34a0f9-a113-4811-8326-16199c927f31}')
     @winrt_commethod(6)
     def get_ActionFilters(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     ActionFilters = property(get_ActionFilters, None)
 class IStoreProductPagedQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreProductPagedQueryResult'
     _iid_ = Guid('{c92718c5-4dd5-4869-a462-ecc6872e43c5}')
     @winrt_commethod(6)
     def get_Products(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Services.Store.StoreProduct]: ...
@@ -420,6 +443,7 @@ class IStoreProductPagedQueryResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IStoreProductQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreProductQueryResult'
     _iid_ = Guid('{d805e6c5-d456-4ff6-8049-9076d5165f73}')
     @winrt_commethod(6)
     def get_Products(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Services.Store.StoreProduct]: ...
@@ -429,6 +453,7 @@ class IStoreProductQueryResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IStoreProductResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreProductResult'
     _iid_ = Guid('{b7674f73-3c87-4ee1-8201-f428359bd3af}')
     @winrt_commethod(6)
     def get_Product(self) -> Windows.Services.Store.StoreProduct: ...
@@ -438,6 +463,7 @@ class IStoreProductResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IStorePurchaseProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePurchaseProperties'
     _iid_ = Guid('{836278f3-ff87-4364-a5b4-fd2153ebe43b}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -451,11 +477,13 @@ class IStorePurchaseProperties(ComPtr):
     ExtendedJsonData = property(get_ExtendedJsonData, put_ExtendedJsonData)
 class IStorePurchasePropertiesFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePurchasePropertiesFactory'
     _iid_ = Guid('{a768f59e-fefd-489f-9a17-22a593e68b9d}')
     @winrt_commethod(6)
     def Create(self, name: WinRT_String) -> Windows.Services.Store.StorePurchaseProperties: ...
 class IStorePurchaseResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePurchaseResult'
     _iid_ = Guid('{add28552-f96a-463d-a7bb-c20b4fca6952}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Services.Store.StorePurchaseStatus: ...
@@ -465,6 +493,7 @@ class IStorePurchaseResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IStoreQueueItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreQueueItem'
     _iid_ = Guid('{56d5c32b-f830-4293-9188-cad2dcde7357}')
     @winrt_commethod(6)
     def get_ProductId(self) -> WinRT_String: ...
@@ -487,6 +516,7 @@ class IStoreQueueItem(ComPtr):
     InstallKind = property(get_InstallKind, None)
 class IStoreQueueItem2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreQueueItem2'
     _iid_ = Guid('{69491ca8-1ad4-447c-ad8c-a95035f64d82}')
     @winrt_commethod(6)
     def CancelInstallAsync(self) -> Windows.Foundation.IAsyncAction: ...
@@ -496,12 +526,14 @@ class IStoreQueueItem2(ComPtr):
     def ResumeInstallAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IStoreQueueItemCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreQueueItemCompletedEventArgs'
     _iid_ = Guid('{1247df6c-b44a-439b-bb07-1d3003d005c2}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Services.Store.StoreQueueItemStatus: ...
     Status = property(get_Status, None)
 class IStoreQueueItemStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreQueueItemStatus'
     _iid_ = Guid('{9bd6796f-9cc3-4ec3-b2ef-7be433b30174}')
     @winrt_commethod(6)
     def get_PackageInstallState(self) -> Windows.Services.Store.StoreQueueItemState: ...
@@ -517,6 +549,7 @@ class IStoreQueueItemStatus(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IStoreRateAndReviewResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreRateAndReviewResult'
     _iid_ = Guid('{9d209d56-a6b5-4121-9b61-ee6d0fbdbdbb}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
@@ -532,11 +565,13 @@ class IStoreRateAndReviewResult(ComPtr):
     Status = property(get_Status, None)
 class IStoreRequestHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreRequestHelperStatics'
     _iid_ = Guid('{6ce5e5f9-a0c9-4b2c-96a6-a171c630038d}')
     @winrt_commethod(6)
     def SendRequestAsync(self, context: Windows.Services.Store.StoreContext, requestKind: UInt32, parametersAsJson: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Services.Store.StoreSendRequestResult]: ...
 class IStoreSendRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreSendRequestResult'
     _iid_ = Guid('{c73abe60-8272-4502-8a69-6e75153a4299}')
     @winrt_commethod(6)
     def get_Response(self) -> WinRT_String: ...
@@ -546,12 +581,14 @@ class IStoreSendRequestResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IStoreSendRequestResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreSendRequestResult2'
     _iid_ = Guid('{2901296f-c0b0-49d0-8e8d-aa940af9c10b}')
     @winrt_commethod(6)
     def get_HttpStatusCode(self) -> Windows.Web.Http.HttpStatusCode: ...
     HttpStatusCode = property(get_HttpStatusCode, None)
 class IStoreSku(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreSku'
     _iid_ = Guid('{397e6f55-4440-4f03-863c-91f3fec83d79}')
     @winrt_commethod(6)
     def get_StoreId(self) -> WinRT_String: ...
@@ -609,6 +646,7 @@ class IStoreSku(ComPtr):
     SubscriptionInfo = property(get_SubscriptionInfo, None)
 class IStoreSubscriptionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreSubscriptionInfo'
     _iid_ = Guid('{4189776a-0559-43ac-a9c6-3ab0011fb8eb}')
     @winrt_commethod(6)
     def get_BillingPeriod(self) -> UInt32: ...
@@ -627,6 +665,7 @@ class IStoreSubscriptionInfo(ComPtr):
     TrialPeriodUnit = property(get_TrialPeriodUnit, None)
 class IStoreUninstallStorePackageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreUninstallStorePackageResult'
     _iid_ = Guid('{9fca39fd-126f-4cda-b801-1346b8d0a260}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
@@ -636,6 +675,7 @@ class IStoreUninstallStorePackageResult(ComPtr):
     Status = property(get_Status, None)
 class IStoreVideo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreVideo'
     _iid_ = Guid('{f26cb184-6f5e-4dc2-886c-3c63083c2f94}')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
@@ -1244,6 +1284,7 @@ StoreRateAndReviewStatus_NetworkError: StoreRateAndReviewStatus = 2
 StoreRateAndReviewStatus_Error: StoreRateAndReviewStatus = 3
 class StoreRequestHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.StoreRequestHelper'
     @winrt_classmethod
     def SendRequestAsync(cls: Windows.Services.Store.IStoreRequestHelperStatics, context: Windows.Services.Store.StoreContext, requestKind: UInt32, parametersAsJson: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Services.Store.StoreSendRequestResult]: ...
 class StoreSendRequestResult(ComPtr):

@@ -700,6 +700,7 @@ class ContactJobInfo(ComPtr):
     Description = property(get_Description, put_Description)
 class ContactLaunchActionVerbs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.ContactLaunchActionVerbs'
     @winrt_classmethod
     def get_Call(cls: Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -1027,6 +1028,7 @@ class ContactLocationField(ComPtr):
     Value = property(get_Value, None)
 class ContactManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.ContactManager'
     @winrt_classmethod
     def IsShowFullContactCardSupportedAsync(cls: Windows.ApplicationModel.Contacts.IContactManagerStatics5) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
@@ -1413,6 +1415,7 @@ class FullContactCardOptions(ComPtr):
     DesiredRemainingView = property(get_DesiredRemainingView, put_DesiredRemainingView)
 class IAggregateContactManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IAggregateContactManager'
     _iid_ = Guid('{0379d5dd-db5a-4fd3-b54e-4df17917a212}')
     @winrt_commethod(6)
     def FindRawContactsAsync(self, contact: Windows.ApplicationModel.Contacts.Contact) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.Contact]]: ...
@@ -1424,11 +1427,13 @@ class IAggregateContactManager(ComPtr):
     def TrySetPreferredSourceForPictureAsync(self, aggregateContact: Windows.ApplicationModel.Contacts.Contact, rawContact: Windows.ApplicationModel.Contacts.Contact) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IAggregateContactManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IAggregateContactManager2'
     _iid_ = Guid('{5e8cc2d8-a9cd-4430-9c4b-01348db2ca50}')
     @winrt_commethod(6)
     def SetRemoteIdentificationInformationAsync(self, contactListId: WinRT_String, remoteSourceId: WinRT_String, accountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IContact(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContact'
     _iid_ = Guid('{ec0072f3-2118-4049-9ebc-17f0ab692b64}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -1445,6 +1450,7 @@ class IContact(ComPtr):
     Fields = property(get_Fields, None)
 class IContact2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContact2'
     _iid_ = Guid('{f312f365-bb77-4c94-802d-8328cee40c08}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -1488,6 +1494,7 @@ class IContact2(ComPtr):
     ProviderProperties = property(get_ProviderProperties, None)
 class IContact3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContact3'
     _iid_ = Guid('{48201e67-e08e-42a4-b561-41d08ca9575d}')
     @winrt_commethod(6)
     def get_ContactListId(self) -> WinRT_String: ...
@@ -1553,6 +1560,7 @@ class IContact3(ComPtr):
     SortName = property(get_SortName, None)
 class IContactAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactAddress'
     _iid_ = Guid('{9739d39a-42ce-4872-8d70-3063aa584b70}')
     @winrt_commethod(6)
     def get_StreetAddress(self) -> WinRT_String: ...
@@ -1591,6 +1599,7 @@ class IContactAddress(ComPtr):
     Description = property(get_Description, put_Description)
 class IContactAnnotation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactAnnotation'
     _iid_ = Guid('{821fc2ef-7d41-44a2-84c3-60a281dd7b86}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -1621,6 +1630,7 @@ class IContactAnnotation(ComPtr):
     ProviderProperties = property(get_ProviderProperties, None)
 class IContactAnnotation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactAnnotation2'
     _iid_ = Guid('{b691ecf3-4ab7-4a1f-9941-0c9cf3171b75}')
     @winrt_commethod(6)
     def get_ContactListId(self) -> WinRT_String: ...
@@ -1629,6 +1639,7 @@ class IContactAnnotation2(ComPtr):
     ContactListId = property(get_ContactListId, put_ContactListId)
 class IContactAnnotationList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactAnnotationList'
     _iid_ = Guid('{92a486aa-5c88-45b9-aad0-461888e68d8a}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -1653,6 +1664,7 @@ class IContactAnnotationList(ComPtr):
     UserDataAccountId = property(get_UserDataAccountId, None)
 class IContactAnnotationStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactAnnotationStore'
     _iid_ = Guid('{23acf4aa-7a77-457d-8203-987f4b31af09}')
     @winrt_commethod(6)
     def FindContactIdsByEmailAsync(self, emailAddress: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
@@ -1672,11 +1684,13 @@ class IContactAnnotationStore(ComPtr):
     def FindAnnotationListsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.ContactAnnotationList]]: ...
 class IContactAnnotationStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactAnnotationStore2'
     _iid_ = Guid('{7ede23fd-61e7-4967-8ec5-bdf280a24063}')
     @winrt_commethod(6)
     def FindAnnotationsForContactListAsync(self, contactListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.ContactAnnotation]]: ...
 class IContactBatch(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactBatch'
     _iid_ = Guid('{35d1972d-bfce-46bb-93f8-a5b06ec5e201}')
     @winrt_commethod(6)
     def get_Contacts(self) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.Contact]: ...
@@ -1686,11 +1700,13 @@ class IContactBatch(ComPtr):
     Status = property(get_Status, None)
 class IContactCardDelayedDataLoader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactCardDelayedDataLoader'
     _iid_ = Guid('{b60af902-1546-434d-869c-6e3520760ef3}')
     @winrt_commethod(6)
     def SetData(self, contact: Windows.ApplicationModel.Contacts.Contact) -> Void: ...
 class IContactCardOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactCardOptions'
     _iid_ = Guid('{8c0a4f7e-6ab6-4f3f-be72-817236eeea5b}')
     @winrt_commethod(6)
     def get_HeaderKind(self) -> Windows.ApplicationModel.Contacts.ContactCardHeaderKind: ...
@@ -1704,12 +1720,14 @@ class IContactCardOptions(ComPtr):
     InitialTabKind = property(get_InitialTabKind, put_InitialTabKind)
 class IContactCardOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactCardOptions2'
     _iid_ = Guid('{8f271ba0-d74b-4cc6-9f53-1b0eb5d1273c}')
     @winrt_commethod(6)
     def get_ServerSearchContactListIds(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     ServerSearchContactListIds = property(get_ServerSearchContactListIds, None)
 class IContactChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactChange'
     _iid_ = Guid('{951d4b10-6a59-4720-a4e1-363d98c135d5}')
     @winrt_commethod(6)
     def get_ChangeType(self) -> Windows.ApplicationModel.Contacts.ContactChangeType: ...
@@ -1719,6 +1737,7 @@ class IContactChange(ComPtr):
     Contact = property(get_Contact, None)
 class IContactChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactChangeReader'
     _iid_ = Guid('{217319fa-2d0c-42e0-a9da-3ecd56a78a47}')
     @winrt_commethod(6)
     def AcceptChanges(self) -> Void: ...
@@ -1728,6 +1747,7 @@ class IContactChangeReader(ComPtr):
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.ContactChange]]: ...
 class IContactChangeTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactChangeTracker'
     _iid_ = Guid('{6e992952-309b-404d-9712-b37bd30278aa}')
     @winrt_commethod(6)
     def Enable(self) -> Void: ...
@@ -1737,22 +1757,26 @@ class IContactChangeTracker(ComPtr):
     def Reset(self) -> Void: ...
 class IContactChangeTracker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactChangeTracker2'
     _iid_ = Guid('{7f8ad0fc-9321-4d18-9c09-d708c63fcd31}')
     @winrt_commethod(6)
     def get_IsTracking(self) -> Boolean: ...
     IsTracking = property(get_IsTracking, None)
 class IContactChangedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactChangedDeferral'
     _iid_ = Guid('{c5143ae8-1b03-46f8-b694-a523e83cfcb6}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IContactChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactChangedEventArgs'
     _iid_ = Guid('{525e7fd1-73f3-4b7d-a918-580be4366121}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.ApplicationModel.Contacts.ContactChangedDeferral: ...
 class IContactConnectedServiceAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactConnectedServiceAccount'
     _iid_ = Guid('{f6f83553-aa27-4731-8e4a-3dec5ce9eec9}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -1766,6 +1790,7 @@ class IContactConnectedServiceAccount(ComPtr):
     ServiceName = property(get_ServiceName, put_ServiceName)
 class IContactDate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactDate'
     _iid_ = Guid('{fe98ae66-b205-4934-9174-0ff2b0565707}')
     @winrt_commethod(6)
     def get_Day(self) -> Windows.Foundation.IReference[UInt32]: ...
@@ -1794,6 +1819,7 @@ class IContactDate(ComPtr):
     Description = property(get_Description, put_Description)
 class IContactEmail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactEmail'
     _iid_ = Guid('{90a219a9-e3d3-4d63-993b-05b9a5393abf}')
     @winrt_commethod(6)
     def get_Address(self) -> WinRT_String: ...
@@ -1812,6 +1838,7 @@ class IContactEmail(ComPtr):
     Description = property(get_Description, put_Description)
 class IContactField(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactField'
     _iid_ = Guid('{b176486a-d293-492c-a058-db575b3e3c0f}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.ApplicationModel.Contacts.ContactFieldType: ...
@@ -1827,6 +1854,7 @@ class IContactField(ComPtr):
     Value = property(get_Value, None)
 class IContactFieldFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactFieldFactory'
     _iid_ = Guid('{85e2913f-0e4a-4a3e-8994-406ae7ed646e}')
     @winrt_commethod(6)
     def CreateField_Default(self, value: WinRT_String, type: Windows.ApplicationModel.Contacts.ContactFieldType) -> Windows.ApplicationModel.Contacts.ContactField: ...
@@ -1836,9 +1864,11 @@ class IContactFieldFactory(ComPtr):
     def CreateField_Custom(self, name: WinRT_String, value: WinRT_String, type: Windows.ApplicationModel.Contacts.ContactFieldType, category: Windows.ApplicationModel.Contacts.ContactFieldCategory) -> Windows.ApplicationModel.Contacts.ContactField: ...
 class IContactGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactGroup'
     _iid_ = Guid('{59bdeb01-9e9a-475d-bfe5-a37b806d852c}')
 class IContactInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactInformation'
     _iid_ = Guid('{275eb6d4-6a2e-4278-a914-e460d5f088f6}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -1864,6 +1894,7 @@ class IContactInformation(ComPtr):
     CustomFields = property(get_CustomFields, None)
 class IContactInstantMessageField(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactInstantMessageField'
     _iid_ = Guid('{cce33b37-0d85-41fa-b43d-da599c3eb009}')
     @winrt_commethod(6)
     def get_UserName(self) -> WinRT_String: ...
@@ -1879,6 +1910,7 @@ class IContactInstantMessageField(ComPtr):
     LaunchUri = property(get_LaunchUri, None)
 class IContactInstantMessageFieldFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactInstantMessageFieldFactory'
     _iid_ = Guid('{ba0b6794-91a3-4bb2-b1b9-69a5dff0ba09}')
     @winrt_commethod(6)
     def CreateInstantMessage_Default(self, userName: WinRT_String) -> Windows.ApplicationModel.Contacts.ContactInstantMessageField: ...
@@ -1888,6 +1920,7 @@ class IContactInstantMessageFieldFactory(ComPtr):
     def CreateInstantMessage_All(self, userName: WinRT_String, category: Windows.ApplicationModel.Contacts.ContactFieldCategory, service: WinRT_String, displayText: WinRT_String, verb: Windows.Foundation.Uri) -> Windows.ApplicationModel.Contacts.ContactInstantMessageField: ...
 class IContactJobInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactJobInfo'
     _iid_ = Guid('{6d117b4c-ce50-4b43-9e69-b18258ea5315}')
     @winrt_commethod(6)
     def get_CompanyName(self) -> WinRT_String: ...
@@ -1931,6 +1964,7 @@ class IContactJobInfo(ComPtr):
     Description = property(get_Description, put_Description)
 class IContactLaunchActionVerbsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics'
     _iid_ = Guid('{fb1232d6-ee73-46e7-8761-11cd0157728f}')
     @winrt_commethod(6)
     def get_Call(self) -> WinRT_String: ...
@@ -1949,6 +1983,7 @@ class IContactLaunchActionVerbsStatics(ComPtr):
     VideoCall = property(get_VideoCall, None)
 class IContactList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactList'
     _iid_ = Guid('{16ddec75-392c-4845-9dfb-51a3e7ef3e42}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -2012,6 +2047,7 @@ class IContactList(ComPtr):
     UserDataAccountId = property(get_UserDataAccountId, None)
 class IContactList2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactList2'
     _iid_ = Guid('{cb3943b4-4550-4dcb-9229-40ff91fb0203}')
     @winrt_commethod(6)
     def RegisterSyncManagerAsync(self) -> Windows.Foundation.IAsyncAction: ...
@@ -2023,6 +2059,7 @@ class IContactList2(ComPtr):
     SyncConstraints = property(get_SyncConstraints, None)
 class IContactList3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactList3'
     _iid_ = Guid('{1578ee57-26fc-41e8-a850-5aa32514aca9}')
     @winrt_commethod(6)
     def get_LimitedWriteOperations(self) -> Windows.ApplicationModel.Contacts.ContactListLimitedWriteOperations: ...
@@ -2031,6 +2068,7 @@ class IContactList3(ComPtr):
     LimitedWriteOperations = property(get_LimitedWriteOperations, None)
 class IContactListLimitedWriteOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactListLimitedWriteOperations'
     _iid_ = Guid('{e19813da-4a0b-44b8-9a1f-a0f3d218175f}')
     @winrt_commethod(6)
     def TryCreateOrUpdateContactAsync(self, contact: Windows.ApplicationModel.Contacts.Contact) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -2038,6 +2076,7 @@ class IContactListLimitedWriteOperations(ComPtr):
     def TryDeleteContactAsync(self, contactId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IContactListSyncConstraints(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactListSyncConstraints'
     _iid_ = Guid('{b2b0bf01-3062-4e2e-969d-018d1987f314}')
     @winrt_commethod(6)
     def get_CanSyncDescriptions(self) -> Boolean: ...
@@ -2181,6 +2220,7 @@ class IContactListSyncConstraints(ComPtr):
     MaxWebsites = property(get_MaxWebsites, put_MaxWebsites)
 class IContactListSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactListSyncManager'
     _iid_ = Guid('{146e83be-7925-4acc-9de5-21ddd06f8674}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.ApplicationModel.Contacts.ContactListSyncStatus: ...
@@ -2199,6 +2239,7 @@ class IContactListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, None)
 class IContactListSyncManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactListSyncManager2'
     _iid_ = Guid('{a9591247-bb55-4e23-8128-370134a85d0d}')
     @winrt_commethod(6)
     def put_Status(self, value: Windows.ApplicationModel.Contacts.ContactListSyncStatus) -> Void: ...
@@ -2211,6 +2252,7 @@ class IContactListSyncManager2(ComPtr):
     LastAttemptedSyncTime = property(None, put_LastAttemptedSyncTime)
 class IContactLocationField(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactLocationField'
     _iid_ = Guid('{9ec00f82-ab6e-4b36-89e3-b23bc0a1dacc}')
     @winrt_commethod(6)
     def get_UnstructuredAddress(self) -> WinRT_String: ...
@@ -2232,6 +2274,7 @@ class IContactLocationField(ComPtr):
     PostalCode = property(get_PostalCode, None)
 class IContactLocationFieldFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactLocationFieldFactory'
     _iid_ = Guid('{f79932d7-2fdf-43fe-8f18-41897390bcfe}')
     @winrt_commethod(6)
     def CreateLocation_Default(self, unstructuredAddress: WinRT_String) -> Windows.ApplicationModel.Contacts.ContactLocationField: ...
@@ -2241,6 +2284,7 @@ class IContactLocationFieldFactory(ComPtr):
     def CreateLocation_All(self, unstructuredAddress: WinRT_String, category: Windows.ApplicationModel.Contacts.ContactFieldCategory, street: WinRT_String, city: WinRT_String, region: WinRT_String, country: WinRT_String, postalCode: WinRT_String) -> Windows.ApplicationModel.Contacts.ContactLocationField: ...
 class IContactManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactManagerForUser'
     _iid_ = Guid('{b74bba57-1076-4bef-aef3-54686d18387d}')
     @winrt_commethod(6)
     def ConvertContactToVCardAsync(self, contact: Windows.ApplicationModel.Contacts.Contact) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.RandomAccessStreamReference]: ...
@@ -2267,11 +2311,13 @@ class IContactManagerForUser(ComPtr):
     User = property(get_User, None)
 class IContactManagerForUser2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactManagerForUser2'
     _iid_ = Guid('{4d469c2e-3b75-4a73-bb30-736645472256}')
     @winrt_commethod(6)
     def ShowFullContactCard(self, contact: Windows.ApplicationModel.Contacts.Contact, fullContactCardOptions: Windows.ApplicationModel.Contacts.FullContactCardOptions) -> Void: ...
 class IContactManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactManagerStatics'
     _iid_ = Guid('{81f21ac0-f661-4708-ba4f-d386bd0d622e}')
     @winrt_commethod(6)
     def ShowContactCard(self, contact: Windows.ApplicationModel.Contacts.Contact, selection: Windows.Foundation.Rect) -> Void: ...
@@ -2281,11 +2327,13 @@ class IContactManagerStatics(ComPtr):
     def ShowDelayLoadedContactCard(self, contact: Windows.ApplicationModel.Contacts.Contact, selection: Windows.Foundation.Rect, preferredPlacement: Windows.UI.Popups.Placement) -> Windows.ApplicationModel.Contacts.ContactCardDelayedDataLoader: ...
 class IContactManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactManagerStatics2'
     _iid_ = Guid('{a178e620-47d8-48cc-963c-9592b6e510c6}')
     @winrt_commethod(6)
     def RequestStoreAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Contacts.ContactStore]: ...
 class IContactManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactManagerStatics3'
     _iid_ = Guid('{c4cc3d42-7586-492a-930b-7bc138fc2139}')
     @winrt_commethod(6)
     def ConvertContactToVCardAsync(self, contact: Windows.ApplicationModel.Contacts.Contact) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.RandomAccessStreamReference]: ...
@@ -2319,11 +2367,13 @@ class IContactManagerStatics3(ComPtr):
     SystemSortOrder = property(get_SystemSortOrder, put_SystemSortOrder)
 class IContactManagerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactManagerStatics4'
     _iid_ = Guid('{24982272-347b-46dc-8d95-51bd41e15aaf}')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.ApplicationModel.Contacts.ContactManagerForUser: ...
 class IContactManagerStatics5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactManagerStatics5'
     _iid_ = Guid('{f7591a87-acb7-4fad-90f2-a8ab64cdbba4}')
     @winrt_commethod(6)
     def IsShowFullContactCardSupportedAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -2334,6 +2384,7 @@ class IContactManagerStatics5(ComPtr):
     IncludeMiddleNameInSystemDisplayAndSort = property(get_IncludeMiddleNameInSystemDisplayAndSort, put_IncludeMiddleNameInSystemDisplayAndSort)
 class IContactMatchReason(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactMatchReason'
     _iid_ = Guid('{bc922504-e7d8-413e-95f4-b75c54c74077}')
     @winrt_commethod(6)
     def get_Field(self) -> Windows.ApplicationModel.Contacts.ContactMatchReasonKind: ...
@@ -2346,6 +2397,7 @@ class IContactMatchReason(ComPtr):
     Text = property(get_Text, None)
 class IContactName(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactName'
     _iid_ = Guid('{f404e97b-9034-453c-8ebf-140a38c86f1d}')
     @winrt_commethod(6)
     def get_FirstName(self) -> WinRT_String: ...
@@ -2390,6 +2442,7 @@ class IContactName(ComPtr):
     YomiDisplayName = property(get_YomiDisplayName, None)
 class IContactPanel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactPanel'
     _iid_ = Guid('{41bf1265-d2ee-4b97-a80a-7d8d64cca6f5}')
     @winrt_commethod(6)
     def ClosePanel(self) -> Void: ...
@@ -2408,11 +2461,13 @@ class IContactPanel(ComPtr):
     HeaderColor = property(get_HeaderColor, put_HeaderColor)
 class IContactPanelClosingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactPanelClosingEventArgs'
     _iid_ = Guid('{222174d3-cf4b-46d7-b739-6edc16110bfb}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class IContactPanelLaunchFullAppRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactPanelLaunchFullAppRequestedEventArgs'
     _iid_ = Guid('{88d61c0e-23b4-4be8-8afc-072c25a4190d}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -2421,6 +2476,7 @@ class IContactPanelLaunchFullAppRequestedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IContactPhone(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactPhone'
     _iid_ = Guid('{467dab65-2712-4f52-b783-9ea8111c63cd}')
     @winrt_commethod(6)
     def get_Number(self) -> WinRT_String: ...
@@ -2439,6 +2495,7 @@ class IContactPhone(ComPtr):
     Description = property(get_Description, put_Description)
 class IContactPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactPicker'
     _iid_ = Guid('{0e09fd91-42f8-4055-90a0-896f96738936}')
     @winrt_commethod(6)
     def get_CommitButtonText(self) -> WinRT_String: ...
@@ -2459,6 +2516,7 @@ class IContactPicker(ComPtr):
     DesiredFields = property(get_DesiredFields, None)
 class IContactPicker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactPicker2'
     _iid_ = Guid('{b35011cf-5cef-4d24-aa0c-340c5208725d}')
     @winrt_commethod(6)
     def get_DesiredFieldsWithContactFieldType(self) -> Windows.Foundation.Collections.IVector[Windows.ApplicationModel.Contacts.ContactFieldType]: ...
@@ -2469,12 +2527,14 @@ class IContactPicker2(ComPtr):
     DesiredFieldsWithContactFieldType = property(get_DesiredFieldsWithContactFieldType, None)
 class IContactPicker3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactPicker3'
     _iid_ = Guid('{0e723315-b243-4bed-8516-22b1a7ac0ace}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
 class IContactPickerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactPickerStatics'
     _iid_ = Guid('{7488c029-6a53-4258-a3e9-62dff6784b6c}')
     @winrt_commethod(6)
     def CreateForUser(self, user: Windows.System.User) -> Windows.ApplicationModel.Contacts.ContactPicker: ...
@@ -2482,6 +2542,7 @@ class IContactPickerStatics(ComPtr):
     def IsSupportedAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IContactQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactQueryOptions'
     _iid_ = Guid('{4408cc9e-7d7c-42f0-8ac7-f50733ecdbc1}')
     @winrt_commethod(6)
     def get_TextSearch(self) -> Windows.ApplicationModel.Contacts.ContactQueryTextSearch: ...
@@ -2509,6 +2570,7 @@ class IContactQueryOptions(ComPtr):
     AnnotationListIds = property(get_AnnotationListIds, None)
 class IContactQueryOptionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactQueryOptionsFactory'
     _iid_ = Guid('{543fba47-8ce7-46cb-9dac-9aa42a1bc8e2}')
     @winrt_commethod(6)
     def CreateWithText(self, text: WinRT_String) -> Windows.ApplicationModel.Contacts.ContactQueryOptions: ...
@@ -2516,6 +2578,7 @@ class IContactQueryOptionsFactory(ComPtr):
     def CreateWithTextAndFields(self, text: WinRT_String, fields: Windows.ApplicationModel.Contacts.ContactQuerySearchFields) -> Windows.ApplicationModel.Contacts.ContactQueryOptions: ...
 class IContactQueryTextSearch(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactQueryTextSearch'
     _iid_ = Guid('{f7e3f9cb-a957-439b-a0b7-1c02a1963ff0}')
     @winrt_commethod(6)
     def get_Fields(self) -> Windows.ApplicationModel.Contacts.ContactQuerySearchFields: ...
@@ -2534,6 +2597,7 @@ class IContactQueryTextSearch(ComPtr):
     SearchScope = property(get_SearchScope, put_SearchScope)
 class IContactReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactReader'
     _iid_ = Guid('{d397e42e-1488-42f2-bf64-253f4884bfed}')
     @winrt_commethod(6)
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Contacts.ContactBatch]: ...
@@ -2541,6 +2605,7 @@ class IContactReader(ComPtr):
     def GetMatchingPropertiesWithMatchReason(self, contact: Windows.ApplicationModel.Contacts.Contact) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.ContactMatchReason]: ...
 class IContactSignificantOther(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactSignificantOther'
     _iid_ = Guid('{8873b5ab-c5fb-46d8-93fe-da3ff1934054}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -2554,6 +2619,7 @@ class IContactSignificantOther(ComPtr):
     Description = property(get_Description, put_Description)
 class IContactSignificantOther2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactSignificantOther2'
     _iid_ = Guid('{8d7bd474-3f03-45f8-ba0f-c4ed37d64219}')
     @winrt_commethod(6)
     def get_Relationship(self) -> Windows.ApplicationModel.Contacts.ContactRelationship: ...
@@ -2562,6 +2628,7 @@ class IContactSignificantOther2(ComPtr):
     Relationship = property(get_Relationship, put_Relationship)
 class IContactStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactStore'
     _iid_ = Guid('{2c220b10-3a6c-4293-b9bc-fe987f6e0d52}')
     @winrt_commethod(6)
     def FindContactsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.Contact]]: ...
@@ -2571,6 +2638,7 @@ class IContactStore(ComPtr):
     def GetContactAsync(self, contactId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Contacts.Contact]: ...
 class IContactStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactStore2'
     _iid_ = Guid('{18ce1c22-ebd5-4bfb-b690-5f4f27c4f0e8}')
     @winrt_commethod(6)
     def get_ChangeTracker(self) -> Windows.ApplicationModel.Contacts.ContactChangeTracker: ...
@@ -2598,14 +2666,17 @@ class IContactStore2(ComPtr):
     AggregateContactManager = property(get_AggregateContactManager, None)
 class IContactStore3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactStore3'
     _iid_ = Guid('{cb882c6c-004e-4050-87f0-840407ee6818}')
     @winrt_commethod(6)
     def GetChangeTracker(self, identity: WinRT_String) -> Windows.ApplicationModel.Contacts.ContactChangeTracker: ...
 class IContactStoreNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactStoreNotificationTriggerDetails'
     _iid_ = Guid('{abb298d6-878a-4f8b-a9ce-46bb7d1c84ce}')
 class IContactWebsite(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactWebsite'
     _iid_ = Guid('{9f130176-dc1b-4055-ad66-652f39d990e8}')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
@@ -2619,6 +2690,7 @@ class IContactWebsite(ComPtr):
     Description = property(get_Description, put_Description)
 class IContactWebsite2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IContactWebsite2'
     _iid_ = Guid('{f87ee91e-5647-4068-bb5e-4b6f437ce308}')
     @winrt_commethod(6)
     def get_RawValue(self) -> WinRT_String: ...
@@ -2627,6 +2699,7 @@ class IContactWebsite2(ComPtr):
     RawValue = property(get_RawValue, put_RawValue)
 class IFullContactCardOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IFullContactCardOptions'
     _iid_ = Guid('{8744436c-5cf9-4683-bdca-a1fdebf8dbce}')
     @winrt_commethod(6)
     def get_DesiredRemainingView(self) -> Windows.UI.ViewManagement.ViewSizePreference: ...
@@ -2635,6 +2708,7 @@ class IFullContactCardOptions(ComPtr):
     DesiredRemainingView = property(get_DesiredRemainingView, put_DesiredRemainingView)
 class IKnownContactFieldStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IKnownContactFieldStatics'
     _iid_ = Guid('{2e0e1b12-d627-4fca-bad4-1faf168c7d14}')
     @winrt_commethod(6)
     def get_Email(self) -> WinRT_String: ...
@@ -2654,12 +2728,14 @@ class IKnownContactFieldStatics(ComPtr):
     InstantMessage = property(get_InstantMessage, None)
 class IPinnedContactIdsQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IPinnedContactIdsQueryResult'
     _iid_ = Guid('{7d9b2552-1579-4ddc-871f-a30a3aea9ba1}')
     @winrt_commethod(6)
     def get_ContactIds(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     ContactIds = property(get_ContactIds, None)
 class IPinnedContactManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IPinnedContactManager'
     _iid_ = Guid('{fcbc740c-e1d6-45c3-b8b6-a35604e167a0}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
@@ -2680,6 +2756,7 @@ class IPinnedContactManager(ComPtr):
     User = property(get_User, None)
 class IPinnedContactManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.IPinnedContactManagerStatics'
     _iid_ = Guid('{f65ccc7e-fdf9-486a-ace9-bc311d0ae7f0}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.ApplicationModel.Contacts.PinnedContactManager: ...
@@ -2689,6 +2766,7 @@ class IPinnedContactManagerStatics(ComPtr):
     def IsSupported(self) -> Boolean: ...
 class KnownContactField(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Contacts.KnownContactField'
     @winrt_classmethod
     def get_Email(cls: Windows.ApplicationModel.Contacts.IKnownContactFieldStatics) -> WinRT_String: ...
     @winrt_classmethod

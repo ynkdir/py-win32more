@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPhoneCallOrigin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Provider.IPhoneCallOrigin'
     _iid_ = Guid('{20613479-0ef9-4454-871c-afb66a14b6a5}')
     @winrt_commethod(6)
     def get_Category(self) -> WinRT_String: ...
@@ -42,6 +43,7 @@ class IPhoneCallOrigin(ComPtr):
     Location = property(get_Location, put_Location)
 class IPhoneCallOrigin2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Provider.IPhoneCallOrigin2'
     _iid_ = Guid('{04c7e980-9ac2-4768-b536-b68da4957d02}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
@@ -50,6 +52,7 @@ class IPhoneCallOrigin2(ComPtr):
     DisplayName = property(get_DisplayName, put_DisplayName)
 class IPhoneCallOrigin3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Provider.IPhoneCallOrigin3'
     _iid_ = Guid('{49330fb4-d1a7-43a2-aeee-c07b6dbaf068}')
     @winrt_commethod(6)
     def get_DisplayPicture(self) -> Windows.Storage.StorageFile: ...
@@ -58,6 +61,7 @@ class IPhoneCallOrigin3(ComPtr):
     DisplayPicture = property(get_DisplayPicture, put_DisplayPicture)
 class IPhoneCallOriginManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics'
     _iid_ = Guid('{ccfc5a0a-9af7-6149-39d0-e076fcce1395}')
     @winrt_commethod(6)
     def get_IsCurrentAppActiveCallOriginApp(self) -> Boolean: ...
@@ -68,11 +72,13 @@ class IPhoneCallOriginManagerStatics(ComPtr):
     IsCurrentAppActiveCallOriginApp = property(get_IsCurrentAppActiveCallOriginApp, None)
 class IPhoneCallOriginManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics2'
     _iid_ = Guid('{8bf3ee3f-40f4-4380-8c7c-aea2c9b8dd7a}')
     @winrt_commethod(6)
     def RequestSetAsActiveCallOriginAppAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IPhoneCallOriginManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics3'
     _iid_ = Guid('{2ed69764-a6e3-50f0-b76a-d67cb39bdfde}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
@@ -110,6 +116,7 @@ class PhoneCallOrigin(ComPtr):
     DisplayPicture = property(get_DisplayPicture, put_DisplayPicture)
 class PhoneCallOriginManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager'
     @winrt_classmethod
     def get_IsSupported(cls: Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics3) -> Boolean: ...
     @winrt_classmethod

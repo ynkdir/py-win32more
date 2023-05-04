@@ -25,12 +25,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class IInkAnalysisInkBullet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet'
     _iid_ = Guid('{ee049368-6110-4136-95f9-ee809fc20030}')
     @winrt_commethod(6)
     def get_RecognizedText(self) -> WinRT_String: ...
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalysisInkDrawing(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisInkDrawing'
     _iid_ = Guid('{6a85ed1f-1fe4-4e15-898c-8e112377e021}')
     @winrt_commethod(6)
     def get_DrawingKind(self) -> Windows.UI.Input.Inking.Analysis.InkAnalysisDrawingKind: ...
@@ -43,6 +45,7 @@ class IInkAnalysisInkDrawing(ComPtr):
     Points = property(get_Points, None)
 class IInkAnalysisInkWord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord'
     _iid_ = Guid('{4bd228ad-83af-4034-8f3b-f8687dfff436}')
     @winrt_commethod(6)
     def get_RecognizedText(self) -> WinRT_String: ...
@@ -52,6 +55,7 @@ class IInkAnalysisInkWord(ComPtr):
     TextAlternates = property(get_TextAlternates, None)
 class IInkAnalysisLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisLine'
     _iid_ = Guid('{a06d048d-2b8d-4754-ad5a-d0871193a956}')
     @winrt_commethod(6)
     def get_RecognizedText(self) -> WinRT_String: ...
@@ -61,12 +65,14 @@ class IInkAnalysisLine(ComPtr):
     IndentLevel = property(get_IndentLevel, None)
 class IInkAnalysisListItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisListItem'
     _iid_ = Guid('{b4e3c23f-c4c3-4c3a-a1a6-9d85547ee586}')
     @winrt_commethod(6)
     def get_RecognizedText(self) -> WinRT_String: ...
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalysisNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisNode'
     _iid_ = Guid('{30831f05-5f64-4a2c-ba37-4f4887879574}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
@@ -90,18 +96,21 @@ class IInkAnalysisNode(ComPtr):
     Parent = property(get_Parent, None)
 class IInkAnalysisParagraph(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisParagraph'
     _iid_ = Guid('{d9ad045c-0cd1-4dd4-a68b-eb1f12b3d727}')
     @winrt_commethod(6)
     def get_RecognizedText(self) -> WinRT_String: ...
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalysisResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisResult'
     _iid_ = Guid('{8948ba79-a243-4aa3-a294-1f98bd0ff580}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.UI.Input.Inking.Analysis.InkAnalysisStatus: ...
     Status = property(get_Status, None)
 class IInkAnalysisRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisRoot'
     _iid_ = Guid('{3fb6a3c4-2fde-4061-8502-a90f32545b84}')
     @winrt_commethod(6)
     def get_RecognizedText(self) -> WinRT_String: ...
@@ -110,12 +119,14 @@ class IInkAnalysisRoot(ComPtr):
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalysisWritingRegion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion'
     _iid_ = Guid('{dd6d6231-bd16-4663-b5ae-941d3043ef5b}')
     @winrt_commethod(6)
     def get_RecognizedText(self) -> WinRT_String: ...
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalyzer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalyzer'
     _iid_ = Guid('{f12b8f95-0866-4dc5-8c77-f88614dfe38c}')
     @winrt_commethod(6)
     def get_AnalysisRoot(self) -> Windows.UI.Input.Inking.Analysis.InkAnalysisRoot: ...
@@ -141,6 +152,7 @@ class IInkAnalyzer(ComPtr):
     IsAnalyzing = property(get_IsAnalyzing, None)
 class IInkAnalyzerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalyzerFactory'
     _iid_ = Guid('{29138686-1963-49d8-9589-e14384c769e3}')
     @winrt_commethod(6)
     def CreateAnalyzer(self) -> Windows.UI.Input.Inking.Analysis.InkAnalyzer: ...

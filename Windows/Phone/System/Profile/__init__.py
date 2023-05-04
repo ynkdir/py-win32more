@@ -22,12 +22,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class IRetailModeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.System.Profile.IRetailModeStatics'
     _iid_ = Guid('{d7ded029-fdda-43e7-93fb-e53ab6e89ec3}')
     @winrt_commethod(6)
     def get_RetailModeEnabled(self) -> Boolean: ...
     RetailModeEnabled = property(get_RetailModeEnabled, None)
 class RetailMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.System.Profile.RetailMode'
     @winrt_classmethod
     def get_RetailModeEnabled(cls: Windows.Phone.System.Profile.IRetailModeStatics) -> Boolean: ...
     RetailModeEnabled = property(get_RetailModeEnabled, None)

@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class BackgroundEnergyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.BackgroundEnergyManager'
     @winrt_classmethod
     def get_LowUsageLevel(cls: Windows.System.Power.IBackgroundEnergyManagerStatics) -> UInt32: ...
     @winrt_classmethod
@@ -66,6 +67,7 @@ EnergySaverStatus_Off: EnergySaverStatus = 1
 EnergySaverStatus_On: EnergySaverStatus = 2
 class ForegroundEnergyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.ForegroundEnergyManager'
     @winrt_classmethod
     def get_LowUsageLevel(cls: Windows.System.Power.IForegroundEnergyManagerStatics) -> UInt32: ...
     @winrt_classmethod
@@ -94,6 +96,7 @@ class ForegroundEnergyManager(ComPtr):
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
 class IBackgroundEnergyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.IBackgroundEnergyManagerStatics'
     _iid_ = Guid('{b3161d95-1180-4376-96e1-4095568147ce}')
     @winrt_commethod(6)
     def get_LowUsageLevel(self) -> UInt32: ...
@@ -129,6 +132,7 @@ class IBackgroundEnergyManagerStatics(ComPtr):
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
 class IForegroundEnergyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.IForegroundEnergyManagerStatics'
     _iid_ = Guid('{9ff86872-e677-4814-9a20-5337ca732b98}')
     @winrt_commethod(6)
     def get_LowUsageLevel(self) -> UInt32: ...
@@ -158,6 +162,7 @@ class IForegroundEnergyManagerStatics(ComPtr):
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
 class IPowerManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.IPowerManagerStatics'
     _iid_ = Guid('{1394825d-62ce-4364-98d5-aa28c7fbd15b}')
     @winrt_commethod(6)
     def get_EnergySaverStatus(self) -> Windows.System.Power.EnergySaverStatus: ...
@@ -196,6 +201,7 @@ class IPowerManagerStatics(ComPtr):
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
 class PowerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Power.PowerManager'
     @winrt_classmethod
     def get_EnergySaverStatus(cls: Windows.System.Power.IPowerManagerStatics) -> Windows.System.Power.EnergySaverStatus: ...
     @winrt_classmethod

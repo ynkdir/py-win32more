@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AdaptiveCardBuilder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.AdaptiveCardBuilder'
     @winrt_classmethod
     def CreateAdaptiveCardFromJson(cls: Windows.UI.Shell.IAdaptiveCardBuilderStatics, value: WinRT_String) -> Windows.UI.Shell.IAdaptiveCard: ...
 class FocusSession(ComPtr):
@@ -63,16 +64,19 @@ class FocusSessionManager(ComPtr):
     IsSupported = property(get_IsSupported, None)
 class IAdaptiveCard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.IAdaptiveCard'
     _iid_ = Guid('{72d0568c-a274-41cd-82a8-989d40b9b05e}')
     @winrt_commethod(6)
     def ToJson(self) -> WinRT_String: ...
 class IAdaptiveCardBuilderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.IAdaptiveCardBuilderStatics'
     _iid_ = Guid('{766d8f08-d3fe-4347-a0bc-b9ea9a6dc28e}')
     @winrt_commethod(6)
     def CreateAdaptiveCardFromJson(self, value: WinRT_String) -> Windows.UI.Shell.IAdaptiveCard: ...
 class IFocusSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.IFocusSession'
     _iid_ = Guid('{069fbab8-0e84-5f2f-8614-9b6544326277}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -81,6 +85,7 @@ class IFocusSession(ComPtr):
     Id = property(get_Id, None)
 class IFocusSessionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.IFocusSessionManager'
     _iid_ = Guid('{e7ffbaa9-d8be-5dbf-bac6-49364842e37e}')
     @winrt_commethod(6)
     def get_IsFocusActive(self) -> Boolean: ...
@@ -99,6 +104,7 @@ class IFocusSessionManager(ComPtr):
     IsFocusActive = property(get_IsFocusActive, None)
 class IFocusSessionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.IFocusSessionManagerStatics'
     _iid_ = Guid('{834df764-cb9a-5d0a-aa9f-73df4f249395}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.UI.Shell.FocusSessionManager: ...
@@ -107,6 +113,7 @@ class IFocusSessionManagerStatics(ComPtr):
     IsSupported = property(get_IsSupported, None)
 class ISecurityAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.ISecurityAppManager'
     _iid_ = Guid('{96ac500c-aed4-561d-bde8-953520343a2d}')
     @winrt_commethod(6)
     def Register(self, kind: Windows.UI.Shell.SecurityAppKind, displayName: WinRT_String, detailsUri: Windows.Foundation.Uri, registerPerUser: Boolean) -> Guid: ...
@@ -116,6 +123,7 @@ class ISecurityAppManager(ComPtr):
     def UpdateState(self, kind: Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid, state: Windows.UI.Shell.SecurityAppState, substatus: Windows.UI.Shell.SecurityAppSubstatus, detailsUri: Windows.Foundation.Uri) -> Void: ...
 class IShareWindowCommandEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.IShareWindowCommandEventArgs'
     _iid_ = Guid('{4578dc09-a523-5756-a995-e4feb991fff0}')
     @winrt_commethod(6)
     def get_WindowId(self) -> Windows.UI.WindowId: ...
@@ -127,6 +135,7 @@ class IShareWindowCommandEventArgs(ComPtr):
     Command = property(get_Command, put_Command)
 class IShareWindowCommandSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.IShareWindowCommandSource'
     _iid_ = Guid('{cb3b7ae3-6b9c-561e-bccc-61e68e0abfef}')
     @winrt_commethod(6)
     def Start(self) -> Void: ...
@@ -144,11 +153,13 @@ class IShareWindowCommandSource(ComPtr):
     def remove_CommandInvoked(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IShareWindowCommandSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.IShareWindowCommandSourceStatics'
     _iid_ = Guid('{b0eb6656-9cac-517c-b6c7-8ef715084295}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Shell.ShareWindowCommandSource: ...
 class ITaskbarManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.ITaskbarManager'
     _iid_ = Guid('{87490a19-1ad9-49f4-b2e8-86738dc5ac40}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
@@ -166,6 +177,7 @@ class ITaskbarManager(ComPtr):
     IsPinningAllowed = property(get_IsPinningAllowed, None)
 class ITaskbarManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.ITaskbarManager2'
     _iid_ = Guid('{79f0a06e-7b02-4911-918c-dee0bbd20ba4}')
     @winrt_commethod(6)
     def IsSecondaryTilePinnedAsync(self, tileId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -175,6 +187,7 @@ class ITaskbarManager2(ComPtr):
     def TryUnpinSecondaryTileAsync(self, tileId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ITaskbarManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.ITaskbarManagerStatics'
     _iid_ = Guid('{db32ab74-de52-4fe6-b7b6-95ff9f8395df}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.UI.Shell.TaskbarManager: ...

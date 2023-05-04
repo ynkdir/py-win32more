@@ -31,6 +31,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPrintSupportExtensionSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession'
     _iid_ = Guid('{eea45f1a-f4c6-54b3-a0b8-a559839aa4c3}')
     @winrt_commethod(6)
     def get_Printer(self) -> Windows.Devices.Printers.IppPrintDevice: ...
@@ -47,6 +48,7 @@ class IPrintSupportExtensionSession(ComPtr):
     Printer = property(get_Printer, None)
 class IPrintSupportExtensionSession2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession2'
     _iid_ = Guid('{10fa8c11-6de8-5765-8fcf-e716e0f27ed1}')
     @winrt_commethod(6)
     def add_PrinterSelected(self, handler: Windows.Foundation.TypedEventHandler[Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession, Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -54,12 +56,14 @@ class IPrintSupportExtensionSession2(ComPtr):
     def remove_PrinterSelected(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPrintSupportExtensionTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionTriggerDetails'
     _iid_ = Guid('{ae083711-9b09-55d1-a0ae-2a14c5f83d6a}')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession: ...
     Session = property(get_Session, None)
 class IPrintSupportPrintDeviceCapabilitiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs'
     _iid_ = Guid('{15969bf0-9028-5722-8a37-7d7c34b41dd6}')
     @winrt_commethod(6)
     def GetCurrentPrintDeviceCapabilities(self) -> Windows.Data.Xml.Dom.XmlDocument: ...
@@ -69,6 +73,7 @@ class IPrintSupportPrintDeviceCapabilitiesChangedEventArgs(ComPtr):
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2'
     _iid_ = Guid('{469df9e7-fd07-5eeb-a07d-9fcc67f089ba}')
     @winrt_commethod(6)
     def SetSupportedPdlPassthroughContentTypes(self, supportedPdlContentTypes: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Void: ...
@@ -83,9 +88,11 @@ class IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2(ComPtr):
     ResourceLanguage = property(get_ResourceLanguage, None)
 class IPrintSupportPrintDeviceCapabilitiesUpdatePolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesUpdatePolicy'
     _iid_ = Guid('{5f5fc025-8c35-5529-8038-8cdc3634bbcd}')
 class IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics'
     _iid_ = Guid('{3d9e1a70-7c39-551f-aa1f-f8ca35b3119e}')
     @winrt_commethod(6)
     def CreatePeriodicRefresh(self, updatePeriod: Windows.Foundation.TimeSpan) -> Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy: ...
@@ -93,6 +100,7 @@ class IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics(ComPtr):
     def CreatePrintJobRefresh(self, numberOfJobs: UInt32) -> Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy: ...
 class IPrintSupportPrintTicketElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintTicketElement'
     _iid_ = Guid('{4b2a4489-730d-5be7-80e6-8332941abf13}')
     @winrt_commethod(6)
     def get_LocalName(self) -> WinRT_String: ...
@@ -106,6 +114,7 @@ class IPrintSupportPrintTicketElement(ComPtr):
     NamespaceUri = property(get_NamespaceUri, put_NamespaceUri)
 class IPrintSupportPrintTicketValidationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintTicketValidationRequestedEventArgs'
     _iid_ = Guid('{338e4e69-db55-55c7-8338-ef64680a8f90}')
     @winrt_commethod(6)
     def get_PrintTicket(self) -> Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket: ...
@@ -116,6 +125,7 @@ class IPrintSupportPrintTicketValidationRequestedEventArgs(ComPtr):
     PrintTicket = property(get_PrintTicket, None)
 class IPrintSupportPrinterSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrinterSelectedEventArgs'
     _iid_ = Guid('{7b1cb7d9-a8a4-5c09-adb2-66165f817977}')
     @winrt_commethod(6)
     def get_SourceAppInfo(self) -> Windows.ApplicationModel.AppInfo: ...
@@ -138,6 +148,7 @@ class IPrintSupportPrinterSelectedEventArgs(ComPtr):
     AllowedAdditionalFeaturesAndParametersCount = property(get_AllowedAdditionalFeaturesAndParametersCount, None)
 class IPrintSupportSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportSessionInfo'
     _iid_ = Guid('{852149af-777d-53e9-9ee9-45d3f4b5be9c}')
     @winrt_commethod(6)
     def get_SourceAppInfo(self) -> Windows.ApplicationModel.AppInfo: ...
@@ -147,6 +158,7 @@ class IPrintSupportSessionInfo(ComPtr):
     Printer = property(get_Printer, None)
 class IPrintSupportSettingsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportSettingsActivatedEventArgs'
     _iid_ = Guid('{1e1b565e-a013-55ea-9b8c-eea39d9fb6c1}')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsUISession: ...
@@ -155,6 +167,7 @@ class IPrintSupportSettingsActivatedEventArgs(ComPtr):
     Session = property(get_Session, None)
 class IPrintSupportSettingsUISession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportSettingsUISession'
     _iid_ = Guid('{c6da2251-83c3-55e4-a0f8-5de8b062adbf}')
     @winrt_commethod(6)
     def get_SessionPrintTicket(self) -> Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket: ...

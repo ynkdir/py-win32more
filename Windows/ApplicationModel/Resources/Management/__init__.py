@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IIndexedResourceCandidate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Management.IIndexedResourceCandidate'
     _iid_ = Guid('{0e619ef3-faec-4414-a9d7-54acd5953f29}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.ApplicationModel.Resources.Management.IndexedResourceType: ...
@@ -44,6 +45,7 @@ class IIndexedResourceCandidate(ComPtr):
     ValueAsString = property(get_ValueAsString, None)
 class IIndexedResourceQualifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Management.IIndexedResourceQualifier'
     _iid_ = Guid('{dae3bb9b-d304-497f-a168-a340042c8adb}')
     @winrt_commethod(6)
     def get_QualifierName(self) -> WinRT_String: ...
@@ -53,6 +55,7 @@ class IIndexedResourceQualifier(ComPtr):
     QualifierValue = property(get_QualifierValue, None)
 class IResourceIndexer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Management.IResourceIndexer'
     _iid_ = Guid('{2d4cf9a5-e32f-4ab2-8748-96350a016da3}')
     @winrt_commethod(6)
     def IndexFilePath(self, filePath: Windows.Foundation.Uri) -> Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate: ...
@@ -60,11 +63,13 @@ class IResourceIndexer(ComPtr):
     def IndexFileContentsAsync(self, file: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate]]: ...
 class IResourceIndexerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Management.IResourceIndexerFactory'
     _iid_ = Guid('{b8de3f09-31cd-4d97-bd30-8d39f742bc61}')
     @winrt_commethod(6)
     def CreateResourceIndexer(self, projectRoot: Windows.Foundation.Uri) -> Windows.ApplicationModel.Resources.Management.ResourceIndexer: ...
 class IResourceIndexerFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.Management.IResourceIndexerFactory2'
     _iid_ = Guid('{6040f18d-d5e5-4b60-9201-cd279cbcfed9}')
     @winrt_commethod(6)
     def CreateResourceIndexerWithExtension(self, projectRoot: Windows.Foundation.Uri, extensionDllPath: Windows.Foundation.Uri) -> Windows.ApplicationModel.Resources.Management.ResourceIndexer: ...

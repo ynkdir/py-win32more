@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IOcrEngine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Ocr.IOcrEngine'
     _iid_ = Guid('{5a14bc41-5b76-3140-b680-8825562683ac}')
     @winrt_commethod(6)
     def RecognizeAsync(self, bitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncOperation[Windows.Media.Ocr.OcrResult]: ...
@@ -34,6 +35,7 @@ class IOcrEngine(ComPtr):
     RecognizerLanguage = property(get_RecognizerLanguage, None)
 class IOcrEngineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Ocr.IOcrEngineStatics'
     _iid_ = Guid('{5bffa85a-3384-3540-9940-699120d428a8}')
     @winrt_commethod(6)
     def get_MaxImageDimension(self) -> UInt32: ...
@@ -49,6 +51,7 @@ class IOcrEngineStatics(ComPtr):
     AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages, None)
 class IOcrLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Ocr.IOcrLine'
     _iid_ = Guid('{0043a16f-e31f-3a24-899c-d444bd088124}')
     @winrt_commethod(6)
     def get_Words(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Ocr.OcrWord]: ...
@@ -58,6 +61,7 @@ class IOcrLine(ComPtr):
     Text = property(get_Text, None)
 class IOcrResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Ocr.IOcrResult'
     _iid_ = Guid('{9bd235b2-175b-3d6a-92e2-388c206e2f63}')
     @winrt_commethod(6)
     def get_Lines(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Ocr.OcrLine]: ...
@@ -70,6 +74,7 @@ class IOcrResult(ComPtr):
     Text = property(get_Text, None)
 class IOcrWord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Ocr.IOcrWord'
     _iid_ = Guid('{3c2a477a-5cd9-3525-ba2a-23d1e0a68a1d}')
     @winrt_commethod(6)
     def get_BoundingRect(self) -> Windows.Foundation.Rect: ...

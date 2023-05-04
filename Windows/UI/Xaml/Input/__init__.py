@@ -114,8 +114,8 @@ class ContextRequestedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class DoubleTappedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{3124d025-04a7-4d45-825e-8204a624dbf4}')
     _classid_ = 'Windows.UI.Xaml.Input.DoubleTappedEventHandler'
+    _iid_ = Guid('{3124d025-04a7-4d45-825e-8204a624dbf4}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs) -> Void: ...
 class DoubleTappedRoutedEventArgs(ComPtr):
@@ -295,8 +295,8 @@ class GettingFocusEventArgs(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
 class HoldingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{ecae8ccd-8e5e-4fbe-9846-30a6370afcdf}')
     _classid_ = 'Windows.UI.Xaml.Input.HoldingEventHandler'
+    _iid_ = Guid('{ecae8ccd-8e5e-4fbe-9846-30a6370afcdf}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.HoldingRoutedEventArgs) -> Void: ...
 class HoldingRoutedEventArgs(ComPtr):
@@ -320,15 +320,18 @@ class HoldingRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IAccessKeyDisplayDismissedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyDisplayDismissedEventArgs'
     _iid_ = Guid('{8a610dc6-d72d-4ca8-9f66-556f35b513da}')
 class IAccessKeyDisplayRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyDisplayRequestedEventArgs'
     _iid_ = Guid('{0c079e55-13fe-4d03-a61d-e12f06567286}')
     @winrt_commethod(6)
     def get_PressedKeys(self) -> WinRT_String: ...
     PressedKeys = property(get_PressedKeys, None)
 class IAccessKeyInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyInvokedEventArgs'
     _iid_ = Guid('{cfe9cd97-c718-4091-b7dd-adf1c072b1e1}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -337,9 +340,11 @@ class IAccessKeyInvokedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IAccessKeyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyManager'
     _iid_ = Guid('{ecc973b0-2ee9-4b1c-98d7-6e0e816d334b}')
 class IAccessKeyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyManagerStatics'
     _iid_ = Guid('{4ca0efe6-d9c8-4ebc-b4c7-30d1838a81f1}')
     @winrt_commethod(6)
     def get_IsDisplayModeEnabled(self) -> Boolean: ...
@@ -352,6 +357,7 @@ class IAccessKeyManagerStatics(ComPtr):
     IsDisplayModeEnabled = property(get_IsDisplayModeEnabled, None)
 class IAccessKeyManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyManagerStatics2'
     _iid_ = Guid('{962bb594-2ab3-47c5-954b-7092f355f797}')
     @winrt_commethod(6)
     def get_AreKeyTipsEnabled(self) -> Boolean: ...
@@ -360,6 +366,7 @@ class IAccessKeyManagerStatics2(ComPtr):
     AreKeyTipsEnabled = property(get_AreKeyTipsEnabled, put_AreKeyTipsEnabled)
 class ICanExecuteRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.ICanExecuteRequestedEventArgs'
     _iid_ = Guid('{c8e75256-1950-505d-993b-75907ef96830}')
     @winrt_commethod(6)
     def get_Parameter(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -371,6 +378,7 @@ class ICanExecuteRequestedEventArgs(ComPtr):
     CanExecute = property(get_CanExecute, put_CanExecute)
 class ICharacterReceivedRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.ICharacterReceivedRoutedEventArgs'
     _iid_ = Guid('{7849fd82-48e4-444d-9419-93ab8892c107}')
     @winrt_commethod(6)
     def get_Character(self) -> Char: ...
@@ -385,6 +393,7 @@ class ICharacterReceivedRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ICommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.ICommand'
     _iid_ = Guid('{e5af3542-ca67-4081-995b-709dd13792df}')
     @winrt_commethod(6)
     def add_CanExecuteChanged(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -396,6 +405,7 @@ class ICommand(ComPtr):
     def Execute(self, parameter: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class IContextRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IContextRequestedEventArgs'
     _iid_ = Guid('{42618e0a-1cb6-46fb-8374-0aec68aa5e51}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -406,6 +416,7 @@ class IContextRequestedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IDoubleTappedRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IDoubleTappedRoutedEventArgs'
     _iid_ = Guid('{af404424-26df-44f4-8714-9359249b62d3}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
@@ -419,12 +430,14 @@ class IDoubleTappedRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IExecuteRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IExecuteRequestedEventArgs'
     _iid_ = Guid('{e07fa734-a0b6-5755-9e87-24f54cca9372}')
     @winrt_commethod(6)
     def get_Parameter(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     Parameter = property(get_Parameter, None)
 class IFindNextElementOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFindNextElementOptions'
     _iid_ = Guid('{d88ae22b-46c2-41fc-897e-b5961977b89d}')
     @winrt_commethod(6)
     def get_SearchRoot(self) -> Windows.UI.Xaml.DependencyObject: ...
@@ -448,9 +461,11 @@ class IFindNextElementOptions(ComPtr):
     XYFocusNavigationStrategyOverride = property(get_XYFocusNavigationStrategyOverride, put_XYFocusNavigationStrategyOverride)
 class IFocusManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManager'
     _iid_ = Guid('{c843f50b-3b83-4da1-9d6f-557c1169f341}')
 class IFocusManagerGotFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerGotFocusEventArgs'
     _iid_ = Guid('{97aa5d83-535b-507a-868e-62b706f06b61}')
     @winrt_commethod(6)
     def get_NewFocusedElement(self) -> Windows.UI.Xaml.DependencyObject: ...
@@ -460,6 +475,7 @@ class IFocusManagerGotFocusEventArgs(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
 class IFocusManagerLostFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerLostFocusEventArgs'
     _iid_ = Guid('{3e157e7a-9578-5cd3-aaa8-051b3d391978}')
     @winrt_commethod(6)
     def get_OldFocusedElement(self) -> Windows.UI.Xaml.DependencyObject: ...
@@ -469,16 +485,19 @@ class IFocusManagerLostFocusEventArgs(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
 class IFocusManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics'
     _iid_ = Guid('{1eccd326-8182-4482-826a-0918e9ed9af7}')
     @winrt_commethod(6)
     def GetFocusedElement(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IFocusManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics2'
     _iid_ = Guid('{a920d761-dd87-4f31-beda-ef417fe7c04a}')
     @winrt_commethod(6)
     def TryMoveFocus(self, focusNavigationDirection: Windows.UI.Xaml.Input.FocusNavigationDirection) -> Boolean: ...
 class IFocusManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics3'
     _iid_ = Guid('{60805ebf-b149-417d-83f1-baeb560e2a47}')
     @winrt_commethod(6)
     def FindNextFocusableElement(self, focusNavigationDirection: Windows.UI.Xaml.Input.FocusNavigationDirection) -> Windows.UI.Xaml.UIElement: ...
@@ -486,6 +505,7 @@ class IFocusManagerStatics3(ComPtr):
     def FindNextFocusableElementWithHint(self, focusNavigationDirection: Windows.UI.Xaml.Input.FocusNavigationDirection, hintRect: Windows.Foundation.Rect) -> Windows.UI.Xaml.UIElement: ...
 class IFocusManagerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics4'
     _iid_ = Guid('{29276e9c-1c6c-414a-ba1c-96efd5962bcd}')
     @winrt_commethod(6)
     def TryMoveFocusWithOptions(self, focusNavigationDirection: Windows.UI.Xaml.Input.FocusNavigationDirection, focusNavigationOptions: Windows.UI.Xaml.Input.FindNextElementOptions) -> Boolean: ...
@@ -499,6 +519,7 @@ class IFocusManagerStatics4(ComPtr):
     def FindNextElementWithOptions(self, focusNavigationDirection: Windows.UI.Xaml.Input.FocusNavigationDirection, focusNavigationOptions: Windows.UI.Xaml.Input.FindNextElementOptions) -> Windows.UI.Xaml.DependencyObject: ...
 class IFocusManagerStatics5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics5'
     _iid_ = Guid('{280edc61-207a-4d7b-b98f-ce165e1b2015}')
     @winrt_commethod(6)
     def TryFocusAsync(self, element: Windows.UI.Xaml.DependencyObject, value: Windows.UI.Xaml.FocusState) -> Windows.Foundation.IAsyncOperation[Windows.UI.Xaml.Input.FocusMovementResult]: ...
@@ -508,6 +529,7 @@ class IFocusManagerStatics5(ComPtr):
     def TryMoveFocusWithOptionsAsync(self, focusNavigationDirection: Windows.UI.Xaml.Input.FocusNavigationDirection, focusNavigationOptions: Windows.UI.Xaml.Input.FindNextElementOptions) -> Windows.Foundation.IAsyncOperation[Windows.UI.Xaml.Input.FocusMovementResult]: ...
 class IFocusManagerStatics6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics6'
     _iid_ = Guid('{3546a1b6-20bf-5007-929d-e6d32e16afe4}')
     @winrt_commethod(6)
     def add_GotFocus(self, handler: Windows.Foundation.EventHandler[Windows.UI.Xaml.Input.FocusManagerGotFocusEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -527,17 +549,20 @@ class IFocusManagerStatics6(ComPtr):
     def remove_LosingFocus(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IFocusManagerStatics7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics7'
     _iid_ = Guid('{95d6fa97-f0fc-5c32-b29d-07c04ec966b0}')
     @winrt_commethod(6)
     def GetFocusedElement(self, xamlRoot: Windows.UI.Xaml.XamlRoot) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IFocusMovementResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IFocusMovementResult'
     _iid_ = Guid('{06dfead3-c2ae-44bb-bfab-9c73de8407a4}')
     @winrt_commethod(6)
     def get_Succeeded(self) -> Boolean: ...
     Succeeded = property(get_Succeeded, None)
 class IGettingFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IGettingFocusEventArgs'
     _iid_ = Guid('{fa05b9ce-c67c-4be8-8fd4-c44d67877e0d}')
     @winrt_commethod(6)
     def get_OldFocusedElement(self) -> Windows.UI.Xaml.DependencyObject: ...
@@ -568,6 +593,7 @@ class IGettingFocusEventArgs(ComPtr):
     Cancel = property(get_Cancel, put_Cancel)
 class IGettingFocusEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IGettingFocusEventArgs2'
     _iid_ = Guid('{88754d7b-b4b9-4959-8bce-89bf212ed4eb}')
     @winrt_commethod(6)
     def TryCancel(self) -> Boolean: ...
@@ -575,12 +601,14 @@ class IGettingFocusEventArgs2(ComPtr):
     def TrySetNewFocusedElement(self, element: Windows.UI.Xaml.DependencyObject) -> Boolean: ...
 class IGettingFocusEventArgs3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IGettingFocusEventArgs3'
     _iid_ = Guid('{4e024891-db3f-5e78-b75a-62bfc3510735}')
     @winrt_commethod(6)
     def get_CorrelationId(self) -> Guid: ...
     CorrelationId = property(get_CorrelationId, None)
 class IHoldingRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IHoldingRoutedEventArgs'
     _iid_ = Guid('{c246ff23-d80d-44de-8db9-0d815e269ac0}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
@@ -597,6 +625,7 @@ class IHoldingRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IInertiaExpansionBehavior(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IInertiaExpansionBehavior'
     _iid_ = Guid('{751d87e5-8d42-44c5-965e-3cd30cc9d6f7}')
     @winrt_commethod(6)
     def get_DesiredDeceleration(self) -> Double: ...
@@ -610,6 +639,7 @@ class IInertiaExpansionBehavior(ComPtr):
     DesiredExpansion = property(get_DesiredExpansion, put_DesiredExpansion)
 class IInertiaRotationBehavior(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IInertiaRotationBehavior'
     _iid_ = Guid('{424cfb2e-bbfd-4625-ae78-20c65bf1efaf}')
     @winrt_commethod(6)
     def get_DesiredDeceleration(self) -> Double: ...
@@ -623,6 +653,7 @@ class IInertiaRotationBehavior(ComPtr):
     DesiredRotation = property(get_DesiredRotation, put_DesiredRotation)
 class IInertiaTranslationBehavior(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IInertiaTranslationBehavior'
     _iid_ = Guid('{45d3a512-3b32-4882-a4c2-ecfa2d4b6df0}')
     @winrt_commethod(6)
     def get_DesiredDeceleration(self) -> Double: ...
@@ -636,12 +667,14 @@ class IInertiaTranslationBehavior(ComPtr):
     DesiredDisplacement = property(get_DesiredDisplacement, put_DesiredDisplacement)
 class IInputScope(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IInputScope'
     _iid_ = Guid('{5c0f85f3-f9d8-4220-b666-045d074d9bfa}')
     @winrt_commethod(6)
     def get_Names(self) -> Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Input.InputScopeName]: ...
     Names = property(get_Names, None)
 class IInputScopeName(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IInputScopeName'
     _iid_ = Guid('{fd3e6997-08fb-4cba-a021-792d7589fd5a}')
     @winrt_commethod(6)
     def get_NameValue(self) -> Windows.UI.Xaml.Input.InputScopeNameValue: ...
@@ -650,11 +683,13 @@ class IInputScopeName(ComPtr):
     NameValue = property(get_NameValue, put_NameValue)
 class IInputScopeNameFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IInputScopeNameFactory'
     _iid_ = Guid('{4a40bb52-4bd7-4e54-8617-1cda8a1eda7f}')
     @winrt_commethod(6)
     def CreateInstance(self, nameValue: Windows.UI.Xaml.Input.InputScopeNameValue) -> Windows.UI.Xaml.Input.InputScopeName: ...
 class IKeyRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IKeyRoutedEventArgs'
     _iid_ = Guid('{d4cd3dfe-4079-42e9-a39a-3095d3f049c6}')
     @winrt_commethod(6)
     def get_Key(self) -> Windows.System.VirtualKey: ...
@@ -669,18 +704,21 @@ class IKeyRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IKeyRoutedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IKeyRoutedEventArgs2'
     _iid_ = Guid('{1b02d57a-9634-4f14-91b2-133e42fdb3cd}')
     @winrt_commethod(6)
     def get_OriginalKey(self) -> Windows.System.VirtualKey: ...
     OriginalKey = property(get_OriginalKey, None)
 class IKeyRoutedEventArgs3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IKeyRoutedEventArgs3'
     _iid_ = Guid('{2779f5b4-ca41-411b-a8ef-f4fc78e78057}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IKeyboardAccelerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IKeyboardAccelerator'
     _iid_ = Guid('{92e6181e-19ae-465a-9b3c-a71ee9ea7420}')
     @winrt_commethod(6)
     def get_Key(self) -> Windows.System.VirtualKey: ...
@@ -708,11 +746,13 @@ class IKeyboardAccelerator(ComPtr):
     ScopeOwner = property(get_ScopeOwner, put_ScopeOwner)
 class IKeyboardAcceleratorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IKeyboardAcceleratorFactory'
     _iid_ = Guid('{44d88a99-4bfd-4a47-a893-515f388623f6}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Input.KeyboardAccelerator: ...
 class IKeyboardAcceleratorInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IKeyboardAcceleratorInvokedEventArgs'
     _iid_ = Guid('{c00b03f2-04e7-4415-b17d-d76b9490de2b}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -724,12 +764,14 @@ class IKeyboardAcceleratorInvokedEventArgs(ComPtr):
     Element = property(get_Element, None)
 class IKeyboardAcceleratorInvokedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IKeyboardAcceleratorInvokedEventArgs2'
     _iid_ = Guid('{befca4b8-5907-48ee-8e21-9c969078fa11}')
     @winrt_commethod(6)
     def get_KeyboardAccelerator(self) -> Windows.UI.Xaml.Input.KeyboardAccelerator: ...
     KeyboardAccelerator = property(get_KeyboardAccelerator, None)
 class IKeyboardAcceleratorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IKeyboardAcceleratorStatics'
     _iid_ = Guid('{3bd43d51-9bb3-456d-bf15-804adfb86261}')
     @winrt_commethod(6)
     def get_KeyProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -745,6 +787,7 @@ class IKeyboardAcceleratorStatics(ComPtr):
     ScopeOwnerProperty = property(get_ScopeOwnerProperty, None)
 class ILosingFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.ILosingFocusEventArgs'
     _iid_ = Guid('{f9f683c7-d789-472b-aa93-6d4105e6dabe}')
     @winrt_commethod(6)
     def get_OldFocusedElement(self) -> Windows.UI.Xaml.DependencyObject: ...
@@ -775,6 +818,7 @@ class ILosingFocusEventArgs(ComPtr):
     Cancel = property(get_Cancel, put_Cancel)
 class ILosingFocusEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.ILosingFocusEventArgs2'
     _iid_ = Guid('{0493fad9-c27f-469f-8e62-52b3a4f7cd54}')
     @winrt_commethod(6)
     def TryCancel(self) -> Boolean: ...
@@ -782,12 +826,14 @@ class ILosingFocusEventArgs2(ComPtr):
     def TrySetNewFocusedElement(self, element: Windows.UI.Xaml.DependencyObject) -> Boolean: ...
 class ILosingFocusEventArgs3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.ILosingFocusEventArgs3'
     _iid_ = Guid('{c98900bd-0b79-566e-ad1f-436fa513ae22}')
     @winrt_commethod(6)
     def get_CorrelationId(self) -> Guid: ...
     CorrelationId = property(get_CorrelationId, None)
 class IManipulationCompletedRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IManipulationCompletedRoutedEventArgs'
     _iid_ = Guid('{b5ad9b23-2f41-498e-8319-015ee8a75346}')
     @winrt_commethod(6)
     def get_Container(self) -> Windows.UI.Xaml.UIElement: ...
@@ -814,6 +860,7 @@ class IManipulationCompletedRoutedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
 class IManipulationDeltaRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IManipulationDeltaRoutedEventArgs'
     _iid_ = Guid('{400d5794-4c6f-491d-82d6-3517109399c6}')
     @winrt_commethod(6)
     def get_Container(self) -> Windows.UI.Xaml.UIElement: ...
@@ -845,6 +892,7 @@ class IManipulationDeltaRoutedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
 class IManipulationInertiaStartingRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IManipulationInertiaStartingRoutedEventArgs'
     _iid_ = Guid('{246a91a9-ca43-4c0b-acef-81e8b8147520}')
     @winrt_commethod(6)
     def get_Container(self) -> Windows.UI.Xaml.UIElement: ...
@@ -883,6 +931,7 @@ class IManipulationInertiaStartingRoutedEventArgs(ComPtr):
     Velocities = property(get_Velocities, None)
 class IManipulationPivot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IManipulationPivot'
     _iid_ = Guid('{2e3838a5-e6c2-4998-82ac-18748b141666}')
     @winrt_commethod(6)
     def get_Center(self) -> Windows.Foundation.Point: ...
@@ -896,11 +945,13 @@ class IManipulationPivot(ComPtr):
     Radius = property(get_Radius, put_Radius)
 class IManipulationPivotFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IManipulationPivotFactory'
     _iid_ = Guid('{6d05b039-3702-4396-ad9b-a825efa63a3b}')
     @winrt_commethod(6)
     def CreateInstanceWithCenterAndRadius(self, center: Windows.Foundation.Point, radius: Double) -> Windows.UI.Xaml.Input.ManipulationPivot: ...
 class IManipulationStartedRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IManipulationStartedRoutedEventArgs'
     _iid_ = Guid('{5db1aa05-9f80-48b6-ae6c-4f119de8ff13}')
     @winrt_commethod(6)
     def get_Container(self) -> Windows.UI.Xaml.UIElement: ...
@@ -923,11 +974,13 @@ class IManipulationStartedRoutedEventArgs(ComPtr):
     Cumulative = property(get_Cumulative, None)
 class IManipulationStartedRoutedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IManipulationStartedRoutedEventArgsFactory'
     _iid_ = Guid('{84c1daa7-7272-4463-b6c3-a40b9ba151fc}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Input.ManipulationStartedRoutedEventArgs: ...
 class IManipulationStartingRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IManipulationStartingRoutedEventArgs'
     _iid_ = Guid('{18d636b7-53a4-4c15-a498-f3a9ca212a42}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Xaml.Input.ManipulationModes: ...
@@ -951,6 +1004,7 @@ class IManipulationStartingRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class INoFocusCandidateFoundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.INoFocusCandidateFoundEventArgs'
     _iid_ = Guid('{ec3601a7-1007-48f9-b6b3-ed0bea53937d}')
     @winrt_commethod(6)
     def get_Direction(self) -> Windows.UI.Xaml.Input.FocusNavigationDirection: ...
@@ -965,6 +1019,7 @@ class INoFocusCandidateFoundEventArgs(ComPtr):
     InputDevice = property(get_InputDevice, None)
 class IPointer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IPointer'
     _iid_ = Guid('{5ee8f39f-747d-4171-90e6-cd37a9dffb11}')
     @winrt_commethod(6)
     def get_PointerId(self) -> UInt32: ...
@@ -980,6 +1035,7 @@ class IPointer(ComPtr):
     IsInRange = property(get_IsInRange, None)
 class IPointerRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IPointerRoutedEventArgs'
     _iid_ = Guid('{da628f0a-9752-49e2-bde2-49eccab9194d}')
     @winrt_commethod(6)
     def get_Pointer(self) -> Windows.UI.Xaml.Input.Pointer: ...
@@ -998,12 +1054,14 @@ class IPointerRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IPointerRoutedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IPointerRoutedEventArgs2'
     _iid_ = Guid('{0821f294-1de6-4711-ba7c-8d4b8b0911d0}')
     @winrt_commethod(6)
     def get_IsGenerated(self) -> Boolean: ...
     IsGenerated = property(get_IsGenerated, None)
 class IProcessKeyboardAcceleratorEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IProcessKeyboardAcceleratorEventArgs'
     _iid_ = Guid('{fb79c216-972b-440c-9b83-2b4198dcf09d}')
     @winrt_commethod(6)
     def get_Key(self) -> Windows.System.VirtualKey: ...
@@ -1018,6 +1076,7 @@ class IProcessKeyboardAcceleratorEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IRightTappedRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IRightTappedRoutedEventArgs'
     _iid_ = Guid('{6834869d-7bd5-4033-b237-172f79abe393}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
@@ -1031,18 +1090,21 @@ class IRightTappedRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IStandardUICommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IStandardUICommand'
     _iid_ = Guid('{d2bf7f43-0504-52d0-8aa6-0cb0f756eb27}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.UI.Xaml.Input.StandardUICommandKind: ...
     Kind = property(get_Kind, None)
 class IStandardUICommand2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IStandardUICommand2'
     _iid_ = Guid('{e3666069-f9e4-51eb-885b-7a620a0782ea}')
     @winrt_commethod(6)
     def put_Kind(self, value: Windows.UI.Xaml.Input.StandardUICommandKind) -> Void: ...
     Kind = property(None, put_Kind)
 class IStandardUICommandFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IStandardUICommandFactory'
     _iid_ = Guid('{8f1a7590-dce1-56e4-ab63-f5ce3ce4ebf6}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Input.StandardUICommand: ...
@@ -1050,12 +1112,14 @@ class IStandardUICommandFactory(ComPtr):
     def CreateInstanceWithKind(self, kind: Windows.UI.Xaml.Input.StandardUICommandKind, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Input.StandardUICommand: ...
 class IStandardUICommandStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IStandardUICommandStatics'
     _iid_ = Guid('{7ea87ed9-2978-5533-9b2e-6759ce88569f}')
     @winrt_commethod(6)
     def get_KindProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     KindProperty = property(get_KindProperty, None)
 class ITappedRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.ITappedRoutedEventArgs'
     _iid_ = Guid('{a099e6be-e624-459a-bb1d-e05c73e2cc66}')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
@@ -1069,6 +1133,7 @@ class ITappedRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IXamlUICommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IXamlUICommand'
     _iid_ = Guid('{8494f8d4-ead1-5f01-ad2e-a8cad4f9dc0e}')
     @winrt_commethod(6)
     def get_Label(self) -> WinRT_String: ...
@@ -1110,11 +1175,13 @@ class IXamlUICommand(ComPtr):
     Command = property(get_Command, put_Command)
 class IXamlUICommandFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IXamlUICommandFactory'
     _iid_ = Guid('{1eec08c3-e061-5e10-9f2a-2baa840885c2}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Input.XamlUICommand: ...
 class IXamlUICommandStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Input.IXamlUICommandStatics'
     _iid_ = Guid('{66bc457c-1a0c-58ed-876e-71533f966db6}')
     @winrt_commethod(6)
     def get_LabelProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -1245,8 +1312,8 @@ InputScopeNameValue_FormulaNumber: InputScopeNameValue = 67
 InputScopeNameValue_ChatWithoutEmoji: InputScopeNameValue = 68
 class KeyEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{7c63d2e5-7a0e-4e12-b96a-7715aa6ff1c8}')
     _classid_ = 'Windows.UI.Xaml.Input.KeyEventHandler'
+    _iid_ = Guid('{7c63d2e5-7a0e-4e12-b96a-7715aa6ff1c8}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.KeyRoutedEventArgs) -> Void: ...
 class KeyRoutedEventArgs(ComPtr):
@@ -1380,8 +1447,8 @@ class LosingFocusEventArgs(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
 class ManipulationCompletedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{38ef4b0f-14f8-42df-9a1e-a4bcc4af77f4}')
     _classid_ = 'Windows.UI.Xaml.Input.ManipulationCompletedEventHandler'
+    _iid_ = Guid('{38ef4b0f-14f8-42df-9a1e-a4bcc4af77f4}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs) -> Void: ...
 class ManipulationCompletedRoutedEventArgs(ComPtr):
@@ -1415,8 +1482,8 @@ class ManipulationCompletedRoutedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
 class ManipulationDeltaEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{aa1160cb-dfb9-4c56-abdc-711b63c8eb94}')
     _classid_ = 'Windows.UI.Xaml.Input.ManipulationDeltaEventHandler'
+    _iid_ = Guid('{aa1160cb-dfb9-4c56-abdc-711b63c8eb94}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs) -> Void: ...
 class ManipulationDeltaRoutedEventArgs(ComPtr):
@@ -1455,8 +1522,8 @@ class ManipulationDeltaRoutedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
 class ManipulationInertiaStartingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{d39d6322-7c9c-481b-827b-c8b2d9bb6fc7}')
     _classid_ = 'Windows.UI.Xaml.Input.ManipulationInertiaStartingEventHandler'
+    _iid_ = Guid('{d39d6322-7c9c-481b-827b-c8b2d9bb6fc7}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs) -> Void: ...
 class ManipulationInertiaStartingRoutedEventArgs(ComPtr):
@@ -1533,8 +1600,8 @@ class ManipulationPivot(ComPtr):
     Radius = property(get_Radius, put_Radius)
 class ManipulationStartedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{f88345f8-e0a3-4be2-b90c-dc20e6d8beb0}')
     _classid_ = 'Windows.UI.Xaml.Input.ManipulationStartedEventHandler'
+    _iid_ = Guid('{f88345f8-e0a3-4be2-b90c-dc20e6d8beb0}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationStartedRoutedEventArgs) -> Void: ...
 class ManipulationStartedRoutedEventArgs(ComPtr):
@@ -1562,8 +1629,8 @@ class ManipulationStartedRoutedEventArgs(ComPtr):
     Cumulative = property(get_Cumulative, None)
 class ManipulationStartingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{10d0b04e-bfe4-42cb-823c-3fecd8770ef8}')
     _classid_ = 'Windows.UI.Xaml.Input.ManipulationStartingEventHandler'
+    _iid_ = Guid('{10d0b04e-bfe4-42cb-823c-3fecd8770ef8}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationStartingRoutedEventArgs) -> Void: ...
 class ManipulationStartingRoutedEventArgs(ComPtr):
@@ -1625,8 +1692,8 @@ class Pointer(ComPtr):
     IsInRange = property(get_IsInRange, None)
 class PointerEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{e4385929-c004-4bcf-8970-359486e39f88}')
     _classid_ = 'Windows.UI.Xaml.Input.PointerEventHandler'
+    _iid_ = Guid('{e4385929-c004-4bcf-8970-359486e39f88}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.PointerRoutedEventArgs) -> Void: ...
 class PointerRoutedEventArgs(ComPtr):
@@ -1668,8 +1735,8 @@ class ProcessKeyboardAcceleratorEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class RightTappedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{2532a062-f447-4950-9c46-f1e34a2c2238}')
     _classid_ = 'Windows.UI.Xaml.Input.RightTappedEventHandler'
+    _iid_ = Guid('{2532a062-f447-4950-9c46-f1e34a2c2238}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.RightTappedRoutedEventArgs) -> Void: ...
 class RightTappedRoutedEventArgs(ComPtr):
@@ -1720,8 +1787,8 @@ StandardUICommandKind_Undo: StandardUICommandKind = 15
 StandardUICommandKind_Redo: StandardUICommandKind = 16
 class TappedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{68d940cc-9ff0-49ce-b141-3f07ec477b97}')
     _classid_ = 'Windows.UI.Xaml.Input.TappedEventHandler'
+    _iid_ = Guid('{68d940cc-9ff0-49ce-b141-3f07ec477b97}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.TappedRoutedEventArgs) -> Void: ...
 class TappedRoutedEventArgs(ComPtr):

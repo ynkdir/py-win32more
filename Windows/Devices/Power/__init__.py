@@ -63,6 +63,7 @@ class BatteryReport(ComPtr):
     Status = property(get_Status, None)
 class IBattery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Power.IBattery'
     _iid_ = Guid('{bc894fc6-0072-47c8-8b5d-614aaa7a437e}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
@@ -75,6 +76,7 @@ class IBattery(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class IBatteryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Power.IBatteryReport'
     _iid_ = Guid('{c9858c3a-4e13-420a-a8d0-24f18f395401}')
     @winrt_commethod(6)
     def get_ChargeRateInMilliwatts(self) -> Windows.Foundation.IReference[Int32]: ...
@@ -93,6 +95,7 @@ class IBatteryReport(ComPtr):
     Status = property(get_Status, None)
 class IBatteryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Power.IBatteryStatics'
     _iid_ = Guid('{79cd72b6-9e5e-4452-bea6-dfcd541e597f}')
     @winrt_commethod(6)
     def get_AggregateBattery(self) -> Windows.Devices.Power.Battery: ...

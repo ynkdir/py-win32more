@@ -616,6 +616,7 @@ DisplayWireFormatPixelEncoding_Ycc420: DisplayWireFormatPixelEncoding = 3
 DisplayWireFormatPixelEncoding_Intensity: DisplayWireFormatPixelEncoding = 4
 class IDisplayAdapter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayAdapter'
     _iid_ = Guid('{a56f5287-f000-5f2e-b5ac-3783a2b69af5}')
     @winrt_commethod(6)
     def get_Id(self) -> Windows.Graphics.DisplayAdapterId: ...
@@ -643,11 +644,13 @@ class IDisplayAdapter(ComPtr):
     Properties = property(get_Properties, None)
 class IDisplayAdapterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayAdapterStatics'
     _iid_ = Guid('{1dac3cda-481f-5469-8470-82c4ba680a28}')
     @winrt_commethod(6)
     def FromId(self, id: Windows.Graphics.DisplayAdapterId) -> Windows.Devices.Display.Core.DisplayAdapter: ...
 class IDisplayDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayDevice'
     _iid_ = Guid('{a4c9b62c-335f-5731-8cb4-c1ccd4731070}')
     @winrt_commethod(6)
     def CreateScanoutSource(self, target: Windows.Devices.Display.Core.DisplayTarget) -> Windows.Devices.Display.Core.DisplaySource: ...
@@ -665,14 +668,17 @@ class IDisplayDevice(ComPtr):
     def IsCapabilitySupported(self, capability: Windows.Devices.Display.Core.DisplayDeviceCapability) -> Boolean: ...
 class IDisplayDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayDevice2'
     _iid_ = Guid('{3fefe50c-0940-54bd-a02f-f9c7a536ad60}')
     @winrt_commethod(6)
     def CreateSimpleScanoutWithDirtyRectsAndOptions(self, source: Windows.Devices.Display.Core.DisplaySource, surface: Windows.Devices.Display.Core.DisplaySurface, subresourceIndex: UInt32, syncInterval: UInt32, dirtyRects: Windows.Foundation.Collections.IIterable[Windows.Graphics.RectInt32], options: Windows.Devices.Display.Core.DisplayScanoutOptions) -> Windows.Devices.Display.Core.DisplayScanout: ...
 class IDisplayFence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayFence'
     _iid_ = Guid('{04dcf9ef-3406-5700-8fec-77eba4c5a74b}')
 class IDisplayManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManager'
     _iid_ = Guid('{4ed9245b-15ec-56e2-9072-7fe5084a31a7}')
     @winrt_commethod(6)
     def GetCurrentTargets(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Display.Core.DisplayTarget]: ...
@@ -714,6 +720,7 @@ class IDisplayManager(ComPtr):
     def Stop(self) -> Void: ...
 class IDisplayManagerChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManagerChangedEventArgs'
     _iid_ = Guid('{6abfa285-6cca-5731-bcdc-42e5d2f5c50f}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -724,6 +731,7 @@ class IDisplayManagerChangedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IDisplayManagerDisabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManagerDisabledEventArgs'
     _iid_ = Guid('{8726dde4-6793-5973-a11f-5ffbc93fdb90}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -734,6 +742,7 @@ class IDisplayManagerDisabledEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IDisplayManagerEnabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManagerEnabledEventArgs'
     _iid_ = Guid('{f0cf3f6f-42fa-59a2-b297-26e1713de848}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -744,6 +753,7 @@ class IDisplayManagerEnabledEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IDisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManagerPathsFailedOrInvalidatedEventArgs'
     _iid_ = Guid('{03a65659-1dec-5c15-b2a2-8fe9129869fe}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -754,6 +764,7 @@ class IDisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IDisplayManagerResultWithState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManagerResultWithState'
     _iid_ = Guid('{8e656aa6-6614-54be-bfef-4994547f7be1}')
     @winrt_commethod(6)
     def get_ErrorCode(self) -> Windows.Devices.Display.Core.DisplayManagerResult: ...
@@ -766,11 +777,13 @@ class IDisplayManagerResultWithState(ComPtr):
     State = property(get_State, None)
 class IDisplayManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManagerStatics'
     _iid_ = Guid('{2b6b9446-b999-5535-9d69-53f092c780a1}')
     @winrt_commethod(6)
     def Create(self, options: Windows.Devices.Display.Core.DisplayManagerOptions) -> Windows.Devices.Display.Core.DisplayManager: ...
 class IDisplayModeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayModeInfo'
     _iid_ = Guid('{48d513a0-f79b-5a74-a05e-da821f470868}')
     @winrt_commethod(6)
     def get_SourceResolution(self) -> Windows.Graphics.SizeInt32: ...
@@ -799,12 +812,14 @@ class IDisplayModeInfo(ComPtr):
     Properties = property(get_Properties, None)
 class IDisplayModeInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayModeInfo2'
     _iid_ = Guid('{c86fa386-0ddb-5473-bfb0-4b7807b5f909}')
     @winrt_commethod(6)
     def get_PhysicalPresentationRate(self) -> Windows.Devices.Display.Core.DisplayPresentationRate: ...
     PhysicalPresentationRate = property(get_PhysicalPresentationRate, None)
 class IDisplayPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayPath'
     _iid_ = Guid('{b3dfd64a-7460-5cde-811b-d5ae9f3d9f84}')
     @winrt_commethod(6)
     def get_View(self) -> Windows.Devices.Display.Core.DisplayView: ...
@@ -869,6 +884,7 @@ class IDisplayPath(ComPtr):
     Properties = property(get_Properties, None)
 class IDisplayPath2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayPath2'
     _iid_ = Guid('{f32459c5-e994-570b-9ec8-ef42c35a8547}')
     @winrt_commethod(6)
     def get_PhysicalPresentationRate(self) -> Windows.Foundation.IReference[Windows.Devices.Display.Core.DisplayPresentationRate]: ...
@@ -877,6 +893,7 @@ class IDisplayPath2(ComPtr):
     PhysicalPresentationRate = property(get_PhysicalPresentationRate, put_PhysicalPresentationRate)
 class IDisplayPrimaryDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayPrimaryDescription'
     _iid_ = Guid('{872591d2-d533-50ff-a85e-06696194b77c}')
     @winrt_commethod(6)
     def get_Width(self) -> UInt32: ...
@@ -901,19 +918,23 @@ class IDisplayPrimaryDescription(ComPtr):
     Properties = property(get_Properties, None)
 class IDisplayPrimaryDescriptionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayPrimaryDescriptionFactory'
     _iid_ = Guid('{1a6aff7b-3637-5c46-b479-76d576216e65}')
     @winrt_commethod(6)
     def CreateInstance(self, width: UInt32, height: UInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
 class IDisplayPrimaryDescriptionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayPrimaryDescriptionStatics'
     _iid_ = Guid('{e60e4cfb-36c9-56dd-8fa1-6ff8c4e0ff07}')
     @winrt_commethod(6)
     def CreateWithProperties(self, extraProperties: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[Guid, Windows.Win32.System.WinRT.IInspectable_head]], width: UInt32, height: UInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
 class IDisplayScanout(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayScanout'
     _iid_ = Guid('{e3051828-1ba5-50e7-8a39-bb1fd2f4f8b9}')
 class IDisplaySource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplaySource'
     _iid_ = Guid('{ecd15fc1-eadc-51bc-971d-3bc628db2dd4}')
     @winrt_commethod(6)
     def get_AdapterId(self) -> Windows.Graphics.DisplayAdapterId: ...
@@ -925,6 +946,7 @@ class IDisplaySource(ComPtr):
     SourceId = property(get_SourceId, None)
 class IDisplaySource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplaySource2'
     _iid_ = Guid('{71e18952-b321-5af4-bfe8-03fbea31e40d}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Display.Core.DisplaySourceStatus: ...
@@ -935,6 +957,7 @@ class IDisplaySource2(ComPtr):
     Status = property(get_Status, None)
 class IDisplayState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayState'
     _iid_ = Guid('{08129321-11b5-5cb2-99f8-e90b479a8a1d}')
     @winrt_commethod(6)
     def get_IsReadOnly(self) -> Boolean: ...
@@ -971,6 +994,7 @@ class IDisplayState(ComPtr):
     Properties = property(get_Properties, None)
 class IDisplayStateOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayStateOperationResult'
     _iid_ = Guid('{fcadbfdf-dc27-5638-b7f2-ebdfa4f7ea93}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Display.Core.DisplayStateOperationStatus: ...
@@ -980,9 +1004,11 @@ class IDisplayStateOperationResult(ComPtr):
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
 class IDisplaySurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplaySurface'
     _iid_ = Guid('{594f6cc6-139a-56d6-a4b1-15fe2cb76adb}')
 class IDisplayTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayTarget'
     _iid_ = Guid('{aec57c6f-47b4-546b-987c-e73fa791fe3a}')
     @winrt_commethod(6)
     def get_Adapter(self) -> Windows.Devices.Display.Core.DisplayAdapter: ...
@@ -1025,6 +1051,7 @@ class IDisplayTarget(ComPtr):
     IsStale = property(get_IsStale, None)
 class IDisplayTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayTask'
     _iid_ = Guid('{5e087448-135b-5bb0-bf63-637f84227c7a}')
     @winrt_commethod(6)
     def SetScanout(self, scanout: Windows.Devices.Display.Core.DisplayScanout) -> Void: ...
@@ -1032,11 +1059,13 @@ class IDisplayTask(ComPtr):
     def SetWait(self, readyFence: Windows.Devices.Display.Core.DisplayFence, readyFenceValue: UInt64) -> Void: ...
 class IDisplayTask2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayTask2'
     _iid_ = Guid('{0957ea19-bd55-55de-9267-c97b61e71c37}')
     @winrt_commethod(6)
     def SetSignal(self, signalKind: Windows.Devices.Display.Core.DisplayTaskSignalKind, fence: Windows.Devices.Display.Core.DisplayFence) -> Void: ...
 class IDisplayTaskPool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayTaskPool'
     _iid_ = Guid('{c676253d-237d-5548-aafa-3e517fefef1c}')
     @winrt_commethod(6)
     def CreateTask(self) -> Windows.Devices.Display.Core.DisplayTask: ...
@@ -1044,11 +1073,13 @@ class IDisplayTaskPool(ComPtr):
     def ExecuteTask(self, task: Windows.Devices.Display.Core.DisplayTask) -> Void: ...
 class IDisplayTaskPool2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayTaskPool2'
     _iid_ = Guid('{46b879b6-5d17-5955-a872-eb38003db586}')
     @winrt_commethod(6)
     def TryExecuteTask(self, task: Windows.Devices.Display.Core.DisplayTask) -> Windows.Devices.Display.Core.DisplayTaskResult: ...
 class IDisplayTaskResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayTaskResult'
     _iid_ = Guid('{6fbc7d67-f9b1-55e0-9d88-d3a5197a3f59}')
     @winrt_commethod(6)
     def get_PresentStatus(self) -> Windows.Devices.Display.Core.DisplayPresentStatus: ...
@@ -1061,6 +1092,7 @@ class IDisplayTaskResult(ComPtr):
     SourceStatus = property(get_SourceStatus, None)
 class IDisplayView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayView'
     _iid_ = Guid('{b0c98ca1-b759-5b59-b1ad-f0786aa9e53d}')
     @winrt_commethod(6)
     def get_Paths(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Display.Core.DisplayPath]: ...
@@ -1077,6 +1109,7 @@ class IDisplayView(ComPtr):
     Properties = property(get_Properties, None)
 class IDisplayWireFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayWireFormat'
     _iid_ = Guid('{1acc967d-872c-5a38-bbb9-1d4872b76255}')
     @winrt_commethod(6)
     def get_PixelEncoding(self) -> Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding: ...
@@ -1098,11 +1131,13 @@ class IDisplayWireFormat(ComPtr):
     Properties = property(get_Properties, None)
 class IDisplayWireFormatFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayWireFormatFactory'
     _iid_ = Guid('{b2efc8d5-09d6-55e6-ad22-9014b3d25229}')
     @winrt_commethod(6)
     def CreateInstance(self, pixelEncoding: Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> Windows.Devices.Display.Core.DisplayWireFormat: ...
 class IDisplayWireFormatStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayWireFormatStatics'
     _iid_ = Guid('{c575a22d-c3e6-5f7a-bdfb-87c6ab8661d5}')
     @winrt_commethod(6)
     def CreateWithProperties(self, extraProperties: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[Guid, Windows.Win32.System.WinRT.IInspectable_head]], pixelEncoding: Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> Windows.Devices.Display.Core.DisplayWireFormat: ...

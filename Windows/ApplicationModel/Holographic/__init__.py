@@ -36,6 +36,7 @@ class HolographicKeyboard(ComPtr):
     def GetDefault(cls: Windows.ApplicationModel.Holographic.IHolographicKeyboardStatics) -> Windows.ApplicationModel.Holographic.HolographicKeyboard: ...
 class IHolographicKeyboard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Holographic.IHolographicKeyboard'
     _iid_ = Guid('{07dd0893-aa21-5e6f-a91b-11b2b3fd7be3}')
     @winrt_commethod(6)
     def SetPlacementOverride(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, topCenterPosition: Windows.Foundation.Numerics.Vector3, orientation: Windows.Foundation.Numerics.Quaternion) -> Void: ...
@@ -45,6 +46,7 @@ class IHolographicKeyboard(ComPtr):
     def ResetPlacementOverride(self) -> Void: ...
 class IHolographicKeyboardStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Holographic.IHolographicKeyboardStatics'
     _iid_ = Guid('{b676c624-63d7-58cf-b06b-08baa032a23f}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.ApplicationModel.Holographic.HolographicKeyboard: ...

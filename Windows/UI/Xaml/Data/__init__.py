@@ -163,12 +163,13 @@ class CurrentChangingEventArgs(ComPtr):
     IsCancelable = property(get_IsCancelable, None)
 class CurrentChangingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{f3888db8-139f-4dce-8dc9-f7f1444d1185}')
     _classid_ = 'Windows.UI.Xaml.Data.CurrentChangingEventHandler'
+    _iid_ = Guid('{f3888db8-139f-4dce-8dc9-f7f1444d1185}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Data.CurrentChangingEventArgs) -> Void: ...
 class IBinding(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBinding'
     _iid_ = Guid('{3f7a0c6b-d00f-4730-8c1d-48e16c46f9ca}')
     @winrt_commethod(6)
     def get_Path(self) -> Windows.UI.Xaml.PropertyPath: ...
@@ -212,6 +213,7 @@ class IBinding(ComPtr):
     ConverterLanguage = property(get_ConverterLanguage, put_ConverterLanguage)
 class IBinding2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBinding2'
     _iid_ = Guid('{34f96fcb-0406-48b3-9e82-f333ec4c6910}')
     @winrt_commethod(6)
     def get_FallbackValue(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -230,14 +232,17 @@ class IBinding2(ComPtr):
     UpdateSourceTrigger = property(get_UpdateSourceTrigger, put_UpdateSourceTrigger)
 class IBindingBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingBase'
     _iid_ = Guid('{1589a2ab-3d15-49bc-a447-8a5448e58870}')
 class IBindingBaseFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingBaseFactory'
     _iid_ = Guid('{22dafc3a-7701-4666-a1ba-9859bdcfec34}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.BindingBase: ...
 class IBindingExpression(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingExpression'
     _iid_ = Guid('{516a19a5-c2fd-4a9e-9fd3-9aa42f995a3c}')
     @winrt_commethod(6)
     def get_DataItem(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -249,28 +254,35 @@ class IBindingExpression(ComPtr):
     ParentBinding = property(get_ParentBinding, None)
 class IBindingExpressionBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingExpressionBase'
     _iid_ = Guid('{fded3154-e954-4f67-8fb6-6ed79b3a1cb3}')
 class IBindingExpressionBaseFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingExpressionBaseFactory'
     _iid_ = Guid('{ea7116a7-c2d9-4375-b471-66b9c48c7930}')
 class IBindingExpressionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingExpressionFactory'
     _iid_ = Guid('{1cb55cd9-db72-40b3-a2b5-24ee6ea5c328}')
 class IBindingFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingFactory'
     _iid_ = Guid('{ff42bb08-c39e-4f7e-8434-a1569083883c}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.Binding: ...
 class IBindingOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingOperations'
     _iid_ = Guid('{6fffd738-9839-419c-a17a-4b3604e1524e}')
 class IBindingOperationsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IBindingOperationsStatics'
     _iid_ = Guid('{e155ef73-95a0-4aab-8c7d-2a47da073c79}')
     @winrt_commethod(6)
     def SetBinding(self, target: Windows.UI.Xaml.DependencyObject, dp: Windows.UI.Xaml.DependencyProperty, binding: Windows.UI.Xaml.Data.BindingBase) -> Void: ...
 class ICollectionView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICollectionView'
     _iid_ = Guid('{8be8bfe4-dbef-44df-8126-a31a89121ddc}')
     @winrt_commethod(6)
     def get_CurrentItem(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -314,11 +326,13 @@ class ICollectionView(ComPtr):
     HasMoreItems = property(get_HasMoreItems, None)
 class ICollectionViewFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICollectionViewFactory'
     _iid_ = Guid('{34d4aaf4-8e72-4950-9192-ecd07d399d0a}')
     @winrt_commethod(6)
     def CreateView(self) -> Windows.UI.Xaml.Data.ICollectionView: ...
 class ICollectionViewGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICollectionViewGroup'
     _iid_ = Guid('{7e01b9d8-d7b5-48b6-b31c-5bb5bdf5f09b}')
     @winrt_commethod(6)
     def get_Group(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -328,6 +342,7 @@ class ICollectionViewGroup(ComPtr):
     GroupItems = property(get_GroupItems, None)
 class ICollectionViewSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICollectionViewSource'
     _iid_ = Guid('{a66a1146-d2fb-4ead-be9f-3578a466dcfe}')
     @winrt_commethod(6)
     def get_Source(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -349,6 +364,7 @@ class ICollectionViewSource(ComPtr):
     ItemsPath = property(get_ItemsPath, put_ItemsPath)
 class ICollectionViewSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICollectionViewSourceStatics'
     _iid_ = Guid('{173a0710-46af-4c0c-818b-21b6ef81bf65}')
     @winrt_commethod(6)
     def get_SourceProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -364,6 +380,7 @@ class ICollectionViewSourceStatics(ComPtr):
     ItemsPathProperty = property(get_ItemsPathProperty, None)
 class ICurrentChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICurrentChangingEventArgs'
     _iid_ = Guid('{f9891e29-51cc-47dd-a5b9-35dc4914af69}')
     @winrt_commethod(6)
     def get_Cancel(self) -> Boolean: ...
@@ -375,6 +392,7 @@ class ICurrentChangingEventArgs(ComPtr):
     IsCancelable = property(get_IsCancelable, None)
 class ICurrentChangingEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICurrentChangingEventArgsFactory'
     _iid_ = Guid('{153bbeee-62f3-48cf-8183-8be26de3a66e}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.CurrentChangingEventArgs: ...
@@ -382,6 +400,7 @@ class ICurrentChangingEventArgsFactory(ComPtr):
     def CreateWithCancelableParameter(self, isCancelable: Boolean, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.CurrentChangingEventArgs: ...
 class ICustomProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICustomProperty'
     _iid_ = Guid('{30da92c0-23e8-42a0-ae7c-734a0e5d2782}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.UI.Xaml.Interop.TypeName: ...
@@ -405,6 +424,7 @@ class ICustomProperty(ComPtr):
     CanRead = property(get_CanRead, None)
 class ICustomPropertyProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ICustomPropertyProvider'
     _iid_ = Guid('{7c925755-3e48-42b4-8677-76372267033f}')
     @winrt_commethod(6)
     def GetCustomProperty(self, name: WinRT_String) -> Windows.UI.Xaml.Data.ICustomProperty: ...
@@ -417,6 +437,7 @@ class ICustomPropertyProvider(ComPtr):
     Type = property(get_Type, None)
 class IItemIndexRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IItemIndexRange'
     _iid_ = Guid('{83b834be-0583-4a26-9b64-8bf4a2f65704}')
     @winrt_commethod(6)
     def get_FirstIndex(self) -> Int32: ...
@@ -429,16 +450,19 @@ class IItemIndexRange(ComPtr):
     LastIndex = property(get_LastIndex, None)
 class IItemIndexRangeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IItemIndexRangeFactory'
     _iid_ = Guid('{86e2c440-2e7a-4c7d-a664-e8abf07bfc7e}')
     @winrt_commethod(6)
     def CreateInstance(self, firstIndex: Int32, length: UInt32, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.ItemIndexRange: ...
 class IItemsRangeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IItemsRangeInfo'
     _iid_ = Guid('{f05f5665-71fd-45a2-be13-a081d294a68d}')
     @winrt_commethod(6)
     def RangesChanged(self, visibleRange: Windows.UI.Xaml.Data.ItemIndexRange, trackedItems: Windows.Foundation.Collections.IVectorView[Windows.UI.Xaml.Data.ItemIndexRange]) -> Void: ...
 class INotifyPropertyChanged(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.INotifyPropertyChanged'
     _iid_ = Guid('{cf75d69c-f2f4-486b-b302-bb4c09baebfa}')
     @winrt_commethod(6)
     def add_PropertyChanged(self, handler: Windows.UI.Xaml.Data.PropertyChangedEventHandler) -> Windows.Foundation.EventRegistrationToken: ...
@@ -446,17 +470,20 @@ class INotifyPropertyChanged(ComPtr):
     def remove_PropertyChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPropertyChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IPropertyChangedEventArgs'
     _iid_ = Guid('{4f33a9a0-5cf4-47a4-b16f-d7faaf17457e}')
     @winrt_commethod(6)
     def get_PropertyName(self) -> WinRT_String: ...
     PropertyName = property(get_PropertyName, None)
 class IPropertyChangedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IPropertyChangedEventArgsFactory'
     _iid_ = Guid('{6dcc9c03-e0c7-4eee-8ea9-37e3406eeb1c}')
     @winrt_commethod(6)
     def CreateInstance(self, name: WinRT_String, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.PropertyChangedEventArgs: ...
 class IRelativeSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IRelativeSource'
     _iid_ = Guid('{2397ce84-2822-483a-b499-d0f031e06c6b}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.UI.Xaml.Data.RelativeSourceMode: ...
@@ -465,11 +492,13 @@ class IRelativeSource(ComPtr):
     Mode = property(get_Mode, put_Mode)
 class IRelativeSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IRelativeSourceFactory'
     _iid_ = Guid('{ef8392cd-446e-4f93-aacb-9b1255577460}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.RelativeSource: ...
 class ISelectionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ISelectionInfo'
     _iid_ = Guid('{2e12ca86-e1ed-4245-be49-207e42aec524}')
     @winrt_commethod(6)
     def SelectRange(self, itemIndexRange: Windows.UI.Xaml.Data.ItemIndexRange) -> Void: ...
@@ -481,6 +510,7 @@ class ISelectionInfo(ComPtr):
     def GetSelectedRanges(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Xaml.Data.ItemIndexRange]: ...
 class ISupportIncrementalLoading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.ISupportIncrementalLoading'
     _iid_ = Guid('{7f5ee992-7694-4e6c-a51b-e34bf43de743}')
     @winrt_commethod(6)
     def LoadMoreItemsAsync(self, count: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.UI.Xaml.Data.LoadMoreItemsResult]: ...
@@ -489,6 +519,7 @@ class ISupportIncrementalLoading(ComPtr):
     HasMoreItems = property(get_HasMoreItems, None)
 class IValueConverter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Data.IValueConverter'
     _iid_ = Guid('{e6f2fef0-0712-487f-b313-f300b8d79aa1}')
     @winrt_commethod(6)
     def Convert(self, value: Windows.Win32.System.WinRT.IInspectable_head, targetType: Windows.UI.Xaml.Interop.TypeName, parameter: Windows.Win32.System.WinRT.IInspectable_head, language: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -518,8 +549,8 @@ class PropertyChangedEventArgs(ComPtr):
     PropertyName = property(get_PropertyName, None)
 class PropertyChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{50f19c16-0a22-4d8e-a089-1ea9951657d2}')
     _classid_ = 'Windows.UI.Xaml.Data.PropertyChangedEventHandler'
+    _iid_ = Guid('{50f19c16-0a22-4d8e-a089-1ea9951657d2}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Data.PropertyChangedEventArgs) -> Void: ...
 class RelativeSource(ComPtr):

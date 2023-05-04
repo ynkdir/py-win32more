@@ -50,12 +50,14 @@ class AccessListEntryView(ComPtr):
     Size = property(get_Size, None)
 class IItemRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.AccessCache.IItemRemovedEventArgs'
     _iid_ = Guid('{59677e5c-55be-4c66-ba66-5eaea79d2631}')
     @winrt_commethod(6)
     def get_RemovedEntry(self) -> Windows.Storage.AccessCache.AccessListEntry: ...
     RemovedEntry = property(get_RemovedEntry, None)
 class IStorageApplicationPermissionsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics'
     _iid_ = Guid('{4391dfaa-d033-48f9-8060-3ec847d2e3f1}')
     @winrt_commethod(6)
     def get_FutureAccessList(self) -> Windows.Storage.AccessCache.StorageItemAccessList: ...
@@ -65,6 +67,7 @@ class IStorageApplicationPermissionsStatics(ComPtr):
     MostRecentlyUsedList = property(get_MostRecentlyUsedList, None)
 class IStorageApplicationPermissionsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics2'
     _iid_ = Guid('{072716ec-aa05-4294-9a11-1a3d04519ad0}')
     @winrt_commethod(6)
     def GetFutureAccessListForUser(self, user: Windows.System.User) -> Windows.Storage.AccessCache.StorageItemAccessList: ...
@@ -72,6 +75,7 @@ class IStorageApplicationPermissionsStatics2(ComPtr):
     def GetMostRecentlyUsedListForUser(self, user: Windows.System.User) -> Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList: ...
 class IStorageItemAccessList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.AccessCache.IStorageItemAccessList'
     _iid_ = Guid('{2caff6ad-de90-47f5-b2c3-dd36c9fdd453}')
     @winrt_commethod(6)
     def AddOverloadDefaultMetadata(self, file: Windows.Storage.IStorageItem) -> WinRT_String: ...
@@ -109,6 +113,7 @@ class IStorageItemAccessList(ComPtr):
     MaximumItemsAllowed = property(get_MaximumItemsAllowed, None)
 class IStorageItemMostRecentlyUsedList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList'
     _iid_ = Guid('{016239d5-510d-411e-8cf1-c3d1effa4c33}')
     @winrt_commethod(6)
     def add_ItemRemoved(self, handler: Windows.Foundation.TypedEventHandler[Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList, Windows.Storage.AccessCache.ItemRemovedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -116,6 +121,7 @@ class IStorageItemMostRecentlyUsedList(ComPtr):
     def remove_ItemRemoved(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IStorageItemMostRecentlyUsedList2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList2'
     _iid_ = Guid('{da481ea0-ed8d-4731-a1db-e44ee2204093}')
     @winrt_commethod(6)
     def AddWithMetadataAndVisibility(self, file: Windows.Storage.IStorageItem, metadata: WinRT_String, visibility: Windows.Storage.AccessCache.RecentStorageItemVisibility) -> WinRT_String: ...
@@ -133,6 +139,7 @@ RecentStorageItemVisibility_AppOnly: RecentStorageItemVisibility = 0
 RecentStorageItemVisibility_AppAndSystem: RecentStorageItemVisibility = 1
 class StorageApplicationPermissions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.AccessCache.StorageApplicationPermissions'
     @winrt_classmethod
     def GetFutureAccessListForUser(cls: Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics2, user: Windows.System.User) -> Windows.Storage.AccessCache.StorageItemAccessList: ...
     @winrt_classmethod

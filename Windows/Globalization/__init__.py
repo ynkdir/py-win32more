@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ApplicationLanguages(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ApplicationLanguages'
     @winrt_classmethod
     def GetLanguagesForUser(cls: Windows.Globalization.IApplicationLanguagesStatics2, user: Windows.System.User) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_classmethod
@@ -294,6 +295,7 @@ class Calendar(ComPtr):
     IsDaylightSavingTime = property(get_IsDaylightSavingTime, None)
 class CalendarIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.CalendarIdentifiers'
     @winrt_classmethod
     def get_ChineseLunar(cls: Windows.Globalization.ICalendarIdentifiersStatics3) -> WinRT_String: ...
     @winrt_classmethod
@@ -341,6 +343,7 @@ class CalendarIdentifiers(ComPtr):
     UmAlQura = property(get_UmAlQura, None)
 class ClockIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ClockIdentifiers'
     @winrt_classmethod
     def get_TwelveHour(cls: Windows.Globalization.IClockIdentifiersStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -361,6 +364,7 @@ class CurrencyAmount(ComPtr):
     Currency = property(get_Currency, None)
 class CurrencyIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.CurrencyIdentifiers'
     @winrt_classmethod
     def get_MRU(cls: Windows.Globalization.ICurrencyIdentifiersStatics3) -> WinRT_String: ...
     @winrt_classmethod
@@ -889,6 +893,7 @@ class GeographicRegion(ComPtr):
 GlobalizationJapanesePhoneticAnalyzerContract: UInt32 = 65536
 class IApplicationLanguagesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.IApplicationLanguagesStatics'
     _iid_ = Guid('{75b40847-0a4c-4a92-9565-fd63c95f7aed}')
     @winrt_commethod(6)
     def get_PrimaryLanguageOverride(self) -> WinRT_String: ...
@@ -903,11 +908,13 @@ class IApplicationLanguagesStatics(ComPtr):
     ManifestLanguages = property(get_ManifestLanguages, None)
 class IApplicationLanguagesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.IApplicationLanguagesStatics2'
     _iid_ = Guid('{1df0de4f-072b-4d7b-8f06-cb2db40f2bb5}')
     @winrt_commethod(6)
     def GetLanguagesForUser(self, user: Windows.System.User) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
 class ICalendar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICalendar'
     _iid_ = Guid('{ca30221d-86d9-40fb-a26b-d44eb7cf08ea}')
     @winrt_commethod(6)
     def Clone(self) -> Windows.Globalization.Calendar: ...
@@ -1145,6 +1152,7 @@ class ICalendar(ComPtr):
     IsDaylightSavingTime = property(get_IsDaylightSavingTime, None)
 class ICalendarFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICalendarFactory'
     _iid_ = Guid('{83f58412-e56b-4c75-a66e-0f63d57758a6}')
     @winrt_commethod(6)
     def CreateCalendarDefaultCalendarAndClock(self, languages: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Globalization.Calendar: ...
@@ -1152,11 +1160,13 @@ class ICalendarFactory(ComPtr):
     def CreateCalendar(self, languages: Windows.Foundation.Collections.IIterable[WinRT_String], calendar: WinRT_String, clock: WinRT_String) -> Windows.Globalization.Calendar: ...
 class ICalendarFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICalendarFactory2'
     _iid_ = Guid('{b44b378c-ca7e-4590-9e72-ea2bec1a5115}')
     @winrt_commethod(6)
     def CreateCalendarWithTimeZone(self, languages: Windows.Foundation.Collections.IIterable[WinRT_String], calendar: WinRT_String, clock: WinRT_String, timeZoneId: WinRT_String) -> Windows.Globalization.Calendar: ...
 class ICalendarIdentifiersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICalendarIdentifiersStatics'
     _iid_ = Guid('{80653f68-2cb2-4c1f-b590-f0f52bf4fd1a}')
     @winrt_commethod(6)
     def get_Gregorian(self) -> WinRT_String: ...
@@ -1187,12 +1197,14 @@ class ICalendarIdentifiersStatics(ComPtr):
     UmAlQura = property(get_UmAlQura, None)
 class ICalendarIdentifiersStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICalendarIdentifiersStatics2'
     _iid_ = Guid('{7df4d488-5fd0-42a7-95b5-7d98d823075f}')
     @winrt_commethod(6)
     def get_Persian(self) -> WinRT_String: ...
     Persian = property(get_Persian, None)
 class ICalendarIdentifiersStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICalendarIdentifiersStatics3'
     _iid_ = Guid('{2c225423-1fad-40c0-9334-a8eb90db04f5}')
     @winrt_commethod(6)
     def get_ChineseLunar(self) -> WinRT_String: ...
@@ -1211,6 +1223,7 @@ class ICalendarIdentifiersStatics3(ComPtr):
     VietnameseLunar = property(get_VietnameseLunar, None)
 class IClockIdentifiersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.IClockIdentifiersStatics'
     _iid_ = Guid('{523805bb-12ec-4f83-bc31-b1b4376b0808}')
     @winrt_commethod(6)
     def get_TwelveHour(self) -> WinRT_String: ...
@@ -1220,6 +1233,7 @@ class IClockIdentifiersStatics(ComPtr):
     TwentyFourHour = property(get_TwentyFourHour, None)
 class ICurrencyAmount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICurrencyAmount'
     _iid_ = Guid('{74b49942-eb75-443a-95b3-7d723f56f93c}')
     @winrt_commethod(6)
     def get_Amount(self) -> WinRT_String: ...
@@ -1229,11 +1243,13 @@ class ICurrencyAmount(ComPtr):
     Currency = property(get_Currency, None)
 class ICurrencyAmountFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICurrencyAmountFactory'
     _iid_ = Guid('{48d7168f-ef3b-4aee-a6a1-4b036fe03ff0}')
     @winrt_commethod(6)
     def Create(self, amount: WinRT_String, currency: WinRT_String) -> Windows.Globalization.CurrencyAmount: ...
 class ICurrencyIdentifiersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICurrencyIdentifiersStatics'
     _iid_ = Guid('{9f1d091b-d586-4913-9b6a-a9bd2dc12874}')
     @winrt_commethod(6)
     def get_AED(self) -> WinRT_String: ...
@@ -1708,12 +1724,14 @@ class ICurrencyIdentifiersStatics(ComPtr):
     ZWL = property(get_ZWL, None)
 class ICurrencyIdentifiersStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICurrencyIdentifiersStatics2'
     _iid_ = Guid('{1814797f-c3b2-4c33-9591-980011950d37}')
     @winrt_commethod(6)
     def get_BYN(self) -> WinRT_String: ...
     BYN = property(get_BYN, None)
 class ICurrencyIdentifiersStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ICurrencyIdentifiersStatics3'
     _iid_ = Guid('{4fb23bfa-ed25-4f4d-857f-237f1748c21c}')
     @winrt_commethod(6)
     def get_MRU(self) -> WinRT_String: ...
@@ -1729,6 +1747,7 @@ class ICurrencyIdentifiersStatics3(ComPtr):
     VES = property(get_VES, None)
 class IGeographicRegion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.IGeographicRegion'
     _iid_ = Guid('{01e9a621-4a64-4ed9-954f-9edeb07bd903}')
     @winrt_commethod(6)
     def get_Code(self) -> WinRT_String: ...
@@ -1753,16 +1772,19 @@ class IGeographicRegion(ComPtr):
     CurrenciesInUse = property(get_CurrenciesInUse, None)
 class IGeographicRegionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.IGeographicRegionFactory'
     _iid_ = Guid('{53425270-77b4-426b-859f-81e19d512546}')
     @winrt_commethod(6)
     def CreateGeographicRegion(self, geographicRegionCode: WinRT_String) -> Windows.Globalization.GeographicRegion: ...
 class IGeographicRegionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.IGeographicRegionStatics'
     _iid_ = Guid('{29e28974-7ad9-4ef4-8799-b3b44fadec08}')
     @winrt_commethod(6)
     def IsSupported(self, geographicRegionCode: WinRT_String) -> Boolean: ...
 class IJapanesePhoneme(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.IJapanesePhoneme'
     _iid_ = Guid('{2f6a9300-e85b-43e6-897d-5d82f862df21}')
     @winrt_commethod(6)
     def get_DisplayText(self) -> WinRT_String: ...
@@ -1775,6 +1797,7 @@ class IJapanesePhoneme(ComPtr):
     IsPhraseStart = property(get_IsPhraseStart, None)
 class IJapanesePhoneticAnalyzerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.IJapanesePhoneticAnalyzerStatics'
     _iid_ = Guid('{88ab9e90-93de-41b2-b4d5-8edb227fd1c2}')
     @winrt_commethod(6)
     def GetWords(self, input: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.JapanesePhoneme]: ...
@@ -1782,6 +1805,7 @@ class IJapanesePhoneticAnalyzerStatics(ComPtr):
     def GetWordsWithMonoRubyOption(self, input: WinRT_String, monoRuby: Boolean) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.JapanesePhoneme]: ...
 class ILanguage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ILanguage'
     _iid_ = Guid('{ea79a752-f7c2-4265-b1bd-c4dec4e4f080}')
     @winrt_commethod(6)
     def get_LanguageTag(self) -> WinRT_String: ...
@@ -1797,28 +1821,33 @@ class ILanguage(ComPtr):
     Script = property(get_Script, None)
 class ILanguage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ILanguage2'
     _iid_ = Guid('{6a47e5b5-d94d-4886-a404-a5a5b9d5b494}')
     @winrt_commethod(6)
     def get_LayoutDirection(self) -> Windows.Globalization.LanguageLayoutDirection: ...
     LayoutDirection = property(get_LayoutDirection, None)
 class ILanguage3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ILanguage3'
     _iid_ = Guid('{c6af3d10-641a-5ba4-bb43-5e12aed75954}')
     @winrt_commethod(6)
     def get_AbbreviatedName(self) -> WinRT_String: ...
     AbbreviatedName = property(get_AbbreviatedName, None)
 class ILanguageExtensionSubtags(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ILanguageExtensionSubtags'
     _iid_ = Guid('{7d7daf45-368d-4364-852b-dec927037b85}')
     @winrt_commethod(6)
     def GetExtensionSubtags(self, singleton: WinRT_String) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
 class ILanguageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ILanguageFactory'
     _iid_ = Guid('{9b0252ac-0c27-44f8-b792-9793fb66c63e}')
     @winrt_commethod(6)
     def CreateLanguage(self, languageTag: WinRT_String) -> Windows.Globalization.Language: ...
 class ILanguageStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ILanguageStatics'
     _iid_ = Guid('{b23cd557-0865-46d4-89b8-d59be8990f0d}')
     @winrt_commethod(6)
     def IsWellFormed(self, languageTag: WinRT_String) -> Boolean: ...
@@ -1827,16 +1856,19 @@ class ILanguageStatics(ComPtr):
     CurrentInputMethodLanguageTag = property(get_CurrentInputMethodLanguageTag, None)
 class ILanguageStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ILanguageStatics2'
     _iid_ = Guid('{30199f6e-914b-4b2a-9d6e-e3b0e27dbe4f}')
     @winrt_commethod(6)
     def TrySetInputMethodLanguageTag(self, languageTag: WinRT_String) -> Boolean: ...
 class ILanguageStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ILanguageStatics3'
     _iid_ = Guid('{d15ecb5a-71de-5752-9542-fac5b4f27261}')
     @winrt_commethod(6)
     def GetMuiCompatibleLanguageListFromLanguageTags(self, languageTags: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
 class INumeralSystemIdentifiersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.INumeralSystemIdentifiersStatics'
     _iid_ = Guid('{a5c662c3-68c9-4d3d-b765-972029e21dec}')
     @winrt_commethod(6)
     def get_Arab(self) -> WinRT_String: ...
@@ -1948,6 +1980,7 @@ class INumeralSystemIdentifiersStatics(ComPtr):
     Vaii = property(get_Vaii, None)
 class INumeralSystemIdentifiersStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.INumeralSystemIdentifiersStatics2'
     _iid_ = Guid('{7f003228-9ddb-4a34-9104-0260c091a7c7}')
     @winrt_commethod(6)
     def get_Brah(self) -> WinRT_String: ...
@@ -1987,6 +2020,7 @@ class INumeralSystemIdentifiersStatics2(ComPtr):
     ZmthMono = property(get_ZmthMono, None)
 class ITimeZoneOnCalendar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.ITimeZoneOnCalendar'
     _iid_ = Guid('{bb3c25e5-46cf-4317-a3f5-02621ad54478}')
     @winrt_commethod(6)
     def GetTimeZone(self) -> WinRT_String: ...
@@ -2011,6 +2045,7 @@ class JapanesePhoneme(ComPtr):
     IsPhraseStart = property(get_IsPhraseStart, None)
 class JapanesePhoneticAnalyzer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.JapanesePhoneticAnalyzer'
     @winrt_classmethod
     def GetWords(cls: Windows.Globalization.IJapanesePhoneticAnalyzerStatics, input: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.JapanesePhoneme]: ...
     @winrt_classmethod
@@ -2057,6 +2092,7 @@ LanguageLayoutDirection_TtbLtr: LanguageLayoutDirection = 2
 LanguageLayoutDirection_TtbRtl: LanguageLayoutDirection = 3
 class NumeralSystemIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.NumeralSystemIdentifiers'
     @winrt_classmethod
     def get_Brah(cls: Windows.Globalization.INumeralSystemIdentifiersStatics2) -> WinRT_String: ...
     @winrt_classmethod

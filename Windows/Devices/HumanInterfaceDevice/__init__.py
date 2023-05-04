@@ -308,6 +308,7 @@ HidReportType_Output: HidReportType = 1
 HidReportType_Feature: HidReportType = 2
 class IHidBooleanControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidBooleanControl'
     _iid_ = Guid('{524df48a-3695-408c-bba2-e2eb5abfbc20}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
@@ -328,6 +329,7 @@ class IHidBooleanControl(ComPtr):
     ControlDescription = property(get_ControlDescription, None)
 class IHidBooleanControlDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidBooleanControlDescription'
     _iid_ = Guid('{6196e543-29d8-4a2a-8683-849e207bbe31}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
@@ -349,12 +351,14 @@ class IHidBooleanControlDescription(ComPtr):
     ParentCollections = property(get_ParentCollections, None)
 class IHidBooleanControlDescription2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidBooleanControlDescription2'
     _iid_ = Guid('{c8eed2ea-8a77-4c36-aa00-5ff0449d3e73}')
     @winrt_commethod(6)
     def get_IsAbsolute(self) -> Boolean: ...
     IsAbsolute = property(get_IsAbsolute, None)
 class IHidCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidCollection'
     _iid_ = Guid('{7189f5a3-32f1-46e3-befd-44d2663b7e6a}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
@@ -370,6 +374,7 @@ class IHidCollection(ComPtr):
     UsageId = property(get_UsageId, None)
 class IHidDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidDevice'
     _iid_ = Guid('{5f8a14e7-2200-432e-95da-d09b87d574a8}')
     @winrt_commethod(6)
     def get_VendorId(self) -> UInt16: ...
@@ -416,6 +421,7 @@ class IHidDevice(ComPtr):
     UsageId = property(get_UsageId, None)
 class IHidDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics'
     _iid_ = Guid('{9e5981e4-9856-418c-9f73-77de0cd85754}')
     @winrt_commethod(6)
     def GetDeviceSelector(self, usagePage: UInt16, usageId: UInt16) -> WinRT_String: ...
@@ -425,6 +431,7 @@ class IHidDeviceStatics(ComPtr):
     def FromIdAsync(self, deviceId: WinRT_String, accessMode: Windows.Storage.FileAccessMode) -> Windows.Foundation.IAsyncOperation[Windows.Devices.HumanInterfaceDevice.HidDevice]: ...
 class IHidFeatureReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidFeatureReport'
     _iid_ = Guid('{841d9b79-5ae5-46e3-82ef-1fec5c8942f4}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt16: ...
@@ -444,6 +451,7 @@ class IHidFeatureReport(ComPtr):
     Data = property(get_Data, put_Data)
 class IHidInputReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidInputReport'
     _iid_ = Guid('{c35d0e50-f7e7-4e8d-b23e-cabbe56b90e9}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt16: ...
@@ -467,12 +475,14 @@ class IHidInputReport(ComPtr):
     TransitionedBooleanControls = property(get_TransitionedBooleanControls, None)
 class IHidInputReportReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidInputReportReceivedEventArgs'
     _iid_ = Guid('{7059c5cb-59b2-4dc2-985c-0adc6136fa2d}')
     @winrt_commethod(6)
     def get_Report(self) -> Windows.Devices.HumanInterfaceDevice.HidInputReport: ...
     Report = property(get_Report, None)
 class IHidNumericControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidNumericControl'
     _iid_ = Guid('{e38a12a5-35a7-4b75-89c8-fb1f28b10823}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
@@ -501,6 +511,7 @@ class IHidNumericControl(ComPtr):
     ControlDescription = property(get_ControlDescription, None)
 class IHidNumericControlDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidNumericControlDescription'
     _iid_ = Guid('{638d5e86-1d97-4c75-927f-5ff58ba05e32}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
@@ -552,6 +563,7 @@ class IHidNumericControlDescription(ComPtr):
     ParentCollections = property(get_ParentCollections, None)
 class IHidOutputReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidOutputReport'
     _iid_ = Guid('{62cb2544-c896-4463-93c1-df9db053c450}')
     @winrt_commethod(6)
     def get_Id(self) -> UInt16: ...

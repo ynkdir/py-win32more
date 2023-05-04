@@ -281,6 +281,7 @@ DeviceAccountSyncScheduleKind_Daily: DeviceAccountSyncScheduleKind = 5
 DeviceAccountSyncScheduleKind_AsItemsArrive: DeviceAccountSyncScheduleKind = 6
 class IDeviceAccountConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IDeviceAccountConfiguration'
     _iid_ = Guid('{ad0123a3-fbdc-4d1b-be43-5a27ea4a1b63}')
     @winrt_commethod(6)
     def get_AccountName(self) -> WinRT_String: ...
@@ -364,6 +365,7 @@ class IDeviceAccountConfiguration(ComPtr):
     OutgoingServerUsername = property(get_OutgoingServerUsername, put_OutgoingServerUsername)
 class IDeviceAccountConfiguration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IDeviceAccountConfiguration2'
     _iid_ = Guid('{f2b2e5a6-728d-4a4a-8945-2bf8580136de}')
     @winrt_commethod(6)
     def get_IncomingServerCredential(self) -> Windows.Security.Credentials.PasswordCredential: ...
@@ -508,11 +510,13 @@ class IDeviceAccountConfiguration2(ComPtr):
     IsSyncScheduleManagedBySystem = property(get_IsSyncScheduleManagedBySystem, put_IsSyncScheduleManagedBySystem)
 class IUserDataAccountSystemAccessManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics'
     _iid_ = Guid('{9d6b11b9-cbe5-45f5-822b-c267b81dbdb6}')
     @winrt_commethod(6)
     def AddAndShowDeviceAccountsAsync(self, accounts: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration]) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
 class IUserDataAccountSystemAccessManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2'
     _iid_ = Guid('{943f854d-4b4e-439f-83d3-979b27c05ac7}')
     @winrt_commethod(6)
     def SuppressLocalAccountWithAccountAsync(self, userDataAccountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
@@ -524,6 +528,7 @@ class IUserDataAccountSystemAccessManagerStatics2(ComPtr):
     def GetDeviceAccountConfigurationAsync(self, accountId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration]: ...
 class UserDataAccountSystemAccessManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager'
     @winrt_classmethod
     def SuppressLocalAccountWithAccountAsync(cls: Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2, userDataAccountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod

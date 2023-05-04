@@ -24,12 +24,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class CoreUserActivityManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.Core.CoreUserActivityManager'
     @winrt_classmethod
     def CreateUserActivitySessionInBackground(cls: Windows.ApplicationModel.UserActivities.Core.ICoreUserActivityManagerStatics, activity: Windows.ApplicationModel.UserActivities.UserActivity) -> Windows.ApplicationModel.UserActivities.UserActivitySession: ...
     @winrt_classmethod
     def DeleteUserActivitySessionsInTimeRangeAsync(cls: Windows.ApplicationModel.UserActivities.Core.ICoreUserActivityManagerStatics, channel: Windows.ApplicationModel.UserActivities.UserActivityChannel, startTime: Windows.Foundation.DateTime, endTime: Windows.Foundation.DateTime) -> Windows.Foundation.IAsyncAction: ...
 class ICoreUserActivityManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserActivities.Core.ICoreUserActivityManagerStatics'
     _iid_ = Guid('{ca3adb02-a4be-4d4d-bfa8-6795f4264efb}')
     @winrt_commethod(6)
     def CreateUserActivitySessionInBackground(self, activity: Windows.ApplicationModel.UserActivities.UserActivity) -> Windows.ApplicationModel.UserActivities.UserActivitySession: ...

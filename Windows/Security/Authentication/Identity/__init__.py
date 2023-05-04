@@ -52,6 +52,7 @@ class EnterpriseKeyCredentialRegistrationManager(ComPtr):
     Current = property(get_Current, None)
 class IEnterpriseKeyCredentialRegistrationInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationInfo'
     _iid_ = Guid('{38321acc-672b-4823-b603-6b3c753daf97}')
     @winrt_commethod(6)
     def get_TenantId(self) -> WinRT_String: ...
@@ -70,11 +71,13 @@ class IEnterpriseKeyCredentialRegistrationInfo(ComPtr):
     KeyName = property(get_KeyName, None)
 class IEnterpriseKeyCredentialRegistrationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationManager'
     _iid_ = Guid('{83f3be3f-a25f-4cba-bb8e-bdc32d03c297}')
     @winrt_commethod(6)
     def GetRegistrationsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo]]: ...
 class IEnterpriseKeyCredentialRegistrationManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationManagerStatics'
     _iid_ = Guid('{77b85e9e-acf4-4bc0-bac2-40bb46efbb3f}')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationManager: ...

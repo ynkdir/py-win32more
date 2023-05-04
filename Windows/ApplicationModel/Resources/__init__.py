@@ -24,26 +24,31 @@ def __getattr__(name):
     return getattr(_module, name)
 class IResourceLoader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoader'
     _iid_ = Guid('{08524908-16ef-45ad-a602-293637d7e61a}')
     @winrt_commethod(6)
     def GetString(self, resource: WinRT_String) -> WinRT_String: ...
 class IResourceLoader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoader2'
     _iid_ = Guid('{10eb6ec6-8138-48c1-bc65-e1f14207367c}')
     @winrt_commethod(6)
     def GetStringForUri(self, uri: Windows.Foundation.Uri) -> WinRT_String: ...
 class IResourceLoaderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderFactory'
     _iid_ = Guid('{c33a3603-69dc-4285-a077-d5c0e47ccbe8}')
     @winrt_commethod(6)
     def CreateResourceLoaderByName(self, name: WinRT_String) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
 class IResourceLoaderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderStatics'
     _iid_ = Guid('{bf777ce1-19c8-49c2-953c-47e9227b334e}')
     @winrt_commethod(6)
     def GetStringForReference(self, uri: Windows.Foundation.Uri) -> WinRT_String: ...
 class IResourceLoaderStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderStatics2'
     _iid_ = Guid('{0cc04141-6466-4989-9494-0b82dfc53f1f}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
@@ -55,11 +60,13 @@ class IResourceLoaderStatics2(ComPtr):
     def GetForViewIndependentUseWithName(self, name: WinRT_String) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
 class IResourceLoaderStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderStatics3'
     _iid_ = Guid('{64609dfb-64ac-491b-8100-0e558d61c1d0}')
     @winrt_commethod(6)
     def GetForUIContext(self, context: Windows.UI.UIContext) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
 class IResourceLoaderStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderStatics4'
     _iid_ = Guid('{9fb36c32-6c8c-4316-962e-909539b5c259}')
     @winrt_commethod(6)
     def GetDefaultPriPath(self, packageFullName: WinRT_String) -> WinRT_String: ...

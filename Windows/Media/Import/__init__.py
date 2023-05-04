@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPhotoImportDeleteImportedItemsFromSourceResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportDeleteImportedItemsFromSourceResult'
     _iid_ = Guid('{f4e112f8-843d-428a-a1a6-81510292b0ae}')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Media.Import.PhotoImportSession: ...
@@ -68,6 +69,7 @@ class IPhotoImportDeleteImportedItemsFromSourceResult(ComPtr):
     TotalSizeInBytes = property(get_TotalSizeInBytes, None)
 class IPhotoImportFindItemsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportFindItemsResult'
     _iid_ = Guid('{3915e647-6c78-492b-844e-8fe5e8f6bfb9}')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Media.Import.PhotoImportSession: ...
@@ -161,11 +163,13 @@ class IPhotoImportFindItemsResult(ComPtr):
     SelectedTotalSizeInBytes = property(get_SelectedTotalSizeInBytes, None)
 class IPhotoImportFindItemsResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportFindItemsResult2'
     _iid_ = Guid('{fbdd6a3b-ecf9-406a-815e-5015625b0a88}')
     @winrt_commethod(6)
     def AddItemsInDateRangeToSelection(self, rangeStart: Windows.Foundation.DateTime, rangeLength: Windows.Foundation.TimeSpan) -> Void: ...
 class IPhotoImportImportItemsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportImportItemsResult'
     _iid_ = Guid('{e4d4f478-d419-4443-a84e-f06a850c0b00}')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Media.Import.PhotoImportSession: ...
@@ -210,6 +214,7 @@ class IPhotoImportImportItemsResult(ComPtr):
     TotalSizeInBytes = property(get_TotalSizeInBytes, None)
 class IPhotoImportItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportItem'
     _iid_ = Guid('{a9d07e76-9bfc-43b8-b356-633b6a988c9e}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -251,18 +256,21 @@ class IPhotoImportItem(ComPtr):
     DeletedFileNames = property(get_DeletedFileNames, None)
 class IPhotoImportItem2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportItem2'
     _iid_ = Guid('{f1053505-f53b-46a3-9e30-3610791a9110}')
     @winrt_commethod(6)
     def get_Path(self) -> WinRT_String: ...
     Path = property(get_Path, None)
 class IPhotoImportItemImportedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportItemImportedEventArgs'
     _iid_ = Guid('{42cb2fdd-7d68-47b5-bc7c-ceb73e0c77dc}')
     @winrt_commethod(6)
     def get_ImportedItem(self) -> Windows.Media.Import.PhotoImportItem: ...
     ImportedItem = property(get_ImportedItem, None)
 class IPhotoImportManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportManagerStatics'
     _iid_ = Guid('{2771903d-a046-4f06-9b9c-bfd662e83287}')
     @winrt_commethod(6)
     def IsSupportedAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -272,6 +280,7 @@ class IPhotoImportManagerStatics(ComPtr):
     def GetPendingOperations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Import.PhotoImportOperation]: ...
 class IPhotoImportOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportOperation'
     _iid_ = Guid('{d9f797e4-a09a-4ee4-a4b1-20940277a5be}')
     @winrt_commethod(6)
     def get_Stage(self) -> Windows.Media.Import.PhotoImportStage: ...
@@ -290,12 +299,14 @@ class IPhotoImportOperation(ComPtr):
     ContinueDeletingImportedItemsFromSourceAsync = property(get_ContinueDeletingImportedItemsFromSourceAsync, None)
 class IPhotoImportSelectionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportSelectionChangedEventArgs'
     _iid_ = Guid('{10461782-fa9d-4c30-8bc9-4d64911572d5}')
     @winrt_commethod(6)
     def get_IsSelectionEmpty(self) -> Boolean: ...
     IsSelectionEmpty = property(get_IsSelectionEmpty, None)
 class IPhotoImportSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportSession'
     _iid_ = Guid('{aa63916e-ecdb-4efe-94c6-5f5cafe34cfb}')
     @winrt_commethod(6)
     def get_Source(self) -> Windows.Media.Import.PhotoImportSource: ...
@@ -327,6 +338,7 @@ class IPhotoImportSession(ComPtr):
     DestinationFileNamePrefix = property(get_DestinationFileNamePrefix, put_DestinationFileNamePrefix)
 class IPhotoImportSession2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportSession2'
     _iid_ = Guid('{2a526710-3ec6-469d-a375-2b9f4785391e}')
     @winrt_commethod(6)
     def put_SubfolderDateFormat(self, value: Windows.Media.Import.PhotoImportSubfolderDateFormat) -> Void: ...
@@ -340,6 +352,7 @@ class IPhotoImportSession2(ComPtr):
     RememberDeselectedItems = property(get_RememberDeselectedItems, put_RememberDeselectedItems)
 class IPhotoImportSidecar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportSidecar'
     _iid_ = Guid('{46d7d757-f802-44c7-9c98-7a71f4bc1486}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -352,6 +365,7 @@ class IPhotoImportSidecar(ComPtr):
     Date = property(get_Date, None)
 class IPhotoImportSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportSource'
     _iid_ = Guid('{1f8ea35e-145b-4cd6-87f1-54965a982fef}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -405,6 +419,7 @@ class IPhotoImportSource(ComPtr):
     Thumbnail = property(get_Thumbnail, None)
 class IPhotoImportSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportSourceStatics'
     _iid_ = Guid('{0528e586-32d8-467c-8cee-23a1b2f43e85}')
     @winrt_commethod(6)
     def FromIdAsync(self, sourceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Media.Import.PhotoImportSource]: ...
@@ -412,6 +427,7 @@ class IPhotoImportSourceStatics(ComPtr):
     def FromFolderAsync(self, sourceRootFolder: Windows.Storage.IStorageFolder) -> Windows.Foundation.IAsyncOperation[Windows.Media.Import.PhotoImportSource]: ...
 class IPhotoImportStorageMedium(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportStorageMedium'
     _iid_ = Guid('{f2b9b093-fc85-487f-87c2-58d675d05b07}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -438,6 +454,7 @@ class IPhotoImportStorageMedium(ComPtr):
     AvailableSpaceInBytes = property(get_AvailableSpaceInBytes, None)
 class IPhotoImportVideoSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.IPhotoImportVideoSegment'
     _iid_ = Guid('{623c0289-321a-41d8-9166-8c62a333276c}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -719,6 +736,7 @@ PhotoImportItemSelectionMode_SelectNone: PhotoImportItemSelectionMode = 1
 PhotoImportItemSelectionMode_SelectNew: PhotoImportItemSelectionMode = 2
 class PhotoImportManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Import.PhotoImportManager'
     @winrt_classmethod
     def IsSupportedAsync(cls: Windows.Media.Import.IPhotoImportManagerStatics) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod

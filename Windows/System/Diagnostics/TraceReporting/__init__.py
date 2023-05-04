@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPlatformDiagnosticActionsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics'
     _iid_ = Guid('{c1145cfa-9292-4267-890a-9ea3ed072312}')
     @winrt_commethod(6)
     def IsScenarioEnabled(self, scenarioId: Guid) -> Boolean: ...
@@ -42,6 +43,7 @@ class IPlatformDiagnosticActionsStatics(ComPtr):
     def GetKnownTraceList(self, slotType: Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> Windows.Foundation.Collections.IVectorView[Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo]: ...
 class IPlatformDiagnosticTraceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo'
     _iid_ = Guid('{f870ed97-d597-4bf7-88dc-cf5c7dc2a1d2}')
     @winrt_commethod(6)
     def get_ScenarioId(self) -> Guid: ...
@@ -63,6 +65,7 @@ class IPlatformDiagnosticTraceInfo(ComPtr):
     Priority = property(get_Priority, None)
 class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo'
     _iid_ = Guid('{3d4d5e2d-01d8-4768-8554-1eb1ca610986}')
     @winrt_commethod(6)
     def get_RuntimeFileTime(self) -> Int64: ...
@@ -76,6 +79,7 @@ PlatformDiagnosticActionState_FreeNetworkNotAvailable: PlatformDiagnosticActionS
 PlatformDiagnosticActionState_ACPowerNotAvailable: PlatformDiagnosticActionState = 2
 class PlatformDiagnosticActions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions'
     @winrt_classmethod
     def IsScenarioEnabled(cls: Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics, scenarioId: Guid) -> Boolean: ...
     @winrt_classmethod

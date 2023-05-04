@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IInjectedInputGamepadInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfo'
     _iid_ = Guid('{20ae9a3f-df11-4572-a9ab-d75b8a5e48ad}')
     @winrt_commethod(6)
     def get_Buttons(self) -> Windows.Gaming.Input.GamepadButtons: ...
@@ -62,11 +63,13 @@ class IInjectedInputGamepadInfo(ComPtr):
     RightTrigger = property(get_RightTrigger, put_RightTrigger)
 class IInjectedInputGamepadInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfoFactory'
     _iid_ = Guid('{59596876-6c39-4ec4-8b2a-29ef7de18aca}')
     @winrt_commethod(6)
     def CreateInstanceFromGamepadReading(self, reading: Windows.Gaming.Input.GamepadReading) -> Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
 class IInjectedInputKeyboardInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInjectedInputKeyboardInfo'
     _iid_ = Guid('{4b46d140-2b6a-5ffa-7eae-bd077b052acd}')
     @winrt_commethod(6)
     def get_KeyOptions(self) -> Windows.UI.Input.Preview.Injection.InjectedInputKeyOptions: ...
@@ -85,6 +88,7 @@ class IInjectedInputKeyboardInfo(ComPtr):
     VirtualKey = property(get_VirtualKey, put_VirtualKey)
 class IInjectedInputMouseInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInjectedInputMouseInfo'
     _iid_ = Guid('{96f56e6b-e47a-5cf4-418d-8a5fb9670c7d}')
     @winrt_commethod(6)
     def get_MouseOptions(self) -> Windows.UI.Input.Preview.Injection.InjectedInputMouseOptions: ...
@@ -113,6 +117,7 @@ class IInjectedInputMouseInfo(ComPtr):
     TimeOffsetInMilliseconds = property(get_TimeOffsetInMilliseconds, put_TimeOffsetInMilliseconds)
 class IInjectedInputPenInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInjectedInputPenInfo'
     _iid_ = Guid('{6b40ad03-ca1e-5527-7e02-2828540bb1d4}')
     @winrt_commethod(6)
     def get_PointerInfo(self) -> Windows.UI.Input.Preview.Injection.InjectedInputPointerInfo: ...
@@ -151,6 +156,7 @@ class IInjectedInputPenInfo(ComPtr):
     TiltY = property(get_TiltY, put_TiltY)
 class IInjectedInputTouchInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInjectedInputTouchInfo'
     _iid_ = Guid('{224fd1df-43e8-5ef5-510a-69ca8c9b4c28}')
     @winrt_commethod(6)
     def get_Contact(self) -> Windows.UI.Input.Preview.Injection.InjectedInputRectangle: ...
@@ -179,6 +185,7 @@ class IInjectedInputTouchInfo(ComPtr):
     TouchParameters = property(get_TouchParameters, put_TouchParameters)
 class IInputInjector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInputInjector'
     _iid_ = Guid('{8ec26f84-0b02-4bd2-ad7a-3d4658be3e18}')
     @winrt_commethod(6)
     def InjectKeyboardInput(self, input: Windows.Foundation.Collections.IIterable[Windows.UI.Input.Preview.Injection.InjectedInputKeyboardInfo]) -> Void: ...
@@ -200,6 +207,7 @@ class IInputInjector(ComPtr):
     def InjectShortcut(self, shortcut: Windows.UI.Input.Preview.Injection.InjectedInputShortcut) -> Void: ...
 class IInputInjector2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInputInjector2'
     _iid_ = Guid('{8e7a905d-1453-43a7-9bcb-06d6d7b305f7}')
     @winrt_commethod(6)
     def InitializeGamepadInjection(self) -> Void: ...
@@ -209,11 +217,13 @@ class IInputInjector2(ComPtr):
     def UninitializeGamepadInjection(self) -> Void: ...
 class IInputInjectorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInputInjectorStatics'
     _iid_ = Guid('{deae6943-7402-4141-a5c6-0c01aa57b16a}')
     @winrt_commethod(6)
     def TryCreate(self) -> Windows.UI.Input.Preview.Injection.InputInjector: ...
 class IInputInjectorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.Preview.Injection.IInputInjectorStatics2'
     _iid_ = Guid('{a4db38fb-dd8c-414f-95ea-f87ef4c0ae6c}')
     @winrt_commethod(6)
     def TryCreateForAppBroadcastOnly(self) -> Windows.UI.Input.Preview.Injection.InputInjector: ...

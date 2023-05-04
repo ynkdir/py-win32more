@@ -32,6 +32,7 @@ class DisplayRequest(ComPtr):
     def RequestRelease(self: Windows.System.Display.IDisplayRequest) -> Void: ...
 class IDisplayRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Display.IDisplayRequest'
     _iid_ = Guid('{e5732044-f49f-4b60-8dd4-5e7e3a632ac0}')
     @winrt_commethod(6)
     def RequestActive(self) -> Void: ...

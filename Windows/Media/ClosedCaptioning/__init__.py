@@ -46,6 +46,7 @@ ClosedCaptionOpacity_TwentyFivePercent: ClosedCaptionOpacity = 3
 ClosedCaptionOpacity_ZeroPercent: ClosedCaptionOpacity = 4
 class ClosedCaptionProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionProperties'
     @winrt_classmethod
     def get_FontColor(cls: Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics) -> Windows.Media.ClosedCaptioning.ClosedCaptionColor: ...
     @winrt_classmethod
@@ -99,6 +100,7 @@ ClosedCaptionStyle_Cursive: ClosedCaptionStyle = 6
 ClosedCaptionStyle_SmallCapitals: ClosedCaptionStyle = 7
 class IClosedCaptionPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics'
     _iid_ = Guid('{10aa1f84-cc30-4141-b503-5272289e0c20}')
     @winrt_commethod(6)
     def get_FontColor(self) -> Windows.Media.ClosedCaptioning.ClosedCaptionColor: ...

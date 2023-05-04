@@ -26,9 +26,11 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPrintDocumentSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintDocumentSource'
     _iid_ = Guid('{dedc0c30-f1eb-47df-aae6-ed5427511f01}')
 class IPrintManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintManager'
     _iid_ = Guid('{ff2a9694-8c99-44fd-ae4a-19d9aa9a0f0a}')
     @winrt_commethod(6)
     def add_PrintTaskRequested(self, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Graphics.Printing.PrintManager, Windows.Graphics.Printing.PrintTaskRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -36,6 +38,7 @@ class IPrintManager(ComPtr):
     def remove_PrintTaskRequested(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPrintManagerStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintManagerStatic'
     _iid_ = Guid('{58185dcd-e634-4654-84f0-e0152a8217ac}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Graphics.Printing.PrintManager: ...
@@ -43,11 +46,13 @@ class IPrintManagerStatic(ComPtr):
     def ShowPrintUIAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IPrintManagerStatic2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintManagerStatic2'
     _iid_ = Guid('{35a99955-e6ab-4139-9abd-b86a729b3598}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
 class IPrintPageInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintPageInfo'
     _iid_ = Guid('{dd4be9c9-a6a1-4ada-930e-da872a4f23d3}')
     @winrt_commethod(6)
     def put_MediaSize(self, value: Windows.Graphics.Printing.PrintMediaSize) -> Void: ...
@@ -76,6 +81,7 @@ class IPrintPageInfo(ComPtr):
     Orientation = property(get_Orientation, put_Orientation)
 class IPrintPageRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintPageRange'
     _iid_ = Guid('{f8a06c54-6e7c-51c5-57fd-0660c2d71513}')
     @winrt_commethod(6)
     def get_FirstPageNumber(self) -> Int32: ...
@@ -85,6 +91,7 @@ class IPrintPageRange(ComPtr):
     LastPageNumber = property(get_LastPageNumber, None)
 class IPrintPageRangeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintPageRangeFactory'
     _iid_ = Guid('{408fd45f-e047-5f85-7129-fb085a4fad14}')
     @winrt_commethod(6)
     def Create(self, firstPage: Int32, lastPage: Int32) -> Windows.Graphics.Printing.PrintPageRange: ...
@@ -92,6 +99,7 @@ class IPrintPageRangeFactory(ComPtr):
     def CreateWithSinglePage(self, page: Int32) -> Windows.Graphics.Printing.PrintPageRange: ...
 class IPrintPageRangeOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintPageRangeOptions'
     _iid_ = Guid('{ce6db728-1357-46b2-a923-79f995f448fc}')
     @winrt_commethod(6)
     def put_AllowAllPages(self, value: Boolean) -> Void: ...
@@ -110,6 +118,7 @@ class IPrintPageRangeOptions(ComPtr):
     AllowCustomSetOfPages = property(get_AllowCustomSetOfPages, put_AllowCustomSetOfPages)
 class IPrintTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTask'
     _iid_ = Guid('{61d80247-6cf6-4fad-84e2-a5e82e2d4ceb}')
     @winrt_commethod(6)
     def get_Properties(self) -> Windows.ApplicationModel.DataTransfer.DataPackagePropertySet: ...
@@ -138,6 +147,7 @@ class IPrintTask(ComPtr):
     Options = property(get_Options, None)
 class IPrintTask2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTask2'
     _iid_ = Guid('{36234877-3e53-4d9d-8f5e-316ac8dedae1}')
     @winrt_commethod(6)
     def put_IsPreviewEnabled(self, value: Boolean) -> Void: ...
@@ -146,12 +156,14 @@ class IPrintTask2(ComPtr):
     IsPreviewEnabled = property(get_IsPreviewEnabled, put_IsPreviewEnabled)
 class IPrintTaskCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskCompletedEventArgs'
     _iid_ = Guid('{5bcd34af-24e9-4c10-8d07-14c346ba3fce}')
     @winrt_commethod(6)
     def get_Completion(self) -> Windows.Graphics.Printing.PrintTaskCompletion: ...
     Completion = property(get_Completion, None)
 class IPrintTaskOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskOptions'
     _iid_ = Guid('{5a0a66bb-d289-41bb-96dd-57e28338ae3f}')
     @winrt_commethod(6)
     def put_Bordering(self, value: Windows.Graphics.Printing.PrintBordering) -> Void: ...
@@ -162,6 +174,7 @@ class IPrintTaskOptions(ComPtr):
     Bordering = property(get_Bordering, put_Bordering)
 class IPrintTaskOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskOptions2'
     _iid_ = Guid('{eb9b1606-9a36-4b59-8617-b217849262e1}')
     @winrt_commethod(6)
     def get_PageRangeOptions(self) -> Windows.Graphics.Printing.PrintPageRangeOptions: ...
@@ -171,11 +184,13 @@ class IPrintTaskOptions2(ComPtr):
     CustomPageRanges = property(get_CustomPageRanges, None)
 class IPrintTaskOptionsCore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskOptionsCore'
     _iid_ = Guid('{1bdbb474-4ed1-41eb-be3c-72d18ed67337}')
     @winrt_commethod(6)
     def GetPageDescription(self, jobPageNumber: UInt32) -> Windows.Graphics.Printing.PrintPageDescription: ...
 class IPrintTaskOptionsCoreProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskOptionsCoreProperties'
     _iid_ = Guid('{c1b71832-9e93-4e55-814b-3326a59efce1}')
     @winrt_commethod(6)
     def put_MediaSize(self, value: Windows.Graphics.Printing.PrintMediaSize) -> Void: ...
@@ -240,18 +255,21 @@ class IPrintTaskOptionsCoreProperties(ComPtr):
     NumberOfCopies = property(get_NumberOfCopies, put_NumberOfCopies)
 class IPrintTaskOptionsCoreUIConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskOptionsCoreUIConfiguration'
     _iid_ = Guid('{62e69e23-9a1e-4336-b74f-3cc7f4cff709}')
     @winrt_commethod(6)
     def get_DisplayedOptions(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     DisplayedOptions = property(get_DisplayedOptions, None)
 class IPrintTaskProgressingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskProgressingEventArgs'
     _iid_ = Guid('{810cd3cb-b410-4282-a073-5ac378234174}')
     @winrt_commethod(6)
     def get_DocumentPageCount(self) -> UInt32: ...
     DocumentPageCount = property(get_DocumentPageCount, None)
 class IPrintTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskRequest'
     _iid_ = Guid('{6ff61e2e-2722-4240-a67c-f364849a17f3}')
     @winrt_commethod(6)
     def get_Deadline(self) -> Windows.Foundation.DateTime: ...
@@ -262,17 +280,20 @@ class IPrintTaskRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class IPrintTaskRequestedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskRequestedDeferral'
     _iid_ = Guid('{cfefb3f0-ce3e-42c7-9496-64800c622c44}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IPrintTaskRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskRequestedEventArgs'
     _iid_ = Guid('{d0aff924-a31b-454c-a7b6-5d0cc522fc16}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Graphics.Printing.PrintTaskRequest: ...
     Request = property(get_Request, None)
 class IPrintTaskSourceRequestedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskSourceRequestedArgs'
     _iid_ = Guid('{f9f067be-f456-41f0-9c98-5ce73e851410}')
     @winrt_commethod(6)
     def get_Deadline(self) -> Windows.Foundation.DateTime: ...
@@ -283,11 +304,13 @@ class IPrintTaskSourceRequestedArgs(ComPtr):
     Deadline = property(get_Deadline, None)
 class IPrintTaskSourceRequestedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskSourceRequestedDeferral'
     _iid_ = Guid('{4a1560d1-6992-4d9d-8555-4ca4563fb166}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IPrintTaskTargetDeviceSupport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IPrintTaskTargetDeviceSupport'
     _iid_ = Guid('{295d70c0-c2cb-4b7d-b0ea-93095091a220}')
     @winrt_commethod(6)
     def put_IsPrinterTargetEnabled(self, value: Boolean) -> Void: ...
@@ -301,6 +324,7 @@ class IPrintTaskTargetDeviceSupport(ComPtr):
     Is3DManufacturingTargetEnabled = property(get_Is3DManufacturingTargetEnabled, put_Is3DManufacturingTargetEnabled)
 class IStandardPrintTaskOptionsStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic'
     _iid_ = Guid('{b4483d26-0dd0-4cd4-baff-930fc7d6a574}')
     @winrt_commethod(6)
     def get_MediaSize(self) -> WinRT_String: ...
@@ -343,12 +367,14 @@ class IStandardPrintTaskOptionsStatic(ComPtr):
     InputBin = property(get_InputBin, None)
 class IStandardPrintTaskOptionsStatic2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic2'
     _iid_ = Guid('{3be38bf4-7a44-4269-9a52-81261e289ee9}')
     @winrt_commethod(6)
     def get_Bordering(self) -> WinRT_String: ...
     Bordering = property(get_Bordering, None)
 class IStandardPrintTaskOptionsStatic3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic3'
     _iid_ = Guid('{bbf68e86-3858-41b3-a799-55dd9888d475}')
     @winrt_commethod(6)
     def get_CustomPageRanges(self) -> WinRT_String: ...
@@ -918,12 +944,13 @@ class PrintTaskSourceRequestedDeferral(ComPtr):
     def Complete(self: Windows.Graphics.Printing.IPrintTaskSourceRequestedDeferral) -> Void: ...
 class PrintTaskSourceRequestedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{6c109fa8-5cb6-4b3a-8663-f39cb02dc9b4}')
     _classid_ = 'Windows.Graphics.Printing.PrintTaskSourceRequestedHandler'
+    _iid_ = Guid('{6c109fa8-5cb6-4b3a-8663-f39cb02dc9b4}')
     @winrt_commethod(3)
     def Invoke(self, args: Windows.Graphics.Printing.PrintTaskSourceRequestedArgs) -> Void: ...
 class StandardPrintTaskOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.StandardPrintTaskOptions'
     @winrt_classmethod
     def get_CustomPageRanges(cls: Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic3) -> WinRT_String: ...
     @winrt_classmethod

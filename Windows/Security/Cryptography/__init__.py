@@ -27,6 +27,7 @@ BinaryStringEncoding_Utf16LE: BinaryStringEncoding = 1
 BinaryStringEncoding_Utf16BE: BinaryStringEncoding = 2
 class CryptographicBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Cryptography.CryptographicBuffer'
     @winrt_classmethod
     def Compare(cls: Windows.Security.Cryptography.ICryptographicBufferStatics, object1: Windows.Storage.Streams.IBuffer, object2: Windows.Storage.Streams.IBuffer) -> Boolean: ...
     @winrt_classmethod
@@ -51,6 +52,7 @@ class CryptographicBuffer(ComPtr):
     def ConvertBinaryToString(cls: Windows.Security.Cryptography.ICryptographicBufferStatics, encoding: Windows.Security.Cryptography.BinaryStringEncoding, buffer: Windows.Storage.Streams.IBuffer) -> WinRT_String: ...
 class ICryptographicBufferStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Cryptography.ICryptographicBufferStatics'
     _iid_ = Guid('{320b7e22-3cb0-4cdf-8663-1d28910065eb}')
     @winrt_commethod(6)
     def Compare(self, object1: Windows.Storage.Streams.IBuffer, object2: Windows.Storage.Streams.IBuffer) -> Boolean: ...

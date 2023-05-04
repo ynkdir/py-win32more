@@ -39,6 +39,7 @@ class Battery(ComPtr):
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
 class IBattery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Devices.Power.IBattery'
     _iid_ = Guid('{972adbdd-6720-4702-a476-b9d38a0070e3}')
     @winrt_commethod(6)
     def get_RemainingChargePercent(self) -> Int32: ...
@@ -52,6 +53,7 @@ class IBattery(ComPtr):
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
 class IBatteryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.Devices.Power.IBatteryStatics'
     _iid_ = Guid('{faf5bc70-6369-11e1-b86c-0800200c9a66}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Phone.Devices.Power.Battery: ...

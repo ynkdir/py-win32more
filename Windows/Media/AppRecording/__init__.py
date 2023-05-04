@@ -132,6 +132,7 @@ class AppRecordingStatusDetails(ComPtr):
     IsDisabledBySystem = property(get_IsDisabledBySystem, None)
 class IAppRecordingManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppRecording.IAppRecordingManager'
     _iid_ = Guid('{e7e26076-a044-48e2-a512-3094d574c7cc}')
     @winrt_commethod(6)
     def GetStatus(self) -> Windows.Media.AppRecording.AppRecordingStatus: ...
@@ -146,11 +147,13 @@ class IAppRecordingManager(ComPtr):
     SupportedScreenshotMediaEncodingSubtypes = property(get_SupportedScreenshotMediaEncodingSubtypes, None)
 class IAppRecordingManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppRecording.IAppRecordingManagerStatics'
     _iid_ = Guid('{50e709f7-38ce-4bd3-9db2-e72bbe9de11d}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Media.AppRecording.AppRecordingManager: ...
 class IAppRecordingResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppRecording.IAppRecordingResult'
     _iid_ = Guid('{3a900864-c66d-46f9-b2d9-5bc2dad070d7}')
     @winrt_commethod(6)
     def get_Succeeded(self) -> Boolean: ...
@@ -166,6 +169,7 @@ class IAppRecordingResult(ComPtr):
     IsFileTruncated = property(get_IsFileTruncated, None)
 class IAppRecordingSaveScreenshotResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppRecording.IAppRecordingSaveScreenshotResult'
     _iid_ = Guid('{9c5b8d0a-0abb-4457-aaee-24f9c12ec778}')
     @winrt_commethod(6)
     def get_Succeeded(self) -> Boolean: ...
@@ -178,6 +182,7 @@ class IAppRecordingSaveScreenshotResult(ComPtr):
     SavedScreenshotInfos = property(get_SavedScreenshotInfos, None)
 class IAppRecordingSavedScreenshotInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppRecording.IAppRecordingSavedScreenshotInfo'
     _iid_ = Guid('{9b642d0a-189a-4d00-bf25-e1bb1249d594}')
     @winrt_commethod(6)
     def get_File(self) -> Windows.Storage.StorageFile: ...
@@ -187,6 +192,7 @@ class IAppRecordingSavedScreenshotInfo(ComPtr):
     MediaEncodingSubtype = property(get_MediaEncodingSubtype, None)
 class IAppRecordingStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppRecording.IAppRecordingStatus'
     _iid_ = Guid('{1d0cc82c-bc18-4b8a-a6ef-127efab3b5d9}')
     @winrt_commethod(6)
     def get_CanRecord(self) -> Boolean: ...
@@ -202,6 +208,7 @@ class IAppRecordingStatus(ComPtr):
     Details = property(get_Details, None)
 class IAppRecordingStatusDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppRecording.IAppRecordingStatusDetails'
     _iid_ = Guid('{b538a9b0-14ed-4412-ac45-6d672c9c9949}')
     @winrt_commethod(6)
     def get_IsAnyAppBroadcasting(self) -> Boolean: ...

@@ -31,6 +31,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IVpnAppId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnAppId'
     _iid_ = Guid('{7b06a635-5c58-41d9-94a7-bfbcf1d8ca54}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.Networking.Vpn.VpnAppIdType: ...
@@ -44,11 +45,13 @@ class IVpnAppId(ComPtr):
     Value = property(get_Value, put_Value)
 class IVpnAppIdFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnAppIdFactory'
     _iid_ = Guid('{46adfd2a-0aab-4fdb-821d-d3ddc919788b}')
     @winrt_commethod(6)
     def Create(self, type: Windows.Networking.Vpn.VpnAppIdType, value: WinRT_String) -> Windows.Networking.Vpn.VpnAppId: ...
 class IVpnChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannel'
     _iid_ = Guid('{4ac78d07-d1a8-4303-a091-c8d2e0915bc3}')
     @winrt_commethod(6)
     def AssociateTransport(self, mainOuterTunnelTransport: Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
@@ -88,6 +91,7 @@ class IVpnChannel(ComPtr):
     SystemHealth = property(get_SystemHealth, None)
 class IVpnChannel2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannel2'
     _iid_ = Guid('{2255d165-993b-4629-ad60-f1c3f3537f50}')
     @winrt_commethod(6)
     def StartWithMainTransport(self, assignedClientIPv4list: Windows.Foundation.Collections.IVectorView[Windows.Networking.HostName], assignedClientIPv6list: Windows.Foundation.Collections.IVectorView[Windows.Networking.HostName], vpnInterfaceId: Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: Windows.Networking.Vpn.VpnRouteAssignment, assignedDomainName: Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, Reserved: Boolean, mainOuterTunnelTransport: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
@@ -115,6 +119,7 @@ class IVpnChannel2(ComPtr):
     def StartWithTrafficFilter(self, assignedClientIpv4List: Windows.Foundation.Collections.IVectorView[Windows.Networking.HostName], assignedClientIpv6List: Windows.Foundation.Collections.IVectorView[Windows.Networking.HostName], vpnInterfaceId: Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, mainOuterTunnelTransport: Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: Windows.Win32.System.WinRT.IInspectable_head, assignedTrafficFilters: Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
 class IVpnChannel4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannel4'
     _iid_ = Guid('{d7266ede-2937-419d-9570-486aebb81803}')
     @winrt_commethod(6)
     def AddAndAssociateTransport(self, transport: Windows.Win32.System.WinRT.IInspectable_head, context: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
@@ -131,6 +136,7 @@ class IVpnChannel4(ComPtr):
     CurrentRequestTransportContext = property(get_CurrentRequestTransportContext, None)
 class IVpnChannel5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannel5'
     _iid_ = Guid('{de7a0992-8384-4fbc-882c-1fd23124cd3b}')
     @winrt_commethod(6)
     def AppendVpnReceivePacketBuffer(self, decapsulatedPacketBuffer: Windows.Networking.Vpn.VpnPacketBuffer) -> Void: ...
@@ -142,23 +148,27 @@ class IVpnChannel5(ComPtr):
     def FlushVpnSendPacketBuffers(self) -> Void: ...
 class IVpnChannel6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannel6'
     _iid_ = Guid('{55843696-bd63-49c5-abca-5da77885551a}')
     @winrt_commethod(6)
     def ActivateForeground(self, packageRelativeAppId: WinRT_String, sharedContext: Windows.Foundation.Collections.ValueSet) -> Windows.Foundation.Collections.ValueSet: ...
 class IVpnChannelActivityEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannelActivityEventArgs'
     _iid_ = Guid('{a36c88f2-afdc-4775-855d-d4ac0a35fc55}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.Networking.Vpn.VpnChannelActivityEventType: ...
     Type = property(get_Type, None)
 class IVpnChannelActivityStateChangedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannelActivityStateChangedArgs'
     _iid_ = Guid('{3d750565-fdc0-4bbe-a23b-45fffc6d97a1}')
     @winrt_commethod(6)
     def get_ActivityState(self) -> Windows.Networking.Vpn.VpnChannelActivityEventType: ...
     ActivityState = property(get_ActivityState, None)
 class IVpnChannelConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannelConfiguration'
     _iid_ = Guid('{0e2ddca2-2012-4fe4-b179-8c652c6d107e}')
     @winrt_commethod(6)
     def get_ServerServiceName(self) -> WinRT_String: ...
@@ -171,17 +181,20 @@ class IVpnChannelConfiguration(ComPtr):
     CustomField = property(get_CustomField, None)
 class IVpnChannelConfiguration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannelConfiguration2'
     _iid_ = Guid('{f30b574c-7824-471c-a118-63dbc93ae4c7}')
     @winrt_commethod(6)
     def get_ServerUris(self) -> Windows.Foundation.Collections.IVectorView[Windows.Foundation.Uri]: ...
     ServerUris = property(get_ServerUris, None)
 class IVpnChannelStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnChannelStatics'
     _iid_ = Guid('{88eb062d-e818-4ffd-98a6-363e3736c95d}')
     @winrt_commethod(6)
     def ProcessEventAsync(self, thirdPartyPlugIn: Windows.Win32.System.WinRT.IInspectable_head, event: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class IVpnCredential(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCredential'
     _iid_ = Guid('{b7e78af3-a46d-404b-8729-1832522853ac}')
     @winrt_commethod(6)
     def get_PasskeyCredential(self) -> Windows.Security.Credentials.PasswordCredential: ...
@@ -197,6 +210,7 @@ class IVpnCredential(ComPtr):
     OldPasswordCredential = property(get_OldPasswordCredential, None)
 class IVpnCustomCheckBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomCheckBox'
     _iid_ = Guid('{43878753-03c5-4e61-93d7-a957714c4282}')
     @winrt_commethod(6)
     def put_InitialCheckState(self, value: Boolean) -> Void: ...
@@ -208,6 +222,7 @@ class IVpnCustomCheckBox(ComPtr):
     Checked = property(get_Checked, None)
 class IVpnCustomComboBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomComboBox'
     _iid_ = Guid('{9a24158e-dba1-4c6f-8270-dcf3c9761c4c}')
     @winrt_commethod(6)
     def put_OptionsText(self, value: Windows.Foundation.Collections.IVectorView[WinRT_String]) -> Void: ...
@@ -219,6 +234,7 @@ class IVpnCustomComboBox(ComPtr):
     Selected = property(get_Selected, None)
 class IVpnCustomEditBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomEditBox'
     _iid_ = Guid('{3002d9a0-cfbf-4c0b-8f3c-66f503c20b39}')
     @winrt_commethod(6)
     def put_DefaultText(self, value: WinRT_String) -> Void: ...
@@ -235,9 +251,11 @@ class IVpnCustomEditBox(ComPtr):
     Text = property(get_Text, None)
 class IVpnCustomErrorBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomErrorBox'
     _iid_ = Guid('{9ec4efb2-c942-42af-b223-588b48328721}')
 class IVpnCustomPrompt(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomPrompt'
     _iid_ = Guid('{9b2ebe7b-87d5-433c-b4f6-eee6aa68a244}')
     @winrt_commethod(6)
     def put_Label(self, value: WinRT_String) -> Void: ...
@@ -256,6 +274,7 @@ class IVpnCustomPrompt(ComPtr):
     Bordered = property(get_Bordered, put_Bordered)
 class IVpnCustomPromptBooleanInput(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomPromptBooleanInput'
     _iid_ = Guid('{c4c9a69e-ff47-4527-9f27-a49292019979}')
     @winrt_commethod(6)
     def put_InitialValue(self, value: Boolean) -> Void: ...
@@ -267,6 +286,7 @@ class IVpnCustomPromptBooleanInput(ComPtr):
     Value = property(get_Value, None)
 class IVpnCustomPromptElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomPromptElement'
     _iid_ = Guid('{73bd5638-6f04-404d-93dd-50a44924a38b}')
     @winrt_commethod(6)
     def put_DisplayName(self, value: WinRT_String) -> Void: ...
@@ -285,6 +305,7 @@ class IVpnCustomPromptElement(ComPtr):
     Emphasized = property(get_Emphasized, put_Emphasized)
 class IVpnCustomPromptOptionSelector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomPromptOptionSelector'
     _iid_ = Guid('{3b8f34d9-8ec1-4e95-9a4e-7ba64d38f330}')
     @winrt_commethod(6)
     def get_Options(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
@@ -294,6 +315,7 @@ class IVpnCustomPromptOptionSelector(ComPtr):
     SelectedIndex = property(get_SelectedIndex, None)
 class IVpnCustomPromptText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomPromptText'
     _iid_ = Guid('{3bc8bdee-3a42-49a3-abdd-07b2edea752d}')
     @winrt_commethod(6)
     def put_Text(self, value: WinRT_String) -> Void: ...
@@ -302,6 +324,7 @@ class IVpnCustomPromptText(ComPtr):
     Text = property(get_Text, put_Text)
 class IVpnCustomPromptTextInput(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomPromptTextInput'
     _iid_ = Guid('{c9da9c75-913c-47d5-88ba-48fc48930235}')
     @winrt_commethod(6)
     def put_PlaceholderText(self, value: WinRT_String) -> Void: ...
@@ -318,6 +341,7 @@ class IVpnCustomPromptTextInput(ComPtr):
     Text = property(get_Text, None)
 class IVpnCustomTextBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnCustomTextBox'
     _iid_ = Guid('{daa4c3ca-8f23-4d36-91f1-76d937827942}')
     @winrt_commethod(6)
     def put_DisplayText(self, value: WinRT_String) -> Void: ...
@@ -326,6 +350,7 @@ class IVpnCustomTextBox(ComPtr):
     DisplayText = property(get_DisplayText, put_DisplayText)
 class IVpnDomainNameAssignment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnDomainNameAssignment'
     _iid_ = Guid('{4135b141-ccdb-49b5-9401-039a8ae767e9}')
     @winrt_commethod(6)
     def get_DomainNameList(self) -> Windows.Foundation.Collections.IVector[Windows.Networking.Vpn.VpnDomainNameInfo]: ...
@@ -337,6 +362,7 @@ class IVpnDomainNameAssignment(ComPtr):
     ProxyAutoConfigurationUri = property(get_ProxyAutoConfigurationUri, put_ProxyAutoConfigurationUri)
 class IVpnDomainNameInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnDomainNameInfo'
     _iid_ = Guid('{ad2eb82f-ea8e-4f7a-843e-1a87e32e1b9a}')
     @winrt_commethod(6)
     def put_DomainName(self, value: Windows.Networking.HostName) -> Void: ...
@@ -356,17 +382,20 @@ class IVpnDomainNameInfo(ComPtr):
     WebProxyServers = property(get_WebProxyServers, None)
 class IVpnDomainNameInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnDomainNameInfo2'
     _iid_ = Guid('{ab871151-6c53-4828-9883-d886de104407}')
     @winrt_commethod(6)
     def get_WebProxyUris(self) -> Windows.Foundation.Collections.IVector[Windows.Foundation.Uri]: ...
     WebProxyUris = property(get_WebProxyUris, None)
 class IVpnDomainNameInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnDomainNameInfoFactory'
     _iid_ = Guid('{2507bb75-028f-4688-8d3a-c4531df37da8}')
     @winrt_commethod(6)
     def CreateVpnDomainNameInfo(self, name: WinRT_String, nameType: Windows.Networking.Vpn.VpnDomainNameType, dnsServerList: Windows.Foundation.Collections.IIterable[Windows.Networking.HostName], proxyServerList: Windows.Foundation.Collections.IIterable[Windows.Networking.HostName]) -> Windows.Networking.Vpn.VpnDomainNameInfo: ...
 class IVpnForegroundActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnForegroundActivatedEventArgs'
     _iid_ = Guid('{85b465b0-cadb-4d70-ac92-543a24dc9ebc}')
     @winrt_commethod(6)
     def get_ProfileName(self) -> WinRT_String: ...
@@ -379,21 +408,25 @@ class IVpnForegroundActivatedEventArgs(ComPtr):
     ActivationOperation = property(get_ActivationOperation, None)
 class IVpnForegroundActivationOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnForegroundActivationOperation'
     _iid_ = Guid('{9e010d57-f17a-4bd5-9b6d-f984f1297d3c}')
     @winrt_commethod(6)
     def Complete(self, result: Windows.Foundation.Collections.ValueSet) -> Void: ...
 class IVpnInterfaceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnInterfaceId'
     _iid_ = Guid('{9e2ddca2-1712-4ce4-b179-8c652c6d1011}')
     @winrt_commethod(6)
     def GetAddressInfo(self, id: POINTER(c_char_p_no)) -> Void: ...
 class IVpnInterfaceIdFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnInterfaceIdFactory'
     _iid_ = Guid('{9e2ddca2-1712-4ce4-b179-8c652c6d1000}')
     @winrt_commethod(6)
     def CreateVpnInterfaceId(self, address: c_char_p_no) -> Windows.Networking.Vpn.VpnInterfaceId: ...
 class IVpnManagementAgent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnManagementAgent'
     _iid_ = Guid('{193696cd-a5c4-4abe-852b-785be4cb3e34}')
     @winrt_commethod(6)
     def AddProfileFromXmlAsync(self, xml: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Networking.Vpn.VpnManagementErrorStatus]: ...
@@ -415,6 +448,7 @@ class IVpnManagementAgent(ComPtr):
     def DisconnectProfileAsync(self, profile: Windows.Networking.Vpn.IVpnProfile) -> Windows.Foundation.IAsyncOperation[Windows.Networking.Vpn.VpnManagementErrorStatus]: ...
 class IVpnNamespaceAssignment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnNamespaceAssignment'
     _iid_ = Guid('{d7f7db18-307d-4c0e-bd62-8fa270bbadd6}')
     @winrt_commethod(6)
     def put_NamespaceList(self, value: Windows.Foundation.Collections.IVector[Windows.Networking.Vpn.VpnNamespaceInfo]) -> Void: ...
@@ -428,6 +462,7 @@ class IVpnNamespaceAssignment(ComPtr):
     ProxyAutoConfigUri = property(get_ProxyAutoConfigUri, put_ProxyAutoConfigUri)
 class IVpnNamespaceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnNamespaceInfo'
     _iid_ = Guid('{30edfb43-444f-44c5-8167-a35a91f1af94}')
     @winrt_commethod(6)
     def put_Namespace(self, value: WinRT_String) -> Void: ...
@@ -446,11 +481,13 @@ class IVpnNamespaceInfo(ComPtr):
     WebProxyServers = property(get_WebProxyServers, put_WebProxyServers)
 class IVpnNamespaceInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnNamespaceInfoFactory'
     _iid_ = Guid('{cb3e951a-b0ce-442b-acbb-5f99b202c31c}')
     @winrt_commethod(6)
     def CreateVpnNamespaceInfo(self, name: WinRT_String, dnsServerList: Windows.Foundation.Collections.IVector[Windows.Networking.HostName], proxyServerList: Windows.Foundation.Collections.IVector[Windows.Networking.HostName]) -> Windows.Networking.Vpn.VpnNamespaceInfo: ...
 class IVpnNativeProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnNativeProfile'
     _iid_ = Guid('{a4aee29e-6417-4333-9842-f0a66db69802}')
     @winrt_commethod(6)
     def get_Servers(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
@@ -482,6 +519,7 @@ class IVpnNativeProfile(ComPtr):
     EapConfiguration = property(get_EapConfiguration, put_EapConfiguration)
 class IVpnNativeProfile2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnNativeProfile2'
     _iid_ = Guid('{0fec2467-cdb5-4ac7-b5a3-0afb5ec47682}')
     @winrt_commethod(6)
     def get_RequireVpnClientAppUI(self) -> Boolean: ...
@@ -493,6 +531,7 @@ class IVpnNativeProfile2(ComPtr):
     ConnectionStatus = property(get_ConnectionStatus, None)
 class IVpnPacketBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPacketBuffer'
     _iid_ = Guid('{c2f891fc-4d5c-4a63-b70d-4e307eacce55}')
     @winrt_commethod(6)
     def get_Buffer(self) -> Windows.Storage.Streams.Buffer: ...
@@ -509,12 +548,14 @@ class IVpnPacketBuffer(ComPtr):
     TransportAffinity = property(get_TransportAffinity, put_TransportAffinity)
 class IVpnPacketBuffer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPacketBuffer2'
     _iid_ = Guid('{665e91f0-8805-4bf5-a619-2e84882e6b4f}')
     @winrt_commethod(6)
     def get_AppId(self) -> Windows.Networking.Vpn.VpnAppId: ...
     AppId = property(get_AppId, None)
 class IVpnPacketBuffer3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPacketBuffer3'
     _iid_ = Guid('{e256072f-107b-4c40-b127-5bc53e0ad960}')
     @winrt_commethod(6)
     def put_TransportContext(self, value: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
@@ -523,11 +564,13 @@ class IVpnPacketBuffer3(ComPtr):
     TransportContext = property(get_TransportContext, put_TransportContext)
 class IVpnPacketBufferFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPacketBufferFactory'
     _iid_ = Guid('{9e2ddca2-1712-4ce4-b179-8c652c6d9999}')
     @winrt_commethod(6)
     def CreateVpnPacketBuffer(self, parentBuffer: Windows.Networking.Vpn.VpnPacketBuffer, offset: UInt32, length: UInt32) -> Windows.Networking.Vpn.VpnPacketBuffer: ...
 class IVpnPacketBufferList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPacketBufferList'
     _iid_ = Guid('{c2f891fc-4d5c-4a63-b70d-4e307eacce77}')
     @winrt_commethod(6)
     def Append(self, nextVpnPacketBuffer: Windows.Networking.Vpn.VpnPacketBuffer) -> Void: ...
@@ -549,6 +592,7 @@ class IVpnPacketBufferList(ComPtr):
     Size = property(get_Size, None)
 class IVpnPacketBufferList2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPacketBufferList2'
     _iid_ = Guid('{3e7acfe5-ea1e-482a-8d98-c065f57d89ea}')
     @winrt_commethod(6)
     def AddLeadingPacket(self, nextVpnPacketBuffer: Windows.Networking.Vpn.VpnPacketBuffer) -> Void: ...
@@ -560,6 +604,7 @@ class IVpnPacketBufferList2(ComPtr):
     def RemoveTrailingPacket(self) -> Windows.Networking.Vpn.VpnPacketBuffer: ...
 class IVpnPickedCredential(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPickedCredential'
     _iid_ = Guid('{9a793ac7-8854-4e52-ad97-24dd9a842bce}')
     @winrt_commethod(6)
     def get_PasskeyCredential(self) -> Windows.Security.Credentials.PasswordCredential: ...
@@ -572,6 +617,7 @@ class IVpnPickedCredential(ComPtr):
     OldPasswordCredential = property(get_OldPasswordCredential, None)
 class IVpnPlugIn(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPlugIn'
     _iid_ = Guid('{ceb78d07-d0a8-4703-a091-c8c2c0915bc4}')
     @winrt_commethod(6)
     def Connect(self, channel: Windows.Networking.Vpn.VpnChannel) -> Void: ...
@@ -585,6 +631,7 @@ class IVpnPlugIn(ComPtr):
     def Decapsulate(self, channel: Windows.Networking.Vpn.VpnChannel, encapBuffer: Windows.Networking.Vpn.VpnPacketBuffer, decapsulatedPackets: Windows.Networking.Vpn.VpnPacketBufferList, controlPacketsToSend: Windows.Networking.Vpn.VpnPacketBufferList) -> Void: ...
 class IVpnPlugInProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPlugInProfile'
     _iid_ = Guid('{0edf0da4-4f00-4589-8d7b-4bf988f6542c}')
     @winrt_commethod(6)
     def get_ServerUris(self) -> Windows.Foundation.Collections.IVector[Windows.Foundation.Uri]: ...
@@ -601,6 +648,7 @@ class IVpnPlugInProfile(ComPtr):
     VpnPluginPackageFamilyName = property(get_VpnPluginPackageFamilyName, put_VpnPluginPackageFamilyName)
 class IVpnPlugInProfile2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPlugInProfile2'
     _iid_ = Guid('{611c4892-cf94-4ad6-ba99-00f4ff34565e}')
     @winrt_commethod(6)
     def get_RequireVpnClientAppUI(self) -> Boolean: ...
@@ -612,6 +660,7 @@ class IVpnPlugInProfile2(ComPtr):
     ConnectionStatus = property(get_ConnectionStatus, None)
 class IVpnProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnProfile'
     _iid_ = Guid('{7875b751-b0d7-43db-8a93-d3fe2479e56a}')
     @winrt_commethod(6)
     def get_ProfileName(self) -> WinRT_String: ...
@@ -642,6 +691,7 @@ class IVpnProfile(ComPtr):
     AlwaysOn = property(get_AlwaysOn, put_AlwaysOn)
 class IVpnRoute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnRoute'
     _iid_ = Guid('{b5731b83-0969-4699-938e-7776db29cfb3}')
     @winrt_commethod(6)
     def put_Address(self, value: Windows.Networking.HostName) -> Void: ...
@@ -655,6 +705,7 @@ class IVpnRoute(ComPtr):
     PrefixSize = property(get_PrefixSize, put_PrefixSize)
 class IVpnRouteAssignment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnRouteAssignment'
     _iid_ = Guid('{db64de22-ce39-4a76-9550-f61039f80e48}')
     @winrt_commethod(6)
     def put_Ipv4InclusionRoutes(self, value: Windows.Foundation.Collections.IVector[Windows.Networking.Vpn.VpnRoute]) -> Void: ...
@@ -683,17 +734,20 @@ class IVpnRouteAssignment(ComPtr):
     ExcludeLocalSubnets = property(get_ExcludeLocalSubnets, put_ExcludeLocalSubnets)
 class IVpnRouteFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnRouteFactory'
     _iid_ = Guid('{bdeab5ff-45cf-4b99-83fb-db3bc2672b02}')
     @winrt_commethod(6)
     def CreateVpnRoute(self, address: Windows.Networking.HostName, prefixSize: Byte) -> Windows.Networking.Vpn.VpnRoute: ...
 class IVpnSystemHealth(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnSystemHealth'
     _iid_ = Guid('{99a8f8af-c0ee-4e75-817a-f231aee5123d}')
     @winrt_commethod(6)
     def get_StatementOfHealth(self) -> Windows.Storage.Streams.Buffer: ...
     StatementOfHealth = property(get_StatementOfHealth, None)
 class IVpnTrafficFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnTrafficFilter'
     _iid_ = Guid('{2f691b60-6c9f-47f5-ac36-bb1b042e2c50}')
     @winrt_commethod(6)
     def get_AppId(self) -> Windows.Networking.Vpn.VpnAppId: ...
@@ -727,6 +781,7 @@ class IVpnTrafficFilter(ComPtr):
     RoutingPolicyType = property(get_RoutingPolicyType, put_RoutingPolicyType)
 class IVpnTrafficFilterAssignment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnTrafficFilterAssignment'
     _iid_ = Guid('{56ccd45c-e664-471e-89cd-601603b9e0f3}')
     @winrt_commethod(6)
     def get_TrafficFilterList(self) -> Windows.Foundation.Collections.IVector[Windows.Networking.Vpn.VpnTrafficFilter]: ...
@@ -743,6 +798,7 @@ class IVpnTrafficFilterAssignment(ComPtr):
     AllowInbound = property(get_AllowInbound, put_AllowInbound)
 class IVpnTrafficFilterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnTrafficFilterFactory'
     _iid_ = Guid('{480d41d5-7f99-474c-86ee-96df168318f1}')
     @winrt_commethod(6)
     def Create(self, appId: Windows.Networking.Vpn.VpnAppId) -> Windows.Networking.Vpn.VpnTrafficFilter: ...

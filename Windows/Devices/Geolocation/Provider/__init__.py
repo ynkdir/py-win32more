@@ -41,6 +41,7 @@ class GeolocationProvider(ComPtr):
     IsOverridden = property(get_IsOverridden, None)
 class IGeolocationProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Geolocation.Provider.IGeolocationProvider'
     _iid_ = Guid('{e4cf071d-3f64-509f-8dc2-0b74a059829d}')
     @winrt_commethod(6)
     def get_IsOverridden(self) -> Boolean: ...

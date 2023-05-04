@@ -24,17 +24,20 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISysStorageProviderEventReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgs'
     _iid_ = Guid('{e132d1b9-7b9d-5820-9728-4262b5289142}')
     @winrt_commethod(6)
     def get_Json(self) -> WinRT_String: ...
     Json = property(get_Json, None)
 class ISysStorageProviderEventReceivedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgsFactory'
     _iid_ = Guid('{de1a780e-e975-5f68-bcc6-fb46281c6a61}')
     @winrt_commethod(6)
     def CreateInstance(self, json: WinRT_String) -> Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs: ...
 class ISysStorageProviderEventSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Implementation.FileExplorer.ISysStorageProviderEventSource'
     _iid_ = Guid('{1f36c476-9546-536a-8381-2f9a2c08cedd}')
     @winrt_commethod(6)
     def add_EventReceived(self, handler: Windows.Foundation.TypedEventHandler[Windows.System.Implementation.FileExplorer.ISysStorageProviderEventSource, Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -42,6 +45,7 @@ class ISysStorageProviderEventSource(ComPtr):
     def remove_EventReceived(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ISysStorageProviderHandlerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Implementation.FileExplorer.ISysStorageProviderHandlerFactory'
     _iid_ = Guid('{ee798431-8213-5e89-a623-14d8c72b8a61}')
     @winrt_commethod(6)
     def GetHttpRequestProvider(self, syncRootId: WinRT_String) -> Windows.System.Implementation.FileExplorer.ISysStorageProviderHttpRequestProvider: ...
@@ -49,6 +53,7 @@ class ISysStorageProviderHandlerFactory(ComPtr):
     def GetEventSource(self, syncRootId: WinRT_String, eventName: WinRT_String) -> Windows.System.Implementation.FileExplorer.ISysStorageProviderEventSource: ...
 class ISysStorageProviderHttpRequestProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Implementation.FileExplorer.ISysStorageProviderHttpRequestProvider'
     _iid_ = Guid('{cb6fefb6-e76a-5c25-a33e-3e78a6e0e0ce}')
     @winrt_commethod(6)
     def SendRequestAsync(self, request: Windows.Web.Http.HttpRequestMessage) -> Windows.Foundation.IAsyncOperation[Windows.Web.Http.HttpResponseMessage]: ...

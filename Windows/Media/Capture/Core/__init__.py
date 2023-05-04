@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IVariablePhotoCapturedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Capture.Core.IVariablePhotoCapturedEventArgs'
     _iid_ = Guid('{d1eb4c5c-1b53-4e4a-8b5c-db7887ac949b}')
     @winrt_commethod(6)
     def get_Frame(self) -> Windows.Media.Capture.CapturedFrame: ...
@@ -39,6 +40,7 @@ class IVariablePhotoCapturedEventArgs(ComPtr):
     CapturedFrameControlValues = property(get_CapturedFrameControlValues, None)
 class IVariablePhotoSequenceCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Capture.Core.IVariablePhotoSequenceCapture'
     _iid_ = Guid('{d0112d1d-031e-4041-a6d6-bd742476a8ee}')
     @winrt_commethod(6)
     def StartAsync(self) -> Windows.Foundation.IAsyncAction: ...
@@ -56,6 +58,7 @@ class IVariablePhotoSequenceCapture(ComPtr):
     def remove_Stopped(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IVariablePhotoSequenceCapture2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Capture.Core.IVariablePhotoSequenceCapture2'
     _iid_ = Guid('{fe2c62bc-50b0-43e3-917c-e3b92798942f}')
     @winrt_commethod(6)
     def UpdateSettingsAsync(self) -> Windows.Foundation.IAsyncAction: ...

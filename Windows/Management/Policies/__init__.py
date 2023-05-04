@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class INamedPolicyData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Policies.INamedPolicyData'
     _iid_ = Guid('{38dcb198-95ac-4077-a643-8078cae26400}')
     @winrt_commethod(6)
     def get_Area(self) -> WinRT_String: ...
@@ -60,6 +61,7 @@ class INamedPolicyData(ComPtr):
     User = property(get_User, None)
 class INamedPolicyStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Policies.INamedPolicyStatics'
     _iid_ = Guid('{7f793be7-76c4-4058-8cad-67662cd05f0d}')
     @winrt_commethod(6)
     def GetPolicyFromPath(self, area: WinRT_String, name: WinRT_String) -> Windows.Management.Policies.NamedPolicyData: ...
@@ -67,6 +69,7 @@ class INamedPolicyStatics(ComPtr):
     def GetPolicyFromPathForUser(self, user: Windows.System.User, area: WinRT_String, name: WinRT_String) -> Windows.Management.Policies.NamedPolicyData: ...
 class NamedPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Policies.NamedPolicy'
     @winrt_classmethod
     def GetPolicyFromPath(cls: Windows.Management.Policies.INamedPolicyStatics, area: WinRT_String, name: WinRT_String) -> Windows.Management.Policies.NamedPolicyData: ...
     @winrt_classmethod

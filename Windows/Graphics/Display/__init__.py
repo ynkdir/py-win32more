@@ -282,6 +282,7 @@ DisplayOrientations_LandscapeFlipped: DisplayOrientations = 4
 DisplayOrientations_PortraitFlipped: DisplayOrientations = 8
 class DisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.DisplayProperties'
     @winrt_classmethod
     def get_CurrentOrientation(cls: Windows.Graphics.Display.IDisplayPropertiesStatics) -> Windows.Graphics.Display.DisplayOrientations: ...
     @winrt_classmethod
@@ -326,8 +327,8 @@ class DisplayProperties(ComPtr):
     StereoEnabled = property(get_StereoEnabled, None)
 class DisplayPropertiesEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{dbdd8b01-f1a1-46d1-9ee3-543bcc995980}')
     _classid_ = 'Windows.Graphics.Display.DisplayPropertiesEventHandler'
+    _iid_ = Guid('{dbdd8b01-f1a1-46d1-9ee3-543bcc995980}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class DisplayServices(ComPtr):
@@ -341,6 +342,7 @@ HdrMetadataFormat_Hdr10: HdrMetadataFormat = 0
 HdrMetadataFormat_Hdr10Plus: HdrMetadataFormat = 1
 class IAdvancedColorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IAdvancedColorInfo'
     _iid_ = Guid('{8797dcfb-b229-4081-ae9a-2cc85e34ad6a}')
     @winrt_commethod(6)
     def get_CurrentAdvancedColorKind(self) -> Windows.Graphics.Display.AdvancedColorKind: ...
@@ -375,6 +377,7 @@ class IAdvancedColorInfo(ComPtr):
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
 class IBrightnessOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IBrightnessOverride'
     _iid_ = Guid('{96c9621a-c143-4392-bedd-4a7e9574c8fd}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
@@ -409,6 +412,7 @@ class IBrightnessOverride(ComPtr):
     BrightnessLevel = property(get_BrightnessLevel, None)
 class IBrightnessOverrideSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IBrightnessOverrideSettings'
     _iid_ = Guid('{d112ab2a-7604-4dba-bcf8-4b6f49502cb0}')
     @winrt_commethod(6)
     def get_DesiredLevel(self) -> Double: ...
@@ -418,6 +422,7 @@ class IBrightnessOverrideSettings(ComPtr):
     DesiredNits = property(get_DesiredNits, None)
 class IBrightnessOverrideSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IBrightnessOverrideSettingsStatics'
     _iid_ = Guid('{d487dc90-6f74-440b-b383-5fe96cf00b0f}')
     @winrt_commethod(6)
     def CreateFromLevel(self, level: Double) -> Windows.Graphics.Display.BrightnessOverrideSettings: ...
@@ -427,6 +432,7 @@ class IBrightnessOverrideSettingsStatics(ComPtr):
     def CreateFromDisplayBrightnessOverrideScenario(self, overrideScenario: Windows.Graphics.Display.DisplayBrightnessOverrideScenario) -> Windows.Graphics.Display.BrightnessOverrideSettings: ...
 class IBrightnessOverrideStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IBrightnessOverrideStatics'
     _iid_ = Guid('{03a7b9ed-e1f1-4a68-a11f-946ad8ce5393}')
     @winrt_commethod(6)
     def GetDefaultForSystem(self) -> Windows.Graphics.Display.BrightnessOverride: ...
@@ -436,17 +442,20 @@ class IBrightnessOverrideStatics(ComPtr):
     def SaveForSystemAsync(self, value: Windows.Graphics.Display.BrightnessOverride) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IColorOverrideSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IColorOverrideSettings'
     _iid_ = Guid('{fbefa134-4a81-4c4d-a5b6-7d1b5c4bd00b}')
     @winrt_commethod(6)
     def get_DesiredDisplayColorOverrideScenario(self) -> Windows.Graphics.Display.DisplayColorOverrideScenario: ...
     DesiredDisplayColorOverrideScenario = property(get_DesiredDisplayColorOverrideScenario, None)
 class IColorOverrideSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IColorOverrideSettingsStatics'
     _iid_ = Guid('{b068e05f-c41f-4ac9-afab-827ab6248f9a}')
     @winrt_commethod(6)
     def CreateFromDisplayColorOverrideScenario(self, overrideScenario: Windows.Graphics.Display.DisplayColorOverrideScenario) -> Windows.Graphics.Display.ColorOverrideSettings: ...
 class IDisplayEnhancementOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayEnhancementOverride'
     _iid_ = Guid('{429594cf-d97a-4b02-a428-5c4292f7f522}')
     @winrt_commethod(6)
     def get_ColorOverrideSettings(self) -> Windows.Graphics.Display.ColorOverrideSettings: ...
@@ -484,6 +493,7 @@ class IDisplayEnhancementOverride(ComPtr):
     IsOverrideActive = property(get_IsOverrideActive, None)
 class IDisplayEnhancementOverrideCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilities'
     _iid_ = Guid('{457060de-ee5a-47b7-9918-1e51e812ccc8}')
     @winrt_commethod(6)
     def get_IsBrightnessControlSupported(self) -> Boolean: ...
@@ -495,17 +505,20 @@ class IDisplayEnhancementOverrideCapabilities(ComPtr):
     IsBrightnessNitsControlSupported = property(get_IsBrightnessNitsControlSupported, None)
 class IDisplayEnhancementOverrideCapabilitiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilitiesChangedEventArgs'
     _iid_ = Guid('{db61e664-15fa-49da-8b77-07dbd2af585d}')
     @winrt_commethod(6)
     def get_Capabilities(self) -> Windows.Graphics.Display.DisplayEnhancementOverrideCapabilities: ...
     Capabilities = property(get_Capabilities, None)
 class IDisplayEnhancementOverrideStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayEnhancementOverrideStatics'
     _iid_ = Guid('{cf5b7ec1-9791-4453-b013-29b6f778e519}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Graphics.Display.DisplayEnhancementOverride: ...
 class IDisplayInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayInformation'
     _iid_ = Guid('{bed112ae-adc3-4dc9-ae65-851f4d7d4799}')
     @winrt_commethod(6)
     def get_CurrentOrientation(self) -> Windows.Graphics.Display.DisplayOrientations: ...
@@ -548,18 +561,21 @@ class IDisplayInformation(ComPtr):
     StereoEnabled = property(get_StereoEnabled, None)
 class IDisplayInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayInformation2'
     _iid_ = Guid('{4dcd0021-fad1-4b8e-8edf-775887b8bf19}')
     @winrt_commethod(6)
     def get_RawPixelsPerViewPixel(self) -> Double: ...
     RawPixelsPerViewPixel = property(get_RawPixelsPerViewPixel, None)
 class IDisplayInformation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayInformation3'
     _iid_ = Guid('{db15011d-0f09-4466-8ff3-11de9a3c929a}')
     @winrt_commethod(6)
     def get_DiagonalSizeInInches(self) -> Windows.Foundation.IReference[Double]: ...
     DiagonalSizeInInches = property(get_DiagonalSizeInInches, None)
 class IDisplayInformation4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayInformation4'
     _iid_ = Guid('{c972ce2f-1242-46be-b536-e1aafe9e7acf}')
     @winrt_commethod(6)
     def get_ScreenWidthInRawPixels(self) -> UInt32: ...
@@ -569,6 +585,7 @@ class IDisplayInformation4(ComPtr):
     ScreenHeightInRawPixels = property(get_ScreenHeightInRawPixels, None)
 class IDisplayInformation5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayInformation5'
     _iid_ = Guid('{3a5442dc-2cde-4a8d-80d1-21dc5adcc1aa}')
     @winrt_commethod(6)
     def GetAdvancedColorInfo(self) -> Windows.Graphics.Display.AdvancedColorInfo: ...
@@ -578,6 +595,7 @@ class IDisplayInformation5(ComPtr):
     def remove_AdvancedColorInfoChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IDisplayInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayInformationStatics'
     _iid_ = Guid('{c6a02a6c-d452-44dc-ba07-96f3c6adf9d1}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Graphics.Display.DisplayInformation: ...
@@ -592,6 +610,7 @@ class IDisplayInformationStatics(ComPtr):
     AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
 class IDisplayPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayPropertiesStatics'
     _iid_ = Guid('{6937ed8d-30ea-4ded-8271-4553ff02f68a}')
     @winrt_commethod(6)
     def get_CurrentOrientation(self) -> Windows.Graphics.Display.DisplayOrientations: ...
@@ -637,9 +656,11 @@ class IDisplayPropertiesStatics(ComPtr):
     StereoEnabled = property(get_StereoEnabled, None)
 class IDisplayServices(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayServices'
     _iid_ = Guid('{1b54f32b-890d-5747-bd26-fdbdeb0c8a71}')
 class IDisplayServicesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Display.IDisplayServicesStatics'
     _iid_ = Guid('{dc2096bf-730a-5560-b461-91c13d692e0c}')
     @winrt_commethod(6)
     def FindAll(self) -> POINTER(Windows.Graphics.DisplayId_head): ...

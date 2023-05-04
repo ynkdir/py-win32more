@@ -182,6 +182,7 @@ class GameSaveProviderGetResult(ComPtr):
     Value = property(get_Value, None)
 class IGameSaveBlobGetResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveBlobGetResult'
     _iid_ = Guid('{917281e0-7201-4953-aa2c-4008f03aef45}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Gaming.XboxLive.Storage.GameSaveErrorStatus: ...
@@ -191,6 +192,7 @@ class IGameSaveBlobGetResult(ComPtr):
     Value = property(get_Value, None)
 class IGameSaveBlobInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveBlobInfo'
     _iid_ = Guid('{add38034-baf0-4645-b6d0-46edaffb3c2b}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -200,6 +202,7 @@ class IGameSaveBlobInfo(ComPtr):
     Size = property(get_Size, None)
 class IGameSaveBlobInfoGetResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveBlobInfoGetResult'
     _iid_ = Guid('{c7578582-3697-42bf-989c-665d923b5231}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Gaming.XboxLive.Storage.GameSaveErrorStatus: ...
@@ -209,6 +212,7 @@ class IGameSaveBlobInfoGetResult(ComPtr):
     Value = property(get_Value, None)
 class IGameSaveBlobInfoQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveBlobInfoQuery'
     _iid_ = Guid('{9fdd74b2-eeee-447b-a9d2-7f96c0f83208}')
     @winrt_commethod(6)
     def GetBlobInfoAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoGetResult]: ...
@@ -218,6 +222,7 @@ class IGameSaveBlobInfoQuery(ComPtr):
     def GetItemCountAsync(self) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
 class IGameSaveContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveContainer'
     _iid_ = Guid('{c3c08f89-563f-4ecd-9c6f-33fd0e323d10}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -237,6 +242,7 @@ class IGameSaveContainer(ComPtr):
     Provider = property(get_Provider, None)
 class IGameSaveContainerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfo'
     _iid_ = Guid('{b7e27300-155d-4bb4-b2ba-930306f391b5}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -255,6 +261,7 @@ class IGameSaveContainerInfo(ComPtr):
     NeedsSync = property(get_NeedsSync, None)
 class IGameSaveContainerInfoGetResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfoGetResult'
     _iid_ = Guid('{ffc50d74-c581-4f9d-9e39-30a10c1e4c50}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Gaming.XboxLive.Storage.GameSaveErrorStatus: ...
@@ -264,6 +271,7 @@ class IGameSaveContainerInfoGetResult(ComPtr):
     Value = property(get_Value, None)
 class IGameSaveContainerInfoQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfoQuery'
     _iid_ = Guid('{3c94e863-6f80-4327-9327-ffc11afd42b3}')
     @winrt_commethod(6)
     def GetContainerInfoAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoGetResult]: ...
@@ -273,12 +281,14 @@ class IGameSaveContainerInfoQuery(ComPtr):
     def GetItemCountAsync(self) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
 class IGameSaveOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveOperationResult'
     _iid_ = Guid('{cf0f1a05-24a0-4582-9a55-b1bbbb9388d8}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Gaming.XboxLive.Storage.GameSaveErrorStatus: ...
     Status = property(get_Status, None)
 class IGameSaveProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveProvider'
     _iid_ = Guid('{90a60394-80fe-4211-97f8-a5de14dd95d2}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
@@ -298,6 +308,7 @@ class IGameSaveProvider(ComPtr):
     ContainersChangedSinceLastSync = property(get_ContainersChangedSinceLastSync, None)
 class IGameSaveProviderGetResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveProviderGetResult'
     _iid_ = Guid('{3ab90816-d393-4d65-ac16-41c3e67ab945}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Gaming.XboxLive.Storage.GameSaveErrorStatus: ...
@@ -307,6 +318,7 @@ class IGameSaveProviderGetResult(ComPtr):
     Value = property(get_Value, None)
 class IGameSaveProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveProviderStatics'
     _iid_ = Guid('{d01d3ed0-7b03-449d-8cbd-3402842a1048}')
     @winrt_commethod(6)
     def GetForUserAsync(self, user: Windows.System.User, serviceConfigId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult]: ...

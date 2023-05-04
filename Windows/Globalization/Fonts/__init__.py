@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ILanguageFont(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.Fonts.ILanguageFont'
     _iid_ = Guid('{b12e5c3a-b76d-459b-beeb-901151cd77d1}')
     @winrt_commethod(6)
     def get_FontFamily(self) -> WinRT_String: ...
@@ -41,6 +42,7 @@ class ILanguageFont(ComPtr):
     ScaleFactor = property(get_ScaleFactor, None)
 class ILanguageFontGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.Fonts.ILanguageFontGroup'
     _iid_ = Guid('{f33a7fc3-3a5c-4aea-b9ff-b39fb242f7f6}')
     @winrt_commethod(6)
     def get_UITextFont(self) -> Windows.Globalization.Fonts.LanguageFont: ...
@@ -77,6 +79,7 @@ class ILanguageFontGroup(ComPtr):
     DocumentAlternate2Font = property(get_DocumentAlternate2Font, None)
 class ILanguageFontGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.Fonts.ILanguageFontGroupFactory'
     _iid_ = Guid('{fcaeac67-4e77-49c7-b856-dde934fc735b}')
     @winrt_commethod(6)
     def CreateLanguageFontGroup(self, languageTag: WinRT_String) -> Windows.Globalization.Fonts.LanguageFontGroup: ...

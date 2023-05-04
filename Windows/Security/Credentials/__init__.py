@@ -27,11 +27,13 @@ def __getattr__(name):
     return getattr(_module, name)
 class ICredentialFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.ICredentialFactory'
     _iid_ = Guid('{54ef13a1-bf26-47b5-97dd-de779b7cad58}')
     @winrt_commethod(6)
     def CreatePasswordCredential(self, resource: WinRT_String, userName: WinRT_String, password: WinRT_String) -> Windows.Security.Credentials.PasswordCredential: ...
 class IKeyCredential(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IKeyCredential'
     _iid_ = Guid('{9585ef8d-457b-4847-b11a-fa960bbdb138}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -46,6 +48,7 @@ class IKeyCredential(ComPtr):
     Name = property(get_Name, None)
 class IKeyCredentialAttestationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IKeyCredentialAttestationResult'
     _iid_ = Guid('{78aab3a1-a3c1-4103-b6cc-472c44171cbb}')
     @winrt_commethod(6)
     def get_CertificateChainBuffer(self) -> Windows.Storage.Streams.IBuffer: ...
@@ -58,6 +61,7 @@ class IKeyCredentialAttestationResult(ComPtr):
     Status = property(get_Status, None)
 class IKeyCredentialManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IKeyCredentialManagerStatics'
     _iid_ = Guid('{6aac468b-0ef1-4ce0-8290-4106da6a63b5}')
     @winrt_commethod(6)
     def IsSupportedAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -71,6 +75,7 @@ class IKeyCredentialManagerStatics(ComPtr):
     def DeleteAsync(self, name: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IKeyCredentialOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IKeyCredentialOperationResult'
     _iid_ = Guid('{f53786c1-5261-4cdd-976d-cc909ac71620}')
     @winrt_commethod(6)
     def get_Result(self) -> Windows.Storage.Streams.IBuffer: ...
@@ -80,6 +85,7 @@ class IKeyCredentialOperationResult(ComPtr):
     Status = property(get_Status, None)
 class IKeyCredentialRetrievalResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IKeyCredentialRetrievalResult'
     _iid_ = Guid('{58cd7703-8d87-4249-9b58-f6598cc9644e}')
     @winrt_commethod(6)
     def get_Credential(self) -> Windows.Security.Credentials.KeyCredential: ...
@@ -89,6 +95,7 @@ class IKeyCredentialRetrievalResult(ComPtr):
     Status = property(get_Status, None)
 class IPasswordCredential(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IPasswordCredential'
     _iid_ = Guid('{6ab18989-c720-41a7-a6c1-feadb36329a0}')
     @winrt_commethod(6)
     def get_Resource(self) -> WinRT_String: ...
@@ -112,6 +119,7 @@ class IPasswordCredential(ComPtr):
     Properties = property(get_Properties, None)
 class IPasswordVault(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IPasswordVault'
     _iid_ = Guid('{61fd2c0b-c8d4-48c1-a54f-bc5a64205af2}')
     @winrt_commethod(6)
     def Add(self, credential: Windows.Security.Credentials.PasswordCredential) -> Void: ...
@@ -127,6 +135,7 @@ class IPasswordVault(ComPtr):
     def RetrieveAll(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Credentials.PasswordCredential]: ...
 class IWebAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IWebAccount'
     _iid_ = Guid('{69473eb2-8031-49be-80bb-96cb46d99aba}')
     @winrt_commethod(6)
     def get_WebAccountProvider(self) -> Windows.Security.Credentials.WebAccountProvider: ...
@@ -139,6 +148,7 @@ class IWebAccount(ComPtr):
     State = property(get_State, None)
 class IWebAccount2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IWebAccount2'
     _iid_ = Guid('{7b56d6f8-990b-4eb5-94a7-5621f3a8b824}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -154,11 +164,13 @@ class IWebAccount2(ComPtr):
     Properties = property(get_Properties, None)
 class IWebAccountFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IWebAccountFactory'
     _iid_ = Guid('{ac9afb39-1de9-4e92-b78f-0581a87f6e5c}')
     @winrt_commethod(6)
     def CreateWebAccount(self, webAccountProvider: Windows.Security.Credentials.WebAccountProvider, userName: WinRT_String, state: Windows.Security.Credentials.WebAccountState) -> Windows.Security.Credentials.WebAccount: ...
 class IWebAccountProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IWebAccountProvider'
     _iid_ = Guid('{29dcc8c3-7ab9-4a7c-a336-b942f9dbf7c7}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -171,6 +183,7 @@ class IWebAccountProvider(ComPtr):
     IconUri = property(get_IconUri, None)
 class IWebAccountProvider2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IWebAccountProvider2'
     _iid_ = Guid('{4a01eb05-4e42-41d4-b518-e008a5163614}')
     @winrt_commethod(6)
     def get_DisplayPurpose(self) -> WinRT_String: ...
@@ -180,18 +193,21 @@ class IWebAccountProvider2(ComPtr):
     Authority = property(get_Authority, None)
 class IWebAccountProvider3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IWebAccountProvider3'
     _iid_ = Guid('{da1c518b-970d-4d49-825c-f2706f8ca7fe}')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
 class IWebAccountProvider4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IWebAccountProvider4'
     _iid_ = Guid('{718fd8db-e796-4210-b74e-84d29894b080}')
     @winrt_commethod(6)
     def get_IsSystemProvider(self) -> Boolean: ...
     IsSystemProvider = property(get_IsSystemProvider, None)
 class IWebAccountProviderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.IWebAccountProviderFactory'
     _iid_ = Guid('{1d767df1-e1e1-4b9a-a774-5c7c7e3bf371}')
     @winrt_commethod(6)
     def CreateWebAccountProvider(self, id: WinRT_String, displayName: WinRT_String, iconUri: Windows.Foundation.Uri) -> Windows.Security.Credentials.WebAccountProvider: ...
@@ -233,6 +249,7 @@ KeyCredentialCreationOption_ReplaceExisting: KeyCredentialCreationOption = 0
 KeyCredentialCreationOption_FailIfExists: KeyCredentialCreationOption = 1
 class KeyCredentialManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Credentials.KeyCredentialManager'
     @winrt_classmethod
     def IsSupportedAsync(cls: Windows.Security.Credentials.IKeyCredentialManagerStatics) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod

@@ -22,17 +22,20 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISystemProtectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.System.ISystemProtectionStatics'
     _iid_ = Guid('{49c36560-97e1-4d99-8bfb-befeaa6ace6d}')
     @winrt_commethod(6)
     def get_ScreenLocked(self) -> Boolean: ...
     ScreenLocked = property(get_ScreenLocked, None)
 class ISystemProtectionUnlockStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.System.ISystemProtectionUnlockStatics'
     _iid_ = Guid('{0692fa3f-8f11-4c4b-aa0d-87d7af7b1779}')
     @winrt_commethod(6)
     def RequestScreenUnlock(self) -> Void: ...
 class SystemProtection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.System.SystemProtection'
     @winrt_classmethod
     def RequestScreenUnlock(cls: Windows.Phone.System.ISystemProtectionUnlockStatics) -> Void: ...
     @winrt_classmethod

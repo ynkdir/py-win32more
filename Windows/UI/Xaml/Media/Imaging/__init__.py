@@ -146,12 +146,13 @@ class DownloadProgressEventArgs(ComPtr):
     Progress = property(get_Progress, put_Progress)
 class DownloadProgressEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{1abaee23-74ee-4cc7-99ba-b171e3cda61e}')
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.DownloadProgressEventHandler'
+    _iid_ = Guid('{1abaee23-74ee-4cc7-99ba-b171e3cda61e}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs) -> Void: ...
 class IBitmapImage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImage'
     _iid_ = Guid('{31af3271-e3b4-442d-a341-4c0226b2725b}')
     @winrt_commethod(6)
     def get_CreateOptions(self) -> Windows.UI.Xaml.Media.Imaging.BitmapCreateOptions: ...
@@ -187,6 +188,7 @@ class IBitmapImage(ComPtr):
     DecodePixelHeight = property(get_DecodePixelHeight, put_DecodePixelHeight)
 class IBitmapImage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImage2'
     _iid_ = Guid('{1069c1b6-8c9b-4762-be3d-759f5698f2b3}')
     @winrt_commethod(6)
     def get_DecodePixelType(self) -> Windows.UI.Xaml.Media.Imaging.DecodePixelType: ...
@@ -195,6 +197,7 @@ class IBitmapImage2(ComPtr):
     DecodePixelType = property(get_DecodePixelType, put_DecodePixelType)
 class IBitmapImage3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImage3'
     _iid_ = Guid('{f1de6f26-3c73-453f-a7ba-9b85c18b3733}')
     @winrt_commethod(6)
     def get_IsAnimatedBitmap(self) -> Boolean: ...
@@ -213,11 +216,13 @@ class IBitmapImage3(ComPtr):
     AutoPlay = property(get_AutoPlay, put_AutoPlay)
 class IBitmapImageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImageFactory'
     _iid_ = Guid('{c9132978-4810-4e5e-8087-03671ee60d85}')
     @winrt_commethod(6)
     def CreateInstanceWithUriSource(self, uriSource: Windows.Foundation.Uri) -> Windows.UI.Xaml.Media.Imaging.BitmapImage: ...
 class IBitmapImageStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImageStatics'
     _iid_ = Guid('{9e282143-70e8-437c-9fa4-2cbf295cff84}')
     @winrt_commethod(6)
     def get_CreateOptionsProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -233,12 +238,14 @@ class IBitmapImageStatics(ComPtr):
     DecodePixelHeightProperty = property(get_DecodePixelHeightProperty, None)
 class IBitmapImageStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImageStatics2'
     _iid_ = Guid('{c5f5576a-75af-41a4-b893-8fe91fee2882}')
     @winrt_commethod(6)
     def get_DecodePixelTypeProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     DecodePixelTypeProperty = property(get_DecodePixelTypeProperty, None)
 class IBitmapImageStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImageStatics3'
     _iid_ = Guid('{2b44e30d-f6d5-4411-a8cd-bf7603c4faa0}')
     @winrt_commethod(6)
     def get_IsAnimatedBitmapProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -251,6 +258,7 @@ class IBitmapImageStatics3(ComPtr):
     AutoPlayProperty = property(get_AutoPlayProperty, None)
 class IBitmapSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapSource'
     _iid_ = Guid('{23d86411-202f-41b2-8c5b-a8a3b333800b}')
     @winrt_commethod(6)
     def get_PixelWidth(self) -> Int32: ...
@@ -264,11 +272,13 @@ class IBitmapSource(ComPtr):
     PixelHeight = property(get_PixelHeight, None)
 class IBitmapSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapSourceFactory'
     _iid_ = Guid('{e240420e-d4a7-49a4-a0b4-a59fdd77e508}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.BitmapSource: ...
 class IBitmapSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapSourceStatics'
     _iid_ = Guid('{9a9c9981-827b-4e51-891b-8a15b511842d}')
     @winrt_commethod(6)
     def get_PixelWidthProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -278,6 +288,7 @@ class IBitmapSourceStatics(ComPtr):
     PixelHeightProperty = property(get_PixelHeightProperty, None)
 class IDownloadProgressEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IDownloadProgressEventArgs'
     _iid_ = Guid('{7311e0d4-fe94-4e70-9b90-cdd47ac23afb}')
     @winrt_commethod(6)
     def get_Progress(self) -> Int32: ...
@@ -286,6 +297,7 @@ class IDownloadProgressEventArgs(ComPtr):
     Progress = property(get_Progress, put_Progress)
 class IRenderTargetBitmap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IRenderTargetBitmap'
     _iid_ = Guid('{500dee81-893c-4c0a-8fec-4678ac717589}')
     @winrt_commethod(6)
     def get_PixelWidth(self) -> Int32: ...
@@ -301,6 +313,7 @@ class IRenderTargetBitmap(ComPtr):
     PixelHeight = property(get_PixelHeight, None)
 class IRenderTargetBitmapStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IRenderTargetBitmapStatics'
     _iid_ = Guid('{f0a1efee-c131-4d40-9c47-f7d7cf2b077f}')
     @winrt_commethod(6)
     def get_PixelWidthProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -310,14 +323,17 @@ class IRenderTargetBitmapStatics(ComPtr):
     PixelHeightProperty = property(get_PixelHeightProperty, None)
 class ISoftwareBitmapSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISoftwareBitmapSource'
     _iid_ = Guid('{d2dd9ed0-d3c5-4056-91b5-b7c1d1e8130e}')
     @winrt_commethod(6)
     def SetBitmapAsync(self, softwareBitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncAction: ...
 class ISurfaceImageSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISurfaceImageSource'
     _iid_ = Guid('{62f7d416-c714-4c4c-8273-f839bc58135c}')
 class ISurfaceImageSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory'
     _iid_ = Guid('{3ab2212a-ef65-4a5f-bfac-73993e8c12c9}')
     @winrt_commethod(6)
     def CreateInstanceWithDimensions(self, pixelWidth: Int32, pixelHeight: Int32, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
@@ -325,6 +341,7 @@ class ISurfaceImageSourceFactory(ComPtr):
     def CreateInstanceWithDimensionsAndOpacity(self, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
 class ISvgImageSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSource'
     _iid_ = Guid('{03e1cec3-0ca8-4a4e-8d7c-c808a0838586}')
     @winrt_commethod(6)
     def get_UriSource(self) -> Windows.Foundation.Uri: ...
@@ -353,6 +370,7 @@ class ISvgImageSource(ComPtr):
     RasterizePixelHeight = property(get_RasterizePixelHeight, put_RasterizePixelHeight)
 class ISvgImageSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory'
     _iid_ = Guid('{c794e9e7-cf23-4d72-bf1a-dfaa16d8ea52}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
@@ -360,15 +378,18 @@ class ISvgImageSourceFactory(ComPtr):
     def CreateInstanceWithUriSource(self, uriSource: Windows.Foundation.Uri, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
 class ISvgImageSourceFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs'
     _iid_ = Guid('{68bb3170-3ccc-4035-ac01-9834543d744e}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.UI.Xaml.Media.Imaging.SvgImageSourceLoadStatus: ...
     Status = property(get_Status, None)
 class ISvgImageSourceOpenedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSourceOpenedEventArgs'
     _iid_ = Guid('{85ef4c16-748e-4008-95c7-6a23dd7316db}')
 class ISvgImageSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSourceStatics'
     _iid_ = Guid('{9c6638ce-bed1-4aab-acbb-d3e2185d315a}')
     @winrt_commethod(6)
     def get_UriSourceProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
@@ -381,9 +402,11 @@ class ISvgImageSourceStatics(ComPtr):
     RasterizePixelHeightProperty = property(get_RasterizePixelHeightProperty, None)
 class IVirtualSurfaceImageSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IVirtualSurfaceImageSource'
     _iid_ = Guid('{4a711fea-bfac-11e0-a06a-9de44724019b}')
 class IVirtualSurfaceImageSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IVirtualSurfaceImageSourceFactory'
     _iid_ = Guid('{3ab2212a-bfac-11e0-8a92-69e44724019b}')
     @winrt_commethod(6)
     def CreateInstanceWithDimensions(self, pixelWidth: Int32, pixelHeight: Int32) -> Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource: ...
@@ -391,6 +414,7 @@ class IVirtualSurfaceImageSourceFactory(ComPtr):
     def CreateInstanceWithDimensionsAndOpacity(self, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean) -> Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource: ...
 class IWriteableBitmap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IWriteableBitmap'
     _iid_ = Guid('{bf0b7e6f-df7c-4a85-8413-a1216285835c}')
     @winrt_commethod(6)
     def get_PixelBuffer(self) -> Windows.Storage.Streams.IBuffer: ...
@@ -399,19 +423,23 @@ class IWriteableBitmap(ComPtr):
     PixelBuffer = property(get_PixelBuffer, None)
 class IWriteableBitmapFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IWriteableBitmapFactory'
     _iid_ = Guid('{5563ebb1-3ef2-42c5-9c6d-1cf5dcc041ff}')
     @winrt_commethod(6)
     def CreateInstanceWithDimensions(self, pixelWidth: Int32, pixelHeight: Int32) -> Windows.UI.Xaml.Media.Imaging.WriteableBitmap: ...
 class IXamlRenderingBackgroundTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTask'
     _iid_ = Guid('{5d5fe9aa-533e-44b8-a975-fc5f1e3bff52}')
 class IXamlRenderingBackgroundTaskFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskFactory'
     _iid_ = Guid('{a3d1bb63-38f8-4da3-9fca-fd8128a2cbf9}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask: ...
 class IXamlRenderingBackgroundTaskOverrides(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskOverrides'
     _iid_ = Guid('{9c2a6997-a908-4711-b4b2-a960db3d8e5a}')
     @winrt_commethod(6)
     def OnRun(self, taskInstance: Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> Void: ...

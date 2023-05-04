@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPowerManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.System.Power.IPowerManagerStatics'
     _iid_ = Guid('{25de8fd0-1c5b-11e1-bddb-0800200c9a66}')
     @winrt_commethod(6)
     def get_PowerSavingMode(self) -> Windows.Phone.System.Power.PowerSavingMode: ...
@@ -33,12 +34,14 @@ class IPowerManagerStatics(ComPtr):
     PowerSavingMode = property(get_PowerSavingMode, None)
 class IPowerManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.System.Power.IPowerManagerStatics2'
     _iid_ = Guid('{596236cf-1918-4551-a466-c51aae373bf8}')
     @winrt_commethod(6)
     def get_PowerSavingModeEnabled(self) -> Boolean: ...
     PowerSavingModeEnabled = property(get_PowerSavingModeEnabled, None)
 class PowerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.System.Power.PowerManager'
     @winrt_classmethod
     def get_PowerSavingMode(cls: Windows.Phone.System.Power.IPowerManagerStatics) -> Windows.Phone.System.Power.PowerSavingMode: ...
     @winrt_classmethod

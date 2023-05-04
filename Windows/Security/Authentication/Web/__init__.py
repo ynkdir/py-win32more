@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWebAuthenticationBrokerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics'
     _iid_ = Guid('{2f149f1a-e673-40b5-bc22-201a6864a37b}')
     @winrt_commethod(6)
     def AuthenticateWithCallbackUriAsync(self, options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.WebAuthenticationResult]: ...
@@ -33,6 +34,7 @@ class IWebAuthenticationBrokerStatics(ComPtr):
     def GetCurrentApplicationCallbackUri(self) -> Windows.Foundation.Uri: ...
 class IWebAuthenticationBrokerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics2'
     _iid_ = Guid('{73cdfb9e-14e7-41da-a971-aaf4410b621e}')
     @winrt_commethod(6)
     def AuthenticateAndContinue(self, requestUri: Windows.Foundation.Uri) -> Void: ...
@@ -46,6 +48,7 @@ class IWebAuthenticationBrokerStatics2(ComPtr):
     def AuthenticateSilentlyWithOptionsAsync(self, requestUri: Windows.Foundation.Uri, options: Windows.Security.Authentication.Web.WebAuthenticationOptions) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.WebAuthenticationResult]: ...
 class IWebAuthenticationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.IWebAuthenticationResult'
     _iid_ = Guid('{64002b4b-ede9-470a-a5cd-0323faf6e262}')
     @winrt_commethod(6)
     def get_ResponseData(self) -> WinRT_String: ...
@@ -62,6 +65,7 @@ TokenBindingKeyType_EcdsaP256: TokenBindingKeyType = 1
 TokenBindingKeyType_AnyExisting: TokenBindingKeyType = 2
 class WebAuthenticationBroker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.WebAuthenticationBroker'
     @winrt_classmethod
     def AuthenticateAndContinue(cls: Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics2, requestUri: Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod

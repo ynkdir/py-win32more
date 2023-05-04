@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISystemUpdateItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Update.ISystemUpdateItem'
     _iid_ = Guid('{779740eb-5624-519e-a8e2-09e9173b3fb7}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.System.Update.SystemUpdateItemState: ...
@@ -51,6 +52,7 @@ class ISystemUpdateItem(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class ISystemUpdateLastErrorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Update.ISystemUpdateLastErrorInfo'
     _iid_ = Guid('{7ee887f7-8a44-5b6e-bd07-7aece4116ea9}')
     @winrt_commethod(6)
     def get_State(self) -> Windows.System.Update.SystemUpdateManagerState: ...
@@ -63,6 +65,7 @@ class ISystemUpdateLastErrorInfo(ComPtr):
     IsInteractive = property(get_IsInteractive, None)
 class ISystemUpdateManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Update.ISystemUpdateManagerStatics'
     _iid_ = Guid('{b2d3fcef-2971-51be-b41a-8bd703bb701a}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
@@ -182,6 +185,7 @@ class SystemUpdateLastErrorInfo(ComPtr):
     IsInteractive = property(get_IsInteractive, None)
 class SystemUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Update.SystemUpdateManager'
     @winrt_classmethod
     def IsSupported(cls: Windows.System.Update.ISystemUpdateManagerStatics) -> Boolean: ...
     @winrt_classmethod

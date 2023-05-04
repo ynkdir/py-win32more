@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IMdmAlert(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.IMdmAlert'
     _iid_ = Guid('{b0fbc327-28c1-4b52-a548-c5807caf70b6}')
     @winrt_commethod(6)
     def get_Data(self) -> WinRT_String: ...
@@ -60,6 +61,7 @@ class IMdmAlert(ComPtr):
     Type = property(get_Type, put_Type)
 class IMdmSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.IMdmSession'
     _iid_ = Guid('{fe89314c-8f64-4797-a9d7-9d88f86ae166}')
     @winrt_commethod(6)
     def get_Alerts(self) -> Windows.Foundation.Collections.IVectorView[Windows.Management.MdmAlert]: ...
@@ -83,6 +85,7 @@ class IMdmSession(ComPtr):
     State = property(get_State, None)
 class IMdmSessionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.IMdmSessionManagerStatics'
     _iid_ = Guid('{cf4ad959-f745-4b79-9b5c-de0bf8efe44b}')
     @winrt_commethod(6)
     def get_SessionIds(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
@@ -169,6 +172,7 @@ class MdmSession(ComPtr):
     State = property(get_State, None)
 class MdmSessionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.MdmSessionManager'
     @winrt_classmethod
     def get_SessionIds(cls: Windows.Management.IMdmSessionManagerStatics) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_classmethod

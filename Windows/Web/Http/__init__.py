@@ -646,6 +646,7 @@ HttpVersion_Http11: HttpVersion = 2
 HttpVersion_Http20: HttpVersion = 3
 class IHttpBufferContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpBufferContentFactory'
     _iid_ = Guid('{bc20c193-c41f-4ff7-9123-6435736eadc2}')
     @winrt_commethod(6)
     def CreateFromBuffer(self, content: Windows.Storage.Streams.IBuffer) -> Windows.Web.Http.HttpBufferContent: ...
@@ -653,6 +654,7 @@ class IHttpBufferContentFactory(ComPtr):
     def CreateFromBufferWithOffset(self, content: Windows.Storage.Streams.IBuffer, offset: UInt32, count: UInt32) -> Windows.Web.Http.HttpBufferContent: ...
 class IHttpClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpClient'
     _iid_ = Guid('{7fda1151-3574-4880-a8ba-e6b1e0061f3d}')
     @winrt_commethod(6)
     def DeleteAsync(self, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Web.Http.HttpResponseMessage, Windows.Web.Http.HttpProgress]: ...
@@ -679,6 +681,7 @@ class IHttpClient(ComPtr):
     DefaultRequestHeaders = property(get_DefaultRequestHeaders, None)
 class IHttpClient2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpClient2'
     _iid_ = Guid('{cdd83348-e8b7-4cec-b1b0-dc455fe72c92}')
     @winrt_commethod(6)
     def TryDeleteAsync(self, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Web.Http.HttpRequestResult, Windows.Web.Http.HttpProgress]: ...
@@ -702,6 +705,7 @@ class IHttpClient2(ComPtr):
     def TrySendRequestAsync2(self, request: Windows.Web.Http.HttpRequestMessage, completionOption: Windows.Web.Http.HttpCompletionOption) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Web.Http.HttpRequestResult, Windows.Web.Http.HttpProgress]: ...
 class IHttpClient3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpClient3'
     _iid_ = Guid('{1172fd01-9899-4194-963f-8f9d72a7ec15}')
     @winrt_commethod(6)
     def get_DefaultPrivacyAnnotation(self) -> WinRT_String: ...
@@ -710,11 +714,13 @@ class IHttpClient3(ComPtr):
     DefaultPrivacyAnnotation = property(get_DefaultPrivacyAnnotation, put_DefaultPrivacyAnnotation)
 class IHttpClientFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpClientFactory'
     _iid_ = Guid('{c30c4eca-e3fa-4f99-afb4-63cc65009462}')
     @winrt_commethod(6)
     def Create(self, filter: Windows.Web.Http.Filters.IHttpFilter) -> Windows.Web.Http.HttpClient: ...
 class IHttpContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpContent'
     _iid_ = Guid('{6b14a441-fba7-4bd2-af0a-839de7c295da}')
     @winrt_commethod(6)
     def get_Headers(self) -> Windows.Web.Http.Headers.HttpContentHeaderCollection: ...
@@ -733,6 +739,7 @@ class IHttpContent(ComPtr):
     Headers = property(get_Headers, None)
 class IHttpCookie(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpCookie'
     _iid_ = Guid('{1f5488e2-cc2d-4779-86a7-88f10687d249}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -765,11 +772,13 @@ class IHttpCookie(ComPtr):
     Value = property(get_Value, put_Value)
 class IHttpCookieFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpCookieFactory'
     _iid_ = Guid('{6a0585a9-931c-4cd1-a96d-c21701785c5f}')
     @winrt_commethod(6)
     def Create(self, name: WinRT_String, domain: WinRT_String, path: WinRT_String) -> Windows.Web.Http.HttpCookie: ...
 class IHttpCookieManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpCookieManager'
     _iid_ = Guid('{7a431780-cd4f-4e57-a84a-5b0a53d6bb96}')
     @winrt_commethod(6)
     def SetCookie(self, cookie: Windows.Web.Http.HttpCookie) -> Boolean: ...
@@ -781,11 +790,13 @@ class IHttpCookieManager(ComPtr):
     def GetCookies(self, uri: Windows.Foundation.Uri) -> Windows.Web.Http.HttpCookieCollection: ...
 class IHttpFormUrlEncodedContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpFormUrlEncodedContentFactory'
     _iid_ = Guid('{43f0138c-2f73-4302-b5f3-eae9238a5e01}')
     @winrt_commethod(6)
     def Create(self, content: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> Windows.Web.Http.HttpFormUrlEncodedContent: ...
 class IHttpGetBufferResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpGetBufferResult'
     _iid_ = Guid('{53d08e7c-e209-404e-9a49-742d8236fd3a}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
@@ -804,6 +815,7 @@ class IHttpGetBufferResult(ComPtr):
     Value = property(get_Value, None)
 class IHttpGetInputStreamResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpGetInputStreamResult'
     _iid_ = Guid('{d5d63463-13aa-4ee0-be95-a0c39fe91203}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
@@ -822,6 +834,7 @@ class IHttpGetInputStreamResult(ComPtr):
     Value = property(get_Value, None)
 class IHttpGetStringResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpGetStringResult'
     _iid_ = Guid('{9bac466d-8509-4775-b16d-8953f47a7f5f}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
@@ -840,17 +853,20 @@ class IHttpGetStringResult(ComPtr):
     Value = property(get_Value, None)
 class IHttpMethod(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpMethod'
     _iid_ = Guid('{728d4022-700d-4fe0-afa5-40299c58dbfd}')
     @winrt_commethod(6)
     def get_Method(self) -> WinRT_String: ...
     Method = property(get_Method, None)
 class IHttpMethodFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpMethodFactory'
     _iid_ = Guid('{3c51d10d-36d7-40f8-a86d-e759caf2f83f}')
     @winrt_commethod(6)
     def Create(self, method: WinRT_String) -> Windows.Web.Http.HttpMethod: ...
 class IHttpMethodStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpMethodStatics'
     _iid_ = Guid('{64d171f0-d99a-4153-8dc6-d68cc4cce317}')
     @winrt_commethod(6)
     def get_Delete(self) -> Windows.Web.Http.HttpMethod: ...
@@ -875,11 +891,13 @@ class IHttpMethodStatics(ComPtr):
     Put = property(get_Put, None)
 class IHttpMultipartContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpMultipartContent'
     _iid_ = Guid('{df916aff-9926-4ac9-aaf1-e0d04ef09bb9}')
     @winrt_commethod(6)
     def Add(self, content: Windows.Web.Http.IHttpContent) -> Void: ...
 class IHttpMultipartContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpMultipartContentFactory'
     _iid_ = Guid('{7eb42e62-0222-4f20-b372-47d5db5d33b4}')
     @winrt_commethod(6)
     def CreateWithSubtype(self, subtype: WinRT_String) -> Windows.Web.Http.HttpMultipartContent: ...
@@ -887,6 +905,7 @@ class IHttpMultipartContentFactory(ComPtr):
     def CreateWithSubtypeAndBoundary(self, subtype: WinRT_String, boundary: WinRT_String) -> Windows.Web.Http.HttpMultipartContent: ...
 class IHttpMultipartFormDataContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpMultipartFormDataContent'
     _iid_ = Guid('{64d337e2-e967-4624-b6d1-cf74604a4a42}')
     @winrt_commethod(6)
     def Add(self, content: Windows.Web.Http.IHttpContent) -> Void: ...
@@ -896,11 +915,13 @@ class IHttpMultipartFormDataContent(ComPtr):
     def AddWithNameAndFileName(self, content: Windows.Web.Http.IHttpContent, name: WinRT_String, fileName: WinRT_String) -> Void: ...
 class IHttpMultipartFormDataContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpMultipartFormDataContentFactory'
     _iid_ = Guid('{a04d7311-5017-4622-93a8-49b24a4fcbfc}')
     @winrt_commethod(6)
     def CreateWithBoundary(self, boundary: WinRT_String) -> Windows.Web.Http.HttpMultipartFormDataContent: ...
 class IHttpRequestMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpRequestMessage'
     _iid_ = Guid('{f5762b3c-74d4-4811-b5dc-9f8b4e2f9abf}')
     @winrt_commethod(6)
     def get_Content(self) -> Windows.Web.Http.IHttpContent: ...
@@ -928,6 +949,7 @@ class IHttpRequestMessage(ComPtr):
     TransportInformation = property(get_TransportInformation, None)
 class IHttpRequestMessage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpRequestMessage2'
     _iid_ = Guid('{c3c60489-62c2-4a3f-9554-226e7c60bd96}')
     @winrt_commethod(6)
     def get_PrivacyAnnotation(self) -> WinRT_String: ...
@@ -936,11 +958,13 @@ class IHttpRequestMessage2(ComPtr):
     PrivacyAnnotation = property(get_PrivacyAnnotation, put_PrivacyAnnotation)
 class IHttpRequestMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpRequestMessageFactory'
     _iid_ = Guid('{5bac994e-3886-412e-aec3-52ec7f25616f}')
     @winrt_commethod(6)
     def Create(self, method: Windows.Web.Http.HttpMethod, uri: Windows.Foundation.Uri) -> Windows.Web.Http.HttpRequestMessage: ...
 class IHttpRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpRequestResult'
     _iid_ = Guid('{6acf4da8-b5eb-4a35-a902-4217fbe820c5}')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
@@ -956,6 +980,7 @@ class IHttpRequestResult(ComPtr):
     Succeeded = property(get_Succeeded, None)
 class IHttpResponseMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpResponseMessage'
     _iid_ = Guid('{fee200fb-8664-44e0-95d9-42696199bffc}')
     @winrt_commethod(6)
     def get_Content(self) -> Windows.Web.Http.IHttpContent: ...
@@ -997,16 +1022,19 @@ class IHttpResponseMessage(ComPtr):
     Version = property(get_Version, put_Version)
 class IHttpResponseMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpResponseMessageFactory'
     _iid_ = Guid('{52a8af99-f095-43da-b60f-7cfc2bc7ea2f}')
     @winrt_commethod(6)
     def Create(self, statusCode: Windows.Web.Http.HttpStatusCode) -> Windows.Web.Http.HttpResponseMessage: ...
 class IHttpStreamContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpStreamContentFactory'
     _iid_ = Guid('{f3e64d9d-f725-407e-942f-0eda189809f4}')
     @winrt_commethod(6)
     def CreateFromInputStream(self, content: Windows.Storage.Streams.IInputStream) -> Windows.Web.Http.HttpStreamContent: ...
 class IHttpStringContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpStringContentFactory'
     _iid_ = Guid('{46649d5b-2e93-48eb-8e61-19677878e57f}')
     @winrt_commethod(6)
     def CreateFromString(self, content: WinRT_String) -> Windows.Web.Http.HttpStringContent: ...
@@ -1016,6 +1044,7 @@ class IHttpStringContentFactory(ComPtr):
     def CreateFromStringWithEncodingAndMediaType(self, content: WinRT_String, encoding: Windows.Storage.Streams.UnicodeEncoding, mediaType: WinRT_String) -> Windows.Web.Http.HttpStringContent: ...
 class IHttpTransportInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Web.Http.IHttpTransportInformation'
     _iid_ = Guid('{70127198-c6a7-4ed0-833a-83fd8b8f178d}')
     @winrt_commethod(6)
     def get_ServerCertificate(self) -> Windows.Security.Cryptography.Certificates.Certificate: ...

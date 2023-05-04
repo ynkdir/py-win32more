@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUserDataTaskDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderConnection'
     _iid_ = Guid('{9ff39d1d-a447-428b-afe9-e5402bdeb041}')
     @winrt_commethod(6)
     def add_CreateOrUpdateTaskRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection, Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -49,12 +50,14 @@ class IUserDataTaskDataProviderConnection(ComPtr):
     def Start(self) -> Void: ...
 class IUserDataTaskDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderTriggerDetails'
     _iid_ = Guid('{ae273202-b1c9-453e-afc5-b30af3bd217d}')
     @winrt_commethod(6)
     def get_Connection(self) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection: ...
     Connection = property(get_Connection, None)
 class IUserDataTaskListCompleteTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequest'
     _iid_ = Guid('{f65e14a3-1a42-49da-8552-2873e52c55eb}')
     @winrt_commethod(6)
     def get_TaskListId(self) -> WinRT_String: ...
@@ -68,6 +71,7 @@ class IUserDataTaskListCompleteTaskRequest(ComPtr):
     TaskId = property(get_TaskId, None)
 class IUserDataTaskListCompleteTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequestEventArgs'
     _iid_ = Guid('{d77c393d-4cf2-48ad-87fd-963f0eaa7a95}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequest: ...
@@ -76,6 +80,7 @@ class IUserDataTaskListCompleteTaskRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IUserDataTaskListCreateOrUpdateTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequest'
     _iid_ = Guid('{2133772c-55c2-4300-8279-04326e07cce4}')
     @winrt_commethod(6)
     def get_TaskListId(self) -> WinRT_String: ...
@@ -89,6 +94,7 @@ class IUserDataTaskListCreateOrUpdateTaskRequest(ComPtr):
     Task = property(get_Task, None)
 class IUserDataTaskListCreateOrUpdateTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequestEventArgs'
     _iid_ = Guid('{12c55a52-e378-419b-ae38-a5e9e604476e}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequest: ...
@@ -97,6 +103,7 @@ class IUserDataTaskListCreateOrUpdateTaskRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IUserDataTaskListDeleteTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequest'
     _iid_ = Guid('{4b863c68-7657-4f3d-b074-d47ec8df07e7}')
     @winrt_commethod(6)
     def get_TaskListId(self) -> WinRT_String: ...
@@ -110,6 +117,7 @@ class IUserDataTaskListDeleteTaskRequest(ComPtr):
     TaskId = property(get_TaskId, None)
 class IUserDataTaskListDeleteTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequestEventArgs'
     _iid_ = Guid('{6063dad9-f562-4145-8efe-d50078c92b7f}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequest: ...
@@ -118,6 +126,7 @@ class IUserDataTaskListDeleteTaskRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IUserDataTaskListSkipOccurrenceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequest'
     _iid_ = Guid('{ab87e34d-1cd3-431c-9f58-089aa4338d85}')
     @winrt_commethod(6)
     def get_TaskListId(self) -> WinRT_String: ...
@@ -131,6 +140,7 @@ class IUserDataTaskListSkipOccurrenceRequest(ComPtr):
     TaskId = property(get_TaskId, None)
 class IUserDataTaskListSkipOccurrenceRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequestEventArgs'
     _iid_ = Guid('{7a3b924a-cc2f-4e7b-aacd-a5b9d29cfa4e}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequest: ...
@@ -139,6 +149,7 @@ class IUserDataTaskListSkipOccurrenceRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IUserDataTaskListSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSyncManagerSyncRequest'
     _iid_ = Guid('{40a73807-7590-4149-ae19-b211431a9f48}')
     @winrt_commethod(6)
     def get_TaskListId(self) -> WinRT_String: ...
@@ -149,6 +160,7 @@ class IUserDataTaskListSyncManagerSyncRequest(ComPtr):
     TaskListId = property(get_TaskListId, None)
 class IUserDataTaskListSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSyncManagerSyncRequestEventArgs'
     _iid_ = Guid('{8ead1c12-768e-43bd-8385-5cdc351ffdea}')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequest: ...

@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPaymentAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentAddress'
     _iid_ = Guid('{5f2264e9-6f3a-4166-a018-0a0b06bb32b5}')
     @winrt_commethod(6)
     def get_Country(self) -> WinRT_String: ...
@@ -85,17 +86,20 @@ class IPaymentAddress(ComPtr):
     Properties = property(get_Properties, None)
 class IPaymentCanMakePaymentResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResult'
     _iid_ = Guid('{7696fe55-d5d3-4d3d-b345-45591759c510}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.ApplicationModel.Payments.PaymentCanMakePaymentResultStatus: ...
     Status = property(get_Status, None)
 class IPaymentCanMakePaymentResultFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResultFactory'
     _iid_ = Guid('{bbdcaa3e-7d49-4f69-aa53-2a0f8164b7c9}')
     @winrt_commethod(6)
     def Create(self, value: Windows.ApplicationModel.Payments.PaymentCanMakePaymentResultStatus) -> Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult: ...
 class IPaymentCurrencyAmount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentCurrencyAmount'
     _iid_ = Guid('{e3a3e9e0-b41f-4987-bdcb-071331f2daa4}')
     @winrt_commethod(6)
     def get_Currency(self) -> WinRT_String: ...
@@ -114,6 +118,7 @@ class IPaymentCurrencyAmount(ComPtr):
     Value = property(get_Value, put_Value)
 class IPaymentCurrencyAmountFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentCurrencyAmountFactory'
     _iid_ = Guid('{3257d338-140c-4575-8535-f773178c09a7}')
     @winrt_commethod(6)
     def Create(self, value: WinRT_String, currency: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentCurrencyAmount: ...
@@ -121,6 +126,7 @@ class IPaymentCurrencyAmountFactory(ComPtr):
     def CreateWithCurrencySystem(self, value: WinRT_String, currency: WinRT_String, currencySystem: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentCurrencyAmount: ...
 class IPaymentDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentDetails'
     _iid_ = Guid('{53bb2d7d-e0eb-4053-8eae-ce7c48e02945}')
     @winrt_commethod(6)
     def get_Total(self) -> Windows.ApplicationModel.Payments.PaymentItem: ...
@@ -144,6 +150,7 @@ class IPaymentDetails(ComPtr):
     Modifiers = property(get_Modifiers, put_Modifiers)
 class IPaymentDetailsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentDetailsFactory'
     _iid_ = Guid('{cfe8afee-c0ea-4ca1-8bc7-6de67b1f3763}')
     @winrt_commethod(6)
     def Create(self, total: Windows.ApplicationModel.Payments.PaymentItem) -> Windows.ApplicationModel.Payments.PaymentDetails: ...
@@ -151,6 +158,7 @@ class IPaymentDetailsFactory(ComPtr):
     def CreateWithDisplayItems(self, total: Windows.ApplicationModel.Payments.PaymentItem, displayItems: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Payments.PaymentItem]) -> Windows.ApplicationModel.Payments.PaymentDetails: ...
 class IPaymentDetailsModifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentDetailsModifier'
     _iid_ = Guid('{be1c7d65-4323-41d7-b305-dfcb765f69de}')
     @winrt_commethod(6)
     def get_JsonData(self) -> WinRT_String: ...
@@ -166,6 +174,7 @@ class IPaymentDetailsModifier(ComPtr):
     AdditionalDisplayItems = property(get_AdditionalDisplayItems, None)
 class IPaymentDetailsModifierFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentDetailsModifierFactory'
     _iid_ = Guid('{79005286-54de-429c-9e4f-5dce6e10ebce}')
     @winrt_commethod(6)
     def Create(self, supportedMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String], total: Windows.ApplicationModel.Payments.PaymentItem) -> Windows.ApplicationModel.Payments.PaymentDetailsModifier: ...
@@ -175,6 +184,7 @@ class IPaymentDetailsModifierFactory(ComPtr):
     def CreateWithAdditionalDisplayItemsAndJsonData(self, supportedMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String], total: Windows.ApplicationModel.Payments.PaymentItem, additionalDisplayItems: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Payments.PaymentItem], jsonData: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentDetailsModifier: ...
 class IPaymentItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentItem'
     _iid_ = Guid('{685ac88b-79b2-4b76-9e03-a876223dfe72}')
     @winrt_commethod(6)
     def get_Label(self) -> WinRT_String: ...
@@ -193,11 +203,13 @@ class IPaymentItem(ComPtr):
     Pending = property(get_Pending, put_Pending)
 class IPaymentItemFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentItemFactory'
     _iid_ = Guid('{c6ab7ad8-2503-4d1d-a778-02b2e5927b2c}')
     @winrt_commethod(6)
     def Create(self, label: WinRT_String, amount: Windows.ApplicationModel.Payments.PaymentCurrencyAmount) -> Windows.ApplicationModel.Payments.PaymentItem: ...
 class IPaymentMediator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentMediator'
     _iid_ = Guid('{fb0ee829-ec0c-449a-83da-7ae3073365a2}')
     @winrt_commethod(6)
     def GetSupportedMethodIdsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
@@ -207,11 +219,13 @@ class IPaymentMediator(ComPtr):
     def SubmitPaymentRequestWithChangeHandlerAsync(self, paymentRequest: Windows.ApplicationModel.Payments.PaymentRequest, changeHandler: Windows.ApplicationModel.Payments.PaymentRequestChangedHandler) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Payments.PaymentRequestSubmitResult]: ...
 class IPaymentMediator2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentMediator2'
     _iid_ = Guid('{ceef98f1-e407-4128-8e73-d93d5f822786}')
     @winrt_commethod(6)
     def CanMakePaymentAsync(self, paymentRequest: Windows.ApplicationModel.Payments.PaymentRequest) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult]: ...
 class IPaymentMerchantInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentMerchantInfo'
     _iid_ = Guid('{63445050-0e94-4ed6-aacb-e6012bd327a7}')
     @winrt_commethod(6)
     def get_PackageFullName(self) -> WinRT_String: ...
@@ -221,11 +235,13 @@ class IPaymentMerchantInfo(ComPtr):
     Uri = property(get_Uri, None)
 class IPaymentMerchantInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentMerchantInfoFactory'
     _iid_ = Guid('{9e89ced3-ccb7-4167-a8ec-e10ae96dbcd1}')
     @winrt_commethod(6)
     def Create(self, uri: Windows.Foundation.Uri) -> Windows.ApplicationModel.Payments.PaymentMerchantInfo: ...
 class IPaymentMethodData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentMethodData'
     _iid_ = Guid('{d1d3caf4-de98-4129-b1b7-c3ad86237bf4}')
     @winrt_commethod(6)
     def get_SupportedMethodIds(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
@@ -235,6 +251,7 @@ class IPaymentMethodData(ComPtr):
     JsonData = property(get_JsonData, None)
 class IPaymentMethodDataFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentMethodDataFactory'
     _iid_ = Guid('{8addd27f-9baa-4a82-8342-a8210992a36b}')
     @winrt_commethod(6)
     def Create(self, supportedMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.ApplicationModel.Payments.PaymentMethodData: ...
@@ -242,6 +259,7 @@ class IPaymentMethodDataFactory(ComPtr):
     def CreateWithJsonData(self, supportedMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String], jsonData: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentMethodData: ...
 class IPaymentOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentOptions'
     _iid_ = Guid('{aaa30854-1f2b-4365-8251-01b58915a5bc}')
     @winrt_commethod(6)
     def get_RequestPayerEmail(self) -> Windows.ApplicationModel.Payments.PaymentOptionPresence: ...
@@ -270,6 +288,7 @@ class IPaymentOptions(ComPtr):
     ShippingType = property(get_ShippingType, put_ShippingType)
 class IPaymentRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentRequest'
     _iid_ = Guid('{b74942e1-ed7b-47eb-bc08-78cc5d6896b6}')
     @winrt_commethod(6)
     def get_MerchantInfo(self) -> Windows.ApplicationModel.Payments.PaymentMerchantInfo: ...
@@ -285,12 +304,14 @@ class IPaymentRequest(ComPtr):
     Options = property(get_Options, None)
 class IPaymentRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentRequest2'
     _iid_ = Guid('{b63ccfb5-5998-493e-a04c-67048a50f141}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     Id = property(get_Id, None)
 class IPaymentRequestChangedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentRequestChangedArgs'
     _iid_ = Guid('{c6145e44-cd8b-4be4-b555-27c99194c0c5}')
     @winrt_commethod(6)
     def get_ChangeKind(self) -> Windows.ApplicationModel.Payments.PaymentRequestChangeKind: ...
@@ -305,6 +326,7 @@ class IPaymentRequestChangedArgs(ComPtr):
     SelectedShippingOption = property(get_SelectedShippingOption, None)
 class IPaymentRequestChangedResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentRequestChangedResult'
     _iid_ = Guid('{df699e5c-16c4-47ad-9401-8440ec0757db}')
     @winrt_commethod(6)
     def get_ChangeAcceptedByMerchant(self) -> Boolean: ...
@@ -323,6 +345,7 @@ class IPaymentRequestChangedResult(ComPtr):
     UpdatedPaymentDetails = property(get_UpdatedPaymentDetails, put_UpdatedPaymentDetails)
 class IPaymentRequestChangedResultFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentRequestChangedResultFactory'
     _iid_ = Guid('{08740f56-1d33-4431-814b-67ea24bf21db}')
     @winrt_commethod(6)
     def Create(self, changeAcceptedByMerchant: Boolean) -> Windows.ApplicationModel.Payments.PaymentRequestChangedResult: ...
@@ -330,6 +353,7 @@ class IPaymentRequestChangedResultFactory(ComPtr):
     def CreateWithPaymentDetails(self, changeAcceptedByMerchant: Boolean, updatedPaymentDetails: Windows.ApplicationModel.Payments.PaymentDetails) -> Windows.ApplicationModel.Payments.PaymentRequestChangedResult: ...
 class IPaymentRequestFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentRequestFactory'
     _iid_ = Guid('{3e8a79dc-6b74-42d3-b103-f0de35fb1848}')
     @winrt_commethod(6)
     def Create(self, details: Windows.ApplicationModel.Payments.PaymentDetails, methodData: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Payments.PaymentMethodData]) -> Windows.ApplicationModel.Payments.PaymentRequest: ...
@@ -339,11 +363,13 @@ class IPaymentRequestFactory(ComPtr):
     def CreateWithMerchantInfoAndOptions(self, details: Windows.ApplicationModel.Payments.PaymentDetails, methodData: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Payments.PaymentMethodData], merchantInfo: Windows.ApplicationModel.Payments.PaymentMerchantInfo, options: Windows.ApplicationModel.Payments.PaymentOptions) -> Windows.ApplicationModel.Payments.PaymentRequest: ...
 class IPaymentRequestFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentRequestFactory2'
     _iid_ = Guid('{e6ce1325-a506-4372-b7ef-1a031d5662d1}')
     @winrt_commethod(6)
     def CreateWithMerchantInfoOptionsAndId(self, details: Windows.ApplicationModel.Payments.PaymentDetails, methodData: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Payments.PaymentMethodData], merchantInfo: Windows.ApplicationModel.Payments.PaymentMerchantInfo, options: Windows.ApplicationModel.Payments.PaymentOptions, id: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentRequest: ...
 class IPaymentRequestSubmitResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentRequestSubmitResult'
     _iid_ = Guid('{7b9c3912-30f2-4e90-b249-8ce7d78ffe56}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.ApplicationModel.Payments.PaymentRequestStatus: ...
@@ -353,6 +379,7 @@ class IPaymentRequestSubmitResult(ComPtr):
     Response = property(get_Response, None)
 class IPaymentResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentResponse'
     _iid_ = Guid('{e1389457-8bd2-4888-9fa8-97985545108e}')
     @winrt_commethod(6)
     def get_PaymentToken(self) -> Windows.ApplicationModel.Payments.PaymentToken: ...
@@ -376,6 +403,7 @@ class IPaymentResponse(ComPtr):
     PayerPhoneNumber = property(get_PayerPhoneNumber, None)
 class IPaymentShippingOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentShippingOption'
     _iid_ = Guid('{13372ada-9753-4574-8966-93145a76c7f9}')
     @winrt_commethod(6)
     def get_Label(self) -> WinRT_String: ...
@@ -399,6 +427,7 @@ class IPaymentShippingOption(ComPtr):
     IsSelected = property(get_IsSelected, put_IsSelected)
 class IPaymentShippingOptionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentShippingOptionFactory'
     _iid_ = Guid('{5de5f917-b2d7-446b-9d73-6123fbca3bc6}')
     @winrt_commethod(6)
     def Create(self, label: WinRT_String, amount: Windows.ApplicationModel.Payments.PaymentCurrencyAmount) -> Windows.ApplicationModel.Payments.PaymentShippingOption: ...
@@ -408,6 +437,7 @@ class IPaymentShippingOptionFactory(ComPtr):
     def CreateWithSelectedAndTag(self, label: WinRT_String, amount: Windows.ApplicationModel.Payments.PaymentCurrencyAmount, selected: Boolean, tag: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentShippingOption: ...
 class IPaymentToken(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentToken'
     _iid_ = Guid('{bbcac013-ccd0-41f2-b2a1-0a2e4b5dce25}')
     @winrt_commethod(6)
     def get_PaymentMethodId(self) -> WinRT_String: ...
@@ -417,6 +447,7 @@ class IPaymentToken(ComPtr):
     JsonDetails = property(get_JsonDetails, None)
 class IPaymentTokenFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Payments.IPaymentTokenFactory'
     _iid_ = Guid('{988cd7aa-4753-4904-8373-dd7b08b995c1}')
     @winrt_commethod(6)
     def Create(self, paymentMethodId: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentToken: ...
@@ -723,8 +754,8 @@ class PaymentRequestChangedArgs(ComPtr):
     SelectedShippingOption = property(get_SelectedShippingOption, None)
 class PaymentRequestChangedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{5078b9e1-f398-4f2c-a27e-94d371cf6c7d}')
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentRequestChangedHandler'
+    _iid_ = Guid('{5078b9e1-f398-4f2c-a27e-94d371cf6c7d}')
     @winrt_commethod(3)
     def Invoke(self, paymentRequest: Windows.ApplicationModel.Payments.PaymentRequest, args: Windows.ApplicationModel.Payments.PaymentRequestChangedArgs) -> Void: ...
 class PaymentRequestChangedResult(ComPtr):

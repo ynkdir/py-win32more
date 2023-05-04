@@ -30,6 +30,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUserDataAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount'
     _iid_ = Guid('{b9c4367e-b348-4910-be94-4ad4bba6dea7}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -67,6 +68,7 @@ class IUserDataAccount(ComPtr):
     PackageFamilyName = property(get_PackageFamilyName, None)
 class IUserDataAccount2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount2'
     _iid_ = Guid('{078cd89f-de82-404b-8195-c8a3ac198f60}')
     @winrt_commethod(6)
     def get_EnterpriseId(self) -> WinRT_String: ...
@@ -76,6 +78,7 @@ class IUserDataAccount2(ComPtr):
     IsProtectedUnderLock = property(get_IsProtectedUnderLock, None)
 class IUserDataAccount3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount3'
     _iid_ = Guid('{01533845-6c43-4286-9d69-3e1709a1f266}')
     @winrt_commethod(6)
     def get_ExplictReadAccessPackageFamilyNames(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
@@ -87,6 +90,7 @@ class IUserDataAccount3(ComPtr):
     DisplayName = property(get_DisplayName, put_DisplayName)
 class IUserDataAccount4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount4'
     _iid_ = Guid('{c4315210-eae5-4f0a-a8b2-1cca115e008f}')
     @winrt_commethod(6)
     def get_CanShowCreateContactGroup(self) -> Boolean: ...
@@ -110,6 +114,7 @@ class IUserDataAccount4(ComPtr):
     Icon = property(None, put_Icon)
 class IUserDataAccountManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser'
     _iid_ = Guid('{56a6e8db-db8f-41ab-a65f-8c5971aac982}')
     @winrt_commethod(6)
     def RequestStoreAsync(self, storeAccessType: Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreAccessType) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore]: ...
@@ -118,6 +123,7 @@ class IUserDataAccountManagerForUser(ComPtr):
     User = property(get_User, None)
 class IUserDataAccountManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics'
     _iid_ = Guid('{0d9b89ea-1928-4a20-86d5-3c737f7dc3b0}')
     @winrt_commethod(6)
     def RequestStoreAsync(self, storeAccessType: Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreAccessType) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore]: ...
@@ -129,11 +135,13 @@ class IUserDataAccountManagerStatics(ComPtr):
     def ShowAccountErrorResolverAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IUserDataAccountManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics2'
     _iid_ = Guid('{6a3ded88-316b-435e-b534-f7d4b4b7dba6}')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser: ...
 class IUserDataAccountStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore'
     _iid_ = Guid('{2073b0ad-7d0a-4e76-bf45-2368f978a59a}')
     @winrt_commethod(6)
     def FindAccountsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.UserDataAccounts.UserDataAccount]]: ...
@@ -143,6 +151,7 @@ class IUserDataAccountStore(ComPtr):
     def CreateAccountAsync(self, userDisplayName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
 class IUserDataAccountStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore2'
     _iid_ = Guid('{b1e0aef7-9560-4631-8af0-061d30161469}')
     @winrt_commethod(6)
     def CreateAccountWithPackageRelativeAppIdAsync(self, userDisplayName: WinRT_String, packageRelativeAppId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
@@ -152,11 +161,13 @@ class IUserDataAccountStore2(ComPtr):
     def remove_StoreChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IUserDataAccountStore3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3'
     _iid_ = Guid('{8142c094-f3c9-478b-b117-6585bebb6789}')
     @winrt_commethod(6)
     def CreateAccountWithPackageRelativeAppIdAndEnterpriseIdAsync(self, userDisplayName: WinRT_String, packageRelativeAppId: WinRT_String, enterpriseId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
 class IUserDataAccountStoreChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStoreChangedEventArgs'
     _iid_ = Guid('{84e3e2e5-8820-4512-b1f6-2e035be1072c}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
@@ -236,6 +247,7 @@ UserDataAccountContentKinds_Contact: UserDataAccountContentKinds = 2
 UserDataAccountContentKinds_Appointment: UserDataAccountContentKinds = 4
 class UserDataAccountManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager'
     @winrt_classmethod
     def GetForUser(cls: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics2, user: Windows.System.User) -> Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser: ...
     @winrt_classmethod

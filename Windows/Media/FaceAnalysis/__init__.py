@@ -85,12 +85,14 @@ class FaceTracker(ComPtr):
     IsSupported = property(get_IsSupported, None)
 class IDetectedFace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.FaceAnalysis.IDetectedFace'
     _iid_ = Guid('{8200d454-66bc-34df-9410-e89400195414}')
     @winrt_commethod(6)
     def get_FaceBox(self) -> Windows.Graphics.Imaging.BitmapBounds: ...
     FaceBox = property(get_FaceBox, None)
 class IFaceDetector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.FaceAnalysis.IFaceDetector'
     _iid_ = Guid('{16b672dc-fe6f-3117-8d95-c3f04d51630c}')
     @winrt_commethod(6)
     def DetectFacesAsync(self, image: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.Media.FaceAnalysis.DetectedFace]]: ...
@@ -108,6 +110,7 @@ class IFaceDetector(ComPtr):
     MaxDetectableFaceSize = property(get_MaxDetectableFaceSize, put_MaxDetectableFaceSize)
 class IFaceDetectorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.FaceAnalysis.IFaceDetectorStatics'
     _iid_ = Guid('{bc042d67-9047-33f6-881b-6746c1b218b8}')
     @winrt_commethod(6)
     def CreateAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Media.FaceAnalysis.FaceDetector]: ...
@@ -120,6 +123,7 @@ class IFaceDetectorStatics(ComPtr):
     IsSupported = property(get_IsSupported, None)
 class IFaceTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.FaceAnalysis.IFaceTracker'
     _iid_ = Guid('{6ba67d8c-a841-4420-93e6-2420a1884fcf}')
     @winrt_commethod(6)
     def ProcessNextFrameAsync(self, videoFrame: Windows.Media.VideoFrame) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.Media.FaceAnalysis.DetectedFace]]: ...
@@ -135,6 +139,7 @@ class IFaceTracker(ComPtr):
     MaxDetectableFaceSize = property(get_MaxDetectableFaceSize, put_MaxDetectableFaceSize)
 class IFaceTrackerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.FaceAnalysis.IFaceTrackerStatics'
     _iid_ = Guid('{e9629198-1801-3fa5-932e-31d767af6c4d}')
     @winrt_commethod(6)
     def CreateAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Media.FaceAnalysis.FaceTracker]: ...

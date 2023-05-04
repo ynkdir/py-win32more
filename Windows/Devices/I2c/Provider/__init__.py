@@ -24,11 +24,13 @@ def __getattr__(name):
     return getattr(_module, name)
 class II2cControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.I2c.Provider.II2cControllerProvider'
     _iid_ = Guid('{61c2bb82-4510-4163-a87c-4e15a9558980}')
     @winrt_commethod(6)
     def GetDeviceProvider(self, settings: Windows.Devices.I2c.Provider.ProviderI2cConnectionSettings) -> Windows.Devices.I2c.Provider.II2cDeviceProvider: ...
 class II2cDeviceProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.I2c.Provider.II2cDeviceProvider'
     _iid_ = Guid('{ad342654-57e8-453e-8329-d1e447d103a9}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
@@ -47,11 +49,13 @@ class II2cDeviceProvider(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class II2cProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.I2c.Provider.II2cProvider'
     _iid_ = Guid('{6f13083e-bf62-4fe2-a95a-f08999669818}')
     @winrt_commethod(6)
     def GetControllersAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.I2c.Provider.II2cControllerProvider]]: ...
 class IProviderI2cConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.I2c.Provider.IProviderI2cConnectionSettings'
     _iid_ = Guid('{e9db4e34-e510-44b7-809d-f2f85b555339}')
     @winrt_commethod(6)
     def get_SlaveAddress(self) -> Int32: ...

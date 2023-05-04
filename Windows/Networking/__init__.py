@@ -88,6 +88,7 @@ HostNameType_Ipv6: HostNameType = 2
 HostNameType_Bluetooth: HostNameType = 3
 class IEndpointPair(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.IEndpointPair'
     _iid_ = Guid('{33a0aa36-f8fa-4b30-b856-76517c3bd06d}')
     @winrt_commethod(6)
     def get_LocalHostName(self) -> Windows.Networking.HostName: ...
@@ -111,11 +112,13 @@ class IEndpointPair(ComPtr):
     RemoteServiceName = property(get_RemoteServiceName, put_RemoteServiceName)
 class IEndpointPairFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.IEndpointPairFactory'
     _iid_ = Guid('{b609d971-64e0-442b-aa6f-cc8c8f181f78}')
     @winrt_commethod(6)
     def CreateEndpointPair(self, localHostName: Windows.Networking.HostName, localServiceName: WinRT_String, remoteHostName: Windows.Networking.HostName, remoteServiceName: WinRT_String) -> Windows.Networking.EndpointPair: ...
 class IHostName(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.IHostName'
     _iid_ = Guid('{bf8ecaad-ed96-49a7-9084-d416cae88dcb}')
     @winrt_commethod(6)
     def get_IPInformation(self) -> Windows.Networking.Connectivity.IPInformation: ...
@@ -136,11 +139,13 @@ class IHostName(ComPtr):
     Type = property(get_Type, None)
 class IHostNameFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.IHostNameFactory'
     _iid_ = Guid('{458c23ed-712f-4576-adf1-c20b2c643558}')
     @winrt_commethod(6)
     def CreateHostName(self, hostName: WinRT_String) -> Windows.Networking.HostName: ...
 class IHostNameStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.IHostNameStatics'
     _iid_ = Guid('{f68cd4bf-a388-4e8b-91ea-54dd6dd901c0}')
     @winrt_commethod(6)
     def Compare(self, value1: WinRT_String, value2: WinRT_String) -> Int32: ...

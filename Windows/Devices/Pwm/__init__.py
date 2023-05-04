@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPwmController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Pwm.IPwmController'
     _iid_ = Guid('{c45f5c85-d2e8-42cf-9bd6-cf5ed029e6a7}')
     @winrt_commethod(6)
     def get_PinCount(self) -> Int32: ...
@@ -44,16 +45,19 @@ class IPwmController(ComPtr):
     MaxFrequency = property(get_MaxFrequency, None)
 class IPwmControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Pwm.IPwmControllerStatics'
     _iid_ = Guid('{4263bda1-8946-4404-bd48-81dd124af4d9}')
     @winrt_commethod(6)
     def GetControllersAsync(self, provider: Windows.Devices.Pwm.Provider.IPwmProvider) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Pwm.PwmController]]: ...
 class IPwmControllerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Pwm.IPwmControllerStatics2'
     _iid_ = Guid('{44fc5b1f-f119-4bdd-97ad-f76ef986736d}')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Pwm.PwmController]: ...
 class IPwmControllerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Pwm.IPwmControllerStatics3'
     _iid_ = Guid('{b2581871-0229-4344-ae3f-9b7cd0e66b94}')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
@@ -63,6 +67,7 @@ class IPwmControllerStatics3(ComPtr):
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Pwm.PwmController]: ...
 class IPwmPin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Pwm.IPwmPin'
     _iid_ = Guid('{22972dc8-c6cf-4821-b7f9-c6454fb6af79}')
     @winrt_commethod(6)
     def get_Controller(self) -> Windows.Devices.Pwm.PwmController: ...

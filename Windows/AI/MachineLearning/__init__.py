@@ -30,6 +30,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IImageFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.IImageFeatureDescriptor'
     _iid_ = Guid('{365585a5-171a-4a2a-985f-265159d3895a}')
     @winrt_commethod(6)
     def get_BitmapPixelFormat(self) -> Windows.Graphics.Imaging.BitmapPixelFormat: ...
@@ -45,23 +46,27 @@ class IImageFeatureDescriptor(ComPtr):
     Height = property(get_Height, None)
 class IImageFeatureDescriptor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.IImageFeatureDescriptor2'
     _iid_ = Guid('{2b27cca7-d533-5862-bb98-1611b155b0e1}')
     @winrt_commethod(6)
     def get_PixelRange(self) -> Windows.AI.MachineLearning.LearningModelPixelRange: ...
     PixelRange = property(get_PixelRange, None)
 class IImageFeatureValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.IImageFeatureValue'
     _iid_ = Guid('{f0414fd9-c9aa-4405-b7fb-94f87c8a3037}')
     @winrt_commethod(6)
     def get_VideoFrame(self) -> Windows.Media.VideoFrame: ...
     VideoFrame = property(get_VideoFrame, None)
 class IImageFeatureValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.IImageFeatureValueStatics'
     _iid_ = Guid('{1bc317fd-23cb-4610-b085-c8e1c87ebaa0}')
     @winrt_commethod(6)
     def CreateFromVideoFrame(self, image: Windows.Media.VideoFrame) -> Windows.AI.MachineLearning.ImageFeatureValue: ...
 class ILearningModel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModel'
     _iid_ = Guid('{5b8e4920-489f-4e86-9128-265a327b78fa}')
     @winrt_commethod(6)
     def get_Author(self) -> WinRT_String: ...
@@ -89,6 +94,7 @@ class ILearningModel(ComPtr):
     OutputFeatures = property(get_OutputFeatures, None)
 class ILearningModelBinding(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelBinding'
     _iid_ = Guid('{ea312f20-168f-4f8c-94fe-2e7ac31b4aa8}')
     @winrt_commethod(6)
     def Bind(self, name: WinRT_String, value: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
@@ -98,11 +104,13 @@ class ILearningModelBinding(ComPtr):
     def Clear(self) -> Void: ...
 class ILearningModelBindingFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelBindingFactory'
     _iid_ = Guid('{c95f7a7a-e788-475e-8917-23aa381faf0b}')
     @winrt_commethod(6)
     def CreateFromSession(self, session: Windows.AI.MachineLearning.LearningModelSession) -> Windows.AI.MachineLearning.LearningModelBinding: ...
 class ILearningModelDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelDevice'
     _iid_ = Guid('{f5c2c8fe-3f56-4a8c-ac5f-fdb92d8b8252}')
     @winrt_commethod(6)
     def get_AdapterId(self) -> Windows.Graphics.DisplayAdapterId: ...
@@ -112,16 +120,19 @@ class ILearningModelDevice(ComPtr):
     Direct3D11Device = property(get_Direct3D11Device, None)
 class ILearningModelDeviceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelDeviceFactory'
     _iid_ = Guid('{9cffd74d-b1e5-4f20-80ad-0a56690db06b}')
     @winrt_commethod(6)
     def Create(self, deviceKind: Windows.AI.MachineLearning.LearningModelDeviceKind) -> Windows.AI.MachineLearning.LearningModelDevice: ...
 class ILearningModelDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelDeviceStatics'
     _iid_ = Guid('{49f32107-a8bf-42bb-92c7-10b12dc5d21f}')
     @winrt_commethod(6)
     def CreateFromDirect3D11Device(self, device: Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice) -> Windows.AI.MachineLearning.LearningModelDevice: ...
 class ILearningModelEvaluationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelEvaluationResult'
     _iid_ = Guid('{b2f9bfcd-960e-49c0-8593-eb190ae3eee2}')
     @winrt_commethod(6)
     def get_CorrelationId(self) -> WinRT_String: ...
@@ -137,6 +148,7 @@ class ILearningModelEvaluationResult(ComPtr):
     Outputs = property(get_Outputs, None)
 class ILearningModelFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelFeatureDescriptor'
     _iid_ = Guid('{bc08cf7c-6ed0-4004-97ba-b9a2eecd2b4f}')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
@@ -152,15 +164,18 @@ class ILearningModelFeatureDescriptor(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class ILearningModelFeatureValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelFeatureValue'
     _iid_ = Guid('{f51005db-4085-4dfe-9fed-95eb0c0cf75c}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.AI.MachineLearning.LearningModelFeatureKind: ...
     Kind = property(get_Kind, None)
 class ILearningModelOperatorProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelOperatorProvider'
     _iid_ = Guid('{2a222e5d-afb1-47ed-bfad-b5b3a459ec04}')
 class ILearningModelSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelSession'
     _iid_ = Guid('{8e58f8f6-b787-4c11-90f0-7129aeca74a9}')
     @winrt_commethod(6)
     def get_Model(self) -> Windows.AI.MachineLearning.LearningModel: ...
@@ -181,6 +196,7 @@ class ILearningModelSession(ComPtr):
     EvaluationProperties = property(get_EvaluationProperties, None)
 class ILearningModelSessionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelSessionFactory'
     _iid_ = Guid('{0f6b881d-1c9b-47b6-bfe0-f1cf62a67579}')
     @winrt_commethod(6)
     def CreateFromModel(self, model: Windows.AI.MachineLearning.LearningModel) -> Windows.AI.MachineLearning.LearningModelSession: ...
@@ -188,11 +204,13 @@ class ILearningModelSessionFactory(ComPtr):
     def CreateFromModelOnDevice(self, model: Windows.AI.MachineLearning.LearningModel, deviceToRunOn: Windows.AI.MachineLearning.LearningModelDevice) -> Windows.AI.MachineLearning.LearningModelSession: ...
 class ILearningModelSessionFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelSessionFactory2'
     _iid_ = Guid('{4e5c88bf-0a1f-5fec-ade0-2fd91e4ef29b}')
     @winrt_commethod(6)
     def CreateFromModelOnDeviceWithSessionOptions(self, model: Windows.AI.MachineLearning.LearningModel, deviceToRunOn: Windows.AI.MachineLearning.LearningModelDevice, learningModelSessionOptions: Windows.AI.MachineLearning.LearningModelSessionOptions) -> Windows.AI.MachineLearning.LearningModelSession: ...
 class ILearningModelSessionOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelSessionOptions'
     _iid_ = Guid('{b8f63fa1-134d-5133-8cff-3a5c3c263beb}')
     @winrt_commethod(6)
     def get_BatchSizeOverride(self) -> UInt32: ...
@@ -201,6 +219,7 @@ class ILearningModelSessionOptions(ComPtr):
     BatchSizeOverride = property(get_BatchSizeOverride, put_BatchSizeOverride)
 class ILearningModelSessionOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelSessionOptions2'
     _iid_ = Guid('{6fcd1dc4-175f-5bd2-8de5-2f2006a25adf}')
     @winrt_commethod(6)
     def get_CloseModelOnSessionCreation(self) -> Boolean: ...
@@ -209,11 +228,13 @@ class ILearningModelSessionOptions2(ComPtr):
     CloseModelOnSessionCreation = property(get_CloseModelOnSessionCreation, put_CloseModelOnSessionCreation)
 class ILearningModelSessionOptions3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelSessionOptions3'
     _iid_ = Guid('{58e15cee-d8c2-56fc-92e8-76d751081086}')
     @winrt_commethod(6)
     def OverrideNamedDimension(self, name: WinRT_String, dimension: UInt32) -> Void: ...
 class ILearningModelStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ILearningModelStatics'
     _iid_ = Guid('{e3b977e8-6952-4e47-8ef4-1f7f07897c6d}')
     @winrt_commethod(6)
     def LoadFromStorageFileAsync(self, modelFile: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.AI.MachineLearning.LearningModel]: ...
@@ -233,6 +254,7 @@ class ILearningModelStatics(ComPtr):
     def LoadFromStreamWithOperatorProvider(self, modelStream: Windows.Storage.Streams.IRandomAccessStreamReference, operatorProvider: Windows.AI.MachineLearning.ILearningModelOperatorProvider) -> Windows.AI.MachineLearning.LearningModel: ...
 class IMapFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.IMapFeatureDescriptor'
     _iid_ = Guid('{530424bd-a257-436d-9e60-c2981f7cc5c4}')
     @winrt_commethod(6)
     def get_KeyKind(self) -> Windows.AI.MachineLearning.TensorKind: ...
@@ -242,12 +264,14 @@ class IMapFeatureDescriptor(ComPtr):
     ValueDescriptor = property(get_ValueDescriptor, None)
 class ISequenceFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ISequenceFeatureDescriptor'
     _iid_ = Guid('{84f6945a-562b-4d62-a851-739aced96668}')
     @winrt_commethod(6)
     def get_ElementDescriptor(self) -> Windows.AI.MachineLearning.ILearningModelFeatureDescriptor: ...
     ElementDescriptor = property(get_ElementDescriptor, None)
 class ITensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensor'
     _iid_ = Guid('{05489593-a305-4a25-ad09-440119b4b7f6}')
     @winrt_commethod(6)
     def get_TensorKind(self) -> Windows.AI.MachineLearning.TensorKind: ...
@@ -257,11 +281,13 @@ class ITensor(ComPtr):
     Shape = property(get_Shape, None)
 class ITensorBoolean(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorBoolean'
     _iid_ = Guid('{50f311ed-29e9-4a5c-a44d-8fc512584eed}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Boolean]: ...
 class ITensorBooleanStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorBooleanStatics'
     _iid_ = Guid('{2796862c-2357-49a7-b476-d0aa3dfe6866}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorBoolean: ...
@@ -273,6 +299,7 @@ class ITensorBooleanStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Boolean]) -> Windows.AI.MachineLearning.TensorBoolean: ...
 class ITensorBooleanStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorBooleanStatics2'
     _iid_ = Guid('{a3a4a501-6a2d-52d7-b04b-c435baee0115}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(Boolean)) -> Windows.AI.MachineLearning.TensorBoolean: ...
@@ -280,11 +307,13 @@ class ITensorBooleanStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorBoolean: ...
 class ITensorDouble(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorDouble'
     _iid_ = Guid('{91e41252-7a8f-4f0e-a28f-9637ffc8a3d0}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Double]: ...
 class ITensorDoubleStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorDoubleStatics'
     _iid_ = Guid('{a86693c5-9538-44e7-a3ca-5df374a5a70c}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorDouble: ...
@@ -296,6 +325,7 @@ class ITensorDoubleStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Double]) -> Windows.AI.MachineLearning.TensorDouble: ...
 class ITensorDoubleStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorDoubleStatics2'
     _iid_ = Guid('{93a570de-5e9a-5094-85c8-592c655e68ac}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(Double)) -> Windows.AI.MachineLearning.TensorDouble: ...
@@ -303,6 +333,7 @@ class ITensorDoubleStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorDouble: ...
 class ITensorFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorFeatureDescriptor'
     _iid_ = Guid('{74455c80-946a-4310-a19c-ee0af028fce4}')
     @winrt_commethod(6)
     def get_TensorKind(self) -> Windows.AI.MachineLearning.TensorKind: ...
@@ -312,16 +343,19 @@ class ITensorFeatureDescriptor(ComPtr):
     Shape = property(get_Shape, None)
 class ITensorFloat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorFloat'
     _iid_ = Guid('{f2282d82-aa02-42c8-a0c8-df1efc9676e1}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Single]: ...
 class ITensorFloat16Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorFloat16Bit'
     _iid_ = Guid('{0ab994fc-5b89-4c3c-b5e4-5282a5316c0a}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Single]: ...
 class ITensorFloat16BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorFloat16BitStatics'
     _iid_ = Guid('{a52db6f5-318a-44d4-820b-0cdc7054a84a}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorFloat16Bit: ...
@@ -333,6 +367,7 @@ class ITensorFloat16BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Single]) -> Windows.AI.MachineLearning.TensorFloat16Bit: ...
 class ITensorFloat16BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorFloat16BitStatics2'
     _iid_ = Guid('{68545726-2dc7-51bf-b470-0b344cc2a1bc}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(Single)) -> Windows.AI.MachineLearning.TensorFloat16Bit: ...
@@ -340,6 +375,7 @@ class ITensorFloat16BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorFloat16Bit: ...
 class ITensorFloatStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorFloatStatics'
     _iid_ = Guid('{dbcd395b-3ba3-452f-b10d-3c135e573fa9}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorFloat: ...
@@ -351,6 +387,7 @@ class ITensorFloatStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Single]) -> Windows.AI.MachineLearning.TensorFloat: ...
 class ITensorFloatStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorFloatStatics2'
     _iid_ = Guid('{24610bc1-5e44-5713-b281-8f4ad4d555e8}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(Single)) -> Windows.AI.MachineLearning.TensorFloat: ...
@@ -358,11 +395,13 @@ class ITensorFloatStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorFloat: ...
 class ITensorInt16Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt16Bit'
     _iid_ = Guid('{98a32d39-e6d6-44af-8afa-baebc44dc020}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Int16]: ...
 class ITensorInt16BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt16BitStatics'
     _iid_ = Guid('{98646293-266e-4b1a-821f-e60d70898b91}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorInt16Bit: ...
@@ -374,6 +413,7 @@ class ITensorInt16BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Int16]) -> Windows.AI.MachineLearning.TensorInt16Bit: ...
 class ITensorInt16BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt16BitStatics2'
     _iid_ = Guid('{0cd70cf4-696c-5e5f-95d8-5ebf9670148b}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(Int16)) -> Windows.AI.MachineLearning.TensorInt16Bit: ...
@@ -381,11 +421,13 @@ class ITensorInt16BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorInt16Bit: ...
 class ITensorInt32Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt32Bit'
     _iid_ = Guid('{2c0c28d3-207c-4486-a7d2-884522c5e589}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Int32]: ...
 class ITensorInt32BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt32BitStatics'
     _iid_ = Guid('{6539864b-52fa-4e35-907c-834cac417b50}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorInt32Bit: ...
@@ -397,6 +439,7 @@ class ITensorInt32BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Int32]) -> Windows.AI.MachineLearning.TensorInt32Bit: ...
 class ITensorInt32BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt32BitStatics2'
     _iid_ = Guid('{7c4b079a-e956-5ce0-a3bd-157d9d79b5ec}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(Int32)) -> Windows.AI.MachineLearning.TensorInt32Bit: ...
@@ -404,11 +447,13 @@ class ITensorInt32BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorInt32Bit: ...
 class ITensorInt64Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt64Bit'
     _iid_ = Guid('{499665ba-1fa2-45ad-af25-a0bd9bda4c87}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Int64]: ...
 class ITensorInt64BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt64BitStatics'
     _iid_ = Guid('{9648ad9d-1198-4d74-9517-783ab62b9cc2}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorInt64Bit: ...
@@ -420,6 +465,7 @@ class ITensorInt64BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Int64]) -> Windows.AI.MachineLearning.TensorInt64Bit: ...
 class ITensorInt64BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt64BitStatics2'
     _iid_ = Guid('{6d3d9dcb-ff40-5ec2-89fe-084e2b6bc6db}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(Int64)) -> Windows.AI.MachineLearning.TensorInt64Bit: ...
@@ -427,11 +473,13 @@ class ITensorInt64BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorInt64Bit: ...
 class ITensorInt8Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt8Bit'
     _iid_ = Guid('{cddd97c5-ffd8-4fef-aefb-30e1a485b2ee}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Byte]: ...
 class ITensorInt8BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt8BitStatics'
     _iid_ = Guid('{b1a12284-095c-4c76-a661-ac4cee1f3e8b}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorInt8Bit: ...
@@ -443,6 +491,7 @@ class ITensorInt8BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Byte]) -> Windows.AI.MachineLearning.TensorInt8Bit: ...
 class ITensorInt8BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorInt8BitStatics2'
     _iid_ = Guid('{c0d59637-c468-56fb-9535-c052bdb93dc0}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: c_char_p_no) -> Windows.AI.MachineLearning.TensorInt8Bit: ...
@@ -450,11 +499,13 @@ class ITensorInt8BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorInt8Bit: ...
 class ITensorString(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorString'
     _iid_ = Guid('{582335c8-bdb1-4610-bc75-35e9cbf009b7}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
 class ITensorStringStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorStringStatics'
     _iid_ = Guid('{83623324-cf26-4f17-a2d4-20ef8d097d53}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorString: ...
@@ -466,16 +517,19 @@ class ITensorStringStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.AI.MachineLearning.TensorString: ...
 class ITensorStringStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorStringStatics2'
     _iid_ = Guid('{9e355ed0-c8e2-5254-9137-0193a3668fd8}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(WinRT_String)) -> Windows.AI.MachineLearning.TensorString: ...
 class ITensorUInt16Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt16Bit'
     _iid_ = Guid('{68140f4b-23c0-42f3-81f6-a891c011bc3f}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[UInt16]: ...
 class ITensorUInt16BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt16BitStatics'
     _iid_ = Guid('{5df745dd-028a-481a-a27c-c7e6435e52dd}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorUInt16Bit: ...
@@ -487,6 +541,7 @@ class ITensorUInt16BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[UInt16]) -> Windows.AI.MachineLearning.TensorUInt16Bit: ...
 class ITensorUInt16BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt16BitStatics2'
     _iid_ = Guid('{8af40c64-d69f-5315-9348-490877bbd642}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(UInt16)) -> Windows.AI.MachineLearning.TensorUInt16Bit: ...
@@ -494,11 +549,13 @@ class ITensorUInt16BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorUInt16Bit: ...
 class ITensorUInt32Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt32Bit'
     _iid_ = Guid('{d8c9c2ff-7511-45a3-bfac-c38f370d2237}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
 class ITensorUInt32BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt32BitStatics'
     _iid_ = Guid('{417c3837-e773-4378-8e7f-0cc33dbea697}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorUInt32Bit: ...
@@ -510,6 +567,7 @@ class ITensorUInt32BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[UInt32]) -> Windows.AI.MachineLearning.TensorUInt32Bit: ...
 class ITensorUInt32BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt32BitStatics2'
     _iid_ = Guid('{ef1a1f1c-314e-569d-b496-5c8447d20cd2}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(UInt32)) -> Windows.AI.MachineLearning.TensorUInt32Bit: ...
@@ -517,11 +575,13 @@ class ITensorUInt32BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorUInt32Bit: ...
 class ITensorUInt64Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt64Bit'
     _iid_ = Guid('{2e70ffad-04bf-4825-839a-82baef8c7886}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[UInt64]: ...
 class ITensorUInt64BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt64BitStatics'
     _iid_ = Guid('{7a7e20eb-242f-47cb-a9c6-f602ecfbfee4}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorUInt64Bit: ...
@@ -533,6 +593,7 @@ class ITensorUInt64BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[UInt64]) -> Windows.AI.MachineLearning.TensorUInt64Bit: ...
 class ITensorUInt64BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt64BitStatics2'
     _iid_ = Guid('{085a687d-67e1-5b1e-b232-4fabe9ca20b3}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: POINTER(UInt64)) -> Windows.AI.MachineLearning.TensorUInt64Bit: ...
@@ -540,11 +601,13 @@ class ITensorUInt64BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorUInt64Bit: ...
 class ITensorUInt8Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt8Bit'
     _iid_ = Guid('{58e1ae27-622b-48e3-be22-d867aed1daac}')
     @winrt_commethod(6)
     def GetAsVectorView(self) -> Windows.Foundation.Collections.IVectorView[Byte]: ...
 class ITensorUInt8BitStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt8BitStatics'
     _iid_ = Guid('{05f67583-bc24-4220-8a41-2dcd8c5ed33c}')
     @winrt_commethod(6)
     def Create(self) -> Windows.AI.MachineLearning.TensorUInt8Bit: ...
@@ -556,6 +619,7 @@ class ITensorUInt8BitStatics(ComPtr):
     def CreateFromIterable(self, shape: Windows.Foundation.Collections.IIterable[Int64], data: Windows.Foundation.Collections.IIterable[Byte]) -> Windows.AI.MachineLearning.TensorUInt8Bit: ...
 class ITensorUInt8BitStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.MachineLearning.ITensorUInt8BitStatics2'
     _iid_ = Guid('{2ba042d6-373e-5a3a-a2fc-a6c41bd52789}')
     @winrt_commethod(6)
     def CreateFromShapeArrayAndDataArray(self, shape: POINTER(Int64), data: c_char_p_no) -> Windows.AI.MachineLearning.TensorUInt8Bit: ...

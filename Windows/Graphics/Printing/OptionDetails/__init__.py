@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPrintBindingOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintBindingOptionDetails'
     _iid_ = Guid('{c3f4cc98-9564-4f16-a055-a98b9a49e9d3}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -39,6 +40,7 @@ class IPrintBindingOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintBorderingOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintBorderingOptionDetails'
     _iid_ = Guid('{4d73bc8f-fb53-4eb2-985f-1d91de0b7639}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -52,6 +54,7 @@ class IPrintBorderingOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintCollationOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCollationOptionDetails'
     _iid_ = Guid('{d6abb166-a5a6-40dc-acc3-739f28f1e5d3}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -65,6 +68,7 @@ class IPrintCollationOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintColorModeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintColorModeOptionDetails'
     _iid_ = Guid('{dba97704-f1d6-4843-a484-9b447cdcf3b6}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -78,6 +82,7 @@ class IPrintColorModeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintCopiesOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCopiesOptionDetails'
     _iid_ = Guid('{42053099-4339-4343-898d-2c47b5e0c341}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -91,6 +96,7 @@ class IPrintCopiesOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintCustomItemDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails'
     _iid_ = Guid('{5704b637-5c3a-449a-aa36-b3291b1192fd}')
     @winrt_commethod(6)
     def get_ItemId(self) -> WinRT_String: ...
@@ -102,16 +108,19 @@ class IPrintCustomItemDetails(ComPtr):
     ItemDisplayName = property(get_ItemDisplayName, put_ItemDisplayName)
 class IPrintCustomItemListOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails'
     _iid_ = Guid('{a5fafd88-58f2-4ebd-b90f-51e4f2944c5d}')
     @winrt_commethod(6)
     def AddItem(self, itemId: WinRT_String, displayName: WinRT_String) -> Void: ...
 class IPrintCustomItemListOptionDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails2'
     _iid_ = Guid('{c9d6353d-651c-4a39-906e-1091a1801bf1}')
     @winrt_commethod(6)
     def AddItem(self, itemId: WinRT_String, displayName: WinRT_String, description: WinRT_String, icon: Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> Void: ...
 class IPrintCustomItemListOptionDetails3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails3'
     _iid_ = Guid('{4fa1b53f-3c34-4868-a407-fc5eab259b21}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -125,6 +134,7 @@ class IPrintCustomItemListOptionDetails3(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintCustomOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomOptionDetails'
     _iid_ = Guid('{e32bde1c-28af-4b90-95da-a3acf320b929}')
     @winrt_commethod(6)
     def put_DisplayName(self, value: WinRT_String) -> Void: ...
@@ -133,6 +143,7 @@ class IPrintCustomOptionDetails(ComPtr):
     DisplayName = property(get_DisplayName, put_DisplayName)
 class IPrintCustomTextOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomTextOptionDetails'
     _iid_ = Guid('{2ad171f8-c8bd-4905-9192-0d75136e8b31}')
     @winrt_commethod(6)
     def put_MaxCharacters(self, value: UInt32) -> Void: ...
@@ -141,6 +152,7 @@ class IPrintCustomTextOptionDetails(ComPtr):
     MaxCharacters = property(get_MaxCharacters, put_MaxCharacters)
 class IPrintCustomTextOptionDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomTextOptionDetails2'
     _iid_ = Guid('{cea70b54-b977-4718-8338-7ed2b0d86fe3}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -154,6 +166,7 @@ class IPrintCustomTextOptionDetails2(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintCustomToggleOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomToggleOptionDetails'
     _iid_ = Guid('{9db4d514-e461-4608-8ee9-db6f5ed073c6}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -167,6 +180,7 @@ class IPrintCustomToggleOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintDuplexOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintDuplexOptionDetails'
     _iid_ = Guid('{fcd94591-d4a4-44fa-b3fe-42e0ba28d5ad}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -180,6 +194,7 @@ class IPrintDuplexOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintHolePunchOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintHolePunchOptionDetails'
     _iid_ = Guid('{a6de1f18-482c-4657-9d71-8ddddbea1e1e}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -193,12 +208,14 @@ class IPrintHolePunchOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintItemListOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails'
     _iid_ = Guid('{9a2257bf-fe61-43d8-a24f-a3f6ab7320e7}')
     @winrt_commethod(6)
     def get_Items(self) -> Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]: ...
     Items = property(get_Items, None)
 class IPrintMediaSizeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintMediaSizeOptionDetails'
     _iid_ = Guid('{6c8d5bcf-c0bf-47c8-b84a-628e7d0d1a1d}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -212,6 +229,7 @@ class IPrintMediaSizeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintMediaTypeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintMediaTypeOptionDetails'
     _iid_ = Guid('{f8c7000b-abf3-4abc-8e86-22abc5744a43}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -225,6 +243,7 @@ class IPrintMediaTypeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintNumberOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintNumberOptionDetails'
     _iid_ = Guid('{4d01bbaf-645c-4de9-965f-6fc6bbc47cab}')
     @winrt_commethod(6)
     def get_MinValue(self) -> UInt32: ...
@@ -234,6 +253,7 @@ class IPrintNumberOptionDetails(ComPtr):
     MaxValue = property(get_MaxValue, None)
 class IPrintOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails'
     _iid_ = Guid('{390686cf-d682-495f-adfe-d7333f5c1808}')
     @winrt_commethod(6)
     def get_OptionId(self) -> WinRT_String: ...
@@ -258,6 +278,7 @@ class IPrintOptionDetails(ComPtr):
     Value = property(get_Value, None)
 class IPrintOrientationOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintOrientationOptionDetails'
     _iid_ = Guid('{46c38879-66e0-4da0-87b4-d25457824eb7}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -271,6 +292,7 @@ class IPrintOrientationOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintPageRangeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintPageRangeOptionDetails'
     _iid_ = Guid('{5a19e4b7-2be8-4aa7-9ea5-defbe8713b4e}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -284,6 +306,7 @@ class IPrintPageRangeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintQualityOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintQualityOptionDetails'
     _iid_ = Guid('{2dd06ba1-ce1a-44e6-84f9-3a92ea1e3044}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -297,6 +320,7 @@ class IPrintQualityOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintStapleOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintStapleOptionDetails'
     _iid_ = Guid('{d43175bd-9c0b-44e0-84f6-ceebce653800}')
     @winrt_commethod(6)
     def put_WarningText(self, value: WinRT_String) -> Void: ...
@@ -310,12 +334,14 @@ class IPrintStapleOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class IPrintTaskOptionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs'
     _iid_ = Guid('{65197d05-a5ee-4307-9407-9acad147679c}')
     @winrt_commethod(6)
     def get_OptionId(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     OptionId = property(get_OptionId, None)
 class IPrintTaskOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails'
     _iid_ = Guid('{f5720af1-a89e-42a6-81af-f8e010b38a68}')
     @winrt_commethod(6)
     def get_Options(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails]: ...
@@ -334,16 +360,19 @@ class IPrintTaskOptionDetails(ComPtr):
     Options = property(get_Options, None)
 class IPrintTaskOptionDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails2'
     _iid_ = Guid('{53730a09-f968-4692-a177-c074597186db}')
     @winrt_commethod(6)
     def CreateToggleOption(self, optionId: WinRT_String, displayName: WinRT_String) -> Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails: ...
 class IPrintTaskOptionDetailsStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetailsStatic'
     _iid_ = Guid('{135da193-0961-4b6e-8766-f13b7fbccd58}')
     @winrt_commethod(6)
     def GetFromPrintTaskOptions(self, printTaskOptions: Windows.Graphics.Printing.PrintTaskOptions) -> Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails: ...
 class IPrintTextOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTextOptionDetails'
     _iid_ = Guid('{ad75e563-5ce4-46bc-9918-ab9fad144c5b}')
     @winrt_commethod(6)
     def get_MaxCharacters(self) -> UInt32: ...

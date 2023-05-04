@@ -24,6 +24,7 @@ def __getattr__(name):
 CallsBackgroundContract: UInt32 = 262144
 class IPhoneCallBlockedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneCallBlockedTriggerDetails'
     _iid_ = Guid('{a4a690a2-e4c1-427f-864e-e470477ddb67}')
     @winrt_commethod(6)
     def get_PhoneNumber(self) -> WinRT_String: ...
@@ -36,6 +37,7 @@ class IPhoneCallBlockedTriggerDetails(ComPtr):
     CallBlockedReason = property(get_CallBlockedReason, None)
 class IPhoneCallOriginDataRequestTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneCallOriginDataRequestTriggerDetails'
     _iid_ = Guid('{6e9b5b3f-c54b-4e82-4cc9-e329a4184592}')
     @winrt_commethod(6)
     def get_RequestId(self) -> Guid: ...
@@ -45,6 +47,7 @@ class IPhoneCallOriginDataRequestTriggerDetails(ComPtr):
     PhoneNumber = property(get_PhoneNumber, None)
 class IPhoneIncomingCallDismissedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallDismissedTriggerDetails'
     _iid_ = Guid('{bad30276-83b6-5732-9c38-0c206546196a}')
     @winrt_commethod(6)
     def get_LineId(self) -> Guid: ...
@@ -66,6 +69,7 @@ class IPhoneIncomingCallDismissedTriggerDetails(ComPtr):
     Reason = property(get_Reason, None)
 class IPhoneIncomingCallNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallNotificationTriggerDetails'
     _iid_ = Guid('{2b0e6044-9b32-5d42-8222-d2812e39fb21}')
     @winrt_commethod(6)
     def get_LineId(self) -> Guid: ...
@@ -75,6 +79,7 @@ class IPhoneIncomingCallNotificationTriggerDetails(ComPtr):
     CallId = property(get_CallId, None)
 class IPhoneLineChangedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneLineChangedTriggerDetails'
     _iid_ = Guid('{c6d321e7-d11d-40d8-b2b7-e40a01d66249}')
     @winrt_commethod(6)
     def get_LineId(self) -> Guid: ...
@@ -86,6 +91,7 @@ class IPhoneLineChangedTriggerDetails(ComPtr):
     ChangeType = property(get_ChangeType, None)
 class IPhoneNewVoicemailMessageTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneNewVoicemailMessageTriggerDetails'
     _iid_ = Guid('{13a8c01b-b831-48d3-8ba9-8d22a6580dcf}')
     @winrt_commethod(6)
     def get_LineId(self) -> Guid: ...

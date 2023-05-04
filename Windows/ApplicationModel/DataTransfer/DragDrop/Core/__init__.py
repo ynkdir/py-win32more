@@ -123,6 +123,7 @@ class CoreDropOperationTargetRequestedEventArgs(ComPtr):
     def SetTarget(self: Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTargetRequestedEventArgs, target: Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTarget) -> Void: ...
 class ICoreDragDropManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManager'
     _iid_ = Guid('{7d56d344-8464-4faf-aa49-37ea6e2d7bd1}')
     @winrt_commethod(6)
     def add_TargetRequested(self, value: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragDropManager, Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDropOperationTargetRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -135,11 +136,13 @@ class ICoreDragDropManager(ComPtr):
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
 class ICoreDragDropManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManagerStatics'
     _iid_ = Guid('{9542fdca-da12-4c1c-8d06-041db29733c3}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragDropManager: ...
 class ICoreDragInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo'
     _iid_ = Guid('{48353a8b-cb50-464e-9575-cd4e3a7ab028}')
     @winrt_commethod(6)
     def get_Data(self) -> Windows.ApplicationModel.DataTransfer.DataPackageView: ...
@@ -152,12 +155,14 @@ class ICoreDragInfo(ComPtr):
     Position = property(get_Position, None)
 class ICoreDragInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo2'
     _iid_ = Guid('{c54691e5-e6fb-4d74-b4b1-8a3c17f25e9e}')
     @winrt_commethod(6)
     def get_AllowedOperations(self) -> Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     AllowedOperations = property(get_AllowedOperations, None)
 class ICoreDragOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragOperation'
     _iid_ = Guid('{cc06de4f-6db0-4e62-ab1b-a74a02dc6d85}')
     @winrt_commethod(6)
     def get_Data(self) -> Windows.ApplicationModel.DataTransfer.DataPackage: ...
@@ -177,6 +182,7 @@ class ICoreDragOperation(ComPtr):
     DragUIContentMode = property(get_DragUIContentMode, put_DragUIContentMode)
 class ICoreDragOperation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragOperation2'
     _iid_ = Guid('{824b1e2c-d99a-4fc3-8507-6c182f33b46a}')
     @winrt_commethod(6)
     def get_AllowedOperations(self) -> Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
@@ -185,6 +191,7 @@ class ICoreDragOperation2(ComPtr):
     AllowedOperations = property(get_AllowedOperations, put_AllowedOperations)
 class ICoreDragUIOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride'
     _iid_ = Guid('{89a85064-3389-4f4f-8897-7e8a3ffb3c93}')
     @winrt_commethod(6)
     def SetContentFromSoftwareBitmap(self, softwareBitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Void: ...
@@ -214,6 +221,7 @@ class ICoreDragUIOverride(ComPtr):
     IsGlyphVisible = property(get_IsGlyphVisible, put_IsGlyphVisible)
 class ICoreDropOperationTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTarget'
     _iid_ = Guid('{d9126196-4c5b-417d-bb37-76381def8db4}')
     @winrt_commethod(6)
     def EnterAsync(self, dragInfo: Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo, dragUIOverride: Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragUIOverride) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.DataTransfer.DataPackageOperation]: ...
@@ -225,6 +233,7 @@ class ICoreDropOperationTarget(ComPtr):
     def DropAsync(self, dragInfo: Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.DataTransfer.DataPackageOperation]: ...
 class ICoreDropOperationTargetRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTargetRequestedEventArgs'
     _iid_ = Guid('{2aca929a-5e28-4ea6-829e-29134e665d6d}')
     @winrt_commethod(6)
     def SetTarget(self, target: Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTarget) -> Void: ...

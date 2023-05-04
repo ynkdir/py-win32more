@@ -462,22 +462,27 @@ class Colors(ComPtr):
     YellowGreen = property(get_YellowGreen, None)
 class IColorHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.IColorHelper'
     _iid_ = Guid('{193cfbe7-65c7-4540-ad08-6283ba76879a}')
 class IColorHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.IColorHelperStatics'
     _iid_ = Guid('{8504dbea-fb6a-4144-a6c2-33499c9284f5}')
     @winrt_commethod(6)
     def FromArgb(self, a: Byte, r: Byte, g: Byte, b: Byte) -> Windows.UI.Color: ...
 class IColorHelperStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.IColorHelperStatics2'
     _iid_ = Guid('{24d9af02-6eb0-4b94-855c-fcf0818d9a16}')
     @winrt_commethod(6)
     def ToDisplayName(self, color: Windows.UI.Color) -> WinRT_String: ...
 class IColors(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.IColors'
     _iid_ = Guid('{9b8c9326-4ca6-4ce5-8994-9eff65cabdcc}')
 class IColorsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.IColorsStatics'
     _iid_ = Guid('{cff52e04-cca6-4614-a17e-754910c84a99}')
     @winrt_commethod(6)
     def get_AliceBlue(self) -> Windows.UI.Color: ...
@@ -904,12 +909,14 @@ class IColorsStatics(ComPtr):
     YellowGreen = property(get_YellowGreen, None)
 class IUIContentRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.IUIContentRoot'
     _iid_ = Guid('{1dfcbac6-b36b-5cb9-9bc5-2b7a0eddc378}')
     @winrt_commethod(6)
     def get_UIContext(self) -> Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
 class IUIContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.IUIContext'
     _iid_ = Guid('{bb5cfacd-5bd8-59d0-a59e-1c17a4d6d243}')
 class UIContentRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable

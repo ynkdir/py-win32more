@@ -72,6 +72,7 @@ class DocumentProperties(ComPtr):
     Comment = property(get_Comment, put_Comment)
 class GeotagHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.GeotagHelper'
     @winrt_classmethod
     def GetGeotagAsync(cls: Windows.Storage.FileProperties.IGeotagHelperStatics, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Geolocation.Geopoint]: ...
     @winrt_classmethod
@@ -80,6 +81,7 @@ class GeotagHelper(ComPtr):
     def SetGeotagAsync(cls: Windows.Storage.FileProperties.IGeotagHelperStatics, file: Windows.Storage.IStorageFile, geopoint: Windows.Devices.Geolocation.Geopoint) -> Windows.Foundation.IAsyncAction: ...
 class IBasicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IBasicProperties'
     _iid_ = Guid('{d05d55db-785e-4a66-be02-9beec58aea81}')
     @winrt_commethod(6)
     def get_Size(self) -> UInt64: ...
@@ -92,6 +94,7 @@ class IBasicProperties(ComPtr):
     ItemDate = property(get_ItemDate, None)
 class IDocumentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IDocumentProperties'
     _iid_ = Guid('{7eab19bc-1821-4923-b4a9-0aea404d0070}')
     @winrt_commethod(6)
     def get_Author(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
@@ -111,6 +114,7 @@ class IDocumentProperties(ComPtr):
     Comment = property(get_Comment, put_Comment)
 class IGeotagHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IGeotagHelperStatics'
     _iid_ = Guid('{41493244-2524-4655-86a6-ed16f5fc716b}')
     @winrt_commethod(6)
     def GetGeotagAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Geolocation.Geopoint]: ...
@@ -120,6 +124,7 @@ class IGeotagHelperStatics(ComPtr):
     def SetGeotagAsync(self, file: Windows.Storage.IStorageFile, geopoint: Windows.Devices.Geolocation.Geopoint) -> Windows.Foundation.IAsyncAction: ...
 class IImageProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IImageProperties'
     _iid_ = Guid('{523c9424-fcff-4275-afee-ecdb9ab47973}')
     @winrt_commethod(6)
     def get_Rating(self) -> UInt32: ...
@@ -169,6 +174,7 @@ class IImageProperties(ComPtr):
     PeopleNames = property(get_PeopleNames, None)
 class IMusicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IMusicProperties'
     _iid_ = Guid('{bc8aab62-66ec-419a-bc5d-ca65a4cb46da}')
     @winrt_commethod(6)
     def get_Album(self) -> WinRT_String: ...
@@ -238,6 +244,7 @@ class IMusicProperties(ComPtr):
     Year = property(get_Year, put_Year)
 class IStorageItemContentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IStorageItemContentProperties'
     _iid_ = Guid('{05294bad-bc38-48bf-85d7-770e0e2ae0ba}')
     @winrt_commethod(6)
     def GetMusicPropertiesAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.FileProperties.MusicProperties]: ...
@@ -249,6 +256,7 @@ class IStorageItemContentProperties(ComPtr):
     def GetDocumentPropertiesAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.FileProperties.DocumentProperties]: ...
 class IStorageItemExtraProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IStorageItemExtraProperties'
     _iid_ = Guid('{c54361b2-54cd-432b-bdbc-4b19c4b470d7}')
     @winrt_commethod(6)
     def RetrievePropertiesAsync(self, propertiesToRetrieve: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]: ...
@@ -258,6 +266,7 @@ class IStorageItemExtraProperties(ComPtr):
     def SavePropertiesAsyncOverloadDefault(self) -> Windows.Foundation.IAsyncAction: ...
 class IThumbnailProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IThumbnailProperties'
     _iid_ = Guid('{693dd42f-dbe7-49b5-b3b3-2893ac5d3423}')
     @winrt_commethod(6)
     def get_OriginalWidth(self) -> UInt32: ...
@@ -273,6 +282,7 @@ class IThumbnailProperties(ComPtr):
     Type = property(get_Type, None)
 class IVideoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.FileProperties.IVideoProperties'
     _iid_ = Guid('{719ae507-68de-4db8-97de-49998c059f2f}')
     @winrt_commethod(6)
     def get_Rating(self) -> UInt32: ...

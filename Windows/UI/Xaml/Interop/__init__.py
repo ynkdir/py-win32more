@@ -23,17 +23,19 @@ def __getattr__(name):
     return getattr(_module, name)
 class BindableVectorChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{624cd4e1-d007-43b1-9c03-af4d3e6258c4}')
     _classid_ = 'Windows.UI.Xaml.Interop.BindableVectorChangedEventHandler'
+    _iid_ = Guid('{624cd4e1-d007-43b1-9c03-af4d3e6258c4}')
     @winrt_commethod(3)
     def Invoke(self, vector: Windows.UI.Xaml.Interop.IBindableObservableVector, e: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class IBindableIterable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Interop.IBindableIterable'
     _iid_ = Guid('{036d2c08-df29-41af-8aa2-d774be62ba6f}')
     @winrt_commethod(6)
     def First(self) -> Windows.UI.Xaml.Interop.IBindableIterator: ...
 class IBindableIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Interop.IBindableIterator'
     _iid_ = Guid('{6a1d6c07-076d-49f2-8314-f52c9c9a8331}')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -45,6 +47,7 @@ class IBindableIterator(ComPtr):
     HasCurrent = property(get_HasCurrent, None)
 class IBindableObservableVector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Interop.IBindableObservableVector'
     _iid_ = Guid('{fe1eb536-7e7f-4f90-ac9a-474984aae512}')
     @winrt_commethod(6)
     def add_VectorChanged(self, handler: Windows.UI.Xaml.Interop.BindableVectorChangedEventHandler) -> Windows.Foundation.EventRegistrationToken: ...
@@ -52,6 +55,7 @@ class IBindableObservableVector(ComPtr):
     def remove_VectorChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IBindableVector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Interop.IBindableVector'
     _iid_ = Guid('{393de7de-6fd0-4c0d-bb71-47244a113e93}')
     @winrt_commethod(6)
     def GetAt(self, index: UInt32) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -76,6 +80,7 @@ class IBindableVector(ComPtr):
     Size = property(get_Size, None)
 class IBindableVectorView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Interop.IBindableVectorView'
     _iid_ = Guid('{346dd6e7-976e-4bc3-815d-ece243bc0f33}')
     @winrt_commethod(6)
     def GetAt(self, index: UInt32) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -86,6 +91,7 @@ class IBindableVectorView(ComPtr):
     Size = property(get_Size, None)
 class INotifyCollectionChanged(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Interop.INotifyCollectionChanged'
     _iid_ = Guid('{28b167d5-1a31-465b-9b25-d5c3ae686c40}')
     @winrt_commethod(6)
     def add_CollectionChanged(self, handler: Windows.UI.Xaml.Interop.NotifyCollectionChangedEventHandler) -> Windows.Foundation.EventRegistrationToken: ...
@@ -93,6 +99,7 @@ class INotifyCollectionChanged(ComPtr):
     def remove_CollectionChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class INotifyCollectionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgs'
     _iid_ = Guid('{4cf68d33-e3f2-4964-b85e-945b4f7e2f21}')
     @winrt_commethod(6)
     def get_Action(self) -> Windows.UI.Xaml.Interop.NotifyCollectionChangedAction: ...
@@ -111,6 +118,7 @@ class INotifyCollectionChangedEventArgs(ComPtr):
     OldStartingIndex = property(get_OldStartingIndex, None)
 class INotifyCollectionChangedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgsFactory'
     _iid_ = Guid('{b30c3e3a-df8d-44a5-9a38-7ac0d08ce63d}')
     @winrt_commethod(6)
     def CreateInstanceWithAllParameters(self, action: Windows.UI.Xaml.Interop.NotifyCollectionChangedAction, newItems: Windows.UI.Xaml.Interop.IBindableVector, oldItems: Windows.UI.Xaml.Interop.IBindableVector, newIndex: Int32, oldIndex: Int32, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs: ...
@@ -141,8 +149,8 @@ class NotifyCollectionChangedEventArgs(ComPtr):
     OldStartingIndex = property(get_OldStartingIndex, None)
 class NotifyCollectionChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{ca10b37c-f382-4591-8557-5e24965279b0}')
     _classid_ = 'Windows.UI.Xaml.Interop.NotifyCollectionChangedEventHandler'
+    _iid_ = Guid('{ca10b37c-f382-4591-8557-5e24965279b0}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs) -> Void: ...
 TypeKind = Int32

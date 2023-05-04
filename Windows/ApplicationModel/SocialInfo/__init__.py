@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISocialFeedChildItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedChildItem'
     _iid_ = Guid('{0b6a985a-d59d-40be-980c-488a2ab30a83}')
     @winrt_commethod(6)
     def get_Author(self) -> Windows.ApplicationModel.SocialInfo.SocialUserInfo: ...
@@ -56,6 +57,7 @@ class ISocialFeedChildItem(ComPtr):
     SharedItem = property(get_SharedItem, put_SharedItem)
 class ISocialFeedContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedContent'
     _iid_ = Guid('{a234e429-3e39-494d-a37c-f462a2494514}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
@@ -74,6 +76,7 @@ class ISocialFeedContent(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
 class ISocialFeedItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedItem'
     _iid_ = Guid('{4f1392ab-1f72-4d33-b695-de3e1db60317}')
     @winrt_commethod(6)
     def get_Author(self) -> Windows.ApplicationModel.SocialInfo.SocialUserInfo: ...
@@ -129,6 +132,7 @@ class ISocialFeedItem(ComPtr):
     Style = property(get_Style, put_Style)
 class ISocialFeedSharedItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedSharedItem'
     _iid_ = Guid('{7bfb9e40-a6aa-45a7-9ff6-54c42105dd1f}')
     @winrt_commethod(6)
     def get_OriginalSource(self) -> Windows.Foundation.Uri: ...
@@ -155,6 +159,7 @@ class ISocialFeedSharedItem(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
 class ISocialItemThumbnail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialItemThumbnail'
     _iid_ = Guid('{5cbf831a-3f08-497f-917f-57e09d84b141}')
     @winrt_commethod(6)
     def get_TargetUri(self) -> Windows.Foundation.Uri: ...
@@ -175,6 +180,7 @@ class ISocialItemThumbnail(ComPtr):
     BitmapSize = property(get_BitmapSize, put_BitmapSize)
 class ISocialUserInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialUserInfo'
     _iid_ = Guid('{9e5e1bd1-90d0-4e1d-9554-844d46607f61}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...

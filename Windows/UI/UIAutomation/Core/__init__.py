@@ -51,6 +51,7 @@ AutomationRemoteOperationStatus_UnhandledException: AutomationRemoteOperationSta
 AutomationRemoteOperationStatus_ExecutionFailure: AutomationRemoteOperationStatus = 4
 class CoreAutomationRegistrar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.CoreAutomationRegistrar'
     @winrt_classmethod
     def RegisterAnnotationType(cls: Windows.UI.UIAutomation.Core.ICoreAutomationRegistrarStatics, guid: Guid) -> Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration: ...
     @winrt_classmethod
@@ -85,6 +86,7 @@ class CoreAutomationRemoteOperationContext(ComPtr):
     def SetOperand2(self: Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: Windows.Win32.System.WinRT.IInspectable_head, operandInterfaceId: Guid) -> Void: ...
 class IAutomationRemoteOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.IAutomationRemoteOperationResult'
     _iid_ = Guid('{e0f80c42-4a67-5534-bf5a-09e8a99b36b1}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationStatus: ...
@@ -101,12 +103,14 @@ class IAutomationRemoteOperationResult(ComPtr):
     ErrorLocation = property(get_ErrorLocation, None)
 class ICoreAutomationConnectionBoundObjectProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationConnectionBoundObjectProvider'
     _iid_ = Guid('{0620bb64-9616-5593-be3a-eb8e6daeb3fa}')
     @winrt_commethod(6)
     def get_IsComThreadingRequired(self) -> Boolean: ...
     IsComThreadingRequired = property(get_IsComThreadingRequired, None)
 class ICoreAutomationRegistrarStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRegistrarStatics'
     _iid_ = Guid('{3e50129b-d6dc-5680-b580-ffff78300304}')
     @winrt_commethod(6)
     def RegisterAnnotationType(self, guid: Guid) -> Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration: ...
@@ -114,6 +118,7 @@ class ICoreAutomationRegistrarStatics(ComPtr):
     def UnregisterAnnotationType(self, registration: Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration) -> Void: ...
 class ICoreAutomationRemoteOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation'
     _iid_ = Guid('{3ac656f4-e2bc-5c6e-b8e7-b224fb74b060}')
     @winrt_commethod(6)
     def IsOpcodeSupported(self, opcode: UInt32) -> Boolean: ...
@@ -127,11 +132,13 @@ class ICoreAutomationRemoteOperation(ComPtr):
     def Execute(self, bytecodeBuffer: c_char_p_no) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult: ...
 class ICoreAutomationRemoteOperation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation2'
     _iid_ = Guid('{eefaf86f-e953-5099-8ce9-dca813482ba0}')
     @winrt_commethod(6)
     def ImportConnectionBoundObject(self, operandId: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, connectionBoundObject: Windows.UI.UIAutomation.AutomationConnectionBoundObject) -> Void: ...
 class ICoreAutomationRemoteOperationContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext'
     _iid_ = Guid('{b9af9cbb-3d3e-5918-a16b-7861626a3aeb}')
     @winrt_commethod(6)
     def GetOperand(self, id: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -141,6 +148,7 @@ class ICoreAutomationRemoteOperationContext(ComPtr):
     def SetOperand2(self, id: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: Windows.Win32.System.WinRT.IInspectable_head, operandInterfaceId: Guid) -> Void: ...
 class ICoreAutomationRemoteOperationExtensionProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationExtensionProvider'
     _iid_ = Guid('{88f53e67-dc69-553b-a0aa-70477e724da8}')
     @winrt_commethod(6)
     def CallExtension(self, extensionId: Guid, context: Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext, operandIds: POINTER(Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId_head)) -> Void: ...
@@ -148,6 +156,7 @@ class ICoreAutomationRemoteOperationExtensionProvider(ComPtr):
     def IsExtensionSupported(self, extensionId: Guid) -> Boolean: ...
 class IRemoteAutomationClientSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession'
     _iid_ = Guid('{5c8a091d-94cc-5b33-afdb-678cded2bd54}')
     @winrt_commethod(6)
     def Start(self) -> Void: ...
@@ -168,6 +177,7 @@ class IRemoteAutomationClientSession(ComPtr):
     SessionId = property(get_SessionId, None)
 class IRemoteAutomationClientSessionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationClientSessionFactory'
     _iid_ = Guid('{f250263d-6057-5373-a5a5-ed7265fe0376}')
     @winrt_commethod(6)
     def CreateInstance(self, name: WinRT_String) -> Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
@@ -175,6 +185,7 @@ class IRemoteAutomationClientSessionFactory(ComPtr):
     def CreateInstance2(self, name: WinRT_String, sessionId: Guid) -> Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
 class IRemoteAutomationConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs'
     _iid_ = Guid('{ea3319a8-e3a8-5dc6-adf8-044e46b14af5}')
     @winrt_commethod(6)
     def get_LocalPipeName(self) -> WinRT_String: ...
@@ -184,17 +195,20 @@ class IRemoteAutomationConnectionRequestedEventArgs(ComPtr):
     RemoteProcessId = property(get_RemoteProcessId, None)
 class IRemoteAutomationDisconnectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationDisconnectedEventArgs'
     _iid_ = Guid('{bbb33a3d-5d90-5c38-9eb2-dd9dcc1b2e3f}')
     @winrt_commethod(6)
     def get_LocalPipeName(self) -> WinRT_String: ...
     LocalPipeName = property(get_LocalPipeName, None)
 class IRemoteAutomationServerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationServerStatics'
     _iid_ = Guid('{e6e8945e-0c11-5028-9ae3-c2771288b6b7}')
     @winrt_commethod(6)
     def ReportSession(self, sessionId: Guid) -> Void: ...
 class IRemoteAutomationWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationWindow'
     _iid_ = Guid('{7c607689-496d-512a-9bd5-c050cfaf1428}')
     @winrt_commethod(6)
     def get_AutomationProvider(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -245,6 +259,7 @@ class RemoteAutomationDisconnectedEventArgs(ComPtr):
     LocalPipeName = property(get_LocalPipeName, None)
 class RemoteAutomationServer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationServer'
     @winrt_classmethod
     def ReportSession(cls: Windows.UI.UIAutomation.Core.IRemoteAutomationServerStatics, sessionId: Guid) -> Void: ...
 class RemoteAutomationWindow(ComPtr):

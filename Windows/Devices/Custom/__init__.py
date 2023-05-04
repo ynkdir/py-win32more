@@ -50,6 +50,7 @@ DeviceSharingMode_Shared: DeviceSharingMode = 0
 DeviceSharingMode_Exclusive: DeviceSharingMode = 1
 class ICustomDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Custom.ICustomDevice'
     _iid_ = Guid('{dd30251f-c48b-43bd-bcb1-dec88f15143e}')
     @winrt_commethod(6)
     def get_InputStream(self) -> Windows.Storage.Streams.IInputStream: ...
@@ -63,6 +64,7 @@ class ICustomDevice(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class ICustomDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Custom.ICustomDeviceStatics'
     _iid_ = Guid('{c8220312-ef4c-46b1-a58e-eeb308dc8917}')
     @winrt_commethod(6)
     def GetDeviceSelector(self, classGuid: Guid) -> WinRT_String: ...
@@ -70,6 +72,7 @@ class ICustomDeviceStatics(ComPtr):
     def FromIdAsync(self, deviceId: WinRT_String, desiredAccess: Windows.Devices.Custom.DeviceAccessMode, sharingMode: Windows.Devices.Custom.DeviceSharingMode) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Custom.CustomDevice]: ...
 class IIOControlCode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Custom.IIOControlCode'
     _iid_ = Guid('{0e9559e7-60c8-4375-a761-7f8808066c60}')
     @winrt_commethod(6)
     def get_AccessMode(self) -> Windows.Devices.Custom.IOControlAccessMode: ...
@@ -88,11 +91,13 @@ class IIOControlCode(ComPtr):
     ControlCode = property(get_ControlCode, None)
 class IIOControlCodeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Custom.IIOControlCodeFactory'
     _iid_ = Guid('{856a7cf0-4c11-44ae-afc6-b8d4a212788f}')
     @winrt_commethod(6)
     def CreateIOControlCode(self, deviceType: UInt16, function: UInt16, accessMode: Windows.Devices.Custom.IOControlAccessMode, bufferingMethod: Windows.Devices.Custom.IOControlBufferingMethod) -> Windows.Devices.Custom.IOControlCode: ...
 class IKnownDeviceTypesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Custom.IKnownDeviceTypesStatics'
     _iid_ = Guid('{ee5479c2-5448-45da-ad1b-24948c239094}')
     @winrt_commethod(6)
     def get_Unknown(self) -> UInt16: ...
@@ -130,6 +135,7 @@ class IOControlCode(ComPtr):
     ControlCode = property(get_ControlCode, None)
 class KnownDeviceTypes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Custom.KnownDeviceTypes'
     @winrt_classmethod
     def get_Unknown(cls: Windows.Devices.Custom.IKnownDeviceTypesStatics) -> UInt16: ...
     Unknown = property(get_Unknown, None)

@@ -104,6 +104,7 @@ AnimationEffectTarget_Tapped: AnimationEffectTarget = 19
 AnimationMetricsContract: UInt32 = 65536
 class IAnimationDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Core.AnimationMetrics.IAnimationDescription'
     _iid_ = Guid('{7d11a549-be3d-41de-b081-05c149962f9b}')
     @winrt_commethod(6)
     def get_Animations(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Core.AnimationMetrics.IPropertyAnimation]: ...
@@ -122,11 +123,13 @@ class IAnimationDescription(ComPtr):
     ZOrder = property(get_ZOrder, None)
 class IAnimationDescriptionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Core.AnimationMetrics.IAnimationDescriptionFactory'
     _iid_ = Guid('{c6e27abe-c1fb-48b5-9271-ecc70ac86ef0}')
     @winrt_commethod(6)
     def CreateInstance(self, effect: Windows.UI.Core.AnimationMetrics.AnimationEffect, target: Windows.UI.Core.AnimationMetrics.AnimationEffectTarget) -> Windows.UI.Core.AnimationMetrics.AnimationDescription: ...
 class IOpacityAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Core.AnimationMetrics.IOpacityAnimation'
     _iid_ = Guid('{803aabe5-ee7e-455f-84e9-2506afb8d2b4}')
     @winrt_commethod(6)
     def get_InitialOpacity(self) -> Windows.Foundation.IReference[Single]: ...
@@ -136,6 +139,7 @@ class IOpacityAnimation(ComPtr):
     FinalOpacity = property(get_FinalOpacity, None)
 class IPropertyAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Core.AnimationMetrics.IPropertyAnimation'
     _iid_ = Guid('{3a01b4da-4d8c-411e-b615-1ade683a9903}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.UI.Core.AnimationMetrics.PropertyAnimationType: ...
@@ -154,6 +158,7 @@ class IPropertyAnimation(ComPtr):
     Control2 = property(get_Control2, None)
 class IScaleAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Core.AnimationMetrics.IScaleAnimation'
     _iid_ = Guid('{023552c7-71ab-428c-9c9f-d31780964995}')
     @winrt_commethod(6)
     def get_InitialScaleX(self) -> Windows.Foundation.IReference[Single]: ...

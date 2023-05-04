@@ -143,6 +143,7 @@ class ESimDownloadProfileMetadataResult(ComPtr):
     ProfileMetadata = property(get_ProfileMetadata, None)
 class ESimManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.ESimManager'
     @winrt_classmethod
     def get_ServiceInfo(cls: Windows.Networking.NetworkOperators.IESimManagerStatics) -> Windows.Networking.NetworkOperators.ESimServiceInfo: ...
     @winrt_classmethod
@@ -369,6 +370,7 @@ ESimWatcherStatus_Stopping: ESimWatcherStatus = 3
 ESimWatcherStatus_Stopped: ESimWatcherStatus = 4
 class FdnAccessManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.FdnAccessManager'
     @winrt_classmethod
     def RequestUnlockAsync(cls: Windows.Networking.NetworkOperators.IFdnAccessManagerStatics, contactListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class HotspotAuthenticationContext(ComPtr):
@@ -435,6 +437,7 @@ class HotspotCredentialsAuthenticationResult(ComPtr):
     AuthenticationReplyXml = property(get_AuthenticationReplyXml, None)
 class IESim(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESim'
     _iid_ = Guid('{6f6e6e26-f123-437d-8ced-dc1d2bc0c3a9}')
     @winrt_commethod(6)
     def get_AvailableMemoryInBytes(self) -> Windows.Foundation.IReference[Int32]: ...
@@ -468,6 +471,7 @@ class IESim(ComPtr):
     State = property(get_State, None)
 class IESim2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESim2'
     _iid_ = Guid('{bd4fd0a0-c68f-56eb-b99b-8f34b8100299}')
     @winrt_commethod(6)
     def Discover(self) -> Windows.Networking.NetworkOperators.ESimDiscoverResult: ...
@@ -479,18 +483,21 @@ class IESim2(ComPtr):
     def DiscoverWithServerAddressAndMatchingIdAsync(self, serverAddress: WinRT_String, matchingId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.ESimDiscoverResult]: ...
 class IESim3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESim3'
     _iid_ = Guid('{fe1edf45-01b8-5d31-b8d3-d9cbebb2b831}')
     @winrt_commethod(6)
     def get_SlotIndex(self) -> Windows.Foundation.IReference[Int32]: ...
     SlotIndex = property(get_SlotIndex, None)
 class IESimAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimAddedEventArgs'
     _iid_ = Guid('{38bd0a58-4d5a-4d08-8da7-e73eff369ddd}')
     @winrt_commethod(6)
     def get_ESim(self) -> Windows.Networking.NetworkOperators.ESim: ...
     ESim = property(get_ESim, None)
 class IESimDiscoverEvent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimDiscoverEvent'
     _iid_ = Guid('{e59ac3e3-39bc-5f6f-9321-0d4a182d261b}')
     @winrt_commethod(6)
     def get_MatchingId(self) -> WinRT_String: ...
@@ -500,6 +507,7 @@ class IESimDiscoverEvent(ComPtr):
     RspServerAddress = property(get_RspServerAddress, None)
 class IESimDiscoverResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimDiscoverResult'
     _iid_ = Guid('{56b4bb5e-ab2f-5ac6-b359-dd5a8e237926}')
     @winrt_commethod(6)
     def get_Events(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.ESimDiscoverEvent]: ...
@@ -515,6 +523,7 @@ class IESimDiscoverResult(ComPtr):
     Result = property(get_Result, None)
 class IESimDownloadProfileMetadataResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimDownloadProfileMetadataResult'
     _iid_ = Guid('{c4234d9e-5ad6-426d-8d00-4434f449afec}')
     @winrt_commethod(6)
     def get_Result(self) -> Windows.Networking.NetworkOperators.ESimOperationResult: ...
@@ -524,6 +533,7 @@ class IESimDownloadProfileMetadataResult(ComPtr):
     ProfileMetadata = property(get_ProfileMetadata, None)
 class IESimManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimManagerStatics'
     _iid_ = Guid('{0bfa2c0c-df88-4631-bf04-c12e281b3962}')
     @winrt_commethod(6)
     def get_ServiceInfo(self) -> Windows.Networking.NetworkOperators.ESimServiceInfo: ...
@@ -536,18 +546,21 @@ class IESimManagerStatics(ComPtr):
     ServiceInfo = property(get_ServiceInfo, None)
 class IESimOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimOperationResult'
     _iid_ = Guid('{a67b63b1-309b-4e77-9e7e-cd93f1ddc7b9}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.NetworkOperators.ESimOperationStatus: ...
     Status = property(get_Status, None)
 class IESimPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimPolicy'
     _iid_ = Guid('{41e1b99d-cf7e-4315-882b-6f1e74b0d38f}')
     @winrt_commethod(6)
     def get_ShouldEnableManagingUi(self) -> Boolean: ...
     ShouldEnableManagingUi = property(get_ShouldEnableManagingUi, None)
 class IESimProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimProfile'
     _iid_ = Guid('{ee1e7880-06a9-4027-b4f8-ddb23d7810e0}')
     @winrt_commethod(6)
     def get_Class(self) -> Windows.Networking.NetworkOperators.ESimProfileClass: ...
@@ -581,6 +594,7 @@ class IESimProfile(ComPtr):
     State = property(get_State, None)
 class IESimProfileMetadata(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimProfileMetadata'
     _iid_ = Guid('{ed25831f-90db-498d-a7b4-ebce807d3c23}')
     @winrt_commethod(6)
     def get_IsConfirmationCodeRequired(self) -> Boolean: ...
@@ -617,6 +631,7 @@ class IESimProfileMetadata(ComPtr):
     State = property(get_State, None)
 class IESimProfilePolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimProfilePolicy'
     _iid_ = Guid('{e6dd0f1d-9c5c-46c5-a289-a948999bf062}')
     @winrt_commethod(6)
     def get_CanDelete(self) -> Boolean: ...
@@ -629,12 +644,14 @@ class IESimProfilePolicy(ComPtr):
     IsManagedByEnterprise = property(get_IsManagedByEnterprise, None)
 class IESimRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimRemovedEventArgs'
     _iid_ = Guid('{dec5277b-2fd9-4ed9-8376-d9b5e41278a3}')
     @winrt_commethod(6)
     def get_ESim(self) -> Windows.Networking.NetworkOperators.ESim: ...
     ESim = property(get_ESim, None)
 class IESimServiceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimServiceInfo'
     _iid_ = Guid('{f16aabcf-7f59-4a51-8494-bd89d5ff50ee}')
     @winrt_commethod(6)
     def get_AuthenticationPreference(self) -> Windows.Networking.NetworkOperators.ESimAuthenticationPreference: ...
@@ -644,12 +661,14 @@ class IESimServiceInfo(ComPtr):
     IsESimUiEnabled = property(get_IsESimUiEnabled, None)
 class IESimUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimUpdatedEventArgs'
     _iid_ = Guid('{4c125cec-508d-4b88-83cb-68bef8168d12}')
     @winrt_commethod(6)
     def get_ESim(self) -> Windows.Networking.NetworkOperators.ESim: ...
     ESim = property(get_ESim, None)
 class IESimWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IESimWatcher'
     _iid_ = Guid('{c1f84ceb-a28d-4fbf-9771-6e31b81ccf22}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.NetworkOperators.ESimWatcherStatus: ...
@@ -680,11 +699,13 @@ class IESimWatcher(ComPtr):
     Status = property(get_Status, None)
 class IFdnAccessManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IFdnAccessManagerStatics'
     _iid_ = Guid('{f2aa4395-f1e6-4319-aa3e-477ca64b2bdf}')
     @winrt_commethod(6)
     def RequestUnlockAsync(self, contactListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IHotspotAuthenticationContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IHotspotAuthenticationContext'
     _iid_ = Guid('{e756c791-1003-4de5-83c7-de61d88831d0}')
     @winrt_commethod(6)
     def get_WirelessNetworkId(self) -> c_char_p_no: ...
@@ -711,22 +732,26 @@ class IHotspotAuthenticationContext(ComPtr):
     AuthenticationUrl = property(get_AuthenticationUrl, None)
 class IHotspotAuthenticationContext2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IHotspotAuthenticationContext2'
     _iid_ = Guid('{e756c791-1004-4de5-83c7-de61d88831d0}')
     @winrt_commethod(6)
     def IssueCredentialsAsync(self, userName: WinRT_String, password: WinRT_String, extraParameters: WinRT_String, markAsManualConnectOnFailure: Boolean) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.HotspotCredentialsAuthenticationResult]: ...
 class IHotspotAuthenticationContextStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IHotspotAuthenticationContextStatics'
     _iid_ = Guid('{e756c791-1002-4de5-83c7-de61d88831d0}')
     @winrt_commethod(6)
     def TryGetAuthenticationContext(self, evenToken: WinRT_String, context: POINTER(Windows.Networking.NetworkOperators.HotspotAuthenticationContext)) -> Boolean: ...
 class IHotspotAuthenticationEventDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IHotspotAuthenticationEventDetails'
     _iid_ = Guid('{e756c791-1001-4de5-83c7-de61d88831d0}')
     @winrt_commethod(6)
     def get_EventToken(self) -> WinRT_String: ...
     EventToken = property(get_EventToken, None)
 class IHotspotCredentialsAuthenticationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IHotspotCredentialsAuthenticationResult'
     _iid_ = Guid('{e756c791-1005-4de5-83c7-de61d88831d0}')
     @winrt_commethod(6)
     def get_HasNetworkErrorOccurred(self) -> Boolean: ...
@@ -742,6 +767,7 @@ class IHotspotCredentialsAuthenticationResult(ComPtr):
     AuthenticationReplyXml = property(get_AuthenticationReplyXml, None)
 class IKnownCSimFilePathsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IKnownCSimFilePathsStatics'
     _iid_ = Guid('{b458aeed-49f1-4c22-b073-96d511bf9c35}')
     @winrt_commethod(6)
     def get_EFSpn(self) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
@@ -754,6 +780,7 @@ class IKnownCSimFilePathsStatics(ComPtr):
     Gid2 = property(get_Gid2, None)
 class IKnownRuimFilePathsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IKnownRuimFilePathsStatics'
     _iid_ = Guid('{3883c8b9-ff24-4571-a867-09f960426e14}')
     @winrt_commethod(6)
     def get_EFSpn(self) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
@@ -766,6 +793,7 @@ class IKnownRuimFilePathsStatics(ComPtr):
     Gid2 = property(get_Gid2, None)
 class IKnownSimFilePathsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics'
     _iid_ = Guid('{80cd1a63-37a5-43d3-80a3-ccd23e8fecee}')
     @winrt_commethod(6)
     def get_EFOns(self) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
@@ -781,6 +809,7 @@ class IKnownSimFilePathsStatics(ComPtr):
     Gid2 = property(get_Gid2, None)
 class IKnownUSimFilePathsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics'
     _iid_ = Guid('{7c34e581-1f1b-43f4-9530-8b092d32d71f}')
     @winrt_commethod(6)
     def get_EFSpn(self) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
@@ -799,6 +828,7 @@ class IKnownUSimFilePathsStatics(ComPtr):
     Gid2 = property(get_Gid2, None)
 class IMobileBroadbandAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAccount'
     _iid_ = Guid('{36c24ccd-cee2-43e0-a603-ee86a36d6570}')
     @winrt_commethod(6)
     def get_NetworkAccountId(self) -> WinRT_String: ...
@@ -817,23 +847,27 @@ class IMobileBroadbandAccount(ComPtr):
     CurrentDeviceInformation = property(get_CurrentDeviceInformation, None)
 class IMobileBroadbandAccount2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAccount2'
     _iid_ = Guid('{38f52f1c-1136-4257-959f-b658a352b6d4}')
     @winrt_commethod(6)
     def GetConnectionProfiles(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.Connectivity.ConnectionProfile]: ...
 class IMobileBroadbandAccount3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAccount3'
     _iid_ = Guid('{092a1e21-9379-4b9b-ad31-d5fee2f748c6}')
     @winrt_commethod(6)
     def get_AccountExperienceUrl(self) -> Windows.Foundation.Uri: ...
     AccountExperienceUrl = property(get_AccountExperienceUrl, None)
 class IMobileBroadbandAccountEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAccountEventArgs'
     _iid_ = Guid('{3853c880-77de-4c04-bead-a123b08c9f59}')
     @winrt_commethod(6)
     def get_NetworkAccountId(self) -> WinRT_String: ...
     NetworkAccountId = property(get_NetworkAccountId, None)
 class IMobileBroadbandAccountStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAccountStatics'
     _iid_ = Guid('{aa7f4d24-afc1-4fc8-ae9a-a9175310faad}')
     @winrt_commethod(6)
     def get_AvailableNetworkAccountIds(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
@@ -842,6 +876,7 @@ class IMobileBroadbandAccountStatics(ComPtr):
     AvailableNetworkAccountIds = property(get_AvailableNetworkAccountIds, None)
 class IMobileBroadbandAccountUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAccountUpdatedEventArgs'
     _iid_ = Guid('{7bc31d88-a6bd-49e1-80ab-6b91354a57d4}')
     @winrt_commethod(6)
     def get_NetworkAccountId(self) -> WinRT_String: ...
@@ -854,6 +889,7 @@ class IMobileBroadbandAccountUpdatedEventArgs(ComPtr):
     HasNetworkChanged = property(get_HasNetworkChanged, None)
 class IMobileBroadbandAccountWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher'
     _iid_ = Guid('{6bf3335e-23b5-449f-928d-5e0d3e04471d}')
     @winrt_commethod(6)
     def add_AccountAdded(self, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, Windows.Networking.NetworkOperators.MobileBroadbandAccountEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -884,6 +920,7 @@ class IMobileBroadbandAccountWatcher(ComPtr):
     Status = property(get_Status, None)
 class IMobileBroadbandAntennaSar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSar'
     _iid_ = Guid('{b9af4b7e-cbf9-4109-90be-5c06bfd513b6}')
     @winrt_commethod(6)
     def get_AntennaIndex(self) -> Int32: ...
@@ -893,11 +930,13 @@ class IMobileBroadbandAntennaSar(ComPtr):
     SarBackoffIndex = property(get_SarBackoffIndex, None)
 class IMobileBroadbandAntennaSarFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSarFactory'
     _iid_ = Guid('{a91e1716-c04d-4a21-8698-1459dc672c6e}')
     @winrt_commethod(6)
     def CreateWithIndex(self, antennaIndex: Int32, sarBackoffIndex: Int32) -> Windows.Networking.NetworkOperators.MobileBroadbandAntennaSar: ...
 class IMobileBroadbandCellCdma(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCellCdma'
     _iid_ = Guid('{0601b3b4-411a-4f2e-8287-76f5650c60cd}')
     @winrt_commethod(6)
     def get_BaseStationId(self) -> Windows.Foundation.IReference[Int32]: ...
@@ -925,6 +964,7 @@ class IMobileBroadbandCellCdma(ComPtr):
     SystemId = property(get_SystemId, None)
 class IMobileBroadbandCellGsm(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCellGsm'
     _iid_ = Guid('{cc917f06-7ee0-47b8-9e1f-c3b48df9df5b}')
     @winrt_commethod(6)
     def get_BaseStationId(self) -> Windows.Foundation.IReference[Int32]: ...
@@ -949,6 +989,7 @@ class IMobileBroadbandCellGsm(ComPtr):
     TimingAdvanceInBitPeriods = property(get_TimingAdvanceInBitPeriods, None)
 class IMobileBroadbandCellLte(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCellLte'
     _iid_ = Guid('{9197c87b-2b78-456d-8b53-aaa25d0af741}')
     @winrt_commethod(6)
     def get_CellId(self) -> Windows.Foundation.IReference[Int32]: ...
@@ -976,6 +1017,7 @@ class IMobileBroadbandCellLte(ComPtr):
     TrackingAreaCode = property(get_TrackingAreaCode, None)
 class IMobileBroadbandCellNR(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCellNR'
     _iid_ = Guid('{a13f0deb-66fc-4b4b-83a9-a487a3a5a0a6}')
     @winrt_commethod(6)
     def get_CellId(self) -> Windows.Foundation.IReference[Int64]: ...
@@ -1006,6 +1048,7 @@ class IMobileBroadbandCellNR(ComPtr):
     SignalToNoiseRatioInDB = property(get_SignalToNoiseRatioInDB, None)
 class IMobileBroadbandCellTdscdma(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCellTdscdma'
     _iid_ = Guid('{0eda1655-db0e-4182-8cda-cc419a7bde08}')
     @winrt_commethod(6)
     def get_CellId(self) -> Windows.Foundation.IReference[Int32]: ...
@@ -1033,6 +1076,7 @@ class IMobileBroadbandCellTdscdma(ComPtr):
     TimingAdvanceInBitPeriods = property(get_TimingAdvanceInBitPeriods, None)
 class IMobileBroadbandCellUmts(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCellUmts'
     _iid_ = Guid('{77b4b5ae-49c8-4f15-b285-4c26a7f67215}')
     @winrt_commethod(6)
     def get_CellId(self) -> Windows.Foundation.IReference[Int32]: ...
@@ -1060,6 +1104,7 @@ class IMobileBroadbandCellUmts(ComPtr):
     SignalToNoiseRatioInDB = property(get_SignalToNoiseRatioInDB, None)
 class IMobileBroadbandCellsInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCellsInfo'
     _iid_ = Guid('{89a9562a-e472-4da5-929c-de61711dd261}')
     @winrt_commethod(6)
     def get_NeighboringCellsCdma(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.MobileBroadbandCellCdma]: ...
@@ -1093,6 +1138,7 @@ class IMobileBroadbandCellsInfo(ComPtr):
     ServingCellsUmts = property(get_ServingCellsUmts, None)
 class IMobileBroadbandCellsInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCellsInfo2'
     _iid_ = Guid('{66205912-b89f-4e12-bbb6-d5cf09a820ca}')
     @winrt_commethod(6)
     def get_NeighboringCellsNR(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.MobileBroadbandCellNR]: ...
@@ -1102,12 +1148,14 @@ class IMobileBroadbandCellsInfo2(ComPtr):
     ServingCellsNR = property(get_ServingCellsNR, None)
 class IMobileBroadbandCurrentSlotIndexChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandCurrentSlotIndexChangedEventArgs'
     _iid_ = Guid('{f718b184-c370-5fd4-a670-1846cb9bce47}')
     @winrt_commethod(6)
     def get_CurrentSlotIndex(self) -> Int32: ...
     CurrentSlotIndex = property(get_CurrentSlotIndex, None)
 class IMobileBroadbandDeviceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceInformation'
     _iid_ = Guid('{e6d08168-e381-4c6e-9be8-fe156969a446}')
     @winrt_commethod(6)
     def get_NetworkDeviceStatus(self) -> Windows.Networking.NetworkOperators.NetworkDeviceStatus: ...
@@ -1153,6 +1201,7 @@ class IMobileBroadbandDeviceInformation(ComPtr):
     CurrentRadioState = property(get_CurrentRadioState, None)
 class IMobileBroadbandDeviceInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceInformation2'
     _iid_ = Guid('{2e467af1-f932-4737-a722-03ba72370cb8}')
     @winrt_commethod(6)
     def get_PinManager(self) -> Windows.Networking.NetworkOperators.MobileBroadbandPinManager: ...
@@ -1165,6 +1214,7 @@ class IMobileBroadbandDeviceInformation2(ComPtr):
     SerialNumber = property(get_SerialNumber, None)
 class IMobileBroadbandDeviceInformation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceInformation3'
     _iid_ = Guid('{e08bb4bd-5d30-4b5a-92cc-d54df881d49e}')
     @winrt_commethod(6)
     def get_SimSpn(self) -> WinRT_String: ...
@@ -1177,12 +1227,14 @@ class IMobileBroadbandDeviceInformation3(ComPtr):
     SimGid1 = property(get_SimGid1, None)
 class IMobileBroadbandDeviceInformation4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceInformation4'
     _iid_ = Guid('{263f3152-7b9d-582c-b17c-f80a60b50031}')
     @winrt_commethod(6)
     def get_SlotManager(self) -> Windows.Networking.NetworkOperators.MobileBroadbandSlotManager: ...
     SlotManager = property(get_SlotManager, None)
 class IMobileBroadbandDeviceService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceService'
     _iid_ = Guid('{22be1a52-bd80-40ac-8e1f-2e07836a3dbd}')
     @winrt_commethod(6)
     def get_DeviceServiceId(self) -> Guid: ...
@@ -1196,6 +1248,7 @@ class IMobileBroadbandDeviceService(ComPtr):
     SupportedCommands = property(get_SupportedCommands, None)
 class IMobileBroadbandDeviceServiceCommandResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandResult'
     _iid_ = Guid('{b0f46abb-94d6-44b9-a538-f0810b645389}')
     @winrt_commethod(6)
     def get_StatusCode(self) -> UInt32: ...
@@ -1205,6 +1258,7 @@ class IMobileBroadbandDeviceServiceCommandResult(ComPtr):
     ResponseData = property(get_ResponseData, None)
 class IMobileBroadbandDeviceServiceCommandSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandSession'
     _iid_ = Guid('{fc098a45-913b-4914-b6c3-ae6304593e75}')
     @winrt_commethod(6)
     def SendQueryCommandAsync(self, commandId: UInt32, data: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandResult]: ...
@@ -1214,12 +1268,14 @@ class IMobileBroadbandDeviceServiceCommandSession(ComPtr):
     def CloseSession(self) -> Void: ...
 class IMobileBroadbandDeviceServiceDataReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceDataReceivedEventArgs'
     _iid_ = Guid('{b6aa13de-1380-40e3-8618-73cbca48138c}')
     @winrt_commethod(6)
     def get_ReceivedData(self) -> Windows.Storage.Streams.IBuffer: ...
     ReceivedData = property(get_ReceivedData, None)
 class IMobileBroadbandDeviceServiceDataSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceDataSession'
     _iid_ = Guid('{dad62333-8bcf-4289-8a37-045c2169486a}')
     @winrt_commethod(6)
     def WriteDataAsync(self, value: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
@@ -1231,6 +1287,7 @@ class IMobileBroadbandDeviceServiceDataSession(ComPtr):
     def remove_DataReceived(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IMobileBroadbandDeviceServiceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceInformation'
     _iid_ = Guid('{53d69b5b-c4ed-45f0-803a-d9417a6d9846}')
     @winrt_commethod(6)
     def get_DeviceServiceId(self) -> Guid: ...
@@ -1243,6 +1300,7 @@ class IMobileBroadbandDeviceServiceInformation(ComPtr):
     IsDataWriteSupported = property(get_IsDataWriteSupported, None)
 class IMobileBroadbandDeviceServiceTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceTriggerDetails'
     _iid_ = Guid('{4a055b70-b9ae-4458-9241-a6a5fbf18a0c}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
@@ -1255,12 +1313,14 @@ class IMobileBroadbandDeviceServiceTriggerDetails(ComPtr):
     ReceivedData = property(get_ReceivedData, None)
 class IMobileBroadbandDeviceServiceTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceTriggerDetails2'
     _iid_ = Guid('{d83d5f16-336a-553f-94bb-0cd1a2ff0c81}')
     @winrt_commethod(6)
     def get_EventId(self) -> UInt32: ...
     EventId = property(get_EventId, None)
 class IMobileBroadbandModem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModem'
     _iid_ = Guid('{d0356912-e9f9-4f67-a03d-43189a316bf1}')
     @winrt_commethod(6)
     def get_CurrentAccount(self) -> Windows.Networking.NetworkOperators.MobileBroadbandAccount: ...
@@ -1291,6 +1351,7 @@ class IMobileBroadbandModem(ComPtr):
     CurrentNetwork = property(get_CurrentNetwork, None)
 class IMobileBroadbandModem2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModem2'
     _iid_ = Guid('{12862b28-b9eb-4ee2-bbe3-711f53eea373}')
     @winrt_commethod(6)
     def GetIsPassthroughEnabledAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -1298,6 +1359,7 @@ class IMobileBroadbandModem2(ComPtr):
     def SetIsPassthroughEnabledAsync(self, value: Boolean) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.MobileBroadbandModemStatus]: ...
 class IMobileBroadbandModem3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModem3'
     _iid_ = Guid('{e9fec6ea-2f34-4582-9102-c314d2a87eec}')
     @winrt_commethod(6)
     def TryGetPcoAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.MobileBroadbandPco]: ...
@@ -1310,6 +1372,7 @@ class IMobileBroadbandModem3(ComPtr):
     IsInEmergencyCallMode = property(get_IsInEmergencyCallMode, None)
 class IMobileBroadbandModem4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModem4'
     _iid_ = Guid('{4a0398c2-91be-412b-b569-586e9f0030d1}')
     @winrt_commethod(6)
     def SetIsPassthroughEnabledWithSlotIndexAsync(self, value: Boolean, slotindex: Int32) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.MobileBroadbandModemStatus]: ...
@@ -1321,6 +1384,7 @@ class IMobileBroadbandModem4(ComPtr):
     def GetIsPassthroughEnabledWithSlotIndex(self, slotindex: Int32) -> Boolean: ...
 class IMobileBroadbandModemConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModemConfiguration'
     _iid_ = Guid('{fce035a3-d6cd-4320-b982-be9d3ec7890f}')
     @winrt_commethod(6)
     def get_Uicc(self) -> Windows.Networking.NetworkOperators.MobileBroadbandUicc: ...
@@ -1333,12 +1397,14 @@ class IMobileBroadbandModemConfiguration(ComPtr):
     HomeProviderName = property(get_HomeProviderName, None)
 class IMobileBroadbandModemConfiguration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModemConfiguration2'
     _iid_ = Guid('{320ff5c5-e460-42ae-aa51-69621e7a4477}')
     @winrt_commethod(6)
     def get_SarManager(self) -> Windows.Networking.NetworkOperators.MobileBroadbandSarManager: ...
     SarManager = property(get_SarManager, None)
 class IMobileBroadbandModemIsolation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolation'
     _iid_ = Guid('{b5618fec-e661-4330-9bb4-3480212ec354}')
     @winrt_commethod(6)
     def AddAllowedHost(self, host: Windows.Networking.HostName) -> Void: ...
@@ -1350,11 +1416,13 @@ class IMobileBroadbandModemIsolation(ComPtr):
     def ClearConfigurationAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IMobileBroadbandModemIsolationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolationFactory'
     _iid_ = Guid('{21d7ec58-c2b1-4c2f-a030-72820a24ecd9}')
     @winrt_commethod(6)
     def Create(self, modemDeviceId: WinRT_String, ruleGroupId: WinRT_String) -> Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation: ...
 class IMobileBroadbandModemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModemStatics'
     _iid_ = Guid('{f99ed637-d6f1-4a78-8cbc-6421a65063c8}')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
@@ -1364,6 +1432,7 @@ class IMobileBroadbandModemStatics(ComPtr):
     def GetDefault(self) -> Windows.Networking.NetworkOperators.MobileBroadbandModem: ...
 class IMobileBroadbandNetwork(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandNetwork'
     _iid_ = Guid('{cb63928c-0309-4cb6-a8c1-6a5a3c8e1ff6}')
     @winrt_commethod(6)
     def get_NetworkAdapter(self) -> Windows.Networking.Connectivity.NetworkAdapter: ...
@@ -1396,6 +1465,7 @@ class IMobileBroadbandNetwork(ComPtr):
     RegisteredProviderName = property(get_RegisteredProviderName, None)
 class IMobileBroadbandNetwork2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandNetwork2'
     _iid_ = Guid('{5a55db22-62f7-4bdd-ba1d-477441960ba0}')
     @winrt_commethod(6)
     def GetVoiceCallSupportAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -1404,11 +1474,13 @@ class IMobileBroadbandNetwork2(ComPtr):
     RegistrationUiccApps = property(get_RegistrationUiccApps, None)
 class IMobileBroadbandNetwork3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandNetwork3'
     _iid_ = Guid('{33670a8a-c7ef-444c-ab6c-df7ef7a390fe}')
     @winrt_commethod(6)
     def GetCellsInfoAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo]: ...
 class IMobileBroadbandNetworkRegistrationStateChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandNetworkRegistrationStateChange'
     _iid_ = Guid('{beaf94e1-960f-49b4-a08d-7d85e968c7ec}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
@@ -1418,12 +1490,14 @@ class IMobileBroadbandNetworkRegistrationStateChange(ComPtr):
     Network = property(get_Network, None)
 class IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails'
     _iid_ = Guid('{89135cff-28b8-46aa-b137-1c4b0f21edfe}')
     @winrt_commethod(6)
     def get_NetworkRegistrationStateChanges(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.MobileBroadbandNetworkRegistrationStateChange]: ...
     NetworkRegistrationStateChanges = property(get_NetworkRegistrationStateChanges, None)
 class IMobileBroadbandPco(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandPco'
     _iid_ = Guid('{d4e4fcbe-e3a3-43c5-a87b-6c86d229d7fa}')
     @winrt_commethod(6)
     def get_Data(self) -> Windows.Storage.Streams.IBuffer: ...
@@ -1436,12 +1510,14 @@ class IMobileBroadbandPco(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class IMobileBroadbandPcoDataChangeTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandPcoDataChangeTriggerDetails'
     _iid_ = Guid('{263f5114-64e0-4493-909b-2d14a01962b1}')
     @winrt_commethod(6)
     def get_UpdatedData(self) -> Windows.Networking.NetworkOperators.MobileBroadbandPco: ...
     UpdatedData = property(get_UpdatedData, None)
 class IMobileBroadbandPin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandPin'
     _iid_ = Guid('{e661d709-e779-45bf-8281-75323df9e321}')
     @winrt_commethod(6)
     def get_Type(self) -> Windows.Networking.NetworkOperators.MobileBroadbandPinType: ...
@@ -1476,6 +1552,7 @@ class IMobileBroadbandPin(ComPtr):
     AttemptsRemaining = property(get_AttemptsRemaining, None)
 class IMobileBroadbandPinLockStateChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandPinLockStateChange'
     _iid_ = Guid('{be16673e-1f04-4f95-8b90-e7f559dde7e5}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
@@ -1488,12 +1565,14 @@ class IMobileBroadbandPinLockStateChange(ComPtr):
     PinLockState = property(get_PinLockState, None)
 class IMobileBroadbandPinLockStateChangeTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandPinLockStateChangeTriggerDetails'
     _iid_ = Guid('{d338c091-3e91-4d38-9036-aee83a6e79ad}')
     @winrt_commethod(6)
     def get_PinLockStateChanges(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.MobileBroadbandPinLockStateChange]: ...
     PinLockStateChanges = property(get_PinLockStateChanges, None)
 class IMobileBroadbandPinManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandPinManager'
     _iid_ = Guid('{83567edd-6e1f-4b9b-a413-2b1f50cc36df}')
     @winrt_commethod(6)
     def get_SupportedPins(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.MobileBroadbandPinType]: ...
@@ -1502,6 +1581,7 @@ class IMobileBroadbandPinManager(ComPtr):
     SupportedPins = property(get_SupportedPins, None)
 class IMobileBroadbandPinOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandPinOperationResult'
     _iid_ = Guid('{11dddc32-31e7-49f5-b663-123d3bef0362}')
     @winrt_commethod(6)
     def get_IsSuccessful(self) -> Boolean: ...
@@ -1511,6 +1591,7 @@ class IMobileBroadbandPinOperationResult(ComPtr):
     AttemptsRemaining = property(get_AttemptsRemaining, None)
 class IMobileBroadbandRadioStateChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandRadioStateChange'
     _iid_ = Guid('{b054a561-9833-4aed-9717-4348b21a24b3}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
@@ -1520,12 +1601,14 @@ class IMobileBroadbandRadioStateChange(ComPtr):
     RadioState = property(get_RadioState, None)
 class IMobileBroadbandRadioStateChangeTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandRadioStateChangeTriggerDetails'
     _iid_ = Guid('{71301ace-093c-42c6-b0db-ad1f75a65445}')
     @winrt_commethod(6)
     def get_RadioStateChanges(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.MobileBroadbandRadioStateChange]: ...
     RadioStateChanges = property(get_RadioStateChanges, None)
 class IMobileBroadbandSarManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandSarManager'
     _iid_ = Guid('{e5b26833-967e-40c9-a485-19c0dd209e22}')
     @winrt_commethod(6)
     def get_IsBackoffEnabled(self) -> Boolean: ...
@@ -1564,6 +1647,7 @@ class IMobileBroadbandSarManager(ComPtr):
     HysteresisTimerPeriod = property(get_HysteresisTimerPeriod, None)
 class IMobileBroadbandSlotInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandSlotInfo'
     _iid_ = Guid('{bd350b32-882e-542a-b17d-0bb1b49bae9e}')
     @winrt_commethod(6)
     def get_Index(self) -> Int32: ...
@@ -1573,18 +1657,21 @@ class IMobileBroadbandSlotInfo(ComPtr):
     State = property(get_State, None)
 class IMobileBroadbandSlotInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandSlotInfo2'
     _iid_ = Guid('{393cb039-ca44-524c-822d-83a3620f0efc}')
     @winrt_commethod(6)
     def get_IccId(self) -> WinRT_String: ...
     IccId = property(get_IccId, None)
 class IMobileBroadbandSlotInfoChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandSlotInfoChangedEventArgs'
     _iid_ = Guid('{3158839f-950c-54ce-a48d-ba4529b48f0f}')
     @winrt_commethod(6)
     def get_SlotInfo(self) -> Windows.Networking.NetworkOperators.MobileBroadbandSlotInfo: ...
     SlotInfo = property(get_SlotInfo, None)
 class IMobileBroadbandSlotManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandSlotManager'
     _iid_ = Guid('{eba07cd6-2019-5f81-a294-cc364a11d0b2}')
     @winrt_commethod(6)
     def get_SlotInfos(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.MobileBroadbandSlotInfo]: ...
@@ -1606,12 +1693,14 @@ class IMobileBroadbandSlotManager(ComPtr):
     CurrentSlotIndex = property(get_CurrentSlotIndex, None)
 class IMobileBroadbandTransmissionStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandTransmissionStateChangedEventArgs'
     _iid_ = Guid('{612e3875-040a-4f99-a4f9-61d7c32da129}')
     @winrt_commethod(6)
     def get_IsTransmitting(self) -> Boolean: ...
     IsTransmitting = property(get_IsTransmitting, None)
 class IMobileBroadbandUicc(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandUicc'
     _iid_ = Guid('{e634f691-525a-4ce2-8fce-aa4162579154}')
     @winrt_commethod(6)
     def get_SimIccId(self) -> WinRT_String: ...
@@ -1620,6 +1709,7 @@ class IMobileBroadbandUicc(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class IMobileBroadbandUiccApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandUiccApp'
     _iid_ = Guid('{4d170556-98a1-43dd-b2ec-50c90cf248df}')
     @winrt_commethod(6)
     def get_Id(self) -> Windows.Storage.Streams.IBuffer: ...
@@ -1633,6 +1723,7 @@ class IMobileBroadbandUiccApp(ComPtr):
     Kind = property(get_Kind, None)
 class IMobileBroadbandUiccAppReadRecordResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandUiccAppReadRecordResult'
     _iid_ = Guid('{64c95285-358e-47c5-8249-695f383b2bdb}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.NetworkOperators.MobileBroadbandUiccAppOperationStatus: ...
@@ -1642,6 +1733,7 @@ class IMobileBroadbandUiccAppReadRecordResult(ComPtr):
     Data = property(get_Data, None)
 class IMobileBroadbandUiccAppRecordDetailsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandUiccAppRecordDetailsResult'
     _iid_ = Guid('{d919682f-be14-4934-981d-2f57b9ed83e6}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.NetworkOperators.MobileBroadbandUiccAppOperationStatus: ...
@@ -1663,6 +1755,7 @@ class IMobileBroadbandUiccAppRecordDetailsResult(ComPtr):
     WriteAccessCondition = property(get_WriteAccessCondition, None)
 class IMobileBroadbandUiccAppsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandUiccAppsResult'
     _iid_ = Guid('{744930eb-8157-4a41-8494-6bf54c9b1d2b}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.NetworkOperators.MobileBroadbandUiccAppOperationStatus: ...
@@ -1672,12 +1765,14 @@ class IMobileBroadbandUiccAppsResult(ComPtr):
     UiccApps = property(get_UiccApps, None)
 class INetworkOperatorDataUsageTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorDataUsageTriggerDetails'
     _iid_ = Guid('{50e3126d-a465-4eeb-9317-28a167630cea}')
     @winrt_commethod(6)
     def get_NotificationKind(self) -> Windows.Networking.NetworkOperators.NetworkOperatorDataUsageNotificationKind: ...
     NotificationKind = property(get_NotificationKind, None)
 class INetworkOperatorNotificationEventDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails'
     _iid_ = Guid('{bc68a9d1-82e1-4488-9f2c-1276c2468fac}')
     @winrt_commethod(6)
     def get_NotificationType(self) -> Windows.Networking.NetworkOperators.NetworkOperatorEventMessageType: ...
@@ -1699,6 +1794,7 @@ class INetworkOperatorNotificationEventDetails(ComPtr):
     SmsMessage = property(get_SmsMessage, None)
 class INetworkOperatorTetheringAccessPointConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration'
     _iid_ = Guid('{0bcc0284-412e-403d-acc6-b757e34774a4}')
     @winrt_commethod(6)
     def get_Ssid(self) -> WinRT_String: ...
@@ -1712,6 +1808,7 @@ class INetworkOperatorTetheringAccessPointConfiguration(ComPtr):
     Passphrase = property(get_Passphrase, put_Passphrase)
 class INetworkOperatorTetheringAccessPointConfiguration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration2'
     _iid_ = Guid('{b1809142-7238-59a0-928b-74ab46fd64b6}')
     @winrt_commethod(6)
     def IsBandSupported(self, band: Windows.Networking.NetworkOperators.TetheringWiFiBand) -> Boolean: ...
@@ -1724,6 +1821,7 @@ class INetworkOperatorTetheringAccessPointConfiguration2(ComPtr):
     Band = property(get_Band, put_Band)
 class INetworkOperatorTetheringClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringClient'
     _iid_ = Guid('{709d254c-595f-4847-bb30-646935542918}')
     @winrt_commethod(6)
     def get_MacAddress(self) -> WinRT_String: ...
@@ -1733,16 +1831,19 @@ class INetworkOperatorTetheringClient(ComPtr):
     HostNames = property(get_HostNames, None)
 class INetworkOperatorTetheringClientManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringClientManager'
     _iid_ = Guid('{91b14016-8dca-4225-bbed-eef8b8d718d7}')
     @winrt_commethod(6)
     def GetTetheringClients(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.NetworkOperatorTetheringClient]: ...
 class INetworkOperatorTetheringEntitlementCheck(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringEntitlementCheck'
     _iid_ = Guid('{0108916d-9e9a-4af6-8da3-60493b19c204}')
     @winrt_commethod(6)
     def AuthorizeTethering(self, allow: Boolean, entitlementFailureReason: WinRT_String) -> Void: ...
 class INetworkOperatorTetheringManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager'
     _iid_ = Guid('{d45a8da0-0e86-4d98-8ba4-dd70d4b764d3}')
     @winrt_commethod(6)
     def get_MaxClientCount(self) -> UInt32: ...
@@ -1763,6 +1864,7 @@ class INetworkOperatorTetheringManager(ComPtr):
     TetheringOperationalState = property(get_TetheringOperationalState, None)
 class INetworkOperatorTetheringManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics'
     _iid_ = Guid('{3ebcbacc-f8c3-405c-9964-70a1eeabe194}')
     @winrt_commethod(6)
     def GetTetheringCapability(self, networkAccountId: WinRT_String) -> Windows.Networking.NetworkOperators.TetheringCapability: ...
@@ -1770,6 +1872,7 @@ class INetworkOperatorTetheringManagerStatics(ComPtr):
     def CreateFromNetworkAccountId(self, networkAccountId: WinRT_String) -> Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager: ...
 class INetworkOperatorTetheringManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics2'
     _iid_ = Guid('{5b235412-35f0-49e7-9b08-16d278fbaa42}')
     @winrt_commethod(6)
     def GetTetheringCapabilityFromConnectionProfile(self, profile: Windows.Networking.Connectivity.ConnectionProfile) -> Windows.Networking.NetworkOperators.TetheringCapability: ...
@@ -1777,11 +1880,13 @@ class INetworkOperatorTetheringManagerStatics2(ComPtr):
     def CreateFromConnectionProfile(self, profile: Windows.Networking.Connectivity.ConnectionProfile) -> Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager: ...
 class INetworkOperatorTetheringManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics3'
     _iid_ = Guid('{8fdaadb6-4af9-4f21-9b58-d53e9f24231e}')
     @winrt_commethod(6)
     def CreateFromConnectionProfileWithTargetAdapter(self, profile: Windows.Networking.Connectivity.ConnectionProfile, adapter: Windows.Networking.Connectivity.NetworkAdapter) -> Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager: ...
 class INetworkOperatorTetheringManagerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics4'
     _iid_ = Guid('{b3b9f9d0-ebff-46a4-a847-d663d8b0977e}')
     @winrt_commethod(6)
     def IsNoConnectionsTimeoutEnabled(self) -> Boolean: ...
@@ -1795,6 +1900,7 @@ class INetworkOperatorTetheringManagerStatics4(ComPtr):
     def DisableNoConnectionsTimeoutAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class INetworkOperatorTetheringOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringOperationResult'
     _iid_ = Guid('{ebd203a1-01ba-476d-b4b3-bf3d12c8f80c}')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.NetworkOperators.TetheringOperationStatus: ...
@@ -1804,6 +1910,7 @@ class INetworkOperatorTetheringOperationResult(ComPtr):
     AdditionalErrorMessage = property(get_AdditionalErrorMessage, None)
 class IProvisionFromXmlDocumentResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IProvisionFromXmlDocumentResults'
     _iid_ = Guid('{217700e0-8203-11df-adb9-f4ce462d9137}')
     @winrt_commethod(6)
     def get_AllElementsProvisioned(self) -> Boolean: ...
@@ -1813,6 +1920,7 @@ class IProvisionFromXmlDocumentResults(ComPtr):
     ProvisionResultsXml = property(get_ProvisionResultsXml, None)
 class IProvisionedProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IProvisionedProfile'
     _iid_ = Guid('{217700e0-8202-11df-adb9-f4ce462d9137}')
     @winrt_commethod(6)
     def UpdateCost(self, value: Windows.Networking.Connectivity.NetworkCostType) -> Void: ...
@@ -1820,6 +1928,7 @@ class IProvisionedProfile(ComPtr):
     def UpdateUsage(self, value: Windows.Networking.NetworkOperators.ProfileUsage) -> Void: ...
 class IProvisioningAgent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IProvisioningAgent'
     _iid_ = Guid('{217700e0-8201-11df-adb9-f4ce462d9137}')
     @winrt_commethod(6)
     def ProvisionFromXmlDocumentAsync(self, provisioningXmlDocument: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.ProvisionFromXmlDocumentResults]: ...
@@ -1827,11 +1936,13 @@ class IProvisioningAgent(ComPtr):
     def GetProvisionedProfile(self, mediaType: Windows.Networking.NetworkOperators.ProfileMediaType, profileName: WinRT_String) -> Windows.Networking.NetworkOperators.ProvisionedProfile: ...
 class IProvisioningAgentStaticMethods(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IProvisioningAgentStaticMethods'
     _iid_ = Guid('{217700e0-8101-11df-adb9-f4ce462d9137}')
     @winrt_commethod(6)
     def CreateFromNetworkAccountId(self, networkAccountId: WinRT_String) -> Windows.Networking.NetworkOperators.ProvisioningAgent: ...
 class ITetheringEntitlementCheckTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.ITetheringEntitlementCheckTriggerDetails'
     _iid_ = Guid('{03c65e9d-5926-41f3-a94e-b50926fc421b}')
     @winrt_commethod(6)
     def get_NetworkAccountId(self) -> WinRT_String: ...
@@ -1842,6 +1953,7 @@ class ITetheringEntitlementCheckTriggerDetails(ComPtr):
     NetworkAccountId = property(get_NetworkAccountId, None)
 class IUssdMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IUssdMessage'
     _iid_ = Guid('{2f9acf82-2004-4d5d-bf81-2aba1b4be4a8}')
     @winrt_commethod(6)
     def get_DataCodingScheme(self) -> Byte: ...
@@ -1859,11 +1971,13 @@ class IUssdMessage(ComPtr):
     PayloadAsText = property(get_PayloadAsText, put_PayloadAsText)
 class IUssdMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IUssdMessageFactory'
     _iid_ = Guid('{2f9acf82-1003-4d5d-bf81-2aba1b4be4a8}')
     @winrt_commethod(6)
     def CreateMessage(self, messageText: WinRT_String) -> Windows.Networking.NetworkOperators.UssdMessage: ...
 class IUssdReply(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IUssdReply'
     _iid_ = Guid('{2f9acf82-2005-4d5d-bf81-2aba1b4be4a8}')
     @winrt_commethod(6)
     def get_ResultCode(self) -> Windows.Networking.NetworkOperators.UssdResultCode: ...
@@ -1873,6 +1987,7 @@ class IUssdReply(ComPtr):
     Message = property(get_Message, None)
 class IUssdSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IUssdSession'
     _iid_ = Guid('{2f9acf82-2002-4d5d-bf81-2aba1b4be4a8}')
     @winrt_commethod(6)
     def SendMessageAndGetReplyAsync(self, message: Windows.Networking.NetworkOperators.UssdMessage) -> Windows.Foundation.IAsyncOperation[Windows.Networking.NetworkOperators.UssdReply]: ...
@@ -1880,6 +1995,7 @@ class IUssdSession(ComPtr):
     def Close(self) -> Void: ...
 class IUssdSessionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IUssdSessionStatics'
     _iid_ = Guid('{2f9acf82-1001-4d5d-bf81-2aba1b4be4a8}')
     @winrt_commethod(6)
     def CreateFromNetworkAccountId(self, networkAccountId: WinRT_String) -> Windows.Networking.NetworkOperators.UssdSession: ...
@@ -1887,6 +2003,7 @@ class IUssdSessionStatics(ComPtr):
     def CreateFromNetworkInterfaceId(self, networkInterfaceId: WinRT_String) -> Windows.Networking.NetworkOperators.UssdSession: ...
 class KnownCSimFilePaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.KnownCSimFilePaths'
     @winrt_classmethod
     def get_EFSpn(cls: Windows.Networking.NetworkOperators.IKnownCSimFilePathsStatics) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_classmethod
@@ -1898,6 +2015,7 @@ class KnownCSimFilePaths(ComPtr):
     Gid2 = property(get_Gid2, None)
 class KnownRuimFilePaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.KnownRuimFilePaths'
     @winrt_classmethod
     def get_EFSpn(cls: Windows.Networking.NetworkOperators.IKnownRuimFilePathsStatics) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_classmethod
@@ -1909,6 +2027,7 @@ class KnownRuimFilePaths(ComPtr):
     Gid2 = property(get_Gid2, None)
 class KnownSimFilePaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.KnownSimFilePaths'
     @winrt_classmethod
     def get_EFOns(cls: Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_classmethod
@@ -1923,6 +2042,7 @@ class KnownSimFilePaths(ComPtr):
     Gid2 = property(get_Gid2, None)
 class KnownUSimFilePaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.KnownUSimFilePaths'
     @winrt_classmethod
     def get_EFSpn(cls: Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_classmethod

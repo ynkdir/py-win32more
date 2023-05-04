@@ -427,6 +427,7 @@ class GuidanceUpdatedEventArgs(ComPtr):
     LaneInfo = property(get_LaneInfo, None)
 class IGuidanceAudioNotificationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceAudioNotificationRequestedEventArgs'
     _iid_ = Guid('{ca2aa24a-c7c2-4d4c-9d7c-499576bceddb}')
     @winrt_commethod(6)
     def get_AudioNotification(self) -> Windows.Services.Maps.Guidance.GuidanceAudioNotificationKind: ...
@@ -439,6 +440,7 @@ class IGuidanceAudioNotificationRequestedEventArgs(ComPtr):
     AudioText = property(get_AudioText, None)
 class IGuidanceLaneInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceLaneInfo'
     _iid_ = Guid('{8404d114-6581-43b7-ac15-c9079bf90df1}')
     @winrt_commethod(6)
     def get_LaneMarkers(self) -> Windows.Services.Maps.Guidance.GuidanceLaneMarkers: ...
@@ -448,6 +450,7 @@ class IGuidanceLaneInfo(ComPtr):
     IsOnRoute = property(get_IsOnRoute, None)
 class IGuidanceManeuver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceManeuver'
     _iid_ = Guid('{fc09326c-ecc9-4928-a2a1-7232b99b94a1}')
     @winrt_commethod(6)
     def get_StartLocation(self) -> Windows.Devices.Geolocation.Geopoint: ...
@@ -487,6 +490,7 @@ class IGuidanceManeuver(ComPtr):
     InstructionText = property(get_InstructionText, None)
 class IGuidanceMapMatchedCoordinate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceMapMatchedCoordinate'
     _iid_ = Guid('{b7acb168-2912-4a99-aff1-798609b981fe}')
     @winrt_commethod(6)
     def get_Location(self) -> Windows.Devices.Geolocation.Geopoint: ...
@@ -505,6 +509,7 @@ class IGuidanceMapMatchedCoordinate(ComPtr):
     Road = property(get_Road, None)
 class IGuidanceNavigator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceNavigator'
     _iid_ = Guid('{08f17ef7-8e3f-4d9a-be8a-108f9a012c67}')
     @winrt_commethod(6)
     def StartNavigating(self, route: Windows.Services.Maps.Guidance.GuidanceRoute) -> Void: ...
@@ -566,6 +571,7 @@ class IGuidanceNavigator(ComPtr):
     AudioNotifications = property(get_AudioNotifications, put_AudioNotifications)
 class IGuidanceNavigator2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceNavigator2'
     _iid_ = Guid('{6cdc50d1-041c-4bf3-b633-a101fc2f6b57}')
     @winrt_commethod(6)
     def add_AudioNotificationRequested(self, value: Windows.Foundation.TypedEventHandler[Windows.Services.Maps.Guidance.GuidanceNavigator, Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -578,23 +584,27 @@ class IGuidanceNavigator2(ComPtr):
     IsGuidanceAudioMuted = property(get_IsGuidanceAudioMuted, put_IsGuidanceAudioMuted)
 class IGuidanceNavigatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceNavigatorStatics'
     _iid_ = Guid('{00fd9513-4456-4e66-a143-3add6be08426}')
     @winrt_commethod(6)
     def GetCurrent(self) -> Windows.Services.Maps.Guidance.GuidanceNavigator: ...
 class IGuidanceNavigatorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceNavigatorStatics2'
     _iid_ = Guid('{54c5c3e2-7784-4c85-8c95-d0c6efb43965}')
     @winrt_commethod(6)
     def get_UseAppProvidedVoice(self) -> Boolean: ...
     UseAppProvidedVoice = property(get_UseAppProvidedVoice, None)
 class IGuidanceReroutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceReroutedEventArgs'
     _iid_ = Guid('{115d4008-d528-454e-bb94-a50341d2c9f1}')
     @winrt_commethod(6)
     def get_Route(self) -> Windows.Services.Maps.Guidance.GuidanceRoute: ...
     Route = property(get_Route, None)
 class IGuidanceRoadSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceRoadSegment'
     _iid_ = Guid('{b32758a6-be78-4c63-afe7-6c2957479b3e}')
     @winrt_commethod(6)
     def get_RoadName(self) -> WinRT_String: ...
@@ -625,12 +635,14 @@ class IGuidanceRoadSegment(ComPtr):
     IsTollRoad = property(get_IsTollRoad, None)
 class IGuidanceRoadSegment2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceRoadSegment2'
     _iid_ = Guid('{2474a61d-1723-49f1-895b-47a2c4aa9c55}')
     @winrt_commethod(6)
     def get_IsScenic(self) -> Boolean: ...
     IsScenic = property(get_IsScenic, None)
 class IGuidanceRoadSignpost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceRoadSignpost'
     _iid_ = Guid('{f1a728b6-f77a-4742-8312-53300f9845f0}')
     @winrt_commethod(6)
     def get_ExitNumber(self) -> WinRT_String: ...
@@ -649,6 +661,7 @@ class IGuidanceRoadSignpost(ComPtr):
     ExitDirections = property(get_ExitDirections, None)
 class IGuidanceRoute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceRoute'
     _iid_ = Guid('{3a14545d-801a-40bd-a286-afb2010cce6c}')
     @winrt_commethod(6)
     def get_Duration(self) -> Windows.Foundation.TimeSpan: ...
@@ -672,6 +685,7 @@ class IGuidanceRoute(ComPtr):
     RoadSegments = property(get_RoadSegments, None)
 class IGuidanceRouteStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceRouteStatics'
     _iid_ = Guid('{f56d926a-55ed-49c1-b09c-4b8223b50db3}')
     @winrt_commethod(6)
     def CanCreateFromMapRoute(self, mapRoute: Windows.Services.Maps.MapRoute) -> Boolean: ...
@@ -679,6 +693,7 @@ class IGuidanceRouteStatics(ComPtr):
     def TryCreateFromMapRoute(self, mapRoute: Windows.Services.Maps.MapRoute) -> Windows.Services.Maps.Guidance.GuidanceRoute: ...
 class IGuidanceTelemetryCollector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceTelemetryCollector'
     _iid_ = Guid('{db1f8da5-b878-4d92-98dd-347d23d38262}')
     @winrt_commethod(6)
     def get_Enabled(self) -> Boolean: ...
@@ -699,11 +714,13 @@ class IGuidanceTelemetryCollector(ComPtr):
     UploadFrequency = property(get_UploadFrequency, put_UploadFrequency)
 class IGuidanceTelemetryCollectorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceTelemetryCollectorStatics'
     _iid_ = Guid('{36532047-f160-44fb-b578-94577ca05990}')
     @winrt_commethod(6)
     def GetCurrent(self) -> Windows.Services.Maps.Guidance.GuidanceTelemetryCollector: ...
 class IGuidanceUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceUpdatedEventArgs'
     _iid_ = Guid('{fdac160b-9e8d-4de3-a9fa-b06321d18db9}')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.Services.Maps.Guidance.GuidanceMode: ...

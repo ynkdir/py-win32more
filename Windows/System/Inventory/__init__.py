@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IInstalledDesktopApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Inventory.IInstalledDesktopApp'
     _iid_ = Guid('{75eab8ed-c0bc-5364-4c28-166e0545167a}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -39,6 +40,7 @@ class IInstalledDesktopApp(ComPtr):
     DisplayVersion = property(get_DisplayVersion, None)
 class IInstalledDesktopAppStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Inventory.IInstalledDesktopAppStatics'
     _iid_ = Guid('{264cf74e-21cd-5f9b-6056-7866ad72489a}')
     @winrt_commethod(6)
     def GetInventoryAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.System.Inventory.InstalledDesktopApp]]: ...

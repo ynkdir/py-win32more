@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IServiceDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Portable.IServiceDeviceStatics'
     _iid_ = Guid('{a88214e1-59c7-4a20-aba6-9f6707937230}')
     @winrt_commethod(6)
     def GetDeviceSelector(self, serviceType: Windows.Devices.Portable.ServiceDeviceType) -> WinRT_String: ...
@@ -30,6 +31,7 @@ class IServiceDeviceStatics(ComPtr):
     def GetDeviceSelectorFromServiceId(self, serviceId: Guid) -> WinRT_String: ...
 class IStorageDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Portable.IStorageDeviceStatics'
     _iid_ = Guid('{5ece44ee-1b23-4dd2-8652-bc164f003128}')
     @winrt_commethod(6)
     def FromId(self, deviceId: WinRT_String) -> Windows.Storage.StorageFolder: ...
@@ -38,6 +40,7 @@ class IStorageDeviceStatics(ComPtr):
 PortableDeviceContract: UInt32 = 65536
 class ServiceDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Portable.ServiceDevice'
     @winrt_classmethod
     def GetDeviceSelector(cls: Windows.Devices.Portable.IServiceDeviceStatics, serviceType: Windows.Devices.Portable.ServiceDeviceType) -> WinRT_String: ...
     @winrt_classmethod
@@ -52,6 +55,7 @@ ServiceDeviceType_SmsService: ServiceDeviceType = 5
 ServiceDeviceType_TasksService: ServiceDeviceType = 6
 class StorageDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Portable.StorageDevice'
     @winrt_classmethod
     def FromId(cls: Windows.Devices.Portable.IStorageDeviceStatics, deviceId: WinRT_String) -> Windows.Storage.StorageFolder: ...
     @winrt_classmethod

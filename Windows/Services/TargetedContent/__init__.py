@@ -25,16 +25,19 @@ def __getattr__(name):
     return getattr(_module, name)
 class ITargetedContentAction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentAction'
     _iid_ = Guid('{d75b691e-6cd6-4ca0-9d8f-4728b0b7e6b6}')
     @winrt_commethod(6)
     def InvokeAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class ITargetedContentAvailabilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentAvailabilityChangedEventArgs'
     _iid_ = Guid('{e0f59d26-5927-4450-965c-1ceb7becde65}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class ITargetedContentChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentChangedEventArgs'
     _iid_ = Guid('{99d488c9-587e-4586-8ef7-b54ca9453a16}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
@@ -43,6 +46,7 @@ class ITargetedContentChangedEventArgs(ComPtr):
     HasPreviousContentExpired = property(get_HasPreviousContentExpired, None)
 class ITargetedContentCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentCollection'
     _iid_ = Guid('{2d4b66c5-f163-44ba-9f6e-e1a4c2bb559d}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -65,6 +69,7 @@ class ITargetedContentCollection(ComPtr):
     Items = property(get_Items, None)
 class ITargetedContentContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentContainer'
     _iid_ = Guid('{bc2494c9-8837-47c2-850f-d79d64595926}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -82,11 +87,13 @@ class ITargetedContentContainer(ComPtr):
     Content = property(get_Content, None)
 class ITargetedContentContainerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentContainerStatics'
     _iid_ = Guid('{5b47e7fb-2140-4c1f-a736-c59583f227d8}')
     @winrt_commethod(6)
     def GetAsync(self, contentId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Services.TargetedContent.TargetedContentContainer]: ...
 class ITargetedContentImage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentImage'
     _iid_ = Guid('{a7a585d9-779f-4b1e-bbb1-8eaf53fbeab2}')
     @winrt_commethod(6)
     def get_Height(self) -> UInt32: ...
@@ -96,6 +103,7 @@ class ITargetedContentImage(ComPtr):
     Width = property(get_Width, None)
 class ITargetedContentItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentItem'
     _iid_ = Guid('{38168dc4-276c-4c32-96ba-565c6e406e74}')
     @winrt_commethod(6)
     def get_Path(self) -> WinRT_String: ...
@@ -115,6 +123,7 @@ class ITargetedContentItem(ComPtr):
     Collections = property(get_Collections, None)
 class ITargetedContentItemState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentItemState'
     _iid_ = Guid('{73935454-4c65-4b47-a441-472de53c79b6}')
     @winrt_commethod(6)
     def get_ShouldDisplay(self) -> Boolean: ...
@@ -124,6 +133,7 @@ class ITargetedContentItemState(ComPtr):
     AppInstallationState = property(get_AppInstallationState, None)
 class ITargetedContentObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentObject'
     _iid_ = Guid('{041d7969-2212-42d1-9dfa-88a8e3033aa3}')
     @winrt_commethod(6)
     def get_ObjectKind(self) -> Windows.Services.TargetedContent.TargetedContentObjectKind: ...
@@ -139,11 +149,13 @@ class ITargetedContentObject(ComPtr):
     Value = property(get_Value, None)
 class ITargetedContentStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentStateChangedEventArgs'
     _iid_ = Guid('{9a1cef3d-8073-4416-8df2-546835a6414f}')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class ITargetedContentSubscription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentSubscription'
     _iid_ = Guid('{882c2c49-c652-4c7a-acad-1f7fa2986c73}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
@@ -164,6 +176,7 @@ class ITargetedContentSubscription(ComPtr):
     Id = property(get_Id, None)
 class ITargetedContentSubscriptionOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions'
     _iid_ = Guid('{61ee6ad0-2c83-421b-8467-413eaf1aeb97}')
     @winrt_commethod(6)
     def get_SubscriptionId(self) -> WinRT_String: ...
@@ -183,6 +196,7 @@ class ITargetedContentSubscriptionOptions(ComPtr):
     LocalFilters = property(get_LocalFilters, None)
 class ITargetedContentSubscriptionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentSubscriptionStatics'
     _iid_ = Guid('{faddfe80-360d-4916-b53c-7ea27090d02a}')
     @winrt_commethod(6)
     def GetAsync(self, subscriptionId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Services.TargetedContent.TargetedContentSubscription]: ...
@@ -190,6 +204,7 @@ class ITargetedContentSubscriptionStatics(ComPtr):
     def GetOptions(self, subscriptionId: WinRT_String) -> Windows.Services.TargetedContent.TargetedContentSubscriptionOptions: ...
 class ITargetedContentValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.TargetedContent.ITargetedContentValue'
     _iid_ = Guid('{aafde4b3-4215-4bf8-867f-43f04865f9bf}')
     @winrt_commethod(6)
     def get_ValueKind(self) -> Windows.Services.TargetedContent.TargetedContentValueKind: ...

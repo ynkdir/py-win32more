@@ -211,6 +211,7 @@ class DatagramSocketMessageReceivedEventArgs(ComPtr):
     LocalAddress = property(get_LocalAddress, None)
 class IControlChannelTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IControlChannelTrigger'
     _iid_ = Guid('{7d1431a7-ee96-40e8-a199-8703cd969ec3}')
     @winrt_commethod(6)
     def get_ControlChannelTriggerId(self) -> WinRT_String: ...
@@ -242,18 +243,21 @@ class IControlChannelTrigger(ComPtr):
     PushNotificationTrigger = property(get_PushNotificationTrigger, None)
 class IControlChannelTrigger2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IControlChannelTrigger2'
     _iid_ = Guid('{af00d237-51be-4514-9725-3556e1879580}')
     @winrt_commethod(6)
     def get_IsWakeFromLowPowerSupported(self) -> Boolean: ...
     IsWakeFromLowPowerSupported = property(get_IsWakeFromLowPowerSupported, None)
 class IControlChannelTriggerEventDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IControlChannelTriggerEventDetails'
     _iid_ = Guid('{1b36e047-89bb-4236-96ac-71d012bb4869}')
     @winrt_commethod(6)
     def get_ControlChannelTrigger(self) -> Windows.Networking.Sockets.ControlChannelTrigger: ...
     ControlChannelTrigger = property(get_ControlChannelTrigger, None)
 class IControlChannelTriggerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IControlChannelTriggerFactory'
     _iid_ = Guid('{da4b7cf0-8d71-446f-88c3-b95184a2d6cd}')
     @winrt_commethod(6)
     def CreateControlChannelTrigger(self, channelId: WinRT_String, serverKeepAliveIntervalInMinutes: UInt32) -> Windows.Networking.Sockets.ControlChannelTrigger: ...
@@ -261,6 +265,7 @@ class IControlChannelTriggerFactory(ComPtr):
     def CreateControlChannelTriggerEx(self, channelId: WinRT_String, serverKeepAliveIntervalInMinutes: UInt32, resourceRequestType: Windows.Networking.Sockets.ControlChannelTriggerResourceType) -> Windows.Networking.Sockets.ControlChannelTrigger: ...
 class IControlChannelTriggerResetEventDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IControlChannelTriggerResetEventDetails'
     _iid_ = Guid('{6851038e-8ec4-42fe-9bb2-21e91b7bfcb1}')
     @winrt_commethod(6)
     def get_ResetReason(self) -> Windows.Networking.Sockets.ControlChannelTriggerResetReason: ...
@@ -273,6 +278,7 @@ class IControlChannelTriggerResetEventDetails(ComPtr):
     SoftwareSlotReset = property(get_SoftwareSlotReset, None)
 class IDatagramSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocket'
     _iid_ = Guid('{7fe25bbb-c3bc-4677-8446-ca28a465a3af}')
     @winrt_commethod(6)
     def get_Control(self) -> Windows.Networking.Sockets.DatagramSocketControl: ...
@@ -303,11 +309,13 @@ class IDatagramSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class IDatagramSocket2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocket2'
     _iid_ = Guid('{d83ba354-9a9d-4185-a20a-1424c9c2a7cd}')
     @winrt_commethod(6)
     def BindServiceNameAndAdapterAsync(self, localServiceName: WinRT_String, adapter: Windows.Networking.Connectivity.NetworkAdapter) -> Windows.Foundation.IAsyncAction: ...
 class IDatagramSocket3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocket3'
     _iid_ = Guid('{37544f09-ab92-4306-9ac1-0c381283d9c6}')
     @winrt_commethod(6)
     def CancelIOAsync(self) -> Windows.Foundation.IAsyncAction: ...
@@ -323,6 +331,7 @@ class IDatagramSocket3(ComPtr):
     def TransferOwnershipWithContextAndKeepAliveTime(self, socketId: WinRT_String, data: Windows.Networking.Sockets.SocketActivityContext, keepAliveTime: Windows.Foundation.TimeSpan) -> Void: ...
 class IDatagramSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocketControl'
     _iid_ = Guid('{52ac3f2e-349a-4135-bb58-b79b2647d390}')
     @winrt_commethod(6)
     def get_QualityOfService(self) -> Windows.Networking.Sockets.SocketQualityOfService: ...
@@ -336,6 +345,7 @@ class IDatagramSocketControl(ComPtr):
     OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
 class IDatagramSocketControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocketControl2'
     _iid_ = Guid('{33ead5c2-979c-4415-82a1-3cfaf646c192}')
     @winrt_commethod(6)
     def get_InboundBufferSizeInBytes(self) -> UInt32: ...
@@ -349,6 +359,7 @@ class IDatagramSocketControl2(ComPtr):
     DontFragment = property(get_DontFragment, put_DontFragment)
 class IDatagramSocketControl3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocketControl3'
     _iid_ = Guid('{d4eb8256-1f6d-4598-9b57-d42a001df349}')
     @winrt_commethod(6)
     def get_MulticastOnly(self) -> Boolean: ...
@@ -357,6 +368,7 @@ class IDatagramSocketControl3(ComPtr):
     MulticastOnly = property(get_MulticastOnly, put_MulticastOnly)
 class IDatagramSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocketInformation'
     _iid_ = Guid('{5f1a569a-55fb-48cd-9706-7a974f7b1585}')
     @winrt_commethod(6)
     def get_LocalAddress(self) -> Windows.Networking.HostName: ...
@@ -372,6 +384,7 @@ class IDatagramSocketInformation(ComPtr):
     RemotePort = property(get_RemotePort, None)
 class IDatagramSocketMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocketMessageReceivedEventArgs'
     _iid_ = Guid('{9e2ddca2-1712-4ce4-b179-8c652c6d107e}')
     @winrt_commethod(6)
     def get_RemoteAddress(self) -> Windows.Networking.HostName: ...
@@ -388,6 +401,7 @@ class IDatagramSocketMessageReceivedEventArgs(ComPtr):
     LocalAddress = property(get_LocalAddress, None)
 class IDatagramSocketStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IDatagramSocketStatics'
     _iid_ = Guid('{e9c62aee-1494-4a21-bb7e-8589fc751d9d}')
     @winrt_commethod(6)
     def GetEndpointPairsAsync(self, remoteHostName: Windows.Networking.HostName, remoteServiceName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.EndpointPair]]: ...
@@ -395,6 +409,7 @@ class IDatagramSocketStatics(ComPtr):
     def GetEndpointPairsWithSortOptionsAsync(self, remoteHostName: Windows.Networking.HostName, remoteServiceName: WinRT_String, sortOptions: Windows.Networking.HostNameSortOptions) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.EndpointPair]]: ...
 class IMessageWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IMessageWebSocket'
     _iid_ = Guid('{33727d08-34d5-4746-ad7b-8dde5bc2ef88}')
     @winrt_commethod(6)
     def get_Control(self) -> Windows.Networking.Sockets.MessageWebSocketControl: ...
@@ -408,6 +423,7 @@ class IMessageWebSocket(ComPtr):
     Information = property(get_Information, None)
 class IMessageWebSocket2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IMessageWebSocket2'
     _iid_ = Guid('{bed0cee7-f9c8-440a-9ad5-737281d9742e}')
     @winrt_commethod(6)
     def add_ServerCustomValidationRequested(self, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Networking.Sockets.MessageWebSocket, Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -415,6 +431,7 @@ class IMessageWebSocket2(ComPtr):
     def remove_ServerCustomValidationRequested(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IMessageWebSocket3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IMessageWebSocket3'
     _iid_ = Guid('{59d9defb-71af-4349-8487-911fcf681597}')
     @winrt_commethod(6)
     def SendNonfinalFrameAsync(self, data: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperationWithProgress[UInt32, UInt32]: ...
@@ -422,6 +439,7 @@ class IMessageWebSocket3(ComPtr):
     def SendFinalFrameAsync(self, data: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperationWithProgress[UInt32, UInt32]: ...
 class IMessageWebSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IMessageWebSocketControl'
     _iid_ = Guid('{8118388a-c629-4f0a-80fb-81fc05538862}')
     @winrt_commethod(6)
     def get_MaxMessageSize(self) -> UInt32: ...
@@ -435,6 +453,7 @@ class IMessageWebSocketControl(ComPtr):
     MessageType = property(get_MessageType, put_MessageType)
 class IMessageWebSocketControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IMessageWebSocketControl2'
     _iid_ = Guid('{e30fd791-080c-400a-a712-27dfa9e744d8}')
     @winrt_commethod(6)
     def get_DesiredUnsolicitedPongInterval(self) -> Windows.Foundation.TimeSpan: ...
@@ -456,6 +475,7 @@ class IMessageWebSocketControl2(ComPtr):
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
 class IMessageWebSocketMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs'
     _iid_ = Guid('{478c22ac-4c4b-42ed-9ed7-1ef9f94fa3d5}')
     @winrt_commethod(6)
     def get_MessageType(self) -> Windows.Networking.Sockets.SocketMessageType: ...
@@ -466,12 +486,14 @@ class IMessageWebSocketMessageReceivedEventArgs(ComPtr):
     MessageType = property(get_MessageType, None)
 class IMessageWebSocketMessageReceivedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs2'
     _iid_ = Guid('{89ce06fd-dd6f-4a07-87f9-f9eb4d89d83d}')
     @winrt_commethod(6)
     def get_IsMessageComplete(self) -> Boolean: ...
     IsMessageComplete = property(get_IsMessageComplete, None)
 class IServerMessageWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IServerMessageWebSocket'
     _iid_ = Guid('{e3ac9240-813b-5efd-7e11-ae2305fc77f1}')
     @winrt_commethod(6)
     def add_MessageReceived(self, value: Windows.Foundation.TypedEventHandler[Windows.Networking.Sockets.ServerMessageWebSocket, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -494,6 +516,7 @@ class IServerMessageWebSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class IServerMessageWebSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IServerMessageWebSocketControl'
     _iid_ = Guid('{69c2f051-1c1f-587a-4519-2181610192b7}')
     @winrt_commethod(6)
     def get_MessageType(self) -> Windows.Networking.Sockets.SocketMessageType: ...
@@ -502,6 +525,7 @@ class IServerMessageWebSocketControl(ComPtr):
     MessageType = property(get_MessageType, put_MessageType)
 class IServerMessageWebSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IServerMessageWebSocketInformation'
     _iid_ = Guid('{fc32b45f-4448-5505-6cc9-09afa8915f5d}')
     @winrt_commethod(6)
     def get_BandwidthStatistics(self) -> Windows.Networking.Sockets.BandwidthStatistics: ...
@@ -514,6 +538,7 @@ class IServerMessageWebSocketInformation(ComPtr):
     LocalAddress = property(get_LocalAddress, None)
 class IServerStreamWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IServerStreamWebSocket'
     _iid_ = Guid('{2ced5bbf-74f6-55e4-79df-9132680dfee8}')
     @winrt_commethod(6)
     def get_Information(self) -> Windows.Networking.Sockets.ServerStreamWebSocketInformation: ...
@@ -532,6 +557,7 @@ class IServerStreamWebSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class IServerStreamWebSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IServerStreamWebSocketInformation'
     _iid_ = Guid('{fc32b45f-4448-5505-6cc9-09aba8915f5d}')
     @winrt_commethod(6)
     def get_BandwidthStatistics(self) -> Windows.Networking.Sockets.BandwidthStatistics: ...
@@ -544,17 +570,20 @@ class IServerStreamWebSocketInformation(ComPtr):
     LocalAddress = property(get_LocalAddress, None)
 class ISocketActivityContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.ISocketActivityContext'
     _iid_ = Guid('{43b04d64-4c85-4396-a637-1d973f6ebd49}')
     @winrt_commethod(6)
     def get_Data(self) -> Windows.Storage.Streams.IBuffer: ...
     Data = property(get_Data, None)
 class ISocketActivityContextFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.ISocketActivityContextFactory'
     _iid_ = Guid('{b99fc3c3-088c-4388-83ae-2525138e049a}')
     @winrt_commethod(6)
     def Create(self, data: Windows.Storage.Streams.IBuffer) -> Windows.Networking.Sockets.SocketActivityContext: ...
 class ISocketActivityInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.ISocketActivityInformation'
     _iid_ = Guid('{8d8a42e4-a87e-4b74-9968-185b2511defe}')
     @winrt_commethod(6)
     def get_TaskId(self) -> Guid: ...
@@ -579,12 +608,14 @@ class ISocketActivityInformation(ComPtr):
     StreamSocketListener = property(get_StreamSocketListener, None)
 class ISocketActivityInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.ISocketActivityInformationStatics'
     _iid_ = Guid('{8570b47a-7e7d-4736-8041-1327a6543c56}')
     @winrt_commethod(6)
     def get_AllSockets(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Networking.Sockets.SocketActivityInformation]: ...
     AllSockets = property(get_AllSockets, None)
 class ISocketActivityTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.ISocketActivityTriggerDetails'
     _iid_ = Guid('{45f406a7-fc9f-4f81-acad-355fef51e67b}')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.Networking.Sockets.SocketActivityTriggerReason: ...
@@ -594,11 +625,13 @@ class ISocketActivityTriggerDetails(ComPtr):
     SocketInformation = property(get_SocketInformation, None)
 class ISocketErrorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.ISocketErrorStatics'
     _iid_ = Guid('{828337f4-7d56-4d8e-b7b4-a07dd7c1bca9}')
     @winrt_commethod(6)
     def GetStatus(self, hresult: Int32) -> Windows.Networking.Sockets.SocketErrorStatus: ...
 class IStreamSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocket'
     _iid_ = Guid('{69a22cf3-fc7b-4857-af38-f6e7de6a5b49}')
     @winrt_commethod(6)
     def get_Control(self) -> Windows.Networking.Sockets.StreamSocketControl: ...
@@ -624,11 +657,13 @@ class IStreamSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class IStreamSocket2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocket2'
     _iid_ = Guid('{29d0e575-f314-4d09-adf0-0fbd967fbd9f}')
     @winrt_commethod(6)
     def ConnectWithProtectionLevelAndAdapterAsync(self, remoteHostName: Windows.Networking.HostName, remoteServiceName: WinRT_String, protectionLevel: Windows.Networking.Sockets.SocketProtectionLevel, adapter: Windows.Networking.Connectivity.NetworkAdapter) -> Windows.Foundation.IAsyncAction: ...
 class IStreamSocket3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocket3'
     _iid_ = Guid('{3f430b00-9d28-4854-bac3-2301941ec223}')
     @winrt_commethod(6)
     def CancelIOAsync(self) -> Windows.Foundation.IAsyncAction: ...
@@ -644,6 +679,7 @@ class IStreamSocket3(ComPtr):
     def TransferOwnershipWithContextAndKeepAliveTime(self, socketId: WinRT_String, data: Windows.Networking.Sockets.SocketActivityContext, keepAliveTime: Windows.Foundation.TimeSpan) -> Void: ...
 class IStreamSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketControl'
     _iid_ = Guid('{fe25adf1-92ab-4af3-9992-0f4c85e36cc4}')
     @winrt_commethod(6)
     def get_NoDelay(self) -> Boolean: ...
@@ -672,12 +708,14 @@ class IStreamSocketControl(ComPtr):
     OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
 class IStreamSocketControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketControl2'
     _iid_ = Guid('{c2d09a56-060f-44c1-b8e2-1fbf60bd62c5}')
     @winrt_commethod(6)
     def get_IgnorableServerCertificateErrors(self) -> Windows.Foundation.Collections.IVector[Windows.Security.Cryptography.Certificates.ChainValidationResult]: ...
     IgnorableServerCertificateErrors = property(get_IgnorableServerCertificateErrors, None)
 class IStreamSocketControl3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketControl3'
     _iid_ = Guid('{c56a444c-4e74-403e-894c-b31cae5c7342}')
     @winrt_commethod(6)
     def get_SerializeConnectionAttempts(self) -> Boolean: ...
@@ -691,6 +729,7 @@ class IStreamSocketControl3(ComPtr):
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
 class IStreamSocketControl4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketControl4'
     _iid_ = Guid('{964e2b3d-ec27-4888-b3ce-c74b418423ad}')
     @winrt_commethod(6)
     def get_MinProtectionLevel(self) -> Windows.Networking.Sockets.SocketProtectionLevel: ...
@@ -699,6 +738,7 @@ class IStreamSocketControl4(ComPtr):
     MinProtectionLevel = property(get_MinProtectionLevel, put_MinProtectionLevel)
 class IStreamSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketInformation'
     _iid_ = Guid('{3b80ae30-5e68-4205-88f0-dc85d2e25ded}')
     @winrt_commethod(6)
     def get_LocalAddress(self) -> Windows.Networking.HostName: ...
@@ -732,6 +772,7 @@ class IStreamSocketInformation(ComPtr):
     SessionKey = property(get_SessionKey, None)
 class IStreamSocketInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketInformation2'
     _iid_ = Guid('{12c28452-4bdc-4ee4-976a-cf130e9d92e3}')
     @winrt_commethod(6)
     def get_ServerCertificateErrorSeverity(self) -> Windows.Networking.Sockets.SocketSslErrorSeverity: ...
@@ -747,6 +788,7 @@ class IStreamSocketInformation2(ComPtr):
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class IStreamSocketListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketListener'
     _iid_ = Guid('{ff513437-df9f-4df0-bf82-0ec5d7b35aae}')
     @winrt_commethod(6)
     def get_Control(self) -> Windows.Networking.Sockets.StreamSocketListenerControl: ...
@@ -764,6 +806,7 @@ class IStreamSocketListener(ComPtr):
     Information = property(get_Information, None)
 class IStreamSocketListener2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketListener2'
     _iid_ = Guid('{658dc13e-bb3e-4458-b232-ed1088694b98}')
     @winrt_commethod(6)
     def BindServiceNameWithProtectionLevelAsync(self, localServiceName: WinRT_String, protectionLevel: Windows.Networking.Sockets.SocketProtectionLevel) -> Windows.Foundation.IAsyncAction: ...
@@ -771,6 +814,7 @@ class IStreamSocketListener2(ComPtr):
     def BindServiceNameWithProtectionLevelAndAdapterAsync(self, localServiceName: WinRT_String, protectionLevel: Windows.Networking.Sockets.SocketProtectionLevel, adapter: Windows.Networking.Connectivity.NetworkAdapter) -> Windows.Foundation.IAsyncAction: ...
 class IStreamSocketListener3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketListener3'
     _iid_ = Guid('{4798201c-bdf8-4919-8542-28d450e74507}')
     @winrt_commethod(6)
     def CancelIOAsync(self) -> Windows.Foundation.IAsyncAction: ...
@@ -784,12 +828,14 @@ class IStreamSocketListener3(ComPtr):
     def TransferOwnershipWithContext(self, socketId: WinRT_String, data: Windows.Networking.Sockets.SocketActivityContext) -> Void: ...
 class IStreamSocketListenerConnectionReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketListenerConnectionReceivedEventArgs'
     _iid_ = Guid('{0c472ea9-373f-447b-85b1-ddd4548803ba}')
     @winrt_commethod(6)
     def get_Socket(self) -> Windows.Networking.Sockets.StreamSocket: ...
     Socket = property(get_Socket, None)
 class IStreamSocketListenerControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketListenerControl'
     _iid_ = Guid('{20d8c576-8d8a-4dba-9722-a16c4d984980}')
     @winrt_commethod(6)
     def get_QualityOfService(self) -> Windows.Networking.Sockets.SocketQualityOfService: ...
@@ -798,6 +844,7 @@ class IStreamSocketListenerControl(ComPtr):
     QualityOfService = property(get_QualityOfService, put_QualityOfService)
 class IStreamSocketListenerControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketListenerControl2'
     _iid_ = Guid('{948bb665-2c3e-404b-b8b0-8eb249a2b0a1}')
     @winrt_commethod(6)
     def get_NoDelay(self) -> Boolean: ...
@@ -821,12 +868,14 @@ class IStreamSocketListenerControl2(ComPtr):
     OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
 class IStreamSocketListenerInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketListenerInformation'
     _iid_ = Guid('{e62ba82f-a63a-430b-bf62-29e93e5633b4}')
     @winrt_commethod(6)
     def get_LocalPort(self) -> WinRT_String: ...
     LocalPort = property(get_LocalPort, None)
 class IStreamSocketStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamSocketStatics'
     _iid_ = Guid('{a420bc4a-6e2e-4af5-b556-355ae0cd4f29}')
     @winrt_commethod(6)
     def GetEndpointPairsAsync(self, remoteHostName: Windows.Networking.HostName, remoteServiceName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.EndpointPair]]: ...
@@ -834,6 +883,7 @@ class IStreamSocketStatics(ComPtr):
     def GetEndpointPairsWithSortOptionsAsync(self, remoteHostName: Windows.Networking.HostName, remoteServiceName: WinRT_String, sortOptions: Windows.Networking.HostNameSortOptions) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.EndpointPair]]: ...
 class IStreamWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamWebSocket'
     _iid_ = Guid('{bd4a49d8-b289-45bb-97eb-c7525205a843}')
     @winrt_commethod(6)
     def get_Control(self) -> Windows.Networking.Sockets.StreamWebSocketControl: ...
@@ -846,6 +896,7 @@ class IStreamWebSocket(ComPtr):
     InputStream = property(get_InputStream, None)
 class IStreamWebSocket2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamWebSocket2'
     _iid_ = Guid('{aa4d08cb-93f5-4678-8236-57cce5417ed5}')
     @winrt_commethod(6)
     def add_ServerCustomValidationRequested(self, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Networking.Sockets.StreamWebSocket, Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -853,6 +904,7 @@ class IStreamWebSocket2(ComPtr):
     def remove_ServerCustomValidationRequested(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IStreamWebSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamWebSocketControl'
     _iid_ = Guid('{b4f478b1-a45a-48db-953a-645b7d964c07}')
     @winrt_commethod(6)
     def get_NoDelay(self) -> Boolean: ...
@@ -861,6 +913,7 @@ class IStreamWebSocketControl(ComPtr):
     NoDelay = property(get_NoDelay, put_NoDelay)
 class IStreamWebSocketControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IStreamWebSocketControl2'
     _iid_ = Guid('{215d9f7e-fa58-40da-9f11-a48dafe95037}')
     @winrt_commethod(6)
     def get_DesiredUnsolicitedPongInterval(self) -> Windows.Foundation.TimeSpan: ...
@@ -877,6 +930,7 @@ class IStreamWebSocketControl2(ComPtr):
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
 class IWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IWebSocket'
     _iid_ = Guid('{f877396f-99b1-4e18-bc08-850c9adf156e}')
     @winrt_commethod(6)
     def get_OutputStream(self) -> Windows.Storage.Streams.IOutputStream: ...
@@ -893,6 +947,7 @@ class IWebSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class IWebSocketClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IWebSocketClosedEventArgs'
     _iid_ = Guid('{ceb78d07-d0a8-4703-a091-c8c2c0915bc3}')
     @winrt_commethod(6)
     def get_Code(self) -> UInt16: ...
@@ -902,6 +957,7 @@ class IWebSocketClosedEventArgs(ComPtr):
     Reason = property(get_Reason, None)
 class IWebSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IWebSocketControl'
     _iid_ = Guid('{2ec4bdc3-d9a5-455a-9811-de24d45337e9}')
     @winrt_commethod(6)
     def get_OutboundBufferSizeInBytes(self) -> UInt32: ...
@@ -923,17 +979,20 @@ class IWebSocketControl(ComPtr):
     SupportedProtocols = property(get_SupportedProtocols, None)
 class IWebSocketControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IWebSocketControl2'
     _iid_ = Guid('{79c3be03-f2ca-461e-af4e-9665bc2d0620}')
     @winrt_commethod(6)
     def get_IgnorableServerCertificateErrors(self) -> Windows.Foundation.Collections.IVector[Windows.Security.Cryptography.Certificates.ChainValidationResult]: ...
     IgnorableServerCertificateErrors = property(get_IgnorableServerCertificateErrors, None)
 class IWebSocketErrorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IWebSocketErrorStatics'
     _iid_ = Guid('{27cdf35b-1f61-4709-8e02-61283ada4e9d}')
     @winrt_commethod(6)
     def GetStatus(self, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 class IWebSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IWebSocketInformation'
     _iid_ = Guid('{5e01e316-c92a-47a5-b25f-07847639d181}')
     @winrt_commethod(6)
     def get_LocalAddress(self) -> Windows.Networking.HostName: ...
@@ -946,6 +1005,7 @@ class IWebSocketInformation(ComPtr):
     Protocol = property(get_Protocol, None)
 class IWebSocketInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IWebSocketInformation2'
     _iid_ = Guid('{ce1d39ce-a1b7-4d43-8269-8d5b981bd47a}')
     @winrt_commethod(6)
     def get_ServerCertificate(self) -> Windows.Security.Cryptography.Certificates.Certificate: ...
@@ -961,6 +1021,7 @@ class IWebSocketInformation2(ComPtr):
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class IWebSocketServerCustomValidationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.IWebSocketServerCustomValidationRequestedEventArgs'
     _iid_ = Guid('{ffeffe48-022a-4ab7-8b36-e10af4640e6b}')
     @winrt_commethod(6)
     def get_ServerCertificate(self) -> Windows.Security.Cryptography.Certificates.Certificate: ...
@@ -1261,6 +1322,7 @@ SocketActivityTriggerReason_KeepAliveTimerExpired: SocketActivityTriggerReason =
 SocketActivityTriggerReason_SocketClosed: SocketActivityTriggerReason = 4
 class SocketError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.SocketError'
     @winrt_classmethod
     def GetStatus(cls: Windows.Networking.Sockets.ISocketErrorStatics, hresult: Int32) -> Windows.Networking.Sockets.SocketErrorStatus: ...
 SocketErrorStatus = Int32
@@ -1650,6 +1712,7 @@ class WebSocketClosedEventArgs(ComPtr):
     Reason = property(get_Reason, None)
 class WebSocketError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Sockets.WebSocketError'
     @winrt_classmethod
     def GetStatus(cls: Windows.Networking.Sockets.IWebSocketErrorStatics, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 class WebSocketKeepAlive(ComPtr):

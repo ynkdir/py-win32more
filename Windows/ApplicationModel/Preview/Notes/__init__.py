@@ -25,12 +25,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class INotePlacementChangedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotePlacementChangedPreviewEventArgs'
     _iid_ = Guid('{491d57b7-f780-4e7f-a939-9a4caf965214}')
     @winrt_commethod(6)
     def get_ViewId(self) -> Int32: ...
     ViewId = property(get_ViewId, None)
 class INoteVisibilityChangedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Preview.Notes.INoteVisibilityChangedPreviewEventArgs'
     _iid_ = Guid('{0e34649e-3815-4ff6-83b3-a14d17120e24}')
     @winrt_commethod(6)
     def get_ViewId(self) -> Int32: ...
@@ -40,6 +42,7 @@ class INoteVisibilityChangedPreviewEventArgs(ComPtr):
     IsVisible = property(get_IsVisible, None)
 class INotesWindowManagerPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview'
     _iid_ = Guid('{dc2ac23e-4850-4f13-9cc7-ff487efdfcde}')
     @winrt_commethod(6)
     def get_IsScreenLocked(self) -> Boolean: ...
@@ -74,6 +77,7 @@ class INotesWindowManagerPreview(ComPtr):
     IsScreenLocked = property(get_IsScreenLocked, None)
 class INotesWindowManagerPreview2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview2'
     _iid_ = Guid('{edfe864a-1f54-4b09-9823-ff477f6fa3bc}')
     @winrt_commethod(6)
     def ShowNoteRelativeToWithOptions(self, noteViewId: Int32, anchorNoteViewId: Int32, options: Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreviewShowNoteOptions) -> Void: ...
@@ -85,6 +89,7 @@ class INotesWindowManagerPreview2(ComPtr):
     def SetThumbnailImageForTaskSwitcherAsync(self, bitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncAction: ...
 class INotesWindowManagerPreviewShowNoteOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewShowNoteOptions'
     _iid_ = Guid('{886b09d6-a6ae-4007-a56d-1ca70c84c0d2}')
     @winrt_commethod(6)
     def get_ShowWithFocus(self) -> Boolean: ...
@@ -93,6 +98,7 @@ class INotesWindowManagerPreviewShowNoteOptions(ComPtr):
     ShowWithFocus = property(get_ShowWithFocus, put_ShowWithFocus)
 class INotesWindowManagerPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewStatics'
     _iid_ = Guid('{6668cc88-0a8e-4127-a38e-995445868a78}')
     @winrt_commethod(6)
     def GetForCurrentApp(self) -> Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview: ...

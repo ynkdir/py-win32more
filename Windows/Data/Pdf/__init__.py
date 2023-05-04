@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPdfDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Pdf.IPdfDocument'
     _iid_ = Guid('{ac7ebedd-80fa-4089-846e-81b77ff5a86c}')
     @winrt_commethod(6)
     def GetPage(self, pageIndex: UInt32) -> Windows.Data.Pdf.PdfPage: ...
@@ -37,6 +38,7 @@ class IPdfDocument(ComPtr):
     IsPasswordProtected = property(get_IsPasswordProtected, None)
 class IPdfDocumentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Pdf.IPdfDocumentStatics'
     _iid_ = Guid('{433a0b5f-c007-4788-90f2-08143d922599}')
     @winrt_commethod(6)
     def LoadFromFileAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Data.Pdf.PdfDocument]: ...
@@ -48,6 +50,7 @@ class IPdfDocumentStatics(ComPtr):
     def LoadFromStreamWithPasswordAsync(self, inputStream: Windows.Storage.Streams.IRandomAccessStream, password: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Data.Pdf.PdfDocument]: ...
 class IPdfPage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Pdf.IPdfPage'
     _iid_ = Guid('{9db4b0c8-5320-4cfc-ad76-493fdad0e594}')
     @winrt_commethod(6)
     def RenderToStreamAsync(self, outputStream: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncAction: ...
@@ -72,6 +75,7 @@ class IPdfPage(ComPtr):
     PreferredZoom = property(get_PreferredZoom, None)
 class IPdfPageDimensions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Pdf.IPdfPageDimensions'
     _iid_ = Guid('{22170471-313e-44e8-835d-63a3e7624a10}')
     @winrt_commethod(6)
     def get_MediaBox(self) -> Windows.Foundation.Rect: ...
@@ -90,6 +94,7 @@ class IPdfPageDimensions(ComPtr):
     ArtBox = property(get_ArtBox, None)
 class IPdfPageRenderOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Data.Pdf.IPdfPageRenderOptions'
     _iid_ = Guid('{3c98056f-b7cf-4c29-9a04-52d90267f425}')
     @winrt_commethod(6)
     def get_SourceRect(self) -> Windows.Foundation.Rect: ...

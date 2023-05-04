@@ -29,6 +29,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IRfcommDeviceService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceService'
     _iid_ = Guid('{ae81ff1f-c5a1-4c40-8c28-f3efd69062f3}')
     @winrt_commethod(6)
     def get_ConnectionHostName(self) -> Windows.Networking.HostName: ...
@@ -51,12 +52,14 @@ class IRfcommDeviceService(ComPtr):
     MaxProtectionLevel = property(get_MaxProtectionLevel, None)
 class IRfcommDeviceService2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceService2'
     _iid_ = Guid('{536ced14-ebcd-49fe-bf9f-40efc689b20d}')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Devices.Bluetooth.BluetoothDevice: ...
     Device = property(get_Device, None)
 class IRfcommDeviceService3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceService3'
     _iid_ = Guid('{1c22ace6-dd44-4d23-866d-8f3486ee6490}')
     @winrt_commethod(6)
     def get_DeviceAccessInformation(self) -> Windows.Devices.Enumeration.DeviceAccessInformation: ...
@@ -65,6 +68,7 @@ class IRfcommDeviceService3(ComPtr):
     DeviceAccessInformation = property(get_DeviceAccessInformation, None)
 class IRfcommDeviceServiceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics'
     _iid_ = Guid('{a4a149ef-626d-41ac-b253-87ac5c27e28a}')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService]: ...
@@ -72,6 +76,7 @@ class IRfcommDeviceServiceStatics(ComPtr):
     def GetDeviceSelector(self, serviceId: Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId) -> WinRT_String: ...
 class IRfcommDeviceServiceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics2'
     _iid_ = Guid('{aa8cb1c9-e78d-4be4-8076-0a3d87a0a05f}')
     @winrt_commethod(6)
     def GetDeviceSelectorForBluetoothDevice(self, bluetoothDevice: Windows.Devices.Bluetooth.BluetoothDevice) -> WinRT_String: ...
@@ -83,6 +88,7 @@ class IRfcommDeviceServiceStatics2(ComPtr):
     def GetDeviceSelectorForBluetoothDeviceAndServiceIdWithCacheMode(self, bluetoothDevice: Windows.Devices.Bluetooth.BluetoothDevice, serviceId: Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId, cacheMode: Windows.Devices.Bluetooth.BluetoothCacheMode) -> WinRT_String: ...
 class IRfcommDeviceServicesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServicesResult'
     _iid_ = Guid('{3b48388c-7ccf-488e-9625-d259a5732d55}')
     @winrt_commethod(6)
     def get_Error(self) -> Windows.Devices.Bluetooth.BluetoothError: ...
@@ -92,6 +98,7 @@ class IRfcommDeviceServicesResult(ComPtr):
     Services = property(get_Services, None)
 class IRfcommServiceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceId'
     _iid_ = Guid('{22629204-7e02-4017-8136-da1b6a1b9bbf}')
     @winrt_commethod(6)
     def get_Uuid(self) -> Guid: ...
@@ -102,6 +109,7 @@ class IRfcommServiceId(ComPtr):
     Uuid = property(get_Uuid, None)
 class IRfcommServiceIdStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics'
     _iid_ = Guid('{2a179eba-a975-46e3-b56b-08ffd783a5fe}')
     @winrt_commethod(6)
     def FromUuid(self, uuid: Guid) -> Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId: ...
@@ -127,6 +135,7 @@ class IRfcommServiceIdStatics(ComPtr):
     GenericFileTransfer = property(get_GenericFileTransfer, None)
 class IRfcommServiceProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider'
     _iid_ = Guid('{eadbfdc4-b1f6-44ff-9f7c-e7a82ab86821}')
     @winrt_commethod(6)
     def get_ServiceId(self) -> Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId: ...
@@ -140,11 +149,13 @@ class IRfcommServiceProvider(ComPtr):
     SdpRawAttributes = property(get_SdpRawAttributes, None)
 class IRfcommServiceProvider2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider2'
     _iid_ = Guid('{736bdfc6-3c81-4d1e-baf2-ddbb81284512}')
     @winrt_commethod(6)
     def StartAdvertisingWithRadioDiscoverability(self, listener: Windows.Networking.Sockets.StreamSocketListener, radioDiscoverable: Boolean) -> Void: ...
 class IRfcommServiceProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProviderStatics'
     _iid_ = Guid('{98888303-69ca-413a-84f7-4344c7292997}')
     @winrt_commethod(6)
     def CreateAsync(self, serviceId: Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider]: ...

@@ -473,6 +473,7 @@ HolographicViewConfigurationKind_Display: HolographicViewConfigurationKind = 0
 HolographicViewConfigurationKind_PhotoVideoCamera: HolographicViewConfigurationKind = 1
 class IHolographicCamera(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCamera'
     _iid_ = Guid('{e4e98445-9bed-4980-9ba0-e87680d1cb74}')
     @winrt_commethod(6)
     def get_RenderTargetSize(self) -> Windows.Foundation.Size: ...
@@ -494,6 +495,7 @@ class IHolographicCamera(ComPtr):
     Id = property(get_Id, None)
 class IHolographicCamera2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCamera2'
     _iid_ = Guid('{b55b9f1a-ba8c-4f84-ad79-2e7e1e2450f3}')
     @winrt_commethod(6)
     def get_LeftViewportParameters(self) -> Windows.Graphics.Holographic.HolographicCameraViewportParameters: ...
@@ -506,6 +508,7 @@ class IHolographicCamera2(ComPtr):
     Display = property(get_Display, None)
 class IHolographicCamera3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCamera3'
     _iid_ = Guid('{45aa4fb3-7b59-524e-4a3f-4a6ad6650477}')
     @winrt_commethod(6)
     def get_IsPrimaryLayerEnabled(self) -> Boolean: ...
@@ -520,12 +523,14 @@ class IHolographicCamera3(ComPtr):
     QuadLayers = property(get_QuadLayers, None)
 class IHolographicCamera4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCamera4'
     _iid_ = Guid('{9a2531d6-4723-4f39-a9a5-9d05181d9b44}')
     @winrt_commethod(6)
     def get_CanOverrideViewport(self) -> Boolean: ...
     CanOverrideViewport = property(get_CanOverrideViewport, None)
 class IHolographicCamera5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCamera5'
     _iid_ = Guid('{229706f2-628d-4ef5-9c08-a63fdd7787c6}')
     @winrt_commethod(6)
     def get_IsHardwareContentProtectionSupported(self) -> Boolean: ...
@@ -537,12 +542,14 @@ class IHolographicCamera5(ComPtr):
     IsHardwareContentProtectionEnabled = property(get_IsHardwareContentProtectionEnabled, put_IsHardwareContentProtectionEnabled)
 class IHolographicCamera6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCamera6'
     _iid_ = Guid('{0209194f-632d-5154-ab52-0b5d15b12505}')
     @winrt_commethod(6)
     def get_ViewConfiguration(self) -> Windows.Graphics.Holographic.HolographicViewConfiguration: ...
     ViewConfiguration = property(get_ViewConfiguration, None)
 class IHolographicCameraPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCameraPose'
     _iid_ = Guid('{0d7d7e30-12de-45bd-912b-c7f6561599d1}')
     @winrt_commethod(6)
     def get_HolographicCamera(self) -> Windows.Graphics.Holographic.HolographicCamera: ...
@@ -567,6 +574,7 @@ class IHolographicCameraPose(ComPtr):
     FarPlaneDistance = property(get_FarPlaneDistance, None)
 class IHolographicCameraPose2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCameraPose2'
     _iid_ = Guid('{232be073-5d2d-4560-814e-2697c4fce16b}')
     @winrt_commethod(6)
     def OverrideViewTransform(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, coordinateSystemToViewTransform: Windows.Graphics.Holographic.HolographicStereoTransform) -> Void: ...
@@ -576,6 +584,7 @@ class IHolographicCameraPose2(ComPtr):
     def OverrideViewport(self, leftViewport: Windows.Foundation.Rect, rightViewport: Windows.Foundation.Rect) -> Void: ...
 class IHolographicCameraRenderingParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCameraRenderingParameters'
     _iid_ = Guid('{8eac2ed1-5bf4-4e16-8236-ae0800c11d0d}')
     @winrt_commethod(6)
     def SetFocusPoint(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, position: Windows.Foundation.Numerics.Vector3) -> Void: ...
@@ -591,6 +600,7 @@ class IHolographicCameraRenderingParameters(ComPtr):
     Direct3D11BackBuffer = property(get_Direct3D11BackBuffer, None)
 class IHolographicCameraRenderingParameters2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCameraRenderingParameters2'
     _iid_ = Guid('{261270e3-b696-4634-94d6-be0681643599}')
     @winrt_commethod(6)
     def get_ReprojectionMode(self) -> Windows.Graphics.Holographic.HolographicReprojectionMode: ...
@@ -601,6 +611,7 @@ class IHolographicCameraRenderingParameters2(ComPtr):
     ReprojectionMode = property(get_ReprojectionMode, put_ReprojectionMode)
 class IHolographicCameraRenderingParameters3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCameraRenderingParameters3'
     _iid_ = Guid('{b1aa513f-136d-4b06-b9d4-e4b914cd0683}')
     @winrt_commethod(6)
     def get_IsContentProtectionEnabled(self) -> Boolean: ...
@@ -609,6 +620,7 @@ class IHolographicCameraRenderingParameters3(ComPtr):
     IsContentProtectionEnabled = property(get_IsContentProtectionEnabled, put_IsContentProtectionEnabled)
 class IHolographicCameraRenderingParameters4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCameraRenderingParameters4'
     _iid_ = Guid('{0878fa4c-e163-57dc-82b7-c406ab3e0537}')
     @winrt_commethod(6)
     def get_DepthReprojectionMethod(self) -> Windows.Graphics.Holographic.HolographicDepthReprojectionMethod: ...
@@ -617,6 +629,7 @@ class IHolographicCameraRenderingParameters4(ComPtr):
     DepthReprojectionMethod = property(get_DepthReprojectionMethod, put_DepthReprojectionMethod)
 class IHolographicCameraViewportParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicCameraViewportParameters'
     _iid_ = Guid('{80cdf3f7-842a-41e1-93ed-5692ab1fbb10}')
     @winrt_commethod(6)
     def get_HiddenAreaMesh(self) -> POINTER(Windows.Foundation.Numerics.Vector2_head): ...
@@ -626,6 +639,7 @@ class IHolographicCameraViewportParameters(ComPtr):
     VisibleAreaMesh = property(get_VisibleAreaMesh, None)
 class IHolographicDisplay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicDisplay'
     _iid_ = Guid('{9acea414-1d9f-4090-a388-90c06f6eae9c}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
@@ -647,22 +661,26 @@ class IHolographicDisplay(ComPtr):
     SpatialLocator = property(get_SpatialLocator, None)
 class IHolographicDisplay2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicDisplay2'
     _iid_ = Guid('{75ac3f82-e755-436c-8d96-4d32d131473e}')
     @winrt_commethod(6)
     def get_RefreshRate(self) -> Double: ...
     RefreshRate = property(get_RefreshRate, None)
 class IHolographicDisplay3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicDisplay3'
     _iid_ = Guid('{fc4c6ac6-6480-5008-b29e-157d77c843f7}')
     @winrt_commethod(6)
     def TryGetViewConfiguration(self, kind: Windows.Graphics.Holographic.HolographicViewConfigurationKind) -> Windows.Graphics.Holographic.HolographicViewConfiguration: ...
 class IHolographicDisplayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicDisplayStatics'
     _iid_ = Guid('{cb374983-e7b0-4841-8355-3ae5b536e9a4}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Graphics.Holographic.HolographicDisplay: ...
 class IHolographicFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFrame'
     _iid_ = Guid('{c6988eb6-a8b9-3054-a6eb-d624b6536375}')
     @winrt_commethod(6)
     def get_AddedCameras(self) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Holographic.HolographicCamera]: ...
@@ -688,17 +706,20 @@ class IHolographicFrame(ComPtr):
     CurrentPrediction = property(get_CurrentPrediction, None)
 class IHolographicFrame2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFrame2'
     _iid_ = Guid('{283f37bf-3bf2-5e91-6633-870574e6f217}')
     @winrt_commethod(6)
     def GetQuadLayerUpdateParameters(self, layer: Windows.Graphics.Holographic.HolographicQuadLayer) -> Windows.Graphics.Holographic.HolographicQuadLayerUpdateParameters: ...
 class IHolographicFrame3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFrame3'
     _iid_ = Guid('{e5e964c9-8a27-55d3-9f98-94530d369052}')
     @winrt_commethod(6)
     def get_Id(self) -> Windows.Graphics.Holographic.HolographicFrameId: ...
     Id = property(get_Id, None)
 class IHolographicFramePrediction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFramePrediction'
     _iid_ = Guid('{520f4de1-5c0a-4e79-a81e-6abe02bb2739}')
     @winrt_commethod(6)
     def get_CameraPoses(self) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Holographic.HolographicCameraPose]: ...
@@ -708,11 +729,13 @@ class IHolographicFramePrediction(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IHolographicFramePresentationMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFramePresentationMonitor'
     _iid_ = Guid('{ca87256c-6fae-428e-bb83-25dfee51136b}')
     @winrt_commethod(6)
     def ReadReports(self) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Holographic.HolographicFramePresentationReport]: ...
 class IHolographicFramePresentationReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFramePresentationReport'
     _iid_ = Guid('{80baf614-f2f4-4c8a-8de3-065c78f6d5de}')
     @winrt_commethod(6)
     def get_CompositorGpuDuration(self) -> Windows.Foundation.TimeSpan: ...
@@ -731,6 +754,7 @@ class IHolographicFramePresentationReport(ComPtr):
     PresentationCount = property(get_PresentationCount, None)
 class IHolographicFrameRenderingReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFrameRenderingReport'
     _iid_ = Guid('{05f32de4-e384-51b3-b934-f0d3a0f78606}')
     @winrt_commethod(6)
     def get_FrameId(self) -> Windows.Graphics.Holographic.HolographicFrameId: ...
@@ -749,11 +773,13 @@ class IHolographicFrameRenderingReport(ComPtr):
     SystemRelativeTargetLatchTime = property(get_SystemRelativeTargetLatchTime, None)
 class IHolographicFrameScanoutMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFrameScanoutMonitor'
     _iid_ = Guid('{7e83efa9-843c-5401-8095-9bc1b8b08638}')
     @winrt_commethod(6)
     def ReadReports(self) -> Windows.Foundation.Collections.IVector[Windows.Graphics.Holographic.HolographicFrameScanoutReport]: ...
 class IHolographicFrameScanoutReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicFrameScanoutReport'
     _iid_ = Guid('{0ebbe606-03a0-5ca0-b46e-bba068d7233f}')
     @winrt_commethod(6)
     def get_RenderingReport(self) -> Windows.Graphics.Holographic.HolographicFrameRenderingReport: ...
@@ -772,6 +798,7 @@ class IHolographicFrameScanoutReport(ComPtr):
     SystemRelativePhotonTime = property(get_SystemRelativePhotonTime, None)
 class IHolographicQuadLayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicQuadLayer'
     _iid_ = Guid('{903460c9-c9d9-5d5c-41ac-a2d5ab0fd331}')
     @winrt_commethod(6)
     def get_PixelFormat(self) -> Windows.Graphics.DirectX.DirectXPixelFormat: ...
@@ -781,6 +808,7 @@ class IHolographicQuadLayer(ComPtr):
     Size = property(get_Size, None)
 class IHolographicQuadLayerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicQuadLayerFactory'
     _iid_ = Guid('{a67538f3-5a14-5a10-489a-455065b37b76}')
     @winrt_commethod(6)
     def Create(self, size: Windows.Foundation.Size) -> Windows.Graphics.Holographic.HolographicQuadLayer: ...
@@ -788,6 +816,7 @@ class IHolographicQuadLayerFactory(ComPtr):
     def CreateWithPixelFormat(self, size: Windows.Foundation.Size, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat) -> Windows.Graphics.Holographic.HolographicQuadLayer: ...
 class IHolographicQuadLayerUpdateParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicQuadLayerUpdateParameters'
     _iid_ = Guid('{2b0ea3b0-798d-5bca-55c2-2c0c762ebb08}')
     @winrt_commethod(6)
     def AcquireBufferToUpdateContent(self) -> Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface: ...
@@ -803,6 +832,7 @@ class IHolographicQuadLayerUpdateParameters(ComPtr):
     def UpdateLocationWithDisplayRelativeMode(self, position: Windows.Foundation.Numerics.Vector3, orientation: Windows.Foundation.Numerics.Quaternion) -> Void: ...
 class IHolographicQuadLayerUpdateParameters2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicQuadLayerUpdateParameters2'
     _iid_ = Guid('{4f33d32d-82c1-46c1-8980-3cb70d98182b}')
     @winrt_commethod(6)
     def get_CanAcquireWithHardwareProtection(self) -> Boolean: ...
@@ -811,6 +841,7 @@ class IHolographicQuadLayerUpdateParameters2(ComPtr):
     CanAcquireWithHardwareProtection = property(get_CanAcquireWithHardwareProtection, None)
 class IHolographicSpace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicSpace'
     _iid_ = Guid('{4380dba6-5e78-434f-807c-3433d1efe8b7}')
     @winrt_commethod(6)
     def get_PrimaryAdapterId(self) -> Windows.Graphics.Holographic.HolographicAdapterId: ...
@@ -829,6 +860,7 @@ class IHolographicSpace(ComPtr):
     PrimaryAdapterId = property(get_PrimaryAdapterId, None)
 class IHolographicSpace2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicSpace2'
     _iid_ = Guid('{4f81a9a8-b7ff-4883-9827-7d677287ea70}')
     @winrt_commethod(6)
     def get_UserPresence(self) -> Windows.Graphics.Holographic.HolographicSpaceUserPresence: ...
@@ -845,11 +877,13 @@ class IHolographicSpace2(ComPtr):
     UserPresence = property(get_UserPresence, None)
 class IHolographicSpace3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicSpace3'
     _iid_ = Guid('{df1733d1-f224-587e-8d71-1e8fc8f07b1f}')
     @winrt_commethod(6)
     def CreateFrameScanoutMonitor(self, maxQueuedReports: UInt32) -> Windows.Graphics.Holographic.HolographicFrameScanoutMonitor: ...
 class IHolographicSpaceCameraAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicSpaceCameraAddedEventArgs'
     _iid_ = Guid('{58f1da35-bbb3-3c8f-993d-6c80e7feb99f}')
     @winrt_commethod(6)
     def get_Camera(self) -> Windows.Graphics.Holographic.HolographicCamera: ...
@@ -858,17 +892,20 @@ class IHolographicSpaceCameraAddedEventArgs(ComPtr):
     Camera = property(get_Camera, None)
 class IHolographicSpaceCameraRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicSpaceCameraRemovedEventArgs'
     _iid_ = Guid('{805444a8-f2ae-322e-8da9-836a0a95a4c1}')
     @winrt_commethod(6)
     def get_Camera(self) -> Windows.Graphics.Holographic.HolographicCamera: ...
     Camera = property(get_Camera, None)
 class IHolographicSpaceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicSpaceStatics'
     _iid_ = Guid('{364e6064-c8f2-3ba1-8391-66b8489e67fd}')
     @winrt_commethod(6)
     def CreateForCoreWindow(self, window: Windows.UI.Core.CoreWindow) -> Windows.Graphics.Holographic.HolographicSpace: ...
 class IHolographicSpaceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicSpaceStatics2'
     _iid_ = Guid('{0e777088-75fc-48af-8758-0652f6f07c59}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
@@ -882,12 +919,14 @@ class IHolographicSpaceStatics2(ComPtr):
     IsAvailable = property(get_IsAvailable, None)
 class IHolographicSpaceStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicSpaceStatics3'
     _iid_ = Guid('{3b00de3d-b1a3-4dfe-8e79-fec5909e6df8}')
     @winrt_commethod(6)
     def get_IsConfigured(self) -> Boolean: ...
     IsConfigured = property(get_IsConfigured, None)
 class IHolographicViewConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicViewConfiguration'
     _iid_ = Guid('{5c1de6e6-67e9-5004-b02c-67a3a122b576}')
     @winrt_commethod(6)
     def get_NativeRenderTargetSize(self) -> Windows.Foundation.Size: ...
@@ -924,6 +963,7 @@ class IHolographicViewConfiguration(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class IHolographicViewConfiguration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Holographic.IHolographicViewConfiguration2'
     _iid_ = Guid('{e241756e-e0d0-5019-9af5-1b165bc2f54e}')
     @winrt_commethod(6)
     def get_SupportedDepthReprojectionMethods(self) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Holographic.HolographicDepthReprojectionMethod]: ...

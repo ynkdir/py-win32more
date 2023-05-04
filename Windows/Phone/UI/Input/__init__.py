@@ -36,6 +36,7 @@ class CameraEventArgs(ComPtr):
     _classid_ = 'Windows.Phone.UI.Input.CameraEventArgs'
 class HardwareButtons(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.UI.Input.HardwareButtons'
     @winrt_classmethod
     def add_BackPressed(cls: Windows.Phone.UI.Input.IHardwareButtonsStatics, handler: Windows.Foundation.EventHandler[Windows.Phone.UI.Input.BackPressedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -54,6 +55,7 @@ class HardwareButtons(ComPtr):
     def remove_CameraReleased(cls: Windows.Phone.UI.Input.IHardwareButtonsStatics2, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IBackPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.UI.Input.IBackPressedEventArgs'
     _iid_ = Guid('{f6f555ff-64ec-42a2-b93b-2fbc0c36a121}')
     @winrt_commethod(6)
     def get_Handled(self) -> Boolean: ...
@@ -62,9 +64,11 @@ class IBackPressedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ICameraEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.UI.Input.ICameraEventArgs'
     _iid_ = Guid('{b4063bda-201f-473d-bc69-e9e4ac57c9d0}')
 class IHardwareButtonsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.UI.Input.IHardwareButtonsStatics'
     _iid_ = Guid('{594b8780-da66-4fd8-a776-7506bd0cbfa7}')
     @winrt_commethod(6)
     def add_BackPressed(self, handler: Windows.Foundation.EventHandler[Windows.Phone.UI.Input.BackPressedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -72,6 +76,7 @@ class IHardwareButtonsStatics(ComPtr):
     def remove_BackPressed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IHardwareButtonsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Phone.UI.Input.IHardwareButtonsStatics2'
     _iid_ = Guid('{39c6c274-993f-40dd-854c-831a8934b92e}')
     @winrt_commethod(6)
     def add_CameraHalfPressed(self, handler: Windows.Foundation.EventHandler[Windows.Phone.UI.Input.CameraEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...

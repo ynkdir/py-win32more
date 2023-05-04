@@ -227,6 +227,7 @@ EasRequireEncryptionResult_OsNotProtected: EasRequireEncryptionResult = 11
 EasRequireEncryptionResult_UnexpectedFailure: EasRequireEncryptionResult = 12
 class IEasClientDeviceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation'
     _iid_ = Guid('{54dfd981-1968-4ca3-b958-e595d16505eb}')
     @winrt_commethod(6)
     def get_Id(self) -> Guid: ...
@@ -248,6 +249,7 @@ class IEasClientDeviceInformation(ComPtr):
     SystemSku = property(get_SystemSku, None)
 class IEasClientDeviceInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation2'
     _iid_ = Guid('{ffb35923-bb26-4d6a-81bc-165aee0ad754}')
     @winrt_commethod(6)
     def get_SystemHardwareVersion(self) -> WinRT_String: ...
@@ -257,6 +259,7 @@ class IEasClientDeviceInformation2(ComPtr):
     SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
 class IEasClientSecurityPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy'
     _iid_ = Guid('{45b72362-dfba-4a9b-aced-6fe2adcb6420}')
     @winrt_commethod(6)
     def get_RequireEncryption(self) -> Boolean: ...
@@ -304,6 +307,7 @@ class IEasClientSecurityPolicy(ComPtr):
     MaxInactivityTimeLock = property(get_MaxInactivityTimeLock, put_MaxInactivityTimeLock)
 class IEasComplianceResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults'
     _iid_ = Guid('{463c299c-7f19-4c66-b403-cb45dd57a2b3}')
     @winrt_commethod(6)
     def get_Compliant(self) -> Boolean: ...
@@ -334,6 +338,7 @@ class IEasComplianceResults(ComPtr):
     MaxInactivityTimeLockResult = property(get_MaxInactivityTimeLockResult, None)
 class IEasComplianceResults2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults2'
     _iid_ = Guid('{2fbe60c9-1aa8-47f5-88bb-cb3ef0bffb15}')
     @winrt_commethod(6)
     def get_EncryptionProviderType(self) -> Windows.Security.ExchangeActiveSyncProvisioning.EasEncryptionProviderType: ...

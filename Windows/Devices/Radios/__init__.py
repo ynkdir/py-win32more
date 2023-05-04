@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IRadio(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Radios.IRadio'
     _iid_ = Guid('{252118df-b33e-416a-875f-1cf38ae2d83e}')
     @winrt_commethod(6)
     def SetStateAsync(self, value: Windows.Devices.Radios.RadioState) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Radios.RadioAccessStatus]: ...
@@ -42,6 +43,7 @@ class IRadio(ComPtr):
     Kind = property(get_Kind, None)
 class IRadioStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Radios.IRadioStatics'
     _iid_ = Guid('{5fb6a12e-67cb-46ae-aae9-65919f86eff4}')
     @winrt_commethod(6)
     def GetRadiosAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Radios.Radio]]: ...

@@ -39,6 +39,7 @@ class EnhancedWaypoint(ComPtr):
 GuidanceContract: UInt32 = 196608
 class IEnhancedWaypoint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IEnhancedWaypoint'
     _iid_ = Guid('{ed268c74-5913-11e6-8b77-86f30ca893d3}')
     @winrt_commethod(6)
     def get_Point(self) -> Windows.Devices.Geolocation.Geopoint: ...
@@ -48,11 +49,13 @@ class IEnhancedWaypoint(ComPtr):
     Kind = property(get_Kind, None)
 class IEnhancedWaypointFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IEnhancedWaypointFactory'
     _iid_ = Guid('{af868477-a2aa-46dd-b645-23b31b8aa6c7}')
     @winrt_commethod(6)
     def Create(self, point: Windows.Devices.Geolocation.Geopoint, kind: Windows.Services.Maps.WaypointKind) -> Windows.Services.Maps.EnhancedWaypoint: ...
 class IManeuverWarning(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IManeuverWarning'
     _iid_ = Guid('{c1a36d8a-2630-4378-9e4a-6e44253dceba}')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.Services.Maps.ManeuverWarningKind: ...
@@ -62,6 +65,7 @@ class IManeuverWarning(ComPtr):
     Severity = property(get_Severity, None)
 class IMapAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapAddress'
     _iid_ = Guid('{cfa7a973-a3b4-4494-b3ff-cba94db69699}')
     @winrt_commethod(6)
     def get_BuildingName(self) -> WinRT_String: ...
@@ -110,12 +114,14 @@ class IMapAddress(ComPtr):
     Continent = property(get_Continent, None)
 class IMapAddress2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapAddress2'
     _iid_ = Guid('{75cd6df1-e5ad-45a9-bf40-6cf256c1dd13}')
     @winrt_commethod(6)
     def get_FormattedAddress(self) -> WinRT_String: ...
     FormattedAddress = property(get_FormattedAddress, None)
 class IMapLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapLocation'
     _iid_ = Guid('{3c073f57-0da4-42e8-9ee2-a96fcf2371dc}')
     @winrt_commethod(6)
     def get_Point(self) -> Windows.Devices.Geolocation.Geopoint: ...
@@ -131,6 +137,7 @@ class IMapLocation(ComPtr):
     Address = property(get_Address, None)
 class IMapLocationFinderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapLocationFinderResult'
     _iid_ = Guid('{43f1f179-e8cc-45f6-bed2-54ccbf965d9a}')
     @winrt_commethod(6)
     def get_Locations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.MapLocation]: ...
@@ -140,6 +147,7 @@ class IMapLocationFinderResult(ComPtr):
     Status = property(get_Status, None)
 class IMapLocationFinderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapLocationFinderStatics'
     _iid_ = Guid('{318adb5d-1c5d-4f35-a2df-aaca94959517}')
     @winrt_commethod(6)
     def FindLocationsAtAsync(self, queryPoint: Windows.Devices.Geolocation.Geopoint) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapLocationFinderResult]: ...
@@ -149,11 +157,13 @@ class IMapLocationFinderStatics(ComPtr):
     def FindLocationsWithMaxCountAsync(self, searchText: WinRT_String, referencePoint: Windows.Devices.Geolocation.Geopoint, maxCount: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapLocationFinderResult]: ...
 class IMapLocationFinderStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapLocationFinderStatics2'
     _iid_ = Guid('{959a8b96-6485-4dfd-851a-33ac317e3af6}')
     @winrt_commethod(6)
     def FindLocationsAtWithAccuracyAsync(self, queryPoint: Windows.Devices.Geolocation.Geopoint, accuracy: Windows.Services.Maps.MapLocationDesiredAccuracy) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapLocationFinderResult]: ...
 class IMapManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapManagerStatics'
     _iid_ = Guid('{37e3e515-82b4-4d54-8fd9-af2624b3011c}')
     @winrt_commethod(6)
     def ShowDownloadedMapsUI(self) -> Void: ...
@@ -161,6 +171,7 @@ class IMapManagerStatics(ComPtr):
     def ShowMapsUpdateUI(self) -> Void: ...
 class IMapRoute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRoute'
     _iid_ = Guid('{fb07b732-584d-4583-9c60-641fea274349}')
     @winrt_commethod(6)
     def get_BoundingBox(self) -> Windows.Devices.Geolocation.GeoboundingBox: ...
@@ -182,6 +193,7 @@ class IMapRoute(ComPtr):
     IsTrafficBased = property(get_IsTrafficBased, None)
 class IMapRoute2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRoute2'
     _iid_ = Guid('{d1c5d40c-2213-4ab0-a260-46b38169beac}')
     @winrt_commethod(6)
     def get_ViolatedRestrictions(self) -> Windows.Services.Maps.MapRouteRestrictions: ...
@@ -191,6 +203,7 @@ class IMapRoute2(ComPtr):
     HasBlockedRoads = property(get_HasBlockedRoads, None)
 class IMapRoute3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRoute3'
     _iid_ = Guid('{858d1eae-f2ad-429f-bb37-cd21094ffc92}')
     @winrt_commethod(6)
     def get_DurationWithoutTraffic(self) -> Windows.Foundation.TimeSpan: ...
@@ -200,12 +213,14 @@ class IMapRoute3(ComPtr):
     TrafficCongestion = property(get_TrafficCongestion, None)
 class IMapRoute4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRoute4'
     _iid_ = Guid('{366c8ca5-3053-4fa1-80ff-d475f3ed1e6e}')
     @winrt_commethod(6)
     def get_IsScenic(self) -> Boolean: ...
     IsScenic = property(get_IsScenic, None)
 class IMapRouteDrivingOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteDrivingOptions'
     _iid_ = Guid('{6815364d-c6dc-4697-a452-b18f8f0b67a1}')
     @winrt_commethod(6)
     def get_MaxAlternateRouteCount(self) -> UInt32: ...
@@ -229,6 +244,7 @@ class IMapRouteDrivingOptions(ComPtr):
     RouteRestrictions = property(get_RouteRestrictions, put_RouteRestrictions)
 class IMapRouteDrivingOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteDrivingOptions2'
     _iid_ = Guid('{35dc8670-c298-48d0-b5ad-825460645603}')
     @winrt_commethod(6)
     def get_DepartureTime(self) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
@@ -237,6 +253,7 @@ class IMapRouteDrivingOptions2(ComPtr):
     DepartureTime = property(get_DepartureTime, put_DepartureTime)
 class IMapRouteFinderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteFinderResult'
     _iid_ = Guid('{a868a31a-9422-46ac-8ca1-b1614d4bfbe2}')
     @winrt_commethod(6)
     def get_Route(self) -> Windows.Services.Maps.MapRoute: ...
@@ -246,12 +263,14 @@ class IMapRouteFinderResult(ComPtr):
     Status = property(get_Status, None)
 class IMapRouteFinderResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteFinderResult2'
     _iid_ = Guid('{20709c6d-d90c-46c8-91c6-7d4be4efb215}')
     @winrt_commethod(6)
     def get_AlternateRoutes(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.MapRoute]: ...
     AlternateRoutes = property(get_AlternateRoutes, None)
 class IMapRouteFinderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteFinderStatics'
     _iid_ = Guid('{b8a5c50f-1c64-4c3a-81eb-1f7c152afbbb}')
     @winrt_commethod(6)
     def GetDrivingRouteAsync(self, startPoint: Windows.Devices.Geolocation.Geopoint, endPoint: Windows.Devices.Geolocation.Geopoint) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapRouteFinderResult]: ...
@@ -275,11 +294,13 @@ class IMapRouteFinderStatics(ComPtr):
     def GetWalkingRouteFromWaypointsAsync(self, wayPoints: Windows.Foundation.Collections.IIterable[Windows.Devices.Geolocation.Geopoint]) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapRouteFinderResult]: ...
 class IMapRouteFinderStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteFinderStatics2'
     _iid_ = Guid('{afcc2c73-7760-49af-b3bd-baf135b703e1}')
     @winrt_commethod(6)
     def GetDrivingRouteWithOptionsAsync(self, startPoint: Windows.Devices.Geolocation.Geopoint, endPoint: Windows.Devices.Geolocation.Geopoint, options: Windows.Services.Maps.MapRouteDrivingOptions) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapRouteFinderResult]: ...
 class IMapRouteFinderStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteFinderStatics3'
     _iid_ = Guid('{f6098134-5913-11e6-8b77-86f30ca893d3}')
     @winrt_commethod(6)
     def GetDrivingRouteFromEnhancedWaypointsAsync(self, waypoints: Windows.Foundation.Collections.IIterable[Windows.Services.Maps.EnhancedWaypoint]) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapRouteFinderResult]: ...
@@ -287,6 +308,7 @@ class IMapRouteFinderStatics3(ComPtr):
     def GetDrivingRouteFromEnhancedWaypointsWithOptionsAsync(self, waypoints: Windows.Foundation.Collections.IIterable[Windows.Services.Maps.EnhancedWaypoint], options: Windows.Services.Maps.MapRouteDrivingOptions) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapRouteFinderResult]: ...
 class IMapRouteLeg(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteLeg'
     _iid_ = Guid('{96f8b2f6-5bba-4d17-9db6-1a263fec7471}')
     @winrt_commethod(6)
     def get_BoundingBox(self) -> Windows.Devices.Geolocation.GeoboundingBox: ...
@@ -305,6 +327,7 @@ class IMapRouteLeg(ComPtr):
     Maneuvers = property(get_Maneuvers, None)
 class IMapRouteLeg2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteLeg2'
     _iid_ = Guid('{02e2062d-c9c6-45b8-8e54-1a10b57a17e8}')
     @winrt_commethod(6)
     def get_DurationWithoutTraffic(self) -> Windows.Foundation.TimeSpan: ...
@@ -314,6 +337,7 @@ class IMapRouteLeg2(ComPtr):
     TrafficCongestion = property(get_TrafficCongestion, None)
 class IMapRouteManeuver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteManeuver'
     _iid_ = Guid('{ed5c17f0-a6ab-4d65-a086-fa8a7e340df2}')
     @winrt_commethod(6)
     def get_StartingPoint(self) -> Windows.Devices.Geolocation.Geopoint: ...
@@ -335,6 +359,7 @@ class IMapRouteManeuver(ComPtr):
     ManeuverNotices = property(get_ManeuverNotices, None)
 class IMapRouteManeuver2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteManeuver2'
     _iid_ = Guid('{5d7bcd9c-7c9b-41df-838b-eae21e4b05a9}')
     @winrt_commethod(6)
     def get_StartHeading(self) -> Double: ...
@@ -347,12 +372,14 @@ class IMapRouteManeuver2(ComPtr):
     StreetName = property(get_StreetName, None)
 class IMapRouteManeuver3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapRouteManeuver3'
     _iid_ = Guid('{a6a138df-0483-4166-85be-b99336c11875}')
     @winrt_commethod(6)
     def get_Warnings(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.ManeuverWarning]: ...
     Warnings = property(get_Warnings, None)
 class IMapServiceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapServiceStatics'
     _iid_ = Guid('{0144ad85-c04c-4cdd-871a-a0726d097cd4}')
     @winrt_commethod(6)
     def put_ServiceToken(self, value: WinRT_String) -> Void: ...
@@ -361,18 +388,21 @@ class IMapServiceStatics(ComPtr):
     ServiceToken = property(get_ServiceToken, put_ServiceToken)
 class IMapServiceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapServiceStatics2'
     _iid_ = Guid('{f8193eed-9c85-40a9-8896-0fc3fd2b7c2a}')
     @winrt_commethod(6)
     def get_WorldViewRegionCode(self) -> WinRT_String: ...
     WorldViewRegionCode = property(get_WorldViewRegionCode, None)
 class IMapServiceStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapServiceStatics3'
     _iid_ = Guid('{0a11ce20-63a7-4854-b355-d6dcda223d1b}')
     @winrt_commethod(6)
     def get_DataAttributions(self) -> WinRT_String: ...
     DataAttributions = property(get_DataAttributions, None)
 class IMapServiceStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IMapServiceStatics4'
     _iid_ = Guid('{088a2862-6abc-420e-945f-4cfd89c67356}')
     @winrt_commethod(6)
     def put_DataUsagePreference(self, value: Windows.Services.Maps.MapServiceDataUsagePreference) -> Void: ...
@@ -381,6 +411,7 @@ class IMapServiceStatics4(ComPtr):
     DataUsagePreference = property(get_DataUsagePreference, put_DataUsagePreference)
 class IPlaceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IPlaceInfo'
     _iid_ = Guid('{9a0810b6-31c8-4f6a-9f18-950b4c38951a}')
     @winrt_commethod(6)
     def Show(self, selection: Windows.Foundation.Rect) -> Void: ...
@@ -400,6 +431,7 @@ class IPlaceInfo(ComPtr):
     Geoshape = property(get_Geoshape, None)
 class IPlaceInfoCreateOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IPlaceInfoCreateOptions'
     _iid_ = Guid('{cd33c125-67f1-4bb3-9907-ecce939b0399}')
     @winrt_commethod(6)
     def put_DisplayName(self, value: WinRT_String) -> Void: ...
@@ -413,6 +445,7 @@ class IPlaceInfoCreateOptions(ComPtr):
     DisplayAddress = property(get_DisplayAddress, put_DisplayAddress)
 class IPlaceInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IPlaceInfoStatics'
     _iid_ = Guid('{82b9ff71-6cd0-48a4-afd9-5ed82097936b}')
     @winrt_commethod(6)
     def Create(self, referencePoint: Windows.Devices.Geolocation.Geopoint) -> Windows.Services.Maps.PlaceInfo: ...
@@ -429,6 +462,7 @@ class IPlaceInfoStatics(ComPtr):
     IsShowSupported = property(get_IsShowSupported, None)
 class IPlaceInfoStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.IPlaceInfoStatics2'
     _iid_ = Guid('{730f0249-4047-44a3-8f81-2550a5216370}')
     @winrt_commethod(6)
     def CreateFromAddress(self, displayAddress: WinRT_String) -> Windows.Services.Maps.PlaceInfo: ...
@@ -561,6 +595,7 @@ MapLocationDesiredAccuracy_High: MapLocationDesiredAccuracy = 0
 MapLocationDesiredAccuracy_Low: MapLocationDesiredAccuracy = 1
 class MapLocationFinder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.MapLocationFinder'
     @winrt_classmethod
     def FindLocationsAtWithAccuracyAsync(cls: Windows.Services.Maps.IMapLocationFinderStatics2, queryPoint: Windows.Devices.Geolocation.Geopoint, accuracy: Windows.Services.Maps.MapLocationDesiredAccuracy) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapLocationFinderResult]: ...
     @winrt_classmethod
@@ -589,6 +624,7 @@ MapLocationFinderStatus_NetworkFailure: MapLocationFinderStatus = 5
 MapLocationFinderStatus_NotSupported: MapLocationFinderStatus = 6
 class MapManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.MapManager'
     @winrt_classmethod
     def ShowDownloadedMapsUI(cls: Windows.Services.Maps.IMapManagerStatics) -> Void: ...
     @winrt_classmethod
@@ -667,6 +703,7 @@ class MapRouteDrivingOptions(ComPtr):
     DepartureTime = property(get_DepartureTime, put_DepartureTime)
 class MapRouteFinder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.MapRouteFinder'
     @winrt_classmethod
     def GetDrivingRouteFromEnhancedWaypointsAsync(cls: Windows.Services.Maps.IMapRouteFinderStatics3, waypoints: Windows.Foundation.Collections.IIterable[Windows.Services.Maps.EnhancedWaypoint]) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.MapRouteFinderResult]: ...
     @winrt_classmethod
@@ -817,6 +854,7 @@ MapRouteRestrictions_DirtRoads: MapRouteRestrictions = 16
 MapRouteRestrictions_Motorail: MapRouteRestrictions = 32
 class MapService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Maps.MapService'
     @winrt_classmethod
     def put_DataUsagePreference(cls: Windows.Services.Maps.IMapServiceStatics4, value: Windows.Services.Maps.MapServiceDataUsagePreference) -> Void: ...
     @winrt_classmethod

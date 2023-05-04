@@ -40,6 +40,7 @@ class FrameNavigationOptions(ComPtr):
     TransitionInfoOverride = property(get_TransitionInfoOverride, put_TransitionInfoOverride)
 class IFrameNavigationOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.IFrameNavigationOptions'
     _iid_ = Guid('{b539ad2a-9fb7-520a-8f41-57a50c59cf92}')
     @winrt_commethod(6)
     def get_IsNavigationStackEnabled(self) -> Boolean: ...
@@ -53,11 +54,13 @@ class IFrameNavigationOptions(ComPtr):
     TransitionInfoOverride = property(get_TransitionInfoOverride, put_TransitionInfoOverride)
 class IFrameNavigationOptionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.IFrameNavigationOptionsFactory'
     _iid_ = Guid('{d4681e41-7e6d-5c7c-aca0-478681cc6fce}')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Navigation.FrameNavigationOptions: ...
 class INavigatingCancelEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.INavigatingCancelEventArgs'
     _iid_ = Guid('{fd1d67ae-eafb-4079-be80-6dc92a03aedf}')
     @winrt_commethod(6)
     def get_Cancel(self) -> Boolean: ...
@@ -72,6 +75,7 @@ class INavigatingCancelEventArgs(ComPtr):
     SourcePageType = property(get_SourcePageType, None)
 class INavigatingCancelEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.INavigatingCancelEventArgs2'
     _iid_ = Guid('{5407b704-8147-4343-838f-dd1ee908c137}')
     @winrt_commethod(6)
     def get_Parameter(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -81,6 +85,7 @@ class INavigatingCancelEventArgs2(ComPtr):
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
 class INavigationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.INavigationEventArgs'
     _iid_ = Guid('{b6aa9834-6691-44d1-bdf7-58820c27b0d0}')
     @winrt_commethod(6)
     def get_Content(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -101,12 +106,14 @@ class INavigationEventArgs(ComPtr):
     Uri = property(get_Uri, put_Uri)
 class INavigationEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.INavigationEventArgs2'
     _iid_ = Guid('{dbff71d9-979a-4b2e-a49b-3bb17fdef574}')
     @winrt_commethod(6)
     def get_NavigationTransitionInfo(self) -> Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
 class INavigationFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.INavigationFailedEventArgs'
     _iid_ = Guid('{11c1dff7-36c2-4102-b2ef-0217a97289b3}')
     @winrt_commethod(6)
     def get_Exception(self) -> Windows.Foundation.HResult: ...
@@ -121,6 +128,7 @@ class INavigationFailedEventArgs(ComPtr):
     SourcePageType = property(get_SourcePageType, None)
 class IPageStackEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.IPageStackEntry'
     _iid_ = Guid('{ef8814a6-9388-4aca-8572-405194069080}')
     @winrt_commethod(6)
     def get_SourcePageType(self) -> Windows.UI.Xaml.Interop.TypeName: ...
@@ -133,25 +141,27 @@ class IPageStackEntry(ComPtr):
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
 class IPageStackEntryFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.IPageStackEntryFactory'
     _iid_ = Guid('{4454048a-a8b9-4f78-9b84-1f51f58851ff}')
     @winrt_commethod(6)
     def CreateInstance(self, sourcePageType: Windows.UI.Xaml.Interop.TypeName, parameter: Windows.Win32.System.WinRT.IInspectable_head, navigationTransitionInfo: Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo) -> Windows.UI.Xaml.Navigation.PageStackEntry: ...
 class IPageStackEntryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Xaml.Navigation.IPageStackEntryStatics'
     _iid_ = Guid('{aceff8e3-246c-4033-9f01-01cb0da5254e}')
     @winrt_commethod(6)
     def get_SourcePageTypeProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     SourcePageTypeProperty = property(get_SourcePageTypeProperty, None)
 class LoadCompletedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{aebaf785-43fc-4e2c-95c3-97ae84eabc8e}')
     _classid_ = 'Windows.UI.Xaml.Navigation.LoadCompletedEventHandler'
+    _iid_ = Guid('{aebaf785-43fc-4e2c-95c3-97ae84eabc8e}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
 class NavigatedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{7bd1cf54-23cf-4cce-b2f5-4ce78d96896e}')
     _classid_ = 'Windows.UI.Xaml.Navigation.NavigatedEventHandler'
+    _iid_ = Guid('{7bd1cf54-23cf-4cce-b2f5-4ce78d96896e}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
 class NavigatingCancelEventArgs(ComPtr):
@@ -177,8 +187,8 @@ class NavigatingCancelEventArgs(ComPtr):
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
 class NavigatingCancelEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{75d6a78f-a302-4489-9898-24ea49182910}')
     _classid_ = 'Windows.UI.Xaml.Navigation.NavigatingCancelEventHandler'
+    _iid_ = Guid('{75d6a78f-a302-4489-9898-24ea49182910}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs) -> Void: ...
 NavigationCacheMode = Int32
@@ -226,8 +236,8 @@ class NavigationFailedEventArgs(ComPtr):
     SourcePageType = property(get_SourcePageType, None)
 class NavigationFailedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{4dab4671-12b2-43c7-b892-9be2dcd3e88d}')
     _classid_ = 'Windows.UI.Xaml.Navigation.NavigationFailedEventHandler'
+    _iid_ = Guid('{4dab4671-12b2-43c7-b892-9be2dcd3e88d}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationFailedEventArgs) -> Void: ...
 NavigationMode = Int32
@@ -237,8 +247,8 @@ NavigationMode_Forward: NavigationMode = 2
 NavigationMode_Refresh: NavigationMode = 3
 class NavigationStoppedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{f0117ddb-12fa-4d8d-8b26-b383d09c2b3c}')
     _classid_ = 'Windows.UI.Xaml.Navigation.NavigationStoppedEventHandler'
+    _iid_ = Guid('{f0117ddb-12fa-4d8d-8b26-b383d09c2b3c}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
 class PageStackEntry(ComPtr):

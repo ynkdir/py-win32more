@@ -88,6 +88,7 @@ class AppBroadcastingUI(ComPtr):
     def GetForUser(cls: Windows.Media.AppBroadcasting.IAppBroadcastingUIStatics, user: Windows.System.User) -> Windows.Media.AppBroadcasting.AppBroadcastingUI: ...
 class IAppBroadcastingMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppBroadcasting.IAppBroadcastingMonitor'
     _iid_ = Guid('{00f95a68-8907-48a0-b8ef-24d208137542}')
     @winrt_commethod(6)
     def get_IsCurrentAppBroadcasting(self) -> Boolean: ...
@@ -98,6 +99,7 @@ class IAppBroadcastingMonitor(ComPtr):
     IsCurrentAppBroadcasting = property(get_IsCurrentAppBroadcasting, None)
 class IAppBroadcastingStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppBroadcasting.IAppBroadcastingStatus'
     _iid_ = Guid('{1225e4df-03a1-42f8-8b80-c9228cd9cf2e}')
     @winrt_commethod(6)
     def get_CanStartBroadcast(self) -> Boolean: ...
@@ -107,6 +109,7 @@ class IAppBroadcastingStatus(ComPtr):
     Details = property(get_Details, None)
 class IAppBroadcastingStatusDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppBroadcasting.IAppBroadcastingStatusDetails'
     _iid_ = Guid('{069dada4-b573-4e3c-8e19-1bafacd09713}')
     @winrt_commethod(6)
     def get_IsAnyAppBroadcasting(self) -> Boolean: ...
@@ -134,6 +137,7 @@ class IAppBroadcastingStatusDetails(ComPtr):
     IsDisabledBySystem = property(get_IsDisabledBySystem, None)
 class IAppBroadcastingUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppBroadcasting.IAppBroadcastingUI'
     _iid_ = Guid('{e56f9f8f-ee99-4dca-a3c3-70af3db44f5f}')
     @winrt_commethod(6)
     def GetStatus(self) -> Windows.Media.AppBroadcasting.AppBroadcastingStatus: ...
@@ -141,6 +145,7 @@ class IAppBroadcastingUI(ComPtr):
     def ShowBroadcastUI(self) -> Void: ...
 class IAppBroadcastingUIStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.AppBroadcasting.IAppBroadcastingUIStatics'
     _iid_ = Guid('{55a8a79d-23cb-4579-9c34-886fe02c045a}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Media.AppBroadcasting.AppBroadcastingUI: ...

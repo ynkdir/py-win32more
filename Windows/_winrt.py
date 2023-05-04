@@ -52,16 +52,10 @@ class WinRT_String(HSTRING):
             obj = obj.value
         else:
             raise TypeError()
-        value = cls()
-        hr = WindowsCreateString(obj, len(obj), value)
-        if FAILED(hr):
-            raise WinError(hr)
-        return value
+        return _windows_create_string(obj)
 
     def __ctypes_from_outparam__(self):
-        length = UInt32()
-        bufaddr = WindowsGetStringRawBuffer(self, length, _as_intptr=True)
-        return wstring_at(bufaddr, length.value)
+        return _windows_get_string_raw_buffer(self)
 
 
 class WinrtMethod:
@@ -183,7 +177,7 @@ def winrt_classmethod(prototype):
         if factory_class is None:
             hints = get_type_hints(prototype)
             factory_class = hints["cls"]
-        factory = _winrt_get_activation_factory(cls._classid_, factory_class)
+        factory = _ro_get_activation_factory(cls._classid_, factory_class)
         try:
             return getattr(factory, prototype.__name__)(*args, **kwargs)
         finally:
@@ -201,7 +195,7 @@ def winrt_factorymethod(prototype):
         if factory_class is None:
             hints = get_type_hints(prototype)
             factory_class = hints["cls"]
-        factory = _winrt_get_activation_factory(cls._classid_, factory_class)
+        factory = _ro_get_activation_factory(cls._classid_, factory_class)
         try:
             return getattr(factory, prototype.__name__)(*args, **kwargs)
         finally:
@@ -213,12 +207,12 @@ def winrt_factorymethod(prototype):
 def winrt_activatemethod(prototype):
     @classmethod
     def wrapper(cls):
-        return _winrt_activate_instance(cls._classid_, cls)
+        return _ro_activate_instance(cls._classid_, cls)
 
     return wrapper
 
 
-def _winrt_create_string(s: str):
+def _windows_create_string(s: str) -> HSTRING:
     hs = HSTRING()
     hr = WindowsCreateString(s, len(s), hs)
     if FAILED(hr):
@@ -226,8 +220,14 @@ def _winrt_create_string(s: str):
     return hs
 
 
-def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
-    hs = _winrt_create_string(classid)
+def _windows_get_string_raw_buffer(hs: HSTRING) -> str:
+    length = UInt32()
+    bufaddr = WindowsGetStringRawBuffer(hs, length, _as_intptr=True)
+    return wstring_at(bufaddr, length.value)
+
+
+def _ro_get_activation_factory(classid: str, factory_class: type[T]) -> T:
+    hs = _windows_create_string(classid)
     factory = factory_class()
     hr = RoGetActivationFactory(hs, factory_class._iid_, factory)
     WindowsDeleteString(hs)
@@ -236,8 +236,8 @@ def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
     return factory
 
 
-def _winrt_activate_instance(classid: str, cls: type[T]) -> T:
-    hs = _winrt_create_string(classid)
+def _ro_activate_instance(classid: str, cls: type[T]) -> T:
+    hs = _windows_create_string(classid)
     instance = cls()
     hr = RoActivateInstance(hs, instance)
     WindowsDeleteString(hs)
@@ -283,12 +283,12 @@ def _get_type_signature(cls) -> str:
         piid_guid = str(cls._iid_)
         args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
         return f"pinterface({piid_guid};{args})"
-    elif issubclass(cls, ComPtr) and hasattr(cls, "_classid_"):
+    elif issubclass(cls, ComPtr) and hasattr(cls, "_iid_"):
+        return str(cls._iid_)
+    elif issubclass(cls, ComPtr):
         default_interface = cls._hints_["default_interface"]
         args = _get_type_signature(default_interface)
         return f"rc({cls._classid_};{args})"
-    elif issubclass(cls, ComPtr):
-        return str(cls._iid_)
     elif issubclass(cls, WinRT_String):
         return "string"
     elif issubclass(cls, Char):

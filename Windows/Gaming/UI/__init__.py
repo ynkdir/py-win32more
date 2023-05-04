@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class GameBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.UI.GameBar'
     @winrt_classmethod
     def add_VisibilityChanged(cls: Windows.Gaming.UI.IGameBarStatics, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -117,6 +118,7 @@ class GameUIProviderActivatedEventArgs(ComPtr):
 GamingUIProviderContract: UInt32 = 65536
 class IGameBarStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.UI.IGameBarStatics'
     _iid_ = Guid('{1db9a292-cc78-4173-be45-b61e67283ea7}')
     @winrt_commethod(6)
     def add_VisibilityChanged(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -134,6 +136,7 @@ class IGameBarStatics(ComPtr):
     IsInputRedirected = property(get_IsInputRedirected, None)
 class IGameChatMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.UI.IGameChatMessageReceivedEventArgs'
     _iid_ = Guid('{a28201f1-3fb9-4e42-a403-7afce2023b1e}')
     @winrt_commethod(6)
     def get_AppId(self) -> WinRT_String: ...
@@ -152,6 +155,7 @@ class IGameChatMessageReceivedEventArgs(ComPtr):
     Origin = property(get_Origin, None)
 class IGameChatOverlay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.UI.IGameChatOverlay'
     _iid_ = Guid('{fbc64865-f6fc-4a48-ae07-03ac6ed43704}')
     @winrt_commethod(6)
     def get_DesiredPosition(self) -> Windows.Gaming.UI.GameChatOverlayPosition: ...
@@ -162,6 +166,7 @@ class IGameChatOverlay(ComPtr):
     DesiredPosition = property(get_DesiredPosition, put_DesiredPosition)
 class IGameChatOverlayMessageSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.UI.IGameChatOverlayMessageSource'
     _iid_ = Guid('{1e177397-59fb-4f4f-8e9a-80acf817743c}')
     @winrt_commethod(6)
     def add_MessageReceived(self, handler: Windows.Foundation.TypedEventHandler[Windows.Gaming.UI.GameChatOverlayMessageSource, Windows.Gaming.UI.GameChatMessageReceivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -171,11 +176,13 @@ class IGameChatOverlayMessageSource(ComPtr):
     def SetDelayBeforeClosingAfterMessageReceived(self, value: Windows.Foundation.TimeSpan) -> Void: ...
 class IGameChatOverlayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.UI.IGameChatOverlayStatics'
     _iid_ = Guid('{89acf614-7867-49f7-9687-25d9dbf444d1}')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Gaming.UI.GameChatOverlay: ...
 class IGameUIProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Gaming.UI.IGameUIProviderActivatedEventArgs'
     _iid_ = Guid('{a7b3203e-caf7-4ded-bbd2-47de43bb6dd5}')
     @winrt_commethod(6)
     def get_GameUIArgs(self) -> Windows.Foundation.Collections.ValueSet: ...
