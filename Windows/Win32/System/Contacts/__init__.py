@@ -19,7 +19,7 @@ CGD_STRING_PROPERTY: UInt32 = 1
 CGD_DATE_PROPERTY: UInt32 = 2
 CGD_BINARY_PROPERTY: UInt32 = 4
 CGD_ARRAY_NODE: UInt32 = 8
-CLSID_ContactAggregationManager: Guid = Guid('96c8ad95-c199-44de-b3-4e-ac-33-c4-42-df-39')
+CLSID_ContactAggregationManager: Guid = Guid('{96c8ad95-c199-44de-b34e-ac33c442df39}')
 CONTACTPROP_PUB_NOTES: String = 'Notes'
 CONTACTPROP_PUB_MAILER: String = 'Mailer'
 CONTACTPROP_PUB_PROGID: String = 'ProgID'
@@ -128,11 +128,11 @@ CACO_EXTERNAL_ONLY: CONTACT_AGGREGATION_COLLECTION_OPTIONS = 2
 CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = Int32
 CA_CREATE_LOCAL: CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 0
 CA_CREATE_EXTERNAL: CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 1
-Contact = Guid('61b68808-8eee-4fd1-ac-b8-3d-80-4c-8d-b0-56')
-ContactManager = Guid('7165c8ab-af88-42bd-86-fd-53-10-b4-28-5a-02')
+Contact = Guid('{61b68808-8eee-4fd1-acb8-3d804c8db056}')
+ContactManager = Guid('{7165c8ab-af88-42bd-86fd-5310b4285a02}')
 class IContact(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f941b671-bda7-4f77-88-4a-f4-64-62-f2-26-a7')
+    _iid_ = Guid('{f941b671-bda7-4f77-884a-f46462f226a7}')
     @commethod(3)
     def GetContactID(self, pszContactID: Windows.Win32.Foundation.PWSTR, cchContactID: UInt32, pdwcchContactIDRequired: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -141,7 +141,7 @@ class IContact(ComPtr):
     def CommitChanges(self, dwCommitFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationAggregate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7ed1c814-cd30-43c8-9b-8d-2e-48-9e-53-d5-4b')
+    _iid_ = Guid('{7ed1c814-cd30-43c8-9b8d-2e489e53d54b}')
     @commethod(3)
     def Save(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -162,7 +162,7 @@ class IContactAggregationAggregate(ComPtr):
     def get_Id(self, ppItemId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationAggregateCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2359f3a6-3a68-40af-98-db-0f-9e-b1-43-c3-bb')
+    _iid_ = Guid('{2359f3a6-3a68-40af-98db-0f9eb143c3bb}')
     @commethod(3)
     def FindFirst(self, ppAggregate: POINTER(Windows.Win32.System.Contacts.IContactAggregationAggregate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -173,7 +173,7 @@ class IContactAggregationAggregateCollection(ComPtr):
     def get_Count(self, pCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationContact(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1eb22e86-4c86-41f0-9f-9f-c2-51-e9-fd-a6-c3')
+    _iid_ = Guid('{1eb22e86-4c86-41f0-9f9f-c251e9fda6c3}')
     @commethod(3)
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -212,7 +212,7 @@ class IContactAggregationContact(ComPtr):
     def put_SyncIdentityHash(self, pSyncIdentityHash: POINTER(Windows.Win32.System.Contacts.CONTACT_AGGREGATION_BLOB_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationContactCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('826e66fa-81de-43ca-a6-fb-8c-78-5c-d9-96-c6')
+    _iid_ = Guid('{826e66fa-81de-43ca-a6fb-8c785cd996c6}')
     @commethod(3)
     def FindFirst(self, ppItem: POINTER(Windows.Win32.System.Contacts.IContactAggregationContact_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -225,7 +225,7 @@ class IContactAggregationContactCollection(ComPtr):
     def FindFirstByRemoteId(self, pSourceType: Windows.Win32.Foundation.PWSTR, pAccountId: Windows.Win32.Foundation.PWSTR, pRemoteObjectId: POINTER(Windows.Win32.System.Contacts.CONTACT_AGGREGATION_BLOB_head), ppItem: POINTER(Windows.Win32.System.Contacts.IContactAggregationContact_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c93c545f-1284-499b-96-af-07-37-2a-f4-73-e0')
+    _iid_ = Guid('{c93c545f-1284-499b-96af-07372af473e0}')
     @commethod(3)
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -248,7 +248,7 @@ class IContactAggregationGroup(ComPtr):
     def put_Name(self, pName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationGroupCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('20a19a9c-d2f3-4b83-91-43-be-ff-d2-cc-22-6d')
+    _iid_ = Guid('{20a19a9c-d2f3-4b83-9143-beffd2cc226d}')
     @commethod(3)
     def FindFirst(self, ppGroup: POINTER(Windows.Win32.System.Contacts.IContactAggregationGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -259,7 +259,7 @@ class IContactAggregationGroupCollection(ComPtr):
     def get_Count(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationLink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b6813323-a183-4654-86-27-79-b3-0d-e3-a0-ec')
+    _iid_ = Guid('{b6813323-a183-4654-8627-79b30de3a0ec}')
     @commethod(3)
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -296,7 +296,7 @@ class IContactAggregationLink(ComPtr):
     def put_SyncIdentityHash(self, pSyncIdentityHash: POINTER(Windows.Win32.System.Contacts.CONTACT_AGGREGATION_BLOB_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationLinkCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f8bc0e93-fb55-4f28-b9-fa-b1-c2-74-15-32-92')
+    _iid_ = Guid('{f8bc0e93-fb55-4f28-b9fa-b1c274153292}')
     @commethod(3)
     def FindFirst(self, ppServerContactLink: POINTER(Windows.Win32.System.Contacts.IContactAggregationLink_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -307,7 +307,7 @@ class IContactAggregationLinkCollection(ComPtr):
     def get_Count(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1d865989-4b1f-4b60-8f-34-c2-ad-46-8b-2b-50')
+    _iid_ = Guid('{1d865989-4b1f-4b60-8f34-c2ad468b2b50}')
     @commethod(3)
     def GetVersionInfo(self, plMajorVersion: POINTER(Int32), plMinorVersion: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -340,7 +340,7 @@ class IContactAggregationManager(ComPtr):
     def get_ServerContactLinks(self, pPersonItemId: Windows.Win32.Foundation.PWSTR, ppServerContactLinkCollection: POINTER(Windows.Win32.System.Contacts.IContactAggregationLinkCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationServerPerson(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7fdc3d4b-1b82-4334-85-c5-25-18-4e-e5-a5-f2')
+    _iid_ = Guid('{7fdc3d4b-1b82-4334-85c5-25184ee5a5f2}')
     @commethod(3)
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -389,7 +389,7 @@ class IContactAggregationServerPerson(ComPtr):
     def put_ObjectId(self, pObjectId: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactAggregationServerPersonCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4f730a4a-6604-47b6-a9-87-66-9e-cf-1e-57-51')
+    _iid_ = Guid('{4f730a4a-6604-47b6-a987-669ecf1e5751}')
     @commethod(3)
     def FindFirst(self, ppServerPerson: POINTER(Windows.Win32.System.Contacts.IContactAggregationServerPerson_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -404,7 +404,7 @@ class IContactAggregationServerPersonCollection(ComPtr):
     def get_Count(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b6afa338-d779-11d9-8b-de-f6-6b-ad-1e-3f-3a')
+    _iid_ = Guid('{b6afa338-d779-11d9-8bde-f66bad1e3f3a}')
     @commethod(3)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -413,7 +413,7 @@ class IContactCollection(ComPtr):
     def GetCurrent(self, ppContact: POINTER(Windows.Win32.System.Contacts.IContact_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ad553d98-deb1-474a-8e-17-fc-0c-20-75-b7-38')
+    _iid_ = Guid('{ad553d98-deb1-474a-8e17-fc0c2075b738}')
     @commethod(3)
     def Initialize(self, pszAppName: Windows.Win32.Foundation.PWSTR, pszAppVersion: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -428,7 +428,7 @@ class IContactManager(ComPtr):
     def GetContactCollection(self, ppContactCollection: POINTER(Windows.Win32.System.Contacts.IContactCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('70dd27dd-5cbd-46e8-be-f0-23-b6-b3-46-28-8f')
+    _iid_ = Guid('{70dd27dd-5cbd-46e8-bef0-23b6b346288f}')
     @commethod(3)
     def GetString(self, pszPropertyName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pszValue: Windows.Win32.Foundation.PWSTR, cchValue: UInt32, pdwcchPropertyValueRequired: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -457,7 +457,7 @@ class IContactProperties(ComPtr):
     def GetPropertyCollection(self, ppPropertyCollection: POINTER(Windows.Win32.System.Contacts.IContactPropertyCollection_head), dwFlags: UInt32, pszMultiValueName: Windows.Win32.Foundation.PWSTR, dwLabelCount: UInt32, ppszLabels: POINTER(Windows.Win32.Foundation.PWSTR), fAnyLabelMatches: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IContactPropertyCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ffd3adf8-fa64-4328-b1-b6-2e-0d-b5-09-cb-3c')
+    _iid_ = Guid('{ffd3adf8-fa64-4328-b1b6-2e0db509cb3c}')
     @commethod(3)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

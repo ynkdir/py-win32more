@@ -14,9 +14,9 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 _FACDXCORE: UInt32 = 2176
-DXCORE_ADAPTER_ATTRIBUTE_D3D11_GRAPHICS: Guid = Guid('8c47866b-7583-450d-f0-f0-6b-ad-a8-95-af-4b')
-DXCORE_ADAPTER_ATTRIBUTE_D3D12_GRAPHICS: Guid = Guid('0c9ece4d-2f6e-4f01-8c-96-e8-9e-33-1b-47-b1')
-DXCORE_ADAPTER_ATTRIBUTE_D3D12_CORE_COMPUTE: Guid = Guid('248e2800-a793-4724-ab-aa-23-a6-de-1b-e0-90')
+DXCORE_ADAPTER_ATTRIBUTE_D3D11_GRAPHICS: Guid = Guid('{8c47866b-7583-450d-f0f0-6bada895af4b}')
+DXCORE_ADAPTER_ATTRIBUTE_D3D12_GRAPHICS: Guid = Guid('{0c9ece4d-2f6e-4f01-8c96-e89e331b47b1}')
+DXCORE_ADAPTER_ATTRIBUTE_D3D12_CORE_COMPUTE: Guid = Guid('{248e2800-a793-4724-abaa-23a6de1be090}')
 @winfunctype('DXCORE.dll')
 def DXCoreCreateAdapterFactory(riid: POINTER(Guid), ppvFactory: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class DXCoreAdapterMemoryBudget(EasyCastStructure):
@@ -71,7 +71,7 @@ DXCoreSegmentGroup_Local: DXCoreSegmentGroup = 0
 DXCoreSegmentGroup_NonLocal: DXCoreSegmentGroup = 1
 class IDXCoreAdapter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f0db4c7f-fe5a-42a2-bd-62-f2-a6-cf-6f-c8-3e')
+    _iid_ = Guid('{f0db4c7f-fe5a-42a2-bd62-f2a6cf6fc83e}')
     @commethod(3)
     def IsValid(self) -> Boolean: ...
     @commethod(4)
@@ -94,7 +94,7 @@ class IDXCoreAdapter(ComPtr):
     def GetFactory(self, riid: POINTER(Guid), ppvFactory: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDXCoreAdapterFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('78ee5945-c36e-4b13-a6-69-00-5d-d1-1c-0f-06')
+    _iid_ = Guid('{78ee5945-c36e-4b13-a669-005dd11c0f06}')
     @commethod(3)
     def CreateAdapterList(self, numAttributes: UInt32, filterAttributes: POINTER(Guid), riid: POINTER(Guid), ppvAdapterList: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -107,7 +107,7 @@ class IDXCoreAdapterFactory(ComPtr):
     def UnregisterEventNotification(self, eventCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDXCoreAdapterList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('526c7776-40e9-459b-b7-11-f3-2a-d7-6d-fc-28')
+    _iid_ = Guid('{526c7776-40e9-459b-b711-f32ad76dfc28}')
     @commethod(3)
     def GetAdapter(self, index: UInt32, riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

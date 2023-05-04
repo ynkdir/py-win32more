@@ -78,7 +78,7 @@ WCM_S_NAMESPACENOTFOUND: Windows.Win32.Foundation.HRESULT = 2232326
 WCM_E_UNKNOWNRESULT: Windows.Win32.Foundation.HRESULT = -2145251325
 class IItemEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f7d7bb7-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+    _iid_ = Guid('{9f7d7bb7-20b3-11da-81a5-0030f1642e3c}')
     @commethod(3)
     def Current(self, Item: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -87,7 +87,7 @@ class IItemEnumerator(ComPtr):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISettingsContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f7d7bbd-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+    _iid_ = Guid('{9f7d7bbd-20b3-11da-81a5-0030f1642e3c}')
     @commethod(3)
     def Serialize(self, pStream: Windows.Win32.System.Com.IStream_head, pTarget: Windows.Win32.System.SettingsManagementInfrastructure.ITargetInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -104,7 +104,7 @@ class ISettingsContext(ComPtr):
     def RevertSetting(self, pIdentity: Windows.Win32.System.SettingsManagementInfrastructure.ISettingsIdentity_head, pwzSetting: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISettingsEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f7d7bb9-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+    _iid_ = Guid('{9f7d7bb9-20b3-11da-81a5-0030f1642e3c}')
     @commethod(3)
     def GetNamespaces(self, Flags: Windows.Win32.System.SettingsManagementInfrastructure.WcmNamespaceEnumerationFlags, Reserved: c_void_p, Namespaces: POINTER(Windows.Win32.System.SettingsManagementInfrastructure.IItemEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -139,7 +139,7 @@ class ISettingsEngine(ComPtr):
     def GetSettingsContext(self, SettingsContext: POINTER(Windows.Win32.System.SettingsManagementInfrastructure.ISettingsContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISettingsIdentity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f7d7bb6-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+    _iid_ = Guid('{9f7d7bb6-20b3-11da-81a5-0030f1642e3c}')
     @commethod(3)
     def GetAttribute(self, Reserved: c_void_p, Name: Windows.Win32.Foundation.PWSTR, Value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -150,7 +150,7 @@ class ISettingsIdentity(ComPtr):
     def SetFlags(self, Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISettingsItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f7d7bbb-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+    _iid_ = Guid('{9f7d7bbb-20b3-11da-81a5-0030f1642e3c}')
     @commethod(3)
     def GetName(self, Name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -197,7 +197,7 @@ class ISettingsItem(ComPtr):
     def GetKeyValue(self, Value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISettingsNamespace(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f7d7bba-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+    _iid_ = Guid('{9f7d7bba-20b3-11da-81a5-0030f1642e3c}')
     @commethod(3)
     def GetIdentity(self, SettingsID: POINTER(Windows.Win32.System.SettingsManagementInfrastructure.ISettingsIdentity_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -214,7 +214,7 @@ class ISettingsNamespace(ComPtr):
     def GetAttribute(self, Name: Windows.Win32.Foundation.PWSTR, Value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISettingsResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f7d7bbc-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+    _iid_ = Guid('{9f7d7bbc-20b3-11da-81a5-0030f1642e3c}')
     @commethod(3)
     def GetDescription(self, description: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -229,7 +229,7 @@ class ISettingsResult(ComPtr):
     def GetSource(self, file: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITargetInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9f7d7bb8-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+    _iid_ = Guid('{9f7d7bb8-20b3-11da-81a5-0030f1642e3c}')
     @commethod(3)
     def GetTargetMode(self, TargetMode: POINTER(Windows.Win32.System.SettingsManagementInfrastructure.WcmTargetMode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -272,7 +272,7 @@ class ITargetInfo(ComPtr):
     def SetSchemaHiveMountName(self, pwzMountName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def GetSchemaHiveMountName(self, pMountName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-SettingsEngine = Guid('9f7d7bb5-20b3-11da-81-a5-00-30-f1-64-2e-3c')
+SettingsEngine = Guid('{9f7d7bb5-20b3-11da-81a5-0030f1642e3c}')
 WcmDataType = Int32
 WcmDataType_dataTypeByte: WcmDataType = 1
 WcmDataType_dataTypeSByte: WcmDataType = 2

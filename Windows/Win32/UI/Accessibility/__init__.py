@@ -40,37 +40,37 @@ AnimationStyle_Other: AnimationStyle = -1
 AnnoScope = Int32
 ANNO_THIS: AnnoScope = 0
 ANNO_CONTAINER: AnnoScope = 1
-LIBID_Accessibility: Guid = Guid('1ea4dbf0-3c3b-11cf-81-0c-00-aa-00-38-9b-71')
-CLSID_AccPropServices: Guid = Guid('b5f8350b-0548-48b1-a6-ee-88-bd-00-b4-a5-e7')
-IIS_IsOleaccProxy: Guid = Guid('902697fa-80e4-4560-80-2a-a1-3f-22-a6-47-09')
-IIS_ControlAccessible: Guid = Guid('38c682a6-9731-43f2-9f-ae-e9-01-e6-41-b1-01')
+LIBID_Accessibility: Guid = Guid('{1ea4dbf0-3c3b-11cf-810c-00aa00389b71}')
+CLSID_AccPropServices: Guid = Guid('{b5f8350b-0548-48b1-a6ee-88bd00b4a5e7}')
+IIS_IsOleaccProxy: Guid = Guid('{902697fa-80e4-4560-802a-a13f22a64709}')
+IIS_ControlAccessible: Guid = Guid('{38c682a6-9731-43f2-9fae-e901e641b101}')
 ANRUS_PRIORITY_AUDIO_DYNAMIC_DUCK: UInt32 = 16
 MSAA_MENU_SIG: Int32 = -1441927155
-PROPID_ACC_NAME: Guid = Guid('608d3df8-8128-4aa7-a4-28-f5-5e-49-26-72-91')
-PROPID_ACC_VALUE: Guid = Guid('123fe443-211a-4615-95-27-c4-5a-7e-93-71-7a')
-PROPID_ACC_DESCRIPTION: Guid = Guid('4d48dfe4-bd3f-491f-a6-48-49-2d-6f-20-c5-88')
-PROPID_ACC_ROLE: Guid = Guid('cb905ff2-7bd1-4c05-b3-c8-e6-c2-41-36-4d-70')
-PROPID_ACC_STATE: Guid = Guid('a8d4d5b0-0a21-42d0-a5-c0-51-4e-98-4f-45-7b')
-PROPID_ACC_HELP: Guid = Guid('c831e11f-44db-4a99-97-68-cb-8f-97-8b-72-31')
-PROPID_ACC_KEYBOARDSHORTCUT: Guid = Guid('7d9bceee-7d1e-4979-93-82-51-80-f4-17-2c-34')
-PROPID_ACC_DEFAULTACTION: Guid = Guid('180c072b-c27f-43c7-99-22-f6-35-62-a4-63-2b')
-PROPID_ACC_HELPTOPIC: Guid = Guid('787d1379-8ede-440b-8a-ec-11-f7-bf-90-30-b3')
-PROPID_ACC_FOCUS: Guid = Guid('6eb335df-1c29-4127-b1-2c-de-e9-fd-15-7f-2b')
-PROPID_ACC_SELECTION: Guid = Guid('b99d073c-d731-405b-90-61-d9-5e-8f-84-29-84')
-PROPID_ACC_PARENT: Guid = Guid('474c22b6-ffc2-467a-b1-b5-e9-58-b4-65-73-30')
-PROPID_ACC_NAV_UP: Guid = Guid('016e1a2b-1a4e-4767-86-12-33-86-f6-69-35-ec')
-PROPID_ACC_NAV_DOWN: Guid = Guid('031670ed-3cdf-48d2-96-13-13-8f-2d-d8-a6-68')
-PROPID_ACC_NAV_LEFT: Guid = Guid('228086cb-82f1-4a39-87-05-dc-dc-0f-ff-92-f5')
-PROPID_ACC_NAV_RIGHT: Guid = Guid('cd211d9f-e1cb-4fe5-a7-7c-92-0b-88-4d-09-5b')
-PROPID_ACC_NAV_PREV: Guid = Guid('776d3891-c73b-4480-b3-f6-07-6a-16-a1-5a-f6')
-PROPID_ACC_NAV_NEXT: Guid = Guid('1cdc5455-8cd9-4c92-a3-71-39-39-a2-fe-3e-ee')
-PROPID_ACC_NAV_FIRSTCHILD: Guid = Guid('cfd02558-557b-4c67-84-f9-2a-09-fc-e4-07-49')
-PROPID_ACC_NAV_LASTCHILD: Guid = Guid('302ecaa5-48d5-4f8d-b6-71-1a-8d-20-a7-78-32')
-PROPID_ACC_ROLEMAP: Guid = Guid('f79acda2-140d-4fe6-89-14-20-84-76-32-82-69')
-PROPID_ACC_VALUEMAP: Guid = Guid('da1c3d79-fc5c-420e-b3-99-9d-15-33-54-9e-75')
-PROPID_ACC_STATEMAP: Guid = Guid('43946c5e-0ac0-4042-b5-25-07-bb-db-e1-7f-a7')
-PROPID_ACC_DESCRIPTIONMAP: Guid = Guid('1ff1435f-8a14-477b-b2-26-a0-ab-e2-79-97-5d')
-PROPID_ACC_DODEFAULTACTION: Guid = Guid('1ba09523-2e3b-49a6-a0-59-59-68-2a-3c-48-fd')
+PROPID_ACC_NAME: Guid = Guid('{608d3df8-8128-4aa7-a428-f55e49267291}')
+PROPID_ACC_VALUE: Guid = Guid('{123fe443-211a-4615-9527-c45a7e93717a}')
+PROPID_ACC_DESCRIPTION: Guid = Guid('{4d48dfe4-bd3f-491f-a648-492d6f20c588}')
+PROPID_ACC_ROLE: Guid = Guid('{cb905ff2-7bd1-4c05-b3c8-e6c241364d70}')
+PROPID_ACC_STATE: Guid = Guid('{a8d4d5b0-0a21-42d0-a5c0-514e984f457b}')
+PROPID_ACC_HELP: Guid = Guid('{c831e11f-44db-4a99-9768-cb8f978b7231}')
+PROPID_ACC_KEYBOARDSHORTCUT: Guid = Guid('{7d9bceee-7d1e-4979-9382-5180f4172c34}')
+PROPID_ACC_DEFAULTACTION: Guid = Guid('{180c072b-c27f-43c7-9922-f63562a4632b}')
+PROPID_ACC_HELPTOPIC: Guid = Guid('{787d1379-8ede-440b-8aec-11f7bf9030b3}')
+PROPID_ACC_FOCUS: Guid = Guid('{6eb335df-1c29-4127-b12c-dee9fd157f2b}')
+PROPID_ACC_SELECTION: Guid = Guid('{b99d073c-d731-405b-9061-d95e8f842984}')
+PROPID_ACC_PARENT: Guid = Guid('{474c22b6-ffc2-467a-b1b5-e958b4657330}')
+PROPID_ACC_NAV_UP: Guid = Guid('{016e1a2b-1a4e-4767-8612-3386f66935ec}')
+PROPID_ACC_NAV_DOWN: Guid = Guid('{031670ed-3cdf-48d2-9613-138f2dd8a668}')
+PROPID_ACC_NAV_LEFT: Guid = Guid('{228086cb-82f1-4a39-8705-dcdc0fff92f5}')
+PROPID_ACC_NAV_RIGHT: Guid = Guid('{cd211d9f-e1cb-4fe5-a77c-920b884d095b}')
+PROPID_ACC_NAV_PREV: Guid = Guid('{776d3891-c73b-4480-b3f6-076a16a15af6}')
+PROPID_ACC_NAV_NEXT: Guid = Guid('{1cdc5455-8cd9-4c92-a371-3939a2fe3eee}')
+PROPID_ACC_NAV_FIRSTCHILD: Guid = Guid('{cfd02558-557b-4c67-84f9-2a09fce40749}')
+PROPID_ACC_NAV_LASTCHILD: Guid = Guid('{302ecaa5-48d5-4f8d-b671-1a8d20a77832}')
+PROPID_ACC_ROLEMAP: Guid = Guid('{f79acda2-140d-4fe6-8914-208476328269}')
+PROPID_ACC_VALUEMAP: Guid = Guid('{da1c3d79-fc5c-420e-b399-9d1533549e75}')
+PROPID_ACC_STATEMAP: Guid = Guid('{43946c5e-0ac0-4042-b525-07bbdbe17fa7}')
+PROPID_ACC_DESCRIPTIONMAP: Guid = Guid('{1ff1435f-8a14-477b-b226-a0abe279975d}')
+PROPID_ACC_DODEFAULTACTION: Guid = Guid('{1ba09523-2e3b-49a6-a059-59682a3c48fd}')
 DISPID_ACC_PARENT: Int32 = -5000
 DISPID_ACC_CHILDCOUNT: Int32 = -5001
 DISPID_ACC_CHILD: Int32 = -5002
@@ -182,390 +182,390 @@ UIA_E_INVALIDOPERATION: UInt32 = 2148734217
 UIA_E_TIMEOUT: UInt32 = 2148734213
 UiaAppendRuntimeId: UInt32 = 3
 UiaRootObjectId: Int32 = -25
-RuntimeId_Property_GUID: Guid = Guid('a39eebfa-7fba-4c89-b4-d4-b9-9e-2d-e7-d1-60')
-BoundingRectangle_Property_GUID: Guid = Guid('7bbfe8b2-3bfc-48dd-b7-29-c7-94-b8-46-e9-a1')
-ProcessId_Property_GUID: Guid = Guid('40499998-9c31-4245-a4-03-87-32-0e-59-ea-f6')
-ControlType_Property_GUID: Guid = Guid('ca774fea-28ac-4bc2-94-ca-ac-ec-6d-6c-10-a3')
-LocalizedControlType_Property_GUID: Guid = Guid('8763404f-a1bd-452a-89-c4-3f-01-d3-83-38-06')
-Name_Property_GUID: Guid = Guid('c3a6921b-4a99-44f1-bc-a6-61-18-70-52-c4-31')
-AcceleratorKey_Property_GUID: Guid = Guid('514865df-2557-4cb9-ae-ed-6c-ed-08-4c-e5-2c')
-AccessKey_Property_GUID: Guid = Guid('06827b12-a7f9-4a15-91-7c-ff-a5-ad-3e-b0-a7')
-HasKeyboardFocus_Property_GUID: Guid = Guid('cf8afd39-3f46-4800-96-56-b2-bf-12-52-99-05')
-IsKeyboardFocusable_Property_GUID: Guid = Guid('f7b8552a-0859-4b37-b9-cb-51-e7-20-92-f2-9f')
-IsEnabled_Property_GUID: Guid = Guid('2109427f-da60-4fed-bf-1b-26-4b-dc-e6-eb-3a')
-AutomationId_Property_GUID: Guid = Guid('c82c0500-b60e-4310-a2-67-30-3c-53-1f-8e-e5')
-ClassName_Property_GUID: Guid = Guid('157b7215-894f-4b65-84-e2-aa-c0-da-08-b1-6b')
-HelpText_Property_GUID: Guid = Guid('08555685-0977-45c7-a7-a6-ab-af-56-84-12-1a')
-ClickablePoint_Property_GUID: Guid = Guid('0196903b-b203-4818-a9-f3-f0-8e-67-5f-23-41')
-Culture_Property_GUID: Guid = Guid('e2d74f27-3d79-4dc2-b8-8b-30-44-96-3a-8a-fb')
-IsControlElement_Property_GUID: Guid = Guid('95f35085-abcc-4afd-a5-f4-db-b4-6c-23-0f-db')
-IsContentElement_Property_GUID: Guid = Guid('4bda64a8-f5d8-480b-81-55-ef-2e-89-ad-b6-72')
-LabeledBy_Property_GUID: Guid = Guid('e5b8924b-fc8a-4a35-80-31-cf-78-ac-43-e5-5e')
-IsPassword_Property_GUID: Guid = Guid('e8482eb1-687c-497b-be-bc-03-be-53-ec-14-54')
-NewNativeWindowHandle_Property_GUID: Guid = Guid('5196b33b-380a-4982-95-e1-91-f3-ef-60-e0-24')
-ItemType_Property_GUID: Guid = Guid('cdda434d-6222-413b-a6-8a-32-5d-d1-d4-0f-39')
-IsOffscreen_Property_GUID: Guid = Guid('03c3d160-db79-42db-a2-ef-1c-23-1e-ed-e5-07')
-Orientation_Property_GUID: Guid = Guid('a01eee62-3884-4415-88-7e-67-8e-c2-1e-39-ba')
-FrameworkId_Property_GUID: Guid = Guid('dbfd9900-7e1a-4f58-b6-1b-70-63-12-0f-77-3b')
-IsRequiredForForm_Property_GUID: Guid = Guid('4f5f43cf-59fb-4bde-a2-70-60-2e-5e-11-41-e9')
-ItemStatus_Property_GUID: Guid = Guid('51de0321-3973-43e7-89-13-0b-08-e8-13-c3-7f')
-AriaRole_Property_GUID: Guid = Guid('dd207b95-be4a-4e0d-b7-27-63-ac-e9-4b-69-16')
-AriaProperties_Property_GUID: Guid = Guid('4213678c-e025-4922-be-b5-e4-3b-a0-8e-62-21')
-IsDataValidForForm_Property_GUID: Guid = Guid('445ac684-c3fc-4dd9-ac-f8-84-5a-57-92-96-ba')
-ControllerFor_Property_GUID: Guid = Guid('51124c8a-a5d2-4f13-9b-e6-7f-a8-ba-9d-3a-90')
-DescribedBy_Property_GUID: Guid = Guid('7c5865b8-9992-40fd-8d-b0-6b-f1-d3-17-f9-98')
-FlowsTo_Property_GUID: Guid = Guid('e4f33d20-559a-47fb-a8-30-f9-cb-4f-f1-a7-0a')
-ProviderDescription_Property_GUID: Guid = Guid('dca5708a-c16b-4cd9-b8-89-be-b1-6a-80-49-04')
-OptimizeForVisualContent_Property_GUID: Guid = Guid('6a852250-c75a-4e5d-b8-58-e3-81-b0-f7-88-61')
-IsDockPatternAvailable_Property_GUID: Guid = Guid('2600a4c4-2ff8-4c96-ae-31-8f-e6-19-a1-3c-6c')
-IsExpandCollapsePatternAvailable_Property_GUID: Guid = Guid('929d3806-5287-4725-aa-16-22-2a-fc-63-d5-95')
-IsGridItemPatternAvailable_Property_GUID: Guid = Guid('5a43e524-f9a2-4b12-84-c8-b4-8a-3e-fe-dd-34')
-IsGridPatternAvailable_Property_GUID: Guid = Guid('5622c26c-f0ef-4f3b-97-cb-71-4c-08-68-58-8b')
-IsInvokePatternAvailable_Property_GUID: Guid = Guid('4e725738-8364-4679-aa-6c-f3-f4-19-31-f7-50')
-IsMultipleViewPatternAvailable_Property_GUID: Guid = Guid('ff0a31eb-8e25-469d-8d-6e-e7-71-a2-7c-1b-90')
-IsRangeValuePatternAvailable_Property_GUID: Guid = Guid('fda4244a-eb4d-43ff-b5-ad-ed-36-d3-73-ec-4c')
-IsScrollPatternAvailable_Property_GUID: Guid = Guid('3ebb7b4a-828a-4b57-9d-22-2f-ea-16-32-ed-0d')
-IsScrollItemPatternAvailable_Property_GUID: Guid = Guid('1cad1a05-0927-4b76-97-e1-0f-cd-b2-09-b9-8a')
-IsSelectionItemPatternAvailable_Property_GUID: Guid = Guid('8becd62d-0bc3-4109-be-e2-8e-67-15-29-0e-68')
-IsSelectionPatternAvailable_Property_GUID: Guid = Guid('f588acbe-c769-4838-9a-60-26-86-dc-11-88-c4')
-IsTablePatternAvailable_Property_GUID: Guid = Guid('cb83575f-45c2-4048-9c-76-15-97-15-a1-39-df')
-IsTableItemPatternAvailable_Property_GUID: Guid = Guid('eb36b40d-8ea4-489b-a0-13-e6-0d-59-51-fe-34')
-IsTextPatternAvailable_Property_GUID: Guid = Guid('fbe2d69d-aff6-4a45-82-e2-fc-92-a8-2f-59-17')
-IsTogglePatternAvailable_Property_GUID: Guid = Guid('78686d53-fcd0-4b83-9b-78-58-32-ce-63-bb-5b')
-IsTransformPatternAvailable_Property_GUID: Guid = Guid('a7f78804-d68b-4077-a5-c6-7a-5e-a1-ac-31-c5')
-IsValuePatternAvailable_Property_GUID: Guid = Guid('0b5020a7-2119-473b-be-37-5c-eb-98-bb-fb-22')
-IsWindowPatternAvailable_Property_GUID: Guid = Guid('e7a57bb1-5888-4155-98-dc-b4-22-fd-57-f2-bc')
-IsLegacyIAccessiblePatternAvailable_Property_GUID: Guid = Guid('d8ebd0c7-929a-4ee7-8d-3a-d3-d9-44-13-02-7b')
-IsItemContainerPatternAvailable_Property_GUID: Guid = Guid('624b5ca7-fe40-4957-a0-19-20-c4-cf-11-92-0f')
-IsVirtualizedItemPatternAvailable_Property_GUID: Guid = Guid('302cb151-2ac8-45d6-97-7b-d2-b3-a5-a5-3f-20')
-IsSynchronizedInputPatternAvailable_Property_GUID: Guid = Guid('75d69cc5-d2bf-4943-87-6e-b4-5b-62-a6-cc-66')
-IsObjectModelPatternAvailable_Property_GUID: Guid = Guid('6b21d89b-2841-412f-8e-f2-15-ca-95-23-18-ba')
-IsAnnotationPatternAvailable_Property_GUID: Guid = Guid('0b5b3238-6d5c-41b6-bc-c4-5e-80-7f-65-51-c4')
-IsTextPattern2Available_Property_GUID: Guid = Guid('41cf921d-e3f1-4b22-9c-81-e1-c3-ed-33-1c-22')
-IsTextEditPatternAvailable_Property_GUID: Guid = Guid('7843425c-8b32-484c-9a-b5-e3-20-05-71-ff-da')
-IsCustomNavigationPatternAvailable_Property_GUID: Guid = Guid('8f8e80d4-2351-48e0-87-4a-54-aa-73-13-88-9a')
-IsStylesPatternAvailable_Property_GUID: Guid = Guid('27f353d3-459c-4b59-a4-90-50-61-1d-ac-af-b5')
-IsSpreadsheetPatternAvailable_Property_GUID: Guid = Guid('6ff43732-e4b4-4555-97-bc-ec-db-bc-4d-18-88')
-IsSpreadsheetItemPatternAvailable_Property_GUID: Guid = Guid('9fe79b2a-2f94-43fd-99-6b-54-9e-31-6f-4a-cd')
-IsTransformPattern2Available_Property_GUID: Guid = Guid('25980b4b-be04-4710-ab-4a-fd-a3-1d-bd-28-95')
-IsTextChildPatternAvailable_Property_GUID: Guid = Guid('559e65df-30ff-43b5-b5-ed-5b-28-3b-80-c7-e9')
-IsDragPatternAvailable_Property_GUID: Guid = Guid('e997a7b7-1d39-4ca7-be-0f-27-7f-cf-56-05-cc')
-IsDropTargetPatternAvailable_Property_GUID: Guid = Guid('0686b62e-8e19-4aaf-87-3d-38-4f-6d-3b-92-be')
-IsStructuredMarkupPatternAvailable_Property_GUID: Guid = Guid('b0d4c196-2c0b-489c-b1-65-a4-05-92-8c-6f-3d')
-IsPeripheral_Property_GUID: Guid = Guid('da758276-7ed5-49d4-8e-68-ec-c9-a2-d3-00-dd')
-PositionInSet_Property_GUID: Guid = Guid('33d1dc54-641e-4d76-a6-b1-13-f3-41-c1-f8-96')
-SizeOfSet_Property_GUID: Guid = Guid('1600d33c-3b9f-4369-94-31-aa-29-3f-34-4c-f1')
-Level_Property_GUID: Guid = Guid('242ac529-cd36-400f-aa-d9-78-76-ef-3a-f6-27')
-AnnotationTypes_Property_GUID: Guid = Guid('64b71f76-53c4-4696-a2-19-20-e9-40-c9-a1-76')
-AnnotationObjects_Property_GUID: Guid = Guid('310910c8-7c6e-4f20-be-cd-4a-af-6d-19-11-56')
-LandmarkType_Property_GUID: Guid = Guid('454045f2-6f61-49f7-a4-f8-b5-f0-cf-82-da-1e')
-LocalizedLandmarkType_Property_GUID: Guid = Guid('7ac81980-eafb-4fb2-bf-91-f4-85-be-f5-e8-e1')
-FullDescription_Property_GUID: Guid = Guid('0d4450ff-6aef-4f33-95-dd-7b-ef-a7-2a-43-91')
-Value_Value_Property_GUID: Guid = Guid('e95f5e64-269f-4a85-ba-99-40-92-c3-ea-29-86')
-Value_IsReadOnly_Property_GUID: Guid = Guid('eb090f30-e24c-4799-a7-05-0d-24-7b-c0-37-f8')
-RangeValue_Value_Property_GUID: Guid = Guid('131f5d98-c50c-489d-ab-e5-ae-22-08-98-c5-f7')
-RangeValue_IsReadOnly_Property_GUID: Guid = Guid('25fa1055-debf-4373-a7-9e-1f-1a-19-08-d3-c4')
-RangeValue_Minimum_Property_GUID: Guid = Guid('78cbd3b2-684d-4860-af-93-d1-f9-5c-b0-22-fd')
-RangeValue_Maximum_Property_GUID: Guid = Guid('19319914-f979-4b35-a1-a6-d3-7e-05-43-34-73')
-RangeValue_LargeChange_Property_GUID: Guid = Guid('a1f96325-3a3d-4b44-8e-1f-4a-46-d9-84-40-19')
-RangeValue_SmallChange_Property_GUID: Guid = Guid('81c2c457-3941-4107-99-75-13-97-60-f7-c0-72')
-Scroll_HorizontalScrollPercent_Property_GUID: Guid = Guid('c7c13c0e-eb21-47ff-ac-c4-b5-a3-35-0f-51-91')
-Scroll_HorizontalViewSize_Property_GUID: Guid = Guid('70c2e5d4-fcb0-4713-a9-aa-af-92-ff-79-e4-cd')
-Scroll_VerticalScrollPercent_Property_GUID: Guid = Guid('6c8d7099-b2a8-4948-bf-f7-3c-f9-05-8b-fe-fb')
-Scroll_VerticalViewSize_Property_GUID: Guid = Guid('de6a2e22-d8c7-40c5-83-ba-e5-f6-81-d5-31-08')
-Scroll_HorizontallyScrollable_Property_GUID: Guid = Guid('8b925147-28cd-49ae-bd-63-f4-41-18-d2-e7-19')
-Scroll_VerticallyScrollable_Property_GUID: Guid = Guid('89164798-0068-4315-b8-9a-1e-7c-fb-bc-3d-fc')
-Selection_Selection_Property_GUID: Guid = Guid('aa6dc2a2-0e2b-4d38-96-d5-34-e4-70-b8-18-53')
-Selection_CanSelectMultiple_Property_GUID: Guid = Guid('49d73da5-c883-4500-88-3d-8f-cf-8d-af-6c-be')
-Selection_IsSelectionRequired_Property_GUID: Guid = Guid('b1ae4422-63fe-44e7-a5-a5-a7-38-c8-29-b1-9a')
-Grid_RowCount_Property_GUID: Guid = Guid('2a9505bf-c2eb-4fb6-b3-56-82-45-ae-53-70-3e')
-Grid_ColumnCount_Property_GUID: Guid = Guid('fe96f375-44aa-4536-ac-7a-2a-75-d7-1a-3e-fc')
-GridItem_Row_Property_GUID: Guid = Guid('6223972a-c945-4563-93-29-fd-c9-74-af-25-53')
-GridItem_Column_Property_GUID: Guid = Guid('c774c15c-62c0-4519-8b-dc-47-be-57-3c-8a-d5')
-GridItem_RowSpan_Property_GUID: Guid = Guid('4582291c-466b-4e93-8e-83-3d-17-15-ec-0c-5e')
-GridItem_ColumnSpan_Property_GUID: Guid = Guid('583ea3f5-86d0-4b08-a6-ec-2c-54-63-ff-c1-09')
-GridItem_Parent_Property_GUID: Guid = Guid('9d912252-b97f-4ecc-85-10-ea-0e-33-42-7c-72')
-Dock_DockPosition_Property_GUID: Guid = Guid('6d67f02e-c0b0-4b10-b5-b9-18-d6-ec-f9-87-60')
-ExpandCollapse_ExpandCollapseState_Property_GUID: Guid = Guid('275a4c48-85a7-4f69-ab-a0-af-15-76-10-00-2b')
-MultipleView_CurrentView_Property_GUID: Guid = Guid('7a81a67a-b94f-4875-91-8b-65-c8-d2-f9-98-e5')
-MultipleView_SupportedViews_Property_GUID: Guid = Guid('8d5db9fd-ce3c-4ae7-b7-88-40-0a-3c-64-55-47')
-Window_CanMaximize_Property_GUID: Guid = Guid('64fff53f-635d-41c1-95-0c-cb-5a-df-be-28-e3')
-Window_CanMinimize_Property_GUID: Guid = Guid('b73b4625-5988-4b97-b4-c2-a6-fe-6e-78-c8-c6')
-Window_WindowVisualState_Property_GUID: Guid = Guid('4ab7905f-e860-453e-a3-0a-f6-43-1e-5d-aa-d5')
-Window_WindowInteractionState_Property_GUID: Guid = Guid('4fed26a4-0455-4fa2-b2-1c-c4-da-2d-b1-ff-9c')
-Window_IsModal_Property_GUID: Guid = Guid('ff4e6892-37b9-4fca-85-32-ff-e6-74-ec-fe-ed')
-Window_IsTopmost_Property_GUID: Guid = Guid('ef7d85d3-0937-4962-92-41-b6-23-45-f2-40-41')
-SelectionItem_IsSelected_Property_GUID: Guid = Guid('f122835f-cd5f-43df-b7-9d-4b-84-9e-9e-60-20')
-SelectionItem_SelectionContainer_Property_GUID: Guid = Guid('a4365b6e-9c1e-4b63-8b-53-c2-42-1d-d1-e8-fb')
-Table_RowHeaders_Property_GUID: Guid = Guid('d9e35b87-6eb8-4562-aa-c6-a8-a9-07-52-36-a8')
-Table_ColumnHeaders_Property_GUID: Guid = Guid('aff1d72b-968d-42b1-b4-59-15-0b-29-9d-a6-64')
-Table_RowOrColumnMajor_Property_GUID: Guid = Guid('83be75c3-29fe-4a30-85-e1-2a-62-77-fd-10-6e')
-TableItem_RowHeaderItems_Property_GUID: Guid = Guid('b3f853a0-0574-4cd8-bc-d7-ed-59-23-57-2d-97')
-TableItem_ColumnHeaderItems_Property_GUID: Guid = Guid('967a56a3-74b6-431e-8d-e6-99-c4-11-03-1c-58')
-Toggle_ToggleState_Property_GUID: Guid = Guid('b23cdc52-22c2-4c6c-9d-ed-f5-c4-22-47-9e-de')
-Transform_CanMove_Property_GUID: Guid = Guid('1b75824d-208b-4fdf-bc-cd-f1-f4-e5-74-1f-4f')
-Transform_CanResize_Property_GUID: Guid = Guid('bb98dca5-4c1a-41d4-a4-f6-eb-c1-28-64-41-80')
-Transform_CanRotate_Property_GUID: Guid = Guid('10079b48-3849-476f-ac-96-44-a9-5c-84-40-d9')
-LegacyIAccessible_ChildId_Property_GUID: Guid = Guid('9a191b5d-9ef2-4787-a4-59-dc-de-88-5d-d4-e8')
-LegacyIAccessible_Name_Property_GUID: Guid = Guid('caeb063d-40ae-4869-aa-5a-1b-8e-5d-66-67-39')
-LegacyIAccessible_Value_Property_GUID: Guid = Guid('b5c5b0b6-8217-4a77-97-a5-19-0a-85-ed-01-56')
-LegacyIAccessible_Description_Property_GUID: Guid = Guid('46448418-7d70-4ea9-9d-27-b7-e7-75-cf-2a-d7')
-LegacyIAccessible_Role_Property_GUID: Guid = Guid('6856e59f-cbaf-4e31-93-e8-bc-bf-6f-7e-49-1c')
-LegacyIAccessible_State_Property_GUID: Guid = Guid('df985854-2281-4340-ab-9c-c6-0e-2c-58-03-f6')
-LegacyIAccessible_Help_Property_GUID: Guid = Guid('94402352-161c-4b77-a9-8d-a8-72-cc-33-94-7a')
-LegacyIAccessible_KeyboardShortcut_Property_GUID: Guid = Guid('8f6909ac-00b8-4259-a4-1c-96-62-66-d4-3a-8a')
-LegacyIAccessible_Selection_Property_GUID: Guid = Guid('8aa8b1e0-0891-40cc-8b-06-90-d7-d4-16-62-19')
-LegacyIAccessible_DefaultAction_Property_GUID: Guid = Guid('3b331729-eaad-4502-b8-5f-92-61-56-22-91-3c')
-Annotation_AnnotationTypeId_Property_GUID: Guid = Guid('20ae484f-69ef-4c48-8f-5b-c4-93-8b-20-6a-c7')
-Annotation_AnnotationTypeName_Property_GUID: Guid = Guid('9b818892-5ac9-4af9-aa-96-f5-8a-77-b0-58-e3')
-Annotation_Author_Property_GUID: Guid = Guid('7a528462-9c5c-4a03-a9-74-8b-30-7a-99-37-f2')
-Annotation_DateTime_Property_GUID: Guid = Guid('99b5ca5d-1acf-414b-a4-d0-6b-35-0b-04-75-78')
-Annotation_Target_Property_GUID: Guid = Guid('b71b302d-2104-44ad-9c-5c-09-2b-49-07-d7-0f')
-Styles_StyleId_Property_GUID: Guid = Guid('da82852f-3817-4233-82-af-02-27-9e-72-cc-77')
-Styles_StyleName_Property_GUID: Guid = Guid('1c12b035-05d1-4f55-9e-8e-14-89-f3-ff-55-0d')
-Styles_FillColor_Property_GUID: Guid = Guid('63eff97a-a1c5-4b1d-84-eb-b7-65-f2-ed-d6-32')
-Styles_FillPatternStyle_Property_GUID: Guid = Guid('81cf651f-482b-4451-a3-0a-e1-54-5e-55-4f-b8')
-Styles_Shape_Property_GUID: Guid = Guid('c71a23f8-778c-400d-84-58-3b-54-3e-52-69-84')
-Styles_FillPatternColor_Property_GUID: Guid = Guid('939a59fe-8fbd-4e75-a2-71-ac-45-95-19-51-63')
-Styles_ExtendedProperties_Property_GUID: Guid = Guid('f451cda0-ba0a-4681-b0-b0-0d-bd-b5-3e-58-f3')
-SpreadsheetItem_Formula_Property_GUID: Guid = Guid('e602e47d-1b47-4bea-87-cf-3b-0b-0b-5c-15-b6')
-SpreadsheetItem_AnnotationObjects_Property_GUID: Guid = Guid('a3194c38-c9bc-4604-93-96-ae-3f-9f-45-7f-7b')
-SpreadsheetItem_AnnotationTypes_Property_GUID: Guid = Guid('c70c51d0-d602-4b45-af-bc-b4-71-2b-96-d7-2b')
-Transform2_CanZoom_Property_GUID: Guid = Guid('f357e890-a756-4359-9c-a6-86-70-2b-f8-f3-81')
-LiveSetting_Property_GUID: Guid = Guid('c12bcd8e-2a8e-4950-8a-e7-36-25-11-1d-58-eb')
-Drag_IsGrabbed_Property_GUID: Guid = Guid('45f206f3-75cc-4cca-a9-b9-fc-df-b9-82-d8-a2')
-Drag_GrabbedItems_Property_GUID: Guid = Guid('77c1562c-7b86-4b21-9e-d7-3c-ef-da-6f-4c-43')
-Drag_DropEffect_Property_GUID: Guid = Guid('646f2779-48d3-4b23-89-02-4b-f1-00-00-5d-f3')
-Drag_DropEffects_Property_GUID: Guid = Guid('f5d61156-7ce6-49be-a8-36-92-69-dc-ec-92-0f')
-DropTarget_DropTargetEffect_Property_GUID: Guid = Guid('8bb75975-a0ca-4981-b8-18-87-fc-66-e9-50-9d')
-DropTarget_DropTargetEffects_Property_GUID: Guid = Guid('bc1dd4ed-cb89-45f1-a5-92-e0-3b-08-ae-79-0f')
-Transform2_ZoomLevel_Property_GUID: Guid = Guid('eee29f1a-f4a2-4b5b-ac-65-95-cf-93-28-33-87')
-Transform2_ZoomMinimum_Property_GUID: Guid = Guid('742ccc16-4ad1-4e07-96-fe-b1-22-c6-e6-b2-2b')
-Transform2_ZoomMaximum_Property_GUID: Guid = Guid('42ab6b77-ceb0-4eca-b8-2a-6c-fa-5f-a1-fc-08')
-FlowsFrom_Property_GUID: Guid = Guid('05c6844f-19de-48f8-95-fa-88-0d-5b-0f-d6-15')
-FillColor_Property_GUID: Guid = Guid('6e0ec4d0-e2a8-4a56-9d-e7-95-33-89-93-3b-39')
-OutlineColor_Property_GUID: Guid = Guid('c395d6c0-4b55-4762-a0-73-fd-30-3a-63-4f-52')
-FillType_Property_GUID: Guid = Guid('c6fc74e4-8cb9-429c-a9-e1-9b-c4-ac-37-2b-62')
-VisualEffects_Property_GUID: Guid = Guid('e61a8565-aad9-46d7-9e-70-4e-8a-84-20-d4-20')
-OutlineThickness_Property_GUID: Guid = Guid('13e67cc7-dac2-4888-bd-d3-37-5c-62-fa-96-18')
-CenterPoint_Property_GUID: Guid = Guid('0cb00c08-540c-4edb-94-45-26-35-9e-a6-97-85')
-Rotation_Property_GUID: Guid = Guid('767cdc7d-aec0-4110-ad-32-30-ed-d4-03-49-2e')
-Size_Property_GUID: Guid = Guid('2b5f761d-f885-4404-97-3f-9b-1d-98-e3-6d-8f')
-ToolTipOpened_Event_GUID: Guid = Guid('3f4b97ff-2edc-451d-bc-a4-95-a3-18-8d-5b-03')
-ToolTipClosed_Event_GUID: Guid = Guid('276d71ef-24a9-49b6-8e-97-da-98-b4-01-bb-cd')
-StructureChanged_Event_GUID: Guid = Guid('59977961-3edd-4b11-b1-3b-67-6b-2a-2a-6c-a9')
-MenuOpened_Event_GUID: Guid = Guid('ebe2e945-66ca-4ed1-9f-f8-2a-d7-df-0a-1b-08')
-AutomationPropertyChanged_Event_GUID: Guid = Guid('2527fba1-8d7a-4630-a4-cc-e6-63-15-94-2f-52')
-AutomationFocusChanged_Event_GUID: Guid = Guid('b68a1f17-f60d-41a7-a3-cc-b0-52-92-15-5f-e0')
-ActiveTextPositionChanged_Event_GUID: Guid = Guid('a5c09e9c-c77d-4f25-b4-91-e5-bb-70-17-cb-d4')
-AsyncContentLoaded_Event_GUID: Guid = Guid('5fdee11c-d2fa-4fb9-90-4e-5c-be-e8-94-d5-ef')
-MenuClosed_Event_GUID: Guid = Guid('3cf1266e-1582-4041-ac-d7-88-a3-5a-96-52-97')
-LayoutInvalidated_Event_GUID: Guid = Guid('ed7d6544-a6bd-4595-9b-ae-3d-28-94-6c-c7-15')
-Invoke_Invoked_Event_GUID: Guid = Guid('dfd699f0-c915-49dd-b4-22-dd-e7-85-c3-d2-4b')
-SelectionItem_ElementAddedToSelectionEvent_Event_GUID: Guid = Guid('3c822dd1-c407-4dba-91-dd-79-d4-ae-d0-ae-c6')
-SelectionItem_ElementRemovedFromSelectionEvent_Event_GUID: Guid = Guid('097fa8a9-7079-41af-8b-9c-09-34-d8-30-5e-5c')
-SelectionItem_ElementSelectedEvent_Event_GUID: Guid = Guid('b9c7dbfb-4ebe-4532-aa-f4-00-8c-f6-47-23-3c')
-Selection_InvalidatedEvent_Event_GUID: Guid = Guid('cac14904-16b4-4b53-8e-47-4c-b1-df-26-7b-b7')
-Text_TextSelectionChangedEvent_Event_GUID: Guid = Guid('918edaa1-71b3-49ae-97-41-79-be-b8-d3-58-f3')
-Text_TextChangedEvent_Event_GUID: Guid = Guid('4a342082-f483-48c4-ac-11-a8-4b-43-5e-2a-84')
-Window_WindowOpened_Event_GUID: Guid = Guid('d3e81d06-de45-4f2f-96-33-de-9e-02-fb-65-af')
-Window_WindowClosed_Event_GUID: Guid = Guid('edf141f8-fa67-4e22-bb-f7-94-4e-05-73-5e-e2')
-MenuModeStart_Event_GUID: Guid = Guid('18d7c631-166a-4ac9-ae-3b-ef-4b-54-20-e6-81')
-MenuModeEnd_Event_GUID: Guid = Guid('9ecd4c9f-80dd-47b8-82-67-5a-ec-06-bb-2c-ff')
-InputReachedTarget_Event_GUID: Guid = Guid('93ed549a-0549-40f0-be-db-28-e4-4f-7d-e2-a3')
-InputReachedOtherElement_Event_GUID: Guid = Guid('ed201d8a-4e6c-415e-a8-74-24-60-c9-b6-6b-a8')
-InputDiscarded_Event_GUID: Guid = Guid('7f36c367-7b18-417c-97-e3-9d-58-dd-c9-44-ab')
-SystemAlert_Event_GUID: Guid = Guid('d271545d-7a3a-47a7-84-74-81-d2-9a-24-51-c9')
-LiveRegionChanged_Event_GUID: Guid = Guid('102d5e90-e6a9-41b6-b1-c5-a9-b1-92-9d-95-10')
-HostedFragmentRootsInvalidated_Event_GUID: Guid = Guid('e6bdb03e-0921-4ec5-8d-cf-ea-e8-77-b0-42-6b')
-Drag_DragStart_Event_GUID: Guid = Guid('883a480b-3aa9-429d-95-e4-d9-c8-d0-11-f0-dd')
-Drag_DragCancel_Event_GUID: Guid = Guid('c3ede6fa-3451-4e0f-9e-71-df-9c-28-0a-46-57')
-Drag_DragComplete_Event_GUID: Guid = Guid('38e96188-ef1f-463e-91-ca-3a-77-92-c2-9c-af')
-DropTarget_DragEnter_Event_GUID: Guid = Guid('aad9319b-032c-4a88-96-1d-1c-f5-79-58-1e-34')
-DropTarget_DragLeave_Event_GUID: Guid = Guid('0f82eb15-24a2-4988-92-17-de-16-2a-ee-27-2b')
-DropTarget_Dropped_Event_GUID: Guid = Guid('622cead8-1edb-4a3d-ab-bc-be-22-11-ff-68-b5')
-StructuredMarkup_CompositionComplete_Event_GUID: Guid = Guid('c48a3c17-677a-4047-a6-8d-fc-12-57-52-8a-ef')
-StructuredMarkup_Deleted_Event_GUID: Guid = Guid('f9d0a020-e1c1-4ecf-b9-aa-52-ef-de-7e-41-e1')
-StructuredMarkup_SelectionChanged_Event_GUID: Guid = Guid('a7c815f7-ff9f-41c7-a3-a7-ab-6c-bf-db-49-03')
-Invoke_Pattern_GUID: Guid = Guid('d976c2fc-66ea-4a6e-b2-8f-c2-4c-75-46-ad-37')
-Selection_Pattern_GUID: Guid = Guid('66e3b7e8-d821-4d25-87-61-43-5d-2c-8b-25-3f')
-Value_Pattern_GUID: Guid = Guid('17faad9e-c877-475b-b9-33-77-33-27-79-b6-37')
-RangeValue_Pattern_GUID: Guid = Guid('18b00d87-b1c9-476a-bf-bd-5f-0b-db-92-6f-63')
-Scroll_Pattern_GUID: Guid = Guid('895fa4b4-759d-4c50-8e-15-03-46-06-72-00-3c')
-ExpandCollapse_Pattern_GUID: Guid = Guid('ae05efa2-f9d1-428a-83-4c-53-a5-c5-2f-9b-8b')
-Grid_Pattern_GUID: Guid = Guid('260a2ccb-93a8-4e44-a4-c1-3d-f3-97-f2-b0-2b')
-GridItem_Pattern_GUID: Guid = Guid('f2d5c877-a462-4957-a2-a5-2c-96-b3-03-bc-63')
-MultipleView_Pattern_GUID: Guid = Guid('547a6ae4-113f-47c4-85-0f-db-4d-fa-46-6b-1d')
-Window_Pattern_GUID: Guid = Guid('27901735-c760-4994-ad-11-59-19-e6-06-b1-10')
-SelectionItem_Pattern_GUID: Guid = Guid('9bc64eeb-87c7-4b28-94-bb-4d-9f-a4-37-b6-ef')
-Dock_Pattern_GUID: Guid = Guid('9cbaa846-83c8-428d-82-7f-7e-60-63-fe-06-20')
-Table_Pattern_GUID: Guid = Guid('c415218e-a028-461e-aa-92-8f-92-5c-f7-93-51')
-TableItem_Pattern_GUID: Guid = Guid('df1343bd-1888-4a29-a5-0c-b9-2e-6d-e3-7f-6f')
-Text_Pattern_GUID: Guid = Guid('8615f05d-7de5-44fd-a6-79-2c-a4-b4-60-33-a8')
-Toggle_Pattern_GUID: Guid = Guid('0b419760-e2f4-43ff-8c-5f-94-57-c8-2b-56-e9')
-Transform_Pattern_GUID: Guid = Guid('24b46fdb-587e-49f1-9c-4a-d8-e9-8b-66-4b-7b')
-ScrollItem_Pattern_GUID: Guid = Guid('4591d005-a803-4d5c-b4-d5-8d-28-00-f9-06-a7')
-LegacyIAccessible_Pattern_GUID: Guid = Guid('54cc0a9f-3395-48af-ba-8d-73-f8-56-90-f3-e0')
-ItemContainer_Pattern_GUID: Guid = Guid('3d13da0f-8b9a-4a99-85-fa-c5-c9-a6-9f-1e-d4')
-VirtualizedItem_Pattern_GUID: Guid = Guid('f510173e-2e71-45e9-a6-e5-62-f6-ed-82-89-d5')
-SynchronizedInput_Pattern_GUID: Guid = Guid('05c288a6-c47b-488b-b6-53-33-97-7a-55-1b-8b')
-ObjectModel_Pattern_GUID: Guid = Guid('3e04acfe-08fc-47ec-96-bc-35-3f-a3-b3-4a-a7')
-Annotation_Pattern_GUID: Guid = Guid('f6c72ad7-356c-4850-92-91-31-6f-60-8a-8c-84')
-Text_Pattern2_GUID: Guid = Guid('498479a2-5b22-448d-b6-e4-64-74-90-86-06-98')
-TextEdit_Pattern_GUID: Guid = Guid('69f3ff89-5af9-4c75-93-40-f2-de-29-2e-45-91')
-CustomNavigation_Pattern_GUID: Guid = Guid('afea938a-621e-4054-bb-2c-2f-46-11-4d-ac-3f')
-Styles_Pattern_GUID: Guid = Guid('1ae62655-da72-4d60-a1-53-e5-aa-69-88-e3-bf')
-Spreadsheet_Pattern_GUID: Guid = Guid('6a5b24c9-9d1e-4b85-9e-44-c0-2e-31-69-b1-0b')
-SpreadsheetItem_Pattern_GUID: Guid = Guid('32cf83ff-f1a8-4a8c-86-58-d4-7b-a7-4e-20-ba')
-Tranform_Pattern2_GUID: Guid = Guid('8afcfd07-a369-44de-98-8b-2f-7f-f4-9f-b8-a8')
-TextChild_Pattern_GUID: Guid = Guid('7533cab7-3bfe-41ef-9e-85-e2-63-8c-be-16-9e')
-Drag_Pattern_GUID: Guid = Guid('c0bee21f-ccb3-4fed-99-5b-11-4f-6e-3d-27-28')
-DropTarget_Pattern_GUID: Guid = Guid('0bcbec56-bd34-4b7b-9f-d5-26-59-90-5e-a3-dc')
-StructuredMarkup_Pattern_GUID: Guid = Guid('abbd0878-8665-4f5c-94-fc-36-e7-d8-bb-70-6b')
-Button_Control_GUID: Guid = Guid('5a78e369-c6a1-4f33-a9-d7-79-f2-0d-0c-78-8e')
-Calendar_Control_GUID: Guid = Guid('8913eb88-00e5-46bc-8e-4e-14-a7-86-e1-65-a1')
-CheckBox_Control_GUID: Guid = Guid('fb50f922-a3db-49c0-8b-c3-06-da-d5-57-78-e2')
-ComboBox_Control_GUID: Guid = Guid('54cb426c-2f33-4fff-aa-a1-ae-f6-0d-ac-5d-eb')
-Edit_Control_GUID: Guid = Guid('6504a5c8-2c86-4f87-ae-7b-1a-bd-dc-81-0c-f9')
-Hyperlink_Control_GUID: Guid = Guid('8a56022c-b00d-4d15-8f-f0-5b-6b-26-6e-5e-02')
-Image_Control_GUID: Guid = Guid('2d3736e4-6b16-4c57-a9-62-f9-32-60-a7-52-43')
-ListItem_Control_GUID: Guid = Guid('7b3717f2-44d1-4a58-98-a8-f1-2a-9b-8f-78-e2')
-List_Control_GUID: Guid = Guid('9b149ee1-7cca-4cfc-9a-f1-ca-c7-bd-dd-30-31')
-Menu_Control_GUID: Guid = Guid('2e9b1440-0ea8-41fd-b3-74-c1-ea-6f-50-3c-d1')
-MenuBar_Control_GUID: Guid = Guid('cc384250-0e7b-4ae8-95-ae-a0-8f-26-1b-52-ee')
-MenuItem_Control_GUID: Guid = Guid('f45225d3-d0a0-49d8-98-34-9a-00-0d-2a-ed-dc')
-ProgressBar_Control_GUID: Guid = Guid('228c9f86-c36c-47bb-9f-b6-a5-83-4b-fc-53-a4')
-RadioButton_Control_GUID: Guid = Guid('3bdb49db-fe2c-4483-b3-e1-e5-7f-21-94-40-c6')
-ScrollBar_Control_GUID: Guid = Guid('daf34b36-5065-4946-b2-2f-92-59-5f-c0-75-1a')
-Slider_Control_GUID: Guid = Guid('b033c24b-3b35-4cea-b6-09-76-36-82-fa-66-0b')
-Spinner_Control_GUID: Guid = Guid('60cc4b38-3cb1-4161-b4-42-c6-b7-26-c1-78-25')
-StatusBar_Control_GUID: Guid = Guid('d45e7d1b-5873-475f-95-a4-04-33-e1-f1-b0-0a')
-Tab_Control_GUID: Guid = Guid('38cd1f2d-337a-4bd2-a5-e3-ad-b4-69-e3-0b-d3')
-TabItem_Control_GUID: Guid = Guid('2c6a634f-921b-4e6e-b2-6e-08-fc-b0-79-8f-4c')
-Text_Control_GUID: Guid = Guid('ae9772dc-d331-4f09-be-20-7e-6d-fa-f0-7b-0a')
-ToolBar_Control_GUID: Guid = Guid('8f06b751-e182-4e98-88-93-22-84-54-3a-7d-ce')
-ToolTip_Control_GUID: Guid = Guid('05ddc6d1-2137-4768-98-ea-73-f5-2f-71-34-f3')
-Tree_Control_GUID: Guid = Guid('7561349c-d241-43f4-99-08-b5-f0-91-be-e6-11')
-TreeItem_Control_GUID: Guid = Guid('62c9feb9-8ffc-4878-a3-a4-96-b0-30-31-5c-18')
-Custom_Control_GUID: Guid = Guid('f29ea0c3-adb7-430a-ba-90-e5-2c-73-13-e6-ed')
-Group_Control_GUID: Guid = Guid('ad50aa1c-e8c8-4774-ae-1b-dd-86-df-0b-3b-dc')
-Thumb_Control_GUID: Guid = Guid('701ca877-e310-4dd6-b6-44-79-7e-4f-ae-a2-13')
-DataGrid_Control_GUID: Guid = Guid('84b783af-d103-4b0a-84-15-e7-39-42-41-0f-4b')
-DataItem_Control_GUID: Guid = Guid('a0177842-d94f-42a5-81-4b-60-68-ad-dc-8d-a5')
-Document_Control_GUID: Guid = Guid('3cd6bb6f-6f08-4562-b2-29-e4-e2-fc-7a-9e-b4')
-SplitButton_Control_GUID: Guid = Guid('7011f01f-4ace-4901-b4-61-92-0a-6f-1c-a6-50')
-Window_Control_GUID: Guid = Guid('e13a7242-f462-4f4d-ae-c1-53-b2-8d-6c-32-90')
-Pane_Control_GUID: Guid = Guid('5c2b3f5b-9182-42a3-8d-ec-8c-04-c1-ee-63-4d')
-Header_Control_GUID: Guid = Guid('5b90cbce-78fb-4614-82-b6-55-4d-74-71-8e-67')
-HeaderItem_Control_GUID: Guid = Guid('e6bc12cb-7c8e-49cf-b1-68-4a-93-a3-2b-eb-b0')
-Table_Control_GUID: Guid = Guid('773bfa0e-5bc4-4deb-92-1b-de-7b-32-06-22-9e')
-TitleBar_Control_GUID: Guid = Guid('98aa55bf-3bb0-4b65-83-6e-2e-a3-0d-bc-17-1f')
-Separator_Control_GUID: Guid = Guid('8767eba3-2a63-4ab0-ac-8d-aa-50-e2-3d-e9-78')
-SemanticZoom_Control_GUID: Guid = Guid('5fd34a43-061e-42c8-b5-89-9d-cc-f7-4b-c4-3a')
-AppBar_Control_GUID: Guid = Guid('6114908d-cc02-4d37-87-5b-b5-30-c7-13-95-54')
-Text_AnimationStyle_Attribute_GUID: Guid = Guid('628209f0-7c9a-4d57-be-64-1f-18-36-57-1f-f5')
-Text_BackgroundColor_Attribute_GUID: Guid = Guid('fdc49a07-583d-4f17-ad-27-77-fc-83-2a-3c-0b')
-Text_BulletStyle_Attribute_GUID: Guid = Guid('c1097c90-d5c4-4237-97-81-3b-ec-8b-a5-4e-48')
-Text_CapStyle_Attribute_GUID: Guid = Guid('fb059c50-92cc-49a5-ba-8f-0a-a8-72-bb-a2-f3')
-Text_Culture_Attribute_GUID: Guid = Guid('c2025af9-a42d-4ced-a1-fb-c6-74-63-15-22-2e')
-Text_FontName_Attribute_GUID: Guid = Guid('64e63ba8-f2e5-476e-a4-77-17-34-fe-aa-f7-26')
-Text_FontSize_Attribute_GUID: Guid = Guid('dc5eeeff-0506-4673-93-f2-37-7e-4a-8e-01-f1')
-Text_FontWeight_Attribute_GUID: Guid = Guid('6fc02359-b316-4f5f-b4-01-f1-ce-55-74-18-53')
-Text_ForegroundColor_Attribute_GUID: Guid = Guid('72d1c95d-5e60-471a-96-b1-6c-1b-3b-77-a4-36')
-Text_HorizontalTextAlignment_Attribute_GUID: Guid = Guid('04ea6161-fba3-477a-95-2a-bb-32-6d-02-6a-5b')
-Text_IndentationFirstLine_Attribute_GUID: Guid = Guid('206f9ad5-c1d3-424a-81-82-6d-a9-a7-f3-d6-32')
-Text_IndentationLeading_Attribute_GUID: Guid = Guid('5cf66bac-2d45-4a4b-b6-c9-f7-22-1d-28-15-b0')
-Text_IndentationTrailing_Attribute_GUID: Guid = Guid('97ff6c0f-1ce4-408a-b6-7b-94-d8-3e-b6-9b-f2')
-Text_IsHidden_Attribute_GUID: Guid = Guid('360182fb-bdd7-47f6-ab-69-19-e3-3f-8a-33-44')
-Text_IsItalic_Attribute_GUID: Guid = Guid('fce12a56-1336-4a34-96-63-1b-ab-47-23-93-20')
-Text_IsReadOnly_Attribute_GUID: Guid = Guid('a738156b-ca3e-495e-95-14-83-3c-44-0f-eb-11')
-Text_IsSubscript_Attribute_GUID: Guid = Guid('f0ead858-8f53-413c-87-3f-1a-7d-7f-5e-0d-e4')
-Text_IsSuperscript_Attribute_GUID: Guid = Guid('da706ee4-b3aa-4645-a4-1f-cd-25-15-7d-ea-76')
-Text_MarginBottom_Attribute_GUID: Guid = Guid('7ee593c4-72b4-4cac-92-71-3e-d2-4b-0e-4d-42')
-Text_MarginLeading_Attribute_GUID: Guid = Guid('9e9242d0-5ed0-4900-8e-8a-ee-cc-03-83-5a-fc')
-Text_MarginTop_Attribute_GUID: Guid = Guid('683d936f-c9b9-4a9a-b3-d9-d2-0d-33-31-1e-2a')
-Text_MarginTrailing_Attribute_GUID: Guid = Guid('af522f98-999d-40af-a5-b2-01-69-d0-34-20-02')
-Text_OutlineStyles_Attribute_GUID: Guid = Guid('5b675b27-db89-46fe-97-0c-61-4d-52-3b-b9-7d')
-Text_OverlineColor_Attribute_GUID: Guid = Guid('83ab383a-fd43-40da-ab-3e-ec-f8-16-5c-bb-6d')
-Text_OverlineStyle_Attribute_GUID: Guid = Guid('0a234d66-617e-427f-87-1d-e1-ff-1e-0c-21-3f')
-Text_StrikethroughColor_Attribute_GUID: Guid = Guid('bfe15a18-8c41-4c5a-9a-0b-04-af-0e-07-f4-87')
-Text_StrikethroughStyle_Attribute_GUID: Guid = Guid('72913ef1-da00-4f01-89-9c-ac-5a-85-77-a3-07')
-Text_Tabs_Attribute_GUID: Guid = Guid('2e68d00b-92fe-42d8-89-9a-a7-84-aa-44-54-a1')
-Text_TextFlowDirections_Attribute_GUID: Guid = Guid('8bdf8739-f420-423e-af-77-20-a5-d9-73-a9-07')
-Text_UnderlineColor_Attribute_GUID: Guid = Guid('bfa12c73-fde2-4473-bf-64-10-36-d6-aa-0f-45')
-Text_UnderlineStyle_Attribute_GUID: Guid = Guid('5f3b21c0-ede4-44bd-9c-36-38-53-03-8c-bf-eb')
-Text_AnnotationTypes_Attribute_GUID: Guid = Guid('ad2eb431-ee4e-4be1-a7-ba-55-59-15-5a-73-ef')
-Text_AnnotationObjects_Attribute_GUID: Guid = Guid('ff41cf68-e7ab-40b9-8c-72-72-a8-ed-94-01-7d')
-Text_StyleName_Attribute_GUID: Guid = Guid('22c9e091-4d66-45d8-a8-28-73-7b-ab-4c-98-a7')
-Text_StyleId_Attribute_GUID: Guid = Guid('14c300de-c32b-449b-ab-7c-b0-e0-78-9a-ea-5d')
-Text_Link_Attribute_GUID: Guid = Guid('b38ef51d-9e8d-4e46-91-44-56-eb-e1-77-32-9b')
-Text_IsActive_Attribute_GUID: Guid = Guid('f5a4e533-e1b8-436b-93-5d-b5-7a-a3-f5-58-c4')
-Text_SelectionActiveEnd_Attribute_GUID: Guid = Guid('1f668cc3-9bbf-416b-b0-a2-f8-9f-86-f6-61-2c')
-Text_CaretPosition_Attribute_GUID: Guid = Guid('b227b131-9889-4752-a9-1b-73-3e-fd-c5-c5-a0')
-Text_CaretBidiMode_Attribute_GUID: Guid = Guid('929ee7a6-51d3-4715-96-dc-b6-94-fa-24-a1-68')
-Text_BeforeParagraphSpacing_Attribute_GUID: Guid = Guid('be7b0ab1-c822-4a24-85-e9-c8-f2-65-0f-c7-9c')
-Text_AfterParagraphSpacing_Attribute_GUID: Guid = Guid('588cbb38-e62f-497c-b5-d1-cc-df-0e-e8-23-d8')
-Text_LineSpacing_Attribute_GUID: Guid = Guid('63ff70ae-d943-4b47-8a-b7-a7-a0-33-d3-21-4b')
-Text_BeforeSpacing_Attribute_GUID: Guid = Guid('be7b0ab1-c822-4a24-85-e9-c8-f2-65-0f-c7-9c')
-Text_AfterSpacing_Attribute_GUID: Guid = Guid('588cbb38-e62f-497c-b5-d1-cc-df-0e-e8-23-d8')
-Text_SayAsInterpretAs_Attribute_GUID: Guid = Guid('b38ad6ac-eee1-4b6e-88-cc-01-4c-ef-a9-3f-cb')
-TextEdit_TextChanged_Event_GUID: Guid = Guid('120b0308-ec22-4eb8-9c-98-98-67-cd-a1-b1-65')
-TextEdit_ConversionTargetChanged_Event_GUID: Guid = Guid('3388c183-ed4f-4c8b-9b-aa-36-4d-51-d8-84-7f')
-Changes_Event_GUID: Guid = Guid('7df26714-614f-4e05-94-88-71-6c-5b-a1-94-36')
-Annotation_Custom_GUID: Guid = Guid('9ec82750-3931-4952-85-bc-1d-bf-f7-8a-43-e3')
-Annotation_SpellingError_GUID: Guid = Guid('ae85567e-9ece-423f-81-b7-96-c4-3d-53-e5-0e')
-Annotation_GrammarError_GUID: Guid = Guid('757a048d-4518-41c6-85-4c-dc-00-9b-7c-fb-53')
-Annotation_Comment_GUID: Guid = Guid('fd2fda30-26b3-4c06-8b-c7-98-f1-53-2e-46-fd')
-Annotation_FormulaError_GUID: Guid = Guid('95611982-0cab-46d5-a2-f0-e3-0d-19-05-f8-bf')
-Annotation_TrackChanges_GUID: Guid = Guid('21e6e888-dc14-4016-ac-27-19-05-53-c8-c4-70')
-Annotation_Header_GUID: Guid = Guid('867b409b-b216-4472-a2-19-52-5e-31-06-81-f8')
-Annotation_Footer_GUID: Guid = Guid('cceab046-1833-47aa-80-80-70-1e-d0-b0-c8-32')
-Annotation_Highlighted_GUID: Guid = Guid('757c884e-8083-4081-8b-9c-e8-7f-50-72-f0-e4')
-Annotation_Endnote_GUID: Guid = Guid('7565725c-2d99-4839-96-0d-33-d3-b8-66-ab-a5')
-Annotation_Footnote_GUID: Guid = Guid('3de10e21-4125-42db-86-20-be-80-83-08-06-24')
-Annotation_InsertionChange_GUID: Guid = Guid('0dbeb3a6-df15-4164-a3-c0-e2-1a-8c-e9-31-c4')
-Annotation_DeletionChange_GUID: Guid = Guid('be3d5b05-951d-42e7-90-1d-ad-c8-c2-cf-34-d0')
-Annotation_MoveChange_GUID: Guid = Guid('9da587eb-23e5-4490-b3-85-1a-22-dd-c8-b1-87')
-Annotation_FormatChange_GUID: Guid = Guid('eb247345-d4f1-41ce-8e-52-f7-9b-69-63-5e-48')
-Annotation_UnsyncedChange_GUID: Guid = Guid('1851116a-0e47-4b30-8c-b5-d7-da-e4-fb-cd-1b')
-Annotation_EditingLockedChange_GUID: Guid = Guid('c31f3e1c-7423-4dac-83-48-41-f0-99-ff-6f-64')
-Annotation_ExternalChange_GUID: Guid = Guid('75a05b31-5f11-42fd-88-7d-df-a0-10-db-23-92')
-Annotation_ConflictingChange_GUID: Guid = Guid('98af8802-517c-459f-af-13-01-6d-3f-ab-87-7e')
-Annotation_Author_GUID: Guid = Guid('f161d3a7-f81b-4128-b1-7f-71-f6-90-91-45-20')
-Annotation_AdvancedProofingIssue_GUID: Guid = Guid('dac7b72c-c0f2-4b84-b9-0d-5f-af-c0-f0-ef-1c')
-Annotation_DataValidationError_GUID: Guid = Guid('c8649fa8-9775-437e-ad-46-e7-09-d9-3c-23-43')
-Annotation_CircularReferenceError_GUID: Guid = Guid('25bd9cf4-1745-4659-ba-67-72-7f-03-18-c6-16')
-Annotation_Mathematics_GUID: Guid = Guid('eaab634b-26d0-40c1-80-73-57-ca-1c-63-3c-9b')
-Annotation_Sensitive_GUID: Guid = Guid('37f4c04f-0f12-4464-92-9c-82-8f-d1-52-92-e3')
-Changes_Summary_GUID: Guid = Guid('313d65a6-e60f-4d62-98-61-55-af-d7-28-d2-07')
-StyleId_Custom_GUID: Guid = Guid('ef2edd3e-a999-4b7c-a3-78-09-bb-d5-2a-35-16')
-StyleId_Heading1_GUID: Guid = Guid('7f7e8f69-6866-4621-93-0c-9a-5d-0c-a5-96-1c')
-StyleId_Heading2_GUID: Guid = Guid('baa9b241-5c69-469d-85-ad-47-47-37-b5-2b-14')
-StyleId_Heading3_GUID: Guid = Guid('bf8be9d2-d8b8-4ec5-8c-52-9c-fb-0d-03-59-70')
-StyleId_Heading4_GUID: Guid = Guid('8436ffc0-9578-45fc-83-a4-ff-40-05-33-15-dd')
-StyleId_Heading5_GUID: Guid = Guid('909f424d-0dbf-406e-97-bb-4e-77-3d-97-98-f7')
-StyleId_Heading6_GUID: Guid = Guid('89d23459-5d5b-4824-a4-20-11-d3-ed-82-e4-0f')
-StyleId_Heading7_GUID: Guid = Guid('a3790473-e9ae-422d-b8-e3-3b-67-5c-61-81-a4')
-StyleId_Heading8_GUID: Guid = Guid('2bc14145-a40c-4881-84-ae-f2-23-56-85-38-0c')
-StyleId_Heading9_GUID: Guid = Guid('c70d9133-bb2a-43d3-8a-c6-33-65-78-84-b0-f0')
-StyleId_Title_GUID: Guid = Guid('15d8201a-ffcf-481f-b0-a1-30-b6-3b-e9-8f-07')
-StyleId_Subtitle_GUID: Guid = Guid('b5d9fc17-5d6f-4420-b4-39-7c-b1-9a-d4-34-e2')
-StyleId_Normal_GUID: Guid = Guid('cd14d429-e45e-4475-a1-c5-7f-9e-6b-e9-6e-ba')
-StyleId_Emphasis_GUID: Guid = Guid('ca6e7dbe-355e-4820-95-a0-92-5f-04-1d-34-70')
-StyleId_Quote_GUID: Guid = Guid('5d1c21ea-8195-4f6c-87-ea-5d-ab-ec-e6-4c-1d')
-StyleId_BulletedList_GUID: Guid = Guid('5963ed64-6426-4632-8c-af-a3-2a-d4-02-d9-1a')
-StyleId_NumberedList_GUID: Guid = Guid('1e96dbd5-64c3-43d0-b1-ee-b5-3b-06-e3-ed-df')
-Notification_Event_GUID: Guid = Guid('72c5a2f7-9788-480f-b8-eb-4d-ee-00-f6-18-6f')
-SID_IsUIAutomationObject: Guid = Guid('b96fdb85-7204-4724-84-2b-c7-05-9d-ed-b9-d0')
-SID_ControlElementProvider: Guid = Guid('f4791d68-e254-4ba3-9a-53-26-a5-c5-49-79-46')
-IsSelectionPattern2Available_Property_GUID: Guid = Guid('490806fb-6e89-4a47-83-19-d2-66-e5-11-f0-21')
-Selection2_FirstSelectedItem_Property_GUID: Guid = Guid('cc24ea67-369c-4e55-9f-f7-38-da-69-54-0c-29')
-Selection2_LastSelectedItem_Property_GUID: Guid = Guid('cf7bda90-2d83-49f8-86-0c-9c-e3-94-cf-89-b4')
-Selection2_CurrentSelectedItem_Property_GUID: Guid = Guid('34257c26-83b5-41a6-93-9c-ae-84-1c-13-62-36')
-Selection2_ItemCount_Property_GUID: Guid = Guid('bb49eb9f-456d-4048-b5-91-9c-20-26-b8-46-36')
-Selection_Pattern2_GUID: Guid = Guid('fba25cab-ab98-49f7-a7-dc-fe-53-9d-c1-5b-e7')
-HeadingLevel_Property_GUID: Guid = Guid('29084272-aaaf-4a30-87-96-3c-12-f6-2b-6b-bb')
-IsDialog_Property_GUID: Guid = Guid('9d0dfb9b-8436-4501-bb-bb-e5-34-a4-fb-3b-3f')
+RuntimeId_Property_GUID: Guid = Guid('{a39eebfa-7fba-4c89-b4d4-b99e2de7d160}')
+BoundingRectangle_Property_GUID: Guid = Guid('{7bbfe8b2-3bfc-48dd-b729-c794b846e9a1}')
+ProcessId_Property_GUID: Guid = Guid('{40499998-9c31-4245-a403-87320e59eaf6}')
+ControlType_Property_GUID: Guid = Guid('{ca774fea-28ac-4bc2-94ca-acec6d6c10a3}')
+LocalizedControlType_Property_GUID: Guid = Guid('{8763404f-a1bd-452a-89c4-3f01d3833806}')
+Name_Property_GUID: Guid = Guid('{c3a6921b-4a99-44f1-bca6-61187052c431}')
+AcceleratorKey_Property_GUID: Guid = Guid('{514865df-2557-4cb9-aeed-6ced084ce52c}')
+AccessKey_Property_GUID: Guid = Guid('{06827b12-a7f9-4a15-917c-ffa5ad3eb0a7}')
+HasKeyboardFocus_Property_GUID: Guid = Guid('{cf8afd39-3f46-4800-9656-b2bf12529905}')
+IsKeyboardFocusable_Property_GUID: Guid = Guid('{f7b8552a-0859-4b37-b9cb-51e72092f29f}')
+IsEnabled_Property_GUID: Guid = Guid('{2109427f-da60-4fed-bf1b-264bdce6eb3a}')
+AutomationId_Property_GUID: Guid = Guid('{c82c0500-b60e-4310-a267-303c531f8ee5}')
+ClassName_Property_GUID: Guid = Guid('{157b7215-894f-4b65-84e2-aac0da08b16b}')
+HelpText_Property_GUID: Guid = Guid('{08555685-0977-45c7-a7a6-abaf5684121a}')
+ClickablePoint_Property_GUID: Guid = Guid('{0196903b-b203-4818-a9f3-f08e675f2341}')
+Culture_Property_GUID: Guid = Guid('{e2d74f27-3d79-4dc2-b88b-3044963a8afb}')
+IsControlElement_Property_GUID: Guid = Guid('{95f35085-abcc-4afd-a5f4-dbb46c230fdb}')
+IsContentElement_Property_GUID: Guid = Guid('{4bda64a8-f5d8-480b-8155-ef2e89adb672}')
+LabeledBy_Property_GUID: Guid = Guid('{e5b8924b-fc8a-4a35-8031-cf78ac43e55e}')
+IsPassword_Property_GUID: Guid = Guid('{e8482eb1-687c-497b-bebc-03be53ec1454}')
+NewNativeWindowHandle_Property_GUID: Guid = Guid('{5196b33b-380a-4982-95e1-91f3ef60e024}')
+ItemType_Property_GUID: Guid = Guid('{cdda434d-6222-413b-a68a-325dd1d40f39}')
+IsOffscreen_Property_GUID: Guid = Guid('{03c3d160-db79-42db-a2ef-1c231eede507}')
+Orientation_Property_GUID: Guid = Guid('{a01eee62-3884-4415-887e-678ec21e39ba}')
+FrameworkId_Property_GUID: Guid = Guid('{dbfd9900-7e1a-4f58-b61b-7063120f773b}')
+IsRequiredForForm_Property_GUID: Guid = Guid('{4f5f43cf-59fb-4bde-a270-602e5e1141e9}')
+ItemStatus_Property_GUID: Guid = Guid('{51de0321-3973-43e7-8913-0b08e813c37f}')
+AriaRole_Property_GUID: Guid = Guid('{dd207b95-be4a-4e0d-b727-63ace94b6916}')
+AriaProperties_Property_GUID: Guid = Guid('{4213678c-e025-4922-beb5-e43ba08e6221}')
+IsDataValidForForm_Property_GUID: Guid = Guid('{445ac684-c3fc-4dd9-acf8-845a579296ba}')
+ControllerFor_Property_GUID: Guid = Guid('{51124c8a-a5d2-4f13-9be6-7fa8ba9d3a90}')
+DescribedBy_Property_GUID: Guid = Guid('{7c5865b8-9992-40fd-8db0-6bf1d317f998}')
+FlowsTo_Property_GUID: Guid = Guid('{e4f33d20-559a-47fb-a830-f9cb4ff1a70a}')
+ProviderDescription_Property_GUID: Guid = Guid('{dca5708a-c16b-4cd9-b889-beb16a804904}')
+OptimizeForVisualContent_Property_GUID: Guid = Guid('{6a852250-c75a-4e5d-b858-e381b0f78861}')
+IsDockPatternAvailable_Property_GUID: Guid = Guid('{2600a4c4-2ff8-4c96-ae31-8fe619a13c6c}')
+IsExpandCollapsePatternAvailable_Property_GUID: Guid = Guid('{929d3806-5287-4725-aa16-222afc63d595}')
+IsGridItemPatternAvailable_Property_GUID: Guid = Guid('{5a43e524-f9a2-4b12-84c8-b48a3efedd34}')
+IsGridPatternAvailable_Property_GUID: Guid = Guid('{5622c26c-f0ef-4f3b-97cb-714c0868588b}')
+IsInvokePatternAvailable_Property_GUID: Guid = Guid('{4e725738-8364-4679-aa6c-f3f41931f750}')
+IsMultipleViewPatternAvailable_Property_GUID: Guid = Guid('{ff0a31eb-8e25-469d-8d6e-e771a27c1b90}')
+IsRangeValuePatternAvailable_Property_GUID: Guid = Guid('{fda4244a-eb4d-43ff-b5ad-ed36d373ec4c}')
+IsScrollPatternAvailable_Property_GUID: Guid = Guid('{3ebb7b4a-828a-4b57-9d22-2fea1632ed0d}')
+IsScrollItemPatternAvailable_Property_GUID: Guid = Guid('{1cad1a05-0927-4b76-97e1-0fcdb209b98a}')
+IsSelectionItemPatternAvailable_Property_GUID: Guid = Guid('{8becd62d-0bc3-4109-bee2-8e6715290e68}')
+IsSelectionPatternAvailable_Property_GUID: Guid = Guid('{f588acbe-c769-4838-9a60-2686dc1188c4}')
+IsTablePatternAvailable_Property_GUID: Guid = Guid('{cb83575f-45c2-4048-9c76-159715a139df}')
+IsTableItemPatternAvailable_Property_GUID: Guid = Guid('{eb36b40d-8ea4-489b-a013-e60d5951fe34}')
+IsTextPatternAvailable_Property_GUID: Guid = Guid('{fbe2d69d-aff6-4a45-82e2-fc92a82f5917}')
+IsTogglePatternAvailable_Property_GUID: Guid = Guid('{78686d53-fcd0-4b83-9b78-5832ce63bb5b}')
+IsTransformPatternAvailable_Property_GUID: Guid = Guid('{a7f78804-d68b-4077-a5c6-7a5ea1ac31c5}')
+IsValuePatternAvailable_Property_GUID: Guid = Guid('{0b5020a7-2119-473b-be37-5ceb98bbfb22}')
+IsWindowPatternAvailable_Property_GUID: Guid = Guid('{e7a57bb1-5888-4155-98dc-b422fd57f2bc}')
+IsLegacyIAccessiblePatternAvailable_Property_GUID: Guid = Guid('{d8ebd0c7-929a-4ee7-8d3a-d3d94413027b}')
+IsItemContainerPatternAvailable_Property_GUID: Guid = Guid('{624b5ca7-fe40-4957-a019-20c4cf11920f}')
+IsVirtualizedItemPatternAvailable_Property_GUID: Guid = Guid('{302cb151-2ac8-45d6-977b-d2b3a5a53f20}')
+IsSynchronizedInputPatternAvailable_Property_GUID: Guid = Guid('{75d69cc5-d2bf-4943-876e-b45b62a6cc66}')
+IsObjectModelPatternAvailable_Property_GUID: Guid = Guid('{6b21d89b-2841-412f-8ef2-15ca952318ba}')
+IsAnnotationPatternAvailable_Property_GUID: Guid = Guid('{0b5b3238-6d5c-41b6-bcc4-5e807f6551c4}')
+IsTextPattern2Available_Property_GUID: Guid = Guid('{41cf921d-e3f1-4b22-9c81-e1c3ed331c22}')
+IsTextEditPatternAvailable_Property_GUID: Guid = Guid('{7843425c-8b32-484c-9ab5-e3200571ffda}')
+IsCustomNavigationPatternAvailable_Property_GUID: Guid = Guid('{8f8e80d4-2351-48e0-874a-54aa7313889a}')
+IsStylesPatternAvailable_Property_GUID: Guid = Guid('{27f353d3-459c-4b59-a490-50611dacafb5}')
+IsSpreadsheetPatternAvailable_Property_GUID: Guid = Guid('{6ff43732-e4b4-4555-97bc-ecdbbc4d1888}')
+IsSpreadsheetItemPatternAvailable_Property_GUID: Guid = Guid('{9fe79b2a-2f94-43fd-996b-549e316f4acd}')
+IsTransformPattern2Available_Property_GUID: Guid = Guid('{25980b4b-be04-4710-ab4a-fda31dbd2895}')
+IsTextChildPatternAvailable_Property_GUID: Guid = Guid('{559e65df-30ff-43b5-b5ed-5b283b80c7e9}')
+IsDragPatternAvailable_Property_GUID: Guid = Guid('{e997a7b7-1d39-4ca7-be0f-277fcf5605cc}')
+IsDropTargetPatternAvailable_Property_GUID: Guid = Guid('{0686b62e-8e19-4aaf-873d-384f6d3b92be}')
+IsStructuredMarkupPatternAvailable_Property_GUID: Guid = Guid('{b0d4c196-2c0b-489c-b165-a405928c6f3d}')
+IsPeripheral_Property_GUID: Guid = Guid('{da758276-7ed5-49d4-8e68-ecc9a2d300dd}')
+PositionInSet_Property_GUID: Guid = Guid('{33d1dc54-641e-4d76-a6b1-13f341c1f896}')
+SizeOfSet_Property_GUID: Guid = Guid('{1600d33c-3b9f-4369-9431-aa293f344cf1}')
+Level_Property_GUID: Guid = Guid('{242ac529-cd36-400f-aad9-7876ef3af627}')
+AnnotationTypes_Property_GUID: Guid = Guid('{64b71f76-53c4-4696-a219-20e940c9a176}')
+AnnotationObjects_Property_GUID: Guid = Guid('{310910c8-7c6e-4f20-becd-4aaf6d191156}')
+LandmarkType_Property_GUID: Guid = Guid('{454045f2-6f61-49f7-a4f8-b5f0cf82da1e}')
+LocalizedLandmarkType_Property_GUID: Guid = Guid('{7ac81980-eafb-4fb2-bf91-f485bef5e8e1}')
+FullDescription_Property_GUID: Guid = Guid('{0d4450ff-6aef-4f33-95dd-7befa72a4391}')
+Value_Value_Property_GUID: Guid = Guid('{e95f5e64-269f-4a85-ba99-4092c3ea2986}')
+Value_IsReadOnly_Property_GUID: Guid = Guid('{eb090f30-e24c-4799-a705-0d247bc037f8}')
+RangeValue_Value_Property_GUID: Guid = Guid('{131f5d98-c50c-489d-abe5-ae220898c5f7}')
+RangeValue_IsReadOnly_Property_GUID: Guid = Guid('{25fa1055-debf-4373-a79e-1f1a1908d3c4}')
+RangeValue_Minimum_Property_GUID: Guid = Guid('{78cbd3b2-684d-4860-af93-d1f95cb022fd}')
+RangeValue_Maximum_Property_GUID: Guid = Guid('{19319914-f979-4b35-a1a6-d37e05433473}')
+RangeValue_LargeChange_Property_GUID: Guid = Guid('{a1f96325-3a3d-4b44-8e1f-4a46d9844019}')
+RangeValue_SmallChange_Property_GUID: Guid = Guid('{81c2c457-3941-4107-9975-139760f7c072}')
+Scroll_HorizontalScrollPercent_Property_GUID: Guid = Guid('{c7c13c0e-eb21-47ff-acc4-b5a3350f5191}')
+Scroll_HorizontalViewSize_Property_GUID: Guid = Guid('{70c2e5d4-fcb0-4713-a9aa-af92ff79e4cd}')
+Scroll_VerticalScrollPercent_Property_GUID: Guid = Guid('{6c8d7099-b2a8-4948-bff7-3cf9058bfefb}')
+Scroll_VerticalViewSize_Property_GUID: Guid = Guid('{de6a2e22-d8c7-40c5-83ba-e5f681d53108}')
+Scroll_HorizontallyScrollable_Property_GUID: Guid = Guid('{8b925147-28cd-49ae-bd63-f44118d2e719}')
+Scroll_VerticallyScrollable_Property_GUID: Guid = Guid('{89164798-0068-4315-b89a-1e7cfbbc3dfc}')
+Selection_Selection_Property_GUID: Guid = Guid('{aa6dc2a2-0e2b-4d38-96d5-34e470b81853}')
+Selection_CanSelectMultiple_Property_GUID: Guid = Guid('{49d73da5-c883-4500-883d-8fcf8daf6cbe}')
+Selection_IsSelectionRequired_Property_GUID: Guid = Guid('{b1ae4422-63fe-44e7-a5a5-a738c829b19a}')
+Grid_RowCount_Property_GUID: Guid = Guid('{2a9505bf-c2eb-4fb6-b356-8245ae53703e}')
+Grid_ColumnCount_Property_GUID: Guid = Guid('{fe96f375-44aa-4536-ac7a-2a75d71a3efc}')
+GridItem_Row_Property_GUID: Guid = Guid('{6223972a-c945-4563-9329-fdc974af2553}')
+GridItem_Column_Property_GUID: Guid = Guid('{c774c15c-62c0-4519-8bdc-47be573c8ad5}')
+GridItem_RowSpan_Property_GUID: Guid = Guid('{4582291c-466b-4e93-8e83-3d1715ec0c5e}')
+GridItem_ColumnSpan_Property_GUID: Guid = Guid('{583ea3f5-86d0-4b08-a6ec-2c5463ffc109}')
+GridItem_Parent_Property_GUID: Guid = Guid('{9d912252-b97f-4ecc-8510-ea0e33427c72}')
+Dock_DockPosition_Property_GUID: Guid = Guid('{6d67f02e-c0b0-4b10-b5b9-18d6ecf98760}')
+ExpandCollapse_ExpandCollapseState_Property_GUID: Guid = Guid('{275a4c48-85a7-4f69-aba0-af157610002b}')
+MultipleView_CurrentView_Property_GUID: Guid = Guid('{7a81a67a-b94f-4875-918b-65c8d2f998e5}')
+MultipleView_SupportedViews_Property_GUID: Guid = Guid('{8d5db9fd-ce3c-4ae7-b788-400a3c645547}')
+Window_CanMaximize_Property_GUID: Guid = Guid('{64fff53f-635d-41c1-950c-cb5adfbe28e3}')
+Window_CanMinimize_Property_GUID: Guid = Guid('{b73b4625-5988-4b97-b4c2-a6fe6e78c8c6}')
+Window_WindowVisualState_Property_GUID: Guid = Guid('{4ab7905f-e860-453e-a30a-f6431e5daad5}')
+Window_WindowInteractionState_Property_GUID: Guid = Guid('{4fed26a4-0455-4fa2-b21c-c4da2db1ff9c}')
+Window_IsModal_Property_GUID: Guid = Guid('{ff4e6892-37b9-4fca-8532-ffe674ecfeed}')
+Window_IsTopmost_Property_GUID: Guid = Guid('{ef7d85d3-0937-4962-9241-b62345f24041}')
+SelectionItem_IsSelected_Property_GUID: Guid = Guid('{f122835f-cd5f-43df-b79d-4b849e9e6020}')
+SelectionItem_SelectionContainer_Property_GUID: Guid = Guid('{a4365b6e-9c1e-4b63-8b53-c2421dd1e8fb}')
+Table_RowHeaders_Property_GUID: Guid = Guid('{d9e35b87-6eb8-4562-aac6-a8a9075236a8}')
+Table_ColumnHeaders_Property_GUID: Guid = Guid('{aff1d72b-968d-42b1-b459-150b299da664}')
+Table_RowOrColumnMajor_Property_GUID: Guid = Guid('{83be75c3-29fe-4a30-85e1-2a6277fd106e}')
+TableItem_RowHeaderItems_Property_GUID: Guid = Guid('{b3f853a0-0574-4cd8-bcd7-ed5923572d97}')
+TableItem_ColumnHeaderItems_Property_GUID: Guid = Guid('{967a56a3-74b6-431e-8de6-99c411031c58}')
+Toggle_ToggleState_Property_GUID: Guid = Guid('{b23cdc52-22c2-4c6c-9ded-f5c422479ede}')
+Transform_CanMove_Property_GUID: Guid = Guid('{1b75824d-208b-4fdf-bccd-f1f4e5741f4f}')
+Transform_CanResize_Property_GUID: Guid = Guid('{bb98dca5-4c1a-41d4-a4f6-ebc128644180}')
+Transform_CanRotate_Property_GUID: Guid = Guid('{10079b48-3849-476f-ac96-44a95c8440d9}')
+LegacyIAccessible_ChildId_Property_GUID: Guid = Guid('{9a191b5d-9ef2-4787-a459-dcde885dd4e8}')
+LegacyIAccessible_Name_Property_GUID: Guid = Guid('{caeb063d-40ae-4869-aa5a-1b8e5d666739}')
+LegacyIAccessible_Value_Property_GUID: Guid = Guid('{b5c5b0b6-8217-4a77-97a5-190a85ed0156}')
+LegacyIAccessible_Description_Property_GUID: Guid = Guid('{46448418-7d70-4ea9-9d27-b7e775cf2ad7}')
+LegacyIAccessible_Role_Property_GUID: Guid = Guid('{6856e59f-cbaf-4e31-93e8-bcbf6f7e491c}')
+LegacyIAccessible_State_Property_GUID: Guid = Guid('{df985854-2281-4340-ab9c-c60e2c5803f6}')
+LegacyIAccessible_Help_Property_GUID: Guid = Guid('{94402352-161c-4b77-a98d-a872cc33947a}')
+LegacyIAccessible_KeyboardShortcut_Property_GUID: Guid = Guid('{8f6909ac-00b8-4259-a41c-966266d43a8a}')
+LegacyIAccessible_Selection_Property_GUID: Guid = Guid('{8aa8b1e0-0891-40cc-8b06-90d7d4166219}')
+LegacyIAccessible_DefaultAction_Property_GUID: Guid = Guid('{3b331729-eaad-4502-b85f-92615622913c}')
+Annotation_AnnotationTypeId_Property_GUID: Guid = Guid('{20ae484f-69ef-4c48-8f5b-c4938b206ac7}')
+Annotation_AnnotationTypeName_Property_GUID: Guid = Guid('{9b818892-5ac9-4af9-aa96-f58a77b058e3}')
+Annotation_Author_Property_GUID: Guid = Guid('{7a528462-9c5c-4a03-a974-8b307a9937f2}')
+Annotation_DateTime_Property_GUID: Guid = Guid('{99b5ca5d-1acf-414b-a4d0-6b350b047578}')
+Annotation_Target_Property_GUID: Guid = Guid('{b71b302d-2104-44ad-9c5c-092b4907d70f}')
+Styles_StyleId_Property_GUID: Guid = Guid('{da82852f-3817-4233-82af-02279e72cc77}')
+Styles_StyleName_Property_GUID: Guid = Guid('{1c12b035-05d1-4f55-9e8e-1489f3ff550d}')
+Styles_FillColor_Property_GUID: Guid = Guid('{63eff97a-a1c5-4b1d-84eb-b765f2edd632}')
+Styles_FillPatternStyle_Property_GUID: Guid = Guid('{81cf651f-482b-4451-a30a-e1545e554fb8}')
+Styles_Shape_Property_GUID: Guid = Guid('{c71a23f8-778c-400d-8458-3b543e526984}')
+Styles_FillPatternColor_Property_GUID: Guid = Guid('{939a59fe-8fbd-4e75-a271-ac4595195163}')
+Styles_ExtendedProperties_Property_GUID: Guid = Guid('{f451cda0-ba0a-4681-b0b0-0dbdb53e58f3}')
+SpreadsheetItem_Formula_Property_GUID: Guid = Guid('{e602e47d-1b47-4bea-87cf-3b0b0b5c15b6}')
+SpreadsheetItem_AnnotationObjects_Property_GUID: Guid = Guid('{a3194c38-c9bc-4604-9396-ae3f9f457f7b}')
+SpreadsheetItem_AnnotationTypes_Property_GUID: Guid = Guid('{c70c51d0-d602-4b45-afbc-b4712b96d72b}')
+Transform2_CanZoom_Property_GUID: Guid = Guid('{f357e890-a756-4359-9ca6-86702bf8f381}')
+LiveSetting_Property_GUID: Guid = Guid('{c12bcd8e-2a8e-4950-8ae7-3625111d58eb}')
+Drag_IsGrabbed_Property_GUID: Guid = Guid('{45f206f3-75cc-4cca-a9b9-fcdfb982d8a2}')
+Drag_GrabbedItems_Property_GUID: Guid = Guid('{77c1562c-7b86-4b21-9ed7-3cefda6f4c43}')
+Drag_DropEffect_Property_GUID: Guid = Guid('{646f2779-48d3-4b23-8902-4bf100005df3}')
+Drag_DropEffects_Property_GUID: Guid = Guid('{f5d61156-7ce6-49be-a836-9269dcec920f}')
+DropTarget_DropTargetEffect_Property_GUID: Guid = Guid('{8bb75975-a0ca-4981-b818-87fc66e9509d}')
+DropTarget_DropTargetEffects_Property_GUID: Guid = Guid('{bc1dd4ed-cb89-45f1-a592-e03b08ae790f}')
+Transform2_ZoomLevel_Property_GUID: Guid = Guid('{eee29f1a-f4a2-4b5b-ac65-95cf93283387}')
+Transform2_ZoomMinimum_Property_GUID: Guid = Guid('{742ccc16-4ad1-4e07-96fe-b122c6e6b22b}')
+Transform2_ZoomMaximum_Property_GUID: Guid = Guid('{42ab6b77-ceb0-4eca-b82a-6cfa5fa1fc08}')
+FlowsFrom_Property_GUID: Guid = Guid('{05c6844f-19de-48f8-95fa-880d5b0fd615}')
+FillColor_Property_GUID: Guid = Guid('{6e0ec4d0-e2a8-4a56-9de7-953389933b39}')
+OutlineColor_Property_GUID: Guid = Guid('{c395d6c0-4b55-4762-a073-fd303a634f52}')
+FillType_Property_GUID: Guid = Guid('{c6fc74e4-8cb9-429c-a9e1-9bc4ac372b62}')
+VisualEffects_Property_GUID: Guid = Guid('{e61a8565-aad9-46d7-9e70-4e8a8420d420}')
+OutlineThickness_Property_GUID: Guid = Guid('{13e67cc7-dac2-4888-bdd3-375c62fa9618}')
+CenterPoint_Property_GUID: Guid = Guid('{0cb00c08-540c-4edb-9445-26359ea69785}')
+Rotation_Property_GUID: Guid = Guid('{767cdc7d-aec0-4110-ad32-30edd403492e}')
+Size_Property_GUID: Guid = Guid('{2b5f761d-f885-4404-973f-9b1d98e36d8f}')
+ToolTipOpened_Event_GUID: Guid = Guid('{3f4b97ff-2edc-451d-bca4-95a3188d5b03}')
+ToolTipClosed_Event_GUID: Guid = Guid('{276d71ef-24a9-49b6-8e97-da98b401bbcd}')
+StructureChanged_Event_GUID: Guid = Guid('{59977961-3edd-4b11-b13b-676b2a2a6ca9}')
+MenuOpened_Event_GUID: Guid = Guid('{ebe2e945-66ca-4ed1-9ff8-2ad7df0a1b08}')
+AutomationPropertyChanged_Event_GUID: Guid = Guid('{2527fba1-8d7a-4630-a4cc-e66315942f52}')
+AutomationFocusChanged_Event_GUID: Guid = Guid('{b68a1f17-f60d-41a7-a3cc-b05292155fe0}')
+ActiveTextPositionChanged_Event_GUID: Guid = Guid('{a5c09e9c-c77d-4f25-b491-e5bb7017cbd4}')
+AsyncContentLoaded_Event_GUID: Guid = Guid('{5fdee11c-d2fa-4fb9-904e-5cbee894d5ef}')
+MenuClosed_Event_GUID: Guid = Guid('{3cf1266e-1582-4041-acd7-88a35a965297}')
+LayoutInvalidated_Event_GUID: Guid = Guid('{ed7d6544-a6bd-4595-9bae-3d28946cc715}')
+Invoke_Invoked_Event_GUID: Guid = Guid('{dfd699f0-c915-49dd-b422-dde785c3d24b}')
+SelectionItem_ElementAddedToSelectionEvent_Event_GUID: Guid = Guid('{3c822dd1-c407-4dba-91dd-79d4aed0aec6}')
+SelectionItem_ElementRemovedFromSelectionEvent_Event_GUID: Guid = Guid('{097fa8a9-7079-41af-8b9c-0934d8305e5c}')
+SelectionItem_ElementSelectedEvent_Event_GUID: Guid = Guid('{b9c7dbfb-4ebe-4532-aaf4-008cf647233c}')
+Selection_InvalidatedEvent_Event_GUID: Guid = Guid('{cac14904-16b4-4b53-8e47-4cb1df267bb7}')
+Text_TextSelectionChangedEvent_Event_GUID: Guid = Guid('{918edaa1-71b3-49ae-9741-79beb8d358f3}')
+Text_TextChangedEvent_Event_GUID: Guid = Guid('{4a342082-f483-48c4-ac11-a84b435e2a84}')
+Window_WindowOpened_Event_GUID: Guid = Guid('{d3e81d06-de45-4f2f-9633-de9e02fb65af}')
+Window_WindowClosed_Event_GUID: Guid = Guid('{edf141f8-fa67-4e22-bbf7-944e05735ee2}')
+MenuModeStart_Event_GUID: Guid = Guid('{18d7c631-166a-4ac9-ae3b-ef4b5420e681}')
+MenuModeEnd_Event_GUID: Guid = Guid('{9ecd4c9f-80dd-47b8-8267-5aec06bb2cff}')
+InputReachedTarget_Event_GUID: Guid = Guid('{93ed549a-0549-40f0-bedb-28e44f7de2a3}')
+InputReachedOtherElement_Event_GUID: Guid = Guid('{ed201d8a-4e6c-415e-a874-2460c9b66ba8}')
+InputDiscarded_Event_GUID: Guid = Guid('{7f36c367-7b18-417c-97e3-9d58ddc944ab}')
+SystemAlert_Event_GUID: Guid = Guid('{d271545d-7a3a-47a7-8474-81d29a2451c9}')
+LiveRegionChanged_Event_GUID: Guid = Guid('{102d5e90-e6a9-41b6-b1c5-a9b1929d9510}')
+HostedFragmentRootsInvalidated_Event_GUID: Guid = Guid('{e6bdb03e-0921-4ec5-8dcf-eae877b0426b}')
+Drag_DragStart_Event_GUID: Guid = Guid('{883a480b-3aa9-429d-95e4-d9c8d011f0dd}')
+Drag_DragCancel_Event_GUID: Guid = Guid('{c3ede6fa-3451-4e0f-9e71-df9c280a4657}')
+Drag_DragComplete_Event_GUID: Guid = Guid('{38e96188-ef1f-463e-91ca-3a7792c29caf}')
+DropTarget_DragEnter_Event_GUID: Guid = Guid('{aad9319b-032c-4a88-961d-1cf579581e34}')
+DropTarget_DragLeave_Event_GUID: Guid = Guid('{0f82eb15-24a2-4988-9217-de162aee272b}')
+DropTarget_Dropped_Event_GUID: Guid = Guid('{622cead8-1edb-4a3d-abbc-be2211ff68b5}')
+StructuredMarkup_CompositionComplete_Event_GUID: Guid = Guid('{c48a3c17-677a-4047-a68d-fc1257528aef}')
+StructuredMarkup_Deleted_Event_GUID: Guid = Guid('{f9d0a020-e1c1-4ecf-b9aa-52efde7e41e1}')
+StructuredMarkup_SelectionChanged_Event_GUID: Guid = Guid('{a7c815f7-ff9f-41c7-a3a7-ab6cbfdb4903}')
+Invoke_Pattern_GUID: Guid = Guid('{d976c2fc-66ea-4a6e-b28f-c24c7546ad37}')
+Selection_Pattern_GUID: Guid = Guid('{66e3b7e8-d821-4d25-8761-435d2c8b253f}')
+Value_Pattern_GUID: Guid = Guid('{17faad9e-c877-475b-b933-77332779b637}')
+RangeValue_Pattern_GUID: Guid = Guid('{18b00d87-b1c9-476a-bfbd-5f0bdb926f63}')
+Scroll_Pattern_GUID: Guid = Guid('{895fa4b4-759d-4c50-8e15-03460672003c}')
+ExpandCollapse_Pattern_GUID: Guid = Guid('{ae05efa2-f9d1-428a-834c-53a5c52f9b8b}')
+Grid_Pattern_GUID: Guid = Guid('{260a2ccb-93a8-4e44-a4c1-3df397f2b02b}')
+GridItem_Pattern_GUID: Guid = Guid('{f2d5c877-a462-4957-a2a5-2c96b303bc63}')
+MultipleView_Pattern_GUID: Guid = Guid('{547a6ae4-113f-47c4-850f-db4dfa466b1d}')
+Window_Pattern_GUID: Guid = Guid('{27901735-c760-4994-ad11-5919e606b110}')
+SelectionItem_Pattern_GUID: Guid = Guid('{9bc64eeb-87c7-4b28-94bb-4d9fa437b6ef}')
+Dock_Pattern_GUID: Guid = Guid('{9cbaa846-83c8-428d-827f-7e6063fe0620}')
+Table_Pattern_GUID: Guid = Guid('{c415218e-a028-461e-aa92-8f925cf79351}')
+TableItem_Pattern_GUID: Guid = Guid('{df1343bd-1888-4a29-a50c-b92e6de37f6f}')
+Text_Pattern_GUID: Guid = Guid('{8615f05d-7de5-44fd-a679-2ca4b46033a8}')
+Toggle_Pattern_GUID: Guid = Guid('{0b419760-e2f4-43ff-8c5f-9457c82b56e9}')
+Transform_Pattern_GUID: Guid = Guid('{24b46fdb-587e-49f1-9c4a-d8e98b664b7b}')
+ScrollItem_Pattern_GUID: Guid = Guid('{4591d005-a803-4d5c-b4d5-8d2800f906a7}')
+LegacyIAccessible_Pattern_GUID: Guid = Guid('{54cc0a9f-3395-48af-ba8d-73f85690f3e0}')
+ItemContainer_Pattern_GUID: Guid = Guid('{3d13da0f-8b9a-4a99-85fa-c5c9a69f1ed4}')
+VirtualizedItem_Pattern_GUID: Guid = Guid('{f510173e-2e71-45e9-a6e5-62f6ed8289d5}')
+SynchronizedInput_Pattern_GUID: Guid = Guid('{05c288a6-c47b-488b-b653-33977a551b8b}')
+ObjectModel_Pattern_GUID: Guid = Guid('{3e04acfe-08fc-47ec-96bc-353fa3b34aa7}')
+Annotation_Pattern_GUID: Guid = Guid('{f6c72ad7-356c-4850-9291-316f608a8c84}')
+Text_Pattern2_GUID: Guid = Guid('{498479a2-5b22-448d-b6e4-647490860698}')
+TextEdit_Pattern_GUID: Guid = Guid('{69f3ff89-5af9-4c75-9340-f2de292e4591}')
+CustomNavigation_Pattern_GUID: Guid = Guid('{afea938a-621e-4054-bb2c-2f46114dac3f}')
+Styles_Pattern_GUID: Guid = Guid('{1ae62655-da72-4d60-a153-e5aa6988e3bf}')
+Spreadsheet_Pattern_GUID: Guid = Guid('{6a5b24c9-9d1e-4b85-9e44-c02e3169b10b}')
+SpreadsheetItem_Pattern_GUID: Guid = Guid('{32cf83ff-f1a8-4a8c-8658-d47ba74e20ba}')
+Tranform_Pattern2_GUID: Guid = Guid('{8afcfd07-a369-44de-988b-2f7ff49fb8a8}')
+TextChild_Pattern_GUID: Guid = Guid('{7533cab7-3bfe-41ef-9e85-e2638cbe169e}')
+Drag_Pattern_GUID: Guid = Guid('{c0bee21f-ccb3-4fed-995b-114f6e3d2728}')
+DropTarget_Pattern_GUID: Guid = Guid('{0bcbec56-bd34-4b7b-9fd5-2659905ea3dc}')
+StructuredMarkup_Pattern_GUID: Guid = Guid('{abbd0878-8665-4f5c-94fc-36e7d8bb706b}')
+Button_Control_GUID: Guid = Guid('{5a78e369-c6a1-4f33-a9d7-79f20d0c788e}')
+Calendar_Control_GUID: Guid = Guid('{8913eb88-00e5-46bc-8e4e-14a786e165a1}')
+CheckBox_Control_GUID: Guid = Guid('{fb50f922-a3db-49c0-8bc3-06dad55778e2}')
+ComboBox_Control_GUID: Guid = Guid('{54cb426c-2f33-4fff-aaa1-aef60dac5deb}')
+Edit_Control_GUID: Guid = Guid('{6504a5c8-2c86-4f87-ae7b-1abddc810cf9}')
+Hyperlink_Control_GUID: Guid = Guid('{8a56022c-b00d-4d15-8ff0-5b6b266e5e02}')
+Image_Control_GUID: Guid = Guid('{2d3736e4-6b16-4c57-a962-f93260a75243}')
+ListItem_Control_GUID: Guid = Guid('{7b3717f2-44d1-4a58-98a8-f12a9b8f78e2}')
+List_Control_GUID: Guid = Guid('{9b149ee1-7cca-4cfc-9af1-cac7bddd3031}')
+Menu_Control_GUID: Guid = Guid('{2e9b1440-0ea8-41fd-b374-c1ea6f503cd1}')
+MenuBar_Control_GUID: Guid = Guid('{cc384250-0e7b-4ae8-95ae-a08f261b52ee}')
+MenuItem_Control_GUID: Guid = Guid('{f45225d3-d0a0-49d8-9834-9a000d2aeddc}')
+ProgressBar_Control_GUID: Guid = Guid('{228c9f86-c36c-47bb-9fb6-a5834bfc53a4}')
+RadioButton_Control_GUID: Guid = Guid('{3bdb49db-fe2c-4483-b3e1-e57f219440c6}')
+ScrollBar_Control_GUID: Guid = Guid('{daf34b36-5065-4946-b22f-92595fc0751a}')
+Slider_Control_GUID: Guid = Guid('{b033c24b-3b35-4cea-b609-763682fa660b}')
+Spinner_Control_GUID: Guid = Guid('{60cc4b38-3cb1-4161-b442-c6b726c17825}')
+StatusBar_Control_GUID: Guid = Guid('{d45e7d1b-5873-475f-95a4-0433e1f1b00a}')
+Tab_Control_GUID: Guid = Guid('{38cd1f2d-337a-4bd2-a5e3-adb469e30bd3}')
+TabItem_Control_GUID: Guid = Guid('{2c6a634f-921b-4e6e-b26e-08fcb0798f4c}')
+Text_Control_GUID: Guid = Guid('{ae9772dc-d331-4f09-be20-7e6dfaf07b0a}')
+ToolBar_Control_GUID: Guid = Guid('{8f06b751-e182-4e98-8893-2284543a7dce}')
+ToolTip_Control_GUID: Guid = Guid('{05ddc6d1-2137-4768-98ea-73f52f7134f3}')
+Tree_Control_GUID: Guid = Guid('{7561349c-d241-43f4-9908-b5f091bee611}')
+TreeItem_Control_GUID: Guid = Guid('{62c9feb9-8ffc-4878-a3a4-96b030315c18}')
+Custom_Control_GUID: Guid = Guid('{f29ea0c3-adb7-430a-ba90-e52c7313e6ed}')
+Group_Control_GUID: Guid = Guid('{ad50aa1c-e8c8-4774-ae1b-dd86df0b3bdc}')
+Thumb_Control_GUID: Guid = Guid('{701ca877-e310-4dd6-b644-797e4faea213}')
+DataGrid_Control_GUID: Guid = Guid('{84b783af-d103-4b0a-8415-e73942410f4b}')
+DataItem_Control_GUID: Guid = Guid('{a0177842-d94f-42a5-814b-6068addc8da5}')
+Document_Control_GUID: Guid = Guid('{3cd6bb6f-6f08-4562-b229-e4e2fc7a9eb4}')
+SplitButton_Control_GUID: Guid = Guid('{7011f01f-4ace-4901-b461-920a6f1ca650}')
+Window_Control_GUID: Guid = Guid('{e13a7242-f462-4f4d-aec1-53b28d6c3290}')
+Pane_Control_GUID: Guid = Guid('{5c2b3f5b-9182-42a3-8dec-8c04c1ee634d}')
+Header_Control_GUID: Guid = Guid('{5b90cbce-78fb-4614-82b6-554d74718e67}')
+HeaderItem_Control_GUID: Guid = Guid('{e6bc12cb-7c8e-49cf-b168-4a93a32bebb0}')
+Table_Control_GUID: Guid = Guid('{773bfa0e-5bc4-4deb-921b-de7b3206229e}')
+TitleBar_Control_GUID: Guid = Guid('{98aa55bf-3bb0-4b65-836e-2ea30dbc171f}')
+Separator_Control_GUID: Guid = Guid('{8767eba3-2a63-4ab0-ac8d-aa50e23de978}')
+SemanticZoom_Control_GUID: Guid = Guid('{5fd34a43-061e-42c8-b589-9dccf74bc43a}')
+AppBar_Control_GUID: Guid = Guid('{6114908d-cc02-4d37-875b-b530c7139554}')
+Text_AnimationStyle_Attribute_GUID: Guid = Guid('{628209f0-7c9a-4d57-be64-1f1836571ff5}')
+Text_BackgroundColor_Attribute_GUID: Guid = Guid('{fdc49a07-583d-4f17-ad27-77fc832a3c0b}')
+Text_BulletStyle_Attribute_GUID: Guid = Guid('{c1097c90-d5c4-4237-9781-3bec8ba54e48}')
+Text_CapStyle_Attribute_GUID: Guid = Guid('{fb059c50-92cc-49a5-ba8f-0aa872bba2f3}')
+Text_Culture_Attribute_GUID: Guid = Guid('{c2025af9-a42d-4ced-a1fb-c6746315222e}')
+Text_FontName_Attribute_GUID: Guid = Guid('{64e63ba8-f2e5-476e-a477-1734feaaf726}')
+Text_FontSize_Attribute_GUID: Guid = Guid('{dc5eeeff-0506-4673-93f2-377e4a8e01f1}')
+Text_FontWeight_Attribute_GUID: Guid = Guid('{6fc02359-b316-4f5f-b401-f1ce55741853}')
+Text_ForegroundColor_Attribute_GUID: Guid = Guid('{72d1c95d-5e60-471a-96b1-6c1b3b77a436}')
+Text_HorizontalTextAlignment_Attribute_GUID: Guid = Guid('{04ea6161-fba3-477a-952a-bb326d026a5b}')
+Text_IndentationFirstLine_Attribute_GUID: Guid = Guid('{206f9ad5-c1d3-424a-8182-6da9a7f3d632}')
+Text_IndentationLeading_Attribute_GUID: Guid = Guid('{5cf66bac-2d45-4a4b-b6c9-f7221d2815b0}')
+Text_IndentationTrailing_Attribute_GUID: Guid = Guid('{97ff6c0f-1ce4-408a-b67b-94d83eb69bf2}')
+Text_IsHidden_Attribute_GUID: Guid = Guid('{360182fb-bdd7-47f6-ab69-19e33f8a3344}')
+Text_IsItalic_Attribute_GUID: Guid = Guid('{fce12a56-1336-4a34-9663-1bab47239320}')
+Text_IsReadOnly_Attribute_GUID: Guid = Guid('{a738156b-ca3e-495e-9514-833c440feb11}')
+Text_IsSubscript_Attribute_GUID: Guid = Guid('{f0ead858-8f53-413c-873f-1a7d7f5e0de4}')
+Text_IsSuperscript_Attribute_GUID: Guid = Guid('{da706ee4-b3aa-4645-a41f-cd25157dea76}')
+Text_MarginBottom_Attribute_GUID: Guid = Guid('{7ee593c4-72b4-4cac-9271-3ed24b0e4d42}')
+Text_MarginLeading_Attribute_GUID: Guid = Guid('{9e9242d0-5ed0-4900-8e8a-eecc03835afc}')
+Text_MarginTop_Attribute_GUID: Guid = Guid('{683d936f-c9b9-4a9a-b3d9-d20d33311e2a}')
+Text_MarginTrailing_Attribute_GUID: Guid = Guid('{af522f98-999d-40af-a5b2-0169d0342002}')
+Text_OutlineStyles_Attribute_GUID: Guid = Guid('{5b675b27-db89-46fe-970c-614d523bb97d}')
+Text_OverlineColor_Attribute_GUID: Guid = Guid('{83ab383a-fd43-40da-ab3e-ecf8165cbb6d}')
+Text_OverlineStyle_Attribute_GUID: Guid = Guid('{0a234d66-617e-427f-871d-e1ff1e0c213f}')
+Text_StrikethroughColor_Attribute_GUID: Guid = Guid('{bfe15a18-8c41-4c5a-9a0b-04af0e07f487}')
+Text_StrikethroughStyle_Attribute_GUID: Guid = Guid('{72913ef1-da00-4f01-899c-ac5a8577a307}')
+Text_Tabs_Attribute_GUID: Guid = Guid('{2e68d00b-92fe-42d8-899a-a784aa4454a1}')
+Text_TextFlowDirections_Attribute_GUID: Guid = Guid('{8bdf8739-f420-423e-af77-20a5d973a907}')
+Text_UnderlineColor_Attribute_GUID: Guid = Guid('{bfa12c73-fde2-4473-bf64-1036d6aa0f45}')
+Text_UnderlineStyle_Attribute_GUID: Guid = Guid('{5f3b21c0-ede4-44bd-9c36-3853038cbfeb}')
+Text_AnnotationTypes_Attribute_GUID: Guid = Guid('{ad2eb431-ee4e-4be1-a7ba-5559155a73ef}')
+Text_AnnotationObjects_Attribute_GUID: Guid = Guid('{ff41cf68-e7ab-40b9-8c72-72a8ed94017d}')
+Text_StyleName_Attribute_GUID: Guid = Guid('{22c9e091-4d66-45d8-a828-737bab4c98a7}')
+Text_StyleId_Attribute_GUID: Guid = Guid('{14c300de-c32b-449b-ab7c-b0e0789aea5d}')
+Text_Link_Attribute_GUID: Guid = Guid('{b38ef51d-9e8d-4e46-9144-56ebe177329b}')
+Text_IsActive_Attribute_GUID: Guid = Guid('{f5a4e533-e1b8-436b-935d-b57aa3f558c4}')
+Text_SelectionActiveEnd_Attribute_GUID: Guid = Guid('{1f668cc3-9bbf-416b-b0a2-f89f86f6612c}')
+Text_CaretPosition_Attribute_GUID: Guid = Guid('{b227b131-9889-4752-a91b-733efdc5c5a0}')
+Text_CaretBidiMode_Attribute_GUID: Guid = Guid('{929ee7a6-51d3-4715-96dc-b694fa24a168}')
+Text_BeforeParagraphSpacing_Attribute_GUID: Guid = Guid('{be7b0ab1-c822-4a24-85e9-c8f2650fc79c}')
+Text_AfterParagraphSpacing_Attribute_GUID: Guid = Guid('{588cbb38-e62f-497c-b5d1-ccdf0ee823d8}')
+Text_LineSpacing_Attribute_GUID: Guid = Guid('{63ff70ae-d943-4b47-8ab7-a7a033d3214b}')
+Text_BeforeSpacing_Attribute_GUID: Guid = Guid('{be7b0ab1-c822-4a24-85e9-c8f2650fc79c}')
+Text_AfterSpacing_Attribute_GUID: Guid = Guid('{588cbb38-e62f-497c-b5d1-ccdf0ee823d8}')
+Text_SayAsInterpretAs_Attribute_GUID: Guid = Guid('{b38ad6ac-eee1-4b6e-88cc-014cefa93fcb}')
+TextEdit_TextChanged_Event_GUID: Guid = Guid('{120b0308-ec22-4eb8-9c98-9867cda1b165}')
+TextEdit_ConversionTargetChanged_Event_GUID: Guid = Guid('{3388c183-ed4f-4c8b-9baa-364d51d8847f}')
+Changes_Event_GUID: Guid = Guid('{7df26714-614f-4e05-9488-716c5ba19436}')
+Annotation_Custom_GUID: Guid = Guid('{9ec82750-3931-4952-85bc-1dbff78a43e3}')
+Annotation_SpellingError_GUID: Guid = Guid('{ae85567e-9ece-423f-81b7-96c43d53e50e}')
+Annotation_GrammarError_GUID: Guid = Guid('{757a048d-4518-41c6-854c-dc009b7cfb53}')
+Annotation_Comment_GUID: Guid = Guid('{fd2fda30-26b3-4c06-8bc7-98f1532e46fd}')
+Annotation_FormulaError_GUID: Guid = Guid('{95611982-0cab-46d5-a2f0-e30d1905f8bf}')
+Annotation_TrackChanges_GUID: Guid = Guid('{21e6e888-dc14-4016-ac27-190553c8c470}')
+Annotation_Header_GUID: Guid = Guid('{867b409b-b216-4472-a219-525e310681f8}')
+Annotation_Footer_GUID: Guid = Guid('{cceab046-1833-47aa-8080-701ed0b0c832}')
+Annotation_Highlighted_GUID: Guid = Guid('{757c884e-8083-4081-8b9c-e87f5072f0e4}')
+Annotation_Endnote_GUID: Guid = Guid('{7565725c-2d99-4839-960d-33d3b866aba5}')
+Annotation_Footnote_GUID: Guid = Guid('{3de10e21-4125-42db-8620-be8083080624}')
+Annotation_InsertionChange_GUID: Guid = Guid('{0dbeb3a6-df15-4164-a3c0-e21a8ce931c4}')
+Annotation_DeletionChange_GUID: Guid = Guid('{be3d5b05-951d-42e7-901d-adc8c2cf34d0}')
+Annotation_MoveChange_GUID: Guid = Guid('{9da587eb-23e5-4490-b385-1a22ddc8b187}')
+Annotation_FormatChange_GUID: Guid = Guid('{eb247345-d4f1-41ce-8e52-f79b69635e48}')
+Annotation_UnsyncedChange_GUID: Guid = Guid('{1851116a-0e47-4b30-8cb5-d7dae4fbcd1b}')
+Annotation_EditingLockedChange_GUID: Guid = Guid('{c31f3e1c-7423-4dac-8348-41f099ff6f64}')
+Annotation_ExternalChange_GUID: Guid = Guid('{75a05b31-5f11-42fd-887d-dfa010db2392}')
+Annotation_ConflictingChange_GUID: Guid = Guid('{98af8802-517c-459f-af13-016d3fab877e}')
+Annotation_Author_GUID: Guid = Guid('{f161d3a7-f81b-4128-b17f-71f690914520}')
+Annotation_AdvancedProofingIssue_GUID: Guid = Guid('{dac7b72c-c0f2-4b84-b90d-5fafc0f0ef1c}')
+Annotation_DataValidationError_GUID: Guid = Guid('{c8649fa8-9775-437e-ad46-e709d93c2343}')
+Annotation_CircularReferenceError_GUID: Guid = Guid('{25bd9cf4-1745-4659-ba67-727f0318c616}')
+Annotation_Mathematics_GUID: Guid = Guid('{eaab634b-26d0-40c1-8073-57ca1c633c9b}')
+Annotation_Sensitive_GUID: Guid = Guid('{37f4c04f-0f12-4464-929c-828fd15292e3}')
+Changes_Summary_GUID: Guid = Guid('{313d65a6-e60f-4d62-9861-55afd728d207}')
+StyleId_Custom_GUID: Guid = Guid('{ef2edd3e-a999-4b7c-a378-09bbd52a3516}')
+StyleId_Heading1_GUID: Guid = Guid('{7f7e8f69-6866-4621-930c-9a5d0ca5961c}')
+StyleId_Heading2_GUID: Guid = Guid('{baa9b241-5c69-469d-85ad-474737b52b14}')
+StyleId_Heading3_GUID: Guid = Guid('{bf8be9d2-d8b8-4ec5-8c52-9cfb0d035970}')
+StyleId_Heading4_GUID: Guid = Guid('{8436ffc0-9578-45fc-83a4-ff40053315dd}')
+StyleId_Heading5_GUID: Guid = Guid('{909f424d-0dbf-406e-97bb-4e773d9798f7}')
+StyleId_Heading6_GUID: Guid = Guid('{89d23459-5d5b-4824-a420-11d3ed82e40f}')
+StyleId_Heading7_GUID: Guid = Guid('{a3790473-e9ae-422d-b8e3-3b675c6181a4}')
+StyleId_Heading8_GUID: Guid = Guid('{2bc14145-a40c-4881-84ae-f2235685380c}')
+StyleId_Heading9_GUID: Guid = Guid('{c70d9133-bb2a-43d3-8ac6-33657884b0f0}')
+StyleId_Title_GUID: Guid = Guid('{15d8201a-ffcf-481f-b0a1-30b63be98f07}')
+StyleId_Subtitle_GUID: Guid = Guid('{b5d9fc17-5d6f-4420-b439-7cb19ad434e2}')
+StyleId_Normal_GUID: Guid = Guid('{cd14d429-e45e-4475-a1c5-7f9e6be96eba}')
+StyleId_Emphasis_GUID: Guid = Guid('{ca6e7dbe-355e-4820-95a0-925f041d3470}')
+StyleId_Quote_GUID: Guid = Guid('{5d1c21ea-8195-4f6c-87ea-5dabece64c1d}')
+StyleId_BulletedList_GUID: Guid = Guid('{5963ed64-6426-4632-8caf-a32ad402d91a}')
+StyleId_NumberedList_GUID: Guid = Guid('{1e96dbd5-64c3-43d0-b1ee-b53b06e3eddf}')
+Notification_Event_GUID: Guid = Guid('{72c5a2f7-9788-480f-b8eb-4dee00f6186f}')
+SID_IsUIAutomationObject: Guid = Guid('{b96fdb85-7204-4724-842b-c7059dedb9d0}')
+SID_ControlElementProvider: Guid = Guid('{f4791d68-e254-4ba3-9a53-26a5c5497946}')
+IsSelectionPattern2Available_Property_GUID: Guid = Guid('{490806fb-6e89-4a47-8319-d266e511f021}')
+Selection2_FirstSelectedItem_Property_GUID: Guid = Guid('{cc24ea67-369c-4e55-9ff7-38da69540c29}')
+Selection2_LastSelectedItem_Property_GUID: Guid = Guid('{cf7bda90-2d83-49f8-860c-9ce394cf89b4}')
+Selection2_CurrentSelectedItem_Property_GUID: Guid = Guid('{34257c26-83b5-41a6-939c-ae841c136236}')
+Selection2_ItemCount_Property_GUID: Guid = Guid('{bb49eb9f-456d-4048-b591-9c2026b84636}')
+Selection_Pattern2_GUID: Guid = Guid('{fba25cab-ab98-49f7-a7dc-fe539dc15be7}')
+HeadingLevel_Property_GUID: Guid = Guid('{29084272-aaaf-4a30-8796-3c12f62b6bbb}')
+IsDialog_Property_GUID: Guid = Guid('{9d0dfb9b-8436-4501-bbbb-e534a4fb3b3f}')
 UIA_IAFP_DEFAULT: UInt32 = 0
 UIA_IAFP_UNWRAP_BRIDGE: UInt32 = 1
 UIA_PFIA_DEFAULT: UInt32 = 0
@@ -842,10 +842,10 @@ BulletStyle_HollowSquareBullet: BulletStyle = 3
 BulletStyle_FilledSquareBullet: BulletStyle = 4
 BulletStyle_DashBullet: BulletStyle = 5
 BulletStyle_Other: BulletStyle = -1
-CAccPropServices = Guid('b5f8350b-0548-48b1-a6-ee-88-bd-00-b4-a5-e7')
-CUIAutomation = Guid('ff48dba4-60ef-4201-aa-87-54-10-3e-ef-59-4e')
-CUIAutomation8 = Guid('e22ad333-b25f-460c-83-d0-05-81-10-73-95-c9')
-CUIAutomationRegistrar = Guid('6e29fabf-9977-42d1-8d-0e-ca-7e-61-ad-87-e6')
+CAccPropServices = Guid('{b5f8350b-0548-48b1-a6ee-88bd00b4a5e7}')
+CUIAutomation = Guid('{ff48dba4-60ef-4201-aa87-54103eef594e}')
+CUIAutomation8 = Guid('{e22ad333-b25f-460c-83d0-0581107395c9}')
+CUIAutomationRegistrar = Guid('{6e29fabf-9977-42d1-8d0e-ca7e61ad87e6}')
 CapStyle = Int32
 CapStyle_None: CapStyle = 0
 CapStyle_SmallCap: CapStyle = 1
@@ -948,17 +948,17 @@ HorizontalTextAlignment_Right: HorizontalTextAlignment = 2
 HorizontalTextAlignment_Justified: HorizontalTextAlignment = 3
 class IAccIdentity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7852b78d-1cfd-41c1-a6-15-9c-0c-85-96-0b-5f')
+    _iid_ = Guid('{7852b78d-1cfd-41c1-a615-9c0c85960b5f}')
     @commethod(3)
     def GetIdentityString(self, dwIDChild: UInt32, ppIDString: POINTER(POINTER(Byte)), pdwIDStringLen: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccPropServer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('76c0dbbb-15e0-4e7b-b6-1b-20-ee-ea-20-01-e0')
+    _iid_ = Guid('{76c0dbbb-15e0-4e7b-b61b-20eeea2001e0}')
     @commethod(3)
     def GetPropValue(self, pIDString: POINTER(Byte), dwIDStringLen: UInt32, idProp: Guid, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head), pfHasProp: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccPropServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6e26e776-04f0-495d-80-e4-33-30-35-2e-31-69')
+    _iid_ = Guid('{6e26e776-04f0-495d-80e4-3330352e3169}')
     @commethod(3)
     def SetPropValue(self, pIDString: POINTER(Byte), dwIDStringLen: UInt32, idProp: Guid, var: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -991,7 +991,7 @@ class IAccPropServices(ComPtr):
     def DecomposeHmenuIdentityString(self, pIDString: POINTER(Byte), dwIDStringLen: UInt32, phmenu: POINTER(Windows.Win32.UI.WindowsAndMessaging.HMENU), pidChild: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessible(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('618736e0-3c3d-11cf-81-0c-00-aa-00-38-9b-71')
+    _iid_ = Guid('{618736e0-3c3d-11cf-810c-00aa00389b71}')
     @commethod(7)
     def get_accParent(self, ppdispParent: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1036,7 +1036,7 @@ class IAccessible(ComPtr):
     def put_accValue(self, varChild: Windows.Win32.System.Variant.VARIANT, szValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessibleEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f8b80ada-2c44-48d0-89-be-5f-f2-3c-9c-d8-75')
+    _iid_ = Guid('{f8b80ada-2c44-48d0-89be-5ff23c9cd875}')
     @commethod(3)
     def GetObjectForChild(self, idChild: Int32, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IAccessibleEx_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1047,19 +1047,19 @@ class IAccessibleEx(ComPtr):
     def ConvertReturnedElement(self, pIn: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, ppRetValOut: POINTER(Windows.Win32.UI.Accessibility.IAccessibleEx_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessibleHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('03022430-abc4-11d0-bd-e2-00-aa-00-1a-19-53')
+    _iid_ = Guid('{03022430-abc4-11d0-bde2-00aa001a1953}')
     @commethod(3)
     def AccessibleObjectFromID(self, hwnd: Int32, lObjectID: Int32, pIAccessible: POINTER(Windows.Win32.UI.Accessibility.IAccessible_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessibleHostingElementProviders(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('33ac331b-943e-4020-b2-95-db-37-78-49-74-a3')
+    _iid_ = Guid('{33ac331b-943e-4020-b295-db37784974a3}')
     @commethod(3)
     def GetEmbeddedFragmentRoots(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetObjectIdForProvider(self, pProvider: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, pidObject: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessibleWindowlessSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bf3abd9c-76da-4389-9e-b6-14-27-d2-5a-ba-b7')
+    _iid_ = Guid('{bf3abd9c-76da-4389-9eb6-1427d25abab7}')
     @commethod(3)
     def AcquireObjectIdRange(self, rangeSize: Int32, pRangeOwner: Windows.Win32.UI.Accessibility.IAccessibleHandler_head, pRangeBase: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1070,7 +1070,7 @@ class IAccessibleWindowlessSite(ComPtr):
     def GetParentAccessible(self, ppParent: POINTER(Windows.Win32.UI.Accessibility.IAccessible_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAnnotationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f95c7e80-bd63-4601-97-82-44-5e-bf-f0-11-fc')
+    _iid_ = Guid('{f95c7e80-bd63-4601-9782-445ebff011fc}')
     @commethod(3)
     def get_AnnotationTypeId(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_ANNOTATIONTYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1083,19 +1083,19 @@ class IAnnotationProvider(ComPtr):
     def get_Target(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICustomNavigationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2062a28a-8c07-4b94-8e-12-70-37-c6-22-ae-b8')
+    _iid_ = Guid('{2062a28a-8c07-4b94-8e12-7037c622aeb8}')
     @commethod(3)
     def Navigate(self, direction: Windows.Win32.UI.Accessibility.NavigateDirection, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDockProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('159bc72c-4ad3-485e-96-37-d7-05-2e-df-01-46')
+    _iid_ = Guid('{159bc72c-4ad3-485e-9637-d7052edf0146}')
     @commethod(3)
     def SetDockPosition(self, dockPosition: Windows.Win32.UI.Accessibility.DockPosition) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_DockPosition(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.DockPosition)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDragProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6aa7bbbb-7ff9-497d-90-4f-d2-0b-89-79-29-d8')
+    _iid_ = Guid('{6aa7bbbb-7ff9-497d-904f-d20b897929d8}')
     @commethod(3)
     def get_IsGrabbed(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1106,14 +1106,14 @@ class IDragProvider(ComPtr):
     def GetGrabbedItems(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IDropTargetProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bae82bfd-358a-481c-85-a0-d8-b4-d9-0a-5d-61')
+    _iid_ = Guid('{bae82bfd-358a-481c-85a0-d8b4d90a5d61}')
     @commethod(3)
     def get_DropTargetEffect(self, pRetVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_DropTargetEffects(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IExpandCollapseProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d847d3a5-cab0-4a98-8c-32-ec-b4-5c-59-ad-24')
+    _iid_ = Guid('{d847d3a5-cab0-4a98-8c32-ecb45c59ad24}')
     @commethod(3)
     def Expand(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1122,7 +1122,7 @@ class IExpandCollapseProvider(ComPtr):
     def get_ExpandCollapseState(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ExpandCollapseState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGridItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d02541f1-fb81-4d64-ae-32-f5-20-f8-a6-db-d1')
+    _iid_ = Guid('{d02541f1-fb81-4d64-ae32-f520f8a6dbd1}')
     @commethod(3)
     def get_Row(self, pRetVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1135,7 +1135,7 @@ class IGridItemProvider(ComPtr):
     def get_ContainingGrid(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGridProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b17d6187-0907-464b-a1-68-0e-f1-7a-15-72-b1')
+    _iid_ = Guid('{b17d6187-0907-464b-a168-0ef17a1572b1}')
     @commethod(3)
     def GetItem(self, row: Int32, column: Int32, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1144,17 +1144,17 @@ class IGridProvider(ComPtr):
     def get_ColumnCount(self, pRetVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInvokeProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('54fcb24b-e18e-47a2-b4-d3-ec-cb-e7-75-99-a2')
+    _iid_ = Guid('{54fcb24b-e18e-47a2-b4d3-eccbe77599a2}')
     @commethod(3)
     def Invoke(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IItemContainerProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e747770b-39ce-4382-ab-30-d8-fb-3f-33-6f-24')
+    _iid_ = Guid('{e747770b-39ce-4382-ab30-d8fb3f336f24}')
     @commethod(3)
     def FindItemByProperty(self, pStartAfter: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, value: Windows.Win32.System.Variant.VARIANT, pFound: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILegacyIAccessibleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e44c3566-915d-4070-99-c6-04-7b-ff-5a-08-f5')
+    _iid_ = Guid('{e44c3566-915d-4070-99c6-047bff5a08f5}')
     @commethod(3)
     def Select(self, flagsSelect: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1185,7 +1185,7 @@ class ILegacyIAccessibleProvider(ComPtr):
     def get_DefaultAction(self, pszDefaultAction: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultipleViewProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6278cab1-b556-4a1a-b4-e0-41-8a-cc-52-32-01')
+    _iid_ = Guid('{6278cab1-b556-4a1a-b4e0-418acc523201}')
     @commethod(3)
     def GetViewName(self, viewId: Int32, pRetVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1196,17 +1196,17 @@ class IMultipleViewProvider(ComPtr):
     def GetSupportedViews(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IObjectModelProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3ad86ebd-f5ef-483d-bb-18-b1-04-2a-47-5d-64')
+    _iid_ = Guid('{3ad86ebd-f5ef-483d-bb18-b1042a475d64}')
     @commethod(3)
     def GetUnderlyingObjectModel(self, ppUnknown: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProxyProviderWinEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('89592ad4-f4e0-43d5-a3-b6-ba-d7-e1-11-b4-35')
+    _iid_ = Guid('{89592ad4-f4e0-43d5-a3b6-bad7e111b435}')
     @commethod(3)
     def RespondToWinEvent(self, idWinEvent: UInt32, hwnd: Windows.Win32.Foundation.HWND, idObject: Int32, idChild: Int32, pSink: Windows.Win32.UI.Accessibility.IProxyProviderWinEventSink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IProxyProviderWinEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4fd82b78-a43e-46ac-98-03-0a-69-69-c7-c1-83')
+    _iid_ = Guid('{4fd82b78-a43e-46ac-9803-0a6969c7c183}')
     @commethod(3)
     def AddAutomationPropertyChangedEvent(self, pProvider: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, id: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, newValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1215,7 +1215,7 @@ class IProxyProviderWinEventSink(ComPtr):
     def AddStructureChangedEvent(self, pProvider: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, structureChangeType: Windows.Win32.UI.Accessibility.StructureChangeType, runtimeId: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRangeValueProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('36dc7aef-33e6-4691-af-e1-2b-e7-27-4b-3d-33')
+    _iid_ = Guid('{36dc7aef-33e6-4691-afe1-2be7274b3d33}')
     @commethod(3)
     def SetValue(self, val: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1232,14 +1232,14 @@ class IRangeValueProvider(ComPtr):
     def get_SmallChange(self, pRetVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderAdviseEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a407b27b-0f6d-4427-92-92-47-3c-7b-f9-32-58')
+    _iid_ = Guid('{a407b27b-0f6d-4427-9292-473c7bf93258}')
     @commethod(3)
     def AdviseEventAdded(self, eventId: Windows.Win32.UI.Accessibility.UIA_EVENT_ID, propertyIDs: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def AdviseEventRemoved(self, eventId: Windows.Win32.UI.Accessibility.UIA_EVENT_ID, propertyIDs: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderFragment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f7063da8-8359-439c-92-97-bb-c5-29-9a-7d-87')
+    _iid_ = Guid('{f7063da8-8359-439c-9297-bbc5299a7d87}')
     @commethod(3)
     def Navigate(self, direction: Windows.Win32.UI.Accessibility.NavigateDirection, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1254,24 +1254,24 @@ class IRawElementProviderFragment(ComPtr):
     def get_FragmentRoot(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragmentRoot_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderFragmentRoot(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('620ce2a5-ab8f-40a9-86-cb-de-3c-75-59-9b-58')
+    _iid_ = Guid('{620ce2a5-ab8f-40a9-86cb-de3c75599b58}')
     @commethod(3)
     def ElementProviderFromPoint(self, x: Double, y: Double, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFocus(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragment_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderHostingAccessibles(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('24be0b07-d37d-487a-98-cf-a1-3e-d4-65-e9-b3')
+    _iid_ = Guid('{24be0b07-d37d-487a-98cf-a13ed465e9b3}')
     @commethod(3)
     def GetEmbeddedAccessibles(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderHwndOverride(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1d5df27c-8947-4425-b8-d9-79-78-7b-b4-60-b8')
+    _iid_ = Guid('{1d5df27c-8947-4425-b8d9-79787bb460b8}')
     @commethod(3)
     def GetOverrideProviderForHwnd(self, hwnd: Windows.Win32.Foundation.HWND, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderSimple(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d6dd68d1-86fd-4332-86-66-9a-be-de-a2-d2-4c')
+    _iid_ = Guid('{d6dd68d1-86fd-4332-8666-9abedea2d24c}')
     @commethod(3)
     def get_ProviderOptions(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ProviderOptions)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1282,17 +1282,17 @@ class IRawElementProviderSimple(ComPtr):
     def get_HostRawElementProvider(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderSimple2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IRawElementProviderSimple
-    _iid_ = Guid('a0a839a9-8da1-4a82-80-6a-8e-0d-44-e7-9f-56')
+    _iid_ = Guid('{a0a839a9-8da1-4a82-806a-8e0d44e79f56}')
     @commethod(7)
     def ShowContextMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderSimple3(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IRawElementProviderSimple2
-    _iid_ = Guid('fcf5d820-d7ec-4613-bd-f6-42-a8-4c-e7-da-af')
+    _iid_ = Guid('{fcf5d820-d7ec-4613-bdf6-42a84ce7daaf}')
     @commethod(8)
     def GetMetadataValue(self, targetId: Int32, metadataId: Windows.Win32.UI.Accessibility.UIA_METADATA_ID, returnVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderWindowlessSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0a2a93cc-bfad-42ac-9b-2e-09-91-fb-0d-3e-a0')
+    _iid_ = Guid('{0a2a93cc-bfad-42ac-9b2e-0991fb0d3ea0}')
     @commethod(3)
     def GetAdjacentFragment(self, direction: Windows.Win32.UI.Accessibility.NavigateDirection, ppParent: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1309,12 +1309,12 @@ class IRicheditWindowlessAccessibility(ComPtr):
     def CreateProvider(self, pSite: Windows.Win32.UI.Accessibility.IRawElementProviderWindowlessSite_head, ppProvider: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IScrollItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2360c714-4bf1-4b26-ba-65-9b-21-31-61-27-eb')
+    _iid_ = Guid('{2360c714-4bf1-4b26-ba65-9b21316127eb}')
     @commethod(3)
     def ScrollIntoView(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IScrollProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b38b8077-1fc3-42a5-8c-ae-d4-0c-22-15-05-5a')
+    _iid_ = Guid('{b38b8077-1fc3-42a5-8cae-d40c2215055a}')
     @commethod(3)
     def Scroll(self, horizontalAmount: Windows.Win32.UI.Accessibility.ScrollAmount, verticalAmount: Windows.Win32.UI.Accessibility.ScrollAmount) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1333,7 +1333,7 @@ class IScrollProvider(ComPtr):
     def get_VerticallyScrollable(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISelectionItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2acad808-b2d4-452d-a4-07-91-ff-1a-d1-67-b2')
+    _iid_ = Guid('{2acad808-b2d4-452d-a407-91ff1ad167b2}')
     @commethod(3)
     def Select(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1346,7 +1346,7 @@ class ISelectionItemProvider(ComPtr):
     def get_SelectionContainer(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISelectionProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fb8b03af-3bdf-48d4-bd-36-1a-65-79-3b-e1-68')
+    _iid_ = Guid('{fb8b03af-3bdf-48d4-bd36-1a65793be168}')
     @commethod(3)
     def GetSelection(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1355,7 +1355,7 @@ class ISelectionProvider(ComPtr):
     def get_IsSelectionRequired(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISelectionProvider2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ISelectionProvider
-    _iid_ = Guid('14f68475-ee1c-44f6-a8-69-d2-39-38-1f-0f-e7')
+    _iid_ = Guid('{14f68475-ee1c-44f6-a869-d239381f0fe7}')
     @commethod(6)
     def get_FirstSelectedItem(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -1366,7 +1366,7 @@ class ISelectionProvider2(ComPtr):
     def get_ItemCount(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpreadsheetItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('eaed4660-7b3d-4879-a2-e6-36-5c-e6-03-f3-d0')
+    _iid_ = Guid('{eaed4660-7b3d-4879-a2e6-365ce603f3d0}')
     @commethod(3)
     def get_Formula(self, pRetVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1375,12 +1375,12 @@ class ISpreadsheetItemProvider(ComPtr):
     def GetAnnotationTypes(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpreadsheetProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6f6b5d35-5525-4f80-b7-58-85-47-38-32-ff-c7')
+    _iid_ = Guid('{6f6b5d35-5525-4f80-b758-85473832ffc7}')
     @commethod(3)
     def GetItemByName(self, name: Windows.Win32.Foundation.PWSTR, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStylesProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('19b6b649-f5d7-4a6d-bd-cb-12-92-52-be-58-8a')
+    _iid_ = Guid('{19b6b649-f5d7-4a6d-bdcb-129252be588a}')
     @commethod(3)
     def get_StyleId(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_STYLE_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1397,21 +1397,21 @@ class IStylesProvider(ComPtr):
     def get_ExtendedProperties(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISynchronizedInputProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('29db1a06-02ce-4cf7-9b-42-56-5d-4f-ab-20-ee')
+    _iid_ = Guid('{29db1a06-02ce-4cf7-9b42-565d4fab20ee}')
     @commethod(3)
     def StartListening(self, inputType: Windows.Win32.UI.Accessibility.SynchronizedInputType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITableItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b9734fa6-771f-4d78-9c-90-25-17-99-93-49-cd')
+    _iid_ = Guid('{b9734fa6-771f-4d78-9c90-2517999349cd}')
     @commethod(3)
     def GetRowHeaderItems(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetColumnHeaderItems(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class ITableProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9c860395-97b3-490a-b5-2a-85-8c-c2-2a-f1-66')
+    _iid_ = Guid('{9c860395-97b3-490a-b52a-858cc22af166}')
     @commethod(3)
     def GetRowHeaders(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1420,21 +1420,21 @@ class ITableProvider(ComPtr):
     def get_RowOrColumnMajor(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.RowOrColumnMajor)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextChildProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4c2de2b9-c88f-4f88-a1-11-f1-d3-36-b7-d1-a9')
+    _iid_ = Guid('{4c2de2b9-c88f-4f88-a111-f1d336b7d1a9}')
     @commethod(3)
     def get_TextContainer(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_TextRange(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextEditProvider(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ITextProvider
-    _iid_ = Guid('ea3605b4-3a05-400e-b5-f9-4e-91-b4-0f-61-76')
+    _iid_ = Guid('{ea3605b4-3a05-400e-b5f9-4e91b40f6176}')
     @commethod(9)
     def GetActiveComposition(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetConversionTarget(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3589c92c-63f3-4367-99-bb-ad-a6-53-b7-7c-f2')
+    _iid_ = Guid('{3589c92c-63f3-4367-99bb-ada653b77cf2}')
     @commethod(3)
     def GetSelection(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1449,14 +1449,14 @@ class ITextProvider(ComPtr):
     def get_SupportedTextSelection(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.SupportedTextSelection)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextProvider2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ITextProvider
-    _iid_ = Guid('0dc5e6ed-3e16-4bf1-8f-9a-a9-79-87-8b-c1-95')
+    _iid_ = Guid('{0dc5e6ed-3e16-4bf1-8f9a-a979878bc195}')
     @commethod(9)
     def RangeFromAnnotation(self, annotationElement: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetCaretRange(self, isActive: POINTER(Windows.Win32.Foundation.BOOL), pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextRangeProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5347ad7b-c355-46f8-af-f5-90-90-33-58-2f-63')
+    _iid_ = Guid('{5347ad7b-c355-46f8-aff5-909033582f63}')
     @commethod(3)
     def Clone(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1495,19 +1495,19 @@ class ITextRangeProvider(ComPtr):
     def GetChildren(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextRangeProvider2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ITextRangeProvider
-    _iid_ = Guid('9bbce42c-1921-4f18-89-ca-db-a1-91-0a-03-86')
+    _iid_ = Guid('{9bbce42c-1921-4f18-89ca-dba1910a0386}')
     @commethod(21)
     def ShowContextMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IToggleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('56d00bd0-c4f4-433c-a8-36-1a-52-a5-7e-08-92')
+    _iid_ = Guid('{56d00bd0-c4f4-433c-a836-1a52a57e0892}')
     @commethod(3)
     def Toggle(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_ToggleState(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ToggleState)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITransformProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6829ddc4-4f91-4ffa-b8-6f-bd-3e-29-87-cb-4c')
+    _iid_ = Guid('{6829ddc4-4f91-4ffa-b86f-bd3e2987cb4c}')
     @commethod(3)
     def Move(self, x: Double, y: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1522,7 +1522,7 @@ class ITransformProvider(ComPtr):
     def get_CanRotate(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITransformProvider2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ITransformProvider
-    _iid_ = Guid('4758742f-7ac2-460c-bc-48-09-fc-09-30-8a-93')
+    _iid_ = Guid('{4758742f-7ac2-460c-bc48-09fc09308a93}')
     @commethod(9)
     def Zoom(self, zoom: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -1537,7 +1537,7 @@ class ITransformProvider2(ComPtr):
     def ZoomByUnit(self, zoomUnit: Windows.Win32.UI.Accessibility.ZoomUnit) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('30cbe57d-d9d0-452a-ab-13-7a-c5-ac-48-25-ee')
+    _iid_ = Guid('{30cbe57d-d9d0-452a-ab13-7ac5ac4825ee}')
     @commethod(3)
     def CompareElements(self, el1: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, el2: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, areSame: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1650,7 +1650,7 @@ class IUIAutomation(ComPtr):
     def ElementFromIAccessibleBuildCache(self, accessible: Windows.Win32.UI.Accessibility.IAccessible_head, childId: Int32, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation
-    _iid_ = Guid('34723aff-0c9d-49d0-98-96-7a-b5-2d-f8-cd-8a')
+    _iid_ = Guid('{34723aff-0c9d-49d0-9896-7ab52df8cd8a}')
     @commethod(58)
     def get_AutoSetFocus(self, autoSetFocus: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(59)
@@ -1665,28 +1665,28 @@ class IUIAutomation2(ComPtr):
     def put_TransactionTimeout(self, timeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation3(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation2
-    _iid_ = Guid('73d768da-9b51-4b89-93-6e-c2-09-29-09-73-e7')
+    _iid_ = Guid('{73d768da-9b51-4b89-936e-c209290973e7}')
     @commethod(64)
     def AddTextEditTextChangedEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, scope: Windows.Win32.UI.Accessibility.TreeScope, textEditChangeType: Windows.Win32.UI.Accessibility.TextEditChangeType, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(65)
     def RemoveTextEditTextChangedEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation4(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation3
-    _iid_ = Guid('1189c02a-05f8-4319-8e-21-e8-17-e3-db-28-60')
+    _iid_ = Guid('{1189c02a-05f8-4319-8e21-e817e3db2860}')
     @commethod(66)
     def AddChangesEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, scope: Windows.Win32.UI.Accessibility.TreeScope, changeTypes: POINTER(Int32), changesCount: Int32, pCacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationChangesEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(67)
     def RemoveChangesEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationChangesEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation5(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation4
-    _iid_ = Guid('25f700c8-d816-4057-a9-dc-3c-bd-ee-77-e2-56')
+    _iid_ = Guid('{25f700c8-d816-4057-a9dc-3cbdee77e256}')
     @commethod(68)
     def AddNotificationEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, scope: Windows.Win32.UI.Accessibility.TreeScope, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationNotificationEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(69)
     def RemoveNotificationEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationNotificationEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation6(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation5
-    _iid_ = Guid('aae072da-29e3-413d-87-a7-19-2d-bf-81-ed-10')
+    _iid_ = Guid('{aae072da-29e3-413d-87a7-192dbf81ed10}')
     @commethod(70)
     def CreateEventHandlerGroup(self, handlerGroup: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationEventHandlerGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(71)
@@ -1707,12 +1707,12 @@ class IUIAutomation6(ComPtr):
     def RemoveActiveTextPositionChangedEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationActiveTextPositionChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f97933b0-8dae-4496-89-97-5b-a0-15-fe-0d-82')
+    _iid_ = Guid('{f97933b0-8dae-4496-8997-5ba015fe0d82}')
     @commethod(3)
     def HandleActiveTextPositionChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, range: Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationAndCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    _iid_ = Guid('a7d0af36-b912-45fe-98-55-09-1d-dc-17-4a-ec')
+    _iid_ = Guid('{a7d0af36-b912-45fe-9855-091ddc174aec}')
     @commethod(3)
     def get_ChildCount(self, childCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1721,7 +1721,7 @@ class IUIAutomationAndCondition(ComPtr):
     def GetChildren(self, childArray: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationAnnotationPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9a175b21-339e-41b1-8e-8b-62-3f-6b-68-10-98')
+    _iid_ = Guid('{9a175b21-339e-41b1-8e8b-623f6b681098}')
     @commethod(3)
     def get_CurrentAnnotationTypeId(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_ANNOTATIONTYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1744,12 +1744,12 @@ class IUIAutomationAnnotationPattern(ComPtr):
     def get_CachedTarget(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationBoolCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    _iid_ = Guid('1b4e1f2e-75eb-4d0b-89-52-5a-69-98-8e-23-07')
+    _iid_ = Guid('{1b4e1f2e-75eb-4d0b-8952-5a69988e2307}')
     @commethod(3)
     def get_BooleanValue(self, boolVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationCacheRequest(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b32a92b5-bc25-4078-9c-08-d7-ee-95-c4-8e-03')
+    _iid_ = Guid('{b32a92b5-bc25-4078-9c08-d7ee95c48e03}')
     @commethod(3)
     def AddProperty(self, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1770,20 +1770,20 @@ class IUIAutomationCacheRequest(ComPtr):
     def put_AutomationElementMode(self, mode: Windows.Win32.UI.Accessibility.AutomationElementMode) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationChangesEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('58edca55-2c3e-4980-b1-b9-56-c1-7f-27-a2-a0')
+    _iid_ = Guid('{58edca55-2c3e-4980-b1b9-56c17f27a2a0}')
     @commethod(3)
     def HandleChangesEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, uiaChanges: POINTER(Windows.Win32.UI.Accessibility.UiaChangeInfo_head), changesCount: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationCondition(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('352ffba8-0973-437c-a6-1f-f6-4c-af-d8-1d-f9')
+    _iid_ = Guid('{352ffba8-0973-437c-a61f-f64cafd81df9}')
 class IUIAutomationCustomNavigationPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('01ea217a-1766-47ed-a6-cc-ac-f4-92-85-4b-1f')
+    _iid_ = Guid('{01ea217a-1766-47ed-a6cc-acf492854b1f}')
     @commethod(3)
     def Navigate(self, direction: Windows.Win32.UI.Accessibility.NavigateDirection, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationDockPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fde5ef97-1464-48f6-90-bf-43-d0-94-8e-86-ec')
+    _iid_ = Guid('{fde5ef97-1464-48f6-90bf-43d0948e86ec}')
     @commethod(3)
     def SetDockPosition(self, dockPos: Windows.Win32.UI.Accessibility.DockPosition) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1792,7 +1792,7 @@ class IUIAutomationDockPattern(ComPtr):
     def get_CachedDockPosition(self, retVal: POINTER(Windows.Win32.UI.Accessibility.DockPosition)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationDragPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1dc7b570-1f54-4bad-bc-da-d3-6a-72-2f-b7-bd')
+    _iid_ = Guid('{1dc7b570-1f54-4bad-bcda-d36a722fb7bd}')
     @commethod(3)
     def get_CurrentIsGrabbed(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1811,7 +1811,7 @@ class IUIAutomationDragPattern(ComPtr):
     def GetCachedGrabbedItems(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationDropTargetPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('69a095f7-eee4-430e-a4-6b-fb-73-b1-ae-39-a5')
+    _iid_ = Guid('{69a095f7-eee4-430e-a46b-fb73b1ae39a5}')
     @commethod(3)
     def get_CurrentDropTargetEffect(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1822,7 +1822,7 @@ class IUIAutomationDropTargetPattern(ComPtr):
     def get_CachedDropTargetEffects(self, retVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d22108aa-8ac5-49a5-83-7b-37-bb-b3-d7-59-1e')
+    _iid_ = Guid('{d22108aa-8ac5-49a5-837b-37bbb3d7591e}')
     @commethod(3)
     def SetFocus(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1989,7 +1989,7 @@ class IUIAutomationElement(ComPtr):
     def GetClickablePoint(self, clickable: POINTER(Windows.Win32.Foundation.POINT_head), gotClickable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement
-    _iid_ = Guid('6749c683-f70d-4487-a6-98-5f-79-d5-52-90-d6')
+    _iid_ = Guid('{6749c683-f70d-4487-a698-5f79d55290d6}')
     @commethod(85)
     def get_CurrentOptimizeForVisualContent(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(86)
@@ -2004,7 +2004,7 @@ class IUIAutomationElement2(ComPtr):
     def get_CachedFlowsFrom(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement3(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement2
-    _iid_ = Guid('8471df34-aee0-4a01-a7-de-7d-b9-af-12-c2-96')
+    _iid_ = Guid('{8471df34-aee0-4a01-a7de-7db9af12c296}')
     @commethod(91)
     def ShowContextMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(92)
@@ -2013,7 +2013,7 @@ class IUIAutomationElement3(ComPtr):
     def get_CachedIsPeripheral(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement4(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement3
-    _iid_ = Guid('3b6e233c-52fb-4063-a4-c9-77-c0-75-c2-a0-6b')
+    _iid_ = Guid('{3b6e233c-52fb-4063-a4c9-77c075c2a06b}')
     @commethod(94)
     def get_CurrentPositionInSet(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(95)
@@ -2036,7 +2036,7 @@ class IUIAutomationElement4(ComPtr):
     def get_CachedAnnotationObjects(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement5(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement4
-    _iid_ = Guid('98141c1d-0d0e-4175-bb-e2-6b-ff-45-58-42-a7')
+    _iid_ = Guid('{98141c1d-0d0e-4175-bbe2-6bff455842a7}')
     @commethod(104)
     def get_CurrentLandmarkType(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_LANDMARKTYPE_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(105)
@@ -2047,14 +2047,14 @@ class IUIAutomationElement5(ComPtr):
     def get_CachedLocalizedLandmarkType(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement6(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement5
-    _iid_ = Guid('4780d450-8bca-4977-af-a5-a4-a5-17-f5-55-e3')
+    _iid_ = Guid('{4780d450-8bca-4977-afa5-a4a517f555e3}')
     @commethod(108)
     def get_CurrentFullDescription(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(109)
     def get_CachedFullDescription(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement7(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement6
-    _iid_ = Guid('204e8572-cfc3-4c11-b0-c8-7d-a7-42-07-50-b7')
+    _iid_ = Guid('{204e8572-cfc3-4c11-b0c8-7da7420750b7}')
     @commethod(110)
     def FindFirstWithOptions(self, scope: Windows.Win32.UI.Accessibility.TreeScope, condition: Windows.Win32.UI.Accessibility.IUIAutomationCondition_head, traversalOptions: Windows.Win32.UI.Accessibility.TreeTraversalOptions, root: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, found: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(111)
@@ -2067,33 +2067,33 @@ class IUIAutomationElement7(ComPtr):
     def GetCurrentMetadataValue(self, targetId: Int32, metadataId: Windows.Win32.UI.Accessibility.UIA_METADATA_ID, returnVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement8(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement7
-    _iid_ = Guid('8c60217d-5411-4cde-bc-c0-1c-ed-a2-23-83-0c')
+    _iid_ = Guid('{8c60217d-5411-4cde-bcc0-1ceda223830c}')
     @commethod(115)
     def get_CurrentHeadingLevel(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(116)
     def get_CachedHeadingLevel(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement9(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement8
-    _iid_ = Guid('39325fac-039d-440e-a3-a3-5e-b8-1a-5c-ec-c3')
+    _iid_ = Guid('{39325fac-039d-440e-a3a3-5eb81a5cecc3}')
     @commethod(117)
     def get_CurrentIsDialog(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(118)
     def get_CachedIsDialog(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElementArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('14314595-b4bc-4055-95-f2-58-f2-e4-2c-98-55')
+    _iid_ = Guid('{14314595-b4bc-4055-95f2-58f2e42c9855}')
     @commethod(3)
     def get_Length(self, length: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetElement(self, index: Int32, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('146c3c17-f12e-4e22-8c-27-f8-94-b9-b7-9c-69')
+    _iid_ = Guid('{146c3c17-f12e-4e22-8c27-f894b9b79c69}')
     @commethod(3)
     def HandleAutomationEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, eventId: Windows.Win32.UI.Accessibility.UIA_EVENT_ID) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationEventHandlerGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c9ee12f2-c13b-4408-99-7c-63-99-14-37-7f-4e')
+    _iid_ = Guid('{c9ee12f2-c13b-4408-997c-639914377f4e}')
     @commethod(3)
     def AddActiveTextPositionChangedEventHandler(self, scope: Windows.Win32.UI.Accessibility.TreeScope, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2110,7 +2110,7 @@ class IUIAutomationEventHandlerGroup(ComPtr):
     def AddTextEditTextChangedEventHandler(self, scope: Windows.Win32.UI.Accessibility.TreeScope, textEditChangeType: Windows.Win32.UI.Accessibility.TextEditChangeType, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationExpandCollapsePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('619be086-1f4e-4ee4-ba-fa-21-01-28-73-87-30')
+    _iid_ = Guid('{619be086-1f4e-4ee4-bafa-210128738730}')
     @commethod(3)
     def Expand(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2121,12 +2121,12 @@ class IUIAutomationExpandCollapsePattern(ComPtr):
     def get_CachedExpandCollapseState(self, retVal: POINTER(Windows.Win32.UI.Accessibility.ExpandCollapseState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationFocusChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c270f6b5-5c69-4290-97-45-7a-7f-97-16-94-68')
+    _iid_ = Guid('{c270f6b5-5c69-4290-9745-7a7f97169468}')
     @commethod(3)
     def HandleFocusChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationGridItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('78f8ef57-66c3-4e09-bd-7c-e7-9b-20-04-89-4d')
+    _iid_ = Guid('{78f8ef57-66c3-4e09-bd7c-e79b2004894d}')
     @commethod(3)
     def get_CurrentContainingGrid(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2149,7 +2149,7 @@ class IUIAutomationGridItemPattern(ComPtr):
     def get_CachedColumnSpan(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationGridPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('414c3cdc-856b-4f5b-85-38-31-31-c6-30-25-50')
+    _iid_ = Guid('{414c3cdc-856b-4f5b-8538-3131c6302550}')
     @commethod(3)
     def GetItem(self, row: Int32, column: Int32, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2162,17 +2162,17 @@ class IUIAutomationGridPattern(ComPtr):
     def get_CachedColumnCount(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationInvokePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fb377fbe-8ea6-46d5-9c-73-64-99-64-2d-30-59')
+    _iid_ = Guid('{fb377fbe-8ea6-46d5-9c73-6499642d3059}')
     @commethod(3)
     def Invoke(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationItemContainerPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c690fdb2-27a8-423c-81-2d-42-97-73-c9-08-4e')
+    _iid_ = Guid('{c690fdb2-27a8-423c-812d-429773c9084e}')
     @commethod(3)
     def FindItemByProperty(self, pStartAfter: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, value: Windows.Win32.System.Variant.VARIANT, pFound: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationLegacyIAccessiblePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('828055ad-355b-4435-86-d5-3b-51-c1-4a-9b-1b')
+    _iid_ = Guid('{828055ad-355b-4435-86d5-3b51c14a9b1b}')
     @commethod(3)
     def Select(self, flagsSelect: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2223,7 +2223,7 @@ class IUIAutomationLegacyIAccessiblePattern(ComPtr):
     def GetIAccessible(self, ppAccessible: POINTER(Windows.Win32.UI.Accessibility.IAccessible_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationMultipleViewPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8d253c91-1dc5-4bb5-b1-8f-ad-e1-6f-a4-95-e8')
+    _iid_ = Guid('{8d253c91-1dc5-4bb5-b18f-ade16fa495e8}')
     @commethod(3)
     def GetViewName(self, view: Int32, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2238,22 +2238,22 @@ class IUIAutomationMultipleViewPattern(ComPtr):
     def GetCachedSupportedViews(self, retVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationNotCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    _iid_ = Guid('f528b657-847b-498c-88-96-d5-2b-56-54-07-a1')
+    _iid_ = Guid('{f528b657-847b-498c-8896-d52b565407a1}')
     @commethod(3)
     def GetChild(self, condition: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationCondition_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationNotificationEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c7cb2637-e6c2-4d0c-85-de-49-48-c0-21-75-c7')
+    _iid_ = Guid('{c7cb2637-e6c2-4d0c-85de-4948c02175c7}')
     @commethod(3)
     def HandleNotificationEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, notificationKind: Windows.Win32.UI.Accessibility.NotificationKind, notificationProcessing: Windows.Win32.UI.Accessibility.NotificationProcessing, displayString: Windows.Win32.Foundation.BSTR, activityId: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationObjectModelPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('71c284b3-c14d-4d14-98-1e-19-75-1b-0d-75-6d')
+    _iid_ = Guid('{71c284b3-c14d-4d14-981e-19751b0d756d}')
     @commethod(3)
     def GetUnderlyingObjectModel(self, retVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationOrCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    _iid_ = Guid('8753f032-3db1-47b5-a1-fc-6e-34-a2-66-c7-12')
+    _iid_ = Guid('{8753f032-3db1-47b5-a1fc-6e34a266c712}')
     @commethod(3)
     def get_ChildCount(self, childCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2262,26 +2262,26 @@ class IUIAutomationOrCondition(ComPtr):
     def GetChildren(self, childArray: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationPatternHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d97022f3-a947-465e-8b-2a-ac-43-15-fa-54-e8')
+    _iid_ = Guid('{d97022f3-a947-465e-8b2a-ac4315fa54e8}')
     @commethod(3)
     def CreateClientWrapper(self, pPatternInstance: Windows.Win32.UI.Accessibility.IUIAutomationPatternInstance_head, pClientWrapper: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Dispatch(self, pTarget: Windows.Win32.System.Com.IUnknown_head, index: UInt32, pParams: POINTER(Windows.Win32.UI.Accessibility.UIAutomationParameter_head), cParams: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationPatternInstance(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c03a7fe4-9431-409f-be-d8-ae-7c-22-99-bc-8d')
+    _iid_ = Guid('{c03a7fe4-9431-409f-bed8-ae7c2299bc8d}')
     @commethod(3)
     def GetProperty(self, index: UInt32, cached: Windows.Win32.Foundation.BOOL, type: Windows.Win32.UI.Accessibility.UIAutomationType, pPtr: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CallMethod(self, index: UInt32, pParams: POINTER(Windows.Win32.UI.Accessibility.UIAutomationParameter_head), cParams: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationPropertyChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('40cd37d4-c756-4b0c-8c-6f-bd-df-ee-b1-3b-50')
+    _iid_ = Guid('{40cd37d4-c756-4b0c-8c6f-bddfeeb13b50}')
     @commethod(3)
     def HandlePropertyChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, newValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationPropertyCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    _iid_ = Guid('99ebf2cb-5578-4267-9a-d4-af-d6-ea-77-e9-4b')
+    _iid_ = Guid('{99ebf2cb-5578-4267-9ad4-afd6ea77e94b}')
     @commethod(3)
     def get_PropertyId(self, propertyId: POINTER(Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2290,14 +2290,14 @@ class IUIAutomationPropertyCondition(ComPtr):
     def get_PropertyConditionFlags(self, flags: POINTER(Windows.Win32.UI.Accessibility.PropertyConditionFlags)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationProxyFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('85b94ecd-849d-42b6-b9-4d-d6-db-23-fd-f5-a4')
+    _iid_ = Guid('{85b94ecd-849d-42b6-b94d-d6db23fdf5a4}')
     @commethod(3)
     def CreateProvider(self, hwnd: Windows.Win32.Foundation.HWND, idObject: Int32, idChild: Int32, provider: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_ProxyFactoryId(self, factoryId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationProxyFactoryEntry(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d50e472e-b64b-490c-bc-a1-d3-06-96-f9-f2-89')
+    _iid_ = Guid('{d50e472e-b64b-490c-bca1-d30696f9f289}')
     @commethod(3)
     def get_ProxyFactory(self, factory: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationProxyFactory_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2326,7 +2326,7 @@ class IUIAutomationProxyFactoryEntry(ComPtr):
     def GetWinEventsForAutomationEvent(self, eventId: Windows.Win32.UI.Accessibility.UIA_EVENT_ID, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, winEvents: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationProxyFactoryMapping(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('09e31e18-872d-4873-93-d1-1e-54-1e-c1-33-fd')
+    _iid_ = Guid('{09e31e18-872d-4873-93d1-1e541ec133fd}')
     @commethod(3)
     def get_Count(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2347,7 +2347,7 @@ class IUIAutomationProxyFactoryMapping(ComPtr):
     def RestoreDefaultTable(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationRangeValuePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('59213f4f-7346-49e5-b1-20-80-55-59-87-a1-48')
+    _iid_ = Guid('{59213f4f-7346-49e5-b120-80555987a148}')
     @commethod(3)
     def SetValue(self, val: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2376,7 +2376,7 @@ class IUIAutomationRangeValuePattern(ComPtr):
     def get_CachedSmallChange(self, retVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationRegistrar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8609c4ec-4a1a-4d88-a3-57-5a-66-e0-60-e1-cf')
+    _iid_ = Guid('{8609c4ec-4a1a-4d88-a357-5a66e060e1cf}')
     @commethod(3)
     def RegisterProperty(self, property: POINTER(Windows.Win32.UI.Accessibility.UIAutomationPropertyInfo_head), propertyId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2385,12 +2385,12 @@ class IUIAutomationRegistrar(ComPtr):
     def RegisterPattern(self, pattern: POINTER(Windows.Win32.UI.Accessibility.UIAutomationPatternInfo_head), pPatternId: POINTER(Int32), pPatternAvailablePropertyId: POINTER(Int32), propertyIdCount: UInt32, pPropertyIds: POINTER(Int32), eventIdCount: UInt32, pEventIds: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationScrollItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b488300f-d015-4f19-9c-29-bb-59-5e-36-45-ef')
+    _iid_ = Guid('{b488300f-d015-4f19-9c29-bb595e3645ef}')
     @commethod(3)
     def ScrollIntoView(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationScrollPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('88f4d42a-e881-459d-a7-7c-73-bb-bb-7e-02-dc')
+    _iid_ = Guid('{88f4d42a-e881-459d-a77c-73bbbb7e02dc}')
     @commethod(3)
     def Scroll(self, horizontalAmount: Windows.Win32.UI.Accessibility.ScrollAmount, verticalAmount: Windows.Win32.UI.Accessibility.ScrollAmount) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2421,7 +2421,7 @@ class IUIAutomationScrollPattern(ComPtr):
     def get_CachedVerticallyScrollable(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSelectionItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a8efa66a-0fda-421a-91-94-38-02-1f-35-78-ea')
+    _iid_ = Guid('{a8efa66a-0fda-421a-9194-38021f3578ea}')
     @commethod(3)
     def Select(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2438,7 +2438,7 @@ class IUIAutomationSelectionItemPattern(ComPtr):
     def get_CachedSelectionContainer(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSelectionPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5ed5202e-b2ac-47a6-b6-38-4b-0b-f1-40-d7-8e')
+    _iid_ = Guid('{5ed5202e-b2ac-47a6-b638-4b0bf140d78e}')
     @commethod(3)
     def GetCurrentSelection(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2453,7 +2453,7 @@ class IUIAutomationSelectionPattern(ComPtr):
     def get_CachedIsSelectionRequired(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSelectionPattern2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationSelectionPattern
-    _iid_ = Guid('0532bfae-c011-4e32-a3-43-6d-64-2d-79-85-55')
+    _iid_ = Guid('{0532bfae-c011-4e32-a343-6d642d798555}')
     @commethod(9)
     def get_CurrentFirstSelectedItem(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -2472,7 +2472,7 @@ class IUIAutomationSelectionPattern2(ComPtr):
     def get_CachedItemCount(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSpreadsheetItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7d4fb86c-8d34-40e1-8e-83-62-c1-52-04-e3-35')
+    _iid_ = Guid('{7d4fb86c-8d34-40e1-8e83-62c15204e335}')
     @commethod(3)
     def get_CurrentFormula(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2487,17 +2487,17 @@ class IUIAutomationSpreadsheetItemPattern(ComPtr):
     def GetCachedAnnotationTypes(self, retVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSpreadsheetPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7517a7c8-faae-4de9-9f-08-29-b9-1e-85-95-c1')
+    _iid_ = Guid('{7517a7c8-faae-4de9-9f08-29b91e8595c1}')
     @commethod(3)
     def GetItemByName(self, name: Windows.Win32.Foundation.BSTR, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationStructureChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e81d1b4e-11c5-42f8-97-54-e7-03-6c-79-f0-54')
+    _iid_ = Guid('{e81d1b4e-11c5-42f8-9754-e7036c79f054}')
     @commethod(3)
     def HandleStructureChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, changeType: Windows.Win32.UI.Accessibility.StructureChangeType, runtimeId: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationStylesPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('85b5f0a2-bd79-484a-ad-2b-38-8c-98-38-d5-fb')
+    _iid_ = Guid('{85b5f0a2-bd79-484a-ad2b-388c9838d5fb}')
     @commethod(3)
     def get_CurrentStyleId(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_STYLE_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2532,14 +2532,14 @@ class IUIAutomationStylesPattern(ComPtr):
     def GetCachedExtendedPropertiesAsArray(self, propertyArray: POINTER(POINTER(Windows.Win32.UI.Accessibility.ExtendedProperty_head)), propertyCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSynchronizedInputPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2233be0b-afb7-448b-9f-da-3b-37-8a-a5-ea-e1')
+    _iid_ = Guid('{2233be0b-afb7-448b-9fda-3b378aa5eae1}')
     @commethod(3)
     def StartListening(self, inputType: Windows.Win32.UI.Accessibility.SynchronizedInputType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTableItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0b964eb3-ef2e-4464-9c-79-61-d6-17-37-a2-7e')
+    _iid_ = Guid('{0b964eb3-ef2e-4464-9c79-61d61737a27e}')
     @commethod(3)
     def GetCurrentRowHeaderItems(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2550,7 +2550,7 @@ class IUIAutomationTableItemPattern(ComPtr):
     def GetCachedColumnHeaderItems(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTablePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('620e691c-ea96-4710-a8-50-75-4b-24-ce-24-17')
+    _iid_ = Guid('{620e691c-ea96-4710-a850-754b24ce2417}')
     @commethod(3)
     def GetCurrentRowHeaders(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2565,26 +2565,26 @@ class IUIAutomationTablePattern(ComPtr):
     def get_CachedRowOrColumnMajor(self, retVal: POINTER(Windows.Win32.UI.Accessibility.RowOrColumnMajor)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextChildPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6552b038-ae05-40c8-ab-fd-aa-08-35-2a-ab-86')
+    _iid_ = Guid('{6552b038-ae05-40c8-abfd-aa08352aab86}')
     @commethod(3)
     def get_TextContainer(self, container: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_TextRange(self, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextEditPattern(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTextPattern
-    _iid_ = Guid('17e21576-996c-4870-99-d9-bf-f3-23-38-0c-06')
+    _iid_ = Guid('{17e21576-996c-4870-99d9-bff323380c06}')
     @commethod(9)
     def GetActiveComposition(self, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetConversionTarget(self, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextEditTextChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('92faa680-e704-4156-93-1a-e3-2d-5b-b3-8f-3f')
+    _iid_ = Guid('{92faa680-e704-4156-931a-e32d5bb38f3f}')
     @commethod(3)
     def HandleTextEditTextChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, textEditChangeType: Windows.Win32.UI.Accessibility.TextEditChangeType, eventStrings: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('32eba289-3583-42c9-9c-59-3b-6d-9a-1e-9b-6a')
+    _iid_ = Guid('{32eba289-3583-42c9-9c59-3b6d9a1e9b6a}')
     @commethod(3)
     def RangeFromPoint(self, pt: Windows.Win32.Foundation.POINT, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2599,14 +2599,14 @@ class IUIAutomationTextPattern(ComPtr):
     def get_SupportedTextSelection(self, supportedTextSelection: POINTER(Windows.Win32.UI.Accessibility.SupportedTextSelection)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextPattern2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTextPattern
-    _iid_ = Guid('506a921a-fcc9-409f-b2-3b-37-eb-74-10-68-72')
+    _iid_ = Guid('{506a921a-fcc9-409f-b23b-37eb74106872}')
     @commethod(9)
     def RangeFromAnnotation(self, annotation: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetCaretRange(self, isActive: POINTER(Windows.Win32.Foundation.BOOL), range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextRange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a543cc6a-f4ae-494b-82-39-c8-14-48-11-87-a8')
+    _iid_ = Guid('{a543cc6a-f4ae-494b-8239-c814481187a8}')
     @commethod(3)
     def Clone(self, clonedRange: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2645,12 +2645,12 @@ class IUIAutomationTextRange(ComPtr):
     def GetChildren(self, children: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextRange2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTextRange
-    _iid_ = Guid('bb9b40e0-5e04-46bd-9b-e0-4b-60-1b-9a-fa-d4')
+    _iid_ = Guid('{bb9b40e0-5e04-46bd-9be0-4b601b9afad4}')
     @commethod(21)
     def ShowContextMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextRange3(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTextRange2
-    _iid_ = Guid('6a315d69-5512-4c2e-85-f0-53-fc-e6-dd-4b-c2')
+    _iid_ = Guid('{6a315d69-5512-4c2e-85f0-53fce6dd4bc2}')
     @commethod(22)
     def GetEnclosingElementBuildCache(self, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, enclosingElement: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
@@ -2659,14 +2659,14 @@ class IUIAutomationTextRange3(ComPtr):
     def GetAttributeValues(self, attributeIds: POINTER(Windows.Win32.UI.Accessibility.UIA_TEXTATTRIBUTE_ID), attributeIdCount: Int32, attributeValues: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextRangeArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ce4ae76a-e717-4c98-81-ea-47-37-1d-02-8e-b6')
+    _iid_ = Guid('{ce4ae76a-e717-4c98-81ea-47371d028eb6}')
     @commethod(3)
     def get_Length(self, length: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetElement(self, index: Int32, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTogglePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('94cf8058-9b8d-4ab9-8b-fd-4c-d0-a3-3c-8c-70')
+    _iid_ = Guid('{94cf8058-9b8d-4ab9-8bfd-4cd0a33c8c70}')
     @commethod(3)
     def Toggle(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2675,7 +2675,7 @@ class IUIAutomationTogglePattern(ComPtr):
     def get_CachedToggleState(self, retVal: POINTER(Windows.Win32.UI.Accessibility.ToggleState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTransformPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a9b55844-a55d-4ef0-92-6d-56-9c-16-ff-89-bb')
+    _iid_ = Guid('{a9b55844-a55d-4ef0-926d-569c16ff89bb}')
     @commethod(3)
     def Move(self, x: Double, y: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2696,7 +2696,7 @@ class IUIAutomationTransformPattern(ComPtr):
     def get_CachedCanRotate(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTransformPattern2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTransformPattern
-    _iid_ = Guid('6d74d017-6ecb-4381-b3-8b-3c-17-a4-8f-f1-c2')
+    _iid_ = Guid('{6d74d017-6ecb-4381-b38b-3c17a48ff1c2}')
     @commethod(12)
     def Zoom(self, zoomValue: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -2719,7 +2719,7 @@ class IUIAutomationTransformPattern2(ComPtr):
     def get_CachedZoomMaximum(self, retVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTreeWalker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4042c624-389c-4afc-a6-30-9d-f8-54-a5-41-fc')
+    _iid_ = Guid('{4042c624-389c-4afc-a630-9df854a541fc}')
     @commethod(3)
     def GetParentElement(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, parent: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2748,7 +2748,7 @@ class IUIAutomationTreeWalker(ComPtr):
     def get_Condition(self, condition: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationCondition_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationValuePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a94cd8b1-0844-4cd6-9d-2d-64-05-37-ab-39-e9')
+    _iid_ = Guid('{a94cd8b1-0844-4cd6-9d2d-640537ab39e9}')
     @commethod(3)
     def SetValue(self, val: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2761,12 +2761,12 @@ class IUIAutomationValuePattern(ComPtr):
     def get_CachedIsReadOnly(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationVirtualizedItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6ba3d7a6-04cf-4f11-87-93-a8-d1-cd-e9-96-9f')
+    _iid_ = Guid('{6ba3d7a6-04cf-4f11-8793-a8d1cde9969f}')
     @commethod(3)
     def Realize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationWindowPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0faef453-9208-43ef-bb-b2-3b-48-51-77-86-4f')
+    _iid_ = Guid('{0faef453-9208-43ef-bbb2-3b485177864f}')
     @commethod(3)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2799,7 +2799,7 @@ class IUIAutomationWindowPattern(ComPtr):
     def get_CachedWindowInteractionState(self, retVal: POINTER(Windows.Win32.UI.Accessibility.WindowInteractionState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IValueProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c7935180-6fb3-4201-b1-74-7d-f7-3a-db-f6-4a')
+    _iid_ = Guid('{c7935180-6fb3-4201-b174-7df73adbf64a}')
     @commethod(3)
     def SetValue(self, val: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2808,12 +2808,12 @@ class IValueProvider(ComPtr):
     def get_IsReadOnly(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVirtualizedItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cb98b665-2d35-4fac-ad-35-f3-c6-0d-0c-0b-8b')
+    _iid_ = Guid('{cb98b665-2d35-4fac-ad35-f3c60d0c0b8b}')
     @commethod(3)
     def Realize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('987df77b-db06-4d77-8f-8a-86-a9-c3-bb-90-b9')
+    _iid_ = Guid('{987df77b-db06-4d77-8f8a-86a9c3bb90b9}')
     @commethod(3)
     def SetVisualState(self, state: Windows.Win32.UI.Accessibility.WindowVisualState) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

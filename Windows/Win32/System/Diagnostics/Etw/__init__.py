@@ -15,19 +15,19 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-ALPCGuid: Guid = Guid('45d8cccd-539f-4b72-a8-b7-5c-68-31-42-60-9a')
-DiskIoGuid: Guid = Guid('3d6fa8d4-fe05-11d0-9d-da-00-c0-4f-d7-ba-7c')
-EventTraceConfigGuid: Guid = Guid('01853a65-418f-4f36-ae-fc-dc-0f-1d-2f-d2-35')
-FileIoGuid: Guid = Guid('90cbdc39-4a3e-11d1-84-f4-00-00-f8-04-64-e3')
-ImageLoadGuid: Guid = Guid('2cb15d1d-5fc1-11d2-ab-e1-00-a0-c9-11-f5-18')
-PageFaultGuid: Guid = Guid('3d6fa8d3-fe05-11d0-9d-da-00-c0-4f-d7-ba-7c')
-PerfInfoGuid: Guid = Guid('ce1dbfb4-137e-4da6-87-b0-3f-59-aa-10-2c-bc')
-ProcessGuid: Guid = Guid('3d6fa8d0-fe05-11d0-9d-da-00-c0-4f-d7-ba-7c')
-RegistryGuid: Guid = Guid('ae53722e-c863-11d2-86-59-00-c0-4f-a3-21-a1')
-SplitIoGuid: Guid = Guid('d837ca92-12b9-44a5-ad-6a-3a-65-b3-57-8a-a8')
-TcpIpGuid: Guid = Guid('9a280ac0-c8e0-11d1-84-e2-00-c0-4f-b9-98-a2')
-ThreadGuid: Guid = Guid('3d6fa8d1-fe05-11d0-9d-da-00-c0-4f-d7-ba-7c')
-UdpIpGuid: Guid = Guid('bf3a50c5-a9c9-4988-a0-05-2d-f0-b7-c8-0f-80')
+ALPCGuid: Guid = Guid('{45d8cccd-539f-4b72-a8b7-5c683142609a}')
+DiskIoGuid: Guid = Guid('{3d6fa8d4-fe05-11d0-9dda-00c04fd7ba7c}')
+EventTraceConfigGuid: Guid = Guid('{01853a65-418f-4f36-aefc-dc0f1d2fd235}')
+FileIoGuid: Guid = Guid('{90cbdc39-4a3e-11d1-84f4-0000f80464e3}')
+ImageLoadGuid: Guid = Guid('{2cb15d1d-5fc1-11d2-abe1-00a0c911f518}')
+PageFaultGuid: Guid = Guid('{3d6fa8d3-fe05-11d0-9dda-00c04fd7ba7c}')
+PerfInfoGuid: Guid = Guid('{ce1dbfb4-137e-4da6-87b0-3f59aa102cbc}')
+ProcessGuid: Guid = Guid('{3d6fa8d0-fe05-11d0-9dda-00c04fd7ba7c}')
+RegistryGuid: Guid = Guid('{ae53722e-c863-11d2-8659-00c04fa321a1}')
+SplitIoGuid: Guid = Guid('{d837ca92-12b9-44a5-ad6a-3a65b3578aa8}')
+TcpIpGuid: Guid = Guid('{9a280ac0-c8e0-11d1-84e2-00c04fb998a2}')
+ThreadGuid: Guid = Guid('{3d6fa8d1-fe05-11d0-9dda-00c04fd7ba7c}')
+UdpIpGuid: Guid = Guid('{bf3a50c5-a9c9-4988-a005-2df0b7c80f80}')
 WNODE_FLAG_ALL_DATA: UInt32 = 1
 WNODE_FLAG_SINGLE_INSTANCE: UInt32 = 2
 WNODE_FLAG_SINGLE_ITEM: UInt32 = 4
@@ -81,27 +81,27 @@ TRACELOG_REGISTER_GUIDS: UInt32 = 2048
 TRACELOG_JOIN_GROUP: UInt32 = 4096
 WMI_GLOBAL_LOGGER_ID: UInt32 = 1
 MAX_PAYLOAD_PREDICATES: UInt32 = 8
-EventTraceGuid: Guid = Guid('68fdd900-4a3e-11d1-84-f4-00-00-f8-04-64-e3')
-SystemTraceControlGuid: Guid = Guid('9e814aad-3204-11d2-9a-82-00-60-08-a8-69-39')
-DefaultTraceSecurityGuid: Guid = Guid('0811c1af-7a07-4a06-82-ed-86-94-55-cd-f7-13')
-PrivateLoggerNotificationGuid: Guid = Guid('3595ab5c-042a-4c8e-b9-42-2d-05-9b-fe-b1-b1')
-SystemIoFilterProviderGuid: Guid = Guid('fbd09363-9e22-4661-b8-bf-e7-a3-4b-53-5b-8c')
-SystemObjectProviderGuid: Guid = Guid('febd7460-3d1d-47eb-af-49-c9-ee-b1-e1-46-f2')
-SystemPowerProviderGuid: Guid = Guid('c134884a-32d5-4488-80-e5-14-ed-7a-bb-82-69')
-SystemHypervisorProviderGuid: Guid = Guid('bafa072a-918a-4bed-b6-22-bc-15-20-97-09-8f')
-SystemLockProviderGuid: Guid = Guid('721ddfd3-dacc-4e1e-b2-6a-a2-cb-31-d4-70-5a')
-SystemConfigProviderGuid: Guid = Guid('fef3a8b6-318d-4b67-a9-6a-3b-0f-6b-8f-18-fe')
-SystemCpuProviderGuid: Guid = Guid('c6c5265f-eae8-4650-aa-e4-9d-48-60-3d-85-10')
-SystemSchedulerProviderGuid: Guid = Guid('599a2a76-4d91-4910-9a-c7-7d-33-f2-e9-7a-6c')
-SystemProfileProviderGuid: Guid = Guid('bfeb0324-1cee-496f-a4-09-2a-c2-b4-8a-63-22')
-SystemIoProviderGuid: Guid = Guid('3d5c43e3-0f1c-4202-b8-17-17-4c-00-70-dc-79')
-SystemMemoryProviderGuid: Guid = Guid('82958ca9-b6cd-47f8-a3-a8-03-ae-85-a4-bc-24')
-SystemRegistryProviderGuid: Guid = Guid('16156bd9-fab4-4cfa-a2-32-89-d1-09-90-58-e3')
-SystemProcessProviderGuid: Guid = Guid('151f55dc-467d-471f-83-b5-5f-88-9d-46-ff-66')
-SystemAlpcProviderGuid: Guid = Guid('fcb9baaf-e529-4980-92-e9-ce-d1-a6-aa-df-df')
-SystemSyscallProviderGuid: Guid = Guid('434286f7-6f1b-45bb-b3-7e-95-f6-23-04-6c-7c')
-SystemInterruptProviderGuid: Guid = Guid('d4bbee17-b545-4888-85-8b-74-41-69-01-5b-25')
-SystemTimerProviderGuid: Guid = Guid('4f061568-e215-499f-ab-2e-ed-a0-ae-89-0a-5b')
+EventTraceGuid: Guid = Guid('{68fdd900-4a3e-11d1-84f4-0000f80464e3}')
+SystemTraceControlGuid: Guid = Guid('{9e814aad-3204-11d2-9a82-006008a86939}')
+DefaultTraceSecurityGuid: Guid = Guid('{0811c1af-7a07-4a06-82ed-869455cdf713}')
+PrivateLoggerNotificationGuid: Guid = Guid('{3595ab5c-042a-4c8e-b942-2d059bfeb1b1}')
+SystemIoFilterProviderGuid: Guid = Guid('{fbd09363-9e22-4661-b8bf-e7a34b535b8c}')
+SystemObjectProviderGuid: Guid = Guid('{febd7460-3d1d-47eb-af49-c9eeb1e146f2}')
+SystemPowerProviderGuid: Guid = Guid('{c134884a-32d5-4488-80e5-14ed7abb8269}')
+SystemHypervisorProviderGuid: Guid = Guid('{bafa072a-918a-4bed-b622-bc152097098f}')
+SystemLockProviderGuid: Guid = Guid('{721ddfd3-dacc-4e1e-b26a-a2cb31d4705a}')
+SystemConfigProviderGuid: Guid = Guid('{fef3a8b6-318d-4b67-a96a-3b0f6b8f18fe}')
+SystemCpuProviderGuid: Guid = Guid('{c6c5265f-eae8-4650-aae4-9d48603d8510}')
+SystemSchedulerProviderGuid: Guid = Guid('{599a2a76-4d91-4910-9ac7-7d33f2e97a6c}')
+SystemProfileProviderGuid: Guid = Guid('{bfeb0324-1cee-496f-a409-2ac2b48a6322}')
+SystemIoProviderGuid: Guid = Guid('{3d5c43e3-0f1c-4202-b817-174c0070dc79}')
+SystemMemoryProviderGuid: Guid = Guid('{82958ca9-b6cd-47f8-a3a8-03ae85a4bc24}')
+SystemRegistryProviderGuid: Guid = Guid('{16156bd9-fab4-4cfa-a232-89d1099058e3}')
+SystemProcessProviderGuid: Guid = Guid('{151f55dc-467d-471f-83b5-5f889d46ff66}')
+SystemAlpcProviderGuid: Guid = Guid('{fcb9baaf-e529-4980-92e9-ced1a6aadfdf}')
+SystemSyscallProviderGuid: Guid = Guid('{434286f7-6f1b-45bb-b37e-95f623046c7c}')
+SystemInterruptProviderGuid: Guid = Guid('{d4bbee17-b545-4888-858b-744169015b25}')
+SystemTimerProviderGuid: Guid = Guid('{4f061568-e215-499f-ab2e-eda0ae890a5b}')
 KERNEL_LOGGER_NAMEW: String = 'NT Kernel Logger'
 GLOBAL_LOGGER_NAMEW: String = 'GlobalLogger'
 EVENT_LOGGER_NAMEW: String = 'EventLog'
@@ -497,7 +497,7 @@ EVENT_ENABLE_PROPERTY_SOURCE_CONTAINER_TRACKING: UInt32 = 2048
 PROCESS_TRACE_MODE_REAL_TIME: UInt32 = 256
 PROCESS_TRACE_MODE_RAW_TIMESTAMP: UInt32 = 4096
 PROCESS_TRACE_MODE_EVENT_RECORD: UInt32 = 268435456
-CLSID_TraceRelogger: Guid = Guid('7b40792d-05ff-44c4-90-58-f4-40-c7-1f-17-d4')
+CLSID_TraceRelogger: Guid = Guid('{7b40792d-05ff-44c4-9058-f440c71f17d4}')
 @winfunctype('ADVAPI32.dll')
 def StartTraceW(TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE_head), InstanceName: Windows.Win32.Foundation.PWSTR, Properties: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -678,7 +678,7 @@ class CLASSIC_EVENT_ID(EasyCastStructure):
     Reserved: Byte * 7
 class CONTROLTRACE_HANDLE(EasyCastStructure):
     Value: UInt64
-CTraceRelogger = Guid('7b40792d-05ff-44c4-90-58-f4-40-c7-1f-17-d4')
+CTraceRelogger = Guid('{7b40792d-05ff-44c4-9058-f440c71f17d4}')
 DECODING_SOURCE = Int32
 DECODING_SOURCE_DecodingSourceXMLFile: DECODING_SOURCE = 0
 DECODING_SOURCE_DecodingSourceWbem: DECODING_SOURCE = 1
@@ -1172,7 +1172,7 @@ class EVENT_TRACE_PROPERTIES_V2(EasyCastStructure):
             _bitfield: UInt32
 class ITraceEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8cc97f40-9028-4ff3-9b-62-7d-1f-79-ca-7b-cb')
+    _iid_ = Guid('{8cc97f40-9028-4ff3-9b62-7d1f79ca7bcb}')
     @commethod(3)
     def Clone(self, NewEvent: POINTER(Windows.Win32.System.Diagnostics.Etw.ITraceEvent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1199,7 +1199,7 @@ class ITraceEvent(ComPtr):
     def SetProviderId(self, ProviderId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITraceEventCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3ed25501-593f-43e9-8f-38-3a-b4-6f-5a-4a-52')
+    _iid_ = Guid('{3ed25501-593f-43e9-8f38-3ab46f5a4a52}')
     @commethod(3)
     def OnBeginProcessTrace(self, HeaderEvent: Windows.Win32.System.Diagnostics.Etw.ITraceEvent_head, Relogger: Windows.Win32.System.Diagnostics.Etw.ITraceRelogger_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1208,7 +1208,7 @@ class ITraceEventCallback(ComPtr):
     def OnEvent(self, Event: Windows.Win32.System.Diagnostics.Etw.ITraceEvent_head, Relogger: Windows.Win32.System.Diagnostics.Etw.ITraceRelogger_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITraceRelogger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f754ad43-3bcc-4286-80-09-9c-5d-a2-14-e8-4e')
+    _iid_ = Guid('{f754ad43-3bcc-4286-8009-9c5da214e84e}')
     @commethod(3)
     def AddLogfileTraceStream(self, LogfileName: Windows.Win32.Foundation.BSTR, UserContext: c_void_p, TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.RELOGSTREAM_HANDLE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

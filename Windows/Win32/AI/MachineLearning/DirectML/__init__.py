@@ -1221,7 +1221,7 @@ class DML_VALUE_SCALE_2D_OPERATOR_DESC(EasyCastStructure):
     Bias: POINTER(Single)
 class IDMLBindingTable(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLDeviceChild
-    _iid_ = Guid('29c687dc-de74-4e3b-ab-00-11-68-f2-fc-3c-fc')
+    _iid_ = Guid('{29c687dc-de74-4e3b-ab00-1168f2fc3cfc}')
     @commethod(8)
     def BindInputs(self, bindingCount: UInt32, bindings: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC_head)) -> Void: ...
     @commethod(9)
@@ -1234,20 +1234,20 @@ class IDMLBindingTable(ComPtr):
     def Reset(self, desc: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TABLE_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLCommandRecorder(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLDeviceChild
-    _iid_ = Guid('e6857a76-2e3e-4fdd-bf-f4-5d-2b-a1-0f-b4-53')
+    _iid_ = Guid('{e6857a76-2e3e-4fdd-bff4-5d2ba10fb453}')
     @commethod(8)
     def RecordDispatch(self, commandList: Windows.Win32.Graphics.Direct3D12.ID3D12CommandList_head, dispatchable: Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable_head, bindings: Windows.Win32.AI.MachineLearning.DirectML.IDMLBindingTable_head) -> Void: ...
 class IDMLCompiledOperator(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable
-    _iid_ = Guid('6b15e56a-bf5c-4902-92-d8-da-3a-65-0a-fe-a4')
+    _iid_ = Guid('{6b15e56a-bf5c-4902-92d8-da3a650afea4}')
 class IDMLDebugDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7d6f3ac9-394a-4ac3-92-a7-39-0c-c5-7a-82-17')
+    _iid_ = Guid('{7d6f3ac9-394a-4ac3-92a7-390cc57a8217}')
     @commethod(3)
     def SetMuteDebugOutput(self, mute: Windows.Win32.Foundation.BOOL) -> Void: ...
 class IDMLDevice(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLObject
-    _iid_ = Guid('6dbd6437-96fd-423f-a9-8c-ae-5e-7c-2a-57-3f')
+    _iid_ = Guid('{6dbd6437-96fd-423f-a98c-ae5e7c2a573f}')
     @commethod(7)
     def CheckFeatureSupport(self, feature: Windows.Win32.AI.MachineLearning.DirectML.DML_FEATURE, featureQueryDataSize: UInt32, featureQueryData: c_void_p, featureSupportDataSize: UInt32, featureSupportData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1270,22 +1270,22 @@ class IDMLDevice(ComPtr):
     def GetParentDevice(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLDevice1(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLDevice
-    _iid_ = Guid('a0884f9a-d2be-4355-aa-5d-59-01-28-1a-d1-d2')
+    _iid_ = Guid('{a0884f9a-d2be-4355-aa5d-5901281ad1d2}')
     @commethod(17)
     def CompileGraph(self, desc: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_DESC_head), flags: Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLDeviceChild(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLObject
-    _iid_ = Guid('27e83142-8165-49e3-97-4e-2f-d6-6e-4c-b6-9d')
+    _iid_ = Guid('{27e83142-8165-49e3-974e-2fd66e4cb69d}')
     @commethod(7)
     def GetDevice(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLDispatchable(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLPageable
-    _iid_ = Guid('dcb821a8-1039-441e-9f-1c-b1-75-9c-2f-3c-ec')
+    _iid_ = Guid('{dcb821a8-1039-441e-9f1c-b1759c2f3cec}')
     @commethod(8)
     def GetBindingProperties(self) -> Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_PROPERTIES: ...
 class IDMLObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c8263aac-9e0c-4a2d-9b-8e-00-75-21-a3-31-7c')
+    _iid_ = Guid('{c8263aac-9e0c-4a2d-9b8e-007521a3317c}')
     @commethod(3)
     def GetPrivateData(self, guid: POINTER(Guid), dataSize: POINTER(UInt32), data: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1296,15 +1296,15 @@ class IDMLObject(ComPtr):
     def SetName(self, name: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLOperator(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLDeviceChild
-    _iid_ = Guid('26caae7a-3081-4633-95-81-22-6f-be-57-69-5d')
+    _iid_ = Guid('{26caae7a-3081-4633-9581-226fbe57695d}')
 class IDMLOperatorInitializer(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable
-    _iid_ = Guid('427c1113-435c-469c-86-76-4d-5d-d0-72-f8-13')
+    _iid_ = Guid('{427c1113-435c-469c-8676-4d5dd072f813}')
     @commethod(9)
     def Reset(self, operatorCount: UInt32, operators: POINTER(Windows.Win32.AI.MachineLearning.DirectML.IDMLCompiledOperator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLPageable(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLDeviceChild
-    _iid_ = Guid('b1ab0825-4542-4a4b-86-17-6d-de-6e-8f-62-01')
+    _iid_ = Guid('{b1ab0825-4542-4a4b-8617-6dde6e8f6201}')
 make_head(_module, 'DML_ACTIVATION_CELU_OPERATOR_DESC')
 make_head(_module, 'DML_ACTIVATION_ELU_OPERATOR_DESC')
 make_head(_module, 'DML_ACTIVATION_HARDMAX_OPERATOR_DESC')

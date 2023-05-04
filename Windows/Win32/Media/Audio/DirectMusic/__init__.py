@@ -106,28 +106,28 @@ DAUD_CHAN13_VOICE_PRIORITY_OFFSET: UInt32 = 3
 DAUD_CHAN14_VOICE_PRIORITY_OFFSET: UInt32 = 2
 DAUD_CHAN15_VOICE_PRIORITY_OFFSET: UInt32 = 1
 DAUD_CHAN16_VOICE_PRIORITY_OFFSET: UInt32 = 0
-CLSID_DirectMusic: Guid = Guid('636b9f10-0c7d-11d1-95-b2-00-20-af-dc-74-21')
-CLSID_DirectMusicCollection: Guid = Guid('480ff4b0-28b2-11d1-be-f7-00-c0-4f-bf-8f-ef')
-CLSID_DirectMusicSynth: Guid = Guid('58c2b4d0-46e7-11d1-89-ac-00-a0-c9-05-41-29')
-GUID_DMUS_PROP_GM_Hardware: Guid = Guid('178f2f24-c364-11d1-a7-60-00-00-f8-75-ac-12')
-GUID_DMUS_PROP_GS_Hardware: Guid = Guid('178f2f25-c364-11d1-a7-60-00-00-f8-75-ac-12')
-GUID_DMUS_PROP_XG_Hardware: Guid = Guid('178f2f26-c364-11d1-a7-60-00-00-f8-75-ac-12')
-GUID_DMUS_PROP_XG_Capable: Guid = Guid('6496aba1-61b0-11d2-af-a6-00-aa-00-24-d8-b6')
-GUID_DMUS_PROP_GS_Capable: Guid = Guid('6496aba2-61b0-11d2-af-a6-00-aa-00-24-d8-b6')
-GUID_DMUS_PROP_DLS1: Guid = Guid('178f2f27-c364-11d1-a7-60-00-00-f8-75-ac-12')
-GUID_DMUS_PROP_DLS2: Guid = Guid('f14599e5-4689-11d2-af-a6-00-aa-00-24-d8-b6')
-GUID_DMUS_PROP_INSTRUMENT2: Guid = Guid('865fd372-9f67-11d2-87-2a-00-60-08-93-b1-bd')
-GUID_DMUS_PROP_SynthSink_DSOUND: Guid = Guid('0aa97844-c877-11d1-87-0c-00-60-08-93-b1-bd')
-GUID_DMUS_PROP_SynthSink_WAVE: Guid = Guid('0aa97845-c877-11d1-87-0c-00-60-08-93-b1-bd')
-GUID_DMUS_PROP_SampleMemorySize: Guid = Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
-GUID_DMUS_PROP_SamplePlaybackRate: Guid = Guid('2a91f713-a4bf-11d2-bb-df-00-60-08-33-db-d8')
-GUID_DMUS_PROP_WriteLatency: Guid = Guid('268a0fa0-60f2-11d2-af-a6-00-aa-00-24-d8-b6')
-GUID_DMUS_PROP_WritePeriod: Guid = Guid('268a0fa1-60f2-11d2-af-a6-00-aa-00-24-d8-b6')
-GUID_DMUS_PROP_MemorySize: Guid = Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
-GUID_DMUS_PROP_WavesReverb: Guid = Guid('04cb5622-32e5-11d2-af-a6-00-aa-00-24-d8-b6')
-GUID_DMUS_PROP_Effects: Guid = Guid('cda8d611-684a-11d2-87-1e-00-60-08-93-b1-bd')
-GUID_DMUS_PROP_LegacyCaps: Guid = Guid('cfa7cdc2-00a1-11d2-aa-d5-00-00-f8-75-ac-12')
-GUID_DMUS_PROP_Volume: Guid = Guid('fedfae25-e46e-11d1-aa-ce-00-00-f8-75-ac-12')
+CLSID_DirectMusic: Guid = Guid('{636b9f10-0c7d-11d1-95b2-0020afdc7421}')
+CLSID_DirectMusicCollection: Guid = Guid('{480ff4b0-28b2-11d1-bef7-00c04fbf8fef}')
+CLSID_DirectMusicSynth: Guid = Guid('{58c2b4d0-46e7-11d1-89ac-00a0c9054129}')
+GUID_DMUS_PROP_GM_Hardware: Guid = Guid('{178f2f24-c364-11d1-a760-0000f875ac12}')
+GUID_DMUS_PROP_GS_Hardware: Guid = Guid('{178f2f25-c364-11d1-a760-0000f875ac12}')
+GUID_DMUS_PROP_XG_Hardware: Guid = Guid('{178f2f26-c364-11d1-a760-0000f875ac12}')
+GUID_DMUS_PROP_XG_Capable: Guid = Guid('{6496aba1-61b0-11d2-afa6-00aa0024d8b6}')
+GUID_DMUS_PROP_GS_Capable: Guid = Guid('{6496aba2-61b0-11d2-afa6-00aa0024d8b6}')
+GUID_DMUS_PROP_DLS1: Guid = Guid('{178f2f27-c364-11d1-a760-0000f875ac12}')
+GUID_DMUS_PROP_DLS2: Guid = Guid('{f14599e5-4689-11d2-afa6-00aa0024d8b6}')
+GUID_DMUS_PROP_INSTRUMENT2: Guid = Guid('{865fd372-9f67-11d2-872a-00600893b1bd}')
+GUID_DMUS_PROP_SynthSink_DSOUND: Guid = Guid('{0aa97844-c877-11d1-870c-00600893b1bd}')
+GUID_DMUS_PROP_SynthSink_WAVE: Guid = Guid('{0aa97845-c877-11d1-870c-00600893b1bd}')
+GUID_DMUS_PROP_SampleMemorySize: Guid = Guid('{178f2f28-c364-11d1-a760-0000f875ac12}')
+GUID_DMUS_PROP_SamplePlaybackRate: Guid = Guid('{2a91f713-a4bf-11d2-bbdf-00600833dbd8}')
+GUID_DMUS_PROP_WriteLatency: Guid = Guid('{268a0fa0-60f2-11d2-afa6-00aa0024d8b6}')
+GUID_DMUS_PROP_WritePeriod: Guid = Guid('{268a0fa1-60f2-11d2-afa6-00aa0024d8b6}')
+GUID_DMUS_PROP_MemorySize: Guid = Guid('{178f2f28-c364-11d1-a760-0000f875ac12}')
+GUID_DMUS_PROP_WavesReverb: Guid = Guid('{04cb5622-32e5-11d2-afa6-00aa0024d8b6}')
+GUID_DMUS_PROP_Effects: Guid = Guid('{cda8d611-684a-11d2-871e-00600893b1bd}')
+GUID_DMUS_PROP_LegacyCaps: Guid = Guid('{cfa7cdc2-00a1-11d2-aad5-0000f875ac12}')
+GUID_DMUS_PROP_Volume: Guid = Guid('{fedfae25-e46e-11d1-aace-0000f875ac12}')
 DMUS_VOLUME_MAX: UInt32 = 2000
 DMUS_VOLUME_MIN: Int32 = -20000
 DMUS_EVENT_STRUCTURED: UInt32 = 1
@@ -223,22 +223,22 @@ DLS_CDL_QUERY: UInt32 = 17
 DLS_CDL_QUERYSUPPORTED: UInt32 = 18
 WLOOP_TYPE_RELEASE: UInt32 = 2
 F_WAVELINK_MULTICHANNEL: UInt32 = 2
-DLSID_GMInHardware: Guid = Guid('178f2f24-c364-11d1-a7-60-00-00-f8-75-ac-12')
-DLSID_GSInHardware: Guid = Guid('178f2f25-c364-11d1-a7-60-00-00-f8-75-ac-12')
-DLSID_XGInHardware: Guid = Guid('178f2f26-c364-11d1-a7-60-00-00-f8-75-ac-12')
-DLSID_SupportsDLS1: Guid = Guid('178f2f27-c364-11d1-a7-60-00-00-f8-75-ac-12')
-DLSID_SupportsDLS2: Guid = Guid('f14599e5-4689-11d2-af-a6-00-aa-00-24-d8-b6')
-DLSID_SampleMemorySize: Guid = Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
-DLSID_ManufacturersID: Guid = Guid('b03e1181-8095-11d2-a1-ef-00-60-08-33-db-d8')
-DLSID_ProductID: Guid = Guid('b03e1182-8095-11d2-a1-ef-00-60-08-33-db-d8')
-DLSID_SamplePlaybackRate: Guid = Guid('2a91f713-a4bf-11d2-bb-df-00-60-08-33-db-d8')
+DLSID_GMInHardware: Guid = Guid('{178f2f24-c364-11d1-a760-0000f875ac12}')
+DLSID_GSInHardware: Guid = Guid('{178f2f25-c364-11d1-a760-0000f875ac12}')
+DLSID_XGInHardware: Guid = Guid('{178f2f26-c364-11d1-a760-0000f875ac12}')
+DLSID_SupportsDLS1: Guid = Guid('{178f2f27-c364-11d1-a760-0000f875ac12}')
+DLSID_SupportsDLS2: Guid = Guid('{f14599e5-4689-11d2-afa6-00aa0024d8b6}')
+DLSID_SampleMemorySize: Guid = Guid('{178f2f28-c364-11d1-a760-0000f875ac12}')
+DLSID_ManufacturersID: Guid = Guid('{b03e1181-8095-11d2-a1ef-00600833dbd8}')
+DLSID_ProductID: Guid = Guid('{b03e1182-8095-11d2-a1ef-00600833dbd8}')
+DLSID_SamplePlaybackRate: Guid = Guid('{2a91f713-a4bf-11d2-bbdf-00600833dbd8}')
 REGSTR_PATH_SOFTWARESYNTHS: String = 'Software\\Microsoft\\DirectMusic\\SoftwareSynths'
 REFRESH_F_LASTBUFFER: UInt32 = 1
-CLSID_DirectMusicSynthSink: Guid = Guid('aec17ce3-a514-11d1-af-a6-00-aa-00-24-d8-b6')
-GUID_DMUS_PROP_SetSynthSink: Guid = Guid('0a3a5ba5-37b6-11d2-b9-f9-00-00-f8-75-ac-12')
-GUID_DMUS_PROP_SinkUsesDSound: Guid = Guid('be208857-8952-11d2-ba-1c-00-00-f8-75-ac-12')
-CLSID_DirectSoundPrivate: Guid = Guid('11ab3ec0-25ec-11d1-a4-d8-00-c0-4f-c2-8a-ca')
-DSPROPSETID_DirectSoundDevice: Guid = Guid('84624f82-25ec-11d1-a4-d8-00-c0-4f-c2-8a-ca')
+CLSID_DirectMusicSynthSink: Guid = Guid('{aec17ce3-a514-11d1-afa6-00aa0024d8b6}')
+GUID_DMUS_PROP_SetSynthSink: Guid = Guid('{0a3a5ba5-37b6-11d2-b9f9-0000f875ac12}')
+GUID_DMUS_PROP_SinkUsesDSound: Guid = Guid('{be208857-8952-11d2-ba1c-0000f875ac12}')
+CLSID_DirectSoundPrivate: Guid = Guid('{11ab3ec0-25ec-11d1-a4d8-00c04fc28aca}')
+DSPROPSETID_DirectSoundDevice: Guid = Guid('{84624f82-25ec-11d1-a4d8-00c04fc28aca}')
 DV_DVSD_NTSC_FRAMESIZE: Int32 = 120000
 DV_DVSD_PAL_FRAMESIZE: Int32 = 144000
 DV_SMCHN: UInt32 = 57344
@@ -514,7 +514,7 @@ class DVAudInfo(EasyCastStructure):
     wBlkDiv: UInt16
 class IDirectMusic(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6536115a-7b2d-11d2-ba-18-00-00-f8-75-ac-12')
+    _iid_ = Guid('{6536115a-7b2d-11d2-ba18-0000f875ac12}')
     @commethod(3)
     def EnumPort(self, dwIndex: UInt32, pPortCaps: POINTER(Windows.Win32.Media.Audio.DirectMusic.DMUS_PORTCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -535,12 +535,12 @@ class IDirectMusic(ComPtr):
     def SetDirectSound(self, pDirectSound: Windows.Win32.Media.Audio.DirectSound.IDirectSound_head, hWnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusic8(ComPtr):
     extends: Windows.Win32.Media.Audio.DirectMusic.IDirectMusic
-    _iid_ = Guid('2d3629f7-813d-4939-85-08-f0-5c-6b-75-fd-97')
+    _iid_ = Guid('{2d3629f7-813d-4939-8508-f05c6b75fd97}')
     @commethod(12)
     def SetExternalMasterClock(self, pClock: Windows.Win32.Media.IReferenceClock_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d2ac2878-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('{d2ac2878-b39b-11d1-8704-00600893b1bd}')
     @commethod(3)
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -569,29 +569,29 @@ class IDirectMusicBuffer(ComPtr):
     def SetUsedBytes(self, cb: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d2ac287c-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('{d2ac287c-b39b-11d1-8704-00600893b1bd}')
     @commethod(3)
     def GetInstrument(self, dwPatch: UInt32, ppInstrument: POINTER(Windows.Win32.Media.Audio.DirectMusic.IDirectMusicInstrument_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnumInstrument(self, dwIndex: UInt32, pdwPatch: POINTER(UInt32), pwszName: Windows.Win32.Foundation.PWSTR, dwNameLen: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicDownload(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d2ac287b-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('{d2ac287b-b39b-11d1-8704-00600893b1bd}')
     @commethod(3)
     def GetBuffer(self, ppvBuffer: POINTER(c_void_p), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicDownloadedInstrument(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d2ac287e-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('{d2ac287e-b39b-11d1-8704-00600893b1bd}')
 class IDirectMusicInstrument(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d2ac287d-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('{d2ac287d-b39b-11d1-8704-00600893b1bd}')
     @commethod(3)
     def GetPatch(self, pdwPatch: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetPatch(self, dwPatch: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('08f2d8c9-37c2-11d2-b9-f9-00-00-f8-75-ac-12')
+    _iid_ = Guid('{08f2d8c9-37c2-11d2-b9f9-0000f875ac12}')
     @commethod(3)
     def PlayBuffer(self, pBuffer: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicBuffer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -628,7 +628,7 @@ class IDirectMusicPort(ComPtr):
     def GetFormat(self, pWaveFormatEx: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head), pdwWaveFormatExSize: POINTER(UInt32), pdwBufferSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicPortDownload(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d2ac287a-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('{d2ac287a-b39b-11d1-8704-00600893b1bd}')
     @commethod(3)
     def GetBuffer(self, dwDLId: UInt32, ppIDMDownload: POINTER(Windows.Win32.Media.Audio.DirectMusic.IDirectMusicDownload_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -643,7 +643,7 @@ class IDirectMusicPortDownload(ComPtr):
     def Unload(self, pIDMDownload: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicDownload_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicSynth(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('09823661-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
+    _iid_ = Guid('{09823661-5c85-11d2-afa6-00aa0024d8b6}')
     @commethod(3)
     def Open(self, pPortParams: POINTER(Windows.Win32.Media.Audio.DirectMusic.DMUS_PORTPARAMS8_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -680,7 +680,7 @@ class IDirectMusicSynth(ComPtr):
     def GetAppend(self, pdwAppend: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicSynth8(ComPtr):
     extends: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicSynth
-    _iid_ = Guid('53cab625-2711-4c9f-9d-e7-1b-7f-92-5f-6f-c8')
+    _iid_ = Guid('{53cab625-2711-4c9f-9de7-1b7f925f6fc8}')
     @commethod(20)
     def PlayVoice(self, rt: Int64, dwVoiceId: UInt32, dwChannelGroup: UInt32, dwChannel: UInt32, dwDLId: UInt32, prPitch: Int32, vrVolume: Int32, stVoiceStart: UInt64, stLoopStart: UInt64, stLoopEnd: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -693,7 +693,7 @@ class IDirectMusicSynth8(ComPtr):
     def AssignChannelToBuses(self, dwChannelGroup: UInt32, dwChannel: UInt32, pdwBuses: POINTER(UInt32), cBuses: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicSynthSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('09823663-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
+    _iid_ = Guid('{09823663-5c85-11d2-afa6-00aa0024d8b6}')
     @commethod(3)
     def Init(self, pSynth: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicSynth_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -712,7 +712,7 @@ class IDirectMusicSynthSink(ComPtr):
     def GetDesiredBufferSize(self, pdwBufferSizeInSamples: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicThru(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ced153e7-3606-11d2-b9-f9-00-00-f8-75-ac-12')
+    _iid_ = Guid('{ced153e7-3606-11d2-b9f9-0000f875ac12}')
     @commethod(3)
     def ThruChannel(self, dwSourceChannelGroup: UInt32, dwSourceChannel: UInt32, dwDestinationChannelGroup: UInt32, dwDestinationChannel: UInt32, pDestinationPort: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicPort_head) -> Windows.Win32.Foundation.HRESULT: ...
 class INSTHEADER(EasyCastStructure):

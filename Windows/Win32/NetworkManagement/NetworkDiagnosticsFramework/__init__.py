@@ -138,12 +138,12 @@ class HypothesisResult(EasyCastStructure):
     pathStatus: Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS
 class INetDiagExtensibleHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c0b35748-ebf5-11d8-bb-e9-50-50-54-50-30-30')
+    _iid_ = Guid('{c0b35748-ebf5-11d8-bbe9-505054503030}')
     @commethod(3)
     def ResolveAttributes(self, celt: UInt32, rgKeyAttributes: POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head), pcelt: POINTER(UInt32), prgMatchValues: POINTER(POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class INetDiagHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c0b35746-ebf5-11d8-bb-e9-50-50-54-50-30-30')
+    _iid_ = Guid('{c0b35746-ebf5-11d8-bbe9-505054503030}')
     @commethod(3)
     def Initialize(self, celt: UInt32, rgAttributes: POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -182,7 +182,7 @@ class INetDiagHelper(ComPtr):
     def Cleanup(self) -> Windows.Win32.Foundation.HRESULT: ...
 class INetDiagHelperEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('972dab4d-e4e3-4fc6-ae-54-5f-65-cc-de-4a-15')
+    _iid_ = Guid('{972dab4d-e4e3-4fc6-ae54-5f65ccde4a15}')
     @commethod(3)
     def ReconfirmLowHealth(self, celt: UInt32, pResults: POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HypothesisResult_head), ppwszUpdatedDescription: POINTER(Windows.Win32.Foundation.PWSTR), pUpdatedStatus: POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -191,12 +191,12 @@ class INetDiagHelperEx(ComPtr):
     def ReproduceFailure(self) -> Windows.Win32.Foundation.HRESULT: ...
 class INetDiagHelperInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c0b35747-ebf5-11d8-bb-e9-50-50-54-50-30-30')
+    _iid_ = Guid('{c0b35747-ebf5-11d8-bbe9-505054503030}')
     @commethod(3)
     def GetAttributeInfo(self, pcelt: POINTER(UInt32), pprgAttributeInfos: POINTER(POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HelperAttributeInfo_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class INetDiagHelperUtilFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('104613fb-bc57-4178-95-ba-88-80-96-98-35-4a')
+    _iid_ = Guid('{104613fb-bc57-4178-95ba-88809698354a}')
     @commethod(3)
     def CreateUtilityInstance(self, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class LIFE_TIME(EasyCastStructure):

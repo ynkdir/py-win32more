@@ -831,9 +831,9 @@ def ConvertStringSecurityDescriptorToSecurityDescriptorW(StringSecurityDescripto
 def ConvertSecurityDescriptorToStringSecurityDescriptorA(SecurityDescriptor: Windows.Win32.Security.PSECURITY_DESCRIPTOR, RequestedStringSDRevision: UInt32, SecurityInformation: UInt32, StringSecurityDescriptor: POINTER(Windows.Win32.Foundation.PSTR), StringSecurityDescriptorLen: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ConvertSecurityDescriptorToStringSecurityDescriptorW(SecurityDescriptor: Windows.Win32.Security.PSECURITY_DESCRIPTOR, RequestedStringSDRevision: UInt32, SecurityInformation: UInt32, StringSecurityDescriptor: POINTER(Windows.Win32.Foundation.PWSTR), StringSecurityDescriptorLen: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
-AzAuthorizationStore = Guid('b2bcff59-a757-4b0b-a1-bc-ea-69-98-1d-a6-9e')
-AzBizRuleContext = Guid('5c2dc96f-8d51-434b-b3-3c-37-9b-cc-ae-77-c3')
-AzPrincipalLocator = Guid('483afb5d-70df-4e16-ab-dc-a1-de-4d-01-5a-3e')
+AzAuthorizationStore = Guid('{b2bcff59-a757-4b0b-a1bc-ea69981da69e}')
+AzBizRuleContext = Guid('{5c2dc96f-8d51-434b-b33c-379bccae77c3}')
+AzPrincipalLocator = Guid('{483afb5d-70df-4e16-abdc-a1de4d015a3e}')
 class EXPLICIT_ACCESS_A(EasyCastStructure):
     grfAccessPermissions: UInt32
     grfAccessMode: Windows.Win32.Security.Authorization.ACCESS_MODE
@@ -850,7 +850,7 @@ class FN_OBJECT_MGR_FUNCTS(EasyCastStructure):
 def FN_PROGRESS(pObjectName: Windows.Win32.Foundation.PWSTR, Status: UInt32, pInvokeSetting: POINTER(Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING), Args: c_void_p, SecuritySet: Windows.Win32.Foundation.BOOL) -> Void: ...
 class IAzApplication(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('987bc7c7-b813-4d27-be-de-6b-a5-ae-86-7e-95')
+    _iid_ = Guid('{987bc7c7-b813-4d27-bede-6ba5ae867e95}')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -975,14 +975,14 @@ class IAzApplication(ComPtr):
     def DeleteDelegatedPolicyUserName(self, bstrDelegatedPolicyUser: Windows.Win32.Foundation.BSTR, varReserved: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzApplication2(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzApplication
-    _iid_ = Guid('086a68af-a249-437c-b1-8d-d4-d8-6d-6a-96-60')
+    _iid_ = Guid('{086a68af-a249-437c-b18d-d4d86d6a9660}')
     @commethod(68)
     def InitializeClientContextFromToken2(self, ulTokenHandleLowPart: UInt32, ulTokenHandleHighPart: UInt32, varReserved: Windows.Win32.System.Variant.VARIANT, ppClientContext: POINTER(Windows.Win32.Security.Authorization.IAzClientContext2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(69)
     def InitializeClientContext2(self, IdentifyingString: Windows.Win32.Foundation.BSTR, varReserved: Windows.Win32.System.Variant.VARIANT, ppClientContext: POINTER(Windows.Win32.Security.Authorization.IAzClientContext2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzApplication3(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzApplication2
-    _iid_ = Guid('181c845e-7196-4a7d-ac-2e-02-0c-0b-b7-a3-03')
+    _iid_ = Guid('{181c845e-7196-4a7d-ac2e-020c0bb7a303}')
     @commethod(70)
     def ScopeExists(self, bstrScopeName: Windows.Win32.Foundation.BSTR, pbExist: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(71)
@@ -1013,7 +1013,7 @@ class IAzApplication3(ComPtr):
     def put_BizRulesEnabled(self, bEnabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzApplicationGroup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f1b744cd-58a6-4e06-9f-bf-36-f6-d7-79-e2-1e')
+    _iid_ = Guid('{f1b744cd-58a6-4e06-9fbf-36f6d779e21e}')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1080,7 +1080,7 @@ class IAzApplicationGroup(ComPtr):
     def get_NonMembersName(self, pvarProp: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzApplicationGroup2(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzApplicationGroup
-    _iid_ = Guid('3f0613fc-b71a-464e-a1-1d-5b-88-1a-56-ce-fa')
+    _iid_ = Guid('{3f0613fc-b71a-464e-a11d-5b881a56cefa}')
     @commethod(39)
     def get_BizRule(self, pbstrProp: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
@@ -1097,7 +1097,7 @@ class IAzApplicationGroup2(ComPtr):
     def RoleAssignments(self, bstrScopeName: Windows.Win32.Foundation.BSTR, bRecursive: Windows.Win32.Foundation.VARIANT_BOOL, ppRoleAssignments: POINTER(Windows.Win32.Security.Authorization.IAzRoleAssignments_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzApplicationGroups(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('4ce66ad5-9f3c-469d-a9-11-b9-98-87-a7-e6-85')
+    _iid_ = Guid('{4ce66ad5-9f3c-469d-a911-b99887a7e685}')
     @commethod(7)
     def get_Item(self, Index: Int32, pvarObtPtr: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1106,7 +1106,7 @@ class IAzApplicationGroups(ComPtr):
     def get__NewEnum(self, ppEnumPtr: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzApplications(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('929b11a9-95c5-4a84-a2-9a-20-ad-42-c2-f1-6c')
+    _iid_ = Guid('{929b11a9-95c5-4a84-a29a-20ad42c2f16c}')
     @commethod(7)
     def get_Item(self, Index: Int32, pvarObtPtr: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1115,7 +1115,7 @@ class IAzApplications(ComPtr):
     def get__NewEnum(self, ppEnumPtr: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzAuthorizationStore(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('edbd9ca9-9b82-4f6a-9e-8b-98-30-1e-45-0f-14')
+    _iid_ = Guid('{edbd9ca9-9b82-4f6a-9e8b-98301e450f14}')
     @commethod(7)
     def get_Description(self, pbstrDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1220,14 +1220,14 @@ class IAzAuthorizationStore(ComPtr):
     def CloseApplication(self, bstrApplicationName: Windows.Win32.Foundation.BSTR, lFlag: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzAuthorizationStore2(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzAuthorizationStore
-    _iid_ = Guid('b11e5584-d577-4273-b6-c5-09-73-e0-f8-e8-0d')
+    _iid_ = Guid('{b11e5584-d577-4273-b6c5-0973e0f8e80d}')
     @commethod(58)
     def OpenApplication2(self, bstrApplicationName: Windows.Win32.Foundation.BSTR, varReserved: Windows.Win32.System.Variant.VARIANT, ppApplication: POINTER(Windows.Win32.Security.Authorization.IAzApplication2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(59)
     def CreateApplication2(self, bstrApplicationName: Windows.Win32.Foundation.BSTR, varReserved: Windows.Win32.System.Variant.VARIANT, ppApplication: POINTER(Windows.Win32.Security.Authorization.IAzApplication2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzAuthorizationStore3(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzAuthorizationStore2
-    _iid_ = Guid('abc08425-0c86-4fa0-9b-e3-71-89-95-6c-92-6e')
+    _iid_ = Guid('{abc08425-0c86-4fa0-9be3-7189956c926e}')
     @commethod(60)
     def IsUpdateNeeded(self, pbIsUpdateNeeded: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(61)
@@ -1240,7 +1240,7 @@ class IAzAuthorizationStore3(ComPtr):
     def GetSchemaVersion(self, plMajorVersion: POINTER(Int32), plMinorVersion: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzBizRuleContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e192f17d-d59f-455e-a1-52-94-03-16-cd-77-b2')
+    _iid_ = Guid('{e192f17d-d59f-455e-a152-940316cd77b2}')
     @commethod(7)
     def put_BusinessRuleResult(self, bResult: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1251,7 +1251,7 @@ class IAzBizRuleContext(ComPtr):
     def GetParameter(self, bstrParameterName: Windows.Win32.Foundation.BSTR, pvarParameterValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzBizRuleInterfaces(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e94128c7-e9da-44cc-b0-bd-53-03-6f-3a-ab-3d')
+    _iid_ = Guid('{e94128c7-e9da-44cc-b0bd-53036f3aab3d}')
     @commethod(7)
     def AddInterface(self, bstrInterfaceName: Windows.Win32.Foundation.BSTR, lInterfaceFlag: Int32, varInterface: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1266,7 +1266,7 @@ class IAzBizRuleInterfaces(ComPtr):
     def get_Count(self, plCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzBizRuleParameters(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('fc17685f-e25d-4dcd-ba-e1-27-6e-c9-53-3c-b5')
+    _iid_ = Guid('{fc17685f-e25d-4dcd-bae1-276ec9533cb5}')
     @commethod(7)
     def AddParameter(self, bstrParameterName: Windows.Win32.Foundation.BSTR, varParameterValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1281,7 +1281,7 @@ class IAzBizRuleParameters(ComPtr):
     def get_Count(self, plCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzClientContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('eff1f00b-488a-466d-af-d9-a4-01-c5-f9-ee-f5')
+    _iid_ = Guid('{eff1f00b-488a-466d-afd9-a401c5f9eef5}')
     @commethod(7)
     def AccessCheck(self, bstrObjectName: Windows.Win32.Foundation.BSTR, varScopeNames: Windows.Win32.System.Variant.VARIANT, varOperations: Windows.Win32.System.Variant.VARIANT, varParameterNames: Windows.Win32.System.Variant.VARIANT, varParameterValues: Windows.Win32.System.Variant.VARIANT, varInterfaceNames: Windows.Win32.System.Variant.VARIANT, varInterfaceFlags: Windows.Win32.System.Variant.VARIANT, varInterfaces: Windows.Win32.System.Variant.VARIANT, pvarResults: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1310,7 +1310,7 @@ class IAzClientContext(ComPtr):
     def put_RoleForAccessCheck(self, bstrProp: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzClientContext2(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzClientContext
-    _iid_ = Guid('2b0c92b8-208a-488a-8f-81-e4-ed-b2-21-11-cd')
+    _iid_ = Guid('{2b0c92b8-208a-488a-8f81-e4edb22111cd}')
     @commethod(20)
     def GetAssignedScopesPage(self, lOptions: Int32, PageSize: Int32, pvarCursor: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarScopeNames: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -1325,7 +1325,7 @@ class IAzClientContext2(ComPtr):
     def get_LDAPQueryDN(self, pbstrLDAPQueryDN: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzClientContext3(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzClientContext2
-    _iid_ = Guid('11894fde-1deb-4b4b-89-07-6d-1c-da-1f-5d-4f')
+    _iid_ = Guid('{11894fde-1deb-4b4b-8907-6d1cda1f5d4f}')
     @commethod(26)
     def AccessCheck2(self, bstrObjectName: Windows.Win32.Foundation.BSTR, bstrScopeName: Windows.Win32.Foundation.BSTR, lOperation: Int32, plResult: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
@@ -1344,21 +1344,21 @@ class IAzClientContext3(ComPtr):
     def get_Sids(self, pStringSidArray: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzNameResolver(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('504d0f15-73e2-43df-a8-70-a6-4f-40-71-4f-53')
+    _iid_ = Guid('{504d0f15-73e2-43df-a870-a64f40714f53}')
     @commethod(7)
     def NameFromSid(self, bstrSid: Windows.Win32.Foundation.BSTR, pSidType: POINTER(Int32), pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def NamesFromSids(self, vSids: Windows.Win32.System.Variant.VARIANT, pvSidTypes: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvNames: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzObjectPicker(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('63130a48-699a-42d8-bf-01-c6-2a-c3-fb-79-f9')
+    _iid_ = Guid('{63130a48-699a-42d8-bf01-c62ac3fb79f9}')
     @commethod(7)
     def GetPrincipals(self, hParentWnd: Windows.Win32.Foundation.HWND, bstrTitle: Windows.Win32.Foundation.BSTR, pvSidTypes: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvNames: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvSids: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzOperation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('5e56b24f-ea01-4d61-be-44-c4-9b-5e-4e-af-74')
+    _iid_ = Guid('{5e56b24f-ea01-4d61-be44-c49b5e4eaf74}')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1385,12 +1385,12 @@ class IAzOperation(ComPtr):
     def Submit(self, lFlags: Int32, varReserved: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzOperation2(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzOperation
-    _iid_ = Guid('1f5ea01f-44a2-4184-9c-48-a7-5b-4d-cc-8c-cc')
+    _iid_ = Guid('{1f5ea01f-44a2-4184-9c48-a75b4dcc8ccc}')
     @commethod(19)
     def RoleAssignments(self, bstrScopeName: Windows.Win32.Foundation.BSTR, bRecursive: Windows.Win32.Foundation.VARIANT_BOOL, ppRoleAssignments: POINTER(Windows.Win32.Security.Authorization.IAzRoleAssignments_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzOperations(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('90ef9c07-9706-49d9-af-80-04-38-a5-f3-ec-35')
+    _iid_ = Guid('{90ef9c07-9706-49d9-af80-0438a5f3ec35}')
     @commethod(7)
     def get_Item(self, Index: Int32, pvarObtPtr: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1399,14 +1399,14 @@ class IAzOperations(ComPtr):
     def get__NewEnum(self, ppEnumPtr: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzPrincipalLocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e5c3507d-ad6a-4992-9c-7f-74-ab-48-0b-44-cc')
+    _iid_ = Guid('{e5c3507d-ad6a-4992-9c7f-74ab480b44cc}')
     @commethod(7)
     def get_NameResolver(self, ppNameResolver: POINTER(Windows.Win32.Security.Authorization.IAzNameResolver_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_ObjectPicker(self, ppObjectPicker: POINTER(Windows.Win32.Security.Authorization.IAzObjectPicker_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzRole(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('859e0d8d-62d7-41d8-a0-34-c0-cd-5d-43-fd-fa')
+    _iid_ = Guid('{859e0d8d-62d7-41d8-a034-c0cd5d43fdfa}')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1463,7 +1463,7 @@ class IAzRole(ComPtr):
     def get_MembersName(self, pvarProp: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzRoleAssignment(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzRole
-    _iid_ = Guid('55647d31-0d5a-4fa3-b4-ac-2b-5f-9a-d5-ab-76')
+    _iid_ = Guid('{55647d31-0d5a-4fa3-b4ac-2b5f9ad5ab76}')
     @commethod(34)
     def AddRoleDefinition(self, bstrRoleDefinition: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
@@ -1474,7 +1474,7 @@ class IAzRoleAssignment(ComPtr):
     def get_Scope(self, ppScope: POINTER(Windows.Win32.Security.Authorization.IAzScope_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzRoleAssignments(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('9c80b900-fceb-4d73-a0-f4-c8-3b-0b-bf-24-81')
+    _iid_ = Guid('{9c80b900-fceb-4d73-a0f4-c83b0bbf2481}')
     @commethod(7)
     def get_Item(self, Index: Int32, pvarObtPtr: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1483,7 +1483,7 @@ class IAzRoleAssignments(ComPtr):
     def get__NewEnum(self, ppEnumPtr: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzRoleDefinition(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzTask
-    _iid_ = Guid('d97fcea1-2599-44f1-9f-c3-58-e9-fb-e0-94-66')
+    _iid_ = Guid('{d97fcea1-2599-44f1-9fc3-58e9fbe09466}')
     @commethod(33)
     def RoleAssignments(self, bstrScopeName: Windows.Win32.Foundation.BSTR, bRecursive: Windows.Win32.Foundation.VARIANT_BOOL, ppRoleAssignments: POINTER(Windows.Win32.Security.Authorization.IAzRoleAssignments_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
@@ -1494,7 +1494,7 @@ class IAzRoleDefinition(ComPtr):
     def get_RoleDefinitions(self, ppRoleDefinitions: POINTER(Windows.Win32.Security.Authorization.IAzRoleDefinitions_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzRoleDefinitions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('881f25a5-d755-4550-95-7a-d5-03-a3-b3-40-01')
+    _iid_ = Guid('{881f25a5-d755-4550-957a-d503a3b34001}')
     @commethod(7)
     def get_Item(self, Index: Int32, pvarObtPtr: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1503,7 +1503,7 @@ class IAzRoleDefinitions(ComPtr):
     def get__NewEnum(self, ppEnumPtr: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzRoles(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('95e0f119-13b4-4dae-b6-5f-2f-7d-60-d8-22-e4')
+    _iid_ = Guid('{95e0f119-13b4-4dae-b65f-2f7d60d822e4}')
     @commethod(7)
     def get_Item(self, Index: Int32, pvarObtPtr: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1512,7 +1512,7 @@ class IAzRoles(ComPtr):
     def get__NewEnum(self, ppEnumPtr: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzScope(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('00e52487-e08d-4514-b6-2e-87-7d-56-45-f5-ab')
+    _iid_ = Guid('{00e52487-e08d-4514-b62e-877d5645f5ab}')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1591,7 +1591,7 @@ class IAzScope(ComPtr):
     def DeletePolicyReaderName(self, bstrReader: Windows.Win32.Foundation.BSTR, varReserved: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzScope2(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzScope
-    _iid_ = Guid('ee9fe8c9-c9f3-40e2-aa-12-d1-d8-59-97-27-fd')
+    _iid_ = Guid('{ee9fe8c9-c9f3-40e2-aa12-d1d8599727fd}')
     @commethod(45)
     def get_RoleDefinitions(self, ppRoleDefinitions: POINTER(Windows.Win32.Security.Authorization.IAzRoleDefinitions_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(46)
@@ -1610,7 +1610,7 @@ class IAzScope2(ComPtr):
     def DeleteRoleAssignment(self, bstrRoleAssignmentName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzScopes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('78e14853-9f5e-406d-9b-91-6b-db-a6-97-35-10')
+    _iid_ = Guid('{78e14853-9f5e-406d-9b91-6bdba6973510}')
     @commethod(7)
     def get_Item(self, Index: Int32, pvarObtPtr: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1619,7 +1619,7 @@ class IAzScopes(ComPtr):
     def get__NewEnum(self, ppEnumPtr: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzTask(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('cb94e592-2e0e-4a6c-a3-36-b8-9a-6d-c1-e3-88')
+    _iid_ = Guid('{cb94e592-2e0e-4a6c-a336-b89a6dc1e388}')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1674,12 +1674,12 @@ class IAzTask(ComPtr):
     def Submit(self, lFlags: Int32, varReserved: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzTask2(ComPtr):
     extends: Windows.Win32.Security.Authorization.IAzTask
-    _iid_ = Guid('03a9a5ee-48c8-4832-90-25-aa-d5-03-c4-65-26')
+    _iid_ = Guid('{03a9a5ee-48c8-4832-9025-aad503c46526}')
     @commethod(33)
     def RoleAssignments(self, bstrScopeName: Windows.Win32.Foundation.BSTR, bRecursive: Windows.Win32.Foundation.VARIANT_BOOL, ppRoleAssignments: POINTER(Windows.Win32.Security.Authorization.IAzRoleAssignments_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAzTasks(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b338ccab-4c85-4388-8c-0a-c5-85-92-ba-d3-98')
+    _iid_ = Guid('{b338ccab-4c85-4388-8c0a-c58592bad398}')
     @commethod(7)
     def get_Item(self, Index: Int32, pvarObtPtr: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

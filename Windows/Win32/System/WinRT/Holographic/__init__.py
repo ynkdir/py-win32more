@@ -16,7 +16,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IHolographicCameraInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('7cc1f9c5-6d02-41fa-95-00-e1-80-9e-b4-8e-ec')
+    _iid_ = Guid('{7cc1f9c5-6d02-41fa-9500-e1809eb48eec}')
     @commethod(6)
     def CreateDirect3D12BackBufferResource(self, pDevice: Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, pTexture2DDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), ppCreatedTexture2DResource: POINTER(Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -29,14 +29,14 @@ class IHolographicCameraInterop(ComPtr):
     def UnacquireDirect3D12BufferResource(self, pResourceToUnacquire: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IHolographicCameraRenderingParametersInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('f75b68d6-d1fd-4707-aa-fd-fa-6f-4c-0e-3b-f4')
+    _iid_ = Guid('{f75b68d6-d1fd-4707-aafd-fa6f4c0e3bf4}')
     @commethod(6)
     def CommitDirect3D12Resource(self, pColorResourceToCommit: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pColorResourceFence: Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, colorResourceFenceSignalValue: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def CommitDirect3D12ResourceWithDepthData(self, pColorResourceToCommit: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pColorResourceFence: Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, colorResourceFenceSignalValue: UInt64, pDepthResourceToCommit: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pDepthResourceFence: Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, depthResourceFenceSignalValue: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IHolographicQuadLayerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('cfa688f0-639e-4a47-83-d7-6b-7f-5e-bf-7f-ed')
+    _iid_ = Guid('{cfa688f0-639e-4a47-83d7-6b7f5ebf7fed}')
     @commethod(6)
     def CreateDirect3D12ContentBufferResource(self, pDevice: Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, pTexture2DDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), ppTexture2DResource: POINTER(Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -49,7 +49,7 @@ class IHolographicQuadLayerInterop(ComPtr):
     def UnacquireDirect3D12BufferResource(self, pResourceToUnacquire: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IHolographicQuadLayerUpdateParametersInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('e5f549cd-c909-444f-88-09-7c-c1-8a-9c-89-20')
+    _iid_ = Guid('{e5f549cd-c909-444f-8809-7cc18a9c8920}')
     @commethod(6)
     def CommitDirect3D12Resource(self, pColorResourceToCommit: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pColorResourceFence: Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, colorResourceFenceSignalValue: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'IHolographicCameraInterop')

@@ -18,7 +18,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-CLSID_XFeedsManager: Guid = Guid('fe6b11c3-c72e-4061-86-c6-9d-16-31-21-f2-29')
+CLSID_XFeedsManager: Guid = Guid('{fe6b11c3-c72e-4061-86c6-9d163121f229}')
 WMPGC_FLAGS_ALLOW_PREROLL: UInt32 = 1
 WMPGC_FLAGS_SUPPRESS_DIALOGS: UInt32 = 2
 WMPGC_FLAGS_IGNORE_AV_SYNC: UInt32 = 4
@@ -560,11 +560,11 @@ DISPID_WMPDOWNLOADITEM2_BASE: UInt32 = 1300
 DISPID_WMPQUERY_BASE: UInt32 = 1350
 DISPID_WMPMEDIACOLLECTION2_BASE: UInt32 = 1400
 DISPID_WMPSTRINGCOLLECTION2_BASE: UInt32 = 1450
-CLSID_WMPSkinManager: Guid = Guid('b2a7fd52-301f-4348-b9-3a-63-8c-6d-e4-92-29')
-CLSID_WMPMediaPluginRegistrar: Guid = Guid('5569e7f5-424b-4b93-89-ca-79-d1-79-24-68-9a')
-WMP_PLUGINTYPE_DSP: Guid = Guid('6434baea-4954-498d-ab-d5-2b-07-12-3e-1f-04')
-WMP_PLUGINTYPE_DSP_OUTOFPROC: Guid = Guid('ef29b174-c347-44cc-9a-4f-23-99-11-8f-f3-8c')
-WMP_PLUGINTYPE_RENDERING: Guid = Guid('a8554541-115d-406a-a4-c7-51-11-1c-33-01-83')
+CLSID_WMPSkinManager: Guid = Guid('{b2a7fd52-301f-4348-b93a-638c6de49229}')
+CLSID_WMPMediaPluginRegistrar: Guid = Guid('{5569e7f5-424b-4b93-89ca-79d17924689a}')
+WMP_PLUGINTYPE_DSP: Guid = Guid('{6434baea-4954-498d-abd5-2b07123e1f04}')
+WMP_PLUGINTYPE_DSP_OUTOFPROC: Guid = Guid('{ef29b174-c347-44cc-9a4f-2399118ff38c}')
+WMP_PLUGINTYPE_RENDERING: Guid = Guid('{a8554541-115d-406a-a4c7-51111c330183}')
 kfltTimedLevelMaximumFrequency: Single = 22050
 kfltTimedLevelMinimumFrequency: Single = 20
 g_szContentPartnerInfo_LoginState: String = 'LoginState'
@@ -642,80 +642,80 @@ g_szVerifyPermissionSync: String = 'VerifyPermissionSync'
 g_szStationEvent_Started: String = 'TrackStarted'
 g_szStationEvent_Complete: String = 'TrackComplete'
 g_szStationEvent_Skipped: String = 'TrackSkipped'
-WMProfile_V40_DialUpMBR: Guid = Guid('fd7f47f1-72a6-45a4-80-f0-3a-ec-ef-c3-2c-07')
-WMProfile_V40_IntranetMBR: Guid = Guid('82cd3321-a94a-4ffc-9c-2b-09-2c-10-ca-16-e7')
-WMProfile_V40_2856100MBR: Guid = Guid('5a1c2206-dc5e-4186-be-b2-4c-5a-99-4b-13-2e')
-WMProfile_V40_6VoiceAudio: Guid = Guid('d508978a-11a0-4d15-b0-da-ac-dc-99-d4-f8-90')
-WMProfile_V40_16AMRadio: Guid = Guid('0f4be81f-d57d-41e1-b2-e3-2f-ad-98-6b-fe-c2')
-WMProfile_V40_288FMRadioMono: Guid = Guid('7fa57fc8-6ea4-4645-8a-bf-b6-e5-a8-f8-14-a1')
-WMProfile_V40_288FMRadioStereo: Guid = Guid('22fcf466-aa40-431f-a2-89-06-d0-ea-1a-1e-40')
-WMProfile_V40_56DialUpStereo: Guid = Guid('e8026f87-e905-4594-a3-c7-00-d0-00-41-d1-d9')
-WMProfile_V40_64Audio: Guid = Guid('4820b3f7-cbec-41dc-93-91-78-59-87-14-c8-e5')
-WMProfile_V40_96Audio: Guid = Guid('0efa0ee3-9e64-41e2-83-7f-3c-00-38-f3-27-ba')
-WMProfile_V40_128Audio: Guid = Guid('93ddbe12-13dc-4e32-a3-5e-40-37-8e-34-27-9a')
-WMProfile_V40_288VideoVoice: Guid = Guid('bb2bc274-0eb6-4da9-b5-50-ec-f7-f2-b9-94-8f')
-WMProfile_V40_288VideoAudio: Guid = Guid('ac617f2d-6cbe-4e84-8e-9a-ce-15-1a-12-a3-54')
-WMProfile_V40_288VideoWebServer: Guid = Guid('abf2f00d-d555-4815-94-ce-82-75-f3-a7-0b-fe')
-WMProfile_V40_56DialUpVideo: Guid = Guid('e21713bb-652f-4dab-99-de-71-e0-44-00-27-0f')
-WMProfile_V40_56DialUpVideoWebServer: Guid = Guid('b756ff10-520f-4749-a3-99-b7-80-e2-fc-92-50')
-WMProfile_V40_100Video: Guid = Guid('8f99ddd8-6684-456b-a0-a3-33-e1-31-68-95-f0')
-WMProfile_V40_250Video: Guid = Guid('541841c3-9339-4f7b-9a-22-b1-15-40-89-4e-42')
-WMProfile_V40_512Video: Guid = Guid('70440e6d-c4ef-4f84-8c-d0-d5-c2-86-86-e7-84')
-WMProfile_V40_1MBVideo: Guid = Guid('b4482a4c-cc17-4b07-a9-4e-98-18-d5-e0-f1-3f')
-WMProfile_V40_3MBVideo: Guid = Guid('55374ac0-309b-4396-b8-8f-e6-e2-92-11-3f-28')
-WMProfile_V70_DialUpMBR: Guid = Guid('5b16e74b-4068-45b5-b8-0e-7b-f8-c8-0d-2c-2f')
-WMProfile_V70_IntranetMBR: Guid = Guid('045880dc-34b6-4ca9-a3-26-73-55-7e-d1-43-f3')
-WMProfile_V70_2856100MBR: Guid = Guid('07df7a25-3fe2-4a5b-8b-1e-34-8b-07-21-ca-70')
-WMProfile_V70_288VideoVoice: Guid = Guid('b952f38e-7dbc-4533-a9-ca-b0-0b-1c-6e-98-00')
-WMProfile_V70_288VideoAudio: Guid = Guid('58bba0ee-896a-4948-99-53-85-b7-36-f8-39-47')
-WMProfile_V70_288VideoWebServer: Guid = Guid('70a32e2b-e2df-4ebd-91-05-d9-ca-19-4a-2d-50')
-WMProfile_V70_56VideoWebServer: Guid = Guid('def99e40-57bc-4ab3-b2-d1-b6-e3-ca-f6-42-57')
-WMProfile_V70_64VideoISDN: Guid = Guid('c2b7a7e9-7b8e-4992-a1-a1-06-82-17-a3-b3-11')
-WMProfile_V70_100Video: Guid = Guid('d9f3c932-5ea9-4c6d-89-b4-26-86-e5-15-42-6e')
-WMProfile_V70_256Video: Guid = Guid('afe69b3a-403f-4a1b-80-07-0e-21-cf-b3-df-84')
-WMProfile_V70_384Video: Guid = Guid('f3d45fbb-8782-44df-97-c6-86-78-e2-f9-b1-3d')
-WMProfile_V70_768Video: Guid = Guid('0326ebb6-f76e-4964-b0-db-e7-29-97-8d-35-ee')
-WMProfile_V70_1500Video: Guid = Guid('0b89164a-5490-4686-9e-37-5a-80-88-4e-51-46')
-WMProfile_V70_2000Video: Guid = Guid('aa980124-bf10-4e4f-9a-fd-43-29-a7-39-5c-ff')
-WMProfile_V70_700FilmContentVideo: Guid = Guid('7a747920-2449-4d76-99-cb-fd-b0-c9-04-84-d4')
-WMProfile_V70_1500FilmContentVideo: Guid = Guid('f6a5f6df-ee3f-434c-a4-33-52-3c-e5-5f-51-6b')
-WMProfile_V70_6VoiceAudio: Guid = Guid('eaba9fbf-b64f-49b3-aa-0c-73-fb-dd-15-0a-d0')
-WMProfile_V70_288FMRadioMono: Guid = Guid('c012a833-a03b-44a5-96-dc-ed-95-cc-65-58-2d')
-WMProfile_V70_288FMRadioStereo: Guid = Guid('e96d67c9-1a39-4dc4-b9-00-b1-18-4d-c8-36-20')
-WMProfile_V70_56DialUpStereo: Guid = Guid('674ee767-0949-4fac-87-5e-f4-c9-c2-92-01-3b')
-WMProfile_V70_64AudioISDN: Guid = Guid('91dea458-9d60-4212-9c-59-d4-09-19-c9-39-e4')
-WMProfile_V70_64Audio: Guid = Guid('b29cffc6-f131-41db-b5-e8-99-d8-b0-b9-45-f4')
-WMProfile_V70_96Audio: Guid = Guid('a9d4b819-16cc-4a59-9f-37-69-3d-bb-03-02-d6')
-WMProfile_V70_128Audio: Guid = Guid('c64cf5da-df45-40d3-80-27-de-69-8d-68-dc-66')
-WMProfile_V70_225VideoPDA: Guid = Guid('f55ea573-4c02-42b5-90-26-a8-26-0c-43-8a-9f')
-WMProfile_V70_150VideoPDA: Guid = Guid('0f472967-e3c6-4797-96-94-f0-30-4c-5e-2f-17')
-WMProfile_V80_255VideoPDA: Guid = Guid('feedbcdf-3fac-4c93-ac-0d-47-94-1e-c7-2c-0b')
-WMProfile_V80_150VideoPDA: Guid = Guid('aee16dfa-2c14-4a2f-ad-3f-a3-03-40-31-78-4f')
-WMProfile_V80_28856VideoMBR: Guid = Guid('d66920c4-c21f-4ec8-a0-b4-95-cf-2b-d5-7f-c4')
-WMProfile_V80_100768VideoMBR: Guid = Guid('5bdb5a0e-979e-47d3-95-96-73-b3-86-39-2a-55')
-WMProfile_V80_288100VideoMBR: Guid = Guid('d8722c69-2419-4b36-b4-e0-6e-17-b6-05-64-e5')
-WMProfile_V80_288Video: Guid = Guid('3df678d9-1352-4186-bb-f8-74-f0-c1-9b-6a-e2')
-WMProfile_V80_56Video: Guid = Guid('254e8a96-2612-405c-80-39-f0-bf-72-5c-ed-7d')
-WMProfile_V80_100Video: Guid = Guid('a2e300b4-c2d4-4fc0-b5-dd-ec-bd-94-8d-c0-df')
-WMProfile_V80_256Video: Guid = Guid('bbc75500-33d2-4466-b8-6b-12-2b-20-1c-c9-ae')
-WMProfile_V80_384Video: Guid = Guid('29b00c2b-09a9-48bd-ad-09-cd-ae-11-7d-1d-a7')
-WMProfile_V80_768Video: Guid = Guid('74d01102-e71a-4820-8f-0d-13-d2-ec-1e-48-72')
-WMProfile_V80_700NTSCVideo: Guid = Guid('c8c2985f-e5d9-4538-9e-23-9b-21-bf-78-f7-45')
-WMProfile_V80_1400NTSCVideo: Guid = Guid('931d1bee-617a-4bcd-99-05-cc-d0-78-66-83-ee')
-WMProfile_V80_384PALVideo: Guid = Guid('9227c692-ae62-4f72-a7-ea-73-60-62-d0-e2-1e')
-WMProfile_V80_700PALVideo: Guid = Guid('ec298949-639b-45e2-96-fd-4a-b3-2d-59-19-c2')
-WMProfile_V80_288MonoAudio: Guid = Guid('7ea3126d-e1ba-4716-89-af-f6-5c-ee-0c-0c-67')
-WMProfile_V80_288StereoAudio: Guid = Guid('7e4cab5c-35dc-45bb-a7-c0-19-b2-80-70-d0-cc')
-WMProfile_V80_32StereoAudio: Guid = Guid('60907f9f-b352-47e5-b2-10-0e-f1-f4-7e-9f-9d')
-WMProfile_V80_48StereoAudio: Guid = Guid('5ee06be5-492b-480a-8a-8f-12-f3-73-ec-f9-d4')
-WMProfile_V80_64StereoAudio: Guid = Guid('09bb5bc4-3176-457f-8d-d6-3c-d9-19-12-3e-2d')
-WMProfile_V80_96StereoAudio: Guid = Guid('1fc81930-61f2-436f-9d-33-34-9f-2a-1c-0f-10')
-WMProfile_V80_128StereoAudio: Guid = Guid('407b9450-8bdc-4ee5-88-b8-6f-52-7b-d9-41-f2')
-WMProfile_V80_288VideoOnly: Guid = Guid('8c45b4c7-4aeb-4f78-a5-ec-88-42-0b-9d-ad-ef')
-WMProfile_V80_56VideoOnly: Guid = Guid('6e2a6955-81df-4943-ba-50-68-a9-86-a7-08-f6')
-WMProfile_V80_FAIRVBRVideo: Guid = Guid('3510a862-5850-4886-83-5f-d7-8e-c6-a6-40-42')
-WMProfile_V80_HIGHVBRVideo: Guid = Guid('0f10d9d3-3b04-4fb0-a3-d3-88-d4-ac-85-4a-cc')
-WMProfile_V80_BESTVBRVideo: Guid = Guid('048439ba-309c-440e-9c-b4-3d-cc-a3-75-64-23')
+WMProfile_V40_DialUpMBR: Guid = Guid('{fd7f47f1-72a6-45a4-80f0-3aecefc32c07}')
+WMProfile_V40_IntranetMBR: Guid = Guid('{82cd3321-a94a-4ffc-9c2b-092c10ca16e7}')
+WMProfile_V40_2856100MBR: Guid = Guid('{5a1c2206-dc5e-4186-beb2-4c5a994b132e}')
+WMProfile_V40_6VoiceAudio: Guid = Guid('{d508978a-11a0-4d15-b0da-acdc99d4f890}')
+WMProfile_V40_16AMRadio: Guid = Guid('{0f4be81f-d57d-41e1-b2e3-2fad986bfec2}')
+WMProfile_V40_288FMRadioMono: Guid = Guid('{7fa57fc8-6ea4-4645-8abf-b6e5a8f814a1}')
+WMProfile_V40_288FMRadioStereo: Guid = Guid('{22fcf466-aa40-431f-a289-06d0ea1a1e40}')
+WMProfile_V40_56DialUpStereo: Guid = Guid('{e8026f87-e905-4594-a3c7-00d00041d1d9}')
+WMProfile_V40_64Audio: Guid = Guid('{4820b3f7-cbec-41dc-9391-78598714c8e5}')
+WMProfile_V40_96Audio: Guid = Guid('{0efa0ee3-9e64-41e2-837f-3c0038f327ba}')
+WMProfile_V40_128Audio: Guid = Guid('{93ddbe12-13dc-4e32-a35e-40378e34279a}')
+WMProfile_V40_288VideoVoice: Guid = Guid('{bb2bc274-0eb6-4da9-b550-ecf7f2b9948f}')
+WMProfile_V40_288VideoAudio: Guid = Guid('{ac617f2d-6cbe-4e84-8e9a-ce151a12a354}')
+WMProfile_V40_288VideoWebServer: Guid = Guid('{abf2f00d-d555-4815-94ce-8275f3a70bfe}')
+WMProfile_V40_56DialUpVideo: Guid = Guid('{e21713bb-652f-4dab-99de-71e04400270f}')
+WMProfile_V40_56DialUpVideoWebServer: Guid = Guid('{b756ff10-520f-4749-a399-b780e2fc9250}')
+WMProfile_V40_100Video: Guid = Guid('{8f99ddd8-6684-456b-a0a3-33e1316895f0}')
+WMProfile_V40_250Video: Guid = Guid('{541841c3-9339-4f7b-9a22-b11540894e42}')
+WMProfile_V40_512Video: Guid = Guid('{70440e6d-c4ef-4f84-8cd0-d5c28686e784}')
+WMProfile_V40_1MBVideo: Guid = Guid('{b4482a4c-cc17-4b07-a94e-9818d5e0f13f}')
+WMProfile_V40_3MBVideo: Guid = Guid('{55374ac0-309b-4396-b88f-e6e292113f28}')
+WMProfile_V70_DialUpMBR: Guid = Guid('{5b16e74b-4068-45b5-b80e-7bf8c80d2c2f}')
+WMProfile_V70_IntranetMBR: Guid = Guid('{045880dc-34b6-4ca9-a326-73557ed143f3}')
+WMProfile_V70_2856100MBR: Guid = Guid('{07df7a25-3fe2-4a5b-8b1e-348b0721ca70}')
+WMProfile_V70_288VideoVoice: Guid = Guid('{b952f38e-7dbc-4533-a9ca-b00b1c6e9800}')
+WMProfile_V70_288VideoAudio: Guid = Guid('{58bba0ee-896a-4948-9953-85b736f83947}')
+WMProfile_V70_288VideoWebServer: Guid = Guid('{70a32e2b-e2df-4ebd-9105-d9ca194a2d50}')
+WMProfile_V70_56VideoWebServer: Guid = Guid('{def99e40-57bc-4ab3-b2d1-b6e3caf64257}')
+WMProfile_V70_64VideoISDN: Guid = Guid('{c2b7a7e9-7b8e-4992-a1a1-068217a3b311}')
+WMProfile_V70_100Video: Guid = Guid('{d9f3c932-5ea9-4c6d-89b4-2686e515426e}')
+WMProfile_V70_256Video: Guid = Guid('{afe69b3a-403f-4a1b-8007-0e21cfb3df84}')
+WMProfile_V70_384Video: Guid = Guid('{f3d45fbb-8782-44df-97c6-8678e2f9b13d}')
+WMProfile_V70_768Video: Guid = Guid('{0326ebb6-f76e-4964-b0db-e729978d35ee}')
+WMProfile_V70_1500Video: Guid = Guid('{0b89164a-5490-4686-9e37-5a80884e5146}')
+WMProfile_V70_2000Video: Guid = Guid('{aa980124-bf10-4e4f-9afd-4329a7395cff}')
+WMProfile_V70_700FilmContentVideo: Guid = Guid('{7a747920-2449-4d76-99cb-fdb0c90484d4}')
+WMProfile_V70_1500FilmContentVideo: Guid = Guid('{f6a5f6df-ee3f-434c-a433-523ce55f516b}')
+WMProfile_V70_6VoiceAudio: Guid = Guid('{eaba9fbf-b64f-49b3-aa0c-73fbdd150ad0}')
+WMProfile_V70_288FMRadioMono: Guid = Guid('{c012a833-a03b-44a5-96dc-ed95cc65582d}')
+WMProfile_V70_288FMRadioStereo: Guid = Guid('{e96d67c9-1a39-4dc4-b900-b1184dc83620}')
+WMProfile_V70_56DialUpStereo: Guid = Guid('{674ee767-0949-4fac-875e-f4c9c292013b}')
+WMProfile_V70_64AudioISDN: Guid = Guid('{91dea458-9d60-4212-9c59-d40919c939e4}')
+WMProfile_V70_64Audio: Guid = Guid('{b29cffc6-f131-41db-b5e8-99d8b0b945f4}')
+WMProfile_V70_96Audio: Guid = Guid('{a9d4b819-16cc-4a59-9f37-693dbb0302d6}')
+WMProfile_V70_128Audio: Guid = Guid('{c64cf5da-df45-40d3-8027-de698d68dc66}')
+WMProfile_V70_225VideoPDA: Guid = Guid('{f55ea573-4c02-42b5-9026-a8260c438a9f}')
+WMProfile_V70_150VideoPDA: Guid = Guid('{0f472967-e3c6-4797-9694-f0304c5e2f17}')
+WMProfile_V80_255VideoPDA: Guid = Guid('{feedbcdf-3fac-4c93-ac0d-47941ec72c0b}')
+WMProfile_V80_150VideoPDA: Guid = Guid('{aee16dfa-2c14-4a2f-ad3f-a3034031784f}')
+WMProfile_V80_28856VideoMBR: Guid = Guid('{d66920c4-c21f-4ec8-a0b4-95cf2bd57fc4}')
+WMProfile_V80_100768VideoMBR: Guid = Guid('{5bdb5a0e-979e-47d3-9596-73b386392a55}')
+WMProfile_V80_288100VideoMBR: Guid = Guid('{d8722c69-2419-4b36-b4e0-6e17b60564e5}')
+WMProfile_V80_288Video: Guid = Guid('{3df678d9-1352-4186-bbf8-74f0c19b6ae2}')
+WMProfile_V80_56Video: Guid = Guid('{254e8a96-2612-405c-8039-f0bf725ced7d}')
+WMProfile_V80_100Video: Guid = Guid('{a2e300b4-c2d4-4fc0-b5dd-ecbd948dc0df}')
+WMProfile_V80_256Video: Guid = Guid('{bbc75500-33d2-4466-b86b-122b201cc9ae}')
+WMProfile_V80_384Video: Guid = Guid('{29b00c2b-09a9-48bd-ad09-cdae117d1da7}')
+WMProfile_V80_768Video: Guid = Guid('{74d01102-e71a-4820-8f0d-13d2ec1e4872}')
+WMProfile_V80_700NTSCVideo: Guid = Guid('{c8c2985f-e5d9-4538-9e23-9b21bf78f745}')
+WMProfile_V80_1400NTSCVideo: Guid = Guid('{931d1bee-617a-4bcd-9905-ccd0786683ee}')
+WMProfile_V80_384PALVideo: Guid = Guid('{9227c692-ae62-4f72-a7ea-736062d0e21e}')
+WMProfile_V80_700PALVideo: Guid = Guid('{ec298949-639b-45e2-96fd-4ab32d5919c2}')
+WMProfile_V80_288MonoAudio: Guid = Guid('{7ea3126d-e1ba-4716-89af-f65cee0c0c67}')
+WMProfile_V80_288StereoAudio: Guid = Guid('{7e4cab5c-35dc-45bb-a7c0-19b28070d0cc}')
+WMProfile_V80_32StereoAudio: Guid = Guid('{60907f9f-b352-47e5-b210-0ef1f47e9f9d}')
+WMProfile_V80_48StereoAudio: Guid = Guid('{5ee06be5-492b-480a-8a8f-12f373ecf9d4}')
+WMProfile_V80_64StereoAudio: Guid = Guid('{09bb5bc4-3176-457f-8dd6-3cd919123e2d}')
+WMProfile_V80_96StereoAudio: Guid = Guid('{1fc81930-61f2-436f-9d33-349f2a1c0f10}')
+WMProfile_V80_128StereoAudio: Guid = Guid('{407b9450-8bdc-4ee5-88b8-6f527bd941f2}')
+WMProfile_V80_288VideoOnly: Guid = Guid('{8c45b4c7-4aeb-4f78-a5ec-88420b9dadef}')
+WMProfile_V80_56VideoOnly: Guid = Guid('{6e2a6955-81df-4943-ba50-68a986a708f6}')
+WMProfile_V80_FAIRVBRVideo: Guid = Guid('{3510a862-5850-4886-835f-d78ec6a64042}')
+WMProfile_V80_HIGHVBRVideo: Guid = Guid('{0f10d9d3-3b04-4fb0-a3d3-88d4ac854acc}')
+WMProfile_V80_BESTVBRVideo: Guid = Guid('{048439ba-309c-440e-9cb4-3dcca3756423}')
 FEEDS_BACKGROUNDSYNC_ACTION = Int32
 FBSA_DISABLE: FEEDS_BACKGROUNDSYNC_ACTION = 0
 FBSA_ENABLE: FEEDS_BACKGROUNDSYNC_ACTION = 1
@@ -780,12 +780,12 @@ FEEDS_XML_SORT_PROPERTY = Int32
 FXSP_NONE: FEEDS_XML_SORT_PROPERTY = 0
 FXSP_PUBDATE: FEEDS_XML_SORT_PROPERTY = 1
 FXSP_DOWNLOADTIME: FEEDS_XML_SORT_PROPERTY = 2
-FeedFolderWatcher = Guid('281001ed-7765-4cb0-84-af-e9-b3-87-af-01-ff')
-FeedWatcher = Guid('18a6737b-f433-4687-89-bc-a1-b4-df-b9-f1-23')
-FeedsManager = Guid('faeb54c4-f66f-4806-83-a0-80-52-99-f5-e3-ad')
+FeedFolderWatcher = Guid('{281001ed-7765-4cb0-84af-e9b387af01ff}')
+FeedWatcher = Guid('{18a6737b-f433-4687-89bc-a1b4dfb9f123}')
+FeedsManager = Guid('{faeb54c4-f66f-4806-83a0-805299f5e3ad}')
 class IFeed(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f7f915d8-2ede-42bc-98-e7-a5-d0-50-63-a7-57')
+    _iid_ = Guid('{f7f915d8-2ede-42bc-98e7-a5d05063a757}')
     @commethod(7)
     def Xml(self, count: Int32, sortProperty: Windows.Win32.Media.MediaPlayer.FEEDS_XML_SORT_PROPERTY, sortOrder: Windows.Win32.Media.MediaPlayer.FEEDS_XML_SORT_ORDER, filterFlags: Windows.Win32.Media.MediaPlayer.FEEDS_XML_FILTER_FLAGS, includeFlags: Windows.Win32.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS, xml: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -876,7 +876,7 @@ class IFeed(ComPtr):
     def get_ItemCount(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeed2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IFeed
-    _iid_ = Guid('33f2ea09-1398-4ab9-b6-a4-f9-4b-49-d0-a4-2e')
+    _iid_ = Guid('{33f2ea09-1398-4ab9-b6a4-f94b49d0a42e}')
     @commethod(51)
     def GetItemByEffectiveId(self, itemEffectiveId: Int32, disp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(52)
@@ -891,7 +891,7 @@ class IFeed2(ComPtr):
     def ClearCredentials(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedEnclosure(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('361c26f7-90a4-4e67-ae-09-3a-36-a5-46-43-6a')
+    _iid_ = Guid('{361c26f7-90a4-4e67-ae09-3a36a546436a}')
     @commethod(7)
     def get_Url(self, enclosureUrl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -920,7 +920,7 @@ class IFeedEnclosure(ComPtr):
     def SetFile(self, downloadUrl: Windows.Win32.Foundation.BSTR, downloadFilePath: Windows.Win32.Foundation.BSTR, downloadMimeType: Windows.Win32.Foundation.BSTR, enclosureFilename: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('abf35c99-0681-47ea-9a-8c-14-36-a3-75-a9-9e')
+    _iid_ = Guid('{abf35c99-0681-47ea-9a8c-1436a375a99e}')
     @commethod(7)
     def Error(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -939,7 +939,7 @@ class IFeedEvents(ComPtr):
     def FeedItemCountChanged(self, path: Windows.Win32.Foundation.BSTR, itemCountType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedFolder(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('81f04ad1-4194-4d7d-86-d6-11-81-3c-ec-16-3c')
+    _iid_ = Guid('{81f04ad1-4194-4d7d-86d6-11813cec163c}')
     @commethod(7)
     def get_Feeds(self, disp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -978,7 +978,7 @@ class IFeedFolder(ComPtr):
     def GetWatcher(self, scope: Windows.Win32.Media.MediaPlayer.FEEDS_EVENTS_SCOPE, mask: Windows.Win32.Media.MediaPlayer.FEEDS_EVENTS_MASK, disp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedFolderEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('20a59fa6-a844-4630-9e-98-17-5f-70-b4-d5-5b')
+    _iid_ = Guid('{20a59fa6-a844-4630-9e98-175f70b4d55b}')
     @commethod(7)
     def Error(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1013,7 +1013,7 @@ class IFeedFolderEvents(ComPtr):
     def FeedItemCountChanged(self, path: Windows.Win32.Foundation.BSTR, itemCountType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('0a1e6cad-0a47-4da2-a1-3d-5b-aa-a5-c8-bd-4f')
+    _iid_ = Guid('{0a1e6cad-0a47-4da2-a13d-5baaa5c8bd4f}')
     @commethod(7)
     def Xml(self, includeFlags: Windows.Win32.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS, xml: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1050,12 +1050,12 @@ class IFeedItem(ComPtr):
     def get_Modified(self, modified: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedItem2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IFeedItem
-    _iid_ = Guid('79ac9ef4-f9c1-4d2b-a5-0b-a7-ff-ba-4d-cf-37')
+    _iid_ = Guid('{79ac9ef4-f9c1-4d2b-a50b-a7ffba4dcf37}')
     @commethod(24)
     def get_EffectiveId(self, effectiveId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedsEnum(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e3cd0028-2eed-4c60-8f-ae-a3-22-53-09-a8-36')
+    _iid_ = Guid('{e3cd0028-2eed-4c60-8fae-a3225309a836}')
     @commethod(7)
     def get_Count(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1064,7 +1064,7 @@ class IFeedsEnum(ComPtr):
     def get__NewEnum(self, enumVar: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedsManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('a74029cc-1f1a-4906-88-f0-81-06-38-d8-65-91')
+    _iid_ = Guid('{a74029cc-1f1a-4906-88f0-810638d86591}')
     @commethod(7)
     def get_RootFolder(self, disp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1099,14 +1099,14 @@ class IFeedsManager(ComPtr):
     def get_ItemCountLimit(self, itemCountLimit: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPAudioRenderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e79c6349-5997-4ce4-91-7c-22-a3-39-1e-c5-64')
+    _iid_ = Guid('{e79c6349-5997-4ce4-917c-22a3391ec564}')
     @commethod(3)
     def get_audioOutputDevice(self, pbstrOutputDevice: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_audioOutputDevice(self, bstrOutputDevice: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPCdrom(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('cfab6e98-8730-11d3-b3-88-00-c0-4f-68-57-4b')
+    _iid_ = Guid('{cfab6e98-8730-11d3-b388-00c04f68574b}')
     @commethod(7)
     def get_driveSpecifier(self, pbstrDrive: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1115,7 +1115,7 @@ class IWMPCdrom(ComPtr):
     def eject(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPCdromBurn(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bd94dbeb-417f-4928-aa-06-08-7d-56-ed-9b-59')
+    _iid_ = Guid('{bd94dbeb-417f-4928-aa06-087d56ed9b59}')
     @commethod(3)
     def isAvailable(self, bstrItem: Windows.Win32.Foundation.BSTR, pIsAvailable: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1146,7 +1146,7 @@ class IWMPCdromBurn(ComPtr):
     def erase(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPCdromCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('ee4c8fe2-34b2-11d3-a3-bf-00-60-97-c9-b3-44')
+    _iid_ = Guid('{ee4c8fe2-34b2-11d3-a3bf-006097c9b344}')
     @commethod(7)
     def get_count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1155,7 +1155,7 @@ class IWMPCdromCollection(ComPtr):
     def getByDriveSpecifier(self, bstrDriveSpecifier: Windows.Win32.Foundation.BSTR, ppCdrom: POINTER(Windows.Win32.Media.MediaPlayer.IWMPCdrom_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPCdromRip(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('56e2294f-69ed-4629-a8-69-ae-a7-2c-0d-cc-2c')
+    _iid_ = Guid('{56e2294f-69ed-4629-a869-aea72c0dcc2c}')
     @commethod(3)
     def get_ripState(self, pwmprs: POINTER(Windows.Win32.Media.MediaPlayer.WMPRipState)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1166,7 +1166,7 @@ class IWMPCdromRip(ComPtr):
     def stopRip(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPClosedCaption(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('4f2df574-c588-11d3-9e-d0-00-c0-4f-b6-e9-37')
+    _iid_ = Guid('{4f2df574-c588-11d3-9ed0-00c04fb6e937}')
     @commethod(7)
     def get_SAMIStyle(self, pbstrSAMIStyle: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1185,7 +1185,7 @@ class IWMPClosedCaption(ComPtr):
     def put_captioningId(self, bstrCaptioningID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPClosedCaption2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPClosedCaption
-    _iid_ = Guid('350ba78b-6bc8-4113-a5-f5-31-20-56-93-4e-b6')
+    _iid_ = Guid('{350ba78b-6bc8-4113-a5f5-312056934eb6}')
     @commethod(15)
     def get_SAMILangCount(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -1198,7 +1198,7 @@ class IWMPClosedCaption2(ComPtr):
     def getSAMIStyleName(self, nIndex: Int32, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPContentContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ad7f4d9c-1a9f-4ed2-98-15-ec-c0-b5-8c-b6-16')
+    _iid_ = Guid('{ad7f4d9c-1a9f-4ed2-9815-ecc0b58cb616}')
     @commethod(3)
     def GetID(self, pContentID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1213,7 +1213,7 @@ class IWMPContentContainer(ComPtr):
     def GetContentID(self, idxContent: UInt32, pContentID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPContentContainerList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a9937f78-0802-4af8-8b-8d-e3-f0-45-bc-8a-b5')
+    _iid_ = Guid('{a9937f78-0802-4af8-8b8d-e3f045bc8ab5}')
     @commethod(3)
     def GetTransactionType(self, pwmptt: POINTER(Windows.Win32.Media.MediaPlayer.WMPTransactionType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1222,7 +1222,7 @@ class IWMPContentContainerList(ComPtr):
     def GetContainer(self, idxContainer: UInt32, ppContent: POINTER(Windows.Win32.Media.MediaPlayer.IWMPContentContainer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPContentPartner(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('55455073-41b5-4e75-87-b8-f1-3b-db-29-1d-08')
+    _iid_ = Guid('{55455073-41b5-4e75-87b8-f13bdb291d08}')
     @commethod(3)
     def SetCallback(self, pCallback: Windows.Win32.Media.MediaPlayer.IWMPContentPartnerCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1271,7 +1271,7 @@ class IWMPContentPartner(ComPtr):
     def VerifyPermission(self, bstrPermission: Windows.Win32.Foundation.BSTR, pContext: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPContentPartnerCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9e8f7da2-0695-403c-b6-97-da-10-fa-fa-a6-76')
+    _iid_ = Guid('{9e8f7da2-0695-403c-b697-da10fafaa676}')
     @commethod(3)
     def Notify(self, type: Windows.Win32.Media.MediaPlayer.WMPCallbackNotification, pContext: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1300,7 +1300,7 @@ class IWMPContentPartnerCallback(ComPtr):
     def VerifyPermissionComplete(self, bstrPermission: Windows.Win32.Foundation.BSTR, pContext: POINTER(Windows.Win32.System.Variant.VARIANT_head), hrPermission: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPControls(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('74c09e02-f828-11d2-a7-4b-00-a0-c9-05-f3-6e')
+    _iid_ = Guid('{74c09e02-f828-11d2-a74b-00a0c905f36e}')
     @commethod(7)
     def get_isAvailable(self, bstrItem: Windows.Win32.Foundation.BSTR, pIsAvailable: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1335,12 +1335,12 @@ class IWMPControls(ComPtr):
     def playItem(self, pIWMPMedia: Windows.Win32.Media.MediaPlayer.IWMPMedia_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPControls2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPControls
-    _iid_ = Guid('6f030d25-0890-480f-97-75-1f-7e-40-ab-5b-8e')
+    _iid_ = Guid('{6f030d25-0890-480f-9775-1f7e40ab5b8e}')
     @commethod(23)
     def step(self, lStep: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPControls3(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPControls2
-    _iid_ = Guid('a1d1110e-d545-476a-9a-78-ac-3e-4c-b1-e6-bd')
+    _iid_ = Guid('{a1d1110e-d545-476a-9a78-ac3e4cb1e6bd}')
     @commethod(24)
     def get_audioLanguageCount(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
@@ -1363,14 +1363,14 @@ class IWMPControls3(ComPtr):
     def put_currentPositionTimecode(self, bstrTimecode: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPConvert(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d683162f-57d4-4108-83-73-4a-96-76-d1-c2-e9')
+    _iid_ = Guid('{d683162f-57d4-4108-8373-4a9676d1c2e9}')
     @commethod(3)
     def ConvertFile(self, bstrInputFile: Windows.Win32.Foundation.BSTR, bstrDestinationFolder: Windows.Win32.Foundation.BSTR, pbstrOutputFile: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetErrorURL(self, pbstrURL: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPCore(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d84cca99-cce2-11d2-9e-cc-00-00-f8-08-59-81')
+    _iid_ = Guid('{d84cca99-cce2-11d2-9ecc-0000f8085981}')
     @commethod(7)
     def close(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1415,19 +1415,19 @@ class IWMPCore(ComPtr):
     def get_status(self, pbstrStatus: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPCore2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPCore
-    _iid_ = Guid('bc17e5b7-7561-4c18-bb-90-17-d4-85-77-56-59')
+    _iid_ = Guid('{bc17e5b7-7561-4c18-bb90-17d485775659}')
     @commethod(28)
     def get_dvd(self, ppDVD: POINTER(Windows.Win32.Media.MediaPlayer.IWMPDVD_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPCore3(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPCore2
-    _iid_ = Guid('7587c667-628f-499f-88-e7-6a-6f-4e-88-84-64')
+    _iid_ = Guid('{7587c667-628f-499f-88e7-6a6f4e888464}')
     @commethod(29)
     def newPlaylist(self, bstrName: Windows.Win32.Foundation.BSTR, bstrURL: Windows.Win32.Foundation.BSTR, ppPlaylist: POINTER(Windows.Win32.Media.MediaPlayer.IWMPPlaylist_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def newMedia(self, bstrURL: Windows.Win32.Foundation.BSTR, ppMedia: POINTER(Windows.Win32.Media.MediaPlayer.IWMPMedia_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPDVD(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('8da61686-4668-4a5c-ae-5d-80-31-93-29-3d-be')
+    _iid_ = Guid('{8da61686-4668-4a5c-ae5d-803193293dbe}')
     @commethod(7)
     def get_isAvailable(self, bstrItem: Windows.Win32.Foundation.BSTR, pIsAvailable: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1442,7 +1442,7 @@ class IWMPDVD(ComPtr):
     def resume(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPDownloadCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('0a319c7f-85f9-436c-b8-8e-82-fd-88-00-0e-1c')
+    _iid_ = Guid('{0a319c7f-85f9-436c-b88e-82fd88000e1c}')
     @commethod(7)
     def get_id(self, plId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1457,7 +1457,7 @@ class IWMPDownloadCollection(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPDownloadItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('c9470e8e-3f6b-46a9-a0-a9-45-28-15-c3-42-97')
+    _iid_ = Guid('{c9470e8e-3f6b-46a9-a0a9-452815c34297}')
     @commethod(7)
     def get_sourceURL(self, pbstrURL: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1476,19 +1476,19 @@ class IWMPDownloadItem(ComPtr):
     def cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPDownloadItem2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPDownloadItem
-    _iid_ = Guid('9fbb3336-6da3-479d-b8-ff-67-d4-6e-20-a9-87')
+    _iid_ = Guid('{9fbb3336-6da3-479d-b8ff-67d46e20a987}')
     @commethod(15)
     def getItemInfo(self, bstrItemName: Windows.Win32.Foundation.BSTR, pbstrVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPDownloadManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('e15e9ad1-8f20-4cc4-9e-c7-1a-32-8c-a8-6a-0d')
+    _iid_ = Guid('{e15e9ad1-8f20-4cc4-9ec7-1a328ca86a0d}')
     @commethod(7)
     def getDownloadCollection(self, lCollectionId: Int32, ppCollection: POINTER(Windows.Win32.Media.MediaPlayer.IWMPDownloadCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def createDownloadCollection(self, ppCollection: POINTER(Windows.Win32.Media.MediaPlayer.IWMPDownloadCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPEffects(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d3984c13-c3cb-48e2-8b-e5-51-68-34-0b-4f-35')
+    _iid_ = Guid('{d3984c13-c3cb-48e2-8be5-5168340b4f35}')
     @commethod(3)
     def Render(self, pLevels: POINTER(Windows.Win32.Media.MediaPlayer.TimedLevel_head), hdc: Windows.Win32.Graphics.Gdi.HDC, prc: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1513,7 +1513,7 @@ class IWMPEffects(ComPtr):
     def RenderFullScreen(self, pLevels: POINTER(Windows.Win32.Media.MediaPlayer.TimedLevel_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPEffects2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPEffects
-    _iid_ = Guid('695386ec-aa3c-4618-a5-e1-dd-9a-8b-98-76-32')
+    _iid_ = Guid('{695386ec-aa3c-4618-a5e1-dd9a8b987632}')
     @commethod(14)
     def SetCore(self, pPlayer: Windows.Win32.Media.MediaPlayer.IWMPCore_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -1528,7 +1528,7 @@ class IWMPEffects2(ComPtr):
     def RenderWindowed(self, pData: POINTER(Windows.Win32.Media.MediaPlayer.TimedLevel_head), fRequiredRender: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPError(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('a12dcf7d-14ab-4c1b-a8-cd-63-90-9f-06-02-5b')
+    _iid_ = Guid('{a12dcf7d-14ab-4c1b-a8cd-63909f06025b}')
     @commethod(7)
     def clearErrorQueue(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1539,7 +1539,7 @@ class IWMPError(ComPtr):
     def webHelp(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPErrorItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3614c646-3b3b-4de7-a8-1e-93-0e-3f-21-27-b3')
+    _iid_ = Guid('{3614c646-3b3b-4de7-a81e-930e3f2127b3}')
     @commethod(7)
     def get_errorCode(self, phr: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1552,12 +1552,12 @@ class IWMPErrorItem(ComPtr):
     def get_customUrl(self, pbstrCustomUrl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPErrorItem2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPErrorItem
-    _iid_ = Guid('f75ccec0-c67c-475c-93-1e-87-19-87-0b-ee-7d')
+    _iid_ = Guid('{f75ccec0-c67c-475c-931e-8719870bee7d}')
     @commethod(12)
     def get_condition(self, plCondition: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('19a6627b-da9e-47c1-bb-23-00-b5-e6-68-23-6a')
+    _iid_ = Guid('{19a6627b-da9e-47c1-bb23-00b5e668236a}')
     @commethod(3)
     def OpenStateChange(self, NewState: Int32) -> Void: ...
     @commethod(4)
@@ -1650,7 +1650,7 @@ class IWMPEvents(ComPtr):
     def MouseUp(self, nButton: Int16, nShiftState: Int16, fX: Int32, fY: Int32) -> Void: ...
 class IWMPEvents2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPEvents
-    _iid_ = Guid('1e7601fa-47ea-4107-9e-a9-90-04-ed-96-84-ff')
+    _iid_ = Guid('{1e7601fa-47ea-4107-9ea9-9004ed9684ff}')
     @commethod(48)
     def DeviceConnect(self, pDevice: Windows.Win32.Media.MediaPlayer.IWMPSyncDevice_head) -> Void: ...
     @commethod(49)
@@ -1665,7 +1665,7 @@ class IWMPEvents2(ComPtr):
     def CreatePartnershipComplete(self, pDevice: Windows.Win32.Media.MediaPlayer.IWMPSyncDevice_head, hrResult: Windows.Win32.Foundation.HRESULT) -> Void: ...
 class IWMPEvents3(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPEvents2
-    _iid_ = Guid('1f504270-a66b-4223-8e-96-26-a0-6c-63-d6-9f')
+    _iid_ = Guid('{1f504270-a66b-4223-8e96-26a06c63d69f}')
     @commethod(54)
     def CdromRipStateChange(self, pCdromRip: Windows.Win32.Media.MediaPlayer.IWMPCdromRip_head, wmprs: Windows.Win32.Media.MediaPlayer.WMPRipState) -> Void: ...
     @commethod(55)
@@ -1690,12 +1690,12 @@ class IWMPEvents3(ComPtr):
     def MediaCollectionMediaRemoved(self, pdispMedia: Windows.Win32.System.Com.IDispatch_head) -> Void: ...
 class IWMPEvents4(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPEvents3
-    _iid_ = Guid('26dabcfa-306b-404d-9a-6f-63-0a-84-05-04-8d')
+    _iid_ = Guid('{26dabcfa-306b-404d-9a6f-630a8405048d}')
     @commethod(65)
     def DeviceEstimation(self, pDevice: Windows.Win32.Media.MediaPlayer.IWMPSyncDevice_head, hrResult: Windows.Win32.Foundation.HRESULT, qwEstimatedUsedSpace: Int64, qwEstimatedSpace: Int64) -> Void: ...
 class IWMPFolderMonitorServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('788c8743-e57f-439d-a4-68-5b-c7-7f-2e-59-c6')
+    _iid_ = Guid('{788c8743-e57f-439d-a468-5bc77f2e59c6}')
     @commethod(3)
     def get_count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1720,7 +1720,7 @@ class IWMPFolderMonitorServices(ComPtr):
     def stopScan(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPGraphCreation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bfb377e5-c594-4369-a9-70-de-89-6d-5e-ce-74')
+    _iid_ = Guid('{bfb377e5-c594-4369-a970-de896d5ece74}')
     @commethod(3)
     def GraphCreationPreRender(self, pFilterGraph: Windows.Win32.System.Com.IUnknown_head, pReserved: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1729,7 +1729,7 @@ class IWMPGraphCreation(ComPtr):
     def GetGraphCreationFlags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPLibrary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3df47861-7df1-4c1f-a8-1b-4c-26-f0-f7-a7-c6')
+    _iid_ = Guid('{3df47861-7df1-4c1f-a81b-4c26f0f7a7c6}')
     @commethod(3)
     def get_name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1740,19 +1740,19 @@ class IWMPLibrary(ComPtr):
     def isIdentical(self, pIWMPLibrary: Windows.Win32.Media.MediaPlayer.IWMPLibrary_head, pvbool: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPLibrary2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPLibrary
-    _iid_ = Guid('dd578a4e-79b1-426c-bf-8f-3a-dd-90-72-50-0b')
+    _iid_ = Guid('{dd578a4e-79b1-426c-bf8f-3add9072500b}')
     @commethod(7)
     def getItemInfo(self, bstrItemName: Windows.Win32.Foundation.BSTR, pbstrVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPLibraryServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('39c2f8d5-1cf2-4d5e-ae-09-d7-34-92-cf-9e-aa')
+    _iid_ = Guid('{39c2f8d5-1cf2-4d5e-ae09-d73492cf9eaa}')
     @commethod(3)
     def getCountByType(self, wmplt: Windows.Win32.Media.MediaPlayer.WMPLibraryType, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def getLibraryByType(self, wmplt: Windows.Win32.Media.MediaPlayer.WMPLibraryType, lIndex: Int32, ppIWMPLibrary: POINTER(Windows.Win32.Media.MediaPlayer.IWMPLibrary_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPLibrarySharingServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('82cba86b-9f04-474b-a3-65-d6-dd-14-66-e5-41')
+    _iid_ = Guid('{82cba86b-9f04-474b-a365-d6dd1466e541}')
     @commethod(3)
     def isLibraryShared(self, pvbShared: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1761,7 +1761,7 @@ class IWMPLibrarySharingServices(ComPtr):
     def showLibrarySharing(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPMedia(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('94d55e95-3fac-11d3-b1-55-00-c0-4f-79-fa-a6')
+    _iid_ = Guid('{94d55e95-3fac-11d3-b155-00c04f79faa6}')
     @commethod(7)
     def get_isIdentical(self, pIWMPMedia: Windows.Win32.Media.MediaPlayer.IWMPMedia_head, pvbool: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1800,19 +1800,19 @@ class IWMPMedia(ComPtr):
     def isReadOnlyItem(self, bstrItemName: Windows.Win32.Foundation.BSTR, pvarfIsReadOnly: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPMedia2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPMedia
-    _iid_ = Guid('ab7c88bb-143e-4ea4-ac-c3-e4-35-0b-21-06-c3')
+    _iid_ = Guid('{ab7c88bb-143e-4ea4-acc3-e4350b2106c3}')
     @commethod(25)
     def get_error(self, ppIWMPErrorItem: POINTER(Windows.Win32.Media.MediaPlayer.IWMPErrorItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPMedia3(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPMedia2
-    _iid_ = Guid('f118efc7-f03a-4fb4-99-c9-1c-02-a5-c1-06-5b')
+    _iid_ = Guid('{f118efc7-f03a-4fb4-99c9-1c02a5c1065b}')
     @commethod(26)
     def getAttributeCountByType(self, bstrType: Windows.Win32.Foundation.BSTR, bstrLanguage: Windows.Win32.Foundation.BSTR, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def getItemInfoByType(self, bstrType: Windows.Win32.Foundation.BSTR, bstrLanguage: Windows.Win32.Foundation.BSTR, lIndex: Int32, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPMediaCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('8363bc22-b4b4-4b19-98-9d-1c-d7-65-74-9d-d1')
+    _iid_ = Guid('{8363bc22-b4b4-4b19-989d-1cd765749dd1}')
     @commethod(7)
     def add(self, bstrURL: Windows.Win32.Foundation.BSTR, ppItem: POINTER(Windows.Win32.Media.MediaPlayer.IWMPMedia_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1839,7 +1839,7 @@ class IWMPMediaCollection(ComPtr):
     def isDeleted(self, pItem: Windows.Win32.Media.MediaPlayer.IWMPMedia_head, pvarfIsDeleted: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPMediaCollection2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPMediaCollection
-    _iid_ = Guid('8ba957f5-fd8c-4791-b8-2d-f8-40-40-1e-e4-74')
+    _iid_ = Guid('{8ba957f5-fd8c-4791-b82d-f840401ee474}')
     @commethod(19)
     def createQuery(self, ppQuery: POINTER(Windows.Win32.Media.MediaPlayer.IWMPQuery_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
@@ -1850,14 +1850,14 @@ class IWMPMediaCollection2(ComPtr):
     def getByAttributeAndMediaType(self, bstrAttribute: Windows.Win32.Foundation.BSTR, bstrValue: Windows.Win32.Foundation.BSTR, bstrMediaType: Windows.Win32.Foundation.BSTR, ppMediaItems: POINTER(Windows.Win32.Media.MediaPlayer.IWMPPlaylist_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPMediaPluginRegistrar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('68e27045-05bd-40b2-97-20-23-08-8c-78-e3-90')
+    _iid_ = Guid('{68e27045-05bd-40b2-9720-23088c78e390}')
     @commethod(3)
     def WMPRegisterPlayerPlugin(self, pwszFriendlyName: Windows.Win32.Foundation.PWSTR, pwszDescription: Windows.Win32.Foundation.PWSTR, pwszUninstallString: Windows.Win32.Foundation.PWSTR, dwPriority: UInt32, guidPluginType: Guid, clsid: Guid, cMediaTypes: UInt32, pMediaTypes: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def WMPUnRegisterPlayerPlugin(self, guidPluginType: Guid, clsid: Guid) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPMetadataPicture(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('5c29bbe0-f87d-4c45-aa-28-a7-0f-02-30-ff-a9')
+    _iid_ = Guid('{5c29bbe0-f87d-4c45-aa28-a70f0230ffa9}')
     @commethod(7)
     def get_mimeType(self, pbstrMimeType: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1868,14 +1868,14 @@ class IWMPMetadataPicture(ComPtr):
     def get_URL(self, pbstrURL: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPMetadataText(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('769a72db-13d2-45e2-9c-48-53-ca-9d-5b-74-50')
+    _iid_ = Guid('{769a72db-13d2-45e2-9c48-53ca9d5b7450}')
     @commethod(7)
     def get_description(self, pbstrDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_text(self, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPNetwork(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('ec21b779-edef-462d-bb-a4-ad-9d-de-2b-29-a7')
+    _iid_ = Guid('{ec21b779-edef-462d-bba4-ad9dde2b29a7}')
     @commethod(7)
     def get_bandWidth(self, plBandwidth: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1934,7 +1934,7 @@ class IWMPNetwork(ComPtr):
     def get_framesSkipped(self, plFrames: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPNodeRealEstate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('42751198-5a50-4460-bc-b4-70-9f-8b-dc-8e-59')
+    _iid_ = Guid('{42751198-5a50-4460-bcb4-709f8bdc8e59}')
     @commethod(3)
     def GetDesiredSize(self, pSize: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1951,36 +1951,36 @@ class IWMPNodeRealEstate(ComPtr):
     def GetFullScreen(self, pfFullScreen: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPNodeRealEstateHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1491087d-2c6b-44c8-b0-19-b3-c9-29-d2-ad-a9')
+    _iid_ = Guid('{1491087d-2c6b-44c8-b019-b3c929d2ada9}')
     @commethod(3)
     def OnDesiredSizeChange(self, pSize: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnFullScreenTransition(self, fFullScreen: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPNodeWindowed(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('96740bfa-c56a-45d1-a3-a4-76-29-14-d4-ad-e9')
+    _iid_ = Guid('{96740bfa-c56a-45d1-a3a4-762914d4ade9}')
     @commethod(3)
     def SetOwnerWindow(self, hwnd: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetOwnerWindow(self, phwnd: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPNodeWindowedHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a300415a-54aa-4081-ad-bf-3b-13-61-0d-89-58')
+    _iid_ = Guid('{a300415a-54aa-4081-adbf-3b13610d8958}')
     @commethod(3)
     def OnWindowMessageFromRenderer(self, uMsg: UInt32, wparam: Windows.Win32.Foundation.WPARAM, lparam: Windows.Win32.Foundation.LPARAM, plRet: POINTER(Windows.Win32.Foundation.LRESULT), pfHandled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPNodeWindowless(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPWindowMessageSink
-    _iid_ = Guid('9b9199ad-780c-4eda-b8-16-26-1e-ba-5d-15-75')
+    _iid_ = Guid('{9b9199ad-780c-4eda-b816-261eba5d1575}')
     @commethod(4)
     def OnDraw(self, hdc: IntPtr, prcDraw: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPNodeWindowlessHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('be7017c6-ce34-4901-81-06-77-03-81-aa-6e-3e')
+    _iid_ = Guid('{be7017c6-ce34-4901-8106-770381aa6e3e}')
     @commethod(3)
     def InvalidateRect(self, prc: POINTER(Windows.Win32.Foundation.RECT_head), fErase: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlayer(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPCore
-    _iid_ = Guid('6bf52a4f-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+    _iid_ = Guid('{6bf52a4f-394a-11d3-b153-00c04f79faa6}')
     @commethod(28)
     def get_enabled(self, pbEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
@@ -1999,7 +1999,7 @@ class IWMPPlayer(ComPtr):
     def get_uiMode(self, pbstrMode: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlayer2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPCore
-    _iid_ = Guid('0e6b01d1-d407-4c85-bf-5f-1c-01-f6-15-02-80')
+    _iid_ = Guid('{0e6b01d1-d407-4c85-bf5f-1c01f6150280}')
     @commethod(28)
     def get_enabled(self, pbEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
@@ -2026,7 +2026,7 @@ class IWMPPlayer2(ComPtr):
     def put_windowlessVideo(self, bEnabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlayer3(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPCore2
-    _iid_ = Guid('54062b68-052a-4c25-a3-9f-8b-63-34-65-11-d4')
+    _iid_ = Guid('{54062b68-052a-4c25-a39f-8b63346511d4}')
     @commethod(29)
     def get_enabled(self, pbEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
@@ -2053,7 +2053,7 @@ class IWMPPlayer3(ComPtr):
     def put_windowlessVideo(self, bEnabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlayer4(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPCore3
-    _iid_ = Guid('6c497d62-8919-413c-82-db-e9-35-fb-3e-c5-84')
+    _iid_ = Guid('{6c497d62-8919-413c-82db-e935fb3ec584}')
     @commethod(31)
     def get_enabled(self, pbEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
@@ -2086,7 +2086,7 @@ class IWMPPlayer4(ComPtr):
     def openPlayer(self, bstrURL: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlayerApplication(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('40897764-ceab-47be-ad-4a-8e-28-53-7f-9b-bf')
+    _iid_ = Guid('{40897764-ceab-47be-ad4a-8e28537f9bbf}')
     @commethod(7)
     def switchToPlayerApplication(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2097,7 +2097,7 @@ class IWMPPlayerApplication(ComPtr):
     def get_hasDisplay(self, pbHasDisplay: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlayerServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1d01fbdb-ade2-4c8d-98-42-c1-90-b9-5c-33-06')
+    _iid_ = Guid('{1d01fbdb-ade2-4c8d-9842-c190b95c3306}')
     @commethod(3)
     def activateUIPlugin(self, bstrPlugin: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2106,12 +2106,12 @@ class IWMPPlayerServices(ComPtr):
     def setTaskPaneURL(self, bstrTaskPane: Windows.Win32.Foundation.BSTR, bstrURL: Windows.Win32.Foundation.BSTR, bstrFriendlyName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlayerServices2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPPlayerServices
-    _iid_ = Guid('1bb1592f-f040-418a-9f-71-17-c7-51-2b-4d-70')
+    _iid_ = Guid('{1bb1592f-f040-418a-9f71-17c7512b4d70}')
     @commethod(6)
     def setBackgroundProcessingPriority(self, bstrPriority: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlaylist(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d5f0f4f1-130c-11d3-b1-4e-00-c0-4f-79-fa-a6')
+    _iid_ = Guid('{d5f0f4f1-130c-11d3-b14e-00c04f79faa6}')
     @commethod(7)
     def get_count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2142,14 +2142,14 @@ class IWMPPlaylist(ComPtr):
     def moveItem(self, lIndexOld: Int32, lIndexNew: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlaylistArray(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('679409c0-99f7-11d3-9f-b7-00-10-5a-a6-20-bb')
+    _iid_ = Guid('{679409c0-99f7-11d3-9fb7-00105aa620bb}')
     @commethod(7)
     def get_count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def item(self, lIndex: Int32, ppItem: POINTER(Windows.Win32.Media.MediaPlayer.IWMPPlaylist_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlaylistCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('10a13217-23a7-439b-b1-c0-d8-47-c7-9b-77-74')
+    _iid_ = Guid('{10a13217-23a7-439b-b1c0-d847c79b7774}')
     @commethod(7)
     def newPlaylist(self, bstrName: Windows.Win32.Foundation.BSTR, ppItem: POINTER(Windows.Win32.Media.MediaPlayer.IWMPPlaylist_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2166,7 +2166,7 @@ class IWMPPlaylistCollection(ComPtr):
     def importPlaylist(self, pItem: Windows.Win32.Media.MediaPlayer.IWMPPlaylist_head, ppImportedItem: POINTER(Windows.Win32.Media.MediaPlayer.IWMPPlaylist_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f1392a70-024c-42bb-a9-98-73-df-df-e7-d5-a7')
+    _iid_ = Guid('{f1392a70-024c-42bb-a998-73dfdfe7d5a7}')
     @commethod(3)
     def Init(self, dwPlaybackContext: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2181,14 +2181,14 @@ class IWMPPlugin(ComPtr):
     def UnAdviseWMPServices(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPluginEnable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5fca444c-7ad1-479d-a4-ef-40-56-6a-53-09-d6')
+    _iid_ = Guid('{5fca444c-7ad1-479d-a4ef-40566a5309d6}')
     @commethod(3)
     def SetEnable(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetEnable(self, pfEnable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPPluginUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4c5e8f9f-ad3e-4bf9-97-53-fc-d3-0d-6d-38-dd')
+    _iid_ = Guid('{4c5e8f9f-ad3e-4bf9-9753-fcd30d6d38dd}')
     @commethod(3)
     def SetCore(self, pCore: Windows.Win32.Media.MediaPlayer.IWMPCore_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2205,14 +2205,14 @@ class IWMPPluginUI(ComPtr):
     def TranslateAccelerator(self, lpmsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPQuery(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('a00918f3-a6b0-4bfb-91-89-fd-83-4c-7b-c5-a5')
+    _iid_ = Guid('{a00918f3-a6b0-4bfb-9189-fd834c7bc5a5}')
     @commethod(7)
     def addCondition(self, bstrAttribute: Windows.Win32.Foundation.BSTR, bstrOperator: Windows.Win32.Foundation.BSTR, bstrValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def beginNextGroup(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPRemoteMediaServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cbb92747-741f-44fe-ab-5b-f1-a4-8f-3b-2a-59')
+    _iid_ = Guid('{cbb92747-741f-44fe-ab5b-f1a48f3b2a59}')
     @commethod(3)
     def GetServiceType(self, pbstrType: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2223,21 +2223,21 @@ class IWMPRemoteMediaServices(ComPtr):
     def GetCustomUIMode(self, pbstrFile: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPRenderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('959506c1-0314-4ec5-9e-61-85-28-db-5e-54-78')
+    _iid_ = Guid('{959506c1-0314-4ec5-9e61-8528db5e5478}')
     @commethod(3)
     def put_inProcOnly(self, fInProc: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_inProcOnly(self, pfInProc: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('afb6b76b-1e20-4198-83-b3-19-1d-b6-e0-b1-49')
+    _iid_ = Guid('{afb6b76b-1e20-4198-83b3-191db6e0b149}')
     @commethod(3)
     def GetStreamTime(self, prt: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetStreamState(self, pState: POINTER(Windows.Win32.Media.MediaPlayer.WMPServices_StreamState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('9104d1ab-80c9-4fed-ab-f0-2e-64-17-a6-df-14')
+    _iid_ = Guid('{9104d1ab-80c9-4fed-abf0-2e6417a6df14}')
     @commethod(7)
     def get_isAvailable(self, bstrItem: Windows.Win32.Foundation.BSTR, pIsAvailable: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2286,7 +2286,7 @@ class IWMPSettings(ComPtr):
     def put_enableErrorDialogs(self, fEnableErrorDialogs: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSettings2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPSettings
-    _iid_ = Guid('fda937a4-eece-4da5-a0-b6-39-bf-89-ad-e2-c2')
+    _iid_ = Guid('{fda937a4-eece-4da5-a0b6-39bf89ade2c2}')
     @commethod(30)
     def get_defaultAudioLanguage(self, plLangID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
@@ -2295,19 +2295,19 @@ class IWMPSettings2(ComPtr):
     def requestMediaAccessRights(self, bstrDesiredAccess: Windows.Win32.Foundation.BSTR, pvbAccepted: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSkinManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('076f2fa6-ed30-448b-8c-c5-3f-3e-f3-52-9c-7a')
+    _iid_ = Guid('{076f2fa6-ed30-448b-8cc5-3f3ef3529c7a}')
     @commethod(3)
     def SetVisualStyle(self, bstrPath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPStringCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('4a976298-8c0d-11d3-b3-89-00-c0-4f-68-57-4b')
+    _iid_ = Guid('{4a976298-8c0d-11d3-b389-00c04f68574b}')
     @commethod(7)
     def get_count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def item(self, lIndex: Int32, pbstrString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPStringCollection2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPStringCollection
-    _iid_ = Guid('46ad648d-53f1-4a74-92-e2-2a-1b-68-d6-3f-d4')
+    _iid_ = Guid('{46ad648d-53f1-4a74-92e2-2a1b68d63fd4}')
     @commethod(9)
     def isIdentical(self, pIWMPStringCollection2: Windows.Win32.Media.MediaPlayer.IWMPStringCollection2_head, pvbool: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -2318,7 +2318,7 @@ class IWMPStringCollection2(ComPtr):
     def getItemInfoByType(self, lCollectionIndex: Int32, bstrType: Windows.Win32.Foundation.BSTR, bstrLanguage: Windows.Win32.Foundation.BSTR, lAttributeIndex: Int32, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSubscriptionService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('376055f8-2a59-4a73-95-01-dc-a5-27-3a-7a-10')
+    _iid_ = Guid('{376055f8-2a59-4a73-9501-dca5273a7a10}')
     @commethod(3)
     def allowPlay(self, hwnd: Windows.Win32.Foundation.HWND, pMedia: Windows.Win32.Media.MediaPlayer.IWMPMedia_head, pfAllowPlay: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2329,7 +2329,7 @@ class IWMPSubscriptionService(ComPtr):
     def startBackgroundProcessing(self, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSubscriptionService2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPSubscriptionService
-    _iid_ = Guid('a94c120e-d600-4ec6-b0-5e-ec-9d-56-d8-4d-e0')
+    _iid_ = Guid('{a94c120e-d600-4ec6-b05e-ec9d56d84de0}')
     @commethod(7)
     def stopBackgroundProcessing(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2340,12 +2340,12 @@ class IWMPSubscriptionService2(ComPtr):
     def prepareForSync(self, bstrFilename: Windows.Win32.Foundation.BSTR, bstrDeviceName: Windows.Win32.Foundation.BSTR, pCB: Windows.Win32.Media.MediaPlayer.IWMPSubscriptionServiceCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSubscriptionServiceCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dd01d127-2dc2-4c3a-87-6e-63-31-20-79-f9-b0')
+    _iid_ = Guid('{dd01d127-2dc2-4c3a-876e-63312079f9b0}')
     @commethod(3)
     def onComplete(self, hrResult: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSyncDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('82a2986c-0293-4fd0-b2-79-b2-1b-86-c0-58-be')
+    _iid_ = Guid('{82a2986c-0293-4fd0-b279-b21b86c058be}')
     @commethod(3)
     def get_friendlyName(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2380,46 +2380,46 @@ class IWMPSyncDevice(ComPtr):
     def isIdentical(self, pDevice: Windows.Win32.Media.MediaPlayer.IWMPSyncDevice_head, pvbool: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSyncDevice2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPSyncDevice
-    _iid_ = Guid('88afb4b2-140a-44d2-91-e6-45-43-da-46-7c-d1')
+    _iid_ = Guid('{88afb4b2-140a-44d2-91e6-4543da467cd1}')
     @commethod(19)
     def setItemInfo(self, bstrItemName: Windows.Win32.Foundation.BSTR, bstrVal: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSyncDevice3(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IWMPSyncDevice2
-    _iid_ = Guid('b22c85f9-263c-4372-a0-da-b5-18-db-9b-40-98')
+    _iid_ = Guid('{b22c85f9-263c-4372-a0da-b518db9b4098}')
     @commethod(20)
     def estimateSyncSize(self, pNonRulePlaylist: Windows.Win32.Media.MediaPlayer.IWMPPlaylist_head, pRulesPlaylist: Windows.Win32.Media.MediaPlayer.IWMPPlaylist_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def cancelEstimation(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPSyncServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8b5050ff-e0a4-4808-b3-a8-89-3a-9e-1e-d8-94')
+    _iid_ = Guid('{8b5050ff-e0a4-4808-b3a8-893a9e1ed894}')
     @commethod(3)
     def get_deviceCount(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def getDevice(self, lIndex: Int32, ppDevice: POINTER(Windows.Win32.Media.MediaPlayer.IWMPSyncDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPTranscodePolicy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b64cbac3-401c-4327-a3-e8-b9-fe-b3-a8-c2-5c')
+    _iid_ = Guid('{b64cbac3-401c-4327-a3e8-b9feb3a8c25c}')
     @commethod(3)
     def allowTranscode(self, pvbAllow: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPUserEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cfccfa72-c343-48c3-a2-de-b7-a4-40-2e-39-f2')
+    _iid_ = Guid('{cfccfa72-c343-48c3-a2de-b7a4402e39f2}')
     @commethod(3)
     def NotifyUserEvent(self, EventCode: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPVideoRenderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6d6cf803-1ec0-4c8d-b3-ca-f1-8e-27-28-20-74')
+    _iid_ = Guid('{6d6cf803-1ec0-4c8d-b3ca-f18e27282074}')
     @commethod(3)
     def put_presenterActivate(self, pActivate: Windows.Win32.Media.MediaFoundation.IMFActivate_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMPWindowMessageSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3a0daa30-908d-4789-ba-87-ae-d8-79-b5-c4-9b')
+    _iid_ = Guid('{3a0daa30-908d-4789-ba87-aed879b5c49b}')
     @commethod(3)
     def OnWindowMessage(self, uMsg: UInt32, wparam: Windows.Win32.Foundation.WPARAM, lparam: Windows.Win32.Foundation.LPARAM, plRet: POINTER(Windows.Win32.Foundation.LRESULT), pfHandled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeed(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a44179a4-e0f6-403b-af-8d-d0-80-f4-25-a4-51')
+    _iid_ = Guid('{a44179a4-e0f6-403b-af8d-d080f425a451}')
     @commethod(3)
     def Xml(self, uiItemCount: UInt32, sortProperty: Windows.Win32.Media.MediaPlayer.FEEDS_XML_SORT_PROPERTY, sortOrder: Windows.Win32.Media.MediaPlayer.FEEDS_XML_SORT_ORDER, filterFlags: Windows.Win32.Media.MediaPlayer.FEEDS_XML_FILTER_FLAGS, includeFlags: Windows.Win32.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS, pps: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2510,7 +2510,7 @@ class IXFeed(ComPtr):
     def ItemCount(self, puiItemCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeed2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IXFeed
-    _iid_ = Guid('ce528e77-3716-4eb7-95-6d-f5-e3-75-02-e1-2a')
+    _iid_ = Guid('{ce528e77-3716-4eb7-956d-f5e37502e12a}')
     @commethod(47)
     def GetItemByEffectiveId(self, uiEffectiveId: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(48)
@@ -2525,7 +2525,7 @@ class IXFeed2(ComPtr):
     def ClearCredentials(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeedEnclosure(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bfbfb953-644f-4792-b6-9c-df-ac-a4-cb-f8-9a')
+    _iid_ = Guid('{bfbfb953-644f-4792-b69c-dfaca4cbf89a}')
     @commethod(3)
     def Url(self, ppszUrl: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2554,7 +2554,7 @@ class IXFeedEnclosure(ComPtr):
     def SetFile(self, pszDownloadUrl: Windows.Win32.Foundation.PWSTR, pszDownloadFilePath: Windows.Win32.Foundation.PWSTR, pszDownloadMimeType: Windows.Win32.Foundation.PWSTR, pszEnclosureFilename: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeedEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1630852e-1263-465b-98-e5-fe-60-ff-ec-4a-c2')
+    _iid_ = Guid('{1630852e-1263-465b-98e5-fe60ffec4ac2}')
     @commethod(3)
     def Error(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2573,7 +2573,7 @@ class IXFeedEvents(ComPtr):
     def FeedItemCountChanged(self, pszPath: Windows.Win32.Foundation.PWSTR, feicfFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeedFolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4c963678-3a51-4b88-85-31-98-b9-0b-65-08-f2')
+    _iid_ = Guid('{4c963678-3a51-4b88-8531-98b90b6508f2}')
     @commethod(3)
     def Feeds(self, ppfe: POINTER(Windows.Win32.Media.MediaPlayer.IXFeedsEnum_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2612,7 +2612,7 @@ class IXFeedFolder(ComPtr):
     def TotalItemCount(self, puiTotalItemCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeedFolderEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7964b769-234a-4bb1-a5-f4-90-45-4c-8a-d0-7e')
+    _iid_ = Guid('{7964b769-234a-4bb1-a5f4-90454c8ad07e}')
     @commethod(3)
     def Error(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2647,7 +2647,7 @@ class IXFeedFolderEvents(ComPtr):
     def FeedItemCountChanged(self, pszPath: Windows.Win32.Foundation.PWSTR, feicfFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeedItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e757b2f5-e73e-434e-a1-bf-2b-d7-c3-e6-0f-cb')
+    _iid_ = Guid('{e757b2f5-e73e-434e-a1bf-2bd7c3e60fcb}')
     @commethod(3)
     def Xml(self, fxif: Windows.Win32.Media.MediaPlayer.FEEDS_XML_INCLUDE_FLAGS, pps: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2684,19 +2684,19 @@ class IXFeedItem(ComPtr):
     def Modified(self, pstModifiedTime: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeedItem2(ComPtr):
     extends: Windows.Win32.Media.MediaPlayer.IXFeedItem
-    _iid_ = Guid('6cda2dc7-9013-4522-99-70-2a-9d-d9-ea-d5-a3')
+    _iid_ = Guid('{6cda2dc7-9013-4522-9970-2a9dd9ead5a3}')
     @commethod(20)
     def EffectiveId(self, puiEffectiveId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeedsEnum(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dc43a9d5-5015-4301-8c-96-a4-74-34-b4-d6-58')
+    _iid_ = Guid('{dc43a9d5-5015-4301-8c96-a47434b4d658}')
     @commethod(3)
     def Count(self, puiCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Item(self, uiIndex: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXFeedsManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5357e238-fb12-4aca-a9-30-ca-b7-83-2b-84-bf')
+    _iid_ = Guid('{5357e238-fb12-4aca-a930-cab7832b84bf}')
     @commethod(3)
     def RootFolder(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2780,7 +2780,7 @@ WMPFolderScanState_wmpfssUnknown: WMPFolderScanState = 0
 WMPFolderScanState_wmpfssScanning: WMPFolderScanState = 1
 WMPFolderScanState_wmpfssUpdating: WMPFolderScanState = 2
 WMPFolderScanState_wmpfssStopped: WMPFolderScanState = 3
-WMPLib = Guid('6bf52a50-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+WMPLib = Guid('{6bf52a50-394a-11d3-b153-00c04f79faa6}')
 WMPLibraryType = Int32
 WMPLibraryType_wmpltUnknown: WMPLibraryType = 0
 WMPLibraryType_wmpltAll: WMPLibraryType = 1
@@ -2845,7 +2845,7 @@ WMPPlaylistChangeEventType_wmplcSort: WMPPlaylistChangeEventType = 10
 WMPPlaylistChangeEventType_wmplcLast: WMPPlaylistChangeEventType = 11
 WMPPlugin_Caps = Int32
 WMPPlugin_Caps_CannotConvertFormats: WMPPlugin_Caps = 1
-WMPRemoteMediaServices = Guid('df333473-2cf7-4be2-90-7f-9a-ad-56-61-36-4f')
+WMPRemoteMediaServices = Guid('{df333473-2cf7-4be2-907f-9aad5661364f}')
 WMPRipState = Int32
 WMPRipState_wmprsUnknown: WMPRipState = 0
 WMPRipState_wmprsRipping: WMPRipState = 1
@@ -2909,10 +2909,10 @@ class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE(EasyCastStructure):
     dwChangesSinceTransactionID: UInt32
     dwResultSetStartingIndex: UInt32
     _pack_ = 1
-WindowsMediaPlayer = Guid('6bf52a52-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+WindowsMediaPlayer = Guid('{6bf52a52-394a-11d3-b153-00c04f79faa6}')
 class _WMPOCXEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('6bf52a51-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+    _iid_ = Guid('{6bf52a51-394a-11d3-b153-00c04f79faa6}')
 make_head(_module, 'IFeed')
 make_head(_module, 'IFeed2')
 make_head(_module, 'IFeedEnclosure')

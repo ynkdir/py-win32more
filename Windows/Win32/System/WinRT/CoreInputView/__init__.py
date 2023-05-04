@@ -15,7 +15,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ICoreFrameworkInputViewInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('0e3da342-b11c-484b-9c-1c-be-0d-61-c2-f6-c5')
+    _iid_ = Guid('{0e3da342-b11c-484b-9c1c-be0d61c2f6c5}')
     @commethod(6)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), coreFrameworkInputView: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'ICoreFrameworkInputViewInterop')

@@ -37,18 +37,18 @@ class Adapter(EasyCastStructure):
 class Adapters(EasyCastStructure):
     numAdapters: Int32
     adapter: Windows.Win32.Devices.Display.Adapter * 1
-GUID_DEVINTERFACE_DISPLAY_ADAPTER: Guid = Guid('5b45201d-f2f2-4f3b-85-bb-30-ff-1f-95-35-99')
-GUID_DEVINTERFACE_MONITOR: Guid = Guid('e6f07b5f-ee97-4a90-b0-76-33-f5-7b-f4-ea-a7')
-GUID_DISPLAY_DEVICE_ARRIVAL: Guid = Guid('1ca05180-a699-450a-9a-0c-de-4f-be-3d-dd-89')
-GUID_DEVINTERFACE_VIDEO_OUTPUT_ARRIVAL: Guid = Guid('1ad9e4f0-f88d-4360-ba-b9-4c-2d-55-e5-64-cd')
+GUID_DEVINTERFACE_DISPLAY_ADAPTER: Guid = Guid('{5b45201d-f2f2-4f3b-85bb-30ff1f953599}')
+GUID_DEVINTERFACE_MONITOR: Guid = Guid('{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}')
+GUID_DISPLAY_DEVICE_ARRIVAL: Guid = Guid('{1ca05180-a699-450a-9a0c-de4fbe3ddd89}')
+GUID_DEVINTERFACE_VIDEO_OUTPUT_ARRIVAL: Guid = Guid('{1ad9e4f0-f88d-4360-bab9-4c2d55e564cd}')
 def DEVPKEY_IndirectDisplay():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('c50a3f10-aa5c-4247-b8-30-d6-a6-f8-ea-a3-10'), pid=1)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=1)
 def DEVPKEY_Device_TerminalLuid():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('c50a3f10-aa5c-4247-b8-30-d6-a6-f8-ea-a3-10'), pid=2)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=2)
 def DEVPKEY_Device_AdapterLuid():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('c50a3f10-aa5c-4247-b8-30-d6-a6-f8-ea-a3-10'), pid=3)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=3)
 def DEVPKEY_Device_ActivityId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('c50a3f10-aa5c-4247-b8-30-d6-a6-f8-ea-a3-10'), pid=4)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=4)
 INDIRECT_DISPLAY_INFO_FLAGS_CREATED_IDDCX_ADAPTER: UInt32 = 1
 VIDEO_DEVICE_NAME: String = 'DISPLAY%d'
 WVIDEO_DEVICE_NAME: String = 'DISPLAY%d'
@@ -209,7 +209,7 @@ HOST_DSI_INVALID_TRANSMISSION: UInt32 = 256
 HOST_DSI_OS_REJECTED_PACKET: UInt32 = 512
 HOST_DSI_DRIVER_REJECTED_PACKET: UInt32 = 1024
 HOST_DSI_BAD_TRANSMISSION_MODE: UInt32 = 4096
-GUID_MONITOR_OVERRIDE_PSEUDO_SPECIALIZED: Guid = Guid('f196c02f-f86f-4f9a-aa-15-e9-ce-bd-fe-3b-96')
+GUID_MONITOR_OVERRIDE_PSEUDO_SPECIALIZED: Guid = Guid('{f196c02f-f86f-4f9a-aa15-e9cebdfe3b96}')
 FD_ERROR: UInt32 = 4294967295
 DDI_ERROR: UInt32 = 4294967295
 FDM_TYPE_BM_SIDE_CONST: UInt32 = 1
@@ -1734,7 +1734,7 @@ HSEMAPHORE = IntPtr
 HSURF = IntPtr
 class ICloneViewHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f6a3d4c4-5632-4d83-b0-a1-fb-88-71-2b-1e-b7')
+    _iid_ = Guid('{f6a3d4c4-5632-4d83-b0a1-fb88712b1eb7}')
     @commethod(3)
     def GetConnectedIDs(self, wszAdaptorName: Windows.Win32.Foundation.PWSTR, pulCount: POINTER(UInt32), pulID: POINTER(UInt32), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1880,7 +1880,7 @@ class INDIRECT_DISPLAY_INFO(EasyCastStructure):
     DisplayAdapterTargetBase: UInt32
 class IViewHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e85ccef5-aaaa-47f0-b5-e3-61-f7-ae-cd-c4-c1')
+    _iid_ = Guid('{e85ccef5-aaaa-47f0-b5e3-61f7aecdc4c1}')
     @commethod(3)
     def GetConnectedIDs(self, wszAdaptorName: Windows.Win32.Foundation.PWSTR, pulCount: POINTER(UInt32), pulID: POINTER(UInt32), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

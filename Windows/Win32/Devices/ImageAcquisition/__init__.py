@@ -517,21 +517,21 @@ WIA_IPS_BLANK_PAGES_SENSITIVITY: UInt32 = 4192
 WIA_IPS_BLANK_PAGES_SENSITIVITY_STR: String = 'Blank Pages Sensitivity'
 WIA_IPS_MULTI_FEED_DETECT_METHOD: UInt32 = 4193
 WIA_IPS_MULTI_FEED_DETECT_METHOD_STR: String = 'Multi-Feed Detection Method'
-WIA_CATEGORY_FINISHED_FILE: Guid = Guid('ff2b77ca-cf84-432b-a7-35-3a-13-0d-de-2a-88')
-WIA_CATEGORY_FLATBED: Guid = Guid('fb607b1f-43f3-488b-85-5b-fb-70-3e-c3-42-a6')
-WIA_CATEGORY_FEEDER: Guid = Guid('fe131934-f84c-42ad-8d-a4-61-29-cd-dd-72-88')
-WIA_CATEGORY_FILM: Guid = Guid('fcf65be7-3ce3-4473-af-85-f5-d3-7d-21-b6-8a')
-WIA_CATEGORY_ROOT: Guid = Guid('f193526f-59b8-4a26-98-88-e1-6e-4f-97-ce-10')
-WIA_CATEGORY_FOLDER: Guid = Guid('c692a446-6f5a-481d-85-bb-92-e2-e8-6f-d3-0a')
-WIA_CATEGORY_FEEDER_FRONT: Guid = Guid('4823175c-3b28-487b-a7-e6-ee-bc-17-61-4f-d1')
-WIA_CATEGORY_FEEDER_BACK: Guid = Guid('61ca74d4-39db-42aa-89-b1-8c-19-c9-cd-4c-23')
-WIA_CATEGORY_AUTO: Guid = Guid('defe5fd8-6c97-4dde-b1-1e-cb-50-9b-27-0e-11')
-WIA_CATEGORY_IMPRINTER: Guid = Guid('fc65016d-9202-43dd-91-a7-64-c2-95-4c-fb-8b')
-WIA_CATEGORY_ENDORSER: Guid = Guid('47102cc3-127f-4771-ad-fc-99-1a-b8-ee-1e-97')
-WIA_CATEGORY_BARCODE_READER: Guid = Guid('36e178a0-473f-494b-af-8f-6c-3f-6d-74-86-fc')
-WIA_CATEGORY_PATCH_CODE_READER: Guid = Guid('8faa1a6d-9c8a-42cd-98-b3-ee-97-00-cb-c7-4f')
-WIA_CATEGORY_MICR_READER: Guid = Guid('3b86c1ec-71bc-4645-b4-d5-1b-19-da-2b-e9-78')
-CLSID_WiaDefaultSegFilter: Guid = Guid('d4f4d30b-0b29-4508-89-22-0c-57-97-d4-27-65')
+WIA_CATEGORY_FINISHED_FILE: Guid = Guid('{ff2b77ca-cf84-432b-a735-3a130dde2a88}')
+WIA_CATEGORY_FLATBED: Guid = Guid('{fb607b1f-43f3-488b-855b-fb703ec342a6}')
+WIA_CATEGORY_FEEDER: Guid = Guid('{fe131934-f84c-42ad-8da4-6129cddd7288}')
+WIA_CATEGORY_FILM: Guid = Guid('{fcf65be7-3ce3-4473-af85-f5d37d21b68a}')
+WIA_CATEGORY_ROOT: Guid = Guid('{f193526f-59b8-4a26-9888-e16e4f97ce10}')
+WIA_CATEGORY_FOLDER: Guid = Guid('{c692a446-6f5a-481d-85bb-92e2e86fd30a}')
+WIA_CATEGORY_FEEDER_FRONT: Guid = Guid('{4823175c-3b28-487b-a7e6-eebc17614fd1}')
+WIA_CATEGORY_FEEDER_BACK: Guid = Guid('{61ca74d4-39db-42aa-89b1-8c19c9cd4c23}')
+WIA_CATEGORY_AUTO: Guid = Guid('{defe5fd8-6c97-4dde-b11e-cb509b270e11}')
+WIA_CATEGORY_IMPRINTER: Guid = Guid('{fc65016d-9202-43dd-91a7-64c2954cfb8b}')
+WIA_CATEGORY_ENDORSER: Guid = Guid('{47102cc3-127f-4771-adfc-991ab8ee1e97}')
+WIA_CATEGORY_BARCODE_READER: Guid = Guid('{36e178a0-473f-494b-af8f-6c3f6d7486fc}')
+WIA_CATEGORY_PATCH_CODE_READER: Guid = Guid('{8faa1a6d-9c8a-42cd-98b3-ee9700cbc74f}')
+WIA_CATEGORY_MICR_READER: Guid = Guid('{3b86c1ec-71bc-4645-b4d5-1b19da2be978}')
+CLSID_WiaDefaultSegFilter: Guid = Guid('{d4f4d30b-0b29-4508-8922-0c5797d42765}')
 WIA_TRANSFER_CHILDREN_SINGLE_SCAN: UInt32 = 1
 WIA_USE_SEGMENTATION_FILTER: UInt32 = 0
 WIA_DONT_USE_SEGMENTATION_FILTER: UInt32 = 1
@@ -732,95 +732,95 @@ WIA_ALARM_BEEP9: UInt32 = 9
 WIA_ALARM_BEEP10: UInt32 = 10
 WIA_PRIVATE_DEVPROP: UInt32 = 38914
 WIA_PRIVATE_ITEMPROP: UInt32 = 71682
-WiaImgFmt_UNDEFINED: Guid = Guid('b96b3ca9-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_RAWRGB: Guid = Guid('bca48b55-f272-4371-b0-f1-4a-15-0d-05-7b-b4')
-WiaImgFmt_MEMORYBMP: Guid = Guid('b96b3caa-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_BMP: Guid = Guid('b96b3cab-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_EMF: Guid = Guid('b96b3cac-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_WMF: Guid = Guid('b96b3cad-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_JPEG: Guid = Guid('b96b3cae-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_PNG: Guid = Guid('b96b3caf-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_GIF: Guid = Guid('b96b3cb0-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_TIFF: Guid = Guid('b96b3cb1-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_EXIF: Guid = Guid('b96b3cb2-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_PHOTOCD: Guid = Guid('b96b3cb3-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_FLASHPIX: Guid = Guid('b96b3cb4-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_ICO: Guid = Guid('b96b3cb5-0728-11d3-9d-7b-00-00-f8-1e-f3-2e')
-WiaImgFmt_CIFF: Guid = Guid('9821a8ab-3a7e-4215-94-e0-d2-7a-46-0c-03-b2')
-WiaImgFmt_PICT: Guid = Guid('a6bc85d8-6b3e-40ee-a9-5c-25-d4-82-e4-1a-dc')
-WiaImgFmt_JPEG2K: Guid = Guid('344ee2b2-39db-4dde-81-73-c4-b7-5f-8f-1e-49')
-WiaImgFmt_JPEG2KX: Guid = Guid('43e14614-c80a-4850-ba-f3-4b-15-2d-c8-da-27')
-WiaImgFmt_RAW: Guid = Guid('6f120719-f1a8-4e07-9a-de-9b-64-c6-3a-3d-cc')
-WiaImgFmt_JBIG: Guid = Guid('41e8dd92-2f0a-43d4-86-36-f1-61-4b-a1-1e-46')
-WiaImgFmt_JBIG2: Guid = Guid('bb8e7e67-283c-4235-9e-59-0b-9b-f9-4c-a6-87')
-WiaImgFmt_RTF: Guid = Guid('573dd6a3-4834-432d-a9-b5-e1-98-dd-9e-89-0d')
-WiaImgFmt_XML: Guid = Guid('b9171457-dac8-4884-b3-93-15-b4-71-d5-f0-7e')
-WiaImgFmt_HTML: Guid = Guid('c99a4e62-99de-4a94-ac-ca-71-95-6a-c2-97-7d')
-WiaImgFmt_TXT: Guid = Guid('fafd4d82-723f-421f-93-18-30-50-1a-c4-4b-59')
-WiaImgFmt_PDFA: Guid = Guid('9980bd5b-3463-43c7-bd-ca-3c-aa-14-6f-22-9f')
-WiaImgFmt_XPS: Guid = Guid('700b4a0f-2011-411c-b4-30-d1-e0-b2-e1-0b-28')
-WiaImgFmt_OXPS: Guid = Guid('2c7b1240-c14d-4109-97-55-04-b8-90-25-15-3a')
-WiaImgFmt_CSV: Guid = Guid('355bda24-5a9f-4494-80-dc-be-75-2c-ec-bc-8c')
-WiaImgFmt_MPG: Guid = Guid('ecd757e4-d2ec-4f57-95-5d-bc-f8-a9-7c-4e-52')
-WiaImgFmt_AVI: Guid = Guid('32f8ca14-087c-4908-b7-c4-67-57-fe-7e-90-ab')
-WiaAudFmt_WAV: Guid = Guid('f818e146-07af-40ff-ae-55-be-8f-2c-06-5d-be')
-WiaAudFmt_MP3: Guid = Guid('0fbc71fb-43bf-49f2-91-90-e6-fe-cf-f3-7e-54')
-WiaAudFmt_AIFF: Guid = Guid('66e2bf4f-b6fc-443f-94-c8-2f-33-c8-a6-5a-af')
-WiaAudFmt_WMA: Guid = Guid('d61d6413-8bc2-438f-93-ad-21-bd-48-4d-b6-a1')
-WiaImgFmt_ASF: Guid = Guid('8d948ee9-d0aa-4a12-9d-9a-9c-c5-de-36-19-9b')
-WiaImgFmt_SCRIPT: Guid = Guid('fe7d6c53-2dac-446a-b0-bd-d7-3e-21-e9-24-c9')
-WiaImgFmt_EXEC: Guid = Guid('485da097-141e-4aa5-bb-3b-a5-61-8d-95-d0-2b')
-WiaImgFmt_UNICODE16: Guid = Guid('1b7639b6-6357-47d1-9a-07-12-45-2d-c0-73-e9')
-WiaImgFmt_DPOF: Guid = Guid('369eeeab-a0e8-45ca-86-a6-a8-3c-e5-69-7e-28')
-WiaImgFmt_XMLBAR: Guid = Guid('6235701c-3a98-484c-b2-a8-fd-ff-d8-7e-6b-16')
-WiaImgFmt_RAWBAR: Guid = Guid('da63f833-d26e-451e-90-d2-ea-55-a1-36-5d-62')
-WiaImgFmt_XMLPAT: Guid = Guid('f8986f55-f052-460d-95-23-3a-7d-fe-db-b3-3c')
-WiaImgFmt_RAWPAT: Guid = Guid('7760507c-5064-400c-9a-17-57-56-24-d8-82-4b')
-WiaImgFmt_XMLMIC: Guid = Guid('2d164c61-b9ae-4b23-89-73-c7-06-7e-1f-bd-31')
-WiaImgFmt_RAWMIC: Guid = Guid('22c4f058-0d88-409c-ac-1c-ee-c1-2b-0e-a6-80')
-WIA_EVENT_DEVICE_DISCONNECTED: Guid = Guid('143e4e83-6497-11d2-a2-31-00-c0-4f-a3-18-09')
-WIA_EVENT_DEVICE_CONNECTED: Guid = Guid('a28bbade-64b6-11d2-a2-31-00-c0-4f-a3-18-09')
-WIA_EVENT_ITEM_DELETED: Guid = Guid('1d22a559-e14f-11d2-b3-26-00-c0-4f-68-ce-61')
-WIA_EVENT_ITEM_CREATED: Guid = Guid('4c8f4ef5-e14f-11d2-b3-26-00-c0-4f-68-ce-61')
-WIA_EVENT_TREE_UPDATED: Guid = Guid('c9859b91-4ab2-4cd6-a1-fc-58-2e-ec-55-e5-85')
-WIA_EVENT_VOLUME_INSERT: Guid = Guid('9638bbfd-d1bd-11d2-b3-1f-00-c0-4f-68-ce-61')
-WIA_EVENT_SCAN_IMAGE: Guid = Guid('a6c5a715-8c6e-11d2-97-7a-00-00-f8-7a-92-6f')
-WIA_EVENT_SCAN_PRINT_IMAGE: Guid = Guid('b441f425-8c6e-11d2-97-7a-00-00-f8-7a-92-6f')
-WIA_EVENT_SCAN_FAX_IMAGE: Guid = Guid('c00eb793-8c6e-11d2-97-7a-00-00-f8-7a-92-6f')
-WIA_EVENT_SCAN_OCR_IMAGE: Guid = Guid('9d095b89-37d6-4877-af-ed-62-a2-97-dc-6d-be')
-WIA_EVENT_SCAN_EMAIL_IMAGE: Guid = Guid('c686dcee-54f2-419e-9a-27-2f-c7-f2-e9-8f-9e')
-WIA_EVENT_SCAN_FILM_IMAGE: Guid = Guid('9b2b662c-6185-438c-b6-8b-e3-9e-e2-5e-71-cb')
-WIA_EVENT_SCAN_IMAGE2: Guid = Guid('fc4767c1-c8b3-48a2-9c-fa-2e-90-cb-3d-35-90')
-WIA_EVENT_SCAN_IMAGE3: Guid = Guid('154e27be-b617-4653-ac-c5-0f-d7-bd-4c-65-ce')
-WIA_EVENT_SCAN_IMAGE4: Guid = Guid('a65b704a-7f3c-4447-a7-5d-8a-26-df-ca-1f-df')
-WIA_EVENT_STORAGE_CREATED: Guid = Guid('353308b2-fe73-46c8-89-5e-fa-45-51-cc-c8-5a')
-WIA_EVENT_STORAGE_DELETED: Guid = Guid('5e41e75e-9390-44c5-9a-51-e4-70-19-e3-90-cf')
-WIA_EVENT_STI_PROXY: Guid = Guid('d711f81f-1f0d-422d-86-41-92-7d-1b-93-e5-e5')
-WIA_EVENT_CANCEL_IO: Guid = Guid('c860f7b8-9ccd-41ea-bb-bf-4d-d0-9c-5b-17-95')
-WIA_EVENT_POWER_SUSPEND: Guid = Guid('a0922ff9-c3b4-411c-9e-29-03-a6-69-93-d2-be')
-WIA_EVENT_POWER_RESUME: Guid = Guid('618f153e-f686-4350-96-34-41-15-a3-04-83-0c')
-WIA_EVENT_HANDLER_NO_ACTION: Guid = Guid('e0372b7d-e115-4525-bc-55-b6-29-e6-8c-74-5a')
-WIA_EVENT_HANDLER_PROMPT: Guid = Guid('5f4baad0-4d59-4fcd-b2-13-78-3c-e7-a9-2f-22')
-WIA_EVENT_DEVICE_NOT_READY: Guid = Guid('d8962d7e-e4dc-4b4d-ba-29-66-8a-87-f4-2e-6f')
-WIA_EVENT_DEVICE_READY: Guid = Guid('7523ec6c-988b-419e-9a-0a-42-5a-c3-1b-37-dc')
-WIA_EVENT_FLATBED_LID_OPEN: Guid = Guid('ba0a0623-437d-4f03-a9-7d-77-93-b1-23-11-3c')
-WIA_EVENT_FLATBED_LID_CLOSED: Guid = Guid('f879af0f-9b29-4283-ad-95-d4-12-16-4d-39-a9')
-WIA_EVENT_FEEDER_LOADED: Guid = Guid('cc8d701e-9aba-481d-bf-74-78-f7-63-dc-34-2a')
-WIA_EVENT_FEEDER_EMPTIED: Guid = Guid('e70b4b82-6dda-46bb-8f-f9-53-ce-b1-a0-3e-35')
-WIA_EVENT_COVER_OPEN: Guid = Guid('19a12136-fa1c-4f66-90-0f-8f-91-4e-c7-4e-c9')
-WIA_EVENT_COVER_CLOSED: Guid = Guid('6714a1e6-e285-468c-9b-8c-da-7d-c4-cb-aa-05')
-WIA_CMD_SYNCHRONIZE: Guid = Guid('9b26b7b2-acad-11d2-a0-93-00-c0-4f-72-dc-3c')
-WIA_CMD_TAKE_PICTURE: Guid = Guid('af933cac-acad-11d2-a0-93-00-c0-4f-72-dc-3c')
-WIA_CMD_DELETE_ALL_ITEMS: Guid = Guid('e208c170-acad-11d2-a0-93-00-c0-4f-72-dc-3c')
-WIA_CMD_CHANGE_DOCUMENT: Guid = Guid('04e725b0-acae-11d2-a0-93-00-c0-4f-72-dc-3c')
-WIA_CMD_UNLOAD_DOCUMENT: Guid = Guid('1f3b3d8e-acae-11d2-a0-93-00-c0-4f-72-dc-3c')
-WIA_CMD_DIAGNOSTIC: Guid = Guid('10ff52f5-de04-4cf0-a5-ad-69-1f-8d-ce-01-41')
-WIA_CMD_FORMAT: Guid = Guid('c3a693aa-f788-4d34-a5-b0-be-71-90-75-9a-24')
-WIA_CMD_DELETE_DEVICE_TREE: Guid = Guid('73815942-dbea-11d2-84-16-00-c0-4f-a3-61-45')
-WIA_CMD_BUILD_DEVICE_TREE: Guid = Guid('9cba5ce0-dbea-11d2-84-16-00-c0-4f-a3-61-45')
-WIA_CMD_START_FEEDER: Guid = Guid('5a9df6c9-5f2d-4a39-9d-6c-00-45-6d-04-7f-00')
-WIA_CMD_STOP_FEEDER: Guid = Guid('d847b06d-3905-459c-95-09-9b-29-cd-b6-91-e7')
-WIA_CMD_PAUSE_FEEDER: Guid = Guid('50985e4d-a5b2-4b71-9c-95-6d-7d-7c-46-9a-43')
+WiaImgFmt_UNDEFINED: Guid = Guid('{b96b3ca9-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_RAWRGB: Guid = Guid('{bca48b55-f272-4371-b0f1-4a150d057bb4}')
+WiaImgFmt_MEMORYBMP: Guid = Guid('{b96b3caa-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_BMP: Guid = Guid('{b96b3cab-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_EMF: Guid = Guid('{b96b3cac-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_WMF: Guid = Guid('{b96b3cad-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_JPEG: Guid = Guid('{b96b3cae-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_PNG: Guid = Guid('{b96b3caf-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_GIF: Guid = Guid('{b96b3cb0-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_TIFF: Guid = Guid('{b96b3cb1-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_EXIF: Guid = Guid('{b96b3cb2-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_PHOTOCD: Guid = Guid('{b96b3cb3-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_FLASHPIX: Guid = Guid('{b96b3cb4-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_ICO: Guid = Guid('{b96b3cb5-0728-11d3-9d7b-0000f81ef32e}')
+WiaImgFmt_CIFF: Guid = Guid('{9821a8ab-3a7e-4215-94e0-d27a460c03b2}')
+WiaImgFmt_PICT: Guid = Guid('{a6bc85d8-6b3e-40ee-a95c-25d482e41adc}')
+WiaImgFmt_JPEG2K: Guid = Guid('{344ee2b2-39db-4dde-8173-c4b75f8f1e49}')
+WiaImgFmt_JPEG2KX: Guid = Guid('{43e14614-c80a-4850-baf3-4b152dc8da27}')
+WiaImgFmt_RAW: Guid = Guid('{6f120719-f1a8-4e07-9ade-9b64c63a3dcc}')
+WiaImgFmt_JBIG: Guid = Guid('{41e8dd92-2f0a-43d4-8636-f1614ba11e46}')
+WiaImgFmt_JBIG2: Guid = Guid('{bb8e7e67-283c-4235-9e59-0b9bf94ca687}')
+WiaImgFmt_RTF: Guid = Guid('{573dd6a3-4834-432d-a9b5-e198dd9e890d}')
+WiaImgFmt_XML: Guid = Guid('{b9171457-dac8-4884-b393-15b471d5f07e}')
+WiaImgFmt_HTML: Guid = Guid('{c99a4e62-99de-4a94-acca-71956ac2977d}')
+WiaImgFmt_TXT: Guid = Guid('{fafd4d82-723f-421f-9318-30501ac44b59}')
+WiaImgFmt_PDFA: Guid = Guid('{9980bd5b-3463-43c7-bdca-3caa146f229f}')
+WiaImgFmt_XPS: Guid = Guid('{700b4a0f-2011-411c-b430-d1e0b2e10b28}')
+WiaImgFmt_OXPS: Guid = Guid('{2c7b1240-c14d-4109-9755-04b89025153a}')
+WiaImgFmt_CSV: Guid = Guid('{355bda24-5a9f-4494-80dc-be752cecbc8c}')
+WiaImgFmt_MPG: Guid = Guid('{ecd757e4-d2ec-4f57-955d-bcf8a97c4e52}')
+WiaImgFmt_AVI: Guid = Guid('{32f8ca14-087c-4908-b7c4-6757fe7e90ab}')
+WiaAudFmt_WAV: Guid = Guid('{f818e146-07af-40ff-ae55-be8f2c065dbe}')
+WiaAudFmt_MP3: Guid = Guid('{0fbc71fb-43bf-49f2-9190-e6fecff37e54}')
+WiaAudFmt_AIFF: Guid = Guid('{66e2bf4f-b6fc-443f-94c8-2f33c8a65aaf}')
+WiaAudFmt_WMA: Guid = Guid('{d61d6413-8bc2-438f-93ad-21bd484db6a1}')
+WiaImgFmt_ASF: Guid = Guid('{8d948ee9-d0aa-4a12-9d9a-9cc5de36199b}')
+WiaImgFmt_SCRIPT: Guid = Guid('{fe7d6c53-2dac-446a-b0bd-d73e21e924c9}')
+WiaImgFmt_EXEC: Guid = Guid('{485da097-141e-4aa5-bb3b-a5618d95d02b}')
+WiaImgFmt_UNICODE16: Guid = Guid('{1b7639b6-6357-47d1-9a07-12452dc073e9}')
+WiaImgFmt_DPOF: Guid = Guid('{369eeeab-a0e8-45ca-86a6-a83ce5697e28}')
+WiaImgFmt_XMLBAR: Guid = Guid('{6235701c-3a98-484c-b2a8-fdffd87e6b16}')
+WiaImgFmt_RAWBAR: Guid = Guid('{da63f833-d26e-451e-90d2-ea55a1365d62}')
+WiaImgFmt_XMLPAT: Guid = Guid('{f8986f55-f052-460d-9523-3a7dfedbb33c}')
+WiaImgFmt_RAWPAT: Guid = Guid('{7760507c-5064-400c-9a17-575624d8824b}')
+WiaImgFmt_XMLMIC: Guid = Guid('{2d164c61-b9ae-4b23-8973-c7067e1fbd31}')
+WiaImgFmt_RAWMIC: Guid = Guid('{22c4f058-0d88-409c-ac1c-eec12b0ea680}')
+WIA_EVENT_DEVICE_DISCONNECTED: Guid = Guid('{143e4e83-6497-11d2-a231-00c04fa31809}')
+WIA_EVENT_DEVICE_CONNECTED: Guid = Guid('{a28bbade-64b6-11d2-a231-00c04fa31809}')
+WIA_EVENT_ITEM_DELETED: Guid = Guid('{1d22a559-e14f-11d2-b326-00c04f68ce61}')
+WIA_EVENT_ITEM_CREATED: Guid = Guid('{4c8f4ef5-e14f-11d2-b326-00c04f68ce61}')
+WIA_EVENT_TREE_UPDATED: Guid = Guid('{c9859b91-4ab2-4cd6-a1fc-582eec55e585}')
+WIA_EVENT_VOLUME_INSERT: Guid = Guid('{9638bbfd-d1bd-11d2-b31f-00c04f68ce61}')
+WIA_EVENT_SCAN_IMAGE: Guid = Guid('{a6c5a715-8c6e-11d2-977a-0000f87a926f}')
+WIA_EVENT_SCAN_PRINT_IMAGE: Guid = Guid('{b441f425-8c6e-11d2-977a-0000f87a926f}')
+WIA_EVENT_SCAN_FAX_IMAGE: Guid = Guid('{c00eb793-8c6e-11d2-977a-0000f87a926f}')
+WIA_EVENT_SCAN_OCR_IMAGE: Guid = Guid('{9d095b89-37d6-4877-afed-62a297dc6dbe}')
+WIA_EVENT_SCAN_EMAIL_IMAGE: Guid = Guid('{c686dcee-54f2-419e-9a27-2fc7f2e98f9e}')
+WIA_EVENT_SCAN_FILM_IMAGE: Guid = Guid('{9b2b662c-6185-438c-b68b-e39ee25e71cb}')
+WIA_EVENT_SCAN_IMAGE2: Guid = Guid('{fc4767c1-c8b3-48a2-9cfa-2e90cb3d3590}')
+WIA_EVENT_SCAN_IMAGE3: Guid = Guid('{154e27be-b617-4653-acc5-0fd7bd4c65ce}')
+WIA_EVENT_SCAN_IMAGE4: Guid = Guid('{a65b704a-7f3c-4447-a75d-8a26dfca1fdf}')
+WIA_EVENT_STORAGE_CREATED: Guid = Guid('{353308b2-fe73-46c8-895e-fa4551ccc85a}')
+WIA_EVENT_STORAGE_DELETED: Guid = Guid('{5e41e75e-9390-44c5-9a51-e47019e390cf}')
+WIA_EVENT_STI_PROXY: Guid = Guid('{d711f81f-1f0d-422d-8641-927d1b93e5e5}')
+WIA_EVENT_CANCEL_IO: Guid = Guid('{c860f7b8-9ccd-41ea-bbbf-4dd09c5b1795}')
+WIA_EVENT_POWER_SUSPEND: Guid = Guid('{a0922ff9-c3b4-411c-9e29-03a66993d2be}')
+WIA_EVENT_POWER_RESUME: Guid = Guid('{618f153e-f686-4350-9634-4115a304830c}')
+WIA_EVENT_HANDLER_NO_ACTION: Guid = Guid('{e0372b7d-e115-4525-bc55-b629e68c745a}')
+WIA_EVENT_HANDLER_PROMPT: Guid = Guid('{5f4baad0-4d59-4fcd-b213-783ce7a92f22}')
+WIA_EVENT_DEVICE_NOT_READY: Guid = Guid('{d8962d7e-e4dc-4b4d-ba29-668a87f42e6f}')
+WIA_EVENT_DEVICE_READY: Guid = Guid('{7523ec6c-988b-419e-9a0a-425ac31b37dc}')
+WIA_EVENT_FLATBED_LID_OPEN: Guid = Guid('{ba0a0623-437d-4f03-a97d-7793b123113c}')
+WIA_EVENT_FLATBED_LID_CLOSED: Guid = Guid('{f879af0f-9b29-4283-ad95-d412164d39a9}')
+WIA_EVENT_FEEDER_LOADED: Guid = Guid('{cc8d701e-9aba-481d-bf74-78f763dc342a}')
+WIA_EVENT_FEEDER_EMPTIED: Guid = Guid('{e70b4b82-6dda-46bb-8ff9-53ceb1a03e35}')
+WIA_EVENT_COVER_OPEN: Guid = Guid('{19a12136-fa1c-4f66-900f-8f914ec74ec9}')
+WIA_EVENT_COVER_CLOSED: Guid = Guid('{6714a1e6-e285-468c-9b8c-da7dc4cbaa05}')
+WIA_CMD_SYNCHRONIZE: Guid = Guid('{9b26b7b2-acad-11d2-a093-00c04f72dc3c}')
+WIA_CMD_TAKE_PICTURE: Guid = Guid('{af933cac-acad-11d2-a093-00c04f72dc3c}')
+WIA_CMD_DELETE_ALL_ITEMS: Guid = Guid('{e208c170-acad-11d2-a093-00c04f72dc3c}')
+WIA_CMD_CHANGE_DOCUMENT: Guid = Guid('{04e725b0-acae-11d2-a093-00c04f72dc3c}')
+WIA_CMD_UNLOAD_DOCUMENT: Guid = Guid('{1f3b3d8e-acae-11d2-a093-00c04f72dc3c}')
+WIA_CMD_DIAGNOSTIC: Guid = Guid('{10ff52f5-de04-4cf0-a5ad-691f8dce0141}')
+WIA_CMD_FORMAT: Guid = Guid('{c3a693aa-f788-4d34-a5b0-be7190759a24}')
+WIA_CMD_DELETE_DEVICE_TREE: Guid = Guid('{73815942-dbea-11d2-8416-00c04fa36145}')
+WIA_CMD_BUILD_DEVICE_TREE: Guid = Guid('{9cba5ce0-dbea-11d2-8416-00c04fa36145}')
+WIA_CMD_START_FEEDER: Guid = Guid('{5a9df6c9-5f2d-4a39-9d6c-00456d047f00}')
+WIA_CMD_STOP_FEEDER: Guid = Guid('{d847b06d-3905-459c-9509-9b29cdb691e7}')
+WIA_CMD_PAUSE_FEEDER: Guid = Guid('{50985e4d-a5b2-4b71-9c95-6d7d7c469a43}')
 BASE_VAL_WIA_ERROR: UInt32 = 0
 BASE_VAL_WIA_SUCCESS: UInt32 = 0
 WIA_ERROR_GENERAL_ERROR: Windows.Win32.Foundation.HRESULT = -2145320959
@@ -1171,7 +1171,7 @@ WIA_NUM_DIP: UInt32 = 16
 SHELLEX_WIAUIEXTENSION_NAME: String = 'WiaDialogExtensionHandlers'
 CFSTR_WIAITEMNAMES: String = 'WIAItemNames'
 CFSTR_WIAITEMPTR: String = 'WIAItemPointer'
-GUID_DEVINTERFACE_IMAGE: Guid = Guid('6bdd1fc6-810f-11d0-be-c7-08-00-2b-e2-09-2f')
+GUID_DEVINTERFACE_IMAGE: Guid = Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}')
 MAX_IO_HANDLES: UInt32 = 16
 MAX_RESERVED: UInt32 = 4
 MAX_ANSI_CHAR: UInt32 = 255
@@ -1281,7 +1281,7 @@ class DEVICEDIALOGDATA2(EasyCastStructure):
 def DeviceDialogFunction(param0: POINTER(Windows.Win32.Devices.ImageAcquisition.DEVICEDIALOGDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWIA_DEV_CAPS(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1fcc4287-aca6-11d2-a0-93-00-c0-4f-72-dc-3c')
+    _iid_ = Guid('{1fcc4287-aca6-11d2-a093-00c04f72dc3c}')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Devices.ImageAcquisition.WIA_DEV_CAP_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1294,7 +1294,7 @@ class IEnumWIA_DEV_CAPS(ComPtr):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWIA_DEV_INFO(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5e38b83c-8cf1-11d1-bf-92-00-60-08-1e-d8-11')
+    _iid_ = Guid('{5e38b83c-8cf1-11d1-bf92-0060081ed811}')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaPropertyStorage_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1307,7 +1307,7 @@ class IEnumWIA_DEV_INFO(ComPtr):
     def GetCount(self, celt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWIA_FORMAT_INFO(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('81befc5b-656d-44f1-b2-4c-d4-1d-51-b4-dc-81')
+    _iid_ = Guid('{81befc5b-656d-44f1-b24c-d41d51b4dc81}')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Devices.ImageAcquisition.WIA_FORMAT_INFO_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1320,7 +1320,7 @@ class IEnumWIA_FORMAT_INFO(ComPtr):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWiaItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5e8383fc-3391-11d2-9a-33-00-c0-4f-a3-61-45')
+    _iid_ = Guid('{5e8383fc-3391-11d2-9a33-00c04fa36145}')
     @commethod(3)
     def Next(self, celt: UInt32, ppIWiaItem: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1333,7 +1333,7 @@ class IEnumWiaItem(ComPtr):
     def GetCount(self, celt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWiaItem2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('59970af4-cd0d-44d9-ab-24-52-29-56-30-e5-82')
+    _iid_ = Guid('{59970af4-cd0d-44d9-ab24-52295630e582}')
     @commethod(3)
     def Next(self, cElt: UInt32, ppIWiaItem2: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1346,19 +1346,19 @@ class IEnumWiaItem2(ComPtr):
     def GetCount(self, cElt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaAppErrorHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6c16186c-d0a6-400c-80-f4-d2-69-86-a0-e7-34')
+    _iid_ = Guid('{6c16186c-d0a6-400c-80f4-d26986a0e734}')
     @commethod(3)
     def GetWindow(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReportStatus(self, lFlags: Int32, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, hrStatus: Windows.Win32.Foundation.HRESULT, lPercentComplete: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDataCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a558a866-a5b0-11d2-a0-8f-00-c0-4f-72-dc-3c')
+    _iid_ = Guid('{a558a866-a5b0-11d2-a08f-00c04f72dc3c}')
     @commethod(3)
     def BandedDataCallback(self, lMessage: Int32, lStatus: Int32, lPercentComplete: Int32, lOffset: Int32, lLength: Int32, lReserved: Int32, lResLength: Int32, pbBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDataTransfer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a6cef998-a5b0-11d2-a0-8f-00-c0-4f-72-dc-3c')
+    _iid_ = Guid('{a6cef998-a5b0-11d2-a08f-00c04f72dc3c}')
     @commethod(3)
     def idtGetData(self, pMedium: POINTER(Windows.Win32.System.Com.STGMEDIUM_head), pIWiaDataCallback: Windows.Win32.Devices.ImageAcquisition.IWiaDataCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1371,7 +1371,7 @@ class IWiaDataTransfer(ComPtr):
     def idtGetExtendedTransferInfo(self, pExtendedTransferInfo: POINTER(Windows.Win32.Devices.ImageAcquisition.WIA_EXTENDED_TRANSFER_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDevMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5eb2502a-8cf1-11d1-bf-92-00-60-08-1e-d8-11')
+    _iid_ = Guid('{5eb2502a-8cf1-11d1-bf92-0060081ed811}')
     @commethod(3)
     def EnumDeviceInfo(self, lFlag: Int32, ppIEnum: POINTER(Windows.Win32.Devices.ImageAcquisition.IEnumWIA_DEV_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1392,7 +1392,7 @@ class IWiaDevMgr(ComPtr):
     def AddDeviceDlg(self, hwndParent: Windows.Win32.Foundation.HWND, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDevMgr2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79c07cf1-cbdd-41ee-8e-c3-f0-00-80-ca-da-7a')
+    _iid_ = Guid('{79c07cf1-cbdd-41ee-8ec3-f00080cada7a}')
     @commethod(3)
     def EnumDeviceInfo(self, lFlags: Int32, ppIEnum: POINTER(Windows.Win32.Devices.ImageAcquisition.IEnumWIA_DEV_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1411,7 +1411,7 @@ class IWiaDevMgr2(ComPtr):
     def GetImageDlg(self, lFlags: Int32, bstrDeviceID: Windows.Win32.Foundation.BSTR, hwndParent: Windows.Win32.Foundation.HWND, bstrFolderName: Windows.Win32.Foundation.BSTR, bstrFilename: Windows.Win32.Foundation.BSTR, plNumFiles: POINTER(Int32), ppbstrFilePaths: POINTER(POINTER(Windows.Win32.Foundation.BSTR)), ppItem: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDrvItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1f02b5c5-b00c-11d2-a0-94-00-c0-4f-72-dc-3c')
+    _iid_ = Guid('{1f02b5c5-b00c-11d2-a094-00c04f72dc3c}')
     @commethod(3)
     def GetItemFlags(self, __MIDL__IWiaDrvItem0000: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1440,19 +1440,19 @@ class IWiaDrvItem(ComPtr):
     def DumpItemData(self, __MIDL__IWiaDrvItem0015: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaErrorHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0e4a51b1-bc1f-443d-a8-35-72-e8-90-75-9e-f3')
+    _iid_ = Guid('{0e4a51b1-bc1f-443d-a835-72e890759ef3}')
     @commethod(3)
     def ReportStatus(self, lFlags: Int32, hwndParent: Windows.Win32.Foundation.HWND, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, hrStatus: Windows.Win32.Foundation.HRESULT, lPercentComplete: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetStatusDescription(self, lFlags: Int32, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, hrStatus: Windows.Win32.Foundation.HRESULT, pbstrDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaEventCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ae6287b0-0084-11d2-97-3b-00-a0-c9-06-8f-2e')
+    _iid_ = Guid('{ae6287b0-0084-11d2-973b-00a0c9068f2e}')
     @commethod(3)
     def ImageEventCallback(self, pEventGUID: POINTER(Guid), bstrEventDescription: Windows.Win32.Foundation.BSTR, bstrDeviceID: Windows.Win32.Foundation.BSTR, bstrDeviceDescription: Windows.Win32.Foundation.BSTR, dwDeviceType: UInt32, bstrFullItemName: Windows.Win32.Foundation.BSTR, pulEventType: POINTER(UInt32), ulReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaImageFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a8a79ffa-450b-41f1-8f-87-84-9c-cd-94-eb-f6')
+    _iid_ = Guid('{a8a79ffa-450b-41f1-8f87-849ccd94ebf6}')
     @commethod(3)
     def InitializeFilter(self, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, pWiaTransferCallback: Windows.Win32.Devices.ImageAcquisition.IWiaTransferCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1463,7 +1463,7 @@ class IWiaImageFilter(ComPtr):
     def ApplyProperties(self, pWiaPropertyStorage: Windows.Win32.Devices.ImageAcquisition.IWiaPropertyStorage_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4db1ad10-3391-11d2-9a-33-00-c0-4f-a3-61-45')
+    _iid_ = Guid('{4db1ad10-3391-11d2-9a33-00c04fa36145}')
     @commethod(3)
     def GetItemType(self, pItemType: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1496,7 +1496,7 @@ class IWiaItem(ComPtr):
     def Diagnostic(self, ulSize: UInt32, pBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaItem2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6cba0075-1287-407d-9b-77-cf-0e-03-04-35-cc')
+    _iid_ = Guid('{6cba0075-1287-407d-9b77-cf0e030435cc}')
     @commethod(3)
     def CreateChildItem(self, lItemFlags: Int32, lCreationFlags: Int32, bstrItemName: Windows.Win32.Foundation.BSTR, ppIWiaItem2: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1531,7 +1531,7 @@ class IWiaItem2(ComPtr):
     def Diagnostic(self, ulSize: UInt32, pBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaItemExtras(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6291ef2c-36ef-4532-87-6a-8e-13-25-93-77-8d')
+    _iid_ = Guid('{6291ef2c-36ef-4532-876a-8e132593778d}')
     @commethod(3)
     def GetExtendedErrorInfo(self, bstrErrorText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1540,7 +1540,7 @@ class IWiaItemExtras(ComPtr):
     def CancelPendingIO(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaLog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a00c10b6-82a1-452f-8b-6c-86-06-2a-ad-68-90')
+    _iid_ = Guid('{a00c10b6-82a1-452f-8b6c-86062aad6890}')
     @commethod(3)
     def InitializeLog(self, hInstance: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1549,7 +1549,7 @@ class IWiaLog(ComPtr):
     def Log(self, lFlags: Int32, lResID: Int32, lDetail: Int32, bstrText: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaLogEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('af1f22ac-7a40-4787-b4-21-ae-b4-7a-1f-bd-0b')
+    _iid_ = Guid('{af1f22ac-7a40-4787-b421-aeb47a1fbd0b}')
     @commethod(3)
     def InitializeLogEx(self, hInstance: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1562,7 +1562,7 @@ class IWiaLogEx(ComPtr):
     def LogEx(self, lMethodId: Int32, lFlags: Int32, lResID: Int32, lDetail: Int32, bstrText: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaMiniDrv(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d8cdee14-3c6c-11d2-9a-35-00-c0-4f-a3-61-45')
+    _iid_ = Guid('{d8cdee14-3c6c-11d2-9a35-00c04fa36145}')
     @commethod(3)
     def drvInitializeWia(self, __MIDL__IWiaMiniDrv0000: POINTER(Byte), __MIDL__IWiaMiniDrv0001: Int32, __MIDL__IWiaMiniDrv0002: Windows.Win32.Foundation.BSTR, __MIDL__IWiaMiniDrv0003: Windows.Win32.Foundation.BSTR, __MIDL__IWiaMiniDrv0004: Windows.Win32.System.Com.IUnknown_head, __MIDL__IWiaMiniDrv0005: Windows.Win32.System.Com.IUnknown_head, __MIDL__IWiaMiniDrv0006: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaDrvItem_head), __MIDL__IWiaMiniDrv0007: POINTER(Windows.Win32.System.Com.IUnknown_head), __MIDL__IWiaMiniDrv0008: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1599,24 +1599,24 @@ class IWiaMiniDrv(ComPtr):
     def drvUnInitializeWia(self, __MIDL__IWiaMiniDrv0064: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaMiniDrvCallBack(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('33a57d5a-3de8-11d2-9a-36-00-c0-4f-a3-61-45')
+    _iid_ = Guid('{33a57d5a-3de8-11d2-9a36-00c04fa36145}')
     @commethod(3)
     def MiniDrvCallback(self, lReason: Int32, lStatus: Int32, lPercentComplete: Int32, lOffset: Int32, lLength: Int32, pTranCtx: POINTER(Windows.Win32.Devices.ImageAcquisition.MINIDRV_TRANSFER_CONTEXT_head), lReserved: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaMiniDrvTransferCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a9d2ee89-2ce5-4ff0-8a-db-c9-61-d1-d7-74-ca')
+    _iid_ = Guid('{a9d2ee89-2ce5-4ff0-8adb-c961d1d774ca}')
     @commethod(3)
     def GetNextStream(self, lFlags: Int32, bstrItemName: Windows.Win32.Foundation.BSTR, bstrFullItemName: Windows.Win32.Foundation.BSTR, ppIStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SendMessage(self, lFlags: Int32, pWiaTransferParams: POINTER(Windows.Win32.Devices.ImageAcquisition.WiaTransferParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaNotifyDevMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('70681ea0-e7bf-4291-9f-b1-4e-88-13-a3-f7-8e')
+    _iid_ = Guid('{70681ea0-e7bf-4291-9fb1-4e8813a3f78e}')
     @commethod(3)
     def NewDeviceArrival(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaPreview(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('95c2b4fd-33f2-4d86-ad-40-94-31-f0-df-08-f7')
+    _iid_ = Guid('{95c2b4fd-33f2-4d86-ad40-9431f0df08f7}')
     @commethod(3)
     def GetNewPreview(self, lFlags: Int32, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, pWiaTransferCallback: Windows.Win32.Devices.ImageAcquisition.IWiaTransferCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1627,7 +1627,7 @@ class IWiaPreview(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaPropertyStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('98b5e8a0-29cc-491a-aa-c0-e6-db-4f-dc-ce-b6')
+    _iid_ = Guid('{98b5e8a0-29cc-491a-aac0-e6db4fdcceb6}')
     @commethod(3)
     def ReadMultiple(self, cpspec: UInt32, rgpspec: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPSPEC_head), rgpropvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1662,12 +1662,12 @@ class IWiaPropertyStorage(ComPtr):
     def SetPropertyStream(self, pCompatibilityId: POINTER(Guid), pIStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaSegmentationFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ec46a697-ac04-4447-8f-65-ff-63-d5-15-4b-21')
+    _iid_ = Guid('{ec46a697-ac04-4447-8f65-ff63d5154b21}')
     @commethod(3)
     def DetectRegions(self, lFlags: Int32, pInputStream: Windows.Win32.System.Com.IStream_head, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaTransfer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c39d6942-2f4e-4d04-92-fe-4e-f4-d3-a1-de-5a')
+    _iid_ = Guid('{c39d6942-2f4e-4d04-92fe-4ef4d3a1de5a}')
     @commethod(3)
     def Download(self, lFlags: Int32, pIWiaTransferCallback: Windows.Win32.Devices.ImageAcquisition.IWiaTransferCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1678,14 +1678,14 @@ class IWiaTransfer(ComPtr):
     def EnumWIA_FORMAT_INFO(self, ppEnum: POINTER(Windows.Win32.Devices.ImageAcquisition.IEnumWIA_FORMAT_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaTransferCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('27d4eaaf-28a6-4ca5-9a-ab-e6-78-16-8b-95-27')
+    _iid_ = Guid('{27d4eaaf-28a6-4ca5-9aab-e678168b9527}')
     @commethod(3)
     def TransferCallback(self, lFlags: Int32, pWiaTransferParams: POINTER(Windows.Win32.Devices.ImageAcquisition.WiaTransferParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetNextStream(self, lFlags: Int32, bstrItemName: Windows.Win32.Foundation.BSTR, bstrFullItemName: Windows.Win32.Foundation.BSTR, ppDestination: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaUIExtension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('da319113-50ee-4c80-b4-60-57-d0-05-d4-4a-2c')
+    _iid_ = Guid('{da319113-50ee-4c80-b460-57d005d44a2c}')
     @commethod(3)
     def DeviceDialog(self, pDeviceDialogData: POINTER(Windows.Win32.Devices.ImageAcquisition.DEVICEDIALOGDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1694,14 +1694,14 @@ class IWiaUIExtension(ComPtr):
     def GetDeviceBitmapLogo(self, bstrDeviceId: Windows.Win32.Foundation.BSTR, phBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), nMaxWidth: UInt32, nMaxHeight: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaUIExtension2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('305600d7-5088-46d7-9a-15-b7-7b-09-cd-ba-7a')
+    _iid_ = Guid('{305600d7-5088-46d7-9a15-b77b09cdba7a}')
     @commethod(3)
     def DeviceDialog(self, pDeviceDialogData: POINTER(Windows.Win32.Devices.ImageAcquisition.DEVICEDIALOGDATA2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDeviceIcon(self, bstrDeviceId: Windows.Win32.Foundation.BSTR, phIcon: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON), nSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaVideo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d52920aa-db88-41f0-94-6c-e0-0d-c0-a1-9c-fa')
+    _iid_ = Guid('{d52920aa-db88-41f0-946c-e00dc0a19cfa}')
     @commethod(3)
     def get_PreviewVisible(self, pbPreviewVisible: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2013,15 +2013,15 @@ class WIA_RAW_HEADER(EasyCastStructure):
     RawDataSize: UInt32
     PaletteOffset: UInt32
     PaletteSize: UInt32
-WiaDevMgr = Guid('a1f4e726-8cf1-11d1-bf-92-00-60-08-1e-d8-11')
-WiaDevMgr2 = Guid('b6c292bc-7c88-41ee-8b-54-8e-c9-26-17-e5-99')
-WiaLog = Guid('a1e75357-881a-419e-83-e2-bb-16-db-19-7c-68')
+WiaDevMgr = Guid('{a1f4e726-8cf1-11d1-bf92-0060081ed811}')
+WiaDevMgr2 = Guid('{b6c292bc-7c88-41ee-8b54-8ec92617e599}')
+WiaLog = Guid('{a1e75357-881a-419e-83e2-bb16db197c68}')
 class WiaTransferParams(EasyCastStructure):
     lMessage: Int32
     lPercentComplete: Int32
     ulTransferredBytes: UInt64
     hrErrorStatus: Windows.Win32.Foundation.HRESULT
-WiaVideo = Guid('3908c3cd-4478-4536-af-2f-10-c2-5d-4e-f8-9a')
+WiaVideo = Guid('{3908c3cd-4478-4536-af2f-10c25d4ef89a}')
 make_head(_module, 'DEVICEDIALOGDATA')
 make_head(_module, 'DEVICEDIALOGDATA2')
 make_head(_module, 'DeviceDialogFunction')

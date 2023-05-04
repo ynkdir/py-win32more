@@ -28,12 +28,12 @@ def WscQueryAntiMalwareUri() -> Windows.Win32.Foundation.HRESULT: ...
 def WscGetAntiMalwareUri(ppszUri: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSCDefaultProduct(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('0476d69c-f21a-11e5-9c-e9-5e-55-17-50-7c-66')
+    _iid_ = Guid('{0476d69c-f21a-11e5-9ce9-5e5517507c66}')
     @commethod(7)
     def SetDefaultProduct(self, eType: Windows.Win32.System.SecurityCenter.SECURITY_PRODUCT_TYPE, pGuid: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSCProductList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('722a338c-6e8e-4e72-ac-27-14-17-fb-0c-81-c2')
+    _iid_ = Guid('{722a338c-6e8e-4e72-ac27-1417fb0c81c2}')
     @commethod(7)
     def Initialize(self, provider: Windows.Win32.System.SecurityCenter.WSC_SECURITY_PROVIDER) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -42,7 +42,7 @@ class IWSCProductList(ComPtr):
     def get_Item(self, index: UInt32, pVal: POINTER(Windows.Win32.System.SecurityCenter.IWscProduct_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWscProduct(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('8c38232e-3a45-4a27-92-b0-1a-16-a9-75-f6-69')
+    _iid_ = Guid('{8c38232e-3a45-4a27-92b0-1a16a975f669}')
     @commethod(7)
     def get_ProductName(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -59,7 +59,7 @@ class IWscProduct(ComPtr):
     def get_ProductIsDefault(self, pVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWscProduct2(ComPtr):
     extends: Windows.Win32.System.SecurityCenter.IWscProduct
-    _iid_ = Guid('f896ca54-fe09-4403-86-d4-23-cb-48-8d-81-d8')
+    _iid_ = Guid('{f896ca54-fe09-4403-86d4-23cb488d81d8}')
     @commethod(14)
     def get_AntivirusScanSubstatus(self, peStatus: POINTER(Windows.Win32.System.SecurityCenter.WSC_SECURITY_PRODUCT_SUBSTATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -74,15 +74,15 @@ class IWscProduct2(ComPtr):
     def get_FirewallPublicProfileSubstatus(self, peStatus: POINTER(Windows.Win32.System.SecurityCenter.WSC_SECURITY_PRODUCT_SUBSTATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWscProduct3(ComPtr):
     extends: Windows.Win32.System.SecurityCenter.IWscProduct2
-    _iid_ = Guid('55536524-d1d1-4726-8c-7c-04-99-6a-19-04-e7')
+    _iid_ = Guid('{55536524-d1d1-4726-8c7c-04996a1904e7}')
     @commethod(20)
     def get_AntivirusDaysUntilExpired(self, pdwDays: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 SECURITY_PRODUCT_TYPE = Int32
 SECURITY_PRODUCT_TYPE_ANTIVIRUS: SECURITY_PRODUCT_TYPE = 0
 SECURITY_PRODUCT_TYPE_FIREWALL: SECURITY_PRODUCT_TYPE = 1
 SECURITY_PRODUCT_TYPE_ANTISPYWARE: SECURITY_PRODUCT_TYPE = 2
-WSCDefaultProduct = Guid('2981a36e-f22d-11e5-9c-e9-5e-55-17-50-7c-66')
-WSCProductList = Guid('17072f7b-9abe-4a74-a2-61-1e-b7-6b-55-10-7a')
+WSCDefaultProduct = Guid('{2981a36e-f22d-11e5-9ce9-5e5517507c66}')
+WSCProductList = Guid('{17072f7b-9abe-4a74-a261-1eb76b55107a}')
 WSC_SECURITY_PRODUCT_STATE = Int32
 WSC_SECURITY_PRODUCT_STATE_ON: WSC_SECURITY_PRODUCT_STATE = 0
 WSC_SECURITY_PRODUCT_STATE_OFF: WSC_SECURITY_PRODUCT_STATE = 1

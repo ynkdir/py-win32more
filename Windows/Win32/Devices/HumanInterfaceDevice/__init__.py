@@ -107,10 +107,10 @@ DIJC_WDMGAMEPORT: UInt32 = 16
 DIJU_USERVALUES: UInt32 = 1
 DIJU_GLOBALDRIVER: UInt32 = 2
 DIJU_GAMEPORTEMULATOR: UInt32 = 4
-GUID_KeyboardClass: Guid = Guid('4d36e96b-e325-11ce-bf-c1-08-00-2b-e1-03-18')
-GUID_MediaClass: Guid = Guid('4d36e96c-e325-11ce-bf-c1-08-00-2b-e1-03-18')
-GUID_MouseClass: Guid = Guid('4d36e96f-e325-11ce-bf-c1-08-00-2b-e1-03-18')
-GUID_HIDClass: Guid = Guid('745a17a0-74d3-11d0-b6-fe-00-a0-c9-0f-57-da')
+GUID_KeyboardClass: Guid = Guid('{4d36e96b-e325-11ce-bfc1-08002be10318}')
+GUID_MediaClass: Guid = Guid('{4d36e96c-e325-11ce-bfc1-08002be10318}')
+GUID_MouseClass: Guid = Guid('{4d36e96f-e325-11ce-bfc1-08002be10318}')
+GUID_HIDClass: Guid = Guid('{745a17a0-74d3-11d0-b6fe-00a0c90f57da}')
 DIRECTINPUT_NOTIFICATION_MSGSTRINGA: String = 'DIRECTINPUT_NOTIFICATION_MSGSTRING'
 DIRECTINPUT_NOTIFICATION_MSGSTRINGW: String = 'DIRECTINPUT_NOTIFICATION_MSGSTRING'
 DIRECTINPUT_NOTIFICATION_MSGSTRING: String = 'DIRECTINPUT_NOTIFICATION_MSGSTRING'
@@ -150,25 +150,25 @@ DIERR_INVALIDCLASSINSTALLER: Int32 = -2147220480
 DIERR_CANCELLED: Int32 = -2147220479
 DIERR_BADINF: Int32 = -2147220478
 DIDIFT_DELETE: UInt32 = 16777216
-GUID_DEVINTERFACE_HID: Guid = Guid('4d1e55b2-f16f-11cf-88-cb-00-11-11-00-00-30')
-GUID_HID_INTERFACE_NOTIFY: Guid = Guid('2c4e2e88-25e6-4c33-88-2f-3d-82-e6-07-36-81')
-GUID_HID_INTERFACE_HIDPARSE: Guid = Guid('f5c315a5-69ac-4bc2-92-79-d0-b6-45-76-f4-4b')
+GUID_DEVINTERFACE_HID: Guid = Guid('{4d1e55b2-f16f-11cf-88cb-001111000030}')
+GUID_HID_INTERFACE_NOTIFY: Guid = Guid('{2c4e2e88-25e6-4c33-882f-3d82e6073681}')
+GUID_HID_INTERFACE_HIDPARSE: Guid = Guid('{f5c315a5-69ac-4bc2-9279-d0b64576f44b}')
 def DEVPKEY_DeviceInterface_HID_UsagePage():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=2)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=2)
 def DEVPKEY_DeviceInterface_HID_UsageId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=3)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=3)
 def DEVPKEY_DeviceInterface_HID_IsReadOnly():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=4)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=4)
 def DEVPKEY_DeviceInterface_HID_VendorId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=5)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=5)
 def DEVPKEY_DeviceInterface_HID_ProductId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=6)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=6)
 def DEVPKEY_DeviceInterface_HID_VersionNumber():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=7)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=7)
 def DEVPKEY_DeviceInterface_HID_BackgroundAccess():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=8)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=8)
 def DEVPKEY_DeviceInterface_HID_WakeScreenOnInputCapable():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('cbf38310-4a17-4310-a1-eb-24-7f-0b-67-59-3b'), pid=9)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=9)
 HID_REVISION: UInt32 = 1
 HIDP_STATUS_SUCCESS: Windows.Win32.Foundation.NTSTATUS = 1114112
 HIDP_STATUS_NULL: Windows.Win32.Foundation.NTSTATUS = -2146369535
@@ -816,7 +816,7 @@ IOCTL_KEYBOARD_INSERT_DATA: UInt32 = 721152
 IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES: UInt32 = 721408
 IOCTL_KEYBOARD_QUERY_IME_STATUS: UInt32 = 724992
 IOCTL_KEYBOARD_SET_IME_STATUS: UInt32 = 724996
-GUID_DEVINTERFACE_KEYBOARD: Guid = Guid('884b96c3-56ef-11d1-bc-8c-00-a0-c9-14-05-dd')
+GUID_DEVINTERFACE_KEYBOARD: Guid = Guid('{884b96c3-56ef-11d1-bc8c-00a0c91405dd}')
 KEYBOARD_OVERRUN_MAKE_CODE: UInt32 = 255
 KEY_MAKE: UInt32 = 0
 KEY_BREAK: UInt32 = 1
@@ -841,7 +841,7 @@ DD_MOUSE_DEVICE_NAME: String = '\\Device\\PointerClass'
 DD_MOUSE_DEVICE_NAME_U: String = '\\Device\\PointerClass'
 IOCTL_MOUSE_QUERY_ATTRIBUTES: UInt32 = 983040
 IOCTL_MOUSE_INSERT_DATA: UInt32 = 983044
-GUID_DEVINTERFACE_MOUSE: Guid = Guid('378de44c-56ef-11d1-bc-8c-00-a0-c9-14-05-dd')
+GUID_DEVINTERFACE_MOUSE: Guid = Guid('{378de44c-56ef-11d1-bc8c-00a0c91405dd}')
 MOUSE_LEFT_BUTTON_DOWN: UInt32 = 1
 MOUSE_LEFT_BUTTON_UP: UInt32 = 2
 MOUSE_RIGHT_BUTTON_DOWN: UInt32 = 4
@@ -878,40 +878,40 @@ WHEELMOUSE_HID_HARDWARE: UInt32 = 256
 HORIZONTAL_WHEEL_PRESENT: UInt32 = 32768
 MOUSE_ERROR_VALUE_BASE: UInt32 = 20000
 DIRECTINPUT_HEADER_VERSION: UInt32 = 2048
-CLSID_DirectInput: Guid = Guid('25e609e0-b259-11cf-bf-c7-44-45-53-54-00-00')
-CLSID_DirectInputDevice: Guid = Guid('25e609e1-b259-11cf-bf-c7-44-45-53-54-00-00')
-CLSID_DirectInput8: Guid = Guid('25e609e4-b259-11cf-bf-c7-44-45-53-54-00-00')
-CLSID_DirectInputDevice8: Guid = Guid('25e609e5-b259-11cf-bf-c7-44-45-53-54-00-00')
-GUID_XAxis: Guid = Guid('a36d02e0-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_YAxis: Guid = Guid('a36d02e1-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_ZAxis: Guid = Guid('a36d02e2-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_RxAxis: Guid = Guid('a36d02f4-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_RyAxis: Guid = Guid('a36d02f5-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_RzAxis: Guid = Guid('a36d02e3-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_Slider: Guid = Guid('a36d02e4-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_Button: Guid = Guid('a36d02f0-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_Key: Guid = Guid('55728220-d33c-11cf-bf-c7-44-45-53-54-00-00')
-GUID_POV: Guid = Guid('a36d02f2-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_Unknown: Guid = Guid('a36d02f3-c9f3-11cf-bf-c7-44-45-53-54-00-00')
-GUID_SysMouse: Guid = Guid('6f1d2b60-d5a0-11cf-bf-c7-44-45-53-54-00-00')
-GUID_SysKeyboard: Guid = Guid('6f1d2b61-d5a0-11cf-bf-c7-44-45-53-54-00-00')
-GUID_Joystick: Guid = Guid('6f1d2b70-d5a0-11cf-bf-c7-44-45-53-54-00-00')
-GUID_SysMouseEm: Guid = Guid('6f1d2b80-d5a0-11cf-bf-c7-44-45-53-54-00-00')
-GUID_SysMouseEm2: Guid = Guid('6f1d2b81-d5a0-11cf-bf-c7-44-45-53-54-00-00')
-GUID_SysKeyboardEm: Guid = Guid('6f1d2b82-d5a0-11cf-bf-c7-44-45-53-54-00-00')
-GUID_SysKeyboardEm2: Guid = Guid('6f1d2b83-d5a0-11cf-bf-c7-44-45-53-54-00-00')
-GUID_ConstantForce: Guid = Guid('13541c20-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_RampForce: Guid = Guid('13541c21-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_Square: Guid = Guid('13541c22-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_Sine: Guid = Guid('13541c23-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_Triangle: Guid = Guid('13541c24-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_SawtoothUp: Guid = Guid('13541c25-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_SawtoothDown: Guid = Guid('13541c26-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_Spring: Guid = Guid('13541c27-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_Damper: Guid = Guid('13541c28-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_Inertia: Guid = Guid('13541c29-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_Friction: Guid = Guid('13541c2a-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
-GUID_CustomForce: Guid = Guid('13541c2b-8e33-11d0-9a-d0-00-a0-c9-a0-6e-35')
+CLSID_DirectInput: Guid = Guid('{25e609e0-b259-11cf-bfc7-444553540000}')
+CLSID_DirectInputDevice: Guid = Guid('{25e609e1-b259-11cf-bfc7-444553540000}')
+CLSID_DirectInput8: Guid = Guid('{25e609e4-b259-11cf-bfc7-444553540000}')
+CLSID_DirectInputDevice8: Guid = Guid('{25e609e5-b259-11cf-bfc7-444553540000}')
+GUID_XAxis: Guid = Guid('{a36d02e0-c9f3-11cf-bfc7-444553540000}')
+GUID_YAxis: Guid = Guid('{a36d02e1-c9f3-11cf-bfc7-444553540000}')
+GUID_ZAxis: Guid = Guid('{a36d02e2-c9f3-11cf-bfc7-444553540000}')
+GUID_RxAxis: Guid = Guid('{a36d02f4-c9f3-11cf-bfc7-444553540000}')
+GUID_RyAxis: Guid = Guid('{a36d02f5-c9f3-11cf-bfc7-444553540000}')
+GUID_RzAxis: Guid = Guid('{a36d02e3-c9f3-11cf-bfc7-444553540000}')
+GUID_Slider: Guid = Guid('{a36d02e4-c9f3-11cf-bfc7-444553540000}')
+GUID_Button: Guid = Guid('{a36d02f0-c9f3-11cf-bfc7-444553540000}')
+GUID_Key: Guid = Guid('{55728220-d33c-11cf-bfc7-444553540000}')
+GUID_POV: Guid = Guid('{a36d02f2-c9f3-11cf-bfc7-444553540000}')
+GUID_Unknown: Guid = Guid('{a36d02f3-c9f3-11cf-bfc7-444553540000}')
+GUID_SysMouse: Guid = Guid('{6f1d2b60-d5a0-11cf-bfc7-444553540000}')
+GUID_SysKeyboard: Guid = Guid('{6f1d2b61-d5a0-11cf-bfc7-444553540000}')
+GUID_Joystick: Guid = Guid('{6f1d2b70-d5a0-11cf-bfc7-444553540000}')
+GUID_SysMouseEm: Guid = Guid('{6f1d2b80-d5a0-11cf-bfc7-444553540000}')
+GUID_SysMouseEm2: Guid = Guid('{6f1d2b81-d5a0-11cf-bfc7-444553540000}')
+GUID_SysKeyboardEm: Guid = Guid('{6f1d2b82-d5a0-11cf-bfc7-444553540000}')
+GUID_SysKeyboardEm2: Guid = Guid('{6f1d2b83-d5a0-11cf-bfc7-444553540000}')
+GUID_ConstantForce: Guid = Guid('{13541c20-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_RampForce: Guid = Guid('{13541c21-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_Square: Guid = Guid('{13541c22-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_Sine: Guid = Guid('{13541c23-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_Triangle: Guid = Guid('{13541c24-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_SawtoothUp: Guid = Guid('{13541c25-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_SawtoothDown: Guid = Guid('{13541c26-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_Spring: Guid = Guid('{13541c27-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_Damper: Guid = Guid('{13541c28-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_Inertia: Guid = Guid('{13541c29-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_Friction: Guid = Guid('{13541c2a-8e33-11d0-9ad0-00a0c9a06e35}')
+GUID_CustomForce: Guid = Guid('{13541c2b-8e33-11d0-9ad0-00a0c9a06e35}')
 DIEFT_ALL: UInt32 = 0
 DIEFT_CONSTANTFORCE: UInt32 = 1
 DIEFT_RAMPFORCE: UInt32 = 2
@@ -1141,37 +1141,37 @@ DIPH_BYOFFSET: UInt32 = 1
 DIPH_BYID: UInt32 = 2
 DIPH_BYUSAGE: UInt32 = 3
 MAXCPOINTSNUM: UInt32 = 8
-DIPROP_BUFFERSIZE: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-01')
-DIPROP_AXISMODE: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-02')
+DIPROP_BUFFERSIZE: Guid = Guid('{00000000-0000-0000-0000-000000000001}')
+DIPROP_AXISMODE: Guid = Guid('{00000000-0000-0000-0000-000000000002}')
 DIPROPAXISMODE_ABS: UInt32 = 0
 DIPROPAXISMODE_REL: UInt32 = 1
-DIPROP_GRANULARITY: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-03')
-DIPROP_RANGE: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-04')
-DIPROP_DEADZONE: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-05')
-DIPROP_SATURATION: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-06')
-DIPROP_FFGAIN: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-07')
-DIPROP_FFLOAD: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-08')
-DIPROP_AUTOCENTER: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-09')
+DIPROP_GRANULARITY: Guid = Guid('{00000000-0000-0000-0000-000000000003}')
+DIPROP_RANGE: Guid = Guid('{00000000-0000-0000-0000-000000000004}')
+DIPROP_DEADZONE: Guid = Guid('{00000000-0000-0000-0000-000000000005}')
+DIPROP_SATURATION: Guid = Guid('{00000000-0000-0000-0000-000000000006}')
+DIPROP_FFGAIN: Guid = Guid('{00000000-0000-0000-0000-000000000007}')
+DIPROP_FFLOAD: Guid = Guid('{00000000-0000-0000-0000-000000000008}')
+DIPROP_AUTOCENTER: Guid = Guid('{00000000-0000-0000-0000-000000000009}')
 DIPROPAUTOCENTER_OFF: UInt32 = 0
 DIPROPAUTOCENTER_ON: UInt32 = 1
-DIPROP_CALIBRATIONMODE: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-0a')
+DIPROP_CALIBRATIONMODE: Guid = Guid('{00000000-0000-0000-0000-00000000000a}')
 DIPROPCALIBRATIONMODE_COOKED: UInt32 = 0
 DIPROPCALIBRATIONMODE_RAW: UInt32 = 1
-DIPROP_CALIBRATION: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-0b')
-DIPROP_GUIDANDPATH: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-0c')
-DIPROP_INSTANCENAME: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-0d')
-DIPROP_PRODUCTNAME: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-0e')
-DIPROP_JOYSTICKID: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-0f')
-DIPROP_GETPORTDISPLAYNAME: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-10')
-DIPROP_PHYSICALRANGE: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-12')
-DIPROP_LOGICALRANGE: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-13')
-DIPROP_KEYNAME: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-14')
-DIPROP_CPOINTS: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-15')
-DIPROP_APPDATA: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-16')
-DIPROP_SCANCODE: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-17')
-DIPROP_VIDPID: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-18')
-DIPROP_USERNAME: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-19')
-DIPROP_TYPENAME: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-1a')
+DIPROP_CALIBRATION: Guid = Guid('{00000000-0000-0000-0000-00000000000b}')
+DIPROP_GUIDANDPATH: Guid = Guid('{00000000-0000-0000-0000-00000000000c}')
+DIPROP_INSTANCENAME: Guid = Guid('{00000000-0000-0000-0000-00000000000d}')
+DIPROP_PRODUCTNAME: Guid = Guid('{00000000-0000-0000-0000-00000000000e}')
+DIPROP_JOYSTICKID: Guid = Guid('{00000000-0000-0000-0000-00000000000f}')
+DIPROP_GETPORTDISPLAYNAME: Guid = Guid('{00000000-0000-0000-0000-000000000010}')
+DIPROP_PHYSICALRANGE: Guid = Guid('{00000000-0000-0000-0000-000000000012}')
+DIPROP_LOGICALRANGE: Guid = Guid('{00000000-0000-0000-0000-000000000013}')
+DIPROP_KEYNAME: Guid = Guid('{00000000-0000-0000-0000-000000000014}')
+DIPROP_CPOINTS: Guid = Guid('{00000000-0000-0000-0000-000000000015}')
+DIPROP_APPDATA: Guid = Guid('{00000000-0000-0000-0000-000000000016}')
+DIPROP_SCANCODE: Guid = Guid('{00000000-0000-0000-0000-000000000017}')
+DIPROP_VIDPID: Guid = Guid('{00000000-0000-0000-0000-000000000018}')
+DIPROP_USERNAME: Guid = Guid('{00000000-0000-0000-0000-000000000019}')
+DIPROP_TYPENAME: Guid = Guid('{00000000-0000-0000-0000-00000000001a}')
 DIGDD_PEEK: UInt32 = 1
 DISCL_EXCLUSIVE: UInt32 = 1
 DISCL_NONEXCLUSIVE: UInt32 = 2
@@ -3286,27 +3286,27 @@ class HID_XFER_PACKET(EasyCastStructure):
     reportId: Byte
 class IDirectInput2A(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputA
-    _iid_ = Guid('5944e662-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{5944e662-aa8a-11cf-bfc7-444553540000}')
     @commethod(8)
     def FindDevice(self, param0: POINTER(Guid), param1: Windows.Win32.Foundation.PSTR, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput2W(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputW
-    _iid_ = Guid('5944e663-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{5944e663-aa8a-11cf-bfc7-444553540000}')
     @commethod(8)
     def FindDevice(self, param0: POINTER(Guid), param1: Windows.Win32.Foundation.PWSTR, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput7A(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInput2A
-    _iid_ = Guid('9a4cb684-236d-11d3-8e-9d-00-c0-4f-68-44-ae')
+    _iid_ = Guid('{9a4cb684-236d-11d3-8e9d-00c04f6844ae}')
     @commethod(9)
     def CreateDeviceEx(self, param0: POINTER(Guid), param1: POINTER(Guid), param2: POINTER(c_void_p), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput7W(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInput2W
-    _iid_ = Guid('9a4cb685-236d-11d3-8e-9d-00-c0-4f-68-44-ae')
+    _iid_ = Guid('{9a4cb685-236d-11d3-8e9d-00c04f6844ae}')
     @commethod(9)
     def CreateDeviceEx(self, param0: POINTER(Guid), param1: POINTER(Guid), param2: POINTER(c_void_p), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput8A(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bf798030-483a-4da2-aa-99-5d-64-ed-36-97-00')
+    _iid_ = Guid('{bf798030-483a-4da2-aa99-5d64ed369700}')
     @commethod(3)
     def CreateDevice(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice8A_head), param2: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3325,7 +3325,7 @@ class IDirectInput8A(ComPtr):
     def ConfigureDevices(self, param0: Windows.Win32.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK, param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSA_head), param2: UInt32, param3: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput8W(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bf798031-483a-4da2-aa-99-5d-64-ed-36-97-00')
+    _iid_ = Guid('{bf798031-483a-4da2-aa99-5d64ed369700}')
     @commethod(3)
     def CreateDevice(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice8W_head), param2: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3344,7 +3344,7 @@ class IDirectInput8W(ComPtr):
     def ConfigureDevices(self, param0: Windows.Win32.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK, param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSW_head), param2: UInt32, param3: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('89521360-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{89521360-aa8a-11cf-bfc7-444553540000}')
     @commethod(3)
     def CreateDevice(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head), param2: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3357,7 +3357,7 @@ class IDirectInputA(ComPtr):
     def Initialize(self, param0: Windows.Win32.Foundation.HMODULE, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice2A(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDeviceA
-    _iid_ = Guid('5944e682-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{5944e682-c92e-11cf-bfc7-444553540000}')
     @commethod(18)
     def CreateEffect(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIEFFECT_head), param2: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputEffect_head), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -3378,7 +3378,7 @@ class IDirectInputDevice2A(ComPtr):
     def SendDeviceData(self, param0: UInt32, param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head), param2: POINTER(UInt32), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice2W(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDeviceW
-    _iid_ = Guid('5944e683-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{5944e683-c92e-11cf-bfc7-444553540000}')
     @commethod(18)
     def CreateEffect(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIEFFECT_head), param2: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputEffect_head), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -3399,21 +3399,21 @@ class IDirectInputDevice2W(ComPtr):
     def SendDeviceData(self, param0: UInt32, param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head), param2: POINTER(UInt32), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice7A(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice2A
-    _iid_ = Guid('57d7c6bc-2356-11d3-8e-9d-00-c0-4f-68-44-ae')
+    _iid_ = Guid('{57d7c6bc-2356-11d3-8e9d-00c04f6844ae}')
     @commethod(27)
     def EnumEffectsInFile(self, param0: Windows.Win32.Foundation.PSTR, param1: Windows.Win32.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK, param2: c_void_p, param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def WriteEffectToFile(self, param0: Windows.Win32.Foundation.PSTR, param1: UInt32, param2: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIFILEEFFECT_head), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice7W(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice2W
-    _iid_ = Guid('57d7c6bd-2356-11d3-8e-9d-00-c0-4f-68-44-ae')
+    _iid_ = Guid('{57d7c6bd-2356-11d3-8e9d-00c04f6844ae}')
     @commethod(27)
     def EnumEffectsInFile(self, param0: Windows.Win32.Foundation.PWSTR, param1: Windows.Win32.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK, param2: c_void_p, param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def WriteEffectToFile(self, param0: Windows.Win32.Foundation.PWSTR, param1: UInt32, param2: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIFILEEFFECT_head), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice8A(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('54d41080-dc15-4833-a4-1b-74-8f-73-a3-81-79')
+    _iid_ = Guid('{54d41080-dc15-4833-a41b-748f73a38179}')
     @commethod(3)
     def GetCapabilities(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3474,7 +3474,7 @@ class IDirectInputDevice8A(ComPtr):
     def GetImageInfo(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERA_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice8W(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('54d41081-dc15-4833-a4-1b-74-8f-73-a3-81-79')
+    _iid_ = Guid('{54d41081-dc15-4833-a41b-748f73a38179}')
     @commethod(3)
     def GetCapabilities(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3535,7 +3535,7 @@ class IDirectInputDevice8W(ComPtr):
     def GetImageInfo(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERW_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDeviceA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5944e680-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{5944e680-c92e-11cf-bfc7-444553540000}')
     @commethod(3)
     def GetCapabilities(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3568,7 +3568,7 @@ class IDirectInputDeviceA(ComPtr):
     def Initialize(self, param0: Windows.Win32.Foundation.HMODULE, param1: UInt32, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDeviceW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5944e681-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{5944e681-c92e-11cf-bfc7-444553540000}')
     @commethod(3)
     def GetCapabilities(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3601,7 +3601,7 @@ class IDirectInputDeviceW(ComPtr):
     def Initialize(self, param0: Windows.Win32.Foundation.HMODULE, param1: UInt32, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputEffect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e7e1f7c0-88d2-11d0-9a-d0-00-a0-c9-a0-6e-35')
+    _iid_ = Guid('{e7e1f7c0-88d2-11d0-9ad0-00a0c9a06e35}')
     @commethod(3)
     def Initialize(self, param0: Windows.Win32.Foundation.HMODULE, param1: UInt32, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3624,7 +3624,7 @@ class IDirectInputEffect(ComPtr):
     def Escape(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIEFFESCAPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputEffectDriver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('02538130-898f-11d0-9a-d0-00-a0-c9-a0-6e-35')
+    _iid_ = Guid('{02538130-898f-11d0-9ad0-00a0c9a06e35}')
     @commethod(3)
     def DeviceID(self, param0: UInt32, param1: UInt32, param2: UInt32, param3: UInt32, param4: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3649,7 +3649,7 @@ class IDirectInputEffectDriver(ComPtr):
     def GetEffectStatus(self, param0: UInt32, param1: UInt32, param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputJoyConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1de12ab1-c9f5-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{1de12ab1-c9f5-11cf-bfc7-444553540000}')
     @commethod(3)
     def Acquire(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3684,7 +3684,7 @@ class IDirectInputJoyConfig(ComPtr):
     def OpenConfigKey(self, param0: UInt32, param1: UInt32, param2: POINTER(Windows.Win32.System.Registry.HKEY)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputJoyConfig8(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('eb0d7dfa-1990-4f27-b4-d6-ed-f2-ee-c4-a4-4c')
+    _iid_ = Guid('{eb0d7dfa-1990-4f27-b4d6-edf2eec4a44c}')
     @commethod(3)
     def Acquire(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3719,7 +3719,7 @@ class IDirectInputJoyConfig8(ComPtr):
     def OpenAppStatusKey(self, param0: POINTER(Windows.Win32.System.Registry.HKEY)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('89521361-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('{89521361-aa8a-11cf-bfc7-444553540000}')
     @commethod(3)
     def CreateDevice(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDeviceW_head), param2: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -24,7 +24,7 @@ IDENTITY_KEYWORD_ASSOCIATED: String = 'associated'
 IDENTITY_KEYWORD_LOCAL: String = 'local'
 IDENTITY_KEYWORD_HOMEGROUP: String = 'homegroup'
 IDENTITY_KEYWORD_CONNECTED: String = 'connected'
-OID_OAssociatedIdentityProviderObject: Guid = Guid('98c5a3dd-db68-4f1a-8d-2b-90-79-cd-fe-af-61')
+OID_OAssociatedIdentityProviderObject: Guid = Guid('{98c5a3dd-db68-4f1a-8d2b-9079cdfeaf61}')
 STR_OUT_OF_BOX_EXPERIENCE: String = 'OutOfBoxExperience'
 STR_MODERN_SETTINGS_ADD_USER: String = 'ModernSettingsAddUser'
 STR_OUT_OF_BOX_UPGRADE_EXPERIENCE: String = 'OutOfBoxUpgradeExperience'
@@ -34,7 +34,7 @@ STR_USER_NAME: String = 'Username'
 STR_PROPERTY_STORE: String = 'PropertyStore'
 class AsyncIAssociatedIdentityProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2834d6ed-297e-4e72-8a-51-96-1e-86-f0-51-52')
+    _iid_ = Guid('{2834d6ed-297e-4e72-8a51-961e86f05152}')
     @commethod(3)
     def Begin_AssociateIdentity(self, hwndParent: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -49,7 +49,7 @@ class AsyncIAssociatedIdentityProvider(ComPtr):
     def Finish_ChangeCredential(self) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIConnectedIdentityProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9ce55141-bce9-4e15-82-4d-43-d7-9f-51-2f-93')
+    _iid_ = Guid('{9ce55141-bce9-4e15-824d-43d79f512f93}')
     @commethod(3)
     def Begin_ConnectIdentity(self, AuthBuffer: POINTER(Byte), AuthBufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -72,14 +72,14 @@ class AsyncIConnectedIdentityProvider(ComPtr):
     def Finish_GetAccountState(self, pState: POINTER(Windows.Win32.Security.Authentication.Identity.Provider.ACCOUNT_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIIdentityAdvise(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3ab4c8da-d038-4830-8d-d9-32-53-c5-5a-12-7f')
+    _iid_ = Guid('{3ab4c8da-d038-4830-8dd9-3253c55a127f}')
     @commethod(3)
     def Begin_IdentityUpdated(self, dwIdentityUpdateEvents: UInt32, lpszUniqueID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_IdentityUpdated(self) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIIdentityAuthentication(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f9a2f918-feca-4e9c-96-33-61-cb-f1-3e-d3-4d')
+    _iid_ = Guid('{f9a2f918-feca-4e9c-9633-61cbf13ed34d}')
     @commethod(3)
     def Begin_SetIdentityCredential(self, CredBuffer: POINTER(Byte), CredBufferLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -90,7 +90,7 @@ class AsyncIIdentityAuthentication(ComPtr):
     def Finish_ValidateIdentityCredential(self, ppIdentityProperties: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIIdentityProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c6fc9901-c433-4646-8f-48-4e-46-87-aa-e2-a0')
+    _iid_ = Guid('{c6fc9901-c433-4646-8f48-4e4687aae2a0}')
     @commethod(3)
     def Begin_GetIdentityEnum(self, eIdentityType: Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_TYPE, pFilterkey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pFilterPropVarValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -125,7 +125,7 @@ class AsyncIIdentityProvider(ComPtr):
     def Finish_UnAdvise(self) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIIdentityStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('eefa1616-48de-4872-aa-64-6e-62-06-53-5a-51')
+    _iid_ = Guid('{eefa1616-48de-4872-aa64-6e6206535a51}')
     @commethod(3)
     def Begin_GetCount(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -152,7 +152,7 @@ class AsyncIIdentityStore(ComPtr):
     def Finish_Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class AsyncIIdentityStoreEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fca3af9a-8a07-4eae-86-32-ec-3d-e6-58-a3-6a')
+    _iid_ = Guid('{fca3af9a-8a07-4eae-8632-ec3de658a36a}')
     @commethod(3)
     def Begin_CreateConnectedIdentity(self, LocalName: Windows.Win32.Foundation.PWSTR, ConnectedName: Windows.Win32.Foundation.PWSTR, ProviderGUID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -161,11 +161,11 @@ class AsyncIIdentityStoreEx(ComPtr):
     def Begin_DeleteConnectedIdentity(self, ConnectedName: Windows.Win32.Foundation.PWSTR, ProviderGUID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Finish_DeleteConnectedIdentity(self) -> Windows.Win32.Foundation.HRESULT: ...
-CIdentityProfileHandler = Guid('ecf5bf46-e3b6-449a-b5-6b-43-f5-8f-86-78-14')
-CoClassIdentityStore = Guid('30d49246-d217-465f-b0-0b-ac-9d-dd-65-2e-b7')
+CIdentityProfileHandler = Guid('{ecf5bf46-e3b6-449a-b56b-43f58f867814}')
+CoClassIdentityStore = Guid('{30d49246-d217-465f-b00b-ac9ddd652eb7}')
 class IAssociatedIdentityProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2af066b3-4cbb-4cba-a7-98-20-4b-6a-f6-8c-c0')
+    _iid_ = Guid('{2af066b3-4cbb-4cba-a798-204b6af68cc0}')
     @commethod(3)
     def AssociateIdentity(self, hwndParent: Windows.Win32.Foundation.HWND, ppPropertyStore: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -174,7 +174,7 @@ class IAssociatedIdentityProvider(ComPtr):
     def ChangeCredential(self, hwndParent: Windows.Win32.Foundation.HWND, lpszUniqueID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IConnectedIdentityProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b7417b54-e08c-429b-96-c8-67-8d-13-69-ec-b1')
+    _iid_ = Guid('{b7417b54-e08c-429b-96c8-678d1369ecb1}')
     @commethod(3)
     def ConnectIdentity(self, AuthBuffer: POINTER(Byte), AuthBufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -198,19 +198,19 @@ IDENTITY_URL_RESTORE_WIZARD: IDENTITY_URL = 5
 IDENTITY_URL_CONNECT_WIZARD: IDENTITY_URL = 6
 class IIdentityAdvise(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4e982fed-d14b-440c-b8-d6-bb-38-64-53-d3-86')
+    _iid_ = Guid('{4e982fed-d14b-440c-b8d6-bb386453d386}')
     @commethod(3)
     def IdentityUpdated(self, dwIdentityUpdateEvents: Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent, lpszUniqueID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IIdentityAuthentication(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5e7ef254-979f-43b5-b7-4e-06-e4-eb-7d-f0-f9')
+    _iid_ = Guid('{5e7ef254-979f-43b5-b74e-06e4eb7df0f9}')
     @commethod(3)
     def SetIdentityCredential(self, CredBuffer: POINTER(Byte), CredBufferLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ValidateIdentityCredential(self, CredBuffer: POINTER(Byte), CredBufferLength: UInt32, ppIdentityProperties: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IIdentityProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0d1b9e0c-e8ba-4f55-a8-1b-bc-e9-34-b9-48-f5')
+    _iid_ = Guid('{0d1b9e0c-e8ba-4f55-a81b-bce934b948f5}')
     @commethod(3)
     def GetIdentityEnum(self, eIdentityType: Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_TYPE, pFilterkey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pFilterPropVarValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), ppIdentityEnum: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -229,7 +229,7 @@ class IIdentityProvider(ComPtr):
     def UnAdvise(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IIdentityStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('df586fa5-6f35-44f1-b2-09-b3-8e-16-97-72-eb')
+    _iid_ = Guid('{df586fa5-6f35-44f1-b209-b38e169772eb}')
     @commethod(3)
     def GetCount(self, pdwProviders: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -244,7 +244,7 @@ class IIdentityStore(ComPtr):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IIdentityStoreEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f9f9eb98-8f7f-4e38-95-77-69-80-11-4c-e3-2b')
+    _iid_ = Guid('{f9f9eb98-8f7f-4e38-9577-6980114ce32b}')
     @commethod(3)
     def CreateConnectedIdentity(self, LocalName: Windows.Win32.Foundation.PWSTR, ConnectedName: Windows.Win32.Foundation.PWSTR, ProviderGUID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

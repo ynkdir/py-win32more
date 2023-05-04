@@ -43,14 +43,14 @@ SCALE_450_PERCENT: DEVICE_SCALE_FACTOR = 450
 SCALE_500_PERCENT: DEVICE_SCALE_FACTOR = 500
 class IObjectArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('92ca9dcd-5622-4bba-a8-05-5e-9f-54-1b-d8-c9')
+    _iid_ = Guid('{92ca9dcd-5622-4bba-a805-5e9f541bd8c9}')
     @commethod(3)
     def GetCount(self, pcObjects: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAt(self, uiIndex: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IObjectCollection(ComPtr):
     extends: Windows.Win32.UI.Shell.Common.IObjectArray
-    _iid_ = Guid('5632b1a4-e38a-400a-92-8a-d4-cd-63-23-02-95')
+    _iid_ = Guid('{5632b1a4-e38a-400a-928a-d4cd63230295}')
     @commethod(5)
     def AddObject(self, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)

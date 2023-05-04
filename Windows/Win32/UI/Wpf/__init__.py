@@ -16,15 +16,15 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 MILBITMAPEFFECT_SDK_VERSION: UInt32 = 16777216
-CLSID_MILBitmapEffectGroup: Guid = Guid('ac9c1a9a-7e18-4f64-ac-7e-47-cf-7f-05-1e-95')
-CLSID_MILBitmapEffectBlur: Guid = Guid('a924df87-225d-4373-8f-5b-b9-0e-c8-5a-e3-de')
-CLSID_MILBitmapEffectDropShadow: Guid = Guid('459a3fbe-d8ac-4692-87-4b-7a-26-57-15-aa-16')
-CLSID_MILBitmapEffectOuterGlow: Guid = Guid('e2161bdd-7eb6-4725-9c-0b-8a-2a-1b-4f-06-67')
-CLSID_MILBitmapEffectBevel: Guid = Guid('fd361dbe-6c9b-4de0-82-90-f6-40-0c-27-37-ed')
-CLSID_MILBitmapEffectEmboss: Guid = Guid('cd299846-824f-47ec-a0-07-12-aa-76-7f-28-16')
+CLSID_MILBitmapEffectGroup: Guid = Guid('{ac9c1a9a-7e18-4f64-ac7e-47cf7f051e95}')
+CLSID_MILBitmapEffectBlur: Guid = Guid('{a924df87-225d-4373-8f5b-b90ec85ae3de}')
+CLSID_MILBitmapEffectDropShadow: Guid = Guid('{459a3fbe-d8ac-4692-874b-7a265715aa16}')
+CLSID_MILBitmapEffectOuterGlow: Guid = Guid('{e2161bdd-7eb6-4725-9c0b-8a2a1b4f0667}')
+CLSID_MILBitmapEffectBevel: Guid = Guid('{fd361dbe-6c9b-4de0-8290-f6400c2737ed}')
+CLSID_MILBitmapEffectEmboss: Guid = Guid('{cd299846-824f-47ec-a007-12aa767f2816}')
 class IMILBitmapEffect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8a6ff321-c944-4a1b-99-44-99-54-af-30-12-58')
+    _iid_ = Guid('{8a6ff321-c944-4a1b-9944-9954af301258}')
     @commethod(3)
     def GetOutput(self, uiIndex: UInt32, pContext: Windows.Win32.UI.Wpf.IMILBitmapEffectRenderContext_head, ppBitmapSource: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapSource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -33,14 +33,14 @@ class IMILBitmapEffect(ComPtr):
     def SetInputSource(self, uiIndex: UInt32, pBitmapSource: Windows.Win32.Graphics.Imaging.IWICBitmapSource_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectConnections(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c2b5d861-9b1a-4374-89-b0-de-c4-87-4d-6a-81')
+    _iid_ = Guid('{c2b5d861-9b1a-4374-89b0-dec4874d6a81}')
     @commethod(3)
     def GetInputConnector(self, uiIndex: UInt32, ppConnector: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffectInputConnector_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetOutputConnector(self, uiIndex: UInt32, ppConnector: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffectOutputConnector_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectConnectionsInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('476b538a-c765-4237-ba-4a-d6-a8-80-ff-0c-fc')
+    _iid_ = Guid('{476b538a-c765-4237-ba4a-d6a880ff0cfc}')
     @commethod(3)
     def GetNumberInputs(self, puiNumInputs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -51,14 +51,14 @@ class IMILBitmapEffectConnectionsInfo(ComPtr):
     def GetOutputConnectorInfo(self, uiIndex: UInt32, ppConnectorInfo: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffectConnectorInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectConnector(ComPtr):
     extends: Windows.Win32.UI.Wpf.IMILBitmapEffectConnectorInfo
-    _iid_ = Guid('f59567b3-76c1-4d47-ba-1e-79-f9-55-e3-50-ef')
+    _iid_ = Guid('{f59567b3-76c1-4d47-ba1e-79f955e350ef}')
     @commethod(7)
     def IsConnected(self, pfConnected: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetBitmapEffect(self, ppEffect: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffect_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectConnectorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f66d2e4b-b46b-42fc-85-9e-3d-a0-ec-db-3c-43')
+    _iid_ = Guid('{f66d2e4b-b46b-42fc-859e-3da0ecdb3c43}')
     @commethod(3)
     def GetIndex(self, puiIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -69,14 +69,14 @@ class IMILBitmapEffectConnectorInfo(ComPtr):
     def GetFormat(self, ulIndex: UInt32, pFormat: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2e880dd8-f8ce-457b-81-99-d6-0b-b3-d7-ef-98')
+    _iid_ = Guid('{2e880dd8-f8ce-457b-8199-d60bb3d7ef98}')
     @commethod(3)
     def PropertyChange(self, pEffect: Windows.Win32.UI.Wpf.IMILBitmapEffect_head, bstrPropertyName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DirtyRegion(self, pEffect: Windows.Win32.UI.Wpf.IMILBitmapEffect_head, pRect: POINTER(Windows.Win32.UI.Wpf.MilRectD_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('33a9df34-a403-4ec7-b0-7e-bc-06-82-37-08-45')
+    _iid_ = Guid('{33a9df34-a403-4ec7-b07e-bc0682370845}')
     @commethod(3)
     def CreateEffect(self, pguidEffect: POINTER(Guid), ppEffect: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffect_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -85,7 +85,7 @@ class IMILBitmapEffectFactory(ComPtr):
     def CreateEffectOuter(self, ppEffect: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffect_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2f952360-698a-4ac6-81-a1-bc-fd-f0-8e-b8-e8')
+    _iid_ = Guid('{2f952360-698a-4ac6-81a1-bcfdf08eb8e8}')
     @commethod(3)
     def GetInteriorInputConnector(self, uiIndex: UInt32, ppConnector: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffectOutputConnector_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -94,7 +94,7 @@ class IMILBitmapEffectGroup(ComPtr):
     def Add(self, pEffect: Windows.Win32.UI.Wpf.IMILBitmapEffect_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectGroupImpl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('78fed518-1cfc-4807-8b-85-6b-6e-51-39-8f-62')
+    _iid_ = Guid('{78fed518-1cfc-4807-8b85-6b6e51398f62}')
     @commethod(3)
     def Preprocess(self, pContext: Windows.Win32.UI.Wpf.IMILBitmapEffectRenderContext_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -103,7 +103,7 @@ class IMILBitmapEffectGroupImpl(ComPtr):
     def GetChildren(self, pChildren: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffects_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectImpl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cc2468f2-9936-47be-b4-af-06-b5-df-5d-bc-bb')
+    _iid_ = Guid('{cc2468f2-9936-47be-b4af-06b5df5dbcbb}')
     @commethod(3)
     def IsInPlaceModificationAllowed(self, pOutputConnector: Windows.Win32.UI.Wpf.IMILBitmapEffectOutputConnector_head, pfModifyInPlace: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -120,38 +120,38 @@ class IMILBitmapEffectImpl(ComPtr):
     def Initialize(self, pInner: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectInputConnector(ComPtr):
     extends: Windows.Win32.UI.Wpf.IMILBitmapEffectConnector
-    _iid_ = Guid('a9b4ecaa-7a3c-45e7-85-73-f4-b8-1b-60-dd-6c')
+    _iid_ = Guid('{a9b4ecaa-7a3c-45e7-8573-f4b81b60dd6c}')
     @commethod(9)
     def ConnectTo(self, pConnector: Windows.Win32.UI.Wpf.IMILBitmapEffectOutputConnector_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetConnection(self, ppConnector: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffectOutputConnector_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectInteriorInputConnector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('20287e9e-86a2-4e15-95-3d-eb-14-38-a5-b8-42')
+    _iid_ = Guid('{20287e9e-86a2-4e15-953d-eb1438a5b842}')
     @commethod(3)
     def GetInputConnector(self, pInputConnector: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffectInputConnector_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectInteriorOutputConnector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00bbb6dc-acc9-4bfc-b3-44-8b-ee-38-3d-fe-fa')
+    _iid_ = Guid('{00bbb6dc-acc9-4bfc-b344-8bee383dfefa}')
     @commethod(3)
     def GetOutputConnector(self, pOutputConnector: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffectOutputConnector_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectOutputConnector(ComPtr):
     extends: Windows.Win32.UI.Wpf.IMILBitmapEffectConnector
-    _iid_ = Guid('92957aad-841b-4866-82-ec-87-52-46-8b-07-fd')
+    _iid_ = Guid('{92957aad-841b-4866-82ec-8752468b07fd}')
     @commethod(9)
     def GetNumberConnections(self, puiNumberConnections: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetConnection(self, uiIndex: UInt32, ppConnection: POINTER(Windows.Win32.UI.Wpf.IMILBitmapEffectInputConnector_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectOutputConnectorImpl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('21fae777-8b39-4bfa-9f-2d-f3-94-1e-d3-69-13')
+    _iid_ = Guid('{21fae777-8b39-4bfa-9f2d-f3941ed36913}')
     @commethod(3)
     def AddBackLink(self, pConnection: Windows.Win32.UI.Wpf.IMILBitmapEffectInputConnector_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RemoveBackLink(self, pConnection: Windows.Win32.UI.Wpf.IMILBitmapEffectInputConnector_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectPrimitive(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('67e31025-3091-4dfc-98-d6-dd-49-45-51-46-1d')
+    _iid_ = Guid('{67e31025-3091-4dfc-98d6-dd494551461d}')
     @commethod(3)
     def GetOutput(self, uiIndex: UInt32, pContext: Windows.Win32.UI.Wpf.IMILBitmapEffectRenderContext_head, pfModifyInPlace: POINTER(Windows.Win32.Foundation.VARIANT_BOOL), ppBitmapSource: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapSource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -166,14 +166,14 @@ class IMILBitmapEffectPrimitive(ComPtr):
     def GetAffineMatrix(self, uiIndex: UInt32, pMatrix: POINTER(Windows.Win32.Graphics.Dwm.MilMatrix3x2D_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectPrimitiveImpl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ce41e00b-efa6-44e7-b0-07-dd-04-2e-3a-e1-26')
+    _iid_ = Guid('{ce41e00b-efa6-44e7-b007-dd042e3ae126}')
     @commethod(3)
     def IsDirty(self, uiOutputIndex: UInt32, pfDirty: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def IsVolatile(self, uiOutputIndex: UInt32, pfVolatile: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectRenderContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('12a2ec7e-2d33-44b2-b3-34-1a-bb-78-46-e3-90')
+    _iid_ = Guid('{12a2ec7e-2d33-44b2-b334-1abb7846e390}')
     @commethod(3)
     def SetOutputPixelFormat(self, format: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -192,7 +192,7 @@ class IMILBitmapEffectRenderContext(ComPtr):
     def SetRegionOfInterest(self, pRect: POINTER(Windows.Win32.UI.Wpf.MilRectD_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffectRenderContextImpl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4d25accb-797d-4fd2-b1-28-df-fe-ff-84-fc-c3')
+    _iid_ = Guid('{4d25accb-797d-4fd2-b128-dffeff84fcc3}')
     @commethod(3)
     def GetUseSoftwareRenderer(self, pfSoftware: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -205,7 +205,7 @@ class IMILBitmapEffectRenderContextImpl(ComPtr):
     def UpdateOutputBounds(self, pRect: POINTER(Windows.Win32.UI.Wpf.MilRectD_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMILBitmapEffects(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('51ac3dce-67c5-448b-91-80-ad-3e-ab-dd-d5-dd')
+    _iid_ = Guid('{51ac3dce-67c5-448b-9180-ad3eabddd5dd}')
     @commethod(3)
     def _NewEnum(self, ppiuReturn: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

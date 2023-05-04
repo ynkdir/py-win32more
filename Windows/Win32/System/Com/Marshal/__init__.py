@@ -243,7 +243,7 @@ def HPALETTE_UserUnmarshal64(param0: POINTER(UInt32), param1: POINTER(Byte), par
 def HPALETTE_UserFree64(param0: POINTER(UInt32), param1: POINTER(Windows.Win32.Graphics.Gdi.HPALETTE)) -> Void: ...
 class IMarshal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000003-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000003-0000-0000-c000-000000000046}')
     @commethod(3)
     def GetUnmarshalClass(self, riid: POINTER(Guid), pv: c_void_p, dwDestContext: UInt32, pvDestContext: c_void_p, mshlflags: UInt32, pCid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -258,10 +258,10 @@ class IMarshal(ComPtr):
     def DisconnectObject(self, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMarshal2(ComPtr):
     extends: Windows.Win32.System.Com.Marshal.IMarshal
-    _iid_ = Guid('000001cf-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{000001cf-0000-0000-c000-000000000046}')
 class IMarshalingStream(ComPtr):
     extends: Windows.Win32.System.Com.IStream
-    _iid_ = Guid('d8f2f5e6-6102-4863-9f-26-38-9a-46-76-ef-de')
+    _iid_ = Guid('{d8f2f5e6-6102-4863-9f26-389a4676efde}')
     @commethod(14)
     def GetMarshalingContextAttribute(self, attribute: Windows.Win32.System.Com.CO_MARSHALING_CONTEXT_ATTRIBUTES, pAttributeValue: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 STDMSHLFLAGS = Int32

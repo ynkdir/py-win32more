@@ -15,7 +15,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWaaSAssessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2347bbef-1a3b-45a4-90-2d-3e-09-c2-69-b4-5e')
+    _iid_ = Guid('{2347bbef-1a3b-45a4-902d-3e09c269b45e}')
     @commethod(3)
     def GetOSUpdateAssessment(self, result: POINTER(Windows.Win32.System.UpdateAssessment.OSUpdateAssessment_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class OSUpdateAssessment(EasyCastStructure):
@@ -51,7 +51,7 @@ UpdateImpactLevel_None: UpdateImpactLevel = 0
 UpdateImpactLevel_Low: UpdateImpactLevel = 1
 UpdateImpactLevel_Medium: UpdateImpactLevel = 2
 UpdateImpactLevel_High: UpdateImpactLevel = 3
-WaaSAssessor = Guid('098ef871-fa9f-46af-89-58-c0-83-51-5d-7c-9c')
+WaaSAssessor = Guid('{098ef871-fa9f-46af-8958-c083515d7c9c}')
 make_head(_module, 'IWaaSAssessor')
 make_head(_module, 'OSUpdateAssessment')
 make_head(_module, 'UpdateAssessment')

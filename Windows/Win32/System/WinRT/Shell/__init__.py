@@ -20,7 +20,7 @@ CreateProcessMethod_CpCreateProcessAsUser: CreateProcessMethod = 1
 CreateProcessMethod_CpAicLaunchAdminProcess: CreateProcessMethod = 2
 class IDDEInitializer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('30dc931f-33fc-4ffd-a1-68-94-22-58-cf-3c-a4')
+    _iid_ = Guid('{30dc931f-33fc-4ffd-a168-942258cf3ca4}')
     @commethod(3)
     def Initialize(self, fileExtensionOrProtocol: Windows.Win32.Foundation.PWSTR, method: Windows.Win32.System.WinRT.Shell.CreateProcessMethod, currentDirectory: Windows.Win32.Foundation.PWSTR, execTarget: Windows.Win32.UI.Shell.IShellItem_head, site: Windows.Win32.System.Com.IUnknown_head, application: Windows.Win32.Foundation.PWSTR, targetFile: Windows.Win32.Foundation.PWSTR, arguments: Windows.Win32.Foundation.PWSTR, verb: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'IDDEInitializer')

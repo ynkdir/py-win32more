@@ -19,15 +19,15 @@ DISPID_EVENT_ON_CONTEXT_DATA: UInt32 = 7
 DISPID_EVENT_ON_SEND_ERROR: UInt32 = 8
 class DRendezvousSessionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3fa19cf8-64c4-4f53-ae-60-63-5b-38-06-ec-a6')
+    _iid_ = Guid('{3fa19cf8-64c4-4f53-ae60-635b3806eca6}')
 class IRendezvousApplication(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4f4d070b-a275-49fb-b1-0d-8e-c2-63-87-b5-0d')
+    _iid_ = Guid('{4f4d070b-a275-49fb-b10d-8ec26387b50d}')
     @commethod(3)
     def SetRendezvousSession(self, pRendezvousSession: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRendezvousSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9ba4b1dd-8b0c-48b7-9e-7c-2f-25-85-7c-8d-f5')
+    _iid_ = Guid('{9ba4b1dd-8b0c-48b7-9e7c-2f25857c8df5}')
     @commethod(3)
     def get_State(self, pSessionState: POINTER(Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -54,7 +54,7 @@ RSS_CONNECTED: RENDEZVOUS_SESSION_STATE = 4
 RSS_CANCELLED: RENDEZVOUS_SESSION_STATE = 5
 RSS_DECLINED: RENDEZVOUS_SESSION_STATE = 6
 RSS_TERMINATED: RENDEZVOUS_SESSION_STATE = 7
-RendezvousApplication = Guid('0b7e019a-b5de-47fa-89-66-90-82-f8-2f-b1-92')
+RendezvousApplication = Guid('{0b7e019a-b5de-47fa-8966-9082f82fb192}')
 make_head(_module, 'DRendezvousSessionEvents')
 make_head(_module, 'IRendezvousApplication')
 make_head(_module, 'IRendezvousSession')

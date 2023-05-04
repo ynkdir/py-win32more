@@ -771,87 +771,87 @@ WFD_API_VERSION_1_0: UInt32 = 1
 WFD_API_VERSION: UInt32 = 1
 WLAN_UI_API_VERSION: UInt32 = 1
 WLAN_UI_API_INITIAL_VERSION: UInt32 = 1
-GUID_DEVINTERFACE_WIFIDIRECT_DEVICE: Guid = Guid('439b20af-8955-405b-99-f0-a6-2a-f0-c6-8d-43')
-GUID_AEPSERVICE_WIFIDIRECT_DEVICE: Guid = Guid('cc29827c-9caf-4928-99-a9-18-f7-c2-38-13-89')
-GUID_DEVINTERFACE_ASP_INFRA_DEVICE: Guid = Guid('ff823995-7a72-4c80-87-57-c6-7e-e1-3d-1a-49')
+GUID_DEVINTERFACE_WIFIDIRECT_DEVICE: Guid = Guid('{439b20af-8955-405b-99f0-a62af0c68d43}')
+GUID_AEPSERVICE_WIFIDIRECT_DEVICE: Guid = Guid('{cc29827c-9caf-4928-99a9-18f7c2381389}')
+GUID_DEVINTERFACE_ASP_INFRA_DEVICE: Guid = Guid('{ff823995-7a72-4c80-8757-c67ee13d1a49}')
 def DEVPKEY_WiFiDirect_DeviceAddress():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=1)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=1)
 def DEVPKEY_WiFiDirect_InterfaceAddress():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=2)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=2)
 def DEVPKEY_WiFiDirect_InterfaceGuid():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=3)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=3)
 def DEVPKEY_WiFiDirect_GroupId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=4)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=4)
 def DEVPKEY_WiFiDirect_IsConnected():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=5)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=5)
 def DEVPKEY_WiFiDirect_IsVisible():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=6)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=6)
 def DEVPKEY_WiFiDirect_IsLegacyDevice():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=7)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=7)
 def DEVPKEY_WiFiDirect_MiracastVersion():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=8)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=8)
 def DEVPKEY_WiFiDirect_IsMiracastLCPSupported():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=9)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=9)
 def DEVPKEY_WiFiDirect_Services():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=10)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=10)
 def DEVPKEY_WiFiDirect_SupportedChannelList():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=11)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=11)
 def DEVPKEY_WiFiDirect_InformationElements():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=12)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=12)
 def DEVPKEY_WiFiDirect_DeviceAddressCopy():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=13)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=13)
 def DEVPKEY_WiFiDirect_IsRecentlyAssociated():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=14)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=14)
 def DEVPKEY_WiFiDirect_Service_Aeps():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=15)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=15)
 def DEVPKEY_WiFiDirect_NoMiracastAutoProject():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=16)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=16)
 def DEVPKEY_InfraCast_Supported():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=17)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=17)
 def DEVPKEY_InfraCast_StreamSecuritySupported():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=18)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=18)
 def DEVPKEY_InfraCast_AccessPointBssid():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=19)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=19)
 def DEVPKEY_InfraCast_SinkHostName():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=20)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=20)
 def DEVPKEY_InfraCast_ChallengeAep():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=21)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=21)
 def DEVPKEY_WiFiDirect_IsDMGCapable():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=22)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=22)
 def DEVPKEY_InfraCast_DevnodeAep():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=23)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=23)
 def DEVPKEY_WiFiDirect_FoundWsbService():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=24)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=24)
 def DEVPKEY_InfraCast_HostName_ResolutionMode():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=25)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=25)
 def DEVPKEY_InfraCast_SinkIpAddress():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=26)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=26)
 def DEVPKEY_WiFiDirect_TransientAssociation():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=27)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=27)
 def DEVPKEY_WiFiDirect_LinkQuality():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=28)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=28)
 def DEVPKEY_InfraCast_PinSupported():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=29)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=29)
 def DEVPKEY_InfraCast_RtspTcpConnectionParametersSupported():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=30)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=30)
 def DEVPKEY_WiFiDirect_Miracast_SessionMgmtControlPort():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=31)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=31)
 def DEVPKEY_WiFiDirect_RtspTcpConnectionParametersSupported():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('1506935d-e3e7-450f-86-37-82-23-3e-be-5f-6e'), pid=32)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{1506935d-e3e7-450f-8637-82233ebe5f6e}'), pid=32)
 def DEVPKEY_WiFiDirectServices_ServiceAddress():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=2)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{31b37743-7c5e-4005-93e6-e953f92b82e9}'), pid=2)
 def DEVPKEY_WiFiDirectServices_ServiceName():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=3)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{31b37743-7c5e-4005-93e6-e953f92b82e9}'), pid=3)
 def DEVPKEY_WiFiDirectServices_ServiceInformation():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=4)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{31b37743-7c5e-4005-93e6-e953f92b82e9}'), pid=4)
 def DEVPKEY_WiFiDirectServices_AdvertisementId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=5)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{31b37743-7c5e-4005-93e6-e953f92b82e9}'), pid=5)
 def DEVPKEY_WiFiDirectServices_ServiceConfigMethods():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=6)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{31b37743-7c5e-4005-93e6-e953f92b82e9}'), pid=6)
 def DEVPKEY_WiFiDirectServices_RequestServiceInformation():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('31b37743-7c5e-4005-93-e6-e9-53-f9-2b-82-e9'), pid=7)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{31b37743-7c5e-4005-93e6-e953f92b82e9}'), pid=7)
 def DEVPKEY_WiFi_InterfaceGuid():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('ef1167eb-cbfc-4341-a5-68-a7-c9-1a-68-98-2c'), pid=2)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{ef1167eb-cbfc-4341-a568-a7c91a68982c}'), pid=2)
 DOT11EXT_PSK_MAX_LENGTH: UInt32 = 64
 WDIAG_IHV_WLAN_ID_FLAG_SECURITY_ENABLED: UInt32 = 1
 IHV_VERSION_FUNCTION_NAME: String = 'Dot11ExtIhvGetVersionInfo'
@@ -2757,10 +2757,10 @@ DOT11_WPS_PASSWORD_ID_NFC_CONNECTION_HANDOVER: DOT11_WPS_DEVICE_PASSWORD_ID = 7
 DOT11_WPS_PASSWORD_ID_WFD_SERVICES: DOT11_WPS_DEVICE_PASSWORD_ID = 8
 DOT11_WPS_PASSWORD_ID_OOB_RANGE_MIN: DOT11_WPS_DEVICE_PASSWORD_ID = 16
 DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX: DOT11_WPS_DEVICE_PASSWORD_ID = 65535
-Dot11AdHocManager = Guid('dd06a84f-83bd-4d01-8a-b9-23-89-fe-a0-86-9e')
+Dot11AdHocManager = Guid('{dd06a84f-83bd-4d01-8ab9-2389fea0869e}')
 class IDot11AdHocInterface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc2b-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc2b-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def GetDeviceSignature(self, pSignature: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2781,12 +2781,12 @@ class IDot11AdHocInterface(ComPtr):
     def GetStatus(self, pState: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocInterfaceNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc2f-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc2f-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def OnConnectionStatusChange(self, eStatus: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc26-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc26-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def CreateNetwork(self, Name: Windows.Win32.Foundation.PWSTR, Password: Windows.Win32.Foundation.PWSTR, GeographicalId: Int32, pInterface: Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head, pSecurity: Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head, pContextGuid: POINTER(Guid), pIAdHoc: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2799,7 +2799,7 @@ class IDot11AdHocManager(ComPtr):
     def GetNetwork(self, NetworkSignature: POINTER(Guid), pNetwork: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocManagerNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc27-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc27-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def OnNetworkAdd(self, pIAdHocNetwork: Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2810,7 +2810,7 @@ class IDot11AdHocManagerNotificationSink(ComPtr):
     def OnInterfaceRemove(self, Signature: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocNetwork(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc29-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc29-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def GetStatus(self, eStatus: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2837,21 +2837,21 @@ class IDot11AdHocNetwork(ComPtr):
     def Disconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocNetworkNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc2a-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc2a-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def OnStatusChange(self, eStatus: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnConnectFail(self, eFailReason: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocSecuritySettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc2e-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc2e-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def GetDot11AuthAlgorithm(self, pAuth: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDot11CipherAlgorithm(self, pCipher: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDot11AdHocInterfaces(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc2c-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc2c-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def Next(self, cElt: UInt32, rgElt: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2862,7 +2862,7 @@ class IEnumDot11AdHocInterfaces(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDot11AdHocNetworks(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc28-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc28-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def Next(self, cElt: UInt32, rgElt: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2873,7 +2873,7 @@ class IEnumDot11AdHocNetworks(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDot11AdHocSecuritySettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8f10cc2d-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('{8f10cc2d-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
     def Next(self, cElt: UInt32, rgElt: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

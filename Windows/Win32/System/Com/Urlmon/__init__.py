@@ -705,34 +705,34 @@ class HIT_LOGGING_INFO(EasyCastStructure):
     lpszExtendedInfo: Windows.Win32.Foundation.PSTR
 class IBindCallbackRedirect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('11c81bc2-121e-4ed5-b9-c4-b4-30-bd-54-f2-c0')
+    _iid_ = Guid('{11c81bc2-121e-4ed5-b9c4-b430bd54f2c0}')
     @commethod(3)
     def Redirect(self, lpcUrl: Windows.Win32.Foundation.PWSTR, vbCancel: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBindHttpSecurity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a9eda967-f50e-4a33-b3-58-20-6f-6e-f3-08-6d')
+    _iid_ = Guid('{a9eda967-f50e-4a33-b358-206f6ef3086d}')
     @commethod(3)
     def GetIgnoreCertMask(self, pdwIgnoreCertMask: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBindProtocol(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9cd-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9cd-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def CreateBinding(self, szUrl: Windows.Win32.Foundation.PWSTR, pbc: Windows.Win32.System.Com.IBindCtx_head, ppb: POINTER(Windows.Win32.System.Com.IBinding_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICatalogFileInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('711c7600-6b48-11d1-b4-03-00-aa-00-b9-2a-f1')
+    _iid_ = Guid('{711c7600-6b48-11d1-b403-00aa00b92af1}')
     @commethod(3)
     def GetCatalogFile(self, ppszCatalogFile: POINTER(Windows.Win32.Foundation.PSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJavaTrust(self, ppJavaTrust: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICodeInstall(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IWindowForBindingUI
-    _iid_ = Guid('79eac9d1-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9d1-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(4)
     def OnCodeInstallProblem(self, ulStatusCode: UInt32, szDestination: Windows.Win32.Foundation.PWSTR, szSource: Windows.Win32.Foundation.PWSTR, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDataFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('69d14c80-c18e-11d0-a9-ce-00-60-97-94-23-11')
+    _iid_ = Guid('{69d14c80-c18e-11d0-a9ce-006097942311}')
     @commethod(3)
     def DoEncode(self, dwFlags: UInt32, lInBufferSize: Int32, pbInBuffer: POINTER(Byte), lOutBufferSize: Int32, pbOutBuffer: POINTER(Byte), lInBytesAvailable: Int32, plInBytesRead: POINTER(Int32), plOutBytesWritten: POINTER(Int32), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -750,56 +750,56 @@ IE_EPM_OBJECT_NAMED_PIPE: IEObjectType = 6
 IE_EPM_OBJECT_REGISTRY: IEObjectType = 7
 class IEncodingFilterFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('70bdde00-c18e-11d0-a9-ce-00-60-97-94-23-11')
+    _iid_ = Guid('{70bdde00-c18e-11d0-a9ce-006097942311}')
     @commethod(3)
     def FindBestFilter(self, pwzCodeIn: Windows.Win32.Foundation.PWSTR, pwzCodeOut: Windows.Win32.Foundation.PWSTR, info: Windows.Win32.System.Com.Urlmon.DATAINFO, ppDF: POINTER(Windows.Win32.System.Com.Urlmon.IDataFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDefaultFilter(self, pwzCodeIn: Windows.Win32.Foundation.PWSTR, pwzCodeOut: Windows.Win32.Foundation.PWSTR, ppDF: POINTER(Windows.Win32.System.Com.Urlmon.IDataFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGetBindHandle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('af0ff408-129d-4b20-91-f0-02-bd-23-d8-83-52')
+    _iid_ = Guid('{af0ff408-129d-4b20-91f0-02bd23d88352}')
     @commethod(3)
     def GetBindHandle(self, enumRequestedHandle: Windows.Win32.System.Com.Urlmon.BINDHANDLETYPES, pRetHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHttpNegotiate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9d2-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9d2-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def BeginningTransaction(self, szURL: Windows.Win32.Foundation.PWSTR, szHeaders: Windows.Win32.Foundation.PWSTR, dwReserved: UInt32, pszAdditionalHeaders: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnResponse(self, dwResponseCode: UInt32, szResponseHeaders: Windows.Win32.Foundation.PWSTR, szRequestHeaders: Windows.Win32.Foundation.PWSTR, pszAdditionalRequestHeaders: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHttpNegotiate2(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IHttpNegotiate
-    _iid_ = Guid('4f9f9fcb-e0f4-48eb-b7-ab-fa-2e-a9-36-5c-b4')
+    _iid_ = Guid('{4f9f9fcb-e0f4-48eb-b7ab-fa2ea9365cb4}')
     @commethod(5)
     def GetRootSecurityId(self, pbSecurityId: POINTER(Byte), pcbSecurityId: POINTER(UInt32), dwReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IHttpNegotiate3(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IHttpNegotiate2
-    _iid_ = Guid('57b6c80a-34c2-4602-bc-26-66-a0-2f-c5-71-53')
+    _iid_ = Guid('{57b6c80a-34c2-4602-bc26-66a02fc57153}')
     @commethod(6)
     def GetSerializedClientCertContext(self, ppbCert: POINTER(POINTER(Byte)), pcbCert: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHttpSecurity(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IWindowForBindingUI
-    _iid_ = Guid('79eac9d7-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9d7-bafa-11ce-8c82-00aa004ba90b}')
     @commethod(4)
     def OnSecurityProblem(self, dwProblem: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9e0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9e0-baf9-11ce-8c82-00aa004ba90b}')
 class IInternetBindInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9e1-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9e1-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def GetBindInfo(self, grfBINDF: POINTER(UInt32), pbindinfo: POINTER(Windows.Win32.System.Com.BINDINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetBindString(self, ulStringType: UInt32, ppwzStr: POINTER(Windows.Win32.Foundation.PWSTR), cEl: UInt32, pcElFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetBindInfoEx(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IInternetBindInfo
-    _iid_ = Guid('a3e015b7-a82c-4dcd-a1-50-56-9a-ee-ed-36-ab')
+    _iid_ = Guid('{a3e015b7-a82c-4dcd-a150-569aeeed36ab}')
     @commethod(5)
     def GetBindInfoEx(self, grfBINDF: POINTER(UInt32), pbindinfo: POINTER(Windows.Win32.System.Com.BINDINFO_head), grfBINDF2: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetHostSecurityManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3af280b6-cb3f-11d0-89-1e-00-c0-4f-b6-bf-c4')
+    _iid_ = Guid('{3af280b6-cb3f-11d0-891e-00c04fb6bfc4}')
     @commethod(3)
     def GetSecurityId(self, pbSecurityId: POINTER(Byte), pcbSecurityId: POINTER(UInt32), dwReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -808,14 +808,14 @@ class IInternetHostSecurityManager(ComPtr):
     def QueryCustomPolicy(self, guidKey: POINTER(Guid), ppPolicy: POINTER(POINTER(Byte)), pcbPolicy: POINTER(UInt32), pContext: POINTER(Byte), cbContext: UInt32, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetPriority(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9eb-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9eb-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def SetPriority(self, nPriority: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPriority(self, pnPriority: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetProtocol(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IInternetProtocolRoot
-    _iid_ = Guid('79eac9e4-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9e4-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(9)
     def Read(self, pv: c_void_p, cb: UInt32, pcbRead: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -826,12 +826,12 @@ class IInternetProtocol(ComPtr):
     def UnlockRequest(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetProtocolEx(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IInternetProtocol
-    _iid_ = Guid('c7a98e66-1010-492c-a1-c8-c8-09-e1-f7-59-05')
+    _iid_ = Guid('{c7a98e66-1010-492c-a1c8-c809e1f75905}')
     @commethod(13)
     def StartEx(self, pUri: Windows.Win32.System.Com.IUri_head, pOIProtSink: Windows.Win32.System.Com.Urlmon.IInternetProtocolSink_head, pOIBindInfo: Windows.Win32.System.Com.Urlmon.IInternetBindInfo_head, grfPI: UInt32, dwReserved: Windows.Win32.Foundation.HANDLE_PTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetProtocolInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9ec-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9ec-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def ParseUrl(self, pwzUrl: Windows.Win32.Foundation.PWSTR, ParseAction: Windows.Win32.System.Com.Urlmon.PARSEACTION, dwParseFlags: UInt32, pwzResult: Windows.Win32.Foundation.PWSTR, cchResult: UInt32, pcchResult: POINTER(UInt32), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -842,7 +842,7 @@ class IInternetProtocolInfo(ComPtr):
     def QueryInfo(self, pwzUrl: Windows.Win32.Foundation.PWSTR, OueryOption: Windows.Win32.System.Com.Urlmon.QUERYOPTION, dwQueryFlags: UInt32, pBuffer: c_void_p, cbBuffer: UInt32, pcbBuf: POINTER(UInt32), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetProtocolRoot(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9e3-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9e3-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def Start(self, szUrl: Windows.Win32.Foundation.PWSTR, pOIProtSink: Windows.Win32.System.Com.Urlmon.IInternetProtocolSink_head, pOIBindInfo: Windows.Win32.System.Com.Urlmon.IInternetBindInfo_head, grfPI: UInt32, dwReserved: Windows.Win32.Foundation.HANDLE_PTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -857,7 +857,7 @@ class IInternetProtocolRoot(ComPtr):
     def Resume(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetProtocolSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9e5-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9e5-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def Switch(self, pProtocolData: POINTER(Windows.Win32.System.Com.Urlmon.PROTOCOLDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -868,7 +868,7 @@ class IInternetProtocolSink(ComPtr):
     def ReportResult(self, hrResult: Windows.Win32.Foundation.HRESULT, dwError: UInt32, szResult: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetProtocolSinkStackable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9f0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9f0-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def SwitchSink(self, pOIProtSink: Windows.Win32.System.Com.Urlmon.IInternetProtocolSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -877,7 +877,7 @@ class IInternetProtocolSinkStackable(ComPtr):
     def RollbackSwitch(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetSecurityManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9ee-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9ee-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def SetSecuritySite(self, pSite: Windows.Win32.System.Com.Urlmon.IInternetSecurityMgrSite_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -896,12 +896,12 @@ class IInternetSecurityManager(ComPtr):
     def GetZoneMappings(self, dwZone: UInt32, ppenumString: POINTER(Windows.Win32.System.Com.IEnumString_head), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetSecurityManagerEx(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IInternetSecurityManager
-    _iid_ = Guid('f164edf1-cc7c-4f0d-9a-94-34-22-26-25-c3-93')
+    _iid_ = Guid('{f164edf1-cc7c-4f0d-9a94-34222625c393}')
     @commethod(11)
     def ProcessUrlActionEx(self, pwszUrl: Windows.Win32.Foundation.PWSTR, dwAction: UInt32, pPolicy: POINTER(Byte), cbPolicy: UInt32, pContext: POINTER(Byte), cbContext: UInt32, dwFlags: UInt32, dwReserved: UInt32, pdwOutFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetSecurityManagerEx2(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IInternetSecurityManagerEx
-    _iid_ = Guid('f1e50292-a795-4117-8e-09-2b-56-0a-72-ac-60')
+    _iid_ = Guid('{f1e50292-a795-4117-8e09-2b560a72ac60}')
     @commethod(12)
     def MapUrlToZoneEx2(self, pUri: Windows.Win32.System.Com.IUri_head, pdwZone: POINTER(UInt32), dwFlags: UInt32, ppwszMappedUrl: POINTER(Windows.Win32.Foundation.PWSTR), pdwOutFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -912,14 +912,14 @@ class IInternetSecurityManagerEx2(ComPtr):
     def QueryCustomPolicyEx2(self, pUri: Windows.Win32.System.Com.IUri_head, guidKey: POINTER(Guid), ppPolicy: POINTER(POINTER(Byte)), pcbPolicy: POINTER(UInt32), pContext: POINTER(Byte), cbContext: UInt32, dwReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetSecurityMgrSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9ed-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9ed-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def GetWindow(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnableModeless(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9e7-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9e7-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def RegisterNameSpace(self, pCF: Windows.Win32.System.Com.IClassFactory_head, rclsid: POINTER(Guid), pwzProtocol: Windows.Win32.Foundation.PWSTR, cPatterns: UInt32, ppwzPatterns: POINTER(Windows.Win32.Foundation.PWSTR), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -936,14 +936,14 @@ class IInternetSession(ComPtr):
     def GetSessionOption(self, dwOption: UInt32, pBuffer: c_void_p, pdwBufferLength: POINTER(UInt32), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetThreadSwitch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9e8-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9e8-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def Prepare(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Continue(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetZoneManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9ef-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9ef-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def GetZoneAttributes(self, dwZone: UInt32, pZoneAttributes: POINTER(Windows.Win32.System.Com.Urlmon.ZONEATTRIBUTES_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -970,14 +970,14 @@ class IInternetZoneManager(ComPtr):
     def CopyTemplatePoliciesToZone(self, dwTemplate: UInt32, dwZone: UInt32, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetZoneManagerEx(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IInternetZoneManager
-    _iid_ = Guid('a4c23339-8e06-431e-9b-f4-7e-71-1c-08-56-48')
+    _iid_ = Guid('{a4c23339-8e06-431e-9bf4-7e711c085648}')
     @commethod(15)
     def GetZoneActionPolicyEx(self, dwZone: UInt32, dwAction: UInt32, pPolicy: POINTER(Byte), cbPolicy: UInt32, urlZoneReg: Windows.Win32.System.Com.Urlmon.URLZONEREG, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SetZoneActionPolicyEx(self, dwZone: UInt32, dwAction: UInt32, pPolicy: POINTER(Byte), cbPolicy: UInt32, urlZoneReg: Windows.Win32.System.Com.Urlmon.URLZONEREG, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternetZoneManagerEx2(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IInternetZoneManagerEx
-    _iid_ = Guid('edc17559-dd5d-4846-8e-ef-8b-ec-ba-5a-4a-bf')
+    _iid_ = Guid('{edc17559-dd5d-4846-8eef-8becba5a4abf}')
     @commethod(17)
     def GetZoneAttributesEx(self, dwZone: UInt32, pZoneAttributes: POINTER(Windows.Win32.System.Com.Urlmon.ZONEATTRIBUTES_head), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -988,7 +988,7 @@ class IInternetZoneManagerEx2(ComPtr):
     def FixUnsecureSettings(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMonikerProp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a5ca5f7f-1847-4d87-9c-5b-91-85-09-f7-51-1d')
+    _iid_ = Guid('{a5ca5f7f-1847-4d87-9c5b-918509f7511d}')
     @commethod(3)
     def PutProperty(self, mkp: Windows.Win32.System.Com.Urlmon.MONIKERPROPERTY, val: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 INET_ZONE_MANAGER_CONSTANTS = Int32
@@ -1026,7 +1026,7 @@ FEATURE_BLOCK_INPUT_PROMPTS: INTERNETFEATURELIST = 27
 FEATURE_ENTRY_COUNT: INTERNETFEATURELIST = 28
 class IPersistMoniker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9c9-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9c9-baf9-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def GetClassID(self, pClassID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1041,7 +1041,7 @@ class IPersistMoniker(ComPtr):
     def GetCurMoniker(self, ppimkName: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISoftDistExt(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b15b8dc1-c7e1-11d0-86-80-00-aa-00-bd-cb-71')
+    _iid_ = Guid('{b15b8dc1-c7e1-11d0-8680-00aa00bdcb71}')
     @commethod(3)
     def ProcessSoftDist(self, szCDFURL: Windows.Win32.Foundation.PWSTR, pSoftDistElement: Windows.Win32.Data.Xml.MsXml.IXMLElement_head, lpsdi: POINTER(Windows.Win32.System.Com.Urlmon.SOFTDISTINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1052,61 +1052,61 @@ class ISoftDistExt(ComPtr):
     def AsyncInstallDistributionUnit(self, pbc: Windows.Win32.System.Com.IBindCtx_head, pvReserved: c_void_p, flags: UInt32, lpcbh: POINTER(Windows.Win32.System.Com.Urlmon.CODEBASEHOLD_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUriBuilderFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e982ce48-0b96-440c-bc-37-0c-86-9b-27-a2-9e')
+    _iid_ = Guid('{e982ce48-0b96-440c-bc37-0c869b27a29e}')
     @commethod(3)
     def CreateIUriBuilder(self, dwFlags: UInt32, dwReserved: UIntPtr, ppIUriBuilder: POINTER(Windows.Win32.System.Com.IUriBuilder_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateInitializedIUriBuilder(self, dwFlags: UInt32, dwReserved: UIntPtr, ppIUriBuilder: POINTER(Windows.Win32.System.Com.IUriBuilder_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUriContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a158a630-ed6f-45fb-b9-87-f6-86-76-f5-77-52')
+    _iid_ = Guid('{a158a630-ed6f-45fb-b987-f68676f57752}')
     @commethod(3)
     def GetIUri(self, ppIUri: POINTER(Windows.Win32.System.Com.IUri_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWinInetCacheHints(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dd1ec3b3-8391-4fdb-a9-e6-34-7c-3c-aa-a7-dd')
+    _iid_ = Guid('{dd1ec3b3-8391-4fdb-a9e6-347c3caaa7dd}')
     @commethod(3)
     def SetCacheExtension(self, pwzExt: Windows.Win32.Foundation.PWSTR, pszCacheFile: c_void_p, pcbCacheFile: POINTER(UInt32), pdwWinInetError: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWinInetCacheHints2(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IWinInetCacheHints
-    _iid_ = Guid('7857aeac-d31f-49bf-88-4e-dd-46-df-36-78-0a')
+    _iid_ = Guid('{7857aeac-d31f-49bf-884e-dd46df36780a}')
     @commethod(4)
     def SetCacheExtension2(self, pwzExt: Windows.Win32.Foundation.PWSTR, pwzCacheFile: Windows.Win32.Foundation.PWSTR, pcchCacheFile: POINTER(UInt32), pdwWinInetError: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWinInetFileStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f134c4b7-b1f8-4e75-b8-86-74-b9-09-43-be-cb')
+    _iid_ = Guid('{f134c4b7-b1f8-4e75-b886-74b90943becb}')
     @commethod(3)
     def SetHandleForUnlock(self, hWinInetLockHandle: UIntPtr, dwReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetDeleteFile(self, dwReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IWinInetHttpInfo(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IWinInetInfo
-    _iid_ = Guid('79eac9d8-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9d8-bafa-11ce-8c82-00aa004ba90b}')
     @commethod(4)
     def QueryInfo(self, dwOption: UInt32, pBuffer: c_void_p, pcbBuf: POINTER(UInt32), pdwFlags: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWinInetHttpTimeouts(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f286fa56-c1fd-4270-8e-67-b3-eb-79-0a-81-e8')
+    _iid_ = Guid('{f286fa56-c1fd-4270-8e67-b3eb790a81e8}')
     @commethod(3)
     def GetRequestTimeouts(self, pdwConnectTimeout: POINTER(UInt32), pdwSendTimeout: POINTER(UInt32), pdwReceiveTimeout: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWinInetInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9d6-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9d6-bafa-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def QueryOption(self, dwOption: UInt32, pBuffer: c_void_p, pcbBuf: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowForBindingUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eac9d5-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    _iid_ = Guid('{79eac9d5-bafa-11ce-8c82-00aa004ba90b}')
     @commethod(3)
     def GetWindow(self, rguidReason: POINTER(Guid), phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWrappedProtocol(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('53c84785-8425-4dc5-97-1b-e5-8d-9c-19-f9-b6')
+    _iid_ = Guid('{53c84785-8425-4dc5-971b-e58d9c19f9b6}')
     @commethod(3)
     def GetWrapperCode(self, pnCode: POINTER(Int32), dwReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IZoneIdentifier(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cd45f185-1b21-48e2-96-7b-ea-d7-43-a8-91-4e')
+    _iid_ = Guid('{cd45f185-1b21-48e2-967b-ead743a8914e}')
     @commethod(3)
     def GetId(self, pdwZone: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1115,7 +1115,7 @@ class IZoneIdentifier(ComPtr):
     def Remove(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IZoneIdentifier2(ComPtr):
     extends: Windows.Win32.System.Com.Urlmon.IZoneIdentifier
-    _iid_ = Guid('eb5e760c-09ef-45c0-b5-10-70-83-0c-e3-1e-6a')
+    _iid_ = Guid('{eb5e760c-09ef-45c0-b510-70830ce31e6a}')
     @commethod(6)
     def GetLastWriterPackageFamilyName(self, packageFamilyName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)

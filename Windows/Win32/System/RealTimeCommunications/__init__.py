@@ -270,28 +270,28 @@ RTC_E_PINT_STATUS_REJECTED_CANCELLED: Windows.Win32.Foundation.HRESULT = -213175
 RTC_E_PINT_STATUS_REJECTED_BADNUMBER: Windows.Win32.Foundation.HRESULT = -2131754997
 class INetworkTransportSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5e7abb2c-f2c1-4a61-bd-35-de-b7-a0-8a-b0-f1')
+    _iid_ = Guid('{5e7abb2c-f2c1-4a61-bd35-deb7a08ab0f1}')
     @commethod(3)
     def ApplySetting(self, SettingId: POINTER(Windows.Win32.Networking.WinSock.TRANSPORT_SETTING_ID_head), LengthIn: UInt32, ValueIn: POINTER(Byte), LengthOut: POINTER(UInt32), ValueOut: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def QuerySetting(self, SettingId: POINTER(Windows.Win32.Networking.WinSock.TRANSPORT_SETTING_ID_head), LengthIn: UInt32, ValueIn: POINTER(Byte), LengthOut: POINTER(UInt32), ValueOut: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
 class INotificationTransportSync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('79eb1402-0ab8-49c0-9e-14-a1-ae-4b-a9-30-58')
+    _iid_ = Guid('{79eb1402-0ab8-49c0-9e14-a1ae4ba93058}')
     @commethod(3)
     def CompleteDelivery(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCBuddy(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCPresenceContact
-    _iid_ = Guid('fcb136c8-7b90-4e0c-be-fe-56-ed-f0-ba-6f-1c')
+    _iid_ = Guid('{fcb136c8-7b90-4e0c-befe-56edf0ba6f1c}')
     @commethod(11)
     def get_Status(self, penStatus: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_PRESENCE_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_Notes(self, pbstrNotes: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCBuddy2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCBuddy
-    _iid_ = Guid('102f9588-23e7-40e3-95-4d-cd-7a-1d-5c-03-61')
+    _iid_ = Guid('{102f9588-23e7-40e3-954d-cd7a1d5c0361}')
     @commethod(13)
     def get_Profile(self, ppProfile: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCProfile2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -310,12 +310,12 @@ class IRTCBuddy2(ComPtr):
     def get_SubscriptionType(self, penSubscriptionType: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_BUDDY_SUBSCRIPTION_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCBuddyEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f36d755d-17e6-404e-95-4f-0f-c0-75-74-c7-8d')
+    _iid_ = Guid('{f36d755d-17e6-404e-954f-0fc07574c78d}')
     @commethod(7)
     def get_Buddy(self, ppBuddy: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCBuddy_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCBuddyEvent2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCBuddyEvent
-    _iid_ = Guid('484a7f1e-73f0-4990-bf-c2-60-bc-39-78-a7-20')
+    _iid_ = Guid('{484a7f1e-73f0-4990-bfc2-60bc3978a720}')
     @commethod(8)
     def get_EventType(self, pEventType: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_BUDDY_EVENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -324,7 +324,7 @@ class IRTCBuddyEvent2(ComPtr):
     def get_StatusText(self, pbstrStatusText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCBuddyGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('60361e68-9164-4389-a4-c6-d0-b3-92-5b-da-5e')
+    _iid_ = Guid('{60361e68-9164-4389-a4c6-d0b3925bda5e}')
     @commethod(3)
     def get_Name(self, pbstrGroupName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -345,7 +345,7 @@ class IRTCBuddyGroup(ComPtr):
     def get_Profile(self, ppProfile: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCProfile2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCBuddyGroupEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3a79e1d1-b736-4414-96-f8-bb-c7-f0-88-63-e4')
+    _iid_ = Guid('{3a79e1d1-b736-4414-96f8-bbc7f08863e4}')
     @commethod(7)
     def get_EventType(self, pEventType: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_GROUP_EVENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -356,7 +356,7 @@ class IRTCBuddyGroupEvent(ComPtr):
     def get_StatusCode(self, plStatusCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('07829e45-9a34-408e-a0-11-bd-df-13-48-7c-d1')
+    _iid_ = Guid('{07829e45-9a34-408e-a011-bddf13487cd1}')
     @commethod(3)
     def Initialize(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -443,7 +443,7 @@ class IRTCClient(ComPtr):
     def get_IsTuned(self, pfTuned: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCClient2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCClient
-    _iid_ = Guid('0c91d71d-1064-42da-bf-a5-57-2b-eb-8e-ea-84')
+    _iid_ = Guid('{0c91d71d-1064-42da-bfa5-572beb8eea84}')
     @commethod(45)
     def put_AnswerMode(self, enType: Windows.Win32.System.RealTimeCommunications.RTC_SESSION_TYPE, enMode: Windows.Win32.System.RealTimeCommunications.RTC_ANSWER_MODE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(46)
@@ -472,14 +472,14 @@ class IRTCClient2(ComPtr):
     def get_AllowedPorts(self, lTransport: Int32, penListenMode: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_LISTEN_MODE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCClientEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('2b493b7a-3cba-4170-9c-8b-76-a9-da-cd-d6-44')
+    _iid_ = Guid('{2b493b7a-3cba-4170-9c8b-76a9dacdd644}')
     @commethod(7)
     def get_EventType(self, penEventType: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_CLIENT_EVENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Client(self, ppClient: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCClient_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCClientPortManagement(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d5df3f03-4bde-4417-ae-fe-71-17-7b-da-ea-66')
+    _iid_ = Guid('{d5df3f03-4bde-4417-aefe-71177bdaea66}')
     @commethod(3)
     def StartListenAddressAndPort(self, bstrInternalLocalAddress: Windows.Win32.Foundation.BSTR, lInternalLocalPort: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -488,7 +488,7 @@ class IRTCClientPortManagement(ComPtr):
     def GetPortRange(self, enPortType: Windows.Win32.System.RealTimeCommunications.RTC_PORT_TYPE, plMinValue: POINTER(Int32), plMaxValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCClientPresence(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('11c3cbcc-0744-42d1-96-8a-51-aa-1b-b2-74-c6')
+    _iid_ = Guid('{11c3cbcc-0744-42d1-968a-51aa1bb274c6}')
     @commethod(3)
     def EnablePresence(self, fUseStorage: Windows.Win32.Foundation.VARIANT_BOOL, varStorage: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -527,7 +527,7 @@ class IRTCClientPresence(ComPtr):
     def put_PrivacyMode(self, enMode: Windows.Win32.System.RealTimeCommunications.RTC_PRIVACY_MODE) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCClientPresence2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCClientPresence
-    _iid_ = Guid('ad1809e8-62f7-4783-90-9a-29-c9-d2-cb-1d-34')
+    _iid_ = Guid('{ad1809e8-62f7-4783-909a-29c9d2cb1d34}')
     @commethod(21)
     def EnablePresenceEx(self, pProfile: Windows.Win32.System.RealTimeCommunications.IRTCProfile_head, varStorage: Windows.Win32.System.Variant.VARIANT, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
@@ -560,7 +560,7 @@ class IRTCClientPresence2(ComPtr):
     def AddBuddyEx(self, bstrPresentityURI: Windows.Win32.Foundation.BSTR, bstrUserName: Windows.Win32.Foundation.BSTR, bstrData: Windows.Win32.Foundation.BSTR, fPersistent: Windows.Win32.Foundation.VARIANT_BOOL, enSubscriptionType: Windows.Win32.System.RealTimeCommunications.RTC_BUDDY_SUBSCRIPTION_TYPE, pProfile: Windows.Win32.System.RealTimeCommunications.IRTCProfile_head, lFlags: Int32, ppBuddy: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCBuddy2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCClientProvisioning(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b9f5cf06-65b9-4a80-a0-e6-73-ca-e3-ef-38-22')
+    _iid_ = Guid('{b9f5cf06-65b9-4a80-a0e6-73cae3ef3822}')
     @commethod(3)
     def CreateProfile(self, bstrProfileXML: Windows.Win32.Foundation.BSTR, ppProfile: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCProfile_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -577,12 +577,12 @@ class IRTCClientProvisioning(ComPtr):
     def get_SessionCapabilities(self, plSupportedSessions: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCClientProvisioning2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCClientProvisioning
-    _iid_ = Guid('a70909b5-f40e-4587-bb-75-e6-bc-08-45-02-3e')
+    _iid_ = Guid('{a70909b5-f40e-4587-bb75-e6bc0845023e}')
     @commethod(10)
     def EnableProfileEx(self, pProfile: Windows.Win32.System.RealTimeCommunications.IRTCProfile_head, lRegisterFlags: Int32, lRoamingFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('ec7c8096-b918-4044-94-f1-e4-fb-a0-36-1d-5c')
+    _iid_ = Guid('{ec7c8096-b918-4044-94f1-e4fba0361d5c}')
     @commethod(7)
     def get_Count(self, lCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -591,10 +591,10 @@ class IRTCCollection(ComPtr):
     def get__NewEnum(self, ppNewEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCDispatchEventNotification(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('176ddfbe-fec0-4d55-bc-87-84-cf-f1-ef-7f-91')
+    _iid_ = Guid('{176ddfbe-fec0-4d55-bc87-84cff1ef7f91}')
 class IRTCEnumBuddies(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f7296917-5569-4b3b-b3-af-98-d1-14-4b-2b-87')
+    _iid_ = Guid('{f7296917-5569-4b3b-b3af-98d1144b2b87}')
     @commethod(3)
     def Next(self, celt: UInt32, ppElements: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCBuddy_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -605,7 +605,7 @@ class IRTCEnumBuddies(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCEnumBuddies_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCEnumGroups(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('742378d6-a141-4415-8f-27-35-d9-90-76-cf-5d')
+    _iid_ = Guid('{742378d6-a141-4415-8f27-35d99076cf5d}')
     @commethod(3)
     def Next(self, celt: UInt32, ppElements: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCBuddyGroup_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -616,7 +616,7 @@ class IRTCEnumGroups(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCEnumGroups_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCEnumParticipants(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fcd56f29-4a4f-41b2-ba-5c-f5-bc-cc-06-0b-f6')
+    _iid_ = Guid('{fcd56f29-4a4f-41b2-ba5c-f5bccc060bf6}')
     @commethod(3)
     def Next(self, celt: UInt32, ppElements: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCParticipant_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -627,7 +627,7 @@ class IRTCEnumParticipants(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCEnumParticipants_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCEnumPresenceDevices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('708c2ab7-8bf8-42f8-8c-7d-63-51-97-ad-55-39')
+    _iid_ = Guid('{708c2ab7-8bf8-42f8-8c7d-635197ad5539}')
     @commethod(3)
     def Next(self, celt: UInt32, ppElements: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCPresenceDevice_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -638,7 +638,7 @@ class IRTCEnumPresenceDevices(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCEnumPresenceDevices_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCEnumProfiles(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('29b7c41c-ed82-4bca-84-ad-39-d5-10-1b-58-e3')
+    _iid_ = Guid('{29b7c41c-ed82-4bca-84ad-39d5101b58e3}')
     @commethod(3)
     def Next(self, celt: UInt32, ppElements: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCProfile_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -649,7 +649,7 @@ class IRTCEnumProfiles(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCEnumProfiles_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCEnumUserSearchResults(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('83d4d877-aa5d-4a5b-8d-0e-00-2a-80-67-e0-e8')
+    _iid_ = Guid('{83d4d877-aa5d-4a5b-8d0e-002a8067e0e8}')
     @commethod(3)
     def Next(self, celt: UInt32, ppElements: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCUserSearchResult_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -660,7 +660,7 @@ class IRTCEnumUserSearchResults(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCEnumUserSearchResults_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCEnumWatchers(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a87d55d7-db74-4ed1-9c-a4-77-a0-e4-1b-41-3e')
+    _iid_ = Guid('{a87d55d7-db74-4ed1-9ca4-77a0e41b413e}')
     @commethod(3)
     def Next(self, celt: UInt32, ppElements: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCWatcher_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -671,12 +671,12 @@ class IRTCEnumWatchers(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCEnumWatchers_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCEventNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('13fa24c7-5748-4b21-91-f5-73-97-60-9c-e7-47')
+    _iid_ = Guid('{13fa24c7-5748-4b21-91f5-7397609ce747}')
     @commethod(3)
     def Event(self, RTCEvent: Windows.Win32.System.RealTimeCommunications.RTC_EVENT, pEvent: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCInfoEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('4e1d68ae-1912-4f49-b2-c3-59-4f-ad-fd-42-5f')
+    _iid_ = Guid('{4e1d68ae-1912-4f49-b2c3-594fadfd425f}')
     @commethod(7)
     def get_Session(self, ppSession: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -687,7 +687,7 @@ class IRTCInfoEvent(ComPtr):
     def get_InfoHeader(self, pbstrInfoHeader: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCIntensityEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('4c23bf51-390c-4992-a4-1d-41-ee-c0-5b-2a-4b')
+    _iid_ = Guid('{4c23bf51-390c-4992-a41d-41eec05b2a4b}')
     @commethod(7)
     def get_Level(self, plLevel: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -698,7 +698,7 @@ class IRTCIntensityEvent(ComPtr):
     def get_Direction(self, penDirection: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_AUDIO_DEVICE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCMediaEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('099944fb-bcda-453e-8c-41-e1-3d-a2-ad-f7-f3')
+    _iid_ = Guid('{099944fb-bcda-453e-8c41-e13da2adf7f3}')
     @commethod(7)
     def get_MediaType(self, pMediaType: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -707,7 +707,7 @@ class IRTCMediaEvent(ComPtr):
     def get_EventReason(self, penEventReason: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_MEDIA_EVENT_REASON)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCMediaRequestEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('52572d15-148c-4d97-a3-6c-2d-a5-5c-28-9d-63')
+    _iid_ = Guid('{52572d15-148c-4d97-a36c-2da55c289d63}')
     @commethod(7)
     def get_Session(self, ppSession: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -724,7 +724,7 @@ class IRTCMediaRequestEvent(ComPtr):
     def get_State(self, pState: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_REINVITE_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCMessagingEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d3609541-1b29-4de5-a4-ad-5a-eb-af-31-95-12')
+    _iid_ = Guid('{d3609541-1b29-4de5-a4ad-5aebaf319512}')
     @commethod(7)
     def get_Session(self, ppSession: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -739,7 +739,7 @@ class IRTCMessagingEvent(ComPtr):
     def get_UserStatus(self, penUserStatus: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_MESSAGING_USER_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCParticipant(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ae86add5-26b1-4414-af-1d-b9-4c-d9-38-d7-39')
+    _iid_ = Guid('{ae86add5-26b1-4414-af1d-b94cd938d739}')
     @commethod(3)
     def get_UserURI(self, pbstrUserURI: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -752,7 +752,7 @@ class IRTCParticipant(ComPtr):
     def get_Session(self, ppSession: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCParticipantStateChangeEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('09bcb597-f0fa-48f9-b4-20-46-8c-ea-7f-de-04')
+    _iid_ = Guid('{09bcb597-f0fa-48f9-b420-468cea7fde04}')
     @commethod(7)
     def get_Participant(self, ppParticipant: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCParticipant_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -761,7 +761,7 @@ class IRTCParticipantStateChangeEvent(ComPtr):
     def get_StatusCode(self, plStatusCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCPortManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('da77c14b-6208-43ca-8d-df-5b-60-a0-a6-9f-ac')
+    _iid_ = Guid('{da77c14b-6208-43ca-8ddf-5b60a0a69fac}')
     @commethod(3)
     def GetMapping(self, bstrRemoteAddress: Windows.Win32.Foundation.BSTR, enPortType: Windows.Win32.System.RealTimeCommunications.RTC_PORT_TYPE, pbstrInternalLocalAddress: POINTER(Windows.Win32.Foundation.BSTR), plInternalLocalPort: POINTER(Int32), pbstrExternalLocalAddress: POINTER(Windows.Win32.Foundation.BSTR), plExternalLocalPort: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -770,7 +770,7 @@ class IRTCPortManager(ComPtr):
     def ReleaseMapping(self, bstrInternalLocalAddress: Windows.Win32.Foundation.BSTR, lInternalLocalPort: Int32, bstrExternalLocalAddress: Windows.Win32.Foundation.BSTR, lExternalLocalAddress: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCPresenceContact(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8b22f92c-cd90-42db-a7-33-21-22-05-c3-e3-df')
+    _iid_ = Guid('{8b22f92c-cd90-42db-a733-212205c3e3df}')
     @commethod(3)
     def get_PresentityURI(self, pbstrPresentityURI: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -789,7 +789,7 @@ class IRTCPresenceContact(ComPtr):
     def put_Persistent(self, fPersistent: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCPresenceDataEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('38f0e78c-8b87-4c04-a8-2d-ae-dd-83-c9-09-bb')
+    _iid_ = Guid('{38f0e78c-8b87-4c04-a82d-aedd83c909bb}')
     @commethod(7)
     def get_StatusCode(self, plStatusCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -798,7 +798,7 @@ class IRTCPresenceDataEvent(ComPtr):
     def GetPresenceData(self, pbstrNamespace: POINTER(Windows.Win32.Foundation.BSTR), pbstrData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCPresenceDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bc6a90dd-ad9a-48da-9b-0c-25-15-e3-85-21-ad')
+    _iid_ = Guid('{bc6a90dd-ad9a-48da-9b0c-2515e38521ad}')
     @commethod(3)
     def get_Status(self, penStatus: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_PRESENCE_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -809,7 +809,7 @@ class IRTCPresenceDevice(ComPtr):
     def GetPresenceData(self, pbstrNamespace: POINTER(Windows.Win32.Foundation.BSTR), pbstrData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCPresencePropertyEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f777f570-a820-49d5-86-bd-e0-99-49-3f-15-18')
+    _iid_ = Guid('{f777f570-a820-49d5-86bd-e099493f1518}')
     @commethod(7)
     def get_StatusCode(self, plStatusCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -820,7 +820,7 @@ class IRTCPresencePropertyEvent(ComPtr):
     def get_Value(self, pbstrValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCPresenceStatusEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('78673f32-4a0f-462c-89-aa-ee-77-06-70-76-78')
+    _iid_ = Guid('{78673f32-4a0f-462c-89aa-ee7706707678}')
     @commethod(7)
     def get_StatusCode(self, plStatusCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -829,7 +829,7 @@ class IRTCPresenceStatusEvent(ComPtr):
     def GetLocalPresenceInfo(self, penStatus: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_PRESENCE_STATUS), pbstrNotes: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCProfile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d07eca9e-4062-4dd4-9e-7d-72-2a-49-ba-73-03')
+    _iid_ = Guid('{d07eca9e-4062-4dd4-9e7d-722a49ba7303}')
     @commethod(3)
     def get_Key(self, pbstrKey: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -868,7 +868,7 @@ class IRTCProfile(ComPtr):
     def get_State(self, penState: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_REGISTRATION_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCProfile2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCProfile
-    _iid_ = Guid('4b81f84e-bdc7-4184-91-54-3c-b2-dd-79-17-fb')
+    _iid_ = Guid('{4b81f84e-bdc7-4184-9154-3cb2dd7917fb}')
     @commethod(21)
     def get_Realm(self, pbstrRealm: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
@@ -879,7 +879,7 @@ class IRTCProfile2(ComPtr):
     def put_AllowedAuth(self, lAllowedAuth: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCProfileEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d6d5ab3b-770e-43e8-80-0a-79-b0-62-39-5f-ca')
+    _iid_ = Guid('{d6d5ab3b-770e-43e8-800a-79b062395fca}')
     @commethod(7)
     def get_Profile(self, ppProfile: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCProfile_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -888,12 +888,12 @@ class IRTCProfileEvent(ComPtr):
     def get_StatusCode(self, plStatusCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCProfileEvent2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCProfileEvent
-    _iid_ = Guid('62e56edc-03fa-4121-94-fb-23-49-3f-d0-ae-64')
+    _iid_ = Guid('{62e56edc-03fa-4121-94fb-23493fd0ae64}')
     @commethod(10)
     def get_EventType(self, pEventType: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_PROFILE_EVENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCReInviteEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('11558d84-204c-43e7-99-b0-20-34-e9-41-7f-7d')
+    _iid_ = Guid('{11558d84-204c-43e7-99b0-2034e9417f7d}')
     @commethod(7)
     def get_Session(self, ppSession2: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -906,7 +906,7 @@ class IRTCReInviteEvent(ComPtr):
     def GetRemoteSessionDescription(self, pbstrContentType: POINTER(Windows.Win32.Foundation.BSTR), pbstrSessionDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCRegistrationStateChangeEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('62d0991b-50ab-4f02-b9-48-ca-94-f2-6f-8f-95')
+    _iid_ = Guid('{62d0991b-50ab-4f02-b948-ca94f26f8f95}')
     @commethod(7)
     def get_Profile(self, ppProfile: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCProfile_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -917,7 +917,7 @@ class IRTCRegistrationStateChangeEvent(ComPtr):
     def get_StatusText(self, pbstrStatusText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCRoamingEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('79960a6b-0cb1-4dc8-a8-05-73-18-e9-99-02-e8')
+    _iid_ = Guid('{79960a6b-0cb1-4dc8-a805-7318e99902e8}')
     @commethod(7)
     def get_EventType(self, pEventType: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_ROAMING_EVENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -928,7 +928,7 @@ class IRTCRoamingEvent(ComPtr):
     def get_StatusText(self, pbstrStatusText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('387c8086-99be-42fb-99-73-7c-0f-c0-ca-9f-a8')
+    _iid_ = Guid('{387c8086-99be-42fb-9973-7c0fc0ca9fa8}')
     @commethod(3)
     def get_Client(self, ppClient: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCClient_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -971,7 +971,7 @@ class IRTCSession(ComPtr):
     def put_EncryptionKey(self, lMediaType: Int32, EncryptionKey: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSession2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCSession
-    _iid_ = Guid('17d7cdfc-b007-484c-99-d2-86-a8-a8-20-99-1d')
+    _iid_ = Guid('{17d7cdfc-b007-484c-99d2-86a8a820991d}')
     @commethod(23)
     def SendInfo(self, bstrInfoHeader: Windows.Win32.Foundation.BSTR, bstrInfo: Windows.Win32.Foundation.BSTR, lCookie: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
@@ -986,7 +986,7 @@ class IRTCSession2(ComPtr):
     def ReInviteWithSessionDescription(self, bstrContentType: Windows.Win32.Foundation.BSTR, bstrSessionDescription: Windows.Win32.Foundation.BSTR, lCookie: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionCallControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e9a50d94-190b-4f82-95-30-3b-8e-bf-60-75-8a')
+    _iid_ = Guid('{e9a50d94-190b-4f82-9530-3b8ebf60758a}')
     @commethod(3)
     def Hold(self, lCookie: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1007,12 +1007,12 @@ class IRTCSessionCallControl(ComPtr):
     def get_IsReferred(self, pfIsReferred: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionDescriptionManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ba7f518e-d336-4070-93-a6-86-53-95-c8-43-f9')
+    _iid_ = Guid('{ba7f518e-d336-4070-93a6-865395c843f9}')
     @commethod(3)
     def EvaluateSessionDescription(self, bstrContentType: Windows.Win32.Foundation.BSTR, bstrSessionDescription: Windows.Win32.Foundation.BSTR, pfApplicationSession: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionOperationCompleteEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('a6bff4c0-f7c8-4d3c-9a-41-35-50-f7-8a-95-b0')
+    _iid_ = Guid('{a6bff4c0-f7c8-4d3c-9a41-3550f78a95b0}')
     @commethod(7)
     def get_Session(self, ppSession: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1023,19 +1023,19 @@ class IRTCSessionOperationCompleteEvent(ComPtr):
     def get_StatusText(self, pbstrStatusText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionOperationCompleteEvent2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCSessionOperationCompleteEvent
-    _iid_ = Guid('f6fc2a9b-d5bc-4241-b4-36-1b-84-60-c1-38-32')
+    _iid_ = Guid('{f6fc2a9b-d5bc-4241-b436-1b8460c13832}')
     @commethod(11)
     def get_Participant(self, ppParticipant: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCParticipant_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetRemoteSessionDescription(self, pbstrContentType: POINTER(Windows.Win32.Foundation.BSTR), pbstrSessionDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionPortManagement(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a072f1d6-0286-4e1f-85-f2-17-a2-94-84-56-ec')
+    _iid_ = Guid('{a072f1d6-0286-4e1f-85f2-17a2948456ec}')
     @commethod(3)
     def SetPortManager(self, pPortManager: Windows.Win32.System.RealTimeCommunications.IRTCPortManager_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionReferStatusEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3d8fc2cd-5d76-44ab-bb-68-2a-80-35-3b-34-a2')
+    _iid_ = Guid('{3d8fc2cd-5d76-44ab-bb68-2a80353b34a2}')
     @commethod(7)
     def get_Session(self, ppSession: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1046,7 +1046,7 @@ class IRTCSessionReferStatusEvent(ComPtr):
     def get_StatusText(self, pbstrStatusText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionReferredEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('176a6828-4fcc-4f28-a8-62-04-59-7a-6c-f1-c4')
+    _iid_ = Guid('{176a6828-4fcc-4f28-a862-04597a6cf1c4}')
     @commethod(7)
     def get_Session(self, ppSession: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1063,7 +1063,7 @@ class IRTCSessionReferredEvent(ComPtr):
     def SetReferredSessionState(self, enState: Windows.Win32.System.RealTimeCommunications.RTC_SESSION_STATE) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionStateChangeEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b5bad703-5952-48b3-93-21-7f-45-00-52-15-06')
+    _iid_ = Guid('{b5bad703-5952-48b3-9321-7f4500521506}')
     @commethod(7)
     def get_Session(self, ppSession: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1074,7 +1074,7 @@ class IRTCSessionStateChangeEvent(ComPtr):
     def get_StatusText(self, pbstrStatusText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCSessionStateChangeEvent2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCSessionStateChangeEvent
-    _iid_ = Guid('4f933171-6f95-4880-80-d9-2e-c8-d4-95-d2-61')
+    _iid_ = Guid('{4f933171-6f95-4880-80d9-2ec8d495d261}')
     @commethod(11)
     def get_MediaTypes(self, pMediaTypes: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -1085,14 +1085,14 @@ class IRTCSessionStateChangeEvent2(ComPtr):
     def GetRemoteSessionDescription(self, pbstrContentType: POINTER(Windows.Win32.Foundation.BSTR), pbstrSessionDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCUserSearch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b619882b-860c-4db4-be-1b-69-3b-65-05-bb-e5')
+    _iid_ = Guid('{b619882b-860c-4db4-be1b-693b6505bbe5}')
     @commethod(3)
     def CreateQuery(self, ppQuery: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCUserSearchQuery_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ExecuteSearch(self, pQuery: Windows.Win32.System.RealTimeCommunications.IRTCUserSearchQuery_head, pProfile: Windows.Win32.System.RealTimeCommunications.IRTCProfile_head, lCookie: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCUserSearchQuery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('288300f5-d23a-4365-9a-73-99-85-c9-8c-28-81')
+    _iid_ = Guid('{288300f5-d23a-4365-9a73-9985c98c2881}')
     @commethod(3)
     def put_SearchTerm(self, bstrName: Windows.Win32.Foundation.BSTR, bstrValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1109,12 +1109,12 @@ class IRTCUserSearchQuery(ComPtr):
     def get_SearchDomain(self, pbstrDomain: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCUserSearchResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('851278b2-9592-480f-8d-b5-2d-e8-6b-26-b5-4d')
+    _iid_ = Guid('{851278b2-9592-480f-8db5-2de86b26b54d}')
     @commethod(3)
     def get_Value(self, enColumn: Windows.Win32.System.RealTimeCommunications.RTC_USER_SEARCH_COLUMN, pbstrValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCUserSearchResultsEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d8c8c3cd-7fac-4088-81-c5-c2-4c-bc-09-38-e3')
+    _iid_ = Guid('{d8c8c3cd-7fac-4088-81c5-c24cbc0938e3}')
     @commethod(7)
     def EnumerateResults(self, ppEnum: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCEnumUserSearchResults_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1131,38 +1131,38 @@ class IRTCUserSearchResultsEvent(ComPtr):
     def get_MoreAvailable(self, pfMoreAvailable: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCWatcher(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCPresenceContact
-    _iid_ = Guid('c7cedad8-346b-4d1b-ac-02-a2-08-8d-f9-be-4f')
+    _iid_ = Guid('{c7cedad8-346b-4d1b-ac02-a2088df9be4f}')
     @commethod(11)
     def get_State(self, penState: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_WATCHER_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def put_State(self, enState: Windows.Win32.System.RealTimeCommunications.RTC_WATCHER_STATE) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCWatcher2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCWatcher
-    _iid_ = Guid('d4d9967f-d011-4b1d-91-e3-ab-a7-8f-96-39-3d')
+    _iid_ = Guid('{d4d9967f-d011-4b1d-91e3-aba78f96393d}')
     @commethod(13)
     def get_Profile(self, ppProfile: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCProfile2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_Scope(self, penScope: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_ACE_SCOPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCWatcherEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f30d7261-587a-424f-82-2c-31-27-88-f4-35-48')
+    _iid_ = Guid('{f30d7261-587a-424f-822c-312788f43548}')
     @commethod(7)
     def get_Watcher(self, ppWatcher: POINTER(Windows.Win32.System.RealTimeCommunications.IRTCWatcher_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRTCWatcherEvent2(ComPtr):
     extends: Windows.Win32.System.RealTimeCommunications.IRTCWatcherEvent
-    _iid_ = Guid('e52891e8-188c-49af-b0-05-98-ed-13-f8-3f-9c')
+    _iid_ = Guid('{e52891e8-188c-49af-b005-98ed13f83f9c}')
     @commethod(8)
     def get_EventType(self, pEventType: POINTER(Windows.Win32.System.RealTimeCommunications.RTC_WATCHER_EVENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_StatusCode(self, plStatusCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITransportSettingsInternal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5123e076-29e3-4bfd-84-fe-01-92-d4-11-e3-e8')
+    _iid_ = Guid('{5123e076-29e3-4bfd-84fe-0192d411e3e8}')
     @commethod(3)
     def ApplySetting(self, Setting: POINTER(Windows.Win32.System.RealTimeCommunications.TRANSPORT_SETTING_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def QuerySetting(self, Setting: POINTER(Windows.Win32.System.RealTimeCommunications.TRANSPORT_SETTING_head)) -> Windows.Win32.Foundation.HRESULT: ...
-RTCClient = Guid('7a42ea29-a2b7-40c4-b0-91-f6-f0-24-aa-89-be')
+RTCClient = Guid('{7a42ea29-a2b7-40c4-b091-f6f024aa89be}')
 RTC_ACE_SCOPE = Int32
 RTCAS_SCOPE_USER: RTC_ACE_SCOPE = 0
 RTCAS_SCOPE_DOMAIN: RTC_ACE_SCOPE = 1

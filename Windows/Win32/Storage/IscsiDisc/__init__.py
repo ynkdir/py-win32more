@@ -68,8 +68,8 @@ if ARCH in 'X64,ARM64':
         PreviousTaskFile: Byte * 8
         CurrentTaskFile: Byte * 8
 IOCTL_SCSI_BASE: UInt32 = 4
-ScsiRawInterfaceGuid: Guid = Guid('53f56309-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
-WmiScsiAddressGuid: Guid = Guid('53f5630f-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+ScsiRawInterfaceGuid: Guid = Guid('{53f56309-b6bf-11d0-94f2-00a0c91efb8b}')
+WmiScsiAddressGuid: Guid = Guid('{53f5630f-b6bf-11d0-94f2-00a0c91efb8b}')
 FILE_DEVICE_SCSI: UInt32 = 27
 DD_SCSI_DEVICE_NAME: String = '\\Device\\ScsiPort'
 IOCTL_SCSI_PASS_THROUGH: UInt32 = 315396

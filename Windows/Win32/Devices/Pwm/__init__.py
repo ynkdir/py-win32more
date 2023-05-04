@@ -12,7 +12,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-GUID_DEVINTERFACE_PWM_CONTROLLER: Guid = Guid('60824b4c-eed1-4c9c-b4-9c-1b-96-14-61-a8-19')
+GUID_DEVINTERFACE_PWM_CONTROLLER: Guid = Guid('{60824b4c-eed1-4c9c-b49c-1b961461a819}')
 GUID_DEVINTERFACE_PWM_CONTROLLER_WSZ: String = '{60824B4C-EED1-4C9C-B49C-1B961461A819}'
 IOCTL_PWM_CONTROLLER_GET_INFO: UInt32 = 262144
 IOCTL_PWM_CONTROLLER_GET_ACTUAL_PERIOD: UInt32 = 262148

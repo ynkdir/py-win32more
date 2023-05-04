@@ -115,11 +115,11 @@ FhBackupStopReason_BackupLimitUserBusyMachineOnAC: FhBackupStopReason = 1
 FhBackupStopReason_BackupLimitUserIdleMachineOnDC: FhBackupStopReason = 2
 FhBackupStopReason_BackupLimitUserBusyMachineOnDC: FhBackupStopReason = 3
 FhBackupStopReason_BackupCancelled: FhBackupStopReason = 4
-FhConfigMgr = Guid('ed43bb3c-09e9-498a-9d-f6-21-77-24-4c-6d-b4')
-FhReassociation = Guid('4d728e35-16fa-4320-9e-8b-bf-d7-10-0a-88-46')
+FhConfigMgr = Guid('{ed43bb3c-09e9-498a-9df6-2177244c6db4}')
+FhReassociation = Guid('{4d728e35-16fa-4320-9e8b-bfd7100a8846}')
 class IFhConfigMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6a5fea5b-bf8f-4ee5-b8-c3-44-d8-a0-d7-33-1c')
+    _iid_ = Guid('{6a5fea5b-bf8f-4ee5-b8c3-44d8a0d7331c}')
     @commethod(3)
     def LoadConfiguration(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -150,7 +150,7 @@ class IFhConfigMgr(ComPtr):
     def QueryProtectionStatus(self, ProtectionState: POINTER(UInt32), ProtectedUntilTime: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFhReassociation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6544a28a-f68d-47ac-91-ef-16-b2-b3-6a-a3-ee')
+    _iid_ = Guid('{6544a28a-f68d-47ac-91ef-16b2b36aa3ee}')
     @commethod(3)
     def ValidateTarget(self, TargetUrl: Windows.Win32.Foundation.BSTR, ValidationResult: POINTER(Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -163,14 +163,14 @@ class IFhReassociation(ComPtr):
     def PerformReassociation(self, OverwriteIfExists: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFhScopeIterator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3197abce-532a-44c6-86-15-f3-66-65-66-a7-20')
+    _iid_ = Guid('{3197abce-532a-44c6-8615-f3666566a720}')
     @commethod(3)
     def MoveToNextItem(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetItem(self, Item: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFhTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d87965fd-2bad-4657-bd-3b-95-67-eb-30-0c-ed')
+    _iid_ = Guid('{d87965fd-2bad-4657-bd3b-9567eb300ced}')
     @commethod(3)
     def GetStringProperty(self, PropertyType: Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE, PropertyValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

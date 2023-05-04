@@ -20,7 +20,7 @@ def __getattr__(name):
 def PdfCreateRenderer(pDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, ppRenderer: POINTER(Windows.Win32.System.WinRT.Pdf.IPdfRendererNative_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPdfRendererNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7d9dcd91-d277-4947-85-27-07-a0-da-ed-a9-4a')
+    _iid_ = Guid('{7d9dcd91-d277-4947-8527-07a0daeda94a}')
     @commethod(3)
     def RenderPageToSurface(self, pdfPage: Windows.Win32.System.Com.IUnknown_head, pSurface: Windows.Win32.Graphics.Dxgi.IDXGISurface_head, offset: Windows.Win32.Foundation.POINT, pRenderParams: POINTER(Windows.Win32.System.WinRT.Pdf.PDF_RENDER_PARAMS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

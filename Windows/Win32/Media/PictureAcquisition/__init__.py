@@ -18,23 +18,23 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def PKEY_PhotoAcquire_RelativePathname():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=2)
 def PKEY_PhotoAcquire_FinalFilename():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=3)
 def PKEY_PhotoAcquire_GroupTag():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=4)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=4)
 def PKEY_PhotoAcquire_TransferResult():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=5)
 def PKEY_PhotoAcquire_OriginalFilename():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=6)
 def PKEY_PhotoAcquire_CameraSequenceNumber():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=7)
 def PKEY_PhotoAcquire_IntermediateFile():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=8)
 def PKEY_PhotoAcquire_SkipImport():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=9)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=9)
 def PKEY_PhotoAcquire_DuplicateDetectionID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('00f23377-7ac6-4b7a-84-43-34-5e-73-1f-a5-7a'), pid=10)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=10)
 PROGRESS_INDETERMINATE: Int32 = -1
 PHOTOACQ_ERROR_RESTART_REQUIRED: Windows.Win32.Foundation.HRESULT = -2147180543
 PHOTOACQ_RUN_DEFAULT: UInt32 = 0
@@ -87,7 +87,7 @@ PHOTOACQUIRE_RESULT_RETRY: ERROR_ADVISE_RESULT = 5
 PHOTOACQUIRE_RESULT_ABORT: ERROR_ADVISE_RESULT = 6
 class IPhotoAcquire(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f23353-e31b-4955-a8-ad-ca-5e-bf-31-e2-ce')
+    _iid_ = Guid('{00f23353-e31b-4955-a8ad-ca5ebf31e2ce}')
     @commethod(3)
     def CreatePhotoSource(self, pszDevice: Windows.Win32.Foundation.PWSTR, ppPhotoAcquireSource: POINTER(Windows.Win32.Media.PictureAcquisition.IPhotoAcquireSource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -96,7 +96,7 @@ class IPhotoAcquire(ComPtr):
     def EnumResults(self, ppEnumFilePaths: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoAcquireDeviceSelectionDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f28837-55dd-4f37-aa-f5-68-55-a9-64-04-67')
+    _iid_ = Guid('{00f28837-55dd-4f37-aaf5-6855a9640467}')
     @commethod(3)
     def SetTitle(self, pszTitle: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -105,7 +105,7 @@ class IPhotoAcquireDeviceSelectionDialog(ComPtr):
     def DoModal(self, hWndParent: Windows.Win32.Foundation.HWND, dwDeviceFlags: UInt32, pbstrDeviceId: POINTER(Windows.Win32.Foundation.BSTR), pnDeviceType: POINTER(Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoAcquireItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f21c97-28bf-4c02-b8-42-5e-4e-90-13-9a-30')
+    _iid_ = Guid('{00f21c97-28bf-4c02-b842-5e4e90139a30}')
     @commethod(3)
     def GetItemName(self, pbstrItemName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -126,7 +126,7 @@ class IPhotoAcquireItem(ComPtr):
     def GetSubItemAt(self, nItemIndex: UInt32, ppPhotoAcquireItem: POINTER(Windows.Win32.Media.PictureAcquisition.IPhotoAcquireItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoAcquireOptionsDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f2b3ee-bf64-47ee-89-f4-4d-ed-d7-96-43-f2')
+    _iid_ = Guid('{00f2b3ee-bf64-47ee-89f4-4dedd79643f2}')
     @commethod(3)
     def Initialize(self, pszRegistryRoot: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -139,7 +139,7 @@ class IPhotoAcquireOptionsDialog(ComPtr):
     def SaveData(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoAcquirePlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f2dceb-ecb8-4f77-8e-47-e7-a9-87-c8-3d-d0')
+    _iid_ = Guid('{00f2dceb-ecb8-4f77-8e47-e7a987c83dd0}')
     @commethod(3)
     def Initialize(self, pPhotoAcquireSource: Windows.Win32.Media.PictureAcquisition.IPhotoAcquireSource_head, pPhotoAcquireProgressCB: Windows.Win32.Media.PictureAcquisition.IPhotoAcquireProgressCB_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -150,7 +150,7 @@ class IPhotoAcquirePlugin(ComPtr):
     def DisplayConfigureDialog(self, hWndParent: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoAcquireProgressCB(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f2ce1e-935e-4248-89-2c-13-0f-32-c4-5c-b4')
+    _iid_ = Guid('{00f2ce1e-935e-4248-892c-130f32c45cb4}')
     @commethod(3)
     def Cancelled(self, pfCancelled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -191,7 +191,7 @@ class IPhotoAcquireProgressCB(ComPtr):
     def GetUserInput(self, riidType: POINTER(Guid), pUnknown: Windows.Win32.System.Com.IUnknown_head, pPropVarResult: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pPropVarDefault: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoAcquireSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f2b868-dd67-487c-95-53-04-92-40-76-7e-91')
+    _iid_ = Guid('{00f2b868-dd67-487c-9553-049240767e91}')
     @commethod(3)
     def InitializeFromRegistry(self, pszRegistryKey: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -220,7 +220,7 @@ class IPhotoAcquireSettings(ComPtr):
     def GetAcquisitionTime(self, pftAcquisitionTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoAcquireSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f2c703-8613-4282-a5-3b-6e-c5-9c-58-83-ac')
+    _iid_ = Guid('{00f2c703-8613-4282-a53b-6ec59c5883ac}')
     @commethod(3)
     def GetFriendlyName(self, pbstrFriendlyName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -239,12 +239,12 @@ class IPhotoAcquireSource(ComPtr):
     def BindToObject(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoProgressActionCB(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f242d0-b206-4e7d-b4-c1-47-55-bc-bb-9c-9f')
+    _iid_ = Guid('{00f242d0-b206-4e7d-b4c1-4755bcbb9c9f}')
     @commethod(3)
     def DoAction(self, hWndParent: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class IPhotoProgressDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f246f9-0750-4f08-93-81-2c-d8-e9-06-a4-ae')
+    _iid_ = Guid('{00f246f9-0750-4f08-9381-2cd8e906a4ae}')
     @commethod(3)
     def Create(self, hwndParent: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -283,7 +283,7 @@ class IPhotoProgressDialog(ComPtr):
     def GetUserInput(self, riidType: POINTER(Guid), pUnknown: Windows.Win32.System.Com.IUnknown_head, pPropVarResult: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pPropVarDefault: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUserInputString(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00f243a1-205b-45ba-ae-26-ab-bc-53-aa-7a-6f')
+    _iid_ = Guid('{00f243a1-205b-45ba-ae26-abbc53aa7a6f}')
     @commethod(3)
     def GetSubmitButtonText(self, pbstrSubmitButtonText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -311,12 +311,12 @@ PROGRESS_DIALOG_ICON_SMALL: PROGRESS_DIALOG_IMAGE_TYPE = 0
 PROGRESS_DIALOG_ICON_LARGE: PROGRESS_DIALOG_IMAGE_TYPE = 1
 PROGRESS_DIALOG_ICON_THUMBNAIL: PROGRESS_DIALOG_IMAGE_TYPE = 2
 PROGRESS_DIALOG_BITMAP_THUMBNAIL: PROGRESS_DIALOG_IMAGE_TYPE = 3
-PhotoAcquire = Guid('00f26e02-e9f2-4a9f-9f-dd-5a-96-2f-b2-6a-98')
-PhotoAcquireAutoPlayDropTarget = Guid('00f20eb5-8fd6-4d9d-b7-5e-36-80-17-66-c8-f1')
-PhotoAcquireAutoPlayHWEventHandler = Guid('00f2b433-44e4-4d88-b2-b0-26-98-a0-a9-1d-ba')
-PhotoAcquireDeviceSelectionDialog = Guid('00f29a34-b8a1-482c-bc-f8-3a-c7-b0-fe-8f-62')
-PhotoAcquireOptionsDialog = Guid('00f210a1-62f0-438b-9f-7e-96-18-d7-2a-18-31')
-PhotoProgressDialog = Guid('00f24ca0-748f-4e8a-89-4f-0e-03-57-c6-79-9f')
+PhotoAcquire = Guid('{00f26e02-e9f2-4a9f-9fdd-5a962fb26a98}')
+PhotoAcquireAutoPlayDropTarget = Guid('{00f20eb5-8fd6-4d9d-b75e-36801766c8f1}')
+PhotoAcquireAutoPlayHWEventHandler = Guid('{00f2b433-44e4-4d88-b2b0-2698a0a91dba}')
+PhotoAcquireDeviceSelectionDialog = Guid('{00f29a34-b8a1-482c-bcf8-3ac7b0fe8f62}')
+PhotoAcquireOptionsDialog = Guid('{00f210a1-62f0-438b-9f7e-9618d72a1831}')
+PhotoProgressDialog = Guid('{00f24ca0-748f-4e8a-894f-0e0357c6799f}')
 USER_INPUT_STRING_TYPE = Int32
 USER_INPUT_DEFAULT: USER_INPUT_STRING_TYPE = 0
 USER_INPUT_PATH_ELEMENT: USER_INPUT_STRING_TYPE = 1

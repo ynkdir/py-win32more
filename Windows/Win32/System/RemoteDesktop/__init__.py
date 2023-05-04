@@ -55,7 +55,7 @@ AATrustClassID = Int32
 AA_UNTRUSTED: AATrustClassID = 0
 AA_TRUSTEDUSER_UNTRUSTEDCLIENT: AATrustClassID = 1
 AA_TRUSTEDUSER_TRUSTEDCLIENT: AATrustClassID = 2
-ADsTSUserEx = Guid('e2e9cae6-1e7b-4b8e-ba-bd-e9-bf-62-92-ac-29')
+ADsTSUserEx = Guid('{e2e9cae6-1e7b-4b8e-babd-e9bf6292ac29}')
 class AE_CURRENT_POSITION(EasyCastStructure):
     u64DevicePosition: UInt64
     u64StreamPosition: UInt64
@@ -308,18 +308,18 @@ DISPID_AX_ADMINMESSAGERECEIVED: UInt32 = 760
 DISPID_AX_KEYCOMBINATIONPRESSED: UInt32 = 761
 DISPID_AX_REMOTEDESKTOPSIZECHANGED: UInt32 = 762
 DISPID_AX_TOUCHPOINTERCURSORMOVED: UInt32 = 800
-RDCLIENT_BITMAP_RENDER_SERVICE: Guid = Guid('e4cc08cb-942e-4b19-85-04-bd-5a-89-a7-47-f5')
-WTS_QUERY_ALLOWED_INITIAL_APP: Guid = Guid('c77d1b30-5be1-4c6b-a0-e1-bd-6d-2e-5c-9f-cc')
-WTS_QUERY_LOGON_SCREEN_SIZE: Guid = Guid('8b8e0fe7-0804-4a0e-b2-79-86-60-b1-df-00-49')
-WTS_QUERY_AUDIOENUM_DLL: Guid = Guid('9bf4fa97-c883-4c2a-80-ab-5a-39-c9-af-00-db')
-WTS_QUERY_MF_FORMAT_SUPPORT: Guid = Guid('41869ad0-6332-4dc8-95-d5-db-74-9e-2f-1d-94')
-WRDS_SERVICE_ID_GRAPHICS_GUID: Guid = Guid('d2993f4d-02cf-4280-8c-48-16-24-b4-4f-87-06')
-PROPERTY_DYNAMIC_TIME_ZONE_INFORMATION: Guid = Guid('0cdfd28e-d0b9-4c1f-a5-eb-6d-1f-6c-65-35-b9')
-PROPERTY_TYPE_GET_FAST_RECONNECT: Guid = Guid('6212d757-0043-4862-99-c3-9f-30-59-ac-2a-3b')
-PROPERTY_TYPE_GET_FAST_RECONNECT_USER_SID: Guid = Guid('197c427a-0135-4b6d-9c-5e-e6-57-9a-0a-b6-25')
-PROPERTY_TYPE_ENABLE_UNIVERSAL_APPS_FOR_CUSTOM_SHELL: Guid = Guid('ed2c3fda-338d-4d3f-81-a3-e7-67-31-0d-90-8e')
-CONNECTION_PROPERTY_IDLE_TIME_WARNING: Guid = Guid('693f7ff5-0c4e-4d17-b8-e0-1f-70-32-5e-5d-58')
-CONNECTION_PROPERTY_CURSOR_BLINK_DISABLED: Guid = Guid('4b150580-fea4-4d3c-9d-e4-74-33-a6-66-18-f7')
+RDCLIENT_BITMAP_RENDER_SERVICE: Guid = Guid('{e4cc08cb-942e-4b19-8504-bd5a89a747f5}')
+WTS_QUERY_ALLOWED_INITIAL_APP: Guid = Guid('{c77d1b30-5be1-4c6b-a0e1-bd6d2e5c9fcc}')
+WTS_QUERY_LOGON_SCREEN_SIZE: Guid = Guid('{8b8e0fe7-0804-4a0e-b279-8660b1df0049}')
+WTS_QUERY_AUDIOENUM_DLL: Guid = Guid('{9bf4fa97-c883-4c2a-80ab-5a39c9af00db}')
+WTS_QUERY_MF_FORMAT_SUPPORT: Guid = Guid('{41869ad0-6332-4dc8-95d5-db749e2f1d94}')
+WRDS_SERVICE_ID_GRAPHICS_GUID: Guid = Guid('{d2993f4d-02cf-4280-8c48-1624b44f8706}')
+PROPERTY_DYNAMIC_TIME_ZONE_INFORMATION: Guid = Guid('{0cdfd28e-d0b9-4c1f-a5eb-6d1f6c6535b9}')
+PROPERTY_TYPE_GET_FAST_RECONNECT: Guid = Guid('{6212d757-0043-4862-99c3-9f3059ac2a3b}')
+PROPERTY_TYPE_GET_FAST_RECONNECT_USER_SID: Guid = Guid('{197c427a-0135-4b6d-9c5e-e6579a0ab625}')
+PROPERTY_TYPE_ENABLE_UNIVERSAL_APPS_FOR_CUSTOM_SHELL: Guid = Guid('{ed2c3fda-338d-4d3f-81a3-e767310d908e}')
+CONNECTION_PROPERTY_IDLE_TIME_WARNING: Guid = Guid('{693f7ff5-0c4e-4d17-b8e0-1f70325e5d58}')
+CONNECTION_PROPERTY_CURSOR_BLINK_DISABLED: Guid = Guid('{4b150580-fea4-4d3c-9de4-7433a66618f7}')
 @winfunctype('WTSAPI32.dll')
 def WTSStopRemoteControlSession(LogonId: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
@@ -489,7 +489,7 @@ class HwtsVirtualChannelHandle(EasyCastStructure):
     Value: IntPtr
 class IADsTSUserEx(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('c4930e79-2989-4462-8a-60-2f-cf-2f-29-55-ef')
+    _iid_ = Guid('{c4930e79-2989-4462-8a60-2fcf2f2955ef}')
     @commethod(7)
     def get_TerminalServicesProfilePath(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -552,7 +552,7 @@ class IADsTSUserEx(ComPtr):
     def put_TerminalServicesInitialProgram(self, pNewVal: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioDeviceEndpoint(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d4952f5a-a0b2-4cc4-8b-82-93-58-48-8d-d8-ac')
+    _iid_ = Guid('{d4952f5a-a0b2-4cc4-8b82-9358488dd8ac}')
     @commethod(3)
     def SetBuffer(self, MaxPeriod: Int64, u32LatencyCoefficient: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -563,7 +563,7 @@ class IAudioDeviceEndpoint(ComPtr):
     def WriteExclusiveModeParametersToSharedMemory(self, hTargetProcess: UIntPtr, hnsPeriod: Int64, hnsBufferDuration: Int64, u32LatencyCoefficient: UInt32, pu32SharedMemorySize: POINTER(UInt32), phSharedMemory: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioEndpoint(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('30a99515-1527-4451-af-9f-00-c5-f0-23-4d-af')
+    _iid_ = Guid('{30a99515-1527-4451-af9f-00c5f0234daf}')
     @commethod(3)
     def GetFrameFormat(self, ppFormat: POINTER(POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -576,7 +576,7 @@ class IAudioEndpoint(ComPtr):
     def SetEventHandle(self, eventHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioEndpointControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c684b72a-6df4-4774-bd-f9-76-b7-75-09-b6-53')
+    _iid_ = Guid('{c684b72a-6df4-4774-bdf9-76b77509b653}')
     @commethod(3)
     def Start(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -585,7 +585,7 @@ class IAudioEndpointControl(ComPtr):
     def Stop(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioEndpointRT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dfd2005f-a6e5-4d39-a2-65-93-9a-da-9f-bb-4d')
+    _iid_ = Guid('{dfd2005f-a6e5-4d39-a265-939ada9fbb4d}')
     @commethod(3)
     def GetCurrentPadding(self, pPadding: POINTER(Int64), pAeCurrentPosition: POINTER(Windows.Win32.System.RemoteDesktop.AE_CURRENT_POSITION_head)) -> Void: ...
     @commethod(4)
@@ -596,7 +596,7 @@ class IAudioEndpointRT(ComPtr):
     def SetPinActive(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioInputEndpointRT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8026ab61-92b2-43c1-a1-df-5c-37-eb-d0-8d-82')
+    _iid_ = Guid('{8026ab61-92b2-43c1-a1df-5c37ebd08d82}')
     @commethod(3)
     def GetInputDataPointer(self, pConnectionProperty: POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head), pAeTimeStamp: POINTER(Windows.Win32.System.RemoteDesktop.AE_CURRENT_POSITION_head)) -> Void: ...
     @commethod(4)
@@ -605,7 +605,7 @@ class IAudioInputEndpointRT(ComPtr):
     def PulseEndpoint(self) -> Void: ...
 class IAudioOutputEndpointRT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8fa906e4-c31c-4e31-93-2e-19-a6-63-85-e9-aa')
+    _iid_ = Guid('{8fa906e4-c31c-4e31-932e-19a66385e9aa}')
     @commethod(3)
     def GetOutputDataPointer(self, u32FrameCount: UInt32, pAeTimeStamp: POINTER(Windows.Win32.System.RemoteDesktop.AE_CURRENT_POSITION_head)) -> UIntPtr: ...
     @commethod(4)
@@ -614,7 +614,7 @@ class IAudioOutputEndpointRT(ComPtr):
     def PulseEndpoint(self) -> Void: ...
 class IRemoteDesktopClient(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('57d25668-625a-4905-be-4e-30-4c-aa-13-f8-9c')
+    _iid_ = Guid('{57d25668-625a-4905-be4e-304caa13f89c}')
     @commethod(7)
     def Connect(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -637,7 +637,7 @@ class IRemoteDesktopClient(ComPtr):
     def detachEvent(self, eventName: Windows.Win32.Foundation.BSTR, callback: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDesktopClientActions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('7d54bc4e-1028-45d4-8b-0a-b9-b6-bf-fb-a1-76')
+    _iid_ = Guid('{7d54bc4e-1028-45d4-8b0a-b9b6bffba176}')
     @commethod(7)
     def SuspendScreenUpdates(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -648,7 +648,7 @@ class IRemoteDesktopClientActions(ComPtr):
     def GetSnapshot(self, snapshotEncoding: Windows.Win32.System.RemoteDesktop.SnapshotEncodingType, snapshotFormat: Windows.Win32.System.RemoteDesktop.SnapshotFormatType, snapshotWidth: UInt32, snapshotHeight: UInt32, snapshotData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDesktopClientSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('48a0f2a7-2713-431f-bb-ac-6f-45-58-e7-d6-4d')
+    _iid_ = Guid('{48a0f2a7-2713-431f-bbac-6f4558e7d64d}')
     @commethod(7)
     def ApplySettings(self, rdpFileContents: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -659,7 +659,7 @@ class IRemoteDesktopClientSettings(ComPtr):
     def SetRdpProperty(self, propertyName: Windows.Win32.Foundation.BSTR, value: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDesktopClientTouchPointer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('260ec22d-8cbc-44b5-9e-88-2a-37-f6-c9-3a-e9')
+    _iid_ = Guid('{260ec22d-8cbc-44b5-9e88-2a37f6c93ae9}')
     @commethod(7)
     def put_Enabled(self, enabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -674,17 +674,17 @@ class IRemoteDesktopClientTouchPointer(ComPtr):
     def get_PointerSpeed(self, pointerSpeed: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteSystemAdditionalInfoProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('eeaa3d5f-ec63-4d27-af-38-e8-6b-1d-72-92-cb')
+    _iid_ = Guid('{eeaa3d5f-ec63-4d27-af38-e86b1d7292cb}')
     @commethod(3)
     def GetAdditionalInfo(self, deduplicationId: POINTER(Windows.Win32.System.WinRT.HSTRING), riid: POINTER(Guid), mapView: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITSGAccountingEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4ce2a0c9-e874-4f1a-86-f4-06-bb-b9-11-53-38')
+    _iid_ = Guid('{4ce2a0c9-e874-4f1a-86f4-06bbb9115338}')
     @commethod(3)
     def DoAccounting(self, accountingDataType: Windows.Win32.System.RemoteDesktop.AAAccountingDataType, accountingData: Windows.Win32.System.RemoteDesktop.AAAccountingData) -> Windows.Win32.Foundation.HRESULT: ...
 class ITSGAuthenticateUserSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2c3e2e73-a782-47f9-8d-fb-77-ee-1e-d2-7a-03')
+    _iid_ = Guid('{2c3e2e73-a782-47f9-8dfb-77ee1ed27a03}')
     @commethod(3)
     def OnUserAuthenticated(self, userName: Windows.Win32.Foundation.BSTR, userDomain: Windows.Win32.Foundation.BSTR, context: UIntPtr, userToken: Windows.Win32.Foundation.HANDLE_PTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -695,24 +695,24 @@ class ITSGAuthenticateUserSink(ComPtr):
     def DisconnectUser(self, context: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class ITSGAuthenticationEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9ee3e5bf-04ab-4691-99-8c-d7-f6-22-32-1a-56')
+    _iid_ = Guid('{9ee3e5bf-04ab-4691-998c-d7f622321a56}')
     @commethod(3)
     def AuthenticateUser(self, mainSessionId: Guid, cookieData: POINTER(Byte), numCookieBytes: UInt32, context: UIntPtr, pSink: Windows.Win32.System.RemoteDesktop.ITSGAuthenticateUserSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CancelAuthentication(self, mainSessionId: Guid, context: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class ITSGAuthorizeConnectionSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c27ece33-7781-4318-98-ef-1c-f2-da-7b-70-05')
+    _iid_ = Guid('{c27ece33-7781-4318-98ef-1cf2da7b7005}')
     @commethod(3)
     def OnConnectionAuthorized(self, hrIn: Windows.Win32.Foundation.HRESULT, mainSessionId: Guid, cbSoHResponse: UInt32, pbSoHResponse: POINTER(Byte), idleTimeout: UInt32, sessionTimeout: UInt32, sessionTimeoutAction: Windows.Win32.System.RemoteDesktop.SESSION_TIMEOUT_ACTION_TYPE, trustClass: Windows.Win32.System.RemoteDesktop.AATrustClassID, policyAttributes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITSGAuthorizeResourceSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('feddfcd4-fa12-4435-ae-55-7a-d1-a9-77-9a-f7')
+    _iid_ = Guid('{feddfcd4-fa12-4435-ae55-7ad1a9779af7}')
     @commethod(3)
     def OnChannelAuthorized(self, hrIn: Windows.Win32.Foundation.HRESULT, mainSessionId: Guid, subSessionId: Int32, allowedResourceNames: POINTER(Windows.Win32.Foundation.BSTR), numAllowedResourceNames: UInt32, failedResourceNames: POINTER(Windows.Win32.Foundation.BSTR), numFailedResourceNames: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITSGPolicyEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8bc24f08-6223-42f4-a5-b4-8e-37-cd-13-5b-bd')
+    _iid_ = Guid('{8bc24f08-6223-42f4-a5b4-8e37cd135bbd}')
     @commethod(3)
     def AuthorizeConnection(self, mainSessionId: Guid, username: Windows.Win32.Foundation.BSTR, authType: Windows.Win32.System.RemoteDesktop.AAAuthSchemes, clientMachineIP: Windows.Win32.Foundation.BSTR, clientMachineName: Windows.Win32.Foundation.BSTR, sohData: POINTER(Byte), numSOHBytes: UInt32, cookieData: POINTER(Byte), numCookieBytes: UInt32, userToken: Windows.Win32.Foundation.HANDLE_PTR, pSink: Windows.Win32.System.RemoteDesktop.ITSGAuthorizeConnectionSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -723,14 +723,14 @@ class ITSGPolicyEngine(ComPtr):
     def IsQuarantineEnabled(self, quarantineEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbBaseNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('808a6537-1282-4989-9e-09-f4-39-38-b7-17-22')
+    _iid_ = Guid('{808a6537-1282-4989-9e09-f43938b71722}')
     @commethod(3)
     def OnError(self, hrError: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnReportStatus(self, messageType: Windows.Win32.System.RemoteDesktop.CLIENT_MESSAGE_TYPE, messageID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbClientConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('18857499-ad61-4b1b-b7-df-cb-cd-41-fb-83-38')
+    _iid_ = Guid('{18857499-ad61-4b1b-b7df-cbcd41fb8338}')
     @commethod(3)
     def get_UserName(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -763,10 +763,10 @@ class ITsSbClientConnection(ComPtr):
     def GetDisconnectedSession(self, ppSession: POINTER(Windows.Win32.System.RemoteDesktop.ITsSbSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbClientConnectionPropertySet(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPropertySet
-    _iid_ = Guid('e51995b0-46d6-11dd-aa-21-ce-dc-55-d8-95-93')
+    _iid_ = Guid('{e51995b0-46d6-11dd-aa21-cedc55d89593}')
 class ITsSbEnvironment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8c87f7f7-bf51-4a5c-87-bf-8e-94-fb-6e-22-56')
+    _iid_ = Guid('{8c87f7f7-bf51-4a5c-87bf-8e94fb6e2256}')
     @commethod(3)
     def get_Name(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -777,10 +777,10 @@ class ITsSbEnvironment(ComPtr):
     def put_EnvironmentPropertySet(self, pVal: Windows.Win32.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbEnvironmentPropertySet(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPropertySet
-    _iid_ = Guid('d0d1bf7e-7acf-11dd-a2-43-e5-11-56-d8-95-93')
+    _iid_ = Guid('{d0d1bf7e-7acf-11dd-a243-e51156d89593}')
 class ITsSbFilterPluginStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('85b44b0f-ed78-413f-97-02-fa-6d-3b-5e-e7-55')
+    _iid_ = Guid('{85b44b0f-ed78-413f-9702-fa6d3b5ee755}')
     @commethod(3)
     def SaveProperties(self, pPropertySet: Windows.Win32.System.RemoteDesktop.ITsSbPropertySet_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -789,14 +789,14 @@ class ITsSbFilterPluginStore(ComPtr):
     def DeleteProperties(self, propertyName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbGenericNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4c4c8c4f-300b-46ad-91-64-84-68-a7-e7-56-8c')
+    _iid_ = Guid('{4c4c8c4f-300b-46ad-9164-8468a7e7568c}')
     @commethod(3)
     def OnCompleted(self, Status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetWaitTimeout(self, pftTimeout: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbGlobalStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9ab60f7b-bd72-4d9f-8a-3a-a0-ea-55-74-e6-35')
+    _iid_ = Guid('{9ab60f7b-bd72-4d9f-8a3a-a0ea5574e635}')
     @commethod(3)
     def QueryTarget(self, ProviderName: Windows.Win32.Foundation.BSTR, TargetName: Windows.Win32.Foundation.BSTR, FarmName: Windows.Win32.Foundation.BSTR, ppTarget: POINTER(Windows.Win32.System.RemoteDesktop.ITsSbTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -813,62 +813,62 @@ class ITsSbGlobalStore(ComPtr):
     def GetFarmProperty(self, farmName: Windows.Win32.Foundation.BSTR, propertyName: Windows.Win32.Foundation.BSTR, pVarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbLoadBalanceResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('24fdb7ac-fea6-11dc-96-72-9a-89-56-d8-95-93')
+    _iid_ = Guid('{24fdb7ac-fea6-11dc-9672-9a8956d89593}')
     @commethod(3)
     def get_TargetName(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbLoadBalancing(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPlugin
-    _iid_ = Guid('24329274-9eb7-11dc-ae-98-f2-b4-56-d8-95-93')
+    _iid_ = Guid('{24329274-9eb7-11dc-ae98-f2b456d89593}')
     @commethod(5)
     def GetMostSuitableTarget(self, pConnection: Windows.Win32.System.RemoteDesktop.ITsSbClientConnection_head, pLBSink: Windows.Win32.System.RemoteDesktop.ITsSbLoadBalancingNotifySink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbLoadBalancingNotifySink(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbBaseNotifySink
-    _iid_ = Guid('5f8a8297-3244-4e6a-95-8a-27-c8-22-c1-e1-41')
+    _iid_ = Guid('{5f8a8297-3244-4e6a-958a-27c822c1e141}')
     @commethod(5)
     def OnGetMostSuitableTarget(self, pLBResult: Windows.Win32.System.RemoteDesktop.ITsSbLoadBalanceResult_head, fIsNewConnection: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbOrchestration(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPlugin
-    _iid_ = Guid('64fc1172-9eb7-11dc-8b-00-3a-ba-56-d8-95-93')
+    _iid_ = Guid('{64fc1172-9eb7-11dc-8b00-3aba56d89593}')
     @commethod(5)
     def PrepareTargetForConnect(self, pConnection: Windows.Win32.System.RemoteDesktop.ITsSbClientConnection_head, pOrchestrationNotifySink: Windows.Win32.System.RemoteDesktop.ITsSbOrchestrationNotifySink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbOrchestrationNotifySink(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbBaseNotifySink
-    _iid_ = Guid('36c37d61-926b-442f-bc-a5-11-8c-6d-50-dc-f2')
+    _iid_ = Guid('{36c37d61-926b-442f-bca5-118c6d50dcf2}')
     @commethod(5)
     def OnReadyToConnect(self, pTarget: Windows.Win32.System.RemoteDesktop.ITsSbTarget_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbPlacement(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPlugin
-    _iid_ = Guid('daadee5f-6d32-480e-9e-36-dd-ab-23-29-f0-6d')
+    _iid_ = Guid('{daadee5f-6d32-480e-9e36-ddab2329f06d}')
     @commethod(5)
     def QueryEnvironmentForTarget(self, pConnection: Windows.Win32.System.RemoteDesktop.ITsSbClientConnection_head, pPlacementSink: Windows.Win32.System.RemoteDesktop.ITsSbPlacementNotifySink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbPlacementNotifySink(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbBaseNotifySink
-    _iid_ = Guid('68a0c487-2b4f-46c2-94-a1-6c-e6-85-18-36-34')
+    _iid_ = Guid('{68a0c487-2b4f-46c2-94a1-6ce685183634}')
     @commethod(5)
     def OnQueryEnvironmentCompleted(self, pEnvironment: Windows.Win32.System.RemoteDesktop.ITsSbEnvironment_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbPlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('48cd7406-caab-465f-a5-d6-ba-a8-63-b9-ea-4f')
+    _iid_ = Guid('{48cd7406-caab-465f-a5d6-baa863b9ea4f}')
     @commethod(3)
     def Initialize(self, pProvider: Windows.Win32.System.RemoteDesktop.ITsSbProvider_head, pNotifySink: Windows.Win32.System.RemoteDesktop.ITsSbPluginNotifySink_head, pPropertySet: Windows.Win32.System.RemoteDesktop.ITsSbPluginPropertySet_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Terminate(self, hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbPluginNotifySink(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbBaseNotifySink
-    _iid_ = Guid('44dfe30b-c3be-40f5-bf-82-7a-95-bb-79-5a-df')
+    _iid_ = Guid('{44dfe30b-c3be-40f5-bf82-7a95bb795adf}')
     @commethod(5)
     def OnInitialized(self, hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnTerminated(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbPluginPropertySet(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPropertySet
-    _iid_ = Guid('95006e34-7eff-4b6c-bb-40-49-a4-fd-a7-ce-a6')
+    _iid_ = Guid('{95006e34-7eff-4b6c-bb40-49a4fda7cea6}')
 class ITsSbPropertySet(ComPtr):
     extends: Windows.Win32.System.Com.StructuredStorage.IPropertyBag
-    _iid_ = Guid('5c025171-bb1e-4baf-a2-12-6d-5e-97-74-b3-3b')
+    _iid_ = Guid('{5c025171-bb1e-4baf-a212-6d5e9774b33b}')
 class ITsSbProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('87a4098f-6d7b-44dd-bc-17-8c-e4-4e-37-0d-52')
+    _iid_ = Guid('{87a4098f-6d7b-44dd-bc17-8ce44e370d52}')
     @commethod(3)
     def CreateTargetObject(self, TargetName: Windows.Win32.Foundation.BSTR, EnvironmentName: Windows.Win32.Foundation.BSTR, ppTarget: POINTER(Windows.Win32.System.RemoteDesktop.ITsSbTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -895,7 +895,7 @@ class ITsSbProvider(ComPtr):
     def CreateEnvironmentPropertySetObject(self, ppPropertySet: POINTER(Windows.Win32.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbProvisioning(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPlugin
-    _iid_ = Guid('2f6f0dbb-9e4f-462b-9c-3f-fc-cc-3d-cb-62-32')
+    _iid_ = Guid('{2f6f0dbb-9e4f-462b-9c3f-fccc3dcb6232}')
     @commethod(5)
     def CreateVirtualMachines(self, JobXmlString: Windows.Win32.Foundation.BSTR, JobGuid: Windows.Win32.Foundation.BSTR, pSink: Windows.Win32.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -906,7 +906,7 @@ class ITsSbProvisioning(ComPtr):
     def CancelJob(self, JobGuid: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbProvisioningPluginNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('aca87a8e-818b-4581-a0-32-49-c3-df-b9-c7-01')
+    _iid_ = Guid('{aca87a8e-818b-4581-a032-49c3dfb9c701}')
     @commethod(3)
     def OnJobCreated(self, pVmNotifyInfo: POINTER(Windows.Win32.System.RemoteDesktop.VM_NOTIFY_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -921,7 +921,7 @@ class ITsSbProvisioningPluginNotifySink(ComPtr):
     def OnVirtualMachineHostStatusChanged(self, VmHost: Windows.Win32.Foundation.BSTR, VmHostNotifyStatus: Windows.Win32.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS, ErrorCode: Windows.Win32.Foundation.HRESULT, ErrorDescr: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbResourceNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('65d3e85a-c39b-11dc-b9-2d-3c-d2-55-d8-95-93')
+    _iid_ = Guid('{65d3e85a-c39b-11dc-b92d-3cd255d89593}')
     @commethod(3)
     def NotifySessionChange(self, changeType: Windows.Win32.System.RemoteDesktop.TSSESSION_STATE, pSession: Windows.Win32.System.RemoteDesktop.ITsSbSession_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -930,7 +930,7 @@ class ITsSbResourceNotification(ComPtr):
     def NotifyClientConnectionStateChange(self, ChangeType: Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION, pConnection: Windows.Win32.System.RemoteDesktop.ITsSbClientConnection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbResourceNotificationEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a8a47fde-ca91-44d2-b8-97-3a-a2-8a-43-b2-b7')
+    _iid_ = Guid('{a8a47fde-ca91-44d2-b897-3aa28a43b2b7}')
     @commethod(3)
     def NotifySessionChangeEx(self, targetName: Windows.Win32.Foundation.BSTR, userName: Windows.Win32.Foundation.BSTR, domain: Windows.Win32.Foundation.BSTR, sessionId: UInt32, sessionState: Windows.Win32.System.RemoteDesktop.TSSESSION_STATE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -939,10 +939,10 @@ class ITsSbResourceNotificationEx(ComPtr):
     def NotifyClientConnectionStateChangeEx(self, userName: Windows.Win32.Foundation.BSTR, domain: Windows.Win32.Foundation.BSTR, initialProgram: Windows.Win32.Foundation.BSTR, poolName: Windows.Win32.Foundation.BSTR, targetName: Windows.Win32.Foundation.BSTR, connectionChangeType: Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbResourcePlugin(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPlugin
-    _iid_ = Guid('ea8db42c-98ed-4535-a8-8b-2a-16-4f-35-49-0f')
+    _iid_ = Guid('{ea8db42c-98ed-4535-a88b-2a164f35490f}')
 class ITsSbResourcePluginStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5c38f65f-bcf1-4036-a6-bf-9e-3c-cc-ae-0b-63')
+    _iid_ = Guid('{5c38f65f-bcf1-4036-a6bf-9e3cccae0b63}')
     @commethod(3)
     def QueryTarget(self, TargetName: Windows.Win32.Foundation.BSTR, FarmName: Windows.Win32.Foundation.BSTR, ppTarget: POINTER(Windows.Win32.System.RemoteDesktop.ITsSbTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1001,14 +1001,14 @@ class ITsSbResourcePluginStore(ComPtr):
     def SetServerDrainMode(self, ServerFQDN: Windows.Win32.Foundation.BSTR, DrainMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbServiceNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('86cb68ae-86e0-4f57-8a-64-bb-74-06-bc-55-50')
+    _iid_ = Guid('{86cb68ae-86e0-4f57-8a64-bb7406bc5550}')
     @commethod(3)
     def NotifyServiceFailure(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def NotifyServiceSuccess(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d453aac7-b1d8-4c5e-ba-34-9a-fb-4c-8c-55-10')
+    _iid_ = Guid('{d453aac7-b1d8-4c5e-ba34-9afb4c8c5510}')
     @commethod(3)
     def get_SessionId(self, pVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1045,7 +1045,7 @@ class ITsSbSession(ComPtr):
     def put_ProtocolType(self, Val: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('16616ecc-272d-411d-b3-24-12-68-93-03-38-56')
+    _iid_ = Guid('{16616ecc-272d-411d-b324-126893033856}')
     @commethod(3)
     def get_TargetName(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1086,10 +1086,10 @@ class ITsSbTarget(ComPtr):
     def get_TargetLoad(self, pTargetLoad: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbTargetPropertySet(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPropertySet
-    _iid_ = Guid('f7bda5d6-994c-4e11-a0-79-27-63-b6-18-30-ac')
+    _iid_ = Guid('{f7bda5d6-994c-4e11-a079-2763b61830ac}')
 class ITsSbTaskInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('523d1083-89be-48dd-99-ea-04-e8-2f-fa-72-65')
+    _iid_ = Guid('{523d1083-89be-48dd-99ea-04e82ffa7265}')
     @commethod(3)
     def get_TargetId(self, pName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1110,14 +1110,14 @@ class ITsSbTaskInfo(ComPtr):
     def get_Status(self, pStatus: POINTER(Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbTaskPlugin(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbPlugin
-    _iid_ = Guid('fa22ef0f-8705-41be-93-bc-44-bd-bc-f1-c9-c4')
+    _iid_ = Guid('{fa22ef0f-8705-41be-93bc-44bdbcf1c9c4}')
     @commethod(5)
     def InitializeTaskPlugin(self, pITsSbTaskPluginNotifySink: Windows.Win32.System.RemoteDesktop.ITsSbTaskPluginNotifySink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetTaskQueue(self, pszHostName: Windows.Win32.Foundation.BSTR, SbTaskInfoSize: UInt32, pITsSbTaskInfo: POINTER(Windows.Win32.System.RemoteDesktop.ITsSbTaskInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITsSbTaskPluginNotifySink(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ITsSbBaseNotifySink
-    _iid_ = Guid('6aaf899e-c2ec-45ee-aa-37-45-e6-08-95-26-1a')
+    _iid_ = Guid('{6aaf899e-c2ec-45ee-aa37-45e60895261a}')
     @commethod(5)
     def OnSetTaskTime(self, szTargetName: Windows.Win32.Foundation.BSTR, TaskStartTime: Windows.Win32.Foundation.FILETIME, TaskEndTime: Windows.Win32.Foundation.FILETIME, TaskDeadline: Windows.Win32.Foundation.FILETIME, szTaskLabel: Windows.Win32.Foundation.BSTR, szTaskIdentifier: Windows.Win32.Foundation.BSTR, szTaskPlugin: Windows.Win32.Foundation.BSTR, dwTaskStatus: UInt32, saContext: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1128,12 +1128,12 @@ class ITsSbTaskPluginNotifySink(ComPtr):
     def OnReportTasks(self, szHostName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsEnhancedFastReconnectArbitrator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5718ae9b-47f2-499f-b6-34-d8-17-5b-d5-11-31')
+    _iid_ = Guid('{5718ae9b-47f2-499f-b634-d8175bd51131}')
     @commethod(3)
     def GetSessionForEnhancedFastReconnect(self, pSessionIdArray: POINTER(Int32), dwSessionCount: UInt32, pResultSessionId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsGraphicsChannel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('684b7a0b-edff-43ad-d5-a2-4a-8d-53-88-f4-01')
+    _iid_ = Guid('{684b7a0b-edff-43ad-d5a2-4a8d5388f401}')
     @commethod(3)
     def Write(self, cbSize: UInt32, pBuffer: POINTER(Byte), pContext: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1142,7 +1142,7 @@ class IWRdsGraphicsChannel(ComPtr):
     def Open(self, pChannelEvents: Windows.Win32.System.RemoteDesktop.IWRdsGraphicsChannelEvents_head, pOpenContext: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsGraphicsChannelEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('67f2368c-d674-4fae-66-a5-d2-06-28-a6-40-d2')
+    _iid_ = Guid('{67f2368c-d674-4fae-66a5-d20628a640d2}')
     @commethod(3)
     def OnDataReceived(self, cbSize: UInt32, pBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1155,12 +1155,12 @@ class IWRdsGraphicsChannelEvents(ComPtr):
     def OnMetricsUpdate(self, bandwidth: UInt32, RTT: UInt32, lastSentByteIndex: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsGraphicsChannelManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0fd57159-e83e-476a-a8-b9-4a-79-76-e7-1e-18')
+    _iid_ = Guid('{0fd57159-e83e-476a-a8b9-4a7976e71e18}')
     @commethod(3)
     def CreateChannel(self, pszChannelName: POINTER(Byte), channelType: Windows.Win32.System.RemoteDesktop.WRdsGraphicsChannelType, ppVirtualChannel: POINTER(Windows.Win32.System.RemoteDesktop.IWRdsGraphicsChannel_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('324ed94f-fdaf-4ff6-81-a8-42-ab-e7-55-83-0b')
+    _iid_ = Guid('{324ed94f-fdaf-4ff6-81a8-42abe755830b}')
     @commethod(3)
     def GetLogonErrorRedirector(self, ppLogonErrorRedir: POINTER(Windows.Win32.System.RemoteDesktop.IWRdsProtocolLogonErrorRedirector_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1211,7 +1211,7 @@ class IWRdsProtocolConnection(ComPtr):
     def NotifyCommandProcessCreated(self, SessionId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolConnectionCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f1d70332-d070-4ef1-a0-88-78-31-35-36-c2-d6')
+    _iid_ = Guid('{f1d70332-d070-4ef1-a088-78313536c2d6}')
     @commethod(3)
     def OnReady(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1224,14 +1224,14 @@ class IWRdsProtocolConnectionCallback(ComPtr):
     def GetConnectionId(self, pConnectionId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolConnectionSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('83fcf5d3-f6f4-ea94-9c-d2-32-f2-80-e1-e5-10')
+    _iid_ = Guid('{83fcf5d3-f6f4-ea94-9cd2-32f280e1e510}')
     @commethod(3)
     def SetConnectionSetting(self, PropertyID: Guid, pPropertyEntriesIn: POINTER(Windows.Win32.System.RemoteDesktop.WTS_PROPERTY_VALUE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetConnectionSetting(self, PropertyID: Guid, pPropertyEntriesOut: POINTER(Windows.Win32.System.RemoteDesktop.WTS_PROPERTY_VALUE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolLicenseConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1d6a145f-d095-4424-95-7a-40-7f-ae-82-2d-84')
+    _iid_ = Guid('{1d6a145f-d095-4424-957a-407fae822d84}')
     @commethod(3)
     def RequestLicensingCapabilities(self, ppLicenseCapabilities: POINTER(Windows.Win32.System.RemoteDesktop.WTS_LICENSE_CAPABILITIES_head), pcbLicenseCapabilities: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1242,7 +1242,7 @@ class IWRdsProtocolLicenseConnection(ComPtr):
     def ProtocolComplete(self, ulComplete: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolListener(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fcbc131b-c686-451d-a7-73-e2-79-e2-30-f5-40')
+    _iid_ = Guid('{fcbc131b-c686-451d-a773-e279e230f540}')
     @commethod(3)
     def GetSettings(self, WRdsListenerSettingLevel: Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL, pWRdsListenerSettings: POINTER(Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1251,12 +1251,12 @@ class IWRdsProtocolListener(ComPtr):
     def StopListen(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolListenerCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3ab27e5b-4449-4dc1-b7-4a-91-62-1d-4f-e9-84')
+    _iid_ = Guid('{3ab27e5b-4449-4dc1-b74a-91621d4fe984}')
     @commethod(3)
     def OnConnected(self, pConnection: Windows.Win32.System.RemoteDesktop.IWRdsProtocolConnection_head, pWRdsConnectionSettings: POINTER(Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head), pCallback: POINTER(Windows.Win32.System.RemoteDesktop.IWRdsProtocolConnectionCallback_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolLogonErrorRedirector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('519fe83b-142a-4120-a3-d5-a4-05-d3-15-28-1a')
+    _iid_ = Guid('{519fe83b-142a-4120-a3d5-a405d315281a}')
     @commethod(3)
     def OnBeginPainting(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1267,7 +1267,7 @@ class IWRdsProtocolLogonErrorRedirector(ComPtr):
     def RedirectLogonError(self, ntsStatus: Int32, ntsSubstatus: Int32, pszCaption: Windows.Win32.Foundation.PWSTR, pszMessage: Windows.Win32.Foundation.PWSTR, uType: UInt32, pResponse: POINTER(Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dc796967-3abb-40cd-a4-46-10-52-76-b5-89-50')
+    _iid_ = Guid('{dc796967-3abb-40cd-a446-105276b58950}')
     @commethod(3)
     def Initialize(self, pIWRdsSettings: Windows.Win32.System.RemoteDesktop.IWRdsProtocolSettings_head, pWRdsSettings: POINTER(Windows.Win32.System.RemoteDesktop.WRDS_SETTINGS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1286,21 +1286,21 @@ class IWRdsProtocolManager(ComPtr):
     def Uninitialize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('654a5a6a-2550-47eb-b6-f7-eb-d6-37-47-52-65')
+    _iid_ = Guid('{654a5a6a-2550-47eb-b6f7-ebd637475265}')
     @commethod(3)
     def GetSettings(self, WRdsSettingType: Windows.Win32.System.RemoteDesktop.WRDS_SETTING_TYPE, WRdsSettingLevel: Windows.Win32.System.RemoteDesktop.WRDS_SETTING_LEVEL, pWRdsSettings: POINTER(Windows.Win32.System.RemoteDesktop.WRDS_SETTINGS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def MergeSettings(self, pWRdsSettings: POINTER(Windows.Win32.System.RemoteDesktop.WRDS_SETTINGS_head), WRdsConnectionSettingLevel: Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL, pWRdsConnectionSettings: POINTER(Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolShadowCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e0667ce0-0372-40d6-ad-b2-a0-f3-32-26-74-d6')
+    _iid_ = Guid('{e0667ce0-0372-40d6-adb2-a0f3322674d6}')
     @commethod(3)
     def StopShadow(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def InvokeTargetShadow(self, pTargetServerName: Windows.Win32.Foundation.PWSTR, TargetSessionId: UInt32, pParam1: POINTER(Byte), Param1Size: UInt32, pParam2: POINTER(Byte), Param2Size: UInt32, pParam3: POINTER(Byte), Param3Size: UInt32, pParam4: POINTER(Byte), Param4Size: UInt32, pClientName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsProtocolShadowConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9ae85ce6-cade-4548-8f-eb-99-01-65-97-f6-0a')
+    _iid_ = Guid('{9ae85ce6-cade-4548-8feb-99016597f60a}')
     @commethod(3)
     def Start(self, pTargetServerName: Windows.Win32.Foundation.PWSTR, TargetSessionId: UInt32, HotKeyVk: Byte, HotkeyModifiers: UInt16, pShadowCallback: Windows.Win32.System.RemoteDesktop.IWRdsProtocolShadowCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1309,7 +1309,7 @@ class IWRdsProtocolShadowConnection(ComPtr):
     def DoTarget(self, pParam1: POINTER(Byte), Param1Size: UInt32, pParam2: POINTER(Byte), Param2Size: UInt32, pParam3: POINTER(Byte), Param3Size: UInt32, pParam4: POINTER(Byte), Param4Size: UInt32, pClientName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWRdsWddmIddProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1382df4d-a289-43d1-a1-84-14-47-26-f9-af-90')
+    _iid_ = Guid('{1382df4d-a289-43d1-a184-144726f9af90}')
     @commethod(3)
     def GetHardwareId(self, pDisplayDriverHardwareId: Windows.Win32.Foundation.PWSTR, Count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1320,12 +1320,12 @@ class IWRdsWddmIddProps(ComPtr):
     def EnableWddmIdd(self, Enabled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSBitmapRenderService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ea326091-05fe-40c1-b4-9c-3d-2e-f4-62-6a-0e')
+    _iid_ = Guid('{ea326091-05fe-40c1-b49c-3d2ef4626a0e}')
     @commethod(3)
     def GetMappedRenderer(self, mappingId: UInt64, pMappedRendererCallback: Windows.Win32.System.RemoteDesktop.IWTSBitmapRendererCallback_head, ppMappedRenderer: POINTER(Windows.Win32.System.RemoteDesktop.IWTSBitmapRenderer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSBitmapRenderer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5b7acc97-f3c9-46f7-8c-5b-fa-68-5d-34-41-b1')
+    _iid_ = Guid('{5b7acc97-f3c9-46f7-8c5b-fa685d3441b1}')
     @commethod(3)
     def Render(self, imageFormat: Guid, dwWidth: UInt32, dwHeight: UInt32, cbStride: Int32, cbImageBuffer: UInt32, pImageBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1334,22 +1334,22 @@ class IWTSBitmapRenderer(ComPtr):
     def RemoveMapping(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSBitmapRendererCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d782928e-fe4e-4e77-ae-90-9c-d0-b3-e3-b3-53')
+    _iid_ = Guid('{d782928e-fe4e-4e77-ae90-9cd0b3e3b353}')
     @commethod(3)
     def OnTargetSizeChanged(self, rcNewSize: Windows.Win32.Foundation.RECT) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSListener(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a1230206-9a39-4d58-86-74-cd-b4-df-f4-e7-3b')
+    _iid_ = Guid('{a1230206-9a39-4d58-8674-cdb4dff4e73b}')
     @commethod(3)
     def GetConfiguration(self, ppPropertyBag: POINTER(Windows.Win32.System.Com.StructuredStorage.IPropertyBag_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSListenerCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a1230203-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
+    _iid_ = Guid('{a1230203-d6a7-11d8-b9fd-000bdbd1f198}')
     @commethod(3)
     def OnNewChannelConnection(self, pChannel: Windows.Win32.System.RemoteDesktop.IWTSVirtualChannel_head, data: Windows.Win32.Foundation.BSTR, pbAccept: POINTER(Windows.Win32.Foundation.BOOL), ppCallback: POINTER(Windows.Win32.System.RemoteDesktop.IWTSVirtualChannelCallback_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSPlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a1230201-1439-4e62-a4-14-19-0d-0a-c3-d4-0e')
+    _iid_ = Guid('{a1230201-1439-4e62-a414-190d0ac3d40e}')
     @commethod(3)
     def Initialize(self, pChannelMgr: Windows.Win32.System.RemoteDesktop.IWTSVirtualChannelManager_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1360,12 +1360,12 @@ class IWTSPlugin(ComPtr):
     def Terminated(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSPluginServiceProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d3e07363-087c-476c-86-a7-db-b1-5f-46-dd-b4')
+    _iid_ = Guid('{d3e07363-087c-476c-86a7-dbb15f46ddb4}')
     @commethod(3)
     def GetService(self, ServiceId: Guid, ppunkObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('23083765-9095-4648-98-bf-ef-81-c9-14-03-2d')
+    _iid_ = Guid('{23083765-9095-4648-98bf-ef81c914032d}')
     @commethod(3)
     def GetLogonErrorRedirector(self, ppLogonErrorRedir: POINTER(Windows.Win32.System.RemoteDesktop.IWTSProtocolLogonErrorRedirector_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1414,7 +1414,7 @@ class IWTSProtocolConnection(ComPtr):
     def GetShadowConnection(self, ppShadowConnection: POINTER(Windows.Win32.System.RemoteDesktop.IWTSProtocolShadowConnection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolConnectionCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('23083765-75eb-41fe-b4-fb-e0-86-24-2a-fa-0f')
+    _iid_ = Guid('{23083765-75eb-41fe-b4fb-e086242afa0f}')
     @commethod(3)
     def OnReady(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1427,7 +1427,7 @@ class IWTSProtocolConnectionCallback(ComPtr):
     def DisplayIOCtl(self, DisplayIOCtl: POINTER(Windows.Win32.System.RemoteDesktop.WTS_DISPLAY_IOCTL_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolLicenseConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('23083765-178c-4079-8e-4a-fe-a6-49-6a-4d-70')
+    _iid_ = Guid('{23083765-178c-4079-8e4a-fea6496a4d70}')
     @commethod(3)
     def RequestLicensingCapabilities(self, ppLicenseCapabilities: POINTER(Windows.Win32.System.RemoteDesktop.WTS_LICENSE_CAPABILITIES_head), pcbLicenseCapabilities: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1438,19 +1438,19 @@ class IWTSProtocolLicenseConnection(ComPtr):
     def ProtocolComplete(self, ulComplete: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolListener(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('23083765-45f0-4394-8f-69-32-b2-bc-0e-f4-ca')
+    _iid_ = Guid('{23083765-45f0-4394-8f69-32b2bc0ef4ca}')
     @commethod(3)
     def StartListen(self, pCallback: Windows.Win32.System.RemoteDesktop.IWTSProtocolListenerCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def StopListen(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolListenerCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('23083765-1a2d-4de2-97-de-4a-35-f2-60-f0-b3')
+    _iid_ = Guid('{23083765-1a2d-4de2-97de-4a35f260f0b3}')
     @commethod(3)
     def OnConnected(self, pConnection: Windows.Win32.System.RemoteDesktop.IWTSProtocolConnection_head, pCallback: POINTER(Windows.Win32.System.RemoteDesktop.IWTSProtocolConnectionCallback_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolLogonErrorRedirector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fd9b61a7-2916-4627-8d-ee-43-28-71-1a-d6-cb')
+    _iid_ = Guid('{fd9b61a7-2916-4627-8dee-4328711ad6cb}')
     @commethod(3)
     def OnBeginPainting(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1461,7 +1461,7 @@ class IWTSProtocolLogonErrorRedirector(ComPtr):
     def RedirectLogonError(self, ntsStatus: Int32, ntsSubstatus: Int32, pszCaption: Windows.Win32.Foundation.PWSTR, pszMessage: Windows.Win32.Foundation.PWSTR, uType: UInt32, pResponse: POINTER(Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f9eaf6cc-ed79-4f01-82-1d-1f-88-1b-9f-66-cc')
+    _iid_ = Guid('{f9eaf6cc-ed79-4f01-821d-1f881b9f66cc}')
     @commethod(3)
     def CreateListener(self, wszListenerName: Windows.Win32.Foundation.PWSTR, pProtocolListener: POINTER(Windows.Win32.System.RemoteDesktop.IWTSProtocolListener_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1474,14 +1474,14 @@ class IWTSProtocolManager(ComPtr):
     def NotifySessionStateChange(self, SessionId: POINTER(Windows.Win32.System.RemoteDesktop.WTS_SESSION_ID_head), EventId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolShadowCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('503a2504-aae5-4ab1-93-e0-6d-1c-4b-c6-f7-1a')
+    _iid_ = Guid('{503a2504-aae5-4ab1-93e0-6d1c4bc6f71a}')
     @commethod(3)
     def StopShadow(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def InvokeTargetShadow(self, pTargetServerName: Windows.Win32.Foundation.PWSTR, TargetSessionId: UInt32, pParam1: POINTER(Byte), Param1Size: UInt32, pParam2: POINTER(Byte), Param2Size: UInt32, pParam3: POINTER(Byte), Param3Size: UInt32, pParam4: POINTER(Byte), Param4Size: UInt32, pClientName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSProtocolShadowConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ee3b0c14-37fb-456b-ba-b3-6d-6c-d5-1e-13-bf')
+    _iid_ = Guid('{ee3b0c14-37fb-456b-bab3-6d6cd51e13bf}')
     @commethod(3)
     def Start(self, pTargetServerName: Windows.Win32.Foundation.PWSTR, TargetSessionId: UInt32, HotKeyVk: Byte, HotkeyModifiers: UInt16, pShadowCallback: Windows.Win32.System.RemoteDesktop.IWTSProtocolShadowCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1490,7 +1490,7 @@ class IWTSProtocolShadowConnection(ComPtr):
     def DoTarget(self, pParam1: POINTER(Byte), Param1Size: UInt32, pParam2: POINTER(Byte), Param2Size: UInt32, pParam3: POINTER(Byte), Param3Size: UInt32, pParam4: POINTER(Byte), Param4Size: UInt32, pClientName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSSBPlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dc44be78-b18d-4399-b2-10-64-1b-f6-7a-00-2c')
+    _iid_ = Guid('{dc44be78-b18d-4399-b210-641bf67a002c}')
     @commethod(3)
     def Initialize(self, PluginCapabilities: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1505,26 +1505,26 @@ class IWTSSBPlugin(ComPtr):
     def WTSSBX_GetUserExternalSession(self, UserName: Windows.Win32.Foundation.PWSTR, DomainName: Windows.Win32.Foundation.PWSTR, ApplicationType: Windows.Win32.Foundation.PWSTR, RedirectorInternalIP: POINTER(Windows.Win32.System.RemoteDesktop.WTSSBX_IP_ADDRESS_head), pSessionId: POINTER(UInt32), pMachineConnectInfo: POINTER(Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSVirtualChannel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a1230207-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
+    _iid_ = Guid('{a1230207-d6a7-11d8-b9fd-000bdbd1f198}')
     @commethod(3)
     def Write(self, cbSize: UInt32, pBuffer: POINTER(Byte), pReserved: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSVirtualChannelCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a1230204-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
+    _iid_ = Guid('{a1230204-d6a7-11d8-b9fd-000bdbd1f198}')
     @commethod(3)
     def OnDataReceived(self, cbSize: UInt32, pBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnClose(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWTSVirtualChannelManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a1230205-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
+    _iid_ = Guid('{a1230205-d6a7-11d8-b9fd-000bdbd1f198}')
     @commethod(3)
     def CreateListener(self, pszChannelName: Windows.Win32.Foundation.PSTR, uFlags: UInt32, pListenerCallback: Windows.Win32.System.RemoteDesktop.IWTSListenerCallback_head, ppListener: POINTER(Windows.Win32.System.RemoteDesktop.IWTSListener_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspace(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e5')
+    _iid_ = Guid('{b922bbb8-4c55-4fea-8496-beb0b44285e5}')
     @commethod(3)
     def GetWorkspaceNames(self, psaWkspNames: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1533,19 +1533,19 @@ class IWorkspace(ComPtr):
     def GetProcessId(self, pulProcessId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspace2(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.IWorkspace
-    _iid_ = Guid('96d8d7cf-783e-4286-83-4c-eb-c0-e9-5f-78-3c')
+    _iid_ = Guid('{96d8d7cf-783e-4286-834c-ebc0e95f783c}')
     @commethod(6)
     def StartRemoteApplicationEx(self, bstrWorkspaceId: Windows.Win32.Foundation.BSTR, bstrRequestingAppId: Windows.Win32.Foundation.BSTR, bstrRequestingAppFamilyName: Windows.Win32.Foundation.BSTR, bLaunchIntoImmersiveClient: Windows.Win32.Foundation.VARIANT_BOOL, bstrImmersiveClientActivationContext: Windows.Win32.Foundation.BSTR, psaParams: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspace3(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.IWorkspace2
-    _iid_ = Guid('1becbe4a-d654-423b-af-eb-be-8d-53-2c-13-c6')
+    _iid_ = Guid('{1becbe4a-d654-423b-afeb-be8d532c13c6}')
     @commethod(7)
     def GetClaimsToken2(self, bstrClaimsHint: Windows.Win32.Foundation.BSTR, bstrUserHint: Windows.Win32.Foundation.BSTR, claimCookie: UInt32, hwndCredUiParent: UInt32, rectCredUiParent: Windows.Win32.Foundation.RECT, pbstrAccessToken: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetClaimsToken(self, bstrAccessToken: Windows.Win32.Foundation.BSTR, ullAccessTokenExpiration: UInt64, bstrRefreshToken: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspaceClientExt(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('12b952f4-41ca-4f21-a8-29-a6-d0-7d-9a-16-e5')
+    _iid_ = Guid('{12b952f4-41ca-4f21-a829-a6d07d9a16e5}')
     @commethod(3)
     def GetResourceId(self, bstrWorkspaceId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1554,21 +1554,21 @@ class IWorkspaceClientExt(ComPtr):
     def IssueDisconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspaceRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e6')
+    _iid_ = Guid('{b922bbb8-4c55-4fea-8496-beb0b44285e6}')
     @commethod(3)
     def AddResource(self, pUnk: Windows.Win32.System.RemoteDesktop.IWorkspaceClientExt_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RemoveResource(self, dwCookieConnection: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspaceRegistration2(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.IWorkspaceRegistration
-    _iid_ = Guid('cf59f654-39bb-44d8-94-d0-46-35-72-89-57-e9')
+    _iid_ = Guid('{cf59f654-39bb-44d8-94d0-4635728957e9}')
     @commethod(5)
     def AddResourceEx(self, pUnk: Windows.Win32.System.RemoteDesktop.IWorkspaceClientExt_head, bstrEventLogUploadAddress: Windows.Win32.Foundation.BSTR, pdwCookie: POINTER(UInt32), correlationId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def RemoveResourceEx(self, dwCookieConnection: UInt32, correlationId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspaceReportMessage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a7c06739-500f-4e8c-99-a8-2b-d6-95-58-99-eb')
+    _iid_ = Guid('{a7c06739-500f-4e8c-99a8-2bd6955899eb}')
     @commethod(3)
     def RegisterErrorLogMessage(self, bstrMessage: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1577,7 +1577,7 @@ class IWorkspaceReportMessage(ComPtr):
     def RegisterErrorEvent(self, bstrWkspId: Windows.Win32.Foundation.BSTR, dwErrorType: UInt32, bstrErrorMessageType: Windows.Win32.Foundation.BSTR, dwErrorCode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspaceResTypeRegistry(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('1d428c79-6e2e-4351-a3-61-c0-40-1a-03-a0-ba')
+    _iid_ = Guid('{1d428c79-6e2e-4351-a361-c0401a03a0ba}')
     @commethod(7)
     def AddResourceType(self, fMachineWide: Windows.Win32.Foundation.VARIANT_BOOL, bstrFileExtension: Windows.Win32.Foundation.BSTR, bstrLauncher: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1590,7 +1590,7 @@ class IWorkspaceResTypeRegistry(ComPtr):
     def ModifyResourceType(self, fMachineWide: Windows.Win32.Foundation.VARIANT_BOOL, bstrFileExtension: Windows.Win32.Foundation.BSTR, bstrLauncher: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspaceScriptable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('efea49a2-dda5-429d-8f-42-b2-3b-92-c4-c3-47')
+    _iid_ = Guid('{efea49a2-dda5-429d-8f42-b23b92c4c347}')
     @commethod(7)
     def DisconnectWorkspace(self, bstrWorkspaceId: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1607,19 +1607,19 @@ class IWorkspaceScriptable(ComPtr):
     def DisconnectWorkspaceByFriendlyName(self, bstrWorkspaceFriendlyName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspaceScriptable2(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.IWorkspaceScriptable
-    _iid_ = Guid('efea49a2-dda5-429d-8f-42-b3-3b-a2-c4-c3-48')
+    _iid_ = Guid('{efea49a2-dda5-429d-8f42-b33ba2c4c348}')
     @commethod(14)
     def StartWorkspaceEx(self, bstrWorkspaceId: Windows.Win32.Foundation.BSTR, bstrWorkspaceFriendlyName: Windows.Win32.Foundation.BSTR, bstrRedirectorName: Windows.Win32.Foundation.BSTR, bstrUserName: Windows.Win32.Foundation.BSTR, bstrPassword: Windows.Win32.Foundation.BSTR, bstrAppContainer: Windows.Win32.Foundation.BSTR, bstrWorkspaceParams: Windows.Win32.Foundation.BSTR, lTimeout: Int32, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def ResourceDismissed(self, bstrWorkspaceId: Windows.Win32.Foundation.BSTR, bstrWorkspaceFriendlyName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWorkspaceScriptable3(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.IWorkspaceScriptable2
-    _iid_ = Guid('531e6512-2cbf-4bd2-80-a5-d9-0a-71-63-6a-9a')
+    _iid_ = Guid('{531e6512-2cbf-4bd2-80a5-d90a71636a9a}')
     @commethod(16)
     def StartWorkspaceEx2(self, bstrWorkspaceId: Windows.Win32.Foundation.BSTR, bstrWorkspaceFriendlyName: Windows.Win32.Foundation.BSTR, bstrRedirectorName: Windows.Win32.Foundation.BSTR, bstrUserName: Windows.Win32.Foundation.BSTR, bstrPassword: Windows.Win32.Foundation.BSTR, bstrAppContainer: Windows.Win32.Foundation.BSTR, bstrWorkspaceParams: Windows.Win32.Foundation.BSTR, lTimeout: Int32, lFlags: Int32, bstrEventLogUploadAddress: Windows.Win32.Foundation.BSTR, correlationId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
 class ItsPubPlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('70c04b05-f347-412b-82-2f-36-c9-9c-54-ca-45')
+    _iid_ = Guid('{70c04b05-f347-412b-822f-36c99c54ca45}')
     @commethod(3)
     def GetResourceList(self, userID: Windows.Win32.Foundation.PWSTR, pceAppListSize: POINTER(Int32), resourceList: POINTER(POINTER(Windows.Win32.System.RemoteDesktop.pluginResource_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1634,7 +1634,7 @@ class ItsPubPlugin(ComPtr):
     def ResolveResource(self, resourceType: POINTER(UInt32), resourceLocation: Windows.Win32.Foundation.PWSTR, endPointName: Windows.Win32.Foundation.PWSTR, userID: Windows.Win32.Foundation.PWSTR, alias: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ItsPubPlugin2(ComPtr):
     extends: Windows.Win32.System.RemoteDesktop.ItsPubPlugin
-    _iid_ = Guid('fa4ce418-aad7-4ec6-ba-d1-0a-32-1b-a4-65-d5')
+    _iid_ = Guid('{fa4ce418-aad7-4ec6-bad1-0a321ba465d5}')
     @commethod(9)
     def GetResource2List(self, userID: Windows.Win32.Foundation.PWSTR, pceAppListSize: POINTER(Int32), resourceList: POINTER(POINTER(Windows.Win32.System.RemoteDesktop.pluginResource2_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -1849,7 +1849,7 @@ STATE_RESET: TSSESSION_STATE = 7
 STATE_DOWN: TSSESSION_STATE = 8
 STATE_INIT: TSSESSION_STATE = 9
 STATE_MAX: TSSESSION_STATE = 10
-TSUserExInterfaces = Guid('0910dd01-df8c-11d1-ae-27-00-c0-4f-a3-58-13')
+TSUserExInterfaces = Guid('{0910dd01-df8c-11d1-ae27-00c04fa35813}')
 TS_SB_SORT_BY = Int32
 TS_SB_SORT_BY_NONE: TS_SB_SORT_BY = 0
 TS_SB_SORT_BY_NAME: TS_SB_SORT_BY = 1
@@ -2701,10 +2701,10 @@ class WTS_VALIDATION_INFORMATIONW(EasyCastStructure):
 WTS_VIRTUAL_CLASS = Int32
 WTS_VIRTUAL_CLASS_WTSVirtualClientData: WTS_VIRTUAL_CLASS = 0
 WTS_VIRTUAL_CLASS_WTSVirtualFileHandle: WTS_VIRTUAL_CLASS = 1
-Workspace = Guid('4f1dfca6-3aad-48e1-84-06-4b-c2-1a-50-1d-7c')
+Workspace = Guid('{4f1dfca6-3aad-48e1-8406-4bc21a501d7c}')
 class _ITSWkspEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e9')
+    _iid_ = Guid('{b922bbb8-4c55-4fea-8496-beb0b44285e9}')
 class pluginResource(EasyCastStructure):
     alias: Char * 256
     name: Char * 256

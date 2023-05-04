@@ -193,94 +193,94 @@ AUDIO_MAX_FRAMERATE: Double = 384000
 AUDIO_MIN_CHANNELS: UInt32 = 1
 AUDIO_MAX_CHANNELS: UInt32 = 4096
 def PKEY_FX_Association():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=0)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=0)
 def PKEY_FX_PreMixEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=1)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=1)
 def PKEY_FX_PostMixEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=2)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=2)
 def PKEY_FX_UserInterfaceClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=3)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=3)
 def PKEY_FX_FriendlyName():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=4)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=4)
 def PKEY_FX_StreamEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=5)
 def PKEY_FX_ModeEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=6)
 def PKEY_FX_EndpointEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=7)
 def PKEY_FX_KeywordDetector_StreamEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=8)
 def PKEY_FX_KeywordDetector_ModeEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=9)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=9)
 def PKEY_FX_KeywordDetector_EndpointEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=10)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=10)
 def PKEY_FX_Offload_StreamEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=11)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=11)
 def PKEY_FX_Offload_ModeEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=12)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=12)
 def PKEY_CompositeFX_StreamEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=13)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=13)
 def PKEY_CompositeFX_ModeEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=14)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=14)
 def PKEY_CompositeFX_EndpointEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=15)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=15)
 def PKEY_CompositeFX_KeywordDetector_StreamEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=16)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=16)
 def PKEY_CompositeFX_KeywordDetector_ModeEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=17)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=17)
 def PKEY_CompositeFX_KeywordDetector_EndpointEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=18)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=18)
 def PKEY_CompositeFX_Offload_StreamEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=19)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=19)
 def PKEY_CompositeFX_Offload_ModeEffectClsid():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=20)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=20)
 def PKEY_FX_SupportAppLauncher():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=21)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=21)
 def PKEY_FX_SupportedFormats():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=22)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=22)
 def PKEY_FX_Enumerator():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=23)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=23)
 def PKEY_FX_VersionMajor():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=24)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=24)
 def PKEY_FX_VersionMinor():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=25)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=25)
 def PKEY_FX_Author():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=26)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=26)
 def PKEY_FX_ObjectId():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=27)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=27)
 def PKEY_FX_State():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=28)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=28)
 def PKEY_FX_EffectPackSchema_Version():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=29)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=29)
 def PKEY_FX_ApplyToBluetooth():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=30)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=30)
 def PKEY_FX_ApplyToUsb():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=31)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=31)
 def PKEY_FX_ApplyToRender():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=32)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=32)
 def PKEY_FX_ApplyToCapture():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d04e05a6-594b-4fb6-a8-0d-01-af-5e-ed-7d-1d'), pid=33)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d04e05a6-594b-4fb6-a80d-01af5eed7d1d}'), pid=33)
 def PKEY_SFX_ProcessingModes_Supported_For_Streaming():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=5)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=5)
 def PKEY_MFX_ProcessingModes_Supported_For_Streaming():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=6)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=6)
 def PKEY_EFX_ProcessingModes_Supported_For_Streaming():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=7)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=7)
 def PKEY_SFX_KeywordDetector_ProcessingModes_Supported_For_Streaming():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=8)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=8)
 def PKEY_MFX_KeywordDetector_ProcessingModes_Supported_For_Streaming():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=9)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=9)
 def PKEY_EFX_KeywordDetector_ProcessingModes_Supported_For_Streaming():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=10)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=10)
 def PKEY_SFX_Offload_ProcessingModes_Supported_For_Streaming():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=11)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=11)
 def PKEY_MFX_Offload_ProcessingModes_Supported_For_Streaming():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=12)
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=12)
 def PKEY_APO_SWFallback_ProcessingModes():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('d3993a3f-99c2-4402-b5-ec-a9-2a-03-67-66-4b'), pid=13)
-PKEY_FX_EffectPack_Schema_V1: Guid = Guid('7abf23d9-727e-4d0b-86-a3-dd-50-1d-26-00-01')
-SID_AudioProcessingObjectRTQueue: Guid = Guid('458c1a1f-6899-4c12-99-ac-e2-e6-ac-25-31-04')
-SID_AudioProcessingObjectLoggingService: Guid = Guid('8b8008af-09f9-456e-a1-73-bd-b5-84-99-bc-e7')
+    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d3993a3f-99c2-4402-b5ec-a92a0367664b}'), pid=13)
+PKEY_FX_EffectPack_Schema_V1: Guid = Guid('{7abf23d9-727e-4d0b-86a3-dd501d260001}')
+SID_AudioProcessingObjectRTQueue: Guid = Guid('{458c1a1f-6899-4c12-99ac-e2e6ac253104}')
+SID_AudioProcessingObjectLoggingService: Guid = Guid('{8b8008af-09f9-456e-a173-bdb58499bce7}')
 AUDIOMEDIATYPE_EQUAL_FORMAT_TYPES: UInt32 = 2
 AUDIOMEDIATYPE_EQUAL_FORMAT_DATA: UInt32 = 4
 AUDIOMEDIATYPE_EQUAL_FORMAT_USER_DATA: UInt32 = 8
@@ -303,10 +303,10 @@ EAudioConstriction_eAudioConstrictionMute: EAudioConstriction = 4
 def FNAPONOTIFICATIONCALLBACK(pProperties: POINTER(Windows.Win32.Media.Audio.Apo.APO_REG_PROPERTIES_head), pvRefData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class IApoAcousticEchoCancellation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('25385759-3236-4101-a9-43-25-69-3d-fb-5d-2d')
+    _iid_ = Guid('{25385759-3236-4101-a943-25693dfb5d2d}')
 class IApoAuxiliaryInputConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4ceb0aab-fa19-48ed-a8-57-87-77-1a-e1-b7-68')
+    _iid_ = Guid('{4ceb0aab-fa19-48ed-a857-87771ae1b768}')
     @commethod(3)
     def AddAuxiliaryInput(self, dwInputId: UInt32, cbDataSize: UInt32, pbyData: POINTER(Byte), pInputConnection: POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_DESCRIPTOR_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -315,17 +315,17 @@ class IApoAuxiliaryInputConfiguration(ComPtr):
     def IsInputFormatSupported(self, pRequestedInputFormat: Windows.Win32.Media.Audio.Apo.IAudioMediaType_head, ppSupportedInputFormat: POINTER(Windows.Win32.Media.Audio.Apo.IAudioMediaType_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IApoAuxiliaryInputRT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f851809c-c177-49a0-b1-b2-b6-6f-01-79-43-ab')
+    _iid_ = Guid('{f851809c-c177-49a0-b1b2-b66f017943ab}')
     @commethod(3)
     def AcceptInput(self, dwInputId: UInt32, pInputConnection: POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head)) -> Void: ...
 class IAudioDeviceModulesClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('98f37dac-d0b6-49f5-89-6a-aa-4d-16-9a-4c-48')
+    _iid_ = Guid('{98f37dac-d0b6-49f5-896a-aa4d169a4c48}')
     @commethod(3)
     def SetAudioDeviceModulesManager(self, pAudioDeviceModulesManager: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioMediaType(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4e997f73-b71f-4798-87-3b-ed-7d-fc-f1-5b-4d')
+    _iid_ = Guid('{4e997f73-b71f-4798-873b-ed7dfcf15b4d}')
     @commethod(3)
     def IsCompressedFormat(self, pfCompressed: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -336,7 +336,7 @@ class IAudioMediaType(ComPtr):
     def GetUncompressedAudioFormat(self, pUncompressedAudioFormat: POINTER(Windows.Win32.Media.Audio.Apo.UNCOMPRESSEDAUDIOFORMAT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioProcessingObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fd7f2b29-24d0-4b5c-b1-77-59-2c-39-f9-ca-10')
+    _iid_ = Guid('{fd7f2b29-24d0-4b5c-b177-592c39f9ca10}')
     @commethod(3)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -353,31 +353,31 @@ class IAudioProcessingObject(ComPtr):
     def GetInputChannelCount(self, pu32ChannelCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioProcessingObjectConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0e5ed805-aba6-49c3-8f-9a-2b-8c-88-9c-4f-a8')
+    _iid_ = Guid('{0e5ed805-aba6-49c3-8f9a-2b8c889c4fa8}')
     @commethod(3)
     def LockForProcess(self, u32NumInputConnections: UInt32, ppInputConnections: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_DESCRIPTOR_head)), u32NumOutputConnections: UInt32, ppOutputConnections: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_DESCRIPTOR_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnlockForProcess(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioProcessingObjectLoggingService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('698f0107-1745-4708-95-a5-d8-44-78-a6-2a-65')
+    _iid_ = Guid('{698f0107-1745-4708-95a5-d84478a62a65}')
     @commethod(3)
     def ApoLog(self, level: Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL, format: Windows.Win32.Foundation.PWSTR) -> Void: ...
 class IAudioProcessingObjectNotifications(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('56b0c76f-02fd-4b21-a5-2e-9f-82-19-fc-86-e4')
+    _iid_ = Guid('{56b0c76f-02fd-4b21-a52e-9f8219fc86e4}')
     @commethod(3)
     def GetApoNotificationRegistrationInfo(self, apoNotifications: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_DESCRIPTOR_head)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def HandleNotification(self, apoNotification: POINTER(Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_head)) -> Void: ...
 class IAudioProcessingObjectNotifications2(ComPtr):
     extends: Windows.Win32.Media.Audio.Apo.IAudioProcessingObjectNotifications
-    _iid_ = Guid('ca2cfbde-a9d6-4eb0-bc-95-c4-d0-26-b3-80-f0')
+    _iid_ = Guid('{ca2cfbde-a9d6-4eb0-bc95-c4d026b380f0}')
     @commethod(5)
     def GetApoNotificationRegistrationInfo2(self, maxApoNotificationTypeSupported: Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE, apoNotifications: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_DESCRIPTOR_head)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioProcessingObjectRT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9e1d6a6d-ddbc-4e95-a4-c7-ad-64-ba-37-84-6c')
+    _iid_ = Guid('{9e1d6a6d-ddbc-4e95-a4c7-ad64ba37846c}')
     @commethod(3)
     def APOProcess(self, u32NumInputConnections: UInt32, ppInputConnections: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head)), u32NumOutputConnections: UInt32, ppOutputConnections: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head))) -> Void: ...
     @commethod(4)
@@ -386,34 +386,34 @@ class IAudioProcessingObjectRT(ComPtr):
     def CalcOutputFrames(self, u32InputFrameCount: UInt32) -> UInt32: ...
 class IAudioProcessingObjectRTQueueService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('acd65e2f-955b-4b57-b9-bf-ac-29-7b-b7-52-c9')
+    _iid_ = Guid('{acd65e2f-955b-4b57-b9bf-ac297bb752c9}')
     @commethod(3)
     def GetRealTimeWorkQueue(self, workQueueId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioProcessingObjectVBR(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7ba1db8f-78ad-49cd-95-91-f7-9d-80-a1-7c-81')
+    _iid_ = Guid('{7ba1db8f-78ad-49cd-9591-f79d80a17c81}')
     @commethod(3)
     def CalcMaxInputFrames(self, u32MaxOutputFrameCount: UInt32, pu32InputFrameCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CalcMaxOutputFrames(self, u32MaxInputFrameCount: UInt32, pu32OutputFrameCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioSystemEffects(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5fa00f27-add6-499a-8a-9d-6b-98-52-1f-a7-5b')
+    _iid_ = Guid('{5fa00f27-add6-499a-8a9d-6b98521fa75b}')
 class IAudioSystemEffects2(ComPtr):
     extends: Windows.Win32.Media.Audio.Apo.IAudioSystemEffects
-    _iid_ = Guid('bafe99d2-7436-44ce-9e-0e-4d-89-af-bf-ff-56')
+    _iid_ = Guid('{bafe99d2-7436-44ce-9e0e-4d89afbfff56}')
     @commethod(3)
     def GetEffectsList(self, ppEffectsIds: POINTER(POINTER(Guid)), pcEffects: POINTER(UInt32), Event: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioSystemEffects3(ComPtr):
     extends: Windows.Win32.Media.Audio.Apo.IAudioSystemEffects2
-    _iid_ = Guid('c58b31cd-fc6a-4255-bc-1f-ad-29-bb-0a-4a-17')
+    _iid_ = Guid('{c58b31cd-fc6a-4255-bc1f-ad29bb0a4a17}')
     @commethod(4)
     def GetControllableSystemEffectsList(self, effects: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_head)), numEffects: POINTER(UInt32), event: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetAudioSystemEffectState(self, effectId: Guid, state: Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioSystemEffectsCustomFormats(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b1176e34-bb7f-4f05-be-bd-1b-18-a5-34-e0-97')
+    _iid_ = Guid('{b1176e34-bb7f-4f05-bebd-1b18a534e097}')
     @commethod(3)
     def GetFormatCount(self, pcFormats: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -17,17 +17,17 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWebApplicationActivation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bcdcd0de-330e-481b-b8-43-48-98-a6-a8-eb-ac')
+    _iid_ = Guid('{bcdcd0de-330e-481b-b843-4898a6a8ebac}')
     @commethod(3)
     def CancelPendingActivation(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebApplicationAuthoringMode(ComPtr):
     extends: Windows.Win32.System.Com.IServiceProvider
-    _iid_ = Guid('720aea93-1964-4db0-b0-05-29-eb-9e-2b-18-a9')
+    _iid_ = Guid('{720aea93-1964-4db0-b005-29eb9e2b18a9}')
     @commethod(4)
     def get_AuthoringClientBinary(self, designModeDllPath: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebApplicationHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cecbd2c3-a3a5-4749-96-81-20-e9-16-1c-67-94')
+    _iid_ = Guid('{cecbd2c3-a3a5-4749-9681-20e9161c6794}')
     @commethod(3)
     def get_HWND(self, hwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -40,7 +40,7 @@ class IWebApplicationHost(ComPtr):
     def Unadvise(self, cookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebApplicationNavigationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c22615d2-d318-4da2-84-22-1f-ca-f7-7b-10-e4')
+    _iid_ = Guid('{c22615d2-d318-4da2-8422-1fcaf77b10e4}')
     @commethod(3)
     def BeforeNavigate(self, htmlWindow: Windows.Win32.Web.MsHtml.IHTMLWindow2_head, url: Windows.Win32.Foundation.PWSTR, navigationFlags: UInt32, targetFrameName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -55,19 +55,19 @@ class IWebApplicationNavigationEvents(ComPtr):
     def DownloadComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebApplicationScriptEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7c3f6998-1567-4bba-b5-2b-48-d3-21-41-d6-13')
+    _iid_ = Guid('{7c3f6998-1567-4bba-b52b-48d32141d613}')
     @commethod(3)
     def BeforeScriptExecute(self, htmlWindow: Windows.Win32.Web.MsHtml.IHTMLWindow2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ScriptError(self, htmlWindow: Windows.Win32.Web.MsHtml.IHTMLWindow2_head, scriptError: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptError_head, url: Windows.Win32.Foundation.PWSTR, errorHandled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebApplicationUIEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5b2b3f99-328c-41d5-a6-f7-74-83-ed-8e-71-dd')
+    _iid_ = Guid('{5b2b3f99-328c-41d5-a6f7-7483ed8e71dd}')
     @commethod(3)
     def SecurityProblem(self, securityProblem: UInt32, result: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebApplicationUpdateEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3e59e6b7-c652-4daf-ad-5e-16-fe-b3-50-cd-e3')
+    _iid_ = Guid('{3e59e6b7-c652-4daf-ad5e-16feb350cde3}')
     @commethod(3)
     def OnPaint(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

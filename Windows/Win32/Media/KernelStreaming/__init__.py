@@ -39,8 +39,8 @@ class ALLOCATOR_PROPERTIES_EX(EasyCastStructure):
     NextSegments: POINTER(Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head)
     InsideFactors: UInt32
     NumberPins: UInt32
-APO_CLASS_UUID = Guid('5989fce8-9cd0-467d-8a-6a-54-19-e3-15-29-d4')
-AUDIOENDPOINT_CLASS_UUID = Guid('c166523c-fe0c-4a94-a5-86-f1-a8-0c-fb-bf-3e')
+APO_CLASS_UUID = Guid('{5989fce8-9cd0-467d-8a6a-5419e31529d4}')
+AUDIOENDPOINT_CLASS_UUID = Guid('{c166523c-fe0c-4a94-a586-f1a80cfbbf3e}')
 AUDIOPOSTURE_ORIENTATION = Int32
 AUDIOPOSTURE_ORIENTATION_NOTROTATED: AUDIOPOSTURE_ORIENTATION = 0
 AUDIOPOSTURE_ORIENTATION_ROTATED90DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 1
@@ -52,33 +52,33 @@ class AUDIORESOURCEMANAGEMENT_RESOURCEGROUP(EasyCastStructure):
 AUDIO_CURVE_TYPE = Int32
 AUDIO_CURVE_TYPE_NONE: AUDIO_CURVE_TYPE = 0
 AUDIO_CURVE_TYPE_WINDOWS_FADE: AUDIO_CURVE_TYPE = 1
-AUDIO_EFFECT_TYPE_ACOUSTIC_ECHO_CANCELLATION = Guid('6f64adbe-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_AUTOMATIC_GAIN_CONTROL = Guid('6f64adc0-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_BASS_BOOST = Guid('6f64adc5-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_BASS_MANAGEMENT = Guid('6f64adca-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_BEAMFORMING = Guid('6f64adc1-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_CONSTANT_TONE_REMOVAL = Guid('6f64adc2-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_DEEP_NOISE_SUPPRESSION = Guid('6f64add0-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_DYNAMIC_RANGE_COMPRESSION = Guid('6f64adce-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_ENVIRONMENTAL_EFFECTS = Guid('6f64adcb-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_EQUALIZER = Guid('6f64adc3-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_FAR_FIELD_BEAMFORMING = Guid('6f64adcf-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_LOUDNESS_EQUALIZER = Guid('6f64adc4-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_NOISE_SUPPRESSION = Guid('6f64adbf-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_ROOM_CORRECTION = Guid('6f64adc9-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_SPEAKER_COMPENSATION = Guid('6f64adcd-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_SPEAKER_FILL = Guid('6f64adc8-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_SPEAKER_PROTECTION = Guid('6f64adcc-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_VIRTUAL_HEADPHONES = Guid('6f64adc7-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_VIRTUAL_SURROUND = Guid('6f64adc6-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_SIGNALPROCESSINGMODE_COMMUNICATIONS = Guid('98951333-b9cd-48b1-a0-a3-ff-40-68-2d-73-f7')
-AUDIO_SIGNALPROCESSINGMODE_DEFAULT = Guid('c18e2f7e-933d-4965-b7-d1-1e-ef-22-8d-2a-f3')
-AUDIO_SIGNALPROCESSINGMODE_FAR_FIELD_SPEECH = Guid('28941cba-3be6-4a78-9a-76-30-fd-91-55-9b-64')
-AUDIO_SIGNALPROCESSINGMODE_MEDIA = Guid('4780004e-7133-41d8-8c-74-66-0d-ad-d2-c0-ee')
-AUDIO_SIGNALPROCESSINGMODE_MOVIE = Guid('b26feb0d-ec94-477c-94-94-d1-ab-8e-75-3f-6e')
-AUDIO_SIGNALPROCESSINGMODE_NOTIFICATION = Guid('9cf2a70b-f377-403b-bd-6b-36-08-63-e0-35-5c')
-AUDIO_SIGNALPROCESSINGMODE_RAW = Guid('9e90ea20-b493-4fd1-a1-a8-7e-13-61-a9-56-cf')
-AUDIO_SIGNALPROCESSINGMODE_SPEECH = Guid('fc1cfc9b-b9d6-4cfa-b5-e0-4b-b2-16-68-78-b2')
+AUDIO_EFFECT_TYPE_ACOUSTIC_ECHO_CANCELLATION = Guid('{6f64adbe-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_AUTOMATIC_GAIN_CONTROL = Guid('{6f64adc0-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_BASS_BOOST = Guid('{6f64adc5-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_BASS_MANAGEMENT = Guid('{6f64adca-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_BEAMFORMING = Guid('{6f64adc1-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_CONSTANT_TONE_REMOVAL = Guid('{6f64adc2-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_DEEP_NOISE_SUPPRESSION = Guid('{6f64add0-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_DYNAMIC_RANGE_COMPRESSION = Guid('{6f64adce-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_ENVIRONMENTAL_EFFECTS = Guid('{6f64adcb-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_EQUALIZER = Guid('{6f64adc3-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_FAR_FIELD_BEAMFORMING = Guid('{6f64adcf-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_LOUDNESS_EQUALIZER = Guid('{6f64adc4-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_NOISE_SUPPRESSION = Guid('{6f64adbf-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_ROOM_CORRECTION = Guid('{6f64adc9-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_SPEAKER_COMPENSATION = Guid('{6f64adcd-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_SPEAKER_FILL = Guid('{6f64adc8-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_SPEAKER_PROTECTION = Guid('{6f64adcc-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_VIRTUAL_HEADPHONES = Guid('{6f64adc7-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_EFFECT_TYPE_VIRTUAL_SURROUND = Guid('{6f64adc6-8211-11e2-8c70-2c27d7f001fa}')
+AUDIO_SIGNALPROCESSINGMODE_COMMUNICATIONS = Guid('{98951333-b9cd-48b1-a0a3-ff40682d73f7}')
+AUDIO_SIGNALPROCESSINGMODE_DEFAULT = Guid('{c18e2f7e-933d-4965-b7d1-1eef228d2af3}')
+AUDIO_SIGNALPROCESSINGMODE_FAR_FIELD_SPEECH = Guid('{28941cba-3be6-4a78-9a76-30fd91559b64}')
+AUDIO_SIGNALPROCESSINGMODE_MEDIA = Guid('{4780004e-7133-41d8-8c74-660dadd2c0ee}')
+AUDIO_SIGNALPROCESSINGMODE_MOVIE = Guid('{b26feb0d-ec94-477c-9494-d1ab8e753f6e}')
+AUDIO_SIGNALPROCESSINGMODE_NOTIFICATION = Guid('{9cf2a70b-f377-403b-bd6b-360863e0355c}')
+AUDIO_SIGNALPROCESSINGMODE_RAW = Guid('{9e90ea20-b493-4fd1-a1a8-7e1361a956cf}')
+AUDIO_SIGNALPROCESSINGMODE_SPEECH = Guid('{fc1cfc9b-b9d6-4cfa-b5e0-4bb2166878b2}')
 IOCTL_KS_PROPERTY: UInt32 = 3080195
 IOCTL_KS_ENABLE_EVENT: UInt32 = 3080199
 IOCTL_KS_DISABLE_EVENT: UInt32 = 3080203
@@ -266,11 +266,11 @@ KSDSOUND_BUFFER_CTRL_PAN: UInt32 = 4
 KSDSOUND_BUFFER_CTRL_VOLUME: UInt32 = 8
 KSDSOUND_BUFFER_CTRL_POSITIONNOTIFY: UInt32 = 16
 def DEVPKEY_KsAudio_PacketSize_Constraints():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('13e004d6-b066-43bd-91-3b-a4-15-cd-13-da-87'), pid=2)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=2)
 def DEVPKEY_KsAudio_Controller_DeviceInterface_Path():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('13e004d6-b066-43bd-91-3b-a4-15-cd-13-da-87'), pid=3)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=3)
 def DEVPKEY_KsAudio_PacketSize_Constraints2():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('9404f781-7191-409b-8b-0b-80-bf-6e-c2-29-ae'), pid=2)
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{9404f781-7191-409b-8b0b-80bf6ec229ae}'), pid=2)
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_HEADPHONE: Int32 = -1
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_MIN: UInt32 = 5
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_NARROW: UInt32 = 10
@@ -752,8 +752,8 @@ def KsGetMultiplePinFactoryItems(FilterHandle: Windows.Win32.Foundation.HANDLE, 
 def KsGetMediaTypeCount(FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, MediaTypeCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
 def KsGetMediaType(Position: Int32, AmMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head), FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-BLUETOOTHLE_MIDI_SERVICE_UUID = Guid('03b80e5a-ede8-4b33-a7-51-6c-e3-4e-c4-c7-00')
-BLUETOOTH_MIDI_DATAIO_CHARACTERISTIC = Guid('7772e5db-3868-4112-a1-a9-f2-66-9d-10-6b-f3')
+BLUETOOTHLE_MIDI_SERVICE_UUID = Guid('{03b80e5a-ede8-4b33-a751-6ce34ec4c700}')
+BLUETOOTH_MIDI_DATAIO_CHARACTERISTIC = Guid('{7772e5db-3868-4112-a1a9-f2669d106bf3}')
 CAPTURE_MEMORY_ALLOCATION_FLAGS = Int32
 KS_CAPTURE_ALLOC_INVALID: CAPTURE_MEMORY_ALLOCATION_FLAGS = 0
 KS_CAPTURE_ALLOC_SYSTEM: CAPTURE_MEMORY_ALLOCATION_FLAGS = 1
@@ -769,8 +769,8 @@ class CC_HW_FIELD(EasyCastStructure):
     fieldFlags: UInt32
     PictureNumber: Int64
     Lines: Windows.Win32.Media.KernelStreaming.CC_BYTE_PAIR * 12
-CLSID_KsIBasicAudioInterfaceHandler = Guid('b9f8ac3e-0f71-11d2-b7-2c-00-c0-4f-b6-bd-3d')
-CLSID_Proxy = Guid('17cca71b-ecd7-11d0-b9-08-00-a0-c9-22-31-96')
+CLSID_KsIBasicAudioInterfaceHandler = Guid('{b9f8ac3e-0f71-11d2-b72c-00c04fb6bd3d}')
+CLSID_Proxy = Guid('{17cca71b-ecd7-11d0-b908-00a0c9223196}')
 CONSTRICTOR_OPTION = Int32
 CONSTRICTOR_OPTION_DISABLE: CONSTRICTOR_OPTION = 0
 CONSTRICTOR_OPTION_MUTE: CONSTRICTOR_OPTION = 1
@@ -856,10 +856,10 @@ EPxcPortConnection_ePortConnJack: EPxcPortConnection = 0
 EPxcPortConnection_ePortConnIntegratedDevice: EPxcPortConnection = 1
 EPxcPortConnection_ePortConnBothIntegratedAndJack: EPxcPortConnection = 2
 EPxcPortConnection_ePortConnUnknown: EPxcPortConnection = 3
-EVENTSETID_CROSSBAR = Guid('6a2e0641-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-EVENTSETID_TUNER = Guid('6a2e0606-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-EVENTSETID_VIDCAP_CAMERACONTROL_REGION_OF_INTEREST = Guid('2fdffc5d-c732-4ba6-b5-df-6b-4d-7f-c8-8b-8b')
-EVENTSETID_VIDEODECODER = Guid('6a2e0621-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
+EVENTSETID_CROSSBAR = Guid('{6a2e0641-28e4-11d0-a18c-00a0c9118956}')
+EVENTSETID_TUNER = Guid('{6a2e0606-28e4-11d0-a18c-00a0c9118956}')
+EVENTSETID_VIDCAP_CAMERACONTROL_REGION_OF_INTEREST = Guid('{2fdffc5d-c732-4ba6-b5df-6b4d7fc88b8b}')
+EVENTSETID_VIDEODECODER = Guid('{6a2e0621-28e4-11d0-a18c-00a0c9118956}')
 FRAMING_CACHE_OPS = Int32
 Framing_Cache_Update: FRAMING_CACHE_OPS = 0
 Framing_Cache_ReadLast: FRAMING_CACHE_OPS = 1
@@ -870,17 +870,17 @@ FramingProp_Uninitialized: FRAMING_PROP = 0
 FramingProp_None: FRAMING_PROP = 1
 FramingProp_Old: FRAMING_PROP = 2
 FramingProp_Ex: FRAMING_PROP = 3
-GUID_NULL = Guid('00000000-0000-0000-00-00-00-00-00-00-00-00')
+GUID_NULL = Guid('{00000000-0000-0000-0000-000000000000}')
 class IKsAggregateControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7f40eac0-3947-11d2-87-4e-00-a0-c9-22-31-96')
+    _iid_ = Guid('{7f40eac0-3947-11d2-874e-00a0c9223196}')
     @commethod(3)
     def KsAddAggregate(self, AggregateClass: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def KsRemoveAggregate(self, AggregateClass: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsAllocator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8da64899-c0d9-11d0-84-13-00-00-f8-22-fe-8a')
+    _iid_ = Guid('{8da64899-c0d9-11d0-8413-0000f822fe8a}')
     @commethod(3)
     def KsGetAllocatorHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
     @commethod(4)
@@ -891,7 +891,7 @@ class IKsAllocator(ComPtr):
     def KsSetAllocatorMode(self, Mode: Windows.Win32.Media.KernelStreaming.KSALLOCATORMODE) -> Void: ...
 class IKsAllocatorEx(ComPtr):
     extends: Windows.Win32.Media.KernelStreaming.IKsAllocator
-    _iid_ = Guid('091bb63a-603f-11d1-b0-67-00-a0-c9-06-28-02')
+    _iid_ = Guid('{091bb63a-603f-11d1-b067-00a0c9062802}')
     @commethod(7)
     def KsGetProperties(self) -> POINTER(Windows.Win32.Media.KernelStreaming.ALLOCATOR_PROPERTIES_EX_head): ...
     @commethod(8)
@@ -902,7 +902,7 @@ class IKsAllocatorEx(ComPtr):
     def KsCreateAllocatorAndGetHandle(self, KsPin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Windows.Win32.Foundation.HANDLE: ...
 class IKsClockPropertySet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5c5cbd84-e755-11d0-ac-18-00-a0-c9-22-31-96')
+    _iid_ = Guid('{5c5cbd84-e755-11d0-ac18-00a0c9223196}')
     @commethod(3)
     def KsGetTime(self, Time: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -925,7 +925,7 @@ class IKsClockPropertySet(ComPtr):
     def KsGetState(self, State: POINTER(Windows.Win32.Media.KernelStreaming.KSSTATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('28f54685-06fd-11d2-b2-7a-00-a0-c9-22-31-96')
+    _iid_ = Guid('{28f54685-06fd-11d2-b27a-00a0c9223196}')
     @commethod(3)
     def KsProperty(self, Property: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), PropertyLength: UInt32, PropertyData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -934,12 +934,12 @@ class IKsControl(ComPtr):
     def KsEvent(self, Event: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), EventLength: UInt32, EventData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsDataTypeCompletion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('827d1a0e-0f73-11d2-b2-7a-00-a0-c9-22-31-96')
+    _iid_ = Guid('{827d1a0e-0f73-11d2-b27a-00a0c9223196}')
     @commethod(3)
     def KsCompleteMediaType(self, FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, AmMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsDataTypeHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('5ffbaa02-49a3-11d0-9f-36-00-aa-00-a2-16-a1')
+    _iid_ = Guid('{5ffbaa02-49a3-11d0-9f36-00aa00a216a1}')
     @commethod(3)
     def KsCompleteIoOperation(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: c_void_p, IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION, Cancelled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -952,14 +952,14 @@ class IKsDataTypeHandler(ComPtr):
     def KsSetMediaType(self, AmMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsFormatSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3cb4a69d-bb6f-4d2b-95-b7-45-2d-2c-15-5d-b5')
+    _iid_ = Guid('{3cb4a69d-bb6f-4d2b-95b7-452d2c155db5}')
     @commethod(3)
     def IsFormatSupported(self, pKsFormat: POINTER(Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head), cbFormat: UInt32, pbSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDevicePreferredFormat(self, ppKsFormat: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsInterfaceHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d3abc7e0-9a61-11d0-a4-0d-00-a0-c9-22-31-96')
+    _iid_ = Guid('{d3abc7e0-9a61-11d0-a40d-00a0c9223196}')
     @commethod(3)
     def KsSetPin(self, KsPin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -968,48 +968,48 @@ class IKsInterfaceHandler(ComPtr):
     def KsCompleteIo(self, StreamSegment: POINTER(Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackContainerId(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c99af463-d629-4ec4-8c-00-e5-4d-68-15-42-48')
+    _iid_ = Guid('{c99af463-d629-4ec4-8c00-e54d68154248}')
     @commethod(3)
     def GetJackContainerId(self, pJackContainerId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackDescription(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4509f757-2d46-4637-8e-62-ce-7d-b9-44-f5-7b')
+    _iid_ = Guid('{4509f757-2d46-4637-8e62-ce7db944f57b}')
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJackDescription(self, nJack: UInt32, pDescription: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackDescription2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('478f3a9b-e0c9-4827-92-28-6f-55-05-ff-e7-6a')
+    _iid_ = Guid('{478f3a9b-e0c9-4827-9228-6f5505ffe76a}')
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJackDescription2(self, nJack: UInt32, pDescription2: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackDescription3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e3f6778b-6660-4cc8-a2-91-ec-c4-19-2d-99-67')
+    _iid_ = Guid('{e3f6778b-6660-4cc8-a291-ecc4192d9967}')
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJackDescription3(self, nJack: UInt32, pDescription3: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION3_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackSinkInformation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d9bd72ed-290f-4581-9f-f3-61-02-7a-8f-e5-32')
+    _iid_ = Guid('{d9bd72ed-290f-4581-9ff3-61027a8fe532}')
     @commethod(3)
     def GetJackSinkInformation(self, pJackSinkInformation: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_SINK_INFORMATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsNotifyEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('412bd695-f84b-46c1-ac-73-54-19-6d-bc-8f-a7')
+    _iid_ = Guid('{412bd695-f84b-46c1-ac73-54196dbc8fa7}')
     @commethod(3)
     def KsNotifyEvent(self, Event: UInt32, lParam1: UIntPtr, lParam2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('423c13a2-2070-11d0-9e-f7-00-aa-00-a2-16-a1')
+    _iid_ = Guid('{423c13a2-2070-11d0-9ef7-00aa00a216a1}')
     @commethod(3)
     def KsGetObjectHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
 class IKsPin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b61178d1-a2d9-11cf-9e-53-00-aa-00-a2-16-a1')
+    _iid_ = Guid('{b61178d1-a2d9-11cf-9e53-00aa00a216a1}')
     @commethod(3)
     def KsQueryMediums(self, MediumList: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1038,17 +1038,17 @@ class IKsPin(ComPtr):
     def KsQualityNotify(self, Proportion: UInt32, TimeDelta: Int64) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsPinEx(ComPtr):
     extends: Windows.Win32.Media.KernelStreaming.IKsPin
-    _iid_ = Guid('7bb38260-d19c-11d2-b3-8a-00-a0-c9-5e-c2-2e')
+    _iid_ = Guid('{7bb38260-d19c-11d2-b38a-00a0c95ec22e}')
     @commethod(16)
     def KsNotifyError(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, hr: Windows.Win32.Foundation.HRESULT) -> Void: ...
 class IKsPinFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cd5ebe6b-8b6e-11d1-8a-e0-00-a0-c9-22-31-96')
+    _iid_ = Guid('{cd5ebe6b-8b6e-11d1-8ae0-00a0c9223196}')
     @commethod(3)
     def KsPinFactory(self, PinFactory: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsPinPipe(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e539cd90-a8b4-11d1-81-89-00-a0-c9-06-28-02')
+    _iid_ = Guid('{e539cd90-a8b4-11d1-8189-00a0c9062802}')
     @commethod(3)
     def KsGetPinFramingCache(self, FramingEx: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX_head)), FramingProp: POINTER(Windows.Win32.Media.KernelStreaming.FRAMING_PROP), Option: Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1073,17 +1073,17 @@ class IKsPinPipe(ComPtr):
     def KsGetFilterName(self) -> Windows.Win32.Foundation.PWSTR: ...
 class IKsQualityForwarder(ComPtr):
     extends: Windows.Win32.Media.KernelStreaming.IKsObject
-    _iid_ = Guid('97ebaacb-95bd-11d0-a3-ea-00-a0-c9-22-31-96')
+    _iid_ = Guid('{97ebaacb-95bd-11d0-a3ea-00a0c9223196}')
     @commethod(4)
     def KsFlushClient(self, Pin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Void: ...
 class IKsTopology(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('28f54683-06fd-11d2-b2-7a-00-a0-c9-22-31-96')
+    _iid_ = Guid('{28f54683-06fd-11d2-b27a-00a0c9223196}')
     @commethod(3)
     def CreateNodeInstance(self, NodeId: UInt32, Flags: UInt32, DesiredAccess: UInt32, UnkOuter: Windows.Win32.System.Com.IUnknown_head, InterfaceId: POINTER(Guid), Interface: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsTopologyInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('720d4ac0-7533-11d0-a5-d6-28-db-04-c1-00-00')
+    _iid_ = Guid('{720d4ac0-7533-11d0-a5d6-28db04c10000}')
     @commethod(3)
     def get_NumCategories(self, pdwNumCategories: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1123,10 +1123,10 @@ class KSAC3_ERROR_CONCEALMENT(EasyCastStructure):
     fErrorInCurrentBlock: Windows.Win32.Foundation.BOOL
 class KSAC3_ROOM_TYPE(EasyCastStructure):
     fLargeRoom: Windows.Win32.Foundation.BOOL
-KSALGORITHMINSTANCE_SYSTEM_ACOUSTIC_ECHO_CANCEL = Guid('1c22c56d-9879-4f5b-a3-89-27-99-6d-dc-28-10')
-KSALGORITHMINSTANCE_SYSTEM_AGC = Guid('950e55b9-877c-4c67-be-08-e4-7b-56-11-13-0a')
-KSALGORITHMINSTANCE_SYSTEM_MICROPHONE_ARRAY_PROCESSOR = Guid('b6f5a0a0-9e61-4f8c-91-e3-76-cf-0f-3c-47-1f')
-KSALGORITHMINSTANCE_SYSTEM_NOISE_SUPPRESS = Guid('5ab0882e-7274-4516-87-7d-4e-ee-99-ba-4f-d0')
+KSALGORITHMINSTANCE_SYSTEM_ACOUSTIC_ECHO_CANCEL = Guid('{1c22c56d-9879-4f5b-a389-27996ddc2810}')
+KSALGORITHMINSTANCE_SYSTEM_AGC = Guid('{950e55b9-877c-4c67-be08-e47b5611130a}')
+KSALGORITHMINSTANCE_SYSTEM_MICROPHONE_ARRAY_PROCESSOR = Guid('{b6f5a0a0-9e61-4f8c-91e3-76cf0f3c471f}')
+KSALGORITHMINSTANCE_SYSTEM_NOISE_SUPPRESS = Guid('{5ab0882e-7274-4516-877d-4eee99ba4fd0}')
 KSALLOCATORMODE = Int32
 KsAllocatorMode_User: KSALLOCATORMODE = 0
 KsAllocatorMode_Kernel: KSALLOCATORMODE = 1
@@ -1153,61 +1153,61 @@ class KSATTRIBUTE(EasyCastStructure):
     Size: UInt32
     Flags: UInt32
     Attribute: Guid
-KSATTRIBUTEID_AUDIOSIGNALPROCESSING_MODE = Guid('e1f89eb5-5f46-419b-96-7b-ff-67-70-b9-84-01')
+KSATTRIBUTEID_AUDIOSIGNALPROCESSING_MODE = Guid('{e1f89eb5-5f46-419b-967b-ff6770b98401}')
 class KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE(EasyCastStructure):
     AttributeHeader: Windows.Win32.Media.KernelStreaming.KSATTRIBUTE
     SignalProcessingMode: Guid
-KSAUDFNAME_3D_CENTER = Guid('9f0670b4-991f-11d2-ac-4d-00-c0-4f-8e-fb-68')
-KSAUDFNAME_3D_DEPTH = Guid('63ff5747-991f-11d2-ac-4d-00-c0-4f-8e-fb-68')
-KSAUDFNAME_3D_STEREO = Guid('185fede2-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_ALTERNATE_MICROPHONE = Guid('2bc31d6b-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_AUX = Guid('185fedfe-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_AUX_MUTE = Guid('185fedfd-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_AUX_VOLUME = Guid('185fedfc-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_BASS = Guid('185fede0-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_CD_AUDIO = Guid('185fedfb-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_CD_IN_VOLUME = Guid('185fedf3-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_CD_MUTE = Guid('185fedea-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_CD_VOLUME = Guid('185fede9-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_LINE_IN = Guid('185fedf9-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_LINE_IN_VOLUME = Guid('185fedf4-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_LINE_MUTE = Guid('185fedec-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_LINE_VOLUME = Guid('185fedeb-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MASTER_MUTE = Guid('185fede4-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MASTER_VOLUME = Guid('185fede3-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MICROPHONE_BOOST = Guid('2bc31d6a-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_MIC_IN_VOLUME = Guid('185fedf5-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MIC_MUTE = Guid('185fedee-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MIC_VOLUME = Guid('185feded-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MIDI = Guid('185fedf8-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MIDI_IN_VOLUME = Guid('185fedf2-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MIDI_MUTE = Guid('185fede8-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MIDI_VOLUME = Guid('185fede7-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MIDRANGE = Guid('a2cbe478-ae84-49a1-8b-72-4a-d0-9b-78-ed-34')
-KSAUDFNAME_MONO_MIX = Guid('00dff078-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_MONO_MIX_MUTE = Guid('2bc31d69-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_MONO_MIX_VOLUME = Guid('22b0eafe-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_MONO_OUT = Guid('f9b41dc3-96e2-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_MONO_OUT_MUTE = Guid('1ad247ec-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_MONO_OUT_VOLUME = Guid('1ad247eb-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_PC_SPEAKER = Guid('185fedff-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_PC_SPEAKER_MUTE = Guid('185fedf1-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_PC_SPEAKER_VOLUME = Guid('185fedf0-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_PEAKMETER = Guid('57e24340-fc5b-4612-a5-62-72-b1-1a-29-df-ae')
-KSAUDFNAME_RECORDING_CONTROL = Guid('185fedfa-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_RECORDING_SOURCE = Guid('185fedef-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_STEREO_MIX = Guid('00dff077-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_STEREO_MIX_MUTE = Guid('22b0eafd-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_STEREO_MIX_VOLUME = Guid('1ad247ed-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
-KSAUDFNAME_TREBLE = Guid('185fede1-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_VIDEO = Guid('915daec4-a434-11d2-ac-52-00-c0-4f-8e-fb-68')
-KSAUDFNAME_VIDEO_MUTE = Guid('9b46e709-992a-11d2-ac-4d-00-c0-4f-8e-fb-68')
-KSAUDFNAME_VIDEO_VOLUME = Guid('9b46e708-992a-11d2-ac-4d-00-c0-4f-8e-fb-68')
-KSAUDFNAME_VOLUME_CONTROL = Guid('185fedf7-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_WAVE_IN_VOLUME = Guid('185fedf6-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_WAVE_MUTE = Guid('185fede6-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_WAVE_OUT_MIX = Guid('185fee00-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_WAVE_VOLUME = Guid('185fede5-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
+KSAUDFNAME_3D_CENTER = Guid('{9f0670b4-991f-11d2-ac4d-00c04f8efb68}')
+KSAUDFNAME_3D_DEPTH = Guid('{63ff5747-991f-11d2-ac4d-00c04f8efb68}')
+KSAUDFNAME_3D_STEREO = Guid('{185fede2-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_ALTERNATE_MICROPHONE = Guid('{2bc31d6b-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_AUX = Guid('{185fedfe-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_AUX_MUTE = Guid('{185fedfd-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_AUX_VOLUME = Guid('{185fedfc-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_BASS = Guid('{185fede0-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_CD_AUDIO = Guid('{185fedfb-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_CD_IN_VOLUME = Guid('{185fedf3-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_CD_MUTE = Guid('{185fedea-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_CD_VOLUME = Guid('{185fede9-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_LINE_IN = Guid('{185fedf9-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_LINE_IN_VOLUME = Guid('{185fedf4-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_LINE_MUTE = Guid('{185fedec-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_LINE_VOLUME = Guid('{185fedeb-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MASTER_MUTE = Guid('{185fede4-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MASTER_VOLUME = Guid('{185fede3-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MICROPHONE_BOOST = Guid('{2bc31d6a-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_MIC_IN_VOLUME = Guid('{185fedf5-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MIC_MUTE = Guid('{185fedee-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MIC_VOLUME = Guid('{185feded-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MIDI = Guid('{185fedf8-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MIDI_IN_VOLUME = Guid('{185fedf2-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MIDI_MUTE = Guid('{185fede8-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MIDI_VOLUME = Guid('{185fede7-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_MIDRANGE = Guid('{a2cbe478-ae84-49a1-8b72-4ad09b78ed34}')
+KSAUDFNAME_MONO_MIX = Guid('{00dff078-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_MONO_MIX_MUTE = Guid('{2bc31d69-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_MONO_MIX_VOLUME = Guid('{22b0eafe-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_MONO_OUT = Guid('{f9b41dc3-96e2-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_MONO_OUT_MUTE = Guid('{1ad247ec-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_MONO_OUT_VOLUME = Guid('{1ad247eb-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_PC_SPEAKER = Guid('{185fedff-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_PC_SPEAKER_MUTE = Guid('{185fedf1-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_PC_SPEAKER_VOLUME = Guid('{185fedf0-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_PEAKMETER = Guid('{57e24340-fc5b-4612-a562-72b11a29dfae}')
+KSAUDFNAME_RECORDING_CONTROL = Guid('{185fedfa-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_RECORDING_SOURCE = Guid('{185fedef-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_STEREO_MIX = Guid('{00dff077-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_STEREO_MIX_MUTE = Guid('{22b0eafd-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_STEREO_MIX_VOLUME = Guid('{1ad247ed-96e3-11d2-ac4c-00c04f8efb68}')
+KSAUDFNAME_TREBLE = Guid('{185fede1-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_VIDEO = Guid('{915daec4-a434-11d2-ac52-00c04f8efb68}')
+KSAUDFNAME_VIDEO_MUTE = Guid('{9b46e709-992a-11d2-ac4d-00c04f8efb68}')
+KSAUDFNAME_VIDEO_VOLUME = Guid('{9b46e708-992a-11d2-ac4d-00c04f8efb68}')
+KSAUDFNAME_VOLUME_CONTROL = Guid('{185fedf7-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_WAVE_IN_VOLUME = Guid('{185fedf6-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_WAVE_MUTE = Guid('{185fede6-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_WAVE_OUT_MIX = Guid('{185fee00-9905-11d1-95a9-00c04fb925d3}')
+KSAUDFNAME_WAVE_VOLUME = Guid('{185fede5-9905-11d1-95a9-00c04fb925d3}')
 class KSAUDIOENGINE_BUFFER_SIZE_RANGE(EasyCastStructure):
     MinBufferBytes: UInt32
     MaxBufferBytes: UInt32
@@ -1311,19 +1311,19 @@ class KSAUDIO_POSITIONEX(EasyCastStructure):
 class KSAUDIO_PRESENTATION_POSITION(EasyCastStructure):
     u64PositionInBlocks: UInt64
     u64QPCPosition: UInt64
-KSCAMERAPROFILE_BalancedVideoAndPhoto = Guid('6b52b017-42c7-4a21-bf-e3-23-f0-09-14-98-87')
-KSCAMERAPROFILE_CompressedCamera = Guid('0e34cdc1-27ad-437f-ab-de-02-b6-29-f3-7b-44')
-KSCAMERAPROFILE_FaceAuth_Mode = Guid('81361b22-700b-4546-a2-d4-c5-2e-90-7b-fc-27')
-KSCAMERAPROFILE_HDRWithWCGPhoto = Guid('9bf6f1ff-b555-4625-b3-26-a4-6d-ef-31-8f-b7')
-KSCAMERAPROFILE_HDRWithWCGVideo = Guid('4b27c336-4924-4989-b9-94-fd-af-1d-c7-cd-85')
-KSCAMERAPROFILE_HighFrameRate = Guid('566e6113-8c35-48e7-b8-9f-d2-3f-dc-12-19-dc')
-KSCAMERAPROFILE_HighQualityPhoto = Guid('32440725-961b-4ca3-b5-b2-85-4e-71-9d-9e-1b')
-KSCAMERAPROFILE_Legacy = Guid('b4894d81-62b7-4eec-87-40-80-65-8c-4a-9d-3e')
-KSCAMERAPROFILE_PhotoSequence = Guid('02399d9d-4ee8-49ba-bc-07-5f-f1-56-53-14-13')
-KSCAMERAPROFILE_VariablePhotoSequence = Guid('9ff2cb56-e75a-49b1-a9-28-99-85-d5-94-6f-87')
-KSCAMERAPROFILE_VideoConferencing = Guid('c5444a88-e1bf-4597-b2-dd-9e-1e-ad-86-4b-b8')
-KSCAMERAPROFILE_VideoHDR8 = Guid('d4f3f4ec-bdff-4314-b1-d4-00-8e-28-1f-74-e7')
-KSCAMERAPROFILE_VideoRecording = Guid('a0e517e8-8f8c-4f6f-9a-57-46-fc-2f-64-7e-c0')
+KSCAMERAPROFILE_BalancedVideoAndPhoto = Guid('{6b52b017-42c7-4a21-bfe3-23f009149887}')
+KSCAMERAPROFILE_CompressedCamera = Guid('{0e34cdc1-27ad-437f-abde-02b629f37b44}')
+KSCAMERAPROFILE_FaceAuth_Mode = Guid('{81361b22-700b-4546-a2d4-c52e907bfc27}')
+KSCAMERAPROFILE_HDRWithWCGPhoto = Guid('{9bf6f1ff-b555-4625-b326-a46def318fb7}')
+KSCAMERAPROFILE_HDRWithWCGVideo = Guid('{4b27c336-4924-4989-b994-fdaf1dc7cd85}')
+KSCAMERAPROFILE_HighFrameRate = Guid('{566e6113-8c35-48e7-b89f-d23fdc1219dc}')
+KSCAMERAPROFILE_HighQualityPhoto = Guid('{32440725-961b-4ca3-b5b2-854e719d9e1b}')
+KSCAMERAPROFILE_Legacy = Guid('{b4894d81-62b7-4eec-8740-80658c4a9d3e}')
+KSCAMERAPROFILE_PhotoSequence = Guid('{02399d9d-4ee8-49ba-bc07-5ff156531413}')
+KSCAMERAPROFILE_VariablePhotoSequence = Guid('{9ff2cb56-e75a-49b1-a928-9985d5946f87}')
+KSCAMERAPROFILE_VideoConferencing = Guid('{c5444a88-e1bf-4597-b2dd-9e1ead864bb8}')
+KSCAMERAPROFILE_VideoHDR8 = Guid('{d4f3f4ec-bdff-4314-b1d4-008e281f74e7}')
+KSCAMERAPROFILE_VideoRecording = Guid('{a0e517e8-8f8c-4f6f-9a57-46fc2f647ec0}')
 class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS(EasyCastStructure):
     Resolution: Windows.Win32.Foundation.SIZE
     MaxFrameRate: _MaxFrameRate_e__Struct
@@ -1589,43 +1589,43 @@ class KSCAMERA_PROFILE_PININFO(EasyCastStructure):
         class _Anonymous_e__Struct(EasyCastStructure):
             PinIndex: UInt16
             ProfileSensorType: UInt16
-KSCATEGORY_ACOUSTIC_ECHO_CANCEL = Guid('bf963d80-c559-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSCATEGORY_AUDIO = Guid('6994ad04-93ef-11d0-a3-cc-00-a0-c9-22-31-96')
-KSCATEGORY_BRIDGE = Guid('085aff00-62ce-11cf-a5-d6-28-db-04-c1-00-00')
-KSCATEGORY_CAPTURE = Guid('65e8773d-8f56-11d0-a3-b9-00-a0-c9-22-31-96')
-KSCATEGORY_CLOCK = Guid('53172480-4791-11d0-a5-d6-28-db-04-c1-00-00')
-KSCATEGORY_COMMUNICATIONSTRANSFORM = Guid('cf1dda2c-9743-11d0-a3-ee-00-a0-c9-22-31-96')
-KSCATEGORY_CROSSBAR = Guid('a799a801-a46d-11d0-a1-8c-00-a0-24-01-dc-d4')
-KSCATEGORY_DATACOMPRESSOR = Guid('1e84c900-7e70-11d0-a5-d6-28-db-04-c1-00-00')
-KSCATEGORY_DATADECOMPRESSOR = Guid('2721ae20-7e70-11d0-a5-d6-28-db-04-c1-00-00')
-KSCATEGORY_DATATRANSFORM = Guid('2eb07ea0-7e70-11d0-a5-d6-28-db-04-c1-00-00')
-KSCATEGORY_ENCODER = Guid('19689bf6-c384-48fd-ad-51-90-e5-8c-79-f7-0b')
-KSCATEGORY_ESCALANTE_PLATFORM_DRIVER = Guid('74f3aea8-9768-11d1-8e-07-00-a0-c9-5e-c2-2e')
-KSCATEGORY_FILESYSTEM = Guid('760fed5e-9357-11d0-a3-cc-00-a0-c9-22-31-96')
-KSCATEGORY_INTERFACETRANSFORM = Guid('cf1dda2d-9743-11d0-a3-ee-00-a0-c9-22-31-96')
-KSCATEGORY_MEDIUMTRANSFORM = Guid('cf1dda2e-9743-11d0-a3-ee-00-a0-c9-22-31-96')
-KSCATEGORY_MICROPHONE_ARRAY_PROCESSOR = Guid('830a44f2-a32d-476b-be-97-42-84-56-73-b3-5a')
-KSCATEGORY_MIXER = Guid('ad809c00-7b88-11d0-a5-d6-28-db-04-c1-00-00')
-KSCATEGORY_MULTIPLEXER = Guid('7a5de1d3-01a1-452c-b4-81-4f-a2-b9-62-71-e8')
-KSCATEGORY_NETWORK = Guid('67c9cc3c-69c4-11d2-87-59-00-a0-c9-22-31-96')
-KSCATEGORY_NETWORK_CAMERA = Guid('b8238652-b500-41eb-b4-f3-42-34-f7-f5-ae-99')
-KSCATEGORY_PROXY = Guid('97ebaaca-95bd-11d0-a3-ea-00-a0-c9-22-31-96')
-KSCATEGORY_QUALITY = Guid('97ebaacb-95bd-11d0-a3-ea-00-a0-c9-22-31-96')
-KSCATEGORY_REALTIME = Guid('eb115ffc-10c8-4964-83-1d-6d-cb-02-e6-f2-3f')
-KSCATEGORY_RENDER = Guid('65e8773e-8f56-11d0-a3-b9-00-a0-c9-22-31-96')
-KSCATEGORY_SENSOR_CAMERA = Guid('24e552d7-6523-47f7-a6-47-d3-46-5b-f1-f5-ca')
-KSCATEGORY_SENSOR_GROUP = Guid('669c7214-0a88-4311-a7-f3-4e-79-82-0e-33-bd')
-KSCATEGORY_SPLITTER = Guid('0a4252a0-7e70-11d0-a5-d6-28-db-04-c1-00-00')
-KSCATEGORY_TEXT = Guid('6994ad06-93ef-11d0-a3-cc-00-a0-c9-22-31-96')
-KSCATEGORY_TOPOLOGY = Guid('dda54a40-1e4c-11d1-a0-50-40-57-05-c1-00-00')
-KSCATEGORY_TVAUDIO = Guid('a799a802-a46d-11d0-a1-8c-00-a0-24-01-dc-d4')
-KSCATEGORY_TVTUNER = Guid('a799a800-a46d-11d0-a1-8c-00-a0-24-01-dc-d4')
-KSCATEGORY_VBICODEC = Guid('07dad660-22f1-11d1-a9-f4-00-c0-4f-bb-de-8f')
-KSCATEGORY_VIDEO = Guid('6994ad05-93ef-11d0-a3-cc-00-a0-c9-22-31-96')
-KSCATEGORY_VIDEO_CAMERA = Guid('e5323777-f976-4f5b-9b-55-b9-46-99-c4-6e-44')
-KSCATEGORY_VIRTUAL = Guid('3503eac4-1f26-11d1-8a-b0-00-a0-c9-22-31-96')
-KSCATEGORY_VPMUX = Guid('a799a803-a46d-11d0-a1-8c-00-a0-24-01-dc-d4')
-KSCATEGORY_WDMAUD_USE_PIN_NAME = Guid('47a4fa20-a251-11d1-a0-50-00-00-f8-00-47-88')
+KSCATEGORY_ACOUSTIC_ECHO_CANCEL = Guid('{bf963d80-c559-11d0-8a2b-00a0c9255ac1}')
+KSCATEGORY_AUDIO = Guid('{6994ad04-93ef-11d0-a3cc-00a0c9223196}')
+KSCATEGORY_BRIDGE = Guid('{085aff00-62ce-11cf-a5d6-28db04c10000}')
+KSCATEGORY_CAPTURE = Guid('{65e8773d-8f56-11d0-a3b9-00a0c9223196}')
+KSCATEGORY_CLOCK = Guid('{53172480-4791-11d0-a5d6-28db04c10000}')
+KSCATEGORY_COMMUNICATIONSTRANSFORM = Guid('{cf1dda2c-9743-11d0-a3ee-00a0c9223196}')
+KSCATEGORY_CROSSBAR = Guid('{a799a801-a46d-11d0-a18c-00a02401dcd4}')
+KSCATEGORY_DATACOMPRESSOR = Guid('{1e84c900-7e70-11d0-a5d6-28db04c10000}')
+KSCATEGORY_DATADECOMPRESSOR = Guid('{2721ae20-7e70-11d0-a5d6-28db04c10000}')
+KSCATEGORY_DATATRANSFORM = Guid('{2eb07ea0-7e70-11d0-a5d6-28db04c10000}')
+KSCATEGORY_ENCODER = Guid('{19689bf6-c384-48fd-ad51-90e58c79f70b}')
+KSCATEGORY_ESCALANTE_PLATFORM_DRIVER = Guid('{74f3aea8-9768-11d1-8e07-00a0c95ec22e}')
+KSCATEGORY_FILESYSTEM = Guid('{760fed5e-9357-11d0-a3cc-00a0c9223196}')
+KSCATEGORY_INTERFACETRANSFORM = Guid('{cf1dda2d-9743-11d0-a3ee-00a0c9223196}')
+KSCATEGORY_MEDIUMTRANSFORM = Guid('{cf1dda2e-9743-11d0-a3ee-00a0c9223196}')
+KSCATEGORY_MICROPHONE_ARRAY_PROCESSOR = Guid('{830a44f2-a32d-476b-be97-42845673b35a}')
+KSCATEGORY_MIXER = Guid('{ad809c00-7b88-11d0-a5d6-28db04c10000}')
+KSCATEGORY_MULTIPLEXER = Guid('{7a5de1d3-01a1-452c-b481-4fa2b96271e8}')
+KSCATEGORY_NETWORK = Guid('{67c9cc3c-69c4-11d2-8759-00a0c9223196}')
+KSCATEGORY_NETWORK_CAMERA = Guid('{b8238652-b500-41eb-b4f3-4234f7f5ae99}')
+KSCATEGORY_PROXY = Guid('{97ebaaca-95bd-11d0-a3ea-00a0c9223196}')
+KSCATEGORY_QUALITY = Guid('{97ebaacb-95bd-11d0-a3ea-00a0c9223196}')
+KSCATEGORY_REALTIME = Guid('{eb115ffc-10c8-4964-831d-6dcb02e6f23f}')
+KSCATEGORY_RENDER = Guid('{65e8773e-8f56-11d0-a3b9-00a0c9223196}')
+KSCATEGORY_SENSOR_CAMERA = Guid('{24e552d7-6523-47f7-a647-d3465bf1f5ca}')
+KSCATEGORY_SENSOR_GROUP = Guid('{669c7214-0a88-4311-a7f3-4e79820e33bd}')
+KSCATEGORY_SPLITTER = Guid('{0a4252a0-7e70-11d0-a5d6-28db04c10000}')
+KSCATEGORY_TEXT = Guid('{6994ad06-93ef-11d0-a3cc-00a0c9223196}')
+KSCATEGORY_TOPOLOGY = Guid('{dda54a40-1e4c-11d1-a050-405705c10000}')
+KSCATEGORY_TVAUDIO = Guid('{a799a802-a46d-11d0-a18c-00a02401dcd4}')
+KSCATEGORY_TVTUNER = Guid('{a799a800-a46d-11d0-a18c-00a02401dcd4}')
+KSCATEGORY_VBICODEC = Guid('{07dad660-22f1-11d1-a9f4-00c04fbbde8f}')
+KSCATEGORY_VIDEO = Guid('{6994ad05-93ef-11d0-a3cc-00a0c9223196}')
+KSCATEGORY_VIDEO_CAMERA = Guid('{e5323777-f976-4f5b-9b55-b94699c46e44}')
+KSCATEGORY_VIRTUAL = Guid('{3503eac4-1f26-11d1-8ab0-00a0c9223196}')
+KSCATEGORY_VPMUX = Guid('{a799a803-a46d-11d0-a18c-00a02401dcd4}')
+KSCATEGORY_WDMAUD_USE_PIN_NAME = Guid('{47a4fa20-a251-11d1-a050-0000f8004788}')
 class KSCLOCK_CREATE(EasyCastStructure):
     CreateFlags: UInt32
 class KSCOMPONENTID(EasyCastStructure):
@@ -1635,7 +1635,7 @@ class KSCOMPONENTID(EasyCastStructure):
     Name: Guid
     Version: UInt32
     Revision: UInt32
-KSCOMPONENTID_USBAUDIO = Guid('8f1275f0-26e9-4264-ba-4d-39-ff-f0-1d-94-aa')
+KSCOMPONENTID_USBAUDIO = Guid('{8f1275f0-26e9-4264-ba4d-39fff01d94aa}')
 class KSCORRELATED_TIME(EasyCastStructure):
     Time: Int64
     SystemTime: Int64
@@ -1650,119 +1650,119 @@ class KSDATAFORMAT(EasyCastUnion):
         MajorFormat: Guid
         SubFormat: Guid
         Specifier: Guid
-KSDATAFORMAT_SPECIFIER_AC3_AUDIO = Guid('e06d80e4-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SPECIFIER_ANALOGVIDEO = Guid('0482dde0-7817-11cf-8a-03-00-aa-00-6e-cb-65')
-KSDATAFORMAT_SPECIFIER_DIALECT_AC3_AUDIO = Guid('36523b35-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SPECIFIER_DIALECT_MPEG1_AUDIO = Guid('36523b32-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SPECIFIER_DIALECT_MPEG1_VIDEO = Guid('36523b31-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SPECIFIER_DIALECT_MPEG2_AUDIO = Guid('36523b34-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SPECIFIER_DIALECT_MPEG2_VIDEO = Guid('36523b33-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SPECIFIER_DSOUND = Guid('518590a2-a184-11d0-85-22-00-c0-4f-d9-ba-f3')
-KSDATAFORMAT_SPECIFIER_FILEHANDLE = Guid('65e8773c-8f56-11d0-a3-b9-00-a0-c9-22-31-96')
-KSDATAFORMAT_SPECIFIER_FILENAME = Guid('aa797b40-e974-11cf-a5-d6-28-db-04-c1-00-00')
-KSDATAFORMAT_SPECIFIER_H264_VIDEO = Guid('2017be05-6629-4248-aa-ed-7e-1a-47-bc-9b-9c')
-KSDATAFORMAT_SPECIFIER_IMAGE = Guid('692fa379-d3e8-4651-b5-b4-0b-94-b0-13-ee-af')
-KSDATAFORMAT_SPECIFIER_JPEG_IMAGE = Guid('692fa379-d3e8-4651-b5-b4-0b-94-b0-13-ee-af')
-KSDATAFORMAT_SPECIFIER_LPCM_AUDIO = Guid('e06d80e6-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SPECIFIER_MPEG1_VIDEO = Guid('05589f82-c356-11ce-bf-01-00-aa-00-55-59-5a')
-KSDATAFORMAT_SPECIFIER_MPEG2_AUDIO = Guid('e06d80e5-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SPECIFIER_MPEG2_VIDEO = Guid('e06d80e3-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SPECIFIER_NONE = Guid('0f6417d6-c318-11d0-a4-3f-00-a0-c9-22-31-96')
-KSDATAFORMAT_SPECIFIER_VBI = Guid('f72a76e0-eb0a-11d0-ac-e4-00-00-c0-cc-16-ba')
-KSDATAFORMAT_SPECIFIER_VC_ID = Guid('ad98d184-aac3-11d0-a4-1c-00-a0-c9-22-31-96')
-KSDATAFORMAT_SPECIFIER_VIDEOINFO = Guid('05589f80-c356-11ce-bf-01-00-aa-00-55-59-5a')
-KSDATAFORMAT_SPECIFIER_VIDEOINFO2 = Guid('f72a76a0-eb0a-11d0-ac-e4-00-00-c0-cc-16-ba')
-KSDATAFORMAT_SPECIFIER_WAVEFORMATEX = Guid('05589f81-c356-11ce-bf-01-00-aa-00-55-59-5a')
-KSDATAFORMAT_SUBTYPE_AC3_AUDIO = Guid('e06d802c-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SUBTYPE_ANALOG = Guid('6dba3190-67bd-11cf-a0-f7-00-20-af-d1-56-e4')
-KSDATAFORMAT_SUBTYPE_CC = Guid('33214cc1-011f-11d2-b4-b1-00-a0-d1-02-cf-be')
-KSDATAFORMAT_SUBTYPE_D16 = Guid('00000050-0004-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_DSS_AUDIO = Guid('a0af4f82-e163-11d0-ba-d9-00-60-97-44-11-1a')
-KSDATAFORMAT_SUBTYPE_DSS_VIDEO = Guid('a0af4f81-e163-11d0-ba-d9-00-60-97-44-11-1a')
-KSDATAFORMAT_SUBTYPE_DTS_AUDIO = Guid('e06d8033-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SUBTYPE_IEC61937_AAC = Guid('00000006-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_ATRAC = Guid('00000008-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_DIGITAL = Guid('00000092-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_DIGITAL_PLUS = Guid('0000000a-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_DIGITAL_PLUS_ATMOS = Guid('0000010a-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_MAT20 = Guid('0000010c-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_MAT21 = Guid('0000030c-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_MLP = Guid('0000000c-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DST = Guid('0000000d-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DTS = Guid('00000008-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DTSX_E1 = Guid('0000010b-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DTSX_E2 = Guid('0000030b-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DTS_HD = Guid('0000000b-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_MPEG1 = Guid('00000003-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_MPEG2 = Guid('00000004-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_MPEG3 = Guid('00000005-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_ONE_BIT_AUDIO = Guid('00000009-0cea-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_WMA_PRO = Guid('00000164-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IMAGE_RGB32 = Guid('00000016-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_JPEG = Guid('19e4a5aa-5662-4fc5-a0-c0-17-58-02-8e-10-57')
-KSDATAFORMAT_SUBTYPE_L16 = Guid('00000051-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_L16_CUSTOM = Guid('00000051-8000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_L16_IR = Guid('00000051-0002-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_L8 = Guid('00000032-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_L8_CUSTOM = Guid('00000032-8000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_L8_IR = Guid('00000032-0002-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_LPCM_AUDIO = Guid('e06d8032-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SUBTYPE_Line21_BytePair = Guid('6e8d4a22-310c-11d0-b7-9a-00-aa-00-37-67-a7')
-KSDATAFORMAT_SUBTYPE_Line21_GOPPacket = Guid('6e8d4a23-310c-11d0-b7-9a-00-aa-00-37-67-a7')
-KSDATAFORMAT_SUBTYPE_MIDI = Guid('1d262760-e957-11cf-a5-d6-28-db-04-c1-00-00')
-KSDATAFORMAT_SUBTYPE_MIDI_BUS = Guid('2ca15fa0-6cfe-11cf-a5-d6-28-db-04-c1-00-00')
-KSDATAFORMAT_SUBTYPE_MJPG_CUSTOM = Guid('47504a4d-8000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_MJPG_DEPTH = Guid('47504a4d-0004-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_MJPG_IR = Guid('47504a4d-0002-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_MPEG1Packet = Guid('e436eb80-524f-11ce-9f-53-00-20-af-0b-a7-70')
-KSDATAFORMAT_SUBTYPE_MPEG1Payload = Guid('e436eb81-524f-11ce-9f-53-00-20-af-0b-a7-70')
-KSDATAFORMAT_SUBTYPE_MPEG1Video = Guid('e436eb86-524f-11ce-9f-53-00-20-af-0b-a7-70')
-KSDATAFORMAT_SUBTYPE_MPEG2_AUDIO = Guid('e06d802b-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SUBTYPE_MPEG2_VIDEO = Guid('e06d8026-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SUBTYPE_MPEGLAYER3 = Guid('00000055-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_MPEG_HEAAC = Guid('00001610-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_NABTS = Guid('f72a76e2-eb0a-11d0-ac-e4-00-00-c0-cc-16-ba')
-KSDATAFORMAT_SUBTYPE_NABTS_FEC = Guid('e757bca1-39ac-11d1-a9-f5-00-c0-4f-bb-de-8f')
-KSDATAFORMAT_SUBTYPE_NONE = Guid('e436eb8e-524f-11ce-9f-53-00-20-af-0b-a7-70')
-KSDATAFORMAT_SUBTYPE_OVERLAY = Guid('e436eb7f-524f-11ce-9f-53-00-20-af-0b-a7-70')
-KSDATAFORMAT_SUBTYPE_PCM = Guid('00000001-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_RAW8 = Guid('ca20d9a0-3e3e-11d1-9b-f9-00-c0-4f-bb-de-bf')
-KSDATAFORMAT_SUBTYPE_RIFF = Guid('4995daee-9ee6-11d0-a4-0e-00-a0-c9-22-31-96')
-KSDATAFORMAT_SUBTYPE_RIFFMIDI = Guid('4995daf0-9ee6-11d0-a4-0e-00-a0-c9-22-31-96')
-KSDATAFORMAT_SUBTYPE_RIFFWAVE = Guid('e436eb8b-524f-11ce-9f-53-00-20-af-0b-a7-70')
-KSDATAFORMAT_SUBTYPE_SDDS_AUDIO = Guid('e06d8034-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SUBTYPE_STANDARD_AC3_AUDIO = Guid('36523b25-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SUBTYPE_STANDARD_MPEG1_AUDIO = Guid('36523b22-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SUBTYPE_STANDARD_MPEG1_VIDEO = Guid('36523b21-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SUBTYPE_STANDARD_MPEG2_AUDIO = Guid('36523b24-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SUBTYPE_STANDARD_MPEG2_VIDEO = Guid('36523b23-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_SUBTYPE_SUBPICTURE = Guid('e06d802d-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_SUBTYPE_TELETEXT = Guid('f72a76e3-eb0a-11d0-ac-e4-00-00-c0-cc-16-ba')
-KSDATAFORMAT_SUBTYPE_VPVBI = Guid('5a9b6a41-1a22-11d1-ba-d9-00-60-97-44-11-1a')
-KSDATAFORMAT_SUBTYPE_VPVideo = Guid('5a9b6a40-1a22-11d1-ba-d9-00-60-97-44-11-1a')
-KSDATAFORMAT_SUBTYPE_WAVEFORMATEX = Guid('00000000-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_WMAUDIO2 = Guid('00000161-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_WMAUDIO3 = Guid('00000162-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_WMAUDIO_LOSSLESS = Guid('00000163-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_TYPE_ANALOGAUDIO = Guid('0482dee1-7817-11cf-8a-03-00-aa-00-6e-cb-65')
-KSDATAFORMAT_TYPE_ANALOGVIDEO = Guid('0482dde1-7817-11cf-8a-03-00-aa-00-6e-cb-65')
-KSDATAFORMAT_TYPE_AUDIO = Guid('73647561-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_TYPE_AUXLine21Data = Guid('670aea80-3a82-11d0-b7-9b-00-aa-00-37-67-a7')
-KSDATAFORMAT_TYPE_DVD_ENCRYPTED_PACK = Guid('ed0b916a-044d-11d1-aa-78-00-c0-4f-c3-1d-60')
-KSDATAFORMAT_TYPE_IMAGE = Guid('72178c23-e45b-11d5-bc-2a-00-b0-d0-f3-f4-ab')
-KSDATAFORMAT_TYPE_MIDI = Guid('7364696d-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_TYPE_MPEG2_PES = Guid('e06d8020-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_TYPE_MPEG2_PROGRAM = Guid('e06d8022-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_TYPE_MPEG2_TRANSPORT = Guid('e06d8023-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
-KSDATAFORMAT_TYPE_MUSIC = Guid('e725d360-62cc-11cf-a5-d6-28-db-04-c1-00-00')
-KSDATAFORMAT_TYPE_NABTS = Guid('e757bca0-39ac-11d1-a9-f5-00-c0-4f-bb-de-8f')
-KSDATAFORMAT_TYPE_STANDARD_ELEMENTARY_STREAM = Guid('36523b11-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_TYPE_STANDARD_PACK_HEADER = Guid('36523b13-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_TYPE_STANDARD_PES_PACKET = Guid('36523b12-8ee5-11d1-8c-a3-00-60-b0-57-66-4a')
-KSDATAFORMAT_TYPE_STREAM = Guid('e436eb83-524f-11ce-9f-53-00-20-af-0b-a7-70')
-KSDATAFORMAT_TYPE_TEXT = Guid('73747874-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_TYPE_VBI = Guid('f72a76e1-eb0a-11d0-ac-e4-00-00-c0-cc-16-ba')
-KSDATAFORMAT_TYPE_VIDEO = Guid('73646976-0000-0010-80-00-00-aa-00-38-9b-71')
+KSDATAFORMAT_SPECIFIER_AC3_AUDIO = Guid('{e06d80e4-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SPECIFIER_ANALOGVIDEO = Guid('{0482dde0-7817-11cf-8a03-00aa006ecb65}')
+KSDATAFORMAT_SPECIFIER_DIALECT_AC3_AUDIO = Guid('{36523b35-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SPECIFIER_DIALECT_MPEG1_AUDIO = Guid('{36523b32-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SPECIFIER_DIALECT_MPEG1_VIDEO = Guid('{36523b31-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SPECIFIER_DIALECT_MPEG2_AUDIO = Guid('{36523b34-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SPECIFIER_DIALECT_MPEG2_VIDEO = Guid('{36523b33-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SPECIFIER_DSOUND = Guid('{518590a2-a184-11d0-8522-00c04fd9baf3}')
+KSDATAFORMAT_SPECIFIER_FILEHANDLE = Guid('{65e8773c-8f56-11d0-a3b9-00a0c9223196}')
+KSDATAFORMAT_SPECIFIER_FILENAME = Guid('{aa797b40-e974-11cf-a5d6-28db04c10000}')
+KSDATAFORMAT_SPECIFIER_H264_VIDEO = Guid('{2017be05-6629-4248-aaed-7e1a47bc9b9c}')
+KSDATAFORMAT_SPECIFIER_IMAGE = Guid('{692fa379-d3e8-4651-b5b4-0b94b013eeaf}')
+KSDATAFORMAT_SPECIFIER_JPEG_IMAGE = Guid('{692fa379-d3e8-4651-b5b4-0b94b013eeaf}')
+KSDATAFORMAT_SPECIFIER_LPCM_AUDIO = Guid('{e06d80e6-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SPECIFIER_MPEG1_VIDEO = Guid('{05589f82-c356-11ce-bf01-00aa0055595a}')
+KSDATAFORMAT_SPECIFIER_MPEG2_AUDIO = Guid('{e06d80e5-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SPECIFIER_MPEG2_VIDEO = Guid('{e06d80e3-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SPECIFIER_NONE = Guid('{0f6417d6-c318-11d0-a43f-00a0c9223196}')
+KSDATAFORMAT_SPECIFIER_VBI = Guid('{f72a76e0-eb0a-11d0-ace4-0000c0cc16ba}')
+KSDATAFORMAT_SPECIFIER_VC_ID = Guid('{ad98d184-aac3-11d0-a41c-00a0c9223196}')
+KSDATAFORMAT_SPECIFIER_VIDEOINFO = Guid('{05589f80-c356-11ce-bf01-00aa0055595a}')
+KSDATAFORMAT_SPECIFIER_VIDEOINFO2 = Guid('{f72a76a0-eb0a-11d0-ace4-0000c0cc16ba}')
+KSDATAFORMAT_SPECIFIER_WAVEFORMATEX = Guid('{05589f81-c356-11ce-bf01-00aa0055595a}')
+KSDATAFORMAT_SUBTYPE_AC3_AUDIO = Guid('{e06d802c-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SUBTYPE_ANALOG = Guid('{6dba3190-67bd-11cf-a0f7-0020afd156e4}')
+KSDATAFORMAT_SUBTYPE_CC = Guid('{33214cc1-011f-11d2-b4b1-00a0d102cfbe}')
+KSDATAFORMAT_SUBTYPE_D16 = Guid('{00000050-0004-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_DSS_AUDIO = Guid('{a0af4f82-e163-11d0-bad9-00609744111a}')
+KSDATAFORMAT_SUBTYPE_DSS_VIDEO = Guid('{a0af4f81-e163-11d0-bad9-00609744111a}')
+KSDATAFORMAT_SUBTYPE_DTS_AUDIO = Guid('{e06d8033-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SUBTYPE_IEC61937_AAC = Guid('{00000006-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_ATRAC = Guid('{00000008-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_DIGITAL = Guid('{00000092-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_DIGITAL_PLUS = Guid('{0000000a-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_DIGITAL_PLUS_ATMOS = Guid('{0000010a-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_MAT20 = Guid('{0000010c-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_MAT21 = Guid('{0000030c-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_MLP = Guid('{0000000c-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DST = Guid('{0000000d-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DTS = Guid('{00000008-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DTSX_E1 = Guid('{0000010b-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DTSX_E2 = Guid('{0000030b-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_DTS_HD = Guid('{0000000b-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_MPEG1 = Guid('{00000003-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_MPEG2 = Guid('{00000004-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_MPEG3 = Guid('{00000005-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_ONE_BIT_AUDIO = Guid('{00000009-0cea-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IEC61937_WMA_PRO = Guid('{00000164-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_IMAGE_RGB32 = Guid('{00000016-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_JPEG = Guid('{19e4a5aa-5662-4fc5-a0c0-1758028e1057}')
+KSDATAFORMAT_SUBTYPE_L16 = Guid('{00000051-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_L16_CUSTOM = Guid('{00000051-8000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_L16_IR = Guid('{00000051-0002-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_L8 = Guid('{00000032-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_L8_CUSTOM = Guid('{00000032-8000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_L8_IR = Guid('{00000032-0002-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_LPCM_AUDIO = Guid('{e06d8032-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SUBTYPE_Line21_BytePair = Guid('{6e8d4a22-310c-11d0-b79a-00aa003767a7}')
+KSDATAFORMAT_SUBTYPE_Line21_GOPPacket = Guid('{6e8d4a23-310c-11d0-b79a-00aa003767a7}')
+KSDATAFORMAT_SUBTYPE_MIDI = Guid('{1d262760-e957-11cf-a5d6-28db04c10000}')
+KSDATAFORMAT_SUBTYPE_MIDI_BUS = Guid('{2ca15fa0-6cfe-11cf-a5d6-28db04c10000}')
+KSDATAFORMAT_SUBTYPE_MJPG_CUSTOM = Guid('{47504a4d-8000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_MJPG_DEPTH = Guid('{47504a4d-0004-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_MJPG_IR = Guid('{47504a4d-0002-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_MPEG1Packet = Guid('{e436eb80-524f-11ce-9f53-0020af0ba770}')
+KSDATAFORMAT_SUBTYPE_MPEG1Payload = Guid('{e436eb81-524f-11ce-9f53-0020af0ba770}')
+KSDATAFORMAT_SUBTYPE_MPEG1Video = Guid('{e436eb86-524f-11ce-9f53-0020af0ba770}')
+KSDATAFORMAT_SUBTYPE_MPEG2_AUDIO = Guid('{e06d802b-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SUBTYPE_MPEG2_VIDEO = Guid('{e06d8026-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SUBTYPE_MPEGLAYER3 = Guid('{00000055-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_MPEG_HEAAC = Guid('{00001610-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_NABTS = Guid('{f72a76e2-eb0a-11d0-ace4-0000c0cc16ba}')
+KSDATAFORMAT_SUBTYPE_NABTS_FEC = Guid('{e757bca1-39ac-11d1-a9f5-00c04fbbde8f}')
+KSDATAFORMAT_SUBTYPE_NONE = Guid('{e436eb8e-524f-11ce-9f53-0020af0ba770}')
+KSDATAFORMAT_SUBTYPE_OVERLAY = Guid('{e436eb7f-524f-11ce-9f53-0020af0ba770}')
+KSDATAFORMAT_SUBTYPE_PCM = Guid('{00000001-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_RAW8 = Guid('{ca20d9a0-3e3e-11d1-9bf9-00c04fbbdebf}')
+KSDATAFORMAT_SUBTYPE_RIFF = Guid('{4995daee-9ee6-11d0-a40e-00a0c9223196}')
+KSDATAFORMAT_SUBTYPE_RIFFMIDI = Guid('{4995daf0-9ee6-11d0-a40e-00a0c9223196}')
+KSDATAFORMAT_SUBTYPE_RIFFWAVE = Guid('{e436eb8b-524f-11ce-9f53-0020af0ba770}')
+KSDATAFORMAT_SUBTYPE_SDDS_AUDIO = Guid('{e06d8034-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SUBTYPE_STANDARD_AC3_AUDIO = Guid('{36523b25-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SUBTYPE_STANDARD_MPEG1_AUDIO = Guid('{36523b22-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SUBTYPE_STANDARD_MPEG1_VIDEO = Guid('{36523b21-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SUBTYPE_STANDARD_MPEG2_AUDIO = Guid('{36523b24-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SUBTYPE_STANDARD_MPEG2_VIDEO = Guid('{36523b23-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_SUBTYPE_SUBPICTURE = Guid('{e06d802d-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_SUBTYPE_TELETEXT = Guid('{f72a76e3-eb0a-11d0-ace4-0000c0cc16ba}')
+KSDATAFORMAT_SUBTYPE_VPVBI = Guid('{5a9b6a41-1a22-11d1-bad9-00609744111a}')
+KSDATAFORMAT_SUBTYPE_VPVideo = Guid('{5a9b6a40-1a22-11d1-bad9-00609744111a}')
+KSDATAFORMAT_SUBTYPE_WAVEFORMATEX = Guid('{00000000-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_WMAUDIO2 = Guid('{00000161-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_WMAUDIO3 = Guid('{00000162-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_SUBTYPE_WMAUDIO_LOSSLESS = Guid('{00000163-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_TYPE_ANALOGAUDIO = Guid('{0482dee1-7817-11cf-8a03-00aa006ecb65}')
+KSDATAFORMAT_TYPE_ANALOGVIDEO = Guid('{0482dde1-7817-11cf-8a03-00aa006ecb65}')
+KSDATAFORMAT_TYPE_AUDIO = Guid('{73647561-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_TYPE_AUXLine21Data = Guid('{670aea80-3a82-11d0-b79b-00aa003767a7}')
+KSDATAFORMAT_TYPE_DVD_ENCRYPTED_PACK = Guid('{ed0b916a-044d-11d1-aa78-00c04fc31d60}')
+KSDATAFORMAT_TYPE_IMAGE = Guid('{72178c23-e45b-11d5-bc2a-00b0d0f3f4ab}')
+KSDATAFORMAT_TYPE_MIDI = Guid('{7364696d-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_TYPE_MPEG2_PES = Guid('{e06d8020-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_TYPE_MPEG2_PROGRAM = Guid('{e06d8022-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_TYPE_MPEG2_TRANSPORT = Guid('{e06d8023-db46-11cf-b4d1-00805f6cbbea}')
+KSDATAFORMAT_TYPE_MUSIC = Guid('{e725d360-62cc-11cf-a5d6-28db04c10000}')
+KSDATAFORMAT_TYPE_NABTS = Guid('{e757bca0-39ac-11d1-a9f5-00c04fbbde8f}')
+KSDATAFORMAT_TYPE_STANDARD_ELEMENTARY_STREAM = Guid('{36523b11-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_TYPE_STANDARD_PACK_HEADER = Guid('{36523b13-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_TYPE_STANDARD_PES_PACKET = Guid('{36523b12-8ee5-11d1-8ca3-0060b057664a}')
+KSDATAFORMAT_TYPE_STREAM = Guid('{e436eb83-524f-11ce-9f53-0020af0ba770}')
+KSDATAFORMAT_TYPE_TEXT = Guid('{73747874-0000-0010-8000-00aa00389b71}')
+KSDATAFORMAT_TYPE_VBI = Guid('{f72a76e1-eb0a-11d0-ace4-0000c0cc16ba}')
+KSDATAFORMAT_TYPE_VIDEO = Guid('{73646976-0000-0010-8000-00aa00389b71}')
 class KSDATARANGE_AUDIO(EasyCastStructure):
     DataRange: Windows.Win32.Media.KernelStreaming.KSDATAFORMAT
     MaximumChannels: UInt32
@@ -1776,7 +1776,7 @@ class KSDATARANGE_MUSIC(EasyCastStructure):
     Channels: UInt32
     Notes: UInt32
     ChannelMask: UInt32
-KSDEGRADESETID_Standard = Guid('9f564180-704c-11d0-a5-d6-28-db-04-c1-00-00')
+KSDEGRADESETID_Standard = Guid('{9f564180-704c-11d0-a5d6-28db04c10000}')
 KSDEGRADE_STANDARD = Int32
 KSDEGRADE_STANDARD_SAMPLE: KSDEGRADE_STANDARD = 0
 KSDEGRADE_STANDARD_QUALITY: KSDEGRADE_STANDARD = 1
@@ -1892,25 +1892,25 @@ class KSEVENTDATA(EasyCastStructure):
         class _Alignment_e__Struct(EasyCastStructure):
             Unused: c_void_p
             Alignment: IntPtr * 2
-KSEVENTSETID_AudioControlChange = Guid('e85e9698-fa2f-11d1-95-bd-00-c0-4f-b9-25-d3')
-KSEVENTSETID_CameraAsyncControl = Guid('22a11754-9701-4088-b3-3f-6b-9c-bc-52-df-5e')
-KSEVENTSETID_CameraEvent = Guid('7899b2e0-6b43-4964-9d-2a-a2-1f-40-61-f5-76')
-KSEVENTSETID_Clock = Guid('364d8e20-62c7-11cf-a5-d6-28-db-04-c1-00-00')
-KSEVENTSETID_Connection = Guid('7f4bcbe0-9ea5-11cf-a5-d6-28-db-04-c1-00-00')
-KSEVENTSETID_Device = Guid('288296ec-9f94-41b4-a1-53-aa-31-ae-ec-b3-3f')
-KSEVENTSETID_DynamicFormatChange = Guid('162ac456-83d7-4239-96-df-c7-5f-fa-13-8b-c6')
-KSEVENTSETID_EXTDEV_Command = Guid('109c7988-b3cb-11d2-b4-8e-00-60-97-b3-39-1b')
-KSEVENTSETID_ExtendedCameraControl = Guid('571c92c9-13a2-47e3-a6-49-d2-a7-78-16-63-84')
-KSEVENTSETID_LoopedStreaming = Guid('4682b940-c6ef-11d0-96-d8-00-aa-00-51-e5-1d')
-KSEVENTSETID_PinCapsChange = Guid('dd4f192e-3b78-49ad-a5-34-2c-31-5b-82-20-00')
-KSEVENTSETID_SoundDetector = Guid('69785c9b-fc2d-49d6-ac-32-47-99-f8-7d-e9-f6')
-KSEVENTSETID_StreamAllocator = Guid('75d95571-073c-11d0-a1-61-00-20-af-d1-56-e4')
-KSEVENTSETID_Telephony = Guid('b77f12b4-ceb4-4484-8d-5e-52-c1-e7-d8-76-2d')
-KSEVENTSETID_VIDCAPTOSTI = Guid('db47de20-f628-11d1-ba-41-00-a0-c9-0d-2b-05')
-KSEVENTSETID_VIDCAP_TVAUDIO = Guid('6a2e0651-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-KSEVENTSETID_VPNotify = Guid('20c5598e-d3c8-11d0-8d-fc-00-c0-4f-d7-c0-8b')
-KSEVENTSETID_VPVBINotify = Guid('ec529b01-1a1f-11d1-ba-d9-00-60-97-44-11-1a')
-KSEVENTSETID_VolumeLimit = Guid('da168465-3a7c-4858-9d-4a-3e-8e-24-70-1a-ef')
+KSEVENTSETID_AudioControlChange = Guid('{e85e9698-fa2f-11d1-95bd-00c04fb925d3}')
+KSEVENTSETID_CameraAsyncControl = Guid('{22a11754-9701-4088-b33f-6b9cbc52df5e}')
+KSEVENTSETID_CameraEvent = Guid('{7899b2e0-6b43-4964-9d2a-a21f4061f576}')
+KSEVENTSETID_Clock = Guid('{364d8e20-62c7-11cf-a5d6-28db04c10000}')
+KSEVENTSETID_Connection = Guid('{7f4bcbe0-9ea5-11cf-a5d6-28db04c10000}')
+KSEVENTSETID_Device = Guid('{288296ec-9f94-41b4-a153-aa31aeecb33f}')
+KSEVENTSETID_DynamicFormatChange = Guid('{162ac456-83d7-4239-96df-c75ffa138bc6}')
+KSEVENTSETID_EXTDEV_Command = Guid('{109c7988-b3cb-11d2-b48e-006097b3391b}')
+KSEVENTSETID_ExtendedCameraControl = Guid('{571c92c9-13a2-47e3-a649-d2a778166384}')
+KSEVENTSETID_LoopedStreaming = Guid('{4682b940-c6ef-11d0-96d8-00aa0051e51d}')
+KSEVENTSETID_PinCapsChange = Guid('{dd4f192e-3b78-49ad-a534-2c315b822000}')
+KSEVENTSETID_SoundDetector = Guid('{69785c9b-fc2d-49d6-ac32-4799f87de9f6}')
+KSEVENTSETID_StreamAllocator = Guid('{75d95571-073c-11d0-a161-0020afd156e4}')
+KSEVENTSETID_Telephony = Guid('{b77f12b4-ceb4-4484-8d5e-52c1e7d8762d}')
+KSEVENTSETID_VIDCAPTOSTI = Guid('{db47de20-f628-11d1-ba41-00a0c90d2b05}')
+KSEVENTSETID_VIDCAP_TVAUDIO = Guid('{6a2e0651-28e4-11d0-a18c-00a0c9118956}')
+KSEVENTSETID_VPNotify = Guid('{20c5598e-d3c8-11d0-8dfc-00c04fd7c08b}')
+KSEVENTSETID_VPVBINotify = Guid('{ec529b01-1a1f-11d1-bad9-00609744111a}')
+KSEVENTSETID_VolumeLimit = Guid('{da168465-3a7c-4858-9d4a-3e8e24701aef}')
 KSEVENT_AUDIO_CONTROL_CHANGE = Int32
 KSEVENT_CONTROL_CHANGE: KSEVENT_AUDIO_CONTROL_CHANGE = 0
 KSEVENT_CAMERACONTROL = Int32
@@ -2011,9 +2011,9 @@ class KSIDENTIFIER(EasyCastStructure):
             Set: Guid
             Id: UInt32
             Flags: UInt32
-KSINTERFACESETID_FileIo = Guid('8c6f932c-e771-11d0-b8-ff-00-a0-c9-22-31-96')
-KSINTERFACESETID_Media = Guid('3a13eb40-30a7-11d0-a5-d6-28-db-04-c1-00-00')
-KSINTERFACESETID_Standard = Guid('1a8766a0-62ce-11cf-a5-d6-28-db-04-c1-00-00')
+KSINTERFACESETID_FileIo = Guid('{8c6f932c-e771-11d0-b8ff-00a0c9223196}')
+KSINTERFACESETID_Media = Guid('{3a13eb40-30a7-11d0-a5d6-28db04c10000}')
+KSINTERFACESETID_Standard = Guid('{1a8766a0-62ce-11cf-a5d6-28db04c10000}')
 KSINTERFACE_FILEIO = Int32
 KSINTERFACE_FILEIO_STREAMING: KSINTERFACE_FILEIO = 0
 KSINTERFACE_MEDIA = Int32
@@ -2056,17 +2056,17 @@ class KSJACK_SINK_INFORMATION(EasyCastStructure):
     SinkDescriptionLength: Byte
     SinkDescription: Char * 32
     PortId: Windows.Win32.Foundation.LUID
-KSMEDIUMSETID_MidiBus = Guid('05908040-3246-11d0-a5-d6-28-db-04-c1-00-00')
-KSMEDIUMSETID_Standard = Guid('4747b320-62ce-11cf-a5-d6-28-db-04-c1-00-00')
-KSMEDIUMSETID_VPBus = Guid('a18c15ec-ce43-11d0-ab-e7-00-a0-c9-22-31-96')
-KSMEMORY_TYPE_DEVICE_UNKNOWN = Guid('091bb639-603f-11d1-b0-67-00-a0-c9-06-28-02')
-KSMEMORY_TYPE_KERNEL_NONPAGED = Guid('4a6d5fc4-7895-11d1-b0-69-00-a0-c9-06-28-02')
-KSMEMORY_TYPE_KERNEL_PAGED = Guid('d833f8f8-7894-11d1-b0-69-00-a0-c9-06-28-02')
-KSMEMORY_TYPE_SYSTEM = Guid('091bb638-603f-11d1-b0-67-00-a0-c9-06-28-02')
-KSMEMORY_TYPE_USER = Guid('8cb0fc28-7893-11d1-b0-69-00-a0-c9-06-28-02')
-KSMETHODSETID_StreamAllocator = Guid('cf6e4341-ec87-11cf-a1-30-00-20-af-d1-56-e4')
-KSMETHODSETID_StreamIo = Guid('65d003ca-1523-11d2-b2-7a-00-a0-c9-22-31-96')
-KSMETHODSETID_Wavetable = Guid('dcef31eb-d907-11d0-95-83-00-c0-4f-b9-25-d3')
+KSMEDIUMSETID_MidiBus = Guid('{05908040-3246-11d0-a5d6-28db04c10000}')
+KSMEDIUMSETID_Standard = Guid('{4747b320-62ce-11cf-a5d6-28db04c10000}')
+KSMEDIUMSETID_VPBus = Guid('{a18c15ec-ce43-11d0-abe7-00a0c9223196}')
+KSMEMORY_TYPE_DEVICE_UNKNOWN = Guid('{091bb639-603f-11d1-b067-00a0c9062802}')
+KSMEMORY_TYPE_KERNEL_NONPAGED = Guid('{4a6d5fc4-7895-11d1-b069-00a0c9062802}')
+KSMEMORY_TYPE_KERNEL_PAGED = Guid('{d833f8f8-7894-11d1-b069-00a0c9062802}')
+KSMEMORY_TYPE_SYSTEM = Guid('{091bb638-603f-11d1-b067-00a0c9062802}')
+KSMEMORY_TYPE_USER = Guid('{8cb0fc28-7893-11d1-b069-00a0c9062802}')
+KSMETHODSETID_StreamAllocator = Guid('{cf6e4341-ec87-11cf-a130-0020afd156e4}')
+KSMETHODSETID_StreamIo = Guid('{65d003ca-1523-11d2-b27a-00a0c9223196}')
+KSMETHODSETID_Wavetable = Guid('{dcef31eb-d907-11d0-9583-00c04fb925d3}')
 KSMETHOD_STREAMALLOCATOR = Int32
 KSMETHOD_STREAMALLOCATOR_ALLOC: KSMETHOD_STREAMALLOCATOR = 0
 KSMETHOD_STREAMALLOCATOR_FREE: KSMETHOD_STREAMALLOCATOR = 1
@@ -2078,16 +2078,16 @@ KSMETHOD_WAVETABLE_WAVE_ALLOC: KSMETHOD_WAVETABLE = 0
 KSMETHOD_WAVETABLE_WAVE_FREE: KSMETHOD_WAVETABLE = 1
 KSMETHOD_WAVETABLE_WAVE_FIND: KSMETHOD_WAVETABLE = 2
 KSMETHOD_WAVETABLE_WAVE_WRITE: KSMETHOD_WAVETABLE = 3
-KSMFT_CATEGORY_AUDIO_DECODER = Guid('9ea73fb4-ef7a-4559-8d-5d-71-9d-8f-04-26-c7')
-KSMFT_CATEGORY_AUDIO_EFFECT = Guid('11064c48-3648-4ed0-93-2e-05-ce-8a-c8-11-b7')
-KSMFT_CATEGORY_AUDIO_ENCODER = Guid('91c64bd0-f91e-4d8c-92-76-db-24-82-79-d9-75')
-KSMFT_CATEGORY_DEMULTIPLEXER = Guid('a8700a7a-939b-44c5-99-d7-76-22-6b-23-b3-f1')
-KSMFT_CATEGORY_MULTIPLEXER = Guid('059c561e-05ae-4b61-b6-9d-55-b6-1e-e5-4a-7b')
-KSMFT_CATEGORY_OTHER = Guid('90175d57-b7ea-4901-ae-b3-93-3a-87-47-75-6f')
-KSMFT_CATEGORY_VIDEO_DECODER = Guid('d6c02d4b-6833-45b4-97-1a-05-a4-b0-4b-ab-91')
-KSMFT_CATEGORY_VIDEO_EFFECT = Guid('12e17c21-532c-4a6e-8a-1c-40-82-5a-73-63-97')
-KSMFT_CATEGORY_VIDEO_ENCODER = Guid('f79eac7d-e545-4387-bd-ee-d6-47-d7-bd-e4-2a')
-KSMFT_CATEGORY_VIDEO_PROCESSOR = Guid('302ea3fc-aa5f-47f9-9f-7a-c2-18-8b-b1-63-02')
+KSMFT_CATEGORY_AUDIO_DECODER = Guid('{9ea73fb4-ef7a-4559-8d5d-719d8f0426c7}')
+KSMFT_CATEGORY_AUDIO_EFFECT = Guid('{11064c48-3648-4ed0-932e-05ce8ac811b7}')
+KSMFT_CATEGORY_AUDIO_ENCODER = Guid('{91c64bd0-f91e-4d8c-9276-db248279d975}')
+KSMFT_CATEGORY_DEMULTIPLEXER = Guid('{a8700a7a-939b-44c5-99d7-76226b23b3f1}')
+KSMFT_CATEGORY_MULTIPLEXER = Guid('{059c561e-05ae-4b61-b69d-55b61ee54a7b}')
+KSMFT_CATEGORY_OTHER = Guid('{90175d57-b7ea-4901-aeb3-933a8747756f}')
+KSMFT_CATEGORY_VIDEO_DECODER = Guid('{d6c02d4b-6833-45b4-971a-05a4b04bab91}')
+KSMFT_CATEGORY_VIDEO_EFFECT = Guid('{12e17c21-532c-4a6e-8a1c-40825a736397}')
+KSMFT_CATEGORY_VIDEO_ENCODER = Guid('{f79eac7d-e545-4387-bdee-d647d7bde42a}')
+KSMFT_CATEGORY_VIDEO_PROCESSOR = Guid('{302ea3fc-aa5f-47f9-9f7a-c2188bb16302}')
 KSMICARRAY_MICARRAYTYPE = Int32
 KSMICARRAY_MICARRAYTYPE_LINEAR: KSMICARRAY_MICARRAYTYPE = 0
 KSMICARRAY_MICARRAYTYPE_PLANAR: KSMICARRAY_MICARRAYTYPE = 1
@@ -2114,20 +2114,20 @@ class KSMULTIPLE_ITEM(EasyCastStructure):
 class KSMUSICFORMAT(EasyCastStructure):
     TimeDeltaMs: UInt32
     ByteCount: UInt32
-KSMUSIC_TECHNOLOGY_FMSYNTH = Guid('252c5c80-62e9-11cf-a5-d6-28-db-04-c1-00-00')
-KSMUSIC_TECHNOLOGY_PORT = Guid('86c92e60-62e8-11cf-a5-d6-28-db-04-c1-00-00')
-KSMUSIC_TECHNOLOGY_SQSYNTH = Guid('0ecf4380-62e9-11cf-a5-d6-28-db-04-c1-00-00')
-KSMUSIC_TECHNOLOGY_SWSYNTH = Guid('37407736-3620-11d1-85-d3-00-00-f8-75-43-80')
-KSMUSIC_TECHNOLOGY_WAVETABLE = Guid('394ec7c0-62e9-11cf-a5-d6-28-db-04-c1-00-00')
+KSMUSIC_TECHNOLOGY_FMSYNTH = Guid('{252c5c80-62e9-11cf-a5d6-28db04c10000}')
+KSMUSIC_TECHNOLOGY_PORT = Guid('{86c92e60-62e8-11cf-a5d6-28db04c10000}')
+KSMUSIC_TECHNOLOGY_SQSYNTH = Guid('{0ecf4380-62e9-11cf-a5d6-28db04c10000}')
+KSMUSIC_TECHNOLOGY_SWSYNTH = Guid('{37407736-3620-11d1-85d3-0000f8754380}')
+KSMUSIC_TECHNOLOGY_WAVETABLE = Guid('{394ec7c0-62e9-11cf-a5d6-28db04c10000}')
 class KSM_NODE(EasyCastStructure):
     Method: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     NodeId: UInt32
     Reserved: UInt32
-KSNAME_Allocator = Guid('642f5d00-4791-11d0-a5-d6-28-db-04-c1-00-00')
-KSNAME_Clock = Guid('53172480-4791-11d0-a5-d6-28-db-04-c1-00-00')
-KSNAME_Filter = Guid('9b365890-165f-11d0-a1-95-00-20-af-d1-56-e4')
-KSNAME_Pin = Guid('146f1a80-4791-11d0-a5-d6-28-db-04-c1-00-00')
-KSNAME_TopologyNode = Guid('0621061a-ee75-11d0-b9-15-00-a0-c9-22-31-96')
+KSNAME_Allocator = Guid('{642f5d00-4791-11d0-a5d6-28db04c10000}')
+KSNAME_Clock = Guid('{53172480-4791-11d0-a5d6-28db04c10000}')
+KSNAME_Filter = Guid('{9b365890-165f-11d0-a195-0020afd156e4}')
+KSNAME_Pin = Guid('{146f1a80-4791-11d0-a5d6-28db04c10000}')
+KSNAME_TopologyNode = Guid('{0621061a-ee75-11d0-b915-00a0c9223196}')
 class KSNODEPROPERTY(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     NodeId: UInt32
@@ -2161,110 +2161,110 @@ if ARCH in 'X86':
         AppContext: c_void_p
         Length: UInt32
         Reserved: UInt32
-KSNODETYPE_1394_DA_STREAM = Guid('dff21fe6-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_1394_DV_STREAM_SOUNDTRACK = Guid('dff21fe7-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_3D_EFFECTS = Guid('55515860-c559-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_ADC = Guid('4d837fe0-c555-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_AGC = Guid('e88c9ba0-c557-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_ANALOG_CONNECTOR = Guid('dff21fe1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_ANALOG_TAPE = Guid('dff220e7-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_AUDIO_ENGINE = Guid('35caf6e4-f3b3-4168-bb-4b-55-e7-7a-46-1c-7e')
-KSNODETYPE_AUDIO_KEYWORDDETECTOR = Guid('3817e0b8-df58-4375-b6-69-c4-96-34-33-1f-9d')
-KSNODETYPE_AUDIO_LOOPBACK = Guid('8f42c0b2-91ce-4bcf-9c-cd-0e-59-90-37-ab-35')
-KSNODETYPE_AUDIO_MODULE = Guid('45aab42e-caeb-4052-8a-a9-b3-8c-b5-10-96-19')
-KSNODETYPE_BIDIRECTIONAL_UNDEFINED = Guid('dff21de0-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_CABLE_TUNER_AUDIO = Guid('dff220ee-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_CD_PLAYER = Guid('dff220e3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_CHORUS = Guid('20173f20-c559-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_COMMUNICATION_SPEAKER = Guid('dff21ce6-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DAC = Guid('507ae360-c554-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_DAT_IO_DIGITAL_AUDIO_TAPE = Guid('dff220e4-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DCC_IO_DIGITAL_COMPACT_CASSETTE = Guid('dff220e5-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DELAY = Guid('144981e0-c558-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_DEMUX = Guid('c0eb67d4-e807-11d0-95-8a-00-c0-4f-b9-25-d3')
-KSNODETYPE_DESKTOP_MICROPHONE = Guid('dff21be2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DESKTOP_SPEAKER = Guid('dff21ce4-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DEV_SPECIFIC = Guid('941c7ac0-c559-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_DIGITAL_AUDIO_INTERFACE = Guid('dff21fe2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DISPLAYPORT_INTERFACE = Guid('e47e4031-3ea6-418d-8f-9b-b7-38-43-cc-ba-97')
-KSNODETYPE_DOWN_LINE_PHONE = Guid('dff21ee3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DRM_DESCRAMBLE = Guid('ffbb6e3f-ccfe-4d84-90-d9-42-14-18-b0-3a-8e')
-KSNODETYPE_DSS_AUDIO = Guid('dff220ef-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DVD_AUDIO = Guid('dff220eb-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_DYN_RANGE_COMPRESSOR = Guid('08c8a6a8-601f-4af8-87-93-d9-05-ff-4c-a9-7d')
-KSNODETYPE_ECHO_CANCELING_SPEAKERPHONE = Guid('dff21de5-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_ECHO_SUPPRESSING_SPEAKERPHONE = Guid('dff21de4-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_EMBEDDED_UNDEFINED = Guid('dff220e0-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_EQUALIZATION_NOISE = Guid('dff220e2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_EQUALIZER = Guid('9d41b4a0-c557-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_EXTERNAL_UNDEFINED = Guid('dff21fe0-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_FM_RX = Guid('834a733c-f485-41c0-a6-2b-51-30-25-01-4e-40')
-KSNODETYPE_HANDSET = Guid('dff21de1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_HDMI_INTERFACE = Guid('d1b9cc2a-f519-417f-91-c9-55-fa-65-48-10-01')
-KSNODETYPE_HEADPHONES = Guid('dff21ce2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_HEADSET = Guid('dff21de2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_HEAD_MOUNTED_DISPLAY_AUDIO = Guid('dff21ce3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_INPUT_UNDEFINED = Guid('dff21be0-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_LEGACY_AUDIO_CONNECTOR = Guid('dff21fe4-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_LEVEL_CALIBRATION_NOISE_SOURCE = Guid('dff220e1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_LINE_CONNECTOR = Guid('dff21fe3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_LOUDNESS = Guid('41887440-c558-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_LOW_FREQUENCY_EFFECTS_SPEAKER = Guid('dff21ce7-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_MICROPHONE = Guid('dff21be1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_MICROPHONE_ARRAY = Guid('dff21be5-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_MIDI_ELEMENT = Guid('01c6fe66-6e48-4c65-ac-9b-52-db-5d-65-6c-7e')
-KSNODETYPE_MIDI_JACK = Guid('265e0c3f-fa39-4df3-ab-04-be-01-b9-1e-29-9a')
-KSNODETYPE_MINIDISK = Guid('dff220e6-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_MULTITRACK_RECORDER = Guid('dff220f2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_MUTE = Guid('02b223c0-c557-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_MUX = Guid('2ceaf780-c556-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_NOISE_SUPPRESS = Guid('e07f903f-62fd-4e60-8c-dd-de-a7-23-66-65-b5')
-KSNODETYPE_OMNI_DIRECTIONAL_MICROPHONE = Guid('dff21be4-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_OUTPUT_UNDEFINED = Guid('dff21ce0-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_PARAMETRIC_EQUALIZER = Guid('19bb3a6a-ce2b-4442-87-ec-67-27-c3-ca-b4-77')
-KSNODETYPE_PEAKMETER = Guid('a085651e-5f0d-4b36-a8-69-d1-95-d6-ab-4b-9e')
-KSNODETYPE_PERSONAL_MICROPHONE = Guid('dff21be3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_PHONE_LINE = Guid('dff21ee1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_PHONOGRAPH = Guid('dff220e8-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_PROCESSING_MICROPHONE_ARRAY = Guid('dff21be6-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_PROLOGIC_DECODER = Guid('831c2c80-c558-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_PROLOGIC_ENCODER = Guid('8074c5b2-3c66-11d2-b4-5a-30-78-30-2c-20-30')
-KSNODETYPE_RADIO_RECEIVER = Guid('dff220f0-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_RADIO_TRANSMITTER = Guid('dff220f1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_REVERB = Guid('ef0328e0-c558-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_ROOM_SPEAKER = Guid('dff21ce5-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_SATELLITE_RECEIVER_AUDIO = Guid('dff220ed-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_SPDIF_INTERFACE = Guid('dff21fe5-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_SPEAKER = Guid('dff21ce1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_SPEAKERPHONE_NO_ECHO_REDUCTION = Guid('dff21de3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_SPEAKERS_STATIC_JACK = Guid('28e04f87-4dbe-4f8d-85-89-02-5d-20-9d-fb-4a')
-KSNODETYPE_SRC = Guid('9db7b9e0-c555-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_STEREO_WIDE = Guid('a9e69800-c558-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_SUM = Guid('da441a60-c556-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_SUPERMIX = Guid('e573adc0-c555-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_SYNTHESIZER = Guid('dff220f3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_TELEPHONE = Guid('dff21ee2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_TELEPHONY_BIDI = Guid('686d7cc0-d903-4258-b4-43-3a-3d-35-80-74-1c')
-KSNODETYPE_TELEPHONY_UNDEFINED = Guid('dff21ee0-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_TONE = Guid('7607e580-c557-11d0-8a-2b-00-a0-c9-25-5a-c1')
-KSNODETYPE_TV_TUNER_AUDIO = Guid('dff220ec-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_UPDOWN_MIX = Guid('b7edc5cf-7b63-4ee2-a1-00-29-ee-2c-b6-b2-de')
-KSNODETYPE_VCR_AUDIO = Guid('dff220e9-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_CAMERA_TERMINAL = Guid('dff229e6-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_DISC_AUDIO = Guid('dff220ea-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_INPUT_MTT = Guid('dff229e7-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_INPUT_TERMINAL = Guid('dff229e2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_OUTPUT_MTT = Guid('dff229e8-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_OUTPUT_TERMINAL = Guid('dff229e3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_PROCESSING = Guid('dff229e5-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_SELECTOR = Guid('dff229e4-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VIDEO_STREAMING = Guid('dff229e1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
-KSNODETYPE_VOLUME = Guid('3a5acc00-c557-11d0-8a-2b-00-a0-c9-25-5a-c1')
+KSNODETYPE_1394_DA_STREAM = Guid('{dff21fe6-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_1394_DV_STREAM_SOUNDTRACK = Guid('{dff21fe7-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_3D_EFFECTS = Guid('{55515860-c559-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_ADC = Guid('{4d837fe0-c555-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_AGC = Guid('{e88c9ba0-c557-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_ANALOG_CONNECTOR = Guid('{dff21fe1-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_ANALOG_TAPE = Guid('{dff220e7-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_AUDIO_ENGINE = Guid('{35caf6e4-f3b3-4168-bb4b-55e77a461c7e}')
+KSNODETYPE_AUDIO_KEYWORDDETECTOR = Guid('{3817e0b8-df58-4375-b669-c49634331f9d}')
+KSNODETYPE_AUDIO_LOOPBACK = Guid('{8f42c0b2-91ce-4bcf-9ccd-0e599037ab35}')
+KSNODETYPE_AUDIO_MODULE = Guid('{45aab42e-caeb-4052-8aa9-b38cb5109619}')
+KSNODETYPE_BIDIRECTIONAL_UNDEFINED = Guid('{dff21de0-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_CABLE_TUNER_AUDIO = Guid('{dff220ee-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_CD_PLAYER = Guid('{dff220e3-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_CHORUS = Guid('{20173f20-c559-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_COMMUNICATION_SPEAKER = Guid('{dff21ce6-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DAC = Guid('{507ae360-c554-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_DAT_IO_DIGITAL_AUDIO_TAPE = Guid('{dff220e4-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DCC_IO_DIGITAL_COMPACT_CASSETTE = Guid('{dff220e5-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DELAY = Guid('{144981e0-c558-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_DEMUX = Guid('{c0eb67d4-e807-11d0-958a-00c04fb925d3}')
+KSNODETYPE_DESKTOP_MICROPHONE = Guid('{dff21be2-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DESKTOP_SPEAKER = Guid('{dff21ce4-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DEV_SPECIFIC = Guid('{941c7ac0-c559-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_DIGITAL_AUDIO_INTERFACE = Guid('{dff21fe2-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DISPLAYPORT_INTERFACE = Guid('{e47e4031-3ea6-418d-8f9b-b73843ccba97}')
+KSNODETYPE_DOWN_LINE_PHONE = Guid('{dff21ee3-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DRM_DESCRAMBLE = Guid('{ffbb6e3f-ccfe-4d84-90d9-421418b03a8e}')
+KSNODETYPE_DSS_AUDIO = Guid('{dff220ef-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DVD_AUDIO = Guid('{dff220eb-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_DYN_RANGE_COMPRESSOR = Guid('{08c8a6a8-601f-4af8-8793-d905ff4ca97d}')
+KSNODETYPE_ECHO_CANCELING_SPEAKERPHONE = Guid('{dff21de5-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_ECHO_SUPPRESSING_SPEAKERPHONE = Guid('{dff21de4-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_EMBEDDED_UNDEFINED = Guid('{dff220e0-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_EQUALIZATION_NOISE = Guid('{dff220e2-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_EQUALIZER = Guid('{9d41b4a0-c557-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_EXTERNAL_UNDEFINED = Guid('{dff21fe0-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_FM_RX = Guid('{834a733c-f485-41c0-a62b-513025014e40}')
+KSNODETYPE_HANDSET = Guid('{dff21de1-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_HDMI_INTERFACE = Guid('{d1b9cc2a-f519-417f-91c9-55fa65481001}')
+KSNODETYPE_HEADPHONES = Guid('{dff21ce2-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_HEADSET = Guid('{dff21de2-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_HEAD_MOUNTED_DISPLAY_AUDIO = Guid('{dff21ce3-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_INPUT_UNDEFINED = Guid('{dff21be0-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_LEGACY_AUDIO_CONNECTOR = Guid('{dff21fe4-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_LEVEL_CALIBRATION_NOISE_SOURCE = Guid('{dff220e1-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_LINE_CONNECTOR = Guid('{dff21fe3-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_LOUDNESS = Guid('{41887440-c558-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_LOW_FREQUENCY_EFFECTS_SPEAKER = Guid('{dff21ce7-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_MICROPHONE = Guid('{dff21be1-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_MICROPHONE_ARRAY = Guid('{dff21be5-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_MIDI_ELEMENT = Guid('{01c6fe66-6e48-4c65-ac9b-52db5d656c7e}')
+KSNODETYPE_MIDI_JACK = Guid('{265e0c3f-fa39-4df3-ab04-be01b91e299a}')
+KSNODETYPE_MINIDISK = Guid('{dff220e6-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_MULTITRACK_RECORDER = Guid('{dff220f2-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_MUTE = Guid('{02b223c0-c557-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_MUX = Guid('{2ceaf780-c556-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_NOISE_SUPPRESS = Guid('{e07f903f-62fd-4e60-8cdd-dea7236665b5}')
+KSNODETYPE_OMNI_DIRECTIONAL_MICROPHONE = Guid('{dff21be4-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_OUTPUT_UNDEFINED = Guid('{dff21ce0-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_PARAMETRIC_EQUALIZER = Guid('{19bb3a6a-ce2b-4442-87ec-6727c3cab477}')
+KSNODETYPE_PEAKMETER = Guid('{a085651e-5f0d-4b36-a869-d195d6ab4b9e}')
+KSNODETYPE_PERSONAL_MICROPHONE = Guid('{dff21be3-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_PHONE_LINE = Guid('{dff21ee1-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_PHONOGRAPH = Guid('{dff220e8-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_PROCESSING_MICROPHONE_ARRAY = Guid('{dff21be6-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_PROLOGIC_DECODER = Guid('{831c2c80-c558-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_PROLOGIC_ENCODER = Guid('{8074c5b2-3c66-11d2-b45a-3078302c2030}')
+KSNODETYPE_RADIO_RECEIVER = Guid('{dff220f0-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_RADIO_TRANSMITTER = Guid('{dff220f1-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_REVERB = Guid('{ef0328e0-c558-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_ROOM_SPEAKER = Guid('{dff21ce5-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_SATELLITE_RECEIVER_AUDIO = Guid('{dff220ed-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_SPDIF_INTERFACE = Guid('{dff21fe5-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_SPEAKER = Guid('{dff21ce1-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_SPEAKERPHONE_NO_ECHO_REDUCTION = Guid('{dff21de3-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_SPEAKERS_STATIC_JACK = Guid('{28e04f87-4dbe-4f8d-8589-025d209dfb4a}')
+KSNODETYPE_SRC = Guid('{9db7b9e0-c555-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_STEREO_WIDE = Guid('{a9e69800-c558-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_SUM = Guid('{da441a60-c556-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_SUPERMIX = Guid('{e573adc0-c555-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_SYNTHESIZER = Guid('{dff220f3-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_TELEPHONE = Guid('{dff21ee2-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_TELEPHONY_BIDI = Guid('{686d7cc0-d903-4258-b443-3a3d3580741c}')
+KSNODETYPE_TELEPHONY_UNDEFINED = Guid('{dff21ee0-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_TONE = Guid('{7607e580-c557-11d0-8a2b-00a0c9255ac1}')
+KSNODETYPE_TV_TUNER_AUDIO = Guid('{dff220ec-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_UPDOWN_MIX = Guid('{b7edc5cf-7b63-4ee2-a100-29ee2cb6b2de}')
+KSNODETYPE_VCR_AUDIO = Guid('{dff220e9-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_CAMERA_TERMINAL = Guid('{dff229e6-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_DISC_AUDIO = Guid('{dff220ea-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_INPUT_MTT = Guid('{dff229e7-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_INPUT_TERMINAL = Guid('{dff229e2-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_OUTPUT_MTT = Guid('{dff229e8-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_OUTPUT_TERMINAL = Guid('{dff229e3-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_PROCESSING = Guid('{dff229e5-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_SELECTOR = Guid('{dff229e4-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VIDEO_STREAMING = Guid('{dff229e1-f70f-11d0-b917-00a0c9223196}')
+KSNODETYPE_VOLUME = Guid('{3a5acc00-c557-11d0-8a2b-00a0c9255ac1}')
 class KSNODE_CREATE(EasyCastStructure):
     CreateFlags: UInt32
     Node: UInt32
-KSNOTIFICATIONID_AudioModule = Guid('9c2220f0-d9a6-4d5c-a0-36-57-38-57-fd-50-d2')
-KSNOTIFICATIONID_SoundDetector = Guid('6389d844-bb32-4c4c-a8-02-f4-b4-b7-7a-fe-ad')
+KSNOTIFICATIONID_AudioModule = Guid('{9c2220f0-d9a6-4d5c-a036-573857fd50d2}')
+KSNOTIFICATIONID_SoundDetector = Guid('{6389d844-bb32-4c4c-a802-f4b4b77afead}')
 KSPEEKOPERATION = Int32
 KsPeekOperation_PeekOnly: KSPEEKOPERATION = 0
 KsPeekOperation_AddRef: KSPEEKOPERATION = 1
@@ -2306,9 +2306,9 @@ KSPROPERTY_ALLOCATOR_CLEANUP_CACHEDMDLPAGES: KSPPROPERTY_ALLOCATOR_MDLCACHING = 
 class KSPRIORITY(EasyCastStructure):
     PriorityClass: UInt32
     PrioritySubClass: UInt32
-KSPROPERTYSETID_ExtendedCameraControl = Guid('1cb79112-c0d2-4213-9c-a6-cd-4f-db-92-79-72')
-KSPROPERTYSETID_NetworkCameraControl = Guid('0e780f09-5745-4e3a-bc-9f-f2-26-ea-43-a6-ec')
-KSPROPERTYSETID_PerFrameSettingControl = Guid('f1f3e261-dee6-4537-bf-f5-ee-20-6d-b5-4a-ac')
+KSPROPERTYSETID_ExtendedCameraControl = Guid('{1cb79112-c0d2-4213-9ca6-cd4fdb927972}')
+KSPROPERTYSETID_NetworkCameraControl = Guid('{0e780f09-5745-4e3a-bc9f-f226ea43a6ec}')
+KSPROPERTYSETID_PerFrameSettingControl = Guid('{f1f3e261-dee6-4537-bff5-ee206db54aac}')
 KSPROPERTY_AC3 = Int32
 KSPROPERTY_AC3_ERROR_CONCEALMENT: KSPROPERTY_AC3 = 1
 KSPROPERTY_AC3_ALTERNATE_AUDIO: KSPROPERTY_AC3 = 2
@@ -3266,58 +3266,58 @@ KSPROPERTY_WAVE_BUFFER: KSPROPERTY_WAVE = 3
 KSPROPERTY_WAVE_FREQUENCY: KSPROPERTY_WAVE = 4
 KSPROPERTY_WAVE_VOLUME: KSPROPERTY_WAVE = 5
 KSPROPERTY_WAVE_PAN: KSPROPERTY_WAVE = 6
-KSPROPSETID_AC3 = Guid('bfabe720-6e1f-11d0-bc-f2-44-45-53-54-00-00')
-KSPROPSETID_Audio = Guid('45ffaaa0-6e1b-11d0-bc-f2-44-45-53-54-00-00')
-KSPROPSETID_AudioBufferDuration = Guid('4e73c07f-23cc-4955-a7-ea-3d-a5-02-49-62-90')
-KSPROPSETID_AudioDecoderOut = Guid('6ca6e020-43bd-11d0-bd-6a-00-35-05-c1-03-a9')
-KSPROPSETID_AudioEngine = Guid('3a2f82dc-886f-4baa-9e-b4-08-2b-90-25-c5-36')
-KSPROPSETID_AudioModule = Guid('c034fdb0-ff75-47c8-aa-3c-ee-46-71-6b-50-c6')
-KSPROPSETID_AudioPosture = Guid('a3fb7b0d-474e-4f51-a3-79-51-28-2d-d4-fa-8f')
-KSPROPSETID_AudioResourceManagement = Guid('d0b305e1-b2cc-484c-8f-23-e5-d2-8a-d9-cf-88')
-KSPROPSETID_AudioSignalProcessing = Guid('4f67b528-30c9-40de-b2-fb-85-9d-dd-1f-34-70')
-KSPROPSETID_Bibliographic = Guid('07ba150e-e2b1-11d0-ac-17-00-a0-c9-22-31-96')
-KSPROPSETID_BtAudio = Guid('7fa06c40-b8f6-4c7e-85-56-e8-c3-3a-12-e5-4d')
-KSPROPSETID_Clock = Guid('df12a4c0-ac17-11cf-a5-d6-28-db-04-c1-00-00')
-KSPROPSETID_Connection = Guid('1d58c920-ac9b-11cf-a5-d6-28-db-04-c1-00-00')
-KSPROPSETID_CopyProt = Guid('0e8a0a40-6aef-11d0-9e-d0-00-a0-24-ca-19-b3')
-KSPROPSETID_Cyclic = Guid('3ffeaea0-2bee-11cf-a5-d6-28-db-04-c1-00-00')
-KSPROPSETID_DirectSound3DBuffer = Guid('437b3411-d060-11d0-85-83-00-c0-4f-d9-ba-f3')
-KSPROPSETID_DirectSound3DListener = Guid('437b3414-d060-11d0-85-83-00-c0-4f-d9-ba-f3')
-KSPROPSETID_DrmAudioStream = Guid('2f2c8ddd-4198-4fac-ba-29-61-bb-05-b7-de-06')
-KSPROPSETID_DvdSubPic = Guid('ac390460-43af-11d0-bd-6a-00-35-05-c1-03-a9')
-KSPROPSETID_FMRXControl = Guid('947bba3a-e8ee-4786-90-c4-84-28-18-5f-05-be')
-KSPROPSETID_FMRXTopology = Guid('0c46ce8f-dc2d-4204-9d-c9-f5-89-63-36-65-63')
-KSPROPSETID_General = Guid('1464eda5-6a8f-11d1-9a-a7-00-a0-c9-22-31-96')
-KSPROPSETID_Hrtf3d = Guid('b66decb0-a083-11d0-85-1e-00-c0-4f-d9-ba-f3')
-KSPROPSETID_InterleavedAudio = Guid('e9ebe550-d619-4c0a-97-6b-70-62-32-2b-30-06')
-KSPROPSETID_Itd3d = Guid('6429f090-9fd9-11d0-a7-5b-00-a0-c9-03-65-e3')
-KSPROPSETID_Jack = Guid('4509f757-2d46-4637-8e-62-ce-7d-b9-44-f5-7b')
-KSPROPSETID_MPEG4_MediaType_Attributes = Guid('ff6c4bfa-07a9-4c7b-a2-37-67-2f-9d-68-06-5f')
-KSPROPSETID_MediaSeeking = Guid('ee904f0c-d09b-11d0-ab-e9-00-a0-c9-22-31-96')
-KSPROPSETID_MemoryTransport = Guid('0a3d1c5d-5243-4819-9e-d0-ae-e8-04-4c-ee-2b')
-KSPROPSETID_Mpeg2Vid = Guid('c8e11b60-0cc9-11d0-bd-69-00-35-05-c1-03-a9')
-KSPROPSETID_OverlayUpdate = Guid('490ea5cf-7681-11d1-a2-1c-00-a0-c9-22-31-96')
-KSPROPSETID_Pin = Guid('8c134960-51ad-11cf-87-8a-94-f8-01-c1-00-00')
-KSPROPSETID_PinMDLCacheClearProp = Guid('bd718a7b-97fc-40c7-88-ce-d3-ff-06-f5-5b-16')
-KSPROPSETID_Quality = Guid('d16ad380-ac1a-11cf-a5-d6-28-db-04-c1-00-00')
-KSPROPSETID_RtAudio = Guid('a855a48c-2f78-4729-90-51-19-68-74-6b-9e-ef')
-KSPROPSETID_SoundDetector = Guid('113c425e-fd17-4057-b4-22-ed-40-74-f1-af-df')
-KSPROPSETID_SoundDetector2 = Guid('fe07e322-450c-4bd5-84-ca-a9-48-50-0e-a6-aa')
-KSPROPSETID_Stream = Guid('65aaba60-98ae-11cf-a1-0d-00-20-af-d1-56-e4')
-KSPROPSETID_StreamAllocator = Guid('cf6e4342-ec87-11cf-a1-30-00-20-af-d1-56-e4')
-KSPROPSETID_StreamInterface = Guid('1fdd8ee1-9cd3-11d0-82-aa-00-00-f8-22-fe-8a')
-KSPROPSETID_TSRateChange = Guid('a503c5c0-1d1d-11d1-ad-80-44-45-53-54-00-00')
-KSPROPSETID_TelephonyControl = Guid('b6df7eb1-d099-489f-a6-a0-c0-10-6f-08-87-a7')
-KSPROPSETID_TelephonyTopology = Guid('abf25c7e-0e64-4e32-b1-90-d0-f6-d7-c5-3e-97')
-KSPROPSETID_Topology = Guid('720d4ac0-7533-11d0-a5-d6-28-db-04-c1-00-00')
-KSPROPSETID_TopologyNode = Guid('45ffaaa1-6e1b-11d0-bc-f2-44-45-53-54-00-00')
-KSPROPSETID_VBICAP_PROPERTIES = Guid('f162c607-7b35-496f-ad-7f-2d-ca-3b-46-b7-18')
-KSPROPSETID_VBICodecFiltering = Guid('cafeb0ca-8715-11d0-bd-6a-00-35-c0-ed-ba-be')
-KSPROPSETID_VPConfig = Guid('bc29a660-30e3-11d0-9e-69-00-c0-4f-d7-c1-5b')
-KSPROPSETID_VPVBIConfig = Guid('ec529b00-1a1f-11d1-ba-d9-00-60-97-44-11-1a')
-KSPROPSETID_VramCapture = Guid('e73face3-2880-4902-b7-99-88-d0-cd-63-4e-0f')
-KSPROPSETID_Wave = Guid('924e54b0-630f-11cf-ad-a7-08-00-3e-30-49-4a')
-KSPROPTYPESETID_General = Guid('97e99ba0-bdea-11cf-a5-d6-28-db-04-c1-00-00')
+KSPROPSETID_AC3 = Guid('{bfabe720-6e1f-11d0-bcf2-444553540000}')
+KSPROPSETID_Audio = Guid('{45ffaaa0-6e1b-11d0-bcf2-444553540000}')
+KSPROPSETID_AudioBufferDuration = Guid('{4e73c07f-23cc-4955-a7ea-3da502496290}')
+KSPROPSETID_AudioDecoderOut = Guid('{6ca6e020-43bd-11d0-bd6a-003505c103a9}')
+KSPROPSETID_AudioEngine = Guid('{3a2f82dc-886f-4baa-9eb4-082b9025c536}')
+KSPROPSETID_AudioModule = Guid('{c034fdb0-ff75-47c8-aa3c-ee46716b50c6}')
+KSPROPSETID_AudioPosture = Guid('{a3fb7b0d-474e-4f51-a379-51282dd4fa8f}')
+KSPROPSETID_AudioResourceManagement = Guid('{d0b305e1-b2cc-484c-8f23-e5d28ad9cf88}')
+KSPROPSETID_AudioSignalProcessing = Guid('{4f67b528-30c9-40de-b2fb-859ddd1f3470}')
+KSPROPSETID_Bibliographic = Guid('{07ba150e-e2b1-11d0-ac17-00a0c9223196}')
+KSPROPSETID_BtAudio = Guid('{7fa06c40-b8f6-4c7e-8556-e8c33a12e54d}')
+KSPROPSETID_Clock = Guid('{df12a4c0-ac17-11cf-a5d6-28db04c10000}')
+KSPROPSETID_Connection = Guid('{1d58c920-ac9b-11cf-a5d6-28db04c10000}')
+KSPROPSETID_CopyProt = Guid('{0e8a0a40-6aef-11d0-9ed0-00a024ca19b3}')
+KSPROPSETID_Cyclic = Guid('{3ffeaea0-2bee-11cf-a5d6-28db04c10000}')
+KSPROPSETID_DirectSound3DBuffer = Guid('{437b3411-d060-11d0-8583-00c04fd9baf3}')
+KSPROPSETID_DirectSound3DListener = Guid('{437b3414-d060-11d0-8583-00c04fd9baf3}')
+KSPROPSETID_DrmAudioStream = Guid('{2f2c8ddd-4198-4fac-ba29-61bb05b7de06}')
+KSPROPSETID_DvdSubPic = Guid('{ac390460-43af-11d0-bd6a-003505c103a9}')
+KSPROPSETID_FMRXControl = Guid('{947bba3a-e8ee-4786-90c4-8428185f05be}')
+KSPROPSETID_FMRXTopology = Guid('{0c46ce8f-dc2d-4204-9dc9-f58963366563}')
+KSPROPSETID_General = Guid('{1464eda5-6a8f-11d1-9aa7-00a0c9223196}')
+KSPROPSETID_Hrtf3d = Guid('{b66decb0-a083-11d0-851e-00c04fd9baf3}')
+KSPROPSETID_InterleavedAudio = Guid('{e9ebe550-d619-4c0a-976b-7062322b3006}')
+KSPROPSETID_Itd3d = Guid('{6429f090-9fd9-11d0-a75b-00a0c90365e3}')
+KSPROPSETID_Jack = Guid('{4509f757-2d46-4637-8e62-ce7db944f57b}')
+KSPROPSETID_MPEG4_MediaType_Attributes = Guid('{ff6c4bfa-07a9-4c7b-a237-672f9d68065f}')
+KSPROPSETID_MediaSeeking = Guid('{ee904f0c-d09b-11d0-abe9-00a0c9223196}')
+KSPROPSETID_MemoryTransport = Guid('{0a3d1c5d-5243-4819-9ed0-aee8044cee2b}')
+KSPROPSETID_Mpeg2Vid = Guid('{c8e11b60-0cc9-11d0-bd69-003505c103a9}')
+KSPROPSETID_OverlayUpdate = Guid('{490ea5cf-7681-11d1-a21c-00a0c9223196}')
+KSPROPSETID_Pin = Guid('{8c134960-51ad-11cf-878a-94f801c10000}')
+KSPROPSETID_PinMDLCacheClearProp = Guid('{bd718a7b-97fc-40c7-88ce-d3ff06f55b16}')
+KSPROPSETID_Quality = Guid('{d16ad380-ac1a-11cf-a5d6-28db04c10000}')
+KSPROPSETID_RtAudio = Guid('{a855a48c-2f78-4729-9051-1968746b9eef}')
+KSPROPSETID_SoundDetector = Guid('{113c425e-fd17-4057-b422-ed4074f1afdf}')
+KSPROPSETID_SoundDetector2 = Guid('{fe07e322-450c-4bd5-84ca-a948500ea6aa}')
+KSPROPSETID_Stream = Guid('{65aaba60-98ae-11cf-a10d-0020afd156e4}')
+KSPROPSETID_StreamAllocator = Guid('{cf6e4342-ec87-11cf-a130-0020afd156e4}')
+KSPROPSETID_StreamInterface = Guid('{1fdd8ee1-9cd3-11d0-82aa-0000f822fe8a}')
+KSPROPSETID_TSRateChange = Guid('{a503c5c0-1d1d-11d1-ad80-444553540000}')
+KSPROPSETID_TelephonyControl = Guid('{b6df7eb1-d099-489f-a6a0-c0106f0887a7}')
+KSPROPSETID_TelephonyTopology = Guid('{abf25c7e-0e64-4e32-b190-d0f6d7c53e97}')
+KSPROPSETID_Topology = Guid('{720d4ac0-7533-11d0-a5d6-28db04c10000}')
+KSPROPSETID_TopologyNode = Guid('{45ffaaa1-6e1b-11d0-bcf2-444553540000}')
+KSPROPSETID_VBICAP_PROPERTIES = Guid('{f162c607-7b35-496f-ad7f-2dca3b46b718}')
+KSPROPSETID_VBICodecFiltering = Guid('{cafeb0ca-8715-11d0-bd6a-0035c0edbabe}')
+KSPROPSETID_VPConfig = Guid('{bc29a660-30e3-11d0-9e69-00c04fd7c15b}')
+KSPROPSETID_VPVBIConfig = Guid('{ec529b00-1a1f-11d1-bad9-00609744111a}')
+KSPROPSETID_VramCapture = Guid('{e73face3-2880-4902-b799-88d0cd634e0f}')
+KSPROPSETID_Wave = Guid('{924e54b0-630f-11cf-ada7-08003e30494a}')
+KSPROPTYPESETID_General = Guid('{97e99ba0-bdea-11cf-a5d6-28db04c10000}')
 class KSP_NODE(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     NodeId: UInt32
@@ -3516,11 +3516,11 @@ class KSTIME(EasyCastStructure):
     Time: Int64
     Numerator: UInt32
     Denominator: UInt32
-KSTIME_FORMAT_BYTE = Guid('7b785571-8c82-11cf-bc-0c-00-aa-00-ac-74-f6')
-KSTIME_FORMAT_FIELD = Guid('7b785573-8c82-11cf-bc-0c-00-aa-00-ac-74-f6')
-KSTIME_FORMAT_FRAME = Guid('7b785570-8c82-11cf-bc-0c-00-aa-00-ac-74-f6')
-KSTIME_FORMAT_MEDIA_TIME = Guid('7b785574-8c82-11cf-bc-0c-00-aa-00-ac-74-f6')
-KSTIME_FORMAT_SAMPLE = Guid('7b785572-8c82-11cf-bc-0c-00-aa-00-ac-74-f6')
+KSTIME_FORMAT_BYTE = Guid('{7b785571-8c82-11cf-bc0c-00aa00ac74f6}')
+KSTIME_FORMAT_FIELD = Guid('{7b785573-8c82-11cf-bc0c-00aa00ac74f6}')
+KSTIME_FORMAT_FRAME = Guid('{7b785570-8c82-11cf-bc0c-00aa00ac74f6}')
+KSTIME_FORMAT_MEDIA_TIME = Guid('{7b785574-8c82-11cf-bc0c-00aa00ac74f6}')
+KSTIME_FORMAT_SAMPLE = Guid('{7b785572-8c82-11cf-bc0c-00aa00ac74f6}')
 class KSTOPOLOGY(EasyCastStructure):
     CategoriesCount: UInt32
     Categories: POINTER(Guid)
@@ -3979,7 +3979,7 @@ class KS_RGBQUAD(EasyCastStructure):
     rgbGreen: Byte
     rgbRed: Byte
     rgbReserved: Byte
-KS_SECURE_CAMERA_SCENARIO_ID = Guid('ae53fc6e-8d89-4488-9d-2e-4d-00-87-31-c5-fd')
+KS_SECURE_CAMERA_SCENARIO_ID = Guid('{ae53fc6e-8d89-4488-9d2e-4d008731c5fd}')
 KS_SEEKING_CAPABILITIES = Int32
 KS_SEEKING_CanSeekAbsolute: KS_SEEKING_CAPABILITIES = 1
 KS_SEEKING_CanSeekForwards: KS_SEEKING_CAPABILITIES = 2
@@ -4141,25 +4141,25 @@ class OPTIMAL_WEIGHT_TOTALS(EasyCastStructure):
     MinTotalNominator: Int64
     MaxTotalNominator: Int64
     TotalDenominator: Int64
-PINNAME_DISPLAYPORT_OUT = Guid('21fbb329-1a4a-48da-a0-76-23-18-a3-c5-9b-26')
-PINNAME_HDMI_OUT = Guid('387bfc03-e7ef-4901-86-e0-35-b7-c3-2b-00-ef')
-PINNAME_IMAGE = Guid('38a0cd98-d49b-4ce8-b4-8a-34-46-67-a1-78-30')
-PINNAME_SPDIF_IN = Guid('15dc9025-22ad-41b3-88-75-f4-ce-b0-29-9e-20')
-PINNAME_SPDIF_OUT = Guid('3a264481-e52c-4b82-8e-7a-c8-e2-f9-1d-c3-80')
-PINNAME_VIDEO_ANALOGVIDEOIN = Guid('fb6c4283-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_CAPTURE = Guid('fb6c4281-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_CC = Guid('fb6c4289-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_CC_CAPTURE = Guid('1aad8061-012d-11d2-b4-b1-00-a0-d1-02-cf-be')
-PINNAME_VIDEO_EDS = Guid('fb6c4287-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_NABTS = Guid('fb6c4286-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_NABTS_CAPTURE = Guid('29703660-498a-11d2-b4-b1-00-a0-d1-02-cf-be')
-PINNAME_VIDEO_PREVIEW = Guid('fb6c4282-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_STILL = Guid('fb6c428a-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_TELETEXT = Guid('fb6c4288-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_TIMECODE = Guid('fb6c428b-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_VBI = Guid('fb6c4284-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_VIDEOPORT = Guid('fb6c4285-0353-11d1-90-5f-00-00-c0-cc-16-ba')
-PINNAME_VIDEO_VIDEOPORT_VBI = Guid('fb6c428c-0353-11d1-90-5f-00-00-c0-cc-16-ba')
+PINNAME_DISPLAYPORT_OUT = Guid('{21fbb329-1a4a-48da-a076-2318a3c59b26}')
+PINNAME_HDMI_OUT = Guid('{387bfc03-e7ef-4901-86e0-35b7c32b00ef}')
+PINNAME_IMAGE = Guid('{38a0cd98-d49b-4ce8-b48a-344667a17830}')
+PINNAME_SPDIF_IN = Guid('{15dc9025-22ad-41b3-8875-f4ceb0299e20}')
+PINNAME_SPDIF_OUT = Guid('{3a264481-e52c-4b82-8e7a-c8e2f91dc380}')
+PINNAME_VIDEO_ANALOGVIDEOIN = Guid('{fb6c4283-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_CAPTURE = Guid('{fb6c4281-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_CC = Guid('{fb6c4289-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_CC_CAPTURE = Guid('{1aad8061-012d-11d2-b4b1-00a0d102cfbe}')
+PINNAME_VIDEO_EDS = Guid('{fb6c4287-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_NABTS = Guid('{fb6c4286-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_NABTS_CAPTURE = Guid('{29703660-498a-11d2-b4b1-00a0d102cfbe}')
+PINNAME_VIDEO_PREVIEW = Guid('{fb6c4282-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_STILL = Guid('{fb6c428a-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_TELETEXT = Guid('{fb6c4288-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_TIMECODE = Guid('{fb6c428b-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_VBI = Guid('{fb6c4284-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_VIDEOPORT = Guid('{fb6c4285-0353-11d1-905f-0000c0cc16ba}')
+PINNAME_VIDEO_VIDEOPORT_VBI = Guid('{fb6c428c-0353-11d1-905f-0000c0cc16ba}')
 PIPE_ALLOCATOR_PLACE = Int32
 Pipe_Allocator_None: PIPE_ALLOCATOR_PLACE = 0
 Pipe_Allocator_FirstPin: PIPE_ALLOCATOR_PLACE = 1
@@ -4182,25 +4182,25 @@ class PIPE_TERMINATION(EasyCastStructure):
     PhysicalRange: Windows.Win32.Media.KernelStreaming.KS_FRAMING_RANGE
     OptimalRange: Windows.Win32.Media.KernelStreaming.KS_FRAMING_RANGE_WEIGHTED
     Compression: Windows.Win32.Media.KernelStreaming.KS_COMPRESSION
-PROPSETID_ALLOCATOR_CONTROL = Guid('53171960-148e-11d2-99-79-00-00-c0-cc-16-ba')
-PROPSETID_EXT_DEVICE = Guid('b5730a90-1a2c-11cf-8c-23-00-aa-00-6b-68-14')
-PROPSETID_EXT_TRANSPORT = Guid('a03cd5f0-3045-11cf-8c-44-00-aa-00-6b-68-14')
-PROPSETID_TIMECODE_READER = Guid('9b496ce1-811b-11cf-8c-77-00-aa-00-6b-68-14')
-PROPSETID_TUNER = Guid('6a2e0605-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_CAMERACONTROL = Guid('c6e13370-30ac-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_CAMERACONTROL_FLASH = Guid('785e8f49-63a2-4144-ab-70-ff-b2-78-fa-26-ce')
-PROPSETID_VIDCAP_CAMERACONTROL_IMAGE_PIN_CAPABILITY = Guid('9d3d7bbf-5c6d-4138-bb-00-58-4e-dd-20-f7-c5')
-PROPSETID_VIDCAP_CAMERACONTROL_REGION_OF_INTEREST = Guid('9d12d198-f86c-4fed-b0-23-5d-87-65-3d-a7-93')
-PROPSETID_VIDCAP_CAMERACONTROL_VIDEO_STABILIZATION = Guid('43964bd3-7716-404e-8b-e1-d2-99-b2-0e-50-fd')
-PROPSETID_VIDCAP_CROSSBAR = Guid('6a2e0640-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_DROPPEDFRAMES = Guid('c6e13344-30ac-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_SELECTOR = Guid('1abdaeca-68b6-4f83-93-71-b4-13-90-7c-7b-9f')
-PROPSETID_VIDCAP_TVAUDIO = Guid('6a2e0650-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_VIDEOCOMPRESSION = Guid('c6e13343-30ac-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_VIDEOCONTROL = Guid('6a2e0670-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_VIDEODECODER = Guid('c6e13350-30ac-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_VIDEOENCODER = Guid('6a2e0610-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-PROPSETID_VIDCAP_VIDEOPROCAMP = Guid('c6e13360-30ac-11d0-a1-8c-00-a0-c9-11-89-56')
+PROPSETID_ALLOCATOR_CONTROL = Guid('{53171960-148e-11d2-9979-0000c0cc16ba}')
+PROPSETID_EXT_DEVICE = Guid('{b5730a90-1a2c-11cf-8c23-00aa006b6814}')
+PROPSETID_EXT_TRANSPORT = Guid('{a03cd5f0-3045-11cf-8c44-00aa006b6814}')
+PROPSETID_TIMECODE_READER = Guid('{9b496ce1-811b-11cf-8c77-00aa006b6814}')
+PROPSETID_TUNER = Guid('{6a2e0605-28e4-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_CAMERACONTROL = Guid('{c6e13370-30ac-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_CAMERACONTROL_FLASH = Guid('{785e8f49-63a2-4144-ab70-ffb278fa26ce}')
+PROPSETID_VIDCAP_CAMERACONTROL_IMAGE_PIN_CAPABILITY = Guid('{9d3d7bbf-5c6d-4138-bb00-584edd20f7c5}')
+PROPSETID_VIDCAP_CAMERACONTROL_REGION_OF_INTEREST = Guid('{9d12d198-f86c-4fed-b023-5d87653da793}')
+PROPSETID_VIDCAP_CAMERACONTROL_VIDEO_STABILIZATION = Guid('{43964bd3-7716-404e-8be1-d299b20e50fd}')
+PROPSETID_VIDCAP_CROSSBAR = Guid('{6a2e0640-28e4-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_DROPPEDFRAMES = Guid('{c6e13344-30ac-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_SELECTOR = Guid('{1abdaeca-68b6-4f83-9371-b413907c7b9f}')
+PROPSETID_VIDCAP_TVAUDIO = Guid('{6a2e0650-28e4-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_VIDEOCOMPRESSION = Guid('{c6e13343-30ac-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_VIDEOCONTROL = Guid('{6a2e0670-28e4-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_VIDEODECODER = Guid('{c6e13350-30ac-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_VIDEOENCODER = Guid('{6a2e0610-28e4-11d0-a18c-00a0c9118956}')
+PROPSETID_VIDCAP_VIDEOPROCAMP = Guid('{c6e13360-30ac-11d0-a18c-00a0c9118956}')
 class SECURE_BUFFER_INFO(EasyCastStructure):
     guidBufferIdentifier: Guid
     cbBufferSize: UInt32

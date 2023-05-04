@@ -52,7 +52,7 @@ class EnumType(EasyCastStructure):
     ValueStrings: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)
 class IBitmapData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d1a34ef2-cad8-4635-a3-d2-fc-da-8d-3f-3c-af')
+    _iid_ = Guid('{d1a34ef2-cad8-4635-a3d2-fcda8d3f3caf}')
     @commethod(3)
     def CopyBytesTo(self, sourceOffsetInBytes: UInt32, maxBytesToCopy: UInt32, pvBytes: POINTER(Byte), numberOfBytesCopied: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -63,7 +63,7 @@ class IBitmapData(ComPtr):
     def GetSourceBitmapDescription(self, pBitmapDescription: POINTER(Windows.Win32.UI.Xaml.Diagnostics.BitmapDescription_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVisualTreeService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a593b11a-d17f-48bb-8f-66-83-91-07-31-c8-a5')
+    _iid_ = Guid('{a593b11a-d17f-48bb-8f66-83910731c8a5}')
     @commethod(3)
     def AdviseVisualTreeChange(self, pCallback: Windows.Win32.UI.Xaml.Diagnostics.IVisualTreeServiceCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -90,7 +90,7 @@ class IVisualTreeService(ComPtr):
     def ClearChildren(self, parent: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IVisualTreeService2(ComPtr):
     extends: Windows.Win32.UI.Xaml.Diagnostics.IVisualTreeService
-    _iid_ = Guid('130f5136-ec43-4f61-89-c7-98-01-a3-6d-2e-95')
+    _iid_ = Guid('{130f5136-ec43-4f61-89c7-9801a36d2e95}')
     @commethod(15)
     def GetPropertyIndex(self, object: UInt64, propertyName: Windows.Win32.Foundation.PWSTR, pPropertyIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -101,7 +101,7 @@ class IVisualTreeService2(ComPtr):
     def RenderTargetBitmap(self, handle: UInt64, options: Windows.Win32.UI.Xaml.Diagnostics.RenderTargetBitmapOptions, maxPixelWidth: UInt32, maxPixelHeight: UInt32, ppBitmapData: POINTER(Windows.Win32.UI.Xaml.Diagnostics.IBitmapData_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVisualTreeService3(ComPtr):
     extends: Windows.Win32.UI.Xaml.Diagnostics.IVisualTreeService2
-    _iid_ = Guid('0e79c6e0-85a0-4be8-b4-1a-65-5c-f1-fd-19-bd')
+    _iid_ = Guid('{0e79c6e0-85a0-4be8-b41a-655cf1fd19bd}')
     @commethod(19)
     def ResolveResource(self, resourceContext: UInt64, resourceName: Windows.Win32.Foundation.PWSTR, resourceType: Windows.Win32.UI.Xaml.Diagnostics.ResourceType, propertyIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
@@ -112,17 +112,17 @@ class IVisualTreeService3(ComPtr):
     def RemoveDictionaryItem(self, dictionaryHandle: UInt64, resourceKey: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IVisualTreeServiceCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('aa7a8931-80e4-4fec-8f-3b-55-3f-87-b4-96-6e')
+    _iid_ = Guid('{aa7a8931-80e4-4fec-8f3b-553f87b4966e}')
     @commethod(3)
     def OnVisualTreeChange(self, relation: Windows.Win32.UI.Xaml.Diagnostics.ParentChildRelation, element: Windows.Win32.UI.Xaml.Diagnostics.VisualElement, mutationType: Windows.Win32.UI.Xaml.Diagnostics.VisualMutationType) -> Windows.Win32.Foundation.HRESULT: ...
 class IVisualTreeServiceCallback2(ComPtr):
     extends: Windows.Win32.UI.Xaml.Diagnostics.IVisualTreeServiceCallback
-    _iid_ = Guid('bad9eb88-ae77-4397-b9-48-5f-a2-db-0a-19-ea')
+    _iid_ = Guid('{bad9eb88-ae77-4397-b948-5fa2db0a19ea}')
     @commethod(4)
     def OnElementStateChanged(self, element: UInt64, elementState: Windows.Win32.UI.Xaml.Diagnostics.VisualElementState, context: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IXamlDiagnostics(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('18c9e2b6-3f43-4116-9f-2b-ff-93-5d-77-70-d2')
+    _iid_ = Guid('{18c9e2b6-3f43-4116-9f2b-ff935d7770d2}')
     @commethod(3)
     def GetDispatcher(self, ppDispatcher: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

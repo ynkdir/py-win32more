@@ -118,39 +118,39 @@ IOCTL_VOLUME_POST_ONLINE: UInt32 = 5685348
 IOCTL_VOLUME_GET_CSVBLOCKCACHE_CALLBACK: UInt32 = 5685352
 CSV_BLOCK_CACHE_CALLBACK_VERSION: UInt32 = 1
 CSV_BLOCK_AND_FILE_CACHE_CALLBACK_VERSION: UInt32 = 2
-PARTITION_BASIC_DATA_GUID: Guid = Guid('ebd0a0a2-b9e5-4433-87-c0-68-b6-b7-26-99-c7')
-PARTITION_BSP_GUID: Guid = Guid('57434f53-4df9-45b9-8e-9e-23-70-f0-06-45-7c')
-PARTITION_CLUSTER_GUID: Guid = Guid('db97dba9-0840-4bae-97-f0-ff-b9-a3-27-c7-e1')
-PARTITION_DPP_GUID: Guid = Guid('57434f53-94cb-43f0-a5-33-d7-3c-10-cf-a5-7d')
-PARTITION_ENTRY_UNUSED_GUID: Guid = Guid('00000000-0000-0000-00-00-00-00-00-00-00-00')
-PARTITION_LDM_DATA_GUID: Guid = Guid('af9b60a0-1431-4f62-bc-68-33-11-71-4a-69-ad')
-PARTITION_LDM_METADATA_GUID: Guid = Guid('5808c8aa-7e8f-42e0-85-d2-e1-e9-04-34-cf-b3')
-PARTITION_LEGACY_BL_GUID: Guid = Guid('424ca0e2-7cb2-4fb9-81-43-c5-2a-99-39-8b-c6')
-PARTITION_LEGACY_BL_GUID_BACKUP: Guid = Guid('424c3e6c-d79f-49cb-93-5d-36-d7-14-67-a2-88')
-PARTITION_MAIN_OS_GUID: Guid = Guid('57434f53-8f45-405e-8a-23-18-6d-8a-43-30-d3')
-PARTITION_MSFT_RECOVERY_GUID: Guid = Guid('de94bba4-06d1-4d40-a1-6a-bf-d5-01-79-d6-ac')
-PARTITION_MSFT_RESERVED_GUID: Guid = Guid('e3c9e316-0b5c-4db8-81-7d-f9-2d-f0-02-15-ae')
-PARTITION_MSFT_SNAPSHOT_GUID: Guid = Guid('caddebf1-4400-4de8-b1-03-12-11-7d-cf-3c-cf')
-PARTITION_OS_DATA_GUID: Guid = Guid('57434f53-23f2-44d5-a8-30-67-bb-da-a6-09-f9')
-PARTITION_PATCH_GUID: Guid = Guid('8967a686-96aa-6aa8-95-89-a8-42-56-54-10-90')
-PARTITION_PRE_INSTALLED_GUID: Guid = Guid('57434f53-7fe0-4196-9b-42-42-7b-51-64-34-84')
-PARTITION_SBL_CACHE_SSD_GUID: Guid = Guid('eeff8352-dd2a-44db-ae-83-be-e1-cf-74-81-dc')
-PARTITION_SBL_CACHE_SSD_RESERVED_GUID: Guid = Guid('dcc0c7c1-55ad-4f17-9d-43-4b-c7-76-e0-11-7e')
-PARTITION_SBL_CACHE_HDD_GUID: Guid = Guid('03aaa829-ebfc-4e7e-aa-c9-c4-d7-6c-63-b2-4b')
-PARTITION_SERVICING_FILES_GUID: Guid = Guid('57434f53-432e-4014-ae-4c-8d-ea-a9-c0-00-6a')
-PARTITION_SERVICING_METADATA_GUID: Guid = Guid('57434f53-c691-4a05-bb-4e-70-3d-af-d2-29-ce')
-PARTITION_SERVICING_RESERVE_GUID: Guid = Guid('57434f53-4b81-460b-a3-19-ff-b6-fe-13-6d-14')
-PARTITION_SERVICING_STAGING_ROOT_GUID: Guid = Guid('57434f53-e84d-4e84-aa-f3-ec-bb-bd-04-b9-df')
-PARTITION_SPACES_GUID: Guid = Guid('e75caf8f-f680-4cee-af-a3-b0-01-e5-6e-fc-2d')
-PARTITION_SPACES_DATA_GUID: Guid = Guid('e7addcb4-dc34-4539-9a-76-eb-bd-07-be-6f-7e')
-PARTITION_SYSTEM_GUID: Guid = Guid('c12a7328-f81f-11d2-ba-4b-00-a0-c9-3e-c9-3b')
-PARTITION_WINDOWS_SYSTEM_GUID: Guid = Guid('57434f53-e3e3-4631-a5-c5-26-d2-24-38-73-aa')
+PARTITION_BASIC_DATA_GUID: Guid = Guid('{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}')
+PARTITION_BSP_GUID: Guid = Guid('{57434f53-4df9-45b9-8e9e-2370f006457c}')
+PARTITION_CLUSTER_GUID: Guid = Guid('{db97dba9-0840-4bae-97f0-ffb9a327c7e1}')
+PARTITION_DPP_GUID: Guid = Guid('{57434f53-94cb-43f0-a533-d73c10cfa57d}')
+PARTITION_ENTRY_UNUSED_GUID: Guid = Guid('{00000000-0000-0000-0000-000000000000}')
+PARTITION_LDM_DATA_GUID: Guid = Guid('{af9b60a0-1431-4f62-bc68-3311714a69ad}')
+PARTITION_LDM_METADATA_GUID: Guid = Guid('{5808c8aa-7e8f-42e0-85d2-e1e90434cfb3}')
+PARTITION_LEGACY_BL_GUID: Guid = Guid('{424ca0e2-7cb2-4fb9-8143-c52a99398bc6}')
+PARTITION_LEGACY_BL_GUID_BACKUP: Guid = Guid('{424c3e6c-d79f-49cb-935d-36d71467a288}')
+PARTITION_MAIN_OS_GUID: Guid = Guid('{57434f53-8f45-405e-8a23-186d8a4330d3}')
+PARTITION_MSFT_RECOVERY_GUID: Guid = Guid('{de94bba4-06d1-4d40-a16a-bfd50179d6ac}')
+PARTITION_MSFT_RESERVED_GUID: Guid = Guid('{e3c9e316-0b5c-4db8-817d-f92df00215ae}')
+PARTITION_MSFT_SNAPSHOT_GUID: Guid = Guid('{caddebf1-4400-4de8-b103-12117dcf3ccf}')
+PARTITION_OS_DATA_GUID: Guid = Guid('{57434f53-23f2-44d5-a830-67bbdaa609f9}')
+PARTITION_PATCH_GUID: Guid = Guid('{8967a686-96aa-6aa8-9589-a84256541090}')
+PARTITION_PRE_INSTALLED_GUID: Guid = Guid('{57434f53-7fe0-4196-9b42-427b51643484}')
+PARTITION_SBL_CACHE_SSD_GUID: Guid = Guid('{eeff8352-dd2a-44db-ae83-bee1cf7481dc}')
+PARTITION_SBL_CACHE_SSD_RESERVED_GUID: Guid = Guid('{dcc0c7c1-55ad-4f17-9d43-4bc776e0117e}')
+PARTITION_SBL_CACHE_HDD_GUID: Guid = Guid('{03aaa829-ebfc-4e7e-aac9-c4d76c63b24b}')
+PARTITION_SERVICING_FILES_GUID: Guid = Guid('{57434f53-432e-4014-ae4c-8deaa9c0006a}')
+PARTITION_SERVICING_METADATA_GUID: Guid = Guid('{57434f53-c691-4a05-bb4e-703dafd229ce}')
+PARTITION_SERVICING_RESERVE_GUID: Guid = Guid('{57434f53-4b81-460b-a319-ffb6fe136d14}')
+PARTITION_SERVICING_STAGING_ROOT_GUID: Guid = Guid('{57434f53-e84d-4e84-aaf3-ecbbbd04b9df}')
+PARTITION_SPACES_GUID: Guid = Guid('{e75caf8f-f680-4cee-afa3-b001e56efc2d}')
+PARTITION_SPACES_DATA_GUID: Guid = Guid('{e7addcb4-dc34-4539-9a76-ebbd07be6f7e}')
+PARTITION_SYSTEM_GUID: Guid = Guid('{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}')
+PARTITION_WINDOWS_SYSTEM_GUID: Guid = Guid('{57434f53-e3e3-4631-a5c5-26d2243873aa}')
 _FT_TYPES_DEFINITION_: UInt32 = 1
 CLFS_MGMT_POLICY_VERSION: UInt32 = 1
 LOG_POLICY_OVERWRITE: UInt32 = 1
 LOG_POLICY_PERSIST: UInt32 = 2
 CLFS_MGMT_CLIENT_REGISTRATION_VERSION: UInt32 = 1
-CLSID_DiskQuotaControl: Guid = Guid('7988b571-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+CLSID_DiskQuotaControl: Guid = Guid('{7988b571-ec89-11cf-9c00-00aa00a14f56}')
 DISKQUOTA_STATE_DISABLED: UInt32 = 0
 DISKQUOTA_STATE_TRACK: UInt32 = 1
 DISKQUOTA_STATE_ENFORCE: UInt32 = 2
@@ -1935,7 +1935,7 @@ GET_TAPE_MEDIA_INFORMATION: GET_TAPE_DRIVE_PARAMETERS_OPERATION = 0
 HIORING = IntPtr
 class IDiskQuotaControl(ComPtr):
     extends: Windows.Win32.System.Com.IConnectionPointContainer
-    _iid_ = Guid('7988b572-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('{7988b572-ec89-11cf-9c00-00aa00a14f56}')
     @commethod(5)
     def Initialize(self, pszPath: Windows.Win32.Foundation.PWSTR, bReadWrite: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1980,12 +1980,12 @@ class IDiskQuotaControl(ComPtr):
     def ShutdownNameResolution(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiskQuotaEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7988b579-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('{7988b579-ec89-11cf-9c00-00aa00a14f56}')
     @commethod(3)
     def OnUserNameChanged(self, pUser: Windows.Win32.Storage.FileSystem.IDiskQuotaUser_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiskQuotaUser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7988b574-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('{7988b574-ec89-11cf-9c00-00aa00a14f56}')
     @commethod(3)
     def GetID(self, pulID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2018,7 +2018,7 @@ class IDiskQuotaUser(ComPtr):
     def GetAccountStatus(self, pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiskQuotaUserBatch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7988b576-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('{7988b576-ec89-11cf-9c00-00aa00a14f56}')
     @commethod(3)
     def Add(self, pUser: Windows.Win32.Storage.FileSystem.IDiskQuotaUser_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2029,7 +2029,7 @@ class IDiskQuotaUserBatch(ComPtr):
     def FlushToDisk(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDiskQuotaUsers(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7988b577-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('{7988b577-ec89-11cf-9c00-00aa00a14f56}')
     @commethod(3)
     def Next(self, cUsers: UInt32, rgUsers: POINTER(Windows.Win32.Storage.FileSystem.IDiskQuotaUser_head), pcUsersFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

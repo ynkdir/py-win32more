@@ -16,13 +16,13 @@ def __getattr__(name):
     return getattr(_module, name)
 DIRECTMANIPULATION_KEYBOARDFOCUS: UInt32 = 4294967294
 DIRECTMANIPULATION_MOUSEFOCUS: UInt32 = 4294967293
-CLSID_VerticalIndicatorContent: Guid = Guid('a10b5f17-afe0-4aa2-91-e9-3e-70-01-d2-e6-b4')
-CLSID_HorizontalIndicatorContent: Guid = Guid('e7d18cf5-3ec7-44d5-a7-6b-37-70-f3-cf-90-3d')
-CLSID_VirtualViewportContent: Guid = Guid('3206a19a-86f0-4cb4-a7-f3-16-e3-b7-e2-d8-52')
-CLSID_DragDropConfigurationBehavior: Guid = Guid('09b01b3e-ba6c-454d-82-e8-95-e3-52-32-9f-23')
-CLSID_AutoScrollBehavior: Guid = Guid('26126a51-3c70-4c9a-ae-c2-94-88-49-ee-b0-93')
-CLSID_DeferContactService: Guid = Guid('d7b67cf4-84bb-434e-86-ae-65-92-bb-c9-ab-d9')
-DCompManipulationCompositor = Guid('79dea627-a08a-43ac-8e-f5-69-00-b9-29-91-26')
+CLSID_VerticalIndicatorContent: Guid = Guid('{a10b5f17-afe0-4aa2-91e9-3e7001d2e6b4}')
+CLSID_HorizontalIndicatorContent: Guid = Guid('{e7d18cf5-3ec7-44d5-a76b-3770f3cf903d}')
+CLSID_VirtualViewportContent: Guid = Guid('{3206a19a-86f0-4cb4-a7f3-16e3b7e2d852}')
+CLSID_DragDropConfigurationBehavior: Guid = Guid('{09b01b3e-ba6c-454d-82e8-95e352329f23}')
+CLSID_AutoScrollBehavior: Guid = Guid('{26126a51-3c70-4c9a-aec2-948849eeb093}')
+CLSID_DeferContactService: Guid = Guid('{d7b67cf4-84bb-434e-86ae-6592bbc9abd9}')
+DCompManipulationCompositor = Guid('{79dea627-a08a-43ac-8ef5-6900b9299126}')
 DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION = Int32
 DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_STOP: DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION = 0
 DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_FORWARD: DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION = 1
@@ -115,19 +115,19 @@ DIRECTMANIPULATION_VIEWPORT_OPTIONS_MANUALUPDATE: DIRECTMANIPULATION_VIEWPORT_OP
 DIRECTMANIPULATION_VIEWPORT_OPTIONS_INPUT: DIRECTMANIPULATION_VIEWPORT_OPTIONS = 4
 DIRECTMANIPULATION_VIEWPORT_OPTIONS_EXPLICITHITTEST: DIRECTMANIPULATION_VIEWPORT_OPTIONS = 8
 DIRECTMANIPULATION_VIEWPORT_OPTIONS_DISABLEPIXELSNAPPING: DIRECTMANIPULATION_VIEWPORT_OPTIONS = 16
-DirectManipulationManager = Guid('54e211b6-3650-4f75-83-34-fa-35-95-98-e1-c5')
-DirectManipulationPrimaryContent = Guid('caa02661-d59e-41c7-83-93-3b-a3-ba-cb-6b-57')
-DirectManipulationSharedManager = Guid('99793286-77cc-4b57-96-db-3b-35-4f-6f-9f-b5')
-DirectManipulationUpdateManager = Guid('9fc1bfd5-1835-441a-b3-b1-b6-cc-74-b7-27-d0')
-DirectManipulationViewport = Guid('34e211b6-3650-4f75-83-34-fa-35-95-98-e1-c5')
+DirectManipulationManager = Guid('{54e211b6-3650-4f75-8334-fa359598e1c5}')
+DirectManipulationPrimaryContent = Guid('{caa02661-d59e-41c7-8393-3ba3bacb6b57}')
+DirectManipulationSharedManager = Guid('{99793286-77cc-4b57-96db-3b354f6f9fb5}')
+DirectManipulationUpdateManager = Guid('{9fc1bfd5-1835-441a-b3b1-b6cc74b727d0}')
+DirectManipulationViewport = Guid('{34e211b6-3650-4f75-8334-fa359598e1c5}')
 class IDirectManipulationAutoScrollBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('6d5954d4-2003-4356-9b-31-d0-51-c9-ff-0a-f7')
+    _iid_ = Guid('{6d5954d4-2003-4356-9b31-d051c9ff0af7}')
     @commethod(3)
     def SetConfiguration(self, motionTypes: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_MOTION_TYPES, scrollMotion: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationCompositor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('537a0825-0387-4efa-b6-2f-71-eb-1f-08-5a-7e')
+    _iid_ = Guid('{537a0825-0387-4efa-b62f-71eb1f085a7e}')
     @commethod(3)
     def AddContent(self, content: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationContent_head, device: Windows.Win32.System.Com.IUnknown_head, parentVisual: Windows.Win32.System.Com.IUnknown_head, childVisual: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -138,12 +138,12 @@ class IDirectManipulationCompositor(ComPtr):
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationCompositor2(ComPtr):
     extends: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationCompositor
-    _iid_ = Guid('d38c7822-f1cb-43cb-b4-b9-ac-0c-76-7a-41-2e')
+    _iid_ = Guid('{d38c7822-f1cb-43cb-b4b9-ac0c767a412e}')
     @commethod(7)
     def AddContentWithCrossProcessChaining(self, content: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationPrimaryContent_head, device: Windows.Win32.System.Com.IUnknown_head, parentVisual: Windows.Win32.System.Com.IUnknown_head, childVisual: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationContent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b89962cb-3d89-442b-bb-58-50-98-fa-0f-9f-16')
+    _iid_ = Guid('{b89962cb-3d89-442b-bb58-5098fa0f9f16}')
     @commethod(3)
     def GetContentRect(self, contentSize: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -162,7 +162,7 @@ class IDirectManipulationContent(ComPtr):
     def SyncContentTransform(self, matrix: POINTER(Single), pointCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationDeferContactService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('652d5c71-fe60-4a98-be-70-e5-f2-12-91-e7-f1')
+    _iid_ = Guid('{652d5c71-fe60-4a98-be70-e5f21291e7f1}')
     @commethod(3)
     def DeferContact(self, pointerId: UInt32, timeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -171,29 +171,29 @@ class IDirectManipulationDeferContactService(ComPtr):
     def CancelDeferral(self, pointerId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationDragDropBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('814b5af5-c2c8-4270-a9-b7-a1-98-ce-8d-02-fa')
+    _iid_ = Guid('{814b5af5-c2c8-4270-a9b7-a198ce8d02fa}')
     @commethod(3)
     def SetConfiguration(self, configuration: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetStatus(self, status: POINTER(Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_DRAG_DROP_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationDragDropEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('1fa11b10-701b-41ae-b5-f2-49-e3-6b-d5-95-aa')
+    _iid_ = Guid('{1fa11b10-701b-41ae-b5f2-49e36bd595aa}')
     @commethod(3)
     def OnDragDropStatusChange(self, viewport: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationViewport2_head, current: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_DRAG_DROP_STATUS, previous: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_DRAG_DROP_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationFrameInfoProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fb759dba-6f4c-4c01-87-4e-19-c8-a0-59-07-f9')
+    _iid_ = Guid('{fb759dba-6f4c-4c01-874e-19c8a05907f9}')
     @commethod(3)
     def GetNextFrameInfo(self, time: POINTER(UInt64), processTime: POINTER(UInt64), compositionTime: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationInteractionEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('e43f45b8-42b4-403e-b1-f2-27-3b-8f-51-08-30')
+    _iid_ = Guid('{e43f45b8-42b4-403e-b1f2-273b8f510830}')
     @commethod(3)
     def OnInteraction(self, viewport: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationViewport2_head, interaction: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_INTERACTION_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fbf5d3b4-70c7-4163-93-22-5a-6f-66-0d-6f-bc')
+    _iid_ = Guid('{fbf5d3b4-70c7-4163-9322-5a6f660d6fbc}')
     @commethod(3)
     def Activate(self, window: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -210,17 +210,17 @@ class IDirectManipulationManager(ComPtr):
     def CreateContent(self, frameInfo: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationFrameInfoProvider_head, clsid: POINTER(Guid), riid: POINTER(Guid), object: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationManager2(ComPtr):
     extends: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationManager
-    _iid_ = Guid('fa1005e9-3d16-484c-bf-c9-62-b6-1e-56-ec-4e')
+    _iid_ = Guid('{fa1005e9-3d16-484c-bfc9-62b61e56ec4e}')
     @commethod(10)
     def CreateBehavior(self, clsid: POINTER(Guid), riid: POINTER(Guid), object: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationManager3(ComPtr):
     extends: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationManager2
-    _iid_ = Guid('2cb6b33d-ffe8-488c-b7-50-fb-df-e8-8d-ca-8c')
+    _iid_ = Guid('{2cb6b33d-ffe8-488c-b750-fbdfe88dca8c}')
     @commethod(11)
     def GetService(self, clsid: POINTER(Guid), riid: POINTER(Guid), object: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationPrimaryContent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c12851e4-1698-4625-b9-b1-7c-a3-ec-18-63-0b')
+    _iid_ = Guid('{c12851e4-1698-4625-b9b1-7ca3ec18630b}')
     @commethod(3)
     def SetSnapInterval(self, motion: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_MOTION_TYPES, interval: Single, offset: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -241,12 +241,12 @@ class IDirectManipulationPrimaryContent(ComPtr):
     def GetCenterPoint(self, centerX: POINTER(Single), centerY: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationUpdateHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('790b6337-64f8-4ff5-a2-69-b3-2b-c2-af-27-a7')
+    _iid_ = Guid('{790b6337-64f8-4ff5-a269-b32bc2af27a7}')
     @commethod(3)
     def Update(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationUpdateManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b0ae62fd-be34-46e7-9c-aa-d3-61-fa-cb-b9-cc')
+    _iid_ = Guid('{b0ae62fd-be34-46e7-9caa-d361facbb9cc}')
     @commethod(3)
     def RegisterWaitHandleCallback(self, handle: Windows.Win32.Foundation.HANDLE, eventHandler: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationUpdateHandler_head, cookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -255,7 +255,7 @@ class IDirectManipulationUpdateManager(ComPtr):
     def Update(self, frameInfo: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationFrameInfoProvider_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationViewport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('28b85a3d-60a0-48bd-9b-a1-5c-e8-d9-ea-3a-6d')
+    _iid_ = Guid('{28b85a3d-60a0-48bd-9ba1-5ce8d9ea3a6d}')
     @commethod(3)
     def Enable(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -314,7 +314,7 @@ class IDirectManipulationViewport(ComPtr):
     def Abandon(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationViewport2(ComPtr):
     extends: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationViewport
-    _iid_ = Guid('923ccaac-61e1-4385-b7-26-01-7a-f1-89-88-2a')
+    _iid_ = Guid('{923ccaac-61e1-4385-b726-017af189882a}')
     @commethod(31)
     def AddBehavior(self, behavior: Windows.Win32.System.Com.IUnknown_head, cookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
@@ -323,7 +323,7 @@ class IDirectManipulationViewport2(ComPtr):
     def RemoveAllBehaviors(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectManipulationViewportEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('952121da-d69f-45f9-b0-f9-f2-39-44-32-1a-6d')
+    _iid_ = Guid('{952121da-d69f-45f9-b0f9-f23944321a6d}')
     @commethod(3)
     def OnViewportStatusChanged(self, viewport: Windows.Win32.Graphics.DirectManipulation.IDirectManipulationViewport_head, current: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_STATUS, previous: Windows.Win32.Graphics.DirectManipulation.DIRECTMANIPULATION_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

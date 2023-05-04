@@ -248,8 +248,8 @@ def CreateAudioVolumeMeter(ppApo: POINTER(Windows.Win32.System.Com.IUnknown_head
 def CreateAudioReverb(ppApo: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('HrtfApo.dll')
 def CreateHrtfApo(init: POINTER(Windows.Win32.Media.Audio.XAudio2.HrtfApoInit_head), xApo: POINTER(Windows.Win32.Media.Audio.XAudio2.IXAPO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-AudioReverb = Guid('c2633b16-471b-4498-b8-c5-4f-09-59-e2-ec-09')
-AudioVolumeMeter = Guid('4fc3b166-972a-40cf-bc-37-7d-b0-3d-b2-fb-a3')
+AudioReverb = Guid('{c2633b16-471b-4498-b8c5-4f0959e2ec09}')
+AudioVolumeMeter = Guid('{4fc3b166-972a-40cf-bc37-7db03db2fba3}')
 class FXECHO_INITDATA(EasyCastStructure):
     MaxDelay: Single
     _pack_ = 1
@@ -258,7 +258,7 @@ class FXECHO_PARAMETERS(EasyCastStructure):
     Feedback: Single
     Delay: Single
     _pack_ = 1
-FXEQ = Guid('f5e01117-d6c4-485a-a3-f5-69-51-96-f3-db-fa')
+FXEQ = Guid('{f5e01117-d6c4-485a-a3f5-695196f3dbfa}')
 class FXEQ_PARAMETERS(EasyCastStructure):
     FrequencyCenter0: Single
     Gain0: Single
@@ -273,17 +273,17 @@ class FXEQ_PARAMETERS(EasyCastStructure):
     Gain3: Single
     Bandwidth3: Single
     _pack_ = 1
-FXEcho = Guid('5039d740-f736-449a-84-d3-a5-62-02-55-7b-87')
+FXEcho = Guid('{5039d740-f736-449a-84d3-a56202557b87}')
 class FXMASTERINGLIMITER_PARAMETERS(EasyCastStructure):
     Release: UInt32
     Loudness: UInt32
     _pack_ = 1
-FXMasteringLimiter = Guid('c4137916-2be1-46fd-85-99-44-15-36-f4-98-56')
+FXMasteringLimiter = Guid('{c4137916-2be1-46fd-8599-441536f49856}')
 class FXREVERB_PARAMETERS(EasyCastStructure):
     Diffusion: Single
     RoomSize: Single
     _pack_ = 1
-FXReverb = Guid('7d9aca56-cb68-4807-b6-32-b1-37-35-2e-85-96')
+FXReverb = Guid('{7d9aca56-cb68-4807-b632-b137352e8596}')
 class HrtfApoInit(EasyCastStructure):
     distanceDecay: POINTER(Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecay_head)
     directivity: POINTER(Windows.Win32.Media.Audio.XAudio2.HrtfDirectivity_head)
@@ -323,7 +323,7 @@ class HrtfPosition(EasyCastStructure):
     z: Single
 class IXAPO(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a410b984-9839-4819-a0-be-28-56-ae-6b-3a-db')
+    _iid_ = Guid('{a410b984-9839-4819-a0be-2856ae6b3adb}')
     @commethod(3)
     def GetRegistrationProperties(self, ppRegistrationProperties: POINTER(POINTER(Windows.Win32.Media.Audio.XAudio2.XAPO_REGISTRATION_PROPERTIES_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -346,7 +346,7 @@ class IXAPO(ComPtr):
     def CalcOutputFrames(self, InputFrameCount: UInt32) -> UInt32: ...
 class IXAPOHrtfParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('15b3cd66-e9de-4464-b6-e6-2b-c3-cf-63-d4-55')
+    _iid_ = Guid('{15b3cd66-e9de-4464-b6e6-2bc3cf63d455}')
     @commethod(3)
     def SetSourcePosition(self, position: POINTER(Windows.Win32.Media.Audio.XAudio2.HrtfPosition_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -357,14 +357,14 @@ class IXAPOHrtfParameters(ComPtr):
     def SetEnvironment(self, environment: Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment) -> Windows.Win32.Foundation.HRESULT: ...
 class IXAPOParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('26d95c66-80f2-499a-ad-54-5a-e7-f0-1c-6d-98')
+    _iid_ = Guid('{26d95c66-80f2-499a-ad54-5ae7f01c6d98}')
     @commethod(3)
     def SetParameters(self, pParameters: c_void_p, ParameterByteSize: UInt32) -> Void: ...
     @commethod(4)
     def GetParameters(self, pParameters: c_void_p, ParameterByteSize: UInt32) -> Void: ...
 class IXAudio2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('2b02e3cf-2e0b-4ec3-be-45-1b-2a-3f-e7-21-0d')
+    _iid_ = Guid('{2b02e3cf-2e0b-4ec3-be45-1b2a3fe7210d}')
     @commethod(3)
     def RegisterForCallbacks(self, pCallback: Windows.Win32.Media.Audio.XAudio2.IXAudio2EngineCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -395,7 +395,7 @@ class IXAudio2EngineCallback(ComPtr):
     def OnCriticalError(self, Error: Windows.Win32.Foundation.HRESULT) -> Void: ...
 class IXAudio2Extension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('84ac29bb-d619-44d2-b1-97-e4-ac-f7-df-3e-d6')
+    _iid_ = Guid('{84ac29bb-d619-44d2-b197-e4acf7df3ed6}')
     @commethod(3)
     def GetProcessingQuantum(self, quantumNumerator: POINTER(UInt32), quantumDenominator: POINTER(UInt32)) -> Void: ...
     @commethod(4)

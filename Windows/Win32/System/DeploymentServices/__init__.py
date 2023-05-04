@@ -405,7 +405,7 @@ CPU_ARCHITECTURE_IA64: CPU_ARCHITECTURE = 6
 CPU_ARCHITECTURE_INTEL: CPU_ARCHITECTURE = 0
 class IWdsTransportCacheable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('46ad894b-0bab-47dc-84-b2-7b-55-3f-1d-8f-80')
+    _iid_ = Guid('{46ad894b-0bab-47dc-84b2-7b553f1d8f80}')
     @commethod(7)
     def get_Dirty(self, pbDirty: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -416,7 +416,7 @@ class IWdsTransportCacheable(ComPtr):
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportClient(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b5dbc93a-cabe-46ca-83-7f-3e-44-e9-3c-65-45')
+    _iid_ = Guid('{b5dbc93a-cabe-46ca-837f-3e44e93c6545}')
     @commethod(7)
     def get_Session(self, ppWdsTransportSession: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -443,7 +443,7 @@ class IWdsTransportClient(ComPtr):
     def Disconnect(self, DisconnectionType: Windows.Win32.System.DeploymentServices.WDSTRANSPORT_DISCONNECT_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b8ba4b1a-2ff4-43ab-99-6c-b2-b1-0a-91-a6-eb')
+    _iid_ = Guid('{b8ba4b1a-2ff4-43ab-996c-b2b10a91a6eb}')
     @commethod(7)
     def get_Count(self, pulCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -452,7 +452,7 @@ class IWdsTransportCollection(ComPtr):
     def get__NewEnum(self, ppVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportConfigurationManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('84cc4779-42dd-4792-89-1e-13-21-d6-d7-4b-44')
+    _iid_ = Guid('{84cc4779-42dd-4792-891e-1321d6d74b44}')
     @commethod(7)
     def get_ServicePolicy(self, ppWdsTransportServicePolicy: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportServicePolicy_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -473,12 +473,12 @@ class IWdsTransportConfigurationManager(ComPtr):
     def NotifyWdsTransportServices(self, ServiceNotification: Windows.Win32.System.DeploymentServices.WDSTRANSPORT_SERVICE_NOTIFICATION) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportConfigurationManager2(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportConfigurationManager
-    _iid_ = Guid('d0d85caf-a153-4f1d-a9-dd-96-f4-31-c5-07-17')
+    _iid_ = Guid('{d0d85caf-a153-4f1d-a9dd-96f431c50717}')
     @commethod(16)
     def get_MulticastSessionPolicy(self, ppWdsTransportMulticastSessionPolicy: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportMulticastSessionPolicy_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportContent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('d405d711-0296-4ab4-a8-60-ac-7d-32-e6-57-98')
+    _iid_ = Guid('{d405d711-0296-4ab4-a860-ac7d32e65798}')
     @commethod(7)
     def get_Namespace(self, ppWdsTransportNamespace: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportNamespace_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -491,7 +491,7 @@ class IWdsTransportContent(ComPtr):
     def Terminate(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportContentProvider(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b9489f24-f219-4acf-aa-d7-26-5c-7c-08-a6-ae')
+    _iid_ = Guid('{b9489f24-f219-4acf-aad7-265c7c08a6ae}')
     @commethod(7)
     def get_Name(self, pbszName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -502,7 +502,7 @@ class IWdsTransportContentProvider(ComPtr):
     def get_InitializationRoutine(self, pbszInitializationRoutine: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportDiagnosticsPolicy(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportCacheable
-    _iid_ = Guid('13b33efc-7856-4f61-9a-59-8d-e6-7b-6b-87-b6')
+    _iid_ = Guid('{13b33efc-7856-4f61-9a59-8de67b6b87b6}')
     @commethod(11)
     def get_Enabled(self, pbEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -513,12 +513,12 @@ class IWdsTransportDiagnosticsPolicy(ComPtr):
     def put_Components(self, ulComponents: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('5b0d35f5-1b13-4afd-b8-78-65-26-dc-34-0b-5d')
+    _iid_ = Guid('{5b0d35f5-1b13-4afd-b878-6526dc340b5d}')
     @commethod(7)
     def GetWdsTransportServer(self, bszServerName: Windows.Win32.Foundation.BSTR, ppWdsTransportServer: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportServer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportMulticastSessionPolicy(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportCacheable
-    _iid_ = Guid('4e5753cf-68ec-4504-a9-51-4a-00-32-66-60-6b')
+    _iid_ = Guid('{4e5753cf-68ec-4504-a951-4a003266606b}')
     @commethod(11)
     def get_SlowClientHandling(self, pSlowClientHandling: POINTER(Windows.Win32.System.DeploymentServices.WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -537,7 +537,7 @@ class IWdsTransportMulticastSessionPolicy(ComPtr):
     def put_SlowClientFallback(self, bClientFallback: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportNamespace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('fa561f57-fbef-4ed3-b0-56-12-7c-b1-b3-3b-84')
+    _iid_ = Guid('{fa561f57-fbef-4ed3-b056-127cb1b33b84}')
     @commethod(7)
     def get_Type(self, pType: POINTER(Windows.Win32.System.DeploymentServices.WDSTRANSPORT_NAMESPACE_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -582,10 +582,10 @@ class IWdsTransportNamespace(ComPtr):
     def RetrieveContents(self, ppWdsTransportContents: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportNamespaceAutoCast(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportNamespace
-    _iid_ = Guid('ad931a72-c4bd-4c41-8f-bc-59-c9-c7-48-df-9e')
+    _iid_ = Guid('{ad931a72-c4bd-4c41-8fbc-59c9c748df9e}')
 class IWdsTransportNamespaceManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('3e22d9f6-3777-4d98-83-e1-f9-86-96-71-7b-a3')
+    _iid_ = Guid('{3e22d9f6-3777-4d98-83e1-f98696717ba3}')
     @commethod(7)
     def CreateNamespace(self, NamespaceType: Windows.Win32.System.DeploymentServices.WDSTRANSPORT_NAMESPACE_TYPE, bszNamespaceName: Windows.Win32.Foundation.BSTR, bszContentProvider: Windows.Win32.Foundation.BSTR, bszConfiguration: Windows.Win32.Foundation.BSTR, ppWdsTransportNamespace: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportNamespace_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -594,12 +594,12 @@ class IWdsTransportNamespaceManager(ComPtr):
     def RetrieveNamespaces(self, bszContentProvider: Windows.Win32.Foundation.BSTR, bszNamespaceName: Windows.Win32.Foundation.BSTR, bIncludeTombstones: Windows.Win32.Foundation.VARIANT_BOOL, ppWdsTransportNamespaces: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportNamespaceScheduledCast(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportNamespace
-    _iid_ = Guid('3840cecf-d76c-416e-a4-cc-31-c7-41-d2-87-4b')
+    _iid_ = Guid('{3840cecf-d76c-416e-a4cc-31c741d2874b}')
     @commethod(28)
     def StartTransmission(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportNamespaceScheduledCastAutoStart(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportNamespaceScheduledCast
-    _iid_ = Guid('d606af3d-ea9c-4219-96-1e-74-91-d6-18-d9-b9')
+    _iid_ = Guid('{d606af3d-ea9c-4219-961e-7491d618d9b9}')
     @commethod(29)
     def get_MinimumClients(self, pulMinimumClients: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
@@ -610,10 +610,10 @@ class IWdsTransportNamespaceScheduledCastAutoStart(ComPtr):
     def put_StartTime(self, StartTime: Double) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportNamespaceScheduledCastManualStart(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportNamespaceScheduledCast
-    _iid_ = Guid('013e6e4c-e6a7-4fb5-b7-ff-d9-f5-da-80-5c-31')
+    _iid_ = Guid('{013e6e4c-e6a7-4fb5-b7ff-d9f5da805c31}')
 class IWdsTransportServer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('09ccd093-830d-4344-a3-0a-73-ae-8e-8f-ca-90')
+    _iid_ = Guid('{09ccd093-830d-4344-a30a-73ae8e8fca90}')
     @commethod(7)
     def get_Name(self, pbszName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -626,12 +626,12 @@ class IWdsTransportServer(ComPtr):
     def DisconnectClient(self, ulClientId: UInt32, DisconnectionType: Windows.Win32.System.DeploymentServices.WDSTRANSPORT_DISCONNECT_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportServer2(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportServer
-    _iid_ = Guid('256e999f-6df4-4538-81-b9-85-7b-9a-b8-fb-47')
+    _iid_ = Guid('{256e999f-6df4-4538-81b9-857b9ab8fb47}')
     @commethod(12)
     def get_TftpManager(self, ppWdsTransportTftpManager: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportTftpManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportServicePolicy(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportCacheable
-    _iid_ = Guid('b9468578-9f2b-48cc-b2-7a-a6-07-99-c2-75-0c')
+    _iid_ = Guid('{b9468578-9f2b-48cc-b27a-a60799c2750c}')
     @commethod(11)
     def get_IpAddressSource(self, AddressType: Windows.Win32.System.DeploymentServices.WDSTRANSPORT_IP_ADDRESS_TYPE, pSourceType: POINTER(Windows.Win32.System.DeploymentServices.WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -658,7 +658,7 @@ class IWdsTransportServicePolicy(ComPtr):
     def put_NetworkProfile(self, ProfileType: Windows.Win32.System.DeploymentServices.WDSTRANSPORT_NETWORK_PROFILE_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportServicePolicy2(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportServicePolicy
-    _iid_ = Guid('65c19e5c-aa7e-4b91-89-44-91-e0-e5-57-27-97')
+    _iid_ = Guid('{65c19e5c-aa7e-4b91-8944-91e0e5572797}')
     @commethod(23)
     def get_UdpPortPolicy(self, pUdpPortPolicy: POINTER(Windows.Win32.System.DeploymentServices.WDSTRANSPORT_UDP_PORT_POLICY)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
@@ -673,7 +673,7 @@ class IWdsTransportServicePolicy2(ComPtr):
     def put_EnableTftpVariableWindowExtension(self, bEnableTftpVariableWindowExtension: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportSession(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f4efea88-65b1-4f30-a4-b9-27-93-98-77-96-fb')
+    _iid_ = Guid('{f4efea88-65b1-4f30-a4b9-2793987796fb}')
     @commethod(7)
     def get_Content(self, ppWdsTransportContent: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportContent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -692,7 +692,7 @@ class IWdsTransportSession(ComPtr):
     def Terminate(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportSetupManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('f7238425-efa8-40a4-ae-f9-c9-8d-96-9c-0b-75')
+    _iid_ = Guid('{f7238425-efa8-40a4-aef9-c98d969c0b75}')
     @commethod(7)
     def get_Version(self, pullVersion: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -705,14 +705,14 @@ class IWdsTransportSetupManager(ComPtr):
     def DeregisterContentProvider(self, bszName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportSetupManager2(ComPtr):
     extends: Windows.Win32.System.DeploymentServices.IWdsTransportSetupManager
-    _iid_ = Guid('02be79da-7e9e-4366-8b-6e-2a-a9-a9-1b-e4-7f')
+    _iid_ = Guid('{02be79da-7e9e-4366-8b6e-2aa9a91be47f}')
     @commethod(12)
     def get_TftpCapabilities(self, pulTftpCapabilities: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_ContentProviders(self, ppProviderCollection: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportTftpClient(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('b022d3ae-884d-4d85-b1-46-53-32-0e-76-ef-62')
+    _iid_ = Guid('{b022d3ae-884d-4d85-b146-53320e76ef62}')
     @commethod(7)
     def get_FileName(self, pbszFileName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -729,7 +729,7 @@ class IWdsTransportTftpClient(ComPtr):
     def get_WindowSize(self, pulWindowSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWdsTransportTftpManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('1327a7c8-ae8a-4fb3-81-50-13-62-27-c3-7e-9a')
+    _iid_ = Guid('{1327a7c8-ae8a-4fb3-8150-136227c37e9a}')
     @commethod(7)
     def RetrieveTftpClients(self, ppWdsTransportTftpClients: POINTER(Windows.Win32.System.DeploymentServices.IWdsTransportCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 PFN_WDS_CLI_CALLBACK_MESSAGE_ID = UInt32
@@ -943,27 +943,27 @@ class WDS_TRANSPORTPROVIDER_INIT_PARAMS(EasyCastStructure):
 class WDS_TRANSPORTPROVIDER_SETTINGS(EasyCastStructure):
     ulLength: UInt32
     ulProviderVersion: UInt32
-WdsTransportCacheable = Guid('70590b16-f146-46bd-bd-9d-4a-aa-90-08-4b-f5')
-WdsTransportClient = Guid('66d2c5e9-0ff6-49ec-97-33-da-fb-1e-01-df-1c')
-WdsTransportCollection = Guid('c7f18b09-391e-436e-b1-0b-c3-ef-46-f2-c3-4f')
-WdsTransportConfigurationManager = Guid('8743f674-904c-47ca-85-12-35-fe-98-f6-b0-ac')
-WdsTransportContent = Guid('0a891fe7-4a3f-4c65-b6-f2-14-67-61-96-79-ea')
-WdsTransportContentProvider = Guid('e0be741f-5a75-4eb9-8a-2d-5e-18-9b-45-f3-27')
-WdsTransportDiagnosticsPolicy = Guid('eb3333e1-a7ad-46f5-80-d6-6b-74-02-04-e5-09')
-WdsTransportManager = Guid('f21523f6-837c-4a58-af-99-8a-7e-27-f8-ff-59')
-WdsTransportMulticastSessionPolicy = Guid('3c6bc3f4-6418-472a-b6-f1-52-d4-57-19-54-37')
-WdsTransportNamespace = Guid('d8385768-0732-4ec1-95-ea-16-da-58-19-08-a1')
-WdsTransportNamespaceAutoCast = Guid('b091f5a8-6a99-478d-b2-3b-09-e8-fe-e0-45-74')
-WdsTransportNamespaceManager = Guid('f08cdb63-85de-4a28-a1-a9-5c-a3-e7-ef-da-73')
-WdsTransportNamespaceScheduledCast = Guid('badc1897-7025-44eb-91-08-fb-61-c4-05-57-92')
-WdsTransportNamespaceScheduledCastAutoStart = Guid('a1107052-122c-4b81-9b-7c-38-6e-68-55-38-3f')
-WdsTransportNamespaceScheduledCastManualStart = Guid('d3e1a2aa-caac-460e-b9-8a-47-f9-f3-18-a1-fa')
-WdsTransportServer = Guid('ea19b643-4adf-4413-94-2c-14-f3-79-11-87-60')
-WdsTransportServicePolicy = Guid('65aceadc-2f0b-4f43-9f-4d-81-18-65-d8-ce-ad')
-WdsTransportSession = Guid('749ac4e0-67bc-4743-bf-e5-ca-cb-1f-26-f5-7f')
-WdsTransportSetupManager = Guid('c7beeaad-9f04-4923-9f-0c-fb-f5-2b-c7-59-0f')
-WdsTransportTftpClient = Guid('50343925-7c5c-4c8c-96-c4-ad-9f-a5-00-5f-ba')
-WdsTransportTftpManager = Guid('c8e9dca2-3241-4e4d-b8-06-bc-74-01-9d-fe-da')
+WdsTransportCacheable = Guid('{70590b16-f146-46bd-bd9d-4aaa90084bf5}')
+WdsTransportClient = Guid('{66d2c5e9-0ff6-49ec-9733-dafb1e01df1c}')
+WdsTransportCollection = Guid('{c7f18b09-391e-436e-b10b-c3ef46f2c34f}')
+WdsTransportConfigurationManager = Guid('{8743f674-904c-47ca-8512-35fe98f6b0ac}')
+WdsTransportContent = Guid('{0a891fe7-4a3f-4c65-b6f2-1467619679ea}')
+WdsTransportContentProvider = Guid('{e0be741f-5a75-4eb9-8a2d-5e189b45f327}')
+WdsTransportDiagnosticsPolicy = Guid('{eb3333e1-a7ad-46f5-80d6-6b740204e509}')
+WdsTransportManager = Guid('{f21523f6-837c-4a58-af99-8a7e27f8ff59}')
+WdsTransportMulticastSessionPolicy = Guid('{3c6bc3f4-6418-472a-b6f1-52d457195437}')
+WdsTransportNamespace = Guid('{d8385768-0732-4ec1-95ea-16da581908a1}')
+WdsTransportNamespaceAutoCast = Guid('{b091f5a8-6a99-478d-b23b-09e8fee04574}')
+WdsTransportNamespaceManager = Guid('{f08cdb63-85de-4a28-a1a9-5ca3e7efda73}')
+WdsTransportNamespaceScheduledCast = Guid('{badc1897-7025-44eb-9108-fb61c4055792}')
+WdsTransportNamespaceScheduledCastAutoStart = Guid('{a1107052-122c-4b81-9b7c-386e6855383f}')
+WdsTransportNamespaceScheduledCastManualStart = Guid('{d3e1a2aa-caac-460e-b98a-47f9f318a1fa}')
+WdsTransportServer = Guid('{ea19b643-4adf-4413-942c-14f379118760}')
+WdsTransportServicePolicy = Guid('{65aceadc-2f0b-4f43-9f4d-811865d8cead}')
+WdsTransportSession = Guid('{749ac4e0-67bc-4743-bfe5-cacb1f26f57f}')
+WdsTransportSetupManager = Guid('{c7beeaad-9f04-4923-9f0c-fbf52bc7590f}')
+WdsTransportTftpClient = Guid('{50343925-7c5c-4c8c-96c4-ad9fa5005fba}')
+WdsTransportTftpManager = Guid('{c8e9dca2-3241-4e4d-b806-bc74019dfeda}')
 make_head(_module, 'IWdsTransportCacheable')
 make_head(_module, 'IWdsTransportClient')
 make_head(_module, 'IWdsTransportCollection')

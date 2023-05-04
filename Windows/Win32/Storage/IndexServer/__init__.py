@@ -22,10 +22,10 @@ CIADMIN: String = '::_nodocstore_::'
 LIFF_LOAD_DEFINED_FILTER: UInt32 = 1
 LIFF_IMPLEMENT_TEXT_FILTER_FALLBACK_POLICY: UInt32 = 2
 LIFF_FORCE_TEXT_FILTER_FALLBACK: UInt32 = 3
-CLSID_INDEX_SERVER_DSO: Guid = Guid('f9ae8980-7e52-11d0-89-64-00-c0-4f-d6-11-d7')
-PSGUID_FILENAME: Guid = Guid('41cf5ae0-f75a-4806-bd-87-59-c7-d9-24-8e-b9')
+CLSID_INDEX_SERVER_DSO: Guid = Guid('{f9ae8980-7e52-11d0-8964-00c04fd611d7}')
+PSGUID_FILENAME: Guid = Guid('{41cf5ae0-f75a-4806-bd87-59c7d9248eb9}')
 PID_FILENAME: UInt32 = 100
-DBPROPSET_FSCIFRMWRK_EXT: Guid = Guid('a9bd1526-6a80-11d0-8c-9d-00-20-af-1d-74-0e')
+DBPROPSET_FSCIFRMWRK_EXT: Guid = Guid('{a9bd1526-6a80-11d0-8c9d-0020af1d740e}')
 DBPROP_CI_CATALOG_NAME: UInt32 = 2
 DBPROP_CI_INCLUDE_SCOPES: UInt32 = 3
 DBPROP_CI_DEPTHS: UInt32 = 4
@@ -37,9 +37,9 @@ DBPROP_CI_PROVIDER: UInt32 = 8
 CI_PROVIDER_MSSEARCH: UInt32 = 1
 CI_PROVIDER_INDEXING_SERVICE: UInt32 = 2
 CI_PROVIDER_ALL: UInt32 = 4294967295
-DBPROPSET_SESS_QUERYEXT: Guid = Guid('63623309-2d8b-4d17-b1-52-6e-29-56-c2-6a-70')
+DBPROPSET_SESS_QUERYEXT: Guid = Guid('{63623309-2d8b-4d17-b152-6e2956c26a70}')
 DBPROP_DEFAULT_EQUALS_BEHAVIOR: UInt32 = 2
-DBPROPSET_QUERYEXT: Guid = Guid('a7ac77ed-f8d7-11ce-a7-98-00-20-f8-00-80-25')
+DBPROPSET_QUERYEXT: Guid = Guid('{a7ac77ed-f8d7-11ce-a798-0020f8008025}')
 DBPROP_USECONTENTINDEX: UInt32 = 2
 DBPROP_DEFERNONINDEXEDTRIMMING: UInt32 = 3
 DBPROP_USEEXTENDEDDBTYPES: UInt32 = 4
@@ -55,10 +55,10 @@ DBPROP_FREETEXTUSESTEMMING: UInt32 = 13
 DBPROP_IGNORESBRI: UInt32 = 14
 DBPROP_DONOTCOMPUTEEXPENSIVEPROPS: UInt32 = 15
 DBPROP_ENABLEROWSETEVENTS: UInt32 = 16
-DBPROPSET_CIFRMWRKCORE_EXT: Guid = Guid('afafaca5-b5d1-11d0-8c-62-00-c0-4f-c2-db-8d')
+DBPROPSET_CIFRMWRKCORE_EXT: Guid = Guid('{afafaca5-b5d1-11d0-8c62-00c04fc2db8d}')
 DBPROP_MACHINE: UInt32 = 2
 DBPROP_CLIENT_CLSID: UInt32 = 3
-DBPROPSET_MSIDXS_ROWSETEXT: Guid = Guid('aa6ee6b0-e828-11d0-b2-3e-00-aa-00-47-fc-01')
+DBPROPSET_MSIDXS_ROWSETEXT: Guid = Guid('{aa6ee6b0-e828-11d0-b23e-00aa0047fc01}')
 MSIDXSPROP_ROWSETQUERYSTATUS: UInt32 = 2
 MSIDXSPROP_COMMAND_LOCALE_STRING: UInt32 = 3
 MSIDXSPROP_QUERY_RESTRICTION: UInt32 = 4
@@ -252,7 +252,7 @@ IFILTER_INIT_DISABLE_EMBEDDED: IFILTER_INIT = 2048
 IFILTER_INIT_EMIT_FORMATTING: IFILTER_INIT = 4096
 class IFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('89bcb740-6119-101a-bc-b7-00-dd-01-06-55-af')
+    _iid_ = Guid('{89bcb740-6119-101a-bcb7-00dd010655af}')
     @commethod(3)
     def Init(self, grfFlags: UInt32, cAttributes: UInt32, aAttributes: POINTER(Windows.Win32.Storage.IndexServer.FULLPROPSPEC_head), pFlags: POINTER(UInt32)) -> Int32: ...
     @commethod(4)
@@ -265,7 +265,7 @@ class IFilter(ComPtr):
     def BindRegion(self, origPos: Windows.Win32.Storage.IndexServer.FILTERREGION, riid: POINTER(Guid), ppunk: POINTER(c_void_p)) -> Int32: ...
 class IPhraseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cc906ff0-c058-101a-b5-54-08-00-2b-33-b0-e6')
+    _iid_ = Guid('{cc906ff0-c058-101a-b554-08002b33b0e6}')
     @commethod(3)
     def PutSmallPhrase(self, pwcNoun: Windows.Win32.Foundation.PWSTR, cwcNoun: UInt32, pwcModifier: Windows.Win32.Foundation.PWSTR, cwcModifier: UInt32, ulAttachmentType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

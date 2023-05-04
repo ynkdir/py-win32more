@@ -18,24 +18,24 @@ def __getattr__(name):
 E_SURFACE_CONTENTS_LOST: UInt32 = 2150301728
 class IDesktopWindowXamlSourceNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3cbcf1bf-2f76-4e9c-96-ab-e8-4b-37-97-25-54')
+    _iid_ = Guid('{3cbcf1bf-2f76-4e9c-96ab-e84b37972554}')
     @commethod(3)
     def AttachToWindow(self, parentWnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_WindowHandle(self, hWnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDesktopWindowXamlSourceNative2(ComPtr):
     extends: Windows.Win32.System.WinRT.Xaml.IDesktopWindowXamlSourceNative
-    _iid_ = Guid('e3dcd8c7-3057-4692-99-c3-7b-77-20-af-da-31')
+    _iid_ = Guid('{e3dcd8c7-3057-4692-99c3-7b7720afda31}')
     @commethod(5)
     def PreTranslateMessage(self, message: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), result: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFindReferenceTargetsCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('04b3486c-4687-4229-8d-14-50-5a-b5-84-dd-88')
+    _iid_ = Guid('{04b3486c-4687-4229-8d14-505ab584dd88}')
     @commethod(3)
     def FoundTrackerTarget(self, target: Windows.Win32.System.WinRT.Xaml.IReferenceTrackerTarget_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IReferenceTracker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('11d3b13a-180e-4789-a8-be-77-12-88-28-93-e6')
+    _iid_ = Guid('{11d3b13a-180e-4789-a8be-7712882893e6}')
     @commethod(3)
     def ConnectFromTrackerSource(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -52,10 +52,10 @@ class IReferenceTracker(ComPtr):
     def PegFromTrackerSource(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IReferenceTrackerExtension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4e897caa-59d5-4613-8f-8c-f7-eb-d1-f3-99-b0')
+    _iid_ = Guid('{4e897caa-59d5-4613-8f8c-f7ebd1f399b0}')
 class IReferenceTrackerHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('29a71c6a-3c42-4416-a3-9d-e2-82-5a-07-a7-73')
+    _iid_ = Guid('{29a71c6a-3c42-4416-a39d-e2825a07a773}')
     @commethod(3)
     def DisconnectUnusedReferenceSources(self, options: Windows.Win32.System.WinRT.Xaml.XAML_REFERENCETRACKER_DISCONNECT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -70,7 +70,7 @@ class IReferenceTrackerHost(ComPtr):
     def RemoveMemoryPressure(self, bytesAllocated: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IReferenceTrackerManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('3cf184b4-7ccb-4dda-84-55-7e-6c-e9-9a-32-98')
+    _iid_ = Guid('{3cf184b4-7ccb-4dda-8455-7e6ce99a3298}')
     @commethod(3)
     def ReferenceTrackingStarted(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -81,7 +81,7 @@ class IReferenceTrackerManager(ComPtr):
     def SetReferenceTrackerHost(self, value: Windows.Win32.System.WinRT.Xaml.IReferenceTrackerHost_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IReferenceTrackerTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('64bd43f8-bfee-4ec4-b7-eb-29-35-15-8d-ae-21')
+    _iid_ = Guid('{64bd43f8-bfee-4ec4-b7eb-2935158dae21}')
     @commethod(3)
     def AddRefFromReferenceTracker(self) -> UInt32: ...
     @commethod(4)
@@ -92,12 +92,12 @@ class IReferenceTrackerTarget(ComPtr):
     def Unpeg(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISurfaceImageSourceManagerNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('4c8798b7-1d88-4a0f-b5-9b-b9-3f-60-0d-e8-c8')
+    _iid_ = Guid('{4c8798b7-1d88-4a0f-b59b-b93f600de8c8}')
     @commethod(3)
     def FlushAllSurfacesWithDevice(self, device: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISurfaceImageSourceNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f2e9edc1-d307-4525-98-86-0f-af-aa-44-16-3c')
+    _iid_ = Guid('{f2e9edc1-d307-4525-9886-0fafaa44163c}')
     @commethod(3)
     def SetDevice(self, device: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -106,7 +106,7 @@ class ISurfaceImageSourceNative(ComPtr):
     def EndDraw(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISurfaceImageSourceNativeWithD2D(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('54298223-41e1-4a41-9c-08-02-e8-25-68-64-a1')
+    _iid_ = Guid('{54298223-41e1-4a41-9c08-02e8256864a1}')
     @commethod(3)
     def SetDevice(self, device: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -119,22 +119,22 @@ class ISurfaceImageSourceNativeWithD2D(ComPtr):
     def ResumeDraw(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISwapChainBackgroundPanelNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('43bebd4e-add5-4035-8f-85-56-08-d0-8e-9d-c9')
+    _iid_ = Guid('{43bebd4e-add5-4035-8f85-5608d08e9dc9}')
     @commethod(3)
     def SetSwapChain(self, swapChain: Windows.Win32.Graphics.Dxgi.IDXGISwapChain_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISwapChainPanelNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f92f19d2-3ade-45a6-a2-0c-f6-f1-ea-90-55-4b')
+    _iid_ = Guid('{f92f19d2-3ade-45a6-a20c-f6f1ea90554b}')
     @commethod(3)
     def SetSwapChain(self, swapChain: Windows.Win32.Graphics.Dxgi.IDXGISwapChain_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISwapChainPanelNative2(ComPtr):
     extends: Windows.Win32.System.WinRT.Xaml.ISwapChainPanelNative
-    _iid_ = Guid('d5a2f60c-37b2-44a2-93-7b-8d-8e-b9-72-68-21')
+    _iid_ = Guid('{d5a2f60c-37b2-44a2-937b-8d8eb9726821}')
     @commethod(4)
     def SetSwapChainHandle(self, swapChainHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 class ITrackerOwner(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('eb24c20b-9816-4ac7-8c-ff-36-f6-7a-11-8f-4e')
+    _iid_ = Guid('{eb24c20b-9816-4ac7-8cff-36f67a118f4e}')
     @commethod(3)
     def CreateTrackerHandle(self, returnValue: POINTER(Windows.Win32.System.WinRT.Xaml.TrackerHandle)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -145,7 +145,7 @@ class ITrackerOwner(ComPtr):
     def TryGetSafeTrackerValue(self, handle: Windows.Win32.System.WinRT.Xaml.TrackerHandle, returnValue: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Byte: ...
 class IVirtualSurfaceImageSourceNative(ComPtr):
     extends: Windows.Win32.System.WinRT.Xaml.ISurfaceImageSourceNative
-    _iid_ = Guid('e9550983-360b-4f53-b3-91-af-d6-95-07-86-91')
+    _iid_ = Guid('{e9550983-360b-4f53-b391-afd695078691}')
     @commethod(6)
     def Invalidate(self, updateRect: Windows.Win32.Foundation.RECT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -160,7 +160,7 @@ class IVirtualSurfaceImageSourceNative(ComPtr):
     def Resize(self, newWidth: Int32, newHeight: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IVirtualSurfaceUpdatesCallbackNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('dbf2e947-8e6c-4254-9e-ee-77-38-f7-13-86-c9')
+    _iid_ = Guid('{dbf2e947-8e6c-4254-9eee-7738f71386c9}')
     @commethod(3)
     def UpdatesNeeded(self) -> Windows.Win32.Foundation.HRESULT: ...
 TrackerHandle = IntPtr

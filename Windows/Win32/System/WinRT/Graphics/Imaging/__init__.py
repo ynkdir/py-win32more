@@ -15,15 +15,15 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-CLSID_SoftwareBitmapNativeFactory: Guid = Guid('84e65691-8602-4a84-be-46-70-8b-e9-cd-4b-74')
+CLSID_SoftwareBitmapNativeFactory: Guid = Guid('{84e65691-8602-4a84-be46-708be9cd4b74}')
 class ISoftwareBitmapNative(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('94bc8415-04ea-4b2e-af-13-4d-e9-5a-a8-98-eb')
+    _iid_ = Guid('{94bc8415-04ea-4b2e-af13-4de95aa898eb}')
     @commethod(6)
     def GetData(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISoftwareBitmapNativeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _iid_ = Guid('c3c181ec-2914-4791-af-02-02-d2-24-a1-0b-43')
+    _iid_ = Guid('{c3c181ec-2914-4791-af02-02d224a10b43}')
     @commethod(6)
     def CreateFromWICBitmap(self, data: Windows.Win32.Graphics.Imaging.IWICBitmap_head, forceReadOnly: Windows.Win32.Foundation.BOOL, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)

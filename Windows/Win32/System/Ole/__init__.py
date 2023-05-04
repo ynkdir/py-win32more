@@ -47,33 +47,33 @@ CONNECT_E_OVERRIDDEN: Windows.Win32.Foundation.HRESULT = -2147220989
 SELFREG_E_TYPELIB: Windows.Win32.Foundation.HRESULT = -2147220992
 SELFREG_E_CLASS: Windows.Win32.Foundation.HRESULT = -2147220991
 PERPROP_E_NOPAGEAVAILABLE: Windows.Win32.Foundation.HRESULT = -2147220992
-CLSID_CFontPropPage: Guid = Guid('0be35200-8f91-11ce-9d-e3-00-aa-00-4b-b8-51')
-CLSID_CColorPropPage: Guid = Guid('0be35201-8f91-11ce-9d-e3-00-aa-00-4b-b8-51')
-CLSID_CPicturePropPage: Guid = Guid('0be35202-8f91-11ce-9d-e3-00-aa-00-4b-b8-51')
-CLSID_PersistPropset: Guid = Guid('fb8f0821-0164-101b-84-ed-08-00-2b-2e-c7-13')
-CLSID_ConvertVBX: Guid = Guid('fb8f0822-0164-101b-84-ed-08-00-2b-2e-c7-13')
-CLSID_StdFont: Guid = Guid('0be35203-8f91-11ce-9d-e3-00-aa-00-4b-b8-51')
-CLSID_StdPicture: Guid = Guid('0be35204-8f91-11ce-9d-e3-00-aa-00-4b-b8-51')
-GUID_HIMETRIC: Guid = Guid('66504300-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_COLOR: Guid = Guid('66504301-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_XPOSPIXEL: Guid = Guid('66504302-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_YPOSPIXEL: Guid = Guid('66504303-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_XSIZEPIXEL: Guid = Guid('66504304-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_YSIZEPIXEL: Guid = Guid('66504305-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_XPOS: Guid = Guid('66504306-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_YPOS: Guid = Guid('66504307-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_XSIZE: Guid = Guid('66504308-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_YSIZE: Guid = Guid('66504309-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_TRISTATE: Guid = Guid('6650430a-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_OPTIONVALUEEXCLUSIVE: Guid = Guid('6650430b-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_CHECKVALUEEXCLUSIVE: Guid = Guid('6650430c-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_FONTNAME: Guid = Guid('6650430d-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_FONTSIZE: Guid = Guid('6650430e-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_FONTBOLD: Guid = Guid('6650430f-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_FONTITALIC: Guid = Guid('66504310-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_FONTUNDERSCORE: Guid = Guid('66504311-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_FONTSTRIKETHROUGH: Guid = Guid('66504312-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
-GUID_HANDLE: Guid = Guid('66504313-be0f-101a-8b-bb-00-aa-00-30-0c-ab')
+CLSID_CFontPropPage: Guid = Guid('{0be35200-8f91-11ce-9de3-00aa004bb851}')
+CLSID_CColorPropPage: Guid = Guid('{0be35201-8f91-11ce-9de3-00aa004bb851}')
+CLSID_CPicturePropPage: Guid = Guid('{0be35202-8f91-11ce-9de3-00aa004bb851}')
+CLSID_PersistPropset: Guid = Guid('{fb8f0821-0164-101b-84ed-08002b2ec713}')
+CLSID_ConvertVBX: Guid = Guid('{fb8f0822-0164-101b-84ed-08002b2ec713}')
+CLSID_StdFont: Guid = Guid('{0be35203-8f91-11ce-9de3-00aa004bb851}')
+CLSID_StdPicture: Guid = Guid('{0be35204-8f91-11ce-9de3-00aa004bb851}')
+GUID_HIMETRIC: Guid = Guid('{66504300-be0f-101a-8bbb-00aa00300cab}')
+GUID_COLOR: Guid = Guid('{66504301-be0f-101a-8bbb-00aa00300cab}')
+GUID_XPOSPIXEL: Guid = Guid('{66504302-be0f-101a-8bbb-00aa00300cab}')
+GUID_YPOSPIXEL: Guid = Guid('{66504303-be0f-101a-8bbb-00aa00300cab}')
+GUID_XSIZEPIXEL: Guid = Guid('{66504304-be0f-101a-8bbb-00aa00300cab}')
+GUID_YSIZEPIXEL: Guid = Guid('{66504305-be0f-101a-8bbb-00aa00300cab}')
+GUID_XPOS: Guid = Guid('{66504306-be0f-101a-8bbb-00aa00300cab}')
+GUID_YPOS: Guid = Guid('{66504307-be0f-101a-8bbb-00aa00300cab}')
+GUID_XSIZE: Guid = Guid('{66504308-be0f-101a-8bbb-00aa00300cab}')
+GUID_YSIZE: Guid = Guid('{66504309-be0f-101a-8bbb-00aa00300cab}')
+GUID_TRISTATE: Guid = Guid('{6650430a-be0f-101a-8bbb-00aa00300cab}')
+GUID_OPTIONVALUEEXCLUSIVE: Guid = Guid('{6650430b-be0f-101a-8bbb-00aa00300cab}')
+GUID_CHECKVALUEEXCLUSIVE: Guid = Guid('{6650430c-be0f-101a-8bbb-00aa00300cab}')
+GUID_FONTNAME: Guid = Guid('{6650430d-be0f-101a-8bbb-00aa00300cab}')
+GUID_FONTSIZE: Guid = Guid('{6650430e-be0f-101a-8bbb-00aa00300cab}')
+GUID_FONTBOLD: Guid = Guid('{6650430f-be0f-101a-8bbb-00aa00300cab}')
+GUID_FONTITALIC: Guid = Guid('{66504310-be0f-101a-8bbb-00aa00300cab}')
+GUID_FONTUNDERSCORE: Guid = Guid('{66504311-be0f-101a-8bbb-00aa00300cab}')
+GUID_FONTSTRIKETHROUGH: Guid = Guid('{66504312-be0f-101a-8bbb-00aa00300cab}')
+GUID_HANDLE: Guid = Guid('{66504313-be0f-101a-8bbb-00aa00300cab}')
 CONNECT_E_LAST: Windows.Win32.Foundation.HRESULT = -2147220977
 CONNECT_S_FIRST: Windows.Win32.Foundation.HRESULT = 262656
 CONNECT_S_LAST: Windows.Win32.Foundation.HRESULT = 262671
@@ -502,9 +502,9 @@ fdexEnumDefault: Int32 = 1
 fdexEnumAll: Int32 = 2
 DISPATCH_CONSTRUCT: UInt32 = 16384
 DISPID_STARTENUM: Int32 = -1
-SID_VariantConversion: Guid = Guid('1f101481-bccd-11d0-93-36-00-a0-c9-0d-ca-a9')
-SID_GetCaller: Guid = Guid('4717cc40-bcb9-11d0-93-36-00-a0-c9-0d-ca-a9')
-SID_ProvideRuntimeContext: Guid = Guid('74a5040c-dd0c-48f0-ac-85-19-4c-32-59-18-0a')
+SID_VariantConversion: Guid = Guid('{1f101481-bccd-11d0-9336-00a0c90dcaa9}')
+SID_GetCaller: Guid = Guid('{4717cc40-bcb9-11d0-9336-00a0c90dcaa9}')
+SID_ProvideRuntimeContext: Guid = Guid('{74a5040c-dd0c-48f0-ac85-194c3259180a}')
 @winfunctype('OLEAUT32.dll')
 def SafeArrayAllocDescriptor(cDims: UInt32, ppsaOut: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLEAUT32.dll')
@@ -1554,17 +1554,17 @@ HITRESULT_CLOSE: HITRESULT = 2
 HITRESULT_HIT: HITRESULT = 3
 class IAdviseSinkEx(ComPtr):
     extends: Windows.Win32.System.Com.IAdviseSink
-    _iid_ = Guid('3af24290-0c96-11ce-a0-cf-00-aa-00-60-0a-b8')
+    _iid_ = Guid('{3af24290-0c96-11ce-a0cf-00aa00600ab8}')
     @commethod(8)
     def OnViewStatusChange(self, dwViewStatus: UInt32) -> Void: ...
 class ICanHandleException(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('c5598e60-b307-11d1-b2-7d-00-60-08-c3-fb-fb')
+    _iid_ = Guid('{c5598e60-b307-11d1-b27d-006008c3fbfb}')
     @commethod(3)
     def CanHandleException(self, pExcepInfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IClassFactory2(ComPtr):
     extends: Windows.Win32.System.Com.IClassFactory
-    _iid_ = Guid('b196b28f-bab4-101a-b6-9c-00-aa-00-34-1d-07')
+    _iid_ = Guid('{b196b28f-bab4-101a-b69c-00aa00341d07}')
     @commethod(5)
     def GetLicInfo(self, pLicInfo: POINTER(Windows.Win32.System.Ole.LICINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1573,19 +1573,19 @@ class IClassFactory2(ComPtr):
     def CreateInstanceLic(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, pUnkReserved: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), bstrKey: Windows.Win32.Foundation.BSTR, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContinue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000012a-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000012a-0000-0000-c000-000000000046}')
     @commethod(3)
     def FContinue(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IContinueCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b722bcca-4e68-101b-a2-bc-00-aa-00-40-47-70')
+    _iid_ = Guid('{b722bcca-4e68-101b-a2bc-00aa00404770}')
     @commethod(3)
     def FContinue(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FContinuePrinting(self, nCntPrinted: Int32, nCurPage: Int32, pwszPrintStatus: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ICreateErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('22f03340-547d-101b-8e-65-08-00-2b-2b-d1-19')
+    _iid_ = Guid('{22f03340-547d-101b-8e65-08002b2bd119}')
     @commethod(3)
     def SetGUID(self, rguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1598,7 +1598,7 @@ class ICreateErrorInfo(ComPtr):
     def SetHelpContext(self, dwHelpContext: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ICreateTypeInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020405-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020405-0000-0000-c000-000000000046}')
     @commethod(3)
     def SetGuid(self, guid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1647,7 +1647,7 @@ class ICreateTypeInfo(ComPtr):
     def LayOut(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ICreateTypeInfo2(ComPtr):
     extends: Windows.Win32.System.Ole.ICreateTypeInfo
-    _iid_ = Guid('0002040e-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0002040e-0000-0000-c000-000000000046}')
     @commethod(26)
     def DeleteFuncDesc(self, index: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
@@ -1680,7 +1680,7 @@ class ICreateTypeInfo2(ComPtr):
     def SetName(self, szName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ICreateTypeLib(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020406-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020406-0000-0000-c000-000000000046}')
     @commethod(3)
     def CreateTypeInfo(self, szName: Windows.Win32.Foundation.PWSTR, tkind: Windows.Win32.System.Com.TYPEKIND, ppCTInfo: POINTER(Windows.Win32.System.Ole.ICreateTypeInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1703,7 +1703,7 @@ class ICreateTypeLib(ComPtr):
     def SaveAllChanges(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ICreateTypeLib2(ComPtr):
     extends: Windows.Win32.System.Ole.ICreateTypeLib
-    _iid_ = Guid('0002040f-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0002040f-0000-0000-c000-000000000046}')
     @commethod(13)
     def DeleteTypeInfo(self, szName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -1714,7 +1714,7 @@ class ICreateTypeLib2(ComPtr):
     def SetHelpStringDll(self, szFileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IDispError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a6ef9861-c720-11d0-93-37-00-a0-c9-0d-ca-a9')
+    _iid_ = Guid('{a6ef9861-c720-11d0-9337-00a0c90dcaa9}')
     @commethod(3)
     def QueryErrorInfo(self, guidErrorType: Guid, ppde: POINTER(Windows.Win32.System.Ole.IDispError_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1729,7 +1729,7 @@ class IDispError(ComPtr):
     def GetDescription(self, pbstrDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDispatchEx(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('a6ef9860-c720-11d0-93-37-00-a0-c9-0d-ca-a9')
+    _iid_ = Guid('{a6ef9860-c720-11d0-9337-00a0c90dcaa9}')
     @commethod(7)
     def GetDispID(self, bstrName: Windows.Win32.Foundation.BSTR, grfdex: UInt32, pid: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1748,21 +1748,21 @@ class IDispatchEx(ComPtr):
     def GetNameSpaceParent(self, ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDropSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000121-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000121-0000-0000-c000-000000000046}')
     @commethod(3)
     def QueryContinueDrag(self, fEscapePressed: Windows.Win32.Foundation.BOOL, grfKeyState: Windows.Win32.System.SystemServices.MODIFIERKEYS_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GiveFeedback(self, dwEffect: Windows.Win32.System.Ole.DROPEFFECT) -> Windows.Win32.Foundation.HRESULT: ...
 class IDropSourceNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000012b-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000012b-0000-0000-c000-000000000046}')
     @commethod(3)
     def DragEnterTarget(self, hwndTarget: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DragLeaveTarget(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDropTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000122-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000122-0000-0000-c000-000000000046}')
     @commethod(3)
     def DragEnter(self, pDataObj: Windows.Win32.System.Com.IDataObject_head, grfKeyState: Windows.Win32.System.SystemServices.MODIFIERKEYS_FLAGS, pt: Windows.Win32.Foundation.POINTL, pdwEffect: POINTER(Windows.Win32.System.Ole.DROPEFFECT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1773,14 +1773,14 @@ class IDropTarget(ComPtr):
     def Drop(self, pDataObj: Windows.Win32.System.Com.IDataObject_head, grfKeyState: Windows.Win32.System.SystemServices.MODIFIERKEYS_FLAGS, pt: Windows.Win32.Foundation.POINTL, pdwEffect: POINTER(Windows.Win32.System.Ole.DROPEFFECT)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnterpriseDropTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('390e3878-fd55-4e18-81-9d-46-82-08-1c-0c-fd')
+    _iid_ = Guid('{390e3878-fd55-4e18-819d-4682081c0cfd}')
     @commethod(3)
     def SetDropSourceEnterpriseId(self, identity: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def IsEvaluatingEdpPolicy(self, value: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumOLEVERB(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000104-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000104-0000-0000-c000-000000000046}')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.System.Ole.OLEVERB_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1791,7 +1791,7 @@ class IEnumOLEVERB(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Ole.IEnumOLEVERB_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumOleDocumentViews(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b722bcc8-4e68-101b-a2-bc-00-aa-00-40-47-70')
+    _iid_ = Guid('{b722bcc8-4e68-101b-a2bc-00aa00404770}')
     @commethod(3)
     def Next(self, cViews: UInt32, rgpView: POINTER(Windows.Win32.System.Ole.IOleDocumentView_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1802,7 +1802,7 @@ class IEnumOleDocumentViews(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.Ole.IEnumOleDocumentViews_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumOleUndoUnits(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b3e7c340-ef97-11ce-9b-c9-00-aa-00-60-8e-01')
+    _iid_ = Guid('{b3e7c340-ef97-11ce-9bc9-00aa00608e01}')
     @commethod(3)
     def Next(self, cElt: UInt32, rgElt: POINTER(Windows.Win32.System.Ole.IOleUndoUnit_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1813,7 +1813,7 @@ class IEnumOleUndoUnits(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.Ole.IEnumOleUndoUnits_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumVARIANT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020404-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020404-0000-0000-c000-000000000046}')
     @commethod(3)
     def Next(self, celt: UInt32, rgVar: POINTER(Windows.Win32.System.Variant.VARIANT_head), pCeltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1824,7 +1824,7 @@ class IEnumVARIANT(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFont(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('bef6e002-a874-101a-8b-ba-00-aa-00-30-0c-ab')
+    _iid_ = Guid('{bef6e002-a874-101a-8bba-00aa00300cab}')
     @commethod(3)
     def get_Name(self, pName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1875,21 +1875,21 @@ class IFont(ComPtr):
     def SetHdc(self, hDC: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.HRESULT: ...
 class IFontDisp(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('bef6e003-a874-101a-8b-ba-00-aa-00-30-0c-ab')
+    _iid_ = Guid('{bef6e003-a874-101a-8bba-00aa00300cab}')
 class IFontEventsDisp(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('4ef6100a-af88-11d0-98-46-00-c0-4f-c2-99-93')
+    _iid_ = Guid('{4ef6100a-af88-11d0-9846-00c04fc29993}')
 IGNOREMIME = Int32
 IGNOREMIME_PROMPT: IGNOREMIME = 1
 IGNOREMIME_TEXT: IGNOREMIME = 2
 class IGetOleObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('8a701da0-4feb-101b-a8-2e-08-00-2b-2b-23-37')
+    _iid_ = Guid('{8a701da0-4feb-101b-a82e-08002b2b2337}')
     @commethod(3)
     def GetOleObject(self, riid: POINTER(Guid), ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGetVBAObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('91733a60-3f4c-101b-a3-f6-00-aa-00-34-e4-e9')
+    _iid_ = Guid('{91733a60-3f4c-101b-a3f6-00aa0034e4e9}')
     @commethod(3)
     def GetObject(self, riid: POINTER(Guid), ppvObj: POINTER(c_void_p), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 INSERT_OBJECT_FLAGS = UInt32
@@ -1912,19 +1912,19 @@ class INTERFACEDATA(EasyCastStructure):
     cMembers: UInt32
 class IObjectIdentity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('ca04b7e6-0d21-11d1-8c-c5-00-c0-4f-c2-b0-85')
+    _iid_ = Guid('{ca04b7e6-0d21-11d1-8cc5-00c04fc2b085}')
     @commethod(3)
     def IsEqualObject(self, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IObjectWithSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('fc4801a3-2ba9-11cf-a2-29-00-aa-00-3d-73-52')
+    _iid_ = Guid('{fc4801a3-2ba9-11cf-a229-00aa003d7352}')
     @commethod(3)
     def SetSite(self, pUnkSite: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSite(self, riid: POINTER(Guid), ppvSite: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleAdviseHolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000111-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000111-0000-0000-c000-000000000046}')
     @commethod(3)
     def Advise(self, pAdvise: Windows.Win32.System.Com.IAdviseSink_head, pdwConnection: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1939,7 +1939,7 @@ class IOleAdviseHolder(ComPtr):
     def SendOnClose(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleCache(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000011e-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000011e-0000-0000-c000-000000000046}')
     @commethod(3)
     def Cache(self, pformatetc: POINTER(Windows.Win32.System.Com.FORMATETC_head), advf: UInt32, pdwConnection: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1952,21 +1952,21 @@ class IOleCache(ComPtr):
     def SetData(self, pformatetc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pmedium: POINTER(Windows.Win32.System.Com.STGMEDIUM_head), fRelease: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleCache2(ComPtr):
     extends: Windows.Win32.System.Ole.IOleCache
-    _iid_ = Guid('00000128-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000128-0000-0000-c000-000000000046}')
     @commethod(8)
     def UpdateCache(self, pDataObject: Windows.Win32.System.Com.IDataObject_head, grfUpdf: Windows.Win32.System.Ole.UPDFCACHE_FLAGS, pReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def DiscardCache(self, dwDiscardOptions: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleCacheControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000129-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000129-0000-0000-c000-000000000046}')
     @commethod(3)
     def OnRun(self, pDataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnStop(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleClientSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000118-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000118-0000-0000-c000-000000000046}')
     @commethod(3)
     def SaveObject(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1981,21 +1981,21 @@ class IOleClientSite(ComPtr):
     def RequestNewObjectLayout(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleCommandTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b722bccb-4e68-101b-a2-bc-00-aa-00-40-47-70')
+    _iid_ = Guid('{b722bccb-4e68-101b-a2bc-00aa00404770}')
     @commethod(3)
     def QueryStatus(self, pguidCmdGroup: POINTER(Guid), cCmds: UInt32, prgCmds: POINTER(Windows.Win32.System.Ole.OLECMD_head), pCmdText: POINTER(Windows.Win32.System.Ole.OLECMDTEXT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Exec(self, pguidCmdGroup: POINTER(Guid), nCmdID: UInt32, nCmdexecopt: UInt32, pvaIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvaOut: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleContainer(ComPtr):
     extends: Windows.Win32.System.Ole.IParseDisplayName
-    _iid_ = Guid('0000011b-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000011b-0000-0000-c000-000000000046}')
     @commethod(4)
     def EnumObjects(self, grfFlags: Windows.Win32.System.Ole.OLECONTF, ppenum: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def LockContainer(self, fLock: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b196b288-bab4-101a-b6-9c-00-aa-00-34-1d-07')
+    _iid_ = Guid('{b196b288-bab4-101a-b69c-00aa00341d07}')
     @commethod(3)
     def GetControlInfo(self, pCI: POINTER(Windows.Win32.System.Ole.CONTROLINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2006,7 +2006,7 @@ class IOleControl(ComPtr):
     def FreezeEvents(self, bFreeze: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleControlSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b196b289-bab4-101a-b6-9c-00-aa-00-34-1d-07')
+    _iid_ = Guid('{b196b289-bab4-101a-b69c-00aa00341d07}')
     @commethod(3)
     def OnControlInfoChanged(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2023,7 +2023,7 @@ class IOleControlSite(ComPtr):
     def ShowPropertyFrame(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleDocument(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b722bcc5-4e68-101b-a2-bc-00-aa-00-40-47-70')
+    _iid_ = Guid('{b722bcc5-4e68-101b-a2bc-00aa00404770}')
     @commethod(3)
     def CreateView(self, pIPSite: Windows.Win32.System.Ole.IOleInPlaceSite_head, pstm: Windows.Win32.System.Com.IStream_head, dwReserved: UInt32, ppView: POINTER(Windows.Win32.System.Ole.IOleDocumentView_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2032,12 +2032,12 @@ class IOleDocument(ComPtr):
     def EnumViews(self, ppEnum: POINTER(Windows.Win32.System.Ole.IEnumOleDocumentViews_head), ppView: POINTER(Windows.Win32.System.Ole.IOleDocumentView_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleDocumentSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b722bcc7-4e68-101b-a2-bc-00-aa-00-40-47-70')
+    _iid_ = Guid('{b722bcc7-4e68-101b-a2bc-00aa00404770}')
     @commethod(3)
     def ActivateMe(self, pViewToActivate: Windows.Win32.System.Ole.IOleDocumentView_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleDocumentView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b722bcc6-4e68-101b-a2-bc-00-aa-00-40-47-70')
+    _iid_ = Guid('{b722bcc6-4e68-101b-a2bc-00aa00404770}')
     @commethod(3)
     def SetInPlaceSite(self, pIPSite: Windows.Win32.System.Ole.IOleInPlaceSite_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2066,7 +2066,7 @@ class IOleDocumentView(ComPtr):
     def Clone(self, pIPSiteNew: Windows.Win32.System.Ole.IOleInPlaceSite_head, ppViewNew: POINTER(Windows.Win32.System.Ole.IOleDocumentView_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleInPlaceActiveObject(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
-    _iid_ = Guid('00000117-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000117-0000-0000-c000-000000000046}')
     @commethod(5)
     def TranslateAccelerator(self, lpmsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -2079,7 +2079,7 @@ class IOleInPlaceActiveObject(ComPtr):
     def EnableModeless(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleInPlaceFrame(ComPtr):
     extends: Windows.Win32.System.Ole.IOleInPlaceUIWindow
-    _iid_ = Guid('00000116-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000116-0000-0000-c000-000000000046}')
     @commethod(9)
     def InsertMenus(self, hmenuShared: Windows.Win32.UI.WindowsAndMessaging.HMENU, lpMenuWidths: POINTER(Windows.Win32.System.Ole.OLEMENUGROUPWIDTHS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -2094,7 +2094,7 @@ class IOleInPlaceFrame(ComPtr):
     def TranslateAccelerator(self, lpmsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), wID: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleInPlaceObject(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
-    _iid_ = Guid('00000113-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000113-0000-0000-c000-000000000046}')
     @commethod(5)
     def InPlaceDeactivate(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -2105,14 +2105,14 @@ class IOleInPlaceObject(ComPtr):
     def ReactivateAndUndo(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleInPlaceObjectWindowless(ComPtr):
     extends: Windows.Win32.System.Ole.IOleInPlaceObject
-    _iid_ = Guid('1c2056cc-5ef4-101b-8b-c8-00-aa-00-3e-3b-29')
+    _iid_ = Guid('{1c2056cc-5ef4-101b-8bc8-00aa003e3b29}')
     @commethod(9)
     def OnWindowMessage(self, msg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, plResult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetDropTarget(self, ppDropTarget: POINTER(Windows.Win32.System.Ole.IDropTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleInPlaceSite(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
-    _iid_ = Guid('00000119-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000119-0000-0000-c000-000000000046}')
     @commethod(5)
     def CanInPlaceActivate(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -2135,7 +2135,7 @@ class IOleInPlaceSite(ComPtr):
     def OnPosRectChange(self, lprcPosRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleInPlaceSiteEx(ComPtr):
     extends: Windows.Win32.System.Ole.IOleInPlaceSite
-    _iid_ = Guid('9c2cad80-3424-11cf-b6-70-00-aa-00-4c-d6-d8')
+    _iid_ = Guid('{9c2cad80-3424-11cf-b670-00aa004cd6d8}')
     @commethod(15)
     def OnInPlaceActivateEx(self, pfNoRedraw: POINTER(Windows.Win32.Foundation.BOOL), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -2144,7 +2144,7 @@ class IOleInPlaceSiteEx(ComPtr):
     def RequestUIActivate(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleInPlaceSiteWindowless(ComPtr):
     extends: Windows.Win32.System.Ole.IOleInPlaceSiteEx
-    _iid_ = Guid('922eada0-3424-11cf-b6-70-00-aa-00-4c-d6-d8')
+    _iid_ = Guid('{922eada0-3424-11cf-b670-00aa004cd6d8}')
     @commethod(18)
     def CanWindowlessActivate(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -2171,7 +2171,7 @@ class IOleInPlaceSiteWindowless(ComPtr):
     def OnDefWindowMessage(self, msg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, plResult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleInPlaceUIWindow(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
-    _iid_ = Guid('00000115-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000115-0000-0000-c000-000000000046}')
     @commethod(5)
     def GetBorder(self, lprectBorder: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -2182,7 +2182,7 @@ class IOleInPlaceUIWindow(ComPtr):
     def SetActiveObject(self, pActiveObject: Windows.Win32.System.Ole.IOleInPlaceActiveObject_head, pszObjName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleItemContainer(ComPtr):
     extends: Windows.Win32.System.Ole.IOleContainer
-    _iid_ = Guid('0000011c-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000011c-0000-0000-c000-000000000046}')
     @commethod(6)
     def GetObject(self, pszItem: Windows.Win32.Foundation.PWSTR, dwSpeedNeeded: UInt32, pbc: Windows.Win32.System.Com.IBindCtx_head, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2191,7 +2191,7 @@ class IOleItemContainer(ComPtr):
     def IsRunning(self, pszItem: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleLink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000011d-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000011d-0000-0000-c000-000000000046}')
     @commethod(3)
     def SetUpdateOptions(self, dwUpdateOpt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2216,7 +2216,7 @@ class IOleLink(ComPtr):
     def Update(self, pbc: Windows.Win32.System.Com.IBindCtx_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000112-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000112-0000-0000-c000-000000000046}')
     @commethod(3)
     def SetClientSite(self, pClientSite: Windows.Win32.System.Ole.IOleClientSite_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2261,7 +2261,7 @@ class IOleObject(ComPtr):
     def SetColorScheme(self, pLogpal: POINTER(Windows.Win32.Graphics.Gdi.LOGPALETTE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleParentUndoUnit(ComPtr):
     extends: Windows.Win32.System.Ole.IOleUndoUnit
-    _iid_ = Guid('a1faf330-ef97-11ce-9b-c9-00-aa-00-60-8e-01')
+    _iid_ = Guid('{a1faf330-ef97-11ce-9bc9-00aa00608e01}')
     @commethod(7)
     def Open(self, pPUU: Windows.Win32.System.Ole.IOleParentUndoUnit_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2342,7 +2342,7 @@ class IOleUIObjInfoW(ComPtr):
     def SetViewInfo(self, dwObject: UInt32, hMetaPict: Windows.Win32.Foundation.HGLOBAL, dvAspect: UInt32, nCurrentScale: Int32, bRelativeToOrig: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleUndoManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d001f200-ef97-11ce-9b-c9-00-aa-00-60-8e-01')
+    _iid_ = Guid('{d001f200-ef97-11ce-9bc9-00aa00608e01}')
     @commethod(3)
     def Open(self, pPUU: Windows.Win32.System.Ole.IOleParentUndoUnit_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2369,7 +2369,7 @@ class IOleUndoManager(ComPtr):
     def Enable(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleUndoUnit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('894ad3b0-ef97-11ce-9b-c9-00-aa-00-60-8e-01')
+    _iid_ = Guid('{894ad3b0-ef97-11ce-9bc9-00aa00608e01}')
     @commethod(3)
     def Do(self, pUndoManager: Windows.Win32.System.Ole.IOleUndoManager_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2380,19 +2380,19 @@ class IOleUndoUnit(ComPtr):
     def OnNextAdd(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleWindow(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00000114-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000114-0000-0000-c000-000000000046}')
     @commethod(3)
     def GetWindow(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ContextSensitiveHelp(self, fEnterMode: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IParseDisplayName(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000011a-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000011a-0000-0000-c000-000000000046}')
     @commethod(3)
     def ParseDisplayName(self, pbc: Windows.Win32.System.Com.IBindCtx_head, pszDisplayName: Windows.Win32.Foundation.PWSTR, pchEaten: POINTER(UInt32), ppmkOut: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPerPropertyBrowsing(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('376bd3aa-3845-101b-84-ed-08-00-2b-2e-c7-13')
+    _iid_ = Guid('{376bd3aa-3845-101b-84ed-08002b2ec713}')
     @commethod(3)
     def GetDisplayString(self, dispID: Int32, pBstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2403,7 +2403,7 @@ class IPerPropertyBrowsing(ComPtr):
     def GetPredefinedValue(self, dispID: Int32, dwCookie: UInt32, pVarOut: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPersistPropertyBag(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
-    _iid_ = Guid('37d84f60-42cb-11ce-81-35-00-aa-00-4b-b8-51')
+    _iid_ = Guid('{37d84f60-42cb-11ce-8135-00aa004bb851}')
     @commethod(4)
     def InitNew(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2412,7 +2412,7 @@ class IPersistPropertyBag(ComPtr):
     def Save(self, pPropBag: Windows.Win32.System.Com.StructuredStorage.IPropertyBag_head, fClearDirty: Windows.Win32.Foundation.BOOL, fSaveAllProperties: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IPersistPropertyBag2(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
-    _iid_ = Guid('22f55881-280b-11d0-a8-a9-00-a0-c9-0c-20-04')
+    _iid_ = Guid('{22f55881-280b-11d0-a8a9-00a0c90c2004}')
     @commethod(4)
     def InitNew(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2423,7 +2423,7 @@ class IPersistPropertyBag2(ComPtr):
     def IsDirty(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPicture(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('7bf80980-bf32-101a-8b-bb-00-aa-00-30-0c-ab')
+    _iid_ = Guid('{7bf80980-bf32-101a-8bbb-00aa00300cab}')
     @commethod(3)
     def get_Handle(self, pHandle: POINTER(Windows.Win32.System.Ole.OLE_HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2454,7 +2454,7 @@ class IPicture(ComPtr):
     def get_Attributes(self, pDwAttr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPicture2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('f5185dd8-2012-4b0b-aa-d9-f0-52-c6-bd-48-2b')
+    _iid_ = Guid('{f5185dd8-2012-4b0b-aad9-f052c6bd482b}')
     @commethod(3)
     def get_Handle(self, pHandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2485,10 +2485,10 @@ class IPicture2(ComPtr):
     def get_Attributes(self, pDwAttr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPictureDisp(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    _iid_ = Guid('7bf80981-bf32-101a-8b-bb-00-aa-00-30-0c-ab')
+    _iid_ = Guid('{7bf80981-bf32-101a-8bbb-00aa00300cab}')
 class IPointerInactive(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('55980ba0-35aa-11cf-b6-71-00-aa-00-4c-d6-d8')
+    _iid_ = Guid('{55980ba0-35aa-11cf-b671-00aa004cd6d8}')
     @commethod(3)
     def GetActivationPolicy(self, pdwPolicy: POINTER(Windows.Win32.System.Ole.POINTERINACTIVE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2497,7 +2497,7 @@ class IPointerInactive(ComPtr):
     def OnInactiveSetCursor(self, pRectBounds: POINTER(Windows.Win32.Foundation.RECT_head), x: Int32, y: Int32, dwMouseMsg: UInt32, fSetAlways: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrint(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b722bcc9-4e68-101b-a2-bc-00-aa-00-40-47-70')
+    _iid_ = Guid('{b722bcc9-4e68-101b-a2bc-00aa00404770}')
     @commethod(3)
     def SetInitialPageNum(self, nFirstPage: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2506,14 +2506,14 @@ class IPrint(ComPtr):
     def Print(self, grfFlags: UInt32, pptd: POINTER(POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head)), ppPageSet: POINTER(POINTER(Windows.Win32.System.Ole.PAGESET_head)), pstgmOptions: POINTER(Windows.Win32.System.Com.STGMEDIUM_head), pcallback: Windows.Win32.System.Ole.IContinueCallback_head, nFirstPage: Int32, pcPagesPrinted: POINTER(Int32), pnLastPage: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9bfbbc02-eff1-101a-84-ed-00-aa-00-34-1d-07')
+    _iid_ = Guid('{9bfbbc02-eff1-101a-84ed-00aa00341d07}')
     @commethod(3)
     def OnChanged(self, dispID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnRequestEdit(self, dispID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyPage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b196b28d-bab4-101a-b6-9c-00-aa-00-34-1d-07')
+    _iid_ = Guid('{b196b28d-bab4-101a-b69c-00aa00341d07}')
     @commethod(3)
     def SetPageSite(self, pPageSite: Windows.Win32.System.Ole.IPropertyPageSite_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2538,12 +2538,12 @@ class IPropertyPage(ComPtr):
     def TranslateAccelerator(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyPage2(ComPtr):
     extends: Windows.Win32.System.Ole.IPropertyPage
-    _iid_ = Guid('01e44665-24ac-101b-84-ed-08-00-2b-2e-c7-13')
+    _iid_ = Guid('{01e44665-24ac-101b-84ed-08002b2ec713}')
     @commethod(14)
     def EditProperty(self, dispID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyPageSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b196b28c-bab4-101a-b6-9c-00-aa-00-34-1d-07')
+    _iid_ = Guid('{b196b28c-bab4-101a-b69c-00aa00341d07}')
     @commethod(3)
     def OnStatusChange(self, dwFlags: Windows.Win32.System.Ole.PROPPAGESTATUS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2554,12 +2554,12 @@ class IPropertyPageSite(ComPtr):
     def TranslateAccelerator(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProtectFocus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('d81f90a3-8156-44f7-ad-28-5a-bb-87-00-32-74')
+    _iid_ = Guid('{d81f90a3-8156-44f7-ad28-5abb87003274}')
     @commethod(3)
     def AllowFocusChange(self, pfAllow: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProtectedModeMenuServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('73c105ee-9dff-4a07-b8-3c-7e-ff-29-0c-26-6e')
+    _iid_ = Guid('{73c105ee-9dff-4a07-b83c-7eff290c266e}')
     @commethod(3)
     def CreateMenu(self, phMenu: POINTER(Windows.Win32.UI.WindowsAndMessaging.HMENU)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2568,29 +2568,29 @@ class IProtectedModeMenuServices(ComPtr):
     def LoadMenuID(self, pszModuleName: Windows.Win32.Foundation.PWSTR, wResourceID: UInt16, phMenu: POINTER(Windows.Win32.UI.WindowsAndMessaging.HMENU)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProvideClassInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b196b283-bab4-101a-b6-9c-00-aa-00-34-1d-07')
+    _iid_ = Guid('{b196b283-bab4-101a-b69c-00aa00341d07}')
     @commethod(3)
     def GetClassInfo(self, ppTI: POINTER(Windows.Win32.System.Com.ITypeInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProvideClassInfo2(ComPtr):
     extends: Windows.Win32.System.Ole.IProvideClassInfo
-    _iid_ = Guid('a6bc3ac0-dbaa-11ce-9d-e3-00-aa-00-4b-b8-51')
+    _iid_ = Guid('{a6bc3ac0-dbaa-11ce-9de3-00aa004bb851}')
     @commethod(4)
     def GetGUID(self, dwGuidKind: UInt32, pGUID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProvideMultipleClassInfo(ComPtr):
     extends: Windows.Win32.System.Ole.IProvideClassInfo2
-    _iid_ = Guid('a7aba9c1-8983-11cf-8f-20-00-80-5f-2c-d0-64')
+    _iid_ = Guid('{a7aba9c1-8983-11cf-8f20-00805f2cd064}')
     @commethod(5)
     def GetMultiTypeInfoCount(self, pcti: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetInfoOfIndex(self, iti: UInt32, dwFlags: Windows.Win32.System.Ole.MULTICLASSINFO_FLAGS, pptiCoClass: POINTER(Windows.Win32.System.Com.ITypeInfo_head), pdwTIFlags: POINTER(UInt32), pcdispidReserved: POINTER(UInt32), piidPrimary: POINTER(Guid), piidSource: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProvideRuntimeContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('10e2414a-ec59-49d2-bc-51-5a-dd-2c-36-fe-bc')
+    _iid_ = Guid('{10e2414a-ec59-49d2-bc51-5add2c36febc}')
     @commethod(3)
     def GetCurrentSourceContext(self, pdwContext: POINTER(UIntPtr), pfExecutingGlobalCode: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IQuickActivate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('cf51ed10-62fe-11cf-bf-86-00-a0-c9-03-48-36')
+    _iid_ = Guid('{cf51ed10-62fe-11cf-bf86-00a0c9034836}')
     @commethod(3)
     def QuickActivate(self, pQaContainer: POINTER(Windows.Win32.System.Ole.QACONTAINER_head), pQaControl: POINTER(Windows.Win32.System.Ole.QACONTROL_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2599,7 +2599,7 @@ class IQuickActivate(ComPtr):
     def GetContentExtent(self, pSizel: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRecordInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000002f-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000002f-0000-0000-c000-000000000046}')
     @commethod(3)
     def RecordInit(self, pvNew: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2634,31 +2634,31 @@ class IRecordInfo(ComPtr):
     def RecordDestroy(self, pvRecord: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class ISimpleFrameSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('742b0e01-14e6-101b-91-4e-00-aa-00-30-0c-ab')
+    _iid_ = Guid('{742b0e01-14e6-101b-914e-00aa00300cab}')
     @commethod(3)
     def PreMessageFilter(self, hWnd: Windows.Win32.Foundation.HWND, msg: UInt32, wp: Windows.Win32.Foundation.WPARAM, lp: Windows.Win32.Foundation.LPARAM, plResult: POINTER(Windows.Win32.Foundation.LRESULT), pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PostMessageFilter(self, hWnd: Windows.Win32.Foundation.HWND, msg: UInt32, wp: Windows.Win32.Foundation.WPARAM, lp: Windows.Win32.Foundation.LPARAM, plResult: POINTER(Windows.Win32.Foundation.LRESULT), dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpecifyPropertyPages(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('b196b28b-bab4-101a-b6-9c-00-aa-00-34-1d-07')
+    _iid_ = Guid('{b196b28b-bab4-101a-b69c-00aa00341d07}')
     @commethod(3)
     def GetPages(self, pPages: POINTER(Windows.Win32.System.Ole.CAUUID_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITypeChangeEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('00020410-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00020410-0000-0000-c000-000000000046}')
     @commethod(3)
     def RequestTypeChange(self, changeKind: Windows.Win32.System.Ole.CHANGEKIND, pTInfoBefore: Windows.Win32.System.Com.ITypeInfo_head, pStrName: Windows.Win32.Foundation.PWSTR, pfCancel: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def AfterTypeChange(self, changeKind: Windows.Win32.System.Ole.CHANGEKIND, pTInfoAfter: Windows.Win32.System.Com.ITypeInfo_head, pStrName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ITypeFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000002e-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000002e-0000-0000-c000-000000000046}')
     @commethod(3)
     def CreateFromTypeInfo(self, pTypeInfo: Windows.Win32.System.Com.ITypeInfo_head, riid: POINTER(Guid), ppv: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITypeMarshal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000002d-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000002d-0000-0000-c000-000000000046}')
     @commethod(3)
     def Size(self, pvType: c_void_p, dwDestContext: UInt32, pvDestContext: c_void_p, pSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2669,22 +2669,22 @@ class ITypeMarshal(ComPtr):
     def Free(self, pvType: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class IVBFormat(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('9849fd60-3768-101b-8d-72-ae-61-64-ff-e3-cf')
+    _iid_ = Guid('{9849fd60-3768-101b-8d72-ae6164ffe3cf}')
     @commethod(3)
     def Format(self, vData: POINTER(Windows.Win32.System.Variant.VARIANT_head), bstrFormat: Windows.Win32.Foundation.BSTR, lpBuffer: c_void_p, cb: UInt16, lcid: Int32, sFirstDayOfWeek: Int16, sFirstWeekOfYear: UInt16, rcb: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVBGetControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('40a050a0-3c31-101b-a8-2e-08-00-2b-2b-23-37')
+    _iid_ = Guid('{40a050a0-3c31-101b-a82e-08002b2b2337}')
     @commethod(3)
     def EnumControls(self, dwOleContF: Windows.Win32.System.Ole.OLECONTF, dwWhich: Windows.Win32.System.Ole.ENUM_CONTROLS_WHICH_FLAGS, ppenumUnk: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVariantChangeType(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('a6ef9862-c720-11d0-93-37-00-a0-c9-0d-ca-a9')
+    _iid_ = Guid('{a6ef9862-c720-11d0-9337-00a0c90dcaa9}')
     @commethod(3)
     def ChangeType(self, pvarDst: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarSrc: POINTER(Windows.Win32.System.Variant.VARIANT_head), lcid: UInt32, vtNew: Windows.Win32.System.Variant.VARENUM) -> Windows.Win32.Foundation.HRESULT: ...
 class IViewObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('0000010d-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{0000010d-0000-0000-c000-000000000046}')
     @commethod(3)
     def Draw(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, pvAspect: c_void_p, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), hdcTargetDev: Windows.Win32.Graphics.Gdi.HDC, hdcDraw: Windows.Win32.Graphics.Gdi.HDC, lprcBounds: POINTER(Windows.Win32.Foundation.RECTL_head), lprcWBounds: POINTER(Windows.Win32.Foundation.RECTL_head), pfnContinue: IntPtr, dwContinue: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2699,12 +2699,12 @@ class IViewObject(ComPtr):
     def GetAdvise(self, pAspects: POINTER(UInt32), pAdvf: POINTER(UInt32), ppAdvSink: POINTER(Windows.Win32.System.Com.IAdviseSink_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IViewObject2(ComPtr):
     extends: Windows.Win32.System.Ole.IViewObject
-    _iid_ = Guid('00000127-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('{00000127-0000-0000-c000-000000000046}')
     @commethod(9)
     def GetExtent(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), lpsizel: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IViewObjectEx(ComPtr):
     extends: Windows.Win32.System.Ole.IViewObject2
-    _iid_ = Guid('3af24292-0c96-11ce-a0-cf-00-aa-00-60-0a-b8')
+    _iid_ = Guid('{3af24292-0c96-11ce-a0cf-00aa00600ab8}')
     @commethod(10)
     def GetRect(self, dwAspect: UInt32, pRect: POINTER(Windows.Win32.Foundation.RECTL_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -2717,7 +2717,7 @@ class IViewObjectEx(ComPtr):
     def GetNaturalExtent(self, dwAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), hicTargetDev: Windows.Win32.Graphics.Gdi.HDC, pExtentInfo: POINTER(Windows.Win32.System.Ole.DVEXTENTINFO_head), pSizel: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IZoomEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('41b68150-904c-4e17-a0-ba-a4-38-18-2e-35-9d')
+    _iid_ = Guid('{41b68150-904c-4e17-a0ba-a438182e359d}')
     @commethod(3)
     def OnZoomPercentChanged(self, ulZoomPercent: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 KEYMODIFIERS = UInt32

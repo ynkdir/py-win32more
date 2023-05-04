@@ -15,7 +15,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IIsolatedEnvironmentInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('85713c2e-8e62-46c5-8d-e2-c6-47-e1-d5-46-36')
+    _iid_ = Guid('{85713c2e-8e62-46c5-8de2-c647e1d54636}')
     @commethod(3)
     def GetHostHwndInterop(self, containerHwnd: Windows.Win32.Foundation.HWND, hostHwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'IIsolatedEnvironmentInterop')
