@@ -56,6 +56,7 @@ class ISpatialGraphInteropPreviewStatics2(ComPtr):
     def TryCreateFrameOfReferenceWithPositionAndOrientation(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, relativePosition: Windows.Foundation.Numerics.Vector3, relativeOrientation: Windows.Foundation.Numerics.Quaternion) -> Windows.Perception.Spatial.Preview.SpatialGraphInteropFrameOfReferencePreview: ...
 class SpatialGraphInteropFrameOfReferencePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Perception.Spatial.Preview.ISpatialGraphInteropFrameOfReferencePreview
     _classid_ = 'Windows.Perception.Spatial.Preview.SpatialGraphInteropFrameOfReferencePreview'
     @winrt_mixinmethod
     def get_CoordinateSystem(self: Windows.Perception.Spatial.Preview.ISpatialGraphInteropFrameOfReferencePreview) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
@@ -68,7 +69,6 @@ class SpatialGraphInteropFrameOfReferencePreview(ComPtr):
     CoordinateSystemToNodeTransform = property(get_CoordinateSystemToNodeTransform, None)
 class SpatialGraphInteropPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview'
     @winrt_classmethod
     def TryCreateFrameOfReference(cls: Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics2, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem) -> Windows.Perception.Spatial.Preview.SpatialGraphInteropFrameOfReferencePreview: ...
     @winrt_classmethod

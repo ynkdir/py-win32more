@@ -308,6 +308,7 @@ class IPrintSchema(ComPtr):
     def MergeAndValidateWithDefaultPrintTicketAsync(self, deltaTicket: Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
 class IppAttributeError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IIppAttributeError
     _classid_ = 'Windows.Devices.Printers.IppAttributeError'
     @winrt_mixinmethod
     def get_Reason(self: Windows.Devices.Printers.IIppAttributeError) -> Windows.Devices.Printers.IppAttributeErrorReason: ...
@@ -325,6 +326,7 @@ IppAttributeErrorReason_AttributeNotSettable: IppAttributeErrorReason = 3
 IppAttributeErrorReason_ConflictingAttributes: IppAttributeErrorReason = 4
 class IppAttributeValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IIppAttributeValue
     _classid_ = 'Windows.Devices.Printers.IppAttributeValue'
     @winrt_mixinmethod
     def get_Kind(self: Windows.Devices.Printers.IIppAttributeValue) -> Windows.Devices.Printers.IppAttributeValueKind: ...
@@ -467,6 +469,7 @@ IppAttributeValueKind_NaturalLanguage: IppAttributeValueKind = 19
 IppAttributeValueKind_MimeMediaType: IppAttributeValueKind = 20
 class IppIntegerRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IIppIntegerRange
     _classid_ = 'Windows.Devices.Printers.IppIntegerRange'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Devices.Printers.IIppIntegerRangeFactory, start: Int32, end: Int32) -> Windows.Devices.Printers.IppIntegerRange: ...
@@ -478,6 +481,7 @@ class IppIntegerRange(ComPtr):
     End = property(get_End, None)
 class IppPrintDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IIppPrintDevice
     _classid_ = 'Windows.Devices.Printers.IppPrintDevice'
     @winrt_mixinmethod
     def get_PrinterName(self: Windows.Devices.Printers.IIppPrintDevice) -> WinRT_String: ...
@@ -511,6 +515,7 @@ class IppPrintDevice(ComPtr):
     PrinterUri = property(get_PrinterUri, None)
 class IppResolution(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IIppResolution
     _classid_ = 'Windows.Devices.Printers.IppResolution'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Devices.Printers.IIppResolutionFactory, width: Int32, height: Int32, unit: Windows.Devices.Printers.IppResolutionUnit) -> Windows.Devices.Printers.IppResolution: ...
@@ -528,6 +533,7 @@ IppResolutionUnit_DotsPerInch: IppResolutionUnit = 0
 IppResolutionUnit_DotsPerCentimeter: IppResolutionUnit = 1
 class IppSetAttributesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IIppSetAttributesResult
     _classid_ = 'Windows.Devices.Printers.IppSetAttributesResult'
     @winrt_mixinmethod
     def get_Succeeded(self: Windows.Devices.Printers.IIppSetAttributesResult) -> Boolean: ...
@@ -537,6 +543,7 @@ class IppSetAttributesResult(ComPtr):
     AttributeErrors = property(get_AttributeErrors, None)
 class IppTextWithLanguage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IIppTextWithLanguage
     _classid_ = 'Windows.Devices.Printers.IppTextWithLanguage'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Devices.Printers.IIppTextWithLanguageFactory, language: WinRT_String, text: WinRT_String) -> Windows.Devices.Printers.IppTextWithLanguage: ...
@@ -548,6 +555,7 @@ class IppTextWithLanguage(ComPtr):
     Value = property(get_Value, None)
 class PageConfigurationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IPageConfigurationSettings
     _classid_ = 'Windows.Devices.Printers.PageConfigurationSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Printers.PageConfigurationSettings: ...
@@ -566,6 +574,7 @@ PageConfigurationSource_PrintJobConfiguration: PageConfigurationSource = 0
 PageConfigurationSource_PdlContent: PageConfigurationSource = 1
 class PdlPassthroughProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IPdlPassthroughProvider
     _classid_ = 'Windows.Devices.Printers.PdlPassthroughProvider'
     @winrt_mixinmethod
     def get_SupportedPdlContentTypes(self: Windows.Devices.Printers.IPdlPassthroughProvider) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
@@ -576,6 +585,7 @@ class PdlPassthroughProvider(ComPtr):
     SupportedPdlContentTypes = property(get_SupportedPdlContentTypes, None)
 class PdlPassthroughTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IPdlPassthroughTarget
     _classid_ = 'Windows.Devices.Printers.PdlPassthroughTarget'
     @winrt_mixinmethod
     def get_PrintJobId(self: Windows.Devices.Printers.IPdlPassthroughTarget) -> Int32: ...
@@ -588,6 +598,7 @@ class PdlPassthroughTarget(ComPtr):
     PrintJobId = property(get_PrintJobId, None)
 class Print3DDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IPrint3DDevice
     _classid_ = 'Windows.Devices.Printers.Print3DDevice'
     @winrt_mixinmethod
     def get_PrintSchema(self: Windows.Devices.Printers.IPrint3DDevice) -> Windows.Devices.Printers.PrintSchema: ...
@@ -598,6 +609,7 @@ class Print3DDevice(ComPtr):
     PrintSchema = property(get_PrintSchema, None)
 class PrintSchema(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.IPrintSchema
     _classid_ = 'Windows.Devices.Printers.PrintSchema'
     @winrt_mixinmethod
     def GetDefaultPrintTicketAsync(self: Windows.Devices.Printers.IPrintSchema) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...

@@ -103,6 +103,7 @@ class IUICommandFactory(ComPtr):
     def CreateWithHandlerAndId(self, label: WinRT_String, action: Windows.UI.Popups.UICommandInvokedHandler, commandId: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.UI.Popups.UICommand: ...
 class MessageDialog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Popups.IMessageDialog
     _classid_ = 'Windows.UI.Popups.MessageDialog'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Popups.IMessageDialogFactory, content: WinRT_String) -> Windows.UI.Popups.MessageDialog: ...
@@ -149,6 +150,7 @@ Placement_Left: Placement = 3
 Placement_Right: Placement = 4
 class PopupMenu(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Popups.IPopupMenu
     _classid_ = 'Windows.UI.Popups.PopupMenu'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Popups.PopupMenu: ...
@@ -163,6 +165,7 @@ class PopupMenu(ComPtr):
     Commands = property(get_Commands, None)
 class UICommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.Popups.UICommand'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Popups.IUICommandFactory, label: WinRT_String) -> Windows.UI.Popups.UICommand: ...
@@ -195,6 +198,7 @@ class UICommandInvokedHandler(ComPtr):
     def Invoke(self, command: Windows.UI.Popups.IUICommand) -> Void: ...
 class UICommandSeparator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.Popups.UICommandSeparator'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Popups.UICommandSeparator: ...

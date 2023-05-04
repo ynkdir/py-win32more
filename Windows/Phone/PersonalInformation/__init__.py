@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ContactAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.PersonalInformation.IContactAddress
     _classid_ = 'Windows.Phone.PersonalInformation.ContactAddress'
     @winrt_activatemethod
     def New(cls) -> Windows.Phone.PersonalInformation.ContactAddress: ...
@@ -55,6 +56,7 @@ class ContactAddress(ComPtr):
     StreetAddress = property(get_StreetAddress, put_StreetAddress)
 class ContactChangeRecord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.PersonalInformation.IContactChangeRecord
     _classid_ = 'Windows.Phone.PersonalInformation.ContactChangeRecord'
     @winrt_mixinmethod
     def get_ChangeType(self: Windows.Phone.PersonalInformation.IContactChangeRecord) -> Windows.Phone.PersonalInformation.ContactChangeType: ...
@@ -74,6 +76,7 @@ ContactChangeType_Modified: ContactChangeType = 1
 ContactChangeType_Deleted: ContactChangeType = 2
 class ContactInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.PersonalInformation.IContactInformation
     _classid_ = 'Windows.Phone.PersonalInformation.ContactInformation'
     @winrt_activatemethod
     def New(cls) -> Windows.Phone.PersonalInformation.ContactInformation: ...
@@ -119,6 +122,7 @@ class ContactInformation(ComPtr):
     DisplayPicture = property(get_DisplayPicture, None)
 class ContactQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.PersonalInformation.IContactQueryOptions
     _classid_ = 'Windows.Phone.PersonalInformation.ContactQueryOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Phone.PersonalInformation.ContactQueryOptions: ...
@@ -132,6 +136,7 @@ class ContactQueryOptions(ComPtr):
     OrderBy = property(get_OrderBy, put_OrderBy)
 class ContactQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.PersonalInformation.IContactQueryResult
     _classid_ = 'Windows.Phone.PersonalInformation.ContactQueryResult'
     @winrt_mixinmethod
     def GetContactCountAsync(self: Windows.Phone.PersonalInformation.IContactQueryResult) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
@@ -147,6 +152,7 @@ ContactQueryResultOrdering_GivenNameFamilyName: ContactQueryResultOrdering = 1
 ContactQueryResultOrdering_FamilyNameGivenName: ContactQueryResultOrdering = 2
 class ContactStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.PersonalInformation.IContactStore
     _classid_ = 'Windows.Phone.PersonalInformation.ContactStore'
     @winrt_mixinmethod
     def FindContactByRemoteIdAsync(self: Windows.Phone.PersonalInformation.IContactStore, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Phone.PersonalInformation.StoredContact]: ...
@@ -473,7 +479,6 @@ class IStoredContactFactory(ComPtr):
     def CreateStoredContactFromInformation(self, store: Windows.Phone.PersonalInformation.ContactStore, contact: Windows.Phone.PersonalInformation.ContactInformation) -> Windows.Phone.PersonalInformation.StoredContact: ...
 class KnownContactProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.PersonalInformation.KnownContactProperties'
     @winrt_classmethod
     def get_DisplayName(cls: Windows.Phone.PersonalInformation.IKnownContactPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -581,6 +586,7 @@ class KnownContactProperties(ComPtr):
     AlternateWorkTelephone = property(get_AlternateWorkTelephone, None)
 class StoredContact(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.PersonalInformation.IStoredContact
     _classid_ = 'Windows.Phone.PersonalInformation.StoredContact'
     @winrt_factorymethod
     def CreateStoredContact(cls: Windows.Phone.PersonalInformation.IStoredContactFactory, store: Windows.Phone.PersonalInformation.ContactStore) -> Windows.Phone.PersonalInformation.StoredContact: ...

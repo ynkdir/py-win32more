@@ -173,6 +173,7 @@ class IRangeValueProvider(ComPtr):
     Value = property(get_Value, None)
 class IRawElementProviderSimple(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
+    default_interface: Windows.UI.Xaml.Automation.Provider.IIRawElementProviderSimple
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple'
 class IScrollItemProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable

@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AnimationDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Core.AnimationMetrics.IAnimationDescription
     _classid_ = 'Windows.UI.Core.AnimationMetrics.AnimationDescription'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Core.AnimationMetrics.IAnimationDescriptionFactory, effect: Windows.UI.Core.AnimationMetrics.AnimationEffect, target: Windows.UI.Core.AnimationMetrics.AnimationEffectTarget) -> Windows.UI.Core.AnimationMetrics.AnimationDescription: ...
@@ -171,6 +172,7 @@ class IScaleAnimation(ComPtr):
     NormalizedOrigin = property(get_NormalizedOrigin, None)
 class OpacityAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Core.AnimationMetrics.IOpacityAnimation
     _classid_ = 'Windows.UI.Core.AnimationMetrics.OpacityAnimation'
     @winrt_mixinmethod
     def get_InitialOpacity(self: Windows.UI.Core.AnimationMetrics.IOpacityAnimation) -> Windows.Foundation.IReference[Single]: ...
@@ -195,6 +197,7 @@ class OpacityAnimation(ComPtr):
     Control2 = property(get_Control2, None)
 class PropertyAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Core.AnimationMetrics.IPropertyAnimation
     _classid_ = 'Windows.UI.Core.AnimationMetrics.PropertyAnimation'
     @winrt_mixinmethod
     def get_Type(self: Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> Windows.UI.Core.AnimationMetrics.PropertyAnimationType: ...
@@ -217,6 +220,7 @@ PropertyAnimationType_Translation: PropertyAnimationType = 1
 PropertyAnimationType_Opacity: PropertyAnimationType = 2
 class ScaleAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Core.AnimationMetrics.IScaleAnimation
     _classid_ = 'Windows.UI.Core.AnimationMetrics.ScaleAnimation'
     @winrt_mixinmethod
     def get_InitialScaleX(self: Windows.UI.Core.AnimationMetrics.IScaleAnimation) -> Windows.Foundation.IReference[Single]: ...
@@ -250,6 +254,7 @@ class ScaleAnimation(ComPtr):
     Control2 = property(get_Control2, None)
 class TranslationAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Core.AnimationMetrics.IPropertyAnimation
     _classid_ = 'Windows.UI.Core.AnimationMetrics.TranslationAnimation'
     @winrt_mixinmethod
     def get_Type(self: Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> Windows.UI.Core.AnimationMetrics.PropertyAnimationType: ...

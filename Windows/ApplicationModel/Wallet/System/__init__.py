@@ -55,6 +55,7 @@ WalletItemAppAssociation_AppInstalled: WalletItemAppAssociation = 1
 WalletItemAppAssociation_AppNotInstalled: WalletItemAppAssociation = 2
 class WalletItemSystemStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore
     _classid_ = 'Windows.ApplicationModel.Wallet.System.WalletItemSystemStore'
     @winrt_mixinmethod
     def GetItemsAsync(self: Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Wallet.WalletItem]]: ...
@@ -72,7 +73,6 @@ class WalletItemSystemStore(ComPtr):
     def remove_ItemsChanged(self: Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore2, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class WalletManagerSystem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Wallet.System.WalletManagerSystem'
     @winrt_classmethod
     def RequestStoreAsync(cls: Windows.ApplicationModel.Wallet.System.IWalletManagerSystemStatics) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Wallet.System.WalletItemSystemStore]: ...
 make_head(_module, 'IWalletItemSystemStore')

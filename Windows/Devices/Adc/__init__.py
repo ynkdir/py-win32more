@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AdcChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Adc.IAdcChannel
     _classid_ = 'Windows.Devices.Adc.AdcChannel'
     @winrt_mixinmethod
     def get_Controller(self: Windows.Devices.Adc.IAdcChannel) -> Windows.Devices.Adc.AdcController: ...
@@ -40,6 +41,7 @@ AdcChannelMode_SingleEnded: AdcChannelMode = 0
 AdcChannelMode_Differential: AdcChannelMode = 1
 class AdcController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Adc.IAdcController
     _classid_ = 'Windows.Devices.Adc.AdcController'
     @winrt_mixinmethod
     def get_ChannelCount(self: Windows.Devices.Adc.IAdcController) -> Int32: ...

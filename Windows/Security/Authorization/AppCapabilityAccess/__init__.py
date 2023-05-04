@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppCapability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Security.Authorization.AppCapabilityAccess.IAppCapability
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapability'
     @winrt_mixinmethod
     def get_CapabilityName(self: Windows.Security.Authorization.AppCapabilityAccess.IAppCapability) -> WinRT_String: ...
@@ -55,6 +56,7 @@ class AppCapability(ComPtr):
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
 class AppCapabilityAccessChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityAccessChangedEventArgs
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessChangedEventArgs'
 AppCapabilityAccessStatus = Int32
 AppCapabilityAccessStatus_DeniedBySystem: AppCapabilityAccessStatus = 0

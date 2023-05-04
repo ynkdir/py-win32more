@@ -42,6 +42,7 @@ class IScreenReaderService(ComPtr):
     CurrentScreenReaderPosition = property(get_CurrentScreenReaderPosition, None)
 class ScreenReaderPositionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Accessibility.IScreenReaderPositionChangedEventArgs
     _classid_ = 'Windows.UI.Accessibility.ScreenReaderPositionChangedEventArgs'
     @winrt_mixinmethod
     def get_ScreenPositionInRawPixels(self: Windows.UI.Accessibility.IScreenReaderPositionChangedEventArgs) -> Windows.Foundation.Rect: ...
@@ -51,6 +52,7 @@ class ScreenReaderPositionChangedEventArgs(ComPtr):
     IsReadingText = property(get_IsReadingText, None)
 class ScreenReaderService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Accessibility.IScreenReaderService
     _classid_ = 'Windows.UI.Accessibility.ScreenReaderService'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Accessibility.ScreenReaderService: ...

@@ -283,6 +283,10 @@ def _get_type_signature(cls) -> str:
         piid_guid = str(cls._iid_)
         args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
         return f"pinterface({piid_guid};{args})"
+    elif issubclass(cls, ComPtr) and hasattr(cls, "_classid_"):
+        default_interface = cls._hints_["default_interface"]
+        args = _get_type_signature(default_interface)
+        return f"rc({cls._classid_};{args})"
     elif issubclass(cls, ComPtr):
         return str(cls._iid_)
     elif issubclass(cls, WinRT_String):

@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ChatCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatCapabilities
     _classid_ = 'Windows.ApplicationModel.Chat.ChatCapabilities'
     @winrt_mixinmethod
     def get_IsOnline(self: Windows.ApplicationModel.Chat.IChatCapabilities) -> Boolean: ...
@@ -45,7 +46,6 @@ class ChatCapabilities(ComPtr):
     IsIntegratedMessagingCapable = property(get_IsIntegratedMessagingCapable, None)
 class ChatCapabilitiesManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Chat.ChatCapabilitiesManager'
     @winrt_classmethod
     def GetCachedCapabilitiesForTransportAsync(cls: Windows.ApplicationModel.Chat.IChatCapabilitiesManagerStatics2, address: WinRT_String, transportId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatCapabilities]: ...
     @winrt_classmethod
@@ -56,6 +56,7 @@ class ChatCapabilitiesManager(ComPtr):
     def GetCapabilitiesFromNetworkAsync(cls: Windows.ApplicationModel.Chat.IChatCapabilitiesManagerStatics, address: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatCapabilities]: ...
 class ChatConversation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatConversation
     _classid_ = 'Windows.ApplicationModel.Chat.ChatConversation'
     @winrt_mixinmethod
     def get_HasUnreadMessages(self: Windows.ApplicationModel.Chat.IChatConversation) -> Boolean: ...
@@ -110,6 +111,7 @@ class ChatConversation(ComPtr):
     ItemKind = property(get_ItemKind, None)
 class ChatConversationReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatConversationReader
     _classid_ = 'Windows.ApplicationModel.Chat.ChatConversationReader'
     @winrt_mixinmethod
     def ReadBatchAsync(self: Windows.ApplicationModel.Chat.IChatConversationReader) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatConversation]]: ...
@@ -117,6 +119,7 @@ class ChatConversationReader(ComPtr):
     def ReadBatchWithCountAsync(self: Windows.ApplicationModel.Chat.IChatConversationReader, count: Int32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatConversation]]: ...
 class ChatConversationThreadingInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatConversationThreadingInfo
     _classid_ = 'Windows.ApplicationModel.Chat.ChatConversationThreadingInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Chat.ChatConversationThreadingInfo: ...
@@ -153,6 +156,7 @@ ChatItemKind_Message: ChatItemKind = 0
 ChatItemKind_Conversation: ChatItemKind = 1
 class ChatMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessage
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Chat.ChatMessage: ...
@@ -285,6 +289,7 @@ class ChatMessage(ComPtr):
     ItemKind = property(get_ItemKind, None)
 class ChatMessageAttachment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageAttachment
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageAttachment'
     @winrt_factorymethod
     def CreateChatMessageAttachment(cls: Windows.ApplicationModel.Chat.IChatMessageAttachmentFactory, mimeType: WinRT_String, dataStreamReference: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.ApplicationModel.Chat.ChatMessageAttachment: ...
@@ -325,11 +330,11 @@ class ChatMessageAttachment(ComPtr):
     OriginalFileName = property(get_OriginalFileName, put_OriginalFileName)
 class ChatMessageBlocking(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageBlocking'
     @winrt_classmethod
     def MarkMessageAsBlockedAsync(cls: Windows.ApplicationModel.Chat.IChatMessageBlockingStatic, localChatMessageId: WinRT_String, blocked: Boolean) -> Windows.Foundation.IAsyncAction: ...
 class ChatMessageChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageChange
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageChange'
     @winrt_mixinmethod
     def get_ChangeType(self: Windows.ApplicationModel.Chat.IChatMessageChange) -> Windows.ApplicationModel.Chat.ChatMessageChangeType: ...
@@ -339,6 +344,7 @@ class ChatMessageChange(ComPtr):
     Message = property(get_Message, None)
 class ChatMessageChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageChangeReader
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageChangeReader'
     @winrt_mixinmethod
     def AcceptChanges(self: Windows.ApplicationModel.Chat.IChatMessageChangeReader) -> Void: ...
@@ -348,6 +354,7 @@ class ChatMessageChangeReader(ComPtr):
     def ReadBatchAsync(self: Windows.ApplicationModel.Chat.IChatMessageChangeReader) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatMessageChange]]: ...
 class ChatMessageChangeTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageChangeTracker
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageChangeTracker'
     @winrt_mixinmethod
     def Enable(self: Windows.ApplicationModel.Chat.IChatMessageChangeTracker) -> Void: ...
@@ -362,11 +369,13 @@ ChatMessageChangeType_MessageDeleted: ChatMessageChangeType = 2
 ChatMessageChangeType_ChangeTrackingLost: ChatMessageChangeType = 3
 class ChatMessageChangedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageChangedDeferral
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageChangedDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.Chat.IChatMessageChangedDeferral) -> Void: ...
 class ChatMessageChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.Chat.IChatMessageChangedEventArgs) -> Windows.ApplicationModel.Chat.ChatMessageChangedDeferral: ...
@@ -380,7 +389,6 @@ ChatMessageKind_OtherParticipantJoinedConversation: ChatMessageKind = 5
 ChatMessageKind_OtherParticipantLeftConversation: ChatMessageKind = 6
 class ChatMessageManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageManager'
     @winrt_classmethod
     def RequestSyncManagerAsync(cls: Windows.ApplicationModel.Chat.IChatMessageManagerStatics3) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Chat.ChatSyncManager]: ...
     @winrt_classmethod
@@ -397,6 +405,7 @@ class ChatMessageManager(ComPtr):
     def ShowSmsSettings(cls: Windows.ApplicationModel.Chat.IChatMessageManagerStatic) -> Void: ...
 class ChatMessageNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageNotificationTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_ChatMessage(self: Windows.ApplicationModel.Chat.IChatMessageNotificationTriggerDetails) -> Windows.ApplicationModel.Chat.ChatMessage: ...
@@ -420,6 +429,7 @@ ChatMessageOperatorKind_Mms: ChatMessageOperatorKind = 2
 ChatMessageOperatorKind_Rcs: ChatMessageOperatorKind = 3
 class ChatMessageReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageReader
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageReader'
     @winrt_mixinmethod
     def ReadBatchAsync(self: Windows.ApplicationModel.Chat.IChatMessageReader) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.ChatMessage]]: ...
@@ -442,6 +452,7 @@ ChatMessageStatus_Recalled: ChatMessageStatus = 12
 ChatMessageStatus_ReceiveRetryNeeded: ChatMessageStatus = 13
 class ChatMessageStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageStore
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageStore'
     @winrt_mixinmethod
     def get_ChangeTracker(self: Windows.ApplicationModel.Chat.IChatMessageStore) -> Windows.ApplicationModel.Chat.ChatMessageChangeTracker: ...
@@ -506,6 +517,7 @@ class ChatMessageStore(ComPtr):
     ChangeTracker = property(get_ChangeTracker, None)
 class ChatMessageStoreChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageStoreChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageStoreChangedEventArgs'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.Chat.IChatMessageStoreChangedEventArgs) -> WinRT_String: ...
@@ -515,6 +527,7 @@ class ChatMessageStoreChangedEventArgs(ComPtr):
     Kind = property(get_Kind, None)
 class ChatMessageTransport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageTransport
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageTransport'
     @winrt_mixinmethod
     def get_IsAppSetAsNotificationProvider(self: Windows.ApplicationModel.Chat.IChatMessageTransport) -> Boolean: ...
@@ -538,6 +551,7 @@ class ChatMessageTransport(ComPtr):
     TransportKind = property(get_TransportKind, None)
 class ChatMessageTransportConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageTransportConfiguration
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageTransportConfiguration'
     @winrt_mixinmethod
     def get_MaxAttachmentCount(self: Windows.ApplicationModel.Chat.IChatMessageTransportConfiguration) -> Int32: ...
@@ -561,6 +575,7 @@ ChatMessageTransportKind_Blocked: ChatMessageTransportKind = 2
 ChatMessageTransportKind_Custom: ChatMessageTransportKind = 3
 class ChatMessageValidationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatMessageValidationResult
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageValidationResult'
     @winrt_mixinmethod
     def get_MaxPartCount(self: Windows.ApplicationModel.Chat.IChatMessageValidationResult) -> Windows.Foundation.IReference[UInt32]: ...
@@ -591,6 +606,7 @@ ChatMessageValidationStatus_VoiceRoamingRestriction: ChatMessageValidationStatus
 ChatMessageValidationStatus_DataRoamingRestriction: ChatMessageValidationStatus = 13
 class ChatQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatQueryOptions
     _classid_ = 'Windows.ApplicationModel.Chat.ChatQueryOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Chat.ChatQueryOptions: ...
@@ -601,6 +617,7 @@ class ChatQueryOptions(ComPtr):
     SearchString = property(get_SearchString, put_SearchString)
 class ChatRecipientDeliveryInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatRecipientDeliveryInfo
     _classid_ = 'Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo: ...
@@ -640,6 +657,7 @@ ChatRestoreHistorySpan_LastYear: ChatRestoreHistorySpan = 1
 ChatRestoreHistorySpan_AnyTime: ChatRestoreHistorySpan = 2
 class ChatSearchReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatSearchReader
     _classid_ = 'Windows.ApplicationModel.Chat.ChatSearchReader'
     @winrt_mixinmethod
     def ReadBatchAsync(self: Windows.ApplicationModel.Chat.IChatSearchReader) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Chat.IChatItem]]: ...
@@ -656,6 +674,7 @@ ChatStoreChangedEventKind_ConversationDeleted: ChatStoreChangedEventKind = 6
 ChatStoreChangedEventKind_ConversationTransportDeleted: ChatStoreChangedEventKind = 7
 class ChatSyncConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatSyncConfiguration
     _classid_ = 'Windows.ApplicationModel.Chat.ChatSyncConfiguration'
     @winrt_mixinmethod
     def get_IsSyncEnabled(self: Windows.ApplicationModel.Chat.IChatSyncConfiguration) -> Boolean: ...
@@ -669,6 +688,7 @@ class ChatSyncConfiguration(ComPtr):
     RestoreHistorySpan = property(get_RestoreHistorySpan, put_RestoreHistorySpan)
 class ChatSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IChatSyncManager
     _classid_ = 'Windows.ApplicationModel.Chat.ChatSyncManager'
     @winrt_mixinmethod
     def get_Configuration(self: Windows.ApplicationModel.Chat.IChatSyncManager) -> Windows.ApplicationModel.Chat.ChatSyncConfiguration: ...
@@ -1460,6 +1480,7 @@ class IRemoteParticipantComposingChangedEventArgs(ComPtr):
     IsComposing = property(get_IsComposing, None)
 class RcsEndUserMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRcsEndUserMessage
     _classid_ = 'Windows.ApplicationModel.Chat.RcsEndUserMessage'
     @winrt_mixinmethod
     def get_TransportId(self: Windows.ApplicationModel.Chat.IRcsEndUserMessage) -> WinRT_String: ...
@@ -1482,12 +1503,14 @@ class RcsEndUserMessage(ComPtr):
     Actions = property(get_Actions, None)
 class RcsEndUserMessageAction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRcsEndUserMessageAction
     _classid_ = 'Windows.ApplicationModel.Chat.RcsEndUserMessageAction'
     @winrt_mixinmethod
     def get_Label(self: Windows.ApplicationModel.Chat.IRcsEndUserMessageAction) -> WinRT_String: ...
     Label = property(get_Label, None)
 class RcsEndUserMessageAvailableEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRcsEndUserMessageAvailableEventArgs
     _classid_ = 'Windows.ApplicationModel.Chat.RcsEndUserMessageAvailableEventArgs'
     @winrt_mixinmethod
     def get_IsMessageAvailable(self: Windows.ApplicationModel.Chat.IRcsEndUserMessageAvailableEventArgs) -> Boolean: ...
@@ -1497,6 +1520,7 @@ class RcsEndUserMessageAvailableEventArgs(ComPtr):
     Message = property(get_Message, None)
 class RcsEndUserMessageAvailableTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRcsEndUserMessageAvailableTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Chat.RcsEndUserMessageAvailableTriggerDetails'
     @winrt_mixinmethod
     def get_Title(self: Windows.ApplicationModel.Chat.IRcsEndUserMessageAvailableTriggerDetails) -> WinRT_String: ...
@@ -1506,6 +1530,7 @@ class RcsEndUserMessageAvailableTriggerDetails(ComPtr):
     Text = property(get_Text, None)
 class RcsEndUserMessageManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRcsEndUserMessageManager
     _classid_ = 'Windows.ApplicationModel.Chat.RcsEndUserMessageManager'
     @winrt_mixinmethod
     def add_MessageAvailableChanged(self: Windows.ApplicationModel.Chat.IRcsEndUserMessageManager, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Chat.RcsEndUserMessageManager, Windows.ApplicationModel.Chat.RcsEndUserMessageAvailableEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -1513,7 +1538,6 @@ class RcsEndUserMessageManager(ComPtr):
     def remove_MessageAvailableChanged(self: Windows.ApplicationModel.Chat.IRcsEndUserMessageManager, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class RcsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Chat.RcsManager'
     @winrt_classmethod
     def add_TransportListChanged(cls: Windows.ApplicationModel.Chat.IRcsManagerStatics2, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -1533,12 +1557,14 @@ RcsServiceKind_FileTransfer: RcsServiceKind = 2
 RcsServiceKind_Capability: RcsServiceKind = 3
 class RcsServiceKindSupportedChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRcsServiceKindSupportedChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.Chat.RcsServiceKindSupportedChangedEventArgs'
     @winrt_mixinmethod
     def get_ServiceKind(self: Windows.ApplicationModel.Chat.IRcsServiceKindSupportedChangedEventArgs) -> Windows.ApplicationModel.Chat.RcsServiceKind: ...
     ServiceKind = property(get_ServiceKind, None)
 class RcsTransport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRcsTransport
     _classid_ = 'Windows.ApplicationModel.Chat.RcsTransport'
     @winrt_mixinmethod
     def get_ExtendedProperties(self: Windows.ApplicationModel.Chat.IRcsTransport) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]: ...
@@ -1565,6 +1591,7 @@ class RcsTransport(ComPtr):
     Configuration = property(get_Configuration, None)
 class RcsTransportConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRcsTransportConfiguration
     _classid_ = 'Windows.ApplicationModel.Chat.RcsTransportConfiguration'
     @winrt_mixinmethod
     def get_MaxAttachmentCount(self: Windows.ApplicationModel.Chat.IRcsTransportConfiguration) -> Int32: ...
@@ -1586,6 +1613,7 @@ class RcsTransportConfiguration(ComPtr):
     WarningFileSizeInKilobytes = property(get_WarningFileSizeInKilobytes, None)
 class RemoteParticipantComposingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Chat.IRemoteParticipantComposingChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.Chat.RemoteParticipantComposingChangedEventArgs'
     @winrt_mixinmethod
     def get_TransportId(self: Windows.ApplicationModel.Chat.IRemoteParticipantComposingChangedEventArgs) -> WinRT_String: ...

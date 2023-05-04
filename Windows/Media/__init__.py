@@ -30,6 +30,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AudioBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IAudioBuffer
     _classid_ = 'Windows.Media.AudioBuffer'
     @winrt_mixinmethod
     def get_Capacity(self: Windows.Media.IAudioBuffer) -> UInt32: ...
@@ -49,6 +50,7 @@ AudioBufferAccessMode_ReadWrite: AudioBufferAccessMode = 1
 AudioBufferAccessMode_Write: AudioBufferAccessMode = 2
 class AudioFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IAudioFrame
     _classid_ = 'Windows.Media.AudioFrame'
     @winrt_factorymethod
     def Create(cls: Windows.Media.IAudioFrameFactory, capacity: UInt32) -> Windows.Media.AudioFrame: ...
@@ -90,6 +92,7 @@ AudioProcessing_Default: AudioProcessing = 0
 AudioProcessing_Raw: AudioProcessing = 1
 class AutoRepeatModeChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IAutoRepeatModeChangeRequestedEventArgs
     _classid_ = 'Windows.Media.AutoRepeatModeChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_RequestedAutoRepeatMode(self: Windows.Media.IAutoRepeatModeChangeRequestedEventArgs) -> Windows.Media.MediaPlaybackAutoRepeatMode: ...
@@ -676,6 +679,7 @@ class IVideoFrameStatics(ComPtr):
     def CreateWithDirect3D11Surface(self, surface: Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface) -> Windows.Media.VideoFrame: ...
 class ImageDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IImageDisplayProperties
     _classid_ = 'Windows.Media.ImageDisplayProperties'
     @winrt_mixinmethod
     def get_Title(self: Windows.Media.IImageDisplayProperties) -> WinRT_String: ...
@@ -689,7 +693,6 @@ class ImageDisplayProperties(ComPtr):
     Subtitle = property(get_Subtitle, put_Subtitle)
 class MediaControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.MediaControl'
     @winrt_classmethod
     def add_SoundLevelChanged(cls: Windows.Media.IMediaControl, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -764,6 +767,7 @@ class MediaControl(ComPtr):
 MediaControlContract: UInt32 = 65536
 class MediaExtensionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IMediaExtensionManager
     _classid_ = 'Windows.Media.MediaExtensionManager'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaExtensionManager: ...
@@ -795,7 +799,6 @@ class MediaExtensionManager(ComPtr):
     def RegisterMediaExtensionForAppService(self: Windows.Media.IMediaExtensionManager2, extension: Windows.Media.IMediaExtension, connection: Windows.ApplicationModel.AppService.AppServiceConnection) -> Void: ...
 class MediaMarkerTypes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.MediaMarkerTypes'
     @winrt_classmethod
     def get_Bookmark(cls: Windows.Media.IMediaMarkerTypesStatics) -> WinRT_String: ...
     Bookmark = property(get_Bookmark, None)
@@ -816,6 +819,7 @@ MediaPlaybackType_Video: MediaPlaybackType = 2
 MediaPlaybackType_Image: MediaPlaybackType = 3
 class MediaProcessingTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IMediaProcessingTriggerDetails
     _classid_ = 'Windows.Media.MediaProcessingTriggerDetails'
     @winrt_mixinmethod
     def get_Arguments(self: Windows.Media.IMediaProcessingTriggerDetails) -> Windows.Foundation.Collections.ValueSet: ...
@@ -825,6 +829,7 @@ class MediaTimeRange(EasyCastStructure):
     End: Windows.Foundation.TimeSpan
 class MediaTimelineController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IMediaTimelineController
     _classid_ = 'Windows.Media.MediaTimelineController'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaTimelineController: ...
@@ -875,6 +880,7 @@ class MediaTimelineController(ComPtr):
     IsLoopingEnabled = property(get_IsLoopingEnabled, put_IsLoopingEnabled)
 class MediaTimelineControllerFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IMediaTimelineControllerFailedEventArgs
     _classid_ = 'Windows.Media.MediaTimelineControllerFailedEventArgs'
     @winrt_mixinmethod
     def get_ExtendedError(self: Windows.Media.IMediaTimelineControllerFailedEventArgs) -> Windows.Foundation.HResult: ...
@@ -886,6 +892,7 @@ MediaTimelineControllerState_Stalled: MediaTimelineControllerState = 2
 MediaTimelineControllerState_Error: MediaTimelineControllerState = 3
 class MusicDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IMusicDisplayProperties
     _classid_ = 'Windows.Media.MusicDisplayProperties'
     @winrt_mixinmethod
     def get_Title(self: Windows.Media.IMusicDisplayProperties) -> WinRT_String: ...
@@ -922,18 +929,21 @@ class MusicDisplayProperties(ComPtr):
     AlbumTrackCount = property(get_AlbumTrackCount, put_AlbumTrackCount)
 class PlaybackPositionChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IPlaybackPositionChangeRequestedEventArgs
     _classid_ = 'Windows.Media.PlaybackPositionChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_RequestedPlaybackPosition(self: Windows.Media.IPlaybackPositionChangeRequestedEventArgs) -> Windows.Foundation.TimeSpan: ...
     RequestedPlaybackPosition = property(get_RequestedPlaybackPosition, None)
 class PlaybackRateChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IPlaybackRateChangeRequestedEventArgs
     _classid_ = 'Windows.Media.PlaybackRateChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_RequestedPlaybackRate(self: Windows.Media.IPlaybackRateChangeRequestedEventArgs) -> Double: ...
     RequestedPlaybackRate = property(get_RequestedPlaybackRate, None)
 class ShuffleEnabledChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IShuffleEnabledChangeRequestedEventArgs
     _classid_ = 'Windows.Media.ShuffleEnabledChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_RequestedShuffleEnabled(self: Windows.Media.IShuffleEnabledChangeRequestedEventArgs) -> Boolean: ...
@@ -944,6 +954,7 @@ SoundLevel_Low: SoundLevel = 1
 SoundLevel_Full: SoundLevel = 2
 class SystemMediaTransportControls(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.ISystemMediaTransportControls
     _classid_ = 'Windows.Media.SystemMediaTransportControls'
     @winrt_mixinmethod
     def get_PlaybackStatus(self: Windows.Media.ISystemMediaTransportControls) -> Windows.Media.MediaPlaybackStatus: ...
@@ -1067,12 +1078,14 @@ SystemMediaTransportControlsButton_ChannelUp: SystemMediaTransportControlsButton
 SystemMediaTransportControlsButton_ChannelDown: SystemMediaTransportControlsButton = 9
 class SystemMediaTransportControlsButtonPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.ISystemMediaTransportControlsButtonPressedEventArgs
     _classid_ = 'Windows.Media.SystemMediaTransportControlsButtonPressedEventArgs'
     @winrt_mixinmethod
     def get_Button(self: Windows.Media.ISystemMediaTransportControlsButtonPressedEventArgs) -> Windows.Media.SystemMediaTransportControlsButton: ...
     Button = property(get_Button, None)
 class SystemMediaTransportControlsDisplayUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.ISystemMediaTransportControlsDisplayUpdater
     _classid_ = 'Windows.Media.SystemMediaTransportControlsDisplayUpdater'
     @winrt_mixinmethod
     def get_Type(self: Windows.Media.ISystemMediaTransportControlsDisplayUpdater) -> Windows.Media.MediaPlaybackType: ...
@@ -1108,12 +1121,14 @@ SystemMediaTransportControlsProperty = Int32
 SystemMediaTransportControlsProperty_SoundLevel: SystemMediaTransportControlsProperty = 0
 class SystemMediaTransportControlsPropertyChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.ISystemMediaTransportControlsPropertyChangedEventArgs
     _classid_ = 'Windows.Media.SystemMediaTransportControlsPropertyChangedEventArgs'
     @winrt_mixinmethod
     def get_Property(self: Windows.Media.ISystemMediaTransportControlsPropertyChangedEventArgs) -> Windows.Media.SystemMediaTransportControlsProperty: ...
     Property = property(get_Property, None)
 class SystemMediaTransportControlsTimelineProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.ISystemMediaTransportControlsTimelineProperties
     _classid_ = 'Windows.Media.SystemMediaTransportControlsTimelineProperties'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.SystemMediaTransportControlsTimelineProperties: ...
@@ -1144,6 +1159,7 @@ class SystemMediaTransportControlsTimelineProperties(ComPtr):
     Position = property(get_Position, put_Position)
 class VideoDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IVideoDisplayProperties
     _classid_ = 'Windows.Media.VideoDisplayProperties'
     @winrt_mixinmethod
     def get_Title(self: Windows.Media.IVideoDisplayProperties) -> WinRT_String: ...
@@ -1160,12 +1176,12 @@ class VideoDisplayProperties(ComPtr):
     Genres = property(get_Genres, None)
 class VideoEffects(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.VideoEffects'
     @winrt_classmethod
     def get_VideoStabilization(cls: Windows.Media.IVideoEffectsStatics) -> WinRT_String: ...
     VideoStabilization = property(get_VideoStabilization, None)
 class VideoFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.IVideoFrame
     _classid_ = 'Windows.Media.VideoFrame'
     @winrt_factorymethod
     def Create(cls: Windows.Media.IVideoFrameFactory, format: Windows.Graphics.Imaging.BitmapPixelFormat, width: Int32, height: Int32) -> Windows.Media.VideoFrame: ...

@@ -28,6 +28,7 @@ I2cBusSpeed_StandardMode: I2cBusSpeed = 0
 I2cBusSpeed_FastMode: I2cBusSpeed = 1
 class I2cConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.I2c.II2cConnectionSettings
     _classid_ = 'Windows.Devices.I2c.I2cConnectionSettings'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.I2c.II2cConnectionSettingsFactory, slaveAddress: Int32) -> Windows.Devices.I2c.I2cConnectionSettings: ...
@@ -48,6 +49,7 @@ class I2cConnectionSettings(ComPtr):
     SharingMode = property(get_SharingMode, put_SharingMode)
 class I2cController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.I2c.II2cController
     _classid_ = 'Windows.Devices.I2c.I2cController'
     @winrt_mixinmethod
     def GetDevice(self: Windows.Devices.I2c.II2cController, settings: Windows.Devices.I2c.I2cConnectionSettings) -> Windows.Devices.I2c.I2cDevice: ...
@@ -57,6 +59,7 @@ class I2cController(ComPtr):
     def GetDefaultAsync(cls: Windows.Devices.I2c.II2cControllerStatics) -> Windows.Foundation.IAsyncOperation[Windows.Devices.I2c.I2cController]: ...
 class I2cDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.I2c.II2cDevice
     _classid_ = 'Windows.Devices.I2c.I2cDevice'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.I2c.II2cDevice) -> WinRT_String: ...

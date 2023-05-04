@@ -33,6 +33,7 @@ AddResourcePackageOptions_ForceTargetAppShutdown: AddResourcePackageOptions = 1
 AddResourcePackageOptions_ApplyUpdateIfAvailable: AddResourcePackageOptions = 2
 class AppDisplayInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IAppDisplayInfo
     _classid_ = 'Windows.ApplicationModel.AppDisplayInfo'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.ApplicationModel.IAppDisplayInfo) -> WinRT_String: ...
@@ -48,6 +49,7 @@ AppExecutionContext_Host: AppExecutionContext = 1
 AppExecutionContext_Guest: AppExecutionContext = 2
 class AppInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IAppInfo
     _classid_ = 'Windows.ApplicationModel.AppInfo'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.IAppInfo) -> WinRT_String: ...
@@ -79,6 +81,7 @@ class AppInfo(ComPtr):
     Current = property(get_Current, None)
 class AppInstallerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IAppInstallerInfo
     _classid_ = 'Windows.ApplicationModel.AppInstallerInfo'
     @winrt_mixinmethod
     def get_Uri(self: Windows.ApplicationModel.IAppInstallerInfo) -> Windows.Foundation.Uri: ...
@@ -133,6 +136,7 @@ AppInstallerPolicySource_Default: AppInstallerPolicySource = 0
 AppInstallerPolicySource_System: AppInstallerPolicySource = 1
 class AppInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IAppInstance
     _classid_ = 'Windows.ApplicationModel.AppInstance'
     @winrt_mixinmethod
     def get_Key(self: Windows.ApplicationModel.IAppInstance) -> WinRT_String: ...
@@ -155,12 +159,10 @@ class AppInstance(ComPtr):
     RecommendedInstance = property(get_RecommendedInstance, None)
 class CameraApplicationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.CameraApplicationManager'
     @winrt_classmethod
     def ShowInstalledApplicationsUI(cls: Windows.ApplicationModel.ICameraApplicationManagerStatics) -> Void: ...
 class DesignMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.DesignMode'
     @winrt_classmethod
     def get_DesignMode2Enabled(cls: Windows.ApplicationModel.IDesignModeStatics2) -> Boolean: ...
     @winrt_classmethod
@@ -169,11 +171,13 @@ class DesignMode(ComPtr):
     DesignModeEnabled = property(get_DesignModeEnabled, None)
 class EnteredBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IEnteredBackgroundEventArgs
     _classid_ = 'Windows.ApplicationModel.EnteredBackgroundEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
 class FindRelatedPackagesOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IFindRelatedPackagesOptions
     _classid_ = 'Windows.ApplicationModel.FindRelatedPackagesOptions'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.ApplicationModel.IFindRelatedPackagesOptionsFactory, Relationship: Windows.ApplicationModel.PackageRelationship) -> Windows.ApplicationModel.FindRelatedPackagesOptions: ...
@@ -210,6 +214,7 @@ FullTrustLaunchResult_FileNotFound: FullTrustLaunchResult = 2
 FullTrustLaunchResult_Unknown: FullTrustLaunchResult = 3
 class FullTrustProcessLaunchResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IFullTrustProcessLaunchResult
     _classid_ = 'Windows.ApplicationModel.FullTrustProcessLaunchResult'
     @winrt_mixinmethod
     def get_LaunchResult(self: Windows.ApplicationModel.IFullTrustProcessLaunchResult) -> Windows.ApplicationModel.FullTrustLaunchResult: ...
@@ -219,7 +224,6 @@ class FullTrustProcessLaunchResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class FullTrustProcessLauncher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.FullTrustProcessLauncher'
     @winrt_classmethod
     def LaunchFullTrustProcessForCurrentAppWithArgumentsAsync(cls: Windows.ApplicationModel.IFullTrustProcessLauncherStatics2, commandLine: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.FullTrustProcessLaunchResult]: ...
     @winrt_classmethod
@@ -971,11 +975,13 @@ class ISuspendingOperation(ComPtr):
     Deadline = property(get_Deadline, None)
 class LeavingBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ILeavingBackgroundEventArgs
     _classid_ = 'Windows.ApplicationModel.LeavingBackgroundEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
 class LimitedAccessFeatureRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ILimitedAccessFeatureRequestResult
     _classid_ = 'Windows.ApplicationModel.LimitedAccessFeatureRequestResult'
     @winrt_mixinmethod
     def get_FeatureId(self: Windows.ApplicationModel.ILimitedAccessFeatureRequestResult) -> WinRT_String: ...
@@ -993,11 +999,11 @@ LimitedAccessFeatureStatus_AvailableWithoutToken: LimitedAccessFeatureStatus = 2
 LimitedAccessFeatureStatus_Unknown: LimitedAccessFeatureStatus = 3
 class LimitedAccessFeatures(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.LimitedAccessFeatures'
     @winrt_classmethod
     def TryUnlockFeature(cls: Windows.ApplicationModel.ILimitedAccessFeaturesStatics, featureId: WinRT_String, token: WinRT_String, attestation: WinRT_String) -> Windows.ApplicationModel.LimitedAccessFeatureRequestResult: ...
 class Package(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackage
     _classid_ = 'Windows.ApplicationModel.Package'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.IPackage) -> Windows.ApplicationModel.PackageId: ...
@@ -1119,6 +1125,7 @@ class Package(ComPtr):
     Current = property(get_Current, None)
 class PackageCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageCatalog
     _classid_ = 'Windows.ApplicationModel.PackageCatalog'
     @winrt_mixinmethod
     def add_PackageStaging(self: Windows.ApplicationModel.IPackageCatalog, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.PackageCatalog, Windows.ApplicationModel.PackageStagingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -1160,6 +1167,7 @@ class PackageCatalog(ComPtr):
     def OpenForCurrentUser(cls: Windows.ApplicationModel.IPackageCatalogStatics) -> Windows.ApplicationModel.PackageCatalog: ...
 class PackageCatalogAddOptionalPackageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageCatalogAddOptionalPackageResult
     _classid_ = 'Windows.ApplicationModel.PackageCatalogAddOptionalPackageResult'
     @winrt_mixinmethod
     def get_Package(self: Windows.ApplicationModel.IPackageCatalogAddOptionalPackageResult) -> Windows.ApplicationModel.Package: ...
@@ -1169,6 +1177,7 @@ class PackageCatalogAddOptionalPackageResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class PackageCatalogAddResourcePackageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageCatalogAddResourcePackageResult
     _classid_ = 'Windows.ApplicationModel.PackageCatalogAddResourcePackageResult'
     @winrt_mixinmethod
     def get_Package(self: Windows.ApplicationModel.IPackageCatalogAddResourcePackageResult) -> Windows.ApplicationModel.Package: ...
@@ -1181,6 +1190,7 @@ class PackageCatalogAddResourcePackageResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class PackageCatalogRemoveOptionalPackagesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageCatalogRemoveOptionalPackagesResult
     _classid_ = 'Windows.ApplicationModel.PackageCatalogRemoveOptionalPackagesResult'
     @winrt_mixinmethod
     def get_PackagesRemoved(self: Windows.ApplicationModel.IPackageCatalogRemoveOptionalPackagesResult) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Package]: ...
@@ -1190,6 +1200,7 @@ class PackageCatalogRemoveOptionalPackagesResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class PackageCatalogRemoveResourcePackagesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageCatalogRemoveResourcePackagesResult
     _classid_ = 'Windows.ApplicationModel.PackageCatalogRemoveResourcePackagesResult'
     @winrt_mixinmethod
     def get_PackagesRemoved(self: Windows.ApplicationModel.IPackageCatalogRemoveResourcePackagesResult) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Package]: ...
@@ -1199,6 +1210,7 @@ class PackageCatalogRemoveResourcePackagesResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class PackageContentGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageContentGroup
     _classid_ = 'Windows.ApplicationModel.PackageContentGroup'
     @winrt_mixinmethod
     def get_Package(self: Windows.ApplicationModel.IPackageContentGroup) -> Windows.ApplicationModel.Package: ...
@@ -1217,6 +1229,7 @@ class PackageContentGroup(ComPtr):
     RequiredGroupName = property(get_RequiredGroupName, None)
 class PackageContentGroupStagingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageContentGroupStagingEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageContentGroupStagingEventArgs'
     @winrt_mixinmethod
     def get_ActivityId(self: Windows.ApplicationModel.IPackageContentGroupStagingEventArgs) -> Guid: ...
@@ -1246,6 +1259,7 @@ PackageContentGroupState_Staging: PackageContentGroupState = 2
 PackageContentGroupState_Staged: PackageContentGroupState = 3
 class PackageId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageId
     _classid_ = 'Windows.ApplicationModel.PackageId'
     @winrt_mixinmethod
     def get_Name(self: Windows.ApplicationModel.IPackageId) -> WinRT_String: ...
@@ -1281,6 +1295,7 @@ class PackageInstallProgress(EasyCastStructure):
     PercentComplete: UInt32
 class PackageInstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageInstallingEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageInstallingEventArgs'
     @winrt_mixinmethod
     def get_ActivityId(self: Windows.ApplicationModel.IPackageInstallingEventArgs) -> Guid: ...
@@ -1309,6 +1324,7 @@ PackageSignatureKind_Store: PackageSignatureKind = 3
 PackageSignatureKind_System: PackageSignatureKind = 4
 class PackageStagingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageStagingEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageStagingEventArgs'
     @winrt_mixinmethod
     def get_ActivityId(self: Windows.ApplicationModel.IPackageStagingEventArgs) -> Guid: ...
@@ -1327,6 +1343,7 @@ class PackageStagingEventArgs(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class PackageStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageStatus
     _classid_ = 'Windows.ApplicationModel.PackageStatus'
     @winrt_mixinmethod
     def VerifyIsOK(self: Windows.ApplicationModel.IPackageStatus) -> Boolean: ...
@@ -1368,12 +1385,14 @@ class PackageStatus(ComPtr):
     IsPartiallyStaged = property(get_IsPartiallyStaged, None)
 class PackageStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageStatusChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_Package(self: Windows.ApplicationModel.IPackageStatusChangedEventArgs) -> Windows.ApplicationModel.Package: ...
     Package = property(get_Package, None)
 class PackageUninstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageUninstallingEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageUninstallingEventArgs'
     @winrt_mixinmethod
     def get_ActivityId(self: Windows.ApplicationModel.IPackageUninstallingEventArgs) -> Guid: ...
@@ -1398,6 +1417,7 @@ PackageUpdateAvailability_Required: PackageUpdateAvailability = 3
 PackageUpdateAvailability_Error: PackageUpdateAvailability = 4
 class PackageUpdateAvailabilityResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageUpdateAvailabilityResult
     _classid_ = 'Windows.ApplicationModel.PackageUpdateAvailabilityResult'
     @winrt_mixinmethod
     def get_Availability(self: Windows.ApplicationModel.IPackageUpdateAvailabilityResult) -> Windows.ApplicationModel.PackageUpdateAvailability: ...
@@ -1407,6 +1427,7 @@ class PackageUpdateAvailabilityResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class PackageUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IPackageUpdatingEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageUpdatingEventArgs'
     @winrt_mixinmethod
     def get_ActivityId(self: Windows.ApplicationModel.IPackageUpdatingEventArgs) -> Guid: ...
@@ -1433,6 +1454,7 @@ class PackageVersion(EasyCastStructure):
     Revision: UInt16
 class StartupTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IStartupTask
     _classid_ = 'Windows.ApplicationModel.StartupTask'
     @winrt_mixinmethod
     def RequestEnableAsync(self: Windows.ApplicationModel.IStartupTask) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.StartupTaskState]: ...
@@ -1457,17 +1479,20 @@ StartupTaskState_DisabledByPolicy: StartupTaskState = 3
 StartupTaskState_EnabledByPolicy: StartupTaskState = 4
 class SuspendingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ISuspendingDeferral
     _classid_ = 'Windows.ApplicationModel.SuspendingDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.ISuspendingDeferral) -> Void: ...
 class SuspendingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ISuspendingEventArgs
     _classid_ = 'Windows.ApplicationModel.SuspendingEventArgs'
     @winrt_mixinmethod
     def get_SuspendingOperation(self: Windows.ApplicationModel.ISuspendingEventArgs) -> Windows.ApplicationModel.SuspendingOperation: ...
     SuspendingOperation = property(get_SuspendingOperation, None)
 class SuspendingOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ISuspendingOperation
     _classid_ = 'Windows.ApplicationModel.SuspendingOperation'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.ISuspendingOperation) -> Windows.ApplicationModel.SuspendingDeferral: ...

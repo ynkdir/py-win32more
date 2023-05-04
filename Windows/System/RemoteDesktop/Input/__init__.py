@@ -42,6 +42,7 @@ class IRemoteTextConnectionFactory(ComPtr):
     def CreateInstance(self, connectionId: Guid, pduForwarder: Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler) -> Windows.System.RemoteDesktop.Input.RemoteTextConnection: ...
 class RemoteTextConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.RemoteDesktop.Input.IRemoteTextConnection
     _classid_ = 'Windows.System.RemoteDesktop.Input.RemoteTextConnection'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory, connectionId: Guid, pduForwarder: Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler) -> Windows.System.RemoteDesktop.Input.RemoteTextConnection: ...

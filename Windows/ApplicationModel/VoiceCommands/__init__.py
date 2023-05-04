@@ -197,6 +197,7 @@ class IVoiceCommandUserMessage(ComPtr):
     SpokenMessage = property(get_SpokenMessage, put_SpokenMessage)
 class VoiceCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommand
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommand'
     @winrt_mixinmethod
     def get_CommandName(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommand) -> WinRT_String: ...
@@ -209,6 +210,7 @@ class VoiceCommand(ComPtr):
     SpeechRecognitionResult = property(get_SpeechRecognitionResult, None)
 class VoiceCommandCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandCompletedEventArgs
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandCompletedEventArgs) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletionReason: ...
@@ -223,12 +225,14 @@ VoiceCommandCompletionReason_AppLaunched: VoiceCommandCompletionReason = 5
 VoiceCommandCompletionReason_Completed: VoiceCommandCompletionReason = 6
 class VoiceCommandConfirmationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandConfirmationResult
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandConfirmationResult'
     @winrt_mixinmethod
     def get_Confirmed(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandConfirmationResult) -> Boolean: ...
     Confirmed = property(get_Confirmed, None)
 class VoiceCommandContentTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile: ...
@@ -283,6 +287,7 @@ VoiceCommandContentTileType_TitleWith280x140Icon: VoiceCommandContentTileType = 
 VoiceCommandContentTileType_TitleWith280x140IconAndText: VoiceCommandContentTileType = 7
 class VoiceCommandDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinition
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinition'
     @winrt_mixinmethod
     def get_Language(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinition) -> WinRT_String: ...
@@ -294,7 +299,6 @@ class VoiceCommandDefinition(ComPtr):
     Name = property(get_Name, None)
 class VoiceCommandDefinitionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager'
     @winrt_classmethod
     def InstallCommandDefinitionsFromStorageFileAsync(cls: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinitionManagerStatics, file: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -302,12 +306,14 @@ class VoiceCommandDefinitionManager(ComPtr):
     InstalledCommandDefinitions = property(get_InstalledCommandDefinitions, None)
 class VoiceCommandDisambiguationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDisambiguationResult
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandDisambiguationResult'
     @winrt_mixinmethod
     def get_SelectedItem(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDisambiguationResult) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile: ...
     SelectedItem = property(get_SelectedItem, None)
 class VoiceCommandResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponse
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse'
     @winrt_mixinmethod
     def get_Message(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponse) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage: ...
@@ -340,6 +346,7 @@ class VoiceCommandResponse(ComPtr):
     MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles, None)
 class VoiceCommandServiceConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandServiceConnection
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection'
     @winrt_mixinmethod
     def GetVoiceCommandAsync(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandServiceConnection) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.VoiceCommands.VoiceCommand]: ...
@@ -366,6 +373,7 @@ class VoiceCommandServiceConnection(ComPtr):
     Language = property(get_Language, None)
 class VoiceCommandUserMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandUserMessage
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage: ...

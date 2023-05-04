@@ -279,6 +279,7 @@ class IXboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     Value = property(get_Value, None)
 class XboxLiveDeviceAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveDeviceAddress
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveDeviceAddress'
     @winrt_mixinmethod
     def add_SnapshotChanged(self: Windows.Networking.XboxLive.IXboxLiveDeviceAddress, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.XboxLive.XboxLiveDeviceAddress, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -314,6 +315,7 @@ class XboxLiveDeviceAddress(ComPtr):
     MaxSnapshotBytesSize = property(get_MaxSnapshotBytesSize, None)
 class XboxLiveEndpointPair(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveEndpointPair
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveEndpointPair'
     @winrt_mixinmethod
     def add_StateChanged(self: Windows.Networking.XboxLive.IXboxLiveEndpointPair, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.XboxLive.XboxLiveEndpointPair, Windows.Networking.XboxLive.XboxLiveEndpointPairStateChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -355,6 +357,7 @@ XboxLiveEndpointPairCreationBehaviors_None: XboxLiveEndpointPairCreationBehavior
 XboxLiveEndpointPairCreationBehaviors_ReevaluatePath: XboxLiveEndpointPairCreationBehaviors = 1
 class XboxLiveEndpointPairCreationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveEndpointPairCreationResult
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveEndpointPairCreationResult'
     @winrt_mixinmethod
     def get_DeviceAddress(self: Windows.Networking.XboxLive.IXboxLiveEndpointPairCreationResult) -> Windows.Networking.XboxLive.XboxLiveDeviceAddress: ...
@@ -388,6 +391,7 @@ XboxLiveEndpointPairState_RemoteEndpointTerminating: XboxLiveEndpointPairState =
 XboxLiveEndpointPairState_Deleted: XboxLiveEndpointPairState = 6
 class XboxLiveEndpointPairStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveEndpointPairStateChangedEventArgs
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveEndpointPairStateChangedEventArgs'
     @winrt_mixinmethod
     def get_OldState(self: Windows.Networking.XboxLive.IXboxLiveEndpointPairStateChangedEventArgs) -> Windows.Networking.XboxLive.XboxLiveEndpointPairState: ...
@@ -397,6 +401,7 @@ class XboxLiveEndpointPairStateChangedEventArgs(ComPtr):
     NewState = property(get_NewState, None)
 class XboxLiveEndpointPairTemplate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplate
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate'
     @winrt_mixinmethod
     def add_InboundEndpointPairCreated(self: Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplate, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate, Windows.Networking.XboxLive.XboxLiveInboundEndpointPairCreatedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -438,6 +443,7 @@ class XboxLiveEndpointPairTemplate(ComPtr):
     Templates = property(get_Templates, None)
 class XboxLiveInboundEndpointPairCreatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveInboundEndpointPairCreatedEventArgs
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveInboundEndpointPairCreatedEventArgs'
     @winrt_mixinmethod
     def get_EndpointPair(self: Windows.Networking.XboxLive.IXboxLiveInboundEndpointPairCreatedEventArgs) -> Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
@@ -448,6 +454,7 @@ XboxLiveNetworkAccessKind_Moderate: XboxLiveNetworkAccessKind = 1
 XboxLiveNetworkAccessKind_Strict: XboxLiveNetworkAccessKind = 2
 class XboxLiveQualityOfServiceMeasurement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurement
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement: ...
@@ -543,6 +550,7 @@ XboxLiveQualityOfServiceMetric_MinInboundBitsPerSecond: XboxLiveQualityOfService
 XboxLiveQualityOfServiceMetric_MaxInboundBitsPerSecond: XboxLiveQualityOfServiceMetric = 8
 class XboxLiveQualityOfServiceMetricResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMetricResult
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveQualityOfServiceMetricResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMetricResult) -> Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurementStatus: ...
@@ -558,6 +566,7 @@ class XboxLiveQualityOfServiceMetricResult(ComPtr):
     Value = property(get_Value, None)
 class XboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.XboxLive.IXboxLiveQualityOfServicePrivatePayloadResult
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveQualityOfServicePrivatePayloadResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Networking.XboxLive.IXboxLiveQualityOfServicePrivatePayloadResult) -> Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurementStatus: ...

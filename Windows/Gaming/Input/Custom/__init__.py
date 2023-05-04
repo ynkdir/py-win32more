@@ -25,7 +25,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class GameControllerFactoryManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Gaming.Input.Custom.GameControllerFactoryManager'
     @winrt_classmethod
     def TryGetFactoryControllerFromGameController(cls: Windows.Gaming.Input.Custom.IGameControllerFactoryManagerStatics2, factory: Windows.Gaming.Input.Custom.ICustomGameControllerFactory, gameController: Windows.Gaming.Input.IGameController) -> Windows.Gaming.Input.IGameController: ...
     @winrt_classmethod
@@ -44,6 +43,7 @@ class GipFirmwareUpdateProgress(EasyCastStructure):
     CurrentComponentId: UInt32
 class GipFirmwareUpdateResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.Custom.IGipFirmwareUpdateResult
     _classid_ = 'Windows.Gaming.Input.Custom.GipFirmwareUpdateResult'
     @winrt_mixinmethod
     def get_ExtendedErrorCode(self: Windows.Gaming.Input.Custom.IGipFirmwareUpdateResult) -> UInt32: ...
@@ -60,6 +60,7 @@ GipFirmwareUpdateStatus_UpToDate: GipFirmwareUpdateStatus = 1
 GipFirmwareUpdateStatus_Failed: GipFirmwareUpdateStatus = 2
 class GipGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.Custom.IGipGameControllerProvider
     _classid_ = 'Windows.Gaming.Input.Custom.GipGameControllerProvider'
     @winrt_mixinmethod
     def SendMessage(self: Windows.Gaming.Input.Custom.IGipGameControllerProvider, messageClass: Windows.Gaming.Input.Custom.GipMessageClass, messageId: Byte, messageBuffer: c_char_p_no) -> Void: ...
@@ -88,6 +89,7 @@ GipMessageClass_LowLatency: GipMessageClass = 1
 GipMessageClass_StandardLatency: GipMessageClass = 2
 class HidGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.Custom.IHidGameControllerProvider
     _classid_ = 'Windows.Gaming.Input.Custom.HidGameControllerProvider'
     @winrt_mixinmethod
     def get_UsageId(self: Windows.Gaming.Input.Custom.IHidGameControllerProvider) -> UInt16: ...
@@ -239,6 +241,7 @@ XusbDeviceType_Unknown: XusbDeviceType = 0
 XusbDeviceType_Gamepad: XusbDeviceType = 1
 class XusbGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.Custom.IXusbGameControllerProvider
     _classid_ = 'Windows.Gaming.Input.Custom.XusbGameControllerProvider'
     @winrt_mixinmethod
     def SetVibration(self: Windows.Gaming.Input.Custom.IXusbGameControllerProvider, lowFrequencyMotorSpeed: Double, highFrequencyMotorSpeed: Double) -> Void: ...

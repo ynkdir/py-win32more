@@ -38,6 +38,7 @@ class IXsltProcessorFactory(ComPtr):
     def CreateInstance(self, document: Windows.Data.Xml.Dom.XmlDocument) -> Windows.Data.Xml.Xsl.XsltProcessor: ...
 class XsltProcessor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Data.Xml.Xsl.IXsltProcessor
     _classid_ = 'Windows.Data.Xml.Xsl.XsltProcessor'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Data.Xml.Xsl.IXsltProcessorFactory, document: Windows.Data.Xml.Dom.XmlDocument) -> Windows.Data.Xml.Xsl.XsltProcessor: ...

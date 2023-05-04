@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class HttpDiagnosticProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.Http.Diagnostics.IHttpDiagnosticProvider
     _classid_ = 'Windows.Web.Http.Diagnostics.HttpDiagnosticProvider'
     @winrt_mixinmethod
     def Start(self: Windows.Web.Http.Diagnostics.IHttpDiagnosticProvider) -> Void: ...
@@ -47,6 +48,7 @@ class HttpDiagnosticProvider(ComPtr):
     def CreateFromProcessDiagnosticInfo(cls: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderStatics, processDiagnosticInfo: Windows.System.Diagnostics.ProcessDiagnosticInfo) -> Windows.Web.Http.Diagnostics.HttpDiagnosticProvider: ...
 class HttpDiagnosticProviderRequestResponseCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseCompletedEventArgs
     _classid_ = 'Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs'
     @winrt_mixinmethod
     def get_ActivityId(self: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseCompletedEventArgs) -> Guid: ...
@@ -71,6 +73,7 @@ class HttpDiagnosticProviderRequestResponseCompletedEventArgs(ComPtr):
     SourceLocations = property(get_SourceLocations, None)
 class HttpDiagnosticProviderRequestResponseTimestamps(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseTimestamps
     _classid_ = 'Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps'
     @winrt_mixinmethod
     def get_CacheCheckedTimestamp(self: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseTimestamps) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
@@ -101,6 +104,7 @@ class HttpDiagnosticProviderRequestResponseTimestamps(ComPtr):
     ResponseCompletedTimestamp = property(get_ResponseCompletedTimestamp, None)
 class HttpDiagnosticProviderRequestSentEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestSentEventArgs
     _classid_ = 'Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestSentEventArgs) -> Windows.Foundation.DateTime: ...
@@ -125,6 +129,7 @@ class HttpDiagnosticProviderRequestSentEventArgs(ComPtr):
     SourceLocations = property(get_SourceLocations, None)
 class HttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderResponseReceivedEventArgs
     _classid_ = 'Windows.Web.Http.Diagnostics.HttpDiagnosticProviderResponseReceivedEventArgs'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderResponseReceivedEventArgs) -> Windows.Foundation.DateTime: ...
@@ -151,6 +156,7 @@ HttpDiagnosticRequestInitiator_Fetch: HttpDiagnosticRequestInitiator = 11
 HttpDiagnosticRequestInitiator_Beacon: HttpDiagnosticRequestInitiator = 12
 class HttpDiagnosticSourceLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.Http.Diagnostics.IHttpDiagnosticSourceLocation
     _classid_ = 'Windows.Web.Http.Diagnostics.HttpDiagnosticSourceLocation'
     @winrt_mixinmethod
     def get_SourceUri(self: Windows.Web.Http.Diagnostics.IHttpDiagnosticSourceLocation) -> Windows.Foundation.Uri: ...

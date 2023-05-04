@@ -231,6 +231,7 @@ InjectedInputButtonChangeKind_FifthButtonDown: InjectedInputButtonChangeKind = 9
 InjectedInputButtonChangeKind_FifthButtonUp: InjectedInputButtonChangeKind = 10
 class InjectedInputGamepadInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfoFactory, reading: Windows.Gaming.Input.GamepadReading) -> Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
@@ -279,6 +280,7 @@ InjectedInputKeyOptions_ScanCode: InjectedInputKeyOptions = 8
 InjectedInputKeyOptions_Unicode: InjectedInputKeyOptions = 4
 class InjectedInputKeyboardInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Preview.Injection.IInjectedInputKeyboardInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputKeyboardInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Preview.Injection.InjectedInputKeyboardInfo: ...
@@ -299,6 +301,7 @@ class InjectedInputKeyboardInfo(ComPtr):
     VirtualKey = property(get_VirtualKey, put_VirtualKey)
 class InjectedInputMouseInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Preview.Injection.IInjectedInputMouseInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo: ...
@@ -350,6 +353,7 @@ InjectedInputPenButtons_Inverted: InjectedInputPenButtons = 2
 InjectedInputPenButtons_Eraser: InjectedInputPenButtons = 4
 class InjectedInputPenInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Preview.Injection.IInjectedInputPenInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputPenInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Preview.Injection.InjectedInputPenInfo: ...
@@ -428,6 +432,7 @@ InjectedInputShortcut_Start: InjectedInputShortcut = 1
 InjectedInputShortcut_Search: InjectedInputShortcut = 2
 class InjectedInputTouchInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Preview.Injection.IInjectedInputTouchInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo: ...
@@ -467,6 +472,7 @@ InjectedInputVisualizationMode_Default: InjectedInputVisualizationMode = 1
 InjectedInputVisualizationMode_Indirect: InjectedInputVisualizationMode = 2
 class InputInjector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Preview.Injection.IInputInjector
     _classid_ = 'Windows.UI.Input.Preview.Injection.InputInjector'
     @winrt_mixinmethod
     def InjectKeyboardInput(self: Windows.UI.Input.Preview.Injection.IInputInjector, input: Windows.Foundation.Collections.IIterable[Windows.UI.Input.Preview.Injection.InjectedInputKeyboardInfo]) -> Void: ...

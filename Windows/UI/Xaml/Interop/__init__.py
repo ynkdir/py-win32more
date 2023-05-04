@@ -122,6 +122,8 @@ NotifyCollectionChangedAction_Move: NotifyCollectionChangedAction = 3
 NotifyCollectionChangedAction_Reset: NotifyCollectionChangedAction = 4
 class NotifyCollectionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgs
+    _classid_ = 'Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs'
     @winrt_commethod(6)
     def get_Action(self) -> Windows.UI.Xaml.Interop.NotifyCollectionChangedAction: ...
     @winrt_commethod(7)

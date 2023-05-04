@@ -22,6 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DesktopWindowTarget(ComPtr):
     extends: Windows.UI.Composition.CompositionTarget
+    default_interface: Windows.UI.Composition.Desktop.IDesktopWindowTarget
     _classid_ = 'Windows.UI.Composition.Desktop.DesktopWindowTarget'
     @winrt_mixinmethod
     def get_IsTopmost(self: Windows.UI.Composition.Desktop.IDesktopWindowTarget) -> Boolean: ...

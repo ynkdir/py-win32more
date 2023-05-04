@@ -28,6 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AtomPubClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.AtomPub.IAtomPubClient
     _classid_ = 'Windows.Web.AtomPub.AtomPubClient'
     @winrt_activatemethod
     def New(cls) -> Windows.Web.AtomPub.AtomPubClient: ...
@@ -146,6 +147,7 @@ class IWorkspace(ComPtr):
     Collections = property(get_Collections, None)
 class ResourceCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.AtomPub.IResourceCollection
     _classid_ = 'Windows.Web.AtomPub.ResourceCollection'
     @winrt_mixinmethod
     def get_Title(self: Windows.Web.AtomPub.IResourceCollection) -> Windows.Web.Syndication.ISyndicationText: ...
@@ -194,6 +196,7 @@ class ResourceCollection(ComPtr):
     ElementExtensions = property(get_ElementExtensions, None)
 class ServiceDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.AtomPub.IServiceDocument
     _classid_ = 'Windows.Web.AtomPub.ServiceDocument'
     @winrt_mixinmethod
     def get_Workspaces(self: Windows.Web.AtomPub.IServiceDocument) -> Windows.Foundation.Collections.IVectorView[Windows.Web.AtomPub.Workspace]: ...
@@ -233,6 +236,7 @@ class ServiceDocument(ComPtr):
     ElementExtensions = property(get_ElementExtensions, None)
 class Workspace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.AtomPub.IWorkspace
     _classid_ = 'Windows.Web.AtomPub.Workspace'
     @winrt_mixinmethod
     def get_Title(self: Windows.Web.AtomPub.IWorkspace) -> Windows.Web.Syndication.ISyndicationText: ...

@@ -31,6 +31,7 @@ ExtendedExecutionForegroundResult_Allowed: ExtendedExecutionForegroundResult = 0
 ExtendedExecutionForegroundResult_Denied: ExtendedExecutionForegroundResult = 1
 class ExtendedExecutionForegroundRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundRevokedEventArgs
     _classid_ = 'Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundRevokedEventArgs) -> Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedReason: ...
@@ -40,6 +41,7 @@ ExtendedExecutionForegroundRevokedReason_Resumed: ExtendedExecutionForegroundRev
 ExtendedExecutionForegroundRevokedReason_SystemPolicy: ExtendedExecutionForegroundRevokedReason = 1
 class ExtendedExecutionForegroundSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundSession
     _classid_ = 'Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundSession'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundSession: ...

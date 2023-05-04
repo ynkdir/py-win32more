@@ -28,7 +28,6 @@ class IInteractiveSessionStatics(ComPtr):
     IsRemote = property(get_IsRemote, None)
 class InteractiveSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.RemoteDesktop.InteractiveSession'
     @winrt_classmethod
     def get_IsRemote(cls: Windows.System.RemoteDesktop.IInteractiveSessionStatics) -> Boolean: ...
     IsRemote = property(get_IsRemote, None)

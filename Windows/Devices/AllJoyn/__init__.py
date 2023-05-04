@@ -29,6 +29,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AllJoynAboutData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynAboutData
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynAboutData'
     @winrt_mixinmethod
     def get_IsEnabled(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> Boolean: ...
@@ -86,6 +87,7 @@ class AllJoynAboutData(ComPtr):
     AppId = property(get_AppId, put_AppId)
 class AllJoynAboutDataView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynAboutDataView
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynAboutDataView'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Int32: ...
@@ -141,6 +143,7 @@ class AllJoynAboutDataView(ComPtr):
     Manufacturer = property(get_Manufacturer, None)
 class AllJoynAcceptSessionJoinerEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgsFactory, uniqueName: WinRT_String, sessionPort: UInt16, trafficType: Windows.Devices.AllJoyn.AllJoynTrafficType, proximity: Byte, acceptSessionJoiner: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoiner) -> Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs: ...
@@ -163,6 +166,7 @@ class AllJoynAcceptSessionJoinerEventArgs(ComPtr):
     SameNetwork = property(get_SameNetwork, None)
 class AllJoynAuthenticationCompleteEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynAuthenticationCompleteEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynAuthenticationCompleteEventArgs'
     @winrt_mixinmethod
     def get_AuthenticationMechanism(self: Windows.Devices.AllJoyn.IAllJoynAuthenticationCompleteEventArgs) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
@@ -183,6 +187,7 @@ AllJoynAuthenticationMechanism_EcdheEcdsa: AllJoynAuthenticationMechanism = 5
 AllJoynAuthenticationMechanism_EcdheSpeke: AllJoynAuthenticationMechanism = 6
 class AllJoynBusAttachment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynBusAttachment
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynBusAttachment'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynBusAttachmentFactory, connectionSpecification: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
@@ -248,6 +253,7 @@ AllJoynBusAttachmentState_Connected: AllJoynBusAttachmentState = 2
 AllJoynBusAttachmentState_Disconnecting: AllJoynBusAttachmentState = 3
 class AllJoynBusAttachmentStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynBusAttachmentStateChangedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynBusAttachmentStateChangedEventArgs'
     @winrt_mixinmethod
     def get_State(self: Windows.Devices.AllJoyn.IAllJoynBusAttachmentStateChangedEventArgs) -> Windows.Devices.AllJoyn.AllJoynBusAttachmentState: ...
@@ -257,6 +263,7 @@ class AllJoynBusAttachmentStateChangedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class AllJoynBusObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynBusObject
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynBusObject'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynBusObjectFactory, objectPath: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynBusObject: ...
@@ -282,6 +289,7 @@ class AllJoynBusObject(ComPtr):
     Session = property(get_Session, None)
 class AllJoynBusObjectStoppedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgsFactory, status: Int32) -> Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs: ...
@@ -290,6 +298,7 @@ class AllJoynBusObjectStoppedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class AllJoynCredentials(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynCredentials
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynCredentials'
     @winrt_mixinmethod
     def get_AuthenticationMechanism(self: Windows.Devices.AllJoyn.IAllJoynCredentials) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
@@ -311,6 +320,7 @@ class AllJoynCredentials(ComPtr):
     Timeout = property(get_Timeout, put_Timeout)
 class AllJoynCredentialsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynCredentialsRequestedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynCredentialsRequestedEventArgs'
     @winrt_mixinmethod
     def get_AttemptCount(self: Windows.Devices.AllJoyn.IAllJoynCredentialsRequestedEventArgs) -> UInt16: ...
@@ -328,6 +338,7 @@ class AllJoynCredentialsRequestedEventArgs(ComPtr):
     RequestedUserName = property(get_RequestedUserName, None)
 class AllJoynCredentialsVerificationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynCredentialsVerificationRequestedEventArgs'
     @winrt_mixinmethod
     def get_AuthenticationMechanism(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
@@ -353,6 +364,7 @@ class AllJoynCredentialsVerificationRequestedEventArgs(ComPtr):
     PeerIntermediateCertificates = property(get_PeerIntermediateCertificates, None)
 class AllJoynMessageInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynMessageInfo
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynMessageInfo'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynMessageInfoFactory, senderUniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynMessageInfo: ...
@@ -361,6 +373,7 @@ class AllJoynMessageInfo(ComPtr):
     SenderUniqueName = property(get_SenderUniqueName, None)
 class AllJoynProducerStoppedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynProducerStoppedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynProducerStoppedEventArgsFactory, status: Int32) -> Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs: ...
@@ -369,6 +382,7 @@ class AllJoynProducerStoppedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class AllJoynServiceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynServiceInfo
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynServiceInfo'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynServiceInfoFactory, uniqueName: WinRT_String, objectPath: WinRT_String, sessionPort: UInt16) -> Windows.Devices.AllJoyn.AllJoynServiceInfo: ...
@@ -385,6 +399,7 @@ class AllJoynServiceInfo(ComPtr):
     SessionPort = property(get_SessionPort, None)
 class AllJoynServiceInfoRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgsFactory, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs: ...
@@ -393,6 +408,7 @@ class AllJoynServiceInfoRemovedEventArgs(ComPtr):
     UniqueName = property(get_UniqueName, None)
 class AllJoynSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynSession
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSession'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.AllJoyn.IAllJoynSession) -> Int32: ...
@@ -420,6 +436,7 @@ class AllJoynSession(ComPtr):
     Status = property(get_Status, None)
 class AllJoynSessionJoinedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgsFactory, session: Windows.Devices.AllJoyn.AllJoynSession) -> Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs: ...
@@ -428,6 +445,7 @@ class AllJoynSessionJoinedEventArgs(ComPtr):
     Session = property(get_Session, None)
 class AllJoynSessionLostEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgsFactory, reason: Windows.Devices.AllJoyn.AllJoynSessionLostReason) -> Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs: ...
@@ -443,6 +461,7 @@ AllJoynSessionLostReason_LinkTimeout: AllJoynSessionLostReason = 4
 AllJoynSessionLostReason_Other: AllJoynSessionLostReason = 5
 class AllJoynSessionMemberAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgsFactory, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs: ...
@@ -451,6 +470,7 @@ class AllJoynSessionMemberAddedEventArgs(ComPtr):
     UniqueName = property(get_UniqueName, None)
 class AllJoynSessionMemberRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgsFactory, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs: ...
@@ -459,7 +479,6 @@ class AllJoynSessionMemberRemovedEventArgs(ComPtr):
     UniqueName = property(get_UniqueName, None)
 class AllJoynStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.AllJoyn.AllJoynStatus'
     @winrt_classmethod
     def get_Ok(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
     @winrt_classmethod
@@ -521,6 +540,7 @@ AllJoynTrafficType_RawUnreliable: AllJoynTrafficType = 2
 AllJoynTrafficType_RawReliable: AllJoynTrafficType = 4
 class AllJoynWatcherStoppedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgsFactory, status: Int32) -> Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs: ...

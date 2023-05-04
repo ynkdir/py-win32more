@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class GattCharacteristic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristic
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic'
     @winrt_mixinmethod
     def GetDescriptors(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristic, descriptorUuid: Guid) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor]: ...
@@ -101,7 +102,6 @@ GattCharacteristicProperties_ReliableWrites: GattCharacteristicProperties = 256
 GattCharacteristicProperties_WritableAuxiliaries: GattCharacteristicProperties = 512
 class GattCharacteristicUuids(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids'
     @winrt_classmethod
     def get_AlertCategoryId(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics2) -> Guid: ...
     @winrt_classmethod
@@ -347,6 +347,7 @@ class GattCharacteristicUuids(ComPtr):
     TemperatureType = property(get_TemperatureType, None)
 class GattCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicsResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicsResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicsResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
@@ -363,6 +364,7 @@ GattClientCharacteristicConfigurationDescriptorValue_Notify: GattClientCharacter
 GattClientCharacteristicConfigurationDescriptorValue_Indicate: GattClientCharacteristicConfigurationDescriptorValue = 2
 class GattClientNotificationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattClientNotificationResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientNotificationResult'
     @winrt_mixinmethod
     def get_SubscribedClient(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattClientNotificationResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient: ...
@@ -383,6 +385,7 @@ GattCommunicationStatus_ProtocolError: GattCommunicationStatus = 2
 GattCommunicationStatus_AccessDenied: GattCommunicationStatus = 3
 class GattDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptor
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor'
     @winrt_mixinmethod
     def get_ProtectionLevel(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptor) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtectionLevel: ...
@@ -407,7 +410,6 @@ class GattDescriptor(ComPtr):
     AttributeHandle = property(get_AttributeHandle, None)
 class GattDescriptorUuids(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorUuids'
     @winrt_classmethod
     def get_CharacteristicAggregateFormat(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics) -> Guid: ...
     @winrt_classmethod
@@ -428,6 +430,7 @@ class GattDescriptorUuids(ComPtr):
     ServerCharacteristicConfiguration = property(get_ServerCharacteristicConfiguration, None)
 class GattDescriptorsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorsResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorsResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorsResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
@@ -440,6 +443,7 @@ class GattDescriptorsResult(ComPtr):
     Descriptors = property(get_Descriptors, None)
 class GattDeviceService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceService
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService'
     @winrt_mixinmethod
     def GetCharacteristics(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceService, characteristicUuid: Guid) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic]: ...
@@ -515,6 +519,7 @@ class GattDeviceService(ComPtr):
     SharingMode = property(get_SharingMode, None)
 class GattDeviceServicesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServicesResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceServicesResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServicesResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
@@ -527,6 +532,7 @@ class GattDeviceServicesResult(ComPtr):
     Services = property(get_Services, None)
 class GattLocalCharacteristic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic'
     @winrt_mixinmethod
     def get_Uuid(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic) -> Guid: ...
@@ -575,6 +581,7 @@ class GattLocalCharacteristic(ComPtr):
     SubscribedClients = property(get_SubscribedClients, None)
 class GattLocalCharacteristicParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicParameters
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters: ...
@@ -608,6 +615,7 @@ class GattLocalCharacteristicParameters(ComPtr):
     PresentationFormats = property(get_PresentationFormats, None)
 class GattLocalCharacteristicResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicResult'
     @winrt_mixinmethod
     def get_Characteristic(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic: ...
@@ -617,6 +625,7 @@ class GattLocalCharacteristicResult(ComPtr):
     Error = property(get_Error, None)
 class GattLocalDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptor
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor'
     @winrt_mixinmethod
     def get_Uuid(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptor) -> Guid: ...
@@ -640,6 +649,7 @@ class GattLocalDescriptor(ComPtr):
     WriteProtectionLevel = property(get_WriteProtectionLevel, None)
 class GattLocalDescriptorParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptorParameters
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters: ...
@@ -660,6 +670,7 @@ class GattLocalDescriptorParameters(ComPtr):
     WriteProtectionLevel = property(get_WriteProtectionLevel, put_WriteProtectionLevel)
 class GattLocalDescriptorResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptorResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorResult'
     @winrt_mixinmethod
     def get_Descriptor(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptorResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor: ...
@@ -669,6 +680,7 @@ class GattLocalDescriptorResult(ComPtr):
     Error = property(get_Error, None)
 class GattLocalService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalService
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService'
     @winrt_mixinmethod
     def get_Uuid(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalService) -> Guid: ...
@@ -687,6 +699,7 @@ GattOpenStatus_SharingViolation: GattOpenStatus = 4
 GattOpenStatus_AccessDenied: GattOpenStatus = 5
 class GattPresentationFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormat
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat'
     @winrt_mixinmethod
     def get_FormatType(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormat) -> Byte: ...
@@ -710,7 +723,6 @@ class GattPresentationFormat(ComPtr):
     BluetoothSigAssignedNumbers = property(get_BluetoothSigAssignedNumbers, None)
 class GattPresentationFormatTypes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes'
     @winrt_classmethod
     def get_Boolean(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics) -> Byte: ...
     @winrt_classmethod
@@ -799,7 +811,6 @@ GattProtectionLevel_EncryptionRequired: GattProtectionLevel = 2
 GattProtectionLevel_EncryptionAndAuthenticationRequired: GattProtectionLevel = 3
 class GattProtocolError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError'
     @winrt_classmethod
     def get_InvalidHandle(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics) -> Byte: ...
     @winrt_classmethod
@@ -853,6 +864,7 @@ class GattProtocolError(ComPtr):
     InsufficientResources = property(get_InsufficientResources, None)
 class GattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadClientCharacteristicConfigurationDescriptorResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
@@ -865,6 +877,7 @@ class GattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     ProtocolError = property(get_ProtocolError, None)
 class GattReadRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequest
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequest'
     @winrt_mixinmethod
     def get_Offset(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequest) -> UInt32: ...
@@ -885,6 +898,7 @@ class GattReadRequest(ComPtr):
     State = property(get_State, None)
 class GattReadRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequestedEventArgs
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequestedEventArgs'
     @winrt_mixinmethod
     def get_Session(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequestedEventArgs) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession: ...
@@ -895,6 +909,7 @@ class GattReadRequestedEventArgs(ComPtr):
     Session = property(get_Session, None)
 class GattReadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
@@ -907,6 +922,7 @@ class GattReadResult(ComPtr):
     ProtocolError = property(get_ProtocolError, None)
 class GattReliableWriteTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReliableWriteTransaction
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction: ...
@@ -922,6 +938,7 @@ GattRequestState_Completed: GattRequestState = 1
 GattRequestState_Canceled: GattRequestState = 2
 class GattRequestStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattRequestStateChangedEventArgs
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattRequestStateChangedEventArgs'
     @winrt_mixinmethod
     def get_State(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattRequestStateChangedEventArgs) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattRequestState: ...
@@ -931,6 +948,7 @@ class GattRequestStateChangedEventArgs(ComPtr):
     Error = property(get_Error, None)
 class GattServiceProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider'
     @winrt_mixinmethod
     def get_Service(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService: ...
@@ -958,6 +976,7 @@ GattServiceProviderAdvertisementStatus_Aborted: GattServiceProviderAdvertisement
 GattServiceProviderAdvertisementStatus_StartedWithoutAllAdvertisementData: GattServiceProviderAdvertisementStatus = 4
 class GattServiceProviderAdvertisementStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisementStatusChangedEventArgs
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisementStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_Error(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisementStatusChangedEventArgs) -> Windows.Devices.Bluetooth.BluetoothError: ...
@@ -967,6 +986,7 @@ class GattServiceProviderAdvertisementStatusChangedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class GattServiceProviderAdvertisingParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters: ...
@@ -987,6 +1007,7 @@ class GattServiceProviderAdvertisingParameters(ComPtr):
     ServiceData = property(get_ServiceData, put_ServiceData)
 class GattServiceProviderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderResult'
     @winrt_mixinmethod
     def get_Error(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderResult) -> Windows.Devices.Bluetooth.BluetoothError: ...
@@ -996,7 +1017,6 @@ class GattServiceProviderResult(ComPtr):
     ServiceProvider = property(get_ServiceProvider, None)
 class GattServiceUuids(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids'
     @winrt_classmethod
     def get_AlertNotification(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics2) -> Guid: ...
     @winrt_classmethod
@@ -1065,6 +1085,7 @@ class GattServiceUuids(ComPtr):
     RunningSpeedAndCadence = property(get_RunningSpeedAndCadence, None)
 class GattSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession) -> Windows.Devices.Bluetooth.BluetoothDeviceId: ...
@@ -1100,6 +1121,7 @@ GattSessionStatus_Closed: GattSessionStatus = 0
 GattSessionStatus_Active: GattSessionStatus = 1
 class GattSessionStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSessionStatusChangedEventArgs
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattSessionStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_Error(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSessionStatusChangedEventArgs) -> Windows.Devices.Bluetooth.BluetoothError: ...
@@ -1114,6 +1136,7 @@ GattSharingMode_SharedReadOnly: GattSharingMode = 2
 GattSharingMode_SharedReadAndWrite: GattSharingMode = 3
 class GattSubscribedClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient'
     @winrt_mixinmethod
     def get_Session(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession: ...
@@ -1127,6 +1150,7 @@ class GattSubscribedClient(ComPtr):
     MaxNotificationSize = property(get_MaxNotificationSize, None)
 class GattValueChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattValueChangedEventArgs
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattValueChangedEventArgs'
     @winrt_mixinmethod
     def get_CharacteristicValue(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattValueChangedEventArgs) -> Windows.Storage.Streams.IBuffer: ...
@@ -1139,6 +1163,7 @@ GattWriteOption_WriteWithResponse: GattWriteOption = 0
 GattWriteOption_WriteWithoutResponse: GattWriteOption = 1
 class GattWriteRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequest
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequest'
     @winrt_mixinmethod
     def get_Value(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequest) -> Windows.Storage.Streams.IBuffer: ...
@@ -1162,6 +1187,7 @@ class GattWriteRequest(ComPtr):
     State = property(get_State, None)
 class GattWriteRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequestedEventArgs
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequestedEventArgs'
     @winrt_mixinmethod
     def get_Session(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequestedEventArgs) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession: ...
@@ -1172,6 +1198,7 @@ class GattWriteRequestedEventArgs(ComPtr):
     Session = property(get_Session, None)
 class GattWriteResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteResult
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...

@@ -28,12 +28,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class DesignerAppExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IDesignerAppExitedEventArgs
     _classid_ = 'Windows.UI.Xaml.Hosting.DesignerAppExitedEventArgs'
     @winrt_mixinmethod
     def get_ExitCode(self: Windows.UI.Xaml.Hosting.IDesignerAppExitedEventArgs) -> UInt32: ...
     ExitCode = property(get_ExitCode, None)
 class DesignerAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IDesignerAppManager
     _classid_ = 'Windows.UI.Xaml.Hosting.DesignerAppManager'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Xaml.Hosting.IDesignerAppManagerFactory, appUserModelId: WinRT_String) -> Windows.UI.Xaml.Hosting.DesignerAppManager: ...
@@ -52,6 +54,7 @@ class DesignerAppManager(ComPtr):
     AppUserModelId = property(get_AppUserModelId, None)
 class DesignerAppView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IDesignerAppView
     _classid_ = 'Windows.UI.Xaml.Hosting.DesignerAppView'
     @winrt_mixinmethod
     def get_ApplicationViewId(self: Windows.UI.Xaml.Hosting.IDesignerAppView) -> Int32: ...
@@ -74,6 +77,8 @@ DesignerAppViewState_Visible: DesignerAppViewState = 0
 DesignerAppViewState_Hidden: DesignerAppViewState = 1
 class DesktopWindowXamlSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource
+    _classid_ = 'Windows.UI.Xaml.Hosting.DesktopWindowXamlSource'
     @winrt_commethod(6)
     def get_Content(self) -> Windows.UI.Xaml.UIElement: ...
     @winrt_commethod(7)
@@ -96,18 +101,21 @@ class DesktopWindowXamlSource(ComPtr):
     HasFocus = property(get_HasFocus, None)
 class DesktopWindowXamlSourceGotFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs
     _classid_ = 'Windows.UI.Xaml.Hosting.DesktopWindowXamlSourceGotFocusEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest: ...
     Request = property(get_Request, None)
 class DesktopWindowXamlSourceTakeFocusRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceTakeFocusRequestedEventArgs
     _classid_ = 'Windows.UI.Xaml.Hosting.DesktopWindowXamlSourceTakeFocusRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceTakeFocusRequestedEventArgs) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest: ...
     Request = property(get_Request, None)
 class ElementCompositionPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IElementCompositionPreview
     _classid_ = 'Windows.UI.Xaml.Hosting.ElementCompositionPreview'
     @winrt_classmethod
     def SetAppWindowContent(cls: Windows.UI.Xaml.Hosting.IElementCompositionPreviewStatics3, appWindow: Windows.UI.WindowManagement.AppWindow, xamlContent: Windows.UI.Xaml.UIElement) -> Void: ...
@@ -342,6 +350,7 @@ class IXamlUIPresenterStatics2(ComPtr):
     def GetFlyoutPlacement(self, placementTargetBounds: Windows.Foundation.Rect, controlSize: Windows.Foundation.Size, minControlSize: Windows.Foundation.Size, containerRect: Windows.Foundation.Rect, targetPreferredPlacement: Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode, allowFallbacks: Boolean, chosenPlacement: POINTER(Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode)) -> Windows.Foundation.Rect: ...
 class WindowsXamlManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IWindowsXamlManager
     _classid_ = 'Windows.UI.Xaml.Hosting.WindowsXamlManager'
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
@@ -358,6 +367,7 @@ XamlSourceFocusNavigationReason_Right: XamlSourceFocusNavigationReason = 9
 XamlSourceFocusNavigationReason_Down: XamlSourceFocusNavigationReason = 10
 class XamlSourceFocusNavigationRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest
     _classid_ = 'Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequestFactory, reason: Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationReason) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest: ...
@@ -376,6 +386,7 @@ class XamlSourceFocusNavigationRequest(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
 class XamlSourceFocusNavigationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationResult
     _classid_ = 'Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationResultFactory, focusMoved: Boolean) -> Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult: ...
@@ -384,6 +395,7 @@ class XamlSourceFocusNavigationResult(ComPtr):
     WasFocusMoved = property(get_WasFocusMoved, None)
 class XamlUIPresenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Hosting.IXamlUIPresenter
     _classid_ = 'Windows.UI.Xaml.Hosting.XamlUIPresenter'
     @winrt_mixinmethod
     def get_RootElement(self: Windows.UI.Xaml.Hosting.IXamlUIPresenter) -> Windows.UI.Xaml.UIElement: ...

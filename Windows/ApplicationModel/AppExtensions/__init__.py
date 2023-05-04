@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.AppExtensions.IAppExtension
     _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtension'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.AppExtensions.IAppExtension) -> WinRT_String: ...
@@ -51,6 +52,7 @@ class AppExtension(ComPtr):
     AppUserModelId = property(get_AppUserModelId, None)
 class AppExtensionCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog
     _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionCatalog'
     @winrt_mixinmethod
     def FindAllAsync(self: Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.AppExtensions.AppExtension]]: ...
@@ -80,6 +82,7 @@ class AppExtensionCatalog(ComPtr):
     def Open(cls: Windows.ApplicationModel.AppExtensions.IAppExtensionCatalogStatics, appExtensionName: WinRT_String) -> Windows.ApplicationModel.AppExtensions.AppExtensionCatalog: ...
 class AppExtensionPackageInstalledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageInstalledEventArgs
     _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageInstalledEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageInstalledEventArgs) -> WinRT_String: ...
@@ -92,6 +95,7 @@ class AppExtensionPackageInstalledEventArgs(ComPtr):
     Extensions = property(get_Extensions, None)
 class AppExtensionPackageStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageStatusChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageStatusChangedEventArgs) -> WinRT_String: ...
@@ -101,6 +105,7 @@ class AppExtensionPackageStatusChangedEventArgs(ComPtr):
     Package = property(get_Package, None)
 class AppExtensionPackageUninstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUninstallingEventArgs
     _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUninstallingEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUninstallingEventArgs) -> WinRT_String: ...
@@ -110,6 +115,7 @@ class AppExtensionPackageUninstallingEventArgs(ComPtr):
     Package = property(get_Package, None)
 class AppExtensionPackageUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatedEventArgs
     _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatedEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatedEventArgs) -> WinRT_String: ...
@@ -122,6 +128,7 @@ class AppExtensionPackageUpdatedEventArgs(ComPtr):
     Extensions = property(get_Extensions, None)
 class AppExtensionPackageUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatingEventArgs
     _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatingEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatingEventArgs) -> WinRT_String: ...

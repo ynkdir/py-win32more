@@ -102,6 +102,7 @@ PhoneCallBlockedReason_PrivateNumber: PhoneCallBlockedReason = 1
 PhoneCallBlockedReason_UnknownNumber: PhoneCallBlockedReason = 2
 class PhoneCallBlockedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Calls.Background.IPhoneCallBlockedTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Calls.Background.PhoneCallBlockedTriggerDetails'
     @winrt_mixinmethod
     def get_PhoneNumber(self: Windows.ApplicationModel.Calls.Background.IPhoneCallBlockedTriggerDetails) -> WinRT_String: ...
@@ -114,6 +115,7 @@ class PhoneCallBlockedTriggerDetails(ComPtr):
     CallBlockedReason = property(get_CallBlockedReason, None)
 class PhoneCallOriginDataRequestTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Calls.Background.IPhoneCallOriginDataRequestTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Calls.Background.PhoneCallOriginDataRequestTriggerDetails'
     @winrt_mixinmethod
     def get_RequestId(self: Windows.ApplicationModel.Calls.Background.IPhoneCallOriginDataRequestTriggerDetails) -> Guid: ...
@@ -128,6 +130,7 @@ PhoneIncomingCallDismissedReason_TextReply: PhoneIncomingCallDismissedReason = 2
 PhoneIncomingCallDismissedReason_ConnectionLost: PhoneIncomingCallDismissedReason = 3
 class PhoneIncomingCallDismissedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallDismissedTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Calls.Background.PhoneIncomingCallDismissedTriggerDetails'
     @winrt_mixinmethod
     def get_LineId(self: Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallDismissedTriggerDetails) -> Guid: ...
@@ -149,6 +152,7 @@ class PhoneIncomingCallDismissedTriggerDetails(ComPtr):
     Reason = property(get_Reason, None)
 class PhoneIncomingCallNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallNotificationTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Calls.Background.PhoneIncomingCallNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_LineId(self: Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallNotificationTriggerDetails) -> Guid: ...
@@ -162,6 +166,7 @@ PhoneLineChangeKind_Removed: PhoneLineChangeKind = 1
 PhoneLineChangeKind_PropertiesChanged: PhoneLineChangeKind = 2
 class PhoneLineChangedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Calls.Background.IPhoneLineChangedTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Calls.Background.PhoneLineChangedTriggerDetails'
     @winrt_mixinmethod
     def get_LineId(self: Windows.ApplicationModel.Calls.Background.IPhoneLineChangedTriggerDetails) -> Guid: ...
@@ -184,6 +189,7 @@ PhoneLineProperties_Transport: PhoneLineProperties = 128
 PhoneLineProperties_Voicemail: PhoneLineProperties = 256
 class PhoneNewVoicemailMessageTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Calls.Background.IPhoneNewVoicemailMessageTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Calls.Background.PhoneNewVoicemailMessageTriggerDetails'
     @winrt_mixinmethod
     def get_LineId(self: Windows.ApplicationModel.Calls.Background.IPhoneNewVoicemailMessageTriggerDetails) -> Guid: ...

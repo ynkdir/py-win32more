@@ -190,6 +190,7 @@ class SizeChangedEventHandler(ComPtr):
     def Invoke(self, eventArgs: Windows.UI.WebUI.Core.WebUICommandBarSizeChangedEventArgs) -> Void: ...
 class WebUICommandBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.Core.IWebUICommandBar
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBar'
     @winrt_mixinmethod
     def get_Visible(self: Windows.UI.WebUI.Core.IWebUICommandBar) -> Boolean: ...
@@ -246,6 +247,7 @@ class WebUICommandBar(ComPtr):
     SecondaryCommands = property(get_SecondaryCommands, None)
 class WebUICommandBarBitmapIcon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.Core.IWebUICommandBarBitmapIcon
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon'
     @winrt_factorymethod
     def Create(cls: Windows.UI.WebUI.Core.IWebUICommandBarBitmapIconFactory, uri: Windows.Foundation.Uri) -> Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon: ...
@@ -262,6 +264,7 @@ WebUICommandBarClosedDisplayMode_Minimal: WebUICommandBarClosedDisplayMode = 1
 WebUICommandBarClosedDisplayMode_Compact: WebUICommandBarClosedDisplayMode = 2
 class WebUICommandBarConfirmationButton(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.Core.IWebUICommandBarConfirmationButton
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarConfirmationButton'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.WebUI.Core.WebUICommandBarConfirmationButton: ...
@@ -277,6 +280,7 @@ class WebUICommandBarConfirmationButton(ComPtr):
 WebUICommandBarContract: UInt32 = 65536
 class WebUICommandBarIconButton(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.Core.IWebUICommandBarIconButton
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarIconButton'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.WebUI.Core.WebUICommandBarIconButton: ...
@@ -311,18 +315,21 @@ class WebUICommandBarIconButton(ComPtr):
     Icon = property(get_Icon, put_Icon)
 class WebUICommandBarItemInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.Core.IWebUICommandBarItemInvokedEventArgs
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarItemInvokedEventArgs'
     @winrt_mixinmethod
     def get_IsPrimaryCommand(self: Windows.UI.WebUI.Core.IWebUICommandBarItemInvokedEventArgs) -> Boolean: ...
     IsPrimaryCommand = property(get_IsPrimaryCommand, None)
 class WebUICommandBarSizeChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.Core.IWebUICommandBarSizeChangedEventArgs
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarSizeChangedEventArgs'
     @winrt_mixinmethod
     def get_Size(self: Windows.UI.WebUI.Core.IWebUICommandBarSizeChangedEventArgs) -> Windows.Foundation.Size: ...
     Size = property(get_Size, None)
 class WebUICommandBarSymbolIcon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.Core.IWebUICommandBarSymbolIcon
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon'
     @winrt_factorymethod
     def Create(cls: Windows.UI.WebUI.Core.IWebUICommandBarSymbolIconFactory, symbol: WinRT_String) -> Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon: ...

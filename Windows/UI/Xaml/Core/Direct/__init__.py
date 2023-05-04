@@ -142,6 +142,7 @@ class IXamlDirectStatics(ComPtr):
     def GetDefault(self) -> Windows.UI.Xaml.Core.Direct.XamlDirect: ...
 class XamlDirect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Core.Direct.IXamlDirect
     _classid_ = 'Windows.UI.Xaml.Core.Direct.XamlDirect'
     @winrt_mixinmethod
     def GetObject(self: Windows.UI.Xaml.Core.Direct.IXamlDirect, xamlDirectObject: Windows.UI.Xaml.Core.Direct.IXamlDirectObject) -> Windows.Win32.System.WinRT.IInspectable_head: ...

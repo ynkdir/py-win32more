@@ -137,7 +137,6 @@ class IVibrationDeviceStatics(ComPtr):
     def FindAllAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Haptics.VibrationDevice]]: ...
 class KnownSimpleHapticsControllerWaveforms(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms'
     @winrt_classmethod
     def get_BrushContinuous(cls: Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics2) -> UInt16: ...
     @winrt_classmethod
@@ -185,6 +184,7 @@ class KnownSimpleHapticsControllerWaveforms(ComPtr):
     Release = property(get_Release, None)
 class SimpleHapticsController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Haptics.ISimpleHapticsController
     _classid_ = 'Windows.Devices.Haptics.SimpleHapticsController'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.Haptics.ISimpleHapticsController) -> WinRT_String: ...
@@ -216,6 +216,7 @@ class SimpleHapticsController(ComPtr):
     IsReplayPauseIntervalSupported = property(get_IsReplayPauseIntervalSupported, None)
 class SimpleHapticsControllerFeedback(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Haptics.ISimpleHapticsControllerFeedback
     _classid_ = 'Windows.Devices.Haptics.SimpleHapticsControllerFeedback'
     @winrt_mixinmethod
     def get_Waveform(self: Windows.Devices.Haptics.ISimpleHapticsControllerFeedback) -> UInt16: ...
@@ -230,6 +231,7 @@ VibrationAccessStatus_DeniedBySystem: VibrationAccessStatus = 2
 VibrationAccessStatus_DeniedByEnergySaver: VibrationAccessStatus = 3
 class VibrationDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Haptics.IVibrationDevice
     _classid_ = 'Windows.Devices.Haptics.VibrationDevice'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.Haptics.IVibrationDevice) -> WinRT_String: ...

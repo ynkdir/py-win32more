@@ -32,7 +32,6 @@ AccountPictureKind_LargeImage: AccountPictureKind = 1
 AccountPictureKind_Video: AccountPictureKind = 2
 class AdvertisingManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.UserProfile.AdvertisingManager'
     @winrt_classmethod
     def GetForUser(cls: Windows.System.UserProfile.IAdvertisingManagerStatics2, user: Windows.System.User) -> Windows.System.UserProfile.AdvertisingManagerForUser: ...
     @winrt_classmethod
@@ -40,6 +39,7 @@ class AdvertisingManager(ComPtr):
     AdvertisingId = property(get_AdvertisingId, None)
 class AdvertisingManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.UserProfile.IAdvertisingManagerForUser
     _classid_ = 'Windows.System.UserProfile.AdvertisingManagerForUser'
     @winrt_mixinmethod
     def get_AdvertisingId(self: Windows.System.UserProfile.IAdvertisingManagerForUser) -> WinRT_String: ...
@@ -49,6 +49,7 @@ class AdvertisingManagerForUser(ComPtr):
     User = property(get_User, None)
 class AssignedAccessSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.UserProfile.IAssignedAccessSettings
     _classid_ = 'Windows.System.UserProfile.AssignedAccessSettings'
     @winrt_mixinmethod
     def get_IsEnabled(self: Windows.System.UserProfile.IAssignedAccessSettings) -> Boolean: ...
@@ -65,6 +66,7 @@ class AssignedAccessSettings(ComPtr):
     User = property(get_User, None)
 class DiagnosticsSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.UserProfile.IDiagnosticsSettings
     _classid_ = 'Windows.System.UserProfile.DiagnosticsSettings'
     @winrt_mixinmethod
     def get_CanUseDiagnosticsToTailorExperiences(self: Windows.System.UserProfile.IDiagnosticsSettings) -> Boolean: ...
@@ -78,6 +80,7 @@ class DiagnosticsSettings(ComPtr):
     User = property(get_User, None)
 class FirstSignInSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.UserProfile.IFirstSignInSettings
     _classid_ = 'Windows.System.UserProfile.FirstSignInSettings'
     @winrt_mixinmethod
     def Lookup(self: Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -94,7 +97,6 @@ class FirstSignInSettings(ComPtr):
     Size = property(get_Size, None)
 class GlobalizationPreferences(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.UserProfile.GlobalizationPreferences'
     @winrt_classmethod
     def GetForUser(cls: Windows.System.UserProfile.IGlobalizationPreferencesStatics3, user: Windows.System.User) -> Windows.System.UserProfile.GlobalizationPreferencesForUser: ...
     @winrt_classmethod
@@ -121,6 +123,7 @@ class GlobalizationPreferences(ComPtr):
     WeekStartsOn = property(get_WeekStartsOn, None)
 class GlobalizationPreferencesForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.UserProfile.IGlobalizationPreferencesForUser
     _classid_ = 'Windows.System.UserProfile.GlobalizationPreferencesForUser'
     @winrt_mixinmethod
     def get_User(self: Windows.System.UserProfile.IGlobalizationPreferencesForUser) -> Windows.System.User: ...
@@ -334,7 +337,6 @@ class IUserProfilePersonalizationSettingsStatics(ComPtr):
     Current = property(get_Current, None)
 class LockScreen(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.UserProfile.LockScreen'
     @winrt_classmethod
     def RequestSetImageFeedAsync(cls: Windows.System.UserProfile.ILockScreenImageFeedStatics, syndicationFeedUri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetImageFeedResult]: ...
     @winrt_classmethod
@@ -361,7 +363,6 @@ SetImageFeedResult_ChangeDisabled: SetImageFeedResult = 1
 SetImageFeedResult_UserCanceled: SetImageFeedResult = 2
 class UserInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.UserProfile.UserInformation'
     @winrt_classmethod
     def get_AccountPictureChangeEnabled(cls: Windows.System.UserProfile.IUserInformationStatics) -> Boolean: ...
     @winrt_classmethod
@@ -398,6 +399,7 @@ UserProfileContract: UInt32 = 131072
 UserProfileLockScreenContract: UInt32 = 65536
 class UserProfilePersonalizationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.UserProfile.IUserProfilePersonalizationSettings
     _classid_ = 'Windows.System.UserProfile.UserProfilePersonalizationSettings'
     @winrt_mixinmethod
     def TrySetLockScreenImageAsync(self: Windows.System.UserProfile.IUserProfilePersonalizationSettings, imageFile: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncOperation[Boolean]: ...

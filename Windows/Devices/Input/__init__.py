@@ -190,6 +190,7 @@ class ITouchCapabilities(ComPtr):
     Contacts = property(get_Contacts, None)
 class KeyboardCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IKeyboardCapabilities
     _classid_ = 'Windows.Devices.Input.KeyboardCapabilities'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Input.KeyboardCapabilities: ...
@@ -198,6 +199,7 @@ class KeyboardCapabilities(ComPtr):
     KeyboardPresent = property(get_KeyboardPresent, None)
 class MouseCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IMouseCapabilities
     _classid_ = 'Windows.Devices.Input.MouseCapabilities'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Input.MouseCapabilities: ...
@@ -221,6 +223,7 @@ class MouseDelta(EasyCastStructure):
     Y: Int32
 class MouseDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IMouseDevice
     _classid_ = 'Windows.Devices.Input.MouseDevice'
     @winrt_mixinmethod
     def add_MouseMoved(self: Windows.Devices.Input.IMouseDevice, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Input.MouseDevice, Windows.Devices.Input.MouseEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -230,12 +233,14 @@ class MouseDevice(ComPtr):
     def GetForCurrentView(cls: Windows.Devices.Input.IMouseDeviceStatics) -> Windows.Devices.Input.MouseDevice: ...
 class MouseEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IMouseEventArgs
     _classid_ = 'Windows.Devices.Input.MouseEventArgs'
     @winrt_mixinmethod
     def get_MouseDelta(self: Windows.Devices.Input.IMouseEventArgs) -> Windows.Devices.Input.MouseDelta: ...
     MouseDelta = property(get_MouseDelta, None)
 class PenButtonListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPenButtonListener
     _classid_ = 'Windows.Devices.Input.PenButtonListener'
     @winrt_mixinmethod
     def IsSupported(self: Windows.Devices.Input.IPenButtonListener) -> Boolean: ...
@@ -259,6 +264,7 @@ class PenButtonListener(ComPtr):
     def GetDefault(cls: Windows.Devices.Input.IPenButtonListenerStatics) -> Windows.Devices.Input.PenButtonListener: ...
 class PenDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPenDevice
     _classid_ = 'Windows.Devices.Input.PenDevice'
     @winrt_mixinmethod
     def get_PenId(self: Windows.Devices.Input.IPenDevice) -> Guid: ...
@@ -270,6 +276,7 @@ class PenDevice(ComPtr):
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class PenDockListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPenDockListener
     _classid_ = 'Windows.Devices.Input.PenDockListener'
     @winrt_mixinmethod
     def IsSupported(self: Windows.Devices.Input.IPenDockListener) -> Boolean: ...
@@ -289,21 +296,27 @@ class PenDockListener(ComPtr):
     def GetDefault(cls: Windows.Devices.Input.IPenDockListenerStatics) -> Windows.Devices.Input.PenDockListener: ...
 class PenDockedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPenDockedEventArgs
     _classid_ = 'Windows.Devices.Input.PenDockedEventArgs'
 class PenTailButtonClickedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPenTailButtonClickedEventArgs
     _classid_ = 'Windows.Devices.Input.PenTailButtonClickedEventArgs'
 class PenTailButtonDoubleClickedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPenTailButtonDoubleClickedEventArgs
     _classid_ = 'Windows.Devices.Input.PenTailButtonDoubleClickedEventArgs'
 class PenTailButtonLongPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPenTailButtonLongPressedEventArgs
     _classid_ = 'Windows.Devices.Input.PenTailButtonLongPressedEventArgs'
 class PenUndockedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPenUndockedEventArgs
     _classid_ = 'Windows.Devices.Input.PenUndockedEventArgs'
 class PointerDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.IPointerDevice
     _classid_ = 'Windows.Devices.Input.PointerDevice'
     @winrt_mixinmethod
     def get_PointerDeviceType(self: Windows.Devices.Input.IPointerDevice) -> Windows.Devices.Input.PointerDeviceType: ...
@@ -345,6 +358,7 @@ class PointerDeviceUsage(EasyCastStructure):
     PhysicalMultiplier: Single
 class TouchCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Input.ITouchCapabilities
     _classid_ = 'Windows.Devices.Input.TouchCapabilities'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Input.TouchCapabilities: ...

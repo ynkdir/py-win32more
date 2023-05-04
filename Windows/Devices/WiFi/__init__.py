@@ -203,6 +203,7 @@ WiFiAccessStatus_DeniedByUser: WiFiAccessStatus = 2
 WiFiAccessStatus_DeniedBySystem: WiFiAccessStatus = 3
 class WiFiAdapter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiAdapter
     _classid_ = 'Windows.Devices.WiFi.WiFiAdapter'
     @winrt_mixinmethod
     def get_NetworkAdapter(self: Windows.Devices.WiFi.IWiFiAdapter) -> Windows.Networking.Connectivity.NetworkAdapter: ...
@@ -238,6 +239,7 @@ class WiFiAdapter(ComPtr):
     NetworkReport = property(get_NetworkReport, None)
 class WiFiAvailableNetwork(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiAvailableNetwork
     _classid_ = 'Windows.Devices.WiFi.WiFiAvailableNetwork'
     @winrt_mixinmethod
     def get_Uptime(self: Windows.Devices.WiFi.IWiFiAvailableNetwork) -> Windows.Foundation.TimeSpan: ...
@@ -278,6 +280,7 @@ WiFiConnectionMethod_WpsPin: WiFiConnectionMethod = 1
 WiFiConnectionMethod_WpsPushButton: WiFiConnectionMethod = 2
 class WiFiConnectionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiConnectionResult
     _classid_ = 'Windows.Devices.WiFi.WiFiConnectionResult'
     @winrt_mixinmethod
     def get_ConnectionStatus(self: Windows.Devices.WiFi.IWiFiConnectionResult) -> Windows.Devices.WiFi.WiFiConnectionStatus: ...
@@ -296,6 +299,7 @@ WiFiNetworkKind_Infrastructure: WiFiNetworkKind = 1
 WiFiNetworkKind_Adhoc: WiFiNetworkKind = 2
 class WiFiNetworkReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiNetworkReport
     _classid_ = 'Windows.Devices.WiFi.WiFiNetworkReport'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Devices.WiFi.IWiFiNetworkReport) -> Windows.Foundation.DateTime: ...
@@ -335,6 +339,7 @@ WiFiOnDemandHotspotConnectStatus_PairingRequired: WiFiOnDemandHotspotConnectStat
 WiFiOnDemandHotspotConnectStatus_DataLimitReached: WiFiOnDemandHotspotConnectStatus = 18
 class WiFiOnDemandHotspotConnectTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiOnDemandHotspotConnectTriggerDetails
     _classid_ = 'Windows.Devices.WiFi.WiFiOnDemandHotspotConnectTriggerDetails'
     @winrt_mixinmethod
     def get_RequestedNetwork(self: Windows.Devices.WiFi.IWiFiOnDemandHotspotConnectTriggerDetails) -> Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork: ...
@@ -347,12 +352,14 @@ class WiFiOnDemandHotspotConnectTriggerDetails(ComPtr):
     RequestedNetwork = property(get_RequestedNetwork, None)
 class WiFiOnDemandHotspotConnectionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiOnDemandHotspotConnectionResult
     _classid_ = 'Windows.Devices.WiFi.WiFiOnDemandHotspotConnectionResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.WiFi.IWiFiOnDemandHotspotConnectionResult) -> Windows.Devices.WiFi.WiFiOnDemandHotspotConnectStatus: ...
     Status = property(get_Status, None)
 class WiFiOnDemandHotspotNetwork(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiOnDemandHotspotNetwork
     _classid_ = 'Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork'
     @winrt_mixinmethod
     def GetProperties(self: Windows.Devices.WiFi.IWiFiOnDemandHotspotNetwork) -> Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties: ...
@@ -365,6 +372,7 @@ class WiFiOnDemandHotspotNetwork(ComPtr):
     Id = property(get_Id, None)
 class WiFiOnDemandHotspotNetworkProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiOnDemandHotspotNetworkProperties
     _classid_ = 'Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.Devices.WiFi.IWiFiOnDemandHotspotNetworkProperties) -> WinRT_String: ...
@@ -419,6 +427,7 @@ WiFiReconnectionKind_Automatic: WiFiReconnectionKind = 0
 WiFiReconnectionKind_Manual: WiFiReconnectionKind = 1
 class WiFiWpsConfigurationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFi.IWiFiWpsConfigurationResult
     _classid_ = 'Windows.Devices.WiFi.WiFiWpsConfigurationResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.WiFi.IWiFiWpsConfigurationResult) -> Windows.Devices.WiFi.WiFiWpsConfigurationStatus: ...

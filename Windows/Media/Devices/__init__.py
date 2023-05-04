@@ -29,6 +29,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AdvancedPhotoCaptureSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IAdvancedPhotoCaptureSettings
     _classid_ = 'Windows.Media.Devices.AdvancedPhotoCaptureSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Devices.AdvancedPhotoCaptureSettings: ...
@@ -39,6 +40,7 @@ class AdvancedPhotoCaptureSettings(ComPtr):
     Mode = property(get_Mode, put_Mode)
 class AdvancedPhotoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IAdvancedPhotoControl
     _classid_ = 'Windows.Media.Devices.AdvancedPhotoControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IAdvancedPhotoControl) -> Boolean: ...
@@ -58,6 +60,7 @@ AdvancedPhotoMode_Hdr: AdvancedPhotoMode = 2
 AdvancedPhotoMode_LowLight: AdvancedPhotoMode = 3
 class AudioDeviceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IAudioDeviceController
     _classid_ = 'Windows.Media.Devices.AudioDeviceController'
     @winrt_mixinmethod
     def put_Muted(self: Windows.Media.Devices.IAudioDeviceController, value: Boolean) -> Void: ...
@@ -77,6 +80,7 @@ class AudioDeviceController(ComPtr):
     VolumePercent = property(get_VolumePercent, put_VolumePercent)
 class AudioDeviceModule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IAudioDeviceModule
     _classid_ = 'Windows.Media.Devices.AudioDeviceModule'
     @winrt_mixinmethod
     def get_ClassId(self: Windows.Media.Devices.IAudioDeviceModule) -> WinRT_String: ...
@@ -97,6 +101,7 @@ class AudioDeviceModule(ComPtr):
     MinorVersion = property(get_MinorVersion, None)
 class AudioDeviceModuleNotificationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IAudioDeviceModuleNotificationEventArgs
     _classid_ = 'Windows.Media.Devices.AudioDeviceModuleNotificationEventArgs'
     @winrt_mixinmethod
     def get_Module(self: Windows.Media.Devices.IAudioDeviceModuleNotificationEventArgs) -> Windows.Media.Devices.AudioDeviceModule: ...
@@ -106,6 +111,7 @@ class AudioDeviceModuleNotificationEventArgs(ComPtr):
     NotificationData = property(get_NotificationData, None)
 class AudioDeviceModulesManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IAudioDeviceModulesManager
     _classid_ = 'Windows.Media.Devices.AudioDeviceModulesManager'
     @winrt_factorymethod
     def Create(cls: Windows.Media.Devices.IAudioDeviceModulesManagerFactory, deviceId: WinRT_String) -> Windows.Media.Devices.AudioDeviceModulesManager: ...
@@ -126,6 +132,7 @@ AutoFocusRange_Macro: AutoFocusRange = 1
 AutoFocusRange_Normal: AutoFocusRange = 2
 class CallControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.ICallControl
     _classid_ = 'Windows.Media.Devices.CallControl'
     @winrt_mixinmethod
     def IndicateNewIncomingCall(self: Windows.Media.Devices.ICallControl, enableRinger: Boolean, callerId: WinRT_String) -> UInt64: ...
@@ -175,6 +182,7 @@ class CallControlEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Media.Devices.CallControl) -> Void: ...
 class CameraOcclusionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.ICameraOcclusionInfo
     _classid_ = 'Windows.Media.Devices.CameraOcclusionInfo'
     @winrt_mixinmethod
     def GetState(self: Windows.Media.Devices.ICameraOcclusionInfo) -> Windows.Media.Devices.CameraOcclusionState: ...
@@ -189,6 +197,7 @@ CameraOcclusionKind_Lid: CameraOcclusionKind = 0
 CameraOcclusionKind_CameraHardware: CameraOcclusionKind = 1
 class CameraOcclusionState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.ICameraOcclusionState
     _classid_ = 'Windows.Media.Devices.CameraOcclusionState'
     @winrt_mixinmethod
     def get_IsOccluded(self: Windows.Media.Devices.ICameraOcclusionState) -> Boolean: ...
@@ -197,6 +206,7 @@ class CameraOcclusionState(ComPtr):
     IsOccluded = property(get_IsOccluded, None)
 class CameraOcclusionStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.ICameraOcclusionStateChangedEventArgs
     _classid_ = 'Windows.Media.Devices.CameraOcclusionStateChangedEventArgs'
     @winrt_mixinmethod
     def get_State(self: Windows.Media.Devices.ICameraOcclusionStateChangedEventArgs) -> Windows.Media.Devices.CameraOcclusionState: ...
@@ -235,6 +245,7 @@ ColorTemperaturePreset_Tungsten: ColorTemperaturePreset = 6
 ColorTemperaturePreset_Candlelight: ColorTemperaturePreset = 7
 class DefaultAudioCaptureDeviceChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IDefaultAudioDeviceChangedEventArgs
     _classid_ = 'Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.Devices.IDefaultAudioDeviceChangedEventArgs) -> WinRT_String: ...
@@ -244,6 +255,7 @@ class DefaultAudioCaptureDeviceChangedEventArgs(ComPtr):
     Role = property(get_Role, None)
 class DefaultAudioRenderDeviceChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IDefaultAudioDeviceChangedEventArgs
     _classid_ = 'Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.Devices.IDefaultAudioDeviceChangedEventArgs) -> WinRT_String: ...
@@ -253,6 +265,7 @@ class DefaultAudioRenderDeviceChangedEventArgs(ComPtr):
     Role = property(get_Role, None)
 class DialRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IDialRequestedEventArgs
     _classid_ = 'Windows.Media.Devices.DialRequestedEventArgs'
     @winrt_mixinmethod
     def Handled(self: Windows.Media.Devices.IDialRequestedEventArgs) -> Void: ...
@@ -267,6 +280,7 @@ class DialRequestedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.DialRequestedEventArgs) -> Void: ...
 class DigitalWindowBounds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IDigitalWindowBounds
     _classid_ = 'Windows.Media.Devices.DigitalWindowBounds'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Devices.DigitalWindowBounds: ...
@@ -287,6 +301,7 @@ class DigitalWindowBounds(ComPtr):
     Scale = property(get_Scale, put_Scale)
 class DigitalWindowCapability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IDigitalWindowCapability
     _classid_ = 'Windows.Media.Devices.DigitalWindowCapability'
     @winrt_mixinmethod
     def get_Width(self: Windows.Media.Devices.IDigitalWindowCapability) -> Int32: ...
@@ -308,6 +323,7 @@ class DigitalWindowCapability(ComPtr):
     NormalizedFieldOfViewLimit = property(get_NormalizedFieldOfViewLimit, None)
 class DigitalWindowControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IDigitalWindowControl
     _classid_ = 'Windows.Media.Devices.DigitalWindowControl'
     @winrt_mixinmethod
     def get_IsSupported(self: Windows.Media.Devices.IDigitalWindowControl) -> Boolean: ...
@@ -335,6 +351,7 @@ DigitalWindowMode_On: DigitalWindowMode = 1
 DigitalWindowMode_Auto: DigitalWindowMode = 2
 class ExposureCompensationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IExposureCompensationControl
     _classid_ = 'Windows.Media.Devices.ExposureCompensationControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IExposureCompensationControl) -> Boolean: ...
@@ -355,6 +372,7 @@ class ExposureCompensationControl(ComPtr):
     Value = property(get_Value, None)
 class ExposureControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IExposureControl
     _classid_ = 'Windows.Media.Devices.ExposureControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IExposureControl) -> Boolean: ...
@@ -380,6 +398,7 @@ class ExposureControl(ComPtr):
     Value = property(get_Value, None)
 class ExposurePriorityVideoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IExposurePriorityVideoControl
     _classid_ = 'Windows.Media.Devices.ExposurePriorityVideoControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IExposurePriorityVideoControl) -> Boolean: ...
@@ -391,6 +410,7 @@ class ExposurePriorityVideoControl(ComPtr):
     Enabled = property(get_Enabled, put_Enabled)
 class FlashControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IFlashControl
     _classid_ = 'Windows.Media.Devices.FlashControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IFlashControl) -> Boolean: ...
@@ -431,6 +451,7 @@ class FlashControl(ComPtr):
     AssistantLightEnabled = property(get_AssistantLightEnabled, put_AssistantLightEnabled)
 class FocusControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IFocusControl
     _classid_ = 'Windows.Media.Devices.FocusControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IFocusControl) -> Boolean: ...
@@ -502,6 +523,7 @@ FocusPreset_AutoInfinity: FocusPreset = 4
 FocusPreset_AutoHyperfocal: FocusPreset = 5
 class FocusSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IFocusSettings
     _classid_ = 'Windows.Media.Devices.FocusSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Devices.FocusSettings: ...
@@ -537,6 +559,7 @@ class FocusSettings(ComPtr):
     DisableDriverFallback = property(get_DisableDriverFallback, put_DisableDriverFallback)
 class HdrVideoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IHdrVideoControl
     _classid_ = 'Windows.Media.Devices.HdrVideoControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IHdrVideoControl) -> Boolean: ...
@@ -1604,6 +1627,7 @@ class IZoomSettings(ComPtr):
     Value = property(get_Value, put_Value)
 class InfraredTorchControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IInfraredTorchControl
     _classid_ = 'Windows.Media.Devices.InfraredTorchControl'
     @winrt_mixinmethod
     def get_IsSupported(self: Windows.Media.Devices.IInfraredTorchControl) -> Boolean: ...
@@ -1636,6 +1660,7 @@ InfraredTorchMode_On: InfraredTorchMode = 1
 InfraredTorchMode_AlternatingFrameIllumination: InfraredTorchMode = 2
 class IsoSpeedControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IIsoSpeedControl
     _classid_ = 'Windows.Media.Devices.IsoSpeedControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IIsoSpeedControl) -> Boolean: ...
@@ -1682,6 +1707,7 @@ IsoSpeedPreset_Iso12800: IsoSpeedPreset = 10
 IsoSpeedPreset_Iso25600: IsoSpeedPreset = 11
 class KeypadPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IKeypadPressedEventArgs
     _classid_ = 'Windows.Media.Devices.KeypadPressedEventArgs'
     @winrt_mixinmethod
     def get_TelephonyKey(self: Windows.Media.Devices.IKeypadPressedEventArgs) -> Windows.Media.Devices.TelephonyKey: ...
@@ -1694,6 +1720,7 @@ class KeypadPressedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.KeypadPressedEventArgs) -> Void: ...
 class LowLagPhotoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.ILowLagPhotoControl
     _classid_ = 'Windows.Media.Devices.LowLagPhotoControl'
     @winrt_mixinmethod
     def GetHighestConcurrentFrameRate(self: Windows.Media.Devices.ILowLagPhotoControl, captureProperties: Windows.Media.MediaProperties.IMediaEncodingProperties) -> Windows.Media.MediaProperties.MediaRatio: ...
@@ -1719,6 +1746,7 @@ class LowLagPhotoControl(ComPtr):
     HardwareAcceleratedThumbnailSupported = property(get_HardwareAcceleratedThumbnailSupported, None)
 class LowLagPhotoSequenceControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.ILowLagPhotoSequenceControl
     _classid_ = 'Windows.Media.Devices.LowLagPhotoSequenceControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.ILowLagPhotoSequenceControl) -> Boolean: ...
@@ -1784,7 +1812,6 @@ MediaCapturePauseBehavior_RetainHardwareResources: MediaCapturePauseBehavior = 0
 MediaCapturePauseBehavior_ReleaseHardwareResources: MediaCapturePauseBehavior = 1
 class MediaDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.Devices.MediaDevice'
     @winrt_classmethod
     def GetAudioCaptureSelector(cls: Windows.Media.Devices.IMediaDeviceStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -1805,6 +1832,7 @@ class MediaDevice(ComPtr):
     def remove_DefaultAudioRenderDeviceChanged(cls: Windows.Media.Devices.IMediaDeviceStatics, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class MediaDeviceControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IMediaDeviceControl
     _classid_ = 'Windows.Media.Devices.MediaDeviceControl'
     @winrt_mixinmethod
     def get_Capabilities(self: Windows.Media.Devices.IMediaDeviceControl) -> Windows.Media.Devices.MediaDeviceControlCapabilities: ...
@@ -1819,6 +1847,7 @@ class MediaDeviceControl(ComPtr):
     Capabilities = property(get_Capabilities, None)
 class MediaDeviceControlCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IMediaDeviceControlCapabilities
     _classid_ = 'Windows.Media.Devices.MediaDeviceControlCapabilities'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IMediaDeviceControlCapabilities) -> Boolean: ...
@@ -1840,6 +1869,7 @@ class MediaDeviceControlCapabilities(ComPtr):
     AutoModeSupported = property(get_AutoModeSupported, None)
 class ModuleCommandResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IModuleCommandResult
     _classid_ = 'Windows.Media.Devices.ModuleCommandResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Media.Devices.IModuleCommandResult) -> Windows.Media.Devices.SendCommandStatus: ...
@@ -1849,6 +1879,7 @@ class ModuleCommandResult(ComPtr):
     Result = property(get_Result, None)
 class OpticalImageStabilizationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IOpticalImageStabilizationControl
     _classid_ = 'Windows.Media.Devices.OpticalImageStabilizationControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IOpticalImageStabilizationControl) -> Boolean: ...
@@ -1867,6 +1898,7 @@ OpticalImageStabilizationMode_On: OpticalImageStabilizationMode = 1
 OpticalImageStabilizationMode_Auto: OpticalImageStabilizationMode = 2
 class PanelBasedOptimizationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IPanelBasedOptimizationControl
     _classid_ = 'Windows.Media.Devices.PanelBasedOptimizationControl'
     @winrt_mixinmethod
     def get_IsSupported(self: Windows.Media.Devices.IPanelBasedOptimizationControl) -> Boolean: ...
@@ -1878,6 +1910,7 @@ class PanelBasedOptimizationControl(ComPtr):
     Panel = property(get_Panel, put_Panel)
 class PhotoConfirmationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IPhotoConfirmationControl
     _classid_ = 'Windows.Media.Devices.PhotoConfirmationControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IPhotoConfirmationControl) -> Boolean: ...
@@ -1894,6 +1927,7 @@ class PhotoConfirmationControl(ComPtr):
     PixelFormat = property(get_PixelFormat, put_PixelFormat)
 class RedialRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IRedialRequestedEventArgs
     _classid_ = 'Windows.Media.Devices.RedialRequestedEventArgs'
     @winrt_mixinmethod
     def Handled(self: Windows.Media.Devices.IRedialRequestedEventArgs) -> Void: ...
@@ -1905,6 +1939,7 @@ class RedialRequestedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.RedialRequestedEventArgs) -> Void: ...
 class RegionOfInterest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IRegionOfInterest
     _classid_ = 'Windows.Media.Devices.RegionOfInterest'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Devices.RegionOfInterest: ...
@@ -1948,6 +1983,7 @@ RegionOfInterestType_Unknown: RegionOfInterestType = 0
 RegionOfInterestType_Face: RegionOfInterestType = 1
 class RegionsOfInterestControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IRegionsOfInterestControl
     _classid_ = 'Windows.Media.Devices.RegionsOfInterestControl'
     @winrt_mixinmethod
     def get_MaxRegions(self: Windows.Media.Devices.IRegionsOfInterestControl) -> UInt32: ...
@@ -1969,6 +2005,7 @@ class RegionsOfInterestControl(ComPtr):
     AutoExposureSupported = property(get_AutoExposureSupported, None)
 class SceneModeControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.ISceneModeControl
     _classid_ = 'Windows.Media.Devices.SceneModeControl'
     @winrt_mixinmethod
     def get_SupportedModes(self: Windows.Media.Devices.ISceneModeControl) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Devices.CaptureSceneMode]: ...
@@ -2000,6 +2037,7 @@ TelephonyKey_C: TelephonyKey = 14
 TelephonyKey_D: TelephonyKey = 15
 class TorchControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.ITorchControl
     _classid_ = 'Windows.Media.Devices.TorchControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.ITorchControl) -> Boolean: ...
@@ -2019,6 +2057,7 @@ class TorchControl(ComPtr):
     PowerPercent = property(get_PowerPercent, put_PowerPercent)
 class VideoDeviceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IVideoDeviceController
     _classid_ = 'Windows.Media.Devices.VideoDeviceController'
     @winrt_mixinmethod
     def get_Brightness(self: Windows.Media.Devices.IVideoDeviceController) -> Windows.Media.Devices.MediaDeviceControl: ...
@@ -2161,6 +2200,7 @@ class VideoDeviceController(ComPtr):
     CameraOcclusionInfo = property(get_CameraOcclusionInfo, None)
 class VideoDeviceControllerGetDevicePropertyResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IVideoDeviceControllerGetDevicePropertyResult
     _classid_ = 'Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Media.Devices.IVideoDeviceControllerGetDevicePropertyResult) -> Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyStatus: ...
@@ -2185,6 +2225,7 @@ VideoDeviceControllerSetDevicePropertyStatus_DeviceNotAvailable: VideoDeviceCont
 VideoDeviceControllerSetDevicePropertyStatus_NotInControl: VideoDeviceControllerSetDevicePropertyStatus = 5
 class VideoTemporalDenoisingControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IVideoTemporalDenoisingControl
     _classid_ = 'Windows.Media.Devices.VideoTemporalDenoisingControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IVideoTemporalDenoisingControl) -> Boolean: ...
@@ -2203,6 +2244,7 @@ VideoTemporalDenoisingMode_On: VideoTemporalDenoisingMode = 1
 VideoTemporalDenoisingMode_Auto: VideoTemporalDenoisingMode = 2
 class WhiteBalanceControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IWhiteBalanceControl
     _classid_ = 'Windows.Media.Devices.WhiteBalanceControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IWhiteBalanceControl) -> Boolean: ...
@@ -2228,6 +2270,7 @@ class WhiteBalanceControl(ComPtr):
     Value = property(get_Value, None)
 class ZoomControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IZoomControl
     _classid_ = 'Windows.Media.Devices.ZoomControl'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.IZoomControl) -> Boolean: ...
@@ -2256,6 +2299,7 @@ class ZoomControl(ComPtr):
     Mode = property(get_Mode, None)
 class ZoomSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Devices.IZoomSettings
     _classid_ = 'Windows.Media.Devices.ZoomSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Devices.ZoomSettings: ...

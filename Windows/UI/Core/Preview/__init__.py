@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CoreAppWindowPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Core.Preview.ICoreAppWindowPreview
     _classid_ = 'Windows.UI.Core.Preview.CoreAppWindowPreview'
     @winrt_classmethod
     def GetIdFromWindow(cls: Windows.UI.Core.Preview.ICoreAppWindowPreviewStatics, window: Windows.UI.WindowManagement.AppWindow) -> Int32: ...
@@ -59,6 +60,7 @@ class ISystemNavigationManagerPreviewStatics(ComPtr):
     def GetForCurrentView(self) -> Windows.UI.Core.Preview.SystemNavigationManagerPreview: ...
 class SystemNavigationCloseRequestedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Core.Preview.ISystemNavigationCloseRequestedPreviewEventArgs
     _classid_ = 'Windows.UI.Core.Preview.SystemNavigationCloseRequestedPreviewEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.UI.Core.Preview.ISystemNavigationCloseRequestedPreviewEventArgs) -> Boolean: ...
@@ -69,6 +71,7 @@ class SystemNavigationCloseRequestedPreviewEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class SystemNavigationManagerPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Core.Preview.ISystemNavigationManagerPreview
     _classid_ = 'Windows.UI.Core.Preview.SystemNavigationManagerPreview'
     @winrt_mixinmethod
     def add_CloseRequested(self: Windows.UI.Core.Preview.ISystemNavigationManagerPreview, handler: Windows.Foundation.EventHandler[Windows.UI.Core.Preview.SystemNavigationCloseRequestedPreviewEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...

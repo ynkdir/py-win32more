@@ -84,6 +84,7 @@ class IShareOperation3(ComPtr):
     Contacts = property(get_Contacts, None)
 class QuickLink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.DataTransfer.ShareTarget.IQuickLink
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.QuickLink'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.DataTransfer.ShareTarget.QuickLink: ...
@@ -110,6 +111,7 @@ class QuickLink(ComPtr):
     SupportedFileTypes = property(get_SupportedFileTypes, None)
 class ShareOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation'
     @winrt_mixinmethod
     def get_Data(self: Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation) -> Windows.ApplicationModel.DataTransfer.DataPackageView: ...

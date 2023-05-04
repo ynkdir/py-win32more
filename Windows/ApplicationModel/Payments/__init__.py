@@ -424,6 +424,7 @@ class IPaymentTokenFactory(ComPtr):
     def CreateWithJsonDetails(self, paymentMethodId: WinRT_String, jsonDetails: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentToken: ...
 class PaymentAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentAddress
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentAddress'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Payments.PaymentAddress: ...
@@ -487,6 +488,7 @@ class PaymentAddress(ComPtr):
     Properties = property(get_Properties, None)
 class PaymentCanMakePaymentResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResult
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResultFactory, value: Windows.ApplicationModel.Payments.PaymentCanMakePaymentResultStatus) -> Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult: ...
@@ -503,6 +505,7 @@ PaymentCanMakePaymentResultStatus_SpecifiedPaymentMethodIdsNotSupported: Payment
 PaymentCanMakePaymentResultStatus_NoQualifyingCardOnFile: PaymentCanMakePaymentResultStatus = 6
 class PaymentCurrencyAmount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentCurrencyAmount
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentCurrencyAmount'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentCurrencyAmountFactory, value: WinRT_String, currency: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentCurrencyAmount: ...
@@ -525,6 +528,7 @@ class PaymentCurrencyAmount(ComPtr):
     Value = property(get_Value, put_Value)
 class PaymentDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentDetails
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentDetails'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentDetailsFactory, total: Windows.ApplicationModel.Payments.PaymentItem) -> Windows.ApplicationModel.Payments.PaymentDetails: ...
@@ -554,6 +558,7 @@ class PaymentDetails(ComPtr):
     Modifiers = property(get_Modifiers, put_Modifiers)
 class PaymentDetailsModifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentDetailsModifier
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentDetailsModifier'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentDetailsModifierFactory, supportedMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String], total: Windows.ApplicationModel.Payments.PaymentItem) -> Windows.ApplicationModel.Payments.PaymentDetailsModifier: ...
@@ -575,6 +580,7 @@ class PaymentDetailsModifier(ComPtr):
     AdditionalDisplayItems = property(get_AdditionalDisplayItems, None)
 class PaymentItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentItem
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentItem'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentItemFactory, label: WinRT_String, amount: Windows.ApplicationModel.Payments.PaymentCurrencyAmount) -> Windows.ApplicationModel.Payments.PaymentItem: ...
@@ -595,6 +601,7 @@ class PaymentItem(ComPtr):
     Pending = property(get_Pending, put_Pending)
 class PaymentMediator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentMediator
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentMediator'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Payments.PaymentMediator: ...
@@ -608,6 +615,7 @@ class PaymentMediator(ComPtr):
     def CanMakePaymentAsync(self: Windows.ApplicationModel.Payments.IPaymentMediator2, paymentRequest: Windows.ApplicationModel.Payments.PaymentRequest) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult]: ...
 class PaymentMerchantInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentMerchantInfo
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentMerchantInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Payments.PaymentMerchantInfo: ...
@@ -621,6 +629,7 @@ class PaymentMerchantInfo(ComPtr):
     Uri = property(get_Uri, None)
 class PaymentMethodData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentMethodData
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentMethodData'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentMethodDataFactory, supportedMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.ApplicationModel.Payments.PaymentMethodData: ...
@@ -638,6 +647,7 @@ PaymentOptionPresence_Optional: PaymentOptionPresence = 1
 PaymentOptionPresence_Required: PaymentOptionPresence = 2
 class PaymentOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentOptions
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Payments.PaymentOptions: ...
@@ -668,6 +678,7 @@ class PaymentOptions(ComPtr):
     ShippingType = property(get_ShippingType, put_ShippingType)
 class PaymentRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentRequest
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentRequest'
     @winrt_factorymethod
     def CreateWithMerchantInfoOptionsAndId(cls: Windows.ApplicationModel.Payments.IPaymentRequestFactory2, details: Windows.ApplicationModel.Payments.PaymentDetails, methodData: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Payments.PaymentMethodData], merchantInfo: Windows.ApplicationModel.Payments.PaymentMerchantInfo, options: Windows.ApplicationModel.Payments.PaymentOptions, id: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentRequest: ...
@@ -697,6 +708,7 @@ PaymentRequestChangeKind_ShippingOption: PaymentRequestChangeKind = 0
 PaymentRequestChangeKind_ShippingAddress: PaymentRequestChangeKind = 1
 class PaymentRequestChangedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentRequestChangedArgs
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentRequestChangedArgs'
     @winrt_mixinmethod
     def get_ChangeKind(self: Windows.ApplicationModel.Payments.IPaymentRequestChangedArgs) -> Windows.ApplicationModel.Payments.PaymentRequestChangeKind: ...
@@ -717,6 +729,7 @@ class PaymentRequestChangedHandler(ComPtr):
     def Invoke(self, paymentRequest: Windows.ApplicationModel.Payments.PaymentRequest, args: Windows.ApplicationModel.Payments.PaymentRequestChangedArgs) -> Void: ...
 class PaymentRequestChangedResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentRequestChangedResult
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentRequestChangedResult'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentRequestChangedResultFactory, changeAcceptedByMerchant: Boolean) -> Windows.ApplicationModel.Payments.PaymentRequestChangedResult: ...
@@ -747,6 +760,7 @@ PaymentRequestStatus_Failed: PaymentRequestStatus = 1
 PaymentRequestStatus_Canceled: PaymentRequestStatus = 2
 class PaymentRequestSubmitResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentRequestSubmitResult
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentRequestSubmitResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.ApplicationModel.Payments.IPaymentRequestSubmitResult) -> Windows.ApplicationModel.Payments.PaymentRequestStatus: ...
@@ -756,6 +770,7 @@ class PaymentRequestSubmitResult(ComPtr):
     Response = property(get_Response, None)
 class PaymentResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentResponse
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentResponse'
     @winrt_mixinmethod
     def get_PaymentToken(self: Windows.ApplicationModel.Payments.IPaymentResponse) -> Windows.ApplicationModel.Payments.PaymentToken: ...
@@ -779,6 +794,7 @@ class PaymentResponse(ComPtr):
     PayerPhoneNumber = property(get_PayerPhoneNumber, None)
 class PaymentShippingOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentShippingOption
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentShippingOption'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentShippingOptionFactory, label: WinRT_String, amount: Windows.ApplicationModel.Payments.PaymentCurrencyAmount) -> Windows.ApplicationModel.Payments.PaymentShippingOption: ...
@@ -812,6 +828,7 @@ PaymentShippingType_Delivery: PaymentShippingType = 1
 PaymentShippingType_Pickup: PaymentShippingType = 2
 class PaymentToken(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Payments.IPaymentToken
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentToken'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Payments.IPaymentTokenFactory, paymentMethodId: WinRT_String) -> Windows.ApplicationModel.Payments.PaymentToken: ...

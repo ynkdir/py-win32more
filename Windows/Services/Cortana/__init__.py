@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CortanaActionableInsights(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Services.Cortana.ICortanaActionableInsights
     _classid_ = 'Windows.Services.Cortana.CortanaActionableInsights'
     @winrt_mixinmethod
     def get_User(self: Windows.Services.Cortana.ICortanaActionableInsights) -> Windows.System.User: ...
@@ -51,6 +52,7 @@ class CortanaActionableInsights(ComPtr):
     User = property(get_User, None)
 class CortanaActionableInsightsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Services.Cortana.ICortanaActionableInsightsOptions
     _classid_ = 'Windows.Services.Cortana.CortanaActionableInsightsOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Services.Cortana.CortanaActionableInsightsOptions: ...
@@ -82,6 +84,7 @@ CortanaPermissionsChangeResult_Unavailable: CortanaPermissionsChangeResult = 1
 CortanaPermissionsChangeResult_DisabledByPolicy: CortanaPermissionsChangeResult = 2
 class CortanaPermissionsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Services.Cortana.ICortanaPermissionsManager
     _classid_ = 'Windows.Services.Cortana.CortanaPermissionsManager'
     @winrt_mixinmethod
     def IsSupported(self: Windows.Services.Cortana.ICortanaPermissionsManager) -> Boolean: ...
@@ -95,6 +98,7 @@ class CortanaPermissionsManager(ComPtr):
     def GetDefault(cls: Windows.Services.Cortana.ICortanaPermissionsManagerStatics) -> Windows.Services.Cortana.CortanaPermissionsManager: ...
 class CortanaSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Services.Cortana.ICortanaSettings
     _classid_ = 'Windows.Services.Cortana.CortanaSettings'
     @winrt_mixinmethod
     def get_HasUserConsentToVoiceActivation(self: Windows.Services.Cortana.ICortanaSettings) -> Boolean: ...

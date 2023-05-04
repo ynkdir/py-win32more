@@ -30,6 +30,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DisplayAdapter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayAdapter
     _classid_ = 'Windows.Devices.Display.Core.DisplayAdapter'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.Display.Core.IDisplayAdapter) -> Windows.Graphics.DisplayAdapterId: ...
@@ -67,6 +68,7 @@ DisplayBitsPerChannel_Bpc14: DisplayBitsPerChannel = 16
 DisplayBitsPerChannel_Bpc16: DisplayBitsPerChannel = 32
 class DisplayDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayDevice
     _classid_ = 'Windows.Devices.Display.Core.DisplayDevice'
     @winrt_mixinmethod
     def CreateScanoutSource(self: Windows.Devices.Display.Core.IDisplayDevice, target: Windows.Devices.Display.Core.DisplayTarget) -> Windows.Devices.Display.Core.DisplaySource: ...
@@ -88,9 +90,11 @@ DisplayDeviceCapability = Int32
 DisplayDeviceCapability_FlipOverride: DisplayDeviceCapability = 0
 class DisplayFence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayFence
     _classid_ = 'Windows.Devices.Display.Core.DisplayFence'
 class DisplayManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayManager
     _classid_ = 'Windows.Devices.Display.Core.DisplayManager'
     @winrt_mixinmethod
     def GetCurrentTargets(self: Windows.Devices.Display.Core.IDisplayManager) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Display.Core.DisplayTarget]: ...
@@ -136,6 +140,7 @@ class DisplayManager(ComPtr):
     def Create(cls: Windows.Devices.Display.Core.IDisplayManagerStatics, options: Windows.Devices.Display.Core.DisplayManagerOptions) -> Windows.Devices.Display.Core.DisplayManager: ...
 class DisplayManagerChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayManagerChangedEventArgs
     _classid_ = 'Windows.Devices.Display.Core.DisplayManagerChangedEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.Devices.Display.Core.IDisplayManagerChangedEventArgs) -> Boolean: ...
@@ -146,6 +151,7 @@ class DisplayManagerChangedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class DisplayManagerDisabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayManagerDisabledEventArgs
     _classid_ = 'Windows.Devices.Display.Core.DisplayManagerDisabledEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.Devices.Display.Core.IDisplayManagerDisabledEventArgs) -> Boolean: ...
@@ -156,6 +162,7 @@ class DisplayManagerDisabledEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class DisplayManagerEnabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayManagerEnabledEventArgs
     _classid_ = 'Windows.Devices.Display.Core.DisplayManagerEnabledEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.Devices.Display.Core.IDisplayManagerEnabledEventArgs) -> Boolean: ...
@@ -170,6 +177,7 @@ DisplayManagerOptions_EnforceSourceOwnership: DisplayManagerOptions = 1
 DisplayManagerOptions_VirtualRefreshRateAware: DisplayManagerOptions = 2
 class DisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayManagerPathsFailedOrInvalidatedEventArgs
     _classid_ = 'Windows.Devices.Display.Core.DisplayManagerPathsFailedOrInvalidatedEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.Devices.Display.Core.IDisplayManagerPathsFailedOrInvalidatedEventArgs) -> Boolean: ...
@@ -186,6 +194,7 @@ DisplayManagerResult_TargetStale: DisplayManagerResult = 3
 DisplayManagerResult_RemoteSessionNotSupported: DisplayManagerResult = 4
 class DisplayManagerResultWithState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayManagerResultWithState
     _classid_ = 'Windows.Devices.Display.Core.DisplayManagerResultWithState'
     @winrt_mixinmethod
     def get_ErrorCode(self: Windows.Devices.Display.Core.IDisplayManagerResultWithState) -> Windows.Devices.Display.Core.DisplayManagerResult: ...
@@ -198,6 +207,7 @@ class DisplayManagerResultWithState(ComPtr):
     State = property(get_State, None)
 class DisplayModeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayModeInfo
     _classid_ = 'Windows.Devices.Display.Core.DisplayModeInfo'
     @winrt_mixinmethod
     def get_SourceResolution(self: Windows.Devices.Display.Core.IDisplayModeInfo) -> Windows.Graphics.SizeInt32: ...
@@ -232,6 +242,7 @@ DisplayModeQueryOptions_None: DisplayModeQueryOptions = 0
 DisplayModeQueryOptions_OnlyPreferredResolution: DisplayModeQueryOptions = 1
 class DisplayPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayPath
     _classid_ = 'Windows.Devices.Display.Core.DisplayPath'
     @winrt_mixinmethod
     def get_View(self: Windows.Devices.Display.Core.IDisplayPath) -> Windows.Devices.Display.Core.DisplayView: ...
@@ -325,6 +336,7 @@ class DisplayPresentationRate(EasyCastStructure):
     VerticalSyncsPerPresentation: Int32
 class DisplayPrimaryDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayPrimaryDescription
     _classid_ = 'Windows.Devices.Display.Core.DisplayPrimaryDescription'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Devices.Display.Core.IDisplayPrimaryDescriptionFactory, width: UInt32, height: UInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
@@ -358,12 +370,14 @@ DisplayRotation_Clockwise180Degrees: DisplayRotation = 2
 DisplayRotation_Clockwise270Degrees: DisplayRotation = 3
 class DisplayScanout(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayScanout
     _classid_ = 'Windows.Devices.Display.Core.DisplayScanout'
 DisplayScanoutOptions = UInt32
 DisplayScanoutOptions_None: DisplayScanoutOptions = 0
 DisplayScanoutOptions_AllowTearing: DisplayScanoutOptions = 2
 class DisplaySource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplaySource
     _classid_ = 'Windows.Devices.Display.Core.DisplaySource'
     @winrt_mixinmethod
     def get_AdapterId(self: Windows.Devices.Display.Core.IDisplaySource) -> Windows.Graphics.DisplayAdapterId: ...
@@ -388,6 +402,7 @@ DisplaySourceStatus_OwnedByAnotherDevice: DisplaySourceStatus = 3
 DisplaySourceStatus_Unowned: DisplaySourceStatus = 4
 class DisplayState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayState
     _classid_ = 'Windows.Devices.Display.Core.DisplayState'
     @winrt_mixinmethod
     def get_IsReadOnly(self: Windows.Devices.Display.Core.IDisplayState) -> Boolean: ...
@@ -433,6 +448,7 @@ DisplayStateFunctionalizeOptions_FailIfStateChanged: DisplayStateFunctionalizeOp
 DisplayStateFunctionalizeOptions_ValidateTopologyOnly: DisplayStateFunctionalizeOptions = 2
 class DisplayStateOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayStateOperationResult
     _classid_ = 'Windows.Devices.Display.Core.DisplayStateOperationResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Display.Core.IDisplayStateOperationResult) -> Windows.Devices.Display.Core.DisplayStateOperationStatus: ...
@@ -451,9 +467,11 @@ DisplayStateOperationStatus_ModesNotSupported: DisplayStateOperationStatus = 6
 DisplayStateOperationStatus_RemoteSessionNotSupported: DisplayStateOperationStatus = 7
 class DisplaySurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplaySurface
     _classid_ = 'Windows.Devices.Display.Core.DisplaySurface'
 class DisplayTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayTarget
     _classid_ = 'Windows.Devices.Display.Core.DisplayTarget'
     @winrt_mixinmethod
     def get_Adapter(self: Windows.Devices.Display.Core.IDisplayTarget) -> Windows.Devices.Display.Core.DisplayAdapter: ...
@@ -501,6 +519,7 @@ DisplayTargetPersistence_TemporaryPersisted: DisplayTargetPersistence = 2
 DisplayTargetPersistence_PathPersisted: DisplayTargetPersistence = 3
 class DisplayTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayTask
     _classid_ = 'Windows.Devices.Display.Core.DisplayTask'
     @winrt_mixinmethod
     def SetScanout(self: Windows.Devices.Display.Core.IDisplayTask, scanout: Windows.Devices.Display.Core.DisplayScanout) -> Void: ...
@@ -510,6 +529,7 @@ class DisplayTask(ComPtr):
     def SetSignal(self: Windows.Devices.Display.Core.IDisplayTask2, signalKind: Windows.Devices.Display.Core.DisplayTaskSignalKind, fence: Windows.Devices.Display.Core.DisplayFence) -> Void: ...
 class DisplayTaskPool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayTaskPool
     _classid_ = 'Windows.Devices.Display.Core.DisplayTaskPool'
     @winrt_mixinmethod
     def CreateTask(self: Windows.Devices.Display.Core.IDisplayTaskPool) -> Windows.Devices.Display.Core.DisplayTask: ...
@@ -519,6 +539,7 @@ class DisplayTaskPool(ComPtr):
     def TryExecuteTask(self: Windows.Devices.Display.Core.IDisplayTaskPool2, task: Windows.Devices.Display.Core.DisplayTask) -> Windows.Devices.Display.Core.DisplayTaskResult: ...
 class DisplayTaskResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayTaskResult
     _classid_ = 'Windows.Devices.Display.Core.DisplayTaskResult'
     @winrt_mixinmethod
     def get_PresentStatus(self: Windows.Devices.Display.Core.IDisplayTaskResult) -> Windows.Devices.Display.Core.DisplayPresentStatus: ...
@@ -534,6 +555,7 @@ DisplayTaskSignalKind_OnPresentFlipAway: DisplayTaskSignalKind = 0
 DisplayTaskSignalKind_OnPresentFlipTo: DisplayTaskSignalKind = 1
 class DisplayView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayView
     _classid_ = 'Windows.Devices.Display.Core.DisplayView'
     @winrt_mixinmethod
     def get_Paths(self: Windows.Devices.Display.Core.IDisplayView) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Display.Core.DisplayPath]: ...
@@ -550,6 +572,7 @@ class DisplayView(ComPtr):
     Properties = property(get_Properties, None)
 class DisplayWireFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Display.Core.IDisplayWireFormat
     _classid_ = 'Windows.Devices.Display.Core.DisplayWireFormat'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Devices.Display.Core.IDisplayWireFormatFactory, pixelEncoding: Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> Windows.Devices.Display.Core.DisplayWireFormat: ...

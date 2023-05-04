@@ -162,6 +162,7 @@ InkAnalysisDrawingKind_Pentagon: InkAnalysisDrawingKind = 13
 InkAnalysisDrawingKind_Hexagon: InkAnalysisDrawingKind = 14
 class InkAnalysisInkBullet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisInkBullet'
     @winrt_mixinmethod
     def get_RecognizedText(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet) -> WinRT_String: ...
@@ -188,6 +189,7 @@ class InkAnalysisInkBullet(ComPtr):
     Parent = property(get_Parent, None)
 class InkAnalysisInkDrawing(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisInkDrawing
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisInkDrawing'
     @winrt_mixinmethod
     def get_DrawingKind(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisInkDrawing) -> Windows.UI.Input.Inking.Analysis.InkAnalysisDrawingKind: ...
@@ -220,6 +222,7 @@ class InkAnalysisInkDrawing(ComPtr):
     Parent = property(get_Parent, None)
 class InkAnalysisInkWord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisInkWord'
     @winrt_mixinmethod
     def get_RecognizedText(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord) -> WinRT_String: ...
@@ -249,6 +252,7 @@ class InkAnalysisInkWord(ComPtr):
     Parent = property(get_Parent, None)
 class InkAnalysisLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisLine
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisLine'
     @winrt_mixinmethod
     def get_RecognizedText(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisLine) -> WinRT_String: ...
@@ -278,6 +282,7 @@ class InkAnalysisLine(ComPtr):
     Parent = property(get_Parent, None)
 class InkAnalysisListItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisListItem
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisListItem'
     @winrt_mixinmethod
     def get_RecognizedText(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisListItem) -> WinRT_String: ...
@@ -304,6 +309,7 @@ class InkAnalysisListItem(ComPtr):
     Parent = property(get_Parent, None)
 class InkAnalysisNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisNode
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisNode'
     @winrt_mixinmethod
     def get_Id(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisNode) -> UInt32: ...
@@ -337,6 +343,7 @@ InkAnalysisNodeKind_InkDrawing: InkAnalysisNodeKind = 7
 InkAnalysisNodeKind_ListItem: InkAnalysisNodeKind = 8
 class InkAnalysisParagraph(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisParagraph
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisParagraph'
     @winrt_mixinmethod
     def get_RecognizedText(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisParagraph) -> WinRT_String: ...
@@ -363,12 +370,14 @@ class InkAnalysisParagraph(ComPtr):
     Parent = property(get_Parent, None)
 class InkAnalysisResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisResult
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisResult) -> Windows.UI.Input.Inking.Analysis.InkAnalysisStatus: ...
     Status = property(get_Status, None)
 class InkAnalysisRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisRoot
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisRoot'
     @winrt_mixinmethod
     def get_RecognizedText(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisRoot) -> WinRT_String: ...
@@ -404,6 +413,7 @@ InkAnalysisStrokeKind_Writing: InkAnalysisStrokeKind = 1
 InkAnalysisStrokeKind_Drawing: InkAnalysisStrokeKind = 2
 class InkAnalysisWritingRegion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisWritingRegion'
     @winrt_mixinmethod
     def get_RecognizedText(self: Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion) -> WinRT_String: ...
@@ -430,6 +440,7 @@ class InkAnalysisWritingRegion(ComPtr):
     Parent = property(get_Parent, None)
 class InkAnalyzer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Analysis.IInkAnalyzer
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalyzer'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Inking.Analysis.InkAnalyzer: ...

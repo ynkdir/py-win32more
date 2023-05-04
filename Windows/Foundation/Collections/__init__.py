@@ -166,6 +166,7 @@ class MapChangedEventHandler(Generic[K, V], ComPtr):
     def Invoke(self, sender: Windows.Foundation.Collections.IObservableMap[K, V], event: Windows.Foundation.Collections.IMapChangedEventArgs[K]) -> Void: ...
 class PropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Foundation.Collections.PropertySet'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Collections.PropertySet: ...
@@ -192,6 +193,7 @@ class PropertySet(ComPtr):
     Size = property(get_Size, None)
 class StringMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]
     _classid_ = 'Windows.Foundation.Collections.StringMap'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Collections.StringMap: ...
@@ -218,6 +220,7 @@ class StringMap(ComPtr):
     Size = property(get_Size, None)
 class ValueSet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Foundation.Collections.ValueSet'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Collections.ValueSet: ...

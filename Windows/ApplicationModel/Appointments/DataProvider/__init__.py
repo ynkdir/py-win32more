@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppointmentCalendarCancelMeetingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequest'
     @winrt_mixinmethod
     def get_AppointmentCalendarLocalId(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequest) -> WinRT_String: ...
@@ -50,6 +51,7 @@ class AppointmentCalendarCancelMeetingRequest(ComPtr):
     NotifyInvitees = property(get_NotifyInvitees, None)
 class AppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequestEventArgs) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequest: ...
@@ -58,6 +60,7 @@ class AppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class AppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequest'
     @winrt_mixinmethod
     def get_AppointmentCalendarLocalId(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequest) -> WinRT_String: ...
@@ -77,6 +80,7 @@ class AppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
     ChangedProperties = property(get_ChangedProperties, None)
 class AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequest: ...
@@ -85,6 +89,7 @@ class AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class AppointmentCalendarForwardMeetingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest'
     @winrt_mixinmethod
     def get_AppointmentCalendarLocalId(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequest) -> WinRT_String: ...
@@ -113,6 +118,7 @@ class AppointmentCalendarForwardMeetingRequest(ComPtr):
     Comment = property(get_Comment, None)
 class AppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequestEventArgs) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest: ...
@@ -121,6 +127,7 @@ class AppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class AppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequest'
     @winrt_mixinmethod
     def get_AppointmentCalendarLocalId(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequest) -> WinRT_String: ...
@@ -149,6 +156,7 @@ class AppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
     Comment = property(get_Comment, None)
 class AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequest: ...
@@ -157,6 +165,7 @@ class AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class AppointmentCalendarSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequest'
     @winrt_mixinmethod
     def get_AppointmentCalendarLocalId(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequest) -> WinRT_String: ...
@@ -167,6 +176,7 @@ class AppointmentCalendarSyncManagerSyncRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
 class AppointmentCalendarSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequestEventArgs) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequest: ...
@@ -175,6 +185,7 @@ class AppointmentCalendarSyncManagerSyncRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class AppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequest'
     @winrt_mixinmethod
     def get_AppointmentCalendarLocalId(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequest) -> WinRT_String: ...
@@ -203,6 +214,7 @@ class AppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
     SendUpdate = property(get_SendUpdate, None)
 class AppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequestEventArgs) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequest: ...
@@ -211,6 +223,7 @@ class AppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class AppointmentDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderConnection
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderConnection'
     @winrt_mixinmethod
     def add_SyncRequested(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderConnection, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderConnection, Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -240,6 +253,7 @@ class AppointmentDataProviderConnection(ComPtr):
     def Start(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderConnection) -> Void: ...
 class AppointmentDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Connection(self: Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderTriggerDetails) -> Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderConnection: ...

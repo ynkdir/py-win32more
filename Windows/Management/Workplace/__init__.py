@@ -44,7 +44,6 @@ class IWorkplaceSettingsStatics(ComPtr):
     IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional, None)
 class MdmPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Management.Workplace.MdmPolicy'
     @winrt_classmethod
     def GetMessagingSyncPolicy(cls: Windows.Management.Workplace.IMdmPolicyStatics2) -> Windows.Management.Workplace.MessagingSyncPolicy: ...
     @winrt_classmethod
@@ -61,7 +60,6 @@ MessagingSyncPolicy_Allowed: MessagingSyncPolicy = 1
 MessagingSyncPolicy_Required: MessagingSyncPolicy = 2
 class WorkplaceSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Management.Workplace.WorkplaceSettings'
     @winrt_classmethod
     def get_IsMicrosoftAccountOptional(cls: Windows.Management.Workplace.IWorkplaceSettingsStatics) -> Boolean: ...
     IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional, None)

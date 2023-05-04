@@ -33,7 +33,6 @@ class ISystemProtectionUnlockStatics(ComPtr):
     def RequestScreenUnlock(self) -> Void: ...
 class SystemProtection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.System.SystemProtection'
     @winrt_classmethod
     def RequestScreenUnlock(cls: Windows.Phone.System.ISystemProtectionUnlockStatics) -> Void: ...
     @winrt_classmethod

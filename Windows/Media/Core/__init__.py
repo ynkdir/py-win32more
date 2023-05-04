@@ -52,6 +52,7 @@ AudioDecoderDegradationReason_LicensingRequirement: AudioDecoderDegradationReaso
 AudioDecoderDegradationReason_SpatialAudioNotSupported: AudioDecoderDegradationReason = 2
 class AudioStreamDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IAudioStreamDescriptor
     _classid_ = 'Windows.Media.Core.AudioStreamDescriptor'
     @winrt_factorymethod
     def Create(cls: Windows.Media.Core.IAudioStreamDescriptorFactory, encodingProperties: Windows.Media.MediaProperties.AudioEncodingProperties) -> Windows.Media.Core.AudioStreamDescriptor: ...
@@ -90,6 +91,7 @@ class AudioStreamDescriptor(ComPtr):
     Label = property(get_Label, put_Label)
 class AudioTrack(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaTrack
     _classid_ = 'Windows.Media.Core.AudioTrack'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.Core.IMediaTrack) -> WinRT_String: ...
@@ -122,12 +124,14 @@ class AudioTrack(ComPtr):
     SupportInfo = property(get_SupportInfo, None)
 class AudioTrackOpenFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IAudioTrackOpenFailedEventArgs
     _classid_ = 'Windows.Media.Core.AudioTrackOpenFailedEventArgs'
     @winrt_mixinmethod
     def get_ExtendedError(self: Windows.Media.Core.IAudioTrackOpenFailedEventArgs) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class AudioTrackSupportInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IAudioTrackSupportInfo
     _classid_ = 'Windows.Media.Core.AudioTrackSupportInfo'
     @winrt_mixinmethod
     def get_DecoderStatus(self: Windows.Media.Core.IAudioTrackSupportInfo) -> Windows.Media.Core.MediaDecoderStatus: ...
@@ -143,6 +147,7 @@ class AudioTrackSupportInfo(ComPtr):
     MediaSourceStatus = property(get_MediaSourceStatus, None)
 class ChapterCue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IChapterCue
     _classid_ = 'Windows.Media.Core.ChapterCue'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.ChapterCue: ...
@@ -171,6 +176,7 @@ CodecCategory_Encoder: CodecCategory = 0
 CodecCategory_Decoder: CodecCategory = 1
 class CodecInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ICodecInfo
     _classid_ = 'Windows.Media.Core.CodecInfo'
     @winrt_mixinmethod
     def get_Kind(self: Windows.Media.Core.ICodecInfo) -> Windows.Media.Core.CodecKind: ...
@@ -192,6 +198,7 @@ CodecKind_Audio: CodecKind = 0
 CodecKind_Video: CodecKind = 1
 class CodecQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ICodecQuery
     _classid_ = 'Windows.Media.Core.CodecQuery'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.CodecQuery: ...
@@ -199,7 +206,6 @@ class CodecQuery(ComPtr):
     def FindAllAsync(self: Windows.Media.Core.ICodecQuery, kind: Windows.Media.Core.CodecKind, category: Windows.Media.Core.CodecCategory, subType: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Media.Core.CodecInfo]]: ...
 class CodecSubtypes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.Core.CodecSubtypes'
     @winrt_classmethod
     def get_VideoFormatDV25(cls: Windows.Media.Core.ICodecSubtypesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -355,6 +361,7 @@ class CodecSubtypes(ComPtr):
     AudioFormatWMAudioV9 = property(get_AudioFormatWMAudioV9, None)
 class DataCue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IDataCue
     _classid_ = 'Windows.Media.Core.DataCue'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.DataCue: ...
@@ -383,12 +390,14 @@ class DataCue(ComPtr):
     Properties = property(get_Properties, None)
 class FaceDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IFaceDetectedEventArgs
     _classid_ = 'Windows.Media.Core.FaceDetectedEventArgs'
     @winrt_mixinmethod
     def get_ResultFrame(self: Windows.Media.Core.IFaceDetectedEventArgs) -> Windows.Media.Core.FaceDetectionEffectFrame: ...
     ResultFrame = property(get_ResultFrame, None)
 class FaceDetectionEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IFaceDetectionEffect
     _classid_ = 'Windows.Media.Core.FaceDetectionEffect'
     @winrt_mixinmethod
     def put_Enabled(self: Windows.Media.Core.IFaceDetectionEffect, value: Boolean) -> Void: ...
@@ -408,6 +417,7 @@ class FaceDetectionEffect(ComPtr):
     DesiredDetectionInterval = property(get_DesiredDetectionInterval, put_DesiredDetectionInterval)
 class FaceDetectionEffectDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.FaceDetectionEffectDefinition'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.FaceDetectionEffectDefinition: ...
@@ -429,6 +439,7 @@ class FaceDetectionEffectDefinition(ComPtr):
     SynchronousDetectionEnabled = property(get_SynchronousDetectionEnabled, put_SynchronousDetectionEnabled)
 class FaceDetectionEffectFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IFaceDetectionEffectFrame
     _classid_ = 'Windows.Media.Core.FaceDetectionEffectFrame'
     @winrt_mixinmethod
     def get_DetectedFaces(self: Windows.Media.Core.IFaceDetectionEffectFrame) -> Windows.Foundation.Collections.IVectorView[Windows.Media.FaceAnalysis.DetectedFace]: ...
@@ -470,6 +481,7 @@ FaceDetectionMode_Balanced: FaceDetectionMode = 1
 FaceDetectionMode_HighQuality: FaceDetectionMode = 2
 class HighDynamicRangeControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IHighDynamicRangeControl
     _classid_ = 'Windows.Media.Core.HighDynamicRangeControl'
     @winrt_mixinmethod
     def put_Enabled(self: Windows.Media.Core.IHighDynamicRangeControl, value: Boolean) -> Void: ...
@@ -478,6 +490,7 @@ class HighDynamicRangeControl(ComPtr):
     Enabled = property(get_Enabled, put_Enabled)
 class HighDynamicRangeOutput(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IHighDynamicRangeOutput
     _classid_ = 'Windows.Media.Core.HighDynamicRangeOutput'
     @winrt_mixinmethod
     def get_Certainty(self: Windows.Media.Core.IHighDynamicRangeOutput) -> Double: ...
@@ -1978,6 +1991,7 @@ class IVideoTrackSupportInfo(ComPtr):
     MediaSourceStatus = property(get_MediaSourceStatus, None)
 class ImageCue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IImageCue
     _classid_ = 'Windows.Media.Core.ImageCue'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.ImageCue: ...
@@ -2013,6 +2027,7 @@ class ImageCue(ComPtr):
     Id = property(get_Id, put_Id)
 class InitializeMediaStreamSourceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IInitializeMediaStreamSourceRequestedEventArgs
     _classid_ = 'Windows.Media.Core.InitializeMediaStreamSourceRequestedEventArgs'
     @winrt_mixinmethod
     def get_Source(self: Windows.Media.Core.IInitializeMediaStreamSourceRequestedEventArgs) -> Windows.Media.Core.MediaStreamSource: ...
@@ -2024,7 +2039,6 @@ class InitializeMediaStreamSourceRequestedEventArgs(ComPtr):
     RandomAccessStream = property(get_RandomAccessStream, None)
 class LowLightFusion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.Core.LowLightFusion'
     @winrt_classmethod
     def get_SupportedBitmapPixelFormats(cls: Windows.Media.Core.ILowLightFusionStatics) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Imaging.BitmapPixelFormat]: ...
     @winrt_classmethod
@@ -2035,6 +2049,7 @@ class LowLightFusion(ComPtr):
     MaxSupportedFrameCount = property(get_MaxSupportedFrameCount, None)
 class LowLightFusionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ILowLightFusionResult
     _classid_ = 'Windows.Media.Core.LowLightFusionResult'
     @winrt_mixinmethod
     def get_Frame(self: Windows.Media.Core.ILowLightFusionResult) -> Windows.Graphics.Imaging.SoftwareBitmap: ...
@@ -2043,6 +2058,7 @@ class LowLightFusionResult(ComPtr):
     Frame = property(get_Frame, None)
 class MediaBinder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaBinder
     _classid_ = 'Windows.Media.Core.MediaBinder'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.MediaBinder: ...
@@ -2060,6 +2076,7 @@ class MediaBinder(ComPtr):
     Source = property(get_Source, None)
 class MediaBindingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaBindingEventArgs
     _classid_ = 'Windows.Media.Core.MediaBindingEventArgs'
     @winrt_mixinmethod
     def add_Canceled(self: Windows.Media.Core.IMediaBindingEventArgs, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Core.MediaBindingEventArgs, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -2084,6 +2101,7 @@ class MediaBindingEventArgs(ComPtr):
     MediaBinder = property(get_MediaBinder, None)
 class MediaCueEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaCueEventArgs
     _classid_ = 'Windows.Media.Core.MediaCueEventArgs'
     @winrt_mixinmethod
     def get_Cue(self: Windows.Media.Core.IMediaCueEventArgs) -> Windows.Media.Core.IMediaCue: ...
@@ -2095,6 +2113,7 @@ MediaDecoderStatus_UnsupportedEncoderProperties: MediaDecoderStatus = 2
 MediaDecoderStatus_Degraded: MediaDecoderStatus = 3
 class MediaSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaSource2
     _classid_ = 'Windows.Media.Core.MediaSource'
     @winrt_mixinmethod
     def add_OpenOperationCompleted(self: Windows.Media.Core.IMediaSource2, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Core.MediaSource, Windows.Media.Core.MediaSourceOpenOperationCompletedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -2167,6 +2186,7 @@ class MediaSource(ComPtr):
     DownloadOperation = property(get_DownloadOperation, None)
 class MediaSourceAppServiceConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaSourceAppServiceConnection
     _classid_ = 'Windows.Media.Core.MediaSourceAppServiceConnection'
     @winrt_factorymethod
     def Create(cls: Windows.Media.Core.IMediaSourceAppServiceConnectionFactory, appServiceConnection: Windows.ApplicationModel.AppService.AppServiceConnection) -> Windows.Media.Core.MediaSourceAppServiceConnection: ...
@@ -2178,12 +2198,14 @@ class MediaSourceAppServiceConnection(ComPtr):
     def Start(self: Windows.Media.Core.IMediaSourceAppServiceConnection) -> Void: ...
 class MediaSourceError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaSourceError
     _classid_ = 'Windows.Media.Core.MediaSourceError'
     @winrt_mixinmethod
     def get_ExtendedError(self: Windows.Media.Core.IMediaSourceError) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class MediaSourceOpenOperationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaSourceOpenOperationCompletedEventArgs
     _classid_ = 'Windows.Media.Core.MediaSourceOpenOperationCompletedEventArgs'
     @winrt_mixinmethod
     def get_Error(self: Windows.Media.Core.IMediaSourceOpenOperationCompletedEventArgs) -> Windows.Media.Core.MediaSourceError: ...
@@ -2196,6 +2218,7 @@ MediaSourceState_Failed: MediaSourceState = 3
 MediaSourceState_Closed: MediaSourceState = 4
 class MediaSourceStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaSourceStateChangedEventArgs
     _classid_ = 'Windows.Media.Core.MediaSourceStateChangedEventArgs'
     @winrt_mixinmethod
     def get_OldState(self: Windows.Media.Core.IMediaSourceStateChangedEventArgs) -> Windows.Media.Core.MediaSourceState: ...
@@ -2208,6 +2231,7 @@ MediaSourceStatus_FullySupported: MediaSourceStatus = 0
 MediaSourceStatus_Unknown: MediaSourceStatus = 1
 class MediaStreamSample(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSample
     _classid_ = 'Windows.Media.Core.MediaStreamSample'
     @winrt_mixinmethod
     def add_Processed(self: Windows.Media.Core.IMediaStreamSample, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Core.MediaStreamSample, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -2256,6 +2280,7 @@ class MediaStreamSample(ComPtr):
     Direct3D11Surface = property(get_Direct3D11Surface, None)
 class MediaStreamSamplePropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IMap[Guid, Windows.Win32.System.WinRT.IInspectable_head]
     _classid_ = 'Windows.Media.Core.MediaStreamSamplePropertySet'
     @winrt_mixinmethod
     def Lookup(self: Windows.Foundation.Collections.IMap[Guid, Windows.Win32.System.WinRT.IInspectable_head], key: Guid) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -2276,6 +2301,7 @@ class MediaStreamSamplePropertySet(ComPtr):
     Size = property(get_Size, None)
 class MediaStreamSampleProtectionProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSampleProtectionProperties
     _classid_ = 'Windows.Media.Core.MediaStreamSampleProtectionProperties'
     @winrt_mixinmethod
     def SetKeyIdentifier(self: Windows.Media.Core.IMediaStreamSampleProtectionProperties, value: c_char_p_no) -> Void: ...
@@ -2291,6 +2317,7 @@ class MediaStreamSampleProtectionProperties(ComPtr):
     def GetSubSampleMapping(self: Windows.Media.Core.IMediaStreamSampleProtectionProperties, value: POINTER(c_char_p_no)) -> Void: ...
 class MediaStreamSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSource
     _classid_ = 'Windows.Media.Core.MediaStreamSource'
     @winrt_factorymethod
     def CreateFromDescriptor(cls: Windows.Media.Core.IMediaStreamSourceFactory, descriptor: Windows.Media.Core.IMediaStreamDescriptor) -> Windows.Media.Core.MediaStreamSource: ...
@@ -2371,6 +2398,7 @@ class MediaStreamSource(ComPtr):
     IsLive = property(get_IsLive, put_IsLive)
 class MediaStreamSourceClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceClosedEventArgs
     _classid_ = 'Windows.Media.Core.MediaStreamSourceClosedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Media.Core.IMediaStreamSourceClosedEventArgs) -> Windows.Media.Core.MediaStreamSourceClosedRequest: ...
@@ -2385,6 +2413,7 @@ MediaStreamSourceClosedReason_UnsupportedEncodingFormat: MediaStreamSourceClosed
 MediaStreamSourceClosedReason_MissingSampleRequestedEventHandler: MediaStreamSourceClosedReason = 6
 class MediaStreamSourceClosedRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceClosedRequest
     _classid_ = 'Windows.Media.Core.MediaStreamSourceClosedRequest'
     @winrt_mixinmethod
     def get_Reason(self: Windows.Media.Core.IMediaStreamSourceClosedRequest) -> Windows.Media.Core.MediaStreamSourceClosedReason: ...
@@ -2400,12 +2429,14 @@ MediaStreamSourceErrorStatus_DecodeError: MediaStreamSourceErrorStatus = 6
 MediaStreamSourceErrorStatus_UnsupportedMediaFormat: MediaStreamSourceErrorStatus = 7
 class MediaStreamSourceSampleRenderedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceSampleRenderedEventArgs
     _classid_ = 'Windows.Media.Core.MediaStreamSourceSampleRenderedEventArgs'
     @winrt_mixinmethod
     def get_SampleLag(self: Windows.Media.Core.IMediaStreamSourceSampleRenderedEventArgs) -> Windows.Foundation.TimeSpan: ...
     SampleLag = property(get_SampleLag, None)
 class MediaStreamSourceSampleRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceSampleRequest
     _classid_ = 'Windows.Media.Core.MediaStreamSourceSampleRequest'
     @winrt_mixinmethod
     def get_StreamDescriptor(self: Windows.Media.Core.IMediaStreamSourceSampleRequest) -> Windows.Media.Core.IMediaStreamDescriptor: ...
@@ -2421,23 +2452,27 @@ class MediaStreamSourceSampleRequest(ComPtr):
     Sample = property(get_Sample, put_Sample)
 class MediaStreamSourceSampleRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceSampleRequestDeferral
     _classid_ = 'Windows.Media.Core.MediaStreamSourceSampleRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Media.Core.IMediaStreamSourceSampleRequestDeferral) -> Void: ...
 class MediaStreamSourceSampleRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceSampleRequestedEventArgs
     _classid_ = 'Windows.Media.Core.MediaStreamSourceSampleRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Media.Core.IMediaStreamSourceSampleRequestedEventArgs) -> Windows.Media.Core.MediaStreamSourceSampleRequest: ...
     Request = property(get_Request, None)
 class MediaStreamSourceStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceStartingEventArgs
     _classid_ = 'Windows.Media.Core.MediaStreamSourceStartingEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Media.Core.IMediaStreamSourceStartingEventArgs) -> Windows.Media.Core.MediaStreamSourceStartingRequest: ...
     Request = property(get_Request, None)
 class MediaStreamSourceStartingRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceStartingRequest
     _classid_ = 'Windows.Media.Core.MediaStreamSourceStartingRequest'
     @winrt_mixinmethod
     def get_StartPosition(self: Windows.Media.Core.IMediaStreamSourceStartingRequest) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
@@ -2448,11 +2483,13 @@ class MediaStreamSourceStartingRequest(ComPtr):
     StartPosition = property(get_StartPosition, None)
 class MediaStreamSourceStartingRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceStartingRequestDeferral
     _classid_ = 'Windows.Media.Core.MediaStreamSourceStartingRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Media.Core.IMediaStreamSourceStartingRequestDeferral) -> Void: ...
 class MediaStreamSourceSwitchStreamsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequest
     _classid_ = 'Windows.Media.Core.MediaStreamSourceSwitchStreamsRequest'
     @winrt_mixinmethod
     def get_OldStreamDescriptor(self: Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequest) -> Windows.Media.Core.IMediaStreamDescriptor: ...
@@ -2464,11 +2501,13 @@ class MediaStreamSourceSwitchStreamsRequest(ComPtr):
     NewStreamDescriptor = property(get_NewStreamDescriptor, None)
 class MediaStreamSourceSwitchStreamsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequestDeferral
     _classid_ = 'Windows.Media.Core.MediaStreamSourceSwitchStreamsRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequestDeferral) -> Void: ...
 class MediaStreamSourceSwitchStreamsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequestedEventArgs
     _classid_ = 'Windows.Media.Core.MediaStreamSourceSwitchStreamsRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequestedEventArgs) -> Windows.Media.Core.MediaStreamSourceSwitchStreamsRequest: ...
@@ -2491,6 +2530,7 @@ MseReadyState_Open: MseReadyState = 1
 MseReadyState_Ended: MseReadyState = 2
 class MseSourceBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMseSourceBuffer
     _classid_ = 'Windows.Media.Core.MseSourceBuffer'
     @winrt_mixinmethod
     def add_UpdateStarting(self: Windows.Media.Core.IMseSourceBuffer, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Core.MseSourceBuffer, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -2550,6 +2590,7 @@ class MseSourceBuffer(ComPtr):
     AppendWindowEnd = property(get_AppendWindowEnd, put_AppendWindowEnd)
 class MseSourceBufferList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMseSourceBufferList
     _classid_ = 'Windows.Media.Core.MseSourceBufferList'
     @winrt_mixinmethod
     def add_SourceBufferAdded(self: Windows.Media.Core.IMseSourceBufferList, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Core.MseSourceBufferList, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -2564,6 +2605,7 @@ class MseSourceBufferList(ComPtr):
     Buffers = property(get_Buffers, None)
 class MseStreamSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMseStreamSource
     _classid_ = 'Windows.Media.Core.MseStreamSource'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.MseStreamSource: ...
@@ -2611,6 +2653,7 @@ class MseTimeRange(EasyCastStructure):
     End: Windows.Foundation.TimeSpan
 class SceneAnalysisEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ISceneAnalysisEffect
     _classid_ = 'Windows.Media.Core.SceneAnalysisEffect'
     @winrt_mixinmethod
     def get_HighDynamicRangeAnalyzer(self: Windows.Media.Core.ISceneAnalysisEffect) -> Windows.Media.Core.HighDynamicRangeControl: ...
@@ -2628,6 +2671,7 @@ class SceneAnalysisEffect(ComPtr):
     DesiredAnalysisInterval = property(get_DesiredAnalysisInterval, put_DesiredAnalysisInterval)
 class SceneAnalysisEffectDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.SceneAnalysisEffectDefinition'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.SceneAnalysisEffectDefinition: ...
@@ -2639,6 +2683,7 @@ class SceneAnalysisEffectDefinition(ComPtr):
     Properties = property(get_Properties, None)
 class SceneAnalysisEffectFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ISceneAnalysisEffectFrame
     _classid_ = 'Windows.Media.Core.SceneAnalysisEffectFrame'
     @winrt_mixinmethod
     def get_FrameControlValues(self: Windows.Media.Core.ISceneAnalysisEffectFrame) -> Windows.Media.Capture.CapturedFrameControlValues: ...
@@ -2686,12 +2731,14 @@ SceneAnalysisRecommendation_Hdr: SceneAnalysisRecommendation = 1
 SceneAnalysisRecommendation_LowLight: SceneAnalysisRecommendation = 2
 class SceneAnalyzedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ISceneAnalyzedEventArgs
     _classid_ = 'Windows.Media.Core.SceneAnalyzedEventArgs'
     @winrt_mixinmethod
     def get_ResultFrame(self: Windows.Media.Core.ISceneAnalyzedEventArgs) -> Windows.Media.Core.SceneAnalysisEffectFrame: ...
     ResultFrame = property(get_ResultFrame, None)
 class SpeechCue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ISpeechCue
     _classid_ = 'Windows.Media.Core.SpeechCue'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.SpeechCue: ...
@@ -2736,6 +2783,7 @@ TimedMetadataKind_ImageSubtitle: TimedMetadataKind = 6
 TimedMetadataKind_Speech: TimedMetadataKind = 7
 class TimedMetadataStreamDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaStreamDescriptor
     _classid_ = 'Windows.Media.Core.TimedMetadataStreamDescriptor'
     @winrt_factorymethod
     def Create(cls: Windows.Media.Core.ITimedMetadataStreamDescriptorFactory, encodingProperties: Windows.Media.MediaProperties.TimedMetadataEncodingProperties) -> Windows.Media.Core.TimedMetadataStreamDescriptor: ...
@@ -2764,6 +2812,7 @@ class TimedMetadataStreamDescriptor(ComPtr):
     Language = property(get_Language, put_Language)
 class TimedMetadataTrack(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedMetadataTrack
     _classid_ = 'Windows.Media.Core.TimedMetadataTrack'
     @winrt_factorymethod
     def Create(cls: Windows.Media.Core.ITimedMetadataTrackFactory, id: WinRT_String, language: WinRT_String, kind: Windows.Media.Core.TimedMetadataKind) -> Windows.Media.Core.TimedMetadataTrack: ...
@@ -2817,6 +2866,7 @@ class TimedMetadataTrack(ComPtr):
     Name = property(get_Name, None)
 class TimedMetadataTrackError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedMetadataTrackError
     _classid_ = 'Windows.Media.Core.TimedMetadataTrackError'
     @winrt_mixinmethod
     def get_ErrorCode(self: Windows.Media.Core.ITimedMetadataTrackError) -> Windows.Media.Core.TimedMetadataTrackErrorCode: ...
@@ -2831,12 +2881,14 @@ TimedMetadataTrackErrorCode_NetworkError: TimedMetadataTrackErrorCode = 2
 TimedMetadataTrackErrorCode_InternalError: TimedMetadataTrackErrorCode = 3
 class TimedMetadataTrackFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedMetadataTrackFailedEventArgs
     _classid_ = 'Windows.Media.Core.TimedMetadataTrackFailedEventArgs'
     @winrt_mixinmethod
     def get_Error(self: Windows.Media.Core.ITimedMetadataTrackFailedEventArgs) -> Windows.Media.Core.TimedMetadataTrackError: ...
     Error = property(get_Error, None)
 class TimedTextBouten(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextBouten
     _classid_ = 'Windows.Media.Core.TimedTextBouten'
     @winrt_mixinmethod
     def get_Type(self: Windows.Media.Core.ITimedTextBouten) -> Windows.Media.Core.TimedTextBoutenType: ...
@@ -2868,6 +2920,7 @@ TimedTextBoutenType_FilledSesame: TimedTextBoutenType = 6
 TimedTextBoutenType_OpenSesame: TimedTextBoutenType = 7
 class TimedTextCue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextCue
     _classid_ = 'Windows.Media.Core.TimedTextCue'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.TimedTextCue: ...
@@ -2915,6 +2968,7 @@ TimedTextFontStyle_Oblique: TimedTextFontStyle = 1
 TimedTextFontStyle_Italic: TimedTextFontStyle = 2
 class TimedTextLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextLine
     _classid_ = 'Windows.Media.Core.TimedTextLine'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.TimedTextLine: ...
@@ -2942,6 +2996,7 @@ class TimedTextPoint(EasyCastStructure):
     Unit: Windows.Media.Core.TimedTextUnit
 class TimedTextRegion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextRegion
     _classid_ = 'Windows.Media.Core.TimedTextRegion'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.TimedTextRegion: ...
@@ -3007,6 +3062,7 @@ class TimedTextRegion(ComPtr):
     ScrollMode = property(get_ScrollMode, put_ScrollMode)
 class TimedTextRuby(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextRuby
     _classid_ = 'Windows.Media.Core.TimedTextRuby'
     @winrt_mixinmethod
     def get_Text(self: Windows.Media.Core.ITimedTextRuby) -> WinRT_String: ...
@@ -3054,6 +3110,7 @@ class TimedTextSize(EasyCastStructure):
     Unit: Windows.Media.Core.TimedTextUnit
 class TimedTextSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextSource
     _classid_ = 'Windows.Media.Core.TimedTextSource'
     @winrt_mixinmethod
     def add_Resolved(self: Windows.Media.Core.ITimedTextSource, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Core.TimedTextSource, Windows.Media.Core.TimedTextSourceResolveResultEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -3077,6 +3134,7 @@ class TimedTextSource(ComPtr):
     def CreateFromUriWithLanguage(cls: Windows.Media.Core.ITimedTextSourceStatics, uri: Windows.Foundation.Uri, defaultLanguage: WinRT_String) -> Windows.Media.Core.TimedTextSource: ...
 class TimedTextSourceResolveResultEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextSourceResolveResultEventArgs
     _classid_ = 'Windows.Media.Core.TimedTextSourceResolveResultEventArgs'
     @winrt_mixinmethod
     def get_Error(self: Windows.Media.Core.ITimedTextSourceResolveResultEventArgs) -> Windows.Media.Core.TimedMetadataTrackError: ...
@@ -3086,6 +3144,7 @@ class TimedTextSourceResolveResultEventArgs(ComPtr):
     Tracks = property(get_Tracks, None)
 class TimedTextStyle(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextStyle
     _classid_ = 'Windows.Media.Core.TimedTextStyle'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.TimedTextStyle: ...
@@ -3187,6 +3246,7 @@ class TimedTextStyle(ComPtr):
     FontAngleInDegrees = property(get_FontAngleInDegrees, put_FontAngleInDegrees)
 class TimedTextSubformat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.ITimedTextSubformat
     _classid_ = 'Windows.Media.Core.TimedTextSubformat'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.TimedTextSubformat: ...
@@ -3224,6 +3284,7 @@ TimedTextWritingMode_RightLeft: TimedTextWritingMode = 5
 TimedTextWritingMode_TopBottom: TimedTextWritingMode = 6
 class VideoStabilizationEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IVideoStabilizationEffect
     _classid_ = 'Windows.Media.Core.VideoStabilizationEffect'
     @winrt_mixinmethod
     def put_Enabled(self: Windows.Media.Core.IVideoStabilizationEffect, value: Boolean) -> Void: ...
@@ -3240,6 +3301,7 @@ class VideoStabilizationEffect(ComPtr):
     Enabled = property(get_Enabled, put_Enabled)
 class VideoStabilizationEffectDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.VideoStabilizationEffectDefinition'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Core.VideoStabilizationEffectDefinition: ...
@@ -3251,6 +3313,7 @@ class VideoStabilizationEffectDefinition(ComPtr):
     Properties = property(get_Properties, None)
 class VideoStabilizationEffectEnabledChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IVideoStabilizationEffectEnabledChangedEventArgs
     _classid_ = 'Windows.Media.Core.VideoStabilizationEffectEnabledChangedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.Media.Core.IVideoStabilizationEffectEnabledChangedEventArgs) -> Windows.Media.Core.VideoStabilizationEffectEnabledChangedReason: ...
@@ -3261,6 +3324,7 @@ VideoStabilizationEffectEnabledChangedReason_PixelRateTooHigh: VideoStabilizatio
 VideoStabilizationEffectEnabledChangedReason_RunningSlowly: VideoStabilizationEffectEnabledChangedReason = 2
 class VideoStreamDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IVideoStreamDescriptor
     _classid_ = 'Windows.Media.Core.VideoStreamDescriptor'
     @winrt_factorymethod
     def Create(cls: Windows.Media.Core.IVideoStreamDescriptorFactory, encodingProperties: Windows.Media.MediaProperties.VideoEncodingProperties) -> Windows.Media.Core.VideoStreamDescriptor: ...
@@ -3289,6 +3353,7 @@ class VideoStreamDescriptor(ComPtr):
     Label = property(get_Label, put_Label)
 class VideoTrack(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IMediaTrack
     _classid_ = 'Windows.Media.Core.VideoTrack'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.Core.IMediaTrack) -> WinRT_String: ...
@@ -3321,12 +3386,14 @@ class VideoTrack(ComPtr):
     SupportInfo = property(get_SupportInfo, None)
 class VideoTrackOpenFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IVideoTrackOpenFailedEventArgs
     _classid_ = 'Windows.Media.Core.VideoTrackOpenFailedEventArgs'
     @winrt_mixinmethod
     def get_ExtendedError(self: Windows.Media.Core.IVideoTrackOpenFailedEventArgs) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class VideoTrackSupportInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Core.IVideoTrackSupportInfo
     _classid_ = 'Windows.Media.Core.VideoTrackSupportInfo'
     @winrt_mixinmethod
     def get_DecoderStatus(self: Windows.Media.Core.IVideoTrackSupportInfo) -> Windows.Media.Core.MediaDecoderStatus: ...

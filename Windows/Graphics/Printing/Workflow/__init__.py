@@ -361,6 +361,7 @@ PrintWorkflowAttributesMergePolicy_MergePreferPsaOnConflict: PrintWorkflowAttrib
 PrintWorkflowAttributesMergePolicy_DoNotMergeWithPrintTicket: PrintWorkflowAttributesMergePolicy = 2
 class PrintWorkflowBackgroundSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowBackgroundSession
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSession'
     @winrt_mixinmethod
     def add_SetupRequested(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowBackgroundSession, setupEventHandler: Windows.Foundation.TypedEventHandler[Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSession, Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSetupRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -377,6 +378,7 @@ class PrintWorkflowBackgroundSession(ComPtr):
     Status = property(get_Status, None)
 class PrintWorkflowBackgroundSetupRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowBackgroundSetupRequestedEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSetupRequestedEventArgs'
     @winrt_mixinmethod
     def GetUserPrintTicketAsync(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowBackgroundSetupRequestedEventArgs) -> Windows.Foundation.IAsyncOperation[Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket]: ...
@@ -389,6 +391,7 @@ class PrintWorkflowBackgroundSetupRequestedEventArgs(ComPtr):
     Configuration = property(get_Configuration, None)
 class PrintWorkflowConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowConfiguration
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowConfiguration'
     @winrt_mixinmethod
     def AbortPrintFlow(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowConfiguration2, reason: Windows.Graphics.Printing.Workflow.PrintWorkflowJobAbortReason) -> Void: ...
@@ -403,6 +406,7 @@ class PrintWorkflowConfiguration(ComPtr):
     SessionId = property(get_SessionId, None)
 class PrintWorkflowForegroundSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSession
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSession'
     @winrt_mixinmethod
     def add_SetupRequested(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSession, setupEventHandler: Windows.Foundation.TypedEventHandler[Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSession, Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSetupRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -419,6 +423,7 @@ class PrintWorkflowForegroundSession(ComPtr):
     Status = property(get_Status, None)
 class PrintWorkflowForegroundSetupRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSetupRequestedEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSetupRequestedEventArgs'
     @winrt_mixinmethod
     def GetUserPrintTicketAsync(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSetupRequestedEventArgs) -> Windows.Foundation.IAsyncOperation[Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket]: ...
@@ -432,6 +437,7 @@ PrintWorkflowJobAbortReason_JobFailed: PrintWorkflowJobAbortReason = 0
 PrintWorkflowJobAbortReason_UserCanceled: PrintWorkflowJobAbortReason = 1
 class PrintWorkflowJobActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobActivatedEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowJobActivatedEventArgs'
     @winrt_mixinmethod
     def get_Session(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobActivatedEventArgs) -> Windows.Graphics.Printing.Workflow.PrintWorkflowJobUISession: ...
@@ -450,6 +456,7 @@ class PrintWorkflowJobActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class PrintWorkflowJobBackgroundSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobBackgroundSession
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowJobBackgroundSession'
     @winrt_mixinmethod
     def get_Status(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobBackgroundSession) -> Windows.Graphics.Printing.Workflow.PrintWorkflowSessionStatus: ...
@@ -466,6 +473,7 @@ class PrintWorkflowJobBackgroundSession(ComPtr):
     Status = property(get_Status, None)
 class PrintWorkflowJobNotificationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobNotificationEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowJobNotificationEventArgs'
     @winrt_mixinmethod
     def get_Configuration(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobNotificationEventArgs) -> Windows.Graphics.Printing.Workflow.PrintWorkflowConfiguration: ...
@@ -477,6 +485,7 @@ class PrintWorkflowJobNotificationEventArgs(ComPtr):
     PrinterJob = property(get_PrinterJob, None)
 class PrintWorkflowJobStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobStartingEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowJobStartingEventArgs'
     @winrt_mixinmethod
     def get_Configuration(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobStartingEventArgs) -> Windows.Graphics.Printing.Workflow.PrintWorkflowConfiguration: ...
@@ -490,12 +499,14 @@ class PrintWorkflowJobStartingEventArgs(ComPtr):
     Printer = property(get_Printer, None)
 class PrintWorkflowJobTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobTriggerDetails
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowJobTriggerDetails'
     @winrt_mixinmethod
     def get_PrintWorkflowJobSession(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobTriggerDetails) -> Windows.Graphics.Printing.Workflow.PrintWorkflowJobBackgroundSession: ...
     PrintWorkflowJobSession = property(get_PrintWorkflowJobSession, None)
 class PrintWorkflowJobUISession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobUISession
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowJobUISession'
     @winrt_mixinmethod
     def get_Status(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowJobUISession) -> Windows.Graphics.Printing.Workflow.PrintWorkflowSessionStatus: ...
@@ -512,11 +523,13 @@ class PrintWorkflowJobUISession(ComPtr):
     Status = property(get_Status, None)
 class PrintWorkflowObjectModelSourceFileContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelSourceFileContent
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelSourceFileContentFactory, xpsStream: Windows.Storage.Streams.IInputStream) -> Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent: ...
 class PrintWorkflowObjectModelTargetPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelTargetPackage
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelTargetPackage'
 PrintWorkflowPdlConversionType = Int32
 PrintWorkflowPdlConversionType_XpsToPdf: PrintWorkflowPdlConversionType = 0
@@ -524,6 +537,7 @@ PrintWorkflowPdlConversionType_XpsToPwgr: PrintWorkflowPdlConversionType = 1
 PrintWorkflowPdlConversionType_XpsToPclm: PrintWorkflowPdlConversionType = 2
 class PrintWorkflowPdlConverter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlConverter
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter'
     @winrt_mixinmethod
     def ConvertPdlAsync(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlConverter, printTicket: Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket, inputStream: Windows.Storage.Streams.IInputStream, outputStream: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncAction: ...
@@ -531,6 +545,7 @@ class PrintWorkflowPdlConverter(ComPtr):
     def ConvertPdlAsync(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlConverter, printTicket: Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket, inputStream: Windows.Storage.Streams.IInputStream, outputStream: Windows.Storage.Streams.IOutputStream, hostBasedProcessingOperations: Windows.Graphics.Printing.Workflow.PdlConversionHostBasedProcessingOperations) -> Windows.Foundation.IAsyncAction: ...
 class PrintWorkflowPdlDataAvailableEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlDataAvailableEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPdlDataAvailableEventArgs'
     @winrt_mixinmethod
     def get_Configuration(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlDataAvailableEventArgs) -> Windows.Graphics.Printing.Workflow.PrintWorkflowConfiguration: ...
@@ -545,6 +560,7 @@ class PrintWorkflowPdlDataAvailableEventArgs(ComPtr):
     SourceContent = property(get_SourceContent, None)
 class PrintWorkflowPdlModificationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs'
     @winrt_mixinmethod
     def get_Configuration(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs) -> Windows.Graphics.Printing.Workflow.PrintWorkflowConfiguration: ...
@@ -574,6 +590,7 @@ class PrintWorkflowPdlModificationRequestedEventArgs(ComPtr):
     UILauncher = property(get_UILauncher, None)
 class PrintWorkflowPdlSourceContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlSourceContent
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPdlSourceContent'
     @winrt_mixinmethod
     def get_ContentType(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlSourceContent) -> WinRT_String: ...
@@ -584,6 +601,7 @@ class PrintWorkflowPdlSourceContent(ComPtr):
     ContentType = property(get_ContentType, None)
 class PrintWorkflowPdlTargetStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlTargetStream
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream'
     @winrt_mixinmethod
     def GetOutputStream(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlTargetStream) -> Windows.Storage.Streams.IOutputStream: ...
@@ -591,6 +609,7 @@ class PrintWorkflowPdlTargetStream(ComPtr):
     def CompleteStreamSubmission(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlTargetStream, status: Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedStatus) -> Void: ...
 class PrintWorkflowPrinterJob(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowPrinterJob
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob'
     @winrt_mixinmethod
     def get_JobId(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowPrinterJob) -> Int32: ...
@@ -623,6 +642,7 @@ PrintWorkflowSessionStatus_Closed: PrintWorkflowSessionStatus = 3
 PrintWorkflowSessionStatus_PdlDataAvailableForModification: PrintWorkflowSessionStatus = 4
 class PrintWorkflowSourceContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowSourceContent
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowSourceContent'
     @winrt_mixinmethod
     def GetJobPrintTicketAsync(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowSourceContent) -> Windows.Foundation.IAsyncOperation[Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket]: ...
@@ -632,16 +652,19 @@ class PrintWorkflowSourceContent(ComPtr):
     def GetSourceSpoolDataAsXpsObjectModel(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowSourceContent) -> Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent: ...
 class PrintWorkflowSpoolStreamContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowSpoolStreamContent
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowSpoolStreamContent'
     @winrt_mixinmethod
     def GetInputStream(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowSpoolStreamContent) -> Windows.Storage.Streams.IInputStream: ...
 class PrintWorkflowStreamTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowStreamTarget
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowStreamTarget'
     @winrt_mixinmethod
     def GetOutputStream(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowStreamTarget) -> Windows.Storage.Streams.IOutputStream: ...
 class PrintWorkflowSubmittedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowSubmittedEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedEventArgs'
     @winrt_mixinmethod
     def get_Operation(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowSubmittedEventArgs) -> Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedOperation: ...
@@ -652,6 +675,7 @@ class PrintWorkflowSubmittedEventArgs(ComPtr):
     Operation = property(get_Operation, None)
 class PrintWorkflowSubmittedOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowSubmittedOperation
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedOperation'
     @winrt_mixinmethod
     def Complete(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowSubmittedOperation, status: Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedStatus) -> Void: ...
@@ -667,6 +691,7 @@ PrintWorkflowSubmittedStatus_Canceled: PrintWorkflowSubmittedStatus = 1
 PrintWorkflowSubmittedStatus_Failed: PrintWorkflowSubmittedStatus = 2
 class PrintWorkflowTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowTarget
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowTarget'
     @winrt_mixinmethod
     def get_TargetAsStream(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowTarget) -> Windows.Graphics.Printing.Workflow.PrintWorkflowStreamTarget: ...
@@ -676,12 +701,14 @@ class PrintWorkflowTarget(ComPtr):
     TargetAsXpsObjectModelPackage = property(get_TargetAsXpsObjectModelPackage, None)
 class PrintWorkflowTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowTriggerDetails
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowTriggerDetails'
     @winrt_mixinmethod
     def get_PrintWorkflowSession(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowTriggerDetails) -> Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSession: ...
     PrintWorkflowSession = property(get_PrintWorkflowSession, None)
 class PrintWorkflowUIActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowUIActivatedEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowUIActivatedEventArgs'
     @winrt_mixinmethod
     def get_PrintWorkflowSession(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowUIActivatedEventArgs) -> Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSession: ...
@@ -705,6 +732,7 @@ PrintWorkflowUICompletionStatus_JobFailed: PrintWorkflowUICompletionStatus = 2
 PrintWorkflowUICompletionStatus_UserCanceled: PrintWorkflowUICompletionStatus = 3
 class PrintWorkflowUILauncher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowUILauncher
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowUILauncher'
     @winrt_mixinmethod
     def IsUILaunchEnabled(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowUILauncher) -> Boolean: ...
@@ -712,6 +740,7 @@ class PrintWorkflowUILauncher(ComPtr):
     def LaunchAndCompleteUIAsync(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowUILauncher) -> Windows.Foundation.IAsyncOperation[Windows.Graphics.Printing.Workflow.PrintWorkflowUICompletionStatus]: ...
 class PrintWorkflowXpsDataAvailableEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.Workflow.IPrintWorkflowXpsDataAvailableEventArgs
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowXpsDataAvailableEventArgs'
     @winrt_mixinmethod
     def get_Operation(self: Windows.Graphics.Printing.Workflow.IPrintWorkflowXpsDataAvailableEventArgs) -> Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedOperation: ...

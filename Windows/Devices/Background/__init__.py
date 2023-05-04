@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DeviceServicingDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Background.IDeviceServicingDetails
     _classid_ = 'Windows.Devices.Background.DeviceServicingDetails'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Background.IDeviceServicingDetails) -> WinRT_String: ...
@@ -35,6 +36,7 @@ class DeviceServicingDetails(ComPtr):
     ExpectedDuration = property(get_ExpectedDuration, None)
 class DeviceUseDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Background.IDeviceUseDetails
     _classid_ = 'Windows.Devices.Background.DeviceUseDetails'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Background.IDeviceUseDetails) -> WinRT_String: ...

@@ -22,7 +22,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class ApplicationProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.ApplicationModel.ApplicationProfile'
     @winrt_classmethod
     def get_Modes(cls: Windows.Phone.ApplicationModel.IApplicationProfileStatics) -> Windows.Phone.ApplicationModel.ApplicationProfileModes: ...
     Modes = property(get_Modes, None)

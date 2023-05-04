@@ -31,6 +31,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AmbientLight(ComPtr):
     extends: Windows.UI.Composition.CompositionLight
+    default_interface: Windows.UI.Composition.IAmbientLight
     _classid_ = 'Windows.UI.Composition.AmbientLight'
     @winrt_mixinmethod
     def get_Color(self: Windows.UI.Composition.IAmbientLight) -> Windows.UI.Color: ...
@@ -44,6 +45,7 @@ class AmbientLight(ComPtr):
     Intensity = property(get_Intensity, put_Intensity)
 class AnimationController(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.IAnimationController
     _classid_ = 'Windows.UI.Composition.AnimationController'
     @winrt_mixinmethod
     def get_PlaybackRate(self: Windows.UI.Composition.IAnimationController) -> Single: ...
@@ -91,6 +93,7 @@ AnimationPropertyAccessMode_WriteOnly: AnimationPropertyAccessMode = 2
 AnimationPropertyAccessMode_ReadWrite: AnimationPropertyAccessMode = 3
 class AnimationPropertyInfo(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.IAnimationPropertyInfo
     _classid_ = 'Windows.UI.Composition.AnimationPropertyInfo'
     @winrt_mixinmethod
     def get_AccessMode(self: Windows.UI.Composition.IAnimationPropertyInfo) -> Windows.UI.Composition.AnimationPropertyAccessMode: ...
@@ -107,6 +110,7 @@ AnimationStopBehavior_SetToInitialValue: AnimationStopBehavior = 1
 AnimationStopBehavior_SetToFinalValue: AnimationStopBehavior = 2
 class BackEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.IBackEasingFunction
     _classid_ = 'Windows.UI.Composition.BackEasingFunction'
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Composition.IBackEasingFunction) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
@@ -116,11 +120,13 @@ class BackEasingFunction(ComPtr):
     Amplitude = property(get_Amplitude, None)
 class BooleanKeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.KeyFrameAnimation
+    default_interface: Windows.UI.Composition.IBooleanKeyFrameAnimation
     _classid_ = 'Windows.UI.Composition.BooleanKeyFrameAnimation'
     @winrt_mixinmethod
     def InsertKeyFrame(self: Windows.UI.Composition.IBooleanKeyFrameAnimation, normalizedProgressKey: Single, value: Boolean) -> Void: ...
 class BounceEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.IBounceEasingFunction
     _classid_ = 'Windows.UI.Composition.BounceEasingFunction'
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Composition.IBounceEasingFunction) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
@@ -133,6 +139,7 @@ class BounceEasingFunction(ComPtr):
     Bounciness = property(get_Bounciness, None)
 class BounceScalarNaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.ScalarNaturalMotionAnimation
+    default_interface: Windows.UI.Composition.IBounceScalarNaturalMotionAnimation
     _classid_ = 'Windows.UI.Composition.BounceScalarNaturalMotionAnimation'
     @winrt_mixinmethod
     def get_Acceleration(self: Windows.UI.Composition.IBounceScalarNaturalMotionAnimation) -> Single: ...
@@ -146,6 +153,7 @@ class BounceScalarNaturalMotionAnimation(ComPtr):
     Restitution = property(get_Restitution, put_Restitution)
 class BounceVector2NaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.Vector2NaturalMotionAnimation
+    default_interface: Windows.UI.Composition.IBounceVector2NaturalMotionAnimation
     _classid_ = 'Windows.UI.Composition.BounceVector2NaturalMotionAnimation'
     @winrt_mixinmethod
     def get_Acceleration(self: Windows.UI.Composition.IBounceVector2NaturalMotionAnimation) -> Single: ...
@@ -159,6 +167,7 @@ class BounceVector2NaturalMotionAnimation(ComPtr):
     Restitution = property(get_Restitution, put_Restitution)
 class BounceVector3NaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.Vector3NaturalMotionAnimation
+    default_interface: Windows.UI.Composition.IBounceVector3NaturalMotionAnimation
     _classid_ = 'Windows.UI.Composition.BounceVector3NaturalMotionAnimation'
     @winrt_mixinmethod
     def get_Acceleration(self: Windows.UI.Composition.IBounceVector3NaturalMotionAnimation) -> Single: ...
@@ -172,12 +181,14 @@ class BounceVector3NaturalMotionAnimation(ComPtr):
     Restitution = property(get_Restitution, put_Restitution)
 class CircleEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.ICircleEasingFunction
     _classid_ = 'Windows.UI.Composition.CircleEasingFunction'
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Composition.ICircleEasingFunction) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     Mode = property(get_Mode, None)
 class ColorKeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.KeyFrameAnimation
+    default_interface: Windows.UI.Composition.IColorKeyFrameAnimation
     _classid_ = 'Windows.UI.Composition.ColorKeyFrameAnimation'
     @winrt_mixinmethod
     def get_InterpolationColorSpace(self: Windows.UI.Composition.IColorKeyFrameAnimation) -> Windows.UI.Composition.CompositionColorSpace: ...
@@ -190,6 +201,8 @@ class ColorKeyFrameAnimation(ComPtr):
     InterpolationColorSpace = property(get_InterpolationColorSpace, put_InterpolationColorSpace)
 class CompositionAnimation(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionAnimation
+    _classid_ = 'Windows.UI.Composition.CompositionAnimation'
     @winrt_commethod(22)
     def ClearAllParameters(self) -> Void: ...
     @winrt_commethod(23)
@@ -226,6 +239,7 @@ class CompositionAnimation(ComPtr):
     InitialValueExpressions = property(get_InitialValueExpressions, None)
 class CompositionAnimationGroup(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionAnimationGroup
     _classid_ = 'Windows.UI.Composition.CompositionAnimationGroup'
     @winrt_mixinmethod
     def get_Count(self: Windows.UI.Composition.ICompositionAnimationGroup) -> Int32: ...
@@ -240,6 +254,7 @@ class CompositionAnimationGroup(ComPtr):
     Count = property(get_Count, None)
 class CompositionBackdropBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionBrush
+    default_interface: Windows.UI.Composition.ICompositionBackdropBrush
     _classid_ = 'Windows.UI.Composition.CompositionBackdropBrush'
 CompositionBackfaceVisibility = Int32
 CompositionBackfaceVisibility_Inherit: CompositionBackfaceVisibility = 0
@@ -247,6 +262,7 @@ CompositionBackfaceVisibility_Visible: CompositionBackfaceVisibility = 1
 CompositionBackfaceVisibility_Hidden: CompositionBackfaceVisibility = 2
 class CompositionBatchCompletedEventArgs(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionBatchCompletedEventArgs
     _classid_ = 'Windows.UI.Composition.CompositionBatchCompletedEventArgs'
 CompositionBatchTypes = UInt32
 CompositionBatchTypes_None: CompositionBatchTypes = 0
@@ -271,8 +287,11 @@ CompositionBorderMode_Soft: CompositionBorderMode = 1
 CompositionBorderMode_Hard: CompositionBorderMode = 2
 class CompositionBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionBrush
+    _classid_ = 'Windows.UI.Composition.CompositionBrush'
 class CompositionCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.ICompositionCapabilities
     _classid_ = 'Windows.UI.Composition.CompositionCapabilities'
     @winrt_mixinmethod
     def AreEffectsSupported(self: Windows.UI.Composition.ICompositionCapabilities) -> Boolean: ...
@@ -286,6 +305,8 @@ class CompositionCapabilities(ComPtr):
     def GetForCurrentView(cls: Windows.UI.Composition.ICompositionCapabilitiesStatics) -> Windows.UI.Composition.CompositionCapabilities: ...
 class CompositionClip(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionClip
+    _classid_ = 'Windows.UI.Composition.CompositionClip'
     @winrt_commethod(20)
     def get_AnchorPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(21)
@@ -323,6 +344,7 @@ class CompositionClip(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class CompositionColorBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionBrush
+    default_interface: Windows.UI.Composition.ICompositionColorBrush
     _classid_ = 'Windows.UI.Composition.CompositionColorBrush'
     @winrt_mixinmethod
     def get_Color(self: Windows.UI.Composition.ICompositionColorBrush) -> Windows.UI.Color: ...
@@ -331,6 +353,7 @@ class CompositionColorBrush(ComPtr):
     Color = property(get_Color, put_Color)
 class CompositionColorGradientStop(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionColorGradientStop
     _classid_ = 'Windows.UI.Composition.CompositionColorGradientStop'
     @winrt_mixinmethod
     def get_Color(self: Windows.UI.Composition.ICompositionColorGradientStop) -> Windows.UI.Color: ...
@@ -344,6 +367,7 @@ class CompositionColorGradientStop(ComPtr):
     Offset = property(get_Offset, put_Offset)
 class CompositionColorGradientStopCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.ICompositionColorGradientStopCollection
     _classid_ = 'Windows.UI.Composition.CompositionColorGradientStopCollection'
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Composition.CompositionColorGradientStop]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Composition.CompositionColorGradientStop]: ...
@@ -380,6 +404,7 @@ CompositionColorSpace_HslLinear: CompositionColorSpace = 3
 CompositionColorSpace_RgbLinear: CompositionColorSpace = 4
 class CompositionCommitBatch(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionCommitBatch
     _classid_ = 'Windows.UI.Composition.CompositionCommitBatch'
     @winrt_mixinmethod
     def get_IsActive(self: Windows.UI.Composition.ICompositionCommitBatch) -> Boolean: ...
@@ -398,12 +423,15 @@ CompositionCompositeMode_DestinationInvert: CompositionCompositeMode = 2
 CompositionCompositeMode_MinBlend: CompositionCompositeMode = 3
 class CompositionContainerShape(ComPtr):
     extends: Windows.UI.Composition.CompositionShape
+    default_interface: Windows.UI.Composition.ICompositionContainerShape
     _classid_ = 'Windows.UI.Composition.CompositionContainerShape'
     @winrt_mixinmethod
     def get_Shapes(self: Windows.UI.Composition.ICompositionContainerShape) -> Windows.UI.Composition.CompositionShapeCollection: ...
     Shapes = property(get_Shapes, None)
 class CompositionDrawingSurface(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionDrawingSurface
+    _classid_ = 'Windows.UI.Composition.CompositionDrawingSurface'
     @winrt_commethod(15)
     def get_AlphaMode(self) -> Windows.Graphics.DirectX.DirectXAlphaMode: ...
     @winrt_commethod(16)
@@ -431,6 +459,8 @@ CompositionDropShadowSourcePolicy_Default: CompositionDropShadowSourcePolicy = 0
 CompositionDropShadowSourcePolicy_InheritFromVisualContent: CompositionDropShadowSourcePolicy = 1
 class CompositionEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionEasingFunction
+    _classid_ = 'Windows.UI.Composition.CompositionEasingFunction'
     @winrt_classmethod
     def CreateCubicBezierEasingFunction(cls: Windows.UI.Composition.ICompositionEasingFunctionStatics, owner: Windows.UI.Composition.Compositor, controlPoint1: Windows.Foundation.Numerics.Vector2, controlPoint2: Windows.Foundation.Numerics.Vector2) -> Windows.UI.Composition.CubicBezierEasingFunction: ...
     @winrt_classmethod
@@ -459,6 +489,7 @@ CompositionEasingFunctionMode_Out: CompositionEasingFunctionMode = 1
 CompositionEasingFunctionMode_InOut: CompositionEasingFunctionMode = 2
 class CompositionEffectBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionBrush
+    default_interface: Windows.UI.Composition.ICompositionEffectBrush
     _classid_ = 'Windows.UI.Composition.CompositionEffectBrush'
     @winrt_mixinmethod
     def GetSourceParameter(self: Windows.UI.Composition.ICompositionEffectBrush, name: WinRT_String) -> Windows.UI.Composition.CompositionBrush: ...
@@ -466,6 +497,7 @@ class CompositionEffectBrush(ComPtr):
     def SetSourceParameter(self: Windows.UI.Composition.ICompositionEffectBrush, name: WinRT_String, source: Windows.UI.Composition.CompositionBrush) -> Void: ...
 class CompositionEffectFactory(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionEffectFactory
     _classid_ = 'Windows.UI.Composition.CompositionEffectFactory'
     @winrt_mixinmethod
     def CreateBrush(self: Windows.UI.Composition.ICompositionEffectFactory) -> Windows.UI.Composition.CompositionEffectBrush: ...
@@ -482,6 +514,7 @@ CompositionEffectFactoryLoadStatus_Pending: CompositionEffectFactoryLoadStatus =
 CompositionEffectFactoryLoadStatus_Other: CompositionEffectFactoryLoadStatus = -1
 class CompositionEffectSourceParameter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.ICompositionEffectSourceParameter
     _classid_ = 'Windows.UI.Composition.CompositionEffectSourceParameter'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Composition.ICompositionEffectSourceParameterFactory, name: WinRT_String) -> Windows.UI.Composition.CompositionEffectSourceParameter: ...
@@ -490,6 +523,7 @@ class CompositionEffectSourceParameter(ComPtr):
     Name = property(get_Name, None)
 class CompositionEllipseGeometry(ComPtr):
     extends: Windows.UI.Composition.CompositionGeometry
+    default_interface: Windows.UI.Composition.ICompositionEllipseGeometry
     _classid_ = 'Windows.UI.Composition.CompositionEllipseGeometry'
     @winrt_mixinmethod
     def get_Center(self: Windows.UI.Composition.ICompositionEllipseGeometry) -> Windows.Foundation.Numerics.Vector2: ...
@@ -503,6 +537,7 @@ class CompositionEllipseGeometry(ComPtr):
     Radius = property(get_Radius, put_Radius)
 class CompositionGeometricClip(ComPtr):
     extends: Windows.UI.Composition.CompositionClip
+    default_interface: Windows.UI.Composition.ICompositionGeometricClip
     _classid_ = 'Windows.UI.Composition.CompositionGeometricClip'
     @winrt_mixinmethod
     def get_Geometry(self: Windows.UI.Composition.ICompositionGeometricClip) -> Windows.UI.Composition.CompositionGeometry: ...
@@ -516,6 +551,8 @@ class CompositionGeometricClip(ComPtr):
     ViewBox = property(get_ViewBox, put_ViewBox)
 class CompositionGeometry(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionGeometry
+    _classid_ = 'Windows.UI.Composition.CompositionGeometry'
     @winrt_commethod(12)
     def get_TrimEnd(self) -> Single: ...
     @winrt_commethod(13)
@@ -537,6 +574,8 @@ CompositionGetValueStatus_TypeMismatch: CompositionGetValueStatus = 1
 CompositionGetValueStatus_NotFound: CompositionGetValueStatus = 2
 class CompositionGradientBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionBrush
+    default_interface: Windows.UI.Composition.ICompositionGradientBrush
+    _classid_ = 'Windows.UI.Composition.CompositionGradientBrush'
     @winrt_commethod(27)
     def get_AnchorPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(28)
@@ -596,6 +635,7 @@ CompositionGradientExtendMode_Wrap: CompositionGradientExtendMode = 1
 CompositionGradientExtendMode_Mirror: CompositionGradientExtendMode = 2
 class CompositionGraphicsDevice(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionGraphicsDevice
     _classid_ = 'Windows.UI.Composition.CompositionGraphicsDevice'
     @winrt_mixinmethod
     def CreateDrawingSurface(self: Windows.UI.Composition.ICompositionGraphicsDevice, sizePixels: Windows.Foundation.Size, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, alphaMode: Windows.Graphics.DirectX.DirectXAlphaMode) -> Windows.UI.Composition.CompositionDrawingSurface: ...
@@ -615,6 +655,8 @@ class CompositionGraphicsDevice(ComPtr):
     def CaptureAsync(self: Windows.UI.Composition.ICompositionGraphicsDevice4, captureVisual: Windows.UI.Composition.Visual, size: Windows.Graphics.SizeInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, alphaMode: Windows.Graphics.DirectX.DirectXAlphaMode, sdrBoost: Single) -> Windows.Foundation.IAsyncOperation[Windows.UI.Composition.ICompositionSurface]: ...
 class CompositionLight(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionLight
+    _classid_ = 'Windows.UI.Composition.CompositionLight'
     @winrt_commethod(10)
     def get_Targets(self) -> Windows.UI.Composition.VisualUnorderedCollection: ...
     @winrt_commethod(11)
@@ -628,6 +670,7 @@ class CompositionLight(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class CompositionLineGeometry(ComPtr):
     extends: Windows.UI.Composition.CompositionGeometry
+    default_interface: Windows.UI.Composition.ICompositionLineGeometry
     _classid_ = 'Windows.UI.Composition.CompositionLineGeometry'
     @winrt_mixinmethod
     def get_Start(self: Windows.UI.Composition.ICompositionLineGeometry) -> Windows.Foundation.Numerics.Vector2: ...
@@ -641,6 +684,7 @@ class CompositionLineGeometry(ComPtr):
     End = property(get_End, put_End)
 class CompositionLinearGradientBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionGradientBrush
+    default_interface: Windows.UI.Composition.ICompositionLinearGradientBrush
     _classid_ = 'Windows.UI.Composition.CompositionLinearGradientBrush'
     @winrt_mixinmethod
     def get_EndPoint(self: Windows.UI.Composition.ICompositionLinearGradientBrush) -> Windows.Foundation.Numerics.Vector2: ...
@@ -657,6 +701,7 @@ CompositionMappingMode_Absolute: CompositionMappingMode = 0
 CompositionMappingMode_Relative: CompositionMappingMode = 1
 class CompositionMaskBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionBrush
+    default_interface: Windows.UI.Composition.ICompositionMaskBrush
     _classid_ = 'Windows.UI.Composition.CompositionMaskBrush'
     @winrt_mixinmethod
     def get_Mask(self: Windows.UI.Composition.ICompositionMaskBrush) -> Windows.UI.Composition.CompositionBrush: ...
@@ -670,6 +715,7 @@ class CompositionMaskBrush(ComPtr):
     Source = property(get_Source, put_Source)
 class CompositionMipmapSurface(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionMipmapSurface
     _classid_ = 'Windows.UI.Composition.CompositionMipmapSurface'
     @winrt_mixinmethod
     def get_LevelCount(self: Windows.UI.Composition.ICompositionMipmapSurface) -> UInt32: ...
@@ -687,6 +733,7 @@ class CompositionMipmapSurface(ComPtr):
     SizeInt32 = property(get_SizeInt32, None)
 class CompositionNineGridBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionBrush
+    default_interface: Windows.UI.Composition.ICompositionNineGridBrush
     _classid_ = 'Windows.UI.Composition.CompositionNineGridBrush'
     @winrt_mixinmethod
     def get_BottomInset(self: Windows.UI.Composition.ICompositionNineGridBrush) -> Single: ...
@@ -748,6 +795,8 @@ class CompositionNineGridBrush(ComPtr):
     TopInsetScale = property(get_TopInsetScale, put_TopInsetScale)
 class CompositionObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.ICompositionObject
+    _classid_ = 'Windows.UI.Composition.CompositionObject'
     @winrt_commethod(6)
     def get_Compositor(self) -> Windows.UI.Composition.Compositor: ...
     @winrt_commethod(7)
@@ -792,11 +841,13 @@ class CompositionObject(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class CompositionPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.ICompositionPath
     _classid_ = 'Windows.UI.Composition.CompositionPath'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Composition.ICompositionPathFactory, source: Windows.Graphics.IGeometrySource2D) -> Windows.UI.Composition.CompositionPath: ...
 class CompositionPathGeometry(ComPtr):
     extends: Windows.UI.Composition.CompositionGeometry
+    default_interface: Windows.UI.Composition.ICompositionPathGeometry
     _classid_ = 'Windows.UI.Composition.CompositionPathGeometry'
     @winrt_mixinmethod
     def get_Path(self: Windows.UI.Composition.ICompositionPathGeometry) -> Windows.UI.Composition.CompositionPath: ...
@@ -805,6 +856,7 @@ class CompositionPathGeometry(ComPtr):
     Path = property(get_Path, put_Path)
 class CompositionProjectedShadow(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionProjectedShadow
     _classid_ = 'Windows.UI.Composition.CompositionProjectedShadow'
     @winrt_mixinmethod
     def get_BlurRadiusMultiplier(self: Windows.UI.Composition.ICompositionProjectedShadow) -> Single: ...
@@ -834,6 +886,7 @@ class CompositionProjectedShadow(ComPtr):
     Receivers = property(get_Receivers, None)
 class CompositionProjectedShadowCaster(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionProjectedShadowCaster
     _classid_ = 'Windows.UI.Composition.CompositionProjectedShadowCaster'
     @winrt_mixinmethod
     def get_Brush(self: Windows.UI.Composition.ICompositionProjectedShadowCaster) -> Windows.UI.Composition.CompositionBrush: ...
@@ -847,6 +900,7 @@ class CompositionProjectedShadowCaster(ComPtr):
     CastingVisual = property(get_CastingVisual, put_CastingVisual)
 class CompositionProjectedShadowCasterCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionProjectedShadowCasterCollection
     _classid_ = 'Windows.UI.Composition.CompositionProjectedShadowCasterCollection'
     @winrt_mixinmethod
     def get_Count(self: Windows.UI.Composition.ICompositionProjectedShadowCasterCollection) -> Int32: ...
@@ -870,6 +924,7 @@ class CompositionProjectedShadowCasterCollection(ComPtr):
     MaxRespectedCasters = property(get_MaxRespectedCasters, None)
 class CompositionProjectedShadowReceiver(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionProjectedShadowReceiver
     _classid_ = 'Windows.UI.Composition.CompositionProjectedShadowReceiver'
     @winrt_mixinmethod
     def get_ReceivingVisual(self: Windows.UI.Composition.ICompositionProjectedShadowReceiver) -> Windows.UI.Composition.Visual: ...
@@ -878,6 +933,7 @@ class CompositionProjectedShadowReceiver(ComPtr):
     ReceivingVisual = property(get_ReceivingVisual, put_ReceivingVisual)
 class CompositionProjectedShadowReceiverUnorderedCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionProjectedShadowReceiverUnorderedCollection
     _classid_ = 'Windows.UI.Composition.CompositionProjectedShadowReceiverUnorderedCollection'
     @winrt_mixinmethod
     def Add(self: Windows.UI.Composition.ICompositionProjectedShadowReceiverUnorderedCollection, value: Windows.UI.Composition.CompositionProjectedShadowReceiver) -> Void: ...
@@ -892,6 +948,7 @@ class CompositionProjectedShadowReceiverUnorderedCollection(ComPtr):
     Count = property(get_Count, None)
 class CompositionPropertySet(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionPropertySet
     _classid_ = 'Windows.UI.Composition.CompositionPropertySet'
     @winrt_mixinmethod
     def InsertColor(self: Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: Windows.UI.Color) -> Void: ...
@@ -931,6 +988,7 @@ class CompositionPropertySet(ComPtr):
     def TryGetBoolean(self: Windows.UI.Composition.ICompositionPropertySet2, propertyName: WinRT_String, value: POINTER(Boolean)) -> Windows.UI.Composition.CompositionGetValueStatus: ...
 class CompositionRadialGradientBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionGradientBrush
+    default_interface: Windows.UI.Composition.ICompositionRadialGradientBrush
     _classid_ = 'Windows.UI.Composition.CompositionRadialGradientBrush'
     @winrt_mixinmethod
     def get_EllipseCenter(self: Windows.UI.Composition.ICompositionRadialGradientBrush) -> Windows.Foundation.Numerics.Vector2: ...
@@ -949,6 +1007,7 @@ class CompositionRadialGradientBrush(ComPtr):
     GradientOriginOffset = property(get_GradientOriginOffset, put_GradientOriginOffset)
 class CompositionRectangleGeometry(ComPtr):
     extends: Windows.UI.Composition.CompositionGeometry
+    default_interface: Windows.UI.Composition.ICompositionRectangleGeometry
     _classid_ = 'Windows.UI.Composition.CompositionRectangleGeometry'
     @winrt_mixinmethod
     def get_Offset(self: Windows.UI.Composition.ICompositionRectangleGeometry) -> Windows.Foundation.Numerics.Vector2: ...
@@ -962,6 +1021,7 @@ class CompositionRectangleGeometry(ComPtr):
     Size = property(get_Size, put_Size)
 class CompositionRoundedRectangleGeometry(ComPtr):
     extends: Windows.UI.Composition.CompositionGeometry
+    default_interface: Windows.UI.Composition.ICompositionRoundedRectangleGeometry
     _classid_ = 'Windows.UI.Composition.CompositionRoundedRectangleGeometry'
     @winrt_mixinmethod
     def get_CornerRadius(self: Windows.UI.Composition.ICompositionRoundedRectangleGeometry) -> Windows.Foundation.Numerics.Vector2: ...
@@ -980,6 +1040,7 @@ class CompositionRoundedRectangleGeometry(ComPtr):
     Size = property(get_Size, put_Size)
 class CompositionScopedBatch(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionScopedBatch
     _classid_ = 'Windows.UI.Composition.CompositionScopedBatch'
     @winrt_mixinmethod
     def get_IsActive(self: Windows.UI.Composition.ICompositionScopedBatch) -> Boolean: ...
@@ -999,8 +1060,12 @@ class CompositionScopedBatch(ComPtr):
     IsEnded = property(get_IsEnded, None)
 class CompositionShadow(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionShadow
+    _classid_ = 'Windows.UI.Composition.CompositionShadow'
 class CompositionShape(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionShape
+    _classid_ = 'Windows.UI.Composition.CompositionShape'
     @winrt_commethod(18)
     def get_CenterPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(19)
@@ -1033,6 +1098,7 @@ class CompositionShape(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class CompositionShapeCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Composition.CompositionShape]
     _classid_ = 'Windows.UI.Composition.CompositionShapeCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.CompositionShape], index: UInt32) -> Windows.UI.Composition.CompositionShape: ...
@@ -1063,6 +1129,7 @@ class CompositionShapeCollection(ComPtr):
     Size = property(get_Size, None)
 class CompositionSpriteShape(ComPtr):
     extends: Windows.UI.Composition.CompositionShape
+    default_interface: Windows.UI.Composition.ICompositionSpriteShape
     _classid_ = 'Windows.UI.Composition.CompositionSpriteShape'
     @winrt_mixinmethod
     def get_FillBrush(self: Windows.UI.Composition.ICompositionSpriteShape) -> Windows.UI.Composition.CompositionBrush: ...
@@ -1134,6 +1201,7 @@ CompositionStrokeCap_Round: CompositionStrokeCap = 2
 CompositionStrokeCap_Triangle: CompositionStrokeCap = 3
 class CompositionStrokeDashArray(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.Foundation.Collections.IVector[Single]
     _classid_ = 'Windows.UI.Composition.CompositionStrokeDashArray'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Single], index: UInt32) -> Single: ...
@@ -1169,6 +1237,7 @@ CompositionStrokeLineJoin_Round: CompositionStrokeLineJoin = 2
 CompositionStrokeLineJoin_MiterOrBevel: CompositionStrokeLineJoin = 3
 class CompositionSurfaceBrush(ComPtr):
     extends: Windows.UI.Composition.CompositionBrush
+    default_interface: Windows.UI.Composition.ICompositionSurfaceBrush
     _classid_ = 'Windows.UI.Composition.CompositionSurfaceBrush'
     @winrt_mixinmethod
     def get_BitmapInterpolationMode(self: Windows.UI.Composition.ICompositionSurfaceBrush) -> Windows.UI.Composition.CompositionBitmapInterpolationMode: ...
@@ -1237,6 +1306,8 @@ class CompositionSurfaceBrush(ComPtr):
     SnapToPixels = property(get_SnapToPixels, put_SnapToPixels)
 class CompositionTarget(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionTarget
+    _classid_ = 'Windows.UI.Composition.CompositionTarget'
     @winrt_commethod(8)
     def get_Root(self) -> Windows.UI.Composition.Visual: ...
     @winrt_commethod(9)
@@ -1244,8 +1315,11 @@ class CompositionTarget(ComPtr):
     Root = property(get_Root, put_Root)
 class CompositionTransform(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionTransform
+    _classid_ = 'Windows.UI.Composition.CompositionTransform'
 class CompositionViewBox(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionViewBox
     _classid_ = 'Windows.UI.Composition.CompositionViewBox'
     @winrt_mixinmethod
     def get_HorizontalAlignmentRatio(self: Windows.UI.Composition.ICompositionViewBox) -> Single: ...
@@ -1274,10 +1348,13 @@ class CompositionViewBox(ComPtr):
     VerticalAlignmentRatio = property(get_VerticalAlignmentRatio, put_VerticalAlignmentRatio)
 class CompositionVirtualDrawingSurface(ComPtr):
     extends: Windows.UI.Composition.CompositionDrawingSurface
+    default_interface: Windows.UI.Composition.ICompositionVirtualDrawingSurface
+    _classid_ = 'Windows.UI.Composition.CompositionVirtualDrawingSurface'
     @winrt_commethod(16)
     def Trim(self, rects: POINTER(Windows.Graphics.RectInt32_head)) -> Void: ...
 class CompositionVisualSurface(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.ICompositionVisualSurface
     _classid_ = 'Windows.UI.Composition.CompositionVisualSurface'
     @winrt_mixinmethod
     def get_SourceVisual(self: Windows.UI.Composition.ICompositionVisualSurface) -> Windows.UI.Composition.Visual: ...
@@ -1296,6 +1373,7 @@ class CompositionVisualSurface(ComPtr):
     SourceSize = property(get_SourceSize, put_SourceSize)
 class Compositor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.ICompositor
     _classid_ = 'Windows.UI.Composition.Compositor'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Composition.Compositor: ...
@@ -1474,11 +1552,14 @@ class Compositor(ComPtr):
     MinGlobalPlaybackRate = property(get_MinGlobalPlaybackRate, None)
 class ContainerVisual(ComPtr):
     extends: Windows.UI.Composition.Visual
+    default_interface: Windows.UI.Composition.IContainerVisual
+    _classid_ = 'Windows.UI.Composition.ContainerVisual'
     @winrt_commethod(50)
     def get_Children(self) -> Windows.UI.Composition.VisualCollection: ...
     Children = property(get_Children, None)
 class CubicBezierEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.ICubicBezierEasingFunction
     _classid_ = 'Windows.UI.Composition.CubicBezierEasingFunction'
     @winrt_mixinmethod
     def get_ControlPoint1(self: Windows.UI.Composition.ICubicBezierEasingFunction) -> Windows.Foundation.Numerics.Vector2: ...
@@ -1488,6 +1569,7 @@ class CubicBezierEasingFunction(ComPtr):
     ControlPoint2 = property(get_ControlPoint2, None)
 class DelegatedInkTrailVisual(ComPtr):
     extends: Windows.UI.Composition.Visual
+    default_interface: Windows.UI.Composition.IDelegatedInkTrailVisual
     _classid_ = 'Windows.UI.Composition.DelegatedInkTrailVisual'
     @winrt_mixinmethod
     def AddTrailPoints(self: Windows.UI.Composition.IDelegatedInkTrailVisual, inkPoints: POINTER(Windows.UI.Composition.InkTrailPoint_head)) -> UInt32: ...
@@ -1503,6 +1585,7 @@ class DelegatedInkTrailVisual(ComPtr):
     def CreateForSwapChain(cls: Windows.UI.Composition.IDelegatedInkTrailVisualStatics, compositor: Windows.UI.Composition.Compositor, swapChain: Windows.UI.Composition.ICompositionSurface) -> Windows.UI.Composition.DelegatedInkTrailVisual: ...
 class DistantLight(ComPtr):
     extends: Windows.UI.Composition.CompositionLight
+    default_interface: Windows.UI.Composition.IDistantLight
     _classid_ = 'Windows.UI.Composition.DistantLight'
     @winrt_mixinmethod
     def get_Color(self: Windows.UI.Composition.IDistantLight) -> Windows.UI.Color: ...
@@ -1526,6 +1609,7 @@ class DistantLight(ComPtr):
     Intensity = property(get_Intensity, put_Intensity)
 class DropShadow(ComPtr):
     extends: Windows.UI.Composition.CompositionShadow
+    default_interface: Windows.UI.Composition.IDropShadow
     _classid_ = 'Windows.UI.Composition.DropShadow'
     @winrt_mixinmethod
     def get_BlurRadius(self: Windows.UI.Composition.IDropShadow) -> Single: ...
@@ -1559,6 +1643,7 @@ class DropShadow(ComPtr):
     SourcePolicy = property(get_SourcePolicy, put_SourcePolicy)
 class ElasticEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.IElasticEasingFunction
     _classid_ = 'Windows.UI.Composition.ElasticEasingFunction'
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Composition.IElasticEasingFunction) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
@@ -1571,6 +1656,7 @@ class ElasticEasingFunction(ComPtr):
     Springiness = property(get_Springiness, None)
 class ExponentialEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.IExponentialEasingFunction
     _classid_ = 'Windows.UI.Composition.ExponentialEasingFunction'
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Composition.IExponentialEasingFunction) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
@@ -1580,6 +1666,7 @@ class ExponentialEasingFunction(ComPtr):
     Exponent = property(get_Exponent, None)
 class ExpressionAnimation(ComPtr):
     extends: Windows.UI.Composition.CompositionAnimation
+    default_interface: Windows.UI.Composition.IExpressionAnimation
     _classid_ = 'Windows.UI.Composition.ExpressionAnimation'
     @winrt_mixinmethod
     def get_Expression(self: Windows.UI.Composition.IExpressionAnimation) -> WinRT_String: ...
@@ -3852,6 +3939,7 @@ class IVisualUnorderedCollection(ComPtr):
     Count = property(get_Count, None)
 class ImplicitAnimationCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.IImplicitAnimationCollection
     _classid_ = 'Windows.UI.Composition.ImplicitAnimationCollection'
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.UI.Composition.ICompositionAnimationBase]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.UI.Composition.ICompositionAnimationBase]]: ...
@@ -3872,6 +3960,7 @@ class ImplicitAnimationCollection(ComPtr):
     Size = property(get_Size, None)
 class InitialValueExpressionCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]
     _classid_ = 'Windows.UI.Composition.InitialValueExpressionCollection'
     @winrt_mixinmethod
     def Lookup(self: Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String], key: WinRT_String) -> WinRT_String: ...
@@ -3895,6 +3984,7 @@ class InkTrailPoint(EasyCastStructure):
     Radius: Single
 class InsetClip(ComPtr):
     extends: Windows.UI.Composition.CompositionClip
+    default_interface: Windows.UI.Composition.IInsetClip
     _classid_ = 'Windows.UI.Composition.InsetClip'
     @winrt_mixinmethod
     def get_BottomInset(self: Windows.UI.Composition.IInsetClip) -> Single: ...
@@ -3918,6 +4008,8 @@ class InsetClip(ComPtr):
     TopInset = property(get_TopInset, put_TopInset)
 class KeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.CompositionAnimation
+    default_interface: Windows.UI.Composition.IKeyFrameAnimation
+    _classid_ = 'Windows.UI.Composition.KeyFrameAnimation'
     @winrt_commethod(39)
     def get_DelayTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(40)
@@ -3962,6 +4054,7 @@ class KeyFrameAnimation(ComPtr):
     DelayBehavior = property(get_DelayBehavior, put_DelayBehavior)
 class LayerVisual(ComPtr):
     extends: Windows.UI.Composition.ContainerVisual
+    default_interface: Windows.UI.Composition.ILayerVisual
     _classid_ = 'Windows.UI.Composition.LayerVisual'
     @winrt_mixinmethod
     def get_Effect(self: Windows.UI.Composition.ILayerVisual) -> Windows.UI.Composition.CompositionEffectBrush: ...
@@ -3975,9 +4068,12 @@ class LayerVisual(ComPtr):
     Shadow = property(get_Shadow, put_Shadow)
 class LinearEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.ILinearEasingFunction
     _classid_ = 'Windows.UI.Composition.LinearEasingFunction'
 class NaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.CompositionAnimation
+    default_interface: Windows.UI.Composition.INaturalMotionAnimation
+    _classid_ = 'Windows.UI.Composition.NaturalMotionAnimation'
     @winrt_commethod(28)
     def get_DelayBehavior(self) -> Windows.UI.Composition.AnimationDelayBehavior: ...
     @winrt_commethod(29)
@@ -3995,6 +4091,7 @@ class NaturalMotionAnimation(ComPtr):
     StopBehavior = property(get_StopBehavior, put_StopBehavior)
 class PathKeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.KeyFrameAnimation
+    default_interface: Windows.UI.Composition.IPathKeyFrameAnimation
     _classid_ = 'Windows.UI.Composition.PathKeyFrameAnimation'
     @winrt_mixinmethod
     def InsertKeyFrame(self: Windows.UI.Composition.IPathKeyFrameAnimation, normalizedProgressKey: Single, path: Windows.UI.Composition.CompositionPath) -> Void: ...
@@ -4002,6 +4099,7 @@ class PathKeyFrameAnimation(ComPtr):
     def InsertKeyFrameWithEasingFunction(self: Windows.UI.Composition.IPathKeyFrameAnimation, normalizedProgressKey: Single, path: Windows.UI.Composition.CompositionPath, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class PointLight(ComPtr):
     extends: Windows.UI.Composition.CompositionLight
+    default_interface: Windows.UI.Composition.IPointLight
     _classid_ = 'Windows.UI.Composition.PointLight'
     @winrt_mixinmethod
     def get_Color(self: Windows.UI.Composition.IPointLight) -> Windows.UI.Color: ...
@@ -4050,6 +4148,7 @@ class PointLight(ComPtr):
     MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
 class PowerEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.IPowerEasingFunction
     _classid_ = 'Windows.UI.Composition.PowerEasingFunction'
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Composition.IPowerEasingFunction) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
@@ -4059,6 +4158,7 @@ class PowerEasingFunction(ComPtr):
     Power = property(get_Power, None)
 class QuaternionKeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.KeyFrameAnimation
+    default_interface: Windows.UI.Composition.IQuaternionKeyFrameAnimation
     _classid_ = 'Windows.UI.Composition.QuaternionKeyFrameAnimation'
     @winrt_mixinmethod
     def InsertKeyFrame(self: Windows.UI.Composition.IQuaternionKeyFrameAnimation, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Quaternion) -> Void: ...
@@ -4066,6 +4166,7 @@ class QuaternionKeyFrameAnimation(ComPtr):
     def InsertKeyFrameWithEasingFunction(self: Windows.UI.Composition.IQuaternionKeyFrameAnimation, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Quaternion, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class RectangleClip(ComPtr):
     extends: Windows.UI.Composition.CompositionClip
+    default_interface: Windows.UI.Composition.IRectangleClip
     _classid_ = 'Windows.UI.Composition.RectangleClip'
     @winrt_mixinmethod
     def get_Bottom(self: Windows.UI.Composition.IRectangleClip) -> Single: ...
@@ -4109,6 +4210,7 @@ class RectangleClip(ComPtr):
     TopRightRadius = property(get_TopRightRadius, put_TopRightRadius)
 class RedirectVisual(ComPtr):
     extends: Windows.UI.Composition.ContainerVisual
+    default_interface: Windows.UI.Composition.IRedirectVisual
     _classid_ = 'Windows.UI.Composition.RedirectVisual'
     @winrt_mixinmethod
     def get_Source(self: Windows.UI.Composition.IRedirectVisual) -> Windows.UI.Composition.Visual: ...
@@ -4117,12 +4219,14 @@ class RedirectVisual(ComPtr):
     Source = property(get_Source, put_Source)
 class RenderingDeviceReplacedEventArgs(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.IRenderingDeviceReplacedEventArgs
     _classid_ = 'Windows.UI.Composition.RenderingDeviceReplacedEventArgs'
     @winrt_mixinmethod
     def get_GraphicsDevice(self: Windows.UI.Composition.IRenderingDeviceReplacedEventArgs) -> Windows.UI.Composition.CompositionGraphicsDevice: ...
     GraphicsDevice = property(get_GraphicsDevice, None)
 class ScalarKeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.KeyFrameAnimation
+    default_interface: Windows.UI.Composition.IScalarKeyFrameAnimation
     _classid_ = 'Windows.UI.Composition.ScalarKeyFrameAnimation'
     @winrt_mixinmethod
     def InsertKeyFrame(self: Windows.UI.Composition.IScalarKeyFrameAnimation, normalizedProgressKey: Single, value: Single) -> Void: ...
@@ -4130,6 +4234,8 @@ class ScalarKeyFrameAnimation(ComPtr):
     def InsertKeyFrameWithEasingFunction(self: Windows.UI.Composition.IScalarKeyFrameAnimation, normalizedProgressKey: Single, value: Single, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class ScalarNaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.NaturalMotionAnimation
+    default_interface: Windows.UI.Composition.IScalarNaturalMotionAnimation
+    _classid_ = 'Windows.UI.Composition.ScalarNaturalMotionAnimation'
     @winrt_commethod(34)
     def get_FinalValue(self) -> Windows.Foundation.IReference[Single]: ...
     @winrt_commethod(35)
@@ -4147,6 +4253,7 @@ class ScalarNaturalMotionAnimation(ComPtr):
     InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class ShapeVisual(ComPtr):
     extends: Windows.UI.Composition.ContainerVisual
+    default_interface: Windows.UI.Composition.IShapeVisual
     _classid_ = 'Windows.UI.Composition.ShapeVisual'
     @winrt_mixinmethod
     def get_Shapes(self: Windows.UI.Composition.IShapeVisual) -> Windows.UI.Composition.CompositionShapeCollection: ...
@@ -4158,12 +4265,14 @@ class ShapeVisual(ComPtr):
     ViewBox = property(get_ViewBox, put_ViewBox)
 class SineEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.ISineEasingFunction
     _classid_ = 'Windows.UI.Composition.SineEasingFunction'
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Composition.ISineEasingFunction) -> Windows.UI.Composition.CompositionEasingFunctionMode: ...
     Mode = property(get_Mode, None)
 class SpotLight(ComPtr):
     extends: Windows.UI.Composition.CompositionLight
+    default_interface: Windows.UI.Composition.ISpotLight
     _classid_ = 'Windows.UI.Composition.SpotLight'
     @winrt_mixinmethod
     def get_ConstantAttenuation(self: Windows.UI.Composition.ISpotLight) -> Single: ...
@@ -4247,6 +4356,7 @@ class SpotLight(ComPtr):
     MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
 class SpringScalarNaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.ScalarNaturalMotionAnimation
+    default_interface: Windows.UI.Composition.ISpringScalarNaturalMotionAnimation
     _classid_ = 'Windows.UI.Composition.SpringScalarNaturalMotionAnimation'
     @winrt_mixinmethod
     def get_DampingRatio(self: Windows.UI.Composition.ISpringScalarNaturalMotionAnimation) -> Single: ...
@@ -4260,6 +4370,7 @@ class SpringScalarNaturalMotionAnimation(ComPtr):
     Period = property(get_Period, put_Period)
 class SpringVector2NaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.Vector2NaturalMotionAnimation
+    default_interface: Windows.UI.Composition.ISpringVector2NaturalMotionAnimation
     _classid_ = 'Windows.UI.Composition.SpringVector2NaturalMotionAnimation'
     @winrt_mixinmethod
     def get_DampingRatio(self: Windows.UI.Composition.ISpringVector2NaturalMotionAnimation) -> Single: ...
@@ -4273,6 +4384,7 @@ class SpringVector2NaturalMotionAnimation(ComPtr):
     Period = property(get_Period, put_Period)
 class SpringVector3NaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.Vector3NaturalMotionAnimation
+    default_interface: Windows.UI.Composition.ISpringVector3NaturalMotionAnimation
     _classid_ = 'Windows.UI.Composition.SpringVector3NaturalMotionAnimation'
     @winrt_mixinmethod
     def get_DampingRatio(self: Windows.UI.Composition.ISpringVector3NaturalMotionAnimation) -> Single: ...
@@ -4286,6 +4398,7 @@ class SpringVector3NaturalMotionAnimation(ComPtr):
     Period = property(get_Period, put_Period)
 class SpriteVisual(ComPtr):
     extends: Windows.UI.Composition.ContainerVisual
+    default_interface: Windows.UI.Composition.ISpriteVisual
     _classid_ = 'Windows.UI.Composition.SpriteVisual'
     @winrt_mixinmethod
     def get_Brush(self: Windows.UI.Composition.ISpriteVisual) -> Windows.UI.Composition.CompositionBrush: ...
@@ -4299,6 +4412,7 @@ class SpriteVisual(ComPtr):
     Shadow = property(get_Shadow, put_Shadow)
 class StepEasingFunction(ComPtr):
     extends: Windows.UI.Composition.CompositionEasingFunction
+    default_interface: Windows.UI.Composition.IStepEasingFunction
     _classid_ = 'Windows.UI.Composition.StepEasingFunction'
     @winrt_mixinmethod
     def get_FinalStep(self: Windows.UI.Composition.IStepEasingFunction) -> Int32: ...
@@ -4327,6 +4441,7 @@ class StepEasingFunction(ComPtr):
     StepCount = property(get_StepCount, put_StepCount)
 class Vector2KeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.KeyFrameAnimation
+    default_interface: Windows.UI.Composition.IVector2KeyFrameAnimation
     _classid_ = 'Windows.UI.Composition.Vector2KeyFrameAnimation'
     @winrt_mixinmethod
     def InsertKeyFrame(self: Windows.UI.Composition.IVector2KeyFrameAnimation, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector2) -> Void: ...
@@ -4334,6 +4449,8 @@ class Vector2KeyFrameAnimation(ComPtr):
     def InsertKeyFrameWithEasingFunction(self: Windows.UI.Composition.IVector2KeyFrameAnimation, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector2, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class Vector2NaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.NaturalMotionAnimation
+    default_interface: Windows.UI.Composition.IVector2NaturalMotionAnimation
+    _classid_ = 'Windows.UI.Composition.Vector2NaturalMotionAnimation'
     @winrt_commethod(34)
     def get_FinalValue(self) -> Windows.Foundation.IReference[Windows.Foundation.Numerics.Vector2]: ...
     @winrt_commethod(35)
@@ -4351,6 +4468,7 @@ class Vector2NaturalMotionAnimation(ComPtr):
     InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class Vector3KeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.KeyFrameAnimation
+    default_interface: Windows.UI.Composition.IVector3KeyFrameAnimation
     _classid_ = 'Windows.UI.Composition.Vector3KeyFrameAnimation'
     @winrt_mixinmethod
     def InsertKeyFrame(self: Windows.UI.Composition.IVector3KeyFrameAnimation, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector3) -> Void: ...
@@ -4358,6 +4476,8 @@ class Vector3KeyFrameAnimation(ComPtr):
     def InsertKeyFrameWithEasingFunction(self: Windows.UI.Composition.IVector3KeyFrameAnimation, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector3, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class Vector3NaturalMotionAnimation(ComPtr):
     extends: Windows.UI.Composition.NaturalMotionAnimation
+    default_interface: Windows.UI.Composition.IVector3NaturalMotionAnimation
+    _classid_ = 'Windows.UI.Composition.Vector3NaturalMotionAnimation'
     @winrt_commethod(34)
     def get_FinalValue(self) -> Windows.Foundation.IReference[Windows.Foundation.Numerics.Vector3]: ...
     @winrt_commethod(35)
@@ -4375,6 +4495,7 @@ class Vector3NaturalMotionAnimation(ComPtr):
     InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class Vector4KeyFrameAnimation(ComPtr):
     extends: Windows.UI.Composition.KeyFrameAnimation
+    default_interface: Windows.UI.Composition.IVector4KeyFrameAnimation
     _classid_ = 'Windows.UI.Composition.Vector4KeyFrameAnimation'
     @winrt_mixinmethod
     def InsertKeyFrame(self: Windows.UI.Composition.IVector4KeyFrameAnimation, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector4) -> Void: ...
@@ -4382,6 +4503,8 @@ class Vector4KeyFrameAnimation(ComPtr):
     def InsertKeyFrameWithEasingFunction(self: Windows.UI.Composition.IVector4KeyFrameAnimation, normalizedProgressKey: Single, value: Windows.Foundation.Numerics.Vector4, easingFunction: Windows.UI.Composition.CompositionEasingFunction) -> Void: ...
 class Visual(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.IVisual
+    _classid_ = 'Windows.UI.Composition.Visual'
     @winrt_commethod(49)
     def get_AnchorPoint(self) -> Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(50)
@@ -4492,6 +4615,7 @@ class Visual(ComPtr):
     IsPixelSnappingEnabled = property(get_IsPixelSnappingEnabled, put_IsPixelSnappingEnabled)
 class VisualCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.IVisualCollection
     _classid_ = 'Windows.UI.Composition.VisualCollection'
     @winrt_mixinmethod
     def get_Count(self: Windows.UI.Composition.IVisualCollection) -> Int32: ...
@@ -4512,6 +4636,7 @@ class VisualCollection(ComPtr):
     Count = property(get_Count, None)
 class VisualUnorderedCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.IVisualUnorderedCollection
     _classid_ = 'Windows.UI.Composition.VisualUnorderedCollection'
     @winrt_mixinmethod
     def get_Count(self: Windows.UI.Composition.IVisualUnorderedCollection) -> Int32: ...

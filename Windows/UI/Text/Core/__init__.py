@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CoreTextCompositionCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextCompositionCompletedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextCompositionCompletedEventArgs'
     @winrt_mixinmethod
     def get_IsCanceled(self: Windows.UI.Text.Core.ICoreTextCompositionCompletedEventArgs) -> Boolean: ...
@@ -38,6 +39,7 @@ class CoreTextCompositionCompletedEventArgs(ComPtr):
     CompositionSegments = property(get_CompositionSegments, None)
 class CoreTextCompositionSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextCompositionSegment
     _classid_ = 'Windows.UI.Text.Core.CoreTextCompositionSegment'
     @winrt_mixinmethod
     def get_PreconversionString(self: Windows.UI.Text.Core.ICoreTextCompositionSegment) -> WinRT_String: ...
@@ -47,6 +49,7 @@ class CoreTextCompositionSegment(ComPtr):
     Range = property(get_Range, None)
 class CoreTextCompositionStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextCompositionStartedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextCompositionStartedEventArgs'
     @winrt_mixinmethod
     def get_IsCanceled(self: Windows.UI.Text.Core.ICoreTextCompositionStartedEventArgs) -> Boolean: ...
@@ -55,6 +58,7 @@ class CoreTextCompositionStartedEventArgs(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class CoreTextEditContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextEditContext
     _classid_ = 'Windows.UI.Text.Core.CoreTextEditContext'
     @winrt_mixinmethod
     def get_Name(self: Windows.UI.Text.Core.ICoreTextEditContext) -> WinRT_String: ...
@@ -128,6 +132,7 @@ class CoreTextEditContext(ComPtr):
     InputPaneDisplayPolicy = property(get_InputPaneDisplayPolicy, put_InputPaneDisplayPolicy)
 class CoreTextFormatUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs'
     @winrt_mixinmethod
     def get_Range(self: Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs) -> Windows.UI.Text.Core.CoreTextRange: ...
@@ -239,6 +244,7 @@ CoreTextInputScope_PinNumeric: CoreTextInputScope = 64
 CoreTextInputScope_PinAlphanumeric: CoreTextInputScope = 65
 class CoreTextLayoutBounds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextLayoutBounds
     _classid_ = 'Windows.UI.Text.Core.CoreTextLayoutBounds'
     @winrt_mixinmethod
     def get_TextBounds(self: Windows.UI.Text.Core.ICoreTextLayoutBounds) -> Windows.Foundation.Rect: ...
@@ -252,6 +258,7 @@ class CoreTextLayoutBounds(ComPtr):
     ControlBounds = property(get_ControlBounds, put_ControlBounds)
 class CoreTextLayoutRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextLayoutRequest
     _classid_ = 'Windows.UI.Text.Core.CoreTextLayoutRequest'
     @winrt_mixinmethod
     def get_Range(self: Windows.UI.Text.Core.ICoreTextLayoutRequest) -> Windows.UI.Text.Core.CoreTextRange: ...
@@ -269,6 +276,7 @@ class CoreTextLayoutRequest(ComPtr):
     LayoutBoundsVisualPixels = property(get_LayoutBoundsVisualPixels, None)
 class CoreTextLayoutRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextLayoutRequestedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextLayoutRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.UI.Text.Core.ICoreTextLayoutRequestedEventArgs) -> Windows.UI.Text.Core.CoreTextLayoutRequest: ...
@@ -278,6 +286,7 @@ class CoreTextRange(EasyCastStructure):
     EndCaretPosition: Int32
 class CoreTextSelectionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextSelectionRequest
     _classid_ = 'Windows.UI.Text.Core.CoreTextSelectionRequest'
     @winrt_mixinmethod
     def get_Selection(self: Windows.UI.Text.Core.ICoreTextSelectionRequest) -> Windows.UI.Text.Core.CoreTextRange: ...
@@ -291,12 +300,14 @@ class CoreTextSelectionRequest(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class CoreTextSelectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextSelectionRequestedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextSelectionRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.UI.Text.Core.ICoreTextSelectionRequestedEventArgs) -> Windows.UI.Text.Core.CoreTextSelectionRequest: ...
     Request = property(get_Request, None)
 class CoreTextSelectionUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextSelectionUpdatingEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextSelectionUpdatingEventArgs'
     @winrt_mixinmethod
     def get_Selection(self: Windows.UI.Text.Core.ICoreTextSelectionUpdatingEventArgs) -> Windows.UI.Text.Core.CoreTextRange: ...
@@ -316,12 +327,12 @@ CoreTextSelectionUpdatingResult_Succeeded: CoreTextSelectionUpdatingResult = 0
 CoreTextSelectionUpdatingResult_Failed: CoreTextSelectionUpdatingResult = 1
 class CoreTextServicesConstants(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.Text.Core.CoreTextServicesConstants'
     @winrt_classmethod
     def get_HiddenCharacter(cls: Windows.UI.Text.Core.ICoreTextServicesStatics) -> Char: ...
     HiddenCharacter = property(get_HiddenCharacter, None)
 class CoreTextServicesManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextServicesManager
     _classid_ = 'Windows.UI.Text.Core.CoreTextServicesManager'
     @winrt_mixinmethod
     def get_InputLanguage(self: Windows.UI.Text.Core.ICoreTextServicesManager) -> Windows.Globalization.Language: ...
@@ -336,6 +347,7 @@ class CoreTextServicesManager(ComPtr):
     InputLanguage = property(get_InputLanguage, None)
 class CoreTextTextRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextTextRequest
     _classid_ = 'Windows.UI.Text.Core.CoreTextTextRequest'
     @winrt_mixinmethod
     def get_Range(self: Windows.UI.Text.Core.ICoreTextTextRequest) -> Windows.UI.Text.Core.CoreTextRange: ...
@@ -352,12 +364,14 @@ class CoreTextTextRequest(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class CoreTextTextRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextTextRequestedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextTextRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.UI.Text.Core.ICoreTextTextRequestedEventArgs) -> Windows.UI.Text.Core.CoreTextTextRequest: ...
     Request = property(get_Request, None)
 class CoreTextTextUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.Core.ICoreTextTextUpdatingEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextTextUpdatingEventArgs'
     @winrt_mixinmethod
     def get_Range(self: Windows.UI.Text.Core.ICoreTextTextUpdatingEventArgs) -> Windows.UI.Text.Core.CoreTextRange: ...

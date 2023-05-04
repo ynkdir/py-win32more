@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DevicePortalConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.DevicePortal.IDevicePortalConnection
     _classid_ = 'Windows.System.Diagnostics.DevicePortal.DevicePortalConnection'
     @winrt_mixinmethod
     def add_Closed(self: Windows.System.Diagnostics.DevicePortal.IDevicePortalConnection, handler: Windows.Foundation.TypedEventHandler[Windows.System.Diagnostics.DevicePortal.DevicePortalConnection, Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -50,6 +51,7 @@ class DevicePortalConnection(ComPtr):
     def GetForAppServiceConnection(cls: Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionStatics, appServiceConnection: Windows.ApplicationModel.AppService.AppServiceConnection) -> Windows.System.Diagnostics.DevicePortal.DevicePortalConnection: ...
 class DevicePortalConnectionClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionClosedEventArgs
     _classid_ = 'Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionClosedEventArgs) -> Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedReason: ...
@@ -63,6 +65,7 @@ DevicePortalConnectionClosedReason_UserNotPresent: DevicePortalConnectionClosedR
 DevicePortalConnectionClosedReason_ServiceTerminated: DevicePortalConnectionClosedReason = 5
 class DevicePortalConnectionRequestReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionRequestReceivedEventArgs
     _classid_ = 'Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs'
     @winrt_mixinmethod
     def get_RequestMessage(self: Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionRequestReceivedEventArgs) -> Windows.Web.Http.HttpRequestMessage: ...

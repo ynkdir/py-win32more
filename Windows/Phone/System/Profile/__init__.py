@@ -28,7 +28,6 @@ class IRetailModeStatics(ComPtr):
     RetailModeEnabled = property(get_RetailModeEnabled, None)
 class RetailMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.System.Profile.RetailMode'
     @winrt_classmethod
     def get_RetailModeEnabled(cls: Windows.Phone.System.Profile.IRetailModeStatics) -> Boolean: ...
     RetailModeEnabled = property(get_RetailModeEnabled, None)

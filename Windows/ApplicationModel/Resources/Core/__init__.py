@@ -185,6 +185,7 @@ class IResourceQualifier(ComPtr):
     Score = property(get_Score, None)
 class NamedResource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Core.INamedResource
     _classid_ = 'Windows.ApplicationModel.Resources.Core.NamedResource'
     @winrt_mixinmethod
     def get_Uri(self: Windows.ApplicationModel.Resources.Core.INamedResource) -> Windows.Foundation.Uri: ...
@@ -202,6 +203,7 @@ class NamedResource(ComPtr):
     Candidates = property(get_Candidates, None)
 class ResourceCandidate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Core.IResourceCandidate
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceCandidate'
     @winrt_mixinmethod
     def get_Qualifiers(self: Windows.ApplicationModel.Resources.Core.IResourceCandidate) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceQualifier]: ...
@@ -233,6 +235,7 @@ ResourceCandidateKind_File: ResourceCandidateKind = 1
 ResourceCandidateKind_EmbeddedData: ResourceCandidateKind = 2
 class ResourceCandidateVectorView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceCandidate]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceCandidateVectorView'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceCandidate], index: UInt32) -> Windows.ApplicationModel.Resources.Core.ResourceCandidate: ...
@@ -247,6 +250,7 @@ class ResourceCandidateVectorView(ComPtr):
     Size = property(get_Size, None)
 class ResourceContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Core.IResourceContext
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceContext'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
@@ -284,6 +288,7 @@ class ResourceContext(ComPtr):
     Languages = property(get_Languages, put_Languages)
 class ResourceContextLanguagesVectorView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IVectorView[WinRT_String]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceContextLanguagesVectorView'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVectorView[WinRT_String], index: UInt32) -> WinRT_String: ...
@@ -304,6 +309,7 @@ class ResourceLayoutInfo(EasyCastStructure):
     Checksum: Int32
 class ResourceManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Core.IResourceManager
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceManager'
     @winrt_mixinmethod
     def get_MainResourceMap(self: Windows.ApplicationModel.Resources.Core.IResourceManager) -> Windows.ApplicationModel.Resources.Core.ResourceMap: ...
@@ -329,6 +335,7 @@ class ResourceManager(ComPtr):
     Current = property(get_Current, None)
 class ResourceMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Core.IResourceMap
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceMap'
     @winrt_mixinmethod
     def get_Uri(self: Windows.ApplicationModel.Resources.Core.IResourceMap) -> Windows.Foundation.Uri: ...
@@ -352,6 +359,7 @@ class ResourceMap(ComPtr):
     Size = property(get_Size, None)
 class ResourceMapIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceMapIterator'
     @winrt_mixinmethod
     def get_Current(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]]) -> Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]: ...
@@ -365,6 +373,7 @@ class ResourceMapIterator(ComPtr):
     HasCurrent = property(get_HasCurrent, None)
 class ResourceMapMapView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceMapMapView'
     @winrt_mixinmethod
     def Lookup(self: Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap], key: WinRT_String) -> Windows.ApplicationModel.Resources.Core.ResourceMap: ...
@@ -379,6 +388,7 @@ class ResourceMapMapView(ComPtr):
     Size = property(get_Size, None)
 class ResourceMapMapViewIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceMapMapViewIterator'
     @winrt_mixinmethod
     def get_Current(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]]) -> Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]: ...
@@ -392,6 +402,7 @@ class ResourceMapMapViewIterator(ComPtr):
     HasCurrent = property(get_HasCurrent, None)
 class ResourceQualifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Core.IResourceQualifier
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceQualifier'
     @winrt_mixinmethod
     def get_QualifierName(self: Windows.ApplicationModel.Resources.Core.IResourceQualifier) -> WinRT_String: ...
@@ -410,6 +421,7 @@ class ResourceQualifier(ComPtr):
     Score = property(get_Score, None)
 class ResourceQualifierMapView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierMapView'
     @winrt_mixinmethod
     def Lookup(self: Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String], key: WinRT_String) -> WinRT_String: ...
@@ -424,6 +436,7 @@ class ResourceQualifierMapView(ComPtr):
     Size = property(get_Size, None)
 class ResourceQualifierObservableMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IObservableMap[WinRT_String, WinRT_String]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierObservableMap'
     @winrt_mixinmethod
     def add_MapChanged(self: Windows.Foundation.Collections.IObservableMap[WinRT_String, WinRT_String], vhnd: Windows.Foundation.Collections.MapChangedEventHandler[WinRT_String, WinRT_String]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -451,6 +464,7 @@ ResourceQualifierPersistence_None: ResourceQualifierPersistence = 0
 ResourceQualifierPersistence_LocalMachine: ResourceQualifierPersistence = 1
 class ResourceQualifierVectorView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceQualifier]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierVectorView'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceQualifier], index: UInt32) -> Windows.ApplicationModel.Resources.Core.ResourceQualifier: ...

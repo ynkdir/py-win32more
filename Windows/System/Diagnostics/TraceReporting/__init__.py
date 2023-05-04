@@ -76,7 +76,6 @@ PlatformDiagnosticActionState_FreeNetworkNotAvailable: PlatformDiagnosticActionS
 PlatformDiagnosticActionState_ACPowerNotAvailable: PlatformDiagnosticActionState = 2
 class PlatformDiagnosticActions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions'
     @winrt_classmethod
     def IsScenarioEnabled(cls: Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics, scenarioId: Guid) -> Boolean: ...
     @winrt_classmethod
@@ -102,6 +101,7 @@ PlatformDiagnosticEventBufferLatencies_CostDeferred: PlatformDiagnosticEventBuff
 PlatformDiagnosticEventBufferLatencies_Realtime: PlatformDiagnosticEventBufferLatencies = 4
 class PlatformDiagnosticTraceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo'
     @winrt_mixinmethod
     def get_ScenarioId(self: Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo) -> Guid: ...
@@ -126,6 +126,7 @@ PlatformDiagnosticTracePriority_Normal: PlatformDiagnosticTracePriority = 0
 PlatformDiagnosticTracePriority_UserElevated: PlatformDiagnosticTracePriority = 1
 class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceRuntimeInfo'
     @winrt_mixinmethod
     def get_RuntimeFileTime(self: Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo) -> Int64: ...

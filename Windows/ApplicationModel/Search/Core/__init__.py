@@ -103,10 +103,12 @@ class ISearchSuggestionsRequestedEventArgs(ComPtr):
     Request = property(get_Request, None)
 class RequestingFocusOnKeyboardInputEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.Core.IRequestingFocusOnKeyboardInputEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.Core.RequestingFocusOnKeyboardInputEventArgs'
 SearchCoreContract: UInt32 = 65536
 class SearchSuggestion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.Core.ISearchSuggestion
     _classid_ = 'Windows.ApplicationModel.Search.Core.SearchSuggestion'
     @winrt_mixinmethod
     def get_Kind(self: Windows.ApplicationModel.Search.Core.ISearchSuggestion) -> Windows.ApplicationModel.Search.Core.SearchSuggestionKind: ...
@@ -132,6 +134,7 @@ SearchSuggestionKind_Result: SearchSuggestionKind = 1
 SearchSuggestionKind_Separator: SearchSuggestionKind = 2
 class SearchSuggestionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.Core.ISearchSuggestionManager
     _classid_ = 'Windows.ApplicationModel.Search.Core.SearchSuggestionManager'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Search.Core.SearchSuggestionManager: ...
@@ -172,6 +175,7 @@ class SearchSuggestionManager(ComPtr):
     Suggestions = property(get_Suggestions, None)
 class SearchSuggestionsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.Core.ISearchSuggestionsRequestedEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.Core.SearchSuggestionsRequestedEventArgs'
     @winrt_mixinmethod
     def get_QueryText(self: Windows.ApplicationModel.Search.Core.ISearchSuggestionsRequestedEventArgs) -> WinRT_String: ...

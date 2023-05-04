@@ -82,6 +82,7 @@ class ILanguageFontGroupFactory(ComPtr):
     def CreateLanguageFontGroup(self, languageTag: WinRT_String) -> Windows.Globalization.Fonts.LanguageFontGroup: ...
 class LanguageFont(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.Fonts.ILanguageFont
     _classid_ = 'Windows.Globalization.Fonts.LanguageFont'
     @winrt_mixinmethod
     def get_FontFamily(self: Windows.Globalization.Fonts.ILanguageFont) -> WinRT_String: ...
@@ -100,6 +101,7 @@ class LanguageFont(ComPtr):
     ScaleFactor = property(get_ScaleFactor, None)
 class LanguageFontGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.Fonts.ILanguageFontGroup
     _classid_ = 'Windows.Globalization.Fonts.LanguageFontGroup'
     @winrt_factorymethod
     def CreateLanguageFontGroup(cls: Windows.Globalization.Fonts.ILanguageFontGroupFactory, languageTag: WinRT_String) -> Windows.Globalization.Fonts.LanguageFontGroup: ...

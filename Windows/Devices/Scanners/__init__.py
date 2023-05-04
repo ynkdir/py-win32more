@@ -217,6 +217,7 @@ class IImageScannerStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class ImageScanner(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Scanners.IImageScanner
     _classid_ = 'Windows.Devices.Scanners.ImageScanner'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Scanners.IImageScanner) -> WinRT_String: ...
@@ -247,6 +248,7 @@ class ImageScanner(ComPtr):
     AutoConfiguration = property(get_AutoConfiguration, None)
 class ImageScannerAutoConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Scanners.IImageScannerFormatConfiguration
     _classid_ = 'Windows.Devices.Scanners.ImageScannerAutoConfiguration'
     @winrt_mixinmethod
     def get_DefaultFormat(self: Windows.Devices.Scanners.IImageScannerFormatConfiguration) -> Windows.Devices.Scanners.ImageScannerFormat: ...
@@ -269,6 +271,7 @@ ImageScannerColorMode_Monochrome: ImageScannerColorMode = 2
 ImageScannerColorMode_AutoColor: ImageScannerColorMode = 3
 class ImageScannerFeederConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Scanners.IImageScannerFormatConfiguration
     _classid_ = 'Windows.Devices.Scanners.ImageScannerFeederConfiguration'
     @winrt_mixinmethod
     def get_DefaultFormat(self: Windows.Devices.Scanners.IImageScannerFormatConfiguration) -> Windows.Devices.Scanners.ImageScannerFormat: ...
@@ -405,6 +408,7 @@ class ImageScannerFeederConfiguration(ComPtr):
     ScanAhead = property(get_ScanAhead, put_ScanAhead)
 class ImageScannerFlatbedConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Scanners.IImageScannerFormatConfiguration
     _classid_ = 'Windows.Devices.Scanners.ImageScannerFlatbedConfiguration'
     @winrt_mixinmethod
     def get_DefaultFormat(self: Windows.Devices.Scanners.IImageScannerFormatConfiguration) -> Windows.Devices.Scanners.ImageScannerFormat: ...
@@ -505,6 +509,7 @@ ImageScannerFormat_OpenXps: ImageScannerFormat = 5
 ImageScannerFormat_Pdf: ImageScannerFormat = 6
 class ImageScannerPreviewResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Scanners.IImageScannerPreviewResult
     _classid_ = 'Windows.Devices.Scanners.ImageScannerPreviewResult'
     @winrt_mixinmethod
     def get_Succeeded(self: Windows.Devices.Scanners.IImageScannerPreviewResult) -> Boolean: ...
@@ -517,6 +522,7 @@ class ImageScannerResolution(EasyCastStructure):
     DpiY: Single
 class ImageScannerScanResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Scanners.IImageScannerScanResult
     _classid_ = 'Windows.Devices.Scanners.ImageScannerScanResult'
     @winrt_mixinmethod
     def get_ScannedFiles(self: Windows.Devices.Scanners.IImageScannerScanResult) -> Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile]: ...

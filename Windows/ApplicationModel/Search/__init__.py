@@ -235,6 +235,7 @@ class ISearchSuggestionsRequestDeferral(ComPtr):
     def Complete(self) -> Void: ...
 class LocalContentSuggestionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ILocalContentSuggestionSettings
     _classid_ = 'Windows.ApplicationModel.Search.LocalContentSuggestionSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Search.LocalContentSuggestionSettings: ...
@@ -257,6 +258,7 @@ class LocalContentSuggestionSettings(ComPtr):
 SearchContract: UInt32 = 65536
 class SearchPane(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPane
     _classid_ = 'Windows.ApplicationModel.Search.SearchPane'
     @winrt_mixinmethod
     def put_SearchHistoryEnabled(self: Windows.ApplicationModel.Search.ISearchPane, value: Boolean) -> Void: ...
@@ -321,6 +323,7 @@ class SearchPane(ComPtr):
     ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
 class SearchPaneQueryChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneQueryChangedEventArgs'
     @winrt_mixinmethod
     def get_QueryText(self: Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> WinRT_String: ...
@@ -333,6 +336,7 @@ class SearchPaneQueryChangedEventArgs(ComPtr):
     LinguisticDetails = property(get_LinguisticDetails, None)
 class SearchPaneQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPaneQueryLinguisticDetails
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails'
     @winrt_mixinmethod
     def get_QueryTextAlternatives(self: Windows.ApplicationModel.Search.ISearchPaneQueryLinguisticDetails) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
@@ -345,6 +349,7 @@ class SearchPaneQueryLinguisticDetails(ComPtr):
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
 class SearchPaneQuerySubmittedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneQuerySubmittedEventArgs'
     @winrt_mixinmethod
     def get_QueryText(self: Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgs) -> WinRT_String: ...
@@ -357,12 +362,14 @@ class SearchPaneQuerySubmittedEventArgs(ComPtr):
     LinguisticDetails = property(get_LinguisticDetails, None)
 class SearchPaneResultSuggestionChosenEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPaneResultSuggestionChosenEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneResultSuggestionChosenEventArgs'
     @winrt_mixinmethod
     def get_Tag(self: Windows.ApplicationModel.Search.ISearchPaneResultSuggestionChosenEventArgs) -> WinRT_String: ...
     Tag = property(get_Tag, None)
 class SearchPaneSuggestionsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequest
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneSuggestionsRequest'
     @winrt_mixinmethod
     def get_IsCanceled(self: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequest) -> Boolean: ...
@@ -374,11 +381,13 @@ class SearchPaneSuggestionsRequest(ComPtr):
     SearchSuggestionCollection = property(get_SearchSuggestionCollection, None)
 class SearchPaneSuggestionsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequestDeferral
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneSuggestionsRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequestDeferral) -> Void: ...
 class SearchPaneSuggestionsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequestedEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneSuggestionsRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequestedEventArgs) -> Windows.ApplicationModel.Search.SearchPaneSuggestionsRequest: ...
@@ -394,12 +403,14 @@ class SearchPaneSuggestionsRequestedEventArgs(ComPtr):
     LinguisticDetails = property(get_LinguisticDetails, None)
 class SearchPaneVisibilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchPaneVisibilityChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneVisibilityChangedEventArgs'
     @winrt_mixinmethod
     def get_Visible(self: Windows.ApplicationModel.Search.ISearchPaneVisibilityChangedEventArgs) -> Boolean: ...
     Visible = property(get_Visible, None)
 class SearchQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchQueryLinguisticDetails
     _classid_ = 'Windows.ApplicationModel.Search.SearchQueryLinguisticDetails'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.ApplicationModel.Search.ISearchQueryLinguisticDetailsFactory, queryTextAlternatives: Windows.Foundation.Collections.IIterable[WinRT_String], queryTextCompositionStart: UInt32, queryTextCompositionLength: UInt32) -> Windows.ApplicationModel.Search.SearchQueryLinguisticDetails: ...
@@ -414,6 +425,7 @@ class SearchQueryLinguisticDetails(ComPtr):
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
 class SearchSuggestionCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchSuggestionCollection
     _classid_ = 'Windows.ApplicationModel.Search.SearchSuggestionCollection'
     @winrt_mixinmethod
     def get_Size(self: Windows.ApplicationModel.Search.ISearchSuggestionCollection) -> UInt32: ...
@@ -428,6 +440,7 @@ class SearchSuggestionCollection(ComPtr):
     Size = property(get_Size, None)
 class SearchSuggestionsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchSuggestionsRequest
     _classid_ = 'Windows.ApplicationModel.Search.SearchSuggestionsRequest'
     @winrt_mixinmethod
     def get_IsCanceled(self: Windows.ApplicationModel.Search.ISearchSuggestionsRequest) -> Boolean: ...
@@ -439,6 +452,7 @@ class SearchSuggestionsRequest(ComPtr):
     SearchSuggestionCollection = property(get_SearchSuggestionCollection, None)
 class SearchSuggestionsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Search.ISearchSuggestionsRequestDeferral
     _classid_ = 'Windows.ApplicationModel.Search.SearchSuggestionsRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.Search.ISearchSuggestionsRequestDeferral) -> Void: ...

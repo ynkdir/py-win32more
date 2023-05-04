@@ -30,6 +30,7 @@ BitmapCreateOptions_None: BitmapCreateOptions = 0
 BitmapCreateOptions_IgnoreImageCache: BitmapCreateOptions = 8
 class BitmapImage(ComPtr):
     extends: Windows.UI.Xaml.Media.Imaging.BitmapSource
+    default_interface: Windows.UI.Xaml.Media.Imaging.IBitmapImage
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapImage'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Imaging.BitmapImage: ...
@@ -113,6 +114,8 @@ class BitmapImage(ComPtr):
     DecodePixelHeightProperty = property(get_DecodePixelHeightProperty, None)
 class BitmapSource(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
+    default_interface: Windows.UI.Xaml.Media.Imaging.IBitmapSource
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapSource'
     @winrt_commethod(13)
     def get_PixelWidth(self) -> Int32: ...
     @winrt_commethod(14)
@@ -134,6 +137,7 @@ DecodePixelType_Physical: DecodePixelType = 0
 DecodePixelType_Logical: DecodePixelType = 1
 class DownloadProgressEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Media.Imaging.IDownloadProgressEventArgs
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs'
     @winrt_mixinmethod
     def get_Progress(self: Windows.UI.Xaml.Media.Imaging.IDownloadProgressEventArgs) -> Int32: ...
@@ -413,6 +417,7 @@ class IXamlRenderingBackgroundTaskOverrides(ComPtr):
     def OnRun(self, taskInstance: Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> Void: ...
 class RenderTargetBitmap(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
+    default_interface: Windows.UI.Xaml.Media.Imaging.IRenderTargetBitmap
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap: ...
@@ -436,6 +441,7 @@ class RenderTargetBitmap(ComPtr):
     PixelHeightProperty = property(get_PixelHeightProperty, None)
 class SoftwareBitmapSource(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
+    default_interface: Windows.UI.Xaml.Media.Imaging.ISoftwareBitmapSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource: ...
@@ -445,8 +451,12 @@ class SoftwareBitmapSource(ComPtr):
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
 class SurfaceImageSource(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
+    default_interface: Windows.UI.Xaml.Media.Imaging.ISurfaceImageSource
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.SurfaceImageSource'
 class SvgImageSource(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
+    default_interface: Windows.UI.Xaml.Media.Imaging.ISvgImageSource
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.SvgImageSource'
     @winrt_commethod(22)
     def get_UriSource(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(23)
@@ -483,6 +493,7 @@ class SvgImageSource(ComPtr):
     RasterizePixelHeightProperty = property(get_RasterizePixelHeightProperty, None)
 class SvgImageSourceFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SvgImageSourceFailedEventArgs'
     @winrt_mixinmethod
     def get_Status(self: Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs) -> Windows.UI.Xaml.Media.Imaging.SvgImageSourceLoadStatus: ...
@@ -494,9 +505,11 @@ SvgImageSourceLoadStatus_InvalidFormat: SvgImageSourceLoadStatus = 2
 SvgImageSourceLoadStatus_Other: SvgImageSourceLoadStatus = 3
 class SvgImageSourceOpenedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Media.Imaging.ISvgImageSourceOpenedEventArgs
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SvgImageSourceOpenedEventArgs'
 class VirtualSurfaceImageSource(ComPtr):
     extends: Windows.UI.Xaml.Media.Imaging.SurfaceImageSource
+    default_interface: Windows.UI.Xaml.Media.Imaging.IVirtualSurfaceImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource'
     @winrt_factorymethod
     def CreateInstanceWithDimensions(cls: Windows.UI.Xaml.Media.Imaging.IVirtualSurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32) -> Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource: ...
@@ -504,6 +517,7 @@ class VirtualSurfaceImageSource(ComPtr):
     def CreateInstanceWithDimensionsAndOpacity(cls: Windows.UI.Xaml.Media.Imaging.IVirtualSurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean) -> Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource: ...
 class WriteableBitmap(ComPtr):
     extends: Windows.UI.Xaml.Media.Imaging.BitmapSource
+    default_interface: Windows.UI.Xaml.Media.Imaging.IWriteableBitmap
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.WriteableBitmap'
     @winrt_factorymethod
     def CreateInstanceWithDimensions(cls: Windows.UI.Xaml.Media.Imaging.IWriteableBitmapFactory, pixelWidth: Int32, pixelHeight: Int32) -> Windows.UI.Xaml.Media.Imaging.WriteableBitmap: ...
@@ -514,6 +528,8 @@ class WriteableBitmap(ComPtr):
     PixelBuffer = property(get_PixelBuffer, None)
 class XamlRenderingBackgroundTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTask
+    _classid_ = 'Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask'
     @winrt_commethod(6)
     def OnRun(self, taskInstance: Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> Void: ...
 make_head(_module, 'BitmapImage')

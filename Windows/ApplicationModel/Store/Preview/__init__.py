@@ -39,6 +39,7 @@ DeliveryOptimizationDownloadModeSource_Default: DeliveryOptimizationDownloadMode
 DeliveryOptimizationDownloadModeSource_Policy: DeliveryOptimizationDownloadModeSource = 1
 class DeliveryOptimizationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Store.Preview.IDeliveryOptimizationSettings
     _classid_ = 'Windows.ApplicationModel.Store.Preview.DeliveryOptimizationSettings'
     @winrt_mixinmethod
     def get_DownloadMode(self: Windows.ApplicationModel.Store.Preview.IDeliveryOptimizationSettings) -> Windows.ApplicationModel.Store.Preview.DeliveryOptimizationDownloadMode: ...
@@ -220,7 +221,6 @@ class IWebAuthenticationCoreManagerHelper(ComPtr):
     def RequestTokenWithUIElementHostingAndWebAccountAsync(self, request: Windows.Security.Authentication.Web.Core.WebTokenRequest, webAccount: Windows.Security.Credentials.WebAccount, uiElement: Windows.UI.Xaml.UIElement) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.Core.WebTokenRequestResult]: ...
 class StoreConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Store.Preview.StoreConfiguration'
     @winrt_classmethod
     def IsPinToDesktopSupported(cls: Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics5) -> Boolean: ...
     @winrt_classmethod
@@ -281,6 +281,7 @@ class StoreConfiguration(ComPtr):
     HardwareManufacturerInfo = property(get_HardwareManufacturerInfo, None)
 class StoreHardwareManufacturerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Store.Preview.IStoreHardwareManufacturerInfo
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StoreHardwareManufacturerInfo'
     @winrt_mixinmethod
     def get_HardwareManufacturerId(self: Windows.ApplicationModel.Store.Preview.IStoreHardwareManufacturerInfo) -> WinRT_String: ...
@@ -299,13 +300,13 @@ StoreLogOptions_None: StoreLogOptions = 0
 StoreLogOptions_TryElevate: StoreLogOptions = 1
 class StorePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreview'
     @winrt_classmethod
     def RequestProductPurchaseByProductIdAndSkuIdAsync(cls: Windows.ApplicationModel.Store.Preview.IStorePreview, productId: WinRT_String, skuId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.Preview.StorePreviewPurchaseResults]: ...
     @winrt_classmethod
     def LoadAddOnProductInfosAsync(cls: Windows.ApplicationModel.Store.Preview.IStorePreview) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Store.Preview.StorePreviewProductInfo]]: ...
 class StorePreviewProductInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Store.Preview.IStorePreviewProductInfo
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreviewProductInfo'
     @winrt_mixinmethod
     def get_ProductId(self: Windows.ApplicationModel.Store.Preview.IStorePreviewProductInfo) -> WinRT_String: ...
@@ -329,12 +330,14 @@ StorePreviewProductPurchaseStatus_NotFulfilled: StorePreviewProductPurchaseStatu
 StorePreviewProductPurchaseStatus_NotPurchased: StorePreviewProductPurchaseStatus = 3
 class StorePreviewPurchaseResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Store.Preview.IStorePreviewPurchaseResults
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreviewPurchaseResults'
     @winrt_mixinmethod
     def get_ProductPurchaseStatus(self: Windows.ApplicationModel.Store.Preview.IStorePreviewPurchaseResults) -> Windows.ApplicationModel.Store.Preview.StorePreviewProductPurchaseStatus: ...
     ProductPurchaseStatus = property(get_ProductPurchaseStatus, None)
 class StorePreviewSkuInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Store.Preview.IStorePreviewSkuInfo
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreviewSkuInfo'
     @winrt_mixinmethod
     def get_ProductId(self: Windows.ApplicationModel.Store.Preview.IStorePreviewSkuInfo) -> WinRT_String: ...
@@ -401,7 +404,6 @@ StoreSystemFeature_VideoMemory1GB: StoreSystemFeature = 33
 StoreSystemFeature_ArchitectureArm64: StoreSystemFeature = 34
 class WebAuthenticationCoreManagerHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Store.Preview.WebAuthenticationCoreManagerHelper'
     @winrt_classmethod
     def RequestTokenWithUIElementHostingAsync(cls: Windows.ApplicationModel.Store.Preview.IWebAuthenticationCoreManagerHelper, request: Windows.Security.Authentication.Web.Core.WebTokenRequest, uiElement: Windows.UI.Xaml.UIElement) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.Core.WebTokenRequestResult]: ...
     @winrt_classmethod

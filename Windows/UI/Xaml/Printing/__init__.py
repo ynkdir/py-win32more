@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AddPagesEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Printing.IAddPagesEventArgs
     _classid_ = 'Windows.UI.Xaml.Printing.AddPagesEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Printing.AddPagesEventArgs: ...
@@ -39,6 +40,7 @@ class AddPagesEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.AddPagesEventArgs) -> Void: ...
 class GetPreviewPageEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Printing.IGetPreviewPageEventArgs
     _classid_ = 'Windows.UI.Xaml.Printing.GetPreviewPageEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Printing.GetPreviewPageEventArgs: ...
@@ -113,6 +115,7 @@ class IPrintDocumentStatics(ComPtr):
     DocumentSourceProperty = property(get_DocumentSourceProperty, None)
 class PaginateEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Printing.IPaginateEventArgs
     _classid_ = 'Windows.UI.Xaml.Printing.PaginateEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Printing.PaginateEventArgs: ...
@@ -133,6 +136,8 @@ PreviewPageCountType_Final: PreviewPageCountType = 0
 PreviewPageCountType_Intermediate: PreviewPageCountType = 1
 class PrintDocument(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
+    default_interface: Windows.UI.Xaml.Printing.IPrintDocument
+    _classid_ = 'Windows.UI.Xaml.Printing.PrintDocument'
     @winrt_commethod(20)
     def get_DocumentSource(self) -> Windows.Graphics.Printing.IPrintDocumentSource: ...
     @winrt_commethod(21)

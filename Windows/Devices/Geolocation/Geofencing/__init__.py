@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class Geofence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.Geofencing.IGeofence
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.Geofence'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Geolocation.Geofencing.IGeofenceFactory, id: WinRT_String, geoshape: Windows.Devices.Geolocation.IGeoshape) -> Windows.Devices.Geolocation.Geofencing.Geofence: ...
@@ -57,6 +58,7 @@ class Geofence(ComPtr):
     SingleUse = property(get_SingleUse, None)
 class GeofenceMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.Geofencing.IGeofenceMonitor
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.GeofenceMonitor'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Geolocation.Geofencing.IGeofenceMonitor) -> Windows.Devices.Geolocation.Geofencing.GeofenceMonitorStatus: ...
@@ -97,6 +99,7 @@ GeofenceState_Exited: GeofenceState = 2
 GeofenceState_Removed: GeofenceState = 4
 class GeofenceStateChangeReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.Geofencing.IGeofenceStateChangeReport
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.GeofenceStateChangeReport'
     @winrt_mixinmethod
     def get_NewState(self: Windows.Devices.Geolocation.Geofencing.IGeofenceStateChangeReport) -> Windows.Devices.Geolocation.Geofencing.GeofenceState: ...

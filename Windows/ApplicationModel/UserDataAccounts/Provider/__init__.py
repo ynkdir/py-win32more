@@ -69,6 +69,7 @@ class IUserDataAccountProviderSettingsOperation(ComPtr):
     UserDataAccountId = property(get_UserDataAccountId, None)
 class UserDataAccountPartnerAccountInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountPartnerAccountInfo
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountPartnerAccountInfo'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountPartnerAccountInfo) -> WinRT_String: ...
@@ -81,6 +82,7 @@ class UserDataAccountPartnerAccountInfo(ComPtr):
     AccountKind = property(get_AccountKind, None)
 class UserDataAccountProviderAddAccountOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderAddAccountOperation
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderAddAccountOperation'
     @winrt_mixinmethod
     def get_ContentKinds(self: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderAddAccountOperation) -> Windows.ApplicationModel.UserDataAccounts.UserDataAccountContentKinds: ...
@@ -102,6 +104,7 @@ UserDataAccountProviderPartnerAccountKind_Exchange: UserDataAccountProviderPartn
 UserDataAccountProviderPartnerAccountKind_PopOrImap: UserDataAccountProviderPartnerAccountKind = 1
 class UserDataAccountProviderResolveErrorsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderResolveErrorsOperation
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderResolveErrorsOperation'
     @winrt_mixinmethod
     def get_UserDataAccountId(self: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderResolveErrorsOperation) -> WinRT_String: ...
@@ -113,6 +116,7 @@ class UserDataAccountProviderResolveErrorsOperation(ComPtr):
     Kind = property(get_Kind, None)
 class UserDataAccountProviderSettingsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderSettingsOperation
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderSettingsOperation'
     @winrt_mixinmethod
     def get_UserDataAccountId(self: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderSettingsOperation) -> WinRT_String: ...

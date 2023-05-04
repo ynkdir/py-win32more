@@ -98,12 +98,14 @@ class INotesWindowManagerPreviewStatics(ComPtr):
     def GetForCurrentApp(self) -> Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview: ...
 class NotePlacementChangedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Preview.Notes.INotePlacementChangedPreviewEventArgs
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.NotePlacementChangedPreviewEventArgs'
     @winrt_mixinmethod
     def get_ViewId(self: Windows.ApplicationModel.Preview.Notes.INotePlacementChangedPreviewEventArgs) -> Int32: ...
     ViewId = property(get_ViewId, None)
 class NoteVisibilityChangedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Preview.Notes.INoteVisibilityChangedPreviewEventArgs
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.NoteVisibilityChangedPreviewEventArgs'
     @winrt_mixinmethod
     def get_ViewId(self: Windows.ApplicationModel.Preview.Notes.INoteVisibilityChangedPreviewEventArgs) -> Int32: ...
@@ -113,6 +115,7 @@ class NoteVisibilityChangedPreviewEventArgs(ComPtr):
     IsVisible = property(get_IsVisible, None)
 class NotesWindowManagerPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview'
     @winrt_mixinmethod
     def get_IsScreenLocked(self: Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview) -> Boolean: ...
@@ -157,6 +160,7 @@ class NotesWindowManagerPreview(ComPtr):
     IsScreenLocked = property(get_IsScreenLocked, None)
 class NotesWindowManagerPreviewShowNoteOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewShowNoteOptions
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreviewShowNoteOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreviewShowNoteOptions: ...

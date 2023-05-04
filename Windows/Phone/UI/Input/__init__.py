@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class BackPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.UI.Input.IBackPressedEventArgs
     _classid_ = 'Windows.Phone.UI.Input.BackPressedEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.Phone.UI.Input.IBackPressedEventArgs) -> Boolean: ...
@@ -31,10 +32,10 @@ class BackPressedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class CameraEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.UI.Input.ICameraEventArgs
     _classid_ = 'Windows.Phone.UI.Input.CameraEventArgs'
 class HardwareButtons(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.UI.Input.HardwareButtons'
     @winrt_classmethod
     def add_BackPressed(cls: Windows.Phone.UI.Input.IHardwareButtonsStatics, handler: Windows.Foundation.EventHandler[Windows.Phone.UI.Input.BackPressedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod

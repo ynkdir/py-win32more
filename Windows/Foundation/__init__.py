@@ -66,6 +66,7 @@ class DateTime(EasyCastStructure):
     UniversalTime: Int64
 class Deferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IDeferral
     _classid_ = 'Windows.Foundation.Deferral'
     @winrt_factorymethod
     def Create(cls: Windows.Foundation.IDeferralFactory, handler: Windows.Foundation.DeferralCompletedHandler) -> Windows.Foundation.Deferral: ...
@@ -90,7 +91,6 @@ class EventRegistrationToken(EasyCastStructure):
 FoundationContract: UInt32 = 262144
 class GuidHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Foundation.GuidHelper'
     @winrt_classmethod
     def CreateNewGuid(cls: Windows.Foundation.IGuidHelperStatics) -> Guid: ...
     @winrt_classmethod
@@ -493,6 +493,7 @@ class IWwwFormUrlDecoderRuntimeClassFactory(ComPtr):
     def CreateWwwFormUrlDecoder(self, query: WinRT_String) -> Windows.Foundation.WwwFormUrlDecoder: ...
 class MemoryBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IMemoryBuffer
     _classid_ = 'Windows.Foundation.MemoryBuffer'
     @winrt_factorymethod
     def Create(cls: Windows.Foundation.IMemoryBufferFactory, capacity: UInt32) -> Windows.Foundation.MemoryBuffer: ...
@@ -547,7 +548,6 @@ PropertyType_RectArray: PropertyType = 1043
 PropertyType_OtherTypeArray: PropertyType = 1044
 class PropertyValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Foundation.PropertyValue'
     @winrt_classmethod
     def CreateEmpty(cls: Windows.Foundation.IPropertyValueStatics) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_classmethod
@@ -645,6 +645,7 @@ class TypedEventHandler(Generic[TSender, TResult], ComPtr):
 UniversalApiContract: UInt32 = 983040
 class Uri(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IUriRuntimeClass
     _classid_ = 'Windows.Foundation.Uri'
     @winrt_factorymethod
     def CreateUri(cls: Windows.Foundation.IUriRuntimeClassFactory, uri: WinRT_String) -> Windows.Foundation.Uri: ...
@@ -713,6 +714,7 @@ class Uri(ComPtr):
     DisplayIri = property(get_DisplayIri, None)
 class WwwFormUrlDecoder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IWwwFormUrlDecoderRuntimeClass
     _classid_ = 'Windows.Foundation.WwwFormUrlDecoder'
     @winrt_factorymethod
     def CreateWwwFormUrlDecoder(cls: Windows.Foundation.IWwwFormUrlDecoderRuntimeClassFactory, query: WinRT_String) -> Windows.Foundation.WwwFormUrlDecoder: ...
@@ -731,6 +733,7 @@ class WwwFormUrlDecoder(ComPtr):
     Size = property(get_Size, None)
 class WwwFormUrlDecoderEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IWwwFormUrlDecoderEntry
     _classid_ = 'Windows.Foundation.WwwFormUrlDecoderEntry'
     @winrt_mixinmethod
     def get_Name(self: Windows.Foundation.IWwwFormUrlDecoderEntry) -> WinRT_String: ...

@@ -38,7 +38,6 @@ class IStorageDeviceStatics(ComPtr):
 PortableDeviceContract: UInt32 = 65536
 class ServiceDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Portable.ServiceDevice'
     @winrt_classmethod
     def GetDeviceSelector(cls: Windows.Devices.Portable.IServiceDeviceStatics, serviceType: Windows.Devices.Portable.ServiceDeviceType) -> WinRT_String: ...
     @winrt_classmethod
@@ -53,7 +52,6 @@ ServiceDeviceType_SmsService: ServiceDeviceType = 5
 ServiceDeviceType_TasksService: ServiceDeviceType = 6
 class StorageDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Portable.StorageDevice'
     @winrt_classmethod
     def FromId(cls: Windows.Devices.Portable.IStorageDeviceStatics, deviceId: WinRT_String) -> Windows.Storage.StorageFolder: ...
     @winrt_classmethod

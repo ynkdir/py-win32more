@@ -27,6 +27,7 @@ DomainNameType_Suffix: DomainNameType = 0
 DomainNameType_FullyQualified: DomainNameType = 1
 class EndpointPair(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.IEndpointPair
     _classid_ = 'Windows.Networking.EndpointPair'
     @winrt_factorymethod
     def CreateEndpointPair(cls: Windows.Networking.IEndpointPairFactory, localHostName: Windows.Networking.HostName, localServiceName: WinRT_String, remoteHostName: Windows.Networking.HostName, remoteServiceName: WinRT_String) -> Windows.Networking.EndpointPair: ...
@@ -52,6 +53,7 @@ class EndpointPair(ComPtr):
     RemoteServiceName = property(get_RemoteServiceName, put_RemoteServiceName)
 class HostName(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.IHostName
     _classid_ = 'Windows.Networking.HostName'
     @winrt_factorymethod
     def CreateHostName(cls: Windows.Networking.IHostNameFactory, hostName: WinRT_String) -> Windows.Networking.HostName: ...

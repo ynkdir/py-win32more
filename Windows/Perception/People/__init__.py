@@ -28,6 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class EyesPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Perception.People.IEyesPose
     _classid_ = 'Windows.Perception.People.EyesPose'
     @winrt_mixinmethod
     def get_IsCalibrationValid(self: Windows.Perception.People.IEyesPose) -> Boolean: ...
@@ -71,6 +72,7 @@ HandJointKind_LittleDistal: HandJointKind = 24
 HandJointKind_LittleTip: HandJointKind = 25
 class HandMeshObserver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Perception.People.IHandMeshObserver
     _classid_ = 'Windows.Perception.People.HandMeshObserver'
     @winrt_mixinmethod
     def get_Source(self: Windows.Perception.People.IHandMeshObserver) -> Windows.UI.Input.Spatial.SpatialInteractionSource: ...
@@ -99,6 +101,7 @@ class HandMeshVertex(EasyCastStructure):
     Normal: Windows.Foundation.Numerics.Vector3
 class HandMeshVertexState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Perception.People.IHandMeshVertexState
     _classid_ = 'Windows.Perception.People.HandMeshVertexState'
     @winrt_mixinmethod
     def get_CoordinateSystem(self: Windows.Perception.People.IHandMeshVertexState) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
@@ -110,6 +113,7 @@ class HandMeshVertexState(ComPtr):
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class HandPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Perception.People.IHandPose
     _classid_ = 'Windows.Perception.People.HandPose'
     @winrt_mixinmethod
     def TryGetJoint(self: Windows.Perception.People.IHandPose, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, joint: Windows.Perception.People.HandJointKind, jointPose: POINTER(Windows.Perception.People.JointPose_head)) -> Boolean: ...
@@ -121,6 +125,7 @@ class HandPose(ComPtr):
     def GetRelativeJoints(self: Windows.Perception.People.IHandPose, joints: POINTER(Windows.Perception.People.HandJointKind), referenceJoints: POINTER(Windows.Perception.People.HandJointKind), jointPoses: POINTER(Windows.Perception.People.JointPose_head)) -> Void: ...
 class HeadPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Perception.People.IHeadPose
     _classid_ = 'Windows.Perception.People.HeadPose'
     @winrt_mixinmethod
     def get_Position(self: Windows.Perception.People.IHeadPose) -> Windows.Foundation.Numerics.Vector3: ...

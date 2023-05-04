@@ -25,7 +25,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class GameBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Gaming.UI.GameBar'
     @winrt_classmethod
     def add_VisibilityChanged(cls: Windows.Gaming.UI.IGameBarStatics, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -45,6 +44,7 @@ GameChatMessageOrigin_Voice: GameChatMessageOrigin = 0
 GameChatMessageOrigin_Text: GameChatMessageOrigin = 1
 class GameChatMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.UI.IGameChatMessageReceivedEventArgs
     _classid_ = 'Windows.Gaming.UI.GameChatMessageReceivedEventArgs'
     @winrt_mixinmethod
     def get_AppId(self: Windows.Gaming.UI.IGameChatMessageReceivedEventArgs) -> WinRT_String: ...
@@ -63,6 +63,7 @@ class GameChatMessageReceivedEventArgs(ComPtr):
     Origin = property(get_Origin, None)
 class GameChatOverlay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.UI.IGameChatOverlay
     _classid_ = 'Windows.Gaming.UI.GameChatOverlay'
     @winrt_mixinmethod
     def get_DesiredPosition(self: Windows.Gaming.UI.IGameChatOverlay) -> Windows.Gaming.UI.GameChatOverlayPosition: ...
@@ -76,6 +77,7 @@ class GameChatOverlay(ComPtr):
 GameChatOverlayContract: UInt32 = 65536
 class GameChatOverlayMessageSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.UI.IGameChatOverlayMessageSource
     _classid_ = 'Windows.Gaming.UI.GameChatOverlayMessageSource'
     @winrt_activatemethod
     def New(cls) -> Windows.Gaming.UI.GameChatOverlayMessageSource: ...
@@ -96,6 +98,7 @@ GameChatOverlayPosition_TopLeft: GameChatOverlayPosition = 6
 GameChatOverlayPosition_TopRight: GameChatOverlayPosition = 7
 class GameUIProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.UI.IGameUIProviderActivatedEventArgs
     _classid_ = 'Windows.Gaming.UI.GameUIProviderActivatedEventArgs'
     @winrt_mixinmethod
     def get_GameUIArgs(self: Windows.Gaming.UI.IGameUIProviderActivatedEventArgs) -> Windows.Foundation.Collections.ValueSet: ...

@@ -28,6 +28,7 @@ CaretType_Normal: CaretType = 0
 CaretType_Null: CaretType = 1
 class ContentLinkInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.IContentLinkInfo
     _classid_ = 'Windows.UI.Text.ContentLinkInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Text.ContentLinkInfo: ...
@@ -79,6 +80,7 @@ class FontWeight(EasyCastStructure):
     Weight: UInt16
 class FontWeights(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.IFontWeights
     _classid_ = 'Windows.UI.Text.FontWeights'
     @winrt_classmethod
     def get_Black(cls: Windows.UI.Text.IFontWeightsStatics) -> Windows.UI.Text.FontWeight: ...
@@ -803,6 +805,7 @@ RichEditMathMode_NoMath: RichEditMathMode = 0
 RichEditMathMode_MathOnly: RichEditMathMode = 1
 class RichEditTextDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.ITextDocument
     _classid_ = 'Windows.UI.Text.RichEditTextDocument'
     @winrt_mixinmethod
     def get_AlignmentIncludesTrailingWhitespace(self: Windows.UI.Text.ITextDocument2) -> Boolean: ...
@@ -882,6 +885,7 @@ class RichEditTextDocument(ComPtr):
     UndoLimit = property(get_UndoLimit, put_UndoLimit)
 class RichEditTextRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Text.ITextRange
     _classid_ = 'Windows.UI.Text.RichEditTextRange'
     @winrt_mixinmethod
     def get_ContentLinkInfo(self: Windows.UI.Text.IRichEditTextRange) -> Windows.UI.Text.ContentLinkInfo: ...
@@ -1030,7 +1034,6 @@ TabLeader_ThickLines: TabLeader = 4
 TabLeader_Equals: TabLeader = 5
 class TextConstants(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.Text.TextConstants'
     @winrt_classmethod
     def get_AutoColor(cls: Windows.UI.Text.ITextConstantsStatics) -> Windows.UI.Color: ...
     @winrt_classmethod

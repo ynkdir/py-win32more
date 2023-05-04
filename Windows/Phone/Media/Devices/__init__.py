@@ -32,6 +32,7 @@ AudioRoutingEndpoint_BluetoothWithNoiseAndEchoCancellation: AudioRoutingEndpoint
 AudioRoutingEndpoint_BluetoothPreferred: AudioRoutingEndpoint = 7
 class AudioRoutingManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Media.Devices.IAudioRoutingManager
     _classid_ = 'Windows.Phone.Media.Devices.AudioRoutingManager'
     @winrt_mixinmethod
     def GetAudioEndpoint(self: Windows.Phone.Media.Devices.IAudioRoutingManager) -> Windows.Phone.Media.Devices.AudioRoutingEndpoint: ...

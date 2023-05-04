@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CharacterGrouping(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.Collation.ICharacterGrouping
     _classid_ = 'Windows.Globalization.Collation.CharacterGrouping'
     @winrt_mixinmethod
     def get_First(self: Windows.Globalization.Collation.ICharacterGrouping) -> WinRT_String: ...
@@ -32,6 +33,7 @@ class CharacterGrouping(ComPtr):
     Label = property(get_Label, None)
 class CharacterGroupings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.Collation.ICharacterGroupings
     _classid_ = 'Windows.Globalization.Collation.CharacterGroupings'
     @winrt_activatemethod
     def New(cls) -> Windows.Globalization.Collation.CharacterGroupings: ...

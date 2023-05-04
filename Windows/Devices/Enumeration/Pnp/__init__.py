@@ -94,6 +94,7 @@ class IPnpObjectWatcher(ComPtr):
     Status = property(get_Status, None)
 class PnpObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Enumeration.Pnp.IPnpObject
     _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObject'
     @winrt_mixinmethod
     def get_Type(self: Windows.Devices.Enumeration.Pnp.IPnpObject) -> Windows.Devices.Enumeration.Pnp.PnpObjectType: ...
@@ -118,6 +119,7 @@ class PnpObject(ComPtr):
     Properties = property(get_Properties, None)
 class PnpObjectCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IVectorView[Windows.Devices.Enumeration.Pnp.PnpObject]
     _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObjectCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVectorView[Windows.Devices.Enumeration.Pnp.PnpObject], index: UInt32) -> Windows.Devices.Enumeration.Pnp.PnpObject: ...
@@ -142,6 +144,7 @@ PnpObjectType_AssociationEndpointService: PnpObjectType = 7
 PnpObjectType_DevicePanel: PnpObjectType = 8
 class PnpObjectUpdate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate
     _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObjectUpdate'
     @winrt_mixinmethod
     def get_Type(self: Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate) -> Windows.Devices.Enumeration.Pnp.PnpObjectType: ...
@@ -154,6 +157,7 @@ class PnpObjectUpdate(ComPtr):
     Properties = property(get_Properties, None)
 class PnpObjectWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher
     _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObjectWatcher'
     @winrt_mixinmethod
     def add_Added(self: Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, Windows.Devices.Enumeration.Pnp.PnpObject]) -> Windows.Foundation.EventRegistrationToken: ...

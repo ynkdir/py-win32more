@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class BasicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.FileProperties.IBasicProperties
     _classid_ = 'Windows.Storage.FileProperties.BasicProperties'
     @winrt_mixinmethod
     def get_Size(self: Windows.Storage.FileProperties.IBasicProperties) -> UInt64: ...
@@ -45,6 +46,7 @@ class BasicProperties(ComPtr):
     ItemDate = property(get_ItemDate, None)
 class DocumentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.FileProperties.IDocumentProperties
     _classid_ = 'Windows.Storage.FileProperties.DocumentProperties'
     @winrt_mixinmethod
     def get_Author(self: Windows.Storage.FileProperties.IDocumentProperties) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
@@ -70,7 +72,6 @@ class DocumentProperties(ComPtr):
     Comment = property(get_Comment, put_Comment)
 class GeotagHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Storage.FileProperties.GeotagHelper'
     @winrt_classmethod
     def GetGeotagAsync(cls: Windows.Storage.FileProperties.IGeotagHelperStatics, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Geolocation.Geopoint]: ...
     @winrt_classmethod
@@ -333,6 +334,7 @@ class IVideoProperties(ComPtr):
     Orientation = property(get_Orientation, None)
 class ImageProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.FileProperties.IImageProperties
     _classid_ = 'Windows.Storage.FileProperties.ImageProperties'
     @winrt_mixinmethod
     def get_Rating(self: Windows.Storage.FileProperties.IImageProperties) -> UInt32: ...
@@ -388,6 +390,7 @@ class ImageProperties(ComPtr):
     PeopleNames = property(get_PeopleNames, None)
 class MusicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.FileProperties.IMusicProperties
     _classid_ = 'Windows.Storage.FileProperties.MusicProperties'
     @winrt_mixinmethod
     def get_Album(self: Windows.Storage.FileProperties.IMusicProperties) -> WinRT_String: ...
@@ -480,6 +483,7 @@ PropertyPrefetchOptions_DocumentProperties: PropertyPrefetchOptions = 8
 PropertyPrefetchOptions_BasicProperties: PropertyPrefetchOptions = 16
 class StorageItemContentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.FileProperties.IStorageItemContentProperties
     _classid_ = 'Windows.Storage.FileProperties.StorageItemContentProperties'
     @winrt_mixinmethod
     def GetMusicPropertiesAsync(self: Windows.Storage.FileProperties.IStorageItemContentProperties) -> Windows.Foundation.IAsyncOperation[Windows.Storage.FileProperties.MusicProperties]: ...
@@ -497,6 +501,7 @@ class StorageItemContentProperties(ComPtr):
     def SavePropertiesAsyncOverloadDefault(self: Windows.Storage.FileProperties.IStorageItemExtraProperties) -> Windows.Foundation.IAsyncAction: ...
 class StorageItemThumbnail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.Streams.IRandomAccessStreamWithContentType
     _classid_ = 'Windows.Storage.FileProperties.StorageItemThumbnail'
     @winrt_mixinmethod
     def get_Size(self: Windows.Storage.Streams.IRandomAccessStream) -> UInt64: ...
@@ -565,6 +570,7 @@ VideoOrientation_Rotate180: VideoOrientation = 180
 VideoOrientation_Rotate270: VideoOrientation = 270
 class VideoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.FileProperties.IVideoProperties
     _classid_ = 'Windows.Storage.FileProperties.VideoProperties'
     @winrt_mixinmethod
     def get_Rating(self: Windows.Storage.FileProperties.IVideoProperties) -> UInt32: ...

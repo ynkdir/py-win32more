@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DataProtectionProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Security.Cryptography.DataProtection.IDataProtectionProvider
     _classid_ = 'Windows.Security.Cryptography.DataProtection.DataProtectionProvider'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Cryptography.DataProtection.DataProtectionProvider: ...

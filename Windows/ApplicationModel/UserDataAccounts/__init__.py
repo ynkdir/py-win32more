@@ -162,6 +162,7 @@ class IUserDataAccountStoreChangedEventArgs(ComPtr):
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class UserDataAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataAccounts.IUserDataAccount
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccount'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.UserDataAccounts.IUserDataAccount) -> WinRT_String: ...
@@ -235,7 +236,6 @@ UserDataAccountContentKinds_Contact: UserDataAccountContentKinds = 2
 UserDataAccountContentKinds_Appointment: UserDataAccountContentKinds = 4
 class UserDataAccountManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager'
     @winrt_classmethod
     def GetForUser(cls: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics2, user: Windows.System.User) -> Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser: ...
     @winrt_classmethod
@@ -248,6 +248,7 @@ class UserDataAccountManager(ComPtr):
     def ShowAccountErrorResolverAsync(cls: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics, id: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class UserDataAccountManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser'
     @winrt_mixinmethod
     def RequestStoreAsync(self: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser, storeAccessType: Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreAccessType) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore]: ...
@@ -260,6 +261,7 @@ UserDataAccountOtherAppReadAccess_Full: UserDataAccountOtherAppReadAccess = 1
 UserDataAccountOtherAppReadAccess_None: UserDataAccountOtherAppReadAccess = 2
 class UserDataAccountStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore'
     @winrt_mixinmethod
     def FindAccountsAsync(self: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.UserDataAccounts.UserDataAccount]]: ...
@@ -280,6 +282,7 @@ UserDataAccountStoreAccessType_AllAccountsReadOnly: UserDataAccountStoreAccessTy
 UserDataAccountStoreAccessType_AppAccountsReadWrite: UserDataAccountStoreAccessType = 1
 class UserDataAccountStoreChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStoreChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStoreChangedEventArgs) -> Windows.Foundation.Deferral: ...

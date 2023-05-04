@@ -79,6 +79,7 @@ class IPhoneCallOriginManagerStatics3(ComPtr):
     IsSupported = property(get_IsSupported, None)
 class PhoneCallOrigin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Calls.Provider.IPhoneCallOrigin
     _classid_ = 'Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin: ...
@@ -109,7 +110,6 @@ class PhoneCallOrigin(ComPtr):
     DisplayPicture = property(get_DisplayPicture, put_DisplayPicture)
 class PhoneCallOriginManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager'
     @winrt_classmethod
     def get_IsSupported(cls: Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics3) -> Boolean: ...
     @winrt_classmethod

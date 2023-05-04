@@ -113,6 +113,7 @@ class ISpiDeviceStatics(ComPtr):
     def FromIdAsync(self, busId: WinRT_String, settings: Windows.Devices.Spi.SpiConnectionSettings) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Spi.SpiDevice]: ...
 class SpiBusInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Spi.ISpiBusInfo
     _classid_ = 'Windows.Devices.Spi.SpiBusInfo'
     @winrt_mixinmethod
     def get_ChipSelectLineCount(self: Windows.Devices.Spi.ISpiBusInfo) -> Int32: ...
@@ -128,6 +129,7 @@ class SpiBusInfo(ComPtr):
     SupportedDataBitLengths = property(get_SupportedDataBitLengths, None)
 class SpiConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Spi.ISpiConnectionSettings
     _classid_ = 'Windows.Devices.Spi.SpiConnectionSettings'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Spi.ISpiConnectionSettingsFactory, chipSelectLine: Int32) -> Windows.Devices.Spi.SpiConnectionSettings: ...
@@ -158,6 +160,7 @@ class SpiConnectionSettings(ComPtr):
     SharingMode = property(get_SharingMode, put_SharingMode)
 class SpiController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Spi.ISpiController
     _classid_ = 'Windows.Devices.Spi.SpiController'
     @winrt_mixinmethod
     def GetDevice(self: Windows.Devices.Spi.ISpiController, settings: Windows.Devices.Spi.SpiConnectionSettings) -> Windows.Devices.Spi.SpiDevice: ...
@@ -167,6 +170,7 @@ class SpiController(ComPtr):
     def GetControllersAsync(cls: Windows.Devices.Spi.ISpiControllerStatics, provider: Windows.Devices.Spi.Provider.ISpiProvider) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Spi.SpiController]]: ...
 class SpiDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Spi.ISpiDevice
     _classid_ = 'Windows.Devices.Spi.SpiDevice'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Spi.ISpiDevice) -> WinRT_String: ...

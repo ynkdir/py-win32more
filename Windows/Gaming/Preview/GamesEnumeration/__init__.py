@@ -26,7 +26,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class GameList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameList'
     @winrt_classmethod
     def MergeEntriesAsync(cls: Windows.Gaming.Preview.GamesEnumeration.IGameListStatics2, left: Windows.Gaming.Preview.GamesEnumeration.GameListEntry, right: Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Windows.Foundation.IAsyncOperation[Windows.Gaming.Preview.GamesEnumeration.GameListEntry]: ...
     @winrt_classmethod
@@ -59,6 +58,7 @@ class GameListChangedEventHandler(ComPtr):
     def Invoke(self, game: Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Void: ...
 class GameListEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Preview.GamesEnumeration.IGameListEntry
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameListEntry'
     @winrt_mixinmethod
     def get_DisplayInfo(self: Windows.Gaming.Preview.GamesEnumeration.IGameListEntry) -> Windows.ApplicationModel.AppDisplayInfo: ...
@@ -107,6 +107,7 @@ class GameListRemovedEventHandler(ComPtr):
     def Invoke(self, identifier: WinRT_String) -> Void: ...
 class GameModeConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Preview.GamesEnumeration.IGameModeConfiguration
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration'
     @winrt_mixinmethod
     def get_IsEnabled(self: Windows.Gaming.Preview.GamesEnumeration.IGameModeConfiguration) -> Boolean: ...
@@ -155,6 +156,7 @@ class GameModeConfiguration(ComPtr):
     AffinitizeToExclusiveCpus = property(get_AffinitizeToExclusiveCpus, put_AffinitizeToExclusiveCpus)
 class GameModeUserConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfiguration
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration'
     @winrt_mixinmethod
     def get_GamingRelatedProcessNames(self: Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfiguration) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...

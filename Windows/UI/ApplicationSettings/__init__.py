@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AccountsSettingsPane(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.IAccountsSettingsPane
     _classid_ = 'Windows.UI.ApplicationSettings.AccountsSettingsPane'
     @winrt_mixinmethod
     def add_AccountCommandsRequested(self: Windows.UI.ApplicationSettings.IAccountsSettingsPane, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ApplicationSettings.AccountsSettingsPane, Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -46,6 +47,7 @@ class AccountsSettingsPane(ComPtr):
     def Show(cls: Windows.UI.ApplicationSettings.IAccountsSettingsPaneStatics) -> Void: ...
 class AccountsSettingsPaneCommandsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.IAccountsSettingsPaneCommandsRequestedEventArgs
     _classid_ = 'Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs'
     @winrt_mixinmethod
     def get_WebAccountProviderCommands(self: Windows.UI.ApplicationSettings.IAccountsSettingsPaneCommandsRequestedEventArgs) -> Windows.Foundation.Collections.IVector[Windows.UI.ApplicationSettings.WebAccountProviderCommand]: ...
@@ -71,12 +73,14 @@ class AccountsSettingsPaneCommandsRequestedEventArgs(ComPtr):
     User = property(get_User, None)
 class AccountsSettingsPaneEventDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.IAccountsSettingsPaneEventDeferral
     _classid_ = 'Windows.UI.ApplicationSettings.AccountsSettingsPaneEventDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.UI.ApplicationSettings.IAccountsSettingsPaneEventDeferral) -> Void: ...
 ApplicationsSettingsContract: UInt32 = 65536
 class CredentialCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.ICredentialCommand
     _classid_ = 'Windows.UI.ApplicationSettings.CredentialCommand'
     @winrt_factorymethod
     def CreateCredentialCommand(cls: Windows.UI.ApplicationSettings.ICredentialCommandFactory, passwordCredential: Windows.Security.Credentials.PasswordCredential) -> Windows.UI.ApplicationSettings.CredentialCommand: ...
@@ -250,6 +254,7 @@ class IWebAccountProviderCommandFactory(ComPtr):
     def CreateWebAccountProviderCommand(self, webAccountProvider: Windows.Security.Credentials.WebAccountProvider, invoked: Windows.UI.ApplicationSettings.WebAccountProviderCommandInvokedHandler) -> Windows.UI.ApplicationSettings.WebAccountProviderCommand: ...
 class SettingsCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsCommand'
     @winrt_factorymethod
     def CreateSettingsCommand(cls: Windows.UI.ApplicationSettings.ISettingsCommandFactory, settingsCommandId: Windows.Win32.System.WinRT.IInspectable_head, label: WinRT_String, handler: Windows.UI.Popups.UICommandInvokedHandler) -> Windows.UI.ApplicationSettings.SettingsCommand: ...
@@ -276,6 +281,7 @@ SettingsEdgeLocation_Right: SettingsEdgeLocation = 0
 SettingsEdgeLocation_Left: SettingsEdgeLocation = 1
 class SettingsPane(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.ISettingsPane
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsPane'
     @winrt_mixinmethod
     def add_CommandsRequested(self: Windows.UI.ApplicationSettings.ISettingsPane, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ApplicationSettings.SettingsPane, Windows.UI.ApplicationSettings.SettingsPaneCommandsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -290,12 +296,14 @@ class SettingsPane(ComPtr):
     Edge = property(get_Edge, None)
 class SettingsPaneCommandsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequest
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest'
     @winrt_mixinmethod
     def get_ApplicationCommands(self: Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequest) -> Windows.Foundation.Collections.IVector[Windows.UI.ApplicationSettings.SettingsCommand]: ...
     ApplicationCommands = property(get_ApplicationCommands, None)
 class SettingsPaneCommandsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequestedEventArgs
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsPaneCommandsRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequestedEventArgs) -> Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest: ...
@@ -315,6 +323,7 @@ WebAccountAction_Manage: WebAccountAction = 3
 WebAccountAction_More: WebAccountAction = 4
 class WebAccountCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.IWebAccountCommand
     _classid_ = 'Windows.UI.ApplicationSettings.WebAccountCommand'
     @winrt_factorymethod
     def CreateWebAccountCommand(cls: Windows.UI.ApplicationSettings.IWebAccountCommandFactory, webAccount: Windows.Security.Credentials.WebAccount, invoked: Windows.UI.ApplicationSettings.WebAccountCommandInvokedHandler, actions: Windows.UI.ApplicationSettings.SupportedWebAccountActions) -> Windows.UI.ApplicationSettings.WebAccountCommand: ...
@@ -335,12 +344,14 @@ class WebAccountCommandInvokedHandler(ComPtr):
     def Invoke(self, command: Windows.UI.ApplicationSettings.WebAccountCommand, args: Windows.UI.ApplicationSettings.WebAccountInvokedArgs) -> Void: ...
 class WebAccountInvokedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.IWebAccountInvokedArgs
     _classid_ = 'Windows.UI.ApplicationSettings.WebAccountInvokedArgs'
     @winrt_mixinmethod
     def get_Action(self: Windows.UI.ApplicationSettings.IWebAccountInvokedArgs) -> Windows.UI.ApplicationSettings.WebAccountAction: ...
     Action = property(get_Action, None)
 class WebAccountProviderCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ApplicationSettings.IWebAccountProviderCommand
     _classid_ = 'Windows.UI.ApplicationSettings.WebAccountProviderCommand'
     @winrt_factorymethod
     def CreateWebAccountProviderCommand(cls: Windows.UI.ApplicationSettings.IWebAccountProviderCommandFactory, webAccountProvider: Windows.Security.Credentials.WebAccountProvider, invoked: Windows.UI.ApplicationSettings.WebAccountProviderCommandInvokedHandler) -> Windows.UI.ApplicationSettings.WebAccountProviderCommand: ...

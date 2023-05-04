@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DialApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.DialProtocol.IDialApp
     _classid_ = 'Windows.Media.DialProtocol.DialApp'
     @winrt_mixinmethod
     def get_AppName(self: Windows.Media.DialProtocol.IDialApp) -> WinRT_String: ...
@@ -49,6 +50,7 @@ DialAppState_Running: DialAppState = 2
 DialAppState_NetworkFailure: DialAppState = 3
 class DialAppStateDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.DialProtocol.IDialAppStateDetails
     _classid_ = 'Windows.Media.DialProtocol.DialAppStateDetails'
     @winrt_mixinmethod
     def get_State(self: Windows.Media.DialProtocol.IDialAppStateDetails) -> Windows.Media.DialProtocol.DialAppState: ...
@@ -63,6 +65,7 @@ DialAppStopResult_OperationNotSupported: DialAppStopResult = 2
 DialAppStopResult_NetworkFailure: DialAppStopResult = 3
 class DialDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.DialProtocol.IDialDevice
     _classid_ = 'Windows.Media.DialProtocol.DialDevice'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.DialProtocol.IDialDevice) -> WinRT_String: ...
@@ -90,6 +93,7 @@ DialDeviceDisplayStatus_Disconnected: DialDeviceDisplayStatus = 4
 DialDeviceDisplayStatus_Error: DialDeviceDisplayStatus = 5
 class DialDevicePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.DialProtocol.IDialDevicePicker
     _classid_ = 'Windows.Media.DialProtocol.DialDevicePicker'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.DialProtocol.DialDevicePicker: ...
@@ -125,24 +129,28 @@ class DialDevicePicker(ComPtr):
     Appearance = property(get_Appearance, None)
 class DialDevicePickerFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.DialProtocol.IDialDevicePickerFilter
     _classid_ = 'Windows.Media.DialProtocol.DialDevicePickerFilter'
     @winrt_mixinmethod
     def get_SupportedAppNames(self: Windows.Media.DialProtocol.IDialDevicePickerFilter) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     SupportedAppNames = property(get_SupportedAppNames, None)
 class DialDeviceSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.DialProtocol.IDialDeviceSelectedEventArgs
     _classid_ = 'Windows.Media.DialProtocol.DialDeviceSelectedEventArgs'
     @winrt_mixinmethod
     def get_SelectedDialDevice(self: Windows.Media.DialProtocol.IDialDeviceSelectedEventArgs) -> Windows.Media.DialProtocol.DialDevice: ...
     SelectedDialDevice = property(get_SelectedDialDevice, None)
 class DialDisconnectButtonClickedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.DialProtocol.IDialDisconnectButtonClickedEventArgs
     _classid_ = 'Windows.Media.DialProtocol.DialDisconnectButtonClickedEventArgs'
     @winrt_mixinmethod
     def get_Device(self: Windows.Media.DialProtocol.IDialDisconnectButtonClickedEventArgs) -> Windows.Media.DialProtocol.DialDevice: ...
     Device = property(get_Device, None)
 class DialReceiverApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.DialProtocol.IDialReceiverApp
     _classid_ = 'Windows.Media.DialProtocol.DialReceiverApp'
     @winrt_mixinmethod
     def GetAdditionalDataAsync(self: Windows.Media.DialProtocol.IDialReceiverApp) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]]: ...

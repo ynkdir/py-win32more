@@ -198,6 +198,7 @@ class ISocialUserInfo(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
 class SocialFeedChildItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.SocialInfo.ISocialFeedChildItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedChildItem'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.SocialInfo.SocialFeedChildItem: ...
@@ -230,6 +231,7 @@ class SocialFeedChildItem(ComPtr):
     SharedItem = property(get_SharedItem, put_SharedItem)
 class SocialFeedContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.SocialInfo.ISocialFeedContent
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedContent'
     @winrt_mixinmethod
     def get_Title(self: Windows.ApplicationModel.SocialInfo.ISocialFeedContent) -> WinRT_String: ...
@@ -248,6 +250,7 @@ class SocialFeedContent(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
 class SocialFeedItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.SocialInfo.ISocialFeedItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedItem'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.SocialInfo.SocialFeedItem: ...
@@ -312,6 +315,7 @@ SocialFeedKind_ContactFeed: SocialFeedKind = 1
 SocialFeedKind_Dashboard: SocialFeedKind = 2
 class SocialFeedSharedItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.SocialInfo.ISocialFeedSharedItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem: ...
@@ -348,6 +352,7 @@ SocialItemBadgeStyle_Visible: SocialItemBadgeStyle = 1
 SocialItemBadgeStyle_VisibleWithCount: SocialItemBadgeStyle = 2
 class SocialItemThumbnail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.SocialInfo.ISocialItemThumbnail
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialItemThumbnail'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.SocialInfo.SocialItemThumbnail: ...
@@ -370,6 +375,7 @@ class SocialItemThumbnail(ComPtr):
     BitmapSize = property(get_BitmapSize, put_BitmapSize)
 class SocialUserInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.SocialInfo.ISocialUserInfo
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialUserInfo'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.ApplicationModel.SocialInfo.ISocialUserInfo) -> WinRT_String: ...

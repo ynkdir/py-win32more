@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CompositionDebugHeatMaps(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.Diagnostics.ICompositionDebugHeatMaps
     _classid_ = 'Windows.UI.Composition.Diagnostics.CompositionDebugHeatMaps'
     @winrt_mixinmethod
     def Hide(self: Windows.UI.Composition.Diagnostics.ICompositionDebugHeatMaps, subtree: Windows.UI.Composition.Visual) -> Void: ...
@@ -44,6 +45,7 @@ CompositionDebugOverdrawContentKinds_SwapChains: CompositionDebugOverdrawContent
 CompositionDebugOverdrawContentKinds_All: CompositionDebugOverdrawContentKinds = 4294967295
 class CompositionDebugSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.Diagnostics.ICompositionDebugSettings
     _classid_ = 'Windows.UI.Composition.Diagnostics.CompositionDebugSettings'
     @winrt_mixinmethod
     def get_HeatMaps(self: Windows.UI.Composition.Diagnostics.ICompositionDebugSettings) -> Windows.UI.Composition.Diagnostics.CompositionDebugHeatMaps: ...

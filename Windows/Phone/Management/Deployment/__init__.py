@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class Enterprise(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Management.Deployment.IEnterprise
     _classid_ = 'Windows.Phone.Management.Deployment.Enterprise'
     @winrt_mixinmethod
     def get_Id(self: Windows.Phone.Management.Deployment.IEnterprise) -> Guid: ...
@@ -47,7 +48,6 @@ class Enterprise(ComPtr):
     Status = property(get_Status, None)
 class EnterpriseEnrollmentManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.Management.Deployment.EnterpriseEnrollmentManager'
     @winrt_classmethod
     def get_EnrolledEnterprises(cls: Windows.Phone.Management.Deployment.IEnterpriseEnrollmentManager) -> Windows.Foundation.Collections.IVectorView[Windows.Phone.Management.Deployment.Enterprise]: ...
     @winrt_classmethod
@@ -62,6 +62,7 @@ class EnterpriseEnrollmentManager(ComPtr):
     CurrentEnterprise = property(get_CurrentEnterprise, None)
 class EnterpriseEnrollmentResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Management.Deployment.IEnterpriseEnrollmentResult
     _classid_ = 'Windows.Phone.Management.Deployment.EnterpriseEnrollmentResult'
     @winrt_mixinmethod
     def get_EnrolledEnterprise(self: Windows.Phone.Management.Deployment.IEnterpriseEnrollmentResult) -> Windows.Phone.Management.Deployment.Enterprise: ...
@@ -162,7 +163,6 @@ class IPackageInstallResult2(ComPtr):
     ErrorText = property(get_ErrorText, None)
 class InstallationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.Management.Deployment.InstallationManager'
     @winrt_classmethod
     def RemovePackageAsync(cls: Windows.Phone.Management.Deployment.IInstallationManagerStatics2, packageFullName: WinRT_String, removalOptions: Windows.Management.Deployment.RemovalOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Phone.Management.Deployment.PackageInstallResult, UInt32]: ...
     @winrt_classmethod
@@ -181,6 +181,7 @@ class InstallationManager(ComPtr):
     def FindPackages(cls: Windows.Phone.Management.Deployment.IInstallationManagerStatics) -> Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Package]: ...
 class PackageInstallResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Management.Deployment.IPackageInstallResult
     _classid_ = 'Windows.Phone.Management.Deployment.PackageInstallResult'
     @winrt_mixinmethod
     def get_ProductId(self: Windows.Phone.Management.Deployment.IPackageInstallResult) -> WinRT_String: ...

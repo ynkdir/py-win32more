@@ -26,6 +26,8 @@ def __getattr__(name):
     return getattr(_module, name)
 class Binding(ComPtr):
     extends: Windows.UI.Xaml.Data.BindingBase
+    default_interface: Windows.UI.Xaml.Data.IBinding
+    _classid_ = 'Windows.UI.Xaml.Data.Binding'
     @winrt_commethod(30)
     def get_Path(self) -> Windows.UI.Xaml.PropertyPath: ...
     @winrt_commethod(31)
@@ -83,8 +85,12 @@ class Binding(ComPtr):
     UpdateSourceTrigger = property(get_UpdateSourceTrigger, put_UpdateSourceTrigger)
 class BindingBase(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
+    default_interface: Windows.UI.Xaml.Data.IBindingBase
+    _classid_ = 'Windows.UI.Xaml.Data.BindingBase'
 class BindingExpression(ComPtr):
     extends: Windows.UI.Xaml.Data.BindingExpressionBase
+    default_interface: Windows.UI.Xaml.Data.IBindingExpression
+    _classid_ = 'Windows.UI.Xaml.Data.BindingExpression'
     @winrt_commethod(9)
     def get_DataItem(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(10)
@@ -95,17 +101,21 @@ class BindingExpression(ComPtr):
     ParentBinding = property(get_ParentBinding, None)
 class BindingExpressionBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Data.IBindingExpressionBase
+    _classid_ = 'Windows.UI.Xaml.Data.BindingExpressionBase'
 BindingMode = Int32
 BindingMode_OneWay: BindingMode = 1
 BindingMode_OneTime: BindingMode = 2
 BindingMode_TwoWay: BindingMode = 3
 class BindingOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Data.IBindingOperations
     _classid_ = 'Windows.UI.Xaml.Data.BindingOperations'
     @winrt_classmethod
     def SetBinding(cls: Windows.UI.Xaml.Data.IBindingOperationsStatics, target: Windows.UI.Xaml.DependencyObject, dp: Windows.UI.Xaml.DependencyProperty, binding: Windows.UI.Xaml.Data.BindingBase) -> Void: ...
 class CollectionViewSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
+    default_interface: Windows.UI.Xaml.Data.ICollectionViewSource
     _classid_ = 'Windows.UI.Xaml.Data.CollectionViewSource'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Data.CollectionViewSource: ...
@@ -141,6 +151,8 @@ class CollectionViewSource(ComPtr):
     ItemsPathProperty = property(get_ItemsPathProperty, None)
 class CurrentChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Data.ICurrentChangingEventArgs
+    _classid_ = 'Windows.UI.Xaml.Data.CurrentChangingEventArgs'
     @winrt_commethod(6)
     def get_Cancel(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -484,6 +496,8 @@ class IValueConverter(ComPtr):
     def ConvertBack(self, value: Windows.Win32.System.WinRT.IInspectable_head, targetType: Windows.UI.Xaml.Interop.TypeName, parameter: Windows.Win32.System.WinRT.IInspectable_head, language: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class ItemIndexRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Data.IItemIndexRange
+    _classid_ = 'Windows.UI.Xaml.Data.ItemIndexRange'
     @winrt_commethod(6)
     def get_FirstIndex(self) -> Int32: ...
     @winrt_commethod(7)
@@ -497,6 +511,8 @@ class LoadMoreItemsResult(EasyCastStructure):
     Count: UInt32
 class PropertyChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Data.IPropertyChangedEventArgs
+    _classid_ = 'Windows.UI.Xaml.Data.PropertyChangedEventArgs'
     @winrt_commethod(6)
     def get_PropertyName(self) -> WinRT_String: ...
     PropertyName = property(get_PropertyName, None)
@@ -508,6 +524,8 @@ class PropertyChangedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Data.PropertyChangedEventArgs) -> Void: ...
 class RelativeSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
+    default_interface: Windows.UI.Xaml.Data.IRelativeSource
+    _classid_ = 'Windows.UI.Xaml.Data.RelativeSource'
     @winrt_commethod(9)
     def get_Mode(self) -> Windows.UI.Xaml.Data.RelativeSourceMode: ...
     @winrt_commethod(10)

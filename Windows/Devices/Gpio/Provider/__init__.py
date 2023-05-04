@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class GpioPinProviderValueChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgs
     _classid_ = 'Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgsFactory, edge: Windows.Devices.Gpio.Provider.ProviderGpioPinEdge) -> Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs: ...

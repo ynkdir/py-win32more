@@ -25,6 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class Ellipse(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
+    default_interface: Windows.UI.Xaml.Shapes.IEllipse
     _classid_ = 'Windows.UI.Xaml.Shapes.Ellipse'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Ellipse: ...
@@ -263,6 +264,7 @@ class IShapeStatics(ComPtr):
     StretchProperty = property(get_StretchProperty, None)
 class Line(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
+    default_interface: Windows.UI.Xaml.Shapes.ILine
     _classid_ = 'Windows.UI.Xaml.Shapes.Line'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Line: ...
@@ -300,6 +302,8 @@ class Line(ComPtr):
     Y2Property = property(get_Y2Property, None)
 class Path(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
+    default_interface: Windows.UI.Xaml.Shapes.IPath
+    _classid_ = 'Windows.UI.Xaml.Shapes.Path'
     @winrt_commethod(442)
     def get_Data(self) -> Windows.UI.Xaml.Media.Geometry: ...
     @winrt_commethod(443)
@@ -310,6 +314,7 @@ class Path(ComPtr):
     DataProperty = property(get_DataProperty, None)
 class Polygon(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
+    default_interface: Windows.UI.Xaml.Shapes.IPolygon
     _classid_ = 'Windows.UI.Xaml.Shapes.Polygon'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Polygon: ...
@@ -331,6 +336,7 @@ class Polygon(ComPtr):
     PointsProperty = property(get_PointsProperty, None)
 class Polyline(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
+    default_interface: Windows.UI.Xaml.Shapes.IPolyline
     _classid_ = 'Windows.UI.Xaml.Shapes.Polyline'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Polyline: ...
@@ -352,6 +358,7 @@ class Polyline(ComPtr):
     PointsProperty = property(get_PointsProperty, None)
 class Rectangle(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
+    default_interface: Windows.UI.Xaml.Shapes.IRectangle
     _classid_ = 'Windows.UI.Xaml.Shapes.Rectangle'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Rectangle: ...
@@ -373,6 +380,8 @@ class Rectangle(ComPtr):
     RadiusYProperty = property(get_RadiusYProperty, None)
 class Shape(ComPtr):
     extends: Windows.UI.Xaml.FrameworkElement
+    default_interface: Windows.UI.Xaml.Shapes.IShape
+    _classid_ = 'Windows.UI.Xaml.Shapes.Shape'
     @winrt_commethod(438)
     def get_Fill(self) -> Windows.UI.Xaml.Media.Brush: ...
     @winrt_commethod(439)

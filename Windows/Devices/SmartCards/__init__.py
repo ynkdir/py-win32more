@@ -26,12 +26,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class CardAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ICardAddedEventArgs
     _classid_ = 'Windows.Devices.SmartCards.CardAddedEventArgs'
     @winrt_mixinmethod
     def get_SmartCard(self: Windows.Devices.SmartCards.ICardAddedEventArgs) -> Windows.Devices.SmartCards.SmartCard: ...
     SmartCard = property(get_SmartCard, None)
 class CardRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ICardRemovedEventArgs
     _classid_ = 'Windows.Devices.SmartCards.CardRemovedEventArgs'
     @winrt_mixinmethod
     def get_SmartCard(self: Windows.Devices.SmartCards.ICardRemovedEventArgs) -> Windows.Devices.SmartCards.SmartCard: ...
@@ -696,7 +698,6 @@ class ISmartCardTriggerDetails3(ComPtr):
     SmartCard = property(get_SmartCard, None)
 class KnownSmartCardAppletIds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.SmartCards.KnownSmartCardAppletIds'
     @winrt_classmethod
     def get_PaymentSystemEnvironment(cls: Windows.Devices.SmartCards.IKnownSmartCardAppletIds) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_classmethod
@@ -705,6 +706,7 @@ class KnownSmartCardAppletIds(ComPtr):
     ProximityPaymentSystemEnvironment = property(get_ProximityPaymentSystemEnvironment, None)
 class SmartCard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCard
     _classid_ = 'Windows.Devices.SmartCards.SmartCard'
     @winrt_mixinmethod
     def get_Reader(self: Windows.Devices.SmartCards.ISmartCard) -> Windows.Devices.SmartCards.SmartCardReader: ...
@@ -720,6 +722,7 @@ SmartCardActivationPolicyChangeResult_Denied: SmartCardActivationPolicyChangeRes
 SmartCardActivationPolicyChangeResult_Allowed: SmartCardActivationPolicyChangeResult = 1
 class SmartCardAppletIdGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardAppletIdGroup
     _classid_ = 'Windows.Devices.SmartCards.SmartCardAppletIdGroup'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardAppletIdGroup: ...
@@ -775,6 +778,7 @@ SmartCardAppletIdGroupActivationPolicy_ForegroundOverride: SmartCardAppletIdGrou
 SmartCardAppletIdGroupActivationPolicy_Enabled: SmartCardAppletIdGroupActivationPolicy = 2
 class SmartCardAppletIdGroupRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardAppletIdGroupRegistration
     _classid_ = 'Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration'
     @winrt_mixinmethod
     def get_ActivationPolicy(self: Windows.Devices.SmartCards.ISmartCardAppletIdGroupRegistration) -> Windows.Devices.SmartCards.SmartCardAppletIdGroupActivationPolicy: ...
@@ -796,6 +800,7 @@ class SmartCardAppletIdGroupRegistration(ComPtr):
     SmartCardReaderId = property(get_SmartCardReaderId, None)
 class SmartCardAutomaticResponseApdu(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardAutomaticResponseApdu
     _classid_ = 'Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.SmartCards.ISmartCardAutomaticResponseApduFactory, commandApdu: Windows.Storage.Streams.IBuffer, responseApdu: Windows.Storage.Streams.IBuffer) -> Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu: ...
@@ -846,6 +851,7 @@ SmartCardAutomaticResponseStatus_UnknownError: SmartCardAutomaticResponseStatus 
 SmartCardBackgroundTriggerContract: UInt32 = 196608
 class SmartCardChallengeContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardChallengeContext
     _classid_ = 'Windows.Devices.SmartCards.SmartCardChallengeContext'
     @winrt_mixinmethod
     def get_Challenge(self: Windows.Devices.SmartCards.ISmartCardChallengeContext) -> Windows.Storage.Streams.IBuffer: ...
@@ -862,6 +868,7 @@ class SmartCardChallengeContext(ComPtr):
     Challenge = property(get_Challenge, None)
 class SmartCardConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardConnection
     _classid_ = 'Windows.Devices.SmartCards.SmartCardConnection'
     @winrt_mixinmethod
     def TransmitAsync(self: Windows.Devices.SmartCards.ISmartCardConnection, command: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IBuffer]: ...
@@ -879,6 +886,7 @@ SmartCardCryptogramAlgorithm_RsaPkcs1: SmartCardCryptogramAlgorithm = 7
 SmartCardCryptogramAlgorithm_Sha256Hmac: SmartCardCryptogramAlgorithm = 8
 class SmartCardCryptogramGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramGenerator
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramGenerator'
     @winrt_mixinmethod
     def get_SupportedCryptogramMaterialTypes(self: Windows.Devices.SmartCards.ISmartCardCryptogramGenerator) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.SmartCards.SmartCardCryptogramMaterialType]: ...
@@ -940,6 +948,7 @@ SmartCardCryptogramGeneratorOperationStatus_ValidationFailed: SmartCardCryptogra
 SmartCardCryptogramGeneratorOperationStatus_NotSupported: SmartCardCryptogramGeneratorOperationStatus = 13
 class SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult: ...
@@ -951,6 +960,7 @@ class SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult(ComPtr):
     Characteristics = property(get_Characteristics, None)
 class SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult: ...
@@ -962,6 +972,7 @@ class SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult(Co
     Characteristics = property(get_Characteristics, None)
 class SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult: ...
@@ -973,6 +984,7 @@ class SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult(ComPtr)
     Characteristics = property(get_Characteristics, None)
 class SmartCardCryptogramMaterialCharacteristics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramMaterialCharacteristics
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics: ...
@@ -1002,6 +1014,7 @@ class SmartCardCryptogramMaterialCharacteristics(ComPtr):
     MaterialLength = property(get_MaterialLength, None)
 class SmartCardCryptogramMaterialPackageCharacteristics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramMaterialPackageCharacteristics
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramMaterialPackageCharacteristics'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardCryptogramMaterialPackageCharacteristics: ...
@@ -1025,6 +1038,7 @@ SmartCardCryptogramMaterialPackageFormat_None: SmartCardCryptogramMaterialPackag
 SmartCardCryptogramMaterialPackageFormat_JweRsaPki: SmartCardCryptogramMaterialPackageFormat = 1
 class SmartCardCryptogramMaterialPossessionProof(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramMaterialPossessionProof
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramMaterialPossessionProof'
     @winrt_mixinmethod
     def get_OperationStatus(self: Windows.Devices.SmartCards.ISmartCardCryptogramMaterialPossessionProof) -> Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus: ...
@@ -1047,6 +1061,7 @@ SmartCardCryptogramPlacementOptions_UnitsAreInNibbles: SmartCardCryptogramPlacem
 SmartCardCryptogramPlacementOptions_ChainOutput: SmartCardCryptogramPlacementOptions = 2
 class SmartCardCryptogramPlacementStep(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramPlacementStep
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep: ...
@@ -1104,6 +1119,7 @@ SmartCardCryptogramStorageKeyCapabilities_HardwareProtection: SmartCardCryptogra
 SmartCardCryptogramStorageKeyCapabilities_UnlockPrompt: SmartCardCryptogramStorageKeyCapabilities = 2
 class SmartCardCryptogramStorageKeyCharacteristics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramStorageKeyCharacteristics
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyCharacteristics'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyCharacteristics: ...
@@ -1121,6 +1137,7 @@ class SmartCardCryptogramStorageKeyCharacteristics(ComPtr):
     Capabilities = property(get_Capabilities, None)
 class SmartCardCryptogramStorageKeyInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardCryptogramStorageKeyInfo
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyInfo'
     @winrt_mixinmethod
     def get_OperationStatus(self: Windows.Devices.SmartCards.ISmartCardCryptogramStorageKeyInfo) -> Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus: ...
@@ -1164,6 +1181,7 @@ SmartCardEmulationType_Uicc: SmartCardEmulationType = 1
 SmartCardEmulationType_EmbeddedSE: SmartCardEmulationType = 2
 class SmartCardEmulator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardEmulator
     _classid_ = 'Windows.Devices.SmartCards.SmartCardEmulator'
     @winrt_mixinmethod
     def get_EnablementPolicy(self: Windows.Devices.SmartCards.ISmartCardEmulator) -> Windows.Devices.SmartCards.SmartCardEmulatorEnablementPolicy: ...
@@ -1195,6 +1213,7 @@ class SmartCardEmulator(ComPtr):
     MaxAppletIdGroupRegistrations = property(get_MaxAppletIdGroupRegistrations, None)
 class SmartCardEmulatorApduReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgs
     _classid_ = 'Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs'
     @winrt_mixinmethod
     def get_CommandApdu(self: Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgs) -> Windows.Storage.Streams.IBuffer: ...
@@ -1218,6 +1237,7 @@ class SmartCardEmulatorApduReceivedEventArgs(ComPtr):
     State = property(get_State, None)
 class SmartCardEmulatorConnectionDeactivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardEmulatorConnectionDeactivatedEventArgs
     _classid_ = 'Windows.Devices.SmartCards.SmartCardEmulatorConnectionDeactivatedEventArgs'
     @winrt_mixinmethod
     def get_ConnectionProperties(self: Windows.Devices.SmartCards.ISmartCardEmulatorConnectionDeactivatedEventArgs) -> Windows.Devices.SmartCards.SmartCardEmulatorConnectionProperties: ...
@@ -1230,6 +1250,7 @@ SmartCardEmulatorConnectionDeactivatedReason_ConnectionLost: SmartCardEmulatorCo
 SmartCardEmulatorConnectionDeactivatedReason_ConnectionRedirected: SmartCardEmulatorConnectionDeactivatedReason = 1
 class SmartCardEmulatorConnectionProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardEmulatorConnectionProperties
     _classid_ = 'Windows.Devices.SmartCards.SmartCardEmulatorConnectionProperties'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.SmartCards.ISmartCardEmulatorConnectionProperties) -> Guid: ...
@@ -1255,6 +1276,7 @@ SmartCardPinCharacterPolicyOption_RequireAtLeastOne: SmartCardPinCharacterPolicy
 SmartCardPinCharacterPolicyOption_Disallow: SmartCardPinCharacterPolicyOption = 2
 class SmartCardPinPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardPinPolicy
     _classid_ = 'Windows.Devices.SmartCards.SmartCardPinPolicy'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.SmartCards.SmartCardPinPolicy: ...
@@ -1290,6 +1312,7 @@ class SmartCardPinPolicy(ComPtr):
     SpecialCharacters = property(get_SpecialCharacters, put_SpecialCharacters)
 class SmartCardPinResetDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardPinResetDeferral
     _classid_ = 'Windows.Devices.SmartCards.SmartCardPinResetDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Devices.SmartCards.ISmartCardPinResetDeferral) -> Void: ...
@@ -1301,6 +1324,7 @@ class SmartCardPinResetHandler(ComPtr):
     def Invoke(self, sender: Windows.Devices.SmartCards.SmartCardProvisioning, request: Windows.Devices.SmartCards.SmartCardPinResetRequest) -> Void: ...
 class SmartCardPinResetRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardPinResetRequest
     _classid_ = 'Windows.Devices.SmartCards.SmartCardPinResetRequest'
     @winrt_mixinmethod
     def get_Challenge(self: Windows.Devices.SmartCards.ISmartCardPinResetRequest) -> Windows.Storage.Streams.IBuffer: ...
@@ -1314,6 +1338,7 @@ class SmartCardPinResetRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class SmartCardProvisioning(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardProvisioning
     _classid_ = 'Windows.Devices.SmartCards.SmartCardProvisioning'
     @winrt_mixinmethod
     def get_SmartCard(self: Windows.Devices.SmartCards.ISmartCardProvisioning) -> Windows.Devices.SmartCards.SmartCard: ...
@@ -1344,6 +1369,7 @@ class SmartCardProvisioning(ComPtr):
     SmartCard = property(get_SmartCard, None)
 class SmartCardReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardReader
     _classid_ = 'Windows.Devices.SmartCards.SmartCardReader'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.SmartCards.ISmartCardReader) -> WinRT_String: ...
@@ -1391,6 +1417,7 @@ SmartCardStatus_Exclusive: SmartCardStatus = 3
 SmartCardStatus_Unresponsive: SmartCardStatus = 4
 class SmartCardTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.SmartCards.ISmartCardTriggerDetails
     _classid_ = 'Windows.Devices.SmartCards.SmartCardTriggerDetails'
     @winrt_mixinmethod
     def get_TriggerType(self: Windows.Devices.SmartCards.ISmartCardTriggerDetails) -> Windows.Devices.SmartCards.SmartCardTriggerType: ...

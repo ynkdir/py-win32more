@@ -25,6 +25,7 @@ def __getattr__(name):
 AppBroadcastingContract: UInt32 = 65536
 class AppBroadcastingMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.AppBroadcasting.IAppBroadcastingMonitor
     _classid_ = 'Windows.Media.AppBroadcasting.AppBroadcastingMonitor'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.AppBroadcasting.AppBroadcastingMonitor: ...
@@ -37,6 +38,7 @@ class AppBroadcastingMonitor(ComPtr):
     IsCurrentAppBroadcasting = property(get_IsCurrentAppBroadcasting, None)
 class AppBroadcastingStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.AppBroadcasting.IAppBroadcastingStatus
     _classid_ = 'Windows.Media.AppBroadcasting.AppBroadcastingStatus'
     @winrt_mixinmethod
     def get_CanStartBroadcast(self: Windows.Media.AppBroadcasting.IAppBroadcastingStatus) -> Boolean: ...
@@ -46,6 +48,7 @@ class AppBroadcastingStatus(ComPtr):
     Details = property(get_Details, None)
 class AppBroadcastingStatusDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.AppBroadcasting.IAppBroadcastingStatusDetails
     _classid_ = 'Windows.Media.AppBroadcasting.AppBroadcastingStatusDetails'
     @winrt_mixinmethod
     def get_IsAnyAppBroadcasting(self: Windows.Media.AppBroadcasting.IAppBroadcastingStatusDetails) -> Boolean: ...
@@ -73,6 +76,7 @@ class AppBroadcastingStatusDetails(ComPtr):
     IsDisabledBySystem = property(get_IsDisabledBySystem, None)
 class AppBroadcastingUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.AppBroadcasting.IAppBroadcastingUI
     _classid_ = 'Windows.Media.AppBroadcasting.AppBroadcastingUI'
     @winrt_mixinmethod
     def GetStatus(self: Windows.Media.AppBroadcasting.IAppBroadcastingUI) -> Windows.Media.AppBroadcasting.AppBroadcastingStatus: ...

@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CompositeTransform3D(ComPtr):
     extends: Windows.UI.Xaml.Media.Media3D.Transform3D
+    default_interface: Windows.UI.Xaml.Media.Media3D.ICompositeTransform3D
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.CompositeTransform3D'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Media3D.CompositeTransform3D: ...
@@ -300,6 +301,7 @@ class Matrix3D(EasyCastStructure):
     M44: Double
 class Matrix3DHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Media.Media3D.IMatrix3DHelper
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.Matrix3DHelper'
     @winrt_classmethod
     def get_Identity(cls: Windows.UI.Xaml.Media.Media3D.IMatrix3DHelperStatics) -> Windows.UI.Xaml.Media.Media3D.Matrix3D: ...
@@ -316,6 +318,7 @@ class Matrix3DHelper(ComPtr):
     Identity = property(get_Identity, None)
 class PerspectiveTransform3D(ComPtr):
     extends: Windows.UI.Xaml.Media.Media3D.Transform3D
+    default_interface: Windows.UI.Xaml.Media.Media3D.IPerspectiveTransform3D
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.PerspectiveTransform3D'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Media3D.PerspectiveTransform3D: ...
@@ -345,6 +348,8 @@ class PerspectiveTransform3D(ComPtr):
     OffsetYProperty = property(get_OffsetYProperty, None)
 class Transform3D(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
+    default_interface: Windows.UI.Xaml.Media.Media3D.ITransform3D
+    _classid_ = 'Windows.UI.Xaml.Media.Media3D.Transform3D'
 make_head(_module, 'CompositeTransform3D')
 make_head(_module, 'ICompositeTransform3D')
 make_head(_module, 'ICompositeTransform3DStatics')

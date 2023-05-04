@@ -34,6 +34,7 @@ class IInkWorkspaceHostedAppManagerStatics(ComPtr):
     def GetForCurrentApp(self) -> Windows.ApplicationModel.Preview.InkWorkspace.InkWorkspaceHostedAppManager: ...
 class InkWorkspaceHostedAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Preview.InkWorkspace.IInkWorkspaceHostedAppManager
     _classid_ = 'Windows.ApplicationModel.Preview.InkWorkspace.InkWorkspaceHostedAppManager'
     @winrt_mixinmethod
     def SetThumbnailAsync(self: Windows.ApplicationModel.Preview.InkWorkspace.IInkWorkspaceHostedAppManager, bitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncAction: ...

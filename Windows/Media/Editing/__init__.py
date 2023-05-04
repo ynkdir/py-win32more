@@ -32,6 +32,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class BackgroundAudioTrack(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Editing.IBackgroundAudioTrack
     _classid_ = 'Windows.Media.Editing.BackgroundAudioTrack'
     @winrt_mixinmethod
     def get_TrimTimeFromStart(self: Windows.Media.Editing.IBackgroundAudioTrack) -> Windows.Foundation.TimeSpan: ...
@@ -75,6 +76,7 @@ class BackgroundAudioTrack(ComPtr):
     AudioEffectDefinitions = property(get_AudioEffectDefinitions, None)
 class EmbeddedAudioTrack(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Editing.IEmbeddedAudioTrack
     _classid_ = 'Windows.Media.Editing.EmbeddedAudioTrack'
     @winrt_mixinmethod
     def GetAudioEncodingProperties(self: Windows.Media.Editing.IEmbeddedAudioTrack) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
@@ -295,6 +297,7 @@ class IMediaOverlayLayerFactory(ComPtr):
     def CreateWithCompositorDefinition(self, compositorDefinition: Windows.Media.Effects.IVideoCompositorDefinition) -> Windows.Media.Editing.MediaOverlayLayer: ...
 class MediaClip(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Editing.IMediaClip
     _classid_ = 'Windows.Media.Editing.MediaClip'
     @winrt_mixinmethod
     def get_TrimTimeFromStart(self: Windows.Media.Editing.IMediaClip) -> Windows.Foundation.TimeSpan: ...
@@ -354,6 +357,7 @@ class MediaClip(ComPtr):
     VideoEffectDefinitions = property(get_VideoEffectDefinitions, None)
 class MediaComposition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Editing.IMediaComposition
     _classid_ = 'Windows.Media.Editing.MediaComposition'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Editing.MediaComposition: ...
@@ -398,6 +402,7 @@ class MediaComposition(ComPtr):
     OverlayLayers = property(get_OverlayLayers, None)
 class MediaOverlay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Editing.IMediaOverlay
     _classid_ = 'Windows.Media.Editing.MediaOverlay'
     @winrt_factorymethod
     def Create(cls: Windows.Media.Editing.IMediaOverlayFactory, clip: Windows.Media.Editing.MediaClip) -> Windows.Media.Editing.MediaOverlay: ...
@@ -430,6 +435,7 @@ class MediaOverlay(ComPtr):
     AudioEnabled = property(get_AudioEnabled, put_AudioEnabled)
 class MediaOverlayLayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Editing.IMediaOverlayLayer
     _classid_ = 'Windows.Media.Editing.MediaOverlayLayer'
     @winrt_factorymethod
     def CreateWithCompositorDefinition(cls: Windows.Media.Editing.IMediaOverlayLayerFactory, compositorDefinition: Windows.Media.Effects.IVideoCompositorDefinition) -> Windows.Media.Editing.MediaOverlayLayer: ...

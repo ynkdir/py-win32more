@@ -29,7 +29,6 @@ class IInputActivationListenerPreviewStatics(ComPtr):
     def CreateForApplicationWindow(self, window: Windows.UI.WindowManagement.AppWindow) -> Windows.UI.Input.InputActivationListener: ...
 class InputActivationListenerPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.Input.Preview.InputActivationListenerPreview'
     @winrt_classmethod
     def CreateForApplicationWindow(cls: Windows.UI.Input.Preview.IInputActivationListenerPreviewStatics, window: Windows.UI.WindowManagement.AppWindow) -> Windows.UI.Input.InputActivationListener: ...
 make_head(_module, 'IInputActivationListenerPreviewStatics')

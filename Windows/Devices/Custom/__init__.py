@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CustomDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Custom.ICustomDevice
     _classid_ = 'Windows.Devices.Custom.CustomDevice'
     @winrt_mixinmethod
     def get_InputStream(self: Windows.Devices.Custom.ICustomDevice) -> Windows.Storage.Streams.IInputStream: ...
@@ -108,6 +109,7 @@ IOControlBufferingMethod_DirectOutput: IOControlBufferingMethod = 2
 IOControlBufferingMethod_Neither: IOControlBufferingMethod = 3
 class IOControlCode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Custom.IIOControlCode
     _classid_ = 'Windows.Devices.Custom.IOControlCode'
     @winrt_factorymethod
     def CreateIOControlCode(cls: Windows.Devices.Custom.IIOControlCodeFactory, deviceType: UInt16, function: UInt16, accessMode: Windows.Devices.Custom.IOControlAccessMode, bufferingMethod: Windows.Devices.Custom.IOControlBufferingMethod) -> Windows.Devices.Custom.IOControlCode: ...
@@ -128,7 +130,6 @@ class IOControlCode(ComPtr):
     ControlCode = property(get_ControlCode, None)
 class KnownDeviceTypes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Custom.KnownDeviceTypes'
     @winrt_classmethod
     def get_Unknown(cls: Windows.Devices.Custom.IKnownDeviceTypesStatics) -> UInt16: ...
     Unknown = property(get_Unknown, None)

@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CastingConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Casting.ICastingConnection
     _classid_ = 'Windows.Media.Casting.CastingConnection'
     @winrt_mixinmethod
     def get_State(self: Windows.Media.Casting.ICastingConnection) -> Windows.Media.Casting.CastingConnectionState: ...
@@ -55,6 +56,7 @@ class CastingConnection(ComPtr):
     Source = property(get_Source, put_Source)
 class CastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs
     _classid_ = 'Windows.Media.Casting.CastingConnectionErrorOccurredEventArgs'
     @winrt_mixinmethod
     def get_ErrorStatus(self: Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs) -> Windows.Media.Casting.CastingConnectionErrorStatus: ...
@@ -78,6 +80,7 @@ CastingConnectionState_Disconnecting: CastingConnectionState = 3
 CastingConnectionState_Connecting: CastingConnectionState = 4
 class CastingDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Casting.ICastingDevice
     _classid_ = 'Windows.Media.Casting.CastingDevice'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.Casting.ICastingDevice) -> WinRT_String: ...
@@ -102,6 +105,7 @@ class CastingDevice(ComPtr):
     Icon = property(get_Icon, None)
 class CastingDevicePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Casting.ICastingDevicePicker
     _classid_ = 'Windows.Media.Casting.CastingDevicePicker'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Casting.CastingDevicePicker: ...
@@ -127,6 +131,7 @@ class CastingDevicePicker(ComPtr):
     Appearance = property(get_Appearance, None)
 class CastingDevicePickerFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Casting.ICastingDevicePickerFilter
     _classid_ = 'Windows.Media.Casting.CastingDevicePickerFilter'
     @winrt_mixinmethod
     def get_SupportsAudio(self: Windows.Media.Casting.ICastingDevicePickerFilter) -> Boolean: ...
@@ -148,6 +153,7 @@ class CastingDevicePickerFilter(ComPtr):
     SupportedCastingSources = property(get_SupportedCastingSources, None)
 class CastingDeviceSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Casting.ICastingDeviceSelectedEventArgs
     _classid_ = 'Windows.Media.Casting.CastingDeviceSelectedEventArgs'
     @winrt_mixinmethod
     def get_SelectedCastingDevice(self: Windows.Media.Casting.ICastingDeviceSelectedEventArgs) -> Windows.Media.Casting.CastingDevice: ...
@@ -159,6 +165,7 @@ CastingPlaybackTypes_Video: CastingPlaybackTypes = 2
 CastingPlaybackTypes_Picture: CastingPlaybackTypes = 4
 class CastingSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Casting.ICastingSource
     _classid_ = 'Windows.Media.Casting.CastingSource'
     @winrt_mixinmethod
     def get_PreferredSourceUri(self: Windows.Media.Casting.ICastingSource) -> Windows.Foundation.Uri: ...

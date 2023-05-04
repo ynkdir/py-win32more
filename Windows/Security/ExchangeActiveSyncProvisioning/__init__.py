@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class EasClientDeviceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation: ...
@@ -52,6 +53,7 @@ class EasClientDeviceInformation(ComPtr):
     SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
 class EasClientSecurityPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy: ...
@@ -101,6 +103,7 @@ class EasClientSecurityPolicy(ComPtr):
     MaxInactivityTimeLock = property(get_MaxInactivityTimeLock, put_MaxInactivityTimeLock)
 class EasComplianceResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults'
     @winrt_mixinmethod
     def get_Compliant(self: Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults) -> Boolean: ...

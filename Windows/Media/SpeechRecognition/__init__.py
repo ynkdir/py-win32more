@@ -329,6 +329,7 @@ class IVoiceCommandSet(ComPtr):
     Name = property(get_Name, None)
 class SpeechContinuousRecognitionCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionCompletedEventArgs
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechContinuousRecognitionCompletedEventArgs'
     @winrt_mixinmethod
     def get_Status(self: Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionCompletedEventArgs) -> Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
@@ -338,12 +339,14 @@ SpeechContinuousRecognitionMode_Default: SpeechContinuousRecognitionMode = 0
 SpeechContinuousRecognitionMode_PauseOnRecognition: SpeechContinuousRecognitionMode = 1
 class SpeechContinuousRecognitionResultGeneratedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionResultGeneratedEventArgs
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechContinuousRecognitionResultGeneratedEventArgs'
     @winrt_mixinmethod
     def get_Result(self: Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionResultGeneratedEventArgs) -> Windows.Media.SpeechRecognition.SpeechRecognitionResult: ...
     Result = property(get_Result, None)
 class SpeechContinuousRecognitionSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionSession
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechContinuousRecognitionSession'
     @winrt_mixinmethod
     def get_AutoStopSilenceTimeout(self: Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionSession) -> Windows.Foundation.TimeSpan: ...
@@ -380,6 +383,7 @@ SpeechRecognitionAudioProblem_TooFast: SpeechRecognitionAudioProblem = 5
 SpeechRecognitionAudioProblem_TooSlow: SpeechRecognitionAudioProblem = 6
 class SpeechRecognitionCompilationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionCompilationResult
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionCompilationResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Media.SpeechRecognition.ISpeechRecognitionCompilationResult) -> Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
@@ -400,6 +404,7 @@ SpeechRecognitionConstraintType_Grammar: SpeechRecognitionConstraintType = 2
 SpeechRecognitionConstraintType_VoiceCommandDefinition: SpeechRecognitionConstraintType = 3
 class SpeechRecognitionGrammarFileConstraint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionGrammarFileConstraint
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint'
     @winrt_factorymethod
     def Create(cls: Windows.Media.SpeechRecognition.ISpeechRecognitionGrammarFileConstraintFactory, file: Windows.Storage.StorageFile) -> Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint: ...
@@ -428,18 +433,21 @@ class SpeechRecognitionGrammarFileConstraint(ComPtr):
     Probability = property(get_Probability, put_Probability)
 class SpeechRecognitionHypothesis(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionHypothesis
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionHypothesis'
     @winrt_mixinmethod
     def get_Text(self: Windows.Media.SpeechRecognition.ISpeechRecognitionHypothesis) -> WinRT_String: ...
     Text = property(get_Text, None)
 class SpeechRecognitionHypothesisGeneratedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionHypothesisGeneratedEventArgs
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionHypothesisGeneratedEventArgs'
     @winrt_mixinmethod
     def get_Hypothesis(self: Windows.Media.SpeechRecognition.ISpeechRecognitionHypothesisGeneratedEventArgs) -> Windows.Media.SpeechRecognition.SpeechRecognitionHypothesis: ...
     Hypothesis = property(get_Hypothesis, None)
 class SpeechRecognitionListConstraint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionListConstraint
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint'
     @winrt_factorymethod
     def Create(cls: Windows.Media.SpeechRecognition.ISpeechRecognitionListConstraintFactory, commands: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint: ...
@@ -468,12 +476,14 @@ class SpeechRecognitionListConstraint(ComPtr):
     Probability = property(get_Probability, put_Probability)
 class SpeechRecognitionQualityDegradingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionQualityDegradingEventArgs
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionQualityDegradingEventArgs'
     @winrt_mixinmethod
     def get_Problem(self: Windows.Media.SpeechRecognition.ISpeechRecognitionQualityDegradingEventArgs) -> Windows.Media.SpeechRecognition.SpeechRecognitionAudioProblem: ...
     Problem = property(get_Problem, None)
 class SpeechRecognitionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionResult
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Media.SpeechRecognition.ISpeechRecognitionResult) -> Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
@@ -522,12 +532,14 @@ SpeechRecognitionScenario_Dictation: SpeechRecognitionScenario = 1
 SpeechRecognitionScenario_FormFilling: SpeechRecognitionScenario = 2
 class SpeechRecognitionSemanticInterpretation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionSemanticInterpretation
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionSemanticInterpretation'
     @winrt_mixinmethod
     def get_Properties(self: Windows.Media.SpeechRecognition.ISpeechRecognitionSemanticInterpretation) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
     Properties = property(get_Properties, None)
 class SpeechRecognitionTopicConstraint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionTopicConstraint
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint'
     @winrt_factorymethod
     def Create(cls: Windows.Media.SpeechRecognition.ISpeechRecognitionTopicConstraintFactory, scenario: Windows.Media.SpeechRecognition.SpeechRecognitionScenario, topicHint: WinRT_String) -> Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint: ...
@@ -559,6 +571,7 @@ class SpeechRecognitionTopicConstraint(ComPtr):
     Probability = property(get_Probability, put_Probability)
 class SpeechRecognitionVoiceCommandDefinitionConstraint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognitionVoiceCommandDefinitionConstraint
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionVoiceCommandDefinitionConstraint'
     @winrt_mixinmethod
     def get_IsEnabled(self: Windows.Media.SpeechRecognition.ISpeechRecognitionConstraint) -> Boolean: ...
@@ -580,6 +593,7 @@ class SpeechRecognitionVoiceCommandDefinitionConstraint(ComPtr):
     Probability = property(get_Probability, put_Probability)
 class SpeechRecognizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognizer
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognizer'
     @winrt_factorymethod
     def Create(cls: Windows.Media.SpeechRecognition.ISpeechRecognizerFactory, language: Windows.Globalization.Language) -> Windows.Media.SpeechRecognition.SpeechRecognizer: ...
@@ -646,12 +660,14 @@ SpeechRecognizerState_SpeechDetected: SpeechRecognizerState = 5
 SpeechRecognizerState_Paused: SpeechRecognizerState = 6
 class SpeechRecognizerStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognizerStateChangedEventArgs
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognizerStateChangedEventArgs'
     @winrt_mixinmethod
     def get_State(self: Windows.Media.SpeechRecognition.ISpeechRecognizerStateChangedEventArgs) -> Windows.Media.SpeechRecognition.SpeechRecognizerState: ...
     State = property(get_State, None)
 class SpeechRecognizerTimeouts(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognizerTimeouts
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognizerTimeouts'
     @winrt_mixinmethod
     def get_InitialSilenceTimeout(self: Windows.Media.SpeechRecognition.ISpeechRecognizerTimeouts) -> Windows.Foundation.TimeSpan: ...
@@ -670,6 +686,7 @@ class SpeechRecognizerTimeouts(ComPtr):
     BabbleTimeout = property(get_BabbleTimeout, put_BabbleTimeout)
 class SpeechRecognizerUIOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.ISpeechRecognizerUIOptions
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognizerUIOptions'
     @winrt_mixinmethod
     def get_ExampleText(self: Windows.Media.SpeechRecognition.ISpeechRecognizerUIOptions) -> WinRT_String: ...
@@ -693,7 +710,6 @@ class SpeechRecognizerUIOptions(ComPtr):
     ShowConfirmation = property(get_ShowConfirmation, put_ShowConfirmation)
 class VoiceCommandManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.SpeechRecognition.VoiceCommandManager'
     @winrt_classmethod
     def InstallCommandSetsFromStorageFileAsync(cls: Windows.Media.SpeechRecognition.IVoiceCommandManager, file: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -701,6 +717,7 @@ class VoiceCommandManager(ComPtr):
     InstalledCommandSets = property(get_InstalledCommandSets, None)
 class VoiceCommandSet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.SpeechRecognition.IVoiceCommandSet
     _classid_ = 'Windows.Media.SpeechRecognition.VoiceCommandSet'
     @winrt_mixinmethod
     def get_Language(self: Windows.Media.SpeechRecognition.IVoiceCommandSet) -> WinRT_String: ...

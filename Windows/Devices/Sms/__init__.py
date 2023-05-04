@@ -29,6 +29,7 @@ CellularClass_Gsm: CellularClass = 1
 CellularClass_Cdma: CellularClass = 2
 class DeleteSmsMessageOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IAsyncAction
     _classid_ = 'Windows.Devices.Sms.DeleteSmsMessageOperation'
     @winrt_mixinmethod
     def put_Completed(self: Windows.Foundation.IAsyncAction, handler: Windows.Foundation.AsyncActionCompletedHandler) -> Void: ...
@@ -52,6 +53,7 @@ class DeleteSmsMessageOperation(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class DeleteSmsMessagesOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IAsyncAction
     _classid_ = 'Windows.Devices.Sms.DeleteSmsMessagesOperation'
     @winrt_mixinmethod
     def put_Completed(self: Windows.Foundation.IAsyncAction, handler: Windows.Foundation.AsyncActionCompletedHandler) -> Void: ...
@@ -75,6 +77,7 @@ class DeleteSmsMessagesOperation(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class GetSmsDeviceOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IAsyncOperation[Windows.Devices.Sms.SmsDevice]
     _classid_ = 'Windows.Devices.Sms.GetSmsDeviceOperation'
     @winrt_mixinmethod
     def put_Completed(self: Windows.Foundation.IAsyncOperation[Windows.Devices.Sms.SmsDevice], handler: Windows.Foundation.AsyncOperationCompletedHandler[Windows.Devices.Sms.SmsDevice]) -> Void: ...
@@ -98,6 +101,7 @@ class GetSmsDeviceOperation(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class GetSmsMessageOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IAsyncOperation[Windows.Devices.Sms.ISmsMessage]
     _classid_ = 'Windows.Devices.Sms.GetSmsMessageOperation'
     @winrt_mixinmethod
     def put_Completed(self: Windows.Foundation.IAsyncOperation[Windows.Devices.Sms.ISmsMessage], handler: Windows.Foundation.AsyncOperationCompletedHandler[Windows.Devices.Sms.ISmsMessage]) -> Void: ...
@@ -121,6 +125,7 @@ class GetSmsMessageOperation(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class GetSmsMessagesOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IAsyncOperationWithProgress[Windows.Foundation.Collections.IVectorView[Windows.Devices.Sms.ISmsMessage], Int32]
     _classid_ = 'Windows.Devices.Sms.GetSmsMessagesOperation'
     @winrt_mixinmethod
     def put_Progress(self: Windows.Foundation.IAsyncOperationWithProgress[Windows.Foundation.Collections.IVectorView[Windows.Devices.Sms.ISmsMessage], Int32], handler: Windows.Foundation.AsyncOperationProgressHandler[Windows.Foundation.Collections.IVectorView[Windows.Devices.Sms.ISmsMessage], Int32]) -> Void: ...
@@ -692,6 +697,7 @@ class ISmsWapMessage(ComPtr):
 LegacySmsApiContract: UInt32 = 65536
 class SendSmsMessageOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.IAsyncAction
     _classid_ = 'Windows.Devices.Sms.SendSmsMessageOperation'
     @winrt_mixinmethod
     def put_Completed(self: Windows.Foundation.IAsyncAction, handler: Windows.Foundation.AsyncActionCompletedHandler) -> Void: ...
@@ -715,6 +721,7 @@ class SendSmsMessageOperation(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class SmsAppMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsAppMessage
     _classid_ = 'Windows.Devices.Sms.SmsAppMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Sms.SmsAppMessage: ...
@@ -791,6 +798,7 @@ class SmsAppMessage(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class SmsBinaryMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsBinaryMessage
     _classid_ = 'Windows.Devices.Sms.SmsBinaryMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Sms.SmsBinaryMessage: ...
@@ -811,6 +819,7 @@ class SmsBinaryMessage(ComPtr):
     MessageClass = property(get_MessageClass, None)
 class SmsBroadcastMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsBroadcastMessage
     _classid_ = 'Windows.Devices.Sms.SmsBroadcastMessage'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Devices.Sms.ISmsBroadcastMessage) -> Windows.Foundation.DateTime: ...
@@ -881,6 +890,7 @@ SmsDataFormat_CdmaDeliver: SmsDataFormat = 3
 SmsDataFormat_GsmDeliver: SmsDataFormat = 4
 class SmsDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsDevice
     _classid_ = 'Windows.Devices.Sms.SmsDevice'
     @winrt_mixinmethod
     def SendMessageAsync(self: Windows.Devices.Sms.ISmsDevice, message: Windows.Devices.Sms.ISmsMessage) -> Windows.Devices.Sms.SendSmsMessageOperation: ...
@@ -916,6 +926,7 @@ class SmsDevice(ComPtr):
     DeviceStatus = property(get_DeviceStatus, None)
 class SmsDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsDevice2
     _classid_ = 'Windows.Devices.Sms.SmsDevice2'
     @winrt_mixinmethod
     def get_SmscAddress(self: Windows.Devices.Sms.ISmsDevice2) -> WinRT_String: ...
@@ -955,6 +966,7 @@ class SmsDevice2(ComPtr):
     DeviceStatus = property(get_DeviceStatus, None)
 class SmsDeviceMessageStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsDeviceMessageStore
     _classid_ = 'Windows.Devices.Sms.SmsDeviceMessageStore'
     @winrt_mixinmethod
     def DeleteMessageAsync(self: Windows.Devices.Sms.ISmsDeviceMessageStore, messageId: UInt32) -> Windows.Foundation.IAsyncAction: ...
@@ -1007,6 +1019,7 @@ SmsFilterActionType_Peek: SmsFilterActionType = 2
 SmsFilterActionType_Accept: SmsFilterActionType = 3
 class SmsFilterRule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsFilterRule
     _classid_ = 'Windows.Devices.Sms.SmsFilterRule'
     @winrt_factorymethod
     def CreateFilterRule(cls: Windows.Devices.Sms.ISmsFilterRuleFactory, messageType: Windows.Devices.Sms.SmsMessageType) -> Windows.Devices.Sms.SmsFilterRule: ...
@@ -1053,6 +1066,7 @@ class SmsFilterRule(ComPtr):
     BroadcastChannels = property(get_BroadcastChannels, None)
 class SmsFilterRules(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsFilterRules
     _classid_ = 'Windows.Devices.Sms.SmsFilterRules'
     @winrt_factorymethod
     def CreateFilterRules(cls: Windows.Devices.Sms.ISmsFilterRulesFactory, actionType: Windows.Devices.Sms.SmsFilterActionType) -> Windows.Devices.Sms.SmsFilterRules: ...
@@ -1082,6 +1096,7 @@ SmsMessageFilter_Sent: SmsMessageFilter = 3
 SmsMessageFilter_Draft: SmsMessageFilter = 4
 class SmsMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsMessageReceivedEventArgs
     _classid_ = 'Windows.Devices.Sms.SmsMessageReceivedEventArgs'
     @winrt_mixinmethod
     def get_TextMessage(self: Windows.Devices.Sms.ISmsMessageReceivedEventArgs) -> Windows.Devices.Sms.SmsTextMessage: ...
@@ -1097,6 +1112,7 @@ class SmsMessageReceivedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Devices.Sms.SmsDevice, e: Windows.Devices.Sms.SmsMessageReceivedEventArgs) -> Void: ...
 class SmsMessageReceivedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsMessageReceivedTriggerDetails
     _classid_ = 'Windows.Devices.Sms.SmsMessageReceivedTriggerDetails'
     @winrt_mixinmethod
     def get_MessageType(self: Windows.Devices.Sms.ISmsMessageReceivedTriggerDetails) -> Windows.Devices.Sms.SmsMessageType: ...
@@ -1125,6 +1141,7 @@ class SmsMessageReceivedTriggerDetails(ComPtr):
     StatusMessage = property(get_StatusMessage, None)
 class SmsMessageRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsMessageRegistration
     _classid_ = 'Windows.Devices.Sms.SmsMessageRegistration'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.Sms.ISmsMessageRegistration) -> WinRT_String: ...
@@ -1163,6 +1180,7 @@ SmsModemErrorCode_NetworkFailure: SmsModemErrorCode = 10
 SmsModemErrorCode_FixedDialingNumberRestricted: SmsModemErrorCode = 11
 class SmsReceivedEventDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsReceivedEventDetails
     _classid_ = 'Windows.Devices.Sms.SmsReceivedEventDetails'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Sms.ISmsReceivedEventDetails) -> WinRT_String: ...
@@ -1178,6 +1196,7 @@ class SmsReceivedEventDetails(ComPtr):
     BinaryMessage = property(get_BinaryMessage, None)
 class SmsSendMessageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsSendMessageResult
     _classid_ = 'Windows.Devices.Sms.SmsSendMessageResult'
     @winrt_mixinmethod
     def get_IsSuccessful(self: Windows.Devices.Sms.ISmsSendMessageResult) -> Boolean: ...
@@ -1202,6 +1221,7 @@ class SmsSendMessageResult(ComPtr):
     TransportFailureCause = property(get_TransportFailureCause, None)
 class SmsStatusMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsStatusMessage
     _classid_ = 'Windows.Devices.Sms.SmsStatusMessage'
     @winrt_mixinmethod
     def get_To(self: Windows.Devices.Sms.ISmsStatusMessage) -> WinRT_String: ...
@@ -1241,6 +1261,7 @@ class SmsStatusMessage(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class SmsTextMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsTextMessage
     _classid_ = 'Windows.Devices.Sms.SmsTextMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Sms.SmsTextMessage: ...
@@ -1290,6 +1311,7 @@ class SmsTextMessage(ComPtr):
     MessageClass = property(get_MessageClass, None)
 class SmsTextMessage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsTextMessage2
     _classid_ = 'Windows.Devices.Sms.SmsTextMessage2'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Sms.SmsTextMessage2: ...
@@ -1352,6 +1374,7 @@ class SmsTextMessage2(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class SmsVoicemailMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsVoicemailMessage
     _classid_ = 'Windows.Devices.Sms.SmsVoicemailMessage'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Devices.Sms.ISmsVoicemailMessage) -> Windows.Foundation.DateTime: ...
@@ -1382,6 +1405,7 @@ class SmsVoicemailMessage(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class SmsWapMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sms.ISmsWapMessage
     _classid_ = 'Windows.Devices.Sms.SmsWapMessage'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Devices.Sms.ISmsWapMessage) -> Windows.Foundation.DateTime: ...

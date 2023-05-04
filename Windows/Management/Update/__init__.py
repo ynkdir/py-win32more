@@ -389,6 +389,7 @@ class IWindowsUpdateScanCompletedEventArgs(ComPtr):
     Updates = property(get_Updates, None)
 class PreviewBuildsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IPreviewBuildsManager
     _classid_ = 'Windows.Management.Update.PreviewBuildsManager'
     @winrt_mixinmethod
     def get_ArePreviewBuildsAllowed(self: Windows.Management.Update.IPreviewBuildsManager) -> Boolean: ...
@@ -405,12 +406,14 @@ class PreviewBuildsManager(ComPtr):
     ArePreviewBuildsAllowed = property(get_ArePreviewBuildsAllowed, put_ArePreviewBuildsAllowed)
 class PreviewBuildsState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IPreviewBuildsState
     _classid_ = 'Windows.Management.Update.PreviewBuildsState'
     @winrt_mixinmethod
     def get_Properties(self: Windows.Management.Update.IPreviewBuildsState) -> Windows.Foundation.Collections.ValueSet: ...
     Properties = property(get_Properties, None)
 class WindowsUpdate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdate
     _classid_ = 'Windows.Management.Update.WindowsUpdate'
     @winrt_mixinmethod
     def get_ProviderId(self: Windows.Management.Update.IWindowsUpdate) -> WinRT_String: ...
@@ -484,6 +487,7 @@ class WindowsUpdate(ComPtr):
     ActionProgress = property(get_ActionProgress, None)
 class WindowsUpdateActionCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateActionCompletedEventArgs
     _classid_ = 'Windows.Management.Update.WindowsUpdateActionCompletedEventArgs'
     @winrt_mixinmethod
     def get_Update(self: Windows.Management.Update.IWindowsUpdateActionCompletedEventArgs) -> Windows.Management.Update.WindowsUpdate: ...
@@ -499,6 +503,7 @@ class WindowsUpdateActionCompletedEventArgs(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class WindowsUpdateActionProgress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateActionProgress
     _classid_ = 'Windows.Management.Update.WindowsUpdateActionProgress'
     @winrt_mixinmethod
     def get_Action(self: Windows.Management.Update.IWindowsUpdateActionProgress) -> WinRT_String: ...
@@ -508,6 +513,7 @@ class WindowsUpdateActionProgress(ComPtr):
     Progress = property(get_Progress, None)
 class WindowsUpdateActionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateActionResult
     _classid_ = 'Windows.Management.Update.WindowsUpdateActionResult'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Management.Update.IWindowsUpdateActionResult) -> Windows.Foundation.DateTime: ...
@@ -523,6 +529,7 @@ class WindowsUpdateActionResult(ComPtr):
     Action = property(get_Action, None)
 class WindowsUpdateAdministrator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateAdministrator
     _classid_ = 'Windows.Management.Update.WindowsUpdateAdministrator'
     @winrt_mixinmethod
     def StartAdministratorScan(self: Windows.Management.Update.IWindowsUpdateAdministrator) -> Void: ...
@@ -559,6 +566,7 @@ WindowsUpdateAdministratorStatus_NoAdministratorRegistered: WindowsUpdateAdminis
 WindowsUpdateAdministratorStatus_OtherAdministratorIsRegistered: WindowsUpdateAdministratorStatus = 2
 class WindowsUpdateApprovalData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateApprovalData
     _classid_ = 'Windows.Management.Update.WindowsUpdateApprovalData'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Update.WindowsUpdateApprovalData: ...
@@ -589,6 +597,7 @@ class WindowsUpdateApprovalData(ComPtr):
     OptOutOfAutoReboot = property(get_OptOutOfAutoReboot, put_OptOutOfAutoReboot)
 class WindowsUpdateAttentionRequiredInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateAttentionRequiredInfo
     _classid_ = 'Windows.Management.Update.WindowsUpdateAttentionRequiredInfo'
     @winrt_mixinmethod
     def get_Reason(self: Windows.Management.Update.IWindowsUpdateAttentionRequiredInfo) -> Windows.Management.Update.WindowsUpdateAttentionRequiredReason: ...
@@ -632,6 +641,7 @@ WindowsUpdateAttentionRequiredReason_DeferredDuringOobe: WindowsUpdateAttentionR
 WindowsUpdateAttentionRequiredReason_DeferredForSustainableTime: WindowsUpdateAttentionRequiredReason = 32
 class WindowsUpdateAttentionRequiredReasonChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateAttentionRequiredReasonChangedEventArgs
     _classid_ = 'Windows.Management.Update.WindowsUpdateAttentionRequiredReasonChangedEventArgs'
     @winrt_mixinmethod
     def get_Update(self: Windows.Management.Update.IWindowsUpdateAttentionRequiredReasonChangedEventArgs) -> Windows.Management.Update.WindowsUpdate: ...
@@ -642,6 +652,7 @@ class WindowsUpdateAttentionRequiredReasonChangedEventArgs(ComPtr):
 WindowsUpdateContract: UInt32 = 65536
 class WindowsUpdateGetAdministratorResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateGetAdministratorResult
     _classid_ = 'Windows.Management.Update.WindowsUpdateGetAdministratorResult'
     @winrt_mixinmethod
     def get_Administrator(self: Windows.Management.Update.IWindowsUpdateGetAdministratorResult) -> Windows.Management.Update.WindowsUpdateAdministrator: ...
@@ -651,6 +662,7 @@ class WindowsUpdateGetAdministratorResult(ComPtr):
     Status = property(get_Status, None)
 class WindowsUpdateItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateItem
     _classid_ = 'Windows.Management.Update.WindowsUpdateItem'
     @winrt_mixinmethod
     def get_ProviderId(self: Windows.Management.Update.IWindowsUpdateItem) -> WinRT_String: ...
@@ -678,6 +690,7 @@ class WindowsUpdateItem(ComPtr):
     Operation = property(get_Operation, None)
 class WindowsUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateManager
     _classid_ = 'Windows.Management.Update.WindowsUpdateManager'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Management.Update.IWindowsUpdateManagerFactory, clientId: WinRT_String) -> Windows.Management.Update.WindowsUpdateManager: ...
@@ -724,6 +737,7 @@ class WindowsUpdateManager(ComPtr):
     LastSuccessfulScanTimestamp = property(get_LastSuccessfulScanTimestamp, None)
 class WindowsUpdateProgressChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateProgressChangedEventArgs
     _classid_ = 'Windows.Management.Update.WindowsUpdateProgressChangedEventArgs'
     @winrt_mixinmethod
     def get_Update(self: Windows.Management.Update.IWindowsUpdateProgressChangedEventArgs) -> Windows.Management.Update.WindowsUpdate: ...
@@ -733,6 +747,7 @@ class WindowsUpdateProgressChangedEventArgs(ComPtr):
     ActionProgress = property(get_ActionProgress, None)
 class WindowsUpdateRestartRequestOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateRestartRequestOptions
     _classid_ = 'Windows.Management.Update.WindowsUpdateRestartRequestOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Update.WindowsUpdateRestartRequestOptions: ...
@@ -775,6 +790,7 @@ class WindowsUpdateRestartRequestOptions(ComPtr):
     OptOutOfAutoReboot = property(get_OptOutOfAutoReboot, put_OptOutOfAutoReboot)
 class WindowsUpdateScanCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Update.IWindowsUpdateScanCompletedEventArgs
     _classid_ = 'Windows.Management.Update.WindowsUpdateScanCompletedEventArgs'
     @winrt_mixinmethod
     def get_ProviderId(self: Windows.Management.Update.IWindowsUpdateScanCompletedEventArgs) -> WinRT_String: ...

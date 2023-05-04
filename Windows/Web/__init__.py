@@ -34,7 +34,6 @@ class IWebErrorStatics(ComPtr):
     def GetStatus(self, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 class WebError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Web.WebError'
     @winrt_classmethod
     def GetStatus(cls: Windows.Web.IWebErrorStatics, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 WebErrorStatus = Int32

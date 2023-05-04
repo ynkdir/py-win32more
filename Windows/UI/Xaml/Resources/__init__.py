@@ -22,6 +22,8 @@ def __getattr__(name):
     return getattr(_module, name)
 class CustomXamlResourceLoader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Xaml.Resources.ICustomXamlResourceLoader
+    _classid_ = 'Windows.UI.Xaml.Resources.CustomXamlResourceLoader'
     @winrt_commethod(6)
     def GetResource(self, resourceId: WinRT_String, objectType: WinRT_String, propertyName: WinRT_String, propertyType: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_classmethod

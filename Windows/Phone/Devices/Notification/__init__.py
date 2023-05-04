@@ -35,6 +35,7 @@ class IVibrationDeviceStatics(ComPtr):
     def GetDefault(self) -> Windows.Phone.Devices.Notification.VibrationDevice: ...
 class VibrationDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Devices.Notification.IVibrationDevice
     _classid_ = 'Windows.Phone.Devices.Notification.VibrationDevice'
     @winrt_mixinmethod
     def Vibrate(self: Windows.Phone.Devices.Notification.IVibrationDevice, duration: Windows.Foundation.TimeSpan) -> Void: ...

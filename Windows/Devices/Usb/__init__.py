@@ -462,6 +462,7 @@ class IUsbSetupPacketFactory(ComPtr):
     def CreateWithEightByteBuffer(self, eightByteBuffer: Windows.Storage.Streams.IBuffer) -> Windows.Devices.Usb.UsbSetupPacket: ...
 class UsbBulkInEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbBulkInEndpointDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbBulkInEndpointDescriptor'
     @winrt_mixinmethod
     def get_MaxPacketSize(self: Windows.Devices.Usb.IUsbBulkInEndpointDescriptor) -> UInt32: ...
@@ -474,6 +475,7 @@ class UsbBulkInEndpointDescriptor(ComPtr):
     Pipe = property(get_Pipe, None)
 class UsbBulkInPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbBulkInPipe
     _classid_ = 'Windows.Devices.Usb.UsbBulkInPipe'
     @winrt_mixinmethod
     def get_MaxTransferSizeBytes(self: Windows.Devices.Usb.IUsbBulkInPipe) -> UInt32: ...
@@ -495,6 +497,7 @@ class UsbBulkInPipe(ComPtr):
     InputStream = property(get_InputStream, None)
 class UsbBulkOutEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbBulkOutEndpointDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbBulkOutEndpointDescriptor'
     @winrt_mixinmethod
     def get_MaxPacketSize(self: Windows.Devices.Usb.IUsbBulkOutEndpointDescriptor) -> UInt32: ...
@@ -507,6 +510,7 @@ class UsbBulkOutEndpointDescriptor(ComPtr):
     Pipe = property(get_Pipe, None)
 class UsbBulkOutPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbBulkOutPipe
     _classid_ = 'Windows.Devices.Usb.UsbBulkOutPipe'
     @winrt_mixinmethod
     def get_EndpointDescriptor(self: Windows.Devices.Usb.IUsbBulkOutPipe) -> Windows.Devices.Usb.UsbBulkOutEndpointDescriptor: ...
@@ -523,6 +527,7 @@ class UsbBulkOutPipe(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class UsbConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbConfiguration
     _classid_ = 'Windows.Devices.Usb.UsbConfiguration'
     @winrt_mixinmethod
     def get_UsbInterfaces(self: Windows.Devices.Usb.IUsbConfiguration) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Usb.UsbInterface]: ...
@@ -535,6 +540,7 @@ class UsbConfiguration(ComPtr):
     Descriptors = property(get_Descriptors, None)
 class UsbConfigurationDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbConfigurationDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbConfigurationDescriptor'
     @winrt_mixinmethod
     def get_ConfigurationValue(self: Windows.Devices.Usb.IUsbConfigurationDescriptor) -> Byte: ...
@@ -560,6 +566,7 @@ UsbControlRecipient_Other: UsbControlRecipient = 3
 UsbControlRecipient_DefaultInterface: UsbControlRecipient = 4
 class UsbControlRequestType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbControlRequestType
     _classid_ = 'Windows.Devices.Usb.UsbControlRequestType'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Usb.UsbControlRequestType: ...
@@ -589,6 +596,7 @@ UsbControlTransferType_Class: UsbControlTransferType = 1
 UsbControlTransferType_Vendor: UsbControlTransferType = 2
 class UsbDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbDescriptor'
     @winrt_mixinmethod
     def get_Length(self: Windows.Devices.Usb.IUsbDescriptor) -> Byte: ...
@@ -600,6 +608,7 @@ class UsbDescriptor(ComPtr):
     DescriptorType = property(get_DescriptorType, None)
 class UsbDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbDevice
     _classid_ = 'Windows.Devices.Usb.UsbDevice'
     @winrt_mixinmethod
     def SendControlOutTransferAsync(self: Windows.Devices.Usb.IUsbDevice, setupPacket: Windows.Devices.Usb.UsbSetupPacket, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
@@ -632,6 +641,7 @@ class UsbDevice(ComPtr):
     Configuration = property(get_Configuration, None)
 class UsbDeviceClass(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbDeviceClass
     _classid_ = 'Windows.Devices.Usb.UsbDeviceClass'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Usb.UsbDeviceClass: ...
@@ -652,6 +662,7 @@ class UsbDeviceClass(ComPtr):
     ProtocolCode = property(get_ProtocolCode, put_ProtocolCode)
 class UsbDeviceClasses(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbDeviceClasses
     _classid_ = 'Windows.Devices.Usb.UsbDeviceClasses'
     @winrt_classmethod
     def get_CdcControl(cls: Windows.Devices.Usb.IUsbDeviceClassesStatics) -> Windows.Devices.Usb.UsbDeviceClass: ...
@@ -682,6 +693,7 @@ class UsbDeviceClasses(ComPtr):
     VendorSpecific = property(get_VendorSpecific, None)
 class UsbDeviceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbDeviceDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbDeviceDescriptor'
     @winrt_mixinmethod
     def get_BcdUsb(self: Windows.Devices.Usb.IUsbDeviceDescriptor) -> UInt32: ...
@@ -703,6 +715,7 @@ class UsbDeviceDescriptor(ComPtr):
     NumberOfConfigurations = property(get_NumberOfConfigurations, None)
 class UsbEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbEndpointDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbEndpointDescriptor'
     @winrt_mixinmethod
     def get_EndpointNumber(self: Windows.Devices.Usb.IUsbEndpointDescriptor) -> Byte: ...
@@ -736,6 +749,7 @@ UsbEndpointType_Bulk: UsbEndpointType = 2
 UsbEndpointType_Interrupt: UsbEndpointType = 3
 class UsbInterface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbInterface
     _classid_ = 'Windows.Devices.Usb.UsbInterface'
     @winrt_mixinmethod
     def get_BulkInPipes(self: Windows.Devices.Usb.IUsbInterface) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Usb.UsbBulkInPipe]: ...
@@ -760,6 +774,7 @@ class UsbInterface(ComPtr):
     Descriptors = property(get_Descriptors, None)
 class UsbInterfaceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbInterfaceDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbInterfaceDescriptor'
     @winrt_mixinmethod
     def get_ClassCode(self: Windows.Devices.Usb.IUsbInterfaceDescriptor) -> Byte: ...
@@ -782,6 +797,7 @@ class UsbInterfaceDescriptor(ComPtr):
     InterfaceNumber = property(get_InterfaceNumber, None)
 class UsbInterfaceSetting(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbInterfaceSetting
     _classid_ = 'Windows.Devices.Usb.UsbInterfaceSetting'
     @winrt_mixinmethod
     def get_BulkInEndpoints(self: Windows.Devices.Usb.IUsbInterfaceSetting) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Usb.UsbBulkInEndpointDescriptor]: ...
@@ -808,6 +824,7 @@ class UsbInterfaceSetting(ComPtr):
     Descriptors = property(get_Descriptors, None)
 class UsbInterruptInEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbInterruptInEndpointDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbInterruptInEndpointDescriptor'
     @winrt_mixinmethod
     def get_MaxPacketSize(self: Windows.Devices.Usb.IUsbInterruptInEndpointDescriptor) -> UInt32: ...
@@ -823,12 +840,14 @@ class UsbInterruptInEndpointDescriptor(ComPtr):
     Pipe = property(get_Pipe, None)
 class UsbInterruptInEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbInterruptInEventArgs
     _classid_ = 'Windows.Devices.Usb.UsbInterruptInEventArgs'
     @winrt_mixinmethod
     def get_InterruptData(self: Windows.Devices.Usb.IUsbInterruptInEventArgs) -> Windows.Storage.Streams.IBuffer: ...
     InterruptData = property(get_InterruptData, None)
 class UsbInterruptInPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbInterruptInPipe
     _classid_ = 'Windows.Devices.Usb.UsbInterruptInPipe'
     @winrt_mixinmethod
     def get_EndpointDescriptor(self: Windows.Devices.Usb.IUsbInterruptInPipe) -> Windows.Devices.Usb.UsbInterruptInEndpointDescriptor: ...
@@ -841,6 +860,7 @@ class UsbInterruptInPipe(ComPtr):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
 class UsbInterruptOutEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbInterruptOutEndpointDescriptor
     _classid_ = 'Windows.Devices.Usb.UsbInterruptOutEndpointDescriptor'
     @winrt_mixinmethod
     def get_MaxPacketSize(self: Windows.Devices.Usb.IUsbInterruptOutEndpointDescriptor) -> UInt32: ...
@@ -856,6 +876,7 @@ class UsbInterruptOutEndpointDescriptor(ComPtr):
     Pipe = property(get_Pipe, None)
 class UsbInterruptOutPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbInterruptOutPipe
     _classid_ = 'Windows.Devices.Usb.UsbInterruptOutPipe'
     @winrt_mixinmethod
     def get_EndpointDescriptor(self: Windows.Devices.Usb.IUsbInterruptOutPipe) -> Windows.Devices.Usb.UsbInterruptOutEndpointDescriptor: ...
@@ -878,6 +899,7 @@ UsbReadOptions_IgnoreShortPacket: UsbReadOptions = 4
 UsbReadOptions_AllowPartialReads: UsbReadOptions = 8
 class UsbSetupPacket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Usb.IUsbSetupPacket
     _classid_ = 'Windows.Devices.Usb.UsbSetupPacket'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Usb.UsbSetupPacket: ...

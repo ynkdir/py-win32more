@@ -95,6 +95,7 @@ class IMdmSessionManagerStatics(ComPtr):
     SessionIds = property(get_SessionIds, None)
 class MdmAlert(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.IMdmAlert
     _classid_ = 'Windows.Management.MdmAlert'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.MdmAlert: ...
@@ -144,6 +145,7 @@ MdmAlertMark_Warning: MdmAlertMark = 3
 MdmAlertMark_Informational: MdmAlertMark = 4
 class MdmSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.IMdmSession
     _classid_ = 'Windows.Management.MdmSession'
     @winrt_mixinmethod
     def get_Alerts(self: Windows.Management.IMdmSession) -> Windows.Foundation.Collections.IVectorView[Windows.Management.MdmAlert]: ...
@@ -167,7 +169,6 @@ class MdmSession(ComPtr):
     State = property(get_State, None)
 class MdmSessionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Management.MdmSessionManager'
     @winrt_classmethod
     def get_SessionIds(cls: Windows.Management.IMdmSessionManagerStatics) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_classmethod

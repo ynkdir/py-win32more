@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CurrencyFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.NumberFormatting.ICurrencyFormatter
     _classid_ = 'Windows.Globalization.NumberFormatting.CurrencyFormatter'
     @winrt_factorymethod
     def CreateCurrencyFormatterCode(cls: Windows.Globalization.NumberFormatting.ICurrencyFormatterFactory, currencyCode: WinRT_String) -> Windows.Globalization.NumberFormatting.CurrencyFormatter: ...
@@ -116,6 +117,7 @@ CurrencyFormatterMode_UseSymbol: CurrencyFormatterMode = 0
 CurrencyFormatterMode_UseCurrencyCode: CurrencyFormatterMode = 1
 class DecimalFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.NumberFormatting.INumberFormatter
     _classid_ = 'Windows.Globalization.NumberFormatting.DecimalFormatter'
     @winrt_activatemethod
     def New(cls) -> Windows.Globalization.NumberFormatting.DecimalFormatter: ...
@@ -386,6 +388,7 @@ class ISignificantDigitsOption(ComPtr):
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
 class IncrementNumberRounder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.NumberFormatting.INumberRounder
     _classid_ = 'Windows.Globalization.NumberFormatting.IncrementNumberRounder'
     @winrt_activatemethod
     def New(cls) -> Windows.Globalization.NumberFormatting.IncrementNumberRounder: ...
@@ -413,6 +416,7 @@ class IncrementNumberRounder(ComPtr):
     Increment = property(get_Increment, put_Increment)
 class NumeralSystemTranslator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.NumberFormatting.INumeralSystemTranslator
     _classid_ = 'Windows.Globalization.NumberFormatting.NumeralSystemTranslator'
     @winrt_factorymethod
     def Create(cls: Windows.Globalization.NumberFormatting.INumeralSystemTranslatorFactory, languages: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Globalization.NumberFormatting.NumeralSystemTranslator: ...
@@ -433,6 +437,7 @@ class NumeralSystemTranslator(ComPtr):
     NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
 class PercentFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.NumberFormatting.INumberFormatter
     _classid_ = 'Windows.Globalization.NumberFormatting.PercentFormatter'
     @winrt_factorymethod
     def CreatePercentFormatter(cls: Windows.Globalization.NumberFormatting.IPercentFormatterFactory, languages: Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> Windows.Globalization.NumberFormatting.PercentFormatter: ...
@@ -510,6 +515,7 @@ class PercentFormatter(ComPtr):
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
 class PermilleFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.NumberFormatting.INumberFormatter
     _classid_ = 'Windows.Globalization.NumberFormatting.PermilleFormatter'
     @winrt_factorymethod
     def CreatePermilleFormatter(cls: Windows.Globalization.NumberFormatting.IPermilleFormatterFactory, languages: Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> Windows.Globalization.NumberFormatting.PermilleFormatter: ...
@@ -599,6 +605,7 @@ RoundingAlgorithm_RoundHalfToEven: RoundingAlgorithm = 9
 RoundingAlgorithm_RoundHalfToOdd: RoundingAlgorithm = 10
 class SignificantDigitsNumberRounder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Globalization.NumberFormatting.INumberRounder
     _classid_ = 'Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder'
     @winrt_activatemethod
     def New(cls) -> Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder: ...

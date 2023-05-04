@@ -131,6 +131,7 @@ SystemUpdateAttentionRequiredReason_InsufficientBattery: SystemUpdateAttentionRe
 SystemUpdateAttentionRequiredReason_UpdateBlocked: SystemUpdateAttentionRequiredReason = 4
 class SystemUpdateItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Update.ISystemUpdateItem
     _classid_ = 'Windows.System.Update.SystemUpdateItem'
     @winrt_mixinmethod
     def get_State(self: Windows.System.Update.ISystemUpdateItem) -> Windows.System.Update.SystemUpdateItemState: ...
@@ -168,6 +169,7 @@ SystemUpdateItemState_RebootRequired: SystemUpdateItemState = 7
 SystemUpdateItemState_Error: SystemUpdateItemState = 8
 class SystemUpdateLastErrorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Update.ISystemUpdateLastErrorInfo
     _classid_ = 'Windows.System.Update.SystemUpdateLastErrorInfo'
     @winrt_mixinmethod
     def get_State(self: Windows.System.Update.ISystemUpdateLastErrorInfo) -> Windows.System.Update.SystemUpdateManagerState: ...
@@ -180,7 +182,6 @@ class SystemUpdateLastErrorInfo(ComPtr):
     IsInteractive = property(get_IsInteractive, None)
 class SystemUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.Update.SystemUpdateManager'
     @winrt_classmethod
     def IsSupported(cls: Windows.System.Update.ISystemUpdateManagerStatics) -> Boolean: ...
     @winrt_classmethod

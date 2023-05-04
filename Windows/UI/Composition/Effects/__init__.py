@@ -59,6 +59,7 @@ class ISceneLightingEffect2(ComPtr):
     ReflectanceModel = property(get_ReflectanceModel, put_ReflectanceModel)
 class SceneLightingEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Composition.Effects.ISceneLightingEffect
     _classid_ = 'Windows.UI.Composition.Effects.SceneLightingEffect'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Composition.Effects.SceneLightingEffect: ...

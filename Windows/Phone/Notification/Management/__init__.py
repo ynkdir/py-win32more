@@ -27,7 +27,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class AccessoryManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.Notification.Management.AccessoryManager'
     @winrt_classmethod
     def SnoozeAlarmByInstanceId(cls: Windows.Phone.Notification.Management.IAccessoryManager3, instanceId: WinRT_String) -> Void: ...
     @winrt_classmethod
@@ -184,6 +183,7 @@ AccessoryNotificationType_VolumeChanged: AccessoryNotificationType = 8192
 AccessoryNotificationType_EmailReadStatusChanged: AccessoryNotificationType = 16384
 class AlarmNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IAlarmNotificationTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.AlarmNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_AlarmId(self: Windows.Phone.Notification.Management.IAlarmNotificationTriggerDetails) -> Guid: ...
@@ -219,6 +219,7 @@ class AlarmNotificationTriggerDetails(ComPtr):
     InstanceId = property(get_InstanceId, None)
 class AppNotificationInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IAppNotificationInfo
     _classid_ = 'Windows.Phone.Notification.Management.AppNotificationInfo'
     @winrt_mixinmethod
     def get_Id(self: Windows.Phone.Notification.Management.IAppNotificationInfo) -> WinRT_String: ...
@@ -228,6 +229,7 @@ class AppNotificationInfo(ComPtr):
     Name = property(get_Name, None)
 class BinaryId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IBinaryId
     _classid_ = 'Windows.Phone.Notification.Management.BinaryId'
     @winrt_mixinmethod
     def get_Id(self: Windows.Phone.Notification.Management.IBinaryId) -> Byte: ...
@@ -245,6 +247,7 @@ CalendarChangedEvent_CalendarChanged: CalendarChangedEvent = 5
 CalendarChangedEvent_CalendarDeleted: CalendarChangedEvent = 6
 class CalendarChangedNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.ICalendarChangedNotificationTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.CalendarChangedNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_EventType(self: Windows.Phone.Notification.Management.ICalendarChangedNotificationTriggerDetails) -> Windows.Phone.Notification.Management.CalendarChangedEvent: ...
@@ -271,6 +274,7 @@ class CalendarChangedNotificationTriggerDetails(ComPtr):
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
 class CortanaTileNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.ICortanaTileNotificationTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.CortanaTileNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_TileId(self: Windows.Phone.Notification.Management.ICortanaTileNotificationTriggerDetails) -> WinRT_String: ...
@@ -321,6 +325,7 @@ class CortanaTileNotificationTriggerDetails(ComPtr):
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
 class EmailAccountInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IEmailAccountInfo
     _classid_ = 'Windows.Phone.Notification.Management.EmailAccountInfo'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.Phone.Notification.Management.IEmailAccountInfo) -> WinRT_String: ...
@@ -330,6 +335,7 @@ class EmailAccountInfo(ComPtr):
     IsNotificationEnabled = property(get_IsNotificationEnabled, None)
 class EmailFolderInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IEmailFolderInfo
     _classid_ = 'Windows.Phone.Notification.Management.EmailFolderInfo'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.Phone.Notification.Management.IEmailFolderInfo) -> WinRT_String: ...
@@ -339,6 +345,7 @@ class EmailFolderInfo(ComPtr):
     IsNotificationEnabled = property(get_IsNotificationEnabled, None)
 class EmailNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IEmailNotificationTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.EmailNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_AccountName(self: Windows.Phone.Notification.Management.IEmailNotificationTriggerDetails) -> WinRT_String: ...
@@ -380,6 +387,7 @@ class EmailNotificationTriggerDetails(ComPtr):
     MessageEntryId = property(get_MessageEntryId, None)
 class EmailReadNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IEmailReadNotificationTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.EmailReadNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_AccountName(self: Windows.Phone.Notification.Management.IEmailReadNotificationTriggerDetails) -> WinRT_String: ...
@@ -923,6 +931,7 @@ class IVolumeInfo(ComPtr):
     IsVibrateEnabled = property(get_IsVibrateEnabled, None)
 class MediaControlsTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IMediaControlsTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.MediaControlsTriggerDetails'
     @winrt_mixinmethod
     def get_PlaybackStatus(self: Windows.Phone.Notification.Management.IMediaControlsTriggerDetails) -> Windows.Phone.Notification.Management.PlaybackStatus: ...
@@ -949,6 +958,7 @@ class MediaControlsTriggerDetails(ComPtr):
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
 class MediaMetadata(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IMediaMetadata
     _classid_ = 'Windows.Phone.Notification.Management.MediaMetadata'
     @winrt_mixinmethod
     def get_Title(self: Windows.Phone.Notification.Management.IMediaMetadata) -> WinRT_String: ...
@@ -977,6 +987,7 @@ PhoneCallAudioEndpoint_Speaker: PhoneCallAudioEndpoint = 1
 PhoneCallAudioEndpoint_Handsfree: PhoneCallAudioEndpoint = 2
 class PhoneCallDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IPhoneCallDetails
     _classid_ = 'Windows.Phone.Notification.Management.PhoneCallDetails'
     @winrt_mixinmethod
     def get_PhoneLine(self: Windows.Phone.Notification.Management.IPhoneCallDetails) -> Guid: ...
@@ -1028,6 +1039,7 @@ PhoneCallTransport_Cellular: PhoneCallTransport = 0
 PhoneCallTransport_Voip: PhoneCallTransport = 1
 class PhoneLineDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IPhoneLineDetails
     _classid_ = 'Windows.Phone.Notification.Management.PhoneLineDetails'
     @winrt_mixinmethod
     def get_LineId(self: Windows.Phone.Notification.Management.IPhoneLineDetails) -> Guid: ...
@@ -1059,6 +1071,7 @@ PhoneMediaType_AudioOnly: PhoneMediaType = 0
 PhoneMediaType_AudioVideo: PhoneMediaType = 1
 class PhoneNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IPhoneNotificationTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.PhoneNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_PhoneNotificationType(self: Windows.Phone.Notification.Management.IPhoneNotificationTriggerDetails) -> Windows.Phone.Notification.Management.PhoneNotificationType: ...
@@ -1123,6 +1136,7 @@ PlaybackStatus_Playing: PlaybackStatus = 3
 PlaybackStatus_Paused: PlaybackStatus = 4
 class ReminderNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IReminderNotificationTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.ReminderNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_ReminderId(self: Windows.Phone.Notification.Management.IReminderNotificationTriggerDetails) -> Guid: ...
@@ -1171,6 +1185,7 @@ ReminderState_Snoozed: ReminderState = 1
 ReminderState_Dismissed: ReminderState = 2
 class SpeedDialEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.ISpeedDialEntry
     _classid_ = 'Windows.Phone.Notification.Management.SpeedDialEntry'
     @winrt_mixinmethod
     def get_PhoneNumber(self: Windows.Phone.Notification.Management.ISpeedDialEntry) -> WinRT_String: ...
@@ -1183,6 +1198,7 @@ class SpeedDialEntry(ComPtr):
     ContactName = property(get_ContactName, None)
 class TextResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.ITextResponse
     _classid_ = 'Windows.Phone.Notification.Management.TextResponse'
     @winrt_mixinmethod
     def get_Id(self: Windows.Phone.Notification.Management.ITextResponse) -> UInt32: ...
@@ -1192,6 +1208,7 @@ class TextResponse(ComPtr):
     Content = property(get_Content, None)
 class ToastNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IToastNotificationTriggerDetails
     _classid_ = 'Windows.Phone.Notification.Management.ToastNotificationTriggerDetails'
     @winrt_mixinmethod
     def get_Text1(self: Windows.Phone.Notification.Management.IToastNotificationTriggerDetails) -> WinRT_String: ...
@@ -1235,6 +1252,7 @@ VibrateState_RingerOnVibrateOff: VibrateState = 2
 VibrateState_RingerOnVibrateOn: VibrateState = 3
 class VolumeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Notification.Management.IVolumeInfo
     _classid_ = 'Windows.Phone.Notification.Management.VolumeInfo'
     @winrt_mixinmethod
     def get_SystemVolume(self: Windows.Phone.Notification.Management.IVolumeInfo) -> UInt32: ...

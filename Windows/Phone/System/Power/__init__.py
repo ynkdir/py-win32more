@@ -39,7 +39,6 @@ class IPowerManagerStatics2(ComPtr):
     PowerSavingModeEnabled = property(get_PowerSavingModeEnabled, None)
 class PowerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.System.Power.PowerManager'
     @winrt_classmethod
     def get_PowerSavingMode(cls: Windows.Phone.System.Power.IPowerManagerStatics) -> Windows.Phone.System.Power.PowerSavingMode: ...
     @winrt_classmethod

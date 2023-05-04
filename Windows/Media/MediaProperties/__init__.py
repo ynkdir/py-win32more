@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AudioEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.MediaProperties.IAudioEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.AudioEncodingProperties'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
@@ -91,6 +92,7 @@ AudioEncodingQuality_Medium: AudioEncodingQuality = 2
 AudioEncodingQuality_Low: AudioEncodingQuality = 3
 class ContainerEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.MediaProperties.IContainerEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.ContainerEncodingProperties'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaProperties.ContainerEncodingProperties: ...
@@ -109,7 +111,6 @@ class ContainerEncodingProperties(ComPtr):
     Subtype = property(get_Subtype, put_Subtype)
 class H264ProfileIds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.MediaProperties.H264ProfileIds'
     @winrt_classmethod
     def get_ConstrainedBaseline(cls: Windows.Media.MediaProperties.IH264ProfileIdsStatics) -> Int32: ...
     @winrt_classmethod
@@ -658,6 +659,7 @@ class IVideoEncodingPropertiesStatics2(ComPtr):
     def CreateHevc(self) -> Windows.Media.MediaProperties.VideoEncodingProperties: ...
 class ImageEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.MediaProperties.IImageEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.ImageEncodingProperties'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaProperties.ImageEncodingProperties: ...
@@ -698,6 +700,7 @@ class ImageEncodingProperties(ComPtr):
     Subtype = property(get_Subtype, put_Subtype)
 class MediaEncodingProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.MediaProperties.IMediaEncodingProfile
     _classid_ = 'Windows.Media.MediaProperties.MediaEncodingProfile'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaProperties.MediaEncodingProfile: ...
@@ -754,7 +757,6 @@ class MediaEncodingProfile(ComPtr):
     Container = property(get_Container, put_Container)
 class MediaEncodingSubtypes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.MediaProperties.MediaEncodingSubtypes'
     @winrt_classmethod
     def get_Pgs(cls: Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics6) -> WinRT_String: ...
     @winrt_classmethod
@@ -921,6 +923,7 @@ MediaPixelFormat_Bgra8: MediaPixelFormat = 1
 MediaPixelFormat_P010: MediaPixelFormat = 2
 class MediaPropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IMap[Guid, Windows.Win32.System.WinRT.IInspectable_head]
     _classid_ = 'Windows.Media.MediaProperties.MediaPropertySet'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaProperties.MediaPropertySet: ...
@@ -943,6 +946,7 @@ class MediaPropertySet(ComPtr):
     Size = property(get_Size, None)
 class MediaRatio(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.MediaProperties.IMediaRatio
     _classid_ = 'Windows.Media.MediaProperties.MediaRatio'
     @winrt_mixinmethod
     def put_Numerator(self: Windows.Media.MediaProperties.IMediaRatio, value: UInt32) -> Void: ...
@@ -964,7 +968,6 @@ MediaThumbnailFormat_Bmp: MediaThumbnailFormat = 0
 MediaThumbnailFormat_Bgra8: MediaThumbnailFormat = 1
 class Mpeg2ProfileIds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.MediaProperties.Mpeg2ProfileIds'
     @winrt_classmethod
     def get_Simple(cls: Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics) -> Int32: ...
     @winrt_classmethod
@@ -990,6 +993,7 @@ StereoscopicVideoPackingMode_SideBySide: StereoscopicVideoPackingMode = 1
 StereoscopicVideoPackingMode_TopBottom: StereoscopicVideoPackingMode = 2
 class TimedMetadataEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.MediaProperties.IMediaEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.TimedMetadataEncodingProperties'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaProperties.TimedMetadataEncodingProperties: ...
@@ -1020,6 +1024,7 @@ class TimedMetadataEncodingProperties(ComPtr):
     Subtype = property(get_Subtype, put_Subtype)
 class VideoEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.MediaProperties.IVideoEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.VideoEncodingProperties'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.MediaProperties.VideoEncodingProperties: ...

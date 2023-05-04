@@ -350,6 +350,7 @@ class IPrintTextOptionDetails(ComPtr):
     MaxCharacters = property(get_MaxCharacters, None)
 class PrintBindingOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintBindingOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -387,6 +388,7 @@ class PrintBindingOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintBorderingOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintBorderingOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -424,6 +426,7 @@ class PrintBorderingOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintCollationOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCollationOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -461,6 +464,7 @@ class PrintCollationOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintColorModeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintColorModeOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -498,6 +502,7 @@ class PrintColorModeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintCopiesOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCopiesOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -538,6 +543,7 @@ class PrintCopiesOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintCustomItemDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCustomItemDetails'
     @winrt_mixinmethod
     def get_ItemId(self: Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails) -> WinRT_String: ...
@@ -549,6 +555,7 @@ class PrintCustomItemDetails(ComPtr):
     ItemDisplayName = property(get_ItemDisplayName, put_ItemDisplayName)
 class PrintCustomItemListOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -595,6 +602,7 @@ class PrintCustomItemListOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintCustomTextOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCustomTextOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -639,6 +647,7 @@ class PrintCustomTextOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintCustomToggleOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -678,6 +687,7 @@ class PrintCustomToggleOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintDuplexOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintDuplexOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -715,6 +725,7 @@ class PrintDuplexOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintHolePunchOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintHolePunchOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -752,6 +763,7 @@ class PrintHolePunchOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintMediaSizeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintMediaSizeOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -789,6 +801,7 @@ class PrintMediaSizeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintMediaTypeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintMediaTypeOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -836,6 +849,7 @@ PrintOptionType_ItemList: PrintOptionType = 3
 PrintOptionType_Toggle: PrintOptionType = 4
 class PrintOrientationOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintOrientationOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -873,6 +887,7 @@ class PrintOrientationOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintPageRangeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintPageRangeOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -907,6 +922,7 @@ class PrintPageRangeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintQualityOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintQualityOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -944,6 +960,7 @@ class PrintQualityOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintStapleOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintStapleOptionDetails'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> WinRT_String: ...
@@ -981,12 +998,14 @@ class PrintStapleOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
 class PrintTaskOptionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintTaskOptionChangedEventArgs'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     OptionId = property(get_OptionId, None)
 class PrintTaskOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails'
     @winrt_mixinmethod
     def get_Options(self: Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails]: ...

@@ -115,6 +115,7 @@ class IPrintTaskConfigurationSaveRequestedEventArgs(ComPtr):
     Request = property(get_Request, None)
 class Print3DWorkflow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.Extensions.IPrint3DWorkflow
     _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflow'
     @winrt_mixinmethod
     def get_DeviceID(self: Windows.Devices.Printers.Extensions.IPrint3DWorkflow) -> WinRT_String: ...
@@ -144,6 +145,7 @@ Print3DWorkflowDetail_ModelNotManifold: Print3DWorkflowDetail = 5
 Print3DWorkflowDetail_InvalidPrintTicket: Print3DWorkflowDetail = 6
 class Print3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrintRequestedEventArgs
     _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrintRequestedEventArgs) -> Windows.Devices.Printers.Extensions.Print3DWorkflowStatus: ...
@@ -156,6 +158,7 @@ class Print3DWorkflowPrintRequestedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class Print3DWorkflowPrinterChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs
     _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs'
     @winrt_mixinmethod
     def get_NewDeviceId(self: Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs) -> WinRT_String: ...
@@ -168,11 +171,11 @@ Print3DWorkflowStatus_Slicing: Print3DWorkflowStatus = 3
 Print3DWorkflowStatus_Submitted: Print3DWorkflowStatus = 4
 class PrintExtensionContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Printers.Extensions.PrintExtensionContext'
     @winrt_classmethod
     def FromDeviceId(cls: Windows.Devices.Printers.Extensions.IPrintExtensionContextStatic, deviceId: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class PrintNotificationEventDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintNotificationEventDetails'
     @winrt_mixinmethod
     def get_PrinterName(self: Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails) -> WinRT_String: ...
@@ -184,6 +187,7 @@ class PrintNotificationEventDetails(ComPtr):
     EventData = property(get_EventData, put_EventData)
 class PrintTaskConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.Extensions.IPrintTaskConfiguration
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintTaskConfiguration'
     @winrt_mixinmethod
     def get_PrinterExtensionContext(self: Windows.Devices.Printers.Extensions.IPrintTaskConfiguration) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -194,6 +198,7 @@ class PrintTaskConfiguration(ComPtr):
     PrinterExtensionContext = property(get_PrinterExtensionContext, None)
 class PrintTaskConfigurationSaveRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest'
     @winrt_mixinmethod
     def Cancel(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest) -> Void: ...
@@ -206,11 +211,13 @@ class PrintTaskConfigurationSaveRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class PrintTaskConfigurationSaveRequestedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequestedDeferral
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequestedDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequestedDeferral) -> Void: ...
 class PrintTaskConfigurationSaveRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequestedEventArgs
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequestedEventArgs) -> Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest: ...

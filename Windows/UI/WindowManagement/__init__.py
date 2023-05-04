@@ -27,6 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindow
     _classid_ = 'Windows.UI.WindowManagement.AppWindow'
     @winrt_mixinmethod
     def get_Content(self: Windows.UI.WindowManagement.IAppWindow) -> Windows.UI.UIContentRoot: ...
@@ -104,6 +105,7 @@ class AppWindow(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
 class AppWindowChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowChangedEventArgs
     _classid_ = 'Windows.UI.WindowManagement.AppWindowChangedEventArgs'
     @winrt_mixinmethod
     def get_DidAvailableWindowPresentationsChange(self: Windows.UI.WindowManagement.IAppWindowChangedEventArgs) -> Boolean: ...
@@ -131,6 +133,7 @@ class AppWindowChangedEventArgs(ComPtr):
     DidWindowPresentationChange = property(get_DidWindowPresentationChange, None)
 class AppWindowCloseRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowCloseRequestedEventArgs
     _classid_ = 'Windows.UI.WindowManagement.AppWindowCloseRequestedEventArgs'
     @winrt_mixinmethod
     def get_Cancel(self: Windows.UI.WindowManagement.IAppWindowCloseRequestedEventArgs) -> Boolean: ...
@@ -141,6 +144,7 @@ class AppWindowCloseRequestedEventArgs(ComPtr):
     Cancel = property(get_Cancel, put_Cancel)
 class AppWindowClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowClosedEventArgs
     _classid_ = 'Windows.UI.WindowManagement.AppWindowClosedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.UI.WindowManagement.IAppWindowClosedEventArgs) -> Windows.UI.WindowManagement.AppWindowClosedReason: ...
@@ -151,6 +155,7 @@ AppWindowClosedReason_AppInitiated: AppWindowClosedReason = 1
 AppWindowClosedReason_UserInitiated: AppWindowClosedReason = 2
 class AppWindowFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowFrame
     _classid_ = 'Windows.UI.WindowManagement.AppWindowFrame'
     @winrt_mixinmethod
     def GetFrameStyle(self: Windows.UI.WindowManagement.IAppWindowFrameStyle) -> Windows.UI.WindowManagement.AppWindowFrameStyle: ...
@@ -164,6 +169,7 @@ AppWindowFrameStyle_Default: AppWindowFrameStyle = 0
 AppWindowFrameStyle_NoFrame: AppWindowFrameStyle = 1
 class AppWindowPlacement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowPlacement
     _classid_ = 'Windows.UI.WindowManagement.AppWindowPlacement'
     @winrt_mixinmethod
     def get_DisplayRegion(self: Windows.UI.WindowManagement.IAppWindowPlacement) -> Windows.UI.WindowManagement.DisplayRegion: ...
@@ -176,6 +182,8 @@ class AppWindowPlacement(ComPtr):
     Size = property(get_Size, None)
 class AppWindowPresentationConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowPresentationConfiguration
+    _classid_ = 'Windows.UI.WindowManagement.AppWindowPresentationConfiguration'
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.UI.WindowManagement.AppWindowPresentationKind: ...
     Kind = property(get_Kind, None)
@@ -185,6 +193,7 @@ AppWindowPresentationKind_CompactOverlay: AppWindowPresentationKind = 1
 AppWindowPresentationKind_FullScreen: AppWindowPresentationKind = 2
 class AppWindowPresenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowPresenter
     _classid_ = 'Windows.UI.WindowManagement.AppWindowPresenter'
     @winrt_mixinmethod
     def GetConfiguration(self: Windows.UI.WindowManagement.IAppWindowPresenter) -> Windows.UI.WindowManagement.AppWindowPresentationConfiguration: ...
@@ -196,6 +205,7 @@ class AppWindowPresenter(ComPtr):
     def RequestPresentationByKind(self: Windows.UI.WindowManagement.IAppWindowPresenter, presentationKind: Windows.UI.WindowManagement.AppWindowPresentationKind) -> Boolean: ...
 class AppWindowTitleBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowTitleBar
     _classid_ = 'Windows.UI.WindowManagement.AppWindowTitleBar'
     @winrt_mixinmethod
     def GetPreferredVisibility(self: Windows.UI.WindowManagement.IAppWindowTitleBarVisibility) -> Windows.UI.WindowManagement.AppWindowTitleBarVisibility: ...
@@ -273,6 +283,7 @@ class AppWindowTitleBar(ComPtr):
     IsVisible = property(get_IsVisible, None)
 class AppWindowTitleBarOcclusion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IAppWindowTitleBarOcclusion
     _classid_ = 'Windows.UI.WindowManagement.AppWindowTitleBarOcclusion'
     @winrt_mixinmethod
     def get_OccludingRect(self: Windows.UI.WindowManagement.IAppWindowTitleBarOcclusion) -> Windows.Foundation.Rect: ...
@@ -282,16 +293,19 @@ AppWindowTitleBarVisibility_Default: AppWindowTitleBarVisibility = 0
 AppWindowTitleBarVisibility_AlwaysHidden: AppWindowTitleBarVisibility = 1
 class CompactOverlayPresentationConfiguration(ComPtr):
     extends: Windows.UI.WindowManagement.AppWindowPresentationConfiguration
+    default_interface: Windows.UI.WindowManagement.ICompactOverlayPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration: ...
 class DefaultPresentationConfiguration(ComPtr):
     extends: Windows.UI.WindowManagement.AppWindowPresentationConfiguration
+    default_interface: Windows.UI.WindowManagement.IDefaultPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.DefaultPresentationConfiguration'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.WindowManagement.DefaultPresentationConfiguration: ...
 class DisplayRegion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IDisplayRegion
     _classid_ = 'Windows.UI.WindowManagement.DisplayRegion'
     @winrt_mixinmethod
     def get_DisplayMonitorDeviceId(self: Windows.UI.WindowManagement.IDisplayRegion) -> WinRT_String: ...
@@ -314,6 +328,7 @@ class DisplayRegion(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
 class FullScreenPresentationConfiguration(ComPtr):
     extends: Windows.UI.WindowManagement.AppWindowPresentationConfiguration
+    default_interface: Windows.UI.WindowManagement.IFullScreenPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.FullScreenPresentationConfiguration'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.WindowManagement.FullScreenPresentationConfiguration: ...
@@ -656,11 +671,11 @@ class IWindowingEnvironmentStatics(ComPtr):
     def FindAllWithKind(self, kind: Windows.UI.WindowManagement.WindowingEnvironmentKind) -> Windows.Foundation.Collections.IVectorView[Windows.UI.WindowManagement.WindowingEnvironment]: ...
 class WindowServices(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.WindowManagement.WindowServices'
     @winrt_classmethod
     def FindAllTopLevelWindowIds(cls: Windows.UI.WindowManagement.IWindowServicesStatics) -> Windows.Foundation.Collections.IVectorView[Windows.UI.WindowId]: ...
 class WindowingEnvironment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IWindowingEnvironment
     _classid_ = 'Windows.UI.WindowManagement.WindowingEnvironment'
     @winrt_mixinmethod
     def get_IsEnabled(self: Windows.UI.WindowManagement.IWindowingEnvironment) -> Boolean: ...
@@ -680,12 +695,14 @@ class WindowingEnvironment(ComPtr):
     Kind = property(get_Kind, None)
 class WindowingEnvironmentAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IWindowingEnvironmentAddedEventArgs
     _classid_ = 'Windows.UI.WindowManagement.WindowingEnvironmentAddedEventArgs'
     @winrt_mixinmethod
     def get_WindowingEnvironment(self: Windows.UI.WindowManagement.IWindowingEnvironmentAddedEventArgs) -> Windows.UI.WindowManagement.WindowingEnvironment: ...
     WindowingEnvironment = property(get_WindowingEnvironment, None)
 class WindowingEnvironmentChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IWindowingEnvironmentChangedEventArgs
     _classid_ = 'Windows.UI.WindowManagement.WindowingEnvironmentChangedEventArgs'
 WindowingEnvironmentKind = Int32
 WindowingEnvironmentKind_Unknown: WindowingEnvironmentKind = 0
@@ -693,6 +710,7 @@ WindowingEnvironmentKind_Overlapped: WindowingEnvironmentKind = 1
 WindowingEnvironmentKind_Tiled: WindowingEnvironmentKind = 2
 class WindowingEnvironmentRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WindowManagement.IWindowingEnvironmentRemovedEventArgs
     _classid_ = 'Windows.UI.WindowManagement.WindowingEnvironmentRemovedEventArgs'
     @winrt_mixinmethod
     def get_WindowingEnvironment(self: Windows.UI.WindowManagement.IWindowingEnvironmentRemovedEventArgs) -> Windows.UI.WindowManagement.WindowingEnvironment: ...

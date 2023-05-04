@@ -248,6 +248,7 @@ class IMidiTimeCodeMessageFactory(ComPtr):
     def CreateMidiTimeCodeMessage(self, frameType: Byte, values: Byte) -> Windows.Devices.Midi.MidiTimeCodeMessage: ...
 class MidiActiveSensingMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiActiveSensingMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Midi.MidiActiveSensingMessage: ...
@@ -262,6 +263,7 @@ class MidiActiveSensingMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiChannelPressureMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiChannelPressureMessage
     _classid_ = 'Windows.Devices.Midi.MidiChannelPressureMessage'
     @winrt_factorymethod
     def CreateMidiChannelPressureMessage(cls: Windows.Devices.Midi.IMidiChannelPressureMessageFactory, channel: Byte, pressure: Byte) -> Windows.Devices.Midi.MidiChannelPressureMessage: ...
@@ -282,6 +284,7 @@ class MidiChannelPressureMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiContinueMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiContinueMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Midi.MidiContinueMessage: ...
@@ -296,6 +299,7 @@ class MidiContinueMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiControlChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiControlChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiControlChangeMessage'
     @winrt_factorymethod
     def CreateMidiControlChangeMessage(cls: Windows.Devices.Midi.IMidiControlChangeMessageFactory, channel: Byte, controller: Byte, controlValue: Byte) -> Windows.Devices.Midi.MidiControlChangeMessage: ...
@@ -319,6 +323,7 @@ class MidiControlChangeMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiInPort(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiInPort
     _classid_ = 'Windows.Devices.Midi.MidiInPort'
     @winrt_mixinmethod
     def add_MessageReceived(self: Windows.Devices.Midi.IMidiInPort, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Midi.MidiInPort, Windows.Devices.Midi.MidiMessageReceivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -335,6 +340,7 @@ class MidiInPort(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class MidiMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessageReceivedEventArgs
     _classid_ = 'Windows.Devices.Midi.MidiMessageReceivedEventArgs'
     @winrt_mixinmethod
     def get_Message(self: Windows.Devices.Midi.IMidiMessageReceivedEventArgs) -> Windows.Devices.Midi.IMidiMessage: ...
@@ -362,6 +368,7 @@ MidiMessageType_ActiveSensing: MidiMessageType = 254
 MidiMessageType_SystemReset: MidiMessageType = 255
 class MidiNoteOffMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiNoteOffMessage
     _classid_ = 'Windows.Devices.Midi.MidiNoteOffMessage'
     @winrt_factorymethod
     def CreateMidiNoteOffMessage(cls: Windows.Devices.Midi.IMidiNoteOffMessageFactory, channel: Byte, note: Byte, velocity: Byte) -> Windows.Devices.Midi.MidiNoteOffMessage: ...
@@ -385,6 +392,7 @@ class MidiNoteOffMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiNoteOnMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiNoteOnMessage
     _classid_ = 'Windows.Devices.Midi.MidiNoteOnMessage'
     @winrt_factorymethod
     def CreateMidiNoteOnMessage(cls: Windows.Devices.Midi.IMidiNoteOnMessageFactory, channel: Byte, note: Byte, velocity: Byte) -> Windows.Devices.Midi.MidiNoteOnMessage: ...
@@ -408,6 +416,7 @@ class MidiNoteOnMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiOutPort(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiOutPort
     _classid_ = 'Windows.Devices.Midi.MidiOutPort'
     @winrt_mixinmethod
     def SendMessage(self: Windows.Devices.Midi.IMidiOutPort, midiMessage: Windows.Devices.Midi.IMidiMessage) -> Void: ...
@@ -424,6 +433,7 @@ class MidiOutPort(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class MidiPitchBendChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiPitchBendChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiPitchBendChangeMessage'
     @winrt_factorymethod
     def CreateMidiPitchBendChangeMessage(cls: Windows.Devices.Midi.IMidiPitchBendChangeMessageFactory, channel: Byte, bend: UInt16) -> Windows.Devices.Midi.MidiPitchBendChangeMessage: ...
@@ -444,6 +454,7 @@ class MidiPitchBendChangeMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiPolyphonicKeyPressureMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiPolyphonicKeyPressureMessage
     _classid_ = 'Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage'
     @winrt_factorymethod
     def CreateMidiPolyphonicKeyPressureMessage(cls: Windows.Devices.Midi.IMidiPolyphonicKeyPressureMessageFactory, channel: Byte, note: Byte, pressure: Byte) -> Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage: ...
@@ -467,6 +478,7 @@ class MidiPolyphonicKeyPressureMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiProgramChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiProgramChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiProgramChangeMessage'
     @winrt_factorymethod
     def CreateMidiProgramChangeMessage(cls: Windows.Devices.Midi.IMidiProgramChangeMessageFactory, channel: Byte, program: Byte) -> Windows.Devices.Midi.MidiProgramChangeMessage: ...
@@ -487,6 +499,7 @@ class MidiProgramChangeMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiSongPositionPointerMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiSongPositionPointerMessage
     _classid_ = 'Windows.Devices.Midi.MidiSongPositionPointerMessage'
     @winrt_factorymethod
     def CreateMidiSongPositionPointerMessage(cls: Windows.Devices.Midi.IMidiSongPositionPointerMessageFactory, beats: UInt16) -> Windows.Devices.Midi.MidiSongPositionPointerMessage: ...
@@ -504,6 +517,7 @@ class MidiSongPositionPointerMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiSongSelectMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiSongSelectMessage
     _classid_ = 'Windows.Devices.Midi.MidiSongSelectMessage'
     @winrt_factorymethod
     def CreateMidiSongSelectMessage(cls: Windows.Devices.Midi.IMidiSongSelectMessageFactory, song: Byte) -> Windows.Devices.Midi.MidiSongSelectMessage: ...
@@ -521,6 +535,7 @@ class MidiSongSelectMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiStartMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiStartMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Midi.MidiStartMessage: ...
@@ -535,6 +550,7 @@ class MidiStartMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiStopMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiStopMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Midi.MidiStopMessage: ...
@@ -549,6 +565,7 @@ class MidiStopMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiSynthesizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiSynthesizer
     _classid_ = 'Windows.Devices.Midi.MidiSynthesizer'
     @winrt_mixinmethod
     def get_AudioDevice(self: Windows.Devices.Midi.IMidiSynthesizer) -> Windows.Devices.Enumeration.DeviceInformation: ...
@@ -575,6 +592,7 @@ class MidiSynthesizer(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class MidiSystemExclusiveMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiSystemExclusiveMessage'
     @winrt_factorymethod
     def CreateMidiSystemExclusiveMessage(cls: Windows.Devices.Midi.IMidiSystemExclusiveMessageFactory, rawData: Windows.Storage.Streams.IBuffer) -> Windows.Devices.Midi.MidiSystemExclusiveMessage: ...
@@ -589,6 +607,7 @@ class MidiSystemExclusiveMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiSystemResetMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiSystemResetMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Midi.MidiSystemResetMessage: ...
@@ -603,6 +622,7 @@ class MidiSystemResetMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiTimeCodeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiTimeCodeMessage
     _classid_ = 'Windows.Devices.Midi.MidiTimeCodeMessage'
     @winrt_factorymethod
     def CreateMidiTimeCodeMessage(cls: Windows.Devices.Midi.IMidiTimeCodeMessageFactory, frameType: Byte, values: Byte) -> Windows.Devices.Midi.MidiTimeCodeMessage: ...
@@ -623,6 +643,7 @@ class MidiTimeCodeMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiTimingClockMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiTimingClockMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Midi.MidiTimingClockMessage: ...
@@ -637,6 +658,7 @@ class MidiTimingClockMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiTuneRequestMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiTuneRequestMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Midi.MidiTuneRequestMessage: ...

@@ -176,6 +176,7 @@ class ILampStatics(ComPtr):
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Lights.Lamp]: ...
 class Lamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Lights.ILamp
     _classid_ = 'Windows.Devices.Lights.Lamp'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Lights.ILamp) -> WinRT_String: ...
@@ -212,6 +213,7 @@ class Lamp(ComPtr):
     Color = property(get_Color, put_Color)
 class LampArray(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Lights.ILampArray
     _classid_ = 'Windows.Devices.Lights.LampArray'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Lights.ILampArray) -> WinRT_String: ...
@@ -295,12 +297,14 @@ LampArrayKind_Furniture: LampArrayKind = 9
 LampArrayKind_Art: LampArrayKind = 10
 class LampAvailabilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Lights.ILampAvailabilityChangedEventArgs
     _classid_ = 'Windows.Devices.Lights.LampAvailabilityChangedEventArgs'
     @winrt_mixinmethod
     def get_IsAvailable(self: Windows.Devices.Lights.ILampAvailabilityChangedEventArgs) -> Boolean: ...
     IsAvailable = property(get_IsAvailable, None)
 class LampInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Lights.ILampInfo
     _classid_ = 'Windows.Devices.Lights.LampInfo'
     @winrt_mixinmethod
     def get_Index(self: Windows.Devices.Lights.ILampInfo) -> Int32: ...

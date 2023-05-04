@@ -42,6 +42,7 @@ class IPlaylistStatics(ComPtr):
     def LoadAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Media.Playlists.Playlist]: ...
 class Playlist(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.Playlists.IPlaylist
     _classid_ = 'Windows.Media.Playlists.Playlist'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Playlists.Playlist: ...

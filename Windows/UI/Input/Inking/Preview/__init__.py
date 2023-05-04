@@ -34,6 +34,7 @@ class IPalmRejectionDelayZonePreviewStatics(ComPtr):
     def CreateForVisualWithViewportClip(self, inputPanelVisual: Windows.UI.Composition.Visual, inputPanelRect: Windows.Foundation.Rect, viewportVisual: Windows.UI.Composition.Visual, viewportRect: Windows.Foundation.Rect) -> Windows.UI.Input.Inking.Preview.PalmRejectionDelayZonePreview: ...
 class PalmRejectionDelayZonePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Input.Inking.Preview.IPalmRejectionDelayZonePreview
     _classid_ = 'Windows.UI.Input.Inking.Preview.PalmRejectionDelayZonePreview'
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...

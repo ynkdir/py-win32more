@@ -134,6 +134,7 @@ class IRawNotification3(ComPtr):
     ContentBytes = property(get_ContentBytes, None)
 class PushNotificationChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.PushNotifications.IPushNotificationChannel
     _classid_ = 'Windows.Networking.PushNotifications.PushNotificationChannel'
     @winrt_mixinmethod
     def get_Uri(self: Windows.Networking.PushNotifications.IPushNotificationChannel) -> WinRT_String: ...
@@ -149,7 +150,6 @@ class PushNotificationChannel(ComPtr):
     ExpirationTime = property(get_ExpirationTime, None)
 class PushNotificationChannelManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Networking.PushNotifications.PushNotificationChannelManager'
     @winrt_classmethod
     def add_ChannelsRevoked(cls: Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics4, handler: Windows.Foundation.EventHandler[Windows.Networking.PushNotifications.PushNotificationChannelsRevokedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -166,6 +166,7 @@ class PushNotificationChannelManager(ComPtr):
     def CreatePushNotificationChannelForSecondaryTileAsync(cls: Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics, tileId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Networking.PushNotifications.PushNotificationChannel]: ...
 class PushNotificationChannelManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.PushNotifications.IPushNotificationChannelManagerForUser
     _classid_ = 'Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser'
     @winrt_mixinmethod
     def CreatePushNotificationChannelForApplicationAsync(self: Windows.Networking.PushNotifications.IPushNotificationChannelManagerForUser) -> Windows.Foundation.IAsyncOperation[Windows.Networking.PushNotifications.PushNotificationChannel]: ...
@@ -182,9 +183,11 @@ class PushNotificationChannelManagerForUser(ComPtr):
     User = property(get_User, None)
 class PushNotificationChannelsRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.PushNotifications.IPushNotificationChannelsRevokedEventArgs
     _classid_ = 'Windows.Networking.PushNotifications.PushNotificationChannelsRevokedEventArgs'
 class PushNotificationReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.PushNotifications.IPushNotificationReceivedEventArgs
     _classid_ = 'Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs'
     @winrt_mixinmethod
     def put_Cancel(self: Windows.Networking.PushNotifications.IPushNotificationReceivedEventArgs, value: Boolean) -> Void: ...
@@ -214,6 +217,7 @@ PushNotificationType_Raw: PushNotificationType = 3
 PushNotificationType_TileFlyout: PushNotificationType = 4
 class RawNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Networking.PushNotifications.IRawNotification
     _classid_ = 'Windows.Networking.PushNotifications.RawNotification'
     @winrt_mixinmethod
     def get_Content(self: Windows.Networking.PushNotifications.IRawNotification) -> WinRT_String: ...

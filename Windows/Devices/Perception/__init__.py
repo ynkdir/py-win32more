@@ -692,7 +692,6 @@ class IPerceptionVideoProfile(ComPtr):
     FrameDuration = property(get_FrameDuration, None)
 class KnownCameraIntrinsicsProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.KnownCameraIntrinsicsProperties'
     @winrt_classmethod
     def get_FocalLength(cls: Windows.Devices.Perception.IKnownCameraIntrinsicsPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -707,7 +706,6 @@ class KnownCameraIntrinsicsProperties(ComPtr):
     TangentialDistortion = property(get_TangentialDistortion, None)
 class KnownPerceptionColorFrameSourceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.KnownPerceptionColorFrameSourceProperties'
     @winrt_classmethod
     def get_Exposure(cls: Windows.Devices.Perception.IKnownPerceptionColorFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -719,7 +717,6 @@ class KnownPerceptionColorFrameSourceProperties(ComPtr):
     ExposureCompensation = property(get_ExposureCompensation, None)
 class KnownPerceptionDepthFrameSourceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.KnownPerceptionDepthFrameSourceProperties'
     @winrt_classmethod
     def get_MinDepth(cls: Windows.Devices.Perception.IKnownPerceptionDepthFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -728,7 +725,6 @@ class KnownPerceptionDepthFrameSourceProperties(ComPtr):
     MaxDepth = property(get_MaxDepth, None)
 class KnownPerceptionFrameSourceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.KnownPerceptionFrameSourceProperties'
     @winrt_classmethod
     def get_DeviceId(cls: Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics2) -> WinRT_String: ...
     @winrt_classmethod
@@ -749,7 +745,6 @@ class KnownPerceptionFrameSourceProperties(ComPtr):
     EnclosureLocation = property(get_EnclosureLocation, None)
 class KnownPerceptionInfraredFrameSourceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties'
     @winrt_classmethod
     def get_Exposure(cls: Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -773,7 +768,6 @@ class KnownPerceptionInfraredFrameSourceProperties(ComPtr):
     InterleavedIlluminationEnabled = property(get_InterleavedIlluminationEnabled, None)
 class KnownPerceptionVideoFrameSourceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.KnownPerceptionVideoFrameSourceProperties'
     @winrt_classmethod
     def get_VideoProfile(cls: Windows.Devices.Perception.IKnownPerceptionVideoFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -791,7 +785,6 @@ class KnownPerceptionVideoFrameSourceProperties(ComPtr):
     CameraIntrinsics = property(get_CameraIntrinsics, None)
 class KnownPerceptionVideoProfileProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.KnownPerceptionVideoProfileProperties'
     @winrt_classmethod
     def get_BitmapPixelFormat(cls: Windows.Devices.Perception.IKnownPerceptionVideoProfilePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -809,6 +802,7 @@ class KnownPerceptionVideoProfileProperties(ComPtr):
     FrameDuration = property(get_FrameDuration, None)
 class PerceptionColorFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionColorFrame
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrame'
     @winrt_mixinmethod
     def get_VideoFrame(self: Windows.Devices.Perception.IPerceptionColorFrame) -> Windows.Media.VideoFrame: ...
@@ -817,6 +811,7 @@ class PerceptionColorFrame(ComPtr):
     VideoFrame = property(get_VideoFrame, None)
 class PerceptionColorFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionColorFrameArrivedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrameArrivedEventArgs'
     @winrt_mixinmethod
     def get_RelativeTime(self: Windows.Devices.Perception.IPerceptionColorFrameArrivedEventArgs) -> Windows.Foundation.TimeSpan: ...
@@ -825,6 +820,7 @@ class PerceptionColorFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class PerceptionColorFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionColorFrameReader
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrameReader'
     @winrt_mixinmethod
     def add_FrameArrived(self: Windows.Devices.Perception.IPerceptionColorFrameReader, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionColorFrameReader, Windows.Devices.Perception.PerceptionColorFrameArrivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -844,6 +840,7 @@ class PerceptionColorFrameReader(ComPtr):
     IsPaused = property(get_IsPaused, put_IsPaused)
 class PerceptionColorFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionColorFrameSource
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrameSource'
     @winrt_mixinmethod
     def add_AvailableChanged(self: Windows.Devices.Perception.IPerceptionColorFrameSource, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionColorFrameSource, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -927,18 +924,21 @@ class PerceptionColorFrameSource(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class PerceptionColorFrameSourceAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionColorFrameSourceAddedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrameSourceAddedEventArgs'
     @winrt_mixinmethod
     def get_FrameSource(self: Windows.Devices.Perception.IPerceptionColorFrameSourceAddedEventArgs) -> Windows.Devices.Perception.PerceptionColorFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class PerceptionColorFrameSourceRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionColorFrameSourceRemovedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrameSourceRemovedEventArgs'
     @winrt_mixinmethod
     def get_FrameSource(self: Windows.Devices.Perception.IPerceptionColorFrameSourceRemovedEventArgs) -> Windows.Devices.Perception.PerceptionColorFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class PerceptionColorFrameSourceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionColorFrameSourceWatcher
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrameSourceWatcher'
     @winrt_mixinmethod
     def add_SourceAdded(self: Windows.Devices.Perception.IPerceptionColorFrameSourceWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionColorFrameSourceWatcher, Windows.Devices.Perception.PerceptionColorFrameSourceAddedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -965,6 +965,7 @@ class PerceptionColorFrameSourceWatcher(ComPtr):
     Status = property(get_Status, None)
 class PerceptionControlSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionControlSession
     _classid_ = 'Windows.Devices.Perception.PerceptionControlSession'
     @winrt_mixinmethod
     def add_ControlLost(self: Windows.Devices.Perception.IPerceptionControlSession, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionControlSession, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -976,6 +977,7 @@ class PerceptionControlSession(ComPtr):
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
 class PerceptionDepthCorrelatedCameraIntrinsics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthCorrelatedCameraIntrinsics
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthCorrelatedCameraIntrinsics'
     @winrt_mixinmethod
     def UnprojectPixelAtCorrelatedDepth(self: Windows.Devices.Perception.IPerceptionDepthCorrelatedCameraIntrinsics, pixelCoordinate: Windows.Foundation.Point, depthFrame: Windows.Devices.Perception.PerceptionDepthFrame) -> Windows.Foundation.Numerics.Vector3: ...
@@ -987,6 +989,7 @@ class PerceptionDepthCorrelatedCameraIntrinsics(ComPtr):
     def UnprojectAllPixelsAtCorrelatedDepthAsync(self: Windows.Devices.Perception.IPerceptionDepthCorrelatedCameraIntrinsics, depthFrame: Windows.Devices.Perception.PerceptionDepthFrame, results: POINTER(Windows.Foundation.Numerics.Vector3_head)) -> Windows.Foundation.IAsyncAction: ...
 class PerceptionDepthCorrelatedCoordinateMapper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthCorrelatedCoordinateMapper
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthCorrelatedCoordinateMapper'
     @winrt_mixinmethod
     def MapPixelToTarget(self: Windows.Devices.Perception.IPerceptionDepthCorrelatedCoordinateMapper, sourcePixelCoordinate: Windows.Foundation.Point, depthFrame: Windows.Devices.Perception.PerceptionDepthFrame) -> Windows.Foundation.Point: ...
@@ -998,6 +1001,7 @@ class PerceptionDepthCorrelatedCoordinateMapper(ComPtr):
     def MapAllPixelsToTargetAsync(self: Windows.Devices.Perception.IPerceptionDepthCorrelatedCoordinateMapper, depthFrame: Windows.Devices.Perception.PerceptionDepthFrame, targetCoordinates: POINTER(Windows.Foundation.Point_head)) -> Windows.Foundation.IAsyncAction: ...
 class PerceptionDepthFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthFrame
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrame'
     @winrt_mixinmethod
     def get_VideoFrame(self: Windows.Devices.Perception.IPerceptionDepthFrame) -> Windows.Media.VideoFrame: ...
@@ -1006,6 +1010,7 @@ class PerceptionDepthFrame(ComPtr):
     VideoFrame = property(get_VideoFrame, None)
 class PerceptionDepthFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthFrameArrivedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrameArrivedEventArgs'
     @winrt_mixinmethod
     def get_RelativeTime(self: Windows.Devices.Perception.IPerceptionDepthFrameArrivedEventArgs) -> Windows.Foundation.TimeSpan: ...
@@ -1014,6 +1019,7 @@ class PerceptionDepthFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class PerceptionDepthFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthFrameReader
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrameReader'
     @winrt_mixinmethod
     def add_FrameArrived(self: Windows.Devices.Perception.IPerceptionDepthFrameReader, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionDepthFrameReader, Windows.Devices.Perception.PerceptionDepthFrameArrivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -1033,6 +1039,7 @@ class PerceptionDepthFrameReader(ComPtr):
     IsPaused = property(get_IsPaused, put_IsPaused)
 class PerceptionDepthFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthFrameSource
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrameSource'
     @winrt_mixinmethod
     def add_AvailableChanged(self: Windows.Devices.Perception.IPerceptionDepthFrameSource, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionDepthFrameSource, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -1116,18 +1123,21 @@ class PerceptionDepthFrameSource(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class PerceptionDepthFrameSourceAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthFrameSourceAddedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrameSourceAddedEventArgs'
     @winrt_mixinmethod
     def get_FrameSource(self: Windows.Devices.Perception.IPerceptionDepthFrameSourceAddedEventArgs) -> Windows.Devices.Perception.PerceptionDepthFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class PerceptionDepthFrameSourceRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthFrameSourceRemovedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrameSourceRemovedEventArgs'
     @winrt_mixinmethod
     def get_FrameSource(self: Windows.Devices.Perception.IPerceptionDepthFrameSourceRemovedEventArgs) -> Windows.Devices.Perception.PerceptionDepthFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class PerceptionDepthFrameSourceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionDepthFrameSourceWatcher
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrameSourceWatcher'
     @winrt_mixinmethod
     def add_SourceAdded(self: Windows.Devices.Perception.IPerceptionDepthFrameSourceWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionDepthFrameSourceWatcher, Windows.Devices.Perception.PerceptionDepthFrameSourceAddedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -1159,6 +1169,7 @@ PerceptionFrameSourceAccessStatus_DeniedByUser: PerceptionFrameSourceAccessStatu
 PerceptionFrameSourceAccessStatus_DeniedBySystem: PerceptionFrameSourceAccessStatus = 3
 class PerceptionFrameSourcePropertiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionFrameSourcePropertiesChangedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionFrameSourcePropertiesChangedEventArgs'
     @winrt_mixinmethod
     def get_CollectionChange(self: Windows.Devices.Perception.IPerceptionFrameSourcePropertiesChangedEventArgs) -> Windows.Foundation.Collections.CollectionChange: ...
@@ -1168,6 +1179,7 @@ class PerceptionFrameSourcePropertiesChangedEventArgs(ComPtr):
     Key = property(get_Key, None)
 class PerceptionFrameSourcePropertyChangeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionFrameSourcePropertyChangeResult
     _classid_ = 'Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Perception.IPerceptionFrameSourcePropertyChangeResult) -> Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeStatus: ...
@@ -1184,6 +1196,7 @@ PerceptionFrameSourcePropertyChangeStatus_PropertyReadOnly: PerceptionFrameSourc
 PerceptionFrameSourcePropertyChangeStatus_ValueOutOfRange: PerceptionFrameSourcePropertyChangeStatus = 5
 class PerceptionInfraredFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionInfraredFrame
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrame'
     @winrt_mixinmethod
     def get_VideoFrame(self: Windows.Devices.Perception.IPerceptionInfraredFrame) -> Windows.Media.VideoFrame: ...
@@ -1192,6 +1205,7 @@ class PerceptionInfraredFrame(ComPtr):
     VideoFrame = property(get_VideoFrame, None)
 class PerceptionInfraredFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionInfraredFrameArrivedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrameArrivedEventArgs'
     @winrt_mixinmethod
     def get_RelativeTime(self: Windows.Devices.Perception.IPerceptionInfraredFrameArrivedEventArgs) -> Windows.Foundation.TimeSpan: ...
@@ -1200,6 +1214,7 @@ class PerceptionInfraredFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class PerceptionInfraredFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionInfraredFrameReader
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrameReader'
     @winrt_mixinmethod
     def add_FrameArrived(self: Windows.Devices.Perception.IPerceptionInfraredFrameReader, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionInfraredFrameReader, Windows.Devices.Perception.PerceptionInfraredFrameArrivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -1219,6 +1234,7 @@ class PerceptionInfraredFrameReader(ComPtr):
     IsPaused = property(get_IsPaused, put_IsPaused)
 class PerceptionInfraredFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionInfraredFrameSource
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrameSource'
     @winrt_mixinmethod
     def add_AvailableChanged(self: Windows.Devices.Perception.IPerceptionInfraredFrameSource, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionInfraredFrameSource, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -1302,18 +1318,21 @@ class PerceptionInfraredFrameSource(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class PerceptionInfraredFrameSourceAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionInfraredFrameSourceAddedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrameSourceAddedEventArgs'
     @winrt_mixinmethod
     def get_FrameSource(self: Windows.Devices.Perception.IPerceptionInfraredFrameSourceAddedEventArgs) -> Windows.Devices.Perception.PerceptionInfraredFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class PerceptionInfraredFrameSourceRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionInfraredFrameSourceRemovedEventArgs
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrameSourceRemovedEventArgs'
     @winrt_mixinmethod
     def get_FrameSource(self: Windows.Devices.Perception.IPerceptionInfraredFrameSourceRemovedEventArgs) -> Windows.Devices.Perception.PerceptionInfraredFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class PerceptionInfraredFrameSourceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionInfraredFrameSourceWatcher
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher'
     @winrt_mixinmethod
     def add_SourceAdded(self: Windows.Devices.Perception.IPerceptionInfraredFrameSourceWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher, Windows.Devices.Perception.PerceptionInfraredFrameSourceAddedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -1340,6 +1359,7 @@ class PerceptionInfraredFrameSourceWatcher(ComPtr):
     Status = property(get_Status, None)
 class PerceptionVideoProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.IPerceptionVideoProfile
     _classid_ = 'Windows.Devices.Perception.PerceptionVideoProfile'
     @winrt_mixinmethod
     def get_BitmapPixelFormat(self: Windows.Devices.Perception.IPerceptionVideoProfile) -> Windows.Graphics.Imaging.BitmapPixelFormat: ...

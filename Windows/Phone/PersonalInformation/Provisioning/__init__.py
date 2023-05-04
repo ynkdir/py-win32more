@@ -26,7 +26,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class ContactPartnerProvisioningManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.PersonalInformation.Provisioning.ContactPartnerProvisioningManager'
     @winrt_classmethod
     def AssociateNetworkAccountAsync(cls: Windows.Phone.PersonalInformation.Provisioning.IContactPartnerProvisioningManagerStatics, store: Windows.Phone.PersonalInformation.ContactStore, networkName: WinRT_String, networkAccountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -54,7 +53,6 @@ class IMessagePartnerProvisioningManagerStatics(ComPtr):
     def ImportMmsToSystemAsync(self, incoming: Boolean, read: Boolean, subject: WinRT_String, sender: WinRT_String, recipients: Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: Windows.Foundation.DateTime, attachments: Windows.Foundation.Collections.IVectorView[Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.IAsyncAction: ...
 class MessagePartnerProvisioningManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.PersonalInformation.Provisioning.MessagePartnerProvisioningManager'
     @winrt_classmethod
     def ImportSmsToSystemAsync(cls: Windows.Phone.PersonalInformation.Provisioning.IMessagePartnerProvisioningManagerStatics, incoming: Boolean, read: Boolean, body: WinRT_String, sender: WinRT_String, recipients: Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: Windows.Foundation.DateTime) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod

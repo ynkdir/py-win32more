@@ -80,6 +80,7 @@ class ISystemSupportInfoStatics2(ComPtr):
     LocalDeviceInfo = property(get_LocalDeviceInfo, None)
 class OemSupportInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Profile.SystemManufacturers.IOemSupportInfo
     _classid_ = 'Windows.System.Profile.SystemManufacturers.OemSupportInfo'
     @winrt_mixinmethod
     def get_SupportLink(self: Windows.System.Profile.SystemManufacturers.IOemSupportInfo) -> Windows.Foundation.Uri: ...
@@ -92,13 +93,13 @@ class OemSupportInfo(ComPtr):
     SupportProvider = property(get_SupportProvider, None)
 class SmbiosInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.Profile.SystemManufacturers.SmbiosInformation'
     @winrt_classmethod
     def get_SerialNumber(cls: Windows.System.Profile.SystemManufacturers.ISmbiosInformationStatics) -> WinRT_String: ...
     SerialNumber = property(get_SerialNumber, None)
 SystemManufacturersContract: UInt32 = 196608
 class SystemSupportDeviceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Profile.SystemManufacturers.ISystemSupportDeviceInfo
     _classid_ = 'Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo'
     @winrt_mixinmethod
     def get_OperatingSystem(self: Windows.System.Profile.SystemManufacturers.ISystemSupportDeviceInfo) -> WinRT_String: ...
@@ -123,7 +124,6 @@ class SystemSupportDeviceInfo(ComPtr):
     SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
 class SystemSupportInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.Profile.SystemManufacturers.SystemSupportInfo'
     @winrt_classmethod
     def get_LocalDeviceInfo(cls: Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics2) -> Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo: ...
     @winrt_classmethod

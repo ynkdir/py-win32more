@@ -72,6 +72,7 @@ class ITwoPanelHingedDevicePosturePreviewStatics(ComPtr):
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.System.Preview.TwoPanelHingedDevicePosturePreview]: ...
 class TwoPanelHingedDevicePosturePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Preview.ITwoPanelHingedDevicePosturePreview
     _classid_ = 'Windows.System.Preview.TwoPanelHingedDevicePosturePreview'
     @winrt_mixinmethod
     def GetCurrentPostureAsync(self: Windows.System.Preview.ITwoPanelHingedDevicePosturePreview) -> Windows.Foundation.IAsyncOperation[Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading]: ...
@@ -83,6 +84,7 @@ class TwoPanelHingedDevicePosturePreview(ComPtr):
     def GetDefaultAsync(cls: Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewStatics) -> Windows.Foundation.IAsyncOperation[Windows.System.Preview.TwoPanelHingedDevicePosturePreview]: ...
 class TwoPanelHingedDevicePosturePreviewReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading
     _classid_ = 'Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading) -> Windows.Foundation.DateTime: ...
@@ -104,6 +106,7 @@ class TwoPanelHingedDevicePosturePreviewReading(ComPtr):
     Panel2Id = property(get_Panel2Id, None)
 class TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs
     _classid_ = 'Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs'
     @winrt_mixinmethod
     def get_Reading(self: Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs) -> Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading: ...

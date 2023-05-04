@@ -23,7 +23,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class CorePerceptionAutomation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Perception.Automation.Core.CorePerceptionAutomation'
     @winrt_classmethod
     def SetActivationFactoryProvider(cls: Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics, provider: Windows.Foundation.IGetActivationFactory) -> Void: ...
 class ICorePerceptionAutomationStatics(ComPtr):

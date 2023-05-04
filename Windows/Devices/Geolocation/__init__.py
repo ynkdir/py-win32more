@@ -34,6 +34,7 @@ class BasicGeoposition(EasyCastStructure):
     Altitude: Double
 class CivicAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.ICivicAddress
     _classid_ = 'Windows.Devices.Geolocation.CivicAddress'
     @winrt_mixinmethod
     def get_Country(self: Windows.Devices.Geolocation.ICivicAddress) -> WinRT_String: ...
@@ -52,6 +53,7 @@ class CivicAddress(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class GeoboundingBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeoboundingBox
     _classid_ = 'Windows.Devices.Geolocation.GeoboundingBox'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Geolocation.IGeoboundingBoxFactory, northwestCorner: Windows.Devices.Geolocation.BasicGeoposition, southeastCorner: Windows.Devices.Geolocation.BasicGeoposition) -> Windows.Devices.Geolocation.GeoboundingBox: ...
@@ -91,6 +93,7 @@ class GeoboundingBox(ComPtr):
     AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
 class Geocircle(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeocircle
     _classid_ = 'Windows.Devices.Geolocation.Geocircle'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Geolocation.IGeocircleFactory, position: Windows.Devices.Geolocation.BasicGeoposition, radius: Double) -> Windows.Devices.Geolocation.Geocircle: ...
@@ -115,6 +118,7 @@ class Geocircle(ComPtr):
     AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
 class Geocoordinate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeocoordinate
     _classid_ = 'Windows.Devices.Geolocation.Geocoordinate'
     @winrt_mixinmethod
     def get_Latitude(self: Windows.Devices.Geolocation.IGeocoordinate) -> Double: ...
@@ -157,6 +161,7 @@ class Geocoordinate(ComPtr):
     IsRemoteSource = property(get_IsRemoteSource, None)
 class GeocoordinateSatelliteData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeocoordinateSatelliteData
     _classid_ = 'Windows.Devices.Geolocation.GeocoordinateSatelliteData'
     @winrt_mixinmethod
     def get_PositionDilutionOfPrecision(self: Windows.Devices.Geolocation.IGeocoordinateSatelliteData) -> Windows.Foundation.IReference[Double]: ...
@@ -179,6 +184,7 @@ GeolocationAccessStatus_Allowed: GeolocationAccessStatus = 1
 GeolocationAccessStatus_Denied: GeolocationAccessStatus = 2
 class Geolocator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeolocator
     _classid_ = 'Windows.Devices.Geolocation.Geolocator'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Geolocation.Geolocator: ...
@@ -235,6 +241,7 @@ class Geolocator(ComPtr):
     DefaultGeoposition = property(get_DefaultGeoposition, put_DefaultGeoposition)
 class Geopath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeopath
     _classid_ = 'Windows.Devices.Geolocation.Geopath'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Geolocation.IGeopathFactory, positions: Windows.Foundation.Collections.IIterable[Windows.Devices.Geolocation.BasicGeoposition]) -> Windows.Devices.Geolocation.Geopath: ...
@@ -256,6 +263,7 @@ class Geopath(ComPtr):
     AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
 class Geopoint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeopoint
     _classid_ = 'Windows.Devices.Geolocation.Geopoint'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Geolocation.IGeopointFactory, position: Windows.Devices.Geolocation.BasicGeoposition) -> Windows.Devices.Geolocation.Geopoint: ...
@@ -277,6 +285,7 @@ class Geopoint(ComPtr):
     AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
 class Geoposition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeoposition
     _classid_ = 'Windows.Devices.Geolocation.Geoposition'
     @winrt_mixinmethod
     def get_Coordinate(self: Windows.Devices.Geolocation.IGeoposition) -> Windows.Devices.Geolocation.Geocoordinate: ...
@@ -294,6 +303,7 @@ GeoshapeType_Geopath: GeoshapeType = 2
 GeoshapeType_GeoboundingBox: GeoshapeType = 3
 class Geovisit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeovisit
     _classid_ = 'Windows.Devices.Geolocation.Geovisit'
     @winrt_mixinmethod
     def get_Position(self: Windows.Devices.Geolocation.IGeovisit) -> Windows.Devices.Geolocation.Geoposition: ...
@@ -306,6 +316,7 @@ class Geovisit(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class GeovisitMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeovisitMonitor
     _classid_ = 'Windows.Devices.Geolocation.GeovisitMonitor'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Geolocation.GeovisitMonitor: ...
@@ -324,12 +335,14 @@ class GeovisitMonitor(ComPtr):
     MonitoringScope = property(get_MonitoringScope, None)
 class GeovisitStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeovisitStateChangedEventArgs
     _classid_ = 'Windows.Devices.Geolocation.GeovisitStateChangedEventArgs'
     @winrt_mixinmethod
     def get_Visit(self: Windows.Devices.Geolocation.IGeovisitStateChangedEventArgs) -> Windows.Devices.Geolocation.Geovisit: ...
     Visit = property(get_Visit, None)
 class GeovisitTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IGeovisitTriggerDetails
     _classid_ = 'Windows.Devices.Geolocation.GeovisitTriggerDetails'
     @winrt_mixinmethod
     def ReadReports(self: Windows.Devices.Geolocation.IGeovisitTriggerDetails) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Geolocation.Geovisit]: ...
@@ -671,6 +684,7 @@ PositionAccuracy_Default: PositionAccuracy = 0
 PositionAccuracy_High: PositionAccuracy = 1
 class PositionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IPositionChangedEventArgs
     _classid_ = 'Windows.Devices.Geolocation.PositionChangedEventArgs'
     @winrt_mixinmethod
     def get_Position(self: Windows.Devices.Geolocation.IPositionChangedEventArgs) -> Windows.Devices.Geolocation.Geoposition: ...
@@ -692,12 +706,14 @@ PositionStatus_NotInitialized: PositionStatus = 4
 PositionStatus_NotAvailable: PositionStatus = 5
 class StatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IStatusChangedEventArgs
     _classid_ = 'Windows.Devices.Geolocation.StatusChangedEventArgs'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Geolocation.IStatusChangedEventArgs) -> Windows.Devices.Geolocation.PositionStatus: ...
     Status = property(get_Status, None)
 class VenueData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Geolocation.IVenueData
     _classid_ = 'Windows.Devices.Geolocation.VenueData'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.Geolocation.IVenueData) -> WinRT_String: ...

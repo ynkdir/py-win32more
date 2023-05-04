@@ -31,6 +31,7 @@ AddPackageByAppInstallerOptions_RequiredContentGroupOnly: AddPackageByAppInstall
 AddPackageByAppInstallerOptions_LimitToExistingPackages: AddPackageByAppInstallerOptions = 512
 class AddPackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IAddPackageOptions
     _classid_ = 'Windows.Management.Deployment.AddPackageOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.AddPackageOptions: ...
@@ -121,6 +122,7 @@ class AddPackageOptions(ComPtr):
     LimitToExistingPackages = property(get_LimitToExistingPackages, put_LimitToExistingPackages)
 class AppInstallerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IAppInstallerManager
     _classid_ = 'Windows.Management.Deployment.AppInstallerManager'
     @winrt_mixinmethod
     def SetAutoUpdateSettings(self: Windows.Management.Deployment.IAppInstallerManager, packageFamilyName: WinRT_String, appInstallerInfo: Windows.Management.Deployment.AutoUpdateSettingsOptions) -> Void: ...
@@ -134,6 +136,7 @@ class AppInstallerManager(ComPtr):
     def GetForSystem(cls: Windows.Management.Deployment.IAppInstallerManagerStatics) -> Windows.Management.Deployment.AppInstallerManager: ...
 class AutoUpdateSettingsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IAutoUpdateSettingsOptions
     _classid_ = 'Windows.Management.Deployment.AutoUpdateSettingsOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.AutoUpdateSettingsOptions: ...
@@ -198,6 +201,7 @@ class AutoUpdateSettingsOptions(ComPtr):
     OptionalPackageUris = property(get_OptionalPackageUris, None)
 class CreateSharedPackageContainerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.ICreateSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.CreateSharedPackageContainerOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.CreateSharedPackageContainerOptions: ...
@@ -216,6 +220,7 @@ class CreateSharedPackageContainerOptions(ComPtr):
     CreateCollisionOption = property(get_CreateCollisionOption, put_CreateCollisionOption)
 class CreateSharedPackageContainerResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.ICreateSharedPackageContainerResult
     _classid_ = 'Windows.Management.Deployment.CreateSharedPackageContainerResult'
     @winrt_mixinmethod
     def get_Container(self: Windows.Management.Deployment.ICreateSharedPackageContainerResult) -> Windows.Management.Deployment.SharedPackageContainer: ...
@@ -228,6 +233,7 @@ class CreateSharedPackageContainerResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class DeleteSharedPackageContainerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IDeleteSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.DeleteSharedPackageContainerOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.DeleteSharedPackageContainerOptions: ...
@@ -243,6 +249,7 @@ class DeleteSharedPackageContainerOptions(ComPtr):
     AllUsers = property(get_AllUsers, put_AllUsers)
 class DeleteSharedPackageContainerResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IDeleteSharedPackageContainerResult
     _classid_ = 'Windows.Management.Deployment.DeleteSharedPackageContainerResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Management.Deployment.IDeleteSharedPackageContainerResult) -> Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
@@ -268,6 +275,7 @@ DeploymentProgressState_Queued: DeploymentProgressState = 0
 DeploymentProgressState_Processing: DeploymentProgressState = 1
 class DeploymentResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IDeploymentResult
     _classid_ = 'Windows.Management.Deployment.DeploymentResult'
     @winrt_mixinmethod
     def get_ErrorText(self: Windows.Management.Deployment.IDeploymentResult) -> WinRT_String: ...
@@ -283,6 +291,7 @@ class DeploymentResult(ComPtr):
     IsRegistered = property(get_IsRegistered, None)
 class FindSharedPackageContainerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IFindSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.FindSharedPackageContainerOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.FindSharedPackageContainerOptions: ...
@@ -992,6 +1001,7 @@ class IUpdateSharedPackageContainerResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class PackageAllUserProvisioningOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IPackageAllUserProvisioningOptions
     _classid_ = 'Windows.Management.Deployment.PackageAllUserProvisioningOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.PackageAllUserProvisioningOptions: ...
@@ -1008,6 +1018,7 @@ PackageInstallState_Installed: PackageInstallState = 2
 PackageInstallState_Paused: PackageInstallState = 6
 class PackageManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IPackageManager
     _classid_ = 'Windows.Management.Deployment.PackageManager'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.PackageManager: ...
@@ -1138,6 +1149,7 @@ class PackageManager(ComPtr):
     DebugSettings = property(get_DebugSettings, None)
 class PackageManagerDebugSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IPackageManagerDebugSettings
     _classid_ = 'Windows.Management.Deployment.PackageManagerDebugSettings'
     @winrt_mixinmethod
     def SetContentGroupStateAsync(self: Windows.Management.Deployment.IPackageManagerDebugSettings, package: Windows.ApplicationModel.Package, contentGroupName: WinRT_String, state: Windows.ApplicationModel.PackageContentGroupState) -> Windows.Foundation.IAsyncAction: ...
@@ -1168,6 +1180,7 @@ PackageTypes_Optional: PackageTypes = 32
 PackageTypes_All: PackageTypes = 4294967295
 class PackageUserInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IPackageUserInformation
     _classid_ = 'Windows.Management.Deployment.PackageUserInformation'
     @winrt_mixinmethod
     def get_UserSecurityId(self: Windows.Management.Deployment.IPackageUserInformation) -> WinRT_String: ...
@@ -1177,6 +1190,7 @@ class PackageUserInformation(ComPtr):
     InstallState = property(get_InstallState, None)
 class PackageVolume(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IPackageVolume
     _classid_ = 'Windows.Management.Deployment.PackageVolume'
     @winrt_mixinmethod
     def get_IsOffline(self: Windows.Management.Deployment.IPackageVolume) -> Boolean: ...
@@ -1234,6 +1248,7 @@ class PackageVolume(ComPtr):
     IsAppxInstallSupported = property(get_IsAppxInstallSupported, None)
 class RegisterPackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IRegisterPackageOptions
     _classid_ = 'Windows.Management.Deployment.RegisterPackageOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.RegisterPackageOptions: ...
@@ -1303,6 +1318,7 @@ RemovalOptions_PreserveRoamableApplicationData: RemovalOptions = 128
 RemovalOptions_RemoveForAllUsers: RemovalOptions = 524288
 class SharedPackageContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.ISharedPackageContainer
     _classid_ = 'Windows.Management.Deployment.SharedPackageContainer'
     @winrt_mixinmethod
     def get_Name(self: Windows.Management.Deployment.ISharedPackageContainer) -> WinRT_String: ...
@@ -1323,6 +1339,7 @@ SharedPackageContainerCreationCollisionOptions_MergeWithExisting: SharedPackageC
 SharedPackageContainerCreationCollisionOptions_ReplaceExisting: SharedPackageContainerCreationCollisionOptions = 2
 class SharedPackageContainerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.ISharedPackageContainerManager
     _classid_ = 'Windows.Management.Deployment.SharedPackageContainerManager'
     @winrt_mixinmethod
     def CreateContainer(self: Windows.Management.Deployment.ISharedPackageContainerManager, name: WinRT_String, options: Windows.Management.Deployment.CreateSharedPackageContainerOptions) -> Windows.Management.Deployment.CreateSharedPackageContainerResult: ...
@@ -1342,6 +1359,7 @@ class SharedPackageContainerManager(ComPtr):
     def GetForProvisioning(cls: Windows.Management.Deployment.ISharedPackageContainerManagerStatics) -> Windows.Management.Deployment.SharedPackageContainerManager: ...
 class SharedPackageContainerMember(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.ISharedPackageContainerMember
     _classid_ = 'Windows.Management.Deployment.SharedPackageContainerMember'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Management.Deployment.ISharedPackageContainerMemberFactory, packageFamilyName: WinRT_String) -> Windows.Management.Deployment.SharedPackageContainerMember: ...
@@ -1357,6 +1375,7 @@ SharedPackageContainerOperationStatus_NotFound: SharedPackageContainerOperationS
 SharedPackageContainerOperationStatus_UnknownFailure: SharedPackageContainerOperationStatus = 5
 class StagePackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IStagePackageOptions
     _classid_ = 'Windows.Management.Deployment.StagePackageOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.StagePackageOptions: ...
@@ -1427,6 +1446,7 @@ StubPackageOption_InstallStub: StubPackageOption = 2
 StubPackageOption_UsePreference: StubPackageOption = 3
 class UpdateSharedPackageContainerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IUpdateSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.UpdateSharedPackageContainerOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.UpdateSharedPackageContainerOptions: ...
@@ -1442,6 +1462,7 @@ class UpdateSharedPackageContainerOptions(ComPtr):
     RequirePackagesPresent = property(get_RequirePackagesPresent, put_RequirePackagesPresent)
 class UpdateSharedPackageContainerResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.IUpdateSharedPackageContainerResult
     _classid_ = 'Windows.Management.Deployment.UpdateSharedPackageContainerResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Management.Deployment.IUpdateSharedPackageContainerResult) -> Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...

@@ -70,6 +70,7 @@ class IResourceIndexerFactory2(ComPtr):
     def CreateResourceIndexerWithExtension(self, projectRoot: Windows.Foundation.Uri, extensionDllPath: Windows.Foundation.Uri) -> Windows.ApplicationModel.Resources.Management.ResourceIndexer: ...
 class IndexedResourceCandidate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Management.IIndexedResourceCandidate
     _classid_ = 'Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate'
     @winrt_mixinmethod
     def get_Type(self: Windows.ApplicationModel.Resources.Management.IIndexedResourceCandidate) -> Windows.ApplicationModel.Resources.Management.IndexedResourceType: ...
@@ -90,6 +91,7 @@ class IndexedResourceCandidate(ComPtr):
     ValueAsString = property(get_ValueAsString, None)
 class IndexedResourceQualifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Management.IIndexedResourceQualifier
     _classid_ = 'Windows.ApplicationModel.Resources.Management.IndexedResourceQualifier'
     @winrt_mixinmethod
     def get_QualifierName(self: Windows.ApplicationModel.Resources.Management.IIndexedResourceQualifier) -> WinRT_String: ...
@@ -103,6 +105,7 @@ IndexedResourceType_Path: IndexedResourceType = 1
 IndexedResourceType_EmbeddedData: IndexedResourceType = 2
 class ResourceIndexer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Resources.Management.IResourceIndexer
     _classid_ = 'Windows.ApplicationModel.Resources.Management.ResourceIndexer'
     @winrt_factorymethod
     def CreateResourceIndexerWithExtension(cls: Windows.ApplicationModel.Resources.Management.IResourceIndexerFactory2, projectRoot: Windows.Foundation.Uri, extensionDllPath: Windows.Foundation.Uri) -> Windows.ApplicationModel.Resources.Management.ResourceIndexer: ...

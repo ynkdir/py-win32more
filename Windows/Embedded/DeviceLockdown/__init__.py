@@ -25,7 +25,6 @@ def __getattr__(name):
 DeviceLockdownContract: UInt32 = 65536
 class DeviceLockdownProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Embedded.DeviceLockdown.DeviceLockdownProfile'
     @winrt_classmethod
     def GetSupportedLockdownProfiles(cls: Windows.Embedded.DeviceLockdown.IDeviceLockdownProfileStatics) -> Windows.Foundation.Collections.IVectorView[Guid]: ...
     @winrt_classmethod
@@ -36,6 +35,7 @@ class DeviceLockdownProfile(ComPtr):
     def GetLockdownProfileInformation(cls: Windows.Embedded.DeviceLockdown.IDeviceLockdownProfileStatics, profileID: Guid) -> Windows.Embedded.DeviceLockdown.DeviceLockdownProfileInformation: ...
 class DeviceLockdownProfileInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Embedded.DeviceLockdown.IDeviceLockdownProfileInformation
     _classid_ = 'Windows.Embedded.DeviceLockdown.DeviceLockdownProfileInformation'
     @winrt_mixinmethod
     def get_Name(self: Windows.Embedded.DeviceLockdown.IDeviceLockdownProfileInformation) -> WinRT_String: ...

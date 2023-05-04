@@ -29,6 +29,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AccessibilitySettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IAccessibilitySettings
     _classid_ = 'Windows.UI.ViewManagement.AccessibilitySettings'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.ViewManagement.AccessibilitySettings: ...
@@ -44,6 +45,7 @@ class AccessibilitySettings(ComPtr):
     HighContrastScheme = property(get_HighContrastScheme, None)
 class ActivationViewSwitcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IActivationViewSwitcher
     _classid_ = 'Windows.UI.ViewManagement.ActivationViewSwitcher'
     @winrt_mixinmethod
     def ShowAsStandaloneAsync(self: Windows.UI.ViewManagement.IActivationViewSwitcher, viewId: Int32) -> Windows.Foundation.IAsyncAction: ...
@@ -53,6 +55,7 @@ class ActivationViewSwitcher(ComPtr):
     def IsViewPresentedOnActivationVirtualDesktop(self: Windows.UI.ViewManagement.IActivationViewSwitcher, viewId: Int32) -> Boolean: ...
 class ApplicationView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IApplicationView
     _classid_ = 'Windows.UI.ViewManagement.ApplicationView'
     @winrt_mixinmethod
     def get_Orientation(self: Windows.UI.ViewManagement.IApplicationView) -> Windows.UI.ViewManagement.ApplicationViewOrientation: ...
@@ -183,6 +186,7 @@ ApplicationViewBoundsMode_UseVisible: ApplicationViewBoundsMode = 0
 ApplicationViewBoundsMode_UseCoreWindow: ApplicationViewBoundsMode = 1
 class ApplicationViewConsolidatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IApplicationViewConsolidatedEventArgs
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewConsolidatedEventArgs'
     @winrt_mixinmethod
     def get_IsUserInitiated(self: Windows.UI.ViewManagement.IApplicationViewConsolidatedEventArgs) -> Boolean: ...
@@ -198,6 +202,7 @@ ApplicationViewOrientation_Landscape: ApplicationViewOrientation = 0
 ApplicationViewOrientation_Portrait: ApplicationViewOrientation = 1
 class ApplicationViewScaling(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IApplicationViewScaling
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewScaling'
     @winrt_classmethod
     def get_DisableLayoutScaling(cls: Windows.UI.ViewManagement.IApplicationViewScalingStatics) -> Boolean: ...
@@ -211,7 +216,6 @@ ApplicationViewState_Snapped: ApplicationViewState = 2
 ApplicationViewState_FullScreenPortrait: ApplicationViewState = 3
 class ApplicationViewSwitcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.ViewManagement.ApplicationViewSwitcher'
     @winrt_classmethod
     def TryShowAsViewModeAsync(cls: Windows.UI.ViewManagement.IApplicationViewSwitcherStatics3, viewId: Int32, viewMode: Windows.UI.ViewManagement.ApplicationViewMode) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
@@ -240,6 +244,7 @@ ApplicationViewSwitchingOptions_SkipAnimation: ApplicationViewSwitchingOptions =
 ApplicationViewSwitchingOptions_ConsolidateViews: ApplicationViewSwitchingOptions = 2
 class ApplicationViewTitleBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IApplicationViewTitleBar
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewTitleBar'
     @winrt_mixinmethod
     def put_ForegroundColor(self: Windows.UI.ViewManagement.IApplicationViewTitleBar, value: Windows.Foundation.IReference[Windows.UI.Color]) -> Void: ...
@@ -303,6 +308,7 @@ class ApplicationViewTitleBar(ComPtr):
     ButtonInactiveBackgroundColor = property(get_ButtonInactiveBackgroundColor, put_ButtonInactiveBackgroundColor)
 class ApplicationViewTransferContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IApplicationViewTransferContext
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewTransferContext'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.ViewManagement.ApplicationViewTransferContext: ...
@@ -908,6 +914,7 @@ class IViewModePreferencesStatics(ComPtr):
     def CreateDefault(self, mode: Windows.UI.ViewManagement.ApplicationViewMode) -> Windows.UI.ViewManagement.ViewModePreferences: ...
 class InputPane(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IInputPane
     _classid_ = 'Windows.UI.ViewManagement.InputPane'
     @winrt_mixinmethod
     def add_Showing(self: Windows.UI.ViewManagement.IInputPane, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.InputPane, Windows.UI.ViewManagement.InputPaneVisibilityEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -935,6 +942,7 @@ class InputPane(ComPtr):
     Visible = property(get_Visible, put_Visible)
 class InputPaneVisibilityEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IInputPaneVisibilityEventArgs
     _classid_ = 'Windows.UI.ViewManagement.InputPaneVisibilityEventArgs'
     @winrt_mixinmethod
     def get_OccludedRect(self: Windows.UI.ViewManagement.IInputPaneVisibilityEventArgs) -> Windows.Foundation.Rect: ...
@@ -946,7 +954,6 @@ class InputPaneVisibilityEventArgs(ComPtr):
     EnsuredFocusedElementInView = property(get_EnsuredFocusedElementInView, put_EnsuredFocusedElementInView)
 class ProjectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.ViewManagement.ProjectionManager'
     @winrt_classmethod
     def StartProjectingWithDeviceInfoAsync(cls: Windows.UI.ViewManagement.IProjectionManagerStatics2, projectionViewId: Int32, anchorViewId: Int32, displayDeviceInfo: Windows.Devices.Enumeration.DeviceInformation) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -973,6 +980,7 @@ ScreenCaptureDisabledBehavior_DrawAsBlack: ScreenCaptureDisabledBehavior = 0
 ScreenCaptureDisabledBehavior_ExcludeFromCapture: ScreenCaptureDisabledBehavior = 1
 class StatusBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IStatusBar
     _classid_ = 'Windows.UI.ViewManagement.StatusBar'
     @winrt_mixinmethod
     def ShowAsync(self: Windows.UI.ViewManagement.IStatusBar) -> Windows.Foundation.IAsyncAction: ...
@@ -1011,6 +1019,7 @@ class StatusBar(ComPtr):
     OccludedRect = property(get_OccludedRect, None)
 class StatusBarProgressIndicator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IStatusBarProgressIndicator
     _classid_ = 'Windows.UI.ViewManagement.StatusBarProgressIndicator'
     @winrt_mixinmethod
     def ShowAsync(self: Windows.UI.ViewManagement.IStatusBarProgressIndicator) -> Windows.Foundation.IAsyncAction: ...
@@ -1066,6 +1075,7 @@ UIElementType_PopupBackground: UIElementType = 1011
 UIElementType_OverlayOutsidePopup: UIElementType = 1012
 class UISettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IUISettings
     _classid_ = 'Windows.UI.ViewManagement.UISettings'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.ViewManagement.UISettings: ...
@@ -1144,15 +1154,19 @@ class UISettings(ComPtr):
     AutoHideScrollBars = property(get_AutoHideScrollBars, None)
 class UISettingsAnimationsEnabledChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IUISettingsAnimationsEnabledChangedEventArgs
     _classid_ = 'Windows.UI.ViewManagement.UISettingsAnimationsEnabledChangedEventArgs'
 class UISettingsAutoHideScrollBarsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IUISettingsAutoHideScrollBarsChangedEventArgs
     _classid_ = 'Windows.UI.ViewManagement.UISettingsAutoHideScrollBarsChangedEventArgs'
 class UISettingsMessageDurationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IUISettingsMessageDurationChangedEventArgs
     _classid_ = 'Windows.UI.ViewManagement.UISettingsMessageDurationChangedEventArgs'
 class UIViewSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IUIViewSettings
     _classid_ = 'Windows.UI.ViewManagement.UIViewSettings'
     @winrt_mixinmethod
     def get_UserInteractionMode(self: Windows.UI.ViewManagement.IUIViewSettings) -> Windows.UI.ViewManagement.UserInteractionMode: ...
@@ -1165,6 +1179,7 @@ UserInteractionMode_Touch: UserInteractionMode = 1
 ViewManagementViewScalingContract: UInt32 = 65536
 class ViewModePreferences(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.ViewManagement.IViewModePreferences
     _classid_ = 'Windows.UI.ViewManagement.ViewModePreferences'
     @winrt_mixinmethod
     def get_ViewSizePreference(self: Windows.UI.ViewManagement.IViewModePreferences) -> Windows.UI.ViewManagement.ViewSizePreference: ...

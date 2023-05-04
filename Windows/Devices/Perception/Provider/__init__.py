@@ -206,7 +206,6 @@ class IPerceptionVideoFrameAllocatorFactory(ComPtr):
     def Create(self, maxOutstandingFrameCountForWrite: UInt32, format: Windows.Graphics.Imaging.BitmapPixelFormat, resolution: Windows.Foundation.Size, alpha: Windows.Graphics.Imaging.BitmapAlphaMode) -> Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator: ...
 class KnownPerceptionFrameKind(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.Provider.KnownPerceptionFrameKind'
     @winrt_classmethod
     def get_Color(cls: Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -218,6 +217,7 @@ class KnownPerceptionFrameKind(ComPtr):
     Infrared = property(get_Infrared, None)
 class PerceptionControlGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.Provider.IPerceptionControlGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionControlGroup'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Perception.Provider.IPerceptionControlGroupFactory, ids: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Devices.Perception.Provider.PerceptionControlGroup: ...
@@ -226,6 +226,7 @@ class PerceptionControlGroup(ComPtr):
     FrameProviderIds = property(get_FrameProviderIds, None)
 class PerceptionCorrelation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.Provider.IPerceptionCorrelation
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionCorrelation'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Perception.Provider.IPerceptionCorrelationFactory, targetId: WinRT_String, position: Windows.Foundation.Numerics.Vector3, orientation: Windows.Foundation.Numerics.Quaternion) -> Windows.Devices.Perception.Provider.PerceptionCorrelation: ...
@@ -240,6 +241,7 @@ class PerceptionCorrelation(ComPtr):
     Orientation = property(get_Orientation, None)
 class PerceptionCorrelationGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.Provider.IPerceptionCorrelationGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionCorrelationGroup'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Perception.Provider.IPerceptionCorrelationGroupFactory, relativeLocations: Windows.Foundation.Collections.IIterable[Windows.Devices.Perception.Provider.PerceptionCorrelation]) -> Windows.Devices.Perception.Provider.PerceptionCorrelationGroup: ...
@@ -248,6 +250,7 @@ class PerceptionCorrelationGroup(ComPtr):
     RelativeLocations = property(get_RelativeLocations, None)
 class PerceptionFaceAuthenticationGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.Provider.IPerceptionFaceAuthenticationGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Perception.Provider.IPerceptionFaceAuthenticationGroupFactory, ids: Windows.Foundation.Collections.IIterable[WinRT_String], startHandler: Windows.Devices.Perception.Provider.PerceptionStartFaceAuthenticationHandler, stopHandler: Windows.Devices.Perception.Provider.PerceptionStopFaceAuthenticationHandler) -> Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup: ...
@@ -256,6 +259,7 @@ class PerceptionFaceAuthenticationGroup(ComPtr):
     FrameProviderIds = property(get_FrameProviderIds, None)
 class PerceptionFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.Provider.IPerceptionFrame
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFrame'
     @winrt_mixinmethod
     def get_RelativeTime(self: Windows.Devices.Perception.Provider.IPerceptionFrame) -> Windows.Foundation.TimeSpan: ...
@@ -270,6 +274,7 @@ class PerceptionFrame(ComPtr):
     FrameData = property(get_FrameData, None)
 class PerceptionFrameProviderInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.Provider.IPerceptionFrameProviderInfo
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo: ...
@@ -300,7 +305,6 @@ class PerceptionFrameProviderInfo(ComPtr):
     Hidden = property(get_Hidden, put_Hidden)
 class PerceptionFrameProviderManagerService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService'
     @winrt_classmethod
     def RegisterFrameProviderInfo(cls: Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics, manager: Windows.Devices.Perception.Provider.IPerceptionFrameProviderManager, frameProviderInfo: Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo) -> Void: ...
     @winrt_classmethod
@@ -323,6 +327,7 @@ class PerceptionFrameProviderManagerService(ComPtr):
     def PublishFrameForProvider(cls: Windows.Devices.Perception.Provider.IPerceptionFrameProviderManagerServiceStatics, provider: Windows.Devices.Perception.Provider.IPerceptionFrameProvider, frame: Windows.Devices.Perception.Provider.PerceptionFrame) -> Void: ...
 class PerceptionPropertyChangeRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.Provider.IPerceptionPropertyChangeRequest
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionPropertyChangeRequest'
     @winrt_mixinmethod
     def get_Name(self: Windows.Devices.Perception.Provider.IPerceptionPropertyChangeRequest) -> WinRT_String: ...
@@ -351,6 +356,7 @@ class PerceptionStopFaceAuthenticationHandler(ComPtr):
     def Invoke(self, sender: Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup) -> Void: ...
 class PerceptionVideoFrameAllocator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocator
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocatorFactory, maxOutstandingFrameCountForWrite: UInt32, format: Windows.Graphics.Imaging.BitmapPixelFormat, resolution: Windows.Foundation.Size, alpha: Windows.Graphics.Imaging.BitmapAlphaMode) -> Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator: ...

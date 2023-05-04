@@ -35,6 +35,7 @@ class AccessListEntry(EasyCastStructure):
     Metadata: WinRT_String
 class AccessListEntryView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Foundation.Collections.IVectorView[Windows.Storage.AccessCache.AccessListEntry]
     _classid_ = 'Windows.Storage.AccessCache.AccessListEntryView'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVectorView[Windows.Storage.AccessCache.AccessListEntry], index: UInt32) -> Windows.Storage.AccessCache.AccessListEntry: ...
@@ -122,6 +123,7 @@ class IStorageItemMostRecentlyUsedList2(ComPtr):
     def AddOrReplaceWithMetadataAndVisibility(self, token: WinRT_String, file: Windows.Storage.IStorageItem, metadata: WinRT_String, visibility: Windows.Storage.AccessCache.RecentStorageItemVisibility) -> Void: ...
 class ItemRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.AccessCache.IItemRemovedEventArgs
     _classid_ = 'Windows.Storage.AccessCache.ItemRemovedEventArgs'
     @winrt_mixinmethod
     def get_RemovedEntry(self: Windows.Storage.AccessCache.IItemRemovedEventArgs) -> Windows.Storage.AccessCache.AccessListEntry: ...
@@ -131,7 +133,6 @@ RecentStorageItemVisibility_AppOnly: RecentStorageItemVisibility = 0
 RecentStorageItemVisibility_AppAndSystem: RecentStorageItemVisibility = 1
 class StorageApplicationPermissions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Storage.AccessCache.StorageApplicationPermissions'
     @winrt_classmethod
     def GetFutureAccessListForUser(cls: Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics2, user: Windows.System.User) -> Windows.Storage.AccessCache.StorageItemAccessList: ...
     @winrt_classmethod
@@ -144,6 +145,7 @@ class StorageApplicationPermissions(ComPtr):
     MostRecentlyUsedList = property(get_MostRecentlyUsedList, None)
 class StorageItemAccessList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.AccessCache.IStorageItemAccessList
     _classid_ = 'Windows.Storage.AccessCache.StorageItemAccessList'
     @winrt_mixinmethod
     def AddOverloadDefaultMetadata(self: Windows.Storage.AccessCache.IStorageItemAccessList, file: Windows.Storage.IStorageItem) -> WinRT_String: ...
@@ -181,6 +183,7 @@ class StorageItemAccessList(ComPtr):
     MaximumItemsAllowed = property(get_MaximumItemsAllowed, None)
 class StorageItemMostRecentlyUsedList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList
     _classid_ = 'Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList'
     @winrt_mixinmethod
     def add_ItemRemoved(self: Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList, handler: Windows.Foundation.TypedEventHandler[Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList, Windows.Storage.AccessCache.ItemRemovedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...

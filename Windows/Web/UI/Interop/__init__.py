@@ -142,6 +142,7 @@ class IWebViewControlSite2(ComPtr):
     def remove_LostFocus(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class WebViewControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.UI.IWebViewControl
     _classid_ = 'Windows.Web.UI.Interop.WebViewControl'
     @winrt_mixinmethod
     def get_Source(self: Windows.Web.UI.IWebViewControl) -> Windows.Foundation.Uri: ...
@@ -307,6 +308,7 @@ class WebViewControl(ComPtr):
     IsVisible = property(get_IsVisible, put_IsVisible)
 class WebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.UI.Interop.IWebViewControlAcceleratorKeyPressedEventArgs
     _classid_ = 'Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs'
     @winrt_mixinmethod
     def get_EventType(self: Windows.Web.UI.Interop.IWebViewControlAcceleratorKeyPressedEventArgs) -> Windows.UI.Core.CoreAcceleratorKeyEventType: ...
@@ -334,12 +336,14 @@ WebViewControlMoveFocusReason_Next: WebViewControlMoveFocusReason = 1
 WebViewControlMoveFocusReason_Previous: WebViewControlMoveFocusReason = 2
 class WebViewControlMoveFocusRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.UI.Interop.IWebViewControlMoveFocusRequestedEventArgs
     _classid_ = 'Windows.Web.UI.Interop.WebViewControlMoveFocusRequestedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.Web.UI.Interop.IWebViewControlMoveFocusRequestedEventArgs) -> Windows.Web.UI.Interop.WebViewControlMoveFocusReason: ...
     Reason = property(get_Reason, None)
 class WebViewControlProcess(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.UI.Interop.IWebViewControlProcess
     _classid_ = 'Windows.Web.UI.Interop.WebViewControlProcess'
     @winrt_activatemethod
     def New(cls) -> Windows.Web.UI.Interop.WebViewControlProcess: ...
@@ -370,6 +374,7 @@ WebViewControlProcessCapabilityState_Disabled: WebViewControlProcessCapabilitySt
 WebViewControlProcessCapabilityState_Enabled: WebViewControlProcessCapabilityState = 2
 class WebViewControlProcessOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Web.UI.Interop.IWebViewControlProcessOptions
     _classid_ = 'Windows.Web.UI.Interop.WebViewControlProcessOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Web.UI.Interop.WebViewControlProcessOptions: ...

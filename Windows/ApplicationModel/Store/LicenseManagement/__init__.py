@@ -70,7 +70,6 @@ class ILicenseSatisfactionResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class LicenseManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.Store.LicenseManagement.LicenseManager'
     @winrt_classmethod
     def RefreshLicensesAsync(cls: Windows.ApplicationModel.Store.LicenseManagement.ILicenseManagerStatics2, refreshOption: Windows.ApplicationModel.Store.LicenseManagement.LicenseRefreshOption) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -82,6 +81,7 @@ LicenseRefreshOption_RunningLicenses: LicenseRefreshOption = 0
 LicenseRefreshOption_AllLicenses: LicenseRefreshOption = 1
 class LicenseSatisfactionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionInfo
     _classid_ = 'Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionInfo'
     @winrt_mixinmethod
     def get_SatisfiedByDevice(self: Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionInfo) -> Boolean: ...
@@ -106,6 +106,7 @@ class LicenseSatisfactionInfo(ComPtr):
     IsSatisfied = property(get_IsSatisfied, None)
 class LicenseSatisfactionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionResult
     _classid_ = 'Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionResult'
     @winrt_mixinmethod
     def get_LicenseSatisfactionInfos(self: Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionResult) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionInfo]: ...

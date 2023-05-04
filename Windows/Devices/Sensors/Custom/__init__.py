@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CustomSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sensors.Custom.ICustomSensor
     _classid_ = 'Windows.Devices.Sensors.Custom.CustomSensor'
     @winrt_mixinmethod
     def GetCurrentReading(self: Windows.Devices.Sensors.Custom.ICustomSensor) -> Windows.Devices.Sensors.Custom.CustomSensorReading: ...
@@ -56,6 +57,7 @@ class CustomSensor(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class CustomSensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sensors.Custom.ICustomSensorReading
     _classid_ = 'Windows.Devices.Sensors.Custom.CustomSensorReading'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Devices.Sensors.Custom.ICustomSensorReading) -> Windows.Foundation.DateTime: ...
@@ -68,6 +70,7 @@ class CustomSensorReading(ComPtr):
     PerformanceCount = property(get_PerformanceCount, None)
 class CustomSensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.Sensors.Custom.ICustomSensorReadingChangedEventArgs
     _classid_ = 'Windows.Devices.Sensors.Custom.CustomSensorReadingChangedEventArgs'
     @winrt_mixinmethod
     def get_Reading(self: Windows.Devices.Sensors.Custom.ICustomSensorReadingChangedEventArgs) -> Windows.Devices.Sensors.Custom.CustomSensorReading: ...

@@ -297,6 +297,7 @@ class IUserDataTaskStore(ComPtr):
     def GetListAsync(self, taskListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskList]: ...
 class UserDataTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTask
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTask'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.UserDataTasks.UserDataTask: ...
@@ -371,6 +372,7 @@ class UserDataTask(ComPtr):
     StartDate = property(get_StartDate, put_StartDate)
 class UserDataTaskBatch(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskBatch
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch'
     @winrt_mixinmethod
     def get_Tasks(self: Windows.ApplicationModel.UserDataTasks.IUserDataTaskBatch) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.UserDataTasks.UserDataTask]: ...
@@ -393,6 +395,7 @@ UserDataTaskKind_Recurring: UserDataTaskKind = 1
 UserDataTaskKind_Regenerating: UserDataTaskKind = 2
 class UserDataTaskList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskList
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskList'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.UserDataTasks.IUserDataTaskList) -> WinRT_String: ...
@@ -442,6 +445,7 @@ class UserDataTaskList(ComPtr):
     SyncManager = property(get_SyncManager, None)
 class UserDataTaskListLimitedWriteOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskListLimitedWriteOperations
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskListLimitedWriteOperations'
     @winrt_mixinmethod
     def TryCompleteTaskAsync(self: Windows.ApplicationModel.UserDataTasks.IUserDataTaskListLimitedWriteOperations, userDataTaskId: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
@@ -460,6 +464,7 @@ UserDataTaskListOtherAppWriteAccess_Limited: UserDataTaskListOtherAppWriteAccess
 UserDataTaskListOtherAppWriteAccess_None: UserDataTaskListOtherAppWriteAccess = 1
 class UserDataTaskListSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskListSyncManager
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncManager'
     @winrt_mixinmethod
     def get_LastAttemptedSyncTime(self: Windows.ApplicationModel.UserDataTasks.IUserDataTaskListSyncManager) -> Windows.Foundation.DateTime: ...
@@ -491,6 +496,7 @@ UserDataTaskListSyncStatus_PolicyError: UserDataTaskListSyncStatus = 4
 UserDataTaskListSyncStatus_UnknownError: UserDataTaskListSyncStatus = 5
 class UserDataTaskManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskManager
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskManager'
     @winrt_mixinmethod
     def RequestStoreAsync(self: Windows.ApplicationModel.UserDataTasks.IUserDataTaskManager, accessType: Windows.ApplicationModel.UserDataTasks.UserDataTaskStoreAccessType) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskStore]: ...
@@ -511,6 +517,7 @@ UserDataTaskQueryKind_Incomplete: UserDataTaskQueryKind = 1
 UserDataTaskQueryKind_Complete: UserDataTaskQueryKind = 2
 class UserDataTaskQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskQueryOptions
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions: ...
@@ -528,11 +535,13 @@ UserDataTaskQuerySortProperty = Int32
 UserDataTaskQuerySortProperty_DueDate: UserDataTaskQuerySortProperty = 0
 class UserDataTaskReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskReader
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskReader'
     @winrt_mixinmethod
     def ReadBatchAsync(self: Windows.ApplicationModel.UserDataTasks.IUserDataTaskReader) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch]: ...
 class UserDataTaskRecurrenceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskRecurrenceProperties
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties: ...
@@ -585,6 +594,7 @@ UserDataTaskRecurrenceUnit_Yearly: UserDataTaskRecurrenceUnit = 4
 UserDataTaskRecurrenceUnit_YearlyOnDay: UserDataTaskRecurrenceUnit = 5
 class UserDataTaskRegenerationProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskRegenerationProperties
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties: ...
@@ -618,6 +628,7 @@ UserDataTaskSensitivity_Public: UserDataTaskSensitivity = 0
 UserDataTaskSensitivity_Private: UserDataTaskSensitivity = 1
 class UserDataTaskStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.UserDataTasks.IUserDataTaskStore
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskStore'
     @winrt_mixinmethod
     def CreateListAsync(self: Windows.ApplicationModel.UserDataTasks.IUserDataTaskStore, name: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskList]: ...

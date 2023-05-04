@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DiagnosticActionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IDiagnosticActionResult
     _classid_ = 'Windows.System.Diagnostics.DiagnosticActionResult'
     @winrt_mixinmethod
     def get_ExtendedError(self: Windows.System.Diagnostics.IDiagnosticActionResult) -> Windows.Foundation.HResult: ...
@@ -43,6 +44,7 @@ DiagnosticActionState_VerifyingResolution: DiagnosticActionState = 5
 DiagnosticActionState_Executing: DiagnosticActionState = 6
 class DiagnosticInvoker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IDiagnosticInvoker
     _classid_ = 'Windows.System.Diagnostics.DiagnosticInvoker'
     @winrt_mixinmethod
     def RunDiagnosticActionAsync(self: Windows.System.Diagnostics.IDiagnosticInvoker, context: Windows.Data.Json.JsonObject) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.System.Diagnostics.DiagnosticActionResult, Windows.System.Diagnostics.DiagnosticActionState]: ...
@@ -270,11 +272,13 @@ class ISystemMemoryUsageReport(ComPtr):
     CommittedSizeInBytes = property(get_CommittedSizeInBytes, None)
 class ProcessCpuUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IProcessCpuUsage
     _classid_ = 'Windows.System.Diagnostics.ProcessCpuUsage'
     @winrt_mixinmethod
     def GetReport(self: Windows.System.Diagnostics.IProcessCpuUsage) -> Windows.System.Diagnostics.ProcessCpuUsageReport: ...
 class ProcessCpuUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IProcessCpuUsageReport
     _classid_ = 'Windows.System.Diagnostics.ProcessCpuUsageReport'
     @winrt_mixinmethod
     def get_KernelTime(self: Windows.System.Diagnostics.IProcessCpuUsageReport) -> Windows.Foundation.TimeSpan: ...
@@ -284,6 +288,7 @@ class ProcessCpuUsageReport(ComPtr):
     UserTime = property(get_UserTime, None)
 class ProcessDiagnosticInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IProcessDiagnosticInfo
     _classid_ = 'Windows.System.Diagnostics.ProcessDiagnosticInfo'
     @winrt_mixinmethod
     def get_ProcessId(self: Windows.System.Diagnostics.IProcessDiagnosticInfo) -> UInt32: ...
@@ -319,11 +324,13 @@ class ProcessDiagnosticInfo(ComPtr):
     IsPackaged = property(get_IsPackaged, None)
 class ProcessDiskUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IProcessDiskUsage
     _classid_ = 'Windows.System.Diagnostics.ProcessDiskUsage'
     @winrt_mixinmethod
     def GetReport(self: Windows.System.Diagnostics.IProcessDiskUsage) -> Windows.System.Diagnostics.ProcessDiskUsageReport: ...
 class ProcessDiskUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IProcessDiskUsageReport
     _classid_ = 'Windows.System.Diagnostics.ProcessDiskUsageReport'
     @winrt_mixinmethod
     def get_ReadOperationCount(self: Windows.System.Diagnostics.IProcessDiskUsageReport) -> Int64: ...
@@ -345,11 +352,13 @@ class ProcessDiskUsageReport(ComPtr):
     OtherBytesCount = property(get_OtherBytesCount, None)
 class ProcessMemoryUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IProcessMemoryUsage
     _classid_ = 'Windows.System.Diagnostics.ProcessMemoryUsage'
     @winrt_mixinmethod
     def GetReport(self: Windows.System.Diagnostics.IProcessMemoryUsage) -> Windows.System.Diagnostics.ProcessMemoryUsageReport: ...
 class ProcessMemoryUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.IProcessMemoryUsageReport
     _classid_ = 'Windows.System.Diagnostics.ProcessMemoryUsageReport'
     @winrt_mixinmethod
     def get_NonPagedPoolSizeInBytes(self: Windows.System.Diagnostics.IProcessMemoryUsageReport) -> UInt64: ...
@@ -389,11 +398,13 @@ class ProcessMemoryUsageReport(ComPtr):
     WorkingSetSizeInBytes = property(get_WorkingSetSizeInBytes, None)
 class SystemCpuUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.ISystemCpuUsage
     _classid_ = 'Windows.System.Diagnostics.SystemCpuUsage'
     @winrt_mixinmethod
     def GetReport(self: Windows.System.Diagnostics.ISystemCpuUsage) -> Windows.System.Diagnostics.SystemCpuUsageReport: ...
 class SystemCpuUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.ISystemCpuUsageReport
     _classid_ = 'Windows.System.Diagnostics.SystemCpuUsageReport'
     @winrt_mixinmethod
     def get_KernelTime(self: Windows.System.Diagnostics.ISystemCpuUsageReport) -> Windows.Foundation.TimeSpan: ...
@@ -406,6 +417,7 @@ class SystemCpuUsageReport(ComPtr):
     IdleTime = property(get_IdleTime, None)
 class SystemDiagnosticInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.ISystemDiagnosticInfo
     _classid_ = 'Windows.System.Diagnostics.SystemDiagnosticInfo'
     @winrt_mixinmethod
     def get_MemoryUsage(self: Windows.System.Diagnostics.ISystemDiagnosticInfo) -> Windows.System.Diagnostics.SystemMemoryUsage: ...
@@ -422,11 +434,13 @@ class SystemDiagnosticInfo(ComPtr):
     PreferredArchitecture = property(get_PreferredArchitecture, None)
 class SystemMemoryUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.ISystemMemoryUsage
     _classid_ = 'Windows.System.Diagnostics.SystemMemoryUsage'
     @winrt_mixinmethod
     def GetReport(self: Windows.System.Diagnostics.ISystemMemoryUsage) -> Windows.System.Diagnostics.SystemMemoryUsageReport: ...
 class SystemMemoryUsageReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Diagnostics.ISystemMemoryUsageReport
     _classid_ = 'Windows.System.Diagnostics.SystemMemoryUsageReport'
     @winrt_mixinmethod
     def get_TotalPhysicalSizeInBytes(self: Windows.System.Diagnostics.ISystemMemoryUsageReport) -> UInt64: ...

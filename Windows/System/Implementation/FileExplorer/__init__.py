@@ -54,6 +54,7 @@ class ISysStorageProviderHttpRequestProvider(ComPtr):
     def SendRequestAsync(self, request: Windows.Web.Http.HttpRequestMessage) -> Windows.Foundation.IAsyncOperation[Windows.Web.Http.HttpResponseMessage]: ...
 class SysStorageProviderEventReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgs
     _classid_ = 'Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgsFactory, json: WinRT_String) -> Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs: ...

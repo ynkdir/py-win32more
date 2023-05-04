@@ -26,11 +26,11 @@ def __getattr__(name):
     return getattr(_module, name)
 class AdaptiveCardBuilder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.Shell.AdaptiveCardBuilder'
     @winrt_classmethod
     def CreateAdaptiveCardFromJson(cls: Windows.UI.Shell.IAdaptiveCardBuilderStatics, value: WinRT_String) -> Windows.UI.Shell.IAdaptiveCard: ...
 class FocusSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Shell.IFocusSession
     _classid_ = 'Windows.UI.Shell.FocusSession'
     @winrt_mixinmethod
     def get_Id(self: Windows.UI.Shell.IFocusSession) -> WinRT_String: ...
@@ -39,6 +39,7 @@ class FocusSession(ComPtr):
     Id = property(get_Id, None)
 class FocusSessionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Shell.IFocusSessionManager
     _classid_ = 'Windows.UI.Shell.FocusSessionManager'
     @winrt_mixinmethod
     def get_IsFocusActive(self: Windows.UI.Shell.IFocusSessionManager) -> Boolean: ...
@@ -181,6 +182,7 @@ SecurityAppKind = Int32
 SecurityAppKind_WebProtection: SecurityAppKind = 0
 class SecurityAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Shell.ISecurityAppManager
     _classid_ = 'Windows.UI.Shell.SecurityAppManager'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Shell.SecurityAppManager: ...
@@ -205,6 +207,7 @@ ShareWindowCommand_StartSharing: ShareWindowCommand = 1
 ShareWindowCommand_StopSharing: ShareWindowCommand = 2
 class ShareWindowCommandEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Shell.IShareWindowCommandEventArgs
     _classid_ = 'Windows.UI.Shell.ShareWindowCommandEventArgs'
     @winrt_mixinmethod
     def get_WindowId(self: Windows.UI.Shell.IShareWindowCommandEventArgs) -> Windows.UI.WindowId: ...
@@ -216,6 +219,7 @@ class ShareWindowCommandEventArgs(ComPtr):
     Command = property(get_Command, put_Command)
 class ShareWindowCommandSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Shell.IShareWindowCommandSource
     _classid_ = 'Windows.UI.Shell.ShareWindowCommandSource'
     @winrt_mixinmethod
     def Start(self: Windows.UI.Shell.IShareWindowCommandSource) -> Void: ...
@@ -235,6 +239,7 @@ class ShareWindowCommandSource(ComPtr):
     def GetForCurrentView(cls: Windows.UI.Shell.IShareWindowCommandSourceStatics) -> Windows.UI.Shell.ShareWindowCommandSource: ...
 class TaskbarManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Shell.ITaskbarManager
     _classid_ = 'Windows.UI.Shell.TaskbarManager'
     @winrt_mixinmethod
     def get_IsSupported(self: Windows.UI.Shell.ITaskbarManager) -> Boolean: ...

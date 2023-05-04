@@ -80,6 +80,7 @@ class ISocialInfoProviderManagerStatics(ComPtr):
     def DeprovisionAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class SocialDashboardItemUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.SocialInfo.Provider.ISocialDashboardItemUpdater
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.SocialDashboardItemUpdater'
     @winrt_mixinmethod
     def get_OwnerRemoteId(self: Windows.ApplicationModel.SocialInfo.Provider.ISocialDashboardItemUpdater) -> WinRT_String: ...
@@ -106,6 +107,7 @@ class SocialDashboardItemUpdater(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
 class SocialFeedUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater'
     @winrt_mixinmethod
     def get_OwnerRemoteId(self: Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater) -> WinRT_String: ...
@@ -120,7 +122,6 @@ class SocialFeedUpdater(ComPtr):
     Items = property(get_Items, None)
 class SocialInfoProviderManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager'
     @winrt_classmethod
     def CreateSocialFeedUpdaterAsync(cls: Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics, kind: Windows.ApplicationModel.SocialInfo.SocialFeedKind, mode: Windows.ApplicationModel.SocialInfo.SocialFeedUpdateMode, ownerRemoteId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater]: ...
     @winrt_classmethod

@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DualSimTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.StartScreen.IDualSimTile
     _classid_ = 'Windows.Phone.StartScreen.DualSimTile'
     @winrt_activatemethod
     def New(cls) -> Windows.Phone.StartScreen.DualSimTile: ...

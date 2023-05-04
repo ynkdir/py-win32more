@@ -318,6 +318,7 @@ SceneAttributeSemantic_Color: SceneAttributeSemantic = 5
 SceneAttributeSemantic_Tangent: SceneAttributeSemantic = 6
 class SceneBoundingBox(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.UI.Composition.Scenes.ISceneBoundingBox
     _classid_ = 'Windows.UI.Composition.Scenes.SceneBoundingBox'
     @winrt_mixinmethod
     def get_Center(self: Windows.UI.Composition.Scenes.ISceneBoundingBox) -> Windows.Foundation.Numerics.Vector3: ...
@@ -336,11 +337,14 @@ class SceneBoundingBox(ComPtr):
     Size = property(get_Size, None)
 class SceneComponent(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.UI.Composition.Scenes.ISceneComponent
+    _classid_ = 'Windows.UI.Composition.Scenes.SceneComponent'
     @winrt_commethod(7)
     def get_ComponentType(self) -> Windows.UI.Composition.Scenes.SceneComponentType: ...
     ComponentType = property(get_ComponentType, None)
 class SceneComponentCollection(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneComponent]
     _classid_ = 'Windows.UI.Composition.Scenes.SceneComponentCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneComponent], index: UInt32) -> Windows.UI.Composition.Scenes.SceneComponent: ...
@@ -373,10 +377,15 @@ SceneComponentType = Int32
 SceneComponentType_MeshRendererComponent: SceneComponentType = 0
 class SceneMaterial(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.UI.Composition.Scenes.ISceneMaterial
+    _classid_ = 'Windows.UI.Composition.Scenes.SceneMaterial'
 class SceneMaterialInput(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.UI.Composition.Scenes.ISceneMaterialInput
+    _classid_ = 'Windows.UI.Composition.Scenes.SceneMaterialInput'
 class SceneMesh(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.UI.Composition.Scenes.ISceneMesh
     _classid_ = 'Windows.UI.Composition.Scenes.SceneMesh'
     @winrt_mixinmethod
     def get_Bounds(self: Windows.UI.Composition.Scenes.ISceneMesh) -> Windows.UI.Composition.Scenes.SceneBoundingBox: ...
@@ -392,6 +401,7 @@ class SceneMesh(ComPtr):
     PrimitiveTopology = property(get_PrimitiveTopology, put_PrimitiveTopology)
 class SceneMeshMaterialAttributeMap(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.UI.Composition.Scenes.ISceneMeshMaterialAttributeMap
     _classid_ = 'Windows.UI.Composition.Scenes.SceneMeshMaterialAttributeMap'
     @winrt_mixinmethod
     def Lookup(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.UI.Composition.Scenes.SceneAttributeSemantic], key: WinRT_String) -> Windows.UI.Composition.Scenes.SceneAttributeSemantic: ...
@@ -412,6 +422,7 @@ class SceneMeshMaterialAttributeMap(ComPtr):
     Size = property(get_Size, None)
 class SceneMeshRendererComponent(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneRendererComponent
+    default_interface: Windows.UI.Composition.Scenes.ISceneMeshRendererComponent
     _classid_ = 'Windows.UI.Composition.Scenes.SceneMeshRendererComponent'
     @winrt_mixinmethod
     def get_Material(self: Windows.UI.Composition.Scenes.ISceneMeshRendererComponent) -> Windows.UI.Composition.Scenes.SceneMaterial: ...
@@ -430,6 +441,7 @@ class SceneMeshRendererComponent(ComPtr):
     UVMappings = property(get_UVMappings, None)
 class SceneMetallicRoughnessMaterial(ComPtr):
     extends: Windows.UI.Composition.Scenes.ScenePbrMaterial
+    default_interface: Windows.UI.Composition.Scenes.ISceneMetallicRoughnessMaterial
     _classid_ = 'Windows.UI.Composition.Scenes.SceneMetallicRoughnessMaterial'
     @winrt_mixinmethod
     def get_BaseColorInput(self: Windows.UI.Composition.Scenes.ISceneMetallicRoughnessMaterial) -> Windows.UI.Composition.Scenes.SceneMaterialInput: ...
@@ -460,6 +472,7 @@ class SceneMetallicRoughnessMaterial(ComPtr):
     RoughnessFactor = property(get_RoughnessFactor, put_RoughnessFactor)
 class SceneModelTransform(ComPtr):
     extends: Windows.UI.Composition.CompositionTransform
+    default_interface: Windows.UI.Composition.Scenes.ISceneModelTransform
     _classid_ = 'Windows.UI.Composition.Scenes.SceneModelTransform'
     @winrt_mixinmethod
     def get_Orientation(self: Windows.UI.Composition.Scenes.ISceneModelTransform) -> Windows.Foundation.Numerics.Quaternion: ...
@@ -493,6 +506,7 @@ class SceneModelTransform(ComPtr):
     Translation = property(get_Translation, put_Translation)
 class SceneNode(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.UI.Composition.Scenes.ISceneNode
     _classid_ = 'Windows.UI.Composition.Scenes.SceneNode'
     @winrt_mixinmethod
     def get_Children(self: Windows.UI.Composition.Scenes.ISceneNode) -> Windows.UI.Composition.Scenes.SceneNodeCollection: ...
@@ -512,6 +526,7 @@ class SceneNode(ComPtr):
     Transform = property(get_Transform, None)
 class SceneNodeCollection(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneObject
+    default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneNode]
     _classid_ = 'Windows.UI.Composition.Scenes.SceneNodeCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneNode], index: UInt32) -> Windows.UI.Composition.Scenes.SceneNode: ...
@@ -542,8 +557,12 @@ class SceneNodeCollection(ComPtr):
     Size = property(get_Size, None)
 class SceneObject(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
+    default_interface: Windows.UI.Composition.Scenes.ISceneObject
+    _classid_ = 'Windows.UI.Composition.Scenes.SceneObject'
 class ScenePbrMaterial(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneMaterial
+    default_interface: Windows.UI.Composition.Scenes.IScenePbrMaterial
+    _classid_ = 'Windows.UI.Composition.Scenes.ScenePbrMaterial'
     @winrt_commethod(24)
     def get_AlphaCutoff(self) -> Single: ...
     @winrt_commethod(25)
@@ -591,8 +610,11 @@ class ScenePbrMaterial(ComPtr):
     OcclusionStrength = property(get_OcclusionStrength, put_OcclusionStrength)
 class SceneRendererComponent(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneComponent
+    default_interface: Windows.UI.Composition.Scenes.ISceneRendererComponent
+    _classid_ = 'Windows.UI.Composition.Scenes.SceneRendererComponent'
 class SceneSurfaceMaterialInput(ComPtr):
     extends: Windows.UI.Composition.Scenes.SceneMaterialInput
+    default_interface: Windows.UI.Composition.Scenes.ISceneSurfaceMaterialInput
     _classid_ = 'Windows.UI.Composition.Scenes.SceneSurfaceMaterialInput'
     @winrt_mixinmethod
     def get_BitmapInterpolationMode(self: Windows.UI.Composition.Scenes.ISceneSurfaceMaterialInput) -> Windows.UI.Composition.CompositionBitmapInterpolationMode: ...
@@ -618,6 +640,7 @@ class SceneSurfaceMaterialInput(ComPtr):
     WrappingVMode = property(get_WrappingVMode, put_WrappingVMode)
 class SceneVisual(ComPtr):
     extends: Windows.UI.Composition.ContainerVisual
+    default_interface: Windows.UI.Composition.Scenes.ISceneVisual
     _classid_ = 'Windows.UI.Composition.Scenes.SceneVisual'
     @winrt_mixinmethod
     def get_Root(self: Windows.UI.Composition.Scenes.ISceneVisual) -> Windows.UI.Composition.Scenes.SceneNode: ...

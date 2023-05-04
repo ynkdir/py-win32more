@@ -26,12 +26,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class DetectedFace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.FaceAnalysis.IDetectedFace
     _classid_ = 'Windows.Media.FaceAnalysis.DetectedFace'
     @winrt_mixinmethod
     def get_FaceBox(self: Windows.Media.FaceAnalysis.IDetectedFace) -> Windows.Graphics.Imaging.BitmapBounds: ...
     FaceBox = property(get_FaceBox, None)
 class FaceDetector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.FaceAnalysis.IFaceDetector
     _classid_ = 'Windows.Media.FaceAnalysis.FaceDetector'
     @winrt_mixinmethod
     def DetectFacesAsync(self: Windows.Media.FaceAnalysis.IFaceDetector, image: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.Media.FaceAnalysis.DetectedFace]]: ...
@@ -58,6 +60,7 @@ class FaceDetector(ComPtr):
     IsSupported = property(get_IsSupported, None)
 class FaceTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Media.FaceAnalysis.IFaceTracker
     _classid_ = 'Windows.Media.FaceAnalysis.FaceTracker'
     @winrt_mixinmethod
     def ProcessNextFrameAsync(self: Windows.Media.FaceAnalysis.IFaceTracker, videoFrame: Windows.Media.VideoFrame) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.Media.FaceAnalysis.DetectedFace]]: ...

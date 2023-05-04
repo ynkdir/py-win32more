@@ -23,6 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class Battery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.Devices.Power.IBattery
     _classid_ = 'Windows.Phone.Devices.Power.Battery'
     @winrt_mixinmethod
     def get_RemainingChargePercent(self: Windows.Phone.Devices.Power.IBattery) -> Int32: ...

@@ -53,6 +53,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ActivatedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.IActivatedDeferral
     _classid_ = 'Windows.UI.WebUI.ActivatedDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.UI.WebUI.IActivatedDeferral) -> Void: ...
@@ -64,11 +65,13 @@ class ActivatedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, eventArgs: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Void: ...
 class ActivatedOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.IActivatedOperation
     _classid_ = 'Windows.UI.WebUI.ActivatedOperation'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.UI.WebUI.IActivatedOperation) -> Windows.UI.WebUI.ActivatedDeferral: ...
 class BackgroundActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.BackgroundActivatedEventArgs'
     @winrt_mixinmethod
     def get_TaskInstance(self: Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Windows.ApplicationModel.Background.IBackgroundTaskInstance: ...
@@ -81,6 +84,7 @@ class BackgroundActivatedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, eventArgs: Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Void: ...
 class EnteredBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.IEnteredBackgroundEventArgs
     _classid_ = 'Windows.UI.WebUI.EnteredBackgroundEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
@@ -92,6 +96,7 @@ class EnteredBackgroundEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Void: ...
 class HtmlPrintDocumentSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.IHtmlPrintDocumentSource
     _classid_ = 'Windows.UI.WebUI.HtmlPrintDocumentSource'
     @winrt_mixinmethod
     def get_Content(self: Windows.UI.WebUI.IHtmlPrintDocumentSource) -> Windows.UI.WebUI.PrintContent: ...
@@ -326,6 +331,7 @@ class IWebUIViewStatics(ComPtr):
     def CreateWithUriAsync(self, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.UI.WebUI.WebUIView]: ...
 class LeavingBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ILeavingBackgroundEventArgs
     _classid_ = 'Windows.UI.WebUI.LeavingBackgroundEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
@@ -343,6 +349,7 @@ class NavigatedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.WebUI.IWebUINavigatedEventArgs) -> Void: ...
 class NewWebUIViewCreatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.INewWebUIViewCreatedEventArgs
     _classid_ = 'Windows.UI.WebUI.NewWebUIViewCreatedEventArgs'
     @winrt_mixinmethod
     def get_WebUIView(self: Windows.UI.WebUI.INewWebUIViewCreatedEventArgs) -> Windows.UI.WebUI.WebUIView: ...
@@ -368,11 +375,13 @@ class ResumingEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class SuspendingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ISuspendingDeferral
     _classid_ = 'Windows.UI.WebUI.SuspendingDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.ISuspendingDeferral) -> Void: ...
 class SuspendingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ISuspendingEventArgs
     _classid_ = 'Windows.UI.WebUI.SuspendingEventArgs'
     @winrt_mixinmethod
     def get_SuspendingOperation(self: Windows.ApplicationModel.ISuspendingEventArgs) -> Windows.ApplicationModel.SuspendingOperation: ...
@@ -385,6 +394,7 @@ class SuspendingEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.ISuspendingEventArgs) -> Void: ...
 class SuspendingOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.ISuspendingOperation
     _classid_ = 'Windows.UI.WebUI.SuspendingOperation'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.ISuspendingOperation) -> Windows.ApplicationModel.SuspendingDeferral: ...
@@ -393,7 +403,6 @@ class SuspendingOperation(ComPtr):
     Deadline = property(get_Deadline, None)
 class WebUIApplication(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.WebUI.WebUIApplication'
     @winrt_classmethod
     def add_NewWebUIViewCreated(cls: Windows.UI.WebUI.IWebUIActivationStatics4, handler: Windows.Foundation.EventHandler[Windows.UI.WebUI.NewWebUIViewCreatedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -434,6 +443,7 @@ class WebUIApplication(ComPtr):
     def remove_Navigated(cls: Windows.UI.WebUI.IWebUIActivationStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class WebUIAppointmentsProviderAddAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IAppointmentsProviderAddAppointmentActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIAppointmentsProviderAddAppointmentActivatedEventArgs'
     @winrt_mixinmethod
     def get_AddAppointmentOperation(self: Windows.ApplicationModel.Activation.IAppointmentsProviderAddAppointmentActivatedEventArgs) -> Windows.ApplicationModel.Appointments.AppointmentsProvider.AddAppointmentOperation: ...
@@ -458,6 +468,7 @@ class WebUIAppointmentsProviderAddAppointmentActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIAppointmentsProviderRemoveAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IAppointmentsProviderRemoveAppointmentActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIAppointmentsProviderRemoveAppointmentActivatedEventArgs'
     @winrt_mixinmethod
     def get_RemoveAppointmentOperation(self: Windows.ApplicationModel.Activation.IAppointmentsProviderRemoveAppointmentActivatedEventArgs) -> Windows.ApplicationModel.Appointments.AppointmentsProvider.RemoveAppointmentOperation: ...
@@ -482,6 +493,7 @@ class WebUIAppointmentsProviderRemoveAppointmentActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIAppointmentsProviderReplaceAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IAppointmentsProviderReplaceAppointmentActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIAppointmentsProviderReplaceAppointmentActivatedEventArgs'
     @winrt_mixinmethod
     def get_ReplaceAppointmentOperation(self: Windows.ApplicationModel.Activation.IAppointmentsProviderReplaceAppointmentActivatedEventArgs) -> Windows.ApplicationModel.Appointments.AppointmentsProvider.ReplaceAppointmentOperation: ...
@@ -506,6 +518,7 @@ class WebUIAppointmentsProviderReplaceAppointmentActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIAppointmentsProviderShowAppointmentDetailsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIAppointmentsProviderShowAppointmentDetailsActivatedEventArgs'
     @winrt_mixinmethod
     def get_InstanceStartDate(self: Windows.ApplicationModel.Activation.IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
@@ -536,6 +549,7 @@ class WebUIAppointmentsProviderShowAppointmentDetailsActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIAppointmentsProviderShowTimeFrameActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IAppointmentsProviderShowTimeFrameActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIAppointmentsProviderShowTimeFrameActivatedEventArgs'
     @winrt_mixinmethod
     def get_TimeToShow(self: Windows.ApplicationModel.Activation.IAppointmentsProviderShowTimeFrameActivatedEventArgs) -> Windows.Foundation.DateTime: ...
@@ -563,12 +577,12 @@ class WebUIAppointmentsProviderShowTimeFrameActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIBackgroundTaskInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.UI.WebUI.WebUIBackgroundTaskInstance'
     @winrt_classmethod
     def get_Current(cls: Windows.UI.WebUI.IWebUIBackgroundTaskInstanceStatics) -> Windows.UI.WebUI.IWebUIBackgroundTaskInstance: ...
     Current = property(get_Current, None)
 class WebUIBackgroundTaskInstanceRuntimeClass(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.IWebUIBackgroundTaskInstance
     _classid_ = 'Windows.UI.WebUI.WebUIBackgroundTaskInstanceRuntimeClass'
     @winrt_mixinmethod
     def get_Succeeded(self: Windows.UI.WebUI.IWebUIBackgroundTaskInstance) -> Boolean: ...
@@ -600,6 +614,7 @@ class WebUIBackgroundTaskInstanceRuntimeClass(ComPtr):
     SuspendedCount = property(get_SuspendedCount, None)
 class WebUIBarcodeScannerPreviewActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IBarcodeScannerPreviewActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIBarcodeScannerPreviewActivatedEventArgs'
     @winrt_mixinmethod
     def get_ConnectionId(self: Windows.ApplicationModel.Activation.IBarcodeScannerPreviewActivatedEventArgs) -> WinRT_String: ...
@@ -621,6 +636,7 @@ class WebUIBarcodeScannerPreviewActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUICachedFileUpdaterActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.ICachedFileUpdaterActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUICachedFileUpdaterActivatedEventArgs'
     @winrt_mixinmethod
     def get_CachedFileUpdaterUI(self: Windows.ApplicationModel.Activation.ICachedFileUpdaterActivatedEventArgs) -> Windows.Storage.Provider.CachedFileUpdaterUI: ...
@@ -642,6 +658,7 @@ class WebUICachedFileUpdaterActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUICameraSettingsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUICameraSettingsActivatedEventArgs'
     @winrt_mixinmethod
     def get_VideoDeviceController(self: Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -663,6 +680,7 @@ class WebUICameraSettingsActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUICommandLineActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.ICommandLineActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUICommandLineActivatedEventArgs'
     @winrt_mixinmethod
     def get_Operation(self: Windows.ApplicationModel.Activation.ICommandLineActivatedEventArgs) -> Windows.ApplicationModel.Activation.CommandLineActivationOperation: ...
@@ -684,6 +702,7 @@ class WebUICommandLineActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIContactCallActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IContactCallActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIContactCallActivatedEventArgs'
     @winrt_mixinmethod
     def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactCallActivatedEventArgs) -> WinRT_String: ...
@@ -711,6 +730,7 @@ class WebUIContactCallActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIContactMapActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IContactMapActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIContactMapActivatedEventArgs'
     @winrt_mixinmethod
     def get_Address(self: Windows.ApplicationModel.Activation.IContactMapActivatedEventArgs) -> Windows.ApplicationModel.Contacts.ContactAddress: ...
@@ -735,6 +755,7 @@ class WebUIContactMapActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIContactMessageActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIContactMessageActivatedEventArgs'
     @winrt_mixinmethod
     def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs) -> WinRT_String: ...
@@ -762,6 +783,7 @@ class WebUIContactMessageActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIContactPanelActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IContactPanelActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIContactPanelActivatedEventArgs'
     @winrt_mixinmethod
     def get_ContactPanel(self: Windows.ApplicationModel.Activation.IContactPanelActivatedEventArgs) -> Windows.ApplicationModel.Contacts.ContactPanel: ...
@@ -786,6 +808,7 @@ class WebUIContactPanelActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIContactPickerActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IContactPickerActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIContactPickerActivatedEventArgs'
     @winrt_mixinmethod
     def get_ContactPickerUI(self: Windows.ApplicationModel.Activation.IContactPickerActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Provider.ContactPickerUI: ...
@@ -804,6 +827,7 @@ class WebUIContactPickerActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIContactPostActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IContactPostActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIContactPostActivatedEventArgs'
     @winrt_mixinmethod
     def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactPostActivatedEventArgs) -> WinRT_String: ...
@@ -831,6 +855,7 @@ class WebUIContactPostActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIContactVideoCallActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIContactVideoCallActivatedEventArgs'
     @winrt_mixinmethod
     def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs) -> WinRT_String: ...
@@ -858,6 +883,7 @@ class WebUIContactVideoCallActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIDeviceActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IDeviceActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIDeviceActivatedEventArgs'
     @winrt_mixinmethod
     def get_DeviceInformationId(self: Windows.ApplicationModel.Activation.IDeviceActivatedEventArgs) -> WinRT_String: ...
@@ -885,6 +911,7 @@ class WebUIDeviceActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIDevicePairingActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IDevicePairingActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIDevicePairingActivatedEventArgs'
     @winrt_mixinmethod
     def get_DeviceInformation(self: Windows.ApplicationModel.Activation.IDevicePairingActivatedEventArgs) -> Windows.Devices.Enumeration.DeviceInformation: ...
@@ -906,6 +933,7 @@ class WebUIDevicePairingActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIDialReceiverActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IDialReceiverActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIDialReceiverActivatedEventArgs'
     @winrt_mixinmethod
     def get_AppName(self: Windows.ApplicationModel.Activation.IDialReceiverActivatedEventArgs) -> WinRT_String: ...
@@ -936,6 +964,7 @@ class WebUIDialReceiverActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIFileActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IFileActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIFileActivatedEventArgs'
     @winrt_mixinmethod
     def get_Files(self: Windows.ApplicationModel.Activation.IFileActivatedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.Storage.IStorageItem]: ...
@@ -966,6 +995,7 @@ class WebUIFileActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIFileOpenPickerActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IFileOpenPickerActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIFileOpenPickerActivatedEventArgs'
     @winrt_mixinmethod
     def get_FileOpenPickerUI(self: Windows.ApplicationModel.Activation.IFileOpenPickerActivatedEventArgs) -> Windows.Storage.Pickers.Provider.FileOpenPickerUI: ...
@@ -990,6 +1020,7 @@ class WebUIFileOpenPickerActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIFileOpenPickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IFileOpenPickerContinuationEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIFileOpenPickerContinuationEventArgs'
     @winrt_mixinmethod
     def get_Files(self: Windows.ApplicationModel.Activation.IFileOpenPickerContinuationEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile]: ...
@@ -1014,6 +1045,7 @@ class WebUIFileOpenPickerContinuationEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIFileSavePickerActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IFileSavePickerActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIFileSavePickerActivatedEventArgs'
     @winrt_mixinmethod
     def get_FileSavePickerUI(self: Windows.ApplicationModel.Activation.IFileSavePickerActivatedEventArgs) -> Windows.Storage.Pickers.Provider.FileSavePickerUI: ...
@@ -1041,6 +1073,7 @@ class WebUIFileSavePickerActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIFileSavePickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IFileSavePickerContinuationEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIFileSavePickerContinuationEventArgs'
     @winrt_mixinmethod
     def get_File(self: Windows.ApplicationModel.Activation.IFileSavePickerContinuationEventArgs) -> Windows.Storage.StorageFile: ...
@@ -1065,6 +1098,7 @@ class WebUIFileSavePickerContinuationEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIFolderPickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IFolderPickerContinuationEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIFolderPickerContinuationEventArgs'
     @winrt_mixinmethod
     def get_Folder(self: Windows.ApplicationModel.Activation.IFolderPickerContinuationEventArgs) -> Windows.Storage.StorageFolder: ...
@@ -1089,6 +1123,7 @@ class WebUIFolderPickerContinuationEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUILaunchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.ILaunchActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUILaunchActivatedEventArgs'
     @winrt_mixinmethod
     def get_Arguments(self: Windows.ApplicationModel.Activation.ILaunchActivatedEventArgs) -> WinRT_String: ...
@@ -1122,6 +1157,7 @@ class WebUILaunchActivatedEventArgs(ComPtr):
     TileActivatedInfo = property(get_TileActivatedInfo, None)
 class WebUILockScreenActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUILockScreenActivatedEventArgs'
     @winrt_mixinmethod
     def get_Info(self: Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -1146,6 +1182,7 @@ class WebUILockScreenActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUILockScreenCallActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.ILockScreenCallActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUILockScreenCallActivatedEventArgs'
     @winrt_mixinmethod
     def get_CallUI(self: Windows.ApplicationModel.Activation.ILockScreenCallActivatedEventArgs) -> Windows.ApplicationModel.Calls.LockScreenCallUI: ...
@@ -1173,6 +1210,7 @@ class WebUILockScreenCallActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUILockScreenComponentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUILockScreenComponentActivatedEventArgs'
     @winrt_mixinmethod
     def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
@@ -1188,22 +1226,26 @@ class WebUILockScreenComponentActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUINavigatedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.IWebUINavigatedDeferral
     _classid_ = 'Windows.UI.WebUI.WebUINavigatedDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.UI.WebUI.IWebUINavigatedDeferral) -> Void: ...
 class WebUINavigatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.IWebUINavigatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUINavigatedEventArgs'
     @winrt_mixinmethod
     def get_NavigatedOperation(self: Windows.UI.WebUI.IWebUINavigatedEventArgs) -> Windows.UI.WebUI.WebUINavigatedOperation: ...
     NavigatedOperation = property(get_NavigatedOperation, None)
 class WebUINavigatedOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.IWebUINavigatedOperation
     _classid_ = 'Windows.UI.WebUI.WebUINavigatedOperation'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.UI.WebUI.IWebUINavigatedOperation) -> Windows.UI.WebUI.WebUINavigatedDeferral: ...
 class WebUIPhoneCallActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IPhoneCallActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIPhoneCallActivatedEventArgs'
     @winrt_mixinmethod
     def get_LineId(self: Windows.ApplicationModel.Activation.IPhoneCallActivatedEventArgs) -> Guid: ...
@@ -1225,6 +1267,7 @@ class WebUIPhoneCallActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIPrint3DWorkflowActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IPrint3DWorkflowActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIPrint3DWorkflowActivatedEventArgs'
     @winrt_mixinmethod
     def get_Workflow(self: Windows.ApplicationModel.Activation.IPrint3DWorkflowActivatedEventArgs) -> Windows.Devices.Printers.Extensions.Print3DWorkflow: ...
@@ -1243,6 +1286,7 @@ class WebUIPrint3DWorkflowActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIPrintTaskSettingsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IPrintTaskSettingsActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIPrintTaskSettingsActivatedEventArgs'
     @winrt_mixinmethod
     def get_Configuration(self: Windows.ApplicationModel.Activation.IPrintTaskSettingsActivatedEventArgs) -> Windows.Devices.Printers.Extensions.PrintTaskConfiguration: ...
@@ -1261,6 +1305,7 @@ class WebUIPrintTaskSettingsActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIPrintWorkflowForegroundTaskActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIPrintWorkflowForegroundTaskActivatedEventArgs'
     @winrt_mixinmethod
     def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
@@ -1276,6 +1321,7 @@ class WebUIPrintWorkflowForegroundTaskActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIProtocolActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IProtocolActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIProtocolActivatedEventArgs'
     @winrt_mixinmethod
     def get_Uri(self: Windows.ApplicationModel.Activation.IProtocolActivatedEventArgs) -> Windows.Foundation.Uri: ...
@@ -1306,6 +1352,7 @@ class WebUIProtocolActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIProtocolForResultsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IProtocolForResultsActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIProtocolForResultsActivatedEventArgs'
     @winrt_mixinmethod
     def get_ProtocolForResultsOperation(self: Windows.ApplicationModel.Activation.IProtocolForResultsActivatedEventArgs) -> Windows.System.ProtocolForResultsOperation: ...
@@ -1339,6 +1386,7 @@ class WebUIProtocolForResultsActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIRestrictedLaunchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIRestrictedLaunchActivatedEventArgs'
     @winrt_mixinmethod
     def get_SharedContext(self: Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
@@ -1360,6 +1408,7 @@ class WebUIRestrictedLaunchActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUISearchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.ISearchActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUISearchActivatedEventArgs'
     @winrt_mixinmethod
     def get_QueryText(self: Windows.ApplicationModel.Activation.ISearchActivatedEventArgs) -> WinRT_String: ...
@@ -1387,6 +1436,7 @@ class WebUISearchActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIShareTargetActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IShareTargetActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIShareTargetActivatedEventArgs'
     @winrt_mixinmethod
     def get_ShareOperation(self: Windows.ApplicationModel.Activation.IShareTargetActivatedEventArgs) -> Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation: ...
@@ -1408,6 +1458,7 @@ class WebUIShareTargetActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIStartupTaskActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IStartupTaskActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIStartupTaskActivatedEventArgs'
     @winrt_mixinmethod
     def get_TaskId(self: Windows.ApplicationModel.Activation.IStartupTaskActivatedEventArgs) -> WinRT_String: ...
@@ -1429,6 +1480,7 @@ class WebUIStartupTaskActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIToastNotificationActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IToastNotificationActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIToastNotificationActivatedEventArgs'
     @winrt_mixinmethod
     def get_Argument(self: Windows.ApplicationModel.Activation.IToastNotificationActivatedEventArgs) -> WinRT_String: ...
@@ -1453,6 +1505,7 @@ class WebUIToastNotificationActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIUserDataAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IUserDataAccountProviderActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIUserDataAccountProviderActivatedEventArgs'
     @winrt_mixinmethod
     def get_Operation(self: Windows.ApplicationModel.Activation.IUserDataAccountProviderActivatedEventArgs) -> Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderOperation: ...
@@ -1471,6 +1524,7 @@ class WebUIUserDataAccountProviderActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.WebUI.IWebUIView
     _classid_ = 'Windows.UI.WebUI.WebUIView'
     @winrt_mixinmethod
     def get_ApplicationViewId(self: Windows.UI.WebUI.IWebUIView) -> Int32: ...
@@ -1618,6 +1672,7 @@ class WebUIView(ComPtr):
     DeferredPermissionRequests = property(get_DeferredPermissionRequests, None)
 class WebUIVoiceCommandActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IVoiceCommandActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIVoiceCommandActivatedEventArgs'
     @winrt_mixinmethod
     def get_Result(self: Windows.ApplicationModel.Activation.IVoiceCommandActivatedEventArgs) -> Windows.Media.SpeechRecognition.SpeechRecognitionResult: ...
@@ -1639,6 +1694,7 @@ class WebUIVoiceCommandActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIWalletActionActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IWalletActionActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIWalletActionActivatedEventArgs'
     @winrt_mixinmethod
     def get_ItemId(self: Windows.ApplicationModel.Activation.IWalletActionActivatedEventArgs) -> WinRT_String: ...
@@ -1663,6 +1719,7 @@ class WebUIWalletActionActivatedEventArgs(ComPtr):
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIWebAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IWebAccountProviderActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIWebAccountProviderActivatedEventArgs'
     @winrt_mixinmethod
     def get_Operation(self: Windows.ApplicationModel.Activation.IWebAccountProviderActivatedEventArgs) -> Windows.Security.Authentication.Web.Provider.IWebAccountProviderOperation: ...
@@ -1684,6 +1741,7 @@ class WebUIWebAccountProviderActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class WebUIWebAuthenticationBrokerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Activation.IWebAuthenticationBrokerContinuationEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIWebAuthenticationBrokerContinuationEventArgs'
     @winrt_mixinmethod
     def get_WebAuthenticationResult(self: Windows.ApplicationModel.Activation.IWebAuthenticationBrokerContinuationEventArgs) -> Windows.Security.Authentication.Web.WebAuthenticationResult: ...

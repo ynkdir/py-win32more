@@ -26,6 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AdvancedColorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IAdvancedColorInfo
     _classid_ = 'Windows.Graphics.Display.AdvancedColorInfo'
     @winrt_mixinmethod
     def get_CurrentAdvancedColorKind(self: Windows.Graphics.Display.IAdvancedColorInfo) -> Windows.Graphics.Display.AdvancedColorKind: ...
@@ -64,6 +65,7 @@ AdvancedColorKind_WideColorGamut: AdvancedColorKind = 1
 AdvancedColorKind_HighDynamicRange: AdvancedColorKind = 2
 class BrightnessOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IBrightnessOverride
     _classid_ = 'Windows.Graphics.Display.BrightnessOverride'
     @winrt_mixinmethod
     def get_IsSupported(self: Windows.Graphics.Display.IBrightnessOverride) -> Boolean: ...
@@ -104,6 +106,7 @@ class BrightnessOverride(ComPtr):
     BrightnessLevel = property(get_BrightnessLevel, None)
 class BrightnessOverrideSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IBrightnessOverrideSettings
     _classid_ = 'Windows.Graphics.Display.BrightnessOverrideSettings'
     @winrt_mixinmethod
     def get_DesiredLevel(self: Windows.Graphics.Display.IBrightnessOverrideSettings) -> Double: ...
@@ -119,6 +122,7 @@ class BrightnessOverrideSettings(ComPtr):
     DesiredNits = property(get_DesiredNits, None)
 class ColorOverrideSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IColorOverrideSettings
     _classid_ = 'Windows.Graphics.Display.ColorOverrideSettings'
     @winrt_mixinmethod
     def get_DesiredDisplayColorOverrideScenario(self: Windows.Graphics.Display.IColorOverrideSettings) -> Windows.Graphics.Display.DisplayColorOverrideScenario: ...
@@ -141,6 +145,7 @@ DisplayColorOverrideScenario = Int32
 DisplayColorOverrideScenario_Accurate: DisplayColorOverrideScenario = 0
 class DisplayEnhancementOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IDisplayEnhancementOverride
     _classid_ = 'Windows.Graphics.Display.DisplayEnhancementOverride'
     @winrt_mixinmethod
     def get_ColorOverrideSettings(self: Windows.Graphics.Display.IDisplayEnhancementOverride) -> Windows.Graphics.Display.ColorOverrideSettings: ...
@@ -180,6 +185,7 @@ class DisplayEnhancementOverride(ComPtr):
     IsOverrideActive = property(get_IsOverrideActive, None)
 class DisplayEnhancementOverrideCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilities
     _classid_ = 'Windows.Graphics.Display.DisplayEnhancementOverrideCapabilities'
     @winrt_mixinmethod
     def get_IsBrightnessControlSupported(self: Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilities) -> Boolean: ...
@@ -191,12 +197,14 @@ class DisplayEnhancementOverrideCapabilities(ComPtr):
     IsBrightnessNitsControlSupported = property(get_IsBrightnessNitsControlSupported, None)
 class DisplayEnhancementOverrideCapabilitiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilitiesChangedEventArgs
     _classid_ = 'Windows.Graphics.Display.DisplayEnhancementOverrideCapabilitiesChangedEventArgs'
     @winrt_mixinmethod
     def get_Capabilities(self: Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilitiesChangedEventArgs) -> Windows.Graphics.Display.DisplayEnhancementOverrideCapabilities: ...
     Capabilities = property(get_Capabilities, None)
 class DisplayInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IDisplayInformation
     _classid_ = 'Windows.Graphics.Display.DisplayInformation'
     @winrt_mixinmethod
     def get_CurrentOrientation(self: Windows.Graphics.Display.IDisplayInformation) -> Windows.Graphics.Display.DisplayOrientations: ...
@@ -274,7 +282,6 @@ DisplayOrientations_LandscapeFlipped: DisplayOrientations = 4
 DisplayOrientations_PortraitFlipped: DisplayOrientations = 8
 class DisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Graphics.Display.DisplayProperties'
     @winrt_classmethod
     def get_CurrentOrientation(cls: Windows.Graphics.Display.IDisplayPropertiesStatics) -> Windows.Graphics.Display.DisplayOrientations: ...
     @winrt_classmethod
@@ -325,6 +332,7 @@ class DisplayPropertiesEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class DisplayServices(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Display.IDisplayServices
     _classid_ = 'Windows.Graphics.Display.DisplayServices'
     @winrt_classmethod
     def FindAll(cls: Windows.Graphics.Display.IDisplayServicesStatics) -> POINTER(Windows.Graphics.DisplayId_head): ...

@@ -22,7 +22,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class ClassicAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Management.Deployment.Preview.ClassicAppManager'
     @winrt_classmethod
     def FindInstalledApp(cls: Windows.Management.Deployment.Preview.IClassicAppManagerStatics, appUninstallKey: WinRT_String) -> Windows.Management.Deployment.Preview.InstalledClassicAppInfo: ...
 DeploymentPreviewContract: UInt32 = 65536
@@ -42,6 +41,7 @@ class IInstalledClassicAppInfo(ComPtr):
     DisplayVersion = property(get_DisplayVersion, None)
 class InstalledClassicAppInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Management.Deployment.Preview.IInstalledClassicAppInfo
     _classid_ = 'Windows.Management.Deployment.Preview.InstalledClassicAppInfo'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.Management.Deployment.Preview.IInstalledClassicAppInfo) -> WinRT_String: ...

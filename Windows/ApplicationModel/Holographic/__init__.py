@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class HolographicKeyboard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.ApplicationModel.Holographic.IHolographicKeyboard
     _classid_ = 'Windows.ApplicationModel.Holographic.HolographicKeyboard'
     @winrt_mixinmethod
     def SetPlacementOverride(self: Windows.ApplicationModel.Holographic.IHolographicKeyboard, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, topCenterPosition: Windows.Foundation.Numerics.Vector3, orientation: Windows.Foundation.Numerics.Quaternion) -> Void: ...

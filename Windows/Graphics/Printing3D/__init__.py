@@ -527,6 +527,7 @@ class IPrinting3DTextureResource(ComPtr):
     Name = property(get_Name, put_Name)
 class Print3DManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrint3DManager
     _classid_ = 'Windows.Graphics.Printing3D.Print3DManager'
     @winrt_mixinmethod
     def add_TaskRequested(self: Windows.Graphics.Printing3D.IPrint3DManager, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Graphics.Printing3D.Print3DManager, Windows.Graphics.Printing3D.Print3DTaskRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
@@ -538,6 +539,7 @@ class Print3DManager(ComPtr):
     def ShowPrintUIAsync(cls: Windows.Graphics.Printing3D.IPrint3DManagerStatics) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class Print3DTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrint3DTask
     _classid_ = 'Windows.Graphics.Printing3D.Print3DTask'
     @winrt_mixinmethod
     def get_Source(self: Windows.Graphics.Printing3D.IPrint3DTask) -> Windows.Graphics.Printing3D.Printing3D3MFPackage: ...
@@ -556,6 +558,7 @@ class Print3DTask(ComPtr):
     Source = property(get_Source, None)
 class Print3DTaskCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrint3DTaskCompletedEventArgs
     _classid_ = 'Windows.Graphics.Printing3D.Print3DTaskCompletedEventArgs'
     @winrt_mixinmethod
     def get_Completion(self: Windows.Graphics.Printing3D.IPrint3DTaskCompletedEventArgs) -> Windows.Graphics.Printing3D.Print3DTaskCompletion: ...
@@ -579,23 +582,27 @@ Print3DTaskDetail_ModelNotManifold: Print3DTaskDetail = 5
 Print3DTaskDetail_InvalidPrintTicket: Print3DTaskDetail = 6
 class Print3DTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrint3DTaskRequest
     _classid_ = 'Windows.Graphics.Printing3D.Print3DTaskRequest'
     @winrt_mixinmethod
     def CreateTask(self: Windows.Graphics.Printing3D.IPrint3DTaskRequest, title: WinRT_String, printerId: WinRT_String, handler: Windows.Graphics.Printing3D.Print3DTaskSourceRequestedHandler) -> Windows.Graphics.Printing3D.Print3DTask: ...
 class Print3DTaskRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrint3DTaskRequestedEventArgs
     _classid_ = 'Windows.Graphics.Printing3D.Print3DTaskRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Graphics.Printing3D.IPrint3DTaskRequestedEventArgs) -> Windows.Graphics.Printing3D.Print3DTaskRequest: ...
     Request = property(get_Request, None)
 class Print3DTaskSourceChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrint3DTaskSourceChangedEventArgs
     _classid_ = 'Windows.Graphics.Printing3D.Print3DTaskSourceChangedEventArgs'
     @winrt_mixinmethod
     def get_Source(self: Windows.Graphics.Printing3D.IPrint3DTaskSourceChangedEventArgs) -> Windows.Graphics.Printing3D.Printing3D3MFPackage: ...
     Source = property(get_Source, None)
 class Print3DTaskSourceRequestedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrint3DTaskSourceRequestedArgs
     _classid_ = 'Windows.Graphics.Printing3D.Print3DTaskSourceRequestedArgs'
     @winrt_mixinmethod
     def SetSource(self: Windows.Graphics.Printing3D.IPrint3DTaskSourceRequestedArgs, source: Windows.Graphics.Printing3D.Printing3D3MFPackage) -> Void: ...
@@ -607,6 +614,7 @@ class Print3DTaskSourceRequestedHandler(ComPtr):
     def Invoke(self, args: Windows.Graphics.Printing3D.Print3DTaskSourceRequestedArgs) -> Void: ...
 class Printing3D3MFPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3D3MFPackage
     _classid_ = 'Windows.Graphics.Printing3D.Printing3D3MFPackage'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3D3MFPackage: ...
@@ -643,6 +651,7 @@ class Printing3D3MFPackage(ComPtr):
     Compression = property(get_Compression, put_Compression)
 class Printing3DBaseMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DBaseMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DBaseMaterial'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DBaseMaterial: ...
@@ -664,6 +673,7 @@ class Printing3DBaseMaterial(ComPtr):
     Pla = property(get_Pla, None)
 class Printing3DBaseMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DBaseMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup'
     @winrt_factorymethod
     def Create(cls: Windows.Graphics.Printing3D.IPrinting3DBaseMaterialGroupFactory, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup: ...
@@ -686,6 +696,7 @@ Printing3DBufferFormat_Printing3DDouble: Printing3DBufferFormat = 500
 Printing3DBufferFormat_Printing3DUInt: Printing3DBufferFormat = 501
 class Printing3DColorMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DColorMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DColorMaterial'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DColorMaterial: ...
@@ -701,6 +712,7 @@ class Printing3DColorMaterial(ComPtr):
     Color = property(get_Color, put_Color)
 class Printing3DColorMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DColorMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DColorMaterialGroup'
     @winrt_factorymethod
     def Create(cls: Windows.Graphics.Printing3D.IPrinting3DColorMaterialGroupFactory, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DColorMaterialGroup: ...
@@ -712,6 +724,7 @@ class Printing3DColorMaterialGroup(ComPtr):
     MaterialGroupId = property(get_MaterialGroupId, None)
 class Printing3DComponent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DComponent
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DComponent'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DComponent: ...
@@ -745,6 +758,7 @@ class Printing3DComponent(ComPtr):
     PartNumber = property(get_PartNumber, put_PartNumber)
 class Printing3DComponentWithMatrix(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DComponentWithMatrix
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DComponentWithMatrix'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DComponentWithMatrix: ...
@@ -760,6 +774,7 @@ class Printing3DComponentWithMatrix(ComPtr):
     Matrix = property(get_Matrix, put_Matrix)
 class Printing3DCompositeMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DCompositeMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DCompositeMaterial'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DCompositeMaterial: ...
@@ -768,6 +783,7 @@ class Printing3DCompositeMaterial(ComPtr):
     Values = property(get_Values, None)
 class Printing3DCompositeMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DCompositeMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup'
     @winrt_factorymethod
     def Create(cls: Windows.Graphics.Printing3D.IPrinting3DCompositeMaterialGroupFactory, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup: ...
@@ -788,6 +804,7 @@ class Printing3DCompositeMaterialGroup(ComPtr):
 Printing3DContract: UInt32 = 262144
 class Printing3DFaceReductionOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DFaceReductionOptions
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DFaceReductionOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DFaceReductionOptions: ...
@@ -808,6 +825,7 @@ class Printing3DFaceReductionOptions(ComPtr):
     MaxEdgeLength = property(get_MaxEdgeLength, put_MaxEdgeLength)
 class Printing3DMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMaterial'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DMaterial: ...
@@ -828,6 +846,7 @@ class Printing3DMaterial(ComPtr):
     MultiplePropertyGroups = property(get_MultiplePropertyGroups, None)
 class Printing3DMesh(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DMesh
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMesh'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DMesh: ...
@@ -890,6 +909,7 @@ Printing3DMeshVerificationMode_FindFirstError: Printing3DMeshVerificationMode = 
 Printing3DMeshVerificationMode_FindAllErrors: Printing3DMeshVerificationMode = 1
 class Printing3DMeshVerificationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DMeshVerificationResult
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMeshVerificationResult'
     @winrt_mixinmethod
     def get_IsValid(self: Windows.Graphics.Printing3D.IPrinting3DMeshVerificationResult) -> Boolean: ...
@@ -902,6 +922,7 @@ class Printing3DMeshVerificationResult(ComPtr):
     ReversedNormalTriangles = property(get_ReversedNormalTriangles, None)
 class Printing3DModel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DModel
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DModel'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DModel: ...
@@ -958,6 +979,7 @@ class Printing3DModel(ComPtr):
     Metadata = property(get_Metadata, None)
 class Printing3DModelTexture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DModelTexture
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DModelTexture'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DModelTexture: ...
@@ -985,6 +1007,7 @@ Printing3DModelUnit_Inch: Printing3DModelUnit = 4
 Printing3DModelUnit_Foot: Printing3DModelUnit = 5
 class Printing3DMultiplePropertyMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial: ...
@@ -993,6 +1016,7 @@ class Printing3DMultiplePropertyMaterial(ComPtr):
     MaterialIndices = property(get_MaterialIndices, None)
 class Printing3DMultiplePropertyMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup'
     @winrt_factorymethod
     def Create(cls: Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterialGroupFactory, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup: ...
@@ -1015,6 +1039,7 @@ Printing3DPackageCompression_Medium: Printing3DPackageCompression = 1
 Printing3DPackageCompression_High: Printing3DPackageCompression = 2
 class Printing3DTexture2CoordMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterial'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterial: ...
@@ -1035,6 +1060,7 @@ class Printing3DTexture2CoordMaterial(ComPtr):
     V = property(get_V, put_V)
 class Printing3DTexture2CoordMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup'
     @winrt_factorymethod
     def Create(cls: Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterialGroupFactory, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup: ...
@@ -1056,6 +1082,7 @@ Printing3DTextureEdgeBehavior_Mirror: Printing3DTextureEdgeBehavior = 2
 Printing3DTextureEdgeBehavior_Clamp: Printing3DTextureEdgeBehavior = 3
 class Printing3DTextureResource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Graphics.Printing3D.IPrinting3DTextureResource
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DTextureResource'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Printing3D.Printing3DTextureResource: ...

@@ -50,6 +50,7 @@ class IUserNotificationListenerStatics(ComPtr):
     Current = property(get_Current, None)
 class UserNotificationListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.UI.Notifications.Management.IUserNotificationListener
     _classid_ = 'Windows.UI.Notifications.Management.UserNotificationListener'
     @winrt_mixinmethod
     def RequestAccessAsync(self: Windows.UI.Notifications.Management.IUserNotificationListener) -> Windows.Foundation.IAsyncOperation[Windows.UI.Notifications.Management.UserNotificationListenerAccessStatus]: ...

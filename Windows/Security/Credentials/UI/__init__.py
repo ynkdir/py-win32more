@@ -32,7 +32,6 @@ AuthenticationProtocol_CredSsp: AuthenticationProtocol = 5
 AuthenticationProtocol_Custom: AuthenticationProtocol = 6
 class CredentialPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Security.Credentials.UI.CredentialPicker'
     @winrt_classmethod
     def PickWithOptionsAsync(cls: Windows.Security.Credentials.UI.ICredentialPickerStatics, options: Windows.Security.Credentials.UI.CredentialPickerOptions) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
     @winrt_classmethod
@@ -41,6 +40,7 @@ class CredentialPicker(ComPtr):
     def PickWithCaptionAsync(cls: Windows.Security.Credentials.UI.ICredentialPickerStatics, targetName: WinRT_String, message: WinRT_String, caption: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
 class CredentialPickerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Security.Credentials.UI.ICredentialPickerOptions
     _classid_ = 'Windows.Security.Credentials.UI.CredentialPickerOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Credentials.UI.CredentialPickerOptions: ...
@@ -96,6 +96,7 @@ class CredentialPickerOptions(ComPtr):
     CredentialSaveOption = property(get_CredentialSaveOption, put_CredentialSaveOption)
 class CredentialPickerResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Security.Credentials.UI.ICredentialPickerResults
     _classid_ = 'Windows.Security.Credentials.UI.CredentialPickerResults'
     @winrt_mixinmethod
     def get_ErrorCode(self: Windows.Security.Credentials.UI.ICredentialPickerResults) -> UInt32: ...
@@ -225,7 +226,6 @@ UserConsentVerificationResult_RetriesExhausted: UserConsentVerificationResult = 
 UserConsentVerificationResult_Canceled: UserConsentVerificationResult = 6
 class UserConsentVerifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Security.Credentials.UI.UserConsentVerifier'
     @winrt_classmethod
     def CheckAvailabilityAsync(cls: Windows.Security.Credentials.UI.IUserConsentVerifierStatics) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.UserConsentVerifierAvailability]: ...
     @winrt_classmethod

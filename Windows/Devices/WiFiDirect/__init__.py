@@ -195,6 +195,7 @@ class IWiFiDirectLegacySettings(ComPtr):
     Passphrase = property(get_Passphrase, put_Passphrase)
 class WiFiDirectAdvertisement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectAdvertisement
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisement'
     @winrt_mixinmethod
     def get_InformationElements(self: Windows.Devices.WiFiDirect.IWiFiDirectAdvertisement) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectInformationElement]: ...
@@ -223,6 +224,7 @@ WiFiDirectAdvertisementListenStateDiscoverability_Normal: WiFiDirectAdvertisemen
 WiFiDirectAdvertisementListenStateDiscoverability_Intensive: WiFiDirectAdvertisementListenStateDiscoverability = 2
 class WiFiDirectAdvertisementPublisher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisher
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher: ...
@@ -247,6 +249,7 @@ WiFiDirectAdvertisementPublisherStatus_Stopped: WiFiDirectAdvertisementPublisher
 WiFiDirectAdvertisementPublisherStatus_Aborted: WiFiDirectAdvertisementPublisherStatus = 3
 class WiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisherStatusChangedEventArgs
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisherStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisherStatusChangedEventArgs) -> Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisherStatus: ...
@@ -260,6 +263,7 @@ WiFiDirectConfigurationMethod_DisplayPin: WiFiDirectConfigurationMethod = 1
 WiFiDirectConfigurationMethod_PushButton: WiFiDirectConfigurationMethod = 2
 class WiFiDirectConnectionListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionListener'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.WiFiDirect.WiFiDirectConnectionListener: ...
@@ -269,6 +273,7 @@ class WiFiDirectConnectionListener(ComPtr):
     def remove_ConnectionRequested(self: Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class WiFiDirectConnectionParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectConnectionParameters
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters: ...
@@ -289,6 +294,7 @@ class WiFiDirectConnectionParameters(ComPtr):
     PreferredPairingProcedure = property(get_PreferredPairingProcedure, put_PreferredPairingProcedure)
 class WiFiDirectConnectionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectConnectionRequest
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest'
     @winrt_mixinmethod
     def get_DeviceInformation(self: Windows.Devices.WiFiDirect.IWiFiDirectConnectionRequest) -> Windows.Devices.Enumeration.DeviceInformation: ...
@@ -297,6 +303,7 @@ class WiFiDirectConnectionRequest(ComPtr):
     DeviceInformation = property(get_DeviceInformation, None)
 class WiFiDirectConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectConnectionRequestedEventArgs
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionRequestedEventArgs'
     @winrt_mixinmethod
     def GetConnectionRequest(self: Windows.Devices.WiFiDirect.IWiFiDirectConnectionRequestedEventArgs) -> Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest: ...
@@ -305,6 +312,7 @@ WiFiDirectConnectionStatus_Disconnected: WiFiDirectConnectionStatus = 0
 WiFiDirectConnectionStatus_Connected: WiFiDirectConnectionStatus = 1
 class WiFiDirectDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectDevice
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectDevice'
     @winrt_mixinmethod
     def get_ConnectionStatus(self: Windows.Devices.WiFiDirect.IWiFiDirectDevice) -> Windows.Devices.WiFiDirect.WiFiDirectConnectionStatus: ...
@@ -337,6 +345,7 @@ WiFiDirectError_RadioNotAvailable: WiFiDirectError = 1
 WiFiDirectError_ResourceInUse: WiFiDirectError = 2
 class WiFiDirectInformationElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectInformationElement
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectInformationElement'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.WiFiDirect.WiFiDirectInformationElement: ...
@@ -361,6 +370,7 @@ class WiFiDirectInformationElement(ComPtr):
     Value = property(get_Value, put_Value)
 class WiFiDirectLegacySettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Devices.WiFiDirect.IWiFiDirectLegacySettings
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectLegacySettings'
     @winrt_mixinmethod
     def get_IsEnabled(self: Windows.Devices.WiFiDirect.IWiFiDirectLegacySettings) -> Boolean: ...

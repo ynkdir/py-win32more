@@ -22,7 +22,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class BackgroundEnergyDiagnostics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics'
     @winrt_classmethod
     def get_DeviceSpecificConversionFactor(cls: Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics) -> Double: ...
     @winrt_classmethod
@@ -32,7 +31,6 @@ class BackgroundEnergyDiagnostics(ComPtr):
     DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
 class ForegroundEnergyDiagnostics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics'
     @winrt_classmethod
     def get_DeviceSpecificConversionFactor(cls: Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics) -> Double: ...
     @winrt_classmethod

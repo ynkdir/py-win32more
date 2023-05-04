@@ -54,7 +54,6 @@ class IThreadPoolTimerStatics(ComPtr):
     def CreateTimerWithCompletion(self, handler: Windows.System.Threading.TimerElapsedHandler, delay: Windows.Foundation.TimeSpan, destroyed: Windows.System.Threading.TimerDestroyedHandler) -> Windows.System.Threading.ThreadPoolTimer: ...
 class ThreadPool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.System.Threading.ThreadPool'
     @winrt_classmethod
     def RunAsync(cls: Windows.System.Threading.IThreadPoolStatics, handler: Windows.System.Threading.WorkItemHandler) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -63,6 +62,7 @@ class ThreadPool(ComPtr):
     def RunWithPriorityAndOptionsAsync(cls: Windows.System.Threading.IThreadPoolStatics, handler: Windows.System.Threading.WorkItemHandler, priority: Windows.System.Threading.WorkItemPriority, options: Windows.System.Threading.WorkItemOptions) -> Windows.Foundation.IAsyncAction: ...
 class ThreadPoolTimer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.System.Threading.IThreadPoolTimer
     _classid_ = 'Windows.System.Threading.ThreadPoolTimer'
     @winrt_mixinmethod
     def get_Period(self: Windows.System.Threading.IThreadPoolTimer) -> Windows.Foundation.TimeSpan: ...

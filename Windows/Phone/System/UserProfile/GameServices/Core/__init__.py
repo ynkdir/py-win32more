@@ -24,7 +24,6 @@ def __getattr__(name):
     return getattr(_module, name)
 class GameService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Phone.System.UserProfile.GameServices.Core.GameService'
     @winrt_classmethod
     def NotifyPartnerTokenExpired(cls: Windows.Phone.System.UserProfile.GameServices.Core.IGameService2, audienceUri: Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
@@ -53,6 +52,7 @@ GameServiceGameOutcome_Loss: GameServiceGameOutcome = 2
 GameServiceGameOutcome_Tie: GameServiceGameOutcome = 3
 class GameServicePropertyCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Phone.System.UserProfile.GameServices.Core.IGameServicePropertyCollection
     _classid_ = 'Windows.Phone.System.UserProfile.GameServices.Core.GameServicePropertyCollection'
     @winrt_mixinmethod
     def GetPropertyAsync(self: Windows.Phone.System.UserProfile.GameServices.Core.IGameServicePropertyCollection, propertyName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Win32.System.WinRT.IInspectable_head]: ...

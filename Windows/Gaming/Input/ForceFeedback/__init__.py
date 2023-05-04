@@ -24,6 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ConditionForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.ConditionForceEffect'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Gaming.Input.ForceFeedback.IConditionForceEffectFactory, effectKind: Windows.Gaming.Input.ForceFeedback.ConditionForceEffectKind) -> Windows.Gaming.Input.ForceFeedback.ConditionForceEffect: ...
@@ -51,6 +52,7 @@ ConditionForceEffectKind_Inertia: ConditionForceEffectKind = 2
 ConditionForceEffectKind_Friction: ConditionForceEffectKind = 3
 class ConstantForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.ConstantForceEffect'
     @winrt_activatemethod
     def New(cls) -> Windows.Gaming.Input.ForceFeedback.ConstantForceEffect: ...
@@ -86,6 +88,7 @@ ForceFeedbackLoadEffectResult_EffectStorageFull: ForceFeedbackLoadEffectResult =
 ForceFeedbackLoadEffectResult_EffectNotSupported: ForceFeedbackLoadEffectResult = 2
 class ForceFeedbackMotor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.ForceFeedback.IForceFeedbackMotor
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor'
     @winrt_mixinmethod
     def get_AreEffectsPaused(self: Windows.Gaming.Input.ForceFeedback.IForceFeedbackMotor) -> Boolean: ...
@@ -209,6 +212,7 @@ class IRampForceEffect(ComPtr):
     def SetParametersWithEnvelope(self, startVector: Windows.Foundation.Numerics.Vector3, endVector: Windows.Foundation.Numerics.Vector3, attackGain: Single, sustainGain: Single, releaseGain: Single, startDelay: Windows.Foundation.TimeSpan, attackDuration: Windows.Foundation.TimeSpan, sustainDuration: Windows.Foundation.TimeSpan, releaseDuration: Windows.Foundation.TimeSpan, repeatCount: UInt32) -> Void: ...
 class PeriodicForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Gaming.Input.ForceFeedback.IPeriodicForceEffectFactory, effectKind: Windows.Gaming.Input.ForceFeedback.PeriodicForceEffectKind) -> Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect: ...
@@ -239,6 +243,7 @@ PeriodicForceEffectKind_SawtoothWaveUp: PeriodicForceEffectKind = 3
 PeriodicForceEffectKind_SawtoothWaveDown: PeriodicForceEffectKind = 4
 class RampForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
+    default_interface: Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.RampForceEffect'
     @winrt_activatemethod
     def New(cls) -> Windows.Gaming.Input.ForceFeedback.RampForceEffect: ...
