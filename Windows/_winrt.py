@@ -283,7 +283,7 @@ def _get_type_signature(cls) -> str:
         piid_guid = str(cls._iid_)
         args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
         return f"pinterface({piid_guid};{args})"
-    elif issubclass(cls, ComPtr) and hasattr(cls, "_iid_"):
+    elif issubclass(cls, ComPtr) and "_iid_" in cls.__dict__:
         return str(cls._iid_)
     elif issubclass(cls, ComPtr):
         default_interface = cls._hints_["default_interface"]
