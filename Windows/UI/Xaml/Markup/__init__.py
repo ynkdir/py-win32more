@@ -253,8 +253,8 @@ class MarkupExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Markup.IMarkupExtension
     _classid_ = 'Windows.UI.Xaml.Markup.MarkupExtension'
-    @winrt_commethod(6)
-    def ProvideValue(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_mixinmethod
+    def ProvideValue(self: Windows.UI.Xaml.Markup.IMarkupExtensionOverrides) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class XamlBinaryWriter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Markup.IXamlBinaryWriter

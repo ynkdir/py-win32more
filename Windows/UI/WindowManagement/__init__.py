@@ -184,8 +184,8 @@ class AppWindowPresentationConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.WindowManagement.IAppWindowPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.AppWindowPresentationConfiguration'
-    @winrt_commethod(6)
-    def get_Kind(self) -> Windows.UI.WindowManagement.AppWindowPresentationKind: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.UI.WindowManagement.IAppWindowPresentationConfiguration) -> Windows.UI.WindowManagement.AppWindowPresentationKind: ...
     Kind = property(get_Kind, None)
 AppWindowPresentationKind = Int32
 AppWindowPresentationKind_Default: AppWindowPresentationKind = 0

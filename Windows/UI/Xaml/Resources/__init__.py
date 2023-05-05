@@ -24,8 +24,8 @@ class CustomXamlResourceLoader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Resources.ICustomXamlResourceLoader
     _classid_ = 'Windows.UI.Xaml.Resources.CustomXamlResourceLoader'
-    @winrt_commethod(6)
-    def GetResource(self, resourceId: WinRT_String, objectType: WinRT_String, propertyName: WinRT_String, propertyType: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_mixinmethod
+    def GetResource(self: Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderOverrides, resourceId: WinRT_String, objectType: WinRT_String, propertyName: WinRT_String, propertyType: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_classmethod
     def get_Current(cls: Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderStatics) -> Windows.UI.Xaml.Resources.CustomXamlResourceLoader: ...
     @winrt_classmethod

@@ -1309,6 +1309,7 @@ class PyGenerator:
                     writer.write(self.winrt_factorymethod(factory, md))
             else:
                 writer.write(self.winrt_activatemethod(td))
+        # FIXME: How to implement class property?
         properties: dict[str, dict[str, str | None]] = defaultdict(lambda: {"get": None, "put": None})
         for md in td.method_definitions:
             if md.name == ".ctor":
@@ -1340,7 +1341,17 @@ class PyGenerator:
         return ", ".join(ca.fixed_arguments[0].value for ca in td.custom_attributes.get_static())
 
     def com_get_interface_for_method(self, td: TypeDefinition, method_name: str) -> str:
-        for ii in td.interface_implementations:
+        def sortkey(ii):
+            if ii.custom_attributes.has_default():
+                return (0, ii.fullname)
+            name = ii.fullname
+            name = re.sub(r"`\d+$", "", name)  # strip generic name
+            m = re.match(r"^(.*?)(\d+)$", name)  # version from name IClass123
+            if m:
+                return (int(m.group(2)), m.group(1))
+            else:
+                return (1, ii.fullname)
+        for ii in sorted(td.interface_implementations, key=sortkey):
             td_interface = ii["_typedef"]
             for md in td_interface.method_definitions:
                 if md.custom_attributes.has_overload():
@@ -1378,7 +1389,7 @@ class PyGenerator:
             writer.write(f"    @winrt_classmethod\n")
             interface = self.com_get_static_for_method(td, method_name)
             params.insert(0, f"cls: {interface}")
-        elif "Sealed" in td.attributes:
+        elif "Abstract" not in td.attributes:
             writer.write(f"    @winrt_mixinmethod\n")
             interface = self.com_get_interface_for_method(td, method_name)
             params.insert(0, f"self: {interface}")

@@ -31,8 +31,8 @@ class AttachableInputObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Input.IAttachableInputObject
     _classid_ = 'Windows.UI.Input.AttachableInputObject'
-    @winrt_commethod(6)
-    def Close(self) -> Void: ...
+    @winrt_mixinmethod
+    def Close(self: Windows.Foundation.IClosable) -> Void: ...
 class CrossSlideThresholds(EasyCastStructure):
     SelectionStart: Single
     SpeedBumpStart: Single
