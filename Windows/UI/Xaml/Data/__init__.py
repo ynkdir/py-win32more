@@ -28,6 +28,8 @@ class Binding(ComPtr):
     extends: Windows.UI.Xaml.Data.BindingBase
     default_interface: Windows.UI.Xaml.Data.IBinding
     _classid_ = 'Windows.UI.Xaml.Data.Binding'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Data.IBindingFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.Binding: ...
     @winrt_mixinmethod
     def get_Path(self: Windows.UI.Xaml.Data.IBinding) -> Windows.UI.Xaml.PropertyPath: ...
     @winrt_mixinmethod
@@ -87,6 +89,8 @@ class BindingBase(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Data.IBindingBase
     _classid_ = 'Windows.UI.Xaml.Data.BindingBase'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Data.IBindingBaseFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.BindingBase: ...
 class BindingExpression(ComPtr):
     extends: Windows.UI.Xaml.Data.BindingExpressionBase
     default_interface: Windows.UI.Xaml.Data.IBindingExpression
@@ -118,7 +122,7 @@ class CollectionViewSource(ComPtr):
     default_interface: Windows.UI.Xaml.Data.ICollectionViewSource
     _classid_ = 'Windows.UI.Xaml.Data.CollectionViewSource'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Data.CollectionViewSource: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Data.CollectionViewSource: ...
     @winrt_mixinmethod
     def get_Source(self: Windows.UI.Xaml.Data.ICollectionViewSource) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -153,6 +157,10 @@ class CurrentChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Data.ICurrentChangingEventArgs
     _classid_ = 'Windows.UI.Xaml.Data.CurrentChangingEventArgs'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Data.ICurrentChangingEventArgsFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.CurrentChangingEventArgs: ...
+    @winrt_factorymethod
+    def CreateWithCancelableParameter(cls: Windows.UI.Xaml.Data.ICurrentChangingEventArgsFactory, isCancelable: Boolean, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.CurrentChangingEventArgs: ...
     @winrt_mixinmethod
     def get_Cancel(self: Windows.UI.Xaml.Data.ICurrentChangingEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -529,6 +537,8 @@ class ItemIndexRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Data.IItemIndexRange
     _classid_ = 'Windows.UI.Xaml.Data.ItemIndexRange'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Data.IItemIndexRangeFactory, firstIndex: Int32, length: UInt32, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.ItemIndexRange: ...
     @winrt_mixinmethod
     def get_FirstIndex(self: Windows.UI.Xaml.Data.IItemIndexRange) -> Int32: ...
     @winrt_mixinmethod
@@ -544,6 +554,8 @@ class PropertyChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Data.IPropertyChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Data.PropertyChangedEventArgs'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Data.IPropertyChangedEventArgsFactory, name: WinRT_String, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.PropertyChangedEventArgs: ...
     @winrt_mixinmethod
     def get_PropertyName(self: Windows.UI.Xaml.Data.IPropertyChangedEventArgs) -> WinRT_String: ...
     PropertyName = property(get_PropertyName, None)
@@ -557,6 +569,8 @@ class RelativeSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Data.IRelativeSource
     _classid_ = 'Windows.UI.Xaml.Data.RelativeSource'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Data.IRelativeSourceFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Data.RelativeSource: ...
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Xaml.Data.IRelativeSource) -> Windows.UI.Xaml.Data.RelativeSourceMode: ...
     @winrt_mixinmethod

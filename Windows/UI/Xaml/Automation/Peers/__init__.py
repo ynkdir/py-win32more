@@ -35,6 +35,8 @@ class AppBarAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IAppBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IAppBarAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.AppBar, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.AppBarAutomationPeer: ...
     @winrt_mixinmethod
     def get_ToggleState(self: Windows.UI.Xaml.Automation.Provider.IToggleProvider) -> Windows.UI.Xaml.Automation.ToggleState: ...
     @winrt_mixinmethod
@@ -75,6 +77,8 @@ class AppBarButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IAppBarButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarButtonAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IAppBarButtonAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.AppBarButton, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.AppBarButtonAutomationPeer: ...
     @winrt_mixinmethod
     def get_ExpandCollapseState(self: Windows.UI.Xaml.Automation.Provider.IExpandCollapseProvider) -> Windows.UI.Xaml.Automation.ExpandCollapseState: ...
     @winrt_mixinmethod
@@ -86,6 +90,8 @@ class AppBarToggleButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IAppBarToggleButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarToggleButtonAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IAppBarToggleButtonAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.AppBarToggleButton, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.AppBarToggleButtonAutomationPeer: ...
 class AutoSuggestBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IAutoSuggestBoxAutomationPeer
@@ -215,6 +221,8 @@ class AutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Automation.Peers.IAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutomationPeer'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Automation.Peers.IAutomationPeerFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.AutomationPeer: ...
     @winrt_mixinmethod
     def get_EventsSource(self: Windows.UI.Xaml.Automation.Peers.IAutomationPeer) -> Windows.UI.Xaml.Automation.Peers.AutomationPeer: ...
     @winrt_mixinmethod
@@ -431,7 +439,7 @@ class AutomationPeerAnnotation(ComPtr):
     default_interface: Windows.UI.Xaml.Automation.Peers.IAutomationPeerAnnotation
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation: ...
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.Automation.Peers.IAutomationPeerAnnotationFactory, type: Windows.UI.Xaml.Automation.AnnotationType) -> Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation: ...
     @winrt_factorymethod
@@ -463,16 +471,22 @@ class ButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IButtonAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Button, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer: ...
     @winrt_mixinmethod
     def Invoke(self: Windows.UI.Xaml.Automation.Provider.IInvokeProvider) -> Void: ...
 class ButtonBaseAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IButtonBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IButtonBaseAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.ButtonBase, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer: ...
 class CalendarDatePickerAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ICalendarDatePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CalendarDatePickerAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ICalendarDatePickerAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.CalendarDatePicker, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.CalendarDatePickerAutomationPeer: ...
     @winrt_mixinmethod
     def Invoke(self: Windows.UI.Xaml.Automation.Provider.IInvokeProvider) -> Void: ...
     @winrt_mixinmethod
@@ -487,22 +501,32 @@ class CaptureElementAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ICaptureElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CaptureElementAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ICaptureElementAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.CaptureElement, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.CaptureElementAutomationPeer: ...
 class CheckBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ICheckBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CheckBoxAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ICheckBoxAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.CheckBox, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.CheckBoxAutomationPeer: ...
 class ColorPickerSliderAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IColorPickerSliderAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ColorPickerSliderAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IColorPickerSliderAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ColorPickerSliderAutomationPeer: ...
 class ColorSpectrumAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IColorSpectrumAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ColorSpectrumAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IColorSpectrumAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.ColorSpectrum, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ColorSpectrumAutomationPeer: ...
 class ComboBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IComboBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IComboBoxAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ComboBox, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer: ...
     @winrt_mixinmethod
     def get_IsReadOnly(self: Windows.UI.Xaml.Automation.Provider.IValueProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -546,16 +570,22 @@ class ComboBoxItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IComboBoxItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IComboBoxItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ComboBoxItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ComboBoxItemAutomationPeer: ...
 class ComboBoxItemDataAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IComboBoxItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxItemDataAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithParentAndItem(cls: Windows.UI.Xaml.Automation.Peers.IComboBoxItemDataAutomationPeerFactory, item: Windows.Win32.System.WinRT.IInspectable_head, parent: Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ComboBoxItemDataAutomationPeer: ...
     @winrt_mixinmethod
     def ScrollIntoView(self: Windows.UI.Xaml.Automation.Provider.IScrollItemProvider) -> Void: ...
 class DatePickerAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IDatePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.DatePickerAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IDatePickerAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.DatePicker, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.DatePickerAutomationPeer: ...
 class DatePickerFlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IDatePickerFlyoutPresenterAutomationPeer
@@ -564,24 +594,34 @@ class FlipViewAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IFlipViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IFlipViewAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.FlipView, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer: ...
 class FlipViewItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IFlipViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IFlipViewItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.FlipViewItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.FlipViewItemAutomationPeer: ...
 class FlipViewItemDataAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IFlipViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewItemDataAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithParentAndItem(cls: Windows.UI.Xaml.Automation.Peers.IFlipViewItemDataAutomationPeerFactory, item: Windows.Win32.System.WinRT.IInspectable_head, parent: Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.FlipViewItemDataAutomationPeer: ...
     @winrt_mixinmethod
     def ScrollIntoView(self: Windows.UI.Xaml.Automation.Provider.IScrollItemProvider) -> Void: ...
 class FlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IFlyoutPresenterAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlyoutPresenterAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IFlyoutPresenterAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.FlyoutPresenter, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.FlyoutPresenterAutomationPeer: ...
 class FrameworkElementAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.AutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IFrameworkElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IFrameworkElementAutomationPeerFactory, owner: Windows.UI.Xaml.FrameworkElement, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer: ...
     @winrt_mixinmethod
     def get_Owner(self: Windows.UI.Xaml.Automation.Peers.IFrameworkElementAutomationPeer) -> Windows.UI.Xaml.UIElement: ...
     @winrt_classmethod
@@ -593,38 +633,54 @@ class GridViewAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IGridViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IGridViewAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.GridView, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer: ...
 class GridViewHeaderItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IGridViewHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewHeaderItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IGridViewHeaderItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.GridViewHeaderItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.GridViewHeaderItemAutomationPeer: ...
 class GridViewItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IGridViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IGridViewItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.GridViewItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.GridViewItemAutomationPeer: ...
 class GridViewItemDataAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IGridViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewItemDataAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithParentAndItem(cls: Windows.UI.Xaml.Automation.Peers.IGridViewItemDataAutomationPeerFactory, item: Windows.Win32.System.WinRT.IInspectable_head, parent: Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.GridViewItemDataAutomationPeer: ...
     @winrt_mixinmethod
     def ScrollIntoView(self: Windows.UI.Xaml.Automation.Provider.IScrollItemProvider) -> Void: ...
 class GroupItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IGroupItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GroupItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IGroupItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.GroupItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.GroupItemAutomationPeer: ...
 class HubAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IHubAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HubAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IHubAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Hub, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.HubAutomationPeer: ...
 class HubSectionAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IHubSectionAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HubSectionAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IHubSectionAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.HubSection, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.HubSectionAutomationPeer: ...
     @winrt_mixinmethod
     def ScrollIntoView(self: Windows.UI.Xaml.Automation.Provider.IScrollItemProvider) -> Void: ...
 class HyperlinkButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IHyperlinkButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HyperlinkButtonAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IHyperlinkButtonAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.HyperlinkButton, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.HyperlinkButtonAutomationPeer: ...
     @winrt_mixinmethod
     def Invoke(self: Windows.UI.Xaml.Automation.Provider.IInvokeProvider) -> Void: ...
 class IAppBarAutomationPeer(ComPtr):
@@ -1815,6 +1871,8 @@ class ImageAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IImageAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ImageAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IImageAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Image, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ImageAutomationPeer: ...
 class InkToolbarAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IInkToolbarAutomationPeer
@@ -1823,6 +1881,8 @@ class ItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.AutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithParentAndItem(cls: Windows.UI.Xaml.Automation.Peers.IItemAutomationPeerFactory, item: Windows.Win32.System.WinRT.IInspectable_head, parent: Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer: ...
     @winrt_mixinmethod
     def get_Item(self: Windows.UI.Xaml.Automation.Peers.IItemAutomationPeer) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -1835,6 +1895,8 @@ class ItemsControlAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IItemsControlAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IItemsControlAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ItemsControl, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer: ...
     @winrt_mixinmethod
     def CreateItemAutomationPeer(self: Windows.UI.Xaml.Automation.Peers.IItemsControlAutomationPeer2, item: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer: ...
     @winrt_mixinmethod
@@ -1845,14 +1907,20 @@ class ListBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IListBoxAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ListBox, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer: ...
 class ListBoxItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListBoxItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IListBoxItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ListBoxItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListBoxItemAutomationPeer: ...
 class ListBoxItemDataAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListBoxItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxItemDataAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithParentAndItem(cls: Windows.UI.Xaml.Automation.Peers.IListBoxItemDataAutomationPeerFactory, item: Windows.Win32.System.WinRT.IInspectable_head, parent: Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListBoxItemDataAutomationPeer: ...
     @winrt_mixinmethod
     def ScrollIntoView(self: Windows.UI.Xaml.Automation.Provider.IScrollItemProvider) -> Void: ...
 class ListPickerFlyoutPresenterAutomationPeer(ComPtr):
@@ -1863,10 +1931,14 @@ class ListViewAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IListViewAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ListView, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListViewAutomationPeer: ...
 class ListViewBaseAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListViewBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IListViewBaseAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ListViewBase, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer: ...
     @winrt_mixinmethod
     def get_DropEffect(self: Windows.UI.Xaml.Automation.Provider.IDropTargetProvider) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1877,18 +1949,26 @@ class ListViewBaseHeaderItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListViewBaseHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IListViewBaseHeaderItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ListViewBaseHeaderItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer: ...
 class ListViewHeaderItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListViewHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewHeaderItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IListViewHeaderItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ListViewHeaderItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListViewHeaderItemAutomationPeer: ...
 class ListViewItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IListViewItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ListViewItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer: ...
 class ListViewItemDataAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IListViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewItemDataAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithParentAndItem(cls: Windows.UI.Xaml.Automation.Peers.IListViewItemDataAutomationPeerFactory, item: Windows.Win32.System.WinRT.IInspectable_head, parent: Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ListViewItemDataAutomationPeer: ...
     @winrt_mixinmethod
     def ScrollIntoView(self: Windows.UI.Xaml.Automation.Provider.IScrollItemProvider) -> Void: ...
 class LoopingSelectorAutomationPeer(ComPtr):
@@ -2019,22 +2099,32 @@ class MediaElementAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IMediaElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaElementAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IMediaElementAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.MediaElement, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.MediaElementAutomationPeer: ...
 class MediaPlayerElementAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IMediaPlayerElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaPlayerElementAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IMediaPlayerElementAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.MediaPlayerElement, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.MediaPlayerElementAutomationPeer: ...
 class MediaTransportControlsAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IMediaTransportControlsAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaTransportControlsAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IMediaTransportControlsAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.MediaTransportControls, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.MediaTransportControlsAutomationPeer: ...
 class MenuBarAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IMenuBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuBarAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Automation.Peers.IMenuBarAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.MenuBar, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.MenuBarAutomationPeer: ...
 class MenuBarItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IMenuBarItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuBarItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Automation.Peers.IMenuBarItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.MenuBarItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.MenuBarItemAutomationPeer: ...
     @winrt_mixinmethod
     def get_ExpandCollapseState(self: Windows.UI.Xaml.Automation.Provider.IExpandCollapseProvider) -> Windows.UI.Xaml.Automation.ExpandCollapseState: ...
     @winrt_mixinmethod
@@ -2048,20 +2138,28 @@ class MenuFlyoutItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IMenuFlyoutItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuFlyoutItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IMenuFlyoutItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.MenuFlyoutItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.MenuFlyoutItemAutomationPeer: ...
     @winrt_mixinmethod
     def Invoke(self: Windows.UI.Xaml.Automation.Provider.IInvokeProvider) -> Void: ...
 class MenuFlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IMenuFlyoutPresenterAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuFlyoutPresenterAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IMenuFlyoutPresenterAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.MenuFlyoutPresenter, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.MenuFlyoutPresenterAutomationPeer: ...
 class NavigationViewItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.INavigationViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.NavigationViewItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.INavigationViewItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.NavigationViewItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.NavigationViewItemAutomationPeer: ...
 class PasswordBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IPasswordBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IPasswordBoxAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.PasswordBox, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer: ...
 PatternInterface = Int32
 PatternInterface_Invoke: PatternInterface = 0
 PatternInterface_Selection: PatternInterface = 1
@@ -2101,6 +2199,8 @@ class PersonPictureAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IPersonPictureAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PersonPictureAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IPersonPictureAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.PersonPicture, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.PersonPictureAutomationPeer: ...
 class PickerFlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IPickerFlyoutPresenterAutomationPeer
@@ -2173,14 +2273,20 @@ class ProgressBarAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IProgressBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ProgressBarAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IProgressBarAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ProgressBar, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ProgressBarAutomationPeer: ...
 class ProgressRingAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IProgressRingAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ProgressRingAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IProgressRingAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ProgressRing, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ProgressRingAutomationPeer: ...
 class RadioButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IRadioButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RadioButtonAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IRadioButtonAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.RadioButton, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.RadioButtonAutomationPeer: ...
     @winrt_mixinmethod
     def get_IsSelected(self: Windows.UI.Xaml.Automation.Provider.ISelectionItemProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -2197,6 +2303,8 @@ class RangeBaseAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IRangeBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IRangeBaseAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.RangeBase, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer: ...
     @winrt_mixinmethod
     def get_IsReadOnly(self: Windows.UI.Xaml.Automation.Provider.IRangeValueProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -2221,6 +2329,8 @@ class RatingControlAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IRatingControlAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IRatingControlAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.RatingControl, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer: ...
 class RawElementProviderRuntimeId(EasyCastStructure):
     Part1: UInt32
     Part2: UInt32
@@ -2228,28 +2338,40 @@ class RepeatButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IRepeatButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RepeatButtonAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IRepeatButtonAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.RepeatButton, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.RepeatButtonAutomationPeer: ...
     @winrt_mixinmethod
     def Invoke(self: Windows.UI.Xaml.Automation.Provider.IInvokeProvider) -> Void: ...
 class RichEditBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IRichEditBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichEditBoxAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IRichEditBoxAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.RichEditBox, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.RichEditBoxAutomationPeer: ...
 class RichTextBlockAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IRichTextBlockAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichTextBlockAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IRichTextBlockAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.RichTextBlock, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.RichTextBlockAutomationPeer: ...
 class RichTextBlockOverflowAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IRichTextBlockOverflowAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichTextBlockOverflowAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IRichTextBlockOverflowAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.RichTextBlockOverflow, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.RichTextBlockOverflowAutomationPeer: ...
 class ScrollBarAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IScrollBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IScrollBarAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.ScrollBar, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer: ...
 class ScrollViewerAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IScrollViewerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ScrollViewerAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IScrollViewerAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ScrollViewer, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ScrollViewerAutomationPeer: ...
     @winrt_mixinmethod
     def get_HorizontallyScrollable(self: Windows.UI.Xaml.Automation.Provider.IScrollProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -2276,10 +2398,14 @@ class SearchBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ISearchBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SearchBoxAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ISearchBoxAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.SearchBox, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.SearchBoxAutomationPeer: ...
 class SelectorAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ISelectorAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ISelectorAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.Selector, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer: ...
     @winrt_mixinmethod
     def get_CanSelectMultiple(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -2292,6 +2418,8 @@ class SelectorItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ISelectorItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithParentAndItem(cls: Windows.UI.Xaml.Automation.Peers.ISelectorItemAutomationPeerFactory, item: Windows.Win32.System.WinRT.IInspectable_head, parent: Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer: ...
     @winrt_mixinmethod
     def get_IsSelected(self: Windows.UI.Xaml.Automation.Provider.ISelectionItemProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -2308,6 +2436,8 @@ class SemanticZoomAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ISemanticZoomAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SemanticZoomAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ISemanticZoomAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.SemanticZoom, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.SemanticZoomAutomationPeer: ...
     @winrt_mixinmethod
     def get_ToggleState(self: Windows.UI.Xaml.Automation.Provider.IToggleProvider) -> Windows.UI.Xaml.Automation.ToggleState: ...
     @winrt_mixinmethod
@@ -2317,26 +2447,38 @@ class SettingsFlyoutAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ISettingsFlyoutAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SettingsFlyoutAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ISettingsFlyoutAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.SettingsFlyout, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.SettingsFlyoutAutomationPeer: ...
 class SliderAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ISliderAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ISliderAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Slider, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer: ...
 class TextBlockAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ITextBlockAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TextBlockAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ITextBlockAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.TextBlock, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.TextBlockAutomationPeer: ...
 class TextBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ITextBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TextBoxAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ITextBoxAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.TextBox, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.TextBoxAutomationPeer: ...
 class ThumbAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IThumbAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ThumbAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IThumbAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.Thumb, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ThumbAutomationPeer: ...
 class TimePickerAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ITimePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TimePickerAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ITimePickerAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.TimePicker, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.TimePickerAutomationPeer: ...
 class TimePickerFlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ITimePickerFlyoutPresenterAutomationPeer
@@ -2345,6 +2487,8 @@ class ToggleButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IToggleButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IToggleButtonAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Primitives.ToggleButton, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer: ...
     @winrt_mixinmethod
     def get_ToggleState(self: Windows.UI.Xaml.Automation.Provider.IToggleProvider) -> Windows.UI.Xaml.Automation.ToggleState: ...
     @winrt_mixinmethod
@@ -2354,6 +2498,8 @@ class ToggleMenuFlyoutItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IToggleMenuFlyoutItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleMenuFlyoutItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IToggleMenuFlyoutItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ToggleMenuFlyoutItemAutomationPeer: ...
     @winrt_mixinmethod
     def get_ToggleState(self: Windows.UI.Xaml.Automation.Provider.IToggleProvider) -> Windows.UI.Xaml.Automation.ToggleState: ...
     @winrt_mixinmethod
@@ -2363,6 +2509,8 @@ class ToggleSwitchAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.IToggleSwitchAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleSwitchAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IToggleSwitchAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.ToggleSwitch, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.ToggleSwitchAutomationPeer: ...
     @winrt_mixinmethod
     def get_ToggleState(self: Windows.UI.Xaml.Automation.Provider.IToggleProvider) -> Windows.UI.Xaml.Automation.ToggleState: ...
     @winrt_mixinmethod
@@ -2372,6 +2520,8 @@ class TreeViewItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ITreeViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TreeViewItemAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ITreeViewItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.TreeViewItem, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.TreeViewItemAutomationPeer: ...
     @winrt_mixinmethod
     def get_ExpandCollapseState(self: Windows.UI.Xaml.Automation.Provider.IExpandCollapseProvider) -> Windows.UI.Xaml.Automation.ExpandCollapseState: ...
     @winrt_mixinmethod
@@ -2383,6 +2533,8 @@ class TreeViewListAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: Windows.UI.Xaml.Automation.Peers.ITreeViewListAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TreeViewListAutomationPeer'
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.ITreeViewListAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.TreeViewList, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Automation.Peers.TreeViewListAutomationPeer: ...
 make_head(_module, 'AppBarAutomationPeer')
 make_head(_module, 'AppBarButtonAutomationPeer')
 make_head(_module, 'AppBarToggleButtonAutomationPeer')

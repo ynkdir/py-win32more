@@ -33,7 +33,7 @@ class BitmapImage(ComPtr):
     default_interface: Windows.UI.Xaml.Media.Imaging.IBitmapImage
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapImage'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Media.Imaging.BitmapImage: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Media.Imaging.BitmapImage: ...
     @winrt_factorymethod
     def CreateInstanceWithUriSource(cls: Windows.UI.Xaml.Media.Imaging.IBitmapImageFactory, uriSource: Windows.Foundation.Uri) -> Windows.UI.Xaml.Media.Imaging.BitmapImage: ...
     @winrt_mixinmethod
@@ -116,6 +116,8 @@ class BitmapSource(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
     default_interface: Windows.UI.Xaml.Media.Imaging.IBitmapSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapSource'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Media.Imaging.IBitmapSourceFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.BitmapSource: ...
     @winrt_mixinmethod
     def get_PixelWidth(self: Windows.UI.Xaml.Media.Imaging.IBitmapSource) -> Int32: ...
     @winrt_mixinmethod
@@ -448,7 +450,7 @@ class RenderTargetBitmap(ComPtr):
     default_interface: Windows.UI.Xaml.Media.Imaging.IRenderTargetBitmap
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap: ...
     @winrt_mixinmethod
     def get_PixelWidth(self: Windows.UI.Xaml.Media.Imaging.IRenderTargetBitmap) -> Int32: ...
     @winrt_mixinmethod
@@ -472,7 +474,7 @@ class SoftwareBitmapSource(ComPtr):
     default_interface: Windows.UI.Xaml.Media.Imaging.ISoftwareBitmapSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource: ...
     @winrt_mixinmethod
     def SetBitmapAsync(self: Windows.UI.Xaml.Media.Imaging.ISoftwareBitmapSource, softwareBitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -481,10 +483,18 @@ class SurfaceImageSource(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
     default_interface: Windows.UI.Xaml.Media.Imaging.ISurfaceImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SurfaceImageSource'
+    @winrt_factorymethod
+    def CreateInstanceWithDimensions(cls: Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
+    @winrt_factorymethod
+    def CreateInstanceWithDimensionsAndOpacity(cls: Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
 class SvgImageSource(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
     default_interface: Windows.UI.Xaml.Media.Imaging.ISvgImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SvgImageSource'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
+    @winrt_factorymethod
+    def CreateInstanceWithUriSource(cls: Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory, uriSource: Windows.Foundation.Uri, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
     @winrt_mixinmethod
     def get_UriSource(self: Windows.UI.Xaml.Media.Imaging.ISvgImageSource) -> Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -558,6 +568,8 @@ class XamlRenderingBackgroundTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTask
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask: ...
     @winrt_mixinmethod
     def OnRun(self: Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskOverrides, taskInstance: Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> Void: ...
 make_head(_module, 'BitmapImage')

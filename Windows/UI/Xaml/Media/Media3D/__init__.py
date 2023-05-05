@@ -26,7 +26,7 @@ class CompositeTransform3D(ComPtr):
     default_interface: Windows.UI.Xaml.Media.Media3D.ICompositeTransform3D
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.CompositeTransform3D'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Media.Media3D.CompositeTransform3D: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Media.Media3D.CompositeTransform3D: ...
     @winrt_mixinmethod
     def get_CenterX(self: Windows.UI.Xaml.Media.Media3D.ICompositeTransform3D) -> Double: ...
     @winrt_mixinmethod
@@ -329,7 +329,7 @@ class PerspectiveTransform3D(ComPtr):
     default_interface: Windows.UI.Xaml.Media.Media3D.IPerspectiveTransform3D
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.PerspectiveTransform3D'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Media.Media3D.PerspectiveTransform3D: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Media.Media3D.PerspectiveTransform3D: ...
     @winrt_mixinmethod
     def get_Depth(self: Windows.UI.Xaml.Media.Media3D.IPerspectiveTransform3D) -> Double: ...
     @winrt_mixinmethod
@@ -358,6 +358,8 @@ class Transform3D(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.Media3D.ITransform3D
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.Transform3D'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Media.Media3D.ITransform3DFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Media3D.Transform3D: ...
 make_head(_module, 'CompositeTransform3D')
 make_head(_module, 'ICompositeTransform3D')
 make_head(_module, 'ICompositeTransform3DStatics')

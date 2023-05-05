@@ -296,13 +296,13 @@ class CompactOverlayPresentationConfiguration(ComPtr):
     default_interface: Windows.UI.WindowManagement.ICompactOverlayPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration: ...
+    def CreateInstance(cls) -> Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration: ...
 class DefaultPresentationConfiguration(ComPtr):
     extends: Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: Windows.UI.WindowManagement.IDefaultPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.DefaultPresentationConfiguration'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.WindowManagement.DefaultPresentationConfiguration: ...
+    def CreateInstance(cls) -> Windows.UI.WindowManagement.DefaultPresentationConfiguration: ...
 class DisplayRegion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.WindowManagement.IDisplayRegion
@@ -331,7 +331,7 @@ class FullScreenPresentationConfiguration(ComPtr):
     default_interface: Windows.UI.WindowManagement.IFullScreenPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.FullScreenPresentationConfiguration'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.WindowManagement.FullScreenPresentationConfiguration: ...
+    def CreateInstance(cls) -> Windows.UI.WindowManagement.FullScreenPresentationConfiguration: ...
     @winrt_mixinmethod
     def get_IsExclusive(self: Windows.UI.WindowManagement.IFullScreenPresentationConfiguration) -> Boolean: ...
     @winrt_mixinmethod

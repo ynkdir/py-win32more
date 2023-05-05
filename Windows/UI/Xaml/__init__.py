@@ -47,6 +47,8 @@ class AdaptiveTrigger(ComPtr):
     extends: Windows.UI.Xaml.StateTriggerBase
     default_interface: Windows.UI.Xaml.IAdaptiveTrigger
     _classid_ = 'Windows.UI.Xaml.AdaptiveTrigger'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IAdaptiveTriggerFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.AdaptiveTrigger: ...
     @winrt_mixinmethod
     def get_MinWindowWidth(self: Windows.UI.Xaml.IAdaptiveTrigger) -> Double: ...
     @winrt_mixinmethod
@@ -67,6 +69,8 @@ class Application(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IApplication
     _classid_ = 'Windows.UI.Xaml.Application'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IApplicationFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Application: ...
     @winrt_mixinmethod
     def get_Resources(self: Windows.UI.Xaml.IApplication) -> Windows.UI.Xaml.ResourceDictionary: ...
     @winrt_mixinmethod
@@ -224,7 +228,7 @@ class BringIntoViewOptions(ComPtr):
     default_interface: Windows.UI.Xaml.IBringIntoViewOptions
     _classid_ = 'Windows.UI.Xaml.BringIntoViewOptions'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.BringIntoViewOptions: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.BringIntoViewOptions: ...
     @winrt_mixinmethod
     def get_AnimationDesired(self: Windows.UI.Xaml.IBringIntoViewOptions) -> Boolean: ...
     @winrt_mixinmethod
@@ -299,6 +303,8 @@ class BrushTransition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IBrushTransition
     _classid_ = 'Windows.UI.Xaml.BrushTransition'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IBrushTransitionFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.BrushTransition: ...
     @winrt_mixinmethod
     def get_Duration(self: Windows.UI.Xaml.IBrushTransition) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -308,6 +314,8 @@ class ColorPaletteResources(ComPtr):
     extends: Windows.UI.Xaml.ResourceDictionary
     default_interface: Windows.UI.Xaml.IColorPaletteResources
     _classid_ = 'Windows.UI.Xaml.ColorPaletteResources'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IColorPaletteResourcesFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.ColorPaletteResources: ...
     @winrt_mixinmethod
     def get_AltHigh(self: Windows.UI.Xaml.IColorPaletteResources) -> Windows.Foundation.IReference[Windows.UI.Color]: ...
     @winrt_mixinmethod
@@ -478,6 +486,8 @@ class DataTemplate(ComPtr):
     extends: Windows.UI.Xaml.FrameworkTemplate
     default_interface: Windows.UI.Xaml.IDataTemplate
     _classid_ = 'Windows.UI.Xaml.DataTemplate'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IDataTemplateFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.DataTemplate: ...
     @winrt_mixinmethod
     def LoadContent(self: Windows.UI.Xaml.IDataTemplate) -> Windows.UI.Xaml.DependencyObject: ...
     @winrt_mixinmethod
@@ -495,6 +505,10 @@ class DataTemplateKey(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IDataTemplateKey
     _classid_ = 'Windows.UI.Xaml.DataTemplateKey'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IDataTemplateKeyFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.DataTemplateKey: ...
+    @winrt_factorymethod
+    def CreateInstanceWithType(cls: Windows.UI.Xaml.IDataTemplateKeyFactory, dataType: Windows.Win32.System.WinRT.IInspectable_head, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.DataTemplateKey: ...
     @winrt_mixinmethod
     def get_DataType(self: Windows.UI.Xaml.IDataTemplateKey) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -542,6 +556,8 @@ class DependencyObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IDependencyObject
     _classid_ = 'Windows.UI.Xaml.DependencyObject'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IDependencyObjectFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.DependencyObject: ...
     @winrt_mixinmethod
     def GetValue(self: Windows.UI.Xaml.IDependencyObject, dp: Windows.UI.Xaml.DependencyProperty) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -563,6 +579,8 @@ class DependencyObjectCollection(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.Foundation.Collections.IObservableVector[Windows.UI.Xaml.DependencyObject]
     _classid_ = 'Windows.UI.Xaml.DependencyObjectCollection'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IDependencyObjectCollectionFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.DependencyObjectCollection: ...
     @winrt_mixinmethod
     def add_VectorChanged(self: Windows.Foundation.Collections.IObservableVector[Windows.UI.Xaml.DependencyObject], vhnd: Windows.Foundation.Collections.VectorChangedEventHandler[Windows.UI.Xaml.DependencyObject]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -636,6 +654,8 @@ class DispatcherTimer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IDispatcherTimer
     _classid_ = 'Windows.UI.Xaml.DispatcherTimer'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IDispatcherTimerFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.DispatcherTimer: ...
     @winrt_mixinmethod
     def get_Interval(self: Windows.UI.Xaml.IDispatcherTimer) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -827,6 +847,8 @@ class ElementFactoryGetArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IElementFactoryGetArgs
     _classid_ = 'Windows.UI.Xaml.ElementFactoryGetArgs'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IElementFactoryGetArgsFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.ElementFactoryGetArgs: ...
     @winrt_mixinmethod
     def get_Data(self: Windows.UI.Xaml.IElementFactoryGetArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -841,6 +863,8 @@ class ElementFactoryRecycleArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IElementFactoryRecycleArgs
     _classid_ = 'Windows.UI.Xaml.ElementFactoryRecycleArgs'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IElementFactoryRecycleArgsFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.ElementFactoryRecycleArgs: ...
     @winrt_mixinmethod
     def get_Element(self: Windows.UI.Xaml.IElementFactoryRecycleArgs) -> Windows.UI.Xaml.UIElement: ...
     @winrt_mixinmethod
@@ -911,7 +935,7 @@ class EventTrigger(ComPtr):
     default_interface: Windows.UI.Xaml.IEventTrigger
     _classid_ = 'Windows.UI.Xaml.EventTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.EventTrigger: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.EventTrigger: ...
     @winrt_mixinmethod
     def get_RoutedEvent(self: Windows.UI.Xaml.IEventTrigger) -> Windows.UI.Xaml.RoutedEvent: ...
     @winrt_mixinmethod
@@ -994,6 +1018,8 @@ class FrameworkElement(ComPtr):
     extends: Windows.UI.Xaml.UIElement
     default_interface: Windows.UI.Xaml.IFrameworkElement
     _classid_ = 'Windows.UI.Xaml.FrameworkElement'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IFrameworkElementFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.FrameworkElement: ...
     @winrt_mixinmethod
     def get_Triggers(self: Windows.UI.Xaml.IFrameworkElement) -> Windows.UI.Xaml.TriggerCollection: ...
     @winrt_mixinmethod
@@ -1267,12 +1293,14 @@ class FrameworkTemplate(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IFrameworkTemplate
     _classid_ = 'Windows.UI.Xaml.FrameworkTemplate'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IFrameworkTemplateFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.FrameworkTemplate: ...
 class FrameworkView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IFrameworkView
     _classid_ = 'Windows.UI.Xaml.FrameworkView'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.FrameworkView: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.FrameworkView: ...
     @winrt_mixinmethod
     def Initialize(self: Windows.ApplicationModel.Core.IFrameworkView, applicationView: Windows.ApplicationModel.Core.CoreApplicationView) -> Void: ...
     @winrt_mixinmethod
@@ -1288,7 +1316,7 @@ class FrameworkViewSource(ComPtr):
     default_interface: Windows.UI.Xaml.IFrameworkViewSource
     _classid_ = 'Windows.UI.Xaml.FrameworkViewSource'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.FrameworkViewSource: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.FrameworkViewSource: ...
     @winrt_mixinmethod
     def CreateView(self: Windows.ApplicationModel.Core.IFrameworkViewSource) -> Windows.ApplicationModel.Core.IFrameworkView: ...
 class GridLength(EasyCastStructure):
@@ -4029,6 +4057,10 @@ class PropertyMetadata(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IPropertyMetadata
     _classid_ = 'Windows.UI.Xaml.PropertyMetadata'
+    @winrt_factorymethod
+    def CreateInstanceWithDefaultValue(cls: Windows.UI.Xaml.IPropertyMetadataFactory, defaultValue: Windows.Win32.System.WinRT.IInspectable_head, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.PropertyMetadata: ...
+    @winrt_factorymethod
+    def CreateInstanceWithDefaultValueAndCallback(cls: Windows.UI.Xaml.IPropertyMetadataFactory, defaultValue: Windows.Win32.System.WinRT.IInspectable_head, propertyChangedCallback: Windows.UI.Xaml.PropertyChangedCallback, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.PropertyMetadata: ...
     @winrt_mixinmethod
     def get_DefaultValue(self: Windows.UI.Xaml.IPropertyMetadata) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -4089,6 +4121,8 @@ class ResourceDictionary(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IResourceDictionary
     _classid_ = 'Windows.UI.Xaml.ResourceDictionary'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IResourceDictionaryFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.ResourceDictionary: ...
     @winrt_mixinmethod
     def get_Source(self: Windows.UI.Xaml.IResourceDictionary) -> Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -4125,6 +4159,8 @@ class RoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IRoutedEventArgs
     _classid_ = 'Windows.UI.Xaml.RoutedEventArgs'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IRoutedEventArgsFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.RoutedEventArgs: ...
     @winrt_mixinmethod
     def get_OriginalSource(self: Windows.UI.Xaml.IRoutedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     OriginalSource = property(get_OriginalSource, None)
@@ -4138,6 +4174,8 @@ class ScalarTransition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IScalarTransition
     _classid_ = 'Windows.UI.Xaml.ScalarTransition'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IScalarTransitionFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.ScalarTransition: ...
     @winrt_mixinmethod
     def get_Duration(self: Windows.UI.Xaml.IScalarTransition) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -4150,7 +4188,7 @@ class Setter(ComPtr):
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.ISetterFactory, targetProperty: Windows.UI.Xaml.DependencyProperty, value: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.UI.Xaml.Setter: ...
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Setter: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Setter: ...
     @winrt_mixinmethod
     def get_Property(self: Windows.UI.Xaml.ISetter) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_mixinmethod
@@ -4178,7 +4216,7 @@ class SetterBaseCollection(ComPtr):
     default_interface: Windows.UI.Xaml.ISetterBaseCollection
     _classid_ = 'Windows.UI.Xaml.SetterBaseCollection'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.SetterBaseCollection: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.SetterBaseCollection: ...
     @winrt_mixinmethod
     def get_IsSealed(self: Windows.UI.Xaml.ISetterBaseCollection) -> Boolean: ...
     @winrt_mixinmethod
@@ -4243,7 +4281,7 @@ class StateTrigger(ComPtr):
     default_interface: Windows.UI.Xaml.IStateTrigger
     _classid_ = 'Windows.UI.Xaml.StateTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.StateTrigger: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.StateTrigger: ...
     @winrt_mixinmethod
     def get_IsActive(self: Windows.UI.Xaml.IStateTrigger) -> Boolean: ...
     @winrt_mixinmethod
@@ -4256,6 +4294,8 @@ class StateTriggerBase(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IStateTriggerBase
     _classid_ = 'Windows.UI.Xaml.StateTriggerBase'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IStateTriggerBaseFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.StateTriggerBase: ...
     @winrt_mixinmethod
     def SetActive(self: Windows.UI.Xaml.IStateTriggerBaseProtected, IsActive: Boolean) -> Void: ...
 class Style(ComPtr):
@@ -4263,7 +4303,7 @@ class Style(ComPtr):
     default_interface: Windows.UI.Xaml.IStyle
     _classid_ = 'Windows.UI.Xaml.Style'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Style: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Style: ...
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.IStyleFactory, targetType: Windows.UI.Xaml.Interop.TypeName) -> Windows.UI.Xaml.Style: ...
     @winrt_mixinmethod
@@ -4297,7 +4337,7 @@ class TargetPropertyPath(ComPtr):
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.ITargetPropertyPathFactory, targetProperty: Windows.UI.Xaml.DependencyProperty) -> Windows.UI.Xaml.TargetPropertyPath: ...
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.TargetPropertyPath: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.TargetPropertyPath: ...
     @winrt_mixinmethod
     def get_Path(self: Windows.UI.Xaml.ITargetPropertyPath) -> Windows.UI.Xaml.PropertyPath: ...
     @winrt_mixinmethod
@@ -4356,7 +4396,7 @@ class TriggerActionCollection(ComPtr):
     default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.TriggerAction]
     _classid_ = 'Windows.UI.Xaml.TriggerActionCollection'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.TriggerActionCollection: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.TriggerActionCollection: ...
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.TriggerAction], index: UInt32) -> Windows.UI.Xaml.TriggerAction: ...
     @winrt_mixinmethod
@@ -5135,6 +5175,8 @@ class UIElementWeakCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IUIElementWeakCollection
     _classid_ = 'Windows.UI.Xaml.UIElementWeakCollection'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IUIElementWeakCollectionFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.UIElementWeakCollection: ...
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.UIElement], index: UInt32) -> Windows.UI.Xaml.UIElement: ...
     @winrt_mixinmethod
@@ -5187,6 +5229,8 @@ class Vector3Transition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IVector3Transition
     _classid_ = 'Windows.UI.Xaml.Vector3Transition'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IVector3TransitionFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Vector3Transition: ...
     @winrt_mixinmethod
     def get_Duration(self: Windows.UI.Xaml.IVector3Transition) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -5214,7 +5258,7 @@ class VisualState(ComPtr):
     default_interface: Windows.UI.Xaml.IVisualState
     _classid_ = 'Windows.UI.Xaml.VisualState'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.VisualState: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.VisualState: ...
     @winrt_mixinmethod
     def get_Name(self: Windows.UI.Xaml.IVisualState) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -5234,7 +5278,7 @@ class VisualStateChangedEventArgs(ComPtr):
     default_interface: Windows.UI.Xaml.IVisualStateChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.VisualStateChangedEventArgs'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.VisualStateChangedEventArgs: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.VisualStateChangedEventArgs: ...
     @winrt_mixinmethod
     def get_OldState(self: Windows.UI.Xaml.IVisualStateChangedEventArgs) -> Windows.UI.Xaml.VisualState: ...
     @winrt_mixinmethod
@@ -5261,7 +5305,7 @@ class VisualStateGroup(ComPtr):
     default_interface: Windows.UI.Xaml.IVisualStateGroup
     _classid_ = 'Windows.UI.Xaml.VisualStateGroup'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.VisualStateGroup: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.VisualStateGroup: ...
     @winrt_mixinmethod
     def get_Name(self: Windows.UI.Xaml.IVisualStateGroup) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -5286,6 +5330,8 @@ class VisualStateManager(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IVisualStateManager
     _classid_ = 'Windows.UI.Xaml.VisualStateManager'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IVisualStateManagerFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.VisualStateManager: ...
     @winrt_mixinmethod
     def RaiseCurrentStateChanging(self: Windows.UI.Xaml.IVisualStateManagerProtected, stateGroup: Windows.UI.Xaml.VisualStateGroup, oldState: Windows.UI.Xaml.VisualState, newState: Windows.UI.Xaml.VisualState, control: Windows.UI.Xaml.Controls.Control) -> Void: ...
     @winrt_mixinmethod
@@ -5307,6 +5353,8 @@ class VisualTransition(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IVisualTransition
     _classid_ = 'Windows.UI.Xaml.VisualTransition'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.IVisualTransitionFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.VisualTransition: ...
     @winrt_mixinmethod
     def get_GeneratedDuration(self: Windows.UI.Xaml.IVisualTransition) -> Windows.UI.Xaml.Duration: ...
     @winrt_mixinmethod

@@ -31,6 +31,8 @@ class Block(ComPtr):
     extends: Windows.UI.Xaml.Documents.TextElement
     default_interface: Windows.UI.Xaml.Documents.IBlock
     _classid_ = 'Windows.UI.Xaml.Documents.Block'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Documents.IBlockFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Documents.Block: ...
     @winrt_mixinmethod
     def get_TextAlignment(self: Windows.UI.Xaml.Documents.IBlock) -> Windows.UI.Xaml.TextAlignment: ...
     @winrt_mixinmethod
@@ -107,19 +109,19 @@ class Bold(ComPtr):
     default_interface: Windows.UI.Xaml.Documents.IBold
     _classid_ = 'Windows.UI.Xaml.Documents.Bold'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.Bold: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.Bold: ...
 class ContactContentLinkProvider(ComPtr):
     extends: Windows.UI.Xaml.Documents.ContentLinkProvider
     default_interface: Windows.UI.Xaml.Documents.IContactContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.ContactContentLinkProvider'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.ContactContentLinkProvider: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.ContactContentLinkProvider: ...
 class ContentLink(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
     default_interface: Windows.UI.Xaml.Documents.IContentLink
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLink'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.ContentLink: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.ContentLink: ...
     @winrt_mixinmethod
     def get_Info(self: Windows.UI.Xaml.Documents.IContentLink) -> Windows.UI.Text.ContentLinkInfo: ...
     @winrt_mixinmethod
@@ -265,12 +267,14 @@ class ContentLinkProvider(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Documents.IContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProvider'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Documents.IContentLinkProviderFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Documents.ContentLinkProvider: ...
 class ContentLinkProviderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Documents.IContentLinkProviderCollection
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProviderCollection'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.ContentLinkProviderCollection: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.ContentLinkProviderCollection: ...
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Documents.ContentLinkProvider], index: UInt32) -> Windows.UI.Xaml.Documents.ContentLinkProvider: ...
     @winrt_mixinmethod
@@ -303,7 +307,7 @@ class Glyphs(ComPtr):
     default_interface: Windows.UI.Xaml.Documents.IGlyphs
     _classid_ = 'Windows.UI.Xaml.Documents.Glyphs'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.Glyphs: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.Glyphs: ...
     @winrt_mixinmethod
     def get_UnicodeString(self: Windows.UI.Xaml.Documents.IGlyphs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -389,7 +393,7 @@ class Hyperlink(ComPtr):
     default_interface: Windows.UI.Xaml.Documents.IHyperlink
     _classid_ = 'Windows.UI.Xaml.Documents.Hyperlink'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.Hyperlink: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.Hyperlink: ...
     @winrt_mixinmethod
     def get_NavigateUri(self: Windows.UI.Xaml.Documents.IHyperlink) -> Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -1703,6 +1707,8 @@ class Inline(ComPtr):
     extends: Windows.UI.Xaml.Documents.TextElement
     default_interface: Windows.UI.Xaml.Documents.IInline
     _classid_ = 'Windows.UI.Xaml.Documents.Inline'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Documents.IInlineFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Documents.Inline: ...
 class InlineCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Documents.Inline]
@@ -1739,7 +1745,7 @@ class InlineUIContainer(ComPtr):
     default_interface: Windows.UI.Xaml.Documents.IInlineUIContainer
     _classid_ = 'Windows.UI.Xaml.Documents.InlineUIContainer'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.InlineUIContainer: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.InlineUIContainer: ...
     @winrt_mixinmethod
     def get_Child(self: Windows.UI.Xaml.Documents.IInlineUIContainer) -> Windows.UI.Xaml.UIElement: ...
     @winrt_mixinmethod
@@ -1750,13 +1756,13 @@ class Italic(ComPtr):
     default_interface: Windows.UI.Xaml.Documents.IItalic
     _classid_ = 'Windows.UI.Xaml.Documents.Italic'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.Italic: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.Italic: ...
 class LineBreak(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
     default_interface: Windows.UI.Xaml.Documents.ILineBreak
     _classid_ = 'Windows.UI.Xaml.Documents.LineBreak'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.LineBreak: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.LineBreak: ...
 LogicalDirection = Int32
 LogicalDirection_Backward: LogicalDirection = 0
 LogicalDirection_Forward: LogicalDirection = 1
@@ -1765,7 +1771,7 @@ class Paragraph(ComPtr):
     default_interface: Windows.UI.Xaml.Documents.IParagraph
     _classid_ = 'Windows.UI.Xaml.Documents.Paragraph'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.Paragraph: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.Paragraph: ...
     @winrt_mixinmethod
     def get_Inlines(self: Windows.UI.Xaml.Documents.IParagraph) -> Windows.UI.Xaml.Documents.InlineCollection: ...
     @winrt_mixinmethod
@@ -1782,13 +1788,13 @@ class PlaceContentLinkProvider(ComPtr):
     default_interface: Windows.UI.Xaml.Documents.IPlaceContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.PlaceContentLinkProvider'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.PlaceContentLinkProvider: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.PlaceContentLinkProvider: ...
 class Run(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
     default_interface: Windows.UI.Xaml.Documents.IRun
     _classid_ = 'Windows.UI.Xaml.Documents.Run'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.Run: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.Run: ...
     @winrt_mixinmethod
     def get_Text(self: Windows.UI.Xaml.Documents.IRun) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1806,6 +1812,8 @@ class Span(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
     default_interface: Windows.UI.Xaml.Documents.ISpan
     _classid_ = 'Windows.UI.Xaml.Documents.Span'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Documents.ISpanFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Documents.Span: ...
     @winrt_mixinmethod
     def get_Inlines(self: Windows.UI.Xaml.Documents.ISpan) -> Windows.UI.Xaml.Documents.InlineCollection: ...
     @winrt_mixinmethod
@@ -1999,6 +2007,8 @@ class TextHighlighter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Documents.ITextHighlighter
     _classid_ = 'Windows.UI.Xaml.Documents.TextHighlighter'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Documents.ITextHighlighterFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Documents.TextHighlighter: ...
     @winrt_mixinmethod
     def get_Ranges(self: Windows.UI.Xaml.Documents.ITextHighlighter) -> Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Documents.TextRange]: ...
     @winrt_mixinmethod
@@ -2355,7 +2365,7 @@ class Underline(ComPtr):
     default_interface: Windows.UI.Xaml.Documents.IUnderline
     _classid_ = 'Windows.UI.Xaml.Documents.Underline'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Documents.Underline: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Documents.Underline: ...
 UnderlineStyle = Int32
 UnderlineStyle_None: UnderlineStyle = 0
 UnderlineStyle_Single: UnderlineStyle = 1

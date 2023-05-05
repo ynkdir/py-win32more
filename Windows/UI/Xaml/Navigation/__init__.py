@@ -28,6 +28,8 @@ class FrameNavigationOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Navigation.IFrameNavigationOptions
     _classid_ = 'Windows.UI.Xaml.Navigation.FrameNavigationOptions'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Navigation.IFrameNavigationOptionsFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Navigation.FrameNavigationOptions: ...
     @winrt_mixinmethod
     def get_IsNavigationStackEnabled(self: Windows.UI.Xaml.Navigation.IFrameNavigationOptions) -> Boolean: ...
     @winrt_mixinmethod

@@ -132,6 +132,8 @@ class NotifyCollectionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs'
+    @winrt_factorymethod
+    def CreateInstanceWithAllParameters(cls: Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgsFactory, action: Windows.UI.Xaml.Interop.NotifyCollectionChangedAction, newItems: Windows.UI.Xaml.Interop.IBindableVector, oldItems: Windows.UI.Xaml.Interop.IBindableVector, newIndex: Int32, oldIndex: Int32, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs: ...
     @winrt_mixinmethod
     def get_Action(self: Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgs) -> Windows.UI.Xaml.Interop.NotifyCollectionChangedAction: ...
     @winrt_mixinmethod

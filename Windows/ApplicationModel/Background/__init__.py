@@ -118,7 +118,7 @@ class ApplicationTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IApplicationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ApplicationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.ApplicationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ApplicationTrigger: ...
     @winrt_mixinmethod
     def RequestAsync(self: Windows.ApplicationModel.Background.IApplicationTrigger) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.ApplicationTriggerResult]: ...
     @winrt_mixinmethod
@@ -140,7 +140,7 @@ class AppointmentStoreNotificationTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IAppointmentStoreNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger: ...
 BackgroundAccessRequestKind = Int32
 BackgroundAccessRequestKind_AlwaysAllowed: BackgroundAccessRequestKind = 0
 BackgroundAccessRequestKind_AllowedSubjectToSystemPolicy: BackgroundAccessRequestKind = 1
@@ -182,7 +182,7 @@ class BackgroundTaskBuilder(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBackgroundTaskBuilder
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskBuilder'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.BackgroundTaskBuilder: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.BackgroundTaskBuilder: ...
     @winrt_mixinmethod
     def put_TaskEntryPoint(self: Windows.ApplicationModel.Background.IBackgroundTaskBuilder, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -346,7 +346,7 @@ class BluetoothLEAdvertisementPublisherTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger
     _classid_ = 'Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger: ...
     @winrt_mixinmethod
     def get_Advertisement(self: Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement: ...
     @winrt_mixinmethod
@@ -375,7 +375,7 @@ class BluetoothLEAdvertisementWatcherTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger
     _classid_ = 'Windows.ApplicationModel.Background.BluetoothLEAdvertisementWatcherTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.BluetoothLEAdvertisementWatcherTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.BluetoothLEAdvertisementWatcherTrigger: ...
     @winrt_mixinmethod
     def get_MinSamplingInterval(self: Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -408,7 +408,7 @@ class CachedFileUpdaterTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.ICachedFileUpdaterTrigger
     _classid_ = 'Windows.ApplicationModel.Background.CachedFileUpdaterTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.CachedFileUpdaterTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.CachedFileUpdaterTrigger: ...
 class CachedFileUpdaterTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.ICachedFileUpdaterTriggerDetails
@@ -427,31 +427,31 @@ class ChatMessageNotificationTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IChatMessageNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ChatMessageNotificationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.ChatMessageNotificationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ChatMessageNotificationTrigger: ...
 class ChatMessageReceivedNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IChatMessageReceivedNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ChatMessageReceivedNotificationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.ChatMessageReceivedNotificationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ChatMessageReceivedNotificationTrigger: ...
 class CommunicationBlockingAppSetAsActiveTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.ICommunicationBlockingAppSetAsActiveTrigger
     _classid_ = 'Windows.ApplicationModel.Background.CommunicationBlockingAppSetAsActiveTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.CommunicationBlockingAppSetAsActiveTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.CommunicationBlockingAppSetAsActiveTrigger: ...
 class ContactStoreNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IContactStoreNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ContactStoreNotificationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.ContactStoreNotificationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ContactStoreNotificationTrigger: ...
 class ContentPrefetchTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IContentPrefetchTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ContentPrefetchTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.ContentPrefetchTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ContentPrefetchTrigger: ...
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Background.IContentPrefetchTriggerFactory, waitInterval: Windows.Foundation.TimeSpan) -> Windows.ApplicationModel.Background.ContentPrefetchTrigger: ...
     @winrt_mixinmethod
@@ -462,7 +462,7 @@ class ConversationalAgentTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ConversationalAgentTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.ConversationalAgentTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ConversationalAgentTrigger: ...
 class CustomSystemEventTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.ICustomSystemEventTrigger
@@ -512,7 +512,7 @@ class DeviceServicingTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IDeviceServicingTrigger
     _classid_ = 'Windows.ApplicationModel.Background.DeviceServicingTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.DeviceServicingTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.DeviceServicingTrigger: ...
     @winrt_mixinmethod
     def RequestAsyncSimple(self: Windows.ApplicationModel.Background.IDeviceServicingTrigger, deviceId: WinRT_String, expectedDuration: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
     @winrt_mixinmethod
@@ -527,7 +527,7 @@ class DeviceUseTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IDeviceUseTrigger
     _classid_ = 'Windows.ApplicationModel.Background.DeviceUseTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.DeviceUseTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.DeviceUseTrigger: ...
     @winrt_mixinmethod
     def RequestAsyncSimple(self: Windows.ApplicationModel.Background.IDeviceUseTrigger, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
     @winrt_mixinmethod
@@ -541,7 +541,7 @@ class EmailStoreNotificationTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IEmailStoreNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.EmailStoreNotificationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.EmailStoreNotificationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.EmailStoreNotificationTrigger: ...
 class GattCharacteristicNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IGattCharacteristicNotificationTrigger
@@ -588,7 +588,7 @@ class GeovisitTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IGeovisitTrigger
     _classid_ = 'Windows.ApplicationModel.Background.GeovisitTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.GeovisitTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.GeovisitTrigger: ...
     @winrt_mixinmethod
     def get_MonitoringScope(self: Windows.ApplicationModel.Background.IGeovisitTrigger) -> Windows.Devices.Geolocation.VisitMonitoringScope: ...
     @winrt_mixinmethod
@@ -1447,7 +1447,7 @@ class MediaProcessingTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IMediaProcessingTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MediaProcessingTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.MediaProcessingTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.MediaProcessingTrigger: ...
     @winrt_mixinmethod
     def RequestAsync(self: Windows.ApplicationModel.Background.IMediaProcessingTrigger) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.MediaProcessingTriggerResult]: ...
     @winrt_mixinmethod
@@ -1462,43 +1462,43 @@ class MobileBroadbandDeviceServiceNotificationTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandDeviceServiceNotificationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.MobileBroadbandDeviceServiceNotificationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.MobileBroadbandDeviceServiceNotificationTrigger: ...
 class MobileBroadbandPcoDataChangeTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandPcoDataChangeTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.MobileBroadbandPcoDataChangeTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.MobileBroadbandPcoDataChangeTrigger: ...
 class MobileBroadbandPinLockStateChangeTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandPinLockStateChangeTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.MobileBroadbandPinLockStateChangeTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.MobileBroadbandPinLockStateChangeTrigger: ...
 class MobileBroadbandRadioStateChangeTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandRadioStateChangeTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.MobileBroadbandRadioStateChangeTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.MobileBroadbandRadioStateChangeTrigger: ...
 class MobileBroadbandRegistrationStateChangeTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandRegistrationStateChangeTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.MobileBroadbandRegistrationStateChangeTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.MobileBroadbandRegistrationStateChangeTrigger: ...
 class NetworkOperatorDataUsageTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.NetworkOperatorDataUsageTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.NetworkOperatorDataUsageTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.NetworkOperatorDataUsageTrigger: ...
 class NetworkOperatorHotspotAuthenticationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.INetworkOperatorHotspotAuthenticationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.NetworkOperatorHotspotAuthenticationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.NetworkOperatorHotspotAuthenticationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.NetworkOperatorHotspotAuthenticationTrigger: ...
 class NetworkOperatorNotificationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.INetworkOperatorNotificationTrigger
@@ -1513,7 +1513,7 @@ class PaymentAppCanMakePaymentTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.PaymentAppCanMakePaymentTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.PaymentAppCanMakePaymentTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.PaymentAppCanMakePaymentTrigger: ...
 class PhoneTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IPhoneTrigger
@@ -1531,7 +1531,7 @@ class PushNotificationTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.PushNotificationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.PushNotificationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.PushNotificationTrigger: ...
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Background.IPushNotificationTriggerFactory, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.PushNotificationTrigger: ...
 class RcsEndUserMessageAvailableTrigger(ComPtr):
@@ -1539,13 +1539,13 @@ class RcsEndUserMessageAvailableTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IRcsEndUserMessageAvailableTrigger
     _classid_ = 'Windows.ApplicationModel.Background.RcsEndUserMessageAvailableTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.RcsEndUserMessageAvailableTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.RcsEndUserMessageAvailableTrigger: ...
 class RfcommConnectionTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IRfcommConnectionTrigger
     _classid_ = 'Windows.ApplicationModel.Background.RfcommConnectionTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.RfcommConnectionTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.RfcommConnectionTrigger: ...
     @winrt_mixinmethod
     def get_InboundConnection(self: Windows.ApplicationModel.Background.IRfcommConnectionTrigger) -> Windows.Devices.Bluetooth.Background.RfcommInboundConnectionInformation: ...
     @winrt_mixinmethod
@@ -1572,7 +1572,7 @@ class SecondaryAuthenticationFactorAuthenticationTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.ISecondaryAuthenticationFactorAuthenticationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger: ...
 class SensorDataThresholdTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.ISensorDataThresholdTrigger
@@ -1599,7 +1599,7 @@ class SocketActivityTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.SocketActivityTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.SocketActivityTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.SocketActivityTrigger: ...
     @winrt_mixinmethod
     def get_IsWakeFromLowPowerSupported(self: Windows.ApplicationModel.Background.ISocketActivityTrigger) -> Boolean: ...
     IsWakeFromLowPowerSupported = property(get_IsWakeFromLowPowerSupported, None)
@@ -1670,7 +1670,7 @@ class TetheringEntitlementCheckTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.TetheringEntitlementCheckTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.TetheringEntitlementCheckTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.TetheringEntitlementCheckTrigger: ...
 class TimeTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.ITimeTrigger
@@ -1690,13 +1690,13 @@ class ToastNotificationActionTrigger(ComPtr):
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Background.IToastNotificationActionTriggerFactory, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.ToastNotificationActionTrigger: ...
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.ToastNotificationActionTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ToastNotificationActionTrigger: ...
 class ToastNotificationHistoryChangedTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Background.IToastNotificationHistoryChangedTriggerFactory, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
 class UserNotificationChangedTrigger(ComPtr):
@@ -1710,13 +1710,13 @@ class WiFiOnDemandHotspotConnectTrigger(ComPtr):
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.WiFiOnDemandHotspotConnectTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.WiFiOnDemandHotspotConnectTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.WiFiOnDemandHotspotConnectTrigger: ...
 class WiFiOnDemandHotspotUpdateMetadataTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.WiFiOnDemandHotspotUpdateMetadataTrigger'
     @winrt_activatemethod
-    def New(cls) -> Windows.ApplicationModel.Background.WiFiOnDemandHotspotUpdateMetadataTrigger: ...
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.WiFiOnDemandHotspotUpdateMetadataTrigger: ...
 make_head(_module, 'ActivitySensorTrigger')
 make_head(_module, 'AlarmApplicationManager')
 make_head(_module, 'AppBroadcastTrigger')

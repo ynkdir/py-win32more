@@ -79,6 +79,8 @@ class DesktopWindowXamlSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource
     _classid_ = 'Windows.UI.Xaml.Hosting.DesktopWindowXamlSource'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Hosting.DesktopWindowXamlSource: ...
     @winrt_mixinmethod
     def get_Content(self: Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource) -> Windows.UI.Xaml.UIElement: ...
     @winrt_mixinmethod

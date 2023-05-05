@@ -22,7 +22,7 @@ class TestWinrtStringMap(unittest.TestCase):
         RoUninitialize()
 
     def test_stringmap(self):
-        m = StringMap.New()
+        m = StringMap.CreateInstance()
 
         m.Insert("key1", "value1")
         self.assertEqual(m.Lookup("key1"), "value1")

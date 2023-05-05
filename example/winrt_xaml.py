@@ -10,9 +10,6 @@ from ctypes import (
 from Windows import (
     FAILED,
 )
-from Windows._winrt import (
-    _ro_get_activation_factory,
-)
 from Windows.UI import (
     Colors,
 )
@@ -24,11 +21,11 @@ from Windows.UI.Xaml import (
 )
 from Windows.UI.Xaml.Controls import (
     IPanel,
-    IStackPanelFactory,
-    ITextBoxFactory,
+    StackPanel,
+    TextBox,
 )
 from Windows.UI.Xaml.Hosting import (
-    IDesktopWindowXamlSourceFactory,
+    DesktopWindowXamlSource,
     WindowsXamlManager,
 )
 from Windows.UI.Xaml.Media import (
@@ -89,29 +86,6 @@ IDI_APPLICATION = 1
 _hWnd = None
 
 
-def CreateDesktopWindowXamlSource():
-    factory = _ro_get_activation_factory(
-        "Windows.UI.Xaml.Hosting.DesktopWindowXamlSource", IDesktopWindowXamlSourceFactory
-    )
-    obj = factory.CreateInstance(None, None)
-    factory.Release()
-    return obj
-
-
-def CreateStackPanel():
-    factory = _ro_get_activation_factory("Windows.UI.Xaml.Controls.StackPanel", IStackPanelFactory)
-    obj = factory.CreateInstance(None, None)
-    factory.Release()
-    return obj
-
-
-def CreateTextBox():
-    factory = _ro_get_activation_factory("Windows.UI.Xaml.Controls.TextBox", ITextBoxFactory)
-    obj = factory.CreateInstance(None, None)
-    factory.Release()
-    return obj
-
-
 def WinMain():
     global _hWnd
 
@@ -165,7 +139,7 @@ def WinMain():
 
     # This DesktopWindowXamlSource is the object that enables a non-UWP desktop application
     # to host WinRT XAML controls in any UI element that is associated with a window handle (HWND).
-    desktopSource = CreateDesktopWindowXamlSource()
+    desktopSource = DesktopWindowXamlSource.CreateInstance(None, None)
 
     # Get handle to the core window.
     interop = IDesktopWindowXamlSourceNative()
@@ -190,7 +164,7 @@ def WinMain():
     SetWindowPos(hWndXamlIsland, 0, 200, 100, 800, 200, SWP_SHOWWINDOW)
 
     # Create the XAML content.
-    xamlContainer = CreateStackPanel()
+    xamlContainer = StackPanel.CreateInstance(None, None)
     panel = IPanel()
     hr = xamlContainer.QueryInterface(IPanel._iid_, panel)
     if FAILED(hr):
@@ -202,7 +176,7 @@ def WinMain():
     brush = SolidColorBrush.CreateInstanceWithColor(Colors.get_LightGray())
     panel.Background = brush
 
-    tb = CreateTextBox()
+    tb = TextBox.CreateInstance(None, None)
     fe = IFrameworkElement()
     hr = tb.QueryInterface(IFrameworkElement._iid_, fe)
     if FAILED(hr):

@@ -29,7 +29,7 @@ def main() -> None:
         </toast>
         """
 
-        xml = XmlDocument.New()
+        xml = XmlDocument.CreateInstance()
         defer.callback(xml.Release)
 
         xml.LoadXml(template)

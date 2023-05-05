@@ -533,6 +533,12 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def has_default(self) -> bool:
         return self.has("Windows.Foundation.Metadata.DefaultAttribute")
 
+    def has_composable(self) -> bool:
+        return self.has("Windows.Foundation.Metadata.ComposableAttribute")
+
+    def get_composable(self) -> CustomAttribute:
+        return self.get("Windows.Foundation.Metadata.ComposableAttribute")
+
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:
@@ -1094,11 +1100,14 @@ class Preprocessor:
                         t = t.get_element_type()
                         if t.kind == "Type":
                             t["_typedef"] = ns.get(t.fullname)
-            for ca in td.custom_attributes.get_activatable():
-                if ca.fixed_arguments[0].type.kind == "Type":
+            for ca in td.custom_attributes:
+                if ca.type == "Windows.Foundation.Metadata.ActivatableAttribute":
+                    if ca.fixed_arguments[0].type.kind == "Type":
+                        ca["_typedef"] = ns.get(ca.fixed_arguments[0].value)
+                elif ca.type == "Windows.Foundation.Metadata.StaticAttribute":
                     ca["_typedef"] = ns.get(ca.fixed_arguments[0].value)
-            for ca in td.custom_attributes.get_static():
-                ca["_typedef"] = ns.get(ca.fixed_arguments[0].value)
+                elif ca.type == "Windows.Foundation.Metadata.ComposableAttribute":
+                    ca["_typedef"] = ns.get(ca.fixed_arguments[0].value)
             for t in td.enumerate_types():
                 t = t.get_element_type()
                 if t.kind == "Type":
@@ -1301,6 +1310,12 @@ class PyGenerator:
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
+        if td.custom_attributes.has_composable():
+            ca = td.custom_attributes.get_composable()
+            factory = ca["_typedef"]
+            for md in factory.method_definitions:
+                assert md.signature.return_type.fullname == td.fullname
+                writer.write(self.winrt_factorymethod(factory, md))
         for ca in td.custom_attributes.get_activatable():
             if ca.fixed_arguments[0].type.kind == "Type":
                 factory = ca["_typedef"]
@@ -1422,7 +1437,7 @@ class PyGenerator:
         else:
             name = td.fullname
         writer.write(f"    @winrt_activatemethod\n")
-        writer.write(f"    def New(cls) -> {name}: ...\n")  # FIXME: proper name?
+        writer.write(f"    def CreateInstance(cls) -> {name}: ...\n")
         return writer.getvalue()
 
     def emit_header(self, import_namespaces: set[str]) -> str:

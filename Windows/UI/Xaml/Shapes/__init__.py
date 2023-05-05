@@ -28,7 +28,7 @@ class Ellipse(ComPtr):
     default_interface: Windows.UI.Xaml.Shapes.IEllipse
     _classid_ = 'Windows.UI.Xaml.Shapes.Ellipse'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Shapes.Ellipse: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Shapes.Ellipse: ...
 class IEllipse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Shapes.IEllipse'
@@ -283,7 +283,7 @@ class Line(ComPtr):
     default_interface: Windows.UI.Xaml.Shapes.ILine
     _classid_ = 'Windows.UI.Xaml.Shapes.Line'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Shapes.Line: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Shapes.Line: ...
     @winrt_mixinmethod
     def get_X1(self: Windows.UI.Xaml.Shapes.ILine) -> Double: ...
     @winrt_mixinmethod
@@ -320,6 +320,8 @@ class Path(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
     default_interface: Windows.UI.Xaml.Shapes.IPath
     _classid_ = 'Windows.UI.Xaml.Shapes.Path'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Shapes.IPathFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Shapes.Path: ...
     @winrt_mixinmethod
     def get_Data(self: Windows.UI.Xaml.Shapes.IPath) -> Windows.UI.Xaml.Media.Geometry: ...
     @winrt_mixinmethod
@@ -333,7 +335,7 @@ class Polygon(ComPtr):
     default_interface: Windows.UI.Xaml.Shapes.IPolygon
     _classid_ = 'Windows.UI.Xaml.Shapes.Polygon'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Shapes.Polygon: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Shapes.Polygon: ...
     @winrt_mixinmethod
     def get_FillRule(self: Windows.UI.Xaml.Shapes.IPolygon) -> Windows.UI.Xaml.Media.FillRule: ...
     @winrt_mixinmethod
@@ -355,7 +357,7 @@ class Polyline(ComPtr):
     default_interface: Windows.UI.Xaml.Shapes.IPolyline
     _classid_ = 'Windows.UI.Xaml.Shapes.Polyline'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Shapes.Polyline: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Shapes.Polyline: ...
     @winrt_mixinmethod
     def get_FillRule(self: Windows.UI.Xaml.Shapes.IPolyline) -> Windows.UI.Xaml.Media.FillRule: ...
     @winrt_mixinmethod
@@ -377,7 +379,7 @@ class Rectangle(ComPtr):
     default_interface: Windows.UI.Xaml.Shapes.IRectangle
     _classid_ = 'Windows.UI.Xaml.Shapes.Rectangle'
     @winrt_activatemethod
-    def New(cls) -> Windows.UI.Xaml.Shapes.Rectangle: ...
+    def CreateInstance(cls) -> Windows.UI.Xaml.Shapes.Rectangle: ...
     @winrt_mixinmethod
     def get_RadiusX(self: Windows.UI.Xaml.Shapes.IRectangle) -> Double: ...
     @winrt_mixinmethod
@@ -398,6 +400,8 @@ class Shape(ComPtr):
     extends: Windows.UI.Xaml.FrameworkElement
     default_interface: Windows.UI.Xaml.Shapes.IShape
     _classid_ = 'Windows.UI.Xaml.Shapes.Shape'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.UI.Xaml.Shapes.IShapeFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Shapes.Shape: ...
     @winrt_mixinmethod
     def get_Fill(self: Windows.UI.Xaml.Shapes.IShape) -> Windows.UI.Xaml.Media.Brush: ...
     @winrt_mixinmethod
