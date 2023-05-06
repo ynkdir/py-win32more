@@ -140,7 +140,9 @@ class PaginateEventHandler(ComPtr):
 PreviewPageCountType = Int32
 PreviewPageCountType_Final: PreviewPageCountType = 0
 PreviewPageCountType_Intermediate: PreviewPageCountType = 1
-class PrintDocument(ComPtr):
+class _PrintDocument_Meta_(ComPtr.__class__):
+    pass
+class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Printing.IPrintDocument
     _classid_ = 'Windows.UI.Xaml.Printing.PrintDocument'
@@ -173,7 +175,7 @@ class PrintDocument(ComPtr):
     @winrt_classmethod
     def get_DocumentSourceProperty(cls: Windows.UI.Xaml.Printing.IPrintDocumentStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     DocumentSource = property(get_DocumentSource, None)
-    DocumentSourceProperty = property(get_DocumentSourceProperty, None)
+    _PrintDocument_Meta_.DocumentSourceProperty = property(get_DocumentSourceProperty.__wrapped__, None)
 make_head(_module, 'AddPagesEventArgs')
 make_head(_module, 'AddPagesEventHandler')
 make_head(_module, 'GetPreviewPageEventArgs')

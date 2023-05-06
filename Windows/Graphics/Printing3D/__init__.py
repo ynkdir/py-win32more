@@ -689,7 +689,9 @@ class Printing3D3MFPackage(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Textures = property(get_Textures, None)
     Compression = property(get_Compression, put_Compression)
-class Printing3DBaseMaterial(ComPtr):
+class _Printing3DBaseMaterial_Meta_(ComPtr.__class__):
+    pass
+class Printing3DBaseMaterial(ComPtr, metaclass=_Printing3DBaseMaterial_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Graphics.Printing3D.IPrinting3DBaseMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DBaseMaterial'
@@ -709,8 +711,8 @@ class Printing3DBaseMaterial(ComPtr):
     def get_Pla(cls: Windows.Graphics.Printing3D.IPrinting3DBaseMaterialStatics) -> WinRT_String: ...
     Name = property(get_Name, put_Name)
     Color = property(get_Color, put_Color)
-    Abs = property(get_Abs, None)
-    Pla = property(get_Pla, None)
+    _Printing3DBaseMaterial_Meta_.Abs = property(get_Abs.__wrapped__, None)
+    _Printing3DBaseMaterial_Meta_.Pla = property(get_Pla.__wrapped__, None)
 class Printing3DBaseMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Graphics.Printing3D.IPrinting3DBaseMaterialGroup

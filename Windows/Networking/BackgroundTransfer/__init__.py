@@ -296,7 +296,9 @@ class BackgroundUploader(ComPtr):
     SuccessTileNotification = property(get_SuccessTileNotification, put_SuccessTileNotification)
     FailureTileNotification = property(get_FailureTileNotification, put_FailureTileNotification)
     CompletionGroup = property(get_CompletionGroup, None)
-class ContentPrefetcher(ComPtr):
+class _ContentPrefetcher_Meta_(ComPtr.__class__):
+    pass
+class ContentPrefetcher(ComPtr, metaclass=_ContentPrefetcher_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.BackgroundTransfer.ContentPrefetcher'
     @winrt_classmethod
@@ -307,9 +309,9 @@ class ContentPrefetcher(ComPtr):
     def put_IndirectContentUri(cls: Windows.Networking.BackgroundTransfer.IContentPrefetcher, value: Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
     def get_IndirectContentUri(cls: Windows.Networking.BackgroundTransfer.IContentPrefetcher) -> Windows.Foundation.Uri: ...
-    LastSuccessfulPrefetchTime = property(get_LastSuccessfulPrefetchTime, None)
-    ContentUris = property(get_ContentUris, None)
-    IndirectContentUri = property(get_IndirectContentUri, put_IndirectContentUri)
+    _ContentPrefetcher_Meta_.LastSuccessfulPrefetchTime = property(get_LastSuccessfulPrefetchTime.__wrapped__, None)
+    _ContentPrefetcher_Meta_.ContentUris = property(get_ContentUris.__wrapped__, None)
+    _ContentPrefetcher_Meta_.IndirectContentUri = property(get_IndirectContentUri.__wrapped__, put_IndirectContentUri.__wrapped__)
 class DownloadOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Networking.BackgroundTransfer.IDownloadOperation

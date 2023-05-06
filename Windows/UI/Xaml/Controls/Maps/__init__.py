@@ -2075,7 +2075,9 @@ MapAnimationKind_Default: MapAnimationKind = 0
 MapAnimationKind_None: MapAnimationKind = 1
 MapAnimationKind_Linear: MapAnimationKind = 2
 MapAnimationKind_Bow: MapAnimationKind = 3
-class MapBillboard(ComPtr):
+class _MapBillboard_Meta_(ComPtr.__class__):
+    pass
+class MapBillboard(ComPtr, metaclass=_MapBillboard_Meta_):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapBillboard
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapBillboard'
@@ -2110,9 +2112,9 @@ class MapBillboard(ComPtr):
     Image = property(get_Image, put_Image)
     CollisionBehaviorDesired = property(get_CollisionBehaviorDesired, put_CollisionBehaviorDesired)
     ReferenceCamera = property(get_ReferenceCamera, None)
-    LocationProperty = property(get_LocationProperty, None)
-    NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
-    CollisionBehaviorDesiredProperty = property(get_CollisionBehaviorDesiredProperty, None)
+    _MapBillboard_Meta_.LocationProperty = property(get_LocationProperty.__wrapped__, None)
+    _MapBillboard_Meta_.NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty.__wrapped__, None)
+    _MapBillboard_Meta_.CollisionBehaviorDesiredProperty = property(get_CollisionBehaviorDesiredProperty.__wrapped__, None)
 class MapCamera(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapCamera
@@ -2172,7 +2174,9 @@ class MapContextRequestedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-class MapControl(ComPtr):
+class _MapControl_Meta_(ComPtr.__class__):
+    pass
+class MapControl(ComPtr, metaclass=_MapControl_Meta_):
     extends: Windows.UI.Xaml.Controls.Control
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapControl
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControl'
@@ -2587,46 +2591,46 @@ class MapControl(ComPtr):
     CanTiltUp = property(get_CanTiltUp, None)
     CanZoomIn = property(get_CanZoomIn, None)
     CanZoomOut = property(get_CanZoomOut, None)
-    CanTiltDownProperty = property(get_CanTiltDownProperty, None)
-    CanTiltUpProperty = property(get_CanTiltUpProperty, None)
-    CanZoomInProperty = property(get_CanZoomInProperty, None)
-    CanZoomOutProperty = property(get_CanZoomOutProperty, None)
-    RegionProperty = property(get_RegionProperty, None)
-    LayersProperty = property(get_LayersProperty, None)
-    MapProjectionProperty = property(get_MapProjectionProperty, None)
-    StyleSheetProperty = property(get_StyleSheetProperty, None)
-    ViewPaddingProperty = property(get_ViewPaddingProperty, None)
-    BusinessLandmarksEnabledProperty = property(get_BusinessLandmarksEnabledProperty, None)
-    TransitFeaturesEnabledProperty = property(get_TransitFeaturesEnabledProperty, None)
-    BusinessLandmarksVisibleProperty = property(get_BusinessLandmarksVisibleProperty, None)
-    TransitFeaturesVisibleProperty = property(get_TransitFeaturesVisibleProperty, None)
-    PanInteractionModeProperty = property(get_PanInteractionModeProperty, None)
-    RotateInteractionModeProperty = property(get_RotateInteractionModeProperty, None)
-    TiltInteractionModeProperty = property(get_TiltInteractionModeProperty, None)
-    ZoomInteractionModeProperty = property(get_ZoomInteractionModeProperty, None)
-    Is3DSupportedProperty = property(get_Is3DSupportedProperty, None)
-    IsStreetsideSupportedProperty = property(get_IsStreetsideSupportedProperty, None)
-    SceneProperty = property(get_SceneProperty, None)
-    CenterProperty = property(get_CenterProperty, None)
-    ChildrenProperty = property(get_ChildrenProperty, None)
-    ColorSchemeProperty = property(get_ColorSchemeProperty, None)
-    DesiredPitchProperty = property(get_DesiredPitchProperty, None)
-    HeadingProperty = property(get_HeadingProperty, None)
-    LandmarksVisibleProperty = property(get_LandmarksVisibleProperty, None)
-    LoadingStatusProperty = property(get_LoadingStatusProperty, None)
-    MapServiceTokenProperty = property(get_MapServiceTokenProperty, None)
-    PedestrianFeaturesVisibleProperty = property(get_PedestrianFeaturesVisibleProperty, None)
-    PitchProperty = property(get_PitchProperty, None)
-    StyleProperty = property(get_StyleProperty, None)
-    TrafficFlowVisibleProperty = property(get_TrafficFlowVisibleProperty, None)
-    TransformOriginProperty = property(get_TransformOriginProperty, None)
-    WatermarkModeProperty = property(get_WatermarkModeProperty, None)
-    ZoomLevelProperty = property(get_ZoomLevelProperty, None)
-    MapElementsProperty = property(get_MapElementsProperty, None)
-    RoutesProperty = property(get_RoutesProperty, None)
-    TileSourcesProperty = property(get_TileSourcesProperty, None)
-    LocationProperty = property(get_LocationProperty, None)
-    NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
+    _MapControl_Meta_.CanTiltDownProperty = property(get_CanTiltDownProperty.__wrapped__, None)
+    _MapControl_Meta_.CanTiltUpProperty = property(get_CanTiltUpProperty.__wrapped__, None)
+    _MapControl_Meta_.CanZoomInProperty = property(get_CanZoomInProperty.__wrapped__, None)
+    _MapControl_Meta_.CanZoomOutProperty = property(get_CanZoomOutProperty.__wrapped__, None)
+    _MapControl_Meta_.RegionProperty = property(get_RegionProperty.__wrapped__, None)
+    _MapControl_Meta_.LayersProperty = property(get_LayersProperty.__wrapped__, None)
+    _MapControl_Meta_.MapProjectionProperty = property(get_MapProjectionProperty.__wrapped__, None)
+    _MapControl_Meta_.StyleSheetProperty = property(get_StyleSheetProperty.__wrapped__, None)
+    _MapControl_Meta_.ViewPaddingProperty = property(get_ViewPaddingProperty.__wrapped__, None)
+    _MapControl_Meta_.BusinessLandmarksEnabledProperty = property(get_BusinessLandmarksEnabledProperty.__wrapped__, None)
+    _MapControl_Meta_.TransitFeaturesEnabledProperty = property(get_TransitFeaturesEnabledProperty.__wrapped__, None)
+    _MapControl_Meta_.BusinessLandmarksVisibleProperty = property(get_BusinessLandmarksVisibleProperty.__wrapped__, None)
+    _MapControl_Meta_.TransitFeaturesVisibleProperty = property(get_TransitFeaturesVisibleProperty.__wrapped__, None)
+    _MapControl_Meta_.PanInteractionModeProperty = property(get_PanInteractionModeProperty.__wrapped__, None)
+    _MapControl_Meta_.RotateInteractionModeProperty = property(get_RotateInteractionModeProperty.__wrapped__, None)
+    _MapControl_Meta_.TiltInteractionModeProperty = property(get_TiltInteractionModeProperty.__wrapped__, None)
+    _MapControl_Meta_.ZoomInteractionModeProperty = property(get_ZoomInteractionModeProperty.__wrapped__, None)
+    _MapControl_Meta_.Is3DSupportedProperty = property(get_Is3DSupportedProperty.__wrapped__, None)
+    _MapControl_Meta_.IsStreetsideSupportedProperty = property(get_IsStreetsideSupportedProperty.__wrapped__, None)
+    _MapControl_Meta_.SceneProperty = property(get_SceneProperty.__wrapped__, None)
+    _MapControl_Meta_.CenterProperty = property(get_CenterProperty.__wrapped__, None)
+    _MapControl_Meta_.ChildrenProperty = property(get_ChildrenProperty.__wrapped__, None)
+    _MapControl_Meta_.ColorSchemeProperty = property(get_ColorSchemeProperty.__wrapped__, None)
+    _MapControl_Meta_.DesiredPitchProperty = property(get_DesiredPitchProperty.__wrapped__, None)
+    _MapControl_Meta_.HeadingProperty = property(get_HeadingProperty.__wrapped__, None)
+    _MapControl_Meta_.LandmarksVisibleProperty = property(get_LandmarksVisibleProperty.__wrapped__, None)
+    _MapControl_Meta_.LoadingStatusProperty = property(get_LoadingStatusProperty.__wrapped__, None)
+    _MapControl_Meta_.MapServiceTokenProperty = property(get_MapServiceTokenProperty.__wrapped__, None)
+    _MapControl_Meta_.PedestrianFeaturesVisibleProperty = property(get_PedestrianFeaturesVisibleProperty.__wrapped__, None)
+    _MapControl_Meta_.PitchProperty = property(get_PitchProperty.__wrapped__, None)
+    _MapControl_Meta_.StyleProperty = property(get_StyleProperty.__wrapped__, None)
+    _MapControl_Meta_.TrafficFlowVisibleProperty = property(get_TrafficFlowVisibleProperty.__wrapped__, None)
+    _MapControl_Meta_.TransformOriginProperty = property(get_TransformOriginProperty.__wrapped__, None)
+    _MapControl_Meta_.WatermarkModeProperty = property(get_WatermarkModeProperty.__wrapped__, None)
+    _MapControl_Meta_.ZoomLevelProperty = property(get_ZoomLevelProperty.__wrapped__, None)
+    _MapControl_Meta_.MapElementsProperty = property(get_MapElementsProperty.__wrapped__, None)
+    _MapControl_Meta_.RoutesProperty = property(get_RoutesProperty.__wrapped__, None)
+    _MapControl_Meta_.TileSourcesProperty = property(get_TileSourcesProperty.__wrapped__, None)
+    _MapControl_Meta_.LocationProperty = property(get_LocationProperty.__wrapped__, None)
+    _MapControl_Meta_.NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty.__wrapped__, None)
 class MapControlBusinessLandmarkClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkClickEventArgs
@@ -2775,7 +2779,9 @@ class MapCustomExperienceChangedEventArgs(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapCustomExperienceChangedEventArgs'
     @winrt_activatemethod
     def CreateInstance(cls) -> Windows.UI.Xaml.Controls.Maps.MapCustomExperienceChangedEventArgs: ...
-class MapElement(ComPtr):
+class _MapElement_Meta_(ComPtr.__class__):
+    pass
+class MapElement(ComPtr, metaclass=_MapElement_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapElement
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElement'
@@ -2830,14 +2836,16 @@ class MapElement(ComPtr):
     MapStyleSheetEntryState = property(get_MapStyleSheetEntryState, put_MapStyleSheetEntryState)
     Tag = property(get_Tag, put_Tag)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    IsEnabledProperty = property(get_IsEnabledProperty, None)
-    MapStyleSheetEntryProperty = property(get_MapStyleSheetEntryProperty, None)
-    MapStyleSheetEntryStateProperty = property(get_MapStyleSheetEntryStateProperty, None)
-    TagProperty = property(get_TagProperty, None)
-    MapTabIndexProperty = property(get_MapTabIndexProperty, None)
-    ZIndexProperty = property(get_ZIndexProperty, None)
-    VisibleProperty = property(get_VisibleProperty, None)
-class MapElement3D(ComPtr):
+    _MapElement_Meta_.IsEnabledProperty = property(get_IsEnabledProperty.__wrapped__, None)
+    _MapElement_Meta_.MapStyleSheetEntryProperty = property(get_MapStyleSheetEntryProperty.__wrapped__, None)
+    _MapElement_Meta_.MapStyleSheetEntryStateProperty = property(get_MapStyleSheetEntryStateProperty.__wrapped__, None)
+    _MapElement_Meta_.TagProperty = property(get_TagProperty.__wrapped__, None)
+    _MapElement_Meta_.MapTabIndexProperty = property(get_MapTabIndexProperty.__wrapped__, None)
+    _MapElement_Meta_.ZIndexProperty = property(get_ZIndexProperty.__wrapped__, None)
+    _MapElement_Meta_.VisibleProperty = property(get_VisibleProperty.__wrapped__, None)
+class _MapElement3D_Meta_(ComPtr.__class__):
+    pass
+class MapElement3D(ComPtr, metaclass=_MapElement3D_Meta_):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapElement3D
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElement3D'
@@ -2883,11 +2891,11 @@ class MapElement3D(ComPtr):
     Pitch = property(get_Pitch, put_Pitch)
     Roll = property(get_Roll, put_Roll)
     Scale = property(get_Scale, put_Scale)
-    LocationProperty = property(get_LocationProperty, None)
-    HeadingProperty = property(get_HeadingProperty, None)
-    PitchProperty = property(get_PitchProperty, None)
-    RollProperty = property(get_RollProperty, None)
-    ScaleProperty = property(get_ScaleProperty, None)
+    _MapElement3D_Meta_.LocationProperty = property(get_LocationProperty.__wrapped__, None)
+    _MapElement3D_Meta_.HeadingProperty = property(get_HeadingProperty.__wrapped__, None)
+    _MapElement3D_Meta_.PitchProperty = property(get_PitchProperty.__wrapped__, None)
+    _MapElement3D_Meta_.RollProperty = property(get_RollProperty.__wrapped__, None)
+    _MapElement3D_Meta_.ScaleProperty = property(get_ScaleProperty.__wrapped__, None)
 class MapElementClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapElementClickEventArgs
@@ -2936,7 +2944,9 @@ class MapElementPointerExitedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class MapElementsLayer(ComPtr):
+class _MapElementsLayer_Meta_(ComPtr.__class__):
+    pass
+class MapElementsLayer(ComPtr, metaclass=_MapElementsLayer_Meta_):
     extends: Windows.UI.Xaml.Controls.Maps.MapLayer
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapElementsLayer
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayer'
@@ -2965,7 +2975,7 @@ class MapElementsLayer(ComPtr):
     @winrt_classmethod
     def get_MapElementsProperty(cls: Windows.UI.Xaml.Controls.Maps.IMapElementsLayerStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     MapElements = property(get_MapElements, put_MapElements)
-    MapElementsProperty = property(get_MapElementsProperty, None)
+    _MapElementsLayer_Meta_.MapElementsProperty = property(get_MapElementsProperty.__wrapped__, None)
 class MapElementsLayerClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapElementsLayerClickEventArgs
@@ -3026,7 +3036,9 @@ class MapElementsLayerPointerExitedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class MapIcon(ComPtr):
+class _MapIcon_Meta_(ComPtr.__class__):
+    pass
+class MapIcon(ComPtr, metaclass=_MapIcon_Meta_):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapIcon
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapIcon'
@@ -3065,10 +3077,10 @@ class MapIcon(ComPtr):
     NormalizedAnchorPoint = property(get_NormalizedAnchorPoint, put_NormalizedAnchorPoint)
     Image = property(get_Image, put_Image)
     CollisionBehaviorDesired = property(get_CollisionBehaviorDesired, put_CollisionBehaviorDesired)
-    CollisionBehaviorDesiredProperty = property(get_CollisionBehaviorDesiredProperty, None)
-    LocationProperty = property(get_LocationProperty, None)
-    TitleProperty = property(get_TitleProperty, None)
-    NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
+    _MapIcon_Meta_.CollisionBehaviorDesiredProperty = property(get_CollisionBehaviorDesiredProperty.__wrapped__, None)
+    _MapIcon_Meta_.LocationProperty = property(get_LocationProperty.__wrapped__, None)
+    _MapIcon_Meta_.TitleProperty = property(get_TitleProperty.__wrapped__, None)
+    _MapIcon_Meta_.NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty.__wrapped__, None)
 class MapInputEventArgs(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapInputEventArgs
@@ -3090,7 +3102,9 @@ MapInteractionMode_ControlOnly: MapInteractionMode = 3
 MapInteractionMode_GestureAndControl: MapInteractionMode = 4
 MapInteractionMode_PointerKeyboardAndControl: MapInteractionMode = 4
 MapInteractionMode_PointerOnly: MapInteractionMode = 5
-class MapItemsControl(ComPtr):
+class _MapItemsControl_Meta_(ComPtr.__class__):
+    pass
+class MapItemsControl(ComPtr, metaclass=_MapItemsControl_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapItemsControl
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapItemsControl'
@@ -3115,10 +3129,12 @@ class MapItemsControl(ComPtr):
     ItemsSource = property(get_ItemsSource, put_ItemsSource)
     Items = property(get_Items, None)
     ItemTemplate = property(get_ItemTemplate, put_ItemTemplate)
-    ItemsSourceProperty = property(get_ItemsSourceProperty, None)
-    ItemsProperty = property(get_ItemsProperty, None)
-    ItemTemplateProperty = property(get_ItemTemplateProperty, None)
-class MapLayer(ComPtr):
+    _MapItemsControl_Meta_.ItemsSourceProperty = property(get_ItemsSourceProperty.__wrapped__, None)
+    _MapItemsControl_Meta_.ItemsProperty = property(get_ItemsProperty.__wrapped__, None)
+    _MapItemsControl_Meta_.ItemTemplateProperty = property(get_ItemTemplateProperty.__wrapped__, None)
+class _MapLayer_Meta_(ComPtr.__class__):
+    pass
+class MapLayer(ComPtr, metaclass=_MapLayer_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapLayer
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapLayer'
@@ -3145,9 +3161,9 @@ class MapLayer(ComPtr):
     MapTabIndex = property(get_MapTabIndex, put_MapTabIndex)
     Visible = property(get_Visible, put_Visible)
     ZIndex = property(get_ZIndex, put_ZIndex)
-    MapTabIndexProperty = property(get_MapTabIndexProperty, None)
-    VisibleProperty = property(get_VisibleProperty, None)
-    ZIndexProperty = property(get_ZIndexProperty, None)
+    _MapLayer_Meta_.MapTabIndexProperty = property(get_MapTabIndexProperty.__wrapped__, None)
+    _MapLayer_Meta_.VisibleProperty = property(get_VisibleProperty.__wrapped__, None)
+    _MapLayer_Meta_.ZIndexProperty = property(get_ZIndexProperty.__wrapped__, None)
 MapLoadingStatus = Int32
 MapLoadingStatus_Loading: MapLoadingStatus = 0
 MapLoadingStatus_Loaded: MapLoadingStatus = 1
@@ -3170,7 +3186,9 @@ MapModel3DShadingOption_Smooth: MapModel3DShadingOption = 2
 MapPanInteractionMode = Int32
 MapPanInteractionMode_Auto: MapPanInteractionMode = 0
 MapPanInteractionMode_Disabled: MapPanInteractionMode = 1
-class MapPolygon(ComPtr):
+class _MapPolygon_Meta_(ComPtr.__class__):
+    pass
+class MapPolygon(ComPtr, metaclass=_MapPolygon_Meta_):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapPolygon
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapPolygon'
@@ -3210,10 +3228,12 @@ class MapPolygon(ComPtr):
     StrokeDashed = property(get_StrokeDashed, put_StrokeDashed)
     FillColor = property(get_FillColor, put_FillColor)
     Paths = property(get_Paths, None)
-    PathProperty = property(get_PathProperty, None)
-    StrokeThicknessProperty = property(get_StrokeThicknessProperty, None)
-    StrokeDashedProperty = property(get_StrokeDashedProperty, None)
-class MapPolyline(ComPtr):
+    _MapPolygon_Meta_.PathProperty = property(get_PathProperty.__wrapped__, None)
+    _MapPolygon_Meta_.StrokeThicknessProperty = property(get_StrokeThicknessProperty.__wrapped__, None)
+    _MapPolygon_Meta_.StrokeDashedProperty = property(get_StrokeDashedProperty.__wrapped__, None)
+class _MapPolyline_Meta_(ComPtr.__class__):
+    pass
+class MapPolyline(ComPtr, metaclass=_MapPolyline_Meta_):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapPolyline
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapPolyline'
@@ -3243,8 +3263,8 @@ class MapPolyline(ComPtr):
     StrokeColor = property(get_StrokeColor, put_StrokeColor)
     StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
     StrokeDashed = property(get_StrokeDashed, put_StrokeDashed)
-    PathProperty = property(get_PathProperty, None)
-    StrokeDashedProperty = property(get_StrokeDashedProperty, None)
+    _MapPolyline_Meta_.PathProperty = property(get_PathProperty.__wrapped__, None)
+    _MapPolyline_Meta_.StrokeDashedProperty = property(get_StrokeDashedProperty.__wrapped__, None)
 MapProjection = Int32
 MapProjection_WebMercator: MapProjection = 0
 MapProjection_Globe: MapProjection = 1
@@ -3339,7 +3359,9 @@ class MapStyleSheet(ComPtr):
     def ParseFromJson(cls: Windows.UI.Xaml.Controls.Maps.IMapStyleSheetStatics, styleAsJson: WinRT_String) -> Windows.UI.Xaml.Controls.Maps.MapStyleSheet: ...
     @winrt_classmethod
     def TryParseFromJson(cls: Windows.UI.Xaml.Controls.Maps.IMapStyleSheetStatics, styleAsJson: WinRT_String, styleSheet: POINTER(Windows.UI.Xaml.Controls.Maps.MapStyleSheet)) -> Boolean: ...
-class MapStyleSheetEntries(ComPtr):
+class _MapStyleSheetEntries_Meta_(ComPtr.__class__):
+    pass
+class MapStyleSheetEntries(ComPtr, metaclass=_MapStyleSheetEntries_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapStyleSheetEntries'
     @winrt_classmethod
@@ -3470,71 +3492,73 @@ class MapStyleSheetEntries(ComPtr):
     def get_WalkingRoute(cls: Windows.UI.Xaml.Controls.Maps.IMapStyleSheetEntriesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_DrivingRoute(cls: Windows.UI.Xaml.Controls.Maps.IMapStyleSheetEntriesStatics) -> WinRT_String: ...
-    Area = property(get_Area, None)
-    Airport = property(get_Airport, None)
-    Cemetery = property(get_Cemetery, None)
-    Continent = property(get_Continent, None)
-    Education = property(get_Education, None)
-    IndigenousPeoplesReserve = property(get_IndigenousPeoplesReserve, None)
-    Island = property(get_Island, None)
-    Medical = property(get_Medical, None)
-    Military = property(get_Military, None)
-    Nautical = property(get_Nautical, None)
-    Neighborhood = property(get_Neighborhood, None)
-    Runway = property(get_Runway, None)
-    Sand = property(get_Sand, None)
-    ShoppingCenter = property(get_ShoppingCenter, None)
-    Stadium = property(get_Stadium, None)
-    Vegetation = property(get_Vegetation, None)
-    Forest = property(get_Forest, None)
-    GolfCourse = property(get_GolfCourse, None)
-    Park = property(get_Park, None)
-    PlayingField = property(get_PlayingField, None)
-    Reserve = property(get_Reserve, None)
-    Point = property(get_Point, None)
-    NaturalPoint = property(get_NaturalPoint, None)
-    Peak = property(get_Peak, None)
-    VolcanicPeak = property(get_VolcanicPeak, None)
-    WaterPoint = property(get_WaterPoint, None)
-    PointOfInterest = property(get_PointOfInterest, None)
-    Business = property(get_Business, None)
-    FoodPoint = property(get_FoodPoint, None)
-    PopulatedPlace = property(get_PopulatedPlace, None)
-    Capital = property(get_Capital, None)
-    AdminDistrictCapital = property(get_AdminDistrictCapital, None)
-    CountryRegionCapital = property(get_CountryRegionCapital, None)
-    RoadShield = property(get_RoadShield, None)
-    RoadExit = property(get_RoadExit, None)
-    Transit = property(get_Transit, None)
-    Political = property(get_Political, None)
-    CountryRegion = property(get_CountryRegion, None)
-    AdminDistrict = property(get_AdminDistrict, None)
-    District = property(get_District, None)
-    Structure = property(get_Structure, None)
-    Building = property(get_Building, None)
-    EducationBuilding = property(get_EducationBuilding, None)
-    MedicalBuilding = property(get_MedicalBuilding, None)
-    TransitBuilding = property(get_TransitBuilding, None)
-    Transportation = property(get_Transportation, None)
-    Road = property(get_Road, None)
-    ControlledAccessHighway = property(get_ControlledAccessHighway, None)
-    HighSpeedRamp = property(get_HighSpeedRamp, None)
-    Highway = property(get_Highway, None)
-    MajorRoad = property(get_MajorRoad, None)
-    ArterialRoad = property(get_ArterialRoad, None)
-    Street = property(get_Street, None)
-    Ramp = property(get_Ramp, None)
-    UnpavedStreet = property(get_UnpavedStreet, None)
-    TollRoad = property(get_TollRoad, None)
-    Railway = property(get_Railway, None)
-    Trail = property(get_Trail, None)
-    WaterRoute = property(get_WaterRoute, None)
-    Water = property(get_Water, None)
-    River = property(get_River, None)
-    RouteLine = property(get_RouteLine, None)
-    WalkingRoute = property(get_WalkingRoute, None)
-    DrivingRoute = property(get_DrivingRoute, None)
-class MapStyleSheetEntryStates(ComPtr):
+    _MapStyleSheetEntries_Meta_.Area = property(get_Area.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Airport = property(get_Airport.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Cemetery = property(get_Cemetery.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Continent = property(get_Continent.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Education = property(get_Education.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.IndigenousPeoplesReserve = property(get_IndigenousPeoplesReserve.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Island = property(get_Island.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Medical = property(get_Medical.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Military = property(get_Military.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Nautical = property(get_Nautical.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Neighborhood = property(get_Neighborhood.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Runway = property(get_Runway.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Sand = property(get_Sand.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.ShoppingCenter = property(get_ShoppingCenter.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Stadium = property(get_Stadium.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Vegetation = property(get_Vegetation.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Forest = property(get_Forest.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.GolfCourse = property(get_GolfCourse.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Park = property(get_Park.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.PlayingField = property(get_PlayingField.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Reserve = property(get_Reserve.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Point = property(get_Point.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.NaturalPoint = property(get_NaturalPoint.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Peak = property(get_Peak.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.VolcanicPeak = property(get_VolcanicPeak.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.WaterPoint = property(get_WaterPoint.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.PointOfInterest = property(get_PointOfInterest.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Business = property(get_Business.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.FoodPoint = property(get_FoodPoint.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.PopulatedPlace = property(get_PopulatedPlace.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Capital = property(get_Capital.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.AdminDistrictCapital = property(get_AdminDistrictCapital.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.CountryRegionCapital = property(get_CountryRegionCapital.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.RoadShield = property(get_RoadShield.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.RoadExit = property(get_RoadExit.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Transit = property(get_Transit.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Political = property(get_Political.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.CountryRegion = property(get_CountryRegion.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.AdminDistrict = property(get_AdminDistrict.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.District = property(get_District.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Structure = property(get_Structure.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Building = property(get_Building.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.EducationBuilding = property(get_EducationBuilding.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.MedicalBuilding = property(get_MedicalBuilding.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.TransitBuilding = property(get_TransitBuilding.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Transportation = property(get_Transportation.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Road = property(get_Road.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.ControlledAccessHighway = property(get_ControlledAccessHighway.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.HighSpeedRamp = property(get_HighSpeedRamp.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Highway = property(get_Highway.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.MajorRoad = property(get_MajorRoad.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.ArterialRoad = property(get_ArterialRoad.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Street = property(get_Street.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Ramp = property(get_Ramp.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.UnpavedStreet = property(get_UnpavedStreet.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.TollRoad = property(get_TollRoad.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Railway = property(get_Railway.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Trail = property(get_Trail.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.WaterRoute = property(get_WaterRoute.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.Water = property(get_Water.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.River = property(get_River.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.RouteLine = property(get_RouteLine.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.WalkingRoute = property(get_WalkingRoute.__wrapped__, None)
+    _MapStyleSheetEntries_Meta_.DrivingRoute = property(get_DrivingRoute.__wrapped__, None)
+class _MapStyleSheetEntryStates_Meta_(ComPtr.__class__):
+    pass
+class MapStyleSheetEntryStates(ComPtr, metaclass=_MapStyleSheetEntryStates_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapStyleSheetEntryStates'
     @winrt_classmethod
@@ -3543,9 +3567,9 @@ class MapStyleSheetEntryStates(ComPtr):
     def get_Hover(cls: Windows.UI.Xaml.Controls.Maps.IMapStyleSheetEntryStatesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Selected(cls: Windows.UI.Xaml.Controls.Maps.IMapStyleSheetEntryStatesStatics) -> WinRT_String: ...
-    Disabled = property(get_Disabled, None)
-    Hover = property(get_Hover, None)
-    Selected = property(get_Selected, None)
+    _MapStyleSheetEntryStates_Meta_.Disabled = property(get_Disabled.__wrapped__, None)
+    _MapStyleSheetEntryStates_Meta_.Hover = property(get_Hover.__wrapped__, None)
+    _MapStyleSheetEntryStates_Meta_.Selected = property(get_Selected.__wrapped__, None)
 class MapTargetCameraChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapTargetCameraChangedEventArgs
@@ -3616,7 +3640,9 @@ MapTileLayer_RoadOverlay: MapTileLayer = 1
 MapTileLayer_AreaOverlay: MapTileLayer = 2
 MapTileLayer_BackgroundOverlay: MapTileLayer = 3
 MapTileLayer_BackgroundReplacement: MapTileLayer = 4
-class MapTileSource(ComPtr):
+class _MapTileSource_Meta_(ComPtr.__class__):
+    pass
+class MapTileSource(ComPtr, metaclass=_MapTileSource_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapTileSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileSource'
@@ -3739,21 +3765,21 @@ class MapTileSource(ComPtr):
     AutoPlay = property(get_AutoPlay, put_AutoPlay)
     FrameCount = property(get_FrameCount, put_FrameCount)
     FrameDuration = property(get_FrameDuration, put_FrameDuration)
-    AnimationStateProperty = property(get_AnimationStateProperty, None)
-    AutoPlayProperty = property(get_AutoPlayProperty, None)
-    FrameCountProperty = property(get_FrameCountProperty, None)
-    FrameDurationProperty = property(get_FrameDurationProperty, None)
-    DataSourceProperty = property(get_DataSourceProperty, None)
-    LayerProperty = property(get_LayerProperty, None)
-    ZoomLevelRangeProperty = property(get_ZoomLevelRangeProperty, None)
-    BoundsProperty = property(get_BoundsProperty, None)
-    AllowOverstretchProperty = property(get_AllowOverstretchProperty, None)
-    IsFadingEnabledProperty = property(get_IsFadingEnabledProperty, None)
-    IsTransparencyEnabledProperty = property(get_IsTransparencyEnabledProperty, None)
-    IsRetryEnabledProperty = property(get_IsRetryEnabledProperty, None)
-    ZIndexProperty = property(get_ZIndexProperty, None)
-    TilePixelSizeProperty = property(get_TilePixelSizeProperty, None)
-    VisibleProperty = property(get_VisibleProperty, None)
+    _MapTileSource_Meta_.AnimationStateProperty = property(get_AnimationStateProperty.__wrapped__, None)
+    _MapTileSource_Meta_.AutoPlayProperty = property(get_AutoPlayProperty.__wrapped__, None)
+    _MapTileSource_Meta_.FrameCountProperty = property(get_FrameCountProperty.__wrapped__, None)
+    _MapTileSource_Meta_.FrameDurationProperty = property(get_FrameDurationProperty.__wrapped__, None)
+    _MapTileSource_Meta_.DataSourceProperty = property(get_DataSourceProperty.__wrapped__, None)
+    _MapTileSource_Meta_.LayerProperty = property(get_LayerProperty.__wrapped__, None)
+    _MapTileSource_Meta_.ZoomLevelRangeProperty = property(get_ZoomLevelRangeProperty.__wrapped__, None)
+    _MapTileSource_Meta_.BoundsProperty = property(get_BoundsProperty.__wrapped__, None)
+    _MapTileSource_Meta_.AllowOverstretchProperty = property(get_AllowOverstretchProperty.__wrapped__, None)
+    _MapTileSource_Meta_.IsFadingEnabledProperty = property(get_IsFadingEnabledProperty.__wrapped__, None)
+    _MapTileSource_Meta_.IsTransparencyEnabledProperty = property(get_IsTransparencyEnabledProperty.__wrapped__, None)
+    _MapTileSource_Meta_.IsRetryEnabledProperty = property(get_IsRetryEnabledProperty.__wrapped__, None)
+    _MapTileSource_Meta_.ZIndexProperty = property(get_ZIndexProperty.__wrapped__, None)
+    _MapTileSource_Meta_.TilePixelSizeProperty = property(get_TilePixelSizeProperty.__wrapped__, None)
+    _MapTileSource_Meta_.VisibleProperty = property(get_VisibleProperty.__wrapped__, None)
 class MapTileUriRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Controls.Maps.IMapTileUriRequest

@@ -325,12 +325,14 @@ class CoreTextSelectionUpdatingEventArgs(ComPtr):
 CoreTextSelectionUpdatingResult = Int32
 CoreTextSelectionUpdatingResult_Succeeded: CoreTextSelectionUpdatingResult = 0
 CoreTextSelectionUpdatingResult_Failed: CoreTextSelectionUpdatingResult = 1
-class CoreTextServicesConstants(ComPtr):
+class _CoreTextServicesConstants_Meta_(ComPtr.__class__):
+    pass
+class CoreTextServicesConstants(ComPtr, metaclass=_CoreTextServicesConstants_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.CoreTextServicesConstants'
     @winrt_classmethod
     def get_HiddenCharacter(cls: Windows.UI.Text.Core.ICoreTextServicesStatics) -> Char: ...
-    HiddenCharacter = property(get_HiddenCharacter, None)
+    _CoreTextServicesConstants_Meta_.HiddenCharacter = property(get_HiddenCharacter.__wrapped__, None)
 class CoreTextServicesManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Text.Core.ICoreTextServicesManager

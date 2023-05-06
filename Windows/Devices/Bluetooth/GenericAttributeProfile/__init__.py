@@ -100,7 +100,9 @@ GattCharacteristicProperties_AuthenticatedSignedWrites: GattCharacteristicProper
 GattCharacteristicProperties_ExtendedProperties: GattCharacteristicProperties = 128
 GattCharacteristicProperties_ReliableWrites: GattCharacteristicProperties = 256
 GattCharacteristicProperties_WritableAuxiliaries: GattCharacteristicProperties = 512
-class GattCharacteristicUuids(ComPtr):
+class _GattCharacteristicUuids_Meta_(ComPtr.__class__):
+    pass
+class GattCharacteristicUuids(ComPtr, metaclass=_GattCharacteristicUuids_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids'
     @winrt_classmethod
@@ -265,87 +267,87 @@ class GattCharacteristicUuids(ComPtr):
     def get_TemperatureMeasurement(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics) -> Guid: ...
     @winrt_classmethod
     def get_TemperatureType(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicUuidsStatics) -> Guid: ...
-    AlertCategoryId = property(get_AlertCategoryId, None)
-    AlertCategoryIdBitMask = property(get_AlertCategoryIdBitMask, None)
-    AlertLevel = property(get_AlertLevel, None)
-    AlertNotificationControlPoint = property(get_AlertNotificationControlPoint, None)
-    AlertStatus = property(get_AlertStatus, None)
-    GapAppearance = property(get_GapAppearance, None)
-    BootKeyboardInputReport = property(get_BootKeyboardInputReport, None)
-    BootKeyboardOutputReport = property(get_BootKeyboardOutputReport, None)
-    BootMouseInputReport = property(get_BootMouseInputReport, None)
-    CurrentTime = property(get_CurrentTime, None)
-    CyclingPowerControlPoint = property(get_CyclingPowerControlPoint, None)
-    CyclingPowerFeature = property(get_CyclingPowerFeature, None)
-    CyclingPowerMeasurement = property(get_CyclingPowerMeasurement, None)
-    CyclingPowerVector = property(get_CyclingPowerVector, None)
-    DateTime = property(get_DateTime, None)
-    DayDateTime = property(get_DayDateTime, None)
-    DayOfWeek = property(get_DayOfWeek, None)
-    GapDeviceName = property(get_GapDeviceName, None)
-    DstOffset = property(get_DstOffset, None)
-    ExactTime256 = property(get_ExactTime256, None)
-    FirmwareRevisionString = property(get_FirmwareRevisionString, None)
-    HardwareRevisionString = property(get_HardwareRevisionString, None)
-    HidControlPoint = property(get_HidControlPoint, None)
-    HidInformation = property(get_HidInformation, None)
-    Ieee1107320601RegulatoryCertificationDataList = property(get_Ieee1107320601RegulatoryCertificationDataList, None)
-    LnControlPoint = property(get_LnControlPoint, None)
-    LnFeature = property(get_LnFeature, None)
-    LocalTimeInformation = property(get_LocalTimeInformation, None)
-    LocationAndSpeed = property(get_LocationAndSpeed, None)
-    ManufacturerNameString = property(get_ManufacturerNameString, None)
-    ModelNumberString = property(get_ModelNumberString, None)
-    Navigation = property(get_Navigation, None)
-    NewAlert = property(get_NewAlert, None)
-    GapPeripheralPreferredConnectionParameters = property(get_GapPeripheralPreferredConnectionParameters, None)
-    GapPeripheralPrivacyFlag = property(get_GapPeripheralPrivacyFlag, None)
-    PnpId = property(get_PnpId, None)
-    PositionQuality = property(get_PositionQuality, None)
-    ProtocolMode = property(get_ProtocolMode, None)
-    GapReconnectionAddress = property(get_GapReconnectionAddress, None)
-    ReferenceTimeInformation = property(get_ReferenceTimeInformation, None)
-    Report = property(get_Report, None)
-    ReportMap = property(get_ReportMap, None)
-    RingerControlPoint = property(get_RingerControlPoint, None)
-    RingerSetting = property(get_RingerSetting, None)
-    ScanIntervalWindow = property(get_ScanIntervalWindow, None)
-    ScanRefresh = property(get_ScanRefresh, None)
-    SerialNumberString = property(get_SerialNumberString, None)
-    GattServiceChanged = property(get_GattServiceChanged, None)
-    SoftwareRevisionString = property(get_SoftwareRevisionString, None)
-    SupportedNewAlertCategory = property(get_SupportedNewAlertCategory, None)
-    SupportUnreadAlertCategory = property(get_SupportUnreadAlertCategory, None)
-    SystemId = property(get_SystemId, None)
-    TimeAccuracy = property(get_TimeAccuracy, None)
-    TimeSource = property(get_TimeSource, None)
-    TimeUpdateControlPoint = property(get_TimeUpdateControlPoint, None)
-    TimeUpdateState = property(get_TimeUpdateState, None)
-    TimeWithDst = property(get_TimeWithDst, None)
-    TimeZone = property(get_TimeZone, None)
-    TxPowerLevel = property(get_TxPowerLevel, None)
-    UnreadAlertStatus = property(get_UnreadAlertStatus, None)
-    BatteryLevel = property(get_BatteryLevel, None)
-    BloodPressureFeature = property(get_BloodPressureFeature, None)
-    BloodPressureMeasurement = property(get_BloodPressureMeasurement, None)
-    BodySensorLocation = property(get_BodySensorLocation, None)
-    CscFeature = property(get_CscFeature, None)
-    CscMeasurement = property(get_CscMeasurement, None)
-    GlucoseFeature = property(get_GlucoseFeature, None)
-    GlucoseMeasurement = property(get_GlucoseMeasurement, None)
-    GlucoseMeasurementContext = property(get_GlucoseMeasurementContext, None)
-    HeartRateControlPoint = property(get_HeartRateControlPoint, None)
-    HeartRateMeasurement = property(get_HeartRateMeasurement, None)
-    IntermediateCuffPressure = property(get_IntermediateCuffPressure, None)
-    IntermediateTemperature = property(get_IntermediateTemperature, None)
-    MeasurementInterval = property(get_MeasurementInterval, None)
-    RecordAccessControlPoint = property(get_RecordAccessControlPoint, None)
-    RscFeature = property(get_RscFeature, None)
-    RscMeasurement = property(get_RscMeasurement, None)
-    SCControlPoint = property(get_SCControlPoint, None)
-    SensorLocation = property(get_SensorLocation, None)
-    TemperatureMeasurement = property(get_TemperatureMeasurement, None)
-    TemperatureType = property(get_TemperatureType, None)
+    _GattCharacteristicUuids_Meta_.AlertCategoryId = property(get_AlertCategoryId.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.AlertCategoryIdBitMask = property(get_AlertCategoryIdBitMask.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.AlertLevel = property(get_AlertLevel.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.AlertNotificationControlPoint = property(get_AlertNotificationControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.AlertStatus = property(get_AlertStatus.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapAppearance = property(get_GapAppearance.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BootKeyboardInputReport = property(get_BootKeyboardInputReport.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BootKeyboardOutputReport = property(get_BootKeyboardOutputReport.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BootMouseInputReport = property(get_BootMouseInputReport.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CurrentTime = property(get_CurrentTime.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CyclingPowerControlPoint = property(get_CyclingPowerControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CyclingPowerFeature = property(get_CyclingPowerFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CyclingPowerMeasurement = property(get_CyclingPowerMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CyclingPowerVector = property(get_CyclingPowerVector.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.DateTime = property(get_DateTime.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.DayDateTime = property(get_DayDateTime.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.DayOfWeek = property(get_DayOfWeek.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapDeviceName = property(get_GapDeviceName.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.DstOffset = property(get_DstOffset.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.ExactTime256 = property(get_ExactTime256.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.FirmwareRevisionString = property(get_FirmwareRevisionString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.HardwareRevisionString = property(get_HardwareRevisionString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.HidControlPoint = property(get_HidControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.HidInformation = property(get_HidInformation.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.Ieee1107320601RegulatoryCertificationDataList = property(get_Ieee1107320601RegulatoryCertificationDataList.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.LnControlPoint = property(get_LnControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.LnFeature = property(get_LnFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.LocalTimeInformation = property(get_LocalTimeInformation.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.LocationAndSpeed = property(get_LocationAndSpeed.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.ManufacturerNameString = property(get_ManufacturerNameString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.ModelNumberString = property(get_ModelNumberString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.Navigation = property(get_Navigation.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.NewAlert = property(get_NewAlert.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapPeripheralPreferredConnectionParameters = property(get_GapPeripheralPreferredConnectionParameters.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapPeripheralPrivacyFlag = property(get_GapPeripheralPrivacyFlag.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.PnpId = property(get_PnpId.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.PositionQuality = property(get_PositionQuality.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.ProtocolMode = property(get_ProtocolMode.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapReconnectionAddress = property(get_GapReconnectionAddress.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.ReferenceTimeInformation = property(get_ReferenceTimeInformation.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.Report = property(get_Report.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.ReportMap = property(get_ReportMap.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.RingerControlPoint = property(get_RingerControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.RingerSetting = property(get_RingerSetting.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.ScanIntervalWindow = property(get_ScanIntervalWindow.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.ScanRefresh = property(get_ScanRefresh.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SerialNumberString = property(get_SerialNumberString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GattServiceChanged = property(get_GattServiceChanged.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SoftwareRevisionString = property(get_SoftwareRevisionString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SupportedNewAlertCategory = property(get_SupportedNewAlertCategory.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SupportUnreadAlertCategory = property(get_SupportUnreadAlertCategory.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SystemId = property(get_SystemId.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TimeAccuracy = property(get_TimeAccuracy.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TimeSource = property(get_TimeSource.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TimeUpdateControlPoint = property(get_TimeUpdateControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TimeUpdateState = property(get_TimeUpdateState.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TimeWithDst = property(get_TimeWithDst.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TimeZone = property(get_TimeZone.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TxPowerLevel = property(get_TxPowerLevel.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.UnreadAlertStatus = property(get_UnreadAlertStatus.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BatteryLevel = property(get_BatteryLevel.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BloodPressureFeature = property(get_BloodPressureFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BloodPressureMeasurement = property(get_BloodPressureMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BodySensorLocation = property(get_BodySensorLocation.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CscFeature = property(get_CscFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CscMeasurement = property(get_CscMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GlucoseFeature = property(get_GlucoseFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GlucoseMeasurement = property(get_GlucoseMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GlucoseMeasurementContext = property(get_GlucoseMeasurementContext.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.HeartRateControlPoint = property(get_HeartRateControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.HeartRateMeasurement = property(get_HeartRateMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.IntermediateCuffPressure = property(get_IntermediateCuffPressure.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.IntermediateTemperature = property(get_IntermediateTemperature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.MeasurementInterval = property(get_MeasurementInterval.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.RecordAccessControlPoint = property(get_RecordAccessControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.RscFeature = property(get_RscFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.RscMeasurement = property(get_RscMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SCControlPoint = property(get_SCControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SensorLocation = property(get_SensorLocation.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TemperatureMeasurement = property(get_TemperatureMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TemperatureType = property(get_TemperatureType.__wrapped__, None)
 class GattCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicsResult
@@ -409,7 +411,9 @@ class GattDescriptor(ComPtr):
     ProtectionLevel = property(get_ProtectionLevel, put_ProtectionLevel)
     Uuid = property(get_Uuid, None)
     AttributeHandle = property(get_AttributeHandle, None)
-class GattDescriptorUuids(ComPtr):
+class _GattDescriptorUuids_Meta_(ComPtr.__class__):
+    pass
+class GattDescriptorUuids(ComPtr, metaclass=_GattDescriptorUuids_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorUuids'
     @winrt_classmethod
@@ -424,12 +428,12 @@ class GattDescriptorUuids(ComPtr):
     def get_ClientCharacteristicConfiguration(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics) -> Guid: ...
     @winrt_classmethod
     def get_ServerCharacteristicConfiguration(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorUuidsStatics) -> Guid: ...
-    CharacteristicAggregateFormat = property(get_CharacteristicAggregateFormat, None)
-    CharacteristicExtendedProperties = property(get_CharacteristicExtendedProperties, None)
-    CharacteristicPresentationFormat = property(get_CharacteristicPresentationFormat, None)
-    CharacteristicUserDescription = property(get_CharacteristicUserDescription, None)
-    ClientCharacteristicConfiguration = property(get_ClientCharacteristicConfiguration, None)
-    ServerCharacteristicConfiguration = property(get_ServerCharacteristicConfiguration, None)
+    _GattDescriptorUuids_Meta_.CharacteristicAggregateFormat = property(get_CharacteristicAggregateFormat.__wrapped__, None)
+    _GattDescriptorUuids_Meta_.CharacteristicExtendedProperties = property(get_CharacteristicExtendedProperties.__wrapped__, None)
+    _GattDescriptorUuids_Meta_.CharacteristicPresentationFormat = property(get_CharacteristicPresentationFormat.__wrapped__, None)
+    _GattDescriptorUuids_Meta_.CharacteristicUserDescription = property(get_CharacteristicUserDescription.__wrapped__, None)
+    _GattDescriptorUuids_Meta_.ClientCharacteristicConfiguration = property(get_ClientCharacteristicConfiguration.__wrapped__, None)
+    _GattDescriptorUuids_Meta_.ServerCharacteristicConfiguration = property(get_ServerCharacteristicConfiguration.__wrapped__, None)
 class GattDescriptorsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorsResult
@@ -699,7 +703,9 @@ GattOpenStatus_AlreadyOpened: GattOpenStatus = 2
 GattOpenStatus_NotFound: GattOpenStatus = 3
 GattOpenStatus_SharingViolation: GattOpenStatus = 4
 GattOpenStatus_AccessDenied: GattOpenStatus = 5
-class GattPresentationFormat(ComPtr):
+class _GattPresentationFormat_Meta_(ComPtr.__class__):
+    pass
+class GattPresentationFormat(ComPtr, metaclass=_GattPresentationFormat_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormat
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat'
@@ -722,8 +728,10 @@ class GattPresentationFormat(ComPtr):
     Unit = property(get_Unit, None)
     Namespace = property(get_Namespace, None)
     Description = property(get_Description, None)
-    BluetoothSigAssignedNumbers = property(get_BluetoothSigAssignedNumbers, None)
-class GattPresentationFormatTypes(ComPtr):
+    _GattPresentationFormat_Meta_.BluetoothSigAssignedNumbers = property(get_BluetoothSigAssignedNumbers.__wrapped__, None)
+class _GattPresentationFormatTypes_Meta_(ComPtr.__class__):
+    pass
+class GattPresentationFormatTypes(ComPtr, metaclass=_GattPresentationFormatTypes_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormatTypes'
     @winrt_classmethod
@@ -780,39 +788,41 @@ class GattPresentationFormatTypes(ComPtr):
     def get_Utf16(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics) -> Byte: ...
     @winrt_classmethod
     def get_Struct(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics) -> Byte: ...
-    Boolean = property(get_Boolean, None)
-    Bit2 = property(get_Bit2, None)
-    Nibble = property(get_Nibble, None)
-    UInt8 = property(get_UInt8, None)
-    UInt12 = property(get_UInt12, None)
-    UInt16 = property(get_UInt16, None)
-    UInt24 = property(get_UInt24, None)
-    UInt32 = property(get_UInt32, None)
-    UInt48 = property(get_UInt48, None)
-    UInt64 = property(get_UInt64, None)
-    UInt128 = property(get_UInt128, None)
-    SInt8 = property(get_SInt8, None)
-    SInt12 = property(get_SInt12, None)
-    SInt16 = property(get_SInt16, None)
-    SInt24 = property(get_SInt24, None)
-    SInt32 = property(get_SInt32, None)
-    SInt48 = property(get_SInt48, None)
-    SInt64 = property(get_SInt64, None)
-    SInt128 = property(get_SInt128, None)
-    Float32 = property(get_Float32, None)
-    Float64 = property(get_Float64, None)
-    SFloat = property(get_SFloat, None)
-    Float = property(get_Float, None)
-    DUInt16 = property(get_DUInt16, None)
-    Utf8 = property(get_Utf8, None)
-    Utf16 = property(get_Utf16, None)
-    Struct = property(get_Struct, None)
+    _GattPresentationFormatTypes_Meta_.Boolean = property(get_Boolean.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Bit2 = property(get_Bit2.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Nibble = property(get_Nibble.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt8 = property(get_UInt8.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt12 = property(get_UInt12.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt16 = property(get_UInt16.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt24 = property(get_UInt24.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt32 = property(get_UInt32.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt48 = property(get_UInt48.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt64 = property(get_UInt64.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt128 = property(get_UInt128.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt8 = property(get_SInt8.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt12 = property(get_SInt12.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt16 = property(get_SInt16.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt24 = property(get_SInt24.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt32 = property(get_SInt32.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt48 = property(get_SInt48.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt64 = property(get_SInt64.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt128 = property(get_SInt128.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Float32 = property(get_Float32.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Float64 = property(get_Float64.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SFloat = property(get_SFloat.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Float = property(get_Float.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.DUInt16 = property(get_DUInt16.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Utf8 = property(get_Utf8.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Utf16 = property(get_Utf16.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Struct = property(get_Struct.__wrapped__, None)
 GattProtectionLevel = Int32
 GattProtectionLevel_Plain: GattProtectionLevel = 0
 GattProtectionLevel_AuthenticationRequired: GattProtectionLevel = 1
 GattProtectionLevel_EncryptionRequired: GattProtectionLevel = 2
 GattProtectionLevel_EncryptionAndAuthenticationRequired: GattProtectionLevel = 3
-class GattProtocolError(ComPtr):
+class _GattProtocolError_Meta_(ComPtr.__class__):
+    pass
+class GattProtocolError(ComPtr, metaclass=_GattProtocolError_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtocolError'
     @winrt_classmethod
@@ -849,23 +859,23 @@ class GattProtocolError(ComPtr):
     def get_UnsupportedGroupType(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics) -> Byte: ...
     @winrt_classmethod
     def get_InsufficientResources(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics) -> Byte: ...
-    InvalidHandle = property(get_InvalidHandle, None)
-    ReadNotPermitted = property(get_ReadNotPermitted, None)
-    WriteNotPermitted = property(get_WriteNotPermitted, None)
-    InvalidPdu = property(get_InvalidPdu, None)
-    InsufficientAuthentication = property(get_InsufficientAuthentication, None)
-    RequestNotSupported = property(get_RequestNotSupported, None)
-    InvalidOffset = property(get_InvalidOffset, None)
-    InsufficientAuthorization = property(get_InsufficientAuthorization, None)
-    PrepareQueueFull = property(get_PrepareQueueFull, None)
-    AttributeNotFound = property(get_AttributeNotFound, None)
-    AttributeNotLong = property(get_AttributeNotLong, None)
-    InsufficientEncryptionKeySize = property(get_InsufficientEncryptionKeySize, None)
-    InvalidAttributeValueLength = property(get_InvalidAttributeValueLength, None)
-    UnlikelyError = property(get_UnlikelyError, None)
-    InsufficientEncryption = property(get_InsufficientEncryption, None)
-    UnsupportedGroupType = property(get_UnsupportedGroupType, None)
-    InsufficientResources = property(get_InsufficientResources, None)
+    _GattProtocolError_Meta_.InvalidHandle = property(get_InvalidHandle.__wrapped__, None)
+    _GattProtocolError_Meta_.ReadNotPermitted = property(get_ReadNotPermitted.__wrapped__, None)
+    _GattProtocolError_Meta_.WriteNotPermitted = property(get_WriteNotPermitted.__wrapped__, None)
+    _GattProtocolError_Meta_.InvalidPdu = property(get_InvalidPdu.__wrapped__, None)
+    _GattProtocolError_Meta_.InsufficientAuthentication = property(get_InsufficientAuthentication.__wrapped__, None)
+    _GattProtocolError_Meta_.RequestNotSupported = property(get_RequestNotSupported.__wrapped__, None)
+    _GattProtocolError_Meta_.InvalidOffset = property(get_InvalidOffset.__wrapped__, None)
+    _GattProtocolError_Meta_.InsufficientAuthorization = property(get_InsufficientAuthorization.__wrapped__, None)
+    _GattProtocolError_Meta_.PrepareQueueFull = property(get_PrepareQueueFull.__wrapped__, None)
+    _GattProtocolError_Meta_.AttributeNotFound = property(get_AttributeNotFound.__wrapped__, None)
+    _GattProtocolError_Meta_.AttributeNotLong = property(get_AttributeNotLong.__wrapped__, None)
+    _GattProtocolError_Meta_.InsufficientEncryptionKeySize = property(get_InsufficientEncryptionKeySize.__wrapped__, None)
+    _GattProtocolError_Meta_.InvalidAttributeValueLength = property(get_InvalidAttributeValueLength.__wrapped__, None)
+    _GattProtocolError_Meta_.UnlikelyError = property(get_UnlikelyError.__wrapped__, None)
+    _GattProtocolError_Meta_.InsufficientEncryption = property(get_InsufficientEncryption.__wrapped__, None)
+    _GattProtocolError_Meta_.UnsupportedGroupType = property(get_UnsupportedGroupType.__wrapped__, None)
+    _GattProtocolError_Meta_.InsufficientResources = property(get_InsufficientResources.__wrapped__, None)
 class GattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult
@@ -1019,7 +1029,9 @@ class GattServiceProviderResult(ComPtr):
     def get_ServiceProvider(self: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderResult) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider: ...
     Error = property(get_Error, None)
     ServiceProvider = property(get_ServiceProvider, None)
-class GattServiceUuids(ComPtr):
+class _GattServiceUuids_Meta_(ComPtr.__class__):
+    pass
+class GattServiceUuids(ComPtr, metaclass=_GattServiceUuids_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids'
     @winrt_classmethod
@@ -1066,28 +1078,28 @@ class GattServiceUuids(ComPtr):
     def get_HeartRate(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics) -> Guid: ...
     @winrt_classmethod
     def get_RunningSpeedAndCadence(cls: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics) -> Guid: ...
-    AlertNotification = property(get_AlertNotification, None)
-    CurrentTime = property(get_CurrentTime, None)
-    CyclingPower = property(get_CyclingPower, None)
-    DeviceInformation = property(get_DeviceInformation, None)
-    HumanInterfaceDevice = property(get_HumanInterfaceDevice, None)
-    ImmediateAlert = property(get_ImmediateAlert, None)
-    LinkLoss = property(get_LinkLoss, None)
-    LocationAndNavigation = property(get_LocationAndNavigation, None)
-    NextDstChange = property(get_NextDstChange, None)
-    PhoneAlertStatus = property(get_PhoneAlertStatus, None)
-    ReferenceTimeUpdate = property(get_ReferenceTimeUpdate, None)
-    ScanParameters = property(get_ScanParameters, None)
-    TxPower = property(get_TxPower, None)
-    Battery = property(get_Battery, None)
-    BloodPressure = property(get_BloodPressure, None)
-    CyclingSpeedAndCadence = property(get_CyclingSpeedAndCadence, None)
-    GenericAccess = property(get_GenericAccess, None)
-    GenericAttribute = property(get_GenericAttribute, None)
-    Glucose = property(get_Glucose, None)
-    HealthThermometer = property(get_HealthThermometer, None)
-    HeartRate = property(get_HeartRate, None)
-    RunningSpeedAndCadence = property(get_RunningSpeedAndCadence, None)
+    _GattServiceUuids_Meta_.AlertNotification = property(get_AlertNotification.__wrapped__, None)
+    _GattServiceUuids_Meta_.CurrentTime = property(get_CurrentTime.__wrapped__, None)
+    _GattServiceUuids_Meta_.CyclingPower = property(get_CyclingPower.__wrapped__, None)
+    _GattServiceUuids_Meta_.DeviceInformation = property(get_DeviceInformation.__wrapped__, None)
+    _GattServiceUuids_Meta_.HumanInterfaceDevice = property(get_HumanInterfaceDevice.__wrapped__, None)
+    _GattServiceUuids_Meta_.ImmediateAlert = property(get_ImmediateAlert.__wrapped__, None)
+    _GattServiceUuids_Meta_.LinkLoss = property(get_LinkLoss.__wrapped__, None)
+    _GattServiceUuids_Meta_.LocationAndNavigation = property(get_LocationAndNavigation.__wrapped__, None)
+    _GattServiceUuids_Meta_.NextDstChange = property(get_NextDstChange.__wrapped__, None)
+    _GattServiceUuids_Meta_.PhoneAlertStatus = property(get_PhoneAlertStatus.__wrapped__, None)
+    _GattServiceUuids_Meta_.ReferenceTimeUpdate = property(get_ReferenceTimeUpdate.__wrapped__, None)
+    _GattServiceUuids_Meta_.ScanParameters = property(get_ScanParameters.__wrapped__, None)
+    _GattServiceUuids_Meta_.TxPower = property(get_TxPower.__wrapped__, None)
+    _GattServiceUuids_Meta_.Battery = property(get_Battery.__wrapped__, None)
+    _GattServiceUuids_Meta_.BloodPressure = property(get_BloodPressure.__wrapped__, None)
+    _GattServiceUuids_Meta_.CyclingSpeedAndCadence = property(get_CyclingSpeedAndCadence.__wrapped__, None)
+    _GattServiceUuids_Meta_.GenericAccess = property(get_GenericAccess.__wrapped__, None)
+    _GattServiceUuids_Meta_.GenericAttribute = property(get_GenericAttribute.__wrapped__, None)
+    _GattServiceUuids_Meta_.Glucose = property(get_Glucose.__wrapped__, None)
+    _GattServiceUuids_Meta_.HealthThermometer = property(get_HealthThermometer.__wrapped__, None)
+    _GattServiceUuids_Meta_.HeartRate = property(get_HeartRate.__wrapped__, None)
+    _GattServiceUuids_Meta_.RunningSpeedAndCadence = property(get_RunningSpeedAndCadence.__wrapped__, None)
 class GattSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession

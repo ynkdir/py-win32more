@@ -99,7 +99,9 @@ class PaymentAppCanMakePaymentTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def ReportCanMakePaymentResult(self: Windows.ApplicationModel.Payments.Provider.IPaymentAppCanMakePaymentTriggerDetails, value: Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult) -> Void: ...
     Request = property(get_Request, None)
-class PaymentAppManager(ComPtr):
+class _PaymentAppManager_Meta_(ComPtr.__class__):
+    pass
+class PaymentAppManager(ComPtr, metaclass=_PaymentAppManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Payments.Provider.IPaymentAppManager
     _classid_ = 'Windows.ApplicationModel.Payments.Provider.PaymentAppManager'
@@ -109,7 +111,7 @@ class PaymentAppManager(ComPtr):
     def UnregisterAsync(self: Windows.ApplicationModel.Payments.Provider.IPaymentAppManager) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def get_Current(cls: Windows.ApplicationModel.Payments.Provider.IPaymentAppManagerStatics) -> Windows.ApplicationModel.Payments.Provider.PaymentAppManager: ...
-    Current = property(get_Current, None)
+    _PaymentAppManager_Meta_.Current = property(get_Current.__wrapped__, None)
 class PaymentTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Payments.Provider.IPaymentTransaction

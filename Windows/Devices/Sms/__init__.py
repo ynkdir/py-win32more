@@ -1167,7 +1167,9 @@ class SmsMessageReceivedTriggerDetails(ComPtr):
     BroadcastMessage = property(get_BroadcastMessage, None)
     VoicemailMessage = property(get_VoicemailMessage, None)
     StatusMessage = property(get_StatusMessage, None)
-class SmsMessageRegistration(ComPtr):
+class _SmsMessageRegistration_Meta_(ComPtr.__class__):
+    pass
+class SmsMessageRegistration(ComPtr, metaclass=_SmsMessageRegistration_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Sms.ISmsMessageRegistration
     _classid_ = 'Windows.Devices.Sms.SmsMessageRegistration'
@@ -1184,7 +1186,7 @@ class SmsMessageRegistration(ComPtr):
     @winrt_classmethod
     def Register(cls: Windows.Devices.Sms.ISmsMessageRegistrationStatics, id: WinRT_String, filterRules: Windows.Devices.Sms.SmsFilterRules) -> Windows.Devices.Sms.SmsMessageRegistration: ...
     Id = property(get_Id, None)
-    AllRegistrations = property(get_AllRegistrations, None)
+    _SmsMessageRegistration_Meta_.AllRegistrations = property(get_AllRegistrations.__wrapped__, None)
 SmsMessageType = Int32
 SmsMessageType_Binary: SmsMessageType = 0
 SmsMessageType_Text: SmsMessageType = 1

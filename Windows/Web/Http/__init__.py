@@ -275,7 +275,9 @@ class HttpGetStringResult(ComPtr):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
-class HttpMethod(ComPtr):
+class _HttpMethod_Meta_(ComPtr.__class__):
+    pass
+class HttpMethod(ComPtr, metaclass=_HttpMethod_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Web.Http.IHttpMethod
     _classid_ = 'Windows.Web.Http.HttpMethod'
@@ -300,13 +302,13 @@ class HttpMethod(ComPtr):
     @winrt_classmethod
     def get_Put(cls: Windows.Web.Http.IHttpMethodStatics) -> Windows.Web.Http.HttpMethod: ...
     Method = property(get_Method, None)
-    Delete = property(get_Delete, None)
-    Get = property(get_Get, None)
-    Head = property(get_Head, None)
-    Options = property(get_Options, None)
-    Patch = property(get_Patch, None)
-    Post = property(get_Post, None)
-    Put = property(get_Put, None)
+    _HttpMethod_Meta_.Delete = property(get_Delete.__wrapped__, None)
+    _HttpMethod_Meta_.Get = property(get_Get.__wrapped__, None)
+    _HttpMethod_Meta_.Head = property(get_Head.__wrapped__, None)
+    _HttpMethod_Meta_.Options = property(get_Options.__wrapped__, None)
+    _HttpMethod_Meta_.Patch = property(get_Patch.__wrapped__, None)
+    _HttpMethod_Meta_.Post = property(get_Post.__wrapped__, None)
+    _HttpMethod_Meta_.Put = property(get_Put.__wrapped__, None)
 class HttpMultipartContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Web.Http.IHttpContent

@@ -183,7 +183,9 @@ class SystemUpdateLastErrorInfo(ComPtr):
     State = property(get_State, None)
     ExtendedError = property(get_ExtendedError, None)
     IsInteractive = property(get_IsInteractive, None)
-class SystemUpdateManager(ComPtr):
+class _SystemUpdateManager_Meta_(ComPtr.__class__):
+    pass
+class SystemUpdateManager(ComPtr, metaclass=_SystemUpdateManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Update.SystemUpdateManager'
     @winrt_classmethod
@@ -234,17 +236,17 @@ class SystemUpdateManager(ComPtr):
     def RebootToCompleteInstall(cls: Windows.System.Update.ISystemUpdateManagerStatics) -> Void: ...
     @winrt_classmethod
     def StartCancelUpdates(cls: Windows.System.Update.ISystemUpdateManagerStatics) -> Void: ...
-    State = property(get_State, None)
-    DownloadProgress = property(get_DownloadProgress, None)
-    InstallProgress = property(get_InstallProgress, None)
-    UserActiveHoursStart = property(get_UserActiveHoursStart, None)
-    UserActiveHoursEnd = property(get_UserActiveHoursEnd, None)
-    UserActiveHoursMax = property(get_UserActiveHoursMax, None)
-    LastUpdateCheckTime = property(get_LastUpdateCheckTime, None)
-    LastUpdateInstallTime = property(get_LastUpdateInstallTime, None)
-    LastErrorInfo = property(get_LastErrorInfo, None)
-    ExtendedError = property(get_ExtendedError, None)
-    AttentionRequiredReason = property(get_AttentionRequiredReason, None)
+    _SystemUpdateManager_Meta_.State = property(get_State.__wrapped__, None)
+    _SystemUpdateManager_Meta_.DownloadProgress = property(get_DownloadProgress.__wrapped__, None)
+    _SystemUpdateManager_Meta_.InstallProgress = property(get_InstallProgress.__wrapped__, None)
+    _SystemUpdateManager_Meta_.UserActiveHoursStart = property(get_UserActiveHoursStart.__wrapped__, None)
+    _SystemUpdateManager_Meta_.UserActiveHoursEnd = property(get_UserActiveHoursEnd.__wrapped__, None)
+    _SystemUpdateManager_Meta_.UserActiveHoursMax = property(get_UserActiveHoursMax.__wrapped__, None)
+    _SystemUpdateManager_Meta_.LastUpdateCheckTime = property(get_LastUpdateCheckTime.__wrapped__, None)
+    _SystemUpdateManager_Meta_.LastUpdateInstallTime = property(get_LastUpdateInstallTime.__wrapped__, None)
+    _SystemUpdateManager_Meta_.LastErrorInfo = property(get_LastErrorInfo.__wrapped__, None)
+    _SystemUpdateManager_Meta_.ExtendedError = property(get_ExtendedError.__wrapped__, None)
+    _SystemUpdateManager_Meta_.AttentionRequiredReason = property(get_AttentionRequiredReason.__wrapped__, None)
 SystemUpdateManagerState = Int32
 SystemUpdateManagerState_Idle: SystemUpdateManagerState = 0
 SystemUpdateManagerState_Detecting: SystemUpdateManagerState = 1

@@ -749,15 +749,17 @@ class ISmartCardTriggerDetails3(ComPtr):
     @winrt_commethod(6)
     def get_SmartCard(self) -> Windows.Devices.SmartCards.SmartCard: ...
     SmartCard = property(get_SmartCard, None)
-class KnownSmartCardAppletIds(ComPtr):
+class _KnownSmartCardAppletIds_Meta_(ComPtr.__class__):
+    pass
+class KnownSmartCardAppletIds(ComPtr, metaclass=_KnownSmartCardAppletIds_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.SmartCards.KnownSmartCardAppletIds'
     @winrt_classmethod
     def get_PaymentSystemEnvironment(cls: Windows.Devices.SmartCards.IKnownSmartCardAppletIds) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_classmethod
     def get_ProximityPaymentSystemEnvironment(cls: Windows.Devices.SmartCards.IKnownSmartCardAppletIds) -> Windows.Storage.Streams.IBuffer: ...
-    PaymentSystemEnvironment = property(get_PaymentSystemEnvironment, None)
-    ProximityPaymentSystemEnvironment = property(get_ProximityPaymentSystemEnvironment, None)
+    _KnownSmartCardAppletIds_Meta_.PaymentSystemEnvironment = property(get_PaymentSystemEnvironment.__wrapped__, None)
+    _KnownSmartCardAppletIds_Meta_.ProximityPaymentSystemEnvironment = property(get_ProximityPaymentSystemEnvironment.__wrapped__, None)
 class SmartCard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.SmartCards.ISmartCard
@@ -774,7 +776,9 @@ class SmartCard(ComPtr):
 SmartCardActivationPolicyChangeResult = Int32
 SmartCardActivationPolicyChangeResult_Denied: SmartCardActivationPolicyChangeResult = 0
 SmartCardActivationPolicyChangeResult_Allowed: SmartCardActivationPolicyChangeResult = 1
-class SmartCardAppletIdGroup(ComPtr):
+class _SmartCardAppletIdGroup_Meta_(ComPtr.__class__):
+    pass
+class SmartCardAppletIdGroup(ComPtr, metaclass=_SmartCardAppletIdGroup_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.SmartCards.ISmartCardAppletIdGroup
     _classid_ = 'Windows.Devices.SmartCards.SmartCardAppletIdGroup'
@@ -825,7 +829,7 @@ class SmartCardAppletIdGroup(ComPtr):
     Description = property(get_Description, put_Description)
     Properties = property(get_Properties, None)
     SecureUserAuthenticationRequired = property(get_SecureUserAuthenticationRequired, put_SecureUserAuthenticationRequired)
-    MaxAppletIds = property(get_MaxAppletIds, None)
+    _SmartCardAppletIdGroup_Meta_.MaxAppletIds = property(get_MaxAppletIds.__wrapped__, None)
 SmartCardAppletIdGroupActivationPolicy = Int32
 SmartCardAppletIdGroupActivationPolicy_Disabled: SmartCardAppletIdGroupActivationPolicy = 0
 SmartCardAppletIdGroupActivationPolicy_ForegroundOverride: SmartCardAppletIdGroupActivationPolicy = 1
@@ -1233,7 +1237,9 @@ SmartCardEmulationType = Int32
 SmartCardEmulationType_Host: SmartCardEmulationType = 0
 SmartCardEmulationType_Uicc: SmartCardEmulationType = 1
 SmartCardEmulationType_EmbeddedSE: SmartCardEmulationType = 2
-class SmartCardEmulator(ComPtr):
+class _SmartCardEmulator_Meta_(ComPtr.__class__):
+    pass
+class SmartCardEmulator(ComPtr, metaclass=_SmartCardEmulator_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.SmartCards.ISmartCardEmulator
     _classid_ = 'Windows.Devices.SmartCards.SmartCardEmulator'
@@ -1264,7 +1270,7 @@ class SmartCardEmulator(ComPtr):
     @winrt_classmethod
     def GetDefaultAsync(cls: Windows.Devices.SmartCards.ISmartCardEmulatorStatics) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardEmulator]: ...
     EnablementPolicy = property(get_EnablementPolicy, None)
-    MaxAppletIdGroupRegistrations = property(get_MaxAppletIdGroupRegistrations, None)
+    _SmartCardEmulator_Meta_.MaxAppletIdGroupRegistrations = property(get_MaxAppletIdGroupRegistrations.__wrapped__, None)
 class SmartCardEmulatorApduReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgs

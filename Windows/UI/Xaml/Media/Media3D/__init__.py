@@ -21,7 +21,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CompositeTransform3D(ComPtr):
+class _CompositeTransform3D_Meta_(ComPtr.__class__):
+    pass
+class CompositeTransform3D(ComPtr, metaclass=_CompositeTransform3D_Meta_):
     extends: Windows.UI.Xaml.Media.Media3D.Transform3D
     default_interface: Windows.UI.Xaml.Media.Media3D.ICompositeTransform3D
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.CompositeTransform3D'
@@ -111,18 +113,18 @@ class CompositeTransform3D(ComPtr):
     TranslateX = property(get_TranslateX, put_TranslateX)
     TranslateY = property(get_TranslateY, put_TranslateY)
     TranslateZ = property(get_TranslateZ, put_TranslateZ)
-    CenterXProperty = property(get_CenterXProperty, None)
-    CenterYProperty = property(get_CenterYProperty, None)
-    CenterZProperty = property(get_CenterZProperty, None)
-    RotationXProperty = property(get_RotationXProperty, None)
-    RotationYProperty = property(get_RotationYProperty, None)
-    RotationZProperty = property(get_RotationZProperty, None)
-    ScaleXProperty = property(get_ScaleXProperty, None)
-    ScaleYProperty = property(get_ScaleYProperty, None)
-    ScaleZProperty = property(get_ScaleZProperty, None)
-    TranslateXProperty = property(get_TranslateXProperty, None)
-    TranslateYProperty = property(get_TranslateYProperty, None)
-    TranslateZProperty = property(get_TranslateZProperty, None)
+    _CompositeTransform3D_Meta_.CenterXProperty = property(get_CenterXProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.CenterYProperty = property(get_CenterYProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.CenterZProperty = property(get_CenterZProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.RotationXProperty = property(get_RotationXProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.RotationYProperty = property(get_RotationYProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.RotationZProperty = property(get_RotationZProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.ScaleXProperty = property(get_ScaleXProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.ScaleYProperty = property(get_ScaleYProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.ScaleZProperty = property(get_ScaleZProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.TranslateXProperty = property(get_TranslateXProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.TranslateYProperty = property(get_TranslateYProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.TranslateZProperty = property(get_TranslateZProperty.__wrapped__, None)
 class ICompositeTransform3D(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.ICompositeTransform3D'
@@ -307,7 +309,9 @@ class Matrix3D(EasyCastStructure):
     OffsetY: Double
     OffsetZ: Double
     M44: Double
-class Matrix3DHelper(ComPtr):
+class _Matrix3DHelper_Meta_(ComPtr.__class__):
+    pass
+class Matrix3DHelper(ComPtr, metaclass=_Matrix3DHelper_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.Media3D.IMatrix3DHelper
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.Matrix3DHelper'
@@ -323,8 +327,10 @@ class Matrix3DHelper(ComPtr):
     def GetIsIdentity(cls: Windows.UI.Xaml.Media.Media3D.IMatrix3DHelperStatics, target: Windows.UI.Xaml.Media.Media3D.Matrix3D) -> Boolean: ...
     @winrt_classmethod
     def Invert(cls: Windows.UI.Xaml.Media.Media3D.IMatrix3DHelperStatics, target: Windows.UI.Xaml.Media.Media3D.Matrix3D) -> Windows.UI.Xaml.Media.Media3D.Matrix3D: ...
-    Identity = property(get_Identity, None)
-class PerspectiveTransform3D(ComPtr):
+    _Matrix3DHelper_Meta_.Identity = property(get_Identity.__wrapped__, None)
+class _PerspectiveTransform3D_Meta_(ComPtr.__class__):
+    pass
+class PerspectiveTransform3D(ComPtr, metaclass=_PerspectiveTransform3D_Meta_):
     extends: Windows.UI.Xaml.Media.Media3D.Transform3D
     default_interface: Windows.UI.Xaml.Media.Media3D.IPerspectiveTransform3D
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.PerspectiveTransform3D'
@@ -351,9 +357,9 @@ class PerspectiveTransform3D(ComPtr):
     Depth = property(get_Depth, put_Depth)
     OffsetX = property(get_OffsetX, put_OffsetX)
     OffsetY = property(get_OffsetY, put_OffsetY)
-    DepthProperty = property(get_DepthProperty, None)
-    OffsetXProperty = property(get_OffsetXProperty, None)
-    OffsetYProperty = property(get_OffsetYProperty, None)
+    _PerspectiveTransform3D_Meta_.DepthProperty = property(get_DepthProperty.__wrapped__, None)
+    _PerspectiveTransform3D_Meta_.OffsetXProperty = property(get_OffsetXProperty.__wrapped__, None)
+    _PerspectiveTransform3D_Meta_.OffsetYProperty = property(get_OffsetYProperty.__wrapped__, None)
 class Transform3D(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.Media3D.ITransform3D

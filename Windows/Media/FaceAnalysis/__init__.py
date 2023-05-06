@@ -31,7 +31,9 @@ class DetectedFace(ComPtr):
     @winrt_mixinmethod
     def get_FaceBox(self: Windows.Media.FaceAnalysis.IDetectedFace) -> Windows.Graphics.Imaging.BitmapBounds: ...
     FaceBox = property(get_FaceBox, None)
-class FaceDetector(ComPtr):
+class _FaceDetector_Meta_(ComPtr.__class__):
+    pass
+class FaceDetector(ComPtr, metaclass=_FaceDetector_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.FaceAnalysis.IFaceDetector
     _classid_ = 'Windows.Media.FaceAnalysis.FaceDetector'
@@ -57,8 +59,10 @@ class FaceDetector(ComPtr):
     def get_IsSupported(cls: Windows.Media.FaceAnalysis.IFaceDetectorStatics) -> Boolean: ...
     MinDetectableFaceSize = property(get_MinDetectableFaceSize, put_MinDetectableFaceSize)
     MaxDetectableFaceSize = property(get_MaxDetectableFaceSize, put_MaxDetectableFaceSize)
-    IsSupported = property(get_IsSupported, None)
-class FaceTracker(ComPtr):
+    _FaceDetector_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+class _FaceTracker_Meta_(ComPtr.__class__):
+    pass
+class FaceTracker(ComPtr, metaclass=_FaceTracker_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.FaceAnalysis.IFaceTracker
     _classid_ = 'Windows.Media.FaceAnalysis.FaceTracker'
@@ -82,7 +86,7 @@ class FaceTracker(ComPtr):
     def get_IsSupported(cls: Windows.Media.FaceAnalysis.IFaceTrackerStatics) -> Boolean: ...
     MinDetectableFaceSize = property(get_MinDetectableFaceSize, put_MinDetectableFaceSize)
     MaxDetectableFaceSize = property(get_MaxDetectableFaceSize, put_MaxDetectableFaceSize)
-    IsSupported = property(get_IsSupported, None)
+    _FaceTracker_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
 class IDetectedFace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.FaceAnalysis.IDetectedFace'

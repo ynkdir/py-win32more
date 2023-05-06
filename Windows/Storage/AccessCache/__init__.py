@@ -137,7 +137,9 @@ class ItemRemovedEventArgs(ComPtr):
 RecentStorageItemVisibility = Int32
 RecentStorageItemVisibility_AppOnly: RecentStorageItemVisibility = 0
 RecentStorageItemVisibility_AppAndSystem: RecentStorageItemVisibility = 1
-class StorageApplicationPermissions(ComPtr):
+class _StorageApplicationPermissions_Meta_(ComPtr.__class__):
+    pass
+class StorageApplicationPermissions(ComPtr, metaclass=_StorageApplicationPermissions_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.AccessCache.StorageApplicationPermissions'
     @winrt_classmethod
@@ -148,8 +150,8 @@ class StorageApplicationPermissions(ComPtr):
     def get_FutureAccessList(cls: Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics) -> Windows.Storage.AccessCache.StorageItemAccessList: ...
     @winrt_classmethod
     def get_MostRecentlyUsedList(cls: Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics) -> Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList: ...
-    FutureAccessList = property(get_FutureAccessList, None)
-    MostRecentlyUsedList = property(get_MostRecentlyUsedList, None)
+    _StorageApplicationPermissions_Meta_.FutureAccessList = property(get_FutureAccessList.__wrapped__, None)
+    _StorageApplicationPermissions_Meta_.MostRecentlyUsedList = property(get_MostRecentlyUsedList.__wrapped__, None)
 class StorageItemAccessList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Storage.AccessCache.IStorageItemAccessList

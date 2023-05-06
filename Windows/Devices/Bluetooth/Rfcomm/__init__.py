@@ -214,7 +214,9 @@ class RfcommDeviceServicesResult(ComPtr):
     def get_Services(self: Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServicesResult) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService]: ...
     Error = property(get_Error, None)
     Services = property(get_Services, None)
-class RfcommServiceId(ComPtr):
+class _RfcommServiceId_Meta_(ComPtr.__class__):
+    pass
+class RfcommServiceId(ComPtr, metaclass=_RfcommServiceId_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceId
     _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId'
@@ -241,12 +243,12 @@ class RfcommServiceId(ComPtr):
     @winrt_classmethod
     def get_GenericFileTransfer(cls: Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics) -> Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId: ...
     Uuid = property(get_Uuid, None)
-    SerialPort = property(get_SerialPort, None)
-    ObexObjectPush = property(get_ObexObjectPush, None)
-    ObexFileTransfer = property(get_ObexFileTransfer, None)
-    PhoneBookAccessPce = property(get_PhoneBookAccessPce, None)
-    PhoneBookAccessPse = property(get_PhoneBookAccessPse, None)
-    GenericFileTransfer = property(get_GenericFileTransfer, None)
+    _RfcommServiceId_Meta_.SerialPort = property(get_SerialPort.__wrapped__, None)
+    _RfcommServiceId_Meta_.ObexObjectPush = property(get_ObexObjectPush.__wrapped__, None)
+    _RfcommServiceId_Meta_.ObexFileTransfer = property(get_ObexFileTransfer.__wrapped__, None)
+    _RfcommServiceId_Meta_.PhoneBookAccessPce = property(get_PhoneBookAccessPce.__wrapped__, None)
+    _RfcommServiceId_Meta_.PhoneBookAccessPse = property(get_PhoneBookAccessPse.__wrapped__, None)
+    _RfcommServiceId_Meta_.GenericFileTransfer = property(get_GenericFileTransfer.__wrapped__, None)
 class RfcommServiceProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider

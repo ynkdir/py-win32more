@@ -356,7 +356,9 @@ HolographicReprojectionMode = Int32
 HolographicReprojectionMode_PositionAndOrientation: HolographicReprojectionMode = 0
 HolographicReprojectionMode_OrientationOnly: HolographicReprojectionMode = 1
 HolographicReprojectionMode_Disabled: HolographicReprojectionMode = 2
-class HolographicSpace(ComPtr):
+class _HolographicSpace_Meta_(ComPtr.__class__):
+    pass
+class HolographicSpace(ComPtr, metaclass=_HolographicSpace_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Graphics.Holographic.IHolographicSpace
     _classid_ = 'Windows.Graphics.Holographic.HolographicSpace'
@@ -402,9 +404,9 @@ class HolographicSpace(ComPtr):
     def CreateForCoreWindow(cls: Windows.Graphics.Holographic.IHolographicSpaceStatics, window: Windows.UI.Core.CoreWindow) -> Windows.Graphics.Holographic.HolographicSpace: ...
     PrimaryAdapterId = property(get_PrimaryAdapterId, None)
     UserPresence = property(get_UserPresence, None)
-    IsConfigured = property(get_IsConfigured, None)
-    IsSupported = property(get_IsSupported, None)
-    IsAvailable = property(get_IsAvailable, None)
+    _HolographicSpace_Meta_.IsConfigured = property(get_IsConfigured.__wrapped__, None)
+    _HolographicSpace_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+    _HolographicSpace_Meta_.IsAvailable = property(get_IsAvailable.__wrapped__, None)
 class HolographicSpaceCameraAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Graphics.Holographic.IHolographicSpaceCameraAddedEventArgs

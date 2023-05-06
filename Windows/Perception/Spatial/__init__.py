@@ -518,7 +518,9 @@ class SpatialEntityRemovedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Entity(self: Windows.Perception.Spatial.ISpatialEntityRemovedEventArgs) -> Windows.Perception.Spatial.SpatialEntity: ...
     Entity = property(get_Entity, None)
-class SpatialEntityStore(ComPtr):
+class _SpatialEntityStore_Meta_(ComPtr.__class__):
+    pass
+class SpatialEntityStore(ComPtr, metaclass=_SpatialEntityStore_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Perception.Spatial.ISpatialEntityStore
     _classid_ = 'Windows.Perception.Spatial.SpatialEntityStore'
@@ -532,7 +534,7 @@ class SpatialEntityStore(ComPtr):
     def get_IsSupported(cls: Windows.Perception.Spatial.ISpatialEntityStoreStatics) -> Boolean: ...
     @winrt_classmethod
     def TryGetForRemoteSystemSession(cls: Windows.Perception.Spatial.ISpatialEntityStoreStatics, session: Windows.System.RemoteSystems.RemoteSystemSession) -> Windows.Perception.Spatial.SpatialEntityStore: ...
-    IsSupported = property(get_IsSupported, None)
+    _SpatialEntityStore_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
 class SpatialEntityUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Perception.Spatial.ISpatialEntityUpdatedEventArgs
@@ -686,7 +688,9 @@ SpatialPerceptionAccessStatus_DeniedBySystem: SpatialPerceptionAccessStatus = 3
 class SpatialRay(EasyCastStructure):
     Origin: Windows.Foundation.Numerics.Vector3
     Direction: Windows.Foundation.Numerics.Vector3
-class SpatialStageFrameOfReference(ComPtr):
+class _SpatialStageFrameOfReference_Meta_(ComPtr.__class__):
+    pass
+class SpatialStageFrameOfReference(ComPtr, metaclass=_SpatialStageFrameOfReference_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Perception.Spatial.ISpatialStageFrameOfReference
     _classid_ = 'Windows.Perception.Spatial.SpatialStageFrameOfReference'
@@ -711,7 +715,7 @@ class SpatialStageFrameOfReference(ComPtr):
     CoordinateSystem = property(get_CoordinateSystem, None)
     MovementRange = property(get_MovementRange, None)
     LookDirectionRange = property(get_LookDirectionRange, None)
-    Current = property(get_Current, None)
+    _SpatialStageFrameOfReference_Meta_.Current = property(get_Current.__wrapped__, None)
 class SpatialStationaryFrameOfReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Perception.Spatial.ISpatialStationaryFrameOfReference

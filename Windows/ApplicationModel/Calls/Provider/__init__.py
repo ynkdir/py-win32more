@@ -114,7 +114,9 @@ class PhoneCallOrigin(ComPtr):
     Location = property(get_Location, put_Location)
     DisplayName = property(get_DisplayName, put_DisplayName)
     DisplayPicture = property(get_DisplayPicture, put_DisplayPicture)
-class PhoneCallOriginManager(ComPtr):
+class _PhoneCallOriginManager_Meta_(ComPtr.__class__):
+    pass
+class PhoneCallOriginManager(ComPtr, metaclass=_PhoneCallOriginManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager'
     @winrt_classmethod
@@ -127,8 +129,8 @@ class PhoneCallOriginManager(ComPtr):
     def ShowPhoneCallOriginSettingsUI(cls: Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics) -> Void: ...
     @winrt_classmethod
     def SetCallOrigin(cls: Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics, requestId: Guid, callOrigin: Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin) -> Void: ...
-    IsSupported = property(get_IsSupported, None)
-    IsCurrentAppActiveCallOriginApp = property(get_IsCurrentAppActiveCallOriginApp, None)
+    _PhoneCallOriginManager_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+    _PhoneCallOriginManager_Meta_.IsCurrentAppActiveCallOriginApp = property(get_IsCurrentAppActiveCallOriginApp.__wrapped__, None)
 make_head(_module, 'IPhoneCallOrigin')
 make_head(_module, 'IPhoneCallOrigin2')
 make_head(_module, 'IPhoneCallOrigin3')

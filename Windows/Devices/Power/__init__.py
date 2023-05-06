@@ -22,7 +22,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class Battery(ComPtr):
+class _Battery_Meta_(ComPtr.__class__):
+    pass
+class Battery(ComPtr, metaclass=_Battery_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Power.IBattery
     _classid_ = 'Windows.Devices.Power.Battery'
@@ -41,7 +43,7 @@ class Battery(ComPtr):
     @winrt_classmethod
     def GetDeviceSelector(cls: Windows.Devices.Power.IBatteryStatics) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-    AggregateBattery = property(get_AggregateBattery, None)
+    _Battery_Meta_.AggregateBattery = property(get_AggregateBattery.__wrapped__, None)
 class BatteryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Power.IBatteryReport

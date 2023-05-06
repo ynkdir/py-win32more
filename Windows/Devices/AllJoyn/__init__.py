@@ -477,7 +477,9 @@ class AllJoynSessionMemberRemovedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_UniqueName(self: Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgs) -> WinRT_String: ...
     UniqueName = property(get_UniqueName, None)
-class AllJoynStatus(ComPtr):
+class _AllJoynStatus_Meta_(ComPtr.__class__):
+    pass
+class AllJoynStatus(ComPtr, metaclass=_AllJoynStatus_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynStatus'
     @winrt_classmethod
@@ -516,24 +518,24 @@ class AllJoynStatus(ComPtr):
     def get_InvalidArgument7(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
     @winrt_classmethod
     def get_InvalidArgument8(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
-    Ok = property(get_Ok, None)
-    Fail = property(get_Fail, None)
-    OperationTimedOut = property(get_OperationTimedOut, None)
-    OtherEndClosed = property(get_OtherEndClosed, None)
-    ConnectionRefused = property(get_ConnectionRefused, None)
-    AuthenticationFailed = property(get_AuthenticationFailed, None)
-    AuthenticationRejectedByUser = property(get_AuthenticationRejectedByUser, None)
-    SslConnectFailed = property(get_SslConnectFailed, None)
-    SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed, None)
-    InsufficientSecurity = property(get_InsufficientSecurity, None)
-    InvalidArgument1 = property(get_InvalidArgument1, None)
-    InvalidArgument2 = property(get_InvalidArgument2, None)
-    InvalidArgument3 = property(get_InvalidArgument3, None)
-    InvalidArgument4 = property(get_InvalidArgument4, None)
-    InvalidArgument5 = property(get_InvalidArgument5, None)
-    InvalidArgument6 = property(get_InvalidArgument6, None)
-    InvalidArgument7 = property(get_InvalidArgument7, None)
-    InvalidArgument8 = property(get_InvalidArgument8, None)
+    _AllJoynStatus_Meta_.Ok = property(get_Ok.__wrapped__, None)
+    _AllJoynStatus_Meta_.Fail = property(get_Fail.__wrapped__, None)
+    _AllJoynStatus_Meta_.OperationTimedOut = property(get_OperationTimedOut.__wrapped__, None)
+    _AllJoynStatus_Meta_.OtherEndClosed = property(get_OtherEndClosed.__wrapped__, None)
+    _AllJoynStatus_Meta_.ConnectionRefused = property(get_ConnectionRefused.__wrapped__, None)
+    _AllJoynStatus_Meta_.AuthenticationFailed = property(get_AuthenticationFailed.__wrapped__, None)
+    _AllJoynStatus_Meta_.AuthenticationRejectedByUser = property(get_AuthenticationRejectedByUser.__wrapped__, None)
+    _AllJoynStatus_Meta_.SslConnectFailed = property(get_SslConnectFailed.__wrapped__, None)
+    _AllJoynStatus_Meta_.SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed.__wrapped__, None)
+    _AllJoynStatus_Meta_.InsufficientSecurity = property(get_InsufficientSecurity.__wrapped__, None)
+    _AllJoynStatus_Meta_.InvalidArgument1 = property(get_InvalidArgument1.__wrapped__, None)
+    _AllJoynStatus_Meta_.InvalidArgument2 = property(get_InvalidArgument2.__wrapped__, None)
+    _AllJoynStatus_Meta_.InvalidArgument3 = property(get_InvalidArgument3.__wrapped__, None)
+    _AllJoynStatus_Meta_.InvalidArgument4 = property(get_InvalidArgument4.__wrapped__, None)
+    _AllJoynStatus_Meta_.InvalidArgument5 = property(get_InvalidArgument5.__wrapped__, None)
+    _AllJoynStatus_Meta_.InvalidArgument6 = property(get_InvalidArgument6.__wrapped__, None)
+    _AllJoynStatus_Meta_.InvalidArgument7 = property(get_InvalidArgument7.__wrapped__, None)
+    _AllJoynStatus_Meta_.InvalidArgument8 = property(get_InvalidArgument8.__wrapped__, None)
 AllJoynTrafficType = Int32
 AllJoynTrafficType_Unknown: AllJoynTrafficType = 0
 AllJoynTrafficType_Messages: AllJoynTrafficType = 1

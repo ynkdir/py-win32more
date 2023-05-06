@@ -434,7 +434,9 @@ class AutomationPeer(ComPtr):
     @winrt_classmethod
     def ListenerExists(cls: Windows.UI.Xaml.Automation.Peers.IAutomationPeerStatics, eventId: Windows.UI.Xaml.Automation.Peers.AutomationEvents) -> Boolean: ...
     EventsSource = property(get_EventsSource, put_EventsSource)
-class AutomationPeerAnnotation(ComPtr):
+class _AutomationPeerAnnotation_Meta_(ComPtr.__class__):
+    pass
+class AutomationPeerAnnotation(ComPtr, metaclass=_AutomationPeerAnnotation_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Automation.Peers.IAutomationPeerAnnotation
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation'
@@ -458,8 +460,8 @@ class AutomationPeerAnnotation(ComPtr):
     def get_PeerProperty(cls: Windows.UI.Xaml.Automation.Peers.IAutomationPeerAnnotationStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Type = property(get_Type, put_Type)
     Peer = property(get_Peer, put_Peer)
-    TypeProperty = property(get_TypeProperty, None)
-    PeerProperty = property(get_PeerProperty, None)
+    _AutomationPeerAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
+    _AutomationPeerAnnotation_Meta_.PeerProperty = property(get_PeerProperty.__wrapped__, None)
 AutomationStructureChangeType = Int32
 AutomationStructureChangeType_ChildAdded: AutomationStructureChangeType = 0
 AutomationStructureChangeType_ChildRemoved: AutomationStructureChangeType = 1

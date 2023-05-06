@@ -133,12 +133,14 @@ class IOControlCode(ComPtr):
     Function = property(get_Function, None)
     DeviceType = property(get_DeviceType, None)
     ControlCode = property(get_ControlCode, None)
-class KnownDeviceTypes(ComPtr):
+class _KnownDeviceTypes_Meta_(ComPtr.__class__):
+    pass
+class KnownDeviceTypes(ComPtr, metaclass=_KnownDeviceTypes_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Custom.KnownDeviceTypes'
     @winrt_classmethod
     def get_Unknown(cls: Windows.Devices.Custom.IKnownDeviceTypesStatics) -> UInt16: ...
-    Unknown = property(get_Unknown, None)
+    _KnownDeviceTypes_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
 make_head(_module, 'CustomDevice')
 make_head(_module, 'ICustomDevice')
 make_head(_module, 'ICustomDeviceStatics')

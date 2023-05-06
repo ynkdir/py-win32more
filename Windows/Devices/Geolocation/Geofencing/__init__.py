@@ -56,7 +56,9 @@ class Geofence(ComPtr):
     MonitoredStates = property(get_MonitoredStates, None)
     Geoshape = property(get_Geoshape, None)
     SingleUse = property(get_SingleUse, None)
-class GeofenceMonitor(ComPtr):
+class _GeofenceMonitor_Meta_(ComPtr.__class__):
+    pass
+class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Geolocation.Geofencing.IGeofenceMonitor
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.GeofenceMonitor'
@@ -81,7 +83,7 @@ class GeofenceMonitor(ComPtr):
     Status = property(get_Status, None)
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
-    Current = property(get_Current, None)
+    _GeofenceMonitor_Meta_.Current = property(get_Current.__wrapped__, None)
 GeofenceMonitorStatus = Int32
 GeofenceMonitorStatus_Ready: GeofenceMonitorStatus = 0
 GeofenceMonitorStatus_Initializing: GeofenceMonitorStatus = 1

@@ -25,7 +25,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AccessoryManager(ComPtr):
+class _AccessoryManager_Meta_(ComPtr.__class__):
+    pass
+class AccessoryManager(ComPtr, metaclass=_AccessoryManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.Notification.Management.AccessoryManager'
     @winrt_classmethod
@@ -154,17 +156,17 @@ class AccessoryManager(ComPtr):
     def GetUserConsent(cls: Windows.Phone.Notification.Management.IAccessoryManager) -> Boolean: ...
     @winrt_classmethod
     def GetAppIcon(cls: Windows.Phone.Notification.Management.IAccessoryManager, appId: WinRT_String) -> Windows.Storage.Streams.IRandomAccessStreamReference: ...
-    SpeedDialList = property(get_SpeedDialList, None)
-    IsPhonePinLocked = property(get_IsPhonePinLocked, None)
-    VolumeInfo = property(get_VolumeInfo, None)
-    PhoneLineDetails = property(get_PhoneLineDetails, None)
-    PhoneMute = property(get_PhoneMute, put_PhoneMute)
-    PhoneCallAudioEndpoint = property(get_PhoneCallAudioEndpoint, put_PhoneCallAudioEndpoint)
-    MediaPlaybackCapabilities = property(get_MediaPlaybackCapabilities, None)
-    MediaPlaybackStatus = property(get_MediaPlaybackStatus, None)
-    DoNotDisturbEnabled = property(get_DoNotDisturbEnabled, None)
-    DrivingModeEnabled = property(get_DrivingModeEnabled, None)
-    BatterySaverState = property(get_BatterySaverState, None)
+    _AccessoryManager_Meta_.SpeedDialList = property(get_SpeedDialList.__wrapped__, None)
+    _AccessoryManager_Meta_.IsPhonePinLocked = property(get_IsPhonePinLocked.__wrapped__, None)
+    _AccessoryManager_Meta_.VolumeInfo = property(get_VolumeInfo.__wrapped__, None)
+    _AccessoryManager_Meta_.PhoneLineDetails = property(get_PhoneLineDetails.__wrapped__, None)
+    _AccessoryManager_Meta_.PhoneMute = property(get_PhoneMute.__wrapped__, put_PhoneMute.__wrapped__)
+    _AccessoryManager_Meta_.PhoneCallAudioEndpoint = property(get_PhoneCallAudioEndpoint.__wrapped__, put_PhoneCallAudioEndpoint.__wrapped__)
+    _AccessoryManager_Meta_.MediaPlaybackCapabilities = property(get_MediaPlaybackCapabilities.__wrapped__, None)
+    _AccessoryManager_Meta_.MediaPlaybackStatus = property(get_MediaPlaybackStatus.__wrapped__, None)
+    _AccessoryManager_Meta_.DoNotDisturbEnabled = property(get_DoNotDisturbEnabled.__wrapped__, None)
+    _AccessoryManager_Meta_.DrivingModeEnabled = property(get_DrivingModeEnabled.__wrapped__, None)
+    _AccessoryManager_Meta_.BatterySaverState = property(get_BatterySaverState.__wrapped__, None)
 AccessoryNotificationType = UInt32
 AccessoryNotificationType_None: AccessoryNotificationType = 0
 AccessoryNotificationType_Phone: AccessoryNotificationType = 1

@@ -141,7 +141,9 @@ class IVibrationDeviceStatics(ComPtr):
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Haptics.VibrationDevice]: ...
     @winrt_commethod(10)
     def FindAllAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Haptics.VibrationDevice]]: ...
-class KnownSimpleHapticsControllerWaveforms(ComPtr):
+class _KnownSimpleHapticsControllerWaveforms_Meta_(ComPtr.__class__):
+    pass
+class KnownSimpleHapticsControllerWaveforms(ComPtr, metaclass=_KnownSimpleHapticsControllerWaveforms_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms'
     @winrt_classmethod
@@ -174,21 +176,21 @@ class KnownSimpleHapticsControllerWaveforms(ComPtr):
     def get_Press(cls: Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics) -> UInt16: ...
     @winrt_classmethod
     def get_Release(cls: Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics) -> UInt16: ...
-    BrushContinuous = property(get_BrushContinuous, None)
-    ChiselMarkerContinuous = property(get_ChiselMarkerContinuous, None)
-    EraserContinuous = property(get_EraserContinuous, None)
-    Error = property(get_Error, None)
-    GalaxyPenContinuous = property(get_GalaxyPenContinuous, None)
-    Hover = property(get_Hover, None)
-    InkContinuous = property(get_InkContinuous, None)
-    MarkerContinuous = property(get_MarkerContinuous, None)
-    PencilContinuous = property(get_PencilContinuous, None)
-    Success = property(get_Success, None)
-    Click = property(get_Click, None)
-    BuzzContinuous = property(get_BuzzContinuous, None)
-    RumbleContinuous = property(get_RumbleContinuous, None)
-    Press = property(get_Press, None)
-    Release = property(get_Release, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.BrushContinuous = property(get_BrushContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.ChiselMarkerContinuous = property(get_ChiselMarkerContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.EraserContinuous = property(get_EraserContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Error = property(get_Error.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.GalaxyPenContinuous = property(get_GalaxyPenContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Hover = property(get_Hover.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.InkContinuous = property(get_InkContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.MarkerContinuous = property(get_MarkerContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.PencilContinuous = property(get_PencilContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Success = property(get_Success.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Click = property(get_Click.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.BuzzContinuous = property(get_BuzzContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.RumbleContinuous = property(get_RumbleContinuous.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Press = property(get_Press.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Release = property(get_Release.__wrapped__, None)
 class SimpleHapticsController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Haptics.ISimpleHapticsController

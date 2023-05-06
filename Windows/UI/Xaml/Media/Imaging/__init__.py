@@ -28,7 +28,9 @@ def __getattr__(name):
 BitmapCreateOptions = UInt32
 BitmapCreateOptions_None: BitmapCreateOptions = 0
 BitmapCreateOptions_IgnoreImageCache: BitmapCreateOptions = 8
-class BitmapImage(ComPtr):
+class _BitmapImage_Meta_(ComPtr.__class__):
+    pass
+class BitmapImage(ComPtr, metaclass=_BitmapImage_Meta_):
     extends: Windows.UI.Xaml.Media.Imaging.BitmapSource
     default_interface: Windows.UI.Xaml.Media.Imaging.IBitmapImage
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapImage'
@@ -104,15 +106,17 @@ class BitmapImage(ComPtr):
     IsAnimatedBitmap = property(get_IsAnimatedBitmap, None)
     IsPlaying = property(get_IsPlaying, None)
     AutoPlay = property(get_AutoPlay, put_AutoPlay)
-    IsAnimatedBitmapProperty = property(get_IsAnimatedBitmapProperty, None)
-    IsPlayingProperty = property(get_IsPlayingProperty, None)
-    AutoPlayProperty = property(get_AutoPlayProperty, None)
-    DecodePixelTypeProperty = property(get_DecodePixelTypeProperty, None)
-    CreateOptionsProperty = property(get_CreateOptionsProperty, None)
-    UriSourceProperty = property(get_UriSourceProperty, None)
-    DecodePixelWidthProperty = property(get_DecodePixelWidthProperty, None)
-    DecodePixelHeightProperty = property(get_DecodePixelHeightProperty, None)
-class BitmapSource(ComPtr):
+    _BitmapImage_Meta_.IsAnimatedBitmapProperty = property(get_IsAnimatedBitmapProperty.__wrapped__, None)
+    _BitmapImage_Meta_.IsPlayingProperty = property(get_IsPlayingProperty.__wrapped__, None)
+    _BitmapImage_Meta_.AutoPlayProperty = property(get_AutoPlayProperty.__wrapped__, None)
+    _BitmapImage_Meta_.DecodePixelTypeProperty = property(get_DecodePixelTypeProperty.__wrapped__, None)
+    _BitmapImage_Meta_.CreateOptionsProperty = property(get_CreateOptionsProperty.__wrapped__, None)
+    _BitmapImage_Meta_.UriSourceProperty = property(get_UriSourceProperty.__wrapped__, None)
+    _BitmapImage_Meta_.DecodePixelWidthProperty = property(get_DecodePixelWidthProperty.__wrapped__, None)
+    _BitmapImage_Meta_.DecodePixelHeightProperty = property(get_DecodePixelHeightProperty.__wrapped__, None)
+class _BitmapSource_Meta_(ComPtr.__class__):
+    pass
+class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
     extends: Windows.UI.Xaml.Media.ImageSource
     default_interface: Windows.UI.Xaml.Media.Imaging.IBitmapSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapSource'
@@ -132,8 +136,8 @@ class BitmapSource(ComPtr):
     def get_PixelHeightProperty(cls: Windows.UI.Xaml.Media.Imaging.IBitmapSourceStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     PixelWidth = property(get_PixelWidth, None)
     PixelHeight = property(get_PixelHeight, None)
-    PixelWidthProperty = property(get_PixelWidthProperty, None)
-    PixelHeightProperty = property(get_PixelHeightProperty, None)
+    _BitmapSource_Meta_.PixelWidthProperty = property(get_PixelWidthProperty.__wrapped__, None)
+    _BitmapSource_Meta_.PixelHeightProperty = property(get_PixelHeightProperty.__wrapped__, None)
 DecodePixelType = Int32
 DecodePixelType_Physical: DecodePixelType = 0
 DecodePixelType_Logical: DecodePixelType = 1
@@ -445,7 +449,9 @@ class IXamlRenderingBackgroundTaskOverrides(ComPtr):
     _iid_ = Guid('{9c2a6997-a908-4711-b4b2-a960db3d8e5a}')
     @winrt_commethod(6)
     def OnRun(self, taskInstance: Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> Void: ...
-class RenderTargetBitmap(ComPtr):
+class _RenderTargetBitmap_Meta_(ComPtr.__class__):
+    pass
+class RenderTargetBitmap(ComPtr, metaclass=_RenderTargetBitmap_Meta_):
     extends: Windows.UI.Xaml.Media.ImageSource
     default_interface: Windows.UI.Xaml.Media.Imaging.IRenderTargetBitmap
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap'
@@ -467,8 +473,8 @@ class RenderTargetBitmap(ComPtr):
     def get_PixelHeightProperty(cls: Windows.UI.Xaml.Media.Imaging.IRenderTargetBitmapStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     PixelWidth = property(get_PixelWidth, None)
     PixelHeight = property(get_PixelHeight, None)
-    PixelWidthProperty = property(get_PixelWidthProperty, None)
-    PixelHeightProperty = property(get_PixelHeightProperty, None)
+    _RenderTargetBitmap_Meta_.PixelWidthProperty = property(get_PixelWidthProperty.__wrapped__, None)
+    _RenderTargetBitmap_Meta_.PixelHeightProperty = property(get_PixelHeightProperty.__wrapped__, None)
 class SoftwareBitmapSource(ComPtr):
     extends: Windows.UI.Xaml.Media.ImageSource
     default_interface: Windows.UI.Xaml.Media.Imaging.ISoftwareBitmapSource
@@ -487,7 +493,9 @@ class SurfaceImageSource(ComPtr):
     def CreateInstanceWithDimensions(cls: Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
     @winrt_factorymethod
     def CreateInstanceWithDimensionsAndOpacity(cls: Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
-class SvgImageSource(ComPtr):
+class _SvgImageSource_Meta_(ComPtr.__class__):
+    pass
+class SvgImageSource(ComPtr, metaclass=_SvgImageSource_Meta_):
     extends: Windows.UI.Xaml.Media.ImageSource
     default_interface: Windows.UI.Xaml.Media.Imaging.ISvgImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SvgImageSource'
@@ -526,9 +534,9 @@ class SvgImageSource(ComPtr):
     UriSource = property(get_UriSource, put_UriSource)
     RasterizePixelWidth = property(get_RasterizePixelWidth, put_RasterizePixelWidth)
     RasterizePixelHeight = property(get_RasterizePixelHeight, put_RasterizePixelHeight)
-    UriSourceProperty = property(get_UriSourceProperty, None)
-    RasterizePixelWidthProperty = property(get_RasterizePixelWidthProperty, None)
-    RasterizePixelHeightProperty = property(get_RasterizePixelHeightProperty, None)
+    _SvgImageSource_Meta_.UriSourceProperty = property(get_UriSourceProperty.__wrapped__, None)
+    _SvgImageSource_Meta_.RasterizePixelWidthProperty = property(get_RasterizePixelWidthProperty.__wrapped__, None)
+    _SvgImageSource_Meta_.RasterizePixelHeightProperty = property(get_RasterizePixelHeightProperty.__wrapped__, None)
 class SvgImageSourceFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs

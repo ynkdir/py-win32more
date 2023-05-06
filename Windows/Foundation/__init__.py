@@ -89,7 +89,9 @@ class EventHandler(Generic[T], ComPtr):
 class EventRegistrationToken(EasyCastStructure):
     Value: Int64
 FoundationContract: UInt32 = 262144
-class GuidHelper(ComPtr):
+class _GuidHelper_Meta_(ComPtr.__class__):
+    pass
+class GuidHelper(ComPtr, metaclass=_GuidHelper_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.GuidHelper'
     @winrt_classmethod
@@ -98,7 +100,7 @@ class GuidHelper(ComPtr):
     def get_Empty(cls: Windows.Foundation.IGuidHelperStatics) -> Guid: ...
     @winrt_classmethod
     def Equals(cls: Windows.Foundation.IGuidHelperStatics, target: POINTER(Guid), value: POINTER(Guid)) -> Boolean: ...
-    Empty = property(get_Empty, None)
+    _GuidHelper_Meta_.Empty = property(get_Empty.__wrapped__, None)
 class HResult(EasyCastStructure):
     Value: Int32
 class IAsyncAction(ComPtr):

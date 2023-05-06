@@ -117,7 +117,9 @@ class BindingOperations(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Data.BindingOperations'
     @winrt_classmethod
     def SetBinding(cls: Windows.UI.Xaml.Data.IBindingOperationsStatics, target: Windows.UI.Xaml.DependencyObject, dp: Windows.UI.Xaml.DependencyProperty, binding: Windows.UI.Xaml.Data.BindingBase) -> Void: ...
-class CollectionViewSource(ComPtr):
+class _CollectionViewSource_Meta_(ComPtr.__class__):
+    pass
+class CollectionViewSource(ComPtr, metaclass=_CollectionViewSource_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Data.ICollectionViewSource
     _classid_ = 'Windows.UI.Xaml.Data.CollectionViewSource'
@@ -149,10 +151,10 @@ class CollectionViewSource(ComPtr):
     View = property(get_View, None)
     IsSourceGrouped = property(get_IsSourceGrouped, put_IsSourceGrouped)
     ItemsPath = property(get_ItemsPath, put_ItemsPath)
-    SourceProperty = property(get_SourceProperty, None)
-    ViewProperty = property(get_ViewProperty, None)
-    IsSourceGroupedProperty = property(get_IsSourceGroupedProperty, None)
-    ItemsPathProperty = property(get_ItemsPathProperty, None)
+    _CollectionViewSource_Meta_.SourceProperty = property(get_SourceProperty.__wrapped__, None)
+    _CollectionViewSource_Meta_.ViewProperty = property(get_ViewProperty.__wrapped__, None)
+    _CollectionViewSource_Meta_.IsSourceGroupedProperty = property(get_IsSourceGroupedProperty.__wrapped__, None)
+    _CollectionViewSource_Meta_.ItemsPathProperty = property(get_ItemsPathProperty.__wrapped__, None)
 class CurrentChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Data.ICurrentChangingEventArgs

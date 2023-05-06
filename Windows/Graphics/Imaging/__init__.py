@@ -65,7 +65,9 @@ class BitmapCodecInformation(ComPtr):
     FileExtensions = property(get_FileExtensions, None)
     FriendlyName = property(get_FriendlyName, None)
     MimeTypes = property(get_MimeTypes, None)
-class BitmapDecoder(ComPtr):
+class _BitmapDecoder_Meta_(ComPtr.__class__):
+    pass
+class BitmapDecoder(ComPtr, metaclass=_BitmapDecoder_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Graphics.Imaging.IBitmapDecoder
     _classid_ = 'Windows.Graphics.Imaging.BitmapDecoder'
@@ -145,16 +147,18 @@ class BitmapDecoder(ComPtr):
     PixelHeight = property(get_PixelHeight, None)
     OrientedPixelWidth = property(get_OrientedPixelWidth, None)
     OrientedPixelHeight = property(get_OrientedPixelHeight, None)
-    HeifDecoderId = property(get_HeifDecoderId, None)
-    WebpDecoderId = property(get_WebpDecoderId, None)
-    BmpDecoderId = property(get_BmpDecoderId, None)
-    JpegDecoderId = property(get_JpegDecoderId, None)
-    PngDecoderId = property(get_PngDecoderId, None)
-    TiffDecoderId = property(get_TiffDecoderId, None)
-    GifDecoderId = property(get_GifDecoderId, None)
-    JpegXRDecoderId = property(get_JpegXRDecoderId, None)
-    IcoDecoderId = property(get_IcoDecoderId, None)
-class BitmapEncoder(ComPtr):
+    _BitmapDecoder_Meta_.HeifDecoderId = property(get_HeifDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.WebpDecoderId = property(get_WebpDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.BmpDecoderId = property(get_BmpDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.JpegDecoderId = property(get_JpegDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.PngDecoderId = property(get_PngDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.TiffDecoderId = property(get_TiffDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.GifDecoderId = property(get_GifDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.JpegXRDecoderId = property(get_JpegXRDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.IcoDecoderId = property(get_IcoDecoderId.__wrapped__, None)
+class _BitmapEncoder_Meta_(ComPtr.__class__):
+    pass
+class BitmapEncoder(ComPtr, metaclass=_BitmapEncoder_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Graphics.Imaging.IBitmapEncoder
     _classid_ = 'Windows.Graphics.Imaging.BitmapEncoder'
@@ -219,13 +223,13 @@ class BitmapEncoder(ComPtr):
     GeneratedThumbnailWidth = property(get_GeneratedThumbnailWidth, put_GeneratedThumbnailWidth)
     GeneratedThumbnailHeight = property(get_GeneratedThumbnailHeight, put_GeneratedThumbnailHeight)
     BitmapTransform = property(get_BitmapTransform, None)
-    HeifEncoderId = property(get_HeifEncoderId, None)
-    BmpEncoderId = property(get_BmpEncoderId, None)
-    JpegEncoderId = property(get_JpegEncoderId, None)
-    PngEncoderId = property(get_PngEncoderId, None)
-    TiffEncoderId = property(get_TiffEncoderId, None)
-    GifEncoderId = property(get_GifEncoderId, None)
-    JpegXREncoderId = property(get_JpegXREncoderId, None)
+    _BitmapEncoder_Meta_.HeifEncoderId = property(get_HeifEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.BmpEncoderId = property(get_BmpEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.JpegEncoderId = property(get_JpegEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.PngEncoderId = property(get_PngEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.TiffEncoderId = property(get_TiffEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.GifEncoderId = property(get_GifEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.JpegXREncoderId = property(get_JpegXREncoderId.__wrapped__, None)
 BitmapFlip = Int32
 BitmapFlip_None: BitmapFlip = 0
 BitmapFlip_Horizontal: BitmapFlip = 1

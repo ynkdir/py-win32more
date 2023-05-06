@@ -228,7 +228,9 @@ class BluetoothLEAppearance(ComPtr):
     RawValue = property(get_RawValue, None)
     Category = property(get_Category, None)
     SubCategory = property(get_SubCategory, None)
-class BluetoothLEAppearanceCategories(ComPtr):
+class _BluetoothLEAppearanceCategories_Meta_(ComPtr.__class__):
+    pass
+class BluetoothLEAppearanceCategories(ComPtr, metaclass=_BluetoothLEAppearanceCategories_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories'
     @winrt_classmethod
@@ -275,29 +277,31 @@ class BluetoothLEAppearanceCategories(ComPtr):
     def get_WeightScale(cls: Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics) -> UInt16: ...
     @winrt_classmethod
     def get_OutdoorSportActivity(cls: Windows.Devices.Bluetooth.IBluetoothLEAppearanceCategoriesStatics) -> UInt16: ...
-    Uncategorized = property(get_Uncategorized, None)
-    Phone = property(get_Phone, None)
-    Computer = property(get_Computer, None)
-    Watch = property(get_Watch, None)
-    Clock = property(get_Clock, None)
-    Display = property(get_Display, None)
-    RemoteControl = property(get_RemoteControl, None)
-    EyeGlasses = property(get_EyeGlasses, None)
-    Tag = property(get_Tag, None)
-    Keyring = property(get_Keyring, None)
-    MediaPlayer = property(get_MediaPlayer, None)
-    BarcodeScanner = property(get_BarcodeScanner, None)
-    Thermometer = property(get_Thermometer, None)
-    HeartRate = property(get_HeartRate, None)
-    BloodPressure = property(get_BloodPressure, None)
-    HumanInterfaceDevice = property(get_HumanInterfaceDevice, None)
-    GlucoseMeter = property(get_GlucoseMeter, None)
-    RunningWalking = property(get_RunningWalking, None)
-    Cycling = property(get_Cycling, None)
-    PulseOximeter = property(get_PulseOximeter, None)
-    WeightScale = property(get_WeightScale, None)
-    OutdoorSportActivity = property(get_OutdoorSportActivity, None)
-class BluetoothLEAppearanceSubcategories(ComPtr):
+    _BluetoothLEAppearanceCategories_Meta_.Uncategorized = property(get_Uncategorized.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Phone = property(get_Phone.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Computer = property(get_Computer.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Watch = property(get_Watch.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Clock = property(get_Clock.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Display = property(get_Display.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.RemoteControl = property(get_RemoteControl.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.EyeGlasses = property(get_EyeGlasses.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Tag = property(get_Tag.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Keyring = property(get_Keyring.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.MediaPlayer = property(get_MediaPlayer.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.BarcodeScanner = property(get_BarcodeScanner.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Thermometer = property(get_Thermometer.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.HeartRate = property(get_HeartRate.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.BloodPressure = property(get_BloodPressure.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.HumanInterfaceDevice = property(get_HumanInterfaceDevice.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.GlucoseMeter = property(get_GlucoseMeter.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.RunningWalking = property(get_RunningWalking.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.Cycling = property(get_Cycling.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.PulseOximeter = property(get_PulseOximeter.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.WeightScale = property(get_WeightScale.__wrapped__, None)
+    _BluetoothLEAppearanceCategories_Meta_.OutdoorSportActivity = property(get_OutdoorSportActivity.__wrapped__, None)
+class _BluetoothLEAppearanceSubcategories_Meta_(ComPtr.__class__):
+    pass
+class BluetoothLEAppearanceSubcategories(ComPtr, metaclass=_BluetoothLEAppearanceSubcategories_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories'
     @winrt_classmethod
@@ -356,34 +360,34 @@ class BluetoothLEAppearanceSubcategories(ComPtr):
     def get_LocationPod(cls: Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics) -> UInt16: ...
     @winrt_classmethod
     def get_LocationNavigationPod(cls: Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics) -> UInt16: ...
-    Generic = property(get_Generic, None)
-    SportsWatch = property(get_SportsWatch, None)
-    ThermometerEar = property(get_ThermometerEar, None)
-    HeartRateBelt = property(get_HeartRateBelt, None)
-    BloodPressureArm = property(get_BloodPressureArm, None)
-    BloodPressureWrist = property(get_BloodPressureWrist, None)
-    Keyboard = property(get_Keyboard, None)
-    Mouse = property(get_Mouse, None)
-    Joystick = property(get_Joystick, None)
-    Gamepad = property(get_Gamepad, None)
-    DigitizerTablet = property(get_DigitizerTablet, None)
-    CardReader = property(get_CardReader, None)
-    DigitalPen = property(get_DigitalPen, None)
-    BarcodeScanner = property(get_BarcodeScanner, None)
-    RunningWalkingInShoe = property(get_RunningWalkingInShoe, None)
-    RunningWalkingOnShoe = property(get_RunningWalkingOnShoe, None)
-    RunningWalkingOnHip = property(get_RunningWalkingOnHip, None)
-    CyclingComputer = property(get_CyclingComputer, None)
-    CyclingSpeedSensor = property(get_CyclingSpeedSensor, None)
-    CyclingCadenceSensor = property(get_CyclingCadenceSensor, None)
-    CyclingPowerSensor = property(get_CyclingPowerSensor, None)
-    CyclingSpeedCadenceSensor = property(get_CyclingSpeedCadenceSensor, None)
-    OximeterFingertip = property(get_OximeterFingertip, None)
-    OximeterWristWorn = property(get_OximeterWristWorn, None)
-    LocationDisplay = property(get_LocationDisplay, None)
-    LocationNavigationDisplay = property(get_LocationNavigationDisplay, None)
-    LocationPod = property(get_LocationPod, None)
-    LocationNavigationPod = property(get_LocationNavigationPod, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.Generic = property(get_Generic.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.SportsWatch = property(get_SportsWatch.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.ThermometerEar = property(get_ThermometerEar.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.HeartRateBelt = property(get_HeartRateBelt.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.BloodPressureArm = property(get_BloodPressureArm.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.BloodPressureWrist = property(get_BloodPressureWrist.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.Keyboard = property(get_Keyboard.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.Mouse = property(get_Mouse.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.Joystick = property(get_Joystick.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.Gamepad = property(get_Gamepad.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.DigitizerTablet = property(get_DigitizerTablet.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.CardReader = property(get_CardReader.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.DigitalPen = property(get_DigitalPen.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.BarcodeScanner = property(get_BarcodeScanner.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.RunningWalkingInShoe = property(get_RunningWalkingInShoe.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.RunningWalkingOnShoe = property(get_RunningWalkingOnShoe.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.RunningWalkingOnHip = property(get_RunningWalkingOnHip.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.CyclingComputer = property(get_CyclingComputer.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.CyclingSpeedSensor = property(get_CyclingSpeedSensor.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.CyclingCadenceSensor = property(get_CyclingCadenceSensor.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.CyclingPowerSensor = property(get_CyclingPowerSensor.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.CyclingSpeedCadenceSensor = property(get_CyclingSpeedCadenceSensor.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.OximeterFingertip = property(get_OximeterFingertip.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.OximeterWristWorn = property(get_OximeterWristWorn.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.LocationDisplay = property(get_LocationDisplay.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.LocationNavigationDisplay = property(get_LocationNavigationDisplay.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.LocationPod = property(get_LocationPod.__wrapped__, None)
+    _BluetoothLEAppearanceSubcategories_Meta_.LocationNavigationPod = property(get_LocationNavigationPod.__wrapped__, None)
 class BluetoothLEConnectionParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.IBluetoothLEConnectionParameters
@@ -517,7 +521,9 @@ class BluetoothLEDevice(ComPtr):
     DeviceAccessInformation = property(get_DeviceAccessInformation, None)
     BluetoothDeviceId = property(get_BluetoothDeviceId, None)
     WasSecureConnectionUsedForPairing = property(get_WasSecureConnectionUsedForPairing, None)
-class BluetoothLEPreferredConnectionParameters(ComPtr):
+class _BluetoothLEPreferredConnectionParameters_Meta_(ComPtr.__class__):
+    pass
+class BluetoothLEPreferredConnectionParameters(ComPtr, metaclass=_BluetoothLEPreferredConnectionParameters_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.IBluetoothLEPreferredConnectionParameters
     _classid_ = 'Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParameters'
@@ -539,9 +545,9 @@ class BluetoothLEPreferredConnectionParameters(ComPtr):
     ConnectionLatency = property(get_ConnectionLatency, None)
     MinConnectionInterval = property(get_MinConnectionInterval, None)
     MaxConnectionInterval = property(get_MaxConnectionInterval, None)
-    Balanced = property(get_Balanced, None)
-    ThroughputOptimized = property(get_ThroughputOptimized, None)
-    PowerOptimized = property(get_PowerOptimized, None)
+    _BluetoothLEPreferredConnectionParameters_Meta_.Balanced = property(get_Balanced.__wrapped__, None)
+    _BluetoothLEPreferredConnectionParameters_Meta_.ThroughputOptimized = property(get_ThroughputOptimized.__wrapped__, None)
+    _BluetoothLEPreferredConnectionParameters_Meta_.PowerOptimized = property(get_PowerOptimized.__wrapped__, None)
 class BluetoothLEPreferredConnectionParametersRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.IBluetoothLEPreferredConnectionParametersRequest

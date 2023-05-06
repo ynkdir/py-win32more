@@ -39,7 +39,9 @@ class IPowerManagerStatics2(ComPtr):
     @winrt_commethod(6)
     def get_PowerSavingModeEnabled(self) -> Boolean: ...
     PowerSavingModeEnabled = property(get_PowerSavingModeEnabled, None)
-class PowerManager(ComPtr):
+class _PowerManager_Meta_(ComPtr.__class__):
+    pass
+class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.System.Power.PowerManager'
     @winrt_classmethod
@@ -50,8 +52,8 @@ class PowerManager(ComPtr):
     def remove_PowerSavingModeChanged(cls: Windows.Phone.System.Power.IPowerManagerStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def get_PowerSavingModeEnabled(cls: Windows.Phone.System.Power.IPowerManagerStatics2) -> Boolean: ...
-    PowerSavingMode = property(get_PowerSavingMode, None)
-    PowerSavingModeEnabled = property(get_PowerSavingModeEnabled, None)
+    _PowerManager_Meta_.PowerSavingMode = property(get_PowerSavingMode.__wrapped__, None)
+    _PowerManager_Meta_.PowerSavingModeEnabled = property(get_PowerSavingModeEnabled.__wrapped__, None)
 PowerSavingMode = Int32
 PowerSavingMode_Off: PowerSavingMode = 0
 PowerSavingMode_On: PowerSavingMode = 1

@@ -1271,7 +1271,9 @@ class SocketActivityContext(ComPtr):
     @winrt_mixinmethod
     def get_Data(self: Windows.Networking.Sockets.ISocketActivityContext) -> Windows.Storage.Streams.IBuffer: ...
     Data = property(get_Data, None)
-class SocketActivityInformation(ComPtr):
+class _SocketActivityInformation_Meta_(ComPtr.__class__):
+    pass
+class SocketActivityInformation(ComPtr, metaclass=_SocketActivityInformation_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Networking.Sockets.ISocketActivityInformation
     _classid_ = 'Windows.Networking.Sockets.SocketActivityInformation'
@@ -1298,7 +1300,7 @@ class SocketActivityInformation(ComPtr):
     DatagramSocket = property(get_DatagramSocket, None)
     StreamSocket = property(get_StreamSocket, None)
     StreamSocketListener = property(get_StreamSocketListener, None)
-    AllSockets = property(get_AllSockets, None)
+    _SocketActivityInformation_Meta_.AllSockets = property(get_AllSockets.__wrapped__, None)
 SocketActivityKind = Int32
 SocketActivityKind_None: SocketActivityKind = 0
 SocketActivityKind_StreamSocketListener: SocketActivityKind = 1

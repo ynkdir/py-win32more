@@ -1407,7 +1407,9 @@ class IUserWatcher(ComPtr):
     @winrt_commethod(22)
     def remove_Stopped(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-class KnownUserProperties(ComPtr):
+class _KnownUserProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownUserProperties(ComPtr, metaclass=_KnownUserProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.KnownUserProperties'
     @winrt_classmethod
@@ -1430,16 +1432,16 @@ class KnownUserProperties(ComPtr):
     def get_DomainName(cls: Windows.System.IKnownUserPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_SessionInitiationProtocolUri(cls: Windows.System.IKnownUserPropertiesStatics) -> WinRT_String: ...
-    AgeEnforcementRegion = property(get_AgeEnforcementRegion, None)
-    DisplayName = property(get_DisplayName, None)
-    FirstName = property(get_FirstName, None)
-    LastName = property(get_LastName, None)
-    ProviderName = property(get_ProviderName, None)
-    AccountName = property(get_AccountName, None)
-    GuestHost = property(get_GuestHost, None)
-    PrincipalName = property(get_PrincipalName, None)
-    DomainName = property(get_DomainName, None)
-    SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri, None)
+    _KnownUserProperties_Meta_.AgeEnforcementRegion = property(get_AgeEnforcementRegion.__wrapped__, None)
+    _KnownUserProperties_Meta_.DisplayName = property(get_DisplayName.__wrapped__, None)
+    _KnownUserProperties_Meta_.FirstName = property(get_FirstName.__wrapped__, None)
+    _KnownUserProperties_Meta_.LastName = property(get_LastName.__wrapped__, None)
+    _KnownUserProperties_Meta_.ProviderName = property(get_ProviderName.__wrapped__, None)
+    _KnownUserProperties_Meta_.AccountName = property(get_AccountName.__wrapped__, None)
+    _KnownUserProperties_Meta_.GuestHost = property(get_GuestHost.__wrapped__, None)
+    _KnownUserProperties_Meta_.PrincipalName = property(get_PrincipalName.__wrapped__, None)
+    _KnownUserProperties_Meta_.DomainName = property(get_DomainName.__wrapped__, None)
+    _KnownUserProperties_Meta_.SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri.__wrapped__, None)
 LaunchFileStatus = Int32
 LaunchFileStatus_Success: LaunchFileStatus = 0
 LaunchFileStatus_AppUnavailable: LaunchFileStatus = 1
@@ -1612,7 +1614,9 @@ class LauncherUIOptions(ComPtr):
     InvocationPoint = property(get_InvocationPoint, put_InvocationPoint)
     SelectionRect = property(get_SelectionRect, put_SelectionRect)
     PreferredPlacement = property(get_PreferredPlacement, put_PreferredPlacement)
-class MemoryManager(ComPtr):
+class _MemoryManager_Meta_(ComPtr.__class__):
+    pass
+class MemoryManager(ComPtr, metaclass=_MemoryManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.MemoryManager'
     @winrt_classmethod
@@ -1641,10 +1645,10 @@ class MemoryManager(ComPtr):
     def add_AppMemoryUsageLimitChanging(cls: Windows.System.IMemoryManagerStatics, handler: Windows.Foundation.EventHandler[Windows.System.AppMemoryUsageLimitChangingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_AppMemoryUsageLimitChanging(cls: Windows.System.IMemoryManagerStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit, None)
-    AppMemoryUsage = property(get_AppMemoryUsage, None)
-    AppMemoryUsageLimit = property(get_AppMemoryUsageLimit, None)
-    AppMemoryUsageLevel = property(get_AppMemoryUsageLevel, None)
+    _MemoryManager_Meta_.ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit.__wrapped__, None)
+    _MemoryManager_Meta_.AppMemoryUsage = property(get_AppMemoryUsage.__wrapped__, None)
+    _MemoryManager_Meta_.AppMemoryUsageLimit = property(get_AppMemoryUsageLimit.__wrapped__, None)
+    _MemoryManager_Meta_.AppMemoryUsageLevel = property(get_AppMemoryUsageLevel.__wrapped__, None)
 PowerState = Int32
 PowerState_ConnectedStandby: PowerState = 0
 PowerState_SleepS3: PowerState = 1
@@ -1761,7 +1765,9 @@ class ShutdownManager(ComPtr):
     @winrt_classmethod
     def CancelShutdown(cls: Windows.System.IShutdownManagerStatics) -> Void: ...
 SystemManagementContract: UInt32 = 458752
-class TimeZoneSettings(ComPtr):
+class _TimeZoneSettings_Meta_(ComPtr.__class__):
+    pass
+class TimeZoneSettings(ComPtr, metaclass=_TimeZoneSettings_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.TimeZoneSettings'
     @winrt_classmethod
@@ -1774,9 +1780,9 @@ class TimeZoneSettings(ComPtr):
     def get_CanChangeTimeZone(cls: Windows.System.ITimeZoneSettingsStatics) -> Boolean: ...
     @winrt_classmethod
     def ChangeTimeZoneByDisplayName(cls: Windows.System.ITimeZoneSettingsStatics, timeZoneDisplayName: WinRT_String) -> Void: ...
-    CurrentTimeZoneDisplayName = property(get_CurrentTimeZoneDisplayName, None)
-    SupportedTimeZoneDisplayNames = property(get_SupportedTimeZoneDisplayNames, None)
-    CanChangeTimeZone = property(get_CanChangeTimeZone, None)
+    _TimeZoneSettings_Meta_.CurrentTimeZoneDisplayName = property(get_CurrentTimeZoneDisplayName.__wrapped__, None)
+    _TimeZoneSettings_Meta_.SupportedTimeZoneDisplayNames = property(get_SupportedTimeZoneDisplayNames.__wrapped__, None)
+    _TimeZoneSettings_Meta_.CanChangeTimeZone = property(get_CanChangeTimeZone.__wrapped__, None)
 class User(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.System.IUser

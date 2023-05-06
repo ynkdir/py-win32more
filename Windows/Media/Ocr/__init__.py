@@ -82,7 +82,9 @@ class IOcrWord(ComPtr):
     def get_Text(self) -> WinRT_String: ...
     BoundingRect = property(get_BoundingRect, None)
     Text = property(get_Text, None)
-class OcrEngine(ComPtr):
+class _OcrEngine_Meta_(ComPtr.__class__):
+    pass
+class OcrEngine(ComPtr, metaclass=_OcrEngine_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.Ocr.IOcrEngine
     _classid_ = 'Windows.Media.Ocr.OcrEngine'
@@ -101,8 +103,8 @@ class OcrEngine(ComPtr):
     @winrt_classmethod
     def TryCreateFromUserProfileLanguages(cls: Windows.Media.Ocr.IOcrEngineStatics) -> Windows.Media.Ocr.OcrEngine: ...
     RecognizerLanguage = property(get_RecognizerLanguage, None)
-    MaxImageDimension = property(get_MaxImageDimension, None)
-    AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages, None)
+    _OcrEngine_Meta_.MaxImageDimension = property(get_MaxImageDimension.__wrapped__, None)
+    _OcrEngine_Meta_.AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages.__wrapped__, None)
 class OcrLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.Ocr.IOcrLine

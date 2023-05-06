@@ -202,7 +202,9 @@ class DisplayEnhancementOverrideCapabilitiesChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Capabilities(self: Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilitiesChangedEventArgs) -> Windows.Graphics.Display.DisplayEnhancementOverrideCapabilities: ...
     Capabilities = property(get_Capabilities, None)
-class DisplayInformation(ComPtr):
+class _DisplayInformation_Meta_(ComPtr.__class__):
+    pass
+class DisplayInformation(ComPtr, metaclass=_DisplayInformation_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Graphics.Display.IDisplayInformation
     _classid_ = 'Windows.Graphics.Display.DisplayInformation'
@@ -273,14 +275,16 @@ class DisplayInformation(ComPtr):
     DiagonalSizeInInches = property(get_DiagonalSizeInInches, None)
     ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
     ScreenHeightInRawPixels = property(get_ScreenHeightInRawPixels, None)
-    AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
+    _DisplayInformation_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences.__wrapped__, put_AutoRotationPreferences.__wrapped__)
 DisplayOrientations = UInt32
 DisplayOrientations_None: DisplayOrientations = 0
 DisplayOrientations_Landscape: DisplayOrientations = 1
 DisplayOrientations_Portrait: DisplayOrientations = 2
 DisplayOrientations_LandscapeFlipped: DisplayOrientations = 4
 DisplayOrientations_PortraitFlipped: DisplayOrientations = 8
-class DisplayProperties(ComPtr):
+class _DisplayProperties_Meta_(ComPtr.__class__):
+    pass
+class DisplayProperties(ComPtr, metaclass=_DisplayProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.DisplayProperties'
     @winrt_classmethod
@@ -319,12 +323,12 @@ class DisplayProperties(ComPtr):
     def add_DisplayContentsInvalidated(cls: Windows.Graphics.Display.IDisplayPropertiesStatics, handler: Windows.Graphics.Display.DisplayPropertiesEventHandler) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_DisplayContentsInvalidated(cls: Windows.Graphics.Display.IDisplayPropertiesStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-    CurrentOrientation = property(get_CurrentOrientation, None)
-    NativeOrientation = property(get_NativeOrientation, None)
-    AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
-    ResolutionScale = property(get_ResolutionScale, None)
-    LogicalDpi = property(get_LogicalDpi, None)
-    StereoEnabled = property(get_StereoEnabled, None)
+    _DisplayProperties_Meta_.CurrentOrientation = property(get_CurrentOrientation.__wrapped__, None)
+    _DisplayProperties_Meta_.NativeOrientation = property(get_NativeOrientation.__wrapped__, None)
+    _DisplayProperties_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences.__wrapped__, put_AutoRotationPreferences.__wrapped__)
+    _DisplayProperties_Meta_.ResolutionScale = property(get_ResolutionScale.__wrapped__, None)
+    _DisplayProperties_Meta_.LogicalDpi = property(get_LogicalDpi.__wrapped__, None)
+    _DisplayProperties_Meta_.StereoEnabled = property(get_StereoEnabled.__wrapped__, None)
 class DisplayPropertiesEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _classid_ = 'Windows.Graphics.Display.DisplayPropertiesEventHandler'

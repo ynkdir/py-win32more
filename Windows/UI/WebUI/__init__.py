@@ -592,12 +592,14 @@ class WebUIAppointmentsProviderShowTimeFrameActivatedEventArgs(ComPtr):
     SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
     User = property(get_User, None)
-class WebUIBackgroundTaskInstance(ComPtr):
+class _WebUIBackgroundTaskInstance_Meta_(ComPtr.__class__):
+    pass
+class WebUIBackgroundTaskInstance(ComPtr, metaclass=_WebUIBackgroundTaskInstance_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.WebUIBackgroundTaskInstance'
     @winrt_classmethod
     def get_Current(cls: Windows.UI.WebUI.IWebUIBackgroundTaskInstanceStatics) -> Windows.UI.WebUI.IWebUIBackgroundTaskInstance: ...
-    Current = property(get_Current, None)
+    _WebUIBackgroundTaskInstance_Meta_.Current = property(get_Current.__wrapped__, None)
 class WebUIBackgroundTaskInstanceRuntimeClass(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.WebUI.IWebUIBackgroundTaskInstance

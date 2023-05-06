@@ -419,7 +419,9 @@ class XamlSourceFocusNavigationResult(ComPtr):
     @winrt_mixinmethod
     def get_WasFocusMoved(self: Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationResult) -> Boolean: ...
     WasFocusMoved = property(get_WasFocusMoved, None)
-class XamlUIPresenter(ComPtr):
+class _XamlUIPresenter_Meta_(ComPtr.__class__):
+    pass
+class XamlUIPresenter(ComPtr, metaclass=_XamlUIPresenter_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Hosting.IXamlUIPresenter
     _classid_ = 'Windows.UI.Xaml.Hosting.XamlUIPresenter'
@@ -456,7 +458,7 @@ class XamlUIPresenter(ComPtr):
     RootElement = property(get_RootElement, put_RootElement)
     ThemeKey = property(get_ThemeKey, put_ThemeKey)
     ThemeResourcesXaml = property(get_ThemeResourcesXaml, put_ThemeResourcesXaml)
-    CompleteTimelinesAutomatically = property(get_CompleteTimelinesAutomatically, put_CompleteTimelinesAutomatically)
+    _XamlUIPresenter_Meta_.CompleteTimelinesAutomatically = property(get_CompleteTimelinesAutomatically.__wrapped__, put_CompleteTimelinesAutomatically.__wrapped__)
 make_head(_module, 'DesignerAppExitedEventArgs')
 make_head(_module, 'DesignerAppManager')
 make_head(_module, 'DesignerAppView')

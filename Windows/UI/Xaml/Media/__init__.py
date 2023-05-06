@@ -32,7 +32,9 @@ def __getattr__(name):
 AcrylicBackgroundSource = Int32
 AcrylicBackgroundSource_HostBackdrop: AcrylicBackgroundSource = 0
 AcrylicBackgroundSource_Backdrop: AcrylicBackgroundSource = 1
-class AcrylicBrush(ComPtr):
+class _AcrylicBrush_Meta_(ComPtr.__class__):
+    pass
+class AcrylicBrush(ComPtr, metaclass=_AcrylicBrush_Meta_):
     extends: Windows.UI.Xaml.Media.XamlCompositionBrushBase
     default_interface: Windows.UI.Xaml.Media.IAcrylicBrush
     _classid_ = 'Windows.UI.Xaml.Media.AcrylicBrush'
@@ -80,12 +82,12 @@ class AcrylicBrush(ComPtr):
     TintTransitionDuration = property(get_TintTransitionDuration, put_TintTransitionDuration)
     AlwaysUseFallback = property(get_AlwaysUseFallback, put_AlwaysUseFallback)
     TintLuminosityOpacity = property(get_TintLuminosityOpacity, put_TintLuminosityOpacity)
-    TintLuminosityOpacityProperty = property(get_TintLuminosityOpacityProperty, None)
-    BackgroundSourceProperty = property(get_BackgroundSourceProperty, None)
-    TintColorProperty = property(get_TintColorProperty, None)
-    TintOpacityProperty = property(get_TintOpacityProperty, None)
-    TintTransitionDurationProperty = property(get_TintTransitionDurationProperty, None)
-    AlwaysUseFallbackProperty = property(get_AlwaysUseFallbackProperty, None)
+    _AcrylicBrush_Meta_.TintLuminosityOpacityProperty = property(get_TintLuminosityOpacityProperty.__wrapped__, None)
+    _AcrylicBrush_Meta_.BackgroundSourceProperty = property(get_BackgroundSourceProperty.__wrapped__, None)
+    _AcrylicBrush_Meta_.TintColorProperty = property(get_TintColorProperty.__wrapped__, None)
+    _AcrylicBrush_Meta_.TintOpacityProperty = property(get_TintOpacityProperty.__wrapped__, None)
+    _AcrylicBrush_Meta_.TintTransitionDurationProperty = property(get_TintTransitionDurationProperty.__wrapped__, None)
+    _AcrylicBrush_Meta_.AlwaysUseFallbackProperty = property(get_AlwaysUseFallbackProperty.__wrapped__, None)
 AlignmentX = Int32
 AlignmentX_Left: AlignmentX = 0
 AlignmentX_Center: AlignmentX = 1
@@ -94,7 +96,9 @@ AlignmentY = Int32
 AlignmentY_Top: AlignmentY = 0
 AlignmentY_Center: AlignmentY = 1
 AlignmentY_Bottom: AlignmentY = 2
-class ArcSegment(ComPtr):
+class _ArcSegment_Meta_(ComPtr.__class__):
+    pass
+class ArcSegment(ComPtr, metaclass=_ArcSegment_Meta_):
     extends: Windows.UI.Xaml.Media.PathSegment
     default_interface: Windows.UI.Xaml.Media.IArcSegment
     _classid_ = 'Windows.UI.Xaml.Media.ArcSegment'
@@ -135,11 +139,11 @@ class ArcSegment(ComPtr):
     RotationAngle = property(get_RotationAngle, put_RotationAngle)
     IsLargeArc = property(get_IsLargeArc, put_IsLargeArc)
     SweepDirection = property(get_SweepDirection, put_SweepDirection)
-    PointProperty = property(get_PointProperty, None)
-    SizeProperty = property(get_SizeProperty, None)
-    RotationAngleProperty = property(get_RotationAngleProperty, None)
-    IsLargeArcProperty = property(get_IsLargeArcProperty, None)
-    SweepDirectionProperty = property(get_SweepDirectionProperty, None)
+    _ArcSegment_Meta_.PointProperty = property(get_PointProperty.__wrapped__, None)
+    _ArcSegment_Meta_.SizeProperty = property(get_SizeProperty.__wrapped__, None)
+    _ArcSegment_Meta_.RotationAngleProperty = property(get_RotationAngleProperty.__wrapped__, None)
+    _ArcSegment_Meta_.IsLargeArcProperty = property(get_IsLargeArcProperty.__wrapped__, None)
+    _ArcSegment_Meta_.SweepDirectionProperty = property(get_SweepDirectionProperty.__wrapped__, None)
 AudioCategory = Int32
 AudioCategory_Other: AudioCategory = 0
 AudioCategory_ForegroundOnlyMedia: AudioCategory = 1
@@ -157,7 +161,9 @@ AudioDeviceType = Int32
 AudioDeviceType_Console: AudioDeviceType = 0
 AudioDeviceType_Multimedia: AudioDeviceType = 1
 AudioDeviceType_Communications: AudioDeviceType = 2
-class BezierSegment(ComPtr):
+class _BezierSegment_Meta_(ComPtr.__class__):
+    pass
+class BezierSegment(ComPtr, metaclass=_BezierSegment_Meta_):
     extends: Windows.UI.Xaml.Media.PathSegment
     default_interface: Windows.UI.Xaml.Media.IBezierSegment
     _classid_ = 'Windows.UI.Xaml.Media.BezierSegment'
@@ -184,16 +190,18 @@ class BezierSegment(ComPtr):
     Point1 = property(get_Point1, put_Point1)
     Point2 = property(get_Point2, put_Point2)
     Point3 = property(get_Point3, put_Point3)
-    Point1Property = property(get_Point1Property, None)
-    Point2Property = property(get_Point2Property, None)
-    Point3Property = property(get_Point3Property, None)
+    _BezierSegment_Meta_.Point1Property = property(get_Point1Property.__wrapped__, None)
+    _BezierSegment_Meta_.Point2Property = property(get_Point2Property.__wrapped__, None)
+    _BezierSegment_Meta_.Point3Property = property(get_Point3Property.__wrapped__, None)
 class BitmapCache(ComPtr):
     extends: Windows.UI.Xaml.Media.CacheMode
     default_interface: Windows.UI.Xaml.Media.IBitmapCache
     _classid_ = 'Windows.UI.Xaml.Media.BitmapCache'
     @winrt_activatemethod
     def CreateInstance(cls) -> Windows.UI.Xaml.Media.BitmapCache: ...
-class Brush(ComPtr):
+class _Brush_Meta_(ComPtr.__class__):
+    pass
+class Brush(ComPtr, metaclass=_Brush_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IBrush
     _classid_ = 'Windows.UI.Xaml.Media.Brush'
@@ -224,9 +232,9 @@ class Brush(ComPtr):
     Opacity = property(get_Opacity, put_Opacity)
     Transform = property(get_Transform, put_Transform)
     RelativeTransform = property(get_RelativeTransform, put_RelativeTransform)
-    OpacityProperty = property(get_OpacityProperty, None)
-    TransformProperty = property(get_TransformProperty, None)
-    RelativeTransformProperty = property(get_RelativeTransformProperty, None)
+    _Brush_Meta_.OpacityProperty = property(get_OpacityProperty.__wrapped__, None)
+    _Brush_Meta_.TransformProperty = property(get_TransformProperty.__wrapped__, None)
+    _Brush_Meta_.RelativeTransformProperty = property(get_RelativeTransformProperty.__wrapped__, None)
 class BrushCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Media.Brush]
@@ -272,7 +280,9 @@ class CacheMode(ComPtr):
 ColorInterpolationMode = Int32
 ColorInterpolationMode_ScRgbLinearInterpolation: ColorInterpolationMode = 0
 ColorInterpolationMode_SRgbLinearInterpolation: ColorInterpolationMode = 1
-class CompositeTransform(ComPtr):
+class _CompositeTransform_Meta_(ComPtr.__class__):
+    pass
+class CompositeTransform(ComPtr, metaclass=_CompositeTransform_Meta_):
     extends: Windows.UI.Xaml.Media.Transform
     default_interface: Windows.UI.Xaml.Media.ICompositeTransform
     _classid_ = 'Windows.UI.Xaml.Media.CompositeTransform'
@@ -341,15 +351,15 @@ class CompositeTransform(ComPtr):
     Rotation = property(get_Rotation, put_Rotation)
     TranslateX = property(get_TranslateX, put_TranslateX)
     TranslateY = property(get_TranslateY, put_TranslateY)
-    CenterXProperty = property(get_CenterXProperty, None)
-    CenterYProperty = property(get_CenterYProperty, None)
-    ScaleXProperty = property(get_ScaleXProperty, None)
-    ScaleYProperty = property(get_ScaleYProperty, None)
-    SkewXProperty = property(get_SkewXProperty, None)
-    SkewYProperty = property(get_SkewYProperty, None)
-    RotationProperty = property(get_RotationProperty, None)
-    TranslateXProperty = property(get_TranslateXProperty, None)
-    TranslateYProperty = property(get_TranslateYProperty, None)
+    _CompositeTransform_Meta_.CenterXProperty = property(get_CenterXProperty.__wrapped__, None)
+    _CompositeTransform_Meta_.CenterYProperty = property(get_CenterYProperty.__wrapped__, None)
+    _CompositeTransform_Meta_.ScaleXProperty = property(get_ScaleXProperty.__wrapped__, None)
+    _CompositeTransform_Meta_.ScaleYProperty = property(get_ScaleYProperty.__wrapped__, None)
+    _CompositeTransform_Meta_.SkewXProperty = property(get_SkewXProperty.__wrapped__, None)
+    _CompositeTransform_Meta_.SkewYProperty = property(get_SkewYProperty.__wrapped__, None)
+    _CompositeTransform_Meta_.RotationProperty = property(get_RotationProperty.__wrapped__, None)
+    _CompositeTransform_Meta_.TranslateXProperty = property(get_TranslateXProperty.__wrapped__, None)
+    _CompositeTransform_Meta_.TranslateYProperty = property(get_TranslateYProperty.__wrapped__, None)
 class CompositionTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.ICompositionTarget
@@ -403,7 +413,9 @@ ElementCompositeMode = Int32
 ElementCompositeMode_Inherit: ElementCompositeMode = 0
 ElementCompositeMode_SourceOver: ElementCompositeMode = 1
 ElementCompositeMode_MinBlend: ElementCompositeMode = 2
-class EllipseGeometry(ComPtr):
+class _EllipseGeometry_Meta_(ComPtr.__class__):
+    pass
+class EllipseGeometry(ComPtr, metaclass=_EllipseGeometry_Meta_):
     extends: Windows.UI.Xaml.Media.Geometry
     default_interface: Windows.UI.Xaml.Media.IEllipseGeometry
     _classid_ = 'Windows.UI.Xaml.Media.EllipseGeometry'
@@ -430,9 +442,9 @@ class EllipseGeometry(ComPtr):
     Center = property(get_Center, put_Center)
     RadiusX = property(get_RadiusX, put_RadiusX)
     RadiusY = property(get_RadiusY, put_RadiusY)
-    CenterProperty = property(get_CenterProperty, None)
-    RadiusXProperty = property(get_RadiusXProperty, None)
-    RadiusYProperty = property(get_RadiusYProperty, None)
+    _EllipseGeometry_Meta_.CenterProperty = property(get_CenterProperty.__wrapped__, None)
+    _EllipseGeometry_Meta_.RadiusXProperty = property(get_RadiusXProperty.__wrapped__, None)
+    _EllipseGeometry_Meta_.RadiusYProperty = property(get_RadiusYProperty.__wrapped__, None)
 FastPlayFallbackBehaviour = Int32
 FastPlayFallbackBehaviour_Skip: FastPlayFallbackBehaviour = 0
 FastPlayFallbackBehaviour_Hide: FastPlayFallbackBehaviour = 1
@@ -440,7 +452,9 @@ FastPlayFallbackBehaviour_Disable: FastPlayFallbackBehaviour = 2
 FillRule = Int32
 FillRule_EvenOdd: FillRule = 0
 FillRule_Nonzero: FillRule = 1
-class FontFamily(ComPtr):
+class _FontFamily_Meta_(ComPtr.__class__):
+    pass
+class FontFamily(ComPtr, metaclass=_FontFamily_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.IFontFamily
     _classid_ = 'Windows.UI.Xaml.Media.FontFamily'
@@ -451,7 +465,7 @@ class FontFamily(ComPtr):
     @winrt_classmethod
     def get_XamlAutoFontFamily(cls: Windows.UI.Xaml.Media.IFontFamilyStatics2) -> Windows.UI.Xaml.Media.FontFamily: ...
     Source = property(get_Source, None)
-    XamlAutoFontFamily = property(get_XamlAutoFontFamily, None)
+    _FontFamily_Meta_.XamlAutoFontFamily = property(get_XamlAutoFontFamily.__wrapped__, None)
 class GeneralTransform(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IGeneralTransform
@@ -474,7 +488,9 @@ class GeneralTransform(ComPtr):
     def TransformBoundsCore(self: Windows.UI.Xaml.Media.IGeneralTransformOverrides, rect: Windows.Foundation.Rect) -> Windows.Foundation.Rect: ...
     Inverse = property(get_Inverse, None)
     InverseCore = property(get_InverseCore, None)
-class Geometry(ComPtr):
+class _Geometry_Meta_(ComPtr.__class__):
+    pass
+class Geometry(ComPtr, metaclass=_Geometry_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IGeometry
     _classid_ = 'Windows.UI.Xaml.Media.Geometry'
@@ -492,9 +508,9 @@ class Geometry(ComPtr):
     def get_TransformProperty(cls: Windows.UI.Xaml.Media.IGeometryStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Transform = property(get_Transform, put_Transform)
     Bounds = property(get_Bounds, None)
-    Empty = property(get_Empty, None)
-    StandardFlatteningTolerance = property(get_StandardFlatteningTolerance, None)
-    TransformProperty = property(get_TransformProperty, None)
+    _Geometry_Meta_.Empty = property(get_Empty.__wrapped__, None)
+    _Geometry_Meta_.StandardFlatteningTolerance = property(get_StandardFlatteningTolerance.__wrapped__, None)
+    _Geometry_Meta_.TransformProperty = property(get_TransformProperty.__wrapped__, None)
 class GeometryCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Media.Geometry]
@@ -528,7 +544,9 @@ class GeometryCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Xaml.Media.Geometry]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Xaml.Media.Geometry]: ...
     Size = property(get_Size, None)
-class GeometryGroup(ComPtr):
+class _GeometryGroup_Meta_(ComPtr.__class__):
+    pass
+class GeometryGroup(ComPtr, metaclass=_GeometryGroup_Meta_):
     extends: Windows.UI.Xaml.Media.Geometry
     default_interface: Windows.UI.Xaml.Media.IGeometryGroup
     _classid_ = 'Windows.UI.Xaml.Media.GeometryGroup'
@@ -548,9 +566,11 @@ class GeometryGroup(ComPtr):
     def get_ChildrenProperty(cls: Windows.UI.Xaml.Media.IGeometryGroupStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     FillRule = property(get_FillRule, put_FillRule)
     Children = property(get_Children, put_Children)
-    FillRuleProperty = property(get_FillRuleProperty, None)
-    ChildrenProperty = property(get_ChildrenProperty, None)
-class GradientBrush(ComPtr):
+    _GeometryGroup_Meta_.FillRuleProperty = property(get_FillRuleProperty.__wrapped__, None)
+    _GeometryGroup_Meta_.ChildrenProperty = property(get_ChildrenProperty.__wrapped__, None)
+class _GradientBrush_Meta_(ComPtr.__class__):
+    pass
+class GradientBrush(ComPtr, metaclass=_GradientBrush_Meta_):
     extends: Windows.UI.Xaml.Media.Brush
     default_interface: Windows.UI.Xaml.Media.IGradientBrush
     _classid_ = 'Windows.UI.Xaml.Media.GradientBrush'
@@ -584,15 +604,17 @@ class GradientBrush(ComPtr):
     MappingMode = property(get_MappingMode, put_MappingMode)
     ColorInterpolationMode = property(get_ColorInterpolationMode, put_ColorInterpolationMode)
     GradientStops = property(get_GradientStops, put_GradientStops)
-    SpreadMethodProperty = property(get_SpreadMethodProperty, None)
-    MappingModeProperty = property(get_MappingModeProperty, None)
-    ColorInterpolationModeProperty = property(get_ColorInterpolationModeProperty, None)
-    GradientStopsProperty = property(get_GradientStopsProperty, None)
+    _GradientBrush_Meta_.SpreadMethodProperty = property(get_SpreadMethodProperty.__wrapped__, None)
+    _GradientBrush_Meta_.MappingModeProperty = property(get_MappingModeProperty.__wrapped__, None)
+    _GradientBrush_Meta_.ColorInterpolationModeProperty = property(get_ColorInterpolationModeProperty.__wrapped__, None)
+    _GradientBrush_Meta_.GradientStopsProperty = property(get_GradientStopsProperty.__wrapped__, None)
 GradientSpreadMethod = Int32
 GradientSpreadMethod_Pad: GradientSpreadMethod = 0
 GradientSpreadMethod_Reflect: GradientSpreadMethod = 1
 GradientSpreadMethod_Repeat: GradientSpreadMethod = 2
-class GradientStop(ComPtr):
+class _GradientStop_Meta_(ComPtr.__class__):
+    pass
+class GradientStop(ComPtr, metaclass=_GradientStop_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IGradientStop
     _classid_ = 'Windows.UI.Xaml.Media.GradientStop'
@@ -612,8 +634,8 @@ class GradientStop(ComPtr):
     def get_OffsetProperty(cls: Windows.UI.Xaml.Media.IGradientStopStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Color = property(get_Color, put_Color)
     Offset = property(get_Offset, put_Offset)
-    ColorProperty = property(get_ColorProperty, None)
-    OffsetProperty = property(get_OffsetProperty, None)
+    _GradientStop_Meta_.ColorProperty = property(get_ColorProperty.__wrapped__, None)
+    _GradientStop_Meta_.OffsetProperty = property(get_OffsetProperty.__wrapped__, None)
 class GradientStopCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Media.GradientStop]
@@ -2137,7 +2159,9 @@ class IXamlLightStatics(ComPtr):
     def AddTargetBrush(self, lightId: WinRT_String, brush: Windows.UI.Xaml.Media.Brush) -> Void: ...
     @winrt_commethod(9)
     def RemoveTargetBrush(self, lightId: WinRT_String, brush: Windows.UI.Xaml.Media.Brush) -> Void: ...
-class ImageBrush(ComPtr):
+class _ImageBrush_Meta_(ComPtr.__class__):
+    pass
+class ImageBrush(ComPtr, metaclass=_ImageBrush_Meta_):
     extends: Windows.UI.Xaml.Media.TileBrush
     default_interface: Windows.UI.Xaml.Media.IImageBrush
     _classid_ = 'Windows.UI.Xaml.Media.ImageBrush'
@@ -2158,12 +2182,14 @@ class ImageBrush(ComPtr):
     @winrt_classmethod
     def get_ImageSourceProperty(cls: Windows.UI.Xaml.Media.IImageBrushStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
-    ImageSourceProperty = property(get_ImageSourceProperty, None)
+    _ImageBrush_Meta_.ImageSourceProperty = property(get_ImageSourceProperty.__wrapped__, None)
 class ImageSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IImageSource
     _classid_ = 'Windows.UI.Xaml.Media.ImageSource'
-class LineGeometry(ComPtr):
+class _LineGeometry_Meta_(ComPtr.__class__):
+    pass
+class LineGeometry(ComPtr, metaclass=_LineGeometry_Meta_):
     extends: Windows.UI.Xaml.Media.Geometry
     default_interface: Windows.UI.Xaml.Media.ILineGeometry
     _classid_ = 'Windows.UI.Xaml.Media.LineGeometry'
@@ -2183,9 +2209,11 @@ class LineGeometry(ComPtr):
     def get_EndPointProperty(cls: Windows.UI.Xaml.Media.ILineGeometryStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     StartPoint = property(get_StartPoint, put_StartPoint)
     EndPoint = property(get_EndPoint, put_EndPoint)
-    StartPointProperty = property(get_StartPointProperty, None)
-    EndPointProperty = property(get_EndPointProperty, None)
-class LineSegment(ComPtr):
+    _LineGeometry_Meta_.StartPointProperty = property(get_StartPointProperty.__wrapped__, None)
+    _LineGeometry_Meta_.EndPointProperty = property(get_EndPointProperty.__wrapped__, None)
+class _LineSegment_Meta_(ComPtr.__class__):
+    pass
+class LineSegment(ComPtr, metaclass=_LineSegment_Meta_):
     extends: Windows.UI.Xaml.Media.PathSegment
     default_interface: Windows.UI.Xaml.Media.ILineSegment
     _classid_ = 'Windows.UI.Xaml.Media.LineSegment'
@@ -2198,8 +2226,10 @@ class LineSegment(ComPtr):
     @winrt_classmethod
     def get_PointProperty(cls: Windows.UI.Xaml.Media.ILineSegmentStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Point = property(get_Point, put_Point)
-    PointProperty = property(get_PointProperty, None)
-class LinearGradientBrush(ComPtr):
+    _LineSegment_Meta_.PointProperty = property(get_PointProperty.__wrapped__, None)
+class _LinearGradientBrush_Meta_(ComPtr.__class__):
+    pass
+class LinearGradientBrush(ComPtr, metaclass=_LinearGradientBrush_Meta_):
     extends: Windows.UI.Xaml.Media.GradientBrush
     default_interface: Windows.UI.Xaml.Media.ILinearGradientBrush
     _classid_ = 'Windows.UI.Xaml.Media.LinearGradientBrush'
@@ -2221,8 +2251,8 @@ class LinearGradientBrush(ComPtr):
     def get_EndPointProperty(cls: Windows.UI.Xaml.Media.ILinearGradientBrushStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     StartPoint = property(get_StartPoint, put_StartPoint)
     EndPoint = property(get_EndPoint, put_EndPoint)
-    StartPointProperty = property(get_StartPointProperty, None)
-    EndPointProperty = property(get_EndPointProperty, None)
+    _LinearGradientBrush_Meta_.StartPointProperty = property(get_StartPointProperty.__wrapped__, None)
+    _LinearGradientBrush_Meta_.EndPointProperty = property(get_EndPointProperty.__wrapped__, None)
 class LoadedImageSourceLoadCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.ILoadedImageSourceLoadCompletedEventArgs
@@ -2269,7 +2299,9 @@ class Matrix(EasyCastStructure):
     M22: Double
     OffsetX: Double
     OffsetY: Double
-class Matrix3DProjection(ComPtr):
+class _Matrix3DProjection_Meta_(ComPtr.__class__):
+    pass
+class Matrix3DProjection(ComPtr, metaclass=_Matrix3DProjection_Meta_):
     extends: Windows.UI.Xaml.Media.Projection
     default_interface: Windows.UI.Xaml.Media.IMatrix3DProjection
     _classid_ = 'Windows.UI.Xaml.Media.Matrix3DProjection'
@@ -2282,8 +2314,10 @@ class Matrix3DProjection(ComPtr):
     @winrt_classmethod
     def get_ProjectionMatrixProperty(cls: Windows.UI.Xaml.Media.IMatrix3DProjectionStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     ProjectionMatrix = property(get_ProjectionMatrix, put_ProjectionMatrix)
-    ProjectionMatrixProperty = property(get_ProjectionMatrixProperty, None)
-class MatrixHelper(ComPtr):
+    _Matrix3DProjection_Meta_.ProjectionMatrixProperty = property(get_ProjectionMatrixProperty.__wrapped__, None)
+class _MatrixHelper_Meta_(ComPtr.__class__):
+    pass
+class MatrixHelper(ComPtr, metaclass=_MatrixHelper_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.IMatrixHelper
     _classid_ = 'Windows.UI.Xaml.Media.MatrixHelper'
@@ -2295,8 +2329,10 @@ class MatrixHelper(ComPtr):
     def GetIsIdentity(cls: Windows.UI.Xaml.Media.IMatrixHelperStatics, target: Windows.UI.Xaml.Media.Matrix) -> Boolean: ...
     @winrt_classmethod
     def Transform(cls: Windows.UI.Xaml.Media.IMatrixHelperStatics, target: Windows.UI.Xaml.Media.Matrix, point: Windows.Foundation.Point) -> Windows.Foundation.Point: ...
-    Identity = property(get_Identity, None)
-class MatrixTransform(ComPtr):
+    _MatrixHelper_Meta_.Identity = property(get_Identity.__wrapped__, None)
+class _MatrixTransform_Meta_(ComPtr.__class__):
+    pass
+class MatrixTransform(ComPtr, metaclass=_MatrixTransform_Meta_):
     extends: Windows.UI.Xaml.Media.Transform
     default_interface: Windows.UI.Xaml.Media.IMatrixTransform
     _classid_ = 'Windows.UI.Xaml.Media.MatrixTransform'
@@ -2309,7 +2345,7 @@ class MatrixTransform(ComPtr):
     @winrt_classmethod
     def get_MatrixProperty(cls: Windows.UI.Xaml.Media.IMatrixTransformStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Matrix = property(get_Matrix, put_Matrix)
-    MatrixProperty = property(get_MatrixProperty, None)
+    _MatrixTransform_Meta_.MatrixProperty = property(get_MatrixProperty.__wrapped__, None)
 MediaCanPlayResponse = Int32
 MediaCanPlayResponse_NotSupported: MediaCanPlayResponse = 0
 MediaCanPlayResponse_Maybe: MediaCanPlayResponse = 1
@@ -2341,7 +2377,9 @@ class PartialMediaFailureDetectedEventArgs(ComPtr):
     def get_ExtendedError(self: Windows.UI.Xaml.Media.IPartialMediaFailureDetectedEventArgs2) -> Windows.Foundation.HResult: ...
     StreamKind = property(get_StreamKind, None)
     ExtendedError = property(get_ExtendedError, None)
-class PathFigure(ComPtr):
+class _PathFigure_Meta_(ComPtr.__class__):
+    pass
+class PathFigure(ComPtr, metaclass=_PathFigure_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IPathFigure
     _classid_ = 'Windows.UI.Xaml.Media.PathFigure'
@@ -2375,10 +2413,10 @@ class PathFigure(ComPtr):
     StartPoint = property(get_StartPoint, put_StartPoint)
     IsClosed = property(get_IsClosed, put_IsClosed)
     IsFilled = property(get_IsFilled, put_IsFilled)
-    SegmentsProperty = property(get_SegmentsProperty, None)
-    StartPointProperty = property(get_StartPointProperty, None)
-    IsClosedProperty = property(get_IsClosedProperty, None)
-    IsFilledProperty = property(get_IsFilledProperty, None)
+    _PathFigure_Meta_.SegmentsProperty = property(get_SegmentsProperty.__wrapped__, None)
+    _PathFigure_Meta_.StartPointProperty = property(get_StartPointProperty.__wrapped__, None)
+    _PathFigure_Meta_.IsClosedProperty = property(get_IsClosedProperty.__wrapped__, None)
+    _PathFigure_Meta_.IsFilledProperty = property(get_IsFilledProperty.__wrapped__, None)
 class PathFigureCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Media.PathFigure]
@@ -2412,7 +2450,9 @@ class PathFigureCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Xaml.Media.PathFigure]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Xaml.Media.PathFigure]: ...
     Size = property(get_Size, None)
-class PathGeometry(ComPtr):
+class _PathGeometry_Meta_(ComPtr.__class__):
+    pass
+class PathGeometry(ComPtr, metaclass=_PathGeometry_Meta_):
     extends: Windows.UI.Xaml.Media.Geometry
     default_interface: Windows.UI.Xaml.Media.IPathGeometry
     _classid_ = 'Windows.UI.Xaml.Media.PathGeometry'
@@ -2432,8 +2472,8 @@ class PathGeometry(ComPtr):
     def get_FiguresProperty(cls: Windows.UI.Xaml.Media.IPathGeometryStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     FillRule = property(get_FillRule, put_FillRule)
     Figures = property(get_Figures, put_Figures)
-    FillRuleProperty = property(get_FillRuleProperty, None)
-    FiguresProperty = property(get_FiguresProperty, None)
+    _PathGeometry_Meta_.FillRuleProperty = property(get_FillRuleProperty.__wrapped__, None)
+    _PathGeometry_Meta_.FiguresProperty = property(get_FiguresProperty.__wrapped__, None)
 class PathSegment(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IPathSegment
@@ -2480,7 +2520,9 @@ PenLineJoin = Int32
 PenLineJoin_Miter: PenLineJoin = 0
 PenLineJoin_Bevel: PenLineJoin = 1
 PenLineJoin_Round: PenLineJoin = 2
-class PlaneProjection(ComPtr):
+class _PlaneProjection_Meta_(ComPtr.__class__):
+    pass
+class PlaneProjection(ComPtr, metaclass=_PlaneProjection_Meta_):
     extends: Windows.UI.Xaml.Media.Projection
     default_interface: Windows.UI.Xaml.Media.IPlaneProjection
     _classid_ = 'Windows.UI.Xaml.Media.PlaneProjection'
@@ -2575,19 +2617,19 @@ class PlaneProjection(ComPtr):
     GlobalOffsetY = property(get_GlobalOffsetY, put_GlobalOffsetY)
     GlobalOffsetZ = property(get_GlobalOffsetZ, put_GlobalOffsetZ)
     ProjectionMatrix = property(get_ProjectionMatrix, None)
-    LocalOffsetXProperty = property(get_LocalOffsetXProperty, None)
-    LocalOffsetYProperty = property(get_LocalOffsetYProperty, None)
-    LocalOffsetZProperty = property(get_LocalOffsetZProperty, None)
-    RotationXProperty = property(get_RotationXProperty, None)
-    RotationYProperty = property(get_RotationYProperty, None)
-    RotationZProperty = property(get_RotationZProperty, None)
-    CenterOfRotationXProperty = property(get_CenterOfRotationXProperty, None)
-    CenterOfRotationYProperty = property(get_CenterOfRotationYProperty, None)
-    CenterOfRotationZProperty = property(get_CenterOfRotationZProperty, None)
-    GlobalOffsetXProperty = property(get_GlobalOffsetXProperty, None)
-    GlobalOffsetYProperty = property(get_GlobalOffsetYProperty, None)
-    GlobalOffsetZProperty = property(get_GlobalOffsetZProperty, None)
-    ProjectionMatrixProperty = property(get_ProjectionMatrixProperty, None)
+    _PlaneProjection_Meta_.LocalOffsetXProperty = property(get_LocalOffsetXProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.LocalOffsetYProperty = property(get_LocalOffsetYProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.LocalOffsetZProperty = property(get_LocalOffsetZProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.RotationXProperty = property(get_RotationXProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.RotationYProperty = property(get_RotationYProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.RotationZProperty = property(get_RotationZProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.CenterOfRotationXProperty = property(get_CenterOfRotationXProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.CenterOfRotationYProperty = property(get_CenterOfRotationYProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.CenterOfRotationZProperty = property(get_CenterOfRotationZProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.GlobalOffsetXProperty = property(get_GlobalOffsetXProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.GlobalOffsetYProperty = property(get_GlobalOffsetYProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.GlobalOffsetZProperty = property(get_GlobalOffsetZProperty.__wrapped__, None)
+    _PlaneProjection_Meta_.ProjectionMatrixProperty = property(get_ProjectionMatrixProperty.__wrapped__, None)
 class PointCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IVector[Windows.Foundation.Point]
@@ -2621,7 +2663,9 @@ class PointCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Point]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Point]: ...
     Size = property(get_Size, None)
-class PolyBezierSegment(ComPtr):
+class _PolyBezierSegment_Meta_(ComPtr.__class__):
+    pass
+class PolyBezierSegment(ComPtr, metaclass=_PolyBezierSegment_Meta_):
     extends: Windows.UI.Xaml.Media.PathSegment
     default_interface: Windows.UI.Xaml.Media.IPolyBezierSegment
     _classid_ = 'Windows.UI.Xaml.Media.PolyBezierSegment'
@@ -2634,8 +2678,10 @@ class PolyBezierSegment(ComPtr):
     @winrt_classmethod
     def get_PointsProperty(cls: Windows.UI.Xaml.Media.IPolyBezierSegmentStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Points = property(get_Points, put_Points)
-    PointsProperty = property(get_PointsProperty, None)
-class PolyLineSegment(ComPtr):
+    _PolyBezierSegment_Meta_.PointsProperty = property(get_PointsProperty.__wrapped__, None)
+class _PolyLineSegment_Meta_(ComPtr.__class__):
+    pass
+class PolyLineSegment(ComPtr, metaclass=_PolyLineSegment_Meta_):
     extends: Windows.UI.Xaml.Media.PathSegment
     default_interface: Windows.UI.Xaml.Media.IPolyLineSegment
     _classid_ = 'Windows.UI.Xaml.Media.PolyLineSegment'
@@ -2648,8 +2694,10 @@ class PolyLineSegment(ComPtr):
     @winrt_classmethod
     def get_PointsProperty(cls: Windows.UI.Xaml.Media.IPolyLineSegmentStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Points = property(get_Points, put_Points)
-    PointsProperty = property(get_PointsProperty, None)
-class PolyQuadraticBezierSegment(ComPtr):
+    _PolyLineSegment_Meta_.PointsProperty = property(get_PointsProperty.__wrapped__, None)
+class _PolyQuadraticBezierSegment_Meta_(ComPtr.__class__):
+    pass
+class PolyQuadraticBezierSegment(ComPtr, metaclass=_PolyQuadraticBezierSegment_Meta_):
     extends: Windows.UI.Xaml.Media.PathSegment
     default_interface: Windows.UI.Xaml.Media.IPolyQuadraticBezierSegment
     _classid_ = 'Windows.UI.Xaml.Media.PolyQuadraticBezierSegment'
@@ -2662,14 +2710,16 @@ class PolyQuadraticBezierSegment(ComPtr):
     @winrt_classmethod
     def get_PointsProperty(cls: Windows.UI.Xaml.Media.IPolyQuadraticBezierSegmentStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Points = property(get_Points, put_Points)
-    PointsProperty = property(get_PointsProperty, None)
+    _PolyQuadraticBezierSegment_Meta_.PointsProperty = property(get_PointsProperty.__wrapped__, None)
 class Projection(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IProjection
     _classid_ = 'Windows.UI.Xaml.Media.Projection'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.Media.IProjectionFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Projection: ...
-class QuadraticBezierSegment(ComPtr):
+class _QuadraticBezierSegment_Meta_(ComPtr.__class__):
+    pass
+class QuadraticBezierSegment(ComPtr, metaclass=_QuadraticBezierSegment_Meta_):
     extends: Windows.UI.Xaml.Media.PathSegment
     default_interface: Windows.UI.Xaml.Media.IQuadraticBezierSegment
     _classid_ = 'Windows.UI.Xaml.Media.QuadraticBezierSegment'
@@ -2689,8 +2739,8 @@ class QuadraticBezierSegment(ComPtr):
     def get_Point2Property(cls: Windows.UI.Xaml.Media.IQuadraticBezierSegmentStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Point1 = property(get_Point1, put_Point1)
     Point2 = property(get_Point2, put_Point2)
-    Point1Property = property(get_Point1Property, None)
-    Point2Property = property(get_Point2Property, None)
+    _QuadraticBezierSegment_Meta_.Point1Property = property(get_Point1Property.__wrapped__, None)
+    _QuadraticBezierSegment_Meta_.Point2Property = property(get_Point2Property.__wrapped__, None)
 class RateChangedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
     default_interface: Windows.UI.Xaml.Media.IRateChangedRoutedEventArgs
@@ -2703,7 +2753,9 @@ class RateChangedRoutedEventHandler(ComPtr):
     _iid_ = Guid('{08e9a257-ae05-489b-8839-28c6225d2349}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.RateChangedRoutedEventArgs) -> Void: ...
-class RectangleGeometry(ComPtr):
+class _RectangleGeometry_Meta_(ComPtr.__class__):
+    pass
+class RectangleGeometry(ComPtr, metaclass=_RectangleGeometry_Meta_):
     extends: Windows.UI.Xaml.Media.Geometry
     default_interface: Windows.UI.Xaml.Media.IRectangleGeometry
     _classid_ = 'Windows.UI.Xaml.Media.RectangleGeometry'
@@ -2716,7 +2768,7 @@ class RectangleGeometry(ComPtr):
     @winrt_classmethod
     def get_RectProperty(cls: Windows.UI.Xaml.Media.IRectangleGeometryStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Rect = property(get_Rect, put_Rect)
-    RectProperty = property(get_RectProperty, None)
+    _RectangleGeometry_Meta_.RectProperty = property(get_RectProperty.__wrapped__, None)
 class RenderedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.IRenderedEventArgs
@@ -2743,7 +2795,9 @@ class RevealBorderBrush(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.RevealBorderBrush'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.Media.IRevealBorderBrushFactory, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.RevealBorderBrush: ...
-class RevealBrush(ComPtr):
+class _RevealBrush_Meta_(ComPtr.__class__):
+    pass
+class RevealBrush(ComPtr, metaclass=_RevealBrush_Meta_):
     extends: Windows.UI.Xaml.Media.XamlCompositionBrushBase
     default_interface: Windows.UI.Xaml.Media.IRevealBrush
     _classid_ = 'Windows.UI.Xaml.Media.RevealBrush'
@@ -2776,15 +2830,17 @@ class RevealBrush(ComPtr):
     Color = property(get_Color, put_Color)
     TargetTheme = property(get_TargetTheme, put_TargetTheme)
     AlwaysUseFallback = property(get_AlwaysUseFallback, put_AlwaysUseFallback)
-    ColorProperty = property(get_ColorProperty, None)
-    TargetThemeProperty = property(get_TargetThemeProperty, None)
-    AlwaysUseFallbackProperty = property(get_AlwaysUseFallbackProperty, None)
-    StateProperty = property(get_StateProperty, None)
+    _RevealBrush_Meta_.ColorProperty = property(get_ColorProperty.__wrapped__, None)
+    _RevealBrush_Meta_.TargetThemeProperty = property(get_TargetThemeProperty.__wrapped__, None)
+    _RevealBrush_Meta_.AlwaysUseFallbackProperty = property(get_AlwaysUseFallbackProperty.__wrapped__, None)
+    _RevealBrush_Meta_.StateProperty = property(get_StateProperty.__wrapped__, None)
 RevealBrushState = Int32
 RevealBrushState_Normal: RevealBrushState = 0
 RevealBrushState_PointerOver: RevealBrushState = 1
 RevealBrushState_Pressed: RevealBrushState = 2
-class RotateTransform(ComPtr):
+class _RotateTransform_Meta_(ComPtr.__class__):
+    pass
+class RotateTransform(ComPtr, metaclass=_RotateTransform_Meta_):
     extends: Windows.UI.Xaml.Media.Transform
     default_interface: Windows.UI.Xaml.Media.IRotateTransform
     _classid_ = 'Windows.UI.Xaml.Media.RotateTransform'
@@ -2811,10 +2867,12 @@ class RotateTransform(ComPtr):
     CenterX = property(get_CenterX, put_CenterX)
     CenterY = property(get_CenterY, put_CenterY)
     Angle = property(get_Angle, put_Angle)
-    CenterXProperty = property(get_CenterXProperty, None)
-    CenterYProperty = property(get_CenterYProperty, None)
-    AngleProperty = property(get_AngleProperty, None)
-class ScaleTransform(ComPtr):
+    _RotateTransform_Meta_.CenterXProperty = property(get_CenterXProperty.__wrapped__, None)
+    _RotateTransform_Meta_.CenterYProperty = property(get_CenterYProperty.__wrapped__, None)
+    _RotateTransform_Meta_.AngleProperty = property(get_AngleProperty.__wrapped__, None)
+class _ScaleTransform_Meta_(ComPtr.__class__):
+    pass
+class ScaleTransform(ComPtr, metaclass=_ScaleTransform_Meta_):
     extends: Windows.UI.Xaml.Media.Transform
     default_interface: Windows.UI.Xaml.Media.IScaleTransform
     _classid_ = 'Windows.UI.Xaml.Media.ScaleTransform'
@@ -2848,15 +2906,17 @@ class ScaleTransform(ComPtr):
     CenterY = property(get_CenterY, put_CenterY)
     ScaleX = property(get_ScaleX, put_ScaleX)
     ScaleY = property(get_ScaleY, put_ScaleY)
-    CenterXProperty = property(get_CenterXProperty, None)
-    CenterYProperty = property(get_CenterYProperty, None)
-    ScaleXProperty = property(get_ScaleXProperty, None)
-    ScaleYProperty = property(get_ScaleYProperty, None)
+    _ScaleTransform_Meta_.CenterXProperty = property(get_CenterXProperty.__wrapped__, None)
+    _ScaleTransform_Meta_.CenterYProperty = property(get_CenterYProperty.__wrapped__, None)
+    _ScaleTransform_Meta_.ScaleXProperty = property(get_ScaleXProperty.__wrapped__, None)
+    _ScaleTransform_Meta_.ScaleYProperty = property(get_ScaleYProperty.__wrapped__, None)
 class Shadow(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IShadow
     _classid_ = 'Windows.UI.Xaml.Media.Shadow'
-class SkewTransform(ComPtr):
+class _SkewTransform_Meta_(ComPtr.__class__):
+    pass
+class SkewTransform(ComPtr, metaclass=_SkewTransform_Meta_):
     extends: Windows.UI.Xaml.Media.Transform
     default_interface: Windows.UI.Xaml.Media.ISkewTransform
     _classid_ = 'Windows.UI.Xaml.Media.SkewTransform'
@@ -2890,11 +2950,13 @@ class SkewTransform(ComPtr):
     CenterY = property(get_CenterY, put_CenterY)
     AngleX = property(get_AngleX, put_AngleX)
     AngleY = property(get_AngleY, put_AngleY)
-    CenterXProperty = property(get_CenterXProperty, None)
-    CenterYProperty = property(get_CenterYProperty, None)
-    AngleXProperty = property(get_AngleXProperty, None)
-    AngleYProperty = property(get_AngleYProperty, None)
-class SolidColorBrush(ComPtr):
+    _SkewTransform_Meta_.CenterXProperty = property(get_CenterXProperty.__wrapped__, None)
+    _SkewTransform_Meta_.CenterYProperty = property(get_CenterYProperty.__wrapped__, None)
+    _SkewTransform_Meta_.AngleXProperty = property(get_AngleXProperty.__wrapped__, None)
+    _SkewTransform_Meta_.AngleYProperty = property(get_AngleYProperty.__wrapped__, None)
+class _SolidColorBrush_Meta_(ComPtr.__class__):
+    pass
+class SolidColorBrush(ComPtr, metaclass=_SolidColorBrush_Meta_):
     extends: Windows.UI.Xaml.Media.Brush
     default_interface: Windows.UI.Xaml.Media.ISolidColorBrush
     _classid_ = 'Windows.UI.Xaml.Media.SolidColorBrush'
@@ -2909,7 +2971,7 @@ class SolidColorBrush(ComPtr):
     @winrt_classmethod
     def get_ColorProperty(cls: Windows.UI.Xaml.Media.ISolidColorBrushStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Color = property(get_Color, put_Color)
-    ColorProperty = property(get_ColorProperty, None)
+    _SolidColorBrush_Meta_.ColorProperty = property(get_ColorProperty.__wrapped__, None)
 Stereo3DVideoPackingMode = Int32
 Stereo3DVideoPackingMode_None: Stereo3DVideoPackingMode = 0
 Stereo3DVideoPackingMode_SideBySide: Stereo3DVideoPackingMode = 1
@@ -2939,7 +3001,9 @@ class ThemeShadow(ComPtr):
     @winrt_mixinmethod
     def get_Receivers(self: Windows.UI.Xaml.Media.IThemeShadow) -> Windows.UI.Xaml.UIElementWeakCollection: ...
     Receivers = property(get_Receivers, None)
-class TileBrush(ComPtr):
+class _TileBrush_Meta_(ComPtr.__class__):
+    pass
+class TileBrush(ComPtr, metaclass=_TileBrush_Meta_):
     extends: Windows.UI.Xaml.Media.Brush
     default_interface: Windows.UI.Xaml.Media.ITileBrush
     _classid_ = 'Windows.UI.Xaml.Media.TileBrush'
@@ -2966,10 +3030,12 @@ class TileBrush(ComPtr):
     AlignmentX = property(get_AlignmentX, put_AlignmentX)
     AlignmentY = property(get_AlignmentY, put_AlignmentY)
     Stretch = property(get_Stretch, put_Stretch)
-    AlignmentXProperty = property(get_AlignmentXProperty, None)
-    AlignmentYProperty = property(get_AlignmentYProperty, None)
-    StretchProperty = property(get_StretchProperty, None)
-class TimelineMarker(ComPtr):
+    _TileBrush_Meta_.AlignmentXProperty = property(get_AlignmentXProperty.__wrapped__, None)
+    _TileBrush_Meta_.AlignmentYProperty = property(get_AlignmentYProperty.__wrapped__, None)
+    _TileBrush_Meta_.StretchProperty = property(get_StretchProperty.__wrapped__, None)
+class _TimelineMarker_Meta_(ComPtr.__class__):
+    pass
+class TimelineMarker(ComPtr, metaclass=_TimelineMarker_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.ITimelineMarker
     _classid_ = 'Windows.UI.Xaml.Media.TimelineMarker'
@@ -2996,9 +3062,9 @@ class TimelineMarker(ComPtr):
     Time = property(get_Time, put_Time)
     Type = property(get_Type, put_Type)
     Text = property(get_Text, put_Text)
-    TimeProperty = property(get_TimeProperty, None)
-    TypeProperty = property(get_TypeProperty, None)
-    TextProperty = property(get_TextProperty, None)
+    _TimelineMarker_Meta_.TimeProperty = property(get_TimeProperty.__wrapped__, None)
+    _TimelineMarker_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
+    _TimelineMarker_Meta_.TextProperty = property(get_TextProperty.__wrapped__, None)
 class TimelineMarkerCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Media.TimelineMarker]
@@ -3086,7 +3152,9 @@ class TransformCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Xaml.Media.Transform]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Xaml.Media.Transform]: ...
     Size = property(get_Size, None)
-class TransformGroup(ComPtr):
+class _TransformGroup_Meta_(ComPtr.__class__):
+    pass
+class TransformGroup(ComPtr, metaclass=_TransformGroup_Meta_):
     extends: Windows.UI.Xaml.Media.Transform
     default_interface: Windows.UI.Xaml.Media.ITransformGroup
     _classid_ = 'Windows.UI.Xaml.Media.TransformGroup'
@@ -3102,8 +3170,10 @@ class TransformGroup(ComPtr):
     def get_ChildrenProperty(cls: Windows.UI.Xaml.Media.ITransformGroupStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Children = property(get_Children, put_Children)
     Value = property(get_Value, None)
-    ChildrenProperty = property(get_ChildrenProperty, None)
-class TranslateTransform(ComPtr):
+    _TransformGroup_Meta_.ChildrenProperty = property(get_ChildrenProperty.__wrapped__, None)
+class _TranslateTransform_Meta_(ComPtr.__class__):
+    pass
+class TranslateTransform(ComPtr, metaclass=_TranslateTransform_Meta_):
     extends: Windows.UI.Xaml.Media.Transform
     default_interface: Windows.UI.Xaml.Media.ITranslateTransform
     _classid_ = 'Windows.UI.Xaml.Media.TranslateTransform'
@@ -3123,8 +3193,8 @@ class TranslateTransform(ComPtr):
     def get_YProperty(cls: Windows.UI.Xaml.Media.ITranslateTransformStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     X = property(get_X, put_X)
     Y = property(get_Y, put_Y)
-    XProperty = property(get_XProperty, None)
-    YProperty = property(get_YProperty, None)
+    _TranslateTransform_Meta_.XProperty = property(get_XProperty.__wrapped__, None)
+    _TranslateTransform_Meta_.YProperty = property(get_YProperty.__wrapped__, None)
 class VisualTreeHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Media.IVisualTreeHelper
@@ -3149,7 +3219,9 @@ class VisualTreeHelper(ComPtr):
     def GetParent(cls: Windows.UI.Xaml.Media.IVisualTreeHelperStatics, reference: Windows.UI.Xaml.DependencyObject) -> Windows.UI.Xaml.DependencyObject: ...
     @winrt_classmethod
     def DisconnectChildrenRecursive(cls: Windows.UI.Xaml.Media.IVisualTreeHelperStatics, element: Windows.UI.Xaml.UIElement) -> Void: ...
-class XamlCompositionBrushBase(ComPtr):
+class _XamlCompositionBrushBase_Meta_(ComPtr.__class__):
+    pass
+class XamlCompositionBrushBase(ComPtr, metaclass=_XamlCompositionBrushBase_Meta_):
     extends: Windows.UI.Xaml.Media.Brush
     default_interface: Windows.UI.Xaml.Media.IXamlCompositionBrushBase
     _classid_ = 'Windows.UI.Xaml.Media.XamlCompositionBrushBase'
@@ -3171,7 +3243,7 @@ class XamlCompositionBrushBase(ComPtr):
     def get_FallbackColorProperty(cls: Windows.UI.Xaml.Media.IXamlCompositionBrushBaseStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     FallbackColor = property(get_FallbackColor, put_FallbackColor)
     CompositionBrush = property(get_CompositionBrush, put_CompositionBrush)
-    FallbackColorProperty = property(get_FallbackColorProperty, None)
+    _XamlCompositionBrushBase_Meta_.FallbackColorProperty = property(get_FallbackColorProperty.__wrapped__, None)
 class XamlLight(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Media.IXamlLight

@@ -77,7 +77,9 @@ class GattCharacteristicNotificationTriggerDetails(ComPtr):
     Error = property(get_Error, None)
     EventTriggeringMode = property(get_EventTriggeringMode, None)
     ValueChangedEvents = property(get_ValueChangedEvents, None)
-class GattServiceProviderConnection(ComPtr):
+class _GattServiceProviderConnection_Meta_(ComPtr.__class__):
+    pass
+class GattServiceProviderConnection(ComPtr, metaclass=_GattServiceProviderConnection_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.Background.IGattServiceProviderConnection
     _classid_ = 'Windows.Devices.Bluetooth.Background.GattServiceProviderConnection'
@@ -91,7 +93,7 @@ class GattServiceProviderConnection(ComPtr):
     def get_AllServices(cls: Windows.Devices.Bluetooth.Background.IGattServiceProviderConnectionStatics) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Devices.Bluetooth.Background.GattServiceProviderConnection]: ...
     TriggerId = property(get_TriggerId, None)
     Service = property(get_Service, None)
-    AllServices = property(get_AllServices, None)
+    _GattServiceProviderConnection_Meta_.AllServices = property(get_AllServices.__wrapped__, None)
 class GattServiceProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.Background.IGattServiceProviderTriggerDetails

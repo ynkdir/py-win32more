@@ -728,7 +728,9 @@ class ImageDisplayProperties(ComPtr):
     def put_Subtitle(self: Windows.Media.IImageDisplayProperties, value: WinRT_String) -> Void: ...
     Title = property(get_Title, put_Title)
     Subtitle = property(get_Subtitle, put_Subtitle)
-class MediaControl(ComPtr):
+class _MediaControl_Meta_(ComPtr.__class__):
+    pass
+class MediaControl(ComPtr, metaclass=_MediaControl_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaControl'
     @winrt_classmethod
@@ -797,11 +799,11 @@ class MediaControl(ComPtr):
     def put_AlbumArt(cls: Windows.Media.IMediaControl, value: Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
     def get_AlbumArt(cls: Windows.Media.IMediaControl) -> Windows.Foundation.Uri: ...
-    SoundLevel = property(get_SoundLevel, None)
-    TrackName = property(get_TrackName, put_TrackName)
-    ArtistName = property(get_ArtistName, put_ArtistName)
-    IsPlaying = property(get_IsPlaying, put_IsPlaying)
-    AlbumArt = property(get_AlbumArt, put_AlbumArt)
+    _MediaControl_Meta_.SoundLevel = property(get_SoundLevel.__wrapped__, None)
+    _MediaControl_Meta_.TrackName = property(get_TrackName.__wrapped__, put_TrackName.__wrapped__)
+    _MediaControl_Meta_.ArtistName = property(get_ArtistName.__wrapped__, put_ArtistName.__wrapped__)
+    _MediaControl_Meta_.IsPlaying = property(get_IsPlaying.__wrapped__, put_IsPlaying.__wrapped__)
+    _MediaControl_Meta_.AlbumArt = property(get_AlbumArt.__wrapped__, put_AlbumArt.__wrapped__)
 MediaControlContract: UInt32 = 65536
 class MediaExtensionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -835,12 +837,14 @@ class MediaExtensionManager(ComPtr):
     def RegisterVideoEncoderWithSettings(self: Windows.Media.IMediaExtensionManager, activatableClassId: WinRT_String, inputSubtype: Guid, outputSubtype: Guid, configuration: Windows.Foundation.Collections.IPropertySet) -> Void: ...
     @winrt_mixinmethod
     def RegisterMediaExtensionForAppService(self: Windows.Media.IMediaExtensionManager2, extension: Windows.Media.IMediaExtension, connection: Windows.ApplicationModel.AppService.AppServiceConnection) -> Void: ...
-class MediaMarkerTypes(ComPtr):
+class _MediaMarkerTypes_Meta_(ComPtr.__class__):
+    pass
+class MediaMarkerTypes(ComPtr, metaclass=_MediaMarkerTypes_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaMarkerTypes'
     @winrt_classmethod
     def get_Bookmark(cls: Windows.Media.IMediaMarkerTypesStatics) -> WinRT_String: ...
-    Bookmark = property(get_Bookmark, None)
+    _MediaMarkerTypes_Meta_.Bookmark = property(get_Bookmark.__wrapped__, None)
 MediaPlaybackAutoRepeatMode = Int32
 MediaPlaybackAutoRepeatMode_None: MediaPlaybackAutoRepeatMode = 0
 MediaPlaybackAutoRepeatMode_Track: MediaPlaybackAutoRepeatMode = 1
@@ -1213,12 +1217,14 @@ class VideoDisplayProperties(ComPtr):
     Title = property(get_Title, put_Title)
     Subtitle = property(get_Subtitle, put_Subtitle)
     Genres = property(get_Genres, None)
-class VideoEffects(ComPtr):
+class _VideoEffects_Meta_(ComPtr.__class__):
+    pass
+class VideoEffects(ComPtr, metaclass=_VideoEffects_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.VideoEffects'
     @winrt_classmethod
     def get_VideoStabilization(cls: Windows.Media.IVideoEffectsStatics) -> WinRT_String: ...
-    VideoStabilization = property(get_VideoStabilization, None)
+    _VideoEffects_Meta_.VideoStabilization = property(get_VideoStabilization.__wrapped__, None)
 class VideoFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.IVideoFrame

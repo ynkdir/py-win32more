@@ -22,7 +22,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CommunicationBlockingAccessManager(ComPtr):
+class _CommunicationBlockingAccessManager_Meta_(ComPtr.__class__):
+    pass
+class CommunicationBlockingAccessManager(ComPtr, metaclass=_CommunicationBlockingAccessManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager'
     @winrt_classmethod
@@ -37,8 +39,10 @@ class CommunicationBlockingAccessManager(ComPtr):
     def ShowBlockedCallsUI(cls: Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics) -> Void: ...
     @winrt_classmethod
     def ShowBlockedMessagesUI(cls: Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics) -> Void: ...
-    IsBlockingActive = property(get_IsBlockingActive, None)
-class CommunicationBlockingAppManager(ComPtr):
+    _CommunicationBlockingAccessManager_Meta_.IsBlockingActive = property(get_IsBlockingActive.__wrapped__, None)
+class _CommunicationBlockingAppManager_Meta_(ComPtr.__class__):
+    pass
+class CommunicationBlockingAppManager(ComPtr, metaclass=_CommunicationBlockingAppManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager'
     @winrt_classmethod
@@ -47,7 +51,7 @@ class CommunicationBlockingAppManager(ComPtr):
     def get_IsCurrentAppActiveBlockingApp(cls: Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics) -> Boolean: ...
     @winrt_classmethod
     def ShowCommunicationBlockingSettingsUI(cls: Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics) -> Void: ...
-    IsCurrentAppActiveBlockingApp = property(get_IsCurrentAppActiveBlockingApp, None)
+    _CommunicationBlockingAppManager_Meta_.IsCurrentAppActiveBlockingApp = property(get_IsCurrentAppActiveBlockingApp.__wrapped__, None)
 CommunicationBlockingContract: UInt32 = 131072
 class ICommunicationBlockingAccessManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable

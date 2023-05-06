@@ -586,7 +586,9 @@ ProtectionPolicyEvaluationResult = Int32
 ProtectionPolicyEvaluationResult_Allowed: ProtectionPolicyEvaluationResult = 0
 ProtectionPolicyEvaluationResult_Blocked: ProtectionPolicyEvaluationResult = 1
 ProtectionPolicyEvaluationResult_ConsentRequired: ProtectionPolicyEvaluationResult = 2
-class ProtectionPolicyManager(ComPtr):
+class _ProtectionPolicyManager_Meta_(ComPtr.__class__):
+    pass
+class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.EnterpriseData.IProtectionPolicyManager
     _classid_ = 'Windows.Security.EnterpriseData.ProtectionPolicyManager'
@@ -680,8 +682,8 @@ class ProtectionPolicyManager(ComPtr):
     def RequestAccessAsync(cls: Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics, sourceIdentity: WinRT_String, targetIdentity: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult]: ...
     Identity = property(get_Identity, put_Identity)
     ShowEnterpriseIndicator = property(get_ShowEnterpriseIndicator, put_ShowEnterpriseIndicator)
-    PrimaryManagedIdentity = property(get_PrimaryManagedIdentity, None)
-    IsProtectionEnabled = property(get_IsProtectionEnabled, None)
+    _ProtectionPolicyManager_Meta_.PrimaryManagedIdentity = property(get_PrimaryManagedIdentity.__wrapped__, None)
+    _ProtectionPolicyManager_Meta_.IsProtectionEnabled = property(get_IsProtectionEnabled.__wrapped__, None)
 ProtectionPolicyRequestAccessBehavior = Int32
 ProtectionPolicyRequestAccessBehavior_Decrypt: ProtectionPolicyRequestAccessBehavior = 0
 ProtectionPolicyRequestAccessBehavior_TreatOverridePolicyAsBlock: ProtectionPolicyRequestAccessBehavior = 1

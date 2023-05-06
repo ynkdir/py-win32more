@@ -204,7 +204,9 @@ class CodecQuery(ComPtr):
     def CreateInstance(cls) -> Windows.Media.Core.CodecQuery: ...
     @winrt_mixinmethod
     def FindAllAsync(self: Windows.Media.Core.ICodecQuery, kind: Windows.Media.Core.CodecKind, category: Windows.Media.Core.CodecCategory, subType: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Media.Core.CodecInfo]]: ...
-class CodecSubtypes(ComPtr):
+class _CodecSubtypes_Meta_(ComPtr.__class__):
+    pass
+class CodecSubtypes(ComPtr, metaclass=_CodecSubtypes_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.CodecSubtypes'
     @winrt_classmethod
@@ -309,57 +311,57 @@ class CodecSubtypes(ComPtr):
     def get_AudioFormatWMAudioV8(cls: Windows.Media.Core.ICodecSubtypesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_AudioFormatWMAudioV9(cls: Windows.Media.Core.ICodecSubtypesStatics) -> WinRT_String: ...
-    VideoFormatDV25 = property(get_VideoFormatDV25, None)
-    VideoFormatDV50 = property(get_VideoFormatDV50, None)
-    VideoFormatDvc = property(get_VideoFormatDvc, None)
-    VideoFormatDvh1 = property(get_VideoFormatDvh1, None)
-    VideoFormatDvhD = property(get_VideoFormatDvhD, None)
-    VideoFormatDvsd = property(get_VideoFormatDvsd, None)
-    VideoFormatDvsl = property(get_VideoFormatDvsl, None)
-    VideoFormatH263 = property(get_VideoFormatH263, None)
-    VideoFormatH264 = property(get_VideoFormatH264, None)
-    VideoFormatH265 = property(get_VideoFormatH265, None)
-    VideoFormatH264ES = property(get_VideoFormatH264ES, None)
-    VideoFormatHevc = property(get_VideoFormatHevc, None)
-    VideoFormatHevcES = property(get_VideoFormatHevcES, None)
-    VideoFormatM4S2 = property(get_VideoFormatM4S2, None)
-    VideoFormatMjpg = property(get_VideoFormatMjpg, None)
-    VideoFormatMP43 = property(get_VideoFormatMP43, None)
-    VideoFormatMP4S = property(get_VideoFormatMP4S, None)
-    VideoFormatMP4V = property(get_VideoFormatMP4V, None)
-    VideoFormatMpeg2 = property(get_VideoFormatMpeg2, None)
-    VideoFormatVP80 = property(get_VideoFormatVP80, None)
-    VideoFormatVP90 = property(get_VideoFormatVP90, None)
-    VideoFormatMpg1 = property(get_VideoFormatMpg1, None)
-    VideoFormatMss1 = property(get_VideoFormatMss1, None)
-    VideoFormatMss2 = property(get_VideoFormatMss2, None)
-    VideoFormatWmv1 = property(get_VideoFormatWmv1, None)
-    VideoFormatWmv2 = property(get_VideoFormatWmv2, None)
-    VideoFormatWmv3 = property(get_VideoFormatWmv3, None)
-    VideoFormatWvc1 = property(get_VideoFormatWvc1, None)
-    VideoFormat420O = property(get_VideoFormat420O, None)
-    AudioFormatAac = property(get_AudioFormatAac, None)
-    AudioFormatAdts = property(get_AudioFormatAdts, None)
-    AudioFormatAlac = property(get_AudioFormatAlac, None)
-    AudioFormatAmrNB = property(get_AudioFormatAmrNB, None)
-    AudioFormatAmrWB = property(get_AudioFormatAmrWB, None)
-    AudioFormatAmrWP = property(get_AudioFormatAmrWP, None)
-    AudioFormatDolbyAC3 = property(get_AudioFormatDolbyAC3, None)
-    AudioFormatDolbyAC3Spdif = property(get_AudioFormatDolbyAC3Spdif, None)
-    AudioFormatDolbyDDPlus = property(get_AudioFormatDolbyDDPlus, None)
-    AudioFormatDrm = property(get_AudioFormatDrm, None)
-    AudioFormatDts = property(get_AudioFormatDts, None)
-    AudioFormatFlac = property(get_AudioFormatFlac, None)
-    AudioFormatFloat = property(get_AudioFormatFloat, None)
-    AudioFormatMP3 = property(get_AudioFormatMP3, None)
-    AudioFormatMPeg = property(get_AudioFormatMPeg, None)
-    AudioFormatMsp1 = property(get_AudioFormatMsp1, None)
-    AudioFormatOpus = property(get_AudioFormatOpus, None)
-    AudioFormatPcm = property(get_AudioFormatPcm, None)
-    AudioFormatWmaSpdif = property(get_AudioFormatWmaSpdif, None)
-    AudioFormatWMAudioLossless = property(get_AudioFormatWMAudioLossless, None)
-    AudioFormatWMAudioV8 = property(get_AudioFormatWMAudioV8, None)
-    AudioFormatWMAudioV9 = property(get_AudioFormatWMAudioV9, None)
+    _CodecSubtypes_Meta_.VideoFormatDV25 = property(get_VideoFormatDV25.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDV50 = property(get_VideoFormatDV50.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvc = property(get_VideoFormatDvc.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvh1 = property(get_VideoFormatDvh1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvhD = property(get_VideoFormatDvhD.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvsd = property(get_VideoFormatDvsd.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvsl = property(get_VideoFormatDvsl.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatH263 = property(get_VideoFormatH263.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatH264 = property(get_VideoFormatH264.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatH265 = property(get_VideoFormatH265.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatH264ES = property(get_VideoFormatH264ES.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatHevc = property(get_VideoFormatHevc.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatHevcES = property(get_VideoFormatHevcES.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatM4S2 = property(get_VideoFormatM4S2.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMjpg = property(get_VideoFormatMjpg.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMP43 = property(get_VideoFormatMP43.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMP4S = property(get_VideoFormatMP4S.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMP4V = property(get_VideoFormatMP4V.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMpeg2 = property(get_VideoFormatMpeg2.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatVP80 = property(get_VideoFormatVP80.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatVP90 = property(get_VideoFormatVP90.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMpg1 = property(get_VideoFormatMpg1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMss1 = property(get_VideoFormatMss1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMss2 = property(get_VideoFormatMss2.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatWmv1 = property(get_VideoFormatWmv1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatWmv2 = property(get_VideoFormatWmv2.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatWmv3 = property(get_VideoFormatWmv3.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatWvc1 = property(get_VideoFormatWvc1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormat420O = property(get_VideoFormat420O.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatAac = property(get_AudioFormatAac.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatAdts = property(get_AudioFormatAdts.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatAlac = property(get_AudioFormatAlac.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatAmrNB = property(get_AudioFormatAmrNB.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatAmrWB = property(get_AudioFormatAmrWB.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatAmrWP = property(get_AudioFormatAmrWP.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatDolbyAC3 = property(get_AudioFormatDolbyAC3.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatDolbyAC3Spdif = property(get_AudioFormatDolbyAC3Spdif.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatDolbyDDPlus = property(get_AudioFormatDolbyDDPlus.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatDrm = property(get_AudioFormatDrm.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatDts = property(get_AudioFormatDts.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatFlac = property(get_AudioFormatFlac.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatFloat = property(get_AudioFormatFloat.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatMP3 = property(get_AudioFormatMP3.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatMPeg = property(get_AudioFormatMPeg.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatMsp1 = property(get_AudioFormatMsp1.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatOpus = property(get_AudioFormatOpus.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatPcm = property(get_AudioFormatPcm.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatWmaSpdif = property(get_AudioFormatWmaSpdif.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatWMAudioLossless = property(get_AudioFormatWMAudioLossless.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatWMAudioV8 = property(get_AudioFormatWMAudioV8.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatWMAudioV9 = property(get_AudioFormatWMAudioV9.__wrapped__, None)
 class DataCue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.Core.IDataCue
@@ -2146,7 +2148,9 @@ class InitializeMediaStreamSourceRequestedEventArgs(ComPtr):
     def GetDeferral(self: Windows.Media.Core.IInitializeMediaStreamSourceRequestedEventArgs) -> Windows.Foundation.Deferral: ...
     Source = property(get_Source, None)
     RandomAccessStream = property(get_RandomAccessStream, None)
-class LowLightFusion(ComPtr):
+class _LowLightFusion_Meta_(ComPtr.__class__):
+    pass
+class LowLightFusion(ComPtr, metaclass=_LowLightFusion_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.LowLightFusion'
     @winrt_classmethod
@@ -2155,8 +2159,8 @@ class LowLightFusion(ComPtr):
     def get_MaxSupportedFrameCount(cls: Windows.Media.Core.ILowLightFusionStatics) -> Int32: ...
     @winrt_classmethod
     def FuseAsync(cls: Windows.Media.Core.ILowLightFusionStatics, frameSet: Windows.Foundation.Collections.IIterable[Windows.Graphics.Imaging.SoftwareBitmap]) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Media.Core.LowLightFusionResult, Double]: ...
-    SupportedBitmapPixelFormats = property(get_SupportedBitmapPixelFormats, None)
-    MaxSupportedFrameCount = property(get_MaxSupportedFrameCount, None)
+    _LowLightFusion_Meta_.SupportedBitmapPixelFormats = property(get_SupportedBitmapPixelFormats.__wrapped__, None)
+    _LowLightFusion_Meta_.MaxSupportedFrameCount = property(get_MaxSupportedFrameCount.__wrapped__, None)
 class LowLightFusionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.Core.ILowLightFusionResult

@@ -62,7 +62,9 @@ class AppDataPaths(ComPtr):
     LocalAppData = property(get_LocalAppData, None)
     ProgramData = property(get_ProgramData, None)
     RoamingAppData = property(get_RoamingAppData, None)
-class ApplicationData(ComPtr):
+class _ApplicationData_Meta_(ComPtr.__class__):
+    pass
+class ApplicationData(ComPtr, metaclass=_ApplicationData_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Storage.IApplicationData
     _classid_ = 'Windows.Storage.ApplicationData'
@@ -115,7 +117,7 @@ class ApplicationData(ComPtr):
     RoamingStorageQuota = property(get_RoamingStorageQuota, None)
     LocalCacheFolder = property(get_LocalCacheFolder, None)
     SharedLocalFolder = property(get_SharedLocalFolder, None)
-    Current = property(get_Current, None)
+    _ApplicationData_Meta_.Current = property(get_Current.__wrapped__, None)
 class ApplicationDataCompositeValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IPropertySet
@@ -1235,7 +1237,9 @@ KnownFolderId_VideosLibrary: KnownFolderId = 13
 KnownFolderId_AllAppMods: KnownFolderId = 14
 KnownFolderId_CurrentAppMods: KnownFolderId = 15
 KnownFolderId_DownloadsFolder: KnownFolderId = 16
-class KnownFolders(ComPtr):
+class _KnownFolders_Meta_(ComPtr.__class__):
+    pass
+class KnownFolders(ComPtr, metaclass=_KnownFolders_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.KnownFolders'
     @winrt_classmethod
@@ -1272,19 +1276,19 @@ class KnownFolders(ComPtr):
     def get_RemovableDevices(cls: Windows.Storage.IKnownFoldersStatics) -> Windows.Storage.StorageFolder: ...
     @winrt_classmethod
     def get_MediaServerDevices(cls: Windows.Storage.IKnownFoldersStatics) -> Windows.Storage.StorageFolder: ...
-    Objects3D = property(get_Objects3D, None)
-    AppCaptures = property(get_AppCaptures, None)
-    RecordedCalls = property(get_RecordedCalls, None)
-    SavedPictures = property(get_SavedPictures, None)
-    CameraRoll = property(get_CameraRoll, None)
-    Playlists = property(get_Playlists, None)
-    MusicLibrary = property(get_MusicLibrary, None)
-    PicturesLibrary = property(get_PicturesLibrary, None)
-    VideosLibrary = property(get_VideosLibrary, None)
-    DocumentsLibrary = property(get_DocumentsLibrary, None)
-    HomeGroup = property(get_HomeGroup, None)
-    RemovableDevices = property(get_RemovableDevices, None)
-    MediaServerDevices = property(get_MediaServerDevices, None)
+    _KnownFolders_Meta_.Objects3D = property(get_Objects3D.__wrapped__, None)
+    _KnownFolders_Meta_.AppCaptures = property(get_AppCaptures.__wrapped__, None)
+    _KnownFolders_Meta_.RecordedCalls = property(get_RecordedCalls.__wrapped__, None)
+    _KnownFolders_Meta_.SavedPictures = property(get_SavedPictures.__wrapped__, None)
+    _KnownFolders_Meta_.CameraRoll = property(get_CameraRoll.__wrapped__, None)
+    _KnownFolders_Meta_.Playlists = property(get_Playlists.__wrapped__, None)
+    _KnownFolders_Meta_.MusicLibrary = property(get_MusicLibrary.__wrapped__, None)
+    _KnownFolders_Meta_.PicturesLibrary = property(get_PicturesLibrary.__wrapped__, None)
+    _KnownFolders_Meta_.VideosLibrary = property(get_VideosLibrary.__wrapped__, None)
+    _KnownFolders_Meta_.DocumentsLibrary = property(get_DocumentsLibrary.__wrapped__, None)
+    _KnownFolders_Meta_.HomeGroup = property(get_HomeGroup.__wrapped__, None)
+    _KnownFolders_Meta_.RemovableDevices = property(get_RemovableDevices.__wrapped__, None)
+    _KnownFolders_Meta_.MediaServerDevices = property(get_MediaServerDevices.__wrapped__, None)
 KnownFoldersAccessStatus = Int32
 KnownFoldersAccessStatus_DeniedBySystem: KnownFoldersAccessStatus = 0
 KnownFoldersAccessStatus_NotDeclaredByApp: KnownFoldersAccessStatus = 1
@@ -1680,13 +1684,15 @@ StorageLibraryChangeType_ContentsReplaced: StorageLibraryChangeType = 6
 StorageLibraryChangeType_IndexingStatusChanged: StorageLibraryChangeType = 7
 StorageLibraryChangeType_EncryptionChanged: StorageLibraryChangeType = 8
 StorageLibraryChangeType_ChangeTrackingLost: StorageLibraryChangeType = 9
-class StorageLibraryLastChangeId(ComPtr):
+class _StorageLibraryLastChangeId_Meta_(ComPtr.__class__):
+    pass
+class StorageLibraryLastChangeId(ComPtr, metaclass=_StorageLibraryLastChangeId_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Storage.IStorageLibraryLastChangeId
     _classid_ = 'Windows.Storage.StorageLibraryLastChangeId'
     @winrt_classmethod
     def get_Unknown(cls: Windows.Storage.IStorageLibraryLastChangeIdStatics) -> UInt64: ...
-    Unknown = property(get_Unknown, None)
+    _StorageLibraryLastChangeId_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
 StorageOpenOptions = UInt32
 StorageOpenOptions_None: StorageOpenOptions = 0
 StorageOpenOptions_AllowOnlyReaders: StorageOpenOptions = 1
@@ -1886,7 +1892,9 @@ class SystemPhotoProperties(ComPtr):
     DateTaken = property(get_DateTaken, None)
     Orientation = property(get_Orientation, None)
     PeopleNames = property(get_PeopleNames, None)
-class SystemProperties(ComPtr):
+class _SystemProperties_Meta_(ComPtr.__class__):
+    pass
+class SystemProperties(ComPtr, metaclass=_SystemProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.SystemProperties'
     @winrt_classmethod
@@ -1915,19 +1923,19 @@ class SystemProperties(ComPtr):
     def get_Video(cls: Windows.Storage.ISystemProperties) -> Windows.Storage.SystemVideoProperties: ...
     @winrt_classmethod
     def get_Image(cls: Windows.Storage.ISystemProperties) -> Windows.Storage.SystemImageProperties: ...
-    Author = property(get_Author, None)
-    Comment = property(get_Comment, None)
-    ItemNameDisplay = property(get_ItemNameDisplay, None)
-    Keywords = property(get_Keywords, None)
-    Rating = property(get_Rating, None)
-    Title = property(get_Title, None)
-    Audio = property(get_Audio, None)
-    GPS = property(get_GPS, None)
-    Media = property(get_Media, None)
-    Music = property(get_Music, None)
-    Photo = property(get_Photo, None)
-    Video = property(get_Video, None)
-    Image = property(get_Image, None)
+    _SystemProperties_Meta_.Author = property(get_Author.__wrapped__, None)
+    _SystemProperties_Meta_.Comment = property(get_Comment.__wrapped__, None)
+    _SystemProperties_Meta_.ItemNameDisplay = property(get_ItemNameDisplay.__wrapped__, None)
+    _SystemProperties_Meta_.Keywords = property(get_Keywords.__wrapped__, None)
+    _SystemProperties_Meta_.Rating = property(get_Rating.__wrapped__, None)
+    _SystemProperties_Meta_.Title = property(get_Title.__wrapped__, None)
+    _SystemProperties_Meta_.Audio = property(get_Audio.__wrapped__, None)
+    _SystemProperties_Meta_.GPS = property(get_GPS.__wrapped__, None)
+    _SystemProperties_Meta_.Media = property(get_Media.__wrapped__, None)
+    _SystemProperties_Meta_.Music = property(get_Music.__wrapped__, None)
+    _SystemProperties_Meta_.Photo = property(get_Photo.__wrapped__, None)
+    _SystemProperties_Meta_.Video = property(get_Video.__wrapped__, None)
+    _SystemProperties_Meta_.Image = property(get_Image.__wrapped__, None)
 class SystemVideoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Storage.ISystemVideoProperties

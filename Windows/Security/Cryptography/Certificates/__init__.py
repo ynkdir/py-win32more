@@ -111,7 +111,9 @@ CertificateChainPolicy_Base: CertificateChainPolicy = 0
 CertificateChainPolicy_Ssl: CertificateChainPolicy = 1
 CertificateChainPolicy_NTAuthentication: CertificateChainPolicy = 2
 CertificateChainPolicy_MicrosoftRoot: CertificateChainPolicy = 3
-class CertificateEnrollmentManager(ComPtr):
+class _CertificateEnrollmentManager_Meta_(ComPtr.__class__):
+    pass
+class CertificateEnrollmentManager(ComPtr, metaclass=_CertificateEnrollmentManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager'
     @winrt_classmethod
@@ -126,7 +128,7 @@ class CertificateEnrollmentManager(ComPtr):
     def InstallCertificateAsync(cls: Windows.Security.Cryptography.Certificates.ICertificateEnrollmentManagerStatics, certificate: WinRT_String, installOption: Windows.Security.Cryptography.Certificates.InstallOptions) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def ImportPfxDataAsync(cls: Windows.Security.Cryptography.Certificates.ICertificateEnrollmentManagerStatics, pfxData: WinRT_String, password: WinRT_String, exportable: Windows.Security.Cryptography.Certificates.ExportOption, keyProtectionLevel: Windows.Security.Cryptography.Certificates.KeyProtectionLevel, installOption: Windows.Security.Cryptography.Certificates.InstallOptions, friendlyName: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
-    UserCertificateEnrollmentManager = property(get_UserCertificateEnrollmentManager, None)
+    _CertificateEnrollmentManager_Meta_.UserCertificateEnrollmentManager = property(get_UserCertificateEnrollmentManager.__wrapped__, None)
 class CertificateExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Certificates.ICertificateExtension
@@ -351,7 +353,9 @@ class CertificateStore(ComPtr):
     @winrt_mixinmethod
     def get_Name(self: Windows.Security.Cryptography.Certificates.ICertificateStore2) -> WinRT_String: ...
     Name = property(get_Name, None)
-class CertificateStores(ComPtr):
+class _CertificateStores_Meta_(ComPtr.__class__):
+    pass
+class CertificateStores(ComPtr, metaclass=_CertificateStores_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Certificates.CertificateStores'
     @winrt_classmethod
@@ -366,8 +370,8 @@ class CertificateStores(ComPtr):
     def get_IntermediateCertificationAuthorities(cls: Windows.Security.Cryptography.Certificates.ICertificateStoresStatics) -> Windows.Security.Cryptography.Certificates.CertificateStore: ...
     @winrt_classmethod
     def GetStoreByName(cls: Windows.Security.Cryptography.Certificates.ICertificateStoresStatics, storeName: WinRT_String) -> Windows.Security.Cryptography.Certificates.CertificateStore: ...
-    TrustedRootCertificationAuthorities = property(get_TrustedRootCertificationAuthorities, None)
-    IntermediateCertificationAuthorities = property(get_IntermediateCertificationAuthorities, None)
+    _CertificateStores_Meta_.TrustedRootCertificationAuthorities = property(get_TrustedRootCertificationAuthorities.__wrapped__, None)
+    _CertificateStores_Meta_.IntermediateCertificationAuthorities = property(get_IntermediateCertificationAuthorities.__wrapped__, None)
 class ChainBuildingParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Certificates.IChainBuildingParameters
@@ -1222,7 +1226,9 @@ class IUserCertificateStore(ComPtr):
 InstallOptions = UInt32
 InstallOptions_None: InstallOptions = 0
 InstallOptions_DeleteExpired: InstallOptions = 1
-class KeyAlgorithmNames(ComPtr):
+class _KeyAlgorithmNames_Meta_(ComPtr.__class__):
+    pass
+class KeyAlgorithmNames(ComPtr, metaclass=_KeyAlgorithmNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Certificates.KeyAlgorithmNames'
     @winrt_classmethod
@@ -1245,16 +1251,16 @@ class KeyAlgorithmNames(ComPtr):
     def get_Ecdsa384(cls: Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Ecdsa521(cls: Windows.Security.Cryptography.Certificates.IKeyAlgorithmNamesStatics) -> WinRT_String: ...
-    Ecdsa = property(get_Ecdsa, None)
-    Ecdh = property(get_Ecdh, None)
-    Rsa = property(get_Rsa, None)
-    Dsa = property(get_Dsa, None)
-    Ecdh256 = property(get_Ecdh256, None)
-    Ecdh384 = property(get_Ecdh384, None)
-    Ecdh521 = property(get_Ecdh521, None)
-    Ecdsa256 = property(get_Ecdsa256, None)
-    Ecdsa384 = property(get_Ecdsa384, None)
-    Ecdsa521 = property(get_Ecdsa521, None)
+    _KeyAlgorithmNames_Meta_.Ecdsa = property(get_Ecdsa.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Ecdh = property(get_Ecdh.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Rsa = property(get_Rsa.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Dsa = property(get_Dsa.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Ecdh256 = property(get_Ecdh256.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Ecdh384 = property(get_Ecdh384.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Ecdh521 = property(get_Ecdh521.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Ecdsa256 = property(get_Ecdsa256.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Ecdsa384 = property(get_Ecdsa384.__wrapped__, None)
+    _KeyAlgorithmNames_Meta_.Ecdsa521 = property(get_Ecdsa521.__wrapped__, None)
 class KeyAttestationHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Certificates.KeyAttestationHelper'
@@ -1273,7 +1279,9 @@ KeySize = Int32
 KeySize_Invalid: KeySize = 0
 KeySize_Rsa2048: KeySize = 2048
 KeySize_Rsa4096: KeySize = 4096
-class KeyStorageProviderNames(ComPtr):
+class _KeyStorageProviderNames_Meta_(ComPtr.__class__):
+    pass
+class KeyStorageProviderNames(ComPtr, metaclass=_KeyStorageProviderNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Certificates.KeyStorageProviderNames'
     @winrt_classmethod
@@ -1284,10 +1292,10 @@ class KeyStorageProviderNames(ComPtr):
     def get_SmartcardKeyStorageProvider(cls: Windows.Security.Cryptography.Certificates.IKeyStorageProviderNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_PlatformKeyStorageProvider(cls: Windows.Security.Cryptography.Certificates.IKeyStorageProviderNamesStatics) -> WinRT_String: ...
-    PassportKeyStorageProvider = property(get_PassportKeyStorageProvider, None)
-    SoftwareKeyStorageProvider = property(get_SoftwareKeyStorageProvider, None)
-    SmartcardKeyStorageProvider = property(get_SmartcardKeyStorageProvider, None)
-    PlatformKeyStorageProvider = property(get_PlatformKeyStorageProvider, None)
+    _KeyStorageProviderNames_Meta_.PassportKeyStorageProvider = property(get_PassportKeyStorageProvider.__wrapped__, None)
+    _KeyStorageProviderNames_Meta_.SoftwareKeyStorageProvider = property(get_SoftwareKeyStorageProvider.__wrapped__, None)
+    _KeyStorageProviderNames_Meta_.SmartcardKeyStorageProvider = property(get_SmartcardKeyStorageProvider.__wrapped__, None)
+    _KeyStorageProviderNames_Meta_.PlatformKeyStorageProvider = property(get_PlatformKeyStorageProvider.__wrapped__, None)
 class PfxImportParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Certificates.IPfxImportParameters
@@ -1335,7 +1343,9 @@ SignatureValidationResult_InvalidParameter: SignatureValidationResult = 1
 SignatureValidationResult_BadMessage: SignatureValidationResult = 2
 SignatureValidationResult_InvalidSignature: SignatureValidationResult = 3
 SignatureValidationResult_OtherErrors: SignatureValidationResult = 4
-class StandardCertificateStoreNames(ComPtr):
+class _StandardCertificateStoreNames_Meta_(ComPtr.__class__):
+    pass
+class StandardCertificateStoreNames(ComPtr, metaclass=_StandardCertificateStoreNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames'
     @winrt_classmethod
@@ -1344,9 +1354,9 @@ class StandardCertificateStoreNames(ComPtr):
     def get_TrustedRootCertificationAuthorities(cls: Windows.Security.Cryptography.Certificates.IStandardCertificateStoreNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_IntermediateCertificationAuthorities(cls: Windows.Security.Cryptography.Certificates.IStandardCertificateStoreNamesStatics) -> WinRT_String: ...
-    Personal = property(get_Personal, None)
-    TrustedRootCertificationAuthorities = property(get_TrustedRootCertificationAuthorities, None)
-    IntermediateCertificationAuthorities = property(get_IntermediateCertificationAuthorities, None)
+    _StandardCertificateStoreNames_Meta_.Personal = property(get_Personal.__wrapped__, None)
+    _StandardCertificateStoreNames_Meta_.TrustedRootCertificationAuthorities = property(get_TrustedRootCertificationAuthorities.__wrapped__, None)
+    _StandardCertificateStoreNames_Meta_.IntermediateCertificationAuthorities = property(get_IntermediateCertificationAuthorities.__wrapped__, None)
 class SubjectAlternativeNameInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Certificates.ISubjectAlternativeNameInfo

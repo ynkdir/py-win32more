@@ -53,7 +53,9 @@ class ActivationViewSwitcher(ComPtr):
     def ShowAsStandaloneWithSizePreferenceAsync(self: Windows.UI.ViewManagement.IActivationViewSwitcher, viewId: Int32, sizePreference: Windows.UI.ViewManagement.ViewSizePreference) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def IsViewPresentedOnActivationVirtualDesktop(self: Windows.UI.ViewManagement.IActivationViewSwitcher, viewId: Int32) -> Boolean: ...
-class ApplicationView(ComPtr):
+class _ApplicationView_Meta_(ComPtr.__class__):
+    pass
+class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.ViewManagement.IApplicationView
     _classid_ = 'Windows.UI.ViewManagement.ApplicationView'
@@ -177,10 +179,10 @@ class ApplicationView(ComPtr):
     PersistedStateId = property(get_PersistedStateId, put_PersistedStateId)
     WindowingEnvironment = property(get_WindowingEnvironment, None)
     UIContext = property(get_UIContext, None)
-    PreferredLaunchWindowingMode = property(get_PreferredLaunchWindowingMode, put_PreferredLaunchWindowingMode)
-    PreferredLaunchViewSize = property(get_PreferredLaunchViewSize, put_PreferredLaunchViewSize)
-    TerminateAppOnFinalViewClose = property(get_TerminateAppOnFinalViewClose, put_TerminateAppOnFinalViewClose)
-    Value = property(get_Value, None)
+    _ApplicationView_Meta_.PreferredLaunchWindowingMode = property(get_PreferredLaunchWindowingMode.__wrapped__, put_PreferredLaunchWindowingMode.__wrapped__)
+    _ApplicationView_Meta_.PreferredLaunchViewSize = property(get_PreferredLaunchViewSize.__wrapped__, put_PreferredLaunchViewSize.__wrapped__)
+    _ApplicationView_Meta_.TerminateAppOnFinalViewClose = property(get_TerminateAppOnFinalViewClose.__wrapped__, put_TerminateAppOnFinalViewClose.__wrapped__)
+    _ApplicationView_Meta_.Value = property(get_Value.__wrapped__, None)
 ApplicationViewBoundsMode = Int32
 ApplicationViewBoundsMode_UseVisible: ApplicationViewBoundsMode = 0
 ApplicationViewBoundsMode_UseCoreWindow: ApplicationViewBoundsMode = 1
@@ -200,7 +202,9 @@ ApplicationViewMode_CompactOverlay: ApplicationViewMode = 1
 ApplicationViewOrientation = Int32
 ApplicationViewOrientation_Landscape: ApplicationViewOrientation = 0
 ApplicationViewOrientation_Portrait: ApplicationViewOrientation = 1
-class ApplicationViewScaling(ComPtr):
+class _ApplicationViewScaling_Meta_(ComPtr.__class__):
+    pass
+class ApplicationViewScaling(ComPtr, metaclass=_ApplicationViewScaling_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.ViewManagement.IApplicationViewScaling
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewScaling'
@@ -208,7 +212,7 @@ class ApplicationViewScaling(ComPtr):
     def get_DisableLayoutScaling(cls: Windows.UI.ViewManagement.IApplicationViewScalingStatics) -> Boolean: ...
     @winrt_classmethod
     def TrySetDisableLayoutScaling(cls: Windows.UI.ViewManagement.IApplicationViewScalingStatics, disableLayoutScaling: Boolean) -> Boolean: ...
-    DisableLayoutScaling = property(get_DisableLayoutScaling, None)
+    _ApplicationViewScaling_Meta_.DisableLayoutScaling = property(get_DisableLayoutScaling.__wrapped__, None)
 ApplicationViewState = Int32
 ApplicationViewState_FullScreenLandscape: ApplicationViewState = 0
 ApplicationViewState_Filled: ApplicationViewState = 1
@@ -307,7 +311,9 @@ class ApplicationViewTitleBar(ComPtr):
     InactiveBackgroundColor = property(get_InactiveBackgroundColor, put_InactiveBackgroundColor)
     ButtonInactiveForegroundColor = property(get_ButtonInactiveForegroundColor, put_ButtonInactiveForegroundColor)
     ButtonInactiveBackgroundColor = property(get_ButtonInactiveBackgroundColor, put_ButtonInactiveBackgroundColor)
-class ApplicationViewTransferContext(ComPtr):
+class _ApplicationViewTransferContext_Meta_(ComPtr.__class__):
+    pass
+class ApplicationViewTransferContext(ComPtr, metaclass=_ApplicationViewTransferContext_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.ViewManagement.IApplicationViewTransferContext
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewTransferContext'
@@ -320,7 +326,7 @@ class ApplicationViewTransferContext(ComPtr):
     @winrt_classmethod
     def get_DataPackageFormatId(cls: Windows.UI.ViewManagement.IApplicationViewTransferContextStatics) -> WinRT_String: ...
     ViewId = property(get_ViewId, put_ViewId)
-    DataPackageFormatId = property(get_DataPackageFormatId, None)
+    _ApplicationViewTransferContext_Meta_.DataPackageFormatId = property(get_DataPackageFormatId.__wrapped__, None)
 ApplicationViewWindowingMode = Int32
 ApplicationViewWindowingMode_Auto: ApplicationViewWindowingMode = 0
 ApplicationViewWindowingMode_PreferredLaunchViewSize: ApplicationViewWindowingMode = 1
@@ -1002,7 +1008,9 @@ class InputPaneVisibilityEventArgs(ComPtr):
     def get_EnsuredFocusedElementInView(self: Windows.UI.ViewManagement.IInputPaneVisibilityEventArgs) -> Boolean: ...
     OccludedRect = property(get_OccludedRect, None)
     EnsuredFocusedElementInView = property(get_EnsuredFocusedElementInView, put_EnsuredFocusedElementInView)
-class ProjectionManager(ComPtr):
+class _ProjectionManager_Meta_(ComPtr.__class__):
+    pass
+class ProjectionManager(ComPtr, metaclass=_ProjectionManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.ProjectionManager'
     @winrt_classmethod
@@ -1025,7 +1033,7 @@ class ProjectionManager(ComPtr):
     def add_ProjectionDisplayAvailableChanged(cls: Windows.UI.ViewManagement.IProjectionManagerStatics, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ProjectionDisplayAvailableChanged(cls: Windows.UI.ViewManagement.IProjectionManagerStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable, None)
+    _ProjectionManager_Meta_.ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable.__wrapped__, None)
 ScreenCaptureDisabledBehavior = Int32
 ScreenCaptureDisabledBehavior_DrawAsBlack: ScreenCaptureDisabledBehavior = 0
 ScreenCaptureDisabledBehavior_ExcludeFromCapture: ScreenCaptureDisabledBehavior = 1

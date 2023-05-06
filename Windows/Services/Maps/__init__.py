@@ -852,7 +852,9 @@ MapRouteRestrictions_Ferries: MapRouteRestrictions = 4
 MapRouteRestrictions_Tunnels: MapRouteRestrictions = 8
 MapRouteRestrictions_DirtRoads: MapRouteRestrictions = 16
 MapRouteRestrictions_Motorail: MapRouteRestrictions = 32
-class MapService(ComPtr):
+class _MapService_Meta_(ComPtr.__class__):
+    pass
+class MapService(ComPtr, metaclass=_MapService_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.MapService'
     @winrt_classmethod
@@ -867,14 +869,16 @@ class MapService(ComPtr):
     def put_ServiceToken(cls: Windows.Services.Maps.IMapServiceStatics, value: WinRT_String) -> Void: ...
     @winrt_classmethod
     def get_ServiceToken(cls: Windows.Services.Maps.IMapServiceStatics) -> WinRT_String: ...
-    DataUsagePreference = property(get_DataUsagePreference, put_DataUsagePreference)
-    DataAttributions = property(get_DataAttributions, None)
-    WorldViewRegionCode = property(get_WorldViewRegionCode, None)
-    ServiceToken = property(get_ServiceToken, put_ServiceToken)
+    _MapService_Meta_.DataUsagePreference = property(get_DataUsagePreference.__wrapped__, put_DataUsagePreference.__wrapped__)
+    _MapService_Meta_.DataAttributions = property(get_DataAttributions.__wrapped__, None)
+    _MapService_Meta_.WorldViewRegionCode = property(get_WorldViewRegionCode.__wrapped__, None)
+    _MapService_Meta_.ServiceToken = property(get_ServiceToken.__wrapped__, put_ServiceToken.__wrapped__)
 MapServiceDataUsagePreference = Int32
 MapServiceDataUsagePreference_Default: MapServiceDataUsagePreference = 0
 MapServiceDataUsagePreference_OfflineMapDataOnly: MapServiceDataUsagePreference = 1
-class PlaceInfo(ComPtr):
+class _PlaceInfo_Meta_(ComPtr.__class__):
+    pass
+class PlaceInfo(ComPtr, metaclass=_PlaceInfo_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Services.Maps.IPlaceInfo
     _classid_ = 'Windows.Services.Maps.PlaceInfo'
@@ -910,7 +914,7 @@ class PlaceInfo(ComPtr):
     DisplayName = property(get_DisplayName, None)
     DisplayAddress = property(get_DisplayAddress, None)
     Geoshape = property(get_Geoshape, None)
-    IsShowSupported = property(get_IsShowSupported, None)
+    _PlaceInfo_Meta_.IsShowSupported = property(get_IsShowSupported.__wrapped__, None)
 class PlaceInfoCreateOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Services.Maps.IPlaceInfoCreateOptions

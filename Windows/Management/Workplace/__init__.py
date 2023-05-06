@@ -62,12 +62,14 @@ MessagingSyncPolicy = Int32
 MessagingSyncPolicy_Disallowed: MessagingSyncPolicy = 0
 MessagingSyncPolicy_Allowed: MessagingSyncPolicy = 1
 MessagingSyncPolicy_Required: MessagingSyncPolicy = 2
-class WorkplaceSettings(ComPtr):
+class _WorkplaceSettings_Meta_(ComPtr.__class__):
+    pass
+class WorkplaceSettings(ComPtr, metaclass=_WorkplaceSettings_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Workplace.WorkplaceSettings'
     @winrt_classmethod
     def get_IsMicrosoftAccountOptional(cls: Windows.Management.Workplace.IWorkplaceSettingsStatics) -> Boolean: ...
-    IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional, None)
+    _WorkplaceSettings_Meta_.IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional.__wrapped__, None)
 WorkplaceSettingsContract: UInt32 = 65536
 make_head(_module, 'IMdmAllowPolicyStatics')
 make_head(_module, 'IMdmPolicyStatics2')

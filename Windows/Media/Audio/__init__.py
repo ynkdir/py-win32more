@@ -2194,7 +2194,9 @@ class SpatialAudioFormatConfiguration(ComPtr):
     @winrt_classmethod
     def GetDefault(cls: Windows.Media.Audio.ISpatialAudioFormatConfigurationStatics) -> Windows.Media.Audio.SpatialAudioFormatConfiguration: ...
     MixedRealityExclusiveModePolicy = property(get_MixedRealityExclusiveModePolicy, put_MixedRealityExclusiveModePolicy)
-class SpatialAudioFormatSubtype(ComPtr):
+class _SpatialAudioFormatSubtype_Meta_(ComPtr.__class__):
+    pass
+class SpatialAudioFormatSubtype(ComPtr, metaclass=_SpatialAudioFormatSubtype_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.SpatialAudioFormatSubtype'
     @winrt_classmethod
@@ -2211,13 +2213,13 @@ class SpatialAudioFormatSubtype(ComPtr):
     def get_DTSHeadphoneX(cls: Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_DTSXUltra(cls: Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics) -> WinRT_String: ...
-    DTSXForHomeTheater = property(get_DTSXForHomeTheater, None)
-    WindowsSonic = property(get_WindowsSonic, None)
-    DolbyAtmosForHeadphones = property(get_DolbyAtmosForHeadphones, None)
-    DolbyAtmosForHomeTheater = property(get_DolbyAtmosForHomeTheater, None)
-    DolbyAtmosForSpeakers = property(get_DolbyAtmosForSpeakers, None)
-    DTSHeadphoneX = property(get_DTSHeadphoneX, None)
-    DTSXUltra = property(get_DTSXUltra, None)
+    _SpatialAudioFormatSubtype_Meta_.DTSXForHomeTheater = property(get_DTSXForHomeTheater.__wrapped__, None)
+    _SpatialAudioFormatSubtype_Meta_.WindowsSonic = property(get_WindowsSonic.__wrapped__, None)
+    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForHeadphones = property(get_DolbyAtmosForHeadphones.__wrapped__, None)
+    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForHomeTheater = property(get_DolbyAtmosForHomeTheater.__wrapped__, None)
+    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForSpeakers = property(get_DolbyAtmosForSpeakers.__wrapped__, None)
+    _SpatialAudioFormatSubtype_Meta_.DTSHeadphoneX = property(get_DTSHeadphoneX.__wrapped__, None)
+    _SpatialAudioFormatSubtype_Meta_.DTSXUltra = property(get_DTSXUltra.__wrapped__, None)
 SpatialAudioModel = Int32
 SpatialAudioModel_ObjectBased: SpatialAudioModel = 0
 SpatialAudioModel_FoldDown: SpatialAudioModel = 1

@@ -267,7 +267,9 @@ PeerDiscoveryTypes = UInt32
 PeerDiscoveryTypes_None: PeerDiscoveryTypes = 0
 PeerDiscoveryTypes_Browse: PeerDiscoveryTypes = 1
 PeerDiscoveryTypes_Triggered: PeerDiscoveryTypes = 2
-class PeerFinder(ComPtr):
+class _PeerFinder_Meta_(ComPtr.__class__):
+    pass
+class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.PeerFinder'
     @winrt_classmethod
@@ -318,14 +320,14 @@ class PeerFinder(ComPtr):
     def FindAllPeersAsync(cls: Windows.Networking.Proximity.IPeerFinderStatics) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.Proximity.PeerInformation]]: ...
     @winrt_classmethod
     def ConnectAsync(cls: Windows.Networking.Proximity.IPeerFinderStatics, peerInformation: Windows.Networking.Proximity.PeerInformation) -> Windows.Foundation.IAsyncOperation[Windows.Networking.Sockets.StreamSocket]: ...
-    Role = property(get_Role, put_Role)
-    DiscoveryData = property(get_DiscoveryData, put_DiscoveryData)
-    AllowBluetooth = property(get_AllowBluetooth, put_AllowBluetooth)
-    AllowInfrastructure = property(get_AllowInfrastructure, put_AllowInfrastructure)
-    AllowWiFiDirect = property(get_AllowWiFiDirect, put_AllowWiFiDirect)
-    DisplayName = property(get_DisplayName, put_DisplayName)
-    SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes, None)
-    AlternateIdentities = property(get_AlternateIdentities, None)
+    _PeerFinder_Meta_.Role = property(get_Role.__wrapped__, put_Role.__wrapped__)
+    _PeerFinder_Meta_.DiscoveryData = property(get_DiscoveryData.__wrapped__, put_DiscoveryData.__wrapped__)
+    _PeerFinder_Meta_.AllowBluetooth = property(get_AllowBluetooth.__wrapped__, put_AllowBluetooth.__wrapped__)
+    _PeerFinder_Meta_.AllowInfrastructure = property(get_AllowInfrastructure.__wrapped__, put_AllowInfrastructure.__wrapped__)
+    _PeerFinder_Meta_.AllowWiFiDirect = property(get_AllowWiFiDirect.__wrapped__, put_AllowWiFiDirect.__wrapped__)
+    _PeerFinder_Meta_.DisplayName = property(get_DisplayName.__wrapped__, put_DisplayName.__wrapped__)
+    _PeerFinder_Meta_.SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes.__wrapped__, None)
+    _PeerFinder_Meta_.AlternateIdentities = property(get_AlternateIdentities.__wrapped__, None)
 class PeerInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Networking.Proximity.IPeerInformation

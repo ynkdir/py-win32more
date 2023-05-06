@@ -619,7 +619,9 @@ class SpeechRecognitionVoiceCommandDefinitionConstraint(ComPtr):
     Tag = property(get_Tag, put_Tag)
     Type = property(get_Type, None)
     Probability = property(get_Probability, put_Probability)
-class SpeechRecognizer(ComPtr):
+class _SpeechRecognizer_Meta_(ComPtr.__class__):
+    pass
+class SpeechRecognizer(ComPtr, metaclass=_SpeechRecognizer_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.SpeechRecognition.ISpeechRecognizer
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognizer'
@@ -675,9 +677,9 @@ class SpeechRecognizer(ComPtr):
     UIOptions = property(get_UIOptions, None)
     ContinuousRecognitionSession = property(get_ContinuousRecognitionSession, None)
     State = property(get_State, None)
-    SystemSpeechLanguage = property(get_SystemSpeechLanguage, None)
-    SupportedTopicLanguages = property(get_SupportedTopicLanguages, None)
-    SupportedGrammarLanguages = property(get_SupportedGrammarLanguages, None)
+    _SpeechRecognizer_Meta_.SystemSpeechLanguage = property(get_SystemSpeechLanguage.__wrapped__, None)
+    _SpeechRecognizer_Meta_.SupportedTopicLanguages = property(get_SupportedTopicLanguages.__wrapped__, None)
+    _SpeechRecognizer_Meta_.SupportedGrammarLanguages = property(get_SupportedGrammarLanguages.__wrapped__, None)
 SpeechRecognizerState = Int32
 SpeechRecognizerState_Idle: SpeechRecognizerState = 0
 SpeechRecognizerState_Capturing: SpeechRecognizerState = 1
@@ -736,14 +738,16 @@ class SpeechRecognizerUIOptions(ComPtr):
     AudiblePrompt = property(get_AudiblePrompt, put_AudiblePrompt)
     IsReadBackEnabled = property(get_IsReadBackEnabled, put_IsReadBackEnabled)
     ShowConfirmation = property(get_ShowConfirmation, put_ShowConfirmation)
-class VoiceCommandManager(ComPtr):
+class _VoiceCommandManager_Meta_(ComPtr.__class__):
+    pass
+class VoiceCommandManager(ComPtr, metaclass=_VoiceCommandManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechRecognition.VoiceCommandManager'
     @winrt_classmethod
     def InstallCommandSetsFromStorageFileAsync(cls: Windows.Media.SpeechRecognition.IVoiceCommandManager, file: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def get_InstalledCommandSets(cls: Windows.Media.SpeechRecognition.IVoiceCommandManager) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Media.SpeechRecognition.VoiceCommandSet]: ...
-    InstalledCommandSets = property(get_InstalledCommandSets, None)
+    _VoiceCommandManager_Meta_.InstalledCommandSets = property(get_InstalledCommandSets.__wrapped__, None)
 class VoiceCommandSet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.SpeechRecognition.IVoiceCommandSet

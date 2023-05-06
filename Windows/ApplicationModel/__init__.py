@@ -47,7 +47,9 @@ AppExecutionContext = Int32
 AppExecutionContext_Unknown: AppExecutionContext = 0
 AppExecutionContext_Host: AppExecutionContext = 1
 AppExecutionContext_Guest: AppExecutionContext = 2
-class AppInfo(ComPtr):
+class _AppInfo_Meta_(ComPtr.__class__):
+    pass
+class AppInfo(ComPtr, metaclass=_AppInfo_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.IAppInfo
     _classid_ = 'Windows.ApplicationModel.AppInfo'
@@ -78,7 +80,7 @@ class AppInfo(ComPtr):
     Package = property(get_Package, None)
     ExecutionContext = property(get_ExecutionContext, None)
     SupportedFileExtensions = property(get_SupportedFileExtensions, None)
-    Current = property(get_Current, None)
+    _AppInfo_Meta_.Current = property(get_Current.__wrapped__, None)
 class AppInstallerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.IAppInstallerInfo
@@ -134,7 +136,9 @@ class AppInstallerInfo(ComPtr):
 AppInstallerPolicySource = Int32
 AppInstallerPolicySource_Default: AppInstallerPolicySource = 0
 AppInstallerPolicySource_System: AppInstallerPolicySource = 1
-class AppInstance(ComPtr):
+class _AppInstance_Meta_(ComPtr.__class__):
+    pass
+class AppInstance(ComPtr, metaclass=_AppInstance_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.IAppInstance
     _classid_ = 'Windows.ApplicationModel.AppInstance'
@@ -156,21 +160,23 @@ class AppInstance(ComPtr):
     def GetInstances(cls: Windows.ApplicationModel.IAppInstanceStatics) -> Windows.Foundation.Collections.IVector[Windows.ApplicationModel.AppInstance]: ...
     Key = property(get_Key, None)
     IsCurrentInstance = property(get_IsCurrentInstance, None)
-    RecommendedInstance = property(get_RecommendedInstance, None)
+    _AppInstance_Meta_.RecommendedInstance = property(get_RecommendedInstance.__wrapped__, None)
 class CameraApplicationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.CameraApplicationManager'
     @winrt_classmethod
     def ShowInstalledApplicationsUI(cls: Windows.ApplicationModel.ICameraApplicationManagerStatics) -> Void: ...
-class DesignMode(ComPtr):
+class _DesignMode_Meta_(ComPtr.__class__):
+    pass
+class DesignMode(ComPtr, metaclass=_DesignMode_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DesignMode'
     @winrt_classmethod
     def get_DesignMode2Enabled(cls: Windows.ApplicationModel.IDesignModeStatics2) -> Boolean: ...
     @winrt_classmethod
     def get_DesignModeEnabled(cls: Windows.ApplicationModel.IDesignModeStatics) -> Boolean: ...
-    DesignMode2Enabled = property(get_DesignMode2Enabled, None)
-    DesignModeEnabled = property(get_DesignModeEnabled, None)
+    _DesignMode_Meta_.DesignMode2Enabled = property(get_DesignMode2Enabled.__wrapped__, None)
+    _DesignMode_Meta_.DesignModeEnabled = property(get_DesignModeEnabled.__wrapped__, None)
 class EnteredBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.IEnteredBackgroundEventArgs
@@ -1066,7 +1072,9 @@ class LimitedAccessFeatures(ComPtr):
     _classid_ = 'Windows.ApplicationModel.LimitedAccessFeatures'
     @winrt_classmethod
     def TryUnlockFeature(cls: Windows.ApplicationModel.ILimitedAccessFeaturesStatics, featureId: WinRT_String, token: WinRT_String, attestation: WinRT_String) -> Windows.ApplicationModel.LimitedAccessFeatureRequestResult: ...
-class Package(ComPtr):
+class _Package_Meta_(ComPtr.__class__):
+    pass
+class Package(ComPtr, metaclass=_Package_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.IPackage
     _classid_ = 'Windows.ApplicationModel.Package'
@@ -1187,7 +1195,7 @@ class Package(ComPtr):
     UserExternalPath = property(get_UserExternalPath, None)
     IsStub = property(get_IsStub, None)
     SourceUriSchemeName = property(get_SourceUriSchemeName, None)
-    Current = property(get_Current, None)
+    _Package_Meta_.Current = property(get_Current.__wrapped__, None)
 class PackageCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.IPackageCatalog
@@ -1273,7 +1281,9 @@ class PackageCatalogRemoveResourcePackagesResult(ComPtr):
     def get_ExtendedError(self: Windows.ApplicationModel.IPackageCatalogRemoveResourcePackagesResult) -> Windows.Foundation.HResult: ...
     PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
-class PackageContentGroup(ComPtr):
+class _PackageContentGroup_Meta_(ComPtr.__class__):
+    pass
+class PackageContentGroup(ComPtr, metaclass=_PackageContentGroup_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.IPackageContentGroup
     _classid_ = 'Windows.ApplicationModel.PackageContentGroup'
@@ -1291,7 +1301,7 @@ class PackageContentGroup(ComPtr):
     Name = property(get_Name, None)
     State = property(get_State, None)
     IsRequired = property(get_IsRequired, None)
-    RequiredGroupName = property(get_RequiredGroupName, None)
+    _PackageContentGroup_Meta_.RequiredGroupName = property(get_RequiredGroupName.__wrapped__, None)
 class PackageContentGroupStagingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.IPackageContentGroupStagingEventArgs

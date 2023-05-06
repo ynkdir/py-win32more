@@ -43,7 +43,9 @@ class AmbientLight(ComPtr):
     def put_Intensity(self: Windows.UI.Composition.IAmbientLight2, value: Single) -> Void: ...
     Color = property(get_Color, put_Color)
     Intensity = property(get_Intensity, put_Intensity)
-class AnimationController(ComPtr):
+class _AnimationController_Meta_(ComPtr.__class__):
+    pass
+class AnimationController(ComPtr, metaclass=_AnimationController_Meta_):
     extends: Windows.UI.Composition.CompositionObject
     default_interface: Windows.UI.Composition.IAnimationController
     _classid_ = 'Windows.UI.Composition.AnimationController'
@@ -70,8 +72,8 @@ class AnimationController(ComPtr):
     PlaybackRate = property(get_PlaybackRate, put_PlaybackRate)
     Progress = property(get_Progress, put_Progress)
     ProgressBehavior = property(get_ProgressBehavior, put_ProgressBehavior)
-    MaxPlaybackRate = property(get_MaxPlaybackRate, None)
-    MinPlaybackRate = property(get_MinPlaybackRate, None)
+    _AnimationController_Meta_.MaxPlaybackRate = property(get_MaxPlaybackRate.__wrapped__, None)
+    _AnimationController_Meta_.MinPlaybackRate = property(get_MinPlaybackRate.__wrapped__, None)
 AnimationControllerProgressBehavior = Int32
 AnimationControllerProgressBehavior_Default: AnimationControllerProgressBehavior = 0
 AnimationControllerProgressBehavior_IncludesDelayTime: AnimationControllerProgressBehavior = 1
@@ -898,7 +900,9 @@ class CompositionProjectedShadowCaster(ComPtr):
     def put_CastingVisual(self: Windows.UI.Composition.ICompositionProjectedShadowCaster, value: Windows.UI.Composition.Visual) -> Void: ...
     Brush = property(get_Brush, put_Brush)
     CastingVisual = property(get_CastingVisual, put_CastingVisual)
-class CompositionProjectedShadowCasterCollection(ComPtr):
+class _CompositionProjectedShadowCasterCollection_Meta_(ComPtr.__class__):
+    pass
+class CompositionProjectedShadowCasterCollection(ComPtr, metaclass=_CompositionProjectedShadowCasterCollection_Meta_):
     extends: Windows.UI.Composition.CompositionObject
     default_interface: Windows.UI.Composition.ICompositionProjectedShadowCasterCollection
     _classid_ = 'Windows.UI.Composition.CompositionProjectedShadowCasterCollection'
@@ -921,7 +925,7 @@ class CompositionProjectedShadowCasterCollection(ComPtr):
     @winrt_classmethod
     def get_MaxRespectedCasters(cls: Windows.UI.Composition.ICompositionProjectedShadowCasterCollectionStatics) -> Int32: ...
     Count = property(get_Count, None)
-    MaxRespectedCasters = property(get_MaxRespectedCasters, None)
+    _CompositionProjectedShadowCasterCollection_Meta_.MaxRespectedCasters = property(get_MaxRespectedCasters.__wrapped__, None)
 class CompositionProjectedShadowReceiver(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
     default_interface: Windows.UI.Composition.ICompositionProjectedShadowReceiver
@@ -1371,7 +1375,9 @@ class CompositionVisualSurface(ComPtr):
     SourceVisual = property(get_SourceVisual, put_SourceVisual)
     SourceOffset = property(get_SourceOffset, put_SourceOffset)
     SourceSize = property(get_SourceSize, put_SourceSize)
-class Compositor(ComPtr):
+class _Compositor_Meta_(ComPtr.__class__):
+    pass
+class Compositor(ComPtr, metaclass=_Compositor_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Composition.ICompositor
     _classid_ = 'Windows.UI.Composition.Compositor'
@@ -1548,8 +1554,8 @@ class Compositor(ComPtr):
     Comment = property(get_Comment, put_Comment)
     GlobalPlaybackRate = property(get_GlobalPlaybackRate, put_GlobalPlaybackRate)
     DispatcherQueue = property(get_DispatcherQueue, None)
-    MaxGlobalPlaybackRate = property(get_MaxGlobalPlaybackRate, None)
-    MinGlobalPlaybackRate = property(get_MinGlobalPlaybackRate, None)
+    _Compositor_Meta_.MaxGlobalPlaybackRate = property(get_MaxGlobalPlaybackRate.__wrapped__, None)
+    _Compositor_Meta_.MinGlobalPlaybackRate = property(get_MinGlobalPlaybackRate.__wrapped__, None)
 class ContainerVisual(ComPtr):
     extends: Windows.UI.Composition.Visual
     default_interface: Windows.UI.Composition.IContainerVisual

@@ -490,7 +490,9 @@ class IStoredContactFactory(ComPtr):
     def CreateStoredContact(self, store: Windows.Phone.PersonalInformation.ContactStore) -> Windows.Phone.PersonalInformation.StoredContact: ...
     @winrt_commethod(7)
     def CreateStoredContactFromInformation(self, store: Windows.Phone.PersonalInformation.ContactStore, contact: Windows.Phone.PersonalInformation.ContactInformation) -> Windows.Phone.PersonalInformation.StoredContact: ...
-class KnownContactProperties(ComPtr):
+class _KnownContactProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownContactProperties(ComPtr, metaclass=_KnownContactProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.PersonalInformation.KnownContactProperties'
     @winrt_classmethod
@@ -563,41 +565,41 @@ class KnownContactProperties(ComPtr):
     def get_AlternateMobileTelephone(cls: Windows.Phone.PersonalInformation.IKnownContactPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_AlternateWorkTelephone(cls: Windows.Phone.PersonalInformation.IKnownContactPropertiesStatics) -> WinRT_String: ...
-    DisplayName = property(get_DisplayName, None)
-    FamilyName = property(get_FamilyName, None)
-    GivenName = property(get_GivenName, None)
-    HonorificPrefix = property(get_HonorificPrefix, None)
-    HonorificSuffix = property(get_HonorificSuffix, None)
-    AdditionalName = property(get_AdditionalName, None)
-    Address = property(get_Address, None)
-    OtherAddress = property(get_OtherAddress, None)
-    Email = property(get_Email, None)
-    WorkAddress = property(get_WorkAddress, None)
-    WorkTelephone = property(get_WorkTelephone, None)
-    JobTitle = property(get_JobTitle, None)
-    Birthdate = property(get_Birthdate, None)
-    Anniversary = property(get_Anniversary, None)
-    Telephone = property(get_Telephone, None)
-    MobileTelephone = property(get_MobileTelephone, None)
-    Url = property(get_Url, None)
-    Notes = property(get_Notes, None)
-    WorkFax = property(get_WorkFax, None)
-    Children = property(get_Children, None)
-    SignificantOther = property(get_SignificantOther, None)
-    CompanyName = property(get_CompanyName, None)
-    CompanyTelephone = property(get_CompanyTelephone, None)
-    HomeFax = property(get_HomeFax, None)
-    AlternateTelephone = property(get_AlternateTelephone, None)
-    Manager = property(get_Manager, None)
-    Nickname = property(get_Nickname, None)
-    OfficeLocation = property(get_OfficeLocation, None)
-    WorkEmail = property(get_WorkEmail, None)
-    YomiGivenName = property(get_YomiGivenName, None)
-    YomiFamilyName = property(get_YomiFamilyName, None)
-    YomiCompanyName = property(get_YomiCompanyName, None)
-    OtherEmail = property(get_OtherEmail, None)
-    AlternateMobileTelephone = property(get_AlternateMobileTelephone, None)
-    AlternateWorkTelephone = property(get_AlternateWorkTelephone, None)
+    _KnownContactProperties_Meta_.DisplayName = property(get_DisplayName.__wrapped__, None)
+    _KnownContactProperties_Meta_.FamilyName = property(get_FamilyName.__wrapped__, None)
+    _KnownContactProperties_Meta_.GivenName = property(get_GivenName.__wrapped__, None)
+    _KnownContactProperties_Meta_.HonorificPrefix = property(get_HonorificPrefix.__wrapped__, None)
+    _KnownContactProperties_Meta_.HonorificSuffix = property(get_HonorificSuffix.__wrapped__, None)
+    _KnownContactProperties_Meta_.AdditionalName = property(get_AdditionalName.__wrapped__, None)
+    _KnownContactProperties_Meta_.Address = property(get_Address.__wrapped__, None)
+    _KnownContactProperties_Meta_.OtherAddress = property(get_OtherAddress.__wrapped__, None)
+    _KnownContactProperties_Meta_.Email = property(get_Email.__wrapped__, None)
+    _KnownContactProperties_Meta_.WorkAddress = property(get_WorkAddress.__wrapped__, None)
+    _KnownContactProperties_Meta_.WorkTelephone = property(get_WorkTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.JobTitle = property(get_JobTitle.__wrapped__, None)
+    _KnownContactProperties_Meta_.Birthdate = property(get_Birthdate.__wrapped__, None)
+    _KnownContactProperties_Meta_.Anniversary = property(get_Anniversary.__wrapped__, None)
+    _KnownContactProperties_Meta_.Telephone = property(get_Telephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.MobileTelephone = property(get_MobileTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.Url = property(get_Url.__wrapped__, None)
+    _KnownContactProperties_Meta_.Notes = property(get_Notes.__wrapped__, None)
+    _KnownContactProperties_Meta_.WorkFax = property(get_WorkFax.__wrapped__, None)
+    _KnownContactProperties_Meta_.Children = property(get_Children.__wrapped__, None)
+    _KnownContactProperties_Meta_.SignificantOther = property(get_SignificantOther.__wrapped__, None)
+    _KnownContactProperties_Meta_.CompanyName = property(get_CompanyName.__wrapped__, None)
+    _KnownContactProperties_Meta_.CompanyTelephone = property(get_CompanyTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.HomeFax = property(get_HomeFax.__wrapped__, None)
+    _KnownContactProperties_Meta_.AlternateTelephone = property(get_AlternateTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.Manager = property(get_Manager.__wrapped__, None)
+    _KnownContactProperties_Meta_.Nickname = property(get_Nickname.__wrapped__, None)
+    _KnownContactProperties_Meta_.OfficeLocation = property(get_OfficeLocation.__wrapped__, None)
+    _KnownContactProperties_Meta_.WorkEmail = property(get_WorkEmail.__wrapped__, None)
+    _KnownContactProperties_Meta_.YomiGivenName = property(get_YomiGivenName.__wrapped__, None)
+    _KnownContactProperties_Meta_.YomiFamilyName = property(get_YomiFamilyName.__wrapped__, None)
+    _KnownContactProperties_Meta_.YomiCompanyName = property(get_YomiCompanyName.__wrapped__, None)
+    _KnownContactProperties_Meta_.OtherEmail = property(get_OtherEmail.__wrapped__, None)
+    _KnownContactProperties_Meta_.AlternateMobileTelephone = property(get_AlternateMobileTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.AlternateWorkTelephone = property(get_AlternateWorkTelephone.__wrapped__, None)
 class StoredContact(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Phone.PersonalInformation.IStoredContact

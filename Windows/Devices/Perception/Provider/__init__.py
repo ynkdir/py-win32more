@@ -221,7 +221,9 @@ class IPerceptionVideoFrameAllocatorFactory(ComPtr):
     _iid_ = Guid('{1a58b0e1-e91a-481e-b876-a89e2bbc6b33}')
     @winrt_commethod(6)
     def Create(self, maxOutstandingFrameCountForWrite: UInt32, format: Windows.Graphics.Imaging.BitmapPixelFormat, resolution: Windows.Foundation.Size, alpha: Windows.Graphics.Imaging.BitmapAlphaMode) -> Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator: ...
-class KnownPerceptionFrameKind(ComPtr):
+class _KnownPerceptionFrameKind_Meta_(ComPtr.__class__):
+    pass
+class KnownPerceptionFrameKind(ComPtr, metaclass=_KnownPerceptionFrameKind_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.Provider.KnownPerceptionFrameKind'
     @winrt_classmethod
@@ -230,9 +232,9 @@ class KnownPerceptionFrameKind(ComPtr):
     def get_Depth(cls: Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Infrared(cls: Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics) -> WinRT_String: ...
-    Color = property(get_Color, None)
-    Depth = property(get_Depth, None)
-    Infrared = property(get_Infrared, None)
+    _KnownPerceptionFrameKind_Meta_.Color = property(get_Color.__wrapped__, None)
+    _KnownPerceptionFrameKind_Meta_.Depth = property(get_Depth.__wrapped__, None)
+    _KnownPerceptionFrameKind_Meta_.Infrared = property(get_Infrared.__wrapped__, None)
 class PerceptionControlGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Perception.Provider.IPerceptionControlGroup

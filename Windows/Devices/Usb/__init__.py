@@ -688,7 +688,9 @@ class UsbDeviceClass(ComPtr):
     ClassCode = property(get_ClassCode, put_ClassCode)
     SubclassCode = property(get_SubclassCode, put_SubclassCode)
     ProtocolCode = property(get_ProtocolCode, put_ProtocolCode)
-class UsbDeviceClasses(ComPtr):
+class _UsbDeviceClasses_Meta_(ComPtr.__class__):
+    pass
+class UsbDeviceClasses(ComPtr, metaclass=_UsbDeviceClasses_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Usb.IUsbDeviceClasses
     _classid_ = 'Windows.Devices.Usb.UsbDeviceClasses'
@@ -710,15 +712,15 @@ class UsbDeviceClasses(ComPtr):
     def get_Measurement(cls: Windows.Devices.Usb.IUsbDeviceClassesStatics) -> Windows.Devices.Usb.UsbDeviceClass: ...
     @winrt_classmethod
     def get_VendorSpecific(cls: Windows.Devices.Usb.IUsbDeviceClassesStatics) -> Windows.Devices.Usb.UsbDeviceClass: ...
-    CdcControl = property(get_CdcControl, None)
-    Physical = property(get_Physical, None)
-    PersonalHealthcare = property(get_PersonalHealthcare, None)
-    ActiveSync = property(get_ActiveSync, None)
-    PalmSync = property(get_PalmSync, None)
-    DeviceFirmwareUpdate = property(get_DeviceFirmwareUpdate, None)
-    Irda = property(get_Irda, None)
-    Measurement = property(get_Measurement, None)
-    VendorSpecific = property(get_VendorSpecific, None)
+    _UsbDeviceClasses_Meta_.CdcControl = property(get_CdcControl.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.Physical = property(get_Physical.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.PersonalHealthcare = property(get_PersonalHealthcare.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.ActiveSync = property(get_ActiveSync.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.PalmSync = property(get_PalmSync.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.DeviceFirmwareUpdate = property(get_DeviceFirmwareUpdate.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.Irda = property(get_Irda.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.Measurement = property(get_Measurement.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.VendorSpecific = property(get_VendorSpecific.__wrapped__, None)
 class UsbDeviceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Usb.IUsbDeviceDescriptor

@@ -23,7 +23,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AnnotationPatternIdentifiers(ComPtr):
+class _AnnotationPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class AnnotationPatternIdentifiers(ComPtr, metaclass=_AnnotationPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IAnnotationPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.AnnotationPatternIdentifiers'
@@ -37,11 +39,11 @@ class AnnotationPatternIdentifiers(ComPtr):
     def get_DateTimeProperty(cls: Windows.UI.Xaml.Automation.IAnnotationPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_TargetProperty(cls: Windows.UI.Xaml.Automation.IAnnotationPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    AnnotationTypeIdProperty = property(get_AnnotationTypeIdProperty, None)
-    AnnotationTypeNameProperty = property(get_AnnotationTypeNameProperty, None)
-    AuthorProperty = property(get_AuthorProperty, None)
-    DateTimeProperty = property(get_DateTimeProperty, None)
-    TargetProperty = property(get_TargetProperty, None)
+    _AnnotationPatternIdentifiers_Meta_.AnnotationTypeIdProperty = property(get_AnnotationTypeIdProperty.__wrapped__, None)
+    _AnnotationPatternIdentifiers_Meta_.AnnotationTypeNameProperty = property(get_AnnotationTypeNameProperty.__wrapped__, None)
+    _AnnotationPatternIdentifiers_Meta_.AuthorProperty = property(get_AuthorProperty.__wrapped__, None)
+    _AnnotationPatternIdentifiers_Meta_.DateTimeProperty = property(get_DateTimeProperty.__wrapped__, None)
+    _AnnotationPatternIdentifiers_Meta_.TargetProperty = property(get_TargetProperty.__wrapped__, None)
 AnnotationType = Int32
 AnnotationType_Unknown: AnnotationType = 60000
 AnnotationType_SpellingError: AnnotationType = 60001
@@ -79,7 +81,9 @@ AutomationAnimationStyle_MarchingBlackAnts: AutomationAnimationStyle = 4
 AutomationAnimationStyle_MarchingRedAnts: AutomationAnimationStyle = 5
 AutomationAnimationStyle_Shimmer: AutomationAnimationStyle = 6
 AutomationAnimationStyle_Other: AutomationAnimationStyle = 7
-class AutomationAnnotation(ComPtr):
+class _AutomationAnnotation_Meta_(ComPtr.__class__):
+    pass
+class AutomationAnnotation(ComPtr, metaclass=_AutomationAnnotation_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Automation.IAutomationAnnotation
     _classid_ = 'Windows.UI.Xaml.Automation.AutomationAnnotation'
@@ -103,8 +107,8 @@ class AutomationAnnotation(ComPtr):
     def get_ElementProperty(cls: Windows.UI.Xaml.Automation.IAutomationAnnotationStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Type = property(get_Type, put_Type)
     Element = property(get_Element, put_Element)
-    TypeProperty = property(get_TypeProperty, None)
-    ElementProperty = property(get_ElementProperty, None)
+    _AutomationAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
+    _AutomationAnnotation_Meta_.ElementProperty = property(get_ElementProperty.__wrapped__, None)
 AutomationBulletStyle = Int32
 AutomationBulletStyle_None: AutomationBulletStyle = 0
 AutomationBulletStyle_HollowRoundBullet: AutomationBulletStyle = 1
@@ -120,7 +124,9 @@ AutomationCaretPosition = Int32
 AutomationCaretPosition_Unknown: AutomationCaretPosition = 0
 AutomationCaretPosition_EndOfLine: AutomationCaretPosition = 1
 AutomationCaretPosition_BeginningOfLine: AutomationCaretPosition = 2
-class AutomationElementIdentifiers(ComPtr):
+class _AutomationElementIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class AutomationElementIdentifiers(ComPtr, metaclass=_AutomationElementIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IAutomationElementIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.AutomationElementIdentifiers'
@@ -202,45 +208,45 @@ class AutomationElementIdentifiers(ComPtr):
     def get_OrientationProperty(cls: Windows.UI.Xaml.Automation.IAutomationElementIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_LiveSettingProperty(cls: Windows.UI.Xaml.Automation.IAutomationElementIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    IsDialogProperty = property(get_IsDialogProperty, None)
-    HeadingLevelProperty = property(get_HeadingLevelProperty, None)
-    CultureProperty = property(get_CultureProperty, None)
-    IsPeripheralProperty = property(get_IsPeripheralProperty, None)
-    IsDataValidForFormProperty = property(get_IsDataValidForFormProperty, None)
-    FullDescriptionProperty = property(get_FullDescriptionProperty, None)
-    DescribedByProperty = property(get_DescribedByProperty, None)
-    FlowsToProperty = property(get_FlowsToProperty, None)
-    FlowsFromProperty = property(get_FlowsFromProperty, None)
-    LandmarkTypeProperty = property(get_LandmarkTypeProperty, None)
-    LocalizedLandmarkTypeProperty = property(get_LocalizedLandmarkTypeProperty, None)
-    PositionInSetProperty = property(get_PositionInSetProperty, None)
-    SizeOfSetProperty = property(get_SizeOfSetProperty, None)
-    LevelProperty = property(get_LevelProperty, None)
-    AnnotationsProperty = property(get_AnnotationsProperty, None)
-    ControlledPeersProperty = property(get_ControlledPeersProperty, None)
-    AcceleratorKeyProperty = property(get_AcceleratorKeyProperty, None)
-    AccessKeyProperty = property(get_AccessKeyProperty, None)
-    AutomationIdProperty = property(get_AutomationIdProperty, None)
-    BoundingRectangleProperty = property(get_BoundingRectangleProperty, None)
-    ClassNameProperty = property(get_ClassNameProperty, None)
-    ClickablePointProperty = property(get_ClickablePointProperty, None)
-    ControlTypeProperty = property(get_ControlTypeProperty, None)
-    HasKeyboardFocusProperty = property(get_HasKeyboardFocusProperty, None)
-    HelpTextProperty = property(get_HelpTextProperty, None)
-    IsContentElementProperty = property(get_IsContentElementProperty, None)
-    IsControlElementProperty = property(get_IsControlElementProperty, None)
-    IsEnabledProperty = property(get_IsEnabledProperty, None)
-    IsKeyboardFocusableProperty = property(get_IsKeyboardFocusableProperty, None)
-    IsOffscreenProperty = property(get_IsOffscreenProperty, None)
-    IsPasswordProperty = property(get_IsPasswordProperty, None)
-    IsRequiredForFormProperty = property(get_IsRequiredForFormProperty, None)
-    ItemStatusProperty = property(get_ItemStatusProperty, None)
-    ItemTypeProperty = property(get_ItemTypeProperty, None)
-    LabeledByProperty = property(get_LabeledByProperty, None)
-    LocalizedControlTypeProperty = property(get_LocalizedControlTypeProperty, None)
-    NameProperty = property(get_NameProperty, None)
-    OrientationProperty = property(get_OrientationProperty, None)
-    LiveSettingProperty = property(get_LiveSettingProperty, None)
+    _AutomationElementIdentifiers_Meta_.IsDialogProperty = property(get_IsDialogProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.HeadingLevelProperty = property(get_HeadingLevelProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.CultureProperty = property(get_CultureProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsPeripheralProperty = property(get_IsPeripheralProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsDataValidForFormProperty = property(get_IsDataValidForFormProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.FullDescriptionProperty = property(get_FullDescriptionProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.DescribedByProperty = property(get_DescribedByProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.FlowsToProperty = property(get_FlowsToProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.FlowsFromProperty = property(get_FlowsFromProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.LandmarkTypeProperty = property(get_LandmarkTypeProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.LocalizedLandmarkTypeProperty = property(get_LocalizedLandmarkTypeProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.PositionInSetProperty = property(get_PositionInSetProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.SizeOfSetProperty = property(get_SizeOfSetProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.LevelProperty = property(get_LevelProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.AnnotationsProperty = property(get_AnnotationsProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.ControlledPeersProperty = property(get_ControlledPeersProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.AcceleratorKeyProperty = property(get_AcceleratorKeyProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.AccessKeyProperty = property(get_AccessKeyProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.AutomationIdProperty = property(get_AutomationIdProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.BoundingRectangleProperty = property(get_BoundingRectangleProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.ClassNameProperty = property(get_ClassNameProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.ClickablePointProperty = property(get_ClickablePointProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.ControlTypeProperty = property(get_ControlTypeProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.HasKeyboardFocusProperty = property(get_HasKeyboardFocusProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.HelpTextProperty = property(get_HelpTextProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsContentElementProperty = property(get_IsContentElementProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsControlElementProperty = property(get_IsControlElementProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsEnabledProperty = property(get_IsEnabledProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsKeyboardFocusableProperty = property(get_IsKeyboardFocusableProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsOffscreenProperty = property(get_IsOffscreenProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsPasswordProperty = property(get_IsPasswordProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.IsRequiredForFormProperty = property(get_IsRequiredForFormProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.ItemStatusProperty = property(get_ItemStatusProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.ItemTypeProperty = property(get_ItemTypeProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.LabeledByProperty = property(get_LabeledByProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.LocalizedControlTypeProperty = property(get_LocalizedControlTypeProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.NameProperty = property(get_NameProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.OrientationProperty = property(get_OrientationProperty.__wrapped__, None)
+    _AutomationElementIdentifiers_Meta_.LiveSettingProperty = property(get_LiveSettingProperty.__wrapped__, None)
 AutomationFlowDirections = Int32
 AutomationFlowDirections_Default: AutomationFlowDirections = 0
 AutomationFlowDirections_RightToLeft: AutomationFlowDirections = 1
@@ -252,7 +258,9 @@ AutomationOutlineStyles_Outline: AutomationOutlineStyles = 1
 AutomationOutlineStyles_Shadow: AutomationOutlineStyles = 2
 AutomationOutlineStyles_Engraved: AutomationOutlineStyles = 3
 AutomationOutlineStyles_Embossed: AutomationOutlineStyles = 4
-class AutomationProperties(ComPtr):
+class _AutomationProperties_Meta_(ComPtr.__class__):
+    pass
+class AutomationProperties(ComPtr, metaclass=_AutomationProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IAutomationProperties
     _classid_ = 'Windows.UI.Xaml.Automation.AutomationProperties'
@@ -420,35 +428,35 @@ class AutomationProperties(ComPtr):
     def GetLiveSetting(cls: Windows.UI.Xaml.Automation.IAutomationPropertiesStatics, element: Windows.UI.Xaml.DependencyObject) -> Windows.UI.Xaml.Automation.Peers.AutomationLiveSetting: ...
     @winrt_classmethod
     def SetLiveSetting(cls: Windows.UI.Xaml.Automation.IAutomationPropertiesStatics, element: Windows.UI.Xaml.DependencyObject, value: Windows.UI.Xaml.Automation.Peers.AutomationLiveSetting) -> Void: ...
-    AutomationControlTypeProperty = property(get_AutomationControlTypeProperty, None)
-    IsDialogProperty = property(get_IsDialogProperty, None)
-    HeadingLevelProperty = property(get_HeadingLevelProperty, None)
-    CultureProperty = property(get_CultureProperty, None)
-    IsPeripheralProperty = property(get_IsPeripheralProperty, None)
-    IsDataValidForFormProperty = property(get_IsDataValidForFormProperty, None)
-    FullDescriptionProperty = property(get_FullDescriptionProperty, None)
-    LocalizedControlTypeProperty = property(get_LocalizedControlTypeProperty, None)
-    DescribedByProperty = property(get_DescribedByProperty, None)
-    FlowsToProperty = property(get_FlowsToProperty, None)
-    FlowsFromProperty = property(get_FlowsFromProperty, None)
-    LandmarkTypeProperty = property(get_LandmarkTypeProperty, None)
-    LocalizedLandmarkTypeProperty = property(get_LocalizedLandmarkTypeProperty, None)
-    PositionInSetProperty = property(get_PositionInSetProperty, None)
-    SizeOfSetProperty = property(get_SizeOfSetProperty, None)
-    LevelProperty = property(get_LevelProperty, None)
-    AnnotationsProperty = property(get_AnnotationsProperty, None)
-    AccessibilityViewProperty = property(get_AccessibilityViewProperty, None)
-    ControlledPeersProperty = property(get_ControlledPeersProperty, None)
-    AcceleratorKeyProperty = property(get_AcceleratorKeyProperty, None)
-    AccessKeyProperty = property(get_AccessKeyProperty, None)
-    AutomationIdProperty = property(get_AutomationIdProperty, None)
-    HelpTextProperty = property(get_HelpTextProperty, None)
-    IsRequiredForFormProperty = property(get_IsRequiredForFormProperty, None)
-    ItemStatusProperty = property(get_ItemStatusProperty, None)
-    ItemTypeProperty = property(get_ItemTypeProperty, None)
-    LabeledByProperty = property(get_LabeledByProperty, None)
-    NameProperty = property(get_NameProperty, None)
-    LiveSettingProperty = property(get_LiveSettingProperty, None)
+    _AutomationProperties_Meta_.AutomationControlTypeProperty = property(get_AutomationControlTypeProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.IsDialogProperty = property(get_IsDialogProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.HeadingLevelProperty = property(get_HeadingLevelProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.CultureProperty = property(get_CultureProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.IsPeripheralProperty = property(get_IsPeripheralProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.IsDataValidForFormProperty = property(get_IsDataValidForFormProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.FullDescriptionProperty = property(get_FullDescriptionProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.LocalizedControlTypeProperty = property(get_LocalizedControlTypeProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.DescribedByProperty = property(get_DescribedByProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.FlowsToProperty = property(get_FlowsToProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.FlowsFromProperty = property(get_FlowsFromProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.LandmarkTypeProperty = property(get_LandmarkTypeProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.LocalizedLandmarkTypeProperty = property(get_LocalizedLandmarkTypeProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.PositionInSetProperty = property(get_PositionInSetProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.SizeOfSetProperty = property(get_SizeOfSetProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.LevelProperty = property(get_LevelProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.AnnotationsProperty = property(get_AnnotationsProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.AccessibilityViewProperty = property(get_AccessibilityViewProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.ControlledPeersProperty = property(get_ControlledPeersProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.AcceleratorKeyProperty = property(get_AcceleratorKeyProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.AccessKeyProperty = property(get_AccessKeyProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.AutomationIdProperty = property(get_AutomationIdProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.HelpTextProperty = property(get_HelpTextProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.IsRequiredForFormProperty = property(get_IsRequiredForFormProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.ItemStatusProperty = property(get_ItemStatusProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.ItemTypeProperty = property(get_ItemTypeProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.LabeledByProperty = property(get_LabeledByProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.NameProperty = property(get_NameProperty.__wrapped__, None)
+    _AutomationProperties_Meta_.LiveSettingProperty = property(get_LiveSettingProperty.__wrapped__, None)
 class AutomationProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IAutomationProperty
@@ -494,13 +502,15 @@ AutomationTextEditChangeType_None: AutomationTextEditChangeType = 0
 AutomationTextEditChangeType_AutoCorrect: AutomationTextEditChangeType = 1
 AutomationTextEditChangeType_Composition: AutomationTextEditChangeType = 2
 AutomationTextEditChangeType_CompositionFinalized: AutomationTextEditChangeType = 3
-class DockPatternIdentifiers(ComPtr):
+class _DockPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class DockPatternIdentifiers(ComPtr, metaclass=_DockPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IDockPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.DockPatternIdentifiers'
     @winrt_classmethod
     def get_DockPositionProperty(cls: Windows.UI.Xaml.Automation.IDockPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    DockPositionProperty = property(get_DockPositionProperty, None)
+    _DockPatternIdentifiers_Meta_.DockPositionProperty = property(get_DockPositionProperty.__wrapped__, None)
 DockPosition = Int32
 DockPosition_Top: DockPosition = 0
 DockPosition_Left: DockPosition = 1
@@ -508,7 +518,9 @@ DockPosition_Bottom: DockPosition = 2
 DockPosition_Right: DockPosition = 3
 DockPosition_Fill: DockPosition = 4
 DockPosition_None: DockPosition = 5
-class DragPatternIdentifiers(ComPtr):
+class _DragPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class DragPatternIdentifiers(ComPtr, metaclass=_DragPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IDragPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.DragPatternIdentifiers'
@@ -520,11 +532,13 @@ class DragPatternIdentifiers(ComPtr):
     def get_GrabbedItemsProperty(cls: Windows.UI.Xaml.Automation.IDragPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_IsGrabbedProperty(cls: Windows.UI.Xaml.Automation.IDragPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    DropEffectProperty = property(get_DropEffectProperty, None)
-    DropEffectsProperty = property(get_DropEffectsProperty, None)
-    GrabbedItemsProperty = property(get_GrabbedItemsProperty, None)
-    IsGrabbedProperty = property(get_IsGrabbedProperty, None)
-class DropTargetPatternIdentifiers(ComPtr):
+    _DragPatternIdentifiers_Meta_.DropEffectProperty = property(get_DropEffectProperty.__wrapped__, None)
+    _DragPatternIdentifiers_Meta_.DropEffectsProperty = property(get_DropEffectsProperty.__wrapped__, None)
+    _DragPatternIdentifiers_Meta_.GrabbedItemsProperty = property(get_GrabbedItemsProperty.__wrapped__, None)
+    _DragPatternIdentifiers_Meta_.IsGrabbedProperty = property(get_IsGrabbedProperty.__wrapped__, None)
+class _DropTargetPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class DropTargetPatternIdentifiers(ComPtr, metaclass=_DropTargetPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IDropTargetPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.DropTargetPatternIdentifiers'
@@ -532,21 +546,25 @@ class DropTargetPatternIdentifiers(ComPtr):
     def get_DropTargetEffectProperty(cls: Windows.UI.Xaml.Automation.IDropTargetPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_DropTargetEffectsProperty(cls: Windows.UI.Xaml.Automation.IDropTargetPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    DropTargetEffectProperty = property(get_DropTargetEffectProperty, None)
-    DropTargetEffectsProperty = property(get_DropTargetEffectsProperty, None)
-class ExpandCollapsePatternIdentifiers(ComPtr):
+    _DropTargetPatternIdentifiers_Meta_.DropTargetEffectProperty = property(get_DropTargetEffectProperty.__wrapped__, None)
+    _DropTargetPatternIdentifiers_Meta_.DropTargetEffectsProperty = property(get_DropTargetEffectsProperty.__wrapped__, None)
+class _ExpandCollapsePatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class ExpandCollapsePatternIdentifiers(ComPtr, metaclass=_ExpandCollapsePatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IExpandCollapsePatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.ExpandCollapsePatternIdentifiers'
     @winrt_classmethod
     def get_ExpandCollapseStateProperty(cls: Windows.UI.Xaml.Automation.IExpandCollapsePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    ExpandCollapseStateProperty = property(get_ExpandCollapseStateProperty, None)
+    _ExpandCollapsePatternIdentifiers_Meta_.ExpandCollapseStateProperty = property(get_ExpandCollapseStateProperty.__wrapped__, None)
 ExpandCollapseState = Int32
 ExpandCollapseState_Collapsed: ExpandCollapseState = 0
 ExpandCollapseState_Expanded: ExpandCollapseState = 1
 ExpandCollapseState_PartiallyExpanded: ExpandCollapseState = 2
 ExpandCollapseState_LeafNode: ExpandCollapseState = 3
-class GridItemPatternIdentifiers(ComPtr):
+class _GridItemPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class GridItemPatternIdentifiers(ComPtr, metaclass=_GridItemPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IGridItemPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.GridItemPatternIdentifiers'
@@ -560,12 +578,14 @@ class GridItemPatternIdentifiers(ComPtr):
     def get_RowProperty(cls: Windows.UI.Xaml.Automation.IGridItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_RowSpanProperty(cls: Windows.UI.Xaml.Automation.IGridItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    ColumnProperty = property(get_ColumnProperty, None)
-    ColumnSpanProperty = property(get_ColumnSpanProperty, None)
-    ContainingGridProperty = property(get_ContainingGridProperty, None)
-    RowProperty = property(get_RowProperty, None)
-    RowSpanProperty = property(get_RowSpanProperty, None)
-class GridPatternIdentifiers(ComPtr):
+    _GridItemPatternIdentifiers_Meta_.ColumnProperty = property(get_ColumnProperty.__wrapped__, None)
+    _GridItemPatternIdentifiers_Meta_.ColumnSpanProperty = property(get_ColumnSpanProperty.__wrapped__, None)
+    _GridItemPatternIdentifiers_Meta_.ContainingGridProperty = property(get_ContainingGridProperty.__wrapped__, None)
+    _GridItemPatternIdentifiers_Meta_.RowProperty = property(get_RowProperty.__wrapped__, None)
+    _GridItemPatternIdentifiers_Meta_.RowSpanProperty = property(get_RowSpanProperty.__wrapped__, None)
+class _GridPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class GridPatternIdentifiers(ComPtr, metaclass=_GridPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IGridPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.GridPatternIdentifiers'
@@ -573,8 +593,8 @@ class GridPatternIdentifiers(ComPtr):
     def get_ColumnCountProperty(cls: Windows.UI.Xaml.Automation.IGridPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_RowCountProperty(cls: Windows.UI.Xaml.Automation.IGridPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    ColumnCountProperty = property(get_ColumnCountProperty, None)
-    RowCountProperty = property(get_RowCountProperty, None)
+    _GridPatternIdentifiers_Meta_.ColumnCountProperty = property(get_ColumnCountProperty.__wrapped__, None)
+    _GridPatternIdentifiers_Meta_.RowCountProperty = property(get_RowCountProperty.__wrapped__, None)
 class IAnnotationPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Automation.IAnnotationPatternIdentifiers'
@@ -1372,7 +1392,9 @@ class IWindowPatternIdentifiersStatics(ComPtr):
     IsTopmostProperty = property(get_IsTopmostProperty, None)
     WindowInteractionStateProperty = property(get_WindowInteractionStateProperty, None)
     WindowVisualStateProperty = property(get_WindowVisualStateProperty, None)
-class MultipleViewPatternIdentifiers(ComPtr):
+class _MultipleViewPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class MultipleViewPatternIdentifiers(ComPtr, metaclass=_MultipleViewPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IMultipleViewPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.MultipleViewPatternIdentifiers'
@@ -1380,9 +1402,11 @@ class MultipleViewPatternIdentifiers(ComPtr):
     def get_CurrentViewProperty(cls: Windows.UI.Xaml.Automation.IMultipleViewPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_SupportedViewsProperty(cls: Windows.UI.Xaml.Automation.IMultipleViewPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    CurrentViewProperty = property(get_CurrentViewProperty, None)
-    SupportedViewsProperty = property(get_SupportedViewsProperty, None)
-class RangeValuePatternIdentifiers(ComPtr):
+    _MultipleViewPatternIdentifiers_Meta_.CurrentViewProperty = property(get_CurrentViewProperty.__wrapped__, None)
+    _MultipleViewPatternIdentifiers_Meta_.SupportedViewsProperty = property(get_SupportedViewsProperty.__wrapped__, None)
+class _RangeValuePatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class RangeValuePatternIdentifiers(ComPtr, metaclass=_RangeValuePatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IRangeValuePatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.RangeValuePatternIdentifiers'
@@ -1398,12 +1422,12 @@ class RangeValuePatternIdentifiers(ComPtr):
     def get_SmallChangeProperty(cls: Windows.UI.Xaml.Automation.IRangeValuePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_ValueProperty(cls: Windows.UI.Xaml.Automation.IRangeValuePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    IsReadOnlyProperty = property(get_IsReadOnlyProperty, None)
-    LargeChangeProperty = property(get_LargeChangeProperty, None)
-    MaximumProperty = property(get_MaximumProperty, None)
-    MinimumProperty = property(get_MinimumProperty, None)
-    SmallChangeProperty = property(get_SmallChangeProperty, None)
-    ValueProperty = property(get_ValueProperty, None)
+    _RangeValuePatternIdentifiers_Meta_.IsReadOnlyProperty = property(get_IsReadOnlyProperty.__wrapped__, None)
+    _RangeValuePatternIdentifiers_Meta_.LargeChangeProperty = property(get_LargeChangeProperty.__wrapped__, None)
+    _RangeValuePatternIdentifiers_Meta_.MaximumProperty = property(get_MaximumProperty.__wrapped__, None)
+    _RangeValuePatternIdentifiers_Meta_.MinimumProperty = property(get_MinimumProperty.__wrapped__, None)
+    _RangeValuePatternIdentifiers_Meta_.SmallChangeProperty = property(get_SmallChangeProperty.__wrapped__, None)
+    _RangeValuePatternIdentifiers_Meta_.ValueProperty = property(get_ValueProperty.__wrapped__, None)
 RowOrColumnMajor = Int32
 RowOrColumnMajor_RowMajor: RowOrColumnMajor = 0
 RowOrColumnMajor_ColumnMajor: RowOrColumnMajor = 1
@@ -1414,7 +1438,9 @@ ScrollAmount_SmallDecrement: ScrollAmount = 1
 ScrollAmount_NoAmount: ScrollAmount = 2
 ScrollAmount_LargeIncrement: ScrollAmount = 3
 ScrollAmount_SmallIncrement: ScrollAmount = 4
-class ScrollPatternIdentifiers(ComPtr):
+class _ScrollPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class ScrollPatternIdentifiers(ComPtr, metaclass=_ScrollPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IScrollPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.ScrollPatternIdentifiers'
@@ -1432,14 +1458,16 @@ class ScrollPatternIdentifiers(ComPtr):
     def get_VerticalScrollPercentProperty(cls: Windows.UI.Xaml.Automation.IScrollPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_VerticalViewSizeProperty(cls: Windows.UI.Xaml.Automation.IScrollPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    HorizontallyScrollableProperty = property(get_HorizontallyScrollableProperty, None)
-    HorizontalScrollPercentProperty = property(get_HorizontalScrollPercentProperty, None)
-    HorizontalViewSizeProperty = property(get_HorizontalViewSizeProperty, None)
-    NoScroll = property(get_NoScroll, None)
-    VerticallyScrollableProperty = property(get_VerticallyScrollableProperty, None)
-    VerticalScrollPercentProperty = property(get_VerticalScrollPercentProperty, None)
-    VerticalViewSizeProperty = property(get_VerticalViewSizeProperty, None)
-class SelectionItemPatternIdentifiers(ComPtr):
+    _ScrollPatternIdentifiers_Meta_.HorizontallyScrollableProperty = property(get_HorizontallyScrollableProperty.__wrapped__, None)
+    _ScrollPatternIdentifiers_Meta_.HorizontalScrollPercentProperty = property(get_HorizontalScrollPercentProperty.__wrapped__, None)
+    _ScrollPatternIdentifiers_Meta_.HorizontalViewSizeProperty = property(get_HorizontalViewSizeProperty.__wrapped__, None)
+    _ScrollPatternIdentifiers_Meta_.NoScroll = property(get_NoScroll.__wrapped__, None)
+    _ScrollPatternIdentifiers_Meta_.VerticallyScrollableProperty = property(get_VerticallyScrollableProperty.__wrapped__, None)
+    _ScrollPatternIdentifiers_Meta_.VerticalScrollPercentProperty = property(get_VerticalScrollPercentProperty.__wrapped__, None)
+    _ScrollPatternIdentifiers_Meta_.VerticalViewSizeProperty = property(get_VerticalViewSizeProperty.__wrapped__, None)
+class _SelectionItemPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class SelectionItemPatternIdentifiers(ComPtr, metaclass=_SelectionItemPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.ISelectionItemPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.SelectionItemPatternIdentifiers'
@@ -1447,9 +1475,11 @@ class SelectionItemPatternIdentifiers(ComPtr):
     def get_IsSelectedProperty(cls: Windows.UI.Xaml.Automation.ISelectionItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_SelectionContainerProperty(cls: Windows.UI.Xaml.Automation.ISelectionItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    IsSelectedProperty = property(get_IsSelectedProperty, None)
-    SelectionContainerProperty = property(get_SelectionContainerProperty, None)
-class SelectionPatternIdentifiers(ComPtr):
+    _SelectionItemPatternIdentifiers_Meta_.IsSelectedProperty = property(get_IsSelectedProperty.__wrapped__, None)
+    _SelectionItemPatternIdentifiers_Meta_.SelectionContainerProperty = property(get_SelectionContainerProperty.__wrapped__, None)
+class _SelectionPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class SelectionPatternIdentifiers(ComPtr, metaclass=_SelectionPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.ISelectionPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.SelectionPatternIdentifiers'
@@ -1459,17 +1489,21 @@ class SelectionPatternIdentifiers(ComPtr):
     def get_IsSelectionRequiredProperty(cls: Windows.UI.Xaml.Automation.ISelectionPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_SelectionProperty(cls: Windows.UI.Xaml.Automation.ISelectionPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    CanSelectMultipleProperty = property(get_CanSelectMultipleProperty, None)
-    IsSelectionRequiredProperty = property(get_IsSelectionRequiredProperty, None)
-    SelectionProperty = property(get_SelectionProperty, None)
-class SpreadsheetItemPatternIdentifiers(ComPtr):
+    _SelectionPatternIdentifiers_Meta_.CanSelectMultipleProperty = property(get_CanSelectMultipleProperty.__wrapped__, None)
+    _SelectionPatternIdentifiers_Meta_.IsSelectionRequiredProperty = property(get_IsSelectionRequiredProperty.__wrapped__, None)
+    _SelectionPatternIdentifiers_Meta_.SelectionProperty = property(get_SelectionProperty.__wrapped__, None)
+class _SpreadsheetItemPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class SpreadsheetItemPatternIdentifiers(ComPtr, metaclass=_SpreadsheetItemPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.ISpreadsheetItemPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.SpreadsheetItemPatternIdentifiers'
     @winrt_classmethod
     def get_FormulaProperty(cls: Windows.UI.Xaml.Automation.ISpreadsheetItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    FormulaProperty = property(get_FormulaProperty, None)
-class StylesPatternIdentifiers(ComPtr):
+    _SpreadsheetItemPatternIdentifiers_Meta_.FormulaProperty = property(get_FormulaProperty.__wrapped__, None)
+class _StylesPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class StylesPatternIdentifiers(ComPtr, metaclass=_StylesPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IStylesPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.StylesPatternIdentifiers'
@@ -1487,13 +1521,13 @@ class StylesPatternIdentifiers(ComPtr):
     def get_StyleIdProperty(cls: Windows.UI.Xaml.Automation.IStylesPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_StyleNameProperty(cls: Windows.UI.Xaml.Automation.IStylesPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    ExtendedPropertiesProperty = property(get_ExtendedPropertiesProperty, None)
-    FillColorProperty = property(get_FillColorProperty, None)
-    FillPatternColorProperty = property(get_FillPatternColorProperty, None)
-    FillPatternStyleProperty = property(get_FillPatternStyleProperty, None)
-    ShapeProperty = property(get_ShapeProperty, None)
-    StyleIdProperty = property(get_StyleIdProperty, None)
-    StyleNameProperty = property(get_StyleNameProperty, None)
+    _StylesPatternIdentifiers_Meta_.ExtendedPropertiesProperty = property(get_ExtendedPropertiesProperty.__wrapped__, None)
+    _StylesPatternIdentifiers_Meta_.FillColorProperty = property(get_FillColorProperty.__wrapped__, None)
+    _StylesPatternIdentifiers_Meta_.FillPatternColorProperty = property(get_FillPatternColorProperty.__wrapped__, None)
+    _StylesPatternIdentifiers_Meta_.FillPatternStyleProperty = property(get_FillPatternStyleProperty.__wrapped__, None)
+    _StylesPatternIdentifiers_Meta_.ShapeProperty = property(get_ShapeProperty.__wrapped__, None)
+    _StylesPatternIdentifiers_Meta_.StyleIdProperty = property(get_StyleIdProperty.__wrapped__, None)
+    _StylesPatternIdentifiers_Meta_.StyleNameProperty = property(get_StyleNameProperty.__wrapped__, None)
 SupportedTextSelection = Int32
 SupportedTextSelection_None: SupportedTextSelection = 0
 SupportedTextSelection_Single: SupportedTextSelection = 1
@@ -1505,7 +1539,9 @@ SynchronizedInputType_LeftMouseUp: SynchronizedInputType = 4
 SynchronizedInputType_LeftMouseDown: SynchronizedInputType = 8
 SynchronizedInputType_RightMouseUp: SynchronizedInputType = 16
 SynchronizedInputType_RightMouseDown: SynchronizedInputType = 32
-class TableItemPatternIdentifiers(ComPtr):
+class _TableItemPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class TableItemPatternIdentifiers(ComPtr, metaclass=_TableItemPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.ITableItemPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.TableItemPatternIdentifiers'
@@ -1513,9 +1549,11 @@ class TableItemPatternIdentifiers(ComPtr):
     def get_ColumnHeaderItemsProperty(cls: Windows.UI.Xaml.Automation.ITableItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_RowHeaderItemsProperty(cls: Windows.UI.Xaml.Automation.ITableItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    ColumnHeaderItemsProperty = property(get_ColumnHeaderItemsProperty, None)
-    RowHeaderItemsProperty = property(get_RowHeaderItemsProperty, None)
-class TablePatternIdentifiers(ComPtr):
+    _TableItemPatternIdentifiers_Meta_.ColumnHeaderItemsProperty = property(get_ColumnHeaderItemsProperty.__wrapped__, None)
+    _TableItemPatternIdentifiers_Meta_.RowHeaderItemsProperty = property(get_RowHeaderItemsProperty.__wrapped__, None)
+class _TablePatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class TablePatternIdentifiers(ComPtr, metaclass=_TablePatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.ITablePatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.TablePatternIdentifiers'
@@ -1525,21 +1563,25 @@ class TablePatternIdentifiers(ComPtr):
     def get_RowHeadersProperty(cls: Windows.UI.Xaml.Automation.ITablePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_RowOrColumnMajorProperty(cls: Windows.UI.Xaml.Automation.ITablePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    ColumnHeadersProperty = property(get_ColumnHeadersProperty, None)
-    RowHeadersProperty = property(get_RowHeadersProperty, None)
-    RowOrColumnMajorProperty = property(get_RowOrColumnMajorProperty, None)
-class TogglePatternIdentifiers(ComPtr):
+    _TablePatternIdentifiers_Meta_.ColumnHeadersProperty = property(get_ColumnHeadersProperty.__wrapped__, None)
+    _TablePatternIdentifiers_Meta_.RowHeadersProperty = property(get_RowHeadersProperty.__wrapped__, None)
+    _TablePatternIdentifiers_Meta_.RowOrColumnMajorProperty = property(get_RowOrColumnMajorProperty.__wrapped__, None)
+class _TogglePatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class TogglePatternIdentifiers(ComPtr, metaclass=_TogglePatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.ITogglePatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.TogglePatternIdentifiers'
     @winrt_classmethod
     def get_ToggleStateProperty(cls: Windows.UI.Xaml.Automation.ITogglePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    ToggleStateProperty = property(get_ToggleStateProperty, None)
+    _TogglePatternIdentifiers_Meta_.ToggleStateProperty = property(get_ToggleStateProperty.__wrapped__, None)
 ToggleState = Int32
 ToggleState_Off: ToggleState = 0
 ToggleState_On: ToggleState = 1
 ToggleState_Indeterminate: ToggleState = 2
-class TransformPattern2Identifiers(ComPtr):
+class _TransformPattern2Identifiers_Meta_(ComPtr.__class__):
+    pass
+class TransformPattern2Identifiers(ComPtr, metaclass=_TransformPattern2Identifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.ITransformPattern2Identifiers
     _classid_ = 'Windows.UI.Xaml.Automation.TransformPattern2Identifiers'
@@ -1551,11 +1593,13 @@ class TransformPattern2Identifiers(ComPtr):
     def get_MaxZoomProperty(cls: Windows.UI.Xaml.Automation.ITransformPattern2IdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_MinZoomProperty(cls: Windows.UI.Xaml.Automation.ITransformPattern2IdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    CanZoomProperty = property(get_CanZoomProperty, None)
-    ZoomLevelProperty = property(get_ZoomLevelProperty, None)
-    MaxZoomProperty = property(get_MaxZoomProperty, None)
-    MinZoomProperty = property(get_MinZoomProperty, None)
-class TransformPatternIdentifiers(ComPtr):
+    _TransformPattern2Identifiers_Meta_.CanZoomProperty = property(get_CanZoomProperty.__wrapped__, None)
+    _TransformPattern2Identifiers_Meta_.ZoomLevelProperty = property(get_ZoomLevelProperty.__wrapped__, None)
+    _TransformPattern2Identifiers_Meta_.MaxZoomProperty = property(get_MaxZoomProperty.__wrapped__, None)
+    _TransformPattern2Identifiers_Meta_.MinZoomProperty = property(get_MinZoomProperty.__wrapped__, None)
+class _TransformPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class TransformPatternIdentifiers(ComPtr, metaclass=_TransformPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.ITransformPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.TransformPatternIdentifiers'
@@ -1565,10 +1609,12 @@ class TransformPatternIdentifiers(ComPtr):
     def get_CanResizeProperty(cls: Windows.UI.Xaml.Automation.ITransformPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_CanRotateProperty(cls: Windows.UI.Xaml.Automation.ITransformPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    CanMoveProperty = property(get_CanMoveProperty, None)
-    CanResizeProperty = property(get_CanResizeProperty, None)
-    CanRotateProperty = property(get_CanRotateProperty, None)
-class ValuePatternIdentifiers(ComPtr):
+    _TransformPatternIdentifiers_Meta_.CanMoveProperty = property(get_CanMoveProperty.__wrapped__, None)
+    _TransformPatternIdentifiers_Meta_.CanResizeProperty = property(get_CanResizeProperty.__wrapped__, None)
+    _TransformPatternIdentifiers_Meta_.CanRotateProperty = property(get_CanRotateProperty.__wrapped__, None)
+class _ValuePatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class ValuePatternIdentifiers(ComPtr, metaclass=_ValuePatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IValuePatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.ValuePatternIdentifiers'
@@ -1576,15 +1622,17 @@ class ValuePatternIdentifiers(ComPtr):
     def get_IsReadOnlyProperty(cls: Windows.UI.Xaml.Automation.IValuePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_ValueProperty(cls: Windows.UI.Xaml.Automation.IValuePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    IsReadOnlyProperty = property(get_IsReadOnlyProperty, None)
-    ValueProperty = property(get_ValueProperty, None)
+    _ValuePatternIdentifiers_Meta_.IsReadOnlyProperty = property(get_IsReadOnlyProperty.__wrapped__, None)
+    _ValuePatternIdentifiers_Meta_.ValueProperty = property(get_ValueProperty.__wrapped__, None)
 WindowInteractionState = Int32
 WindowInteractionState_Running: WindowInteractionState = 0
 WindowInteractionState_Closing: WindowInteractionState = 1
 WindowInteractionState_ReadyForUserInteraction: WindowInteractionState = 2
 WindowInteractionState_BlockedByModalWindow: WindowInteractionState = 3
 WindowInteractionState_NotResponding: WindowInteractionState = 4
-class WindowPatternIdentifiers(ComPtr):
+class _WindowPatternIdentifiers_Meta_(ComPtr.__class__):
+    pass
+class WindowPatternIdentifiers(ComPtr, metaclass=_WindowPatternIdentifiers_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Automation.IWindowPatternIdentifiers
     _classid_ = 'Windows.UI.Xaml.Automation.WindowPatternIdentifiers'
@@ -1600,12 +1648,12 @@ class WindowPatternIdentifiers(ComPtr):
     def get_WindowInteractionStateProperty(cls: Windows.UI.Xaml.Automation.IWindowPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
     def get_WindowVisualStateProperty(cls: Windows.UI.Xaml.Automation.IWindowPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
-    CanMaximizeProperty = property(get_CanMaximizeProperty, None)
-    CanMinimizeProperty = property(get_CanMinimizeProperty, None)
-    IsModalProperty = property(get_IsModalProperty, None)
-    IsTopmostProperty = property(get_IsTopmostProperty, None)
-    WindowInteractionStateProperty = property(get_WindowInteractionStateProperty, None)
-    WindowVisualStateProperty = property(get_WindowVisualStateProperty, None)
+    _WindowPatternIdentifiers_Meta_.CanMaximizeProperty = property(get_CanMaximizeProperty.__wrapped__, None)
+    _WindowPatternIdentifiers_Meta_.CanMinimizeProperty = property(get_CanMinimizeProperty.__wrapped__, None)
+    _WindowPatternIdentifiers_Meta_.IsModalProperty = property(get_IsModalProperty.__wrapped__, None)
+    _WindowPatternIdentifiers_Meta_.IsTopmostProperty = property(get_IsTopmostProperty.__wrapped__, None)
+    _WindowPatternIdentifiers_Meta_.WindowInteractionStateProperty = property(get_WindowInteractionStateProperty.__wrapped__, None)
+    _WindowPatternIdentifiers_Meta_.WindowVisualStateProperty = property(get_WindowVisualStateProperty.__wrapped__, None)
 WindowVisualState = Int32
 WindowVisualState_Normal: WindowVisualState = 0
 WindowVisualState_Maximized: WindowVisualState = 1

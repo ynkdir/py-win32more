@@ -33,14 +33,16 @@ class ISystemProtectionUnlockStatics(ComPtr):
     _iid_ = Guid('{0692fa3f-8f11-4c4b-aa0d-87d7af7b1779}')
     @winrt_commethod(6)
     def RequestScreenUnlock(self) -> Void: ...
-class SystemProtection(ComPtr):
+class _SystemProtection_Meta_(ComPtr.__class__):
+    pass
+class SystemProtection(ComPtr, metaclass=_SystemProtection_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.System.SystemProtection'
     @winrt_classmethod
     def RequestScreenUnlock(cls: Windows.Phone.System.ISystemProtectionUnlockStatics) -> Void: ...
     @winrt_classmethod
     def get_ScreenLocked(cls: Windows.Phone.System.ISystemProtectionStatics) -> Boolean: ...
-    ScreenLocked = property(get_ScreenLocked, None)
+    _SystemProtection_Meta_.ScreenLocked = property(get_ScreenLocked.__wrapped__, None)
 make_head(_module, 'ISystemProtectionStatics')
 make_head(_module, 'ISystemProtectionUnlockStatics')
 make_head(_module, 'SystemProtection')

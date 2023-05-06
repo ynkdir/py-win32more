@@ -146,7 +146,9 @@ class BarcodeScannerStatusUpdatedEventArgs(ComPtr):
     def get_ExtendedStatus(self: Windows.Devices.PointOfService.IBarcodeScannerStatusUpdatedEventArgs) -> UInt32: ...
     Status = property(get_Status, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
-class BarcodeSymbologies(ComPtr):
+class _BarcodeSymbologies_Meta_(ComPtr.__class__):
+    pass
+class BarcodeSymbologies(ComPtr, metaclass=_BarcodeSymbologies_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.BarcodeSymbologies'
     @winrt_classmethod
@@ -339,100 +341,100 @@ class BarcodeSymbologies(ComPtr):
     def get_ExtendedBase(cls: Windows.Devices.PointOfService.IBarcodeSymbologiesStatics) -> UInt32: ...
     @winrt_classmethod
     def GetName(cls: Windows.Devices.PointOfService.IBarcodeSymbologiesStatics, scanDataType: UInt32) -> WinRT_String: ...
-    Gs1DWCode = property(get_Gs1DWCode, None)
-    Unknown = property(get_Unknown, None)
-    Ean8 = property(get_Ean8, None)
-    Ean8Add2 = property(get_Ean8Add2, None)
-    Ean8Add5 = property(get_Ean8Add5, None)
-    Eanv = property(get_Eanv, None)
-    EanvAdd2 = property(get_EanvAdd2, None)
-    EanvAdd5 = property(get_EanvAdd5, None)
-    Ean13 = property(get_Ean13, None)
-    Ean13Add2 = property(get_Ean13Add2, None)
-    Ean13Add5 = property(get_Ean13Add5, None)
-    Isbn = property(get_Isbn, None)
-    IsbnAdd5 = property(get_IsbnAdd5, None)
-    Ismn = property(get_Ismn, None)
-    IsmnAdd2 = property(get_IsmnAdd2, None)
-    IsmnAdd5 = property(get_IsmnAdd5, None)
-    Issn = property(get_Issn, None)
-    IssnAdd2 = property(get_IssnAdd2, None)
-    IssnAdd5 = property(get_IssnAdd5, None)
-    Ean99 = property(get_Ean99, None)
-    Ean99Add2 = property(get_Ean99Add2, None)
-    Ean99Add5 = property(get_Ean99Add5, None)
-    Upca = property(get_Upca, None)
-    UpcaAdd2 = property(get_UpcaAdd2, None)
-    UpcaAdd5 = property(get_UpcaAdd5, None)
-    Upce = property(get_Upce, None)
-    UpceAdd2 = property(get_UpceAdd2, None)
-    UpceAdd5 = property(get_UpceAdd5, None)
-    UpcCoupon = property(get_UpcCoupon, None)
-    TfStd = property(get_TfStd, None)
-    TfDis = property(get_TfDis, None)
-    TfInt = property(get_TfInt, None)
-    TfInd = property(get_TfInd, None)
-    TfMat = property(get_TfMat, None)
-    TfIata = property(get_TfIata, None)
-    Gs1DatabarType1 = property(get_Gs1DatabarType1, None)
-    Gs1DatabarType2 = property(get_Gs1DatabarType2, None)
-    Gs1DatabarType3 = property(get_Gs1DatabarType3, None)
-    Code39 = property(get_Code39, None)
-    Code39Ex = property(get_Code39Ex, None)
-    Trioptic39 = property(get_Trioptic39, None)
-    Code32 = property(get_Code32, None)
-    Pzn = property(get_Pzn, None)
-    Code93 = property(get_Code93, None)
-    Code93Ex = property(get_Code93Ex, None)
-    Code128 = property(get_Code128, None)
-    Gs1128 = property(get_Gs1128, None)
-    Gs1128Coupon = property(get_Gs1128Coupon, None)
-    UccEan128 = property(get_UccEan128, None)
-    Sisac = property(get_Sisac, None)
-    Isbt = property(get_Isbt, None)
-    Codabar = property(get_Codabar, None)
-    Code11 = property(get_Code11, None)
-    Msi = property(get_Msi, None)
-    Plessey = property(get_Plessey, None)
-    Telepen = property(get_Telepen, None)
-    Code16k = property(get_Code16k, None)
-    CodablockA = property(get_CodablockA, None)
-    CodablockF = property(get_CodablockF, None)
-    Codablock128 = property(get_Codablock128, None)
-    Code49 = property(get_Code49, None)
-    Aztec = property(get_Aztec, None)
-    DataCode = property(get_DataCode, None)
-    DataMatrix = property(get_DataMatrix, None)
-    HanXin = property(get_HanXin, None)
-    Maxicode = property(get_Maxicode, None)
-    MicroPdf417 = property(get_MicroPdf417, None)
-    MicroQr = property(get_MicroQr, None)
-    Pdf417 = property(get_Pdf417, None)
-    Qr = property(get_Qr, None)
-    MsTag = property(get_MsTag, None)
-    Ccab = property(get_Ccab, None)
-    Ccc = property(get_Ccc, None)
-    Tlc39 = property(get_Tlc39, None)
-    AusPost = property(get_AusPost, None)
-    CanPost = property(get_CanPost, None)
-    ChinaPost = property(get_ChinaPost, None)
-    DutchKix = property(get_DutchKix, None)
-    InfoMail = property(get_InfoMail, None)
-    ItalianPost25 = property(get_ItalianPost25, None)
-    ItalianPost39 = property(get_ItalianPost39, None)
-    JapanPost = property(get_JapanPost, None)
-    KoreanPost = property(get_KoreanPost, None)
-    SwedenPost = property(get_SwedenPost, None)
-    UkPost = property(get_UkPost, None)
-    UsIntelligent = property(get_UsIntelligent, None)
-    UsIntelligentPkg = property(get_UsIntelligentPkg, None)
-    UsPlanet = property(get_UsPlanet, None)
-    UsPostNet = property(get_UsPostNet, None)
-    Us4StateFics = property(get_Us4StateFics, None)
-    OcrA = property(get_OcrA, None)
-    OcrB = property(get_OcrB, None)
-    Micr = property(get_Micr, None)
-    ExtendedBase = property(get_ExtendedBase, None)
+    _BarcodeSymbologies_Meta_.Gs1DWCode = property(get_Gs1DWCode.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean8 = property(get_Ean8.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean8Add2 = property(get_Ean8Add2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean8Add5 = property(get_Ean8Add5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Eanv = property(get_Eanv.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.EanvAdd2 = property(get_EanvAdd2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.EanvAdd5 = property(get_EanvAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean13 = property(get_Ean13.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean13Add2 = property(get_Ean13Add2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean13Add5 = property(get_Ean13Add5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Isbn = property(get_Isbn.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.IsbnAdd5 = property(get_IsbnAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ismn = property(get_Ismn.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.IsmnAdd2 = property(get_IsmnAdd2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.IsmnAdd5 = property(get_IsmnAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Issn = property(get_Issn.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.IssnAdd2 = property(get_IssnAdd2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.IssnAdd5 = property(get_IssnAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean99 = property(get_Ean99.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean99Add2 = property(get_Ean99Add2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean99Add5 = property(get_Ean99Add5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Upca = property(get_Upca.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UpcaAdd2 = property(get_UpcaAdd2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UpcaAdd5 = property(get_UpcaAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Upce = property(get_Upce.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UpceAdd2 = property(get_UpceAdd2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UpceAdd5 = property(get_UpceAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UpcCoupon = property(get_UpcCoupon.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfStd = property(get_TfStd.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfDis = property(get_TfDis.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfInt = property(get_TfInt.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfInd = property(get_TfInd.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfMat = property(get_TfMat.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfIata = property(get_TfIata.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1DatabarType1 = property(get_Gs1DatabarType1.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1DatabarType2 = property(get_Gs1DatabarType2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1DatabarType3 = property(get_Gs1DatabarType3.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code39 = property(get_Code39.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code39Ex = property(get_Code39Ex.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Trioptic39 = property(get_Trioptic39.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code32 = property(get_Code32.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Pzn = property(get_Pzn.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code93 = property(get_Code93.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code93Ex = property(get_Code93Ex.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code128 = property(get_Code128.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1128 = property(get_Gs1128.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1128Coupon = property(get_Gs1128Coupon.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UccEan128 = property(get_UccEan128.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Sisac = property(get_Sisac.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Isbt = property(get_Isbt.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Codabar = property(get_Codabar.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code11 = property(get_Code11.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Msi = property(get_Msi.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Plessey = property(get_Plessey.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Telepen = property(get_Telepen.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code16k = property(get_Code16k.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.CodablockA = property(get_CodablockA.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.CodablockF = property(get_CodablockF.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Codablock128 = property(get_Codablock128.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code49 = property(get_Code49.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Aztec = property(get_Aztec.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.DataCode = property(get_DataCode.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.DataMatrix = property(get_DataMatrix.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.HanXin = property(get_HanXin.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Maxicode = property(get_Maxicode.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.MicroPdf417 = property(get_MicroPdf417.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.MicroQr = property(get_MicroQr.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Pdf417 = property(get_Pdf417.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Qr = property(get_Qr.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.MsTag = property(get_MsTag.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ccab = property(get_Ccab.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ccc = property(get_Ccc.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Tlc39 = property(get_Tlc39.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.AusPost = property(get_AusPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.CanPost = property(get_CanPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.ChinaPost = property(get_ChinaPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.DutchKix = property(get_DutchKix.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.InfoMail = property(get_InfoMail.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.ItalianPost25 = property(get_ItalianPost25.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.ItalianPost39 = property(get_ItalianPost39.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.JapanPost = property(get_JapanPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.KoreanPost = property(get_KoreanPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.SwedenPost = property(get_SwedenPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UkPost = property(get_UkPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UsIntelligent = property(get_UsIntelligent.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UsIntelligentPkg = property(get_UsIntelligentPkg.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UsPlanet = property(get_UsPlanet.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UsPostNet = property(get_UsPostNet.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Us4StateFics = property(get_Us4StateFics.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.OcrA = property(get_OcrA.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.OcrB = property(get_OcrB.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Micr = property(get_Micr.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
 class BarcodeSymbologyAttributes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.PointOfService.IBarcodeSymbologyAttributes
@@ -3468,7 +3470,9 @@ class JournalPrinterCapabilities(ComPtr):
     IsPaperEmptySensorSupported = property(get_IsPaperEmptySensorSupported, None)
     IsPaperNearEndSensorSupported = property(get_IsPaperNearEndSensorSupported, None)
     SupportedCharactersPerLine = property(get_SupportedCharactersPerLine, None)
-class LineDisplay(ComPtr):
+class _LineDisplay_Meta_(ComPtr.__class__):
+    pass
+class LineDisplay(ComPtr, metaclass=_LineDisplay_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.PointOfService.ILineDisplay
     _classid_ = 'Windows.Devices.PointOfService.LineDisplay'
@@ -3509,7 +3513,7 @@ class LineDisplay(ComPtr):
     DeviceControlDescription = property(get_DeviceControlDescription, None)
     DeviceControlVersion = property(get_DeviceControlVersion, None)
     DeviceServiceVersion = property(get_DeviceServiceVersion, None)
-    StatisticsCategorySelector = property(get_StatisticsCategorySelector, None)
+    _LineDisplay_Meta_.StatisticsCategorySelector = property(get_StatisticsCategorySelector.__wrapped__, None)
 class LineDisplayAttributes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.PointOfService.ILineDisplayAttributes
@@ -3987,7 +3991,9 @@ class MagneticStripeReaderCapabilities(ComPtr):
     IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
     IsTrackDataMaskingSupported = property(get_IsTrackDataMaskingSupported, None)
     IsTransmitSentinelsSupported = property(get_IsTransmitSentinelsSupported, None)
-class MagneticStripeReaderCardTypes(ComPtr):
+class _MagneticStripeReaderCardTypes_Meta_(ComPtr.__class__):
+    pass
+class MagneticStripeReaderCardTypes(ComPtr, metaclass=_MagneticStripeReaderCardTypes_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.MagneticStripeReaderCardTypes'
     @winrt_classmethod
@@ -3998,11 +4004,13 @@ class MagneticStripeReaderCardTypes(ComPtr):
     def get_Aamva(cls: Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics) -> UInt32: ...
     @winrt_classmethod
     def get_ExtendedBase(cls: Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics) -> UInt32: ...
-    Unknown = property(get_Unknown, None)
-    Bank = property(get_Bank, None)
-    Aamva = property(get_Aamva, None)
-    ExtendedBase = property(get_ExtendedBase, None)
-class MagneticStripeReaderEncryptionAlgorithms(ComPtr):
+    _MagneticStripeReaderCardTypes_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
+    _MagneticStripeReaderCardTypes_Meta_.Bank = property(get_Bank.__wrapped__, None)
+    _MagneticStripeReaderCardTypes_Meta_.Aamva = property(get_Aamva.__wrapped__, None)
+    _MagneticStripeReaderCardTypes_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
+class _MagneticStripeReaderEncryptionAlgorithms_Meta_(ComPtr.__class__):
+    pass
+class MagneticStripeReaderEncryptionAlgorithms(ComPtr, metaclass=_MagneticStripeReaderEncryptionAlgorithms_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.MagneticStripeReaderEncryptionAlgorithms'
     @winrt_classmethod
@@ -4011,9 +4019,9 @@ class MagneticStripeReaderEncryptionAlgorithms(ComPtr):
     def get_TripleDesDukpt(cls: Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
     @winrt_classmethod
     def get_ExtendedBase(cls: Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
-    None = property(get_None, None)
-    TripleDesDukpt = property(get_TripleDesDukpt, None)
-    ExtendedBase = property(get_ExtendedBase, None)
+    _MagneticStripeReaderEncryptionAlgorithms_Meta_.None = property(get_None.__wrapped__, None)
+    _MagneticStripeReaderEncryptionAlgorithms_Meta_.TripleDesDukpt = property(get_TripleDesDukpt.__wrapped__, None)
+    _MagneticStripeReaderEncryptionAlgorithms_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
 class MagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.PointOfService.IMagneticStripeReaderErrorOccurredEventArgs
@@ -4214,7 +4222,9 @@ PosPrinterCartridgeSensors_Removed: PosPrinterCartridgeSensors = 1
 PosPrinterCartridgeSensors_Empty: PosPrinterCartridgeSensors = 2
 PosPrinterCartridgeSensors_HeadCleaning: PosPrinterCartridgeSensors = 4
 PosPrinterCartridgeSensors_NearEnd: PosPrinterCartridgeSensors = 8
-class PosPrinterCharacterSetIds(ComPtr):
+class _PosPrinterCharacterSetIds_Meta_(ComPtr.__class__):
+    pass
+class PosPrinterCharacterSetIds(ComPtr, metaclass=_PosPrinterCharacterSetIds_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.PosPrinterCharacterSetIds'
     @winrt_classmethod
@@ -4223,9 +4233,9 @@ class PosPrinterCharacterSetIds(ComPtr):
     def get_Ascii(cls: Windows.Devices.PointOfService.IPosPrinterCharacterSetIdsStatics) -> UInt32: ...
     @winrt_classmethod
     def get_Ansi(cls: Windows.Devices.PointOfService.IPosPrinterCharacterSetIdsStatics) -> UInt32: ...
-    Utf16LE = property(get_Utf16LE, None)
-    Ascii = property(get_Ascii, None)
-    Ansi = property(get_Ansi, None)
+    _PosPrinterCharacterSetIds_Meta_.Utf16LE = property(get_Utf16LE.__wrapped__, None)
+    _PosPrinterCharacterSetIds_Meta_.Ascii = property(get_Ascii.__wrapped__, None)
+    _PosPrinterCharacterSetIds_Meta_.Ansi = property(get_Ansi.__wrapped__, None)
 PosPrinterColorCapabilities = UInt32
 PosPrinterColorCapabilities_None: PosPrinterColorCapabilities = 0
 PosPrinterColorCapabilities_Primary: PosPrinterColorCapabilities = 1

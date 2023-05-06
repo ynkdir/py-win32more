@@ -731,7 +731,9 @@ class IPerceptionVideoProfile(ComPtr):
     Width = property(get_Width, None)
     Height = property(get_Height, None)
     FrameDuration = property(get_FrameDuration, None)
-class KnownCameraIntrinsicsProperties(ComPtr):
+class _KnownCameraIntrinsicsProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownCameraIntrinsicsProperties(ComPtr, metaclass=_KnownCameraIntrinsicsProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.KnownCameraIntrinsicsProperties'
     @winrt_classmethod
@@ -742,11 +744,13 @@ class KnownCameraIntrinsicsProperties(ComPtr):
     def get_RadialDistortion(cls: Windows.Devices.Perception.IKnownCameraIntrinsicsPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_TangentialDistortion(cls: Windows.Devices.Perception.IKnownCameraIntrinsicsPropertiesStatics) -> WinRT_String: ...
-    FocalLength = property(get_FocalLength, None)
-    PrincipalPoint = property(get_PrincipalPoint, None)
-    RadialDistortion = property(get_RadialDistortion, None)
-    TangentialDistortion = property(get_TangentialDistortion, None)
-class KnownPerceptionColorFrameSourceProperties(ComPtr):
+    _KnownCameraIntrinsicsProperties_Meta_.FocalLength = property(get_FocalLength.__wrapped__, None)
+    _KnownCameraIntrinsicsProperties_Meta_.PrincipalPoint = property(get_PrincipalPoint.__wrapped__, None)
+    _KnownCameraIntrinsicsProperties_Meta_.RadialDistortion = property(get_RadialDistortion.__wrapped__, None)
+    _KnownCameraIntrinsicsProperties_Meta_.TangentialDistortion = property(get_TangentialDistortion.__wrapped__, None)
+class _KnownPerceptionColorFrameSourceProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownPerceptionColorFrameSourceProperties(ComPtr, metaclass=_KnownPerceptionColorFrameSourceProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.KnownPerceptionColorFrameSourceProperties'
     @winrt_classmethod
@@ -755,19 +759,23 @@ class KnownPerceptionColorFrameSourceProperties(ComPtr):
     def get_AutoExposureEnabled(cls: Windows.Devices.Perception.IKnownPerceptionColorFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_ExposureCompensation(cls: Windows.Devices.Perception.IKnownPerceptionColorFrameSourcePropertiesStatics) -> WinRT_String: ...
-    Exposure = property(get_Exposure, None)
-    AutoExposureEnabled = property(get_AutoExposureEnabled, None)
-    ExposureCompensation = property(get_ExposureCompensation, None)
-class KnownPerceptionDepthFrameSourceProperties(ComPtr):
+    _KnownPerceptionColorFrameSourceProperties_Meta_.Exposure = property(get_Exposure.__wrapped__, None)
+    _KnownPerceptionColorFrameSourceProperties_Meta_.AutoExposureEnabled = property(get_AutoExposureEnabled.__wrapped__, None)
+    _KnownPerceptionColorFrameSourceProperties_Meta_.ExposureCompensation = property(get_ExposureCompensation.__wrapped__, None)
+class _KnownPerceptionDepthFrameSourceProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownPerceptionDepthFrameSourceProperties(ComPtr, metaclass=_KnownPerceptionDepthFrameSourceProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.KnownPerceptionDepthFrameSourceProperties'
     @winrt_classmethod
     def get_MinDepth(cls: Windows.Devices.Perception.IKnownPerceptionDepthFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_MaxDepth(cls: Windows.Devices.Perception.IKnownPerceptionDepthFrameSourcePropertiesStatics) -> WinRT_String: ...
-    MinDepth = property(get_MinDepth, None)
-    MaxDepth = property(get_MaxDepth, None)
-class KnownPerceptionFrameSourceProperties(ComPtr):
+    _KnownPerceptionDepthFrameSourceProperties_Meta_.MinDepth = property(get_MinDepth.__wrapped__, None)
+    _KnownPerceptionDepthFrameSourceProperties_Meta_.MaxDepth = property(get_MaxDepth.__wrapped__, None)
+class _KnownPerceptionFrameSourceProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownPerceptionFrameSourceProperties(ComPtr, metaclass=_KnownPerceptionFrameSourceProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.KnownPerceptionFrameSourceProperties'
     @winrt_classmethod
@@ -782,13 +790,15 @@ class KnownPerceptionFrameSourceProperties(ComPtr):
     def get_DeviceModelVersion(cls: Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_EnclosureLocation(cls: Windows.Devices.Perception.IKnownPerceptionFrameSourcePropertiesStatics) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
-    Id = property(get_Id, None)
-    PhysicalDeviceIds = property(get_PhysicalDeviceIds, None)
-    FrameKind = property(get_FrameKind, None)
-    DeviceModelVersion = property(get_DeviceModelVersion, None)
-    EnclosureLocation = property(get_EnclosureLocation, None)
-class KnownPerceptionInfraredFrameSourceProperties(ComPtr):
+    _KnownPerceptionFrameSourceProperties_Meta_.DeviceId = property(get_DeviceId.__wrapped__, None)
+    _KnownPerceptionFrameSourceProperties_Meta_.Id = property(get_Id.__wrapped__, None)
+    _KnownPerceptionFrameSourceProperties_Meta_.PhysicalDeviceIds = property(get_PhysicalDeviceIds.__wrapped__, None)
+    _KnownPerceptionFrameSourceProperties_Meta_.FrameKind = property(get_FrameKind.__wrapped__, None)
+    _KnownPerceptionFrameSourceProperties_Meta_.DeviceModelVersion = property(get_DeviceModelVersion.__wrapped__, None)
+    _KnownPerceptionFrameSourceProperties_Meta_.EnclosureLocation = property(get_EnclosureLocation.__wrapped__, None)
+class _KnownPerceptionInfraredFrameSourceProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownPerceptionInfraredFrameSourceProperties(ComPtr, metaclass=_KnownPerceptionInfraredFrameSourceProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.KnownPerceptionInfraredFrameSourceProperties'
     @winrt_classmethod
@@ -805,14 +815,16 @@ class KnownPerceptionInfraredFrameSourceProperties(ComPtr):
     def get_StructureLightPatternEnabled(cls: Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_InterleavedIlluminationEnabled(cls: Windows.Devices.Perception.IKnownPerceptionInfraredFrameSourcePropertiesStatics) -> WinRT_String: ...
-    Exposure = property(get_Exposure, None)
-    AutoExposureEnabled = property(get_AutoExposureEnabled, None)
-    ExposureCompensation = property(get_ExposureCompensation, None)
-    ActiveIlluminationEnabled = property(get_ActiveIlluminationEnabled, None)
-    AmbientSubtractionEnabled = property(get_AmbientSubtractionEnabled, None)
-    StructureLightPatternEnabled = property(get_StructureLightPatternEnabled, None)
-    InterleavedIlluminationEnabled = property(get_InterleavedIlluminationEnabled, None)
-class KnownPerceptionVideoFrameSourceProperties(ComPtr):
+    _KnownPerceptionInfraredFrameSourceProperties_Meta_.Exposure = property(get_Exposure.__wrapped__, None)
+    _KnownPerceptionInfraredFrameSourceProperties_Meta_.AutoExposureEnabled = property(get_AutoExposureEnabled.__wrapped__, None)
+    _KnownPerceptionInfraredFrameSourceProperties_Meta_.ExposureCompensation = property(get_ExposureCompensation.__wrapped__, None)
+    _KnownPerceptionInfraredFrameSourceProperties_Meta_.ActiveIlluminationEnabled = property(get_ActiveIlluminationEnabled.__wrapped__, None)
+    _KnownPerceptionInfraredFrameSourceProperties_Meta_.AmbientSubtractionEnabled = property(get_AmbientSubtractionEnabled.__wrapped__, None)
+    _KnownPerceptionInfraredFrameSourceProperties_Meta_.StructureLightPatternEnabled = property(get_StructureLightPatternEnabled.__wrapped__, None)
+    _KnownPerceptionInfraredFrameSourceProperties_Meta_.InterleavedIlluminationEnabled = property(get_InterleavedIlluminationEnabled.__wrapped__, None)
+class _KnownPerceptionVideoFrameSourceProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownPerceptionVideoFrameSourceProperties(ComPtr, metaclass=_KnownPerceptionVideoFrameSourceProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.KnownPerceptionVideoFrameSourceProperties'
     @winrt_classmethod
@@ -825,12 +837,14 @@ class KnownPerceptionVideoFrameSourceProperties(ComPtr):
     def get_IsMirrored(cls: Windows.Devices.Perception.IKnownPerceptionVideoFrameSourcePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_CameraIntrinsics(cls: Windows.Devices.Perception.IKnownPerceptionVideoFrameSourcePropertiesStatics) -> WinRT_String: ...
-    VideoProfile = property(get_VideoProfile, None)
-    SupportedVideoProfiles = property(get_SupportedVideoProfiles, None)
-    AvailableVideoProfiles = property(get_AvailableVideoProfiles, None)
-    IsMirrored = property(get_IsMirrored, None)
-    CameraIntrinsics = property(get_CameraIntrinsics, None)
-class KnownPerceptionVideoProfileProperties(ComPtr):
+    _KnownPerceptionVideoFrameSourceProperties_Meta_.VideoProfile = property(get_VideoProfile.__wrapped__, None)
+    _KnownPerceptionVideoFrameSourceProperties_Meta_.SupportedVideoProfiles = property(get_SupportedVideoProfiles.__wrapped__, None)
+    _KnownPerceptionVideoFrameSourceProperties_Meta_.AvailableVideoProfiles = property(get_AvailableVideoProfiles.__wrapped__, None)
+    _KnownPerceptionVideoFrameSourceProperties_Meta_.IsMirrored = property(get_IsMirrored.__wrapped__, None)
+    _KnownPerceptionVideoFrameSourceProperties_Meta_.CameraIntrinsics = property(get_CameraIntrinsics.__wrapped__, None)
+class _KnownPerceptionVideoProfileProperties_Meta_(ComPtr.__class__):
+    pass
+class KnownPerceptionVideoProfileProperties(ComPtr, metaclass=_KnownPerceptionVideoProfileProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.KnownPerceptionVideoProfileProperties'
     @winrt_classmethod
@@ -843,11 +857,11 @@ class KnownPerceptionVideoProfileProperties(ComPtr):
     def get_Height(cls: Windows.Devices.Perception.IKnownPerceptionVideoProfilePropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_FrameDuration(cls: Windows.Devices.Perception.IKnownPerceptionVideoProfilePropertiesStatics) -> WinRT_String: ...
-    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
-    BitmapAlphaMode = property(get_BitmapAlphaMode, None)
-    Width = property(get_Width, None)
-    Height = property(get_Height, None)
-    FrameDuration = property(get_FrameDuration, None)
+    _KnownPerceptionVideoProfileProperties_Meta_.BitmapPixelFormat = property(get_BitmapPixelFormat.__wrapped__, None)
+    _KnownPerceptionVideoProfileProperties_Meta_.BitmapAlphaMode = property(get_BitmapAlphaMode.__wrapped__, None)
+    _KnownPerceptionVideoProfileProperties_Meta_.Width = property(get_Width.__wrapped__, None)
+    _KnownPerceptionVideoProfileProperties_Meta_.Height = property(get_Height.__wrapped__, None)
+    _KnownPerceptionVideoProfileProperties_Meta_.FrameDuration = property(get_FrameDuration.__wrapped__, None)
 class PerceptionColorFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Perception.IPerceptionColorFrame

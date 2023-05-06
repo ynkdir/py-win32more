@@ -22,7 +22,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DateTimeFormatter(ComPtr):
+class _DateTimeFormatter_Meta_(ComPtr.__class__):
+    pass
+class DateTimeFormatter(ComPtr, metaclass=_DateTimeFormatter_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Globalization.DateTimeFormatting.IDateTimeFormatter
     _classid_ = 'Windows.Globalization.DateTimeFormatting.DateTimeFormatter'
@@ -102,10 +104,10 @@ class DateTimeFormatter(ComPtr):
     IncludeSecond = property(get_IncludeSecond, None)
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
-    LongDate = property(get_LongDate, None)
-    LongTime = property(get_LongTime, None)
-    ShortDate = property(get_ShortDate, None)
-    ShortTime = property(get_ShortTime, None)
+    _DateTimeFormatter_Meta_.LongDate = property(get_LongDate.__wrapped__, None)
+    _DateTimeFormatter_Meta_.LongTime = property(get_LongTime.__wrapped__, None)
+    _DateTimeFormatter_Meta_.ShortDate = property(get_ShortDate.__wrapped__, None)
+    _DateTimeFormatter_Meta_.ShortTime = property(get_ShortTime.__wrapped__, None)
 DayFormat = Int32
 DayFormat_None: DayFormat = 0
 DayFormat_Default: DayFormat = 1

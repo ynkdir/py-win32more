@@ -26,7 +26,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ArcadeStick(ComPtr):
+class _ArcadeStick_Meta_(ComPtr.__class__):
+    pass
+class ArcadeStick(ComPtr, metaclass=_ArcadeStick_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Gaming.Input.IArcadeStick
     _classid_ = 'Windows.Gaming.Input.ArcadeStick'
@@ -69,7 +71,7 @@ class ArcadeStick(ComPtr):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    ArcadeSticks = property(get_ArcadeSticks, None)
+    _ArcadeStick_Meta_.ArcadeSticks = property(get_ArcadeSticks.__wrapped__, None)
 ArcadeStickButtons = UInt32
 ArcadeStickButtons_None: ArcadeStickButtons = 0
 ArcadeStickButtons_StickUp: ArcadeStickButtons = 1
@@ -87,7 +89,9 @@ ArcadeStickButtons_Special2: ArcadeStickButtons = 2048
 class ArcadeStickReading(EasyCastStructure):
     Timestamp: UInt64
     Buttons: Windows.Gaming.Input.ArcadeStickButtons
-class FlightStick(ComPtr):
+class _FlightStick_Meta_(ComPtr.__class__):
+    pass
+class FlightStick(ComPtr, metaclass=_FlightStick_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Gaming.Input.IFlightStick
     _classid_ = 'Windows.Gaming.Input.FlightStick'
@@ -133,7 +137,7 @@ class FlightStick(ComPtr):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    FlightSticks = property(get_FlightSticks, None)
+    _FlightStick_Meta_.FlightSticks = property(get_FlightSticks.__wrapped__, None)
 FlightStickButtons = UInt32
 FlightStickButtons_None: FlightStickButtons = 0
 FlightStickButtons_FirePrimary: FlightStickButtons = 1
@@ -230,7 +234,9 @@ GameControllerSwitchPosition_Down: GameControllerSwitchPosition = 5
 GameControllerSwitchPosition_DownLeft: GameControllerSwitchPosition = 6
 GameControllerSwitchPosition_Left: GameControllerSwitchPosition = 7
 GameControllerSwitchPosition_UpLeft: GameControllerSwitchPosition = 8
-class Gamepad(ComPtr):
+class _Gamepad_Meta_(ComPtr.__class__):
+    pass
+class Gamepad(ComPtr, metaclass=_Gamepad_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Gaming.Input.IGamepad
     _classid_ = 'Windows.Gaming.Input.Gamepad'
@@ -278,7 +284,7 @@ class Gamepad(ComPtr):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    Gamepads = property(get_Gamepads, None)
+    _Gamepad_Meta_.Gamepads = property(get_Gamepads.__wrapped__, None)
 GamepadButtons = UInt32
 GamepadButtons_None: GamepadButtons = 0
 GamepadButtons_Menu: GamepadButtons = 1
@@ -612,7 +618,9 @@ OptionalUINavigationButtons_ScrollUp: OptionalUINavigationButtons = 256
 OptionalUINavigationButtons_ScrollDown: OptionalUINavigationButtons = 512
 OptionalUINavigationButtons_ScrollLeft: OptionalUINavigationButtons = 1024
 OptionalUINavigationButtons_ScrollRight: OptionalUINavigationButtons = 2048
-class RacingWheel(ComPtr):
+class _RacingWheel_Meta_(ComPtr.__class__):
+    pass
+class RacingWheel(ComPtr, metaclass=_RacingWheel_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Gaming.Input.IRacingWheel
     _classid_ = 'Windows.Gaming.Input.RacingWheel'
@@ -673,7 +681,7 @@ class RacingWheel(ComPtr):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    RacingWheels = property(get_RacingWheels, None)
+    _RacingWheel_Meta_.RacingWheels = property(get_RacingWheels.__wrapped__, None)
 RacingWheelButtons = UInt32
 RacingWheelButtons_None: RacingWheelButtons = 0
 RacingWheelButtons_PreviousGear: RacingWheelButtons = 1
@@ -707,7 +715,9 @@ class RacingWheelReading(EasyCastStructure):
     Brake: Double
     Clutch: Double
     Handbrake: Double
-class RawGameController(ComPtr):
+class _RawGameController_Meta_(ComPtr.__class__):
+    pass
+class RawGameController(ComPtr, metaclass=_RawGameController_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Gaming.Input.IRawGameController
     _classid_ = 'Windows.Gaming.Input.RawGameController'
@@ -779,7 +789,7 @@ class RawGameController(ComPtr):
     SimpleHapticsControllers = property(get_SimpleHapticsControllers, None)
     NonRoamableId = property(get_NonRoamableId, None)
     DisplayName = property(get_DisplayName, None)
-    RawGameControllers = property(get_RawGameControllers, None)
+    _RawGameController_Meta_.RawGameControllers = property(get_RawGameControllers.__wrapped__, None)
 RequiredUINavigationButtons = UInt32
 RequiredUINavigationButtons_None: RequiredUINavigationButtons = 0
 RequiredUINavigationButtons_Menu: RequiredUINavigationButtons = 1
@@ -790,7 +800,9 @@ RequiredUINavigationButtons_Up: RequiredUINavigationButtons = 16
 RequiredUINavigationButtons_Down: RequiredUINavigationButtons = 32
 RequiredUINavigationButtons_Left: RequiredUINavigationButtons = 64
 RequiredUINavigationButtons_Right: RequiredUINavigationButtons = 128
-class UINavigationController(ComPtr):
+class _UINavigationController_Meta_(ComPtr.__class__):
+    pass
+class UINavigationController(ComPtr, metaclass=_UINavigationController_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Gaming.Input.IUINavigationController
     _classid_ = 'Windows.Gaming.Input.UINavigationController'
@@ -835,7 +847,7 @@ class UINavigationController(ComPtr):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    UINavigationControllers = property(get_UINavigationControllers, None)
+    _UINavigationController_Meta_.UINavigationControllers = property(get_UINavigationControllers.__wrapped__, None)
 class UINavigationReading(EasyCastStructure):
     Timestamp: UInt64
     RequiredButtons: Windows.Gaming.Input.RequiredUINavigationButtons

@@ -96,12 +96,14 @@ class OemSupportInfo(ComPtr):
     SupportLink = property(get_SupportLink, None)
     SupportAppLink = property(get_SupportAppLink, None)
     SupportProvider = property(get_SupportProvider, None)
-class SmbiosInformation(ComPtr):
+class _SmbiosInformation_Meta_(ComPtr.__class__):
+    pass
+class SmbiosInformation(ComPtr, metaclass=_SmbiosInformation_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.SmbiosInformation'
     @winrt_classmethod
     def get_SerialNumber(cls: Windows.System.Profile.SystemManufacturers.ISmbiosInformationStatics) -> WinRT_String: ...
-    SerialNumber = property(get_SerialNumber, None)
+    _SmbiosInformation_Meta_.SerialNumber = property(get_SerialNumber.__wrapped__, None)
 SystemManufacturersContract: UInt32 = 196608
 class SystemSupportDeviceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -128,7 +130,9 @@ class SystemSupportDeviceInfo(ComPtr):
     SystemSku = property(get_SystemSku, None)
     SystemHardwareVersion = property(get_SystemHardwareVersion, None)
     SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
-class SystemSupportInfo(ComPtr):
+class _SystemSupportInfo_Meta_(ComPtr.__class__):
+    pass
+class SystemSupportInfo(ComPtr, metaclass=_SystemSupportInfo_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.SystemSupportInfo'
     @winrt_classmethod
@@ -137,9 +141,9 @@ class SystemSupportInfo(ComPtr):
     def get_LocalSystemEdition(cls: Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_OemSupportInfo(cls: Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics) -> Windows.System.Profile.SystemManufacturers.OemSupportInfo: ...
-    LocalDeviceInfo = property(get_LocalDeviceInfo, None)
-    LocalSystemEdition = property(get_LocalSystemEdition, None)
-    OemSupportInfo = property(get_OemSupportInfo, None)
+    _SystemSupportInfo_Meta_.LocalDeviceInfo = property(get_LocalDeviceInfo.__wrapped__, None)
+    _SystemSupportInfo_Meta_.LocalSystemEdition = property(get_LocalSystemEdition.__wrapped__, None)
+    _SystemSupportInfo_Meta_.OemSupportInfo = property(get_OemSupportInfo.__wrapped__, None)
 make_head(_module, 'IOemSupportInfo')
 make_head(_module, 'ISmbiosInformationStatics')
 make_head(_module, 'ISystemSupportDeviceInfo')

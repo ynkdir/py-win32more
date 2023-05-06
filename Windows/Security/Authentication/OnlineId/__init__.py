@@ -203,14 +203,16 @@ class OnlineIdServiceTicketRequest(ComPtr):
     def get_Policy(self: Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicketRequest) -> WinRT_String: ...
     Service = property(get_Service, None)
     Policy = property(get_Policy, None)
-class OnlineIdSystemAuthenticator(ComPtr):
+class _OnlineIdSystemAuthenticator_Meta_(ComPtr.__class__):
+    pass
+class OnlineIdSystemAuthenticator(ComPtr, metaclass=_OnlineIdSystemAuthenticator_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator'
     @winrt_classmethod
     def get_Default(cls: Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorStatics) -> Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser: ...
     @winrt_classmethod
     def GetForUser(cls: Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorStatics, user: Windows.System.User) -> Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser: ...
-    Default = property(get_Default, None)
+    _OnlineIdSystemAuthenticator_Meta_.Default = property(get_Default.__wrapped__, None)
 class OnlineIdSystemAuthenticatorForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorForUser

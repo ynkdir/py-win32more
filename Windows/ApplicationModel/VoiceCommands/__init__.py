@@ -309,14 +309,16 @@ class VoiceCommandDefinition(ComPtr):
     def SetPhraseListAsync(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinition, phraseListName: WinRT_String, phraseList: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncAction: ...
     Language = property(get_Language, None)
     Name = property(get_Name, None)
-class VoiceCommandDefinitionManager(ComPtr):
+class _VoiceCommandDefinitionManager_Meta_(ComPtr.__class__):
+    pass
+class VoiceCommandDefinitionManager(ComPtr, metaclass=_VoiceCommandDefinitionManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager'
     @winrt_classmethod
     def InstallCommandDefinitionsFromStorageFileAsync(cls: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinitionManagerStatics, file: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def get_InstalledCommandDefinitions(cls: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinitionManagerStatics) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinition]: ...
-    InstalledCommandDefinitions = property(get_InstalledCommandDefinitions, None)
+    _VoiceCommandDefinitionManager_Meta_.InstalledCommandDefinitions = property(get_InstalledCommandDefinitions.__wrapped__, None)
 class VoiceCommandDisambiguationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDisambiguationResult
@@ -324,7 +326,9 @@ class VoiceCommandDisambiguationResult(ComPtr):
     @winrt_mixinmethod
     def get_SelectedItem(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDisambiguationResult) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile: ...
     SelectedItem = property(get_SelectedItem, None)
-class VoiceCommandResponse(ComPtr):
+class _VoiceCommandResponse_Meta_(ComPtr.__class__):
+    pass
+class VoiceCommandResponse(ComPtr, metaclass=_VoiceCommandResponse_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponse
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse'
@@ -356,7 +360,7 @@ class VoiceCommandResponse(ComPtr):
     RepeatMessage = property(get_RepeatMessage, put_RepeatMessage)
     AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     VoiceCommandContentTiles = property(get_VoiceCommandContentTiles, None)
-    MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles, None)
+    _VoiceCommandResponse_Meta_.MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles.__wrapped__, None)
 class VoiceCommandServiceConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.VoiceCommands.IVoiceCommandServiceConnection

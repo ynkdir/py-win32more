@@ -48,7 +48,9 @@ AppRestartFailureReason_RestartPending: AppRestartFailureReason = 0
 AppRestartFailureReason_NotInForeground: AppRestartFailureReason = 1
 AppRestartFailureReason_InvalidUser: AppRestartFailureReason = 2
 AppRestartFailureReason_Other: AppRestartFailureReason = 3
-class CoreApplication(ComPtr):
+class _CoreApplication_Meta_(ComPtr.__class__):
+    pass
+class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.CoreApplication'
     @winrt_classmethod
@@ -111,10 +113,10 @@ class CoreApplication(ComPtr):
     def Run(cls: Windows.ApplicationModel.Core.ICoreApplication, viewSource: Windows.ApplicationModel.Core.IFrameworkViewSource) -> Void: ...
     @winrt_classmethod
     def RunWithActivationFactories(cls: Windows.ApplicationModel.Core.ICoreApplication, activationFactoryCallback: Windows.Foundation.IGetActivationFactory) -> Void: ...
-    Views = property(get_Views, None)
-    MainView = property(get_MainView, None)
-    Id = property(get_Id, None)
-    Properties = property(get_Properties, None)
+    _CoreApplication_Meta_.Views = property(get_Views.__wrapped__, None)
+    _CoreApplication_Meta_.MainView = property(get_MainView.__wrapped__, None)
+    _CoreApplication_Meta_.Id = property(get_Id.__wrapped__, None)
+    _CoreApplication_Meta_.Properties = property(get_Properties.__wrapped__, None)
 class CoreApplicationView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Core.ICoreApplicationView

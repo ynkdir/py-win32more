@@ -665,7 +665,9 @@ class IRemoteSystemWebAccountFilterFactory(ComPtr):
     _iid_ = Guid('{348a2709-5f4d-5127-b4a7-bf99d5252b1b}')
     @winrt_commethod(6)
     def Create(self, account: Windows.Security.Credentials.WebAccount) -> Windows.System.RemoteSystems.RemoteSystemWebAccountFilter: ...
-class KnownRemoteSystemCapabilities(ComPtr):
+class _KnownRemoteSystemCapabilities_Meta_(ComPtr.__class__):
+    pass
+class KnownRemoteSystemCapabilities(ComPtr, metaclass=_KnownRemoteSystemCapabilities_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.RemoteSystems.KnownRemoteSystemCapabilities'
     @winrt_classmethod
@@ -676,10 +678,10 @@ class KnownRemoteSystemCapabilities(ComPtr):
     def get_RemoteSession(cls: Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_SpatialEntity(cls: Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics) -> WinRT_String: ...
-    AppService = property(get_AppService, None)
-    LaunchUri = property(get_LaunchUri, None)
-    RemoteSession = property(get_RemoteSession, None)
-    SpatialEntity = property(get_SpatialEntity, None)
+    _KnownRemoteSystemCapabilities_Meta_.AppService = property(get_AppService.__wrapped__, None)
+    _KnownRemoteSystemCapabilities_Meta_.LaunchUri = property(get_LaunchUri.__wrapped__, None)
+    _KnownRemoteSystemCapabilities_Meta_.RemoteSession = property(get_RemoteSession.__wrapped__, None)
+    _KnownRemoteSystemCapabilities_Meta_.SpatialEntity = property(get_SpatialEntity.__wrapped__, None)
 class RemoteSystem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.System.RemoteSystems.IRemoteSystem
@@ -855,7 +857,9 @@ class RemoteSystemKindFilter(ComPtr):
     @winrt_mixinmethod
     def get_RemoteSystemKinds(self: Windows.System.RemoteSystems.IRemoteSystemKindFilter) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     RemoteSystemKinds = property(get_RemoteSystemKinds, None)
-class RemoteSystemKinds(ComPtr):
+class _RemoteSystemKinds_Meta_(ComPtr.__class__):
+    pass
+class RemoteSystemKinds(ComPtr, metaclass=_RemoteSystemKinds_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemKinds'
     @winrt_classmethod
@@ -874,14 +878,14 @@ class RemoteSystemKinds(ComPtr):
     def get_Desktop(cls: Windows.System.RemoteSystems.IRemoteSystemKindStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Xbox(cls: Windows.System.RemoteSystems.IRemoteSystemKindStatics) -> WinRT_String: ...
-    Iot = property(get_Iot, None)
-    Tablet = property(get_Tablet, None)
-    Laptop = property(get_Laptop, None)
-    Phone = property(get_Phone, None)
-    Hub = property(get_Hub, None)
-    Holographic = property(get_Holographic, None)
-    Desktop = property(get_Desktop, None)
-    Xbox = property(get_Xbox, None)
+    _RemoteSystemKinds_Meta_.Iot = property(get_Iot.__wrapped__, None)
+    _RemoteSystemKinds_Meta_.Tablet = property(get_Tablet.__wrapped__, None)
+    _RemoteSystemKinds_Meta_.Laptop = property(get_Laptop.__wrapped__, None)
+    _RemoteSystemKinds_Meta_.Phone = property(get_Phone.__wrapped__, None)
+    _RemoteSystemKinds_Meta_.Hub = property(get_Hub.__wrapped__, None)
+    _RemoteSystemKinds_Meta_.Holographic = property(get_Holographic.__wrapped__, None)
+    _RemoteSystemKinds_Meta_.Desktop = property(get_Desktop.__wrapped__, None)
+    _RemoteSystemKinds_Meta_.Xbox = property(get_Xbox.__wrapped__, None)
 RemoteSystemPlatform = Int32
 RemoteSystemPlatform_Unknown: RemoteSystemPlatform = 0
 RemoteSystemPlatform_Windows: RemoteSystemPlatform = 1

@@ -496,15 +496,17 @@ class IsolatedWindowsEnvironmentFile(ComPtr):
     HostPath = property(get_HostPath, None)
     GuestPath = property(get_GuestPath, None)
     IsReadOnly = property(get_IsReadOnly, None)
-class IsolatedWindowsEnvironmentHost(ComPtr):
+class _IsolatedWindowsEnvironmentHost_Meta_(ComPtr.__class__):
+    pass
+class IsolatedWindowsEnvironmentHost(ComPtr, metaclass=_IsolatedWindowsEnvironmentHost_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentHost'
     @winrt_classmethod
     def get_IsReady(cls: Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> Boolean: ...
     @winrt_classmethod
     def get_HostErrors(cls: Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Isolation.IsolatedWindowsEnvironmentHostError]: ...
-    IsReady = property(get_IsReady, None)
-    HostErrors = property(get_HostErrors, None)
+    _IsolatedWindowsEnvironmentHost_Meta_.IsReady = property(get_IsReady.__wrapped__, None)
+    _IsolatedWindowsEnvironmentHost_Meta_.HostErrors = property(get_HostErrors.__wrapped__, None)
 IsolatedWindowsEnvironmentHostError = Int32
 IsolatedWindowsEnvironmentHostError_AdminPolicyIsDisabledOrNotPresent: IsolatedWindowsEnvironmentHostError = 0
 IsolatedWindowsEnvironmentHostError_FeatureNotInstalled: IsolatedWindowsEnvironmentHostError = 1

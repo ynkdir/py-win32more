@@ -78,7 +78,9 @@ FontStyle_Oblique: FontStyle = 1
 FontStyle_Italic: FontStyle = 2
 class FontWeight(EasyCastStructure):
     Weight: UInt16
-class FontWeights(ComPtr):
+class _FontWeights_Meta_(ComPtr.__class__):
+    pass
+class FontWeights(ComPtr, metaclass=_FontWeights_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Text.IFontWeights
     _classid_ = 'Windows.UI.Text.FontWeights'
@@ -104,17 +106,17 @@ class FontWeights(ComPtr):
     def get_SemiLight(cls: Windows.UI.Text.IFontWeightsStatics) -> Windows.UI.Text.FontWeight: ...
     @winrt_classmethod
     def get_Thin(cls: Windows.UI.Text.IFontWeightsStatics) -> Windows.UI.Text.FontWeight: ...
-    Black = property(get_Black, None)
-    Bold = property(get_Bold, None)
-    ExtraBlack = property(get_ExtraBlack, None)
-    ExtraBold = property(get_ExtraBold, None)
-    ExtraLight = property(get_ExtraLight, None)
-    Light = property(get_Light, None)
-    Medium = property(get_Medium, None)
-    Normal = property(get_Normal, None)
-    SemiBold = property(get_SemiBold, None)
-    SemiLight = property(get_SemiLight, None)
-    Thin = property(get_Thin, None)
+    _FontWeights_Meta_.Black = property(get_Black.__wrapped__, None)
+    _FontWeights_Meta_.Bold = property(get_Bold.__wrapped__, None)
+    _FontWeights_Meta_.ExtraBlack = property(get_ExtraBlack.__wrapped__, None)
+    _FontWeights_Meta_.ExtraBold = property(get_ExtraBold.__wrapped__, None)
+    _FontWeights_Meta_.ExtraLight = property(get_ExtraLight.__wrapped__, None)
+    _FontWeights_Meta_.Light = property(get_Light.__wrapped__, None)
+    _FontWeights_Meta_.Medium = property(get_Medium.__wrapped__, None)
+    _FontWeights_Meta_.Normal = property(get_Normal.__wrapped__, None)
+    _FontWeights_Meta_.SemiBold = property(get_SemiBold.__wrapped__, None)
+    _FontWeights_Meta_.SemiLight = property(get_SemiLight.__wrapped__, None)
+    _FontWeights_Meta_.Thin = property(get_Thin.__wrapped__, None)
 FormatEffect = Int32
 FormatEffect_Off: FormatEffect = 0
 FormatEffect_On: FormatEffect = 1
@@ -1045,7 +1047,9 @@ TabLeader_Dashes: TabLeader = 2
 TabLeader_Lines: TabLeader = 3
 TabLeader_ThickLines: TabLeader = 4
 TabLeader_Equals: TabLeader = 5
-class TextConstants(ComPtr):
+class _TextConstants_Meta_(ComPtr.__class__):
+    pass
+class TextConstants(ComPtr, metaclass=_TextConstants_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.TextConstants'
     @winrt_classmethod
@@ -1064,14 +1068,14 @@ class TextConstants(ComPtr):
     def get_UndefinedFontStretch(cls: Windows.UI.Text.ITextConstantsStatics) -> Windows.UI.Text.FontStretch: ...
     @winrt_classmethod
     def get_UndefinedFontStyle(cls: Windows.UI.Text.ITextConstantsStatics) -> Windows.UI.Text.FontStyle: ...
-    AutoColor = property(get_AutoColor, None)
-    MinUnitCount = property(get_MinUnitCount, None)
-    MaxUnitCount = property(get_MaxUnitCount, None)
-    UndefinedColor = property(get_UndefinedColor, None)
-    UndefinedFloatValue = property(get_UndefinedFloatValue, None)
-    UndefinedInt32Value = property(get_UndefinedInt32Value, None)
-    UndefinedFontStretch = property(get_UndefinedFontStretch, None)
-    UndefinedFontStyle = property(get_UndefinedFontStyle, None)
+    _TextConstants_Meta_.AutoColor = property(get_AutoColor.__wrapped__, None)
+    _TextConstants_Meta_.MinUnitCount = property(get_MinUnitCount.__wrapped__, None)
+    _TextConstants_Meta_.MaxUnitCount = property(get_MaxUnitCount.__wrapped__, None)
+    _TextConstants_Meta_.UndefinedColor = property(get_UndefinedColor.__wrapped__, None)
+    _TextConstants_Meta_.UndefinedFloatValue = property(get_UndefinedFloatValue.__wrapped__, None)
+    _TextConstants_Meta_.UndefinedInt32Value = property(get_UndefinedInt32Value.__wrapped__, None)
+    _TextConstants_Meta_.UndefinedFontStretch = property(get_UndefinedFontStretch.__wrapped__, None)
+    _TextConstants_Meta_.UndefinedFontStyle = property(get_UndefinedFontStyle.__wrapped__, None)
 TextDecorations = UInt32
 TextDecorations_None: TextDecorations = 0
 TextDecorations_Underline: TextDecorations = 1

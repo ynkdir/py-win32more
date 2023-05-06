@@ -23,7 +23,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class GameBar(ComPtr):
+class _GameBar_Meta_(ComPtr.__class__):
+    pass
+class GameBar(ComPtr, metaclass=_GameBar_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.UI.GameBar'
     @winrt_classmethod
@@ -38,8 +40,8 @@ class GameBar(ComPtr):
     def get_Visible(cls: Windows.Gaming.UI.IGameBarStatics) -> Boolean: ...
     @winrt_classmethod
     def get_IsInputRedirected(cls: Windows.Gaming.UI.IGameBarStatics) -> Boolean: ...
-    Visible = property(get_Visible, None)
-    IsInputRedirected = property(get_IsInputRedirected, None)
+    _GameBar_Meta_.Visible = property(get_Visible.__wrapped__, None)
+    _GameBar_Meta_.IsInputRedirected = property(get_IsInputRedirected.__wrapped__, None)
 GameChatMessageOrigin = Int32
 GameChatMessageOrigin_Voice: GameChatMessageOrigin = 0
 GameChatMessageOrigin_Text: GameChatMessageOrigin = 1

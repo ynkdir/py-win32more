@@ -139,7 +139,9 @@ class IPlaceInfoHelperStatics(ComPtr):
     _iid_ = Guid('{dd1ca9a7-a9c6-491b-bc09-e80fcea48ee6}')
     @winrt_commethod(6)
     def CreateFromLocalLocation(self, location: Windows.Services.Maps.LocalSearch.LocalLocation) -> Windows.Services.Maps.PlaceInfo: ...
-class LocalCategories(ComPtr):
+class _LocalCategories_Meta_(ComPtr.__class__):
+    pass
+class LocalCategories(ComPtr, metaclass=_LocalCategories_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.LocalSearch.LocalCategories'
     @winrt_classmethod
@@ -158,14 +160,14 @@ class LocalCategories(ComPtr):
     def get_SeeDo(cls: Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Shop(cls: Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics) -> WinRT_String: ...
-    BankAndCreditUnions = property(get_BankAndCreditUnions, None)
-    EatDrink = property(get_EatDrink, None)
-    Hospitals = property(get_Hospitals, None)
-    HotelsAndMotels = property(get_HotelsAndMotels, None)
-    All = property(get_All, None)
-    Parking = property(get_Parking, None)
-    SeeDo = property(get_SeeDo, None)
-    Shop = property(get_Shop, None)
+    _LocalCategories_Meta_.BankAndCreditUnions = property(get_BankAndCreditUnions.__wrapped__, None)
+    _LocalCategories_Meta_.EatDrink = property(get_EatDrink.__wrapped__, None)
+    _LocalCategories_Meta_.Hospitals = property(get_Hospitals.__wrapped__, None)
+    _LocalCategories_Meta_.HotelsAndMotels = property(get_HotelsAndMotels.__wrapped__, None)
+    _LocalCategories_Meta_.All = property(get_All.__wrapped__, None)
+    _LocalCategories_Meta_.Parking = property(get_Parking.__wrapped__, None)
+    _LocalCategories_Meta_.SeeDo = property(get_SeeDo.__wrapped__, None)
+    _LocalCategories_Meta_.Shop = property(get_Shop.__wrapped__, None)
 class LocalLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Services.Maps.LocalSearch.ILocalLocation

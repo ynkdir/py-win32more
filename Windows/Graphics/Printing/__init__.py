@@ -948,7 +948,9 @@ class PrintTaskSourceRequestedHandler(ComPtr):
     _iid_ = Guid('{6c109fa8-5cb6-4b3a-8663-f39cb02dc9b4}')
     @winrt_commethod(3)
     def Invoke(self, args: Windows.Graphics.Printing.PrintTaskSourceRequestedArgs) -> Void: ...
-class StandardPrintTaskOptions(ComPtr):
+class _StandardPrintTaskOptions_Meta_(ComPtr.__class__):
+    pass
+class StandardPrintTaskOptions(ComPtr, metaclass=_StandardPrintTaskOptions_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.StandardPrintTaskOptions'
     @winrt_classmethod
@@ -981,21 +983,21 @@ class StandardPrintTaskOptions(ComPtr):
     def get_NUp(cls: Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic) -> WinRT_String: ...
     @winrt_classmethod
     def get_InputBin(cls: Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic) -> WinRT_String: ...
-    CustomPageRanges = property(get_CustomPageRanges, None)
-    Bordering = property(get_Bordering, None)
-    MediaSize = property(get_MediaSize, None)
-    MediaType = property(get_MediaType, None)
-    Orientation = property(get_Orientation, None)
-    PrintQuality = property(get_PrintQuality, None)
-    ColorMode = property(get_ColorMode, None)
-    Duplex = property(get_Duplex, None)
-    Collation = property(get_Collation, None)
-    Staple = property(get_Staple, None)
-    HolePunch = property(get_HolePunch, None)
-    Binding = property(get_Binding, None)
-    Copies = property(get_Copies, None)
-    NUp = property(get_NUp, None)
-    InputBin = property(get_InputBin, None)
+    _StandardPrintTaskOptions_Meta_.CustomPageRanges = property(get_CustomPageRanges.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Bordering = property(get_Bordering.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.MediaSize = property(get_MediaSize.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.MediaType = property(get_MediaType.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Orientation = property(get_Orientation.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.PrintQuality = property(get_PrintQuality.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.ColorMode = property(get_ColorMode.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Duplex = property(get_Duplex.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Collation = property(get_Collation.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Staple = property(get_Staple.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.HolePunch = property(get_HolePunch.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Binding = property(get_Binding.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Copies = property(get_Copies.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.NUp = property(get_NUp.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.InputBin = property(get_InputBin.__wrapped__, None)
 make_head(_module, 'IPrintDocumentSource')
 make_head(_module, 'IPrintManager')
 make_head(_module, 'IPrintManagerStatic')

@@ -272,7 +272,9 @@ class BackgroundTaskProgressEventHandler(ComPtr):
     _iid_ = Guid('{46e0683c-8a88-4c99-804c-76897f6277a6}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.ApplicationModel.Background.BackgroundTaskRegistration, args: Windows.ApplicationModel.Background.BackgroundTaskProgressEventArgs) -> Void: ...
-class BackgroundTaskRegistration(ComPtr):
+class _BackgroundTaskRegistration_Meta_(ComPtr.__class__):
+    pass
+class BackgroundTaskRegistration(ComPtr, metaclass=_BackgroundTaskRegistration_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTaskRegistration
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskRegistration'
@@ -304,8 +306,8 @@ class BackgroundTaskRegistration(ComPtr):
     Name = property(get_Name, None)
     Trigger = property(get_Trigger, None)
     TaskGroup = property(get_TaskGroup, None)
-    AllTaskGroups = property(get_AllTaskGroups, None)
-    AllTasks = property(get_AllTasks, None)
+    _BackgroundTaskRegistration_Meta_.AllTaskGroups = property(get_AllTaskGroups.__wrapped__, None)
+    _BackgroundTaskRegistration_Meta_.AllTasks = property(get_AllTasks.__wrapped__, None)
 class BackgroundTaskRegistrationGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroup
@@ -331,12 +333,14 @@ BackgroundTaskThrottleCounter = Int32
 BackgroundTaskThrottleCounter_All: BackgroundTaskThrottleCounter = 0
 BackgroundTaskThrottleCounter_Cpu: BackgroundTaskThrottleCounter = 1
 BackgroundTaskThrottleCounter_Network: BackgroundTaskThrottleCounter = 2
-class BackgroundWorkCost(ComPtr):
+class _BackgroundWorkCost_Meta_(ComPtr.__class__):
+    pass
+class BackgroundWorkCost(ComPtr, metaclass=_BackgroundWorkCost_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundWorkCost'
     @winrt_classmethod
     def get_CurrentBackgroundWorkCost(cls: Windows.ApplicationModel.Background.IBackgroundWorkCostStatics) -> Windows.ApplicationModel.Background.BackgroundWorkCostValue: ...
-    CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost, None)
+    _BackgroundWorkCost_Meta_.CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost.__wrapped__, None)
 BackgroundWorkCostValue = Int32
 BackgroundWorkCostValue_Low: BackgroundWorkCostValue = 0
 BackgroundWorkCostValue_Medium: BackgroundWorkCostValue = 1

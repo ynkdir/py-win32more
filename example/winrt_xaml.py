@@ -173,7 +173,7 @@ def WinMain():
     hr = xamlContainer.QueryInterface(IUIElement._iid_, uielement)
     if FAILED(hr):
         raise WinError(hr)
-    brush = SolidColorBrush.CreateInstanceWithColor(Colors.get_LightGray())
+    brush = SolidColorBrush.CreateInstanceWithColor(Colors.LightGray)
     panel.Background = brush
 
     tb = TextBox.CreateInstance(None, None)

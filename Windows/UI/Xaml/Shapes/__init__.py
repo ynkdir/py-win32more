@@ -278,7 +278,9 @@ class IShapeStatics(ComPtr):
     StrokeDashCapProperty = property(get_StrokeDashCapProperty, None)
     StrokeDashArrayProperty = property(get_StrokeDashArrayProperty, None)
     StretchProperty = property(get_StretchProperty, None)
-class Line(ComPtr):
+class _Line_Meta_(ComPtr.__class__):
+    pass
+class Line(ComPtr, metaclass=_Line_Meta_):
     extends: Windows.UI.Xaml.Shapes.Shape
     default_interface: Windows.UI.Xaml.Shapes.ILine
     _classid_ = 'Windows.UI.Xaml.Shapes.Line'
@@ -312,11 +314,13 @@ class Line(ComPtr):
     Y1 = property(get_Y1, put_Y1)
     X2 = property(get_X2, put_X2)
     Y2 = property(get_Y2, put_Y2)
-    X1Property = property(get_X1Property, None)
-    Y1Property = property(get_Y1Property, None)
-    X2Property = property(get_X2Property, None)
-    Y2Property = property(get_Y2Property, None)
-class Path(ComPtr):
+    _Line_Meta_.X1Property = property(get_X1Property.__wrapped__, None)
+    _Line_Meta_.Y1Property = property(get_Y1Property.__wrapped__, None)
+    _Line_Meta_.X2Property = property(get_X2Property.__wrapped__, None)
+    _Line_Meta_.Y2Property = property(get_Y2Property.__wrapped__, None)
+class _Path_Meta_(ComPtr.__class__):
+    pass
+class Path(ComPtr, metaclass=_Path_Meta_):
     extends: Windows.UI.Xaml.Shapes.Shape
     default_interface: Windows.UI.Xaml.Shapes.IPath
     _classid_ = 'Windows.UI.Xaml.Shapes.Path'
@@ -329,8 +333,10 @@ class Path(ComPtr):
     @winrt_classmethod
     def get_DataProperty(cls: Windows.UI.Xaml.Shapes.IPathStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Data = property(get_Data, put_Data)
-    DataProperty = property(get_DataProperty, None)
-class Polygon(ComPtr):
+    _Path_Meta_.DataProperty = property(get_DataProperty.__wrapped__, None)
+class _Polygon_Meta_(ComPtr.__class__):
+    pass
+class Polygon(ComPtr, metaclass=_Polygon_Meta_):
     extends: Windows.UI.Xaml.Shapes.Shape
     default_interface: Windows.UI.Xaml.Shapes.IPolygon
     _classid_ = 'Windows.UI.Xaml.Shapes.Polygon'
@@ -350,9 +356,11 @@ class Polygon(ComPtr):
     def get_PointsProperty(cls: Windows.UI.Xaml.Shapes.IPolygonStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     FillRule = property(get_FillRule, put_FillRule)
     Points = property(get_Points, put_Points)
-    FillRuleProperty = property(get_FillRuleProperty, None)
-    PointsProperty = property(get_PointsProperty, None)
-class Polyline(ComPtr):
+    _Polygon_Meta_.FillRuleProperty = property(get_FillRuleProperty.__wrapped__, None)
+    _Polygon_Meta_.PointsProperty = property(get_PointsProperty.__wrapped__, None)
+class _Polyline_Meta_(ComPtr.__class__):
+    pass
+class Polyline(ComPtr, metaclass=_Polyline_Meta_):
     extends: Windows.UI.Xaml.Shapes.Shape
     default_interface: Windows.UI.Xaml.Shapes.IPolyline
     _classid_ = 'Windows.UI.Xaml.Shapes.Polyline'
@@ -372,9 +380,11 @@ class Polyline(ComPtr):
     def get_PointsProperty(cls: Windows.UI.Xaml.Shapes.IPolylineStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     FillRule = property(get_FillRule, put_FillRule)
     Points = property(get_Points, put_Points)
-    FillRuleProperty = property(get_FillRuleProperty, None)
-    PointsProperty = property(get_PointsProperty, None)
-class Rectangle(ComPtr):
+    _Polyline_Meta_.FillRuleProperty = property(get_FillRuleProperty.__wrapped__, None)
+    _Polyline_Meta_.PointsProperty = property(get_PointsProperty.__wrapped__, None)
+class _Rectangle_Meta_(ComPtr.__class__):
+    pass
+class Rectangle(ComPtr, metaclass=_Rectangle_Meta_):
     extends: Windows.UI.Xaml.Shapes.Shape
     default_interface: Windows.UI.Xaml.Shapes.IRectangle
     _classid_ = 'Windows.UI.Xaml.Shapes.Rectangle'
@@ -394,9 +404,11 @@ class Rectangle(ComPtr):
     def get_RadiusYProperty(cls: Windows.UI.Xaml.Shapes.IRectangleStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     RadiusX = property(get_RadiusX, put_RadiusX)
     RadiusY = property(get_RadiusY, put_RadiusY)
-    RadiusXProperty = property(get_RadiusXProperty, None)
-    RadiusYProperty = property(get_RadiusYProperty, None)
-class Shape(ComPtr):
+    _Rectangle_Meta_.RadiusXProperty = property(get_RadiusXProperty.__wrapped__, None)
+    _Rectangle_Meta_.RadiusYProperty = property(get_RadiusYProperty.__wrapped__, None)
+class _Shape_Meta_(ComPtr.__class__):
+    pass
+class Shape(ComPtr, metaclass=_Shape_Meta_):
     extends: Windows.UI.Xaml.FrameworkElement
     default_interface: Windows.UI.Xaml.Shapes.IShape
     _classid_ = 'Windows.UI.Xaml.Shapes.Shape'
@@ -484,17 +496,17 @@ class Shape(ComPtr):
     StrokeDashArray = property(get_StrokeDashArray, put_StrokeDashArray)
     Stretch = property(get_Stretch, put_Stretch)
     GeometryTransform = property(get_GeometryTransform, None)
-    FillProperty = property(get_FillProperty, None)
-    StrokeProperty = property(get_StrokeProperty, None)
-    StrokeMiterLimitProperty = property(get_StrokeMiterLimitProperty, None)
-    StrokeThicknessProperty = property(get_StrokeThicknessProperty, None)
-    StrokeStartLineCapProperty = property(get_StrokeStartLineCapProperty, None)
-    StrokeEndLineCapProperty = property(get_StrokeEndLineCapProperty, None)
-    StrokeLineJoinProperty = property(get_StrokeLineJoinProperty, None)
-    StrokeDashOffsetProperty = property(get_StrokeDashOffsetProperty, None)
-    StrokeDashCapProperty = property(get_StrokeDashCapProperty, None)
-    StrokeDashArrayProperty = property(get_StrokeDashArrayProperty, None)
-    StretchProperty = property(get_StretchProperty, None)
+    _Shape_Meta_.FillProperty = property(get_FillProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeProperty = property(get_StrokeProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeMiterLimitProperty = property(get_StrokeMiterLimitProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeThicknessProperty = property(get_StrokeThicknessProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeStartLineCapProperty = property(get_StrokeStartLineCapProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeEndLineCapProperty = property(get_StrokeEndLineCapProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeLineJoinProperty = property(get_StrokeLineJoinProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeDashOffsetProperty = property(get_StrokeDashOffsetProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeDashCapProperty = property(get_StrokeDashCapProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeDashArrayProperty = property(get_StrokeDashArrayProperty.__wrapped__, None)
+    _Shape_Meta_.StretchProperty = property(get_StretchProperty.__wrapped__, None)
 make_head(_module, 'Ellipse')
 make_head(_module, 'IEllipse')
 make_head(_module, 'ILine')

@@ -20,7 +20,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class BackgroundEnergyDiagnostics(ComPtr):
+class _BackgroundEnergyDiagnostics_Meta_(ComPtr.__class__):
+    pass
+class BackgroundEnergyDiagnostics(ComPtr, metaclass=_BackgroundEnergyDiagnostics_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics'
     @winrt_classmethod
@@ -29,8 +31,10 @@ class BackgroundEnergyDiagnostics(ComPtr):
     def ComputeTotalEnergyUsage(cls: Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics) -> UInt64: ...
     @winrt_classmethod
     def ResetTotalEnergyUsage(cls: Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics) -> Void: ...
-    DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
-class ForegroundEnergyDiagnostics(ComPtr):
+    _BackgroundEnergyDiagnostics_Meta_.DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor.__wrapped__, None)
+class _ForegroundEnergyDiagnostics_Meta_(ComPtr.__class__):
+    pass
+class ForegroundEnergyDiagnostics(ComPtr, metaclass=_ForegroundEnergyDiagnostics_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics'
     @winrt_classmethod
@@ -39,7 +43,7 @@ class ForegroundEnergyDiagnostics(ComPtr):
     def ComputeTotalEnergyUsage(cls: Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics) -> UInt64: ...
     @winrt_classmethod
     def ResetTotalEnergyUsage(cls: Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics) -> Void: ...
-    DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
+    _ForegroundEnergyDiagnostics_Meta_.DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor.__wrapped__, None)
 class IBackgroundEnergyDiagnosticsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics'

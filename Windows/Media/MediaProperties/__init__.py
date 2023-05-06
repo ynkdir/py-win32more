@@ -109,7 +109,9 @@ class ContainerEncodingProperties(ComPtr):
     Properties = property(get_Properties, None)
     Type = property(get_Type, None)
     Subtype = property(get_Subtype, put_Subtype)
-class H264ProfileIds(ComPtr):
+class _H264ProfileIds_Meta_(ComPtr.__class__):
+    pass
+class H264ProfileIds(ComPtr, metaclass=_H264ProfileIds_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.H264ProfileIds'
     @winrt_classmethod
@@ -132,16 +134,16 @@ class H264ProfileIds(ComPtr):
     def get_StereoHigh(cls: Windows.Media.MediaProperties.IH264ProfileIdsStatics) -> Int32: ...
     @winrt_classmethod
     def get_MultiviewHigh(cls: Windows.Media.MediaProperties.IH264ProfileIdsStatics) -> Int32: ...
-    ConstrainedBaseline = property(get_ConstrainedBaseline, None)
-    Baseline = property(get_Baseline, None)
-    Extended = property(get_Extended, None)
-    Main = property(get_Main, None)
-    High = property(get_High, None)
-    High10 = property(get_High10, None)
-    High422 = property(get_High422, None)
-    High444 = property(get_High444, None)
-    StereoHigh = property(get_StereoHigh, None)
-    MultiviewHigh = property(get_MultiviewHigh, None)
+    _H264ProfileIds_Meta_.ConstrainedBaseline = property(get_ConstrainedBaseline.__wrapped__, None)
+    _H264ProfileIds_Meta_.Baseline = property(get_Baseline.__wrapped__, None)
+    _H264ProfileIds_Meta_.Extended = property(get_Extended.__wrapped__, None)
+    _H264ProfileIds_Meta_.Main = property(get_Main.__wrapped__, None)
+    _H264ProfileIds_Meta_.High = property(get_High.__wrapped__, None)
+    _H264ProfileIds_Meta_.High10 = property(get_High10.__wrapped__, None)
+    _H264ProfileIds_Meta_.High422 = property(get_High422.__wrapped__, None)
+    _H264ProfileIds_Meta_.High444 = property(get_High444.__wrapped__, None)
+    _H264ProfileIds_Meta_.StereoHigh = property(get_StereoHigh.__wrapped__, None)
+    _H264ProfileIds_Meta_.MultiviewHigh = property(get_MultiviewHigh.__wrapped__, None)
 class IAudioEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAudioEncodingProperties'
@@ -794,7 +796,9 @@ class MediaEncodingProfile(ComPtr):
     Audio = property(get_Audio, put_Audio)
     Video = property(get_Video, put_Video)
     Container = property(get_Container, put_Container)
-class MediaEncodingSubtypes(ComPtr):
+class _MediaEncodingSubtypes_Meta_(ComPtr.__class__):
+    pass
+class MediaEncodingSubtypes(ComPtr, metaclass=_MediaEncodingSubtypes_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.MediaEncodingSubtypes'
     @winrt_classmethod
@@ -901,58 +905,58 @@ class MediaEncodingSubtypes(ComPtr):
     def get_Yuy2(cls: Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Yv12(cls: Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics) -> WinRT_String: ...
-    Pgs = property(get_Pgs, None)
-    Srt = property(get_Srt, None)
-    Ssa = property(get_Ssa, None)
-    VobSub = property(get_VobSub, None)
-    Heif = property(get_Heif, None)
-    P010 = property(get_P010, None)
-    Alac = property(get_Alac, None)
-    Flac = property(get_Flac, None)
-    Vp9 = property(get_Vp9, None)
-    L8 = property(get_L8, None)
-    L16 = property(get_L16, None)
-    D16 = property(get_D16, None)
-    Aac = property(get_Aac, None)
-    AacAdts = property(get_AacAdts, None)
-    Ac3 = property(get_Ac3, None)
-    AmrNb = property(get_AmrNb, None)
-    AmrWb = property(get_AmrWb, None)
-    Argb32 = property(get_Argb32, None)
-    Asf = property(get_Asf, None)
-    Avi = property(get_Avi, None)
-    Bgra8 = property(get_Bgra8, None)
-    Bmp = property(get_Bmp, None)
-    Eac3 = property(get_Eac3, None)
-    Float = property(get_Float, None)
-    Gif = property(get_Gif, None)
-    H263 = property(get_H263, None)
-    H264 = property(get_H264, None)
-    H264Es = property(get_H264Es, None)
-    Hevc = property(get_Hevc, None)
-    HevcEs = property(get_HevcEs, None)
-    Iyuv = property(get_Iyuv, None)
-    Jpeg = property(get_Jpeg, None)
-    JpegXr = property(get_JpegXr, None)
-    Mjpg = property(get_Mjpg, None)
-    Mpeg = property(get_Mpeg, None)
-    Mpeg1 = property(get_Mpeg1, None)
-    Mpeg2 = property(get_Mpeg2, None)
-    Mp3 = property(get_Mp3, None)
-    Mpeg4 = property(get_Mpeg4, None)
-    Nv12 = property(get_Nv12, None)
-    Pcm = property(get_Pcm, None)
-    Png = property(get_Png, None)
-    Rgb24 = property(get_Rgb24, None)
-    Rgb32 = property(get_Rgb32, None)
-    Tiff = property(get_Tiff, None)
-    Wave = property(get_Wave, None)
-    Wma8 = property(get_Wma8, None)
-    Wma9 = property(get_Wma9, None)
-    Wmv3 = property(get_Wmv3, None)
-    Wvc1 = property(get_Wvc1, None)
-    Yuy2 = property(get_Yuy2, None)
-    Yv12 = property(get_Yv12, None)
+    _MediaEncodingSubtypes_Meta_.Pgs = property(get_Pgs.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Srt = property(get_Srt.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Ssa = property(get_Ssa.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.VobSub = property(get_VobSub.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Heif = property(get_Heif.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.P010 = property(get_P010.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Alac = property(get_Alac.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Flac = property(get_Flac.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Vp9 = property(get_Vp9.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.L8 = property(get_L8.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.L16 = property(get_L16.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.D16 = property(get_D16.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Aac = property(get_Aac.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.AacAdts = property(get_AacAdts.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Ac3 = property(get_Ac3.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.AmrNb = property(get_AmrNb.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.AmrWb = property(get_AmrWb.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Argb32 = property(get_Argb32.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Asf = property(get_Asf.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Avi = property(get_Avi.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Bgra8 = property(get_Bgra8.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Bmp = property(get_Bmp.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Eac3 = property(get_Eac3.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Float = property(get_Float.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Gif = property(get_Gif.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.H263 = property(get_H263.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.H264 = property(get_H264.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.H264Es = property(get_H264Es.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Hevc = property(get_Hevc.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.HevcEs = property(get_HevcEs.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Iyuv = property(get_Iyuv.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Jpeg = property(get_Jpeg.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.JpegXr = property(get_JpegXr.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Mjpg = property(get_Mjpg.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Mpeg = property(get_Mpeg.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Mpeg1 = property(get_Mpeg1.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Mpeg2 = property(get_Mpeg2.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Mp3 = property(get_Mp3.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Mpeg4 = property(get_Mpeg4.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Nv12 = property(get_Nv12.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Pcm = property(get_Pcm.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Png = property(get_Png.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Rgb24 = property(get_Rgb24.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Rgb32 = property(get_Rgb32.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Tiff = property(get_Tiff.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Wave = property(get_Wave.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Wma8 = property(get_Wma8.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Wma9 = property(get_Wma9.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Wmv3 = property(get_Wmv3.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Wvc1 = property(get_Wvc1.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Yuy2 = property(get_Yuy2.__wrapped__, None)
+    _MediaEncodingSubtypes_Meta_.Yv12 = property(get_Yv12.__wrapped__, None)
 MediaMirroringOptions = UInt32
 MediaMirroringOptions_None: MediaMirroringOptions = 0
 MediaMirroringOptions_Horizontal: MediaMirroringOptions = 1
@@ -1006,7 +1010,9 @@ MediaRotation_Clockwise270Degrees: MediaRotation = 3
 MediaThumbnailFormat = Int32
 MediaThumbnailFormat_Bmp: MediaThumbnailFormat = 0
 MediaThumbnailFormat_Bgra8: MediaThumbnailFormat = 1
-class Mpeg2ProfileIds(ComPtr):
+class _Mpeg2ProfileIds_Meta_(ComPtr.__class__):
+    pass
+class Mpeg2ProfileIds(ComPtr, metaclass=_Mpeg2ProfileIds_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.Mpeg2ProfileIds'
     @winrt_classmethod
@@ -1019,11 +1025,11 @@ class Mpeg2ProfileIds(ComPtr):
     def get_SpatiallyScalable(cls: Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics) -> Int32: ...
     @winrt_classmethod
     def get_High(cls: Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics) -> Int32: ...
-    Simple = property(get_Simple, None)
-    Main = property(get_Main, None)
-    SignalNoiseRatioScalable = property(get_SignalNoiseRatioScalable, None)
-    SpatiallyScalable = property(get_SpatiallyScalable, None)
-    High = property(get_High, None)
+    _Mpeg2ProfileIds_Meta_.Simple = property(get_Simple.__wrapped__, None)
+    _Mpeg2ProfileIds_Meta_.Main = property(get_Main.__wrapped__, None)
+    _Mpeg2ProfileIds_Meta_.SignalNoiseRatioScalable = property(get_SignalNoiseRatioScalable.__wrapped__, None)
+    _Mpeg2ProfileIds_Meta_.SpatiallyScalable = property(get_SpatiallyScalable.__wrapped__, None)
+    _Mpeg2ProfileIds_Meta_.High = property(get_High.__wrapped__, None)
 SphericalVideoFrameFormat = Int32
 SphericalVideoFrameFormat_None: SphericalVideoFrameFormat = 0
 SphericalVideoFrameFormat_Unsupported: SphericalVideoFrameFormat = 1

@@ -1366,7 +1366,9 @@ class PlayReadySoapMessage(ComPtr):
     def get_Uri(self: Windows.Media.Protection.PlayReady.IPlayReadySoapMessage) -> Windows.Foundation.Uri: ...
     MessageHeaders = property(get_MessageHeaders, None)
     Uri = property(get_Uri, None)
-class PlayReadyStatics(ComPtr):
+class _PlayReadyStatics_Meta_(ComPtr.__class__):
+    pass
+class PlayReadyStatics(ComPtr, metaclass=_PlayReadyStatics_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyStatics'
     @winrt_classmethod
@@ -1401,20 +1403,20 @@ class PlayReadyStatics(ComPtr):
     def get_MediaProtectionSystemId(cls: Windows.Media.Protection.PlayReady.IPlayReadyStatics) -> Guid: ...
     @winrt_classmethod
     def get_PlayReadySecurityVersion(cls: Windows.Media.Protection.PlayReady.IPlayReadyStatics) -> UInt32: ...
-    HardwareDRMDisabledAtTime = property(get_HardwareDRMDisabledAtTime, None)
-    HardwareDRMDisabledUntilTime = property(get_HardwareDRMDisabledUntilTime, None)
-    InputTrustAuthorityToCreate = property(get_InputTrustAuthorityToCreate, None)
-    ProtectionSystemId = property(get_ProtectionSystemId, None)
-    SecureStopServiceRequestType = property(get_SecureStopServiceRequestType, None)
-    PlayReadyCertificateSecurityLevel = property(get_PlayReadyCertificateSecurityLevel, None)
-    DomainJoinServiceRequestType = property(get_DomainJoinServiceRequestType, None)
-    DomainLeaveServiceRequestType = property(get_DomainLeaveServiceRequestType, None)
-    IndividualizationServiceRequestType = property(get_IndividualizationServiceRequestType, None)
-    LicenseAcquirerServiceRequestType = property(get_LicenseAcquirerServiceRequestType, None)
-    MeteringReportServiceRequestType = property(get_MeteringReportServiceRequestType, None)
-    RevocationServiceRequestType = property(get_RevocationServiceRequestType, None)
-    MediaProtectionSystemId = property(get_MediaProtectionSystemId, None)
-    PlayReadySecurityVersion = property(get_PlayReadySecurityVersion, None)
+    _PlayReadyStatics_Meta_.HardwareDRMDisabledAtTime = property(get_HardwareDRMDisabledAtTime.__wrapped__, None)
+    _PlayReadyStatics_Meta_.HardwareDRMDisabledUntilTime = property(get_HardwareDRMDisabledUntilTime.__wrapped__, None)
+    _PlayReadyStatics_Meta_.InputTrustAuthorityToCreate = property(get_InputTrustAuthorityToCreate.__wrapped__, None)
+    _PlayReadyStatics_Meta_.ProtectionSystemId = property(get_ProtectionSystemId.__wrapped__, None)
+    _PlayReadyStatics_Meta_.SecureStopServiceRequestType = property(get_SecureStopServiceRequestType.__wrapped__, None)
+    _PlayReadyStatics_Meta_.PlayReadyCertificateSecurityLevel = property(get_PlayReadyCertificateSecurityLevel.__wrapped__, None)
+    _PlayReadyStatics_Meta_.DomainJoinServiceRequestType = property(get_DomainJoinServiceRequestType.__wrapped__, None)
+    _PlayReadyStatics_Meta_.DomainLeaveServiceRequestType = property(get_DomainLeaveServiceRequestType.__wrapped__, None)
+    _PlayReadyStatics_Meta_.IndividualizationServiceRequestType = property(get_IndividualizationServiceRequestType.__wrapped__, None)
+    _PlayReadyStatics_Meta_.LicenseAcquirerServiceRequestType = property(get_LicenseAcquirerServiceRequestType.__wrapped__, None)
+    _PlayReadyStatics_Meta_.MeteringReportServiceRequestType = property(get_MeteringReportServiceRequestType.__wrapped__, None)
+    _PlayReadyStatics_Meta_.RevocationServiceRequestType = property(get_RevocationServiceRequestType.__wrapped__, None)
+    _PlayReadyStatics_Meta_.MediaProtectionSystemId = property(get_MediaProtectionSystemId.__wrapped__, None)
+    _PlayReadyStatics_Meta_.PlayReadySecurityVersion = property(get_PlayReadySecurityVersion.__wrapped__, None)
 make_head(_module, 'INDClient')
 make_head(_module, 'INDClientFactory')
 make_head(_module, 'INDClosedCaptionDataReceivedEventArgs')

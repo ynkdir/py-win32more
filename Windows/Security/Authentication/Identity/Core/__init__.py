@@ -117,7 +117,9 @@ class IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(ComPtr):
     Sessions = property(get_Sessions, None)
     UnregisteredAccounts = property(get_UnregisteredAccounts, None)
     ServiceResponse = property(get_ServiceResponse, None)
-class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr):
+class _MicrosoftAccountMultiFactorAuthenticationManager_Meta_(ComPtr.__class__):
+    pass
+class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr, metaclass=_MicrosoftAccountMultiFactorAuthenticationManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticationManager
     _classid_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager'
@@ -143,7 +145,7 @@ class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr):
     def DenySessionAsync(self: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticationManager, userAccountId: WinRT_String, sessionId: WinRT_String, sessionAuthenticationType: Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationType) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse]: ...
     @winrt_classmethod
     def get_Current(cls: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticatorStatics) -> Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager: ...
-    Current = property(get_Current, None)
+    _MicrosoftAccountMultiFactorAuthenticationManager_Meta_.Current = property(get_Current.__wrapped__, None)
 MicrosoftAccountMultiFactorAuthenticationType = Int32
 MicrosoftAccountMultiFactorAuthenticationType_User: MicrosoftAccountMultiFactorAuthenticationType = 0
 MicrosoftAccountMultiFactorAuthenticationType_Device: MicrosoftAccountMultiFactorAuthenticationType = 1

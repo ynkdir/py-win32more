@@ -1172,7 +1172,9 @@ class SharedStorageAccessManager(ComPtr):
     def RedeemTokenForFileAsync(cls: Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics, token: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
     @winrt_classmethod
     def RemoveFile(cls: Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics, token: WinRT_String) -> Void: ...
-class StandardDataFormats(ComPtr):
+class _StandardDataFormats_Meta_(ComPtr.__class__):
+    pass
+class StandardDataFormats(ComPtr, metaclass=_StandardDataFormats_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.StandardDataFormats'
     @winrt_classmethod
@@ -1193,15 +1195,15 @@ class StandardDataFormats(ComPtr):
     def get_Bitmap(cls: Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_StorageItems(cls: Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics) -> WinRT_String: ...
-    UserActivityJsonArray = property(get_UserActivityJsonArray, None)
-    WebLink = property(get_WebLink, None)
-    ApplicationLink = property(get_ApplicationLink, None)
-    Text = property(get_Text, None)
-    Uri = property(get_Uri, None)
-    Html = property(get_Html, None)
-    Rtf = property(get_Rtf, None)
-    Bitmap = property(get_Bitmap, None)
-    StorageItems = property(get_StorageItems, None)
+    _StandardDataFormats_Meta_.UserActivityJsonArray = property(get_UserActivityJsonArray.__wrapped__, None)
+    _StandardDataFormats_Meta_.WebLink = property(get_WebLink.__wrapped__, None)
+    _StandardDataFormats_Meta_.ApplicationLink = property(get_ApplicationLink.__wrapped__, None)
+    _StandardDataFormats_Meta_.Text = property(get_Text.__wrapped__, None)
+    _StandardDataFormats_Meta_.Uri = property(get_Uri.__wrapped__, None)
+    _StandardDataFormats_Meta_.Html = property(get_Html.__wrapped__, None)
+    _StandardDataFormats_Meta_.Rtf = property(get_Rtf.__wrapped__, None)
+    _StandardDataFormats_Meta_.Bitmap = property(get_Bitmap.__wrapped__, None)
+    _StandardDataFormats_Meta_.StorageItems = property(get_StorageItems.__wrapped__, None)
 class TargetApplicationChosenEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.DataTransfer.ITargetApplicationChosenEventArgs

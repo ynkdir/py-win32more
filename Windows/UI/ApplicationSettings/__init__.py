@@ -272,7 +272,9 @@ class IWebAccountProviderCommandFactory(ComPtr):
     _iid_ = Guid('{d5658a1b-b176-4776-8469-a9d3ff0b3f59}')
     @winrt_commethod(6)
     def CreateWebAccountProviderCommand(self, webAccountProvider: Windows.Security.Credentials.WebAccountProvider, invoked: Windows.UI.ApplicationSettings.WebAccountProviderCommandInvokedHandler) -> Windows.UI.ApplicationSettings.WebAccountProviderCommand: ...
-class SettingsCommand(ComPtr):
+class _SettingsCommand_Meta_(ComPtr.__class__):
+    pass
+class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsCommand'
@@ -295,11 +297,13 @@ class SettingsCommand(ComPtr):
     Label = property(get_Label, put_Label)
     Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
-    AccountsCommand = property(get_AccountsCommand, None)
+    _SettingsCommand_Meta_.AccountsCommand = property(get_AccountsCommand.__wrapped__, None)
 SettingsEdgeLocation = Int32
 SettingsEdgeLocation_Right: SettingsEdgeLocation = 0
 SettingsEdgeLocation_Left: SettingsEdgeLocation = 1
-class SettingsPane(ComPtr):
+class _SettingsPane_Meta_(ComPtr.__class__):
+    pass
+class SettingsPane(ComPtr, metaclass=_SettingsPane_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.ApplicationSettings.ISettingsPane
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsPane'
@@ -313,7 +317,7 @@ class SettingsPane(ComPtr):
     def Show(cls: Windows.UI.ApplicationSettings.ISettingsPaneStatics) -> Void: ...
     @winrt_classmethod
     def get_Edge(cls: Windows.UI.ApplicationSettings.ISettingsPaneStatics) -> Windows.UI.ApplicationSettings.SettingsEdgeLocation: ...
-    Edge = property(get_Edge, None)
+    _SettingsPane_Meta_.Edge = property(get_Edge.__wrapped__, None)
 class SettingsPaneCommandsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequest

@@ -253,7 +253,9 @@ class NavigationStoppedEventHandler(ComPtr):
     _iid_ = Guid('{f0117ddb-12fa-4d8d-8b26-b383d09c2b3c}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
-class PageStackEntry(ComPtr):
+class _PageStackEntry_Meta_(ComPtr.__class__):
+    pass
+class PageStackEntry(ComPtr, metaclass=_PageStackEntry_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Navigation.IPageStackEntry
     _classid_ = 'Windows.UI.Xaml.Navigation.PageStackEntry'
@@ -270,7 +272,7 @@ class PageStackEntry(ComPtr):
     SourcePageType = property(get_SourcePageType, None)
     Parameter = property(get_Parameter, None)
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
-    SourcePageTypeProperty = property(get_SourcePageTypeProperty, None)
+    _PageStackEntry_Meta_.SourcePageTypeProperty = property(get_SourcePageTypeProperty.__wrapped__, None)
 make_head(_module, 'FrameNavigationOptions')
 make_head(_module, 'IFrameNavigationOptions')
 make_head(_module, 'IFrameNavigationOptionsFactory')

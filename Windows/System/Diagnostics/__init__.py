@@ -42,7 +42,9 @@ DiagnosticActionState_Detecting: DiagnosticActionState = 3
 DiagnosticActionState_Resolving: DiagnosticActionState = 4
 DiagnosticActionState_VerifyingResolution: DiagnosticActionState = 5
 DiagnosticActionState_Executing: DiagnosticActionState = 6
-class DiagnosticInvoker(ComPtr):
+class _DiagnosticInvoker_Meta_(ComPtr.__class__):
+    pass
+class DiagnosticInvoker(ComPtr, metaclass=_DiagnosticInvoker_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.System.Diagnostics.IDiagnosticInvoker
     _classid_ = 'Windows.System.Diagnostics.DiagnosticInvoker'
@@ -56,7 +58,7 @@ class DiagnosticInvoker(ComPtr):
     def GetForUser(cls: Windows.System.Diagnostics.IDiagnosticInvokerStatics, user: Windows.System.User) -> Windows.System.Diagnostics.DiagnosticInvoker: ...
     @winrt_classmethod
     def get_IsSupported(cls: Windows.System.Diagnostics.IDiagnosticInvokerStatics) -> Boolean: ...
-    IsSupported = property(get_IsSupported, None)
+    _DiagnosticInvoker_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
 class IDiagnosticActionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Diagnostics.IDiagnosticActionResult'
@@ -436,7 +438,9 @@ class SystemCpuUsageReport(ComPtr):
     KernelTime = property(get_KernelTime, None)
     UserTime = property(get_UserTime, None)
     IdleTime = property(get_IdleTime, None)
-class SystemDiagnosticInfo(ComPtr):
+class _SystemDiagnosticInfo_Meta_(ComPtr.__class__):
+    pass
+class SystemDiagnosticInfo(ComPtr, metaclass=_SystemDiagnosticInfo_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.System.Diagnostics.ISystemDiagnosticInfo
     _classid_ = 'Windows.System.Diagnostics.SystemDiagnosticInfo'
@@ -452,7 +456,7 @@ class SystemDiagnosticInfo(ComPtr):
     def GetForCurrentSystem(cls: Windows.System.Diagnostics.ISystemDiagnosticInfoStatics) -> Windows.System.Diagnostics.SystemDiagnosticInfo: ...
     MemoryUsage = property(get_MemoryUsage, None)
     CpuUsage = property(get_CpuUsage, None)
-    PreferredArchitecture = property(get_PreferredArchitecture, None)
+    _SystemDiagnosticInfo_Meta_.PreferredArchitecture = property(get_PreferredArchitecture.__wrapped__, None)
 class SystemMemoryUsage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.System.Diagnostics.ISystemMemoryUsage

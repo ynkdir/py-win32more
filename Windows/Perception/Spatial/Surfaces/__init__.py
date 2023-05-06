@@ -197,7 +197,9 @@ class SpatialSurfaceMeshBuffer(ComPtr):
     Stride = property(get_Stride, None)
     ElementCount = property(get_ElementCount, None)
     Data = property(get_Data, None)
-class SpatialSurfaceMeshOptions(ComPtr):
+class _SpatialSurfaceMeshOptions_Meta_(ComPtr.__class__):
+    pass
+class SpatialSurfaceMeshOptions(ComPtr, metaclass=_SpatialSurfaceMeshOptions_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptions
     _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions'
@@ -229,9 +231,9 @@ class SpatialSurfaceMeshOptions(ComPtr):
     TriangleIndexFormat = property(get_TriangleIndexFormat, put_TriangleIndexFormat)
     VertexNormalFormat = property(get_VertexNormalFormat, put_VertexNormalFormat)
     IncludeVertexNormals = property(get_IncludeVertexNormals, put_IncludeVertexNormals)
-    SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats, None)
-    SupportedTriangleIndexFormats = property(get_SupportedTriangleIndexFormats, None)
-    SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats, None)
+    _SpatialSurfaceMeshOptions_Meta_.SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats.__wrapped__, None)
+    _SpatialSurfaceMeshOptions_Meta_.SupportedTriangleIndexFormats = property(get_SupportedTriangleIndexFormats.__wrapped__, None)
+    _SpatialSurfaceMeshOptions_Meta_.SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats.__wrapped__, None)
 class SpatialSurfaceObserver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver

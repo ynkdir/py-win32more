@@ -24,7 +24,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AsymmetricAlgorithmNames(ComPtr):
+class _AsymmetricAlgorithmNames_Meta_(ComPtr.__class__):
+    pass
+class AsymmetricAlgorithmNames(ComPtr, metaclass=_AsymmetricAlgorithmNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames'
     @winrt_classmethod
@@ -69,27 +71,27 @@ class AsymmetricAlgorithmNames(ComPtr):
     def get_RsaSignPssSha384(cls: Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_RsaSignPssSha512(cls: Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics) -> WinRT_String: ...
-    EcdsaSha256 = property(get_EcdsaSha256, None)
-    EcdsaSha384 = property(get_EcdsaSha384, None)
-    EcdsaSha512 = property(get_EcdsaSha512, None)
-    RsaPkcs1 = property(get_RsaPkcs1, None)
-    RsaOaepSha1 = property(get_RsaOaepSha1, None)
-    RsaOaepSha256 = property(get_RsaOaepSha256, None)
-    RsaOaepSha384 = property(get_RsaOaepSha384, None)
-    RsaOaepSha512 = property(get_RsaOaepSha512, None)
-    EcdsaP256Sha256 = property(get_EcdsaP256Sha256, None)
-    EcdsaP384Sha384 = property(get_EcdsaP384Sha384, None)
-    EcdsaP521Sha512 = property(get_EcdsaP521Sha512, None)
-    DsaSha1 = property(get_DsaSha1, None)
-    DsaSha256 = property(get_DsaSha256, None)
-    RsaSignPkcs1Sha1 = property(get_RsaSignPkcs1Sha1, None)
-    RsaSignPkcs1Sha256 = property(get_RsaSignPkcs1Sha256, None)
-    RsaSignPkcs1Sha384 = property(get_RsaSignPkcs1Sha384, None)
-    RsaSignPkcs1Sha512 = property(get_RsaSignPkcs1Sha512, None)
-    RsaSignPssSha1 = property(get_RsaSignPssSha1, None)
-    RsaSignPssSha256 = property(get_RsaSignPssSha256, None)
-    RsaSignPssSha384 = property(get_RsaSignPssSha384, None)
-    RsaSignPssSha512 = property(get_RsaSignPssSha512, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaSha256 = property(get_EcdsaSha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaSha384 = property(get_EcdsaSha384.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaSha512 = property(get_EcdsaSha512.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaPkcs1 = property(get_RsaPkcs1.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaOaepSha1 = property(get_RsaOaepSha1.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaOaepSha256 = property(get_RsaOaepSha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaOaepSha384 = property(get_RsaOaepSha384.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaOaepSha512 = property(get_RsaOaepSha512.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaP256Sha256 = property(get_EcdsaP256Sha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaP384Sha384 = property(get_EcdsaP384Sha384.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaP521Sha512 = property(get_EcdsaP521Sha512.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.DsaSha1 = property(get_DsaSha1.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.DsaSha256 = property(get_DsaSha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaSignPkcs1Sha1 = property(get_RsaSignPkcs1Sha1.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaSignPkcs1Sha256 = property(get_RsaSignPkcs1Sha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaSignPkcs1Sha384 = property(get_RsaSignPkcs1Sha384.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaSignPkcs1Sha512 = property(get_RsaSignPkcs1Sha512.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaSignPssSha1 = property(get_RsaSignPssSha1.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaSignPssSha256 = property(get_RsaSignPssSha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaSignPssSha384 = property(get_RsaSignPssSha384.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaSignPssSha512 = property(get_RsaSignPssSha512.__wrapped__, None)
 class AsymmetricKeyAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Core.IAsymmetricKeyAlgorithmProvider
@@ -183,7 +185,9 @@ CryptographicPublicKeyBlobType_Pkcs1RsaPublicKey: CryptographicPublicKeyBlobType
 CryptographicPublicKeyBlobType_BCryptPublicKey: CryptographicPublicKeyBlobType = 2
 CryptographicPublicKeyBlobType_Capi1PublicKey: CryptographicPublicKeyBlobType = 3
 CryptographicPublicKeyBlobType_BCryptEccFullPublicKey: CryptographicPublicKeyBlobType = 4
-class EccCurveNames(ComPtr):
+class _EccCurveNames_Meta_(ComPtr.__class__):
+    pass
+class EccCurveNames(ComPtr, metaclass=_EccCurveNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.EccCurveNames'
     @winrt_classmethod
@@ -278,52 +282,52 @@ class EccCurveNames(ComPtr):
     def get_X962P256v1(cls: Windows.Security.Cryptography.Core.IEccCurveNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_AllEccCurveNames(cls: Windows.Security.Cryptography.Core.IEccCurveNamesStatics) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
-    BrainpoolP160r1 = property(get_BrainpoolP160r1, None)
-    BrainpoolP160t1 = property(get_BrainpoolP160t1, None)
-    BrainpoolP192r1 = property(get_BrainpoolP192r1, None)
-    BrainpoolP192t1 = property(get_BrainpoolP192t1, None)
-    BrainpoolP224r1 = property(get_BrainpoolP224r1, None)
-    BrainpoolP224t1 = property(get_BrainpoolP224t1, None)
-    BrainpoolP256r1 = property(get_BrainpoolP256r1, None)
-    BrainpoolP256t1 = property(get_BrainpoolP256t1, None)
-    BrainpoolP320r1 = property(get_BrainpoolP320r1, None)
-    BrainpoolP320t1 = property(get_BrainpoolP320t1, None)
-    BrainpoolP384r1 = property(get_BrainpoolP384r1, None)
-    BrainpoolP384t1 = property(get_BrainpoolP384t1, None)
-    BrainpoolP512r1 = property(get_BrainpoolP512r1, None)
-    BrainpoolP512t1 = property(get_BrainpoolP512t1, None)
-    Curve25519 = property(get_Curve25519, None)
-    Ec192wapi = property(get_Ec192wapi, None)
-    NistP192 = property(get_NistP192, None)
-    NistP224 = property(get_NistP224, None)
-    NistP256 = property(get_NistP256, None)
-    NistP384 = property(get_NistP384, None)
-    NistP521 = property(get_NistP521, None)
-    NumsP256t1 = property(get_NumsP256t1, None)
-    NumsP384t1 = property(get_NumsP384t1, None)
-    NumsP512t1 = property(get_NumsP512t1, None)
-    SecP160k1 = property(get_SecP160k1, None)
-    SecP160r1 = property(get_SecP160r1, None)
-    SecP160r2 = property(get_SecP160r2, None)
-    SecP192k1 = property(get_SecP192k1, None)
-    SecP192r1 = property(get_SecP192r1, None)
-    SecP224k1 = property(get_SecP224k1, None)
-    SecP224r1 = property(get_SecP224r1, None)
-    SecP256k1 = property(get_SecP256k1, None)
-    SecP256r1 = property(get_SecP256r1, None)
-    SecP384r1 = property(get_SecP384r1, None)
-    SecP521r1 = property(get_SecP521r1, None)
-    Wtls7 = property(get_Wtls7, None)
-    Wtls9 = property(get_Wtls9, None)
-    Wtls12 = property(get_Wtls12, None)
-    X962P192v1 = property(get_X962P192v1, None)
-    X962P192v2 = property(get_X962P192v2, None)
-    X962P192v3 = property(get_X962P192v3, None)
-    X962P239v1 = property(get_X962P239v1, None)
-    X962P239v2 = property(get_X962P239v2, None)
-    X962P239v3 = property(get_X962P239v3, None)
-    X962P256v1 = property(get_X962P256v1, None)
-    AllEccCurveNames = property(get_AllEccCurveNames, None)
+    _EccCurveNames_Meta_.BrainpoolP160r1 = property(get_BrainpoolP160r1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP160t1 = property(get_BrainpoolP160t1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP192r1 = property(get_BrainpoolP192r1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP192t1 = property(get_BrainpoolP192t1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP224r1 = property(get_BrainpoolP224r1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP224t1 = property(get_BrainpoolP224t1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP256r1 = property(get_BrainpoolP256r1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP256t1 = property(get_BrainpoolP256t1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP320r1 = property(get_BrainpoolP320r1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP320t1 = property(get_BrainpoolP320t1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP384r1 = property(get_BrainpoolP384r1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP384t1 = property(get_BrainpoolP384t1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP512r1 = property(get_BrainpoolP512r1.__wrapped__, None)
+    _EccCurveNames_Meta_.BrainpoolP512t1 = property(get_BrainpoolP512t1.__wrapped__, None)
+    _EccCurveNames_Meta_.Curve25519 = property(get_Curve25519.__wrapped__, None)
+    _EccCurveNames_Meta_.Ec192wapi = property(get_Ec192wapi.__wrapped__, None)
+    _EccCurveNames_Meta_.NistP192 = property(get_NistP192.__wrapped__, None)
+    _EccCurveNames_Meta_.NistP224 = property(get_NistP224.__wrapped__, None)
+    _EccCurveNames_Meta_.NistP256 = property(get_NistP256.__wrapped__, None)
+    _EccCurveNames_Meta_.NistP384 = property(get_NistP384.__wrapped__, None)
+    _EccCurveNames_Meta_.NistP521 = property(get_NistP521.__wrapped__, None)
+    _EccCurveNames_Meta_.NumsP256t1 = property(get_NumsP256t1.__wrapped__, None)
+    _EccCurveNames_Meta_.NumsP384t1 = property(get_NumsP384t1.__wrapped__, None)
+    _EccCurveNames_Meta_.NumsP512t1 = property(get_NumsP512t1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP160k1 = property(get_SecP160k1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP160r1 = property(get_SecP160r1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP160r2 = property(get_SecP160r2.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP192k1 = property(get_SecP192k1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP192r1 = property(get_SecP192r1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP224k1 = property(get_SecP224k1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP224r1 = property(get_SecP224r1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP256k1 = property(get_SecP256k1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP256r1 = property(get_SecP256r1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP384r1 = property(get_SecP384r1.__wrapped__, None)
+    _EccCurveNames_Meta_.SecP521r1 = property(get_SecP521r1.__wrapped__, None)
+    _EccCurveNames_Meta_.Wtls7 = property(get_Wtls7.__wrapped__, None)
+    _EccCurveNames_Meta_.Wtls9 = property(get_Wtls9.__wrapped__, None)
+    _EccCurveNames_Meta_.Wtls12 = property(get_Wtls12.__wrapped__, None)
+    _EccCurveNames_Meta_.X962P192v1 = property(get_X962P192v1.__wrapped__, None)
+    _EccCurveNames_Meta_.X962P192v2 = property(get_X962P192v2.__wrapped__, None)
+    _EccCurveNames_Meta_.X962P192v3 = property(get_X962P192v3.__wrapped__, None)
+    _EccCurveNames_Meta_.X962P239v1 = property(get_X962P239v1.__wrapped__, None)
+    _EccCurveNames_Meta_.X962P239v2 = property(get_X962P239v2.__wrapped__, None)
+    _EccCurveNames_Meta_.X962P239v3 = property(get_X962P239v3.__wrapped__, None)
+    _EccCurveNames_Meta_.X962P256v1 = property(get_X962P256v1.__wrapped__, None)
+    _EccCurveNames_Meta_.AllEccCurveNames = property(get_AllEccCurveNames.__wrapped__, None)
 class EncryptedAndAuthenticatedData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Core.IEncryptedAndAuthenticatedData
@@ -334,7 +338,9 @@ class EncryptedAndAuthenticatedData(ComPtr):
     def get_AuthenticationTag(self: Windows.Security.Cryptography.Core.IEncryptedAndAuthenticatedData) -> Windows.Storage.Streams.IBuffer: ...
     EncryptedData = property(get_EncryptedData, None)
     AuthenticationTag = property(get_AuthenticationTag, None)
-class HashAlgorithmNames(ComPtr):
+class _HashAlgorithmNames_Meta_(ComPtr.__class__):
+    pass
+class HashAlgorithmNames(ComPtr, metaclass=_HashAlgorithmNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.HashAlgorithmNames'
     @winrt_classmethod
@@ -347,11 +353,11 @@ class HashAlgorithmNames(ComPtr):
     def get_Sha384(cls: Windows.Security.Cryptography.Core.IHashAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Sha512(cls: Windows.Security.Cryptography.Core.IHashAlgorithmNamesStatics) -> WinRT_String: ...
-    Md5 = property(get_Md5, None)
-    Sha1 = property(get_Sha1, None)
-    Sha256 = property(get_Sha256, None)
-    Sha384 = property(get_Sha384, None)
-    Sha512 = property(get_Sha512, None)
+    _HashAlgorithmNames_Meta_.Md5 = property(get_Md5.__wrapped__, None)
+    _HashAlgorithmNames_Meta_.Sha1 = property(get_Sha1.__wrapped__, None)
+    _HashAlgorithmNames_Meta_.Sha256 = property(get_Sha256.__wrapped__, None)
+    _HashAlgorithmNames_Meta_.Sha384 = property(get_Sha384.__wrapped__, None)
+    _HashAlgorithmNames_Meta_.Sha512 = property(get_Sha512.__wrapped__, None)
 class HashAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Core.IHashAlgorithmProvider
@@ -969,7 +975,9 @@ class ISymmetricKeyAlgorithmProviderStatics(ComPtr):
     _iid_ = Guid('{8d3b2326-1f37-491f-b60e-f5431b26b483}')
     @winrt_commethod(6)
     def OpenAlgorithm(self, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider: ...
-class KeyDerivationAlgorithmNames(ComPtr):
+class _KeyDerivationAlgorithmNames_Meta_(ComPtr.__class__):
+    pass
+class KeyDerivationAlgorithmNames(ComPtr, metaclass=_KeyDerivationAlgorithmNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames'
     @winrt_classmethod
@@ -1012,26 +1020,26 @@ class KeyDerivationAlgorithmNames(ComPtr):
     def get_Sp80056aConcatSha384(cls: Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Sp80056aConcatSha512(cls: Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmNamesStatics) -> WinRT_String: ...
-    CapiKdfMd5 = property(get_CapiKdfMd5, None)
-    CapiKdfSha1 = property(get_CapiKdfSha1, None)
-    CapiKdfSha256 = property(get_CapiKdfSha256, None)
-    CapiKdfSha384 = property(get_CapiKdfSha384, None)
-    CapiKdfSha512 = property(get_CapiKdfSha512, None)
-    Pbkdf2Md5 = property(get_Pbkdf2Md5, None)
-    Pbkdf2Sha1 = property(get_Pbkdf2Sha1, None)
-    Pbkdf2Sha256 = property(get_Pbkdf2Sha256, None)
-    Pbkdf2Sha384 = property(get_Pbkdf2Sha384, None)
-    Pbkdf2Sha512 = property(get_Pbkdf2Sha512, None)
-    Sp800108CtrHmacMd5 = property(get_Sp800108CtrHmacMd5, None)
-    Sp800108CtrHmacSha1 = property(get_Sp800108CtrHmacSha1, None)
-    Sp800108CtrHmacSha256 = property(get_Sp800108CtrHmacSha256, None)
-    Sp800108CtrHmacSha384 = property(get_Sp800108CtrHmacSha384, None)
-    Sp800108CtrHmacSha512 = property(get_Sp800108CtrHmacSha512, None)
-    Sp80056aConcatMd5 = property(get_Sp80056aConcatMd5, None)
-    Sp80056aConcatSha1 = property(get_Sp80056aConcatSha1, None)
-    Sp80056aConcatSha256 = property(get_Sp80056aConcatSha256, None)
-    Sp80056aConcatSha384 = property(get_Sp80056aConcatSha384, None)
-    Sp80056aConcatSha512 = property(get_Sp80056aConcatSha512, None)
+    _KeyDerivationAlgorithmNames_Meta_.CapiKdfMd5 = property(get_CapiKdfMd5.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.CapiKdfSha1 = property(get_CapiKdfSha1.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.CapiKdfSha256 = property(get_CapiKdfSha256.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.CapiKdfSha384 = property(get_CapiKdfSha384.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.CapiKdfSha512 = property(get_CapiKdfSha512.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Pbkdf2Md5 = property(get_Pbkdf2Md5.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Pbkdf2Sha1 = property(get_Pbkdf2Sha1.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Pbkdf2Sha256 = property(get_Pbkdf2Sha256.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Pbkdf2Sha384 = property(get_Pbkdf2Sha384.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Pbkdf2Sha512 = property(get_Pbkdf2Sha512.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp800108CtrHmacMd5 = property(get_Sp800108CtrHmacMd5.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp800108CtrHmacSha1 = property(get_Sp800108CtrHmacSha1.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp800108CtrHmacSha256 = property(get_Sp800108CtrHmacSha256.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp800108CtrHmacSha384 = property(get_Sp800108CtrHmacSha384.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp800108CtrHmacSha512 = property(get_Sp800108CtrHmacSha512.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp80056aConcatMd5 = property(get_Sp80056aConcatMd5.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp80056aConcatSha1 = property(get_Sp80056aConcatSha1.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp80056aConcatSha256 = property(get_Sp80056aConcatSha256.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp80056aConcatSha384 = property(get_Sp80056aConcatSha384.__wrapped__, None)
+    _KeyDerivationAlgorithmNames_Meta_.Sp80056aConcatSha512 = property(get_Sp80056aConcatSha512.__wrapped__, None)
 class KeyDerivationAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmProvider
@@ -1068,7 +1076,9 @@ class KeyDerivationParameters(ComPtr):
     KdfGenericBinary = property(get_KdfGenericBinary, put_KdfGenericBinary)
     IterationCount = property(get_IterationCount, None)
     Capi1KdfTargetAlgorithm = property(get_Capi1KdfTargetAlgorithm, put_Capi1KdfTargetAlgorithm)
-class MacAlgorithmNames(ComPtr):
+class _MacAlgorithmNames_Meta_(ComPtr.__class__):
+    pass
+class MacAlgorithmNames(ComPtr, metaclass=_MacAlgorithmNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.MacAlgorithmNames'
     @winrt_classmethod
@@ -1083,12 +1093,12 @@ class MacAlgorithmNames(ComPtr):
     def get_HmacSha512(cls: Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_AesCmac(cls: Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics) -> WinRT_String: ...
-    HmacMd5 = property(get_HmacMd5, None)
-    HmacSha1 = property(get_HmacSha1, None)
-    HmacSha256 = property(get_HmacSha256, None)
-    HmacSha384 = property(get_HmacSha384, None)
-    HmacSha512 = property(get_HmacSha512, None)
-    AesCmac = property(get_AesCmac, None)
+    _MacAlgorithmNames_Meta_.HmacMd5 = property(get_HmacMd5.__wrapped__, None)
+    _MacAlgorithmNames_Meta_.HmacSha1 = property(get_HmacSha1.__wrapped__, None)
+    _MacAlgorithmNames_Meta_.HmacSha256 = property(get_HmacSha256.__wrapped__, None)
+    _MacAlgorithmNames_Meta_.HmacSha384 = property(get_HmacSha384.__wrapped__, None)
+    _MacAlgorithmNames_Meta_.HmacSha512 = property(get_HmacSha512.__wrapped__, None)
+    _MacAlgorithmNames_Meta_.AesCmac = property(get_AesCmac.__wrapped__, None)
 class MacAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Core.IMacAlgorithmProvider
@@ -1112,7 +1122,9 @@ class PersistedKeyProvider(ComPtr):
     def OpenKeyPairFromCertificateAsync(cls: Windows.Security.Cryptography.Core.IPersistedKeyProviderStatics, certificate: Windows.Security.Cryptography.Certificates.Certificate, hashAlgorithmName: WinRT_String, padding: Windows.Security.Cryptography.Core.CryptographicPadding) -> Windows.Foundation.IAsyncOperation[Windows.Security.Cryptography.Core.CryptographicKey]: ...
     @winrt_classmethod
     def OpenPublicKeyFromCertificate(cls: Windows.Security.Cryptography.Core.IPersistedKeyProviderStatics, certificate: Windows.Security.Cryptography.Certificates.Certificate, hashAlgorithmName: WinRT_String, padding: Windows.Security.Cryptography.Core.CryptographicPadding) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
-class SymmetricAlgorithmNames(ComPtr):
+class _SymmetricAlgorithmNames_Meta_(ComPtr.__class__):
+    pass
+class SymmetricAlgorithmNames(ComPtr, metaclass=_SymmetricAlgorithmNames_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.SymmetricAlgorithmNames'
     @winrt_classmethod
@@ -1153,25 +1165,25 @@ class SymmetricAlgorithmNames(ComPtr):
     def get_Rc2EcbPkcs7(cls: Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Rc4(cls: Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics) -> WinRT_String: ...
-    DesCbc = property(get_DesCbc, None)
-    DesEcb = property(get_DesEcb, None)
-    TripleDesCbc = property(get_TripleDesCbc, None)
-    TripleDesEcb = property(get_TripleDesEcb, None)
-    Rc2Cbc = property(get_Rc2Cbc, None)
-    Rc2Ecb = property(get_Rc2Ecb, None)
-    AesCbc = property(get_AesCbc, None)
-    AesEcb = property(get_AesEcb, None)
-    AesGcm = property(get_AesGcm, None)
-    AesCcm = property(get_AesCcm, None)
-    AesCbcPkcs7 = property(get_AesCbcPkcs7, None)
-    AesEcbPkcs7 = property(get_AesEcbPkcs7, None)
-    DesCbcPkcs7 = property(get_DesCbcPkcs7, None)
-    DesEcbPkcs7 = property(get_DesEcbPkcs7, None)
-    TripleDesCbcPkcs7 = property(get_TripleDesCbcPkcs7, None)
-    TripleDesEcbPkcs7 = property(get_TripleDesEcbPkcs7, None)
-    Rc2CbcPkcs7 = property(get_Rc2CbcPkcs7, None)
-    Rc2EcbPkcs7 = property(get_Rc2EcbPkcs7, None)
-    Rc4 = property(get_Rc4, None)
+    _SymmetricAlgorithmNames_Meta_.DesCbc = property(get_DesCbc.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.DesEcb = property(get_DesEcb.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.TripleDesCbc = property(get_TripleDesCbc.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.TripleDesEcb = property(get_TripleDesEcb.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.Rc2Cbc = property(get_Rc2Cbc.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.Rc2Ecb = property(get_Rc2Ecb.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesCbc = property(get_AesCbc.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesEcb = property(get_AesEcb.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesGcm = property(get_AesGcm.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesCcm = property(get_AesCcm.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesCbcPkcs7 = property(get_AesCbcPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesEcbPkcs7 = property(get_AesEcbPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.DesCbcPkcs7 = property(get_DesCbcPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.DesEcbPkcs7 = property(get_DesEcbPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.TripleDesCbcPkcs7 = property(get_TripleDesCbcPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.TripleDesEcbPkcs7 = property(get_TripleDesEcbPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.Rc2CbcPkcs7 = property(get_Rc2CbcPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.Rc2EcbPkcs7 = property(get_Rc2EcbPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.Rc4 = property(get_Rc4.__wrapped__, None)
 class SymmetricKeyAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Security.Cryptography.Core.ISymmetricKeyAlgorithmProvider

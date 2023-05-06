@@ -44,7 +44,9 @@ ClosedCaptionOpacity_OneHundredPercent: ClosedCaptionOpacity = 1
 ClosedCaptionOpacity_SeventyFivePercent: ClosedCaptionOpacity = 2
 ClosedCaptionOpacity_TwentyFivePercent: ClosedCaptionOpacity = 3
 ClosedCaptionOpacity_ZeroPercent: ClosedCaptionOpacity = 4
-class ClosedCaptionProperties(ComPtr):
+class _ClosedCaptionProperties_Meta_(ComPtr.__class__):
+    pass
+class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionProperties'
     @winrt_classmethod
@@ -71,18 +73,18 @@ class ClosedCaptionProperties(ComPtr):
     def get_ComputedRegionColor(cls: Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics) -> Windows.UI.Color: ...
     @winrt_classmethod
     def get_RegionOpacity(cls: Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics) -> Windows.Media.ClosedCaptioning.ClosedCaptionOpacity: ...
-    FontColor = property(get_FontColor, None)
-    ComputedFontColor = property(get_ComputedFontColor, None)
-    FontOpacity = property(get_FontOpacity, None)
-    FontSize = property(get_FontSize, None)
-    FontStyle = property(get_FontStyle, None)
-    FontEffect = property(get_FontEffect, None)
-    BackgroundColor = property(get_BackgroundColor, None)
-    ComputedBackgroundColor = property(get_ComputedBackgroundColor, None)
-    BackgroundOpacity = property(get_BackgroundOpacity, None)
-    RegionColor = property(get_RegionColor, None)
-    ComputedRegionColor = property(get_ComputedRegionColor, None)
-    RegionOpacity = property(get_RegionOpacity, None)
+    _ClosedCaptionProperties_Meta_.FontColor = property(get_FontColor.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.ComputedFontColor = property(get_ComputedFontColor.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.FontOpacity = property(get_FontOpacity.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.FontSize = property(get_FontSize.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.FontStyle = property(get_FontStyle.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.FontEffect = property(get_FontEffect.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.BackgroundColor = property(get_BackgroundColor.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.ComputedBackgroundColor = property(get_ComputedBackgroundColor.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.BackgroundOpacity = property(get_BackgroundOpacity.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.RegionColor = property(get_RegionColor.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.ComputedRegionColor = property(get_ComputedRegionColor.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.RegionOpacity = property(get_RegionOpacity.__wrapped__, None)
 ClosedCaptionSize = Int32
 ClosedCaptionSize_Default: ClosedCaptionSize = 0
 ClosedCaptionSize_FiftyPercent: ClosedCaptionSize = 1

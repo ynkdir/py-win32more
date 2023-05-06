@@ -170,7 +170,9 @@ class MdmSession(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Id = property(get_Id, None)
     State = property(get_State, None)
-class MdmSessionManager(ComPtr):
+class _MdmSessionManager_Meta_(ComPtr.__class__):
+    pass
+class MdmSessionManager(ComPtr, metaclass=_MdmSessionManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.MdmSessionManager'
     @winrt_classmethod
@@ -181,7 +183,7 @@ class MdmSessionManager(ComPtr):
     def DeleteSessionById(cls: Windows.Management.IMdmSessionManagerStatics, sessionId: WinRT_String) -> Void: ...
     @winrt_classmethod
     def GetSessionById(cls: Windows.Management.IMdmSessionManagerStatics, sessionId: WinRT_String) -> Windows.Management.MdmSession: ...
-    SessionIds = property(get_SessionIds, None)
+    _MdmSessionManager_Meta_.SessionIds = property(get_SessionIds.__wrapped__, None)
 MdmSessionState = Int32
 MdmSessionState_NotStarted: MdmSessionState = 0
 MdmSessionState_Starting: MdmSessionState = 1

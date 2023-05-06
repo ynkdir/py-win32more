@@ -267,7 +267,9 @@ class XamlBinaryWriterErrorInformation(EasyCastStructure):
     InputStreamIndex: UInt32
     LineNumber: UInt32
     LinePosition: UInt32
-class XamlBindingHelper(ComPtr):
+class _XamlBindingHelper_Meta_(ComPtr.__class__):
+    pass
+class XamlBindingHelper(ComPtr, metaclass=_XamlBindingHelper_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Markup.IXamlBindingHelper
     _classid_ = 'Windows.UI.Xaml.Markup.XamlBindingHelper'
@@ -317,7 +319,7 @@ class XamlBindingHelper(ComPtr):
     def SetPropertyFromUri(cls: Windows.UI.Xaml.Markup.IXamlBindingHelperStatics, dependencyObject: Windows.Win32.System.WinRT.IInspectable_head, propertyToSet: Windows.UI.Xaml.DependencyProperty, value: Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
     def SetPropertyFromObject(cls: Windows.UI.Xaml.Markup.IXamlBindingHelperStatics, dependencyObject: Windows.Win32.System.WinRT.IInspectable_head, propertyToSet: Windows.UI.Xaml.DependencyProperty, value: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
-    DataTemplateComponentProperty = property(get_DataTemplateComponentProperty, None)
+    _XamlBindingHelper_Meta_.DataTemplateComponentProperty = property(get_DataTemplateComponentProperty.__wrapped__, None)
 class XamlMarkupHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Markup.IXamlMarkupHelper

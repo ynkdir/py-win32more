@@ -20,12 +20,14 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ApplicationProfile(ComPtr):
+class _ApplicationProfile_Meta_(ComPtr.__class__):
+    pass
+class ApplicationProfile(ComPtr, metaclass=_ApplicationProfile_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.ApplicationModel.ApplicationProfile'
     @winrt_classmethod
     def get_Modes(cls: Windows.Phone.ApplicationModel.IApplicationProfileStatics) -> Windows.Phone.ApplicationModel.ApplicationProfileModes: ...
-    Modes = property(get_Modes, None)
+    _ApplicationProfile_Meta_.Modes = property(get_Modes.__wrapped__, None)
 ApplicationProfileModes = UInt32
 ApplicationProfileModes_Default: ApplicationProfileModes = 0
 ApplicationProfileModes_Alternate: ApplicationProfileModes = 1

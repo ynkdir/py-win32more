@@ -183,7 +183,9 @@ class SpeechSynthesisStream(ComPtr):
     CanWrite = property(get_CanWrite, None)
     ContentType = property(get_ContentType, None)
     TimedMetadataTracks = property(get_TimedMetadataTracks, None)
-class SpeechSynthesizer(ComPtr):
+class _SpeechSynthesizer_Meta_(ComPtr.__class__):
+    pass
+class SpeechSynthesizer(ComPtr, metaclass=_SpeechSynthesizer_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.SpeechSynthesis.ISpeechSynthesizer
     _classid_ = 'Windows.Media.SpeechSynthesis.SpeechSynthesizer'
@@ -209,8 +211,8 @@ class SpeechSynthesizer(ComPtr):
     def get_DefaultVoice(cls: Windows.Media.SpeechSynthesis.IInstalledVoicesStatic) -> Windows.Media.SpeechSynthesis.VoiceInformation: ...
     Voice = property(get_Voice, put_Voice)
     Options = property(get_Options, None)
-    AllVoices = property(get_AllVoices, None)
-    DefaultVoice = property(get_DefaultVoice, None)
+    _SpeechSynthesizer_Meta_.AllVoices = property(get_AllVoices.__wrapped__, None)
+    _SpeechSynthesizer_Meta_.DefaultVoice = property(get_DefaultVoice.__wrapped__, None)
 class SpeechSynthesizerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions

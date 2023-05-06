@@ -22,7 +22,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class GameService(ComPtr):
+class _GameService_Meta_(ComPtr.__class__):
+    pass
+class GameService(ComPtr, metaclass=_GameService_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.System.UserProfile.GameServices.Core.GameService'
     @winrt_classmethod
@@ -45,7 +47,7 @@ class GameService(ComPtr):
     def GrantAvatarAward(cls: Windows.Phone.System.UserProfile.GameServices.Core.IGameService, avatarAwardId: UInt32) -> Void: ...
     @winrt_classmethod
     def PostResult(cls: Windows.Phone.System.UserProfile.GameServices.Core.IGameService, gameVariant: UInt32, scoreKind: Windows.Phone.System.UserProfile.GameServices.Core.GameServiceScoreKind, scoreValue: Int64, gameOutcome: Windows.Phone.System.UserProfile.GameServices.Core.GameServiceGameOutcome, buffer: Windows.Storage.Streams.IBuffer) -> Void: ...
-    ServiceUri = property(get_ServiceUri, None)
+    _GameService_Meta_.ServiceUri = property(get_ServiceUri.__wrapped__, None)
 GameServiceGameOutcome = Int32
 GameServiceGameOutcome_None: GameServiceGameOutcome = 0
 GameServiceGameOutcome_Win: GameServiceGameOutcome = 1

@@ -1299,8 +1299,16 @@ class PyGenerator:
         else:
             name = td.name
             base = "ComPtr"
+        if self.com_has_classproperty(td):
+            metaclass = f"_{name}_Meta_"
+            metaclass_args = f", metaclass={metaclass}"
+            writer.write(f"class {metaclass}(ComPtr.__class__):\n")
+            writer.write("    pass\n")
+        else:
+            metaclass = ""
+            metaclass_args = ""
         extends = self.com_base_type(td)
-        writer.write(f"class {name}({base}):\n")
+        writer.write(f"class {name}({base}{metaclass_args}):\n")
         writer.write(f"    extends: {extends}\n")
         for ii in td.interface_implementations:
             if ii.custom_attributes.has_default():
@@ -1324,19 +1332,44 @@ class PyGenerator:
                     writer.write(self.winrt_factorymethod(factory, md))
             else:
                 writer.write(self.winrt_activatemethod(td))
-        # FIXME: How to implement class property?
-        properties: dict[str, dict[str, str | None]] = defaultdict(lambda: {"get": None, "put": None})
+        properties: dict[str, dict[str, str | bool | None]] = defaultdict(lambda: {"get": None, "put": None})
         for md in td.method_definitions:
             if md.name == ".ctor":
                 continue
             if "SpecialName" in md.attributes:
                 if md.name.startswith("get_"):
-                    properties[md.name.removeprefix("get_")]["get"] = md.name
+                    property_name = md.name.removeprefix("get_")
+                    properties[property_name]["get"] = md.name
+                    properties[property_name]["is_static"] = "Static" in md.attributes
                 elif md.name.startswith("put_"):
-                    properties[md.name.removeprefix("put_")]["put"] = md.name
+                    property_name = md.name.removeprefix("put_")
+                    properties[property_name]["put"] = md.name
+                    properties[property_name]["is_static"] = "Static" in md.attributes
+                elif md.name.startswith("add_"):
+                    # add event
+                    pass
+                elif md.name.startswith("remove_"):
+                    # remove event
+                    pass
+                elif md.name == "Invoke":
+                    # callback handler
+                    pass
+                else:
+                    raise NotImplementedError()
             writer.write(self.winrt_method(td, md))
-        for name, funcs in properties.items():
-            writer.write(f"    {name} = property({funcs['get']}, {funcs['put']})\n")
+        for name, attrs in properties.items():
+            if attrs["is_static"]:
+                if attrs["get"] is None:
+                    getter = "None"
+                else:
+                    getter = f"{attrs['get']}.__wrapped__"
+                if attrs["put"] is None:
+                    setter = "None"
+                else:
+                    setter = f"{attrs['put']}.__wrapped__"
+                writer.write(f"    {metaclass}.{name} = property({getter}, {setter})\n")
+            else:
+                writer.write(f"    {name} = property({attrs['get']}, {attrs['put']})\n")
         return writer.getvalue()
 
     def com_base_type(self, td: TypeDefinition) -> str:
@@ -1387,6 +1420,17 @@ class PyGenerator:
                 if static_method_name == method_name:
                     return ca.fixed_arguments[0].value
         raise KeyError()
+
+    def com_has_classproperty(self, td: TypeDefinition) -> bool:
+        for md in td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            is_static = "Static" in md.attributes
+            is_special = "SpecialName" in md.attributes
+            is_property = md.name.startswith(("get_", "put_"))
+            if is_static and is_special and is_property:
+                return True
+        return False
 
     def winrt_method(self, td: TypeDefinition, md: MethodDefinition) -> str:
         writer = StringIO()

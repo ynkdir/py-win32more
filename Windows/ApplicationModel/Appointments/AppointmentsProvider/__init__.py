@@ -40,7 +40,9 @@ class AddAppointmentOperation(ComPtr):
     def DismissUI(self: Windows.ApplicationModel.Appointments.AppointmentsProvider.IAddAppointmentOperation) -> Void: ...
     AppointmentInformation = property(get_AppointmentInformation, None)
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
-class AppointmentsProviderLaunchActionVerbs(ComPtr):
+class _AppointmentsProviderLaunchActionVerbs_Meta_(ComPtr.__class__):
+    pass
+class AppointmentsProviderLaunchActionVerbs(ComPtr, metaclass=_AppointmentsProviderLaunchActionVerbs_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs'
     @winrt_classmethod
@@ -53,11 +55,11 @@ class AppointmentsProviderLaunchActionVerbs(ComPtr):
     def get_RemoveAppointment(cls: Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_ShowTimeFrame(cls: Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics) -> WinRT_String: ...
-    ShowAppointmentDetails = property(get_ShowAppointmentDetails, None)
-    AddAppointment = property(get_AddAppointment, None)
-    ReplaceAppointment = property(get_ReplaceAppointment, None)
-    RemoveAppointment = property(get_RemoveAppointment, None)
-    ShowTimeFrame = property(get_ShowTimeFrame, None)
+    _AppointmentsProviderLaunchActionVerbs_Meta_.ShowAppointmentDetails = property(get_ShowAppointmentDetails.__wrapped__, None)
+    _AppointmentsProviderLaunchActionVerbs_Meta_.AddAppointment = property(get_AddAppointment.__wrapped__, None)
+    _AppointmentsProviderLaunchActionVerbs_Meta_.ReplaceAppointment = property(get_ReplaceAppointment.__wrapped__, None)
+    _AppointmentsProviderLaunchActionVerbs_Meta_.RemoveAppointment = property(get_RemoveAppointment.__wrapped__, None)
+    _AppointmentsProviderLaunchActionVerbs_Meta_.ShowTimeFrame = property(get_ShowTimeFrame.__wrapped__, None)
 class IAddAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.IAddAppointmentOperation'

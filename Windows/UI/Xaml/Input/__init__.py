@@ -54,7 +54,9 @@ class AccessKeyInvokedEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Handled(self: Windows.UI.Xaml.Input.IAccessKeyInvokedEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
-class AccessKeyManager(ComPtr):
+class _AccessKeyManager_Meta_(ComPtr.__class__):
+    pass
+class AccessKeyManager(ComPtr, metaclass=_AccessKeyManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Input.IAccessKeyManager
     _classid_ = 'Windows.UI.Xaml.Input.AccessKeyManager'
@@ -70,8 +72,8 @@ class AccessKeyManager(ComPtr):
     def remove_IsDisplayModeEnabledChanged(cls: Windows.UI.Xaml.Input.IAccessKeyManagerStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def ExitDisplayMode(cls: Windows.UI.Xaml.Input.IAccessKeyManagerStatics) -> Void: ...
-    AreKeyTipsEnabled = property(get_AreKeyTipsEnabled, put_AreKeyTipsEnabled)
-    IsDisplayModeEnabled = property(get_IsDisplayModeEnabled, None)
+    _AccessKeyManager_Meta_.AreKeyTipsEnabled = property(get_AreKeyTipsEnabled.__wrapped__, put_AreKeyTipsEnabled.__wrapped__)
+    _AccessKeyManager_Meta_.IsDisplayModeEnabled = property(get_IsDisplayModeEnabled.__wrapped__, None)
 class CanExecuteRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Input.ICanExecuteRequestedEventArgs
@@ -1345,7 +1347,9 @@ KeyTipPlacementMode_Left: KeyTipPlacementMode = 3
 KeyTipPlacementMode_Right: KeyTipPlacementMode = 4
 KeyTipPlacementMode_Center: KeyTipPlacementMode = 5
 KeyTipPlacementMode_Hidden: KeyTipPlacementMode = 6
-class KeyboardAccelerator(ComPtr):
+class _KeyboardAccelerator_Meta_(ComPtr.__class__):
+    pass
+class KeyboardAccelerator(ComPtr, metaclass=_KeyboardAccelerator_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Input.IKeyboardAccelerator
     _classid_ = 'Windows.UI.Xaml.Input.KeyboardAccelerator'
@@ -1383,10 +1387,10 @@ class KeyboardAccelerator(ComPtr):
     Modifiers = property(get_Modifiers, put_Modifiers)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     ScopeOwner = property(get_ScopeOwner, put_ScopeOwner)
-    KeyProperty = property(get_KeyProperty, None)
-    ModifiersProperty = property(get_ModifiersProperty, None)
-    IsEnabledProperty = property(get_IsEnabledProperty, None)
-    ScopeOwnerProperty = property(get_ScopeOwnerProperty, None)
+    _KeyboardAccelerator_Meta_.KeyProperty = property(get_KeyProperty.__wrapped__, None)
+    _KeyboardAccelerator_Meta_.ModifiersProperty = property(get_ModifiersProperty.__wrapped__, None)
+    _KeyboardAccelerator_Meta_.IsEnabledProperty = property(get_IsEnabledProperty.__wrapped__, None)
+    _KeyboardAccelerator_Meta_.ScopeOwnerProperty = property(get_ScopeOwnerProperty.__wrapped__, None)
 class KeyboardAcceleratorInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Input.IKeyboardAcceleratorInvokedEventArgs
@@ -1759,7 +1763,9 @@ class RightTappedRoutedEventArgs(ComPtr):
     def GetPosition(self: Windows.UI.Xaml.Input.IRightTappedRoutedEventArgs, relativeTo: Windows.UI.Xaml.UIElement) -> Windows.Foundation.Point: ...
     PointerDeviceType = property(get_PointerDeviceType, None)
     Handled = property(get_Handled, put_Handled)
-class StandardUICommand(ComPtr):
+class _StandardUICommand_Meta_(ComPtr.__class__):
+    pass
+class StandardUICommand(ComPtr, metaclass=_StandardUICommand_Meta_):
     extends: Windows.UI.Xaml.Input.XamlUICommand
     default_interface: Windows.UI.Xaml.Input.IStandardUICommand
     _classid_ = 'Windows.UI.Xaml.Input.StandardUICommand'
@@ -1774,7 +1780,7 @@ class StandardUICommand(ComPtr):
     @winrt_classmethod
     def get_KindProperty(cls: Windows.UI.Xaml.Input.IStandardUICommandStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Kind = property(get_Kind, put_Kind)
-    KindProperty = property(get_KindProperty, None)
+    _StandardUICommand_Meta_.KindProperty = property(get_KindProperty.__wrapped__, None)
 StandardUICommandKind = Int32
 StandardUICommandKind_None: StandardUICommandKind = 0
 StandardUICommandKind_Cut: StandardUICommandKind = 1
@@ -1830,7 +1836,9 @@ XYFocusNavigationStrategyOverride_Auto: XYFocusNavigationStrategyOverride = 1
 XYFocusNavigationStrategyOverride_Projection: XYFocusNavigationStrategyOverride = 2
 XYFocusNavigationStrategyOverride_NavigationDirectionDistance: XYFocusNavigationStrategyOverride = 3
 XYFocusNavigationStrategyOverride_RectilinearDistance: XYFocusNavigationStrategyOverride = 4
-class XamlUICommand(ComPtr):
+class _XamlUICommand_Meta_(ComPtr.__class__):
+    pass
+class XamlUICommand(ComPtr, metaclass=_XamlUICommand_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Input.IXamlUICommand
     _classid_ = 'Windows.UI.Xaml.Input.XamlUICommand'
@@ -1894,12 +1902,12 @@ class XamlUICommand(ComPtr):
     AccessKey = property(get_AccessKey, put_AccessKey)
     Description = property(get_Description, put_Description)
     Command = property(get_Command, put_Command)
-    LabelProperty = property(get_LabelProperty, None)
-    IconSourceProperty = property(get_IconSourceProperty, None)
-    KeyboardAcceleratorsProperty = property(get_KeyboardAcceleratorsProperty, None)
-    AccessKeyProperty = property(get_AccessKeyProperty, None)
-    DescriptionProperty = property(get_DescriptionProperty, None)
-    CommandProperty = property(get_CommandProperty, None)
+    _XamlUICommand_Meta_.LabelProperty = property(get_LabelProperty.__wrapped__, None)
+    _XamlUICommand_Meta_.IconSourceProperty = property(get_IconSourceProperty.__wrapped__, None)
+    _XamlUICommand_Meta_.KeyboardAcceleratorsProperty = property(get_KeyboardAcceleratorsProperty.__wrapped__, None)
+    _XamlUICommand_Meta_.AccessKeyProperty = property(get_AccessKeyProperty.__wrapped__, None)
+    _XamlUICommand_Meta_.DescriptionProperty = property(get_DescriptionProperty.__wrapped__, None)
+    _XamlUICommand_Meta_.CommandProperty = property(get_CommandProperty.__wrapped__, None)
 make_head(_module, 'AccessKeyDisplayDismissedEventArgs')
 make_head(_module, 'AccessKeyDisplayRequestedEventArgs')
 make_head(_module, 'AccessKeyInvokedEventArgs')

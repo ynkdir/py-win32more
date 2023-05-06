@@ -50,7 +50,9 @@ class IUserNotificationListenerStatics(ComPtr):
     @winrt_commethod(6)
     def get_Current(self) -> Windows.UI.Notifications.Management.UserNotificationListener: ...
     Current = property(get_Current, None)
-class UserNotificationListener(ComPtr):
+class _UserNotificationListener_Meta_(ComPtr.__class__):
+    pass
+class UserNotificationListener(ComPtr, metaclass=_UserNotificationListener_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Notifications.Management.IUserNotificationListener
     _classid_ = 'Windows.UI.Notifications.Management.UserNotificationListener'
@@ -72,7 +74,7 @@ class UserNotificationListener(ComPtr):
     def RemoveNotification(self: Windows.UI.Notifications.Management.IUserNotificationListener, notificationId: UInt32) -> Void: ...
     @winrt_classmethod
     def get_Current(cls: Windows.UI.Notifications.Management.IUserNotificationListenerStatics) -> Windows.UI.Notifications.Management.UserNotificationListener: ...
-    Current = property(get_Current, None)
+    _UserNotificationListener_Meta_.Current = property(get_Current.__wrapped__, None)
 UserNotificationListenerAccessStatus = Int32
 UserNotificationListenerAccessStatus_Unspecified: UserNotificationListenerAccessStatus = 0
 UserNotificationListenerAccessStatus_Allowed: UserNotificationListenerAccessStatus = 1

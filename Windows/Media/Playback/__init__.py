@@ -39,7 +39,9 @@ AutoLoadedDisplayPropertyKind_None: AutoLoadedDisplayPropertyKind = 0
 AutoLoadedDisplayPropertyKind_MusicOrVideo: AutoLoadedDisplayPropertyKind = 1
 AutoLoadedDisplayPropertyKind_Music: AutoLoadedDisplayPropertyKind = 2
 AutoLoadedDisplayPropertyKind_Video: AutoLoadedDisplayPropertyKind = 3
-class BackgroundMediaPlayer(ComPtr):
+class _BackgroundMediaPlayer_Meta_(ComPtr.__class__):
+    pass
+class BackgroundMediaPlayer(ComPtr, metaclass=_BackgroundMediaPlayer_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Playback.BackgroundMediaPlayer'
     @winrt_classmethod
@@ -60,7 +62,7 @@ class BackgroundMediaPlayer(ComPtr):
     def IsMediaPlaying(cls: Windows.Media.Playback.IBackgroundMediaPlayerStatics) -> Boolean: ...
     @winrt_classmethod
     def Shutdown(cls: Windows.Media.Playback.IBackgroundMediaPlayerStatics) -> Void: ...
-    Current = property(get_Current, None)
+    _BackgroundMediaPlayer_Meta_.Current = property(get_Current.__wrapped__, None)
 class CurrentMediaPlaybackItemChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.Playback.ICurrentMediaPlaybackItemChangedEventArgs

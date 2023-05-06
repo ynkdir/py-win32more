@@ -23,7 +23,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CurrentApp(ComPtr):
+class _CurrentApp_Meta_(ComPtr.__class__):
+    pass
+class CurrentApp(ComPtr, metaclass=_CurrentApp_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.CurrentApp'
     @winrt_classmethod
@@ -62,10 +64,12 @@ class CurrentApp(ComPtr):
     def GetAppReceiptAsync(cls: Windows.ApplicationModel.Store.ICurrentApp) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
     def GetProductReceiptAsync(cls: Windows.ApplicationModel.Store.ICurrentApp, productId: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
-    LicenseInformation = property(get_LicenseInformation, None)
-    LinkUri = property(get_LinkUri, None)
-    AppId = property(get_AppId, None)
-class CurrentAppSimulator(ComPtr):
+    _CurrentApp_Meta_.LicenseInformation = property(get_LicenseInformation.__wrapped__, None)
+    _CurrentApp_Meta_.LinkUri = property(get_LinkUri.__wrapped__, None)
+    _CurrentApp_Meta_.AppId = property(get_AppId.__wrapped__, None)
+class _CurrentAppSimulator_Meta_(ComPtr.__class__):
+    pass
+class CurrentAppSimulator(ComPtr, metaclass=_CurrentAppSimulator_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.CurrentAppSimulator'
     @winrt_classmethod
@@ -100,9 +104,9 @@ class CurrentAppSimulator(ComPtr):
     def GetProductReceiptAsync(cls: Windows.ApplicationModel.Store.ICurrentAppSimulator, productId: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
     def ReloadSimulatorAsync(cls: Windows.ApplicationModel.Store.ICurrentAppSimulator, simulatorSettingsFile: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncAction: ...
-    LicenseInformation = property(get_LicenseInformation, None)
-    LinkUri = property(get_LinkUri, None)
-    AppId = property(get_AppId, None)
+    _CurrentAppSimulator_Meta_.LicenseInformation = property(get_LicenseInformation.__wrapped__, None)
+    _CurrentAppSimulator_Meta_.LinkUri = property(get_LinkUri.__wrapped__, None)
+    _CurrentAppSimulator_Meta_.AppId = property(get_AppId.__wrapped__, None)
 FulfillmentResult = Int32
 FulfillmentResult_Succeeded: FulfillmentResult = 0
 FulfillmentResult_NothingToFulfill: FulfillmentResult = 1

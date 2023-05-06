@@ -488,7 +488,9 @@ AppointmentParticipantRole = Int32
 AppointmentParticipantRole_RequiredAttendee: AppointmentParticipantRole = 0
 AppointmentParticipantRole_OptionalAttendee: AppointmentParticipantRole = 1
 AppointmentParticipantRole_Resource: AppointmentParticipantRole = 2
-class AppointmentProperties(ComPtr):
+class _AppointmentProperties_Meta_(ComPtr.__class__):
+    pass
+class AppointmentProperties(ComPtr, metaclass=_AppointmentProperties_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentProperties'
     @winrt_classmethod
@@ -543,32 +545,32 @@ class AppointmentProperties(ComPtr):
     def get_Invitees(cls: Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_DefaultProperties(cls: Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    ChangeNumber = property(get_ChangeNumber, None)
-    RemoteChangeNumber = property(get_RemoteChangeNumber, None)
-    DetailsKind = property(get_DetailsKind, None)
-    Subject = property(get_Subject, None)
-    Location = property(get_Location, None)
-    StartTime = property(get_StartTime, None)
-    Duration = property(get_Duration, None)
-    Reminder = property(get_Reminder, None)
-    BusyStatus = property(get_BusyStatus, None)
-    Sensitivity = property(get_Sensitivity, None)
-    OriginalStartTime = property(get_OriginalStartTime, None)
-    IsResponseRequested = property(get_IsResponseRequested, None)
-    AllowNewTimeProposal = property(get_AllowNewTimeProposal, None)
-    AllDay = property(get_AllDay, None)
-    Details = property(get_Details, None)
-    OnlineMeetingLink = property(get_OnlineMeetingLink, None)
-    ReplyTime = property(get_ReplyTime, None)
-    Organizer = property(get_Organizer, None)
-    UserResponse = property(get_UserResponse, None)
-    HasInvitees = property(get_HasInvitees, None)
-    IsCanceledMeeting = property(get_IsCanceledMeeting, None)
-    IsOrganizedByUser = property(get_IsOrganizedByUser, None)
-    Recurrence = property(get_Recurrence, None)
-    Uri = property(get_Uri, None)
-    Invitees = property(get_Invitees, None)
-    DefaultProperties = property(get_DefaultProperties, None)
+    _AppointmentProperties_Meta_.ChangeNumber = property(get_ChangeNumber.__wrapped__, None)
+    _AppointmentProperties_Meta_.RemoteChangeNumber = property(get_RemoteChangeNumber.__wrapped__, None)
+    _AppointmentProperties_Meta_.DetailsKind = property(get_DetailsKind.__wrapped__, None)
+    _AppointmentProperties_Meta_.Subject = property(get_Subject.__wrapped__, None)
+    _AppointmentProperties_Meta_.Location = property(get_Location.__wrapped__, None)
+    _AppointmentProperties_Meta_.StartTime = property(get_StartTime.__wrapped__, None)
+    _AppointmentProperties_Meta_.Duration = property(get_Duration.__wrapped__, None)
+    _AppointmentProperties_Meta_.Reminder = property(get_Reminder.__wrapped__, None)
+    _AppointmentProperties_Meta_.BusyStatus = property(get_BusyStatus.__wrapped__, None)
+    _AppointmentProperties_Meta_.Sensitivity = property(get_Sensitivity.__wrapped__, None)
+    _AppointmentProperties_Meta_.OriginalStartTime = property(get_OriginalStartTime.__wrapped__, None)
+    _AppointmentProperties_Meta_.IsResponseRequested = property(get_IsResponseRequested.__wrapped__, None)
+    _AppointmentProperties_Meta_.AllowNewTimeProposal = property(get_AllowNewTimeProposal.__wrapped__, None)
+    _AppointmentProperties_Meta_.AllDay = property(get_AllDay.__wrapped__, None)
+    _AppointmentProperties_Meta_.Details = property(get_Details.__wrapped__, None)
+    _AppointmentProperties_Meta_.OnlineMeetingLink = property(get_OnlineMeetingLink.__wrapped__, None)
+    _AppointmentProperties_Meta_.ReplyTime = property(get_ReplyTime.__wrapped__, None)
+    _AppointmentProperties_Meta_.Organizer = property(get_Organizer.__wrapped__, None)
+    _AppointmentProperties_Meta_.UserResponse = property(get_UserResponse.__wrapped__, None)
+    _AppointmentProperties_Meta_.HasInvitees = property(get_HasInvitees.__wrapped__, None)
+    _AppointmentProperties_Meta_.IsCanceledMeeting = property(get_IsCanceledMeeting.__wrapped__, None)
+    _AppointmentProperties_Meta_.IsOrganizedByUser = property(get_IsOrganizedByUser.__wrapped__, None)
+    _AppointmentProperties_Meta_.Recurrence = property(get_Recurrence.__wrapped__, None)
+    _AppointmentProperties_Meta_.Uri = property(get_Uri.__wrapped__, None)
+    _AppointmentProperties_Meta_.Invitees = property(get_Invitees.__wrapped__, None)
+    _AppointmentProperties_Meta_.DefaultProperties = property(get_DefaultProperties.__wrapped__, None)
 class AppointmentRecurrence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Appointments.IAppointmentRecurrence

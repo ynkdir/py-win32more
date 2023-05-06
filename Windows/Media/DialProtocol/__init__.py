@@ -148,7 +148,9 @@ class DialDisconnectButtonClickedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Device(self: Windows.Media.DialProtocol.IDialDisconnectButtonClickedEventArgs) -> Windows.Media.DialProtocol.DialDevice: ...
     Device = property(get_Device, None)
-class DialReceiverApp(ComPtr):
+class _DialReceiverApp_Meta_(ComPtr.__class__):
+    pass
+class DialReceiverApp(ComPtr, metaclass=_DialReceiverApp_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Media.DialProtocol.IDialReceiverApp
     _classid_ = 'Windows.Media.DialProtocol.DialReceiverApp'
@@ -160,7 +162,7 @@ class DialReceiverApp(ComPtr):
     def GetUniqueDeviceNameAsync(self: Windows.Media.DialProtocol.IDialReceiverApp2) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
     def get_Current(cls: Windows.Media.DialProtocol.IDialReceiverAppStatics) -> Windows.Media.DialProtocol.DialReceiverApp: ...
-    Current = property(get_Current, None)
+    _DialReceiverApp_Meta_.Current = property(get_Current.__wrapped__, None)
 class IDialApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.DialProtocol.IDialApp'

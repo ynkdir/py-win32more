@@ -20,7 +20,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CustomXamlResourceLoader(ComPtr):
+class _CustomXamlResourceLoader_Meta_(ComPtr.__class__):
+    pass
+class CustomXamlResourceLoader(ComPtr, metaclass=_CustomXamlResourceLoader_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Resources.ICustomXamlResourceLoader
     _classid_ = 'Windows.UI.Xaml.Resources.CustomXamlResourceLoader'
@@ -32,7 +34,7 @@ class CustomXamlResourceLoader(ComPtr):
     def get_Current(cls: Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderStatics) -> Windows.UI.Xaml.Resources.CustomXamlResourceLoader: ...
     @winrt_classmethod
     def put_Current(cls: Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderStatics, value: Windows.UI.Xaml.Resources.CustomXamlResourceLoader) -> Void: ...
-    Current = property(get_Current, put_Current)
+    _CustomXamlResourceLoader_Meta_.Current = property(get_Current.__wrapped__, put_Current.__wrapped__)
 class ICustomXamlResourceLoader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Resources.ICustomXamlResourceLoader'

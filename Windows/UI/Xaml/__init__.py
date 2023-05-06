@@ -43,7 +43,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AdaptiveTrigger(ComPtr):
+class _AdaptiveTrigger_Meta_(ComPtr.__class__):
+    pass
+class AdaptiveTrigger(ComPtr, metaclass=_AdaptiveTrigger_Meta_):
     extends: Windows.UI.Xaml.StateTriggerBase
     default_interface: Windows.UI.Xaml.IAdaptiveTrigger
     _classid_ = 'Windows.UI.Xaml.AdaptiveTrigger'
@@ -63,9 +65,11 @@ class AdaptiveTrigger(ComPtr):
     def get_MinWindowHeightProperty(cls: Windows.UI.Xaml.IAdaptiveTriggerStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     MinWindowWidth = property(get_MinWindowWidth, put_MinWindowWidth)
     MinWindowHeight = property(get_MinWindowHeight, put_MinWindowHeight)
-    MinWindowWidthProperty = property(get_MinWindowWidthProperty, None)
-    MinWindowHeightProperty = property(get_MinWindowHeightProperty, None)
-class Application(ComPtr):
+    _AdaptiveTrigger_Meta_.MinWindowWidthProperty = property(get_MinWindowWidthProperty.__wrapped__, None)
+    _AdaptiveTrigger_Meta_.MinWindowHeightProperty = property(get_MinWindowHeightProperty.__wrapped__, None)
+class _Application_Meta_(ComPtr.__class__):
+    pass
+class Application(ComPtr, metaclass=_Application_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IApplication
     _classid_ = 'Windows.UI.Xaml.Application'
@@ -149,7 +153,7 @@ class Application(ComPtr):
     FocusVisualKind = property(get_FocusVisualKind, put_FocusVisualKind)
     RequiresPointerMode = property(get_RequiresPointerMode, put_RequiresPointerMode)
     HighContrastAdjustment = property(get_HighContrastAdjustment, put_HighContrastAdjustment)
-    Current = property(get_Current, None)
+    _Application_Meta_.Current = property(get_Current.__wrapped__, None)
 ApplicationHighContrastAdjustment = UInt32
 ApplicationHighContrastAdjustment_None: ApplicationHighContrastAdjustment = 0
 ApplicationHighContrastAdjustment_Auto: ApplicationHighContrastAdjustment = 4294967295
@@ -482,7 +486,9 @@ class DataContextChangedEventArgs(ComPtr):
     def put_Handled(self: Windows.UI.Xaml.IDataContextChangedEventArgs, value: Boolean) -> Void: ...
     NewValue = property(get_NewValue, None)
     Handled = property(get_Handled, put_Handled)
-class DataTemplate(ComPtr):
+class _DataTemplate_Meta_(ComPtr.__class__):
+    pass
+class DataTemplate(ComPtr, metaclass=_DataTemplate_Meta_):
     extends: Windows.UI.Xaml.FrameworkTemplate
     default_interface: Windows.UI.Xaml.IDataTemplate
     _classid_ = 'Windows.UI.Xaml.DataTemplate'
@@ -500,7 +506,7 @@ class DataTemplate(ComPtr):
     def GetExtensionInstance(cls: Windows.UI.Xaml.IDataTemplateStatics2, element: Windows.UI.Xaml.FrameworkElement) -> Windows.UI.Xaml.IDataTemplateExtension: ...
     @winrt_classmethod
     def SetExtensionInstance(cls: Windows.UI.Xaml.IDataTemplateStatics2, element: Windows.UI.Xaml.FrameworkElement, value: Windows.UI.Xaml.IDataTemplateExtension) -> Void: ...
-    ExtensionInstanceProperty = property(get_ExtensionInstanceProperty, None)
+    _DataTemplate_Meta_.ExtensionInstanceProperty = property(get_ExtensionInstanceProperty.__wrapped__, None)
 class DataTemplateKey(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IDataTemplateKey
@@ -612,7 +618,9 @@ class DependencyObjectCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Xaml.DependencyObject]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Xaml.DependencyObject]: ...
     Size = property(get_Size, None)
-class DependencyProperty(ComPtr):
+class _DependencyProperty_Meta_(ComPtr.__class__):
+    pass
+class DependencyProperty(ComPtr, metaclass=_DependencyProperty_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IDependencyProperty
     _classid_ = 'Windows.UI.Xaml.DependencyProperty'
@@ -624,7 +632,7 @@ class DependencyProperty(ComPtr):
     def Register(cls: Windows.UI.Xaml.IDependencyPropertyStatics, name: WinRT_String, propertyType: Windows.UI.Xaml.Interop.TypeName, ownerType: Windows.UI.Xaml.Interop.TypeName, typeMetadata: Windows.UI.Xaml.PropertyMetadata) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
     def RegisterAttached(cls: Windows.UI.Xaml.IDependencyPropertyStatics, name: WinRT_String, propertyType: Windows.UI.Xaml.Interop.TypeName, ownerType: Windows.UI.Xaml.Interop.TypeName, defaultMetadata: Windows.UI.Xaml.PropertyMetadata) -> Windows.UI.Xaml.DependencyProperty: ...
-    UnsetValue = property(get_UnsetValue, None)
+    _DependencyProperty_Meta_.UnsetValue = property(get_UnsetValue.__wrapped__, None)
 class DependencyPropertyChangedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _classid_ = 'Windows.UI.Xaml.DependencyPropertyChangedCallback'
@@ -801,7 +809,9 @@ class DropCompletedEventArgs(ComPtr):
 class Duration(EasyCastStructure):
     TimeSpan: Windows.Foundation.TimeSpan
     Type: Windows.UI.Xaml.DurationType
-class DurationHelper(ComPtr):
+class _DurationHelper_Meta_(ComPtr.__class__):
+    pass
+class DurationHelper(ComPtr, metaclass=_DurationHelper_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IDurationHelper
     _classid_ = 'Windows.UI.Xaml.DurationHelper'
@@ -821,8 +831,8 @@ class DurationHelper(ComPtr):
     def Equals(cls: Windows.UI.Xaml.IDurationHelperStatics, target: Windows.UI.Xaml.Duration, value: Windows.UI.Xaml.Duration) -> Boolean: ...
     @winrt_classmethod
     def Subtract(cls: Windows.UI.Xaml.IDurationHelperStatics, target: Windows.UI.Xaml.Duration, duration: Windows.UI.Xaml.Duration) -> Windows.UI.Xaml.Duration: ...
-    Automatic = property(get_Automatic, None)
-    Forever = property(get_Forever, None)
+    _DurationHelper_Meta_.Automatic = property(get_Automatic.__wrapped__, None)
+    _DurationHelper_Meta_.Forever = property(get_Forever.__wrapped__, None)
 DurationType = Int32
 DurationType_Automatic: DurationType = 0
 DurationType_TimeSpan: DurationType = 1
@@ -891,7 +901,9 @@ ElementSoundMode = Int32
 ElementSoundMode_Default: ElementSoundMode = 0
 ElementSoundMode_FocusOnly: ElementSoundMode = 1
 ElementSoundMode_Off: ElementSoundMode = 2
-class ElementSoundPlayer(ComPtr):
+class _ElementSoundPlayer_Meta_(ComPtr.__class__):
+    pass
+class ElementSoundPlayer(ComPtr, metaclass=_ElementSoundPlayer_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IElementSoundPlayer
     _classid_ = 'Windows.UI.Xaml.ElementSoundPlayer'
@@ -909,9 +921,9 @@ class ElementSoundPlayer(ComPtr):
     def put_State(cls: Windows.UI.Xaml.IElementSoundPlayerStatics, value: Windows.UI.Xaml.ElementSoundPlayerState) -> Void: ...
     @winrt_classmethod
     def Play(cls: Windows.UI.Xaml.IElementSoundPlayerStatics, sound: Windows.UI.Xaml.ElementSoundKind) -> Void: ...
-    SpatialAudioMode = property(get_SpatialAudioMode, put_SpatialAudioMode)
-    Volume = property(get_Volume, put_Volume)
-    State = property(get_State, put_State)
+    _ElementSoundPlayer_Meta_.SpatialAudioMode = property(get_SpatialAudioMode.__wrapped__, put_SpatialAudioMode.__wrapped__)
+    _ElementSoundPlayer_Meta_.Volume = property(get_Volume.__wrapped__, put_Volume.__wrapped__)
+    _ElementSoundPlayer_Meta_.State = property(get_State.__wrapped__, put_State.__wrapped__)
 ElementSoundPlayerState = Int32
 ElementSoundPlayerState_Auto: ElementSoundPlayerState = 0
 ElementSoundPlayerState_Off: ElementSoundPlayerState = 1
@@ -1014,7 +1026,9 @@ FontVariants_Subscript: FontVariants = 2
 FontVariants_Ordinal: FontVariants = 3
 FontVariants_Inferior: FontVariants = 4
 FontVariants_Ruby: FontVariants = 5
-class FrameworkElement(ComPtr):
+class _FrameworkElement_Meta_(ComPtr.__class__):
+    pass
+class FrameworkElement(ComPtr, metaclass=_FrameworkElement_Meta_):
     extends: Windows.UI.Xaml.UIElement
     default_interface: Windows.UI.Xaml.IFrameworkElement
     _classid_ = 'Windows.UI.Xaml.FrameworkElement'
@@ -1263,32 +1277,32 @@ class FrameworkElement(ComPtr):
     AllowFocusWhenDisabled = property(get_AllowFocusWhenDisabled, put_AllowFocusWhenDisabled)
     ActualTheme = property(get_ActualTheme, None)
     IsLoaded = property(get_IsLoaded, None)
-    ActualThemeProperty = property(get_ActualThemeProperty, None)
-    AllowFocusOnInteractionProperty = property(get_AllowFocusOnInteractionProperty, None)
-    FocusVisualMarginProperty = property(get_FocusVisualMarginProperty, None)
-    FocusVisualSecondaryThicknessProperty = property(get_FocusVisualSecondaryThicknessProperty, None)
-    FocusVisualPrimaryThicknessProperty = property(get_FocusVisualPrimaryThicknessProperty, None)
-    FocusVisualSecondaryBrushProperty = property(get_FocusVisualSecondaryBrushProperty, None)
-    FocusVisualPrimaryBrushProperty = property(get_FocusVisualPrimaryBrushProperty, None)
-    AllowFocusWhenDisabledProperty = property(get_AllowFocusWhenDisabledProperty, None)
-    RequestedThemeProperty = property(get_RequestedThemeProperty, None)
-    TagProperty = property(get_TagProperty, None)
-    LanguageProperty = property(get_LanguageProperty, None)
-    ActualWidthProperty = property(get_ActualWidthProperty, None)
-    ActualHeightProperty = property(get_ActualHeightProperty, None)
-    WidthProperty = property(get_WidthProperty, None)
-    HeightProperty = property(get_HeightProperty, None)
-    MinWidthProperty = property(get_MinWidthProperty, None)
-    MaxWidthProperty = property(get_MaxWidthProperty, None)
-    MinHeightProperty = property(get_MinHeightProperty, None)
-    MaxHeightProperty = property(get_MaxHeightProperty, None)
-    HorizontalAlignmentProperty = property(get_HorizontalAlignmentProperty, None)
-    VerticalAlignmentProperty = property(get_VerticalAlignmentProperty, None)
-    MarginProperty = property(get_MarginProperty, None)
-    NameProperty = property(get_NameProperty, None)
-    DataContextProperty = property(get_DataContextProperty, None)
-    StyleProperty = property(get_StyleProperty, None)
-    FlowDirectionProperty = property(get_FlowDirectionProperty, None)
+    _FrameworkElement_Meta_.ActualThemeProperty = property(get_ActualThemeProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.AllowFocusOnInteractionProperty = property(get_AllowFocusOnInteractionProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.FocusVisualMarginProperty = property(get_FocusVisualMarginProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.FocusVisualSecondaryThicknessProperty = property(get_FocusVisualSecondaryThicknessProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.FocusVisualPrimaryThicknessProperty = property(get_FocusVisualPrimaryThicknessProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.FocusVisualSecondaryBrushProperty = property(get_FocusVisualSecondaryBrushProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.FocusVisualPrimaryBrushProperty = property(get_FocusVisualPrimaryBrushProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.AllowFocusWhenDisabledProperty = property(get_AllowFocusWhenDisabledProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.RequestedThemeProperty = property(get_RequestedThemeProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.TagProperty = property(get_TagProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.LanguageProperty = property(get_LanguageProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.ActualWidthProperty = property(get_ActualWidthProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.ActualHeightProperty = property(get_ActualHeightProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.WidthProperty = property(get_WidthProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.HeightProperty = property(get_HeightProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.MinWidthProperty = property(get_MinWidthProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.MaxWidthProperty = property(get_MaxWidthProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.MinHeightProperty = property(get_MinHeightProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.MaxHeightProperty = property(get_MaxHeightProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.HorizontalAlignmentProperty = property(get_HorizontalAlignmentProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.VerticalAlignmentProperty = property(get_VerticalAlignmentProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.MarginProperty = property(get_MarginProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.NameProperty = property(get_NameProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.DataContextProperty = property(get_DataContextProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.StyleProperty = property(get_StyleProperty.__wrapped__, None)
+    _FrameworkElement_Meta_.FlowDirectionProperty = property(get_FlowDirectionProperty.__wrapped__, None)
 class FrameworkTemplate(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IFrameworkTemplate
@@ -1322,7 +1336,9 @@ class FrameworkViewSource(ComPtr):
 class GridLength(EasyCastStructure):
     Value: Double
     GridUnitType: Windows.UI.Xaml.GridUnitType
-class GridLengthHelper(ComPtr):
+class _GridLengthHelper_Meta_(ComPtr.__class__):
+    pass
+class GridLengthHelper(ComPtr, metaclass=_GridLengthHelper_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IGridLengthHelper
     _classid_ = 'Windows.UI.Xaml.GridLengthHelper'
@@ -1340,7 +1356,7 @@ class GridLengthHelper(ComPtr):
     def GetIsStar(cls: Windows.UI.Xaml.IGridLengthHelperStatics, target: Windows.UI.Xaml.GridLength) -> Boolean: ...
     @winrt_classmethod
     def Equals(cls: Windows.UI.Xaml.IGridLengthHelperStatics, target: Windows.UI.Xaml.GridLength, value: Windows.UI.Xaml.GridLength) -> Boolean: ...
-    Auto = property(get_Auto, None)
+    _GridLengthHelper_Meta_.Auto = property(get_Auto.__wrapped__, None)
 GridUnitType = Int32
 GridUnitType_Auto: GridUnitType = 0
 GridUnitType_Pixel: GridUnitType = 1
@@ -4084,7 +4100,9 @@ class PropertyPath(ComPtr):
     @winrt_mixinmethod
     def get_Path(self: Windows.UI.Xaml.IPropertyPath) -> WinRT_String: ...
     Path = property(get_Path, None)
-class RectHelper(ComPtr):
+class _RectHelper_Meta_(ComPtr.__class__):
+    pass
+class RectHelper(ComPtr, metaclass=_RectHelper_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IRectHelper
     _classid_ = 'Windows.UI.Xaml.RectHelper'
@@ -4116,7 +4134,7 @@ class RectHelper(ComPtr):
     def UnionWithPoint(cls: Windows.UI.Xaml.IRectHelperStatics, target: Windows.Foundation.Rect, point: Windows.Foundation.Point) -> Windows.Foundation.Rect: ...
     @winrt_classmethod
     def UnionWithRect(cls: Windows.UI.Xaml.IRectHelperStatics, target: Windows.Foundation.Rect, rect: Windows.Foundation.Rect) -> Windows.Foundation.Rect: ...
-    Empty = property(get_Empty, None)
+    _RectHelper_Meta_.Empty = property(get_Empty.__wrapped__, None)
 class ResourceDictionary(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IResourceDictionary
@@ -4263,7 +4281,9 @@ class SizeChangedEventHandler(ComPtr):
     _iid_ = Guid('{1115b13c-25d2-480b-89dc-eb3dcbd6b7fa}')
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.SizeChangedEventArgs) -> Void: ...
-class SizeHelper(ComPtr):
+class _SizeHelper_Meta_(ComPtr.__class__):
+    pass
+class SizeHelper(ComPtr, metaclass=_SizeHelper_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.ISizeHelper
     _classid_ = 'Windows.UI.Xaml.SizeHelper'
@@ -4275,8 +4295,10 @@ class SizeHelper(ComPtr):
     def GetIsEmpty(cls: Windows.UI.Xaml.ISizeHelperStatics, target: Windows.Foundation.Size) -> Boolean: ...
     @winrt_classmethod
     def Equals(cls: Windows.UI.Xaml.ISizeHelperStatics, target: Windows.Foundation.Size, value: Windows.Foundation.Size) -> Boolean: ...
-    Empty = property(get_Empty, None)
-class StateTrigger(ComPtr):
+    _SizeHelper_Meta_.Empty = property(get_Empty.__wrapped__, None)
+class _StateTrigger_Meta_(ComPtr.__class__):
+    pass
+class StateTrigger(ComPtr, metaclass=_StateTrigger_Meta_):
     extends: Windows.UI.Xaml.StateTriggerBase
     default_interface: Windows.UI.Xaml.IStateTrigger
     _classid_ = 'Windows.UI.Xaml.StateTrigger'
@@ -4289,7 +4311,7 @@ class StateTrigger(ComPtr):
     @winrt_classmethod
     def get_IsActiveProperty(cls: Windows.UI.Xaml.IStateTriggerStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     IsActive = property(get_IsActive, put_IsActive)
-    IsActiveProperty = property(get_IsActiveProperty, None)
+    _StateTrigger_Meta_.IsActiveProperty = property(get_IsActiveProperty.__wrapped__, None)
 class StateTriggerBase(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IStateTriggerBase
@@ -4459,7 +4481,9 @@ class TriggerCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Xaml.TriggerBase]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Xaml.TriggerBase]: ...
     Size = property(get_Size, None)
-class UIElement(ComPtr):
+class _UIElement_Meta_(ComPtr.__class__):
+    pass
+class UIElement(ComPtr, metaclass=_UIElement_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IUIElement
     _classid_ = 'Windows.UI.Xaml.UIElement'
@@ -5099,78 +5123,78 @@ class UIElement(ComPtr):
     XamlRoot = property(get_XamlRoot, put_XamlRoot)
     UIContext = property(get_UIContext, None)
     Shadow = property(get_Shadow, put_Shadow)
-    ShadowProperty = property(get_ShadowProperty, None)
-    CanBeScrollAnchorProperty = property(get_CanBeScrollAnchorProperty, None)
-    BringIntoViewRequestedEvent = property(get_BringIntoViewRequestedEvent, None)
-    ContextRequestedEvent = property(get_ContextRequestedEvent, None)
-    KeyTipTargetProperty = property(get_KeyTipTargetProperty, None)
-    KeyboardAcceleratorPlacementTargetProperty = property(get_KeyboardAcceleratorPlacementTargetProperty, None)
-    KeyboardAcceleratorPlacementModeProperty = property(get_KeyboardAcceleratorPlacementModeProperty, None)
-    PreviewKeyDownEvent = property(get_PreviewKeyDownEvent, None)
-    CharacterReceivedEvent = property(get_CharacterReceivedEvent, None)
-    PreviewKeyUpEvent = property(get_PreviewKeyUpEvent, None)
-    GettingFocusEvent = property(get_GettingFocusEvent, None)
-    LosingFocusEvent = property(get_LosingFocusEvent, None)
-    NoFocusCandidateFoundEvent = property(get_NoFocusCandidateFoundEvent, None)
-    LightsProperty = property(get_LightsProperty, None)
-    KeyTipPlacementModeProperty = property(get_KeyTipPlacementModeProperty, None)
-    KeyTipHorizontalOffsetProperty = property(get_KeyTipHorizontalOffsetProperty, None)
-    KeyTipVerticalOffsetProperty = property(get_KeyTipVerticalOffsetProperty, None)
-    XYFocusKeyboardNavigationProperty = property(get_XYFocusKeyboardNavigationProperty, None)
-    XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
-    XYFocusDownNavigationStrategyProperty = property(get_XYFocusDownNavigationStrategyProperty, None)
-    XYFocusLeftNavigationStrategyProperty = property(get_XYFocusLeftNavigationStrategyProperty, None)
-    XYFocusRightNavigationStrategyProperty = property(get_XYFocusRightNavigationStrategyProperty, None)
-    HighContrastAdjustmentProperty = property(get_HighContrastAdjustmentProperty, None)
-    TabFocusNavigationProperty = property(get_TabFocusNavigationProperty, None)
-    ContextFlyoutProperty = property(get_ContextFlyoutProperty, None)
-    ExitDisplayModeOnAccessKeyInvokedProperty = property(get_ExitDisplayModeOnAccessKeyInvokedProperty, None)
-    IsAccessKeyScopeProperty = property(get_IsAccessKeyScopeProperty, None)
-    AccessKeyScopeOwnerProperty = property(get_AccessKeyScopeOwnerProperty, None)
-    AccessKeyProperty = property(get_AccessKeyProperty, None)
-    Transform3DProperty = property(get_Transform3DProperty, None)
-    CanDragProperty = property(get_CanDragProperty, None)
-    CompositeModeProperty = property(get_CompositeModeProperty, None)
-    KeyDownEvent = property(get_KeyDownEvent, None)
-    KeyUpEvent = property(get_KeyUpEvent, None)
-    PointerEnteredEvent = property(get_PointerEnteredEvent, None)
-    PointerPressedEvent = property(get_PointerPressedEvent, None)
-    PointerMovedEvent = property(get_PointerMovedEvent, None)
-    PointerReleasedEvent = property(get_PointerReleasedEvent, None)
-    PointerExitedEvent = property(get_PointerExitedEvent, None)
-    PointerCaptureLostEvent = property(get_PointerCaptureLostEvent, None)
-    PointerCanceledEvent = property(get_PointerCanceledEvent, None)
-    PointerWheelChangedEvent = property(get_PointerWheelChangedEvent, None)
-    TappedEvent = property(get_TappedEvent, None)
-    DoubleTappedEvent = property(get_DoubleTappedEvent, None)
-    HoldingEvent = property(get_HoldingEvent, None)
-    RightTappedEvent = property(get_RightTappedEvent, None)
-    ManipulationStartingEvent = property(get_ManipulationStartingEvent, None)
-    ManipulationInertiaStartingEvent = property(get_ManipulationInertiaStartingEvent, None)
-    ManipulationStartedEvent = property(get_ManipulationStartedEvent, None)
-    ManipulationDeltaEvent = property(get_ManipulationDeltaEvent, None)
-    ManipulationCompletedEvent = property(get_ManipulationCompletedEvent, None)
-    DragEnterEvent = property(get_DragEnterEvent, None)
-    DragLeaveEvent = property(get_DragLeaveEvent, None)
-    DragOverEvent = property(get_DragOverEvent, None)
-    DropEvent = property(get_DropEvent, None)
-    AllowDropProperty = property(get_AllowDropProperty, None)
-    OpacityProperty = property(get_OpacityProperty, None)
-    ClipProperty = property(get_ClipProperty, None)
-    RenderTransformProperty = property(get_RenderTransformProperty, None)
-    ProjectionProperty = property(get_ProjectionProperty, None)
-    RenderTransformOriginProperty = property(get_RenderTransformOriginProperty, None)
-    IsHitTestVisibleProperty = property(get_IsHitTestVisibleProperty, None)
-    VisibilityProperty = property(get_VisibilityProperty, None)
-    UseLayoutRoundingProperty = property(get_UseLayoutRoundingProperty, None)
-    TransitionsProperty = property(get_TransitionsProperty, None)
-    CacheModeProperty = property(get_CacheModeProperty, None)
-    IsTapEnabledProperty = property(get_IsTapEnabledProperty, None)
-    IsDoubleTapEnabledProperty = property(get_IsDoubleTapEnabledProperty, None)
-    IsRightTapEnabledProperty = property(get_IsRightTapEnabledProperty, None)
-    IsHoldingEnabledProperty = property(get_IsHoldingEnabledProperty, None)
-    ManipulationModeProperty = property(get_ManipulationModeProperty, None)
-    PointerCapturesProperty = property(get_PointerCapturesProperty, None)
+    _UIElement_Meta_.ShadowProperty = property(get_ShadowProperty.__wrapped__, None)
+    _UIElement_Meta_.CanBeScrollAnchorProperty = property(get_CanBeScrollAnchorProperty.__wrapped__, None)
+    _UIElement_Meta_.BringIntoViewRequestedEvent = property(get_BringIntoViewRequestedEvent.__wrapped__, None)
+    _UIElement_Meta_.ContextRequestedEvent = property(get_ContextRequestedEvent.__wrapped__, None)
+    _UIElement_Meta_.KeyTipTargetProperty = property(get_KeyTipTargetProperty.__wrapped__, None)
+    _UIElement_Meta_.KeyboardAcceleratorPlacementTargetProperty = property(get_KeyboardAcceleratorPlacementTargetProperty.__wrapped__, None)
+    _UIElement_Meta_.KeyboardAcceleratorPlacementModeProperty = property(get_KeyboardAcceleratorPlacementModeProperty.__wrapped__, None)
+    _UIElement_Meta_.PreviewKeyDownEvent = property(get_PreviewKeyDownEvent.__wrapped__, None)
+    _UIElement_Meta_.CharacterReceivedEvent = property(get_CharacterReceivedEvent.__wrapped__, None)
+    _UIElement_Meta_.PreviewKeyUpEvent = property(get_PreviewKeyUpEvent.__wrapped__, None)
+    _UIElement_Meta_.GettingFocusEvent = property(get_GettingFocusEvent.__wrapped__, None)
+    _UIElement_Meta_.LosingFocusEvent = property(get_LosingFocusEvent.__wrapped__, None)
+    _UIElement_Meta_.NoFocusCandidateFoundEvent = property(get_NoFocusCandidateFoundEvent.__wrapped__, None)
+    _UIElement_Meta_.LightsProperty = property(get_LightsProperty.__wrapped__, None)
+    _UIElement_Meta_.KeyTipPlacementModeProperty = property(get_KeyTipPlacementModeProperty.__wrapped__, None)
+    _UIElement_Meta_.KeyTipHorizontalOffsetProperty = property(get_KeyTipHorizontalOffsetProperty.__wrapped__, None)
+    _UIElement_Meta_.KeyTipVerticalOffsetProperty = property(get_KeyTipVerticalOffsetProperty.__wrapped__, None)
+    _UIElement_Meta_.XYFocusKeyboardNavigationProperty = property(get_XYFocusKeyboardNavigationProperty.__wrapped__, None)
+    _UIElement_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty.__wrapped__, None)
+    _UIElement_Meta_.XYFocusDownNavigationStrategyProperty = property(get_XYFocusDownNavigationStrategyProperty.__wrapped__, None)
+    _UIElement_Meta_.XYFocusLeftNavigationStrategyProperty = property(get_XYFocusLeftNavigationStrategyProperty.__wrapped__, None)
+    _UIElement_Meta_.XYFocusRightNavigationStrategyProperty = property(get_XYFocusRightNavigationStrategyProperty.__wrapped__, None)
+    _UIElement_Meta_.HighContrastAdjustmentProperty = property(get_HighContrastAdjustmentProperty.__wrapped__, None)
+    _UIElement_Meta_.TabFocusNavigationProperty = property(get_TabFocusNavigationProperty.__wrapped__, None)
+    _UIElement_Meta_.ContextFlyoutProperty = property(get_ContextFlyoutProperty.__wrapped__, None)
+    _UIElement_Meta_.ExitDisplayModeOnAccessKeyInvokedProperty = property(get_ExitDisplayModeOnAccessKeyInvokedProperty.__wrapped__, None)
+    _UIElement_Meta_.IsAccessKeyScopeProperty = property(get_IsAccessKeyScopeProperty.__wrapped__, None)
+    _UIElement_Meta_.AccessKeyScopeOwnerProperty = property(get_AccessKeyScopeOwnerProperty.__wrapped__, None)
+    _UIElement_Meta_.AccessKeyProperty = property(get_AccessKeyProperty.__wrapped__, None)
+    _UIElement_Meta_.Transform3DProperty = property(get_Transform3DProperty.__wrapped__, None)
+    _UIElement_Meta_.CanDragProperty = property(get_CanDragProperty.__wrapped__, None)
+    _UIElement_Meta_.CompositeModeProperty = property(get_CompositeModeProperty.__wrapped__, None)
+    _UIElement_Meta_.KeyDownEvent = property(get_KeyDownEvent.__wrapped__, None)
+    _UIElement_Meta_.KeyUpEvent = property(get_KeyUpEvent.__wrapped__, None)
+    _UIElement_Meta_.PointerEnteredEvent = property(get_PointerEnteredEvent.__wrapped__, None)
+    _UIElement_Meta_.PointerPressedEvent = property(get_PointerPressedEvent.__wrapped__, None)
+    _UIElement_Meta_.PointerMovedEvent = property(get_PointerMovedEvent.__wrapped__, None)
+    _UIElement_Meta_.PointerReleasedEvent = property(get_PointerReleasedEvent.__wrapped__, None)
+    _UIElement_Meta_.PointerExitedEvent = property(get_PointerExitedEvent.__wrapped__, None)
+    _UIElement_Meta_.PointerCaptureLostEvent = property(get_PointerCaptureLostEvent.__wrapped__, None)
+    _UIElement_Meta_.PointerCanceledEvent = property(get_PointerCanceledEvent.__wrapped__, None)
+    _UIElement_Meta_.PointerWheelChangedEvent = property(get_PointerWheelChangedEvent.__wrapped__, None)
+    _UIElement_Meta_.TappedEvent = property(get_TappedEvent.__wrapped__, None)
+    _UIElement_Meta_.DoubleTappedEvent = property(get_DoubleTappedEvent.__wrapped__, None)
+    _UIElement_Meta_.HoldingEvent = property(get_HoldingEvent.__wrapped__, None)
+    _UIElement_Meta_.RightTappedEvent = property(get_RightTappedEvent.__wrapped__, None)
+    _UIElement_Meta_.ManipulationStartingEvent = property(get_ManipulationStartingEvent.__wrapped__, None)
+    _UIElement_Meta_.ManipulationInertiaStartingEvent = property(get_ManipulationInertiaStartingEvent.__wrapped__, None)
+    _UIElement_Meta_.ManipulationStartedEvent = property(get_ManipulationStartedEvent.__wrapped__, None)
+    _UIElement_Meta_.ManipulationDeltaEvent = property(get_ManipulationDeltaEvent.__wrapped__, None)
+    _UIElement_Meta_.ManipulationCompletedEvent = property(get_ManipulationCompletedEvent.__wrapped__, None)
+    _UIElement_Meta_.DragEnterEvent = property(get_DragEnterEvent.__wrapped__, None)
+    _UIElement_Meta_.DragLeaveEvent = property(get_DragLeaveEvent.__wrapped__, None)
+    _UIElement_Meta_.DragOverEvent = property(get_DragOverEvent.__wrapped__, None)
+    _UIElement_Meta_.DropEvent = property(get_DropEvent.__wrapped__, None)
+    _UIElement_Meta_.AllowDropProperty = property(get_AllowDropProperty.__wrapped__, None)
+    _UIElement_Meta_.OpacityProperty = property(get_OpacityProperty.__wrapped__, None)
+    _UIElement_Meta_.ClipProperty = property(get_ClipProperty.__wrapped__, None)
+    _UIElement_Meta_.RenderTransformProperty = property(get_RenderTransformProperty.__wrapped__, None)
+    _UIElement_Meta_.ProjectionProperty = property(get_ProjectionProperty.__wrapped__, None)
+    _UIElement_Meta_.RenderTransformOriginProperty = property(get_RenderTransformOriginProperty.__wrapped__, None)
+    _UIElement_Meta_.IsHitTestVisibleProperty = property(get_IsHitTestVisibleProperty.__wrapped__, None)
+    _UIElement_Meta_.VisibilityProperty = property(get_VisibilityProperty.__wrapped__, None)
+    _UIElement_Meta_.UseLayoutRoundingProperty = property(get_UseLayoutRoundingProperty.__wrapped__, None)
+    _UIElement_Meta_.TransitionsProperty = property(get_TransitionsProperty.__wrapped__, None)
+    _UIElement_Meta_.CacheModeProperty = property(get_CacheModeProperty.__wrapped__, None)
+    _UIElement_Meta_.IsTapEnabledProperty = property(get_IsTapEnabledProperty.__wrapped__, None)
+    _UIElement_Meta_.IsDoubleTapEnabledProperty = property(get_IsDoubleTapEnabledProperty.__wrapped__, None)
+    _UIElement_Meta_.IsRightTapEnabledProperty = property(get_IsRightTapEnabledProperty.__wrapped__, None)
+    _UIElement_Meta_.IsHoldingEnabledProperty = property(get_IsHoldingEnabledProperty.__wrapped__, None)
+    _UIElement_Meta_.ManipulationModeProperty = property(get_ManipulationModeProperty.__wrapped__, None)
+    _UIElement_Meta_.PointerCapturesProperty = property(get_PointerCapturesProperty.__wrapped__, None)
 class UIElementWeakCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IUIElementWeakCollection
@@ -5326,7 +5350,9 @@ class VisualStateGroup(ComPtr):
     Transitions = property(get_Transitions, None)
     States = property(get_States, None)
     CurrentState = property(get_CurrentState, None)
-class VisualStateManager(ComPtr):
+class _VisualStateManager_Meta_(ComPtr.__class__):
+    pass
+class VisualStateManager(ComPtr, metaclass=_VisualStateManager_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IVisualStateManager
     _classid_ = 'Windows.UI.Xaml.VisualStateManager'
@@ -5348,7 +5374,7 @@ class VisualStateManager(ComPtr):
     def SetCustomVisualStateManager(cls: Windows.UI.Xaml.IVisualStateManagerStatics, obj: Windows.UI.Xaml.FrameworkElement, value: Windows.UI.Xaml.VisualStateManager) -> Void: ...
     @winrt_classmethod
     def GoToState(cls: Windows.UI.Xaml.IVisualStateManagerStatics, control: Windows.UI.Xaml.Controls.Control, stateName: WinRT_String, useTransitions: Boolean) -> Boolean: ...
-    CustomVisualStateManagerProperty = property(get_CustomVisualStateManagerProperty, None)
+    _VisualStateManager_Meta_.CustomVisualStateManagerProperty = property(get_CustomVisualStateManagerProperty.__wrapped__, None)
 class VisualTransition(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.IVisualTransition
@@ -5380,7 +5406,9 @@ class VisualTransition(ComPtr):
     To = property(get_To, put_To)
     From = property(get_From, put_From)
     Storyboard = property(get_Storyboard, put_Storyboard)
-class Window(ComPtr):
+class _Window_Meta_(ComPtr.__class__):
+    pass
+class Window(ComPtr, metaclass=_Window_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.IWindow
     _classid_ = 'Windows.UI.Xaml.Window'
@@ -5431,7 +5459,7 @@ class Window(ComPtr):
     Dispatcher = property(get_Dispatcher, None)
     Compositor = property(get_Compositor, None)
     UIContext = property(get_UIContext, None)
-    Current = property(get_Current, None)
+    _Window_Meta_.Current = property(get_Current.__wrapped__, None)
 class WindowActivatedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _classid_ = 'Windows.UI.Xaml.WindowActivatedEventHandler'

@@ -94,7 +94,9 @@ class BluetoothLEAdvertisementDataSection(ComPtr):
     def put_Data(self: Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataSection, value: Windows.Storage.Streams.IBuffer) -> Void: ...
     DataType = property(get_DataType, put_DataType)
     Data = property(get_Data, put_Data)
-class BluetoothLEAdvertisementDataTypes(ComPtr):
+class _BluetoothLEAdvertisementDataTypes_Meta_(ComPtr.__class__):
+    pass
+class BluetoothLEAdvertisementDataTypes(ComPtr, metaclass=_BluetoothLEAdvertisementDataTypes_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes'
     @winrt_classmethod
@@ -141,28 +143,28 @@ class BluetoothLEAdvertisementDataTypes(ComPtr):
     def get_AdvertisingInterval(cls: Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics) -> Byte: ...
     @winrt_classmethod
     def get_ManufacturerSpecificData(cls: Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics) -> Byte: ...
-    Flags = property(get_Flags, None)
-    IncompleteService16BitUuids = property(get_IncompleteService16BitUuids, None)
-    CompleteService16BitUuids = property(get_CompleteService16BitUuids, None)
-    IncompleteService32BitUuids = property(get_IncompleteService32BitUuids, None)
-    CompleteService32BitUuids = property(get_CompleteService32BitUuids, None)
-    IncompleteService128BitUuids = property(get_IncompleteService128BitUuids, None)
-    CompleteService128BitUuids = property(get_CompleteService128BitUuids, None)
-    ShortenedLocalName = property(get_ShortenedLocalName, None)
-    CompleteLocalName = property(get_CompleteLocalName, None)
-    TxPowerLevel = property(get_TxPowerLevel, None)
-    PeripheralConnectionIntervalRange = property(get_PeripheralConnectionIntervalRange, None)
-    ServiceSolicitation16BitUuids = property(get_ServiceSolicitation16BitUuids, None)
-    ServiceSolicitation32BitUuids = property(get_ServiceSolicitation32BitUuids, None)
-    ServiceSolicitation128BitUuids = property(get_ServiceSolicitation128BitUuids, None)
-    ServiceData16BitUuids = property(get_ServiceData16BitUuids, None)
-    ServiceData32BitUuids = property(get_ServiceData32BitUuids, None)
-    ServiceData128BitUuids = property(get_ServiceData128BitUuids, None)
-    PublicTargetAddress = property(get_PublicTargetAddress, None)
-    RandomTargetAddress = property(get_RandomTargetAddress, None)
-    Appearance = property(get_Appearance, None)
-    AdvertisingInterval = property(get_AdvertisingInterval, None)
-    ManufacturerSpecificData = property(get_ManufacturerSpecificData, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.Flags = property(get_Flags.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.IncompleteService16BitUuids = property(get_IncompleteService16BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.CompleteService16BitUuids = property(get_CompleteService16BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.IncompleteService32BitUuids = property(get_IncompleteService32BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.CompleteService32BitUuids = property(get_CompleteService32BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.IncompleteService128BitUuids = property(get_IncompleteService128BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.CompleteService128BitUuids = property(get_CompleteService128BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.ShortenedLocalName = property(get_ShortenedLocalName.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.CompleteLocalName = property(get_CompleteLocalName.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.TxPowerLevel = property(get_TxPowerLevel.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.PeripheralConnectionIntervalRange = property(get_PeripheralConnectionIntervalRange.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.ServiceSolicitation16BitUuids = property(get_ServiceSolicitation16BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.ServiceSolicitation32BitUuids = property(get_ServiceSolicitation32BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.ServiceSolicitation128BitUuids = property(get_ServiceSolicitation128BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.ServiceData16BitUuids = property(get_ServiceData16BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.ServiceData32BitUuids = property(get_ServiceData32BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.ServiceData128BitUuids = property(get_ServiceData128BitUuids.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.PublicTargetAddress = property(get_PublicTargetAddress.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.RandomTargetAddress = property(get_RandomTargetAddress.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.Appearance = property(get_Appearance.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.AdvertisingInterval = property(get_AdvertisingInterval.__wrapped__, None)
+    _BluetoothLEAdvertisementDataTypes_Meta_.ManufacturerSpecificData = property(get_ManufacturerSpecificData.__wrapped__, None)
 class BluetoothLEAdvertisementFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementFilter

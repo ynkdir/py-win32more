@@ -182,7 +182,9 @@ GeolocationAccessStatus = Int32
 GeolocationAccessStatus_Unspecified: GeolocationAccessStatus = 0
 GeolocationAccessStatus_Allowed: GeolocationAccessStatus = 1
 GeolocationAccessStatus_Denied: GeolocationAccessStatus = 2
-class Geolocator(ComPtr):
+class _Geolocator_Meta_(ComPtr.__class__):
+    pass
+class Geolocator(ComPtr, metaclass=_Geolocator_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Geolocation.IGeolocator
     _classid_ = 'Windows.Devices.Geolocation.Geolocator'
@@ -237,8 +239,8 @@ class Geolocator(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     LocationStatus = property(get_LocationStatus, None)
     DesiredAccuracyInMeters = property(get_DesiredAccuracyInMeters, put_DesiredAccuracyInMeters)
-    IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended, None)
-    DefaultGeoposition = property(get_DefaultGeoposition, put_DefaultGeoposition)
+    _Geolocator_Meta_.IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended.__wrapped__, None)
+    _Geolocator_Meta_.DefaultGeoposition = property(get_DefaultGeoposition.__wrapped__, put_DefaultGeoposition.__wrapped__)
 class Geopath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.Geolocation.IGeopath

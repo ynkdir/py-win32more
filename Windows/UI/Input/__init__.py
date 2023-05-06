@@ -1743,7 +1743,9 @@ class RadialControllerButtonReleasedEventArgs(ComPtr):
     def get_SimpleHapticsController(self: Windows.UI.Input.IRadialControllerButtonReleasedEventArgs) -> Windows.Devices.Haptics.SimpleHapticsController: ...
     Contact = property(get_Contact, None)
     SimpleHapticsController = property(get_SimpleHapticsController, None)
-class RadialControllerConfiguration(ComPtr):
+class _RadialControllerConfiguration_Meta_(ComPtr.__class__):
+    pass
+class RadialControllerConfiguration(ComPtr, metaclass=_RadialControllerConfiguration_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Input.IRadialControllerConfiguration
     _classid_ = 'Windows.UI.Input.RadialControllerConfiguration'
@@ -1773,8 +1775,8 @@ class RadialControllerConfiguration(ComPtr):
     def GetForCurrentView(cls: Windows.UI.Input.IRadialControllerConfigurationStatics) -> Windows.UI.Input.RadialControllerConfiguration: ...
     ActiveControllerWhenMenuIsSuppressed = property(get_ActiveControllerWhenMenuIsSuppressed, put_ActiveControllerWhenMenuIsSuppressed)
     IsMenuSuppressed = property(get_IsMenuSuppressed, put_IsMenuSuppressed)
-    AppController = property(get_AppController, put_AppController)
-    IsAppControllerEnabled = property(get_IsAppControllerEnabled, put_IsAppControllerEnabled)
+    _RadialControllerConfiguration_Meta_.AppController = property(get_AppController.__wrapped__, put_AppController.__wrapped__)
+    _RadialControllerConfiguration_Meta_.IsAppControllerEnabled = property(get_IsAppControllerEnabled.__wrapped__, put_IsAppControllerEnabled.__wrapped__)
 class RadialControllerControlAcquiredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Input.IRadialControllerControlAcquiredEventArgs

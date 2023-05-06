@@ -321,7 +321,9 @@ class ResourceLayoutInfo(EasyCastStructure):
     ResourceSubtreeCount: UInt32
     NamedResourceCount: UInt32
     Checksum: Int32
-class ResourceManager(ComPtr):
+class _ResourceManager_Meta_(ComPtr.__class__):
+    pass
+class ResourceManager(ComPtr, metaclass=_ResourceManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Resources.Core.IResourceManager
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceManager'
@@ -346,7 +348,7 @@ class ResourceManager(ComPtr):
     MainResourceMap = property(get_MainResourceMap, None)
     AllResourceMaps = property(get_AllResourceMaps, None)
     DefaultContext = property(get_DefaultContext, None)
-    Current = property(get_Current, None)
+    _ResourceManager_Meta_.Current = property(get_Current.__wrapped__, None)
 class ResourceMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Resources.Core.IResourceMap

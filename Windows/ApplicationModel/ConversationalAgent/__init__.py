@@ -219,7 +219,9 @@ ConversationalAgentActivationResult_Success: ConversationalAgentActivationResult
 ConversationalAgentActivationResult_AgentInactive: ConversationalAgentActivationResult = 1
 ConversationalAgentActivationResult_ScreenNotAvailable: ConversationalAgentActivationResult = 2
 ConversationalAgentActivationResult_AgentInterrupted: ConversationalAgentActivationResult = 3
-class ConversationalAgentDetectorManager(ComPtr):
+class _ConversationalAgentDetectorManager_Meta_(ComPtr.__class__):
+    pass
+class ConversationalAgentDetectorManager(ComPtr, metaclass=_ConversationalAgentDetectorManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManager
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager'
@@ -237,7 +239,7 @@ class ConversationalAgentDetectorManager(ComPtr):
     def GetActivationSignalDetectorFromIdAsync(self: Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManager2, detectorId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector]: ...
     @winrt_classmethod
     def get_Default(cls: Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManagerStatics) -> Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager: ...
-    Default = property(get_Default, None)
+    _ConversationalAgentDetectorManager_Meta_.Default = property(get_Default.__wrapped__, None)
 class ConversationalAgentSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession

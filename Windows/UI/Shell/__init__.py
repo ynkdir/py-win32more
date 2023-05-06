@@ -38,7 +38,9 @@ class FocusSession(ComPtr):
     @winrt_mixinmethod
     def End(self: Windows.UI.Shell.IFocusSession) -> Void: ...
     Id = property(get_Id, None)
-class FocusSessionManager(ComPtr):
+class _FocusSessionManager_Meta_(ComPtr.__class__):
+    pass
+class FocusSessionManager(ComPtr, metaclass=_FocusSessionManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Shell.IFocusSessionManager
     _classid_ = 'Windows.UI.Shell.FocusSessionManager'
@@ -61,7 +63,7 @@ class FocusSessionManager(ComPtr):
     @winrt_classmethod
     def get_IsSupported(cls: Windows.UI.Shell.IFocusSessionManagerStatics) -> Boolean: ...
     IsFocusActive = property(get_IsFocusActive, None)
-    IsSupported = property(get_IsSupported, None)
+    _FocusSessionManager_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
 class IAdaptiveCard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IAdaptiveCard'

@@ -232,7 +232,9 @@ class IWebAuthenticationCoreManagerHelper(ComPtr):
     def RequestTokenWithUIElementHostingAsync(self, request: Windows.Security.Authentication.Web.Core.WebTokenRequest, uiElement: Windows.UI.Xaml.UIElement) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.Core.WebTokenRequestResult]: ...
     @winrt_commethod(7)
     def RequestTokenWithUIElementHostingAndWebAccountAsync(self, request: Windows.Security.Authentication.Web.Core.WebTokenRequest, webAccount: Windows.Security.Credentials.WebAccount, uiElement: Windows.UI.Xaml.UIElement) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.Core.WebTokenRequestResult]: ...
-class StoreConfiguration(ComPtr):
+class _StoreConfiguration_Meta_(ComPtr.__class__):
+    pass
+class StoreConfiguration(ComPtr, metaclass=_StoreConfiguration_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StoreConfiguration'
     @winrt_classmethod
@@ -291,8 +293,8 @@ class StoreConfiguration(ComPtr):
     def get_HardwareManufacturerInfo(cls: Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics) -> Windows.ApplicationModel.Store.Preview.StoreHardwareManufacturerInfo: ...
     @winrt_classmethod
     def FilterUnsupportedSystemFeaturesAsync(cls: Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics, systemFeatures: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Store.Preview.StoreSystemFeature]) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Store.Preview.StoreSystemFeature]]: ...
-    PurchasePromptingPolicy = property(get_PurchasePromptingPolicy, put_PurchasePromptingPolicy)
-    HardwareManufacturerInfo = property(get_HardwareManufacturerInfo, None)
+    _StoreConfiguration_Meta_.PurchasePromptingPolicy = property(get_PurchasePromptingPolicy.__wrapped__, put_PurchasePromptingPolicy.__wrapped__)
+    _StoreConfiguration_Meta_.HardwareManufacturerInfo = property(get_HardwareManufacturerInfo.__wrapped__, None)
 class StoreHardwareManufacturerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Store.Preview.IStoreHardwareManufacturerInfo

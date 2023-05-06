@@ -27,7 +27,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class Block(ComPtr):
+class _Block_Meta_(ComPtr.__class__):
+    pass
+class Block(ComPtr, metaclass=_Block_Meta_):
     extends: Windows.UI.Xaml.Documents.TextElement
     default_interface: Windows.UI.Xaml.Documents.IBlock
     _classid_ = 'Windows.UI.Xaml.Documents.Block'
@@ -68,11 +70,11 @@ class Block(ComPtr):
     LineStackingStrategy = property(get_LineStackingStrategy, put_LineStackingStrategy)
     Margin = property(get_Margin, put_Margin)
     HorizontalTextAlignment = property(get_HorizontalTextAlignment, put_HorizontalTextAlignment)
-    HorizontalTextAlignmentProperty = property(get_HorizontalTextAlignmentProperty, None)
-    TextAlignmentProperty = property(get_TextAlignmentProperty, None)
-    LineHeightProperty = property(get_LineHeightProperty, None)
-    LineStackingStrategyProperty = property(get_LineStackingStrategyProperty, None)
-    MarginProperty = property(get_MarginProperty, None)
+    _Block_Meta_.HorizontalTextAlignmentProperty = property(get_HorizontalTextAlignmentProperty.__wrapped__, None)
+    _Block_Meta_.TextAlignmentProperty = property(get_TextAlignmentProperty.__wrapped__, None)
+    _Block_Meta_.LineHeightProperty = property(get_LineHeightProperty.__wrapped__, None)
+    _Block_Meta_.LineStackingStrategyProperty = property(get_LineStackingStrategyProperty.__wrapped__, None)
+    _Block_Meta_.MarginProperty = property(get_MarginProperty.__wrapped__, None)
 class BlockCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Documents.Block]
@@ -116,7 +118,9 @@ class ContactContentLinkProvider(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.ContactContentLinkProvider'
     @winrt_activatemethod
     def CreateInstance(cls) -> Windows.UI.Xaml.Documents.ContactContentLinkProvider: ...
-class ContentLink(ComPtr):
+class _ContentLink_Meta_(ComPtr.__class__):
+    pass
+class ContentLink(ComPtr, metaclass=_ContentLink_Meta_):
     extends: Windows.UI.Xaml.Documents.Inline
     default_interface: Windows.UI.Xaml.Documents.IContentLink
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLink'
@@ -237,20 +241,20 @@ class ContentLink(ComPtr):
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     IsTabStop = property(get_IsTabStop, put_IsTabStop)
     TabIndex = property(get_TabIndex, put_TabIndex)
-    BackgroundProperty = property(get_BackgroundProperty, None)
-    CursorProperty = property(get_CursorProperty, None)
-    XYFocusLeftProperty = property(get_XYFocusLeftProperty, None)
-    XYFocusRightProperty = property(get_XYFocusRightProperty, None)
-    XYFocusUpProperty = property(get_XYFocusUpProperty, None)
-    XYFocusDownProperty = property(get_XYFocusDownProperty, None)
-    ElementSoundModeProperty = property(get_ElementSoundModeProperty, None)
-    FocusStateProperty = property(get_FocusStateProperty, None)
-    XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
-    XYFocusDownNavigationStrategyProperty = property(get_XYFocusDownNavigationStrategyProperty, None)
-    XYFocusLeftNavigationStrategyProperty = property(get_XYFocusLeftNavigationStrategyProperty, None)
-    XYFocusRightNavigationStrategyProperty = property(get_XYFocusRightNavigationStrategyProperty, None)
-    IsTabStopProperty = property(get_IsTabStopProperty, None)
-    TabIndexProperty = property(get_TabIndexProperty, None)
+    _ContentLink_Meta_.BackgroundProperty = property(get_BackgroundProperty.__wrapped__, None)
+    _ContentLink_Meta_.CursorProperty = property(get_CursorProperty.__wrapped__, None)
+    _ContentLink_Meta_.XYFocusLeftProperty = property(get_XYFocusLeftProperty.__wrapped__, None)
+    _ContentLink_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty.__wrapped__, None)
+    _ContentLink_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty.__wrapped__, None)
+    _ContentLink_Meta_.XYFocusDownProperty = property(get_XYFocusDownProperty.__wrapped__, None)
+    _ContentLink_Meta_.ElementSoundModeProperty = property(get_ElementSoundModeProperty.__wrapped__, None)
+    _ContentLink_Meta_.FocusStateProperty = property(get_FocusStateProperty.__wrapped__, None)
+    _ContentLink_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty.__wrapped__, None)
+    _ContentLink_Meta_.XYFocusDownNavigationStrategyProperty = property(get_XYFocusDownNavigationStrategyProperty.__wrapped__, None)
+    _ContentLink_Meta_.XYFocusLeftNavigationStrategyProperty = property(get_XYFocusLeftNavigationStrategyProperty.__wrapped__, None)
+    _ContentLink_Meta_.XYFocusRightNavigationStrategyProperty = property(get_XYFocusRightNavigationStrategyProperty.__wrapped__, None)
+    _ContentLink_Meta_.IsTabStopProperty = property(get_IsTabStopProperty.__wrapped__, None)
+    _ContentLink_Meta_.TabIndexProperty = property(get_TabIndexProperty.__wrapped__, None)
 class ContentLinkInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Documents.IContentLinkInvokedEventArgs
@@ -302,7 +306,9 @@ class ContentLinkProviderCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Xaml.Documents.ContentLinkProvider]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Xaml.Documents.ContentLinkProvider]: ...
     Size = property(get_Size, None)
-class Glyphs(ComPtr):
+class _Glyphs_Meta_(ComPtr.__class__):
+    pass
+class Glyphs(ComPtr, metaclass=_Glyphs_Meta_):
     extends: Windows.UI.Xaml.FrameworkElement
     default_interface: Windows.UI.Xaml.Documents.IGlyphs
     _classid_ = 'Windows.UI.Xaml.Documents.Glyphs'
@@ -378,17 +384,19 @@ class Glyphs(ComPtr):
     Fill = property(get_Fill, put_Fill)
     IsColorFontEnabled = property(get_IsColorFontEnabled, put_IsColorFontEnabled)
     ColorFontPaletteIndex = property(get_ColorFontPaletteIndex, put_ColorFontPaletteIndex)
-    IsColorFontEnabledProperty = property(get_IsColorFontEnabledProperty, None)
-    ColorFontPaletteIndexProperty = property(get_ColorFontPaletteIndexProperty, None)
-    UnicodeStringProperty = property(get_UnicodeStringProperty, None)
-    IndicesProperty = property(get_IndicesProperty, None)
-    FontUriProperty = property(get_FontUriProperty, None)
-    StyleSimulationsProperty = property(get_StyleSimulationsProperty, None)
-    FontRenderingEmSizeProperty = property(get_FontRenderingEmSizeProperty, None)
-    OriginXProperty = property(get_OriginXProperty, None)
-    OriginYProperty = property(get_OriginYProperty, None)
-    FillProperty = property(get_FillProperty, None)
-class Hyperlink(ComPtr):
+    _Glyphs_Meta_.IsColorFontEnabledProperty = property(get_IsColorFontEnabledProperty.__wrapped__, None)
+    _Glyphs_Meta_.ColorFontPaletteIndexProperty = property(get_ColorFontPaletteIndexProperty.__wrapped__, None)
+    _Glyphs_Meta_.UnicodeStringProperty = property(get_UnicodeStringProperty.__wrapped__, None)
+    _Glyphs_Meta_.IndicesProperty = property(get_IndicesProperty.__wrapped__, None)
+    _Glyphs_Meta_.FontUriProperty = property(get_FontUriProperty.__wrapped__, None)
+    _Glyphs_Meta_.StyleSimulationsProperty = property(get_StyleSimulationsProperty.__wrapped__, None)
+    _Glyphs_Meta_.FontRenderingEmSizeProperty = property(get_FontRenderingEmSizeProperty.__wrapped__, None)
+    _Glyphs_Meta_.OriginXProperty = property(get_OriginXProperty.__wrapped__, None)
+    _Glyphs_Meta_.OriginYProperty = property(get_OriginYProperty.__wrapped__, None)
+    _Glyphs_Meta_.FillProperty = property(get_FillProperty.__wrapped__, None)
+class _Hyperlink_Meta_(ComPtr.__class__):
+    pass
+class Hyperlink(ComPtr, metaclass=_Hyperlink_Meta_):
     extends: Windows.UI.Xaml.Documents.Span
     default_interface: Windows.UI.Xaml.Documents.IHyperlink
     _classid_ = 'Windows.UI.Xaml.Documents.Hyperlink'
@@ -504,20 +512,20 @@ class Hyperlink(ComPtr):
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     IsTabStop = property(get_IsTabStop, put_IsTabStop)
     TabIndex = property(get_TabIndex, put_TabIndex)
-    IsTabStopProperty = property(get_IsTabStopProperty, None)
-    TabIndexProperty = property(get_TabIndexProperty, None)
-    FocusStateProperty = property(get_FocusStateProperty, None)
-    XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
-    XYFocusDownNavigationStrategyProperty = property(get_XYFocusDownNavigationStrategyProperty, None)
-    XYFocusLeftNavigationStrategyProperty = property(get_XYFocusLeftNavigationStrategyProperty, None)
-    XYFocusRightNavigationStrategyProperty = property(get_XYFocusRightNavigationStrategyProperty, None)
-    XYFocusLeftProperty = property(get_XYFocusLeftProperty, None)
-    XYFocusRightProperty = property(get_XYFocusRightProperty, None)
-    XYFocusUpProperty = property(get_XYFocusUpProperty, None)
-    XYFocusDownProperty = property(get_XYFocusDownProperty, None)
-    ElementSoundModeProperty = property(get_ElementSoundModeProperty, None)
-    UnderlineStyleProperty = property(get_UnderlineStyleProperty, None)
-    NavigateUriProperty = property(get_NavigateUriProperty, None)
+    _Hyperlink_Meta_.IsTabStopProperty = property(get_IsTabStopProperty.__wrapped__, None)
+    _Hyperlink_Meta_.TabIndexProperty = property(get_TabIndexProperty.__wrapped__, None)
+    _Hyperlink_Meta_.FocusStateProperty = property(get_FocusStateProperty.__wrapped__, None)
+    _Hyperlink_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty.__wrapped__, None)
+    _Hyperlink_Meta_.XYFocusDownNavigationStrategyProperty = property(get_XYFocusDownNavigationStrategyProperty.__wrapped__, None)
+    _Hyperlink_Meta_.XYFocusLeftNavigationStrategyProperty = property(get_XYFocusLeftNavigationStrategyProperty.__wrapped__, None)
+    _Hyperlink_Meta_.XYFocusRightNavigationStrategyProperty = property(get_XYFocusRightNavigationStrategyProperty.__wrapped__, None)
+    _Hyperlink_Meta_.XYFocusLeftProperty = property(get_XYFocusLeftProperty.__wrapped__, None)
+    _Hyperlink_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty.__wrapped__, None)
+    _Hyperlink_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty.__wrapped__, None)
+    _Hyperlink_Meta_.XYFocusDownProperty = property(get_XYFocusDownProperty.__wrapped__, None)
+    _Hyperlink_Meta_.ElementSoundModeProperty = property(get_ElementSoundModeProperty.__wrapped__, None)
+    _Hyperlink_Meta_.UnderlineStyleProperty = property(get_UnderlineStyleProperty.__wrapped__, None)
+    _Hyperlink_Meta_.NavigateUriProperty = property(get_NavigateUriProperty.__wrapped__, None)
 class HyperlinkClickEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
     default_interface: Windows.UI.Xaml.Documents.IHyperlinkClickEventArgs
@@ -1766,7 +1774,9 @@ class LineBreak(ComPtr):
 LogicalDirection = Int32
 LogicalDirection_Backward: LogicalDirection = 0
 LogicalDirection_Forward: LogicalDirection = 1
-class Paragraph(ComPtr):
+class _Paragraph_Meta_(ComPtr.__class__):
+    pass
+class Paragraph(ComPtr, metaclass=_Paragraph_Meta_):
     extends: Windows.UI.Xaml.Documents.Block
     default_interface: Windows.UI.Xaml.Documents.IParagraph
     _classid_ = 'Windows.UI.Xaml.Documents.Paragraph'
@@ -1782,14 +1792,16 @@ class Paragraph(ComPtr):
     def get_TextIndentProperty(cls: Windows.UI.Xaml.Documents.IParagraphStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Inlines = property(get_Inlines, None)
     TextIndent = property(get_TextIndent, put_TextIndent)
-    TextIndentProperty = property(get_TextIndentProperty, None)
+    _Paragraph_Meta_.TextIndentProperty = property(get_TextIndentProperty.__wrapped__, None)
 class PlaceContentLinkProvider(ComPtr):
     extends: Windows.UI.Xaml.Documents.ContentLinkProvider
     default_interface: Windows.UI.Xaml.Documents.IPlaceContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.PlaceContentLinkProvider'
     @winrt_activatemethod
     def CreateInstance(cls) -> Windows.UI.Xaml.Documents.PlaceContentLinkProvider: ...
-class Run(ComPtr):
+class _Run_Meta_(ComPtr.__class__):
+    pass
+class Run(ComPtr, metaclass=_Run_Meta_):
     extends: Windows.UI.Xaml.Documents.Inline
     default_interface: Windows.UI.Xaml.Documents.IRun
     _classid_ = 'Windows.UI.Xaml.Documents.Run'
@@ -1807,7 +1819,7 @@ class Run(ComPtr):
     def get_FlowDirectionProperty(cls: Windows.UI.Xaml.Documents.IRunStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Text = property(get_Text, put_Text)
     FlowDirection = property(get_FlowDirection, put_FlowDirection)
-    FlowDirectionProperty = property(get_FlowDirectionProperty, None)
+    _Run_Meta_.FlowDirectionProperty = property(get_FlowDirectionProperty.__wrapped__, None)
 class Span(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
     default_interface: Windows.UI.Xaml.Documents.ISpan
@@ -1819,7 +1831,9 @@ class Span(ComPtr):
     @winrt_mixinmethod
     def put_Inlines(self: Windows.UI.Xaml.Documents.ISpan, value: Windows.UI.Xaml.Documents.InlineCollection) -> Void: ...
     Inlines = property(get_Inlines, put_Inlines)
-class TextElement(ComPtr):
+class _TextElement_Meta_(ComPtr.__class__):
+    pass
+class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Documents.ITextElement
     _classid_ = 'Windows.UI.Xaml.Documents.TextElement'
@@ -1985,25 +1999,27 @@ class TextElement(ComPtr):
     KeyTipHorizontalOffset = property(get_KeyTipHorizontalOffset, put_KeyTipHorizontalOffset)
     KeyTipVerticalOffset = property(get_KeyTipVerticalOffset, put_KeyTipVerticalOffset)
     XamlRoot = property(get_XamlRoot, put_XamlRoot)
-    TextDecorationsProperty = property(get_TextDecorationsProperty, None)
-    IsAccessKeyScopeProperty = property(get_IsAccessKeyScopeProperty, None)
-    AccessKeyScopeOwnerProperty = property(get_AccessKeyScopeOwnerProperty, None)
-    KeyTipPlacementModeProperty = property(get_KeyTipPlacementModeProperty, None)
-    KeyTipHorizontalOffsetProperty = property(get_KeyTipHorizontalOffsetProperty, None)
-    KeyTipVerticalOffsetProperty = property(get_KeyTipVerticalOffsetProperty, None)
-    AllowFocusOnInteractionProperty = property(get_AllowFocusOnInteractionProperty, None)
-    AccessKeyProperty = property(get_AccessKeyProperty, None)
-    ExitDisplayModeOnAccessKeyInvokedProperty = property(get_ExitDisplayModeOnAccessKeyInvokedProperty, None)
-    IsTextScaleFactorEnabledProperty = property(get_IsTextScaleFactorEnabledProperty, None)
-    FontSizeProperty = property(get_FontSizeProperty, None)
-    FontFamilyProperty = property(get_FontFamilyProperty, None)
-    FontWeightProperty = property(get_FontWeightProperty, None)
-    FontStyleProperty = property(get_FontStyleProperty, None)
-    FontStretchProperty = property(get_FontStretchProperty, None)
-    CharacterSpacingProperty = property(get_CharacterSpacingProperty, None)
-    ForegroundProperty = property(get_ForegroundProperty, None)
-    LanguageProperty = property(get_LanguageProperty, None)
-class TextHighlighter(ComPtr):
+    _TextElement_Meta_.TextDecorationsProperty = property(get_TextDecorationsProperty.__wrapped__, None)
+    _TextElement_Meta_.IsAccessKeyScopeProperty = property(get_IsAccessKeyScopeProperty.__wrapped__, None)
+    _TextElement_Meta_.AccessKeyScopeOwnerProperty = property(get_AccessKeyScopeOwnerProperty.__wrapped__, None)
+    _TextElement_Meta_.KeyTipPlacementModeProperty = property(get_KeyTipPlacementModeProperty.__wrapped__, None)
+    _TextElement_Meta_.KeyTipHorizontalOffsetProperty = property(get_KeyTipHorizontalOffsetProperty.__wrapped__, None)
+    _TextElement_Meta_.KeyTipVerticalOffsetProperty = property(get_KeyTipVerticalOffsetProperty.__wrapped__, None)
+    _TextElement_Meta_.AllowFocusOnInteractionProperty = property(get_AllowFocusOnInteractionProperty.__wrapped__, None)
+    _TextElement_Meta_.AccessKeyProperty = property(get_AccessKeyProperty.__wrapped__, None)
+    _TextElement_Meta_.ExitDisplayModeOnAccessKeyInvokedProperty = property(get_ExitDisplayModeOnAccessKeyInvokedProperty.__wrapped__, None)
+    _TextElement_Meta_.IsTextScaleFactorEnabledProperty = property(get_IsTextScaleFactorEnabledProperty.__wrapped__, None)
+    _TextElement_Meta_.FontSizeProperty = property(get_FontSizeProperty.__wrapped__, None)
+    _TextElement_Meta_.FontFamilyProperty = property(get_FontFamilyProperty.__wrapped__, None)
+    _TextElement_Meta_.FontWeightProperty = property(get_FontWeightProperty.__wrapped__, None)
+    _TextElement_Meta_.FontStyleProperty = property(get_FontStyleProperty.__wrapped__, None)
+    _TextElement_Meta_.FontStretchProperty = property(get_FontStretchProperty.__wrapped__, None)
+    _TextElement_Meta_.CharacterSpacingProperty = property(get_CharacterSpacingProperty.__wrapped__, None)
+    _TextElement_Meta_.ForegroundProperty = property(get_ForegroundProperty.__wrapped__, None)
+    _TextElement_Meta_.LanguageProperty = property(get_LanguageProperty.__wrapped__, None)
+class _TextHighlighter_Meta_(ComPtr.__class__):
+    pass
+class TextHighlighter(ComPtr, metaclass=_TextHighlighter_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Documents.ITextHighlighter
     _classid_ = 'Windows.UI.Xaml.Documents.TextHighlighter'
@@ -2026,8 +2042,8 @@ class TextHighlighter(ComPtr):
     Ranges = property(get_Ranges, None)
     Foreground = property(get_Foreground, put_Foreground)
     Background = property(get_Background, put_Background)
-    ForegroundProperty = property(get_ForegroundProperty, None)
-    BackgroundProperty = property(get_BackgroundProperty, None)
+    _TextHighlighter_Meta_.ForegroundProperty = property(get_ForegroundProperty.__wrapped__, None)
+    _TextHighlighter_Meta_.BackgroundProperty = property(get_BackgroundProperty.__wrapped__, None)
 class TextHighlighterBase(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     default_interface: Windows.UI.Xaml.Documents.ITextHighlighterBase
@@ -2055,7 +2071,9 @@ class TextPointer(ComPtr):
 class TextRange(EasyCastStructure):
     StartIndex: Int32
     Length: Int32
-class Typography(ComPtr):
+class _Typography_Meta_(ComPtr.__class__):
+    pass
+class Typography(ComPtr, metaclass=_Typography_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Xaml.Documents.ITypography
     _classid_ = 'Windows.UI.Xaml.Documents.Typography'
@@ -2317,49 +2335,49 @@ class Typography(ComPtr):
     def GetVariants(cls: Windows.UI.Xaml.Documents.ITypographyStatics, element: Windows.UI.Xaml.DependencyObject) -> Windows.UI.Xaml.FontVariants: ...
     @winrt_classmethod
     def SetVariants(cls: Windows.UI.Xaml.Documents.ITypographyStatics, element: Windows.UI.Xaml.DependencyObject, value: Windows.UI.Xaml.FontVariants) -> Void: ...
-    AnnotationAlternatesProperty = property(get_AnnotationAlternatesProperty, None)
-    EastAsianExpertFormsProperty = property(get_EastAsianExpertFormsProperty, None)
-    EastAsianLanguageProperty = property(get_EastAsianLanguageProperty, None)
-    EastAsianWidthsProperty = property(get_EastAsianWidthsProperty, None)
-    StandardLigaturesProperty = property(get_StandardLigaturesProperty, None)
-    ContextualLigaturesProperty = property(get_ContextualLigaturesProperty, None)
-    DiscretionaryLigaturesProperty = property(get_DiscretionaryLigaturesProperty, None)
-    HistoricalLigaturesProperty = property(get_HistoricalLigaturesProperty, None)
-    StandardSwashesProperty = property(get_StandardSwashesProperty, None)
-    ContextualSwashesProperty = property(get_ContextualSwashesProperty, None)
-    ContextualAlternatesProperty = property(get_ContextualAlternatesProperty, None)
-    StylisticAlternatesProperty = property(get_StylisticAlternatesProperty, None)
-    StylisticSet1Property = property(get_StylisticSet1Property, None)
-    StylisticSet2Property = property(get_StylisticSet2Property, None)
-    StylisticSet3Property = property(get_StylisticSet3Property, None)
-    StylisticSet4Property = property(get_StylisticSet4Property, None)
-    StylisticSet5Property = property(get_StylisticSet5Property, None)
-    StylisticSet6Property = property(get_StylisticSet6Property, None)
-    StylisticSet7Property = property(get_StylisticSet7Property, None)
-    StylisticSet8Property = property(get_StylisticSet8Property, None)
-    StylisticSet9Property = property(get_StylisticSet9Property, None)
-    StylisticSet10Property = property(get_StylisticSet10Property, None)
-    StylisticSet11Property = property(get_StylisticSet11Property, None)
-    StylisticSet12Property = property(get_StylisticSet12Property, None)
-    StylisticSet13Property = property(get_StylisticSet13Property, None)
-    StylisticSet14Property = property(get_StylisticSet14Property, None)
-    StylisticSet15Property = property(get_StylisticSet15Property, None)
-    StylisticSet16Property = property(get_StylisticSet16Property, None)
-    StylisticSet17Property = property(get_StylisticSet17Property, None)
-    StylisticSet18Property = property(get_StylisticSet18Property, None)
-    StylisticSet19Property = property(get_StylisticSet19Property, None)
-    StylisticSet20Property = property(get_StylisticSet20Property, None)
-    CapitalsProperty = property(get_CapitalsProperty, None)
-    CapitalSpacingProperty = property(get_CapitalSpacingProperty, None)
-    KerningProperty = property(get_KerningProperty, None)
-    CaseSensitiveFormsProperty = property(get_CaseSensitiveFormsProperty, None)
-    HistoricalFormsProperty = property(get_HistoricalFormsProperty, None)
-    FractionProperty = property(get_FractionProperty, None)
-    NumeralStyleProperty = property(get_NumeralStyleProperty, None)
-    NumeralAlignmentProperty = property(get_NumeralAlignmentProperty, None)
-    SlashedZeroProperty = property(get_SlashedZeroProperty, None)
-    MathematicalGreekProperty = property(get_MathematicalGreekProperty, None)
-    VariantsProperty = property(get_VariantsProperty, None)
+    _Typography_Meta_.AnnotationAlternatesProperty = property(get_AnnotationAlternatesProperty.__wrapped__, None)
+    _Typography_Meta_.EastAsianExpertFormsProperty = property(get_EastAsianExpertFormsProperty.__wrapped__, None)
+    _Typography_Meta_.EastAsianLanguageProperty = property(get_EastAsianLanguageProperty.__wrapped__, None)
+    _Typography_Meta_.EastAsianWidthsProperty = property(get_EastAsianWidthsProperty.__wrapped__, None)
+    _Typography_Meta_.StandardLigaturesProperty = property(get_StandardLigaturesProperty.__wrapped__, None)
+    _Typography_Meta_.ContextualLigaturesProperty = property(get_ContextualLigaturesProperty.__wrapped__, None)
+    _Typography_Meta_.DiscretionaryLigaturesProperty = property(get_DiscretionaryLigaturesProperty.__wrapped__, None)
+    _Typography_Meta_.HistoricalLigaturesProperty = property(get_HistoricalLigaturesProperty.__wrapped__, None)
+    _Typography_Meta_.StandardSwashesProperty = property(get_StandardSwashesProperty.__wrapped__, None)
+    _Typography_Meta_.ContextualSwashesProperty = property(get_ContextualSwashesProperty.__wrapped__, None)
+    _Typography_Meta_.ContextualAlternatesProperty = property(get_ContextualAlternatesProperty.__wrapped__, None)
+    _Typography_Meta_.StylisticAlternatesProperty = property(get_StylisticAlternatesProperty.__wrapped__, None)
+    _Typography_Meta_.StylisticSet1Property = property(get_StylisticSet1Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet2Property = property(get_StylisticSet2Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet3Property = property(get_StylisticSet3Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet4Property = property(get_StylisticSet4Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet5Property = property(get_StylisticSet5Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet6Property = property(get_StylisticSet6Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet7Property = property(get_StylisticSet7Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet8Property = property(get_StylisticSet8Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet9Property = property(get_StylisticSet9Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet10Property = property(get_StylisticSet10Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet11Property = property(get_StylisticSet11Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet12Property = property(get_StylisticSet12Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet13Property = property(get_StylisticSet13Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet14Property = property(get_StylisticSet14Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet15Property = property(get_StylisticSet15Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet16Property = property(get_StylisticSet16Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet17Property = property(get_StylisticSet17Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet18Property = property(get_StylisticSet18Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet19Property = property(get_StylisticSet19Property.__wrapped__, None)
+    _Typography_Meta_.StylisticSet20Property = property(get_StylisticSet20Property.__wrapped__, None)
+    _Typography_Meta_.CapitalsProperty = property(get_CapitalsProperty.__wrapped__, None)
+    _Typography_Meta_.CapitalSpacingProperty = property(get_CapitalSpacingProperty.__wrapped__, None)
+    _Typography_Meta_.KerningProperty = property(get_KerningProperty.__wrapped__, None)
+    _Typography_Meta_.CaseSensitiveFormsProperty = property(get_CaseSensitiveFormsProperty.__wrapped__, None)
+    _Typography_Meta_.HistoricalFormsProperty = property(get_HistoricalFormsProperty.__wrapped__, None)
+    _Typography_Meta_.FractionProperty = property(get_FractionProperty.__wrapped__, None)
+    _Typography_Meta_.NumeralStyleProperty = property(get_NumeralStyleProperty.__wrapped__, None)
+    _Typography_Meta_.NumeralAlignmentProperty = property(get_NumeralAlignmentProperty.__wrapped__, None)
+    _Typography_Meta_.SlashedZeroProperty = property(get_SlashedZeroProperty.__wrapped__, None)
+    _Typography_Meta_.MathematicalGreekProperty = property(get_MathematicalGreekProperty.__wrapped__, None)
+    _Typography_Meta_.VariantsProperty = property(get_VariantsProperty.__wrapped__, None)
 class Underline(ComPtr):
     extends: Windows.UI.Xaml.Documents.Span
     default_interface: Windows.UI.Xaml.Documents.IUnderline

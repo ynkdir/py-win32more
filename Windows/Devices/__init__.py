@@ -85,7 +85,9 @@ class LowLevelDevicesAggregateProvider(ComPtr):
     GpioControllerProvider = property(get_GpioControllerProvider, None)
     I2cControllerProvider = property(get_I2cControllerProvider, None)
     SpiControllerProvider = property(get_SpiControllerProvider, None)
-class LowLevelDevicesController(ComPtr):
+class _LowLevelDevicesController_Meta_(ComPtr.__class__):
+    pass
+class LowLevelDevicesController(ComPtr, metaclass=_LowLevelDevicesController_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Devices.ILowLevelDevicesController
     _classid_ = 'Windows.Devices.LowLevelDevicesController'
@@ -93,7 +95,7 @@ class LowLevelDevicesController(ComPtr):
     def get_DefaultProvider(cls: Windows.Devices.ILowLevelDevicesControllerStatics) -> Windows.Devices.ILowLevelDevicesAggregateProvider: ...
     @winrt_classmethod
     def put_DefaultProvider(cls: Windows.Devices.ILowLevelDevicesControllerStatics, value: Windows.Devices.ILowLevelDevicesAggregateProvider) -> Void: ...
-    DefaultProvider = property(get_DefaultProvider, put_DefaultProvider)
+    _LowLevelDevicesController_Meta_.DefaultProvider = property(get_DefaultProvider.__wrapped__, put_DefaultProvider.__wrapped__)
 make_head(_module, 'ILowLevelDevicesAggregateProvider')
 make_head(_module, 'ILowLevelDevicesAggregateProviderFactory')
 make_head(_module, 'ILowLevelDevicesController')

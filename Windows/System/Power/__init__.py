@@ -21,7 +21,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class BackgroundEnergyManager(ComPtr):
+class _BackgroundEnergyManager_Meta_(ComPtr.__class__):
+    pass
+class BackgroundEnergyManager(ComPtr, metaclass=_BackgroundEnergyManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.BackgroundEnergyManager'
     @winrt_classmethod
@@ -48,14 +50,14 @@ class BackgroundEnergyManager(ComPtr):
     def add_RecentEnergyUsageReturnedToLow(cls: Windows.System.Power.IBackgroundEnergyManagerStatics, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_RecentEnergyUsageReturnedToLow(cls: Windows.System.Power.IBackgroundEnergyManagerStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-    LowUsageLevel = property(get_LowUsageLevel, None)
-    NearMaxAcceptableUsageLevel = property(get_NearMaxAcceptableUsageLevel, None)
-    MaxAcceptableUsageLevel = property(get_MaxAcceptableUsageLevel, None)
-    ExcessiveUsageLevel = property(get_ExcessiveUsageLevel, None)
-    NearTerminationUsageLevel = property(get_NearTerminationUsageLevel, None)
-    TerminationUsageLevel = property(get_TerminationUsageLevel, None)
-    RecentEnergyUsage = property(get_RecentEnergyUsage, None)
-    RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
+    _BackgroundEnergyManager_Meta_.LowUsageLevel = property(get_LowUsageLevel.__wrapped__, None)
+    _BackgroundEnergyManager_Meta_.NearMaxAcceptableUsageLevel = property(get_NearMaxAcceptableUsageLevel.__wrapped__, None)
+    _BackgroundEnergyManager_Meta_.MaxAcceptableUsageLevel = property(get_MaxAcceptableUsageLevel.__wrapped__, None)
+    _BackgroundEnergyManager_Meta_.ExcessiveUsageLevel = property(get_ExcessiveUsageLevel.__wrapped__, None)
+    _BackgroundEnergyManager_Meta_.NearTerminationUsageLevel = property(get_NearTerminationUsageLevel.__wrapped__, None)
+    _BackgroundEnergyManager_Meta_.TerminationUsageLevel = property(get_TerminationUsageLevel.__wrapped__, None)
+    _BackgroundEnergyManager_Meta_.RecentEnergyUsage = property(get_RecentEnergyUsage.__wrapped__, None)
+    _BackgroundEnergyManager_Meta_.RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel.__wrapped__, None)
 BatteryStatus = Int32
 BatteryStatus_NotPresent: BatteryStatus = 0
 BatteryStatus_Discharging: BatteryStatus = 1
@@ -65,7 +67,9 @@ EnergySaverStatus = Int32
 EnergySaverStatus_Disabled: EnergySaverStatus = 0
 EnergySaverStatus_Off: EnergySaverStatus = 1
 EnergySaverStatus_On: EnergySaverStatus = 2
-class ForegroundEnergyManager(ComPtr):
+class _ForegroundEnergyManager_Meta_(ComPtr.__class__):
+    pass
+class ForegroundEnergyManager(ComPtr, metaclass=_ForegroundEnergyManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.ForegroundEnergyManager'
     @winrt_classmethod
@@ -88,12 +92,12 @@ class ForegroundEnergyManager(ComPtr):
     def add_RecentEnergyUsageReturnedToLow(cls: Windows.System.Power.IForegroundEnergyManagerStatics, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_RecentEnergyUsageReturnedToLow(cls: Windows.System.Power.IForegroundEnergyManagerStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-    LowUsageLevel = property(get_LowUsageLevel, None)
-    NearMaxAcceptableUsageLevel = property(get_NearMaxAcceptableUsageLevel, None)
-    MaxAcceptableUsageLevel = property(get_MaxAcceptableUsageLevel, None)
-    ExcessiveUsageLevel = property(get_ExcessiveUsageLevel, None)
-    RecentEnergyUsage = property(get_RecentEnergyUsage, None)
-    RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
+    _ForegroundEnergyManager_Meta_.LowUsageLevel = property(get_LowUsageLevel.__wrapped__, None)
+    _ForegroundEnergyManager_Meta_.NearMaxAcceptableUsageLevel = property(get_NearMaxAcceptableUsageLevel.__wrapped__, None)
+    _ForegroundEnergyManager_Meta_.MaxAcceptableUsageLevel = property(get_MaxAcceptableUsageLevel.__wrapped__, None)
+    _ForegroundEnergyManager_Meta_.ExcessiveUsageLevel = property(get_ExcessiveUsageLevel.__wrapped__, None)
+    _ForegroundEnergyManager_Meta_.RecentEnergyUsage = property(get_RecentEnergyUsage.__wrapped__, None)
+    _ForegroundEnergyManager_Meta_.RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel.__wrapped__, None)
 class IBackgroundEnergyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.IBackgroundEnergyManagerStatics'
@@ -199,7 +203,9 @@ class IPowerManagerStatics(ComPtr):
     PowerSupplyStatus = property(get_PowerSupplyStatus, None)
     RemainingChargePercent = property(get_RemainingChargePercent, None)
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
-class PowerManager(ComPtr):
+class _PowerManager_Meta_(ComPtr.__class__):
+    pass
+class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.PowerManager'
     @winrt_classmethod
@@ -232,11 +238,11 @@ class PowerManager(ComPtr):
     def add_RemainingDischargeTimeChanged(cls: Windows.System.Power.IPowerManagerStatics, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_RemainingDischargeTimeChanged(cls: Windows.System.Power.IPowerManagerStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-    EnergySaverStatus = property(get_EnergySaverStatus, None)
-    BatteryStatus = property(get_BatteryStatus, None)
-    PowerSupplyStatus = property(get_PowerSupplyStatus, None)
-    RemainingChargePercent = property(get_RemainingChargePercent, None)
-    RemainingDischargeTime = property(get_RemainingDischargeTime, None)
+    _PowerManager_Meta_.EnergySaverStatus = property(get_EnergySaverStatus.__wrapped__, None)
+    _PowerManager_Meta_.BatteryStatus = property(get_BatteryStatus.__wrapped__, None)
+    _PowerManager_Meta_.PowerSupplyStatus = property(get_PowerSupplyStatus.__wrapped__, None)
+    _PowerManager_Meta_.RemainingChargePercent = property(get_RemainingChargePercent.__wrapped__, None)
+    _PowerManager_Meta_.RemainingDischargeTime = property(get_RemainingDischargeTime.__wrapped__, None)
 PowerSupplyStatus = Int32
 PowerSupplyStatus_NotPresent: PowerSupplyStatus = 0
 PowerSupplyStatus_Inadequate: PowerSupplyStatus = 1
