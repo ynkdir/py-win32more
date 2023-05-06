@@ -6,7 +6,6 @@ import Windows.Win32.Security
 import Windows.Win32.Storage.FileSystem
 import Windows.Win32.System.Com
 import Windows.Win32.System.IO
-import Windows.Win32.System.WindowsProgramming
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -904,9 +903,9 @@ def BuildIoRingRegisterFileHandles(ioRing: Windows.Win32.Storage.FileSystem.HIOR
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
 def BuildIoRingRegisterBuffers(ioRing: Windows.Win32.Storage.FileSystem.HIORING, count: UInt32, buffers: POINTER(Windows.Win32.Storage.FileSystem.IORING_BUFFER_INFO_head), userData: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
-def BuildIoRingWriteFile(ioRing: Windows.Win32.Storage.FileSystem.HIORING, fileRef: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, bufferRef: Windows.Win32.Storage.FileSystem.IORING_BUFFER_REF, numberOfBytesToWrite: UInt32, fileOffset: UInt64, writeFlags: Windows.Win32.System.WindowsProgramming.FILE_WRITE_FLAGS, userData: UIntPtr, sqeFlags: Windows.Win32.Storage.FileSystem.IORING_SQE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
+def BuildIoRingWriteFile(ioRing: Windows.Win32.Storage.FileSystem.HIORING, fileRef: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, bufferRef: Windows.Win32.Storage.FileSystem.IORING_BUFFER_REF, numberOfBytesToWrite: UInt32, fileOffset: UInt64, writeFlags: Windows.Win32.Storage.FileSystem.FILE_WRITE_FLAGS, userData: UIntPtr, sqeFlags: Windows.Win32.Storage.FileSystem.IORING_SQE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
-def BuildIoRingFlushFile(ioRing: Windows.Win32.Storage.FileSystem.HIORING, fileRef: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, flushMode: Windows.Win32.System.WindowsProgramming.FILE_FLUSH_MODE, userData: UIntPtr, sqeFlags: Windows.Win32.Storage.FileSystem.IORING_SQE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
+def BuildIoRingFlushFile(ioRing: Windows.Win32.Storage.FileSystem.HIORING, fileRef: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, flushMode: Windows.Win32.Storage.FileSystem.FILE_FLUSH_MODE, userData: UIntPtr, sqeFlags: Windows.Win32.Storage.FileSystem.IORING_SQE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
 def Wow64EnableWow64FsRedirection(Wow64FsEnableRedirection: Windows.Win32.Foundation.BOOLEAN) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('KERNEL32.dll')
@@ -1680,6 +1679,11 @@ SECURITY_CONTEXT_TRACKING: FILE_FLAGS_AND_ATTRIBUTES = 262144
 SECURITY_EFFECTIVE_ONLY: FILE_FLAGS_AND_ATTRIBUTES = 524288
 SECURITY_SQOS_PRESENT: FILE_FLAGS_AND_ATTRIBUTES = 1048576
 SECURITY_VALID_SQOS_FLAGS: FILE_FLAGS_AND_ATTRIBUTES = 2031616
+FILE_FLUSH_MODE = Int32
+FILE_FLUSH_DEFAULT: FILE_FLUSH_MODE = 0
+FILE_FLUSH_DATA: FILE_FLUSH_MODE = 1
+FILE_FLUSH_MIN_METADATA: FILE_FLUSH_MODE = 2
+FILE_FLUSH_NO_SYNC: FILE_FLUSH_MODE = 3
 class FILE_FULL_DIR_INFO(EasyCastStructure):
     NextEntryOffset: UInt32
     FileIndex: UInt32
@@ -1884,6 +1888,9 @@ FILE_TYPE_DISK: FILE_TYPE = 1
 FILE_TYPE_CHAR: FILE_TYPE = 2
 FILE_TYPE_PIPE: FILE_TYPE = 3
 FILE_TYPE_REMOTE: FILE_TYPE = 32768
+FILE_WRITE_FLAGS = Int32
+FILE_WRITE_FLAGS_NONE: FILE_WRITE_FLAGS = 0
+FILE_WRITE_FLAGS_WRITE_THROUGH: FILE_WRITE_FLAGS = 1
 FINDEX_INFO_LEVELS = Int32
 FINDEX_INFO_LEVELS_FindExInfoStandard: FINDEX_INFO_LEVELS = 0
 FINDEX_INFO_LEVELS_FindExInfoBasic: FINDEX_INFO_LEVELS = 1

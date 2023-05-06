@@ -290,15 +290,26 @@ class AsnAny(EasyCastStructure):
         ticks: UInt32
         arbitrary: Windows.Win32.NetworkManagement.Snmp.AsnOctetString
         _pack_ = 4
-class AsnObjectIdentifier(EasyCastStructure):
-    idLength: UInt32
-    ids: POINTER(UInt32)
-    _pack_ = 4
-class AsnOctetString(EasyCastStructure):
-    stream: POINTER(Byte)
-    length: UInt32
-    dynamic: Windows.Win32.Foundation.BOOL
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class AsnObjectIdentifier(EasyCastStructure):
+        idLength: UInt32
+        ids: POINTER(UInt32)
+        _pack_ = 4
+if ARCH in 'X86':
+    class AsnObjectIdentifier(EasyCastStructure):
+        idLength: UInt32
+        ids: POINTER(UInt32)
+if ARCH in 'X64,ARM64':
+    class AsnOctetString(EasyCastStructure):
+        stream: POINTER(Byte)
+        length: UInt32
+        dynamic: Windows.Win32.Foundation.BOOL
+        _pack_ = 4
+if ARCH in 'X86':
+    class AsnOctetString(EasyCastStructure):
+        stream: POINTER(Byte)
+        length: UInt32
+        dynamic: Windows.Win32.Foundation.BOOL
 @winfunctype_pointer
 def PFNSNMPCLEANUPEX() -> UInt32: ...
 @winfunctype_pointer
@@ -403,10 +414,15 @@ class SnmpVarBind(EasyCastStructure):
     name: Windows.Win32.NetworkManagement.Snmp.AsnObjectIdentifier
     value: Windows.Win32.NetworkManagement.Snmp.AsnAny
     _pack_ = 4
-class SnmpVarBindList(EasyCastStructure):
-    list: POINTER(Windows.Win32.NetworkManagement.Snmp.SnmpVarBind_head)
-    len: UInt32
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class SnmpVarBindList(EasyCastStructure):
+        list: POINTER(Windows.Win32.NetworkManagement.Snmp.SnmpVarBind_head)
+        len: UInt32
+        _pack_ = 4
+if ARCH in 'X86':
+    class SnmpVarBindList(EasyCastStructure):
+        list: POINTER(Windows.Win32.NetworkManagement.Snmp.SnmpVarBind_head)
+        len: UInt32
 class smiCNTR64(EasyCastStructure):
     hipart: UInt32
     lopart: UInt32
@@ -433,8 +449,14 @@ class smiVENDORINFO(EasyCastStructure):
     vendorVersionDate: Windows.Win32.Foundation.CHAR * 32
     vendorEnterprise: UInt32
 make_head(_module, 'AsnAny')
-make_head(_module, 'AsnObjectIdentifier')
-make_head(_module, 'AsnOctetString')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'AsnObjectIdentifier')
+if ARCH in 'X86':
+    make_head(_module, 'AsnObjectIdentifier')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'AsnOctetString')
+if ARCH in 'X86':
+    make_head(_module, 'AsnOctetString')
 make_head(_module, 'PFNSNMPCLEANUPEX')
 make_head(_module, 'PFNSNMPEXTENSIONCLOSE')
 make_head(_module, 'PFNSNMPEXTENSIONINIT')
@@ -446,7 +468,10 @@ make_head(_module, 'PFNSNMPEXTENSIONTRAP')
 make_head(_module, 'PFNSNMPSTARTUPEX')
 make_head(_module, 'SNMPAPI_CALLBACK')
 make_head(_module, 'SnmpVarBind')
-make_head(_module, 'SnmpVarBindList')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SnmpVarBindList')
+if ARCH in 'X86':
+    make_head(_module, 'SnmpVarBindList')
 make_head(_module, 'smiCNTR64')
 make_head(_module, 'smiOCTETS')
 make_head(_module, 'smiOID')

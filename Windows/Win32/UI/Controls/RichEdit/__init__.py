@@ -622,108 +622,216 @@ class CHARFORMATW(EasyCastStructure):
 class CHARRANGE(EasyCastStructure):
     cpMin: Int32
     cpMax: Int32
-class CLIPBOARDFORMAT(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    cf: UInt16
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class CLIPBOARDFORMAT(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        cf: UInt16
+        _pack_ = 4
+if ARCH in 'X86':
+    class CLIPBOARDFORMAT(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        cf: UInt16
 class COMPCOLOR(EasyCastStructure):
     crText: Windows.Win32.Foundation.COLORREF
     crBackground: Windows.Win32.Foundation.COLORREF
     dwEffects: UInt32
-class EDITSTREAM(EasyCastStructure):
-    dwCookie: UIntPtr
-    dwError: UInt32
-    pfnCallback: Windows.Win32.UI.Controls.RichEdit.EDITSTREAMCALLBACK
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class EDITSTREAM(EasyCastStructure):
+        dwCookie: UIntPtr
+        dwError: UInt32
+        pfnCallback: Windows.Win32.UI.Controls.RichEdit.EDITSTREAMCALLBACK
+        _pack_ = 4
+if ARCH in 'X86':
+    class EDITSTREAM(EasyCastStructure):
+        dwCookie: UIntPtr
+        dwError: UInt32
+        pfnCallback: Windows.Win32.UI.Controls.RichEdit.EDITSTREAMCALLBACK
 @winfunctype_pointer
 def EDITSTREAMCALLBACK(dwCookie: UIntPtr, pbBuff: POINTER(Byte), cb: Int32, pcb: POINTER(Int32)) -> UInt32: ...
 @winfunctype_pointer
 def EDITWORDBREAKPROCEX(pchText: Windows.Win32.Foundation.PSTR, cchText: Int32, bCharSet: Byte, action: Int32) -> Int32: ...
-class ENCORRECTTEXT(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    seltyp: Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE
-    _pack_ = 4
-class ENDCOMPOSITIONNOTIFY(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    dwCode: Windows.Win32.UI.Controls.RichEdit.ENDCOMPOSITIONNOTIFY_CODE
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class ENCORRECTTEXT(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        seltyp: Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE
+        _pack_ = 4
+if ARCH in 'X86':
+    class ENCORRECTTEXT(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        seltyp: Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE
+if ARCH in 'X64,ARM64':
+    class ENDCOMPOSITIONNOTIFY(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        dwCode: Windows.Win32.UI.Controls.RichEdit.ENDCOMPOSITIONNOTIFY_CODE
+        _pack_ = 4
+if ARCH in 'X86':
+    class ENDCOMPOSITIONNOTIFY(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        dwCode: Windows.Win32.UI.Controls.RichEdit.ENDCOMPOSITIONNOTIFY_CODE
 ENDCOMPOSITIONNOTIFY_CODE = UInt32
 ECN_ENDCOMPOSITION: ENDCOMPOSITIONNOTIFY_CODE = 1
 ECN_NEWTEXT: ENDCOMPOSITIONNOTIFY_CODE = 2
-class ENDROPFILES(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    hDrop: Windows.Win32.Foundation.HANDLE
-    cp: Int32
-    fProtected: Windows.Win32.Foundation.BOOL
-    _pack_ = 4
-class ENLINK(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    msg: UInt32
-    wParam: Windows.Win32.Foundation.WPARAM
-    lParam: Windows.Win32.Foundation.LPARAM
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    _pack_ = 4
-class ENLOWFIRTF(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    szControl: Windows.Win32.Foundation.PSTR
-    _pack_ = 4
-class ENOLEOPFAILED(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    iob: Int32
-    lOper: Int32
-    hr: Windows.Win32.Foundation.HRESULT
-    _pack_ = 4
-class ENPROTECTED(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    msg: UInt32
-    wParam: Windows.Win32.Foundation.WPARAM
-    lParam: Windows.Win32.Foundation.LPARAM
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    _pack_ = 4
-class ENSAVECLIPBOARD(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    cObjectCount: Int32
-    cch: Int32
-    _pack_ = 4
-class FINDTEXTA(EasyCastStructure):
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    lpstrText: Windows.Win32.Foundation.PSTR
-    _pack_ = 4
-class FINDTEXTEXA(EasyCastStructure):
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    lpstrText: Windows.Win32.Foundation.PSTR
-    chrgText: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    _pack_ = 4
-class FINDTEXTEXW(EasyCastStructure):
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    lpstrText: Windows.Win32.Foundation.PWSTR
-    chrgText: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    _pack_ = 4
-class FINDTEXTW(EasyCastStructure):
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    lpstrText: Windows.Win32.Foundation.PWSTR
-    _pack_ = 4
-class FORMATRANGE(EasyCastStructure):
-    hdc: Windows.Win32.Graphics.Gdi.HDC
-    hdcTarget: Windows.Win32.Graphics.Gdi.HDC
-    rc: Windows.Win32.Foundation.RECT
-    rcPage: Windows.Win32.Foundation.RECT
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    _pack_ = 4
-class GETCONTEXTMENUEX(EasyCastStructure):
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    dwFlags: UInt32
-    pt: Windows.Win32.Foundation.POINT
-    pvReserved: c_void_p
-    _pack_ = 4
-class GETTEXTEX(EasyCastStructure):
-    cb: UInt32
-    flags: Windows.Win32.UI.Controls.RichEdit.GETTEXTEX_FLAGS
-    codepage: UInt32
-    lpDefaultChar: Windows.Win32.Foundation.PSTR
-    lpUsedDefChar: POINTER(Int32)
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class ENDROPFILES(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        hDrop: Windows.Win32.Foundation.HANDLE
+        cp: Int32
+        fProtected: Windows.Win32.Foundation.BOOL
+        _pack_ = 4
+if ARCH in 'X86':
+    class ENDROPFILES(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        hDrop: Windows.Win32.Foundation.HANDLE
+        cp: Int32
+        fProtected: Windows.Win32.Foundation.BOOL
+if ARCH in 'X64,ARM64':
+    class ENLINK(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        msg: UInt32
+        wParam: Windows.Win32.Foundation.WPARAM
+        lParam: Windows.Win32.Foundation.LPARAM
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        _pack_ = 4
+if ARCH in 'X86':
+    class ENLINK(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        msg: UInt32
+        wParam: Windows.Win32.Foundation.WPARAM
+        lParam: Windows.Win32.Foundation.LPARAM
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+if ARCH in 'X64,ARM64':
+    class ENLOWFIRTF(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        szControl: Windows.Win32.Foundation.PSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class ENLOWFIRTF(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        szControl: Windows.Win32.Foundation.PSTR
+if ARCH in 'X64,ARM64':
+    class ENOLEOPFAILED(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        iob: Int32
+        lOper: Int32
+        hr: Windows.Win32.Foundation.HRESULT
+        _pack_ = 4
+if ARCH in 'X86':
+    class ENOLEOPFAILED(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        iob: Int32
+        lOper: Int32
+        hr: Windows.Win32.Foundation.HRESULT
+if ARCH in 'X64,ARM64':
+    class ENPROTECTED(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        msg: UInt32
+        wParam: Windows.Win32.Foundation.WPARAM
+        lParam: Windows.Win32.Foundation.LPARAM
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        _pack_ = 4
+if ARCH in 'X86':
+    class ENPROTECTED(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        msg: UInt32
+        wParam: Windows.Win32.Foundation.WPARAM
+        lParam: Windows.Win32.Foundation.LPARAM
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+if ARCH in 'X64,ARM64':
+    class ENSAVECLIPBOARD(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        cObjectCount: Int32
+        cch: Int32
+        _pack_ = 4
+if ARCH in 'X86':
+    class ENSAVECLIPBOARD(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        cObjectCount: Int32
+        cch: Int32
+if ARCH in 'X64,ARM64':
+    class FINDTEXTA(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class FINDTEXTA(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PSTR
+if ARCH in 'X64,ARM64':
+    class FINDTEXTEXA(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PSTR
+        chrgText: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        _pack_ = 4
+if ARCH in 'X86':
+    class FINDTEXTEXA(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PSTR
+        chrgText: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+if ARCH in 'X64,ARM64':
+    class FINDTEXTEXW(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PWSTR
+        chrgText: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        _pack_ = 4
+if ARCH in 'X86':
+    class FINDTEXTEXW(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PWSTR
+        chrgText: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+if ARCH in 'X64,ARM64':
+    class FINDTEXTW(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PWSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class FINDTEXTW(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    class FORMATRANGE(EasyCastStructure):
+        hdc: Windows.Win32.Graphics.Gdi.HDC
+        hdcTarget: Windows.Win32.Graphics.Gdi.HDC
+        rc: Windows.Win32.Foundation.RECT
+        rcPage: Windows.Win32.Foundation.RECT
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        _pack_ = 4
+if ARCH in 'X86':
+    class FORMATRANGE(EasyCastStructure):
+        hdc: Windows.Win32.Graphics.Gdi.HDC
+        hdcTarget: Windows.Win32.Graphics.Gdi.HDC
+        rc: Windows.Win32.Foundation.RECT
+        rcPage: Windows.Win32.Foundation.RECT
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+if ARCH in 'X64,ARM64':
+    class GETCONTEXTMENUEX(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        dwFlags: UInt32
+        pt: Windows.Win32.Foundation.POINT
+        pvReserved: c_void_p
+        _pack_ = 4
+if ARCH in 'X86':
+    class GETCONTEXTMENUEX(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        dwFlags: UInt32
+        pt: Windows.Win32.Foundation.POINT
+        pvReserved: c_void_p
+if ARCH in 'X64,ARM64':
+    class GETTEXTEX(EasyCastStructure):
+        cb: UInt32
+        flags: Windows.Win32.UI.Controls.RichEdit.GETTEXTEX_FLAGS
+        codepage: UInt32
+        lpDefaultChar: Windows.Win32.Foundation.PSTR
+        lpUsedDefChar: POINTER(Int32)
+        _pack_ = 4
+if ARCH in 'X86':
+    class GETTEXTEX(EasyCastStructure):
+        cb: UInt32
+        flags: Windows.Win32.UI.Controls.RichEdit.GETTEXTEX_FLAGS
+        codepage: UInt32
+        lpDefaultChar: Windows.Win32.Foundation.PSTR
+        lpUsedDefChar: POINTER(Int32)
 GETTEXTEX_FLAGS = UInt32
 GT_DEFAULT: GETTEXTEX_FLAGS = 0
 GT_NOHIDDENTEXT: GETTEXTEX_FLAGS = 8
@@ -1916,17 +2024,30 @@ MTAIL: MANCODE = 9
 MSTRCH: MANCODE = 10
 MLOOP: MANCODE = 11
 MOPENA: MANCODE = 12
-class MSGFILTER(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    msg: UInt32
-    wParam: Windows.Win32.Foundation.WPARAM
-    lParam: Windows.Win32.Foundation.LPARAM
-    _pack_ = 4
-class OBJECTPOSITIONS(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    cObjectCount: Int32
-    pcpPositions: POINTER(Int32)
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class MSGFILTER(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        msg: UInt32
+        wParam: Windows.Win32.Foundation.WPARAM
+        lParam: Windows.Win32.Foundation.LPARAM
+        _pack_ = 4
+if ARCH in 'X86':
+    class MSGFILTER(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        msg: UInt32
+        wParam: Windows.Win32.Foundation.WPARAM
+        lParam: Windows.Win32.Foundation.LPARAM
+if ARCH in 'X64,ARM64':
+    class OBJECTPOSITIONS(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        cObjectCount: Int32
+        pcpPositions: POINTER(Int32)
+        _pack_ = 4
+if ARCH in 'X86':
+    class OBJECTPOSITIONS(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        cObjectCount: Int32
+        pcpPositions: POINTER(Int32)
 OBJECTTYPE = Int32
 OBJECTTYPE_tomSimpleText: OBJECTTYPE = 0
 OBJECTTYPE_tomRuby: OBJECTTYPE = 1
@@ -2042,10 +2163,15 @@ PARAFORMAT_SHADING_STYLE_LIGHT_TRELLIS: PARAFORMAT_SHADING_STYLE = 12
 def PCreateTextServices(punkOuter: Windows.Win32.System.Com.IUnknown_head, pITextHost: Windows.Win32.UI.Controls.RichEdit.ITextHost_head, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PShutdownTextServices(pTextServices: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class PUNCTUATION(EasyCastStructure):
-    iSize: UInt32
-    szPunctuation: Windows.Win32.Foundation.PSTR
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class PUNCTUATION(EasyCastStructure):
+        iSize: UInt32
+        szPunctuation: Windows.Win32.Foundation.PSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class PUNCTUATION(EasyCastStructure):
+        iSize: UInt32
+        szPunctuation: Windows.Win32.Foundation.PSTR
 class REOBJECT(EasyCastStructure):
     cbStruct: UInt32
     cp: Int32
@@ -2077,22 +2203,41 @@ REO_SELECTED: REOBJECT_FLAGS = 134217728
 REO_STATIC: REOBJECT_FLAGS = 1073741824
 REO_USEASBACKGROUND: REOBJECT_FLAGS = 1024
 REO_WRAPTEXTAROUND: REOBJECT_FLAGS = 512
-class REPASTESPECIAL(EasyCastStructure):
-    dwAspect: Windows.Win32.System.Com.DVASPECT
-    dwParam: UIntPtr
-    _pack_ = 4
-class REQRESIZE(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    rc: Windows.Win32.Foundation.RECT
-    _pack_ = 4
-class RICHEDIT_IMAGE_PARAMETERS(EasyCastStructure):
-    xWidth: Int32
-    yHeight: Int32
-    Ascent: Int32
-    Type: Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS
-    pwszAlternateText: Windows.Win32.Foundation.PWSTR
-    pIStream: Windows.Win32.System.Com.IStream_head
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class REPASTESPECIAL(EasyCastStructure):
+        dwAspect: Windows.Win32.System.Com.DVASPECT
+        dwParam: UIntPtr
+        _pack_ = 4
+if ARCH in 'X86':
+    class REPASTESPECIAL(EasyCastStructure):
+        dwAspect: Windows.Win32.System.Com.DVASPECT
+        dwParam: UIntPtr
+if ARCH in 'X64,ARM64':
+    class REQRESIZE(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        rc: Windows.Win32.Foundation.RECT
+        _pack_ = 4
+if ARCH in 'X86':
+    class REQRESIZE(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        rc: Windows.Win32.Foundation.RECT
+if ARCH in 'X64,ARM64':
+    class RICHEDIT_IMAGE_PARAMETERS(EasyCastStructure):
+        xWidth: Int32
+        yHeight: Int32
+        Ascent: Int32
+        Type: Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS
+        pwszAlternateText: Windows.Win32.Foundation.PWSTR
+        pIStream: Windows.Win32.System.Com.IStream_head
+        _pack_ = 4
+if ARCH in 'X86':
+    class RICHEDIT_IMAGE_PARAMETERS(EasyCastStructure):
+        xWidth: Int32
+        yHeight: Int32
+        Ascent: Int32
+        Type: Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS
+        pwszAlternateText: Windows.Win32.Foundation.PWSTR
+        pIStream: Windows.Win32.System.Com.IStream_head
 RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE = UInt16
 SEL_EMPTY: RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE = 0
 SEL_TEXT: RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE = 1
@@ -2106,11 +2251,17 @@ REO_GETOBJ_PSTG: RICH_EDIT_GET_OBJECT_FLAGS = 2
 REO_GETOBJ_POLESITE: RICH_EDIT_GET_OBJECT_FLAGS = 4
 REO_GETOBJ_NO_INTERFACES: RICH_EDIT_GET_OBJECT_FLAGS = 0
 REO_GETOBJ_ALL_INTERFACES: RICH_EDIT_GET_OBJECT_FLAGS = 7
-class SELCHANGE(EasyCastStructure):
-    nmhdr: Windows.Win32.UI.Controls.NMHDR
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    seltyp: Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class SELCHANGE(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        seltyp: Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE
+        _pack_ = 4
+if ARCH in 'X86':
+    class SELCHANGE(EasyCastStructure):
+        nmhdr: Windows.Win32.UI.Controls.NMHDR
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        seltyp: Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE
 class SETTEXTEX(EasyCastStructure):
     flags: UInt32
     codepage: UInt32
@@ -2147,14 +2298,24 @@ TM_SINGLELEVELUNDO: TEXTMODE = 4
 TM_MULTILEVELUNDO: TEXTMODE = 8
 TM_SINGLECODEPAGE: TEXTMODE = 16
 TM_MULTICODEPAGE: TEXTMODE = 32
-class TEXTRANGEA(EasyCastStructure):
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    lpstrText: Windows.Win32.Foundation.PSTR
-    _pack_ = 4
-class TEXTRANGEW(EasyCastStructure):
-    chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
-    lpstrText: Windows.Win32.Foundation.PWSTR
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class TEXTRANGEA(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class TEXTRANGEA(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PSTR
+if ARCH in 'X64,ARM64':
+    class TEXTRANGEW(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PWSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class TEXTRANGEW(EasyCastStructure):
+        chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
+        lpstrText: Windows.Win32.Foundation.PWSTR
 TXTBACKSTYLE = Int32
 TXTBACK_TRANSPARENT: TXTBACKSTYLE = 0
 TXTBACK_OPAQUE: TXTBACKSTYLE = 1
@@ -2776,26 +2937,77 @@ make_head(_module, 'CHARFORMAT2W')
 make_head(_module, 'CHARFORMATA')
 make_head(_module, 'CHARFORMATW')
 make_head(_module, 'CHARRANGE')
-make_head(_module, 'CLIPBOARDFORMAT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'CLIPBOARDFORMAT')
+if ARCH in 'X86':
+    make_head(_module, 'CLIPBOARDFORMAT')
 make_head(_module, 'COMPCOLOR')
-make_head(_module, 'EDITSTREAM')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'EDITSTREAM')
+if ARCH in 'X86':
+    make_head(_module, 'EDITSTREAM')
 make_head(_module, 'EDITSTREAMCALLBACK')
 make_head(_module, 'EDITWORDBREAKPROCEX')
-make_head(_module, 'ENCORRECTTEXT')
-make_head(_module, 'ENDCOMPOSITIONNOTIFY')
-make_head(_module, 'ENDROPFILES')
-make_head(_module, 'ENLINK')
-make_head(_module, 'ENLOWFIRTF')
-make_head(_module, 'ENOLEOPFAILED')
-make_head(_module, 'ENPROTECTED')
-make_head(_module, 'ENSAVECLIPBOARD')
-make_head(_module, 'FINDTEXTA')
-make_head(_module, 'FINDTEXTEXA')
-make_head(_module, 'FINDTEXTEXW')
-make_head(_module, 'FINDTEXTW')
-make_head(_module, 'FORMATRANGE')
-make_head(_module, 'GETCONTEXTMENUEX')
-make_head(_module, 'GETTEXTEX')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ENCORRECTTEXT')
+if ARCH in 'X86':
+    make_head(_module, 'ENCORRECTTEXT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ENDCOMPOSITIONNOTIFY')
+if ARCH in 'X86':
+    make_head(_module, 'ENDCOMPOSITIONNOTIFY')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ENDROPFILES')
+if ARCH in 'X86':
+    make_head(_module, 'ENDROPFILES')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ENLINK')
+if ARCH in 'X86':
+    make_head(_module, 'ENLINK')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ENLOWFIRTF')
+if ARCH in 'X86':
+    make_head(_module, 'ENLOWFIRTF')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ENOLEOPFAILED')
+if ARCH in 'X86':
+    make_head(_module, 'ENOLEOPFAILED')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ENPROTECTED')
+if ARCH in 'X86':
+    make_head(_module, 'ENPROTECTED')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ENSAVECLIPBOARD')
+if ARCH in 'X86':
+    make_head(_module, 'ENSAVECLIPBOARD')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FINDTEXTA')
+if ARCH in 'X86':
+    make_head(_module, 'FINDTEXTA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FINDTEXTEXA')
+if ARCH in 'X86':
+    make_head(_module, 'FINDTEXTEXA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FINDTEXTEXW')
+if ARCH in 'X86':
+    make_head(_module, 'FINDTEXTEXW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FINDTEXTW')
+if ARCH in 'X86':
+    make_head(_module, 'FINDTEXTW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FORMATRANGE')
+if ARCH in 'X86':
+    make_head(_module, 'FORMATRANGE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'GETCONTEXTMENUEX')
+if ARCH in 'X86':
+    make_head(_module, 'GETCONTEXTMENUEX')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'GETTEXTEX')
+if ARCH in 'X86':
+    make_head(_module, 'GETTEXTEX')
 make_head(_module, 'GETTEXTLENGTHEX')
 make_head(_module, 'GROUPTYPINGCHANGE')
 if ARCH in 'X64,ARM64':
@@ -2828,20 +3040,47 @@ make_head(_module, 'ITextStory')
 make_head(_module, 'ITextStoryRanges')
 make_head(_module, 'ITextStoryRanges2')
 make_head(_module, 'ITextStrings')
-make_head(_module, 'MSGFILTER')
-make_head(_module, 'OBJECTPOSITIONS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MSGFILTER')
+if ARCH in 'X86':
+    make_head(_module, 'MSGFILTER')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OBJECTPOSITIONS')
+if ARCH in 'X86':
+    make_head(_module, 'OBJECTPOSITIONS')
 make_head(_module, 'PARAFORMAT')
 make_head(_module, 'PARAFORMAT2')
 make_head(_module, 'PCreateTextServices')
 make_head(_module, 'PShutdownTextServices')
-make_head(_module, 'PUNCTUATION')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PUNCTUATION')
+if ARCH in 'X86':
+    make_head(_module, 'PUNCTUATION')
 make_head(_module, 'REOBJECT')
-make_head(_module, 'REPASTESPECIAL')
-make_head(_module, 'REQRESIZE')
-make_head(_module, 'RICHEDIT_IMAGE_PARAMETERS')
-make_head(_module, 'SELCHANGE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'REPASTESPECIAL')
+if ARCH in 'X86':
+    make_head(_module, 'REPASTESPECIAL')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'REQRESIZE')
+if ARCH in 'X86':
+    make_head(_module, 'REQRESIZE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RICHEDIT_IMAGE_PARAMETERS')
+if ARCH in 'X86':
+    make_head(_module, 'RICHEDIT_IMAGE_PARAMETERS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SELCHANGE')
+if ARCH in 'X86':
+    make_head(_module, 'SELCHANGE')
 make_head(_module, 'SETTEXTEX')
 make_head(_module, 'TABLECELLPARMS')
 make_head(_module, 'TABLEROWPARMS')
-make_head(_module, 'TEXTRANGEA')
-make_head(_module, 'TEXTRANGEW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'TEXTRANGEA')
+if ARCH in 'X86':
+    make_head(_module, 'TEXTRANGEA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'TEXTRANGEW')
+if ARCH in 'X86':
+    make_head(_module, 'TEXTRANGEW')
