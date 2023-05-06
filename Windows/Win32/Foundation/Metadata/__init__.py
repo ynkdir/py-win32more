@@ -35,6 +35,8 @@ class CppAttributeList(EasyCastStructure):
     AttributeList: String
 class DoNotReleaseAttribute(EasyCastStructure):
     pass
+class DocumentationAttribute(EasyCastStructure):
+    Uri: String
 class FlexibleArrayAttribute(EasyCastStructure):
     pass
 class FreeWithAttribute(EasyCastStructure):

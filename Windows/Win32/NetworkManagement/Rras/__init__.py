@@ -2043,10 +2043,15 @@ class RASDEVINFOW(EasyCastStructure):
     dwSize: UInt32
     szDeviceType: Char * 17
     szDeviceName: Char * 129
-class RASDEVSPECIFICINFO(EasyCastStructure):
-    dwSize: UInt32
-    pbDevSpecificInfo: POINTER(Byte)
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class RASDEVSPECIFICINFO(EasyCastStructure):
+        dwSize: UInt32
+        pbDevSpecificInfo: POINTER(Byte)
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASDEVSPECIFICINFO(EasyCastStructure):
+        dwSize: UInt32
+        pbDevSpecificInfo: POINTER(Byte)
 class RASDIALDLG(EasyCastStructure):
     dwSize: UInt32
     hwndOwner: Windows.Win32.Foundation.HWND
@@ -2271,23 +2276,41 @@ class RASENTRYW(EasyCastStructure):
 RASENTRY_DIAL_MODE = UInt32
 RASEDM_DialAll: RASENTRY_DIAL_MODE = 1
 RASEDM_DialAsNeeded: RASENTRY_DIAL_MODE = 2
-class RASIKEV2_PROJECTION_INFO(EasyCastStructure):
-    dwIPv4NegotiationError: UInt32
-    ipv4Address: Windows.Win32.Networking.WinSock.IN_ADDR
-    ipv4ServerAddress: Windows.Win32.Networking.WinSock.IN_ADDR
-    dwIPv6NegotiationError: UInt32
-    ipv6Address: Windows.Win32.Networking.WinSock.IN6_ADDR
-    ipv6ServerAddress: Windows.Win32.Networking.WinSock.IN6_ADDR
-    dwPrefixLength: UInt32
-    dwAuthenticationProtocol: UInt32
-    dwEapTypeId: UInt32
-    dwFlags: Windows.Win32.NetworkManagement.Rras.RASIKEV_PROJECTION_INFO_FLAGS
-    dwEncryptionMethod: UInt32
-    numIPv4ServerAddresses: UInt32
-    ipv4ServerAddresses: POINTER(Windows.Win32.Networking.WinSock.IN_ADDR_head)
-    numIPv6ServerAddresses: UInt32
-    ipv6ServerAddresses: POINTER(Windows.Win32.Networking.WinSock.IN6_ADDR_head)
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class RASIKEV2_PROJECTION_INFO(EasyCastStructure):
+        dwIPv4NegotiationError: UInt32
+        ipv4Address: Windows.Win32.Networking.WinSock.IN_ADDR
+        ipv4ServerAddress: Windows.Win32.Networking.WinSock.IN_ADDR
+        dwIPv6NegotiationError: UInt32
+        ipv6Address: Windows.Win32.Networking.WinSock.IN6_ADDR
+        ipv6ServerAddress: Windows.Win32.Networking.WinSock.IN6_ADDR
+        dwPrefixLength: UInt32
+        dwAuthenticationProtocol: UInt32
+        dwEapTypeId: UInt32
+        dwFlags: Windows.Win32.NetworkManagement.Rras.RASIKEV_PROJECTION_INFO_FLAGS
+        dwEncryptionMethod: UInt32
+        numIPv4ServerAddresses: UInt32
+        ipv4ServerAddresses: POINTER(Windows.Win32.Networking.WinSock.IN_ADDR_head)
+        numIPv6ServerAddresses: UInt32
+        ipv6ServerAddresses: POINTER(Windows.Win32.Networking.WinSock.IN6_ADDR_head)
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASIKEV2_PROJECTION_INFO(EasyCastStructure):
+        dwIPv4NegotiationError: UInt32
+        ipv4Address: Windows.Win32.Networking.WinSock.IN_ADDR
+        ipv4ServerAddress: Windows.Win32.Networking.WinSock.IN_ADDR
+        dwIPv6NegotiationError: UInt32
+        ipv6Address: Windows.Win32.Networking.WinSock.IN6_ADDR
+        ipv6ServerAddress: Windows.Win32.Networking.WinSock.IN6_ADDR
+        dwPrefixLength: UInt32
+        dwAuthenticationProtocol: UInt32
+        dwEapTypeId: UInt32
+        dwFlags: Windows.Win32.NetworkManagement.Rras.RASIKEV_PROJECTION_INFO_FLAGS
+        dwEncryptionMethod: UInt32
+        numIPv4ServerAddresses: UInt32
+        ipv4ServerAddresses: POINTER(Windows.Win32.Networking.WinSock.IN_ADDR_head)
+        numIPv6ServerAddresses: UInt32
+        ipv6ServerAddresses: POINTER(Windows.Win32.Networking.WinSock.IN6_ADDR_head)
 RASIKEV_PROJECTION_INFO_FLAGS = UInt32
 RASIKEv2_FLAGS_MOBIKESUPPORTED: RASIKEV_PROJECTION_INFO_FLAGS = 1
 RASIKEv2_FLAGS_BEHIND_NAT: RASIKEV_PROJECTION_INFO_FLAGS = 2
@@ -3000,7 +3023,10 @@ make_head(_module, 'RASCTRYINFO')
 make_head(_module, 'RASCUSTOMSCRIPTEXTENSIONS')
 make_head(_module, 'RASDEVINFOA')
 make_head(_module, 'RASDEVINFOW')
-make_head(_module, 'RASDEVSPECIFICINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASDEVSPECIFICINFO')
+if ARCH in 'X86':
+    make_head(_module, 'RASDEVSPECIFICINFO')
 make_head(_module, 'RASDIALDLG')
 make_head(_module, 'RASDIALEXTENSIONS')
 make_head(_module, 'RASDIALFUNC')
@@ -3017,7 +3043,10 @@ make_head(_module, 'RASENTRYDLGW')
 make_head(_module, 'RASENTRYNAMEA')
 make_head(_module, 'RASENTRYNAMEW')
 make_head(_module, 'RASENTRYW')
-make_head(_module, 'RASIKEV2_PROJECTION_INFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASIKEV2_PROJECTION_INFO')
+if ARCH in 'X86':
+    make_head(_module, 'RASIKEV2_PROJECTION_INFO')
 make_head(_module, 'RASIPADDR')
 make_head(_module, 'RASIPXW')
 make_head(_module, 'RASNOUSERA')

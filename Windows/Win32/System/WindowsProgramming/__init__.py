@@ -755,8 +755,6 @@ def _lclose(hFile: Int32) -> Int32: ...
 @winfunctype('KERNEL32.dll')
 def _llseek(hFile: Int32, lOffset: Int32, iOrigin: Int32) -> Int32: ...
 @winfunctype('KERNEL32.dll')
-def SignalObjectAndWait(hObjectToSignal: Windows.Win32.Foundation.HANDLE, hObjectToWaitOn: Windows.Win32.Foundation.HANDLE, dwMilliseconds: UInt32, bAlertable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.WIN32_ERROR: ...
-@winfunctype('KERNEL32.dll')
 def OpenMutexA(dwDesiredAccess: UInt32, bInheritHandle: Windows.Win32.Foundation.BOOL, lpName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def OpenSemaphoreA(dwDesiredAccess: UInt32, bInheritHandle: Windows.Win32.Foundation.BOOL, lpName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HANDLE: ...
@@ -871,31 +869,7 @@ if ARCH in 'X86,X64':
 @winfunctype('api-ms-win-core-backgroundtask-l1-1-0.dll')
 def RaiseCustomSystemEventTrigger(CustomSystemEventTriggerConfig: POINTER(Windows.Win32.System.WindowsProgramming.CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG_head)) -> UInt32: ...
 @winfunctype('ntdll.dll')
-def NtClose(Handle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtOpenFile(FileHandle: POINTER(Windows.Win32.Foundation.HANDLE), DesiredAccess: UInt32, ObjectAttributes: POINTER(Windows.Win32.System.WindowsProgramming.OBJECT_ATTRIBUTES_head), IoStatusBlock: POINTER(Windows.Win32.System.WindowsProgramming.IO_STATUS_BLOCK_head), ShareAccess: UInt32, OpenOptions: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtRenameKey(KeyHandle: Windows.Win32.Foundation.HANDLE, NewName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtNotifyChangeMultipleKeys(MasterKeyHandle: Windows.Win32.Foundation.HANDLE, Count: UInt32, SubordinateObjects: POINTER(Windows.Win32.System.WindowsProgramming.OBJECT_ATTRIBUTES_head), Event: Windows.Win32.Foundation.HANDLE, ApcRoutine: Windows.Win32.System.WindowsProgramming.PIO_APC_ROUTINE, ApcContext: c_void_p, IoStatusBlock: POINTER(Windows.Win32.System.WindowsProgramming.IO_STATUS_BLOCK_head), CompletionFilter: UInt32, WatchTree: Windows.Win32.Foundation.BOOLEAN, Buffer: c_void_p, BufferSize: UInt32, Asynchronous: Windows.Win32.Foundation.BOOLEAN) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtQueryMultipleValueKey(KeyHandle: Windows.Win32.Foundation.HANDLE, ValueEntries: POINTER(Windows.Win32.System.WindowsProgramming.KEY_VALUE_ENTRY_head), EntryCount: UInt32, ValueBuffer: c_void_p, BufferLength: POINTER(UInt32), RequiredBufferLength: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtSetInformationKey(KeyHandle: Windows.Win32.Foundation.HANDLE, KeySetInformationClass: Windows.Win32.System.WindowsProgramming.KEY_SET_INFORMATION_CLASS, KeySetInformation: c_void_p, KeySetInformationLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtDeviceIoControlFile(FileHandle: Windows.Win32.Foundation.HANDLE, Event: Windows.Win32.Foundation.HANDLE, ApcRoutine: Windows.Win32.System.WindowsProgramming.PIO_APC_ROUTINE, ApcContext: c_void_p, IoStatusBlock: POINTER(Windows.Win32.System.WindowsProgramming.IO_STATUS_BLOCK_head), IoControlCode: UInt32, InputBuffer: c_void_p, InputBufferLength: UInt32, OutputBuffer: c_void_p, OutputBufferLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtWaitForSingleObject(Handle: Windows.Win32.Foundation.HANDLE, Alertable: Windows.Win32.Foundation.BOOLEAN, Timeout: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
 def RtlIsNameLegalDOS8Dot3(Name: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), OemName: POINTER(Windows.Win32.System.Kernel.STRING_head), NameContainsSpaces: POINTER(Windows.Win32.Foundation.BOOLEAN)) -> Windows.Win32.Foundation.BOOLEAN: ...
-@winfunctype('ntdll.dll')
-def NtQueryObject(Handle: Windows.Win32.Foundation.HANDLE, ObjectInformationClass: Windows.Win32.System.WindowsProgramming.OBJECT_INFORMATION_CLASS, ObjectInformation: c_void_p, ObjectInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtQuerySystemInformation(SystemInformationClass: Windows.Win32.System.WindowsProgramming.SYSTEM_INFORMATION_CLASS, SystemInformation: c_void_p, SystemInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtQuerySystemTime(SystemTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtQueryTimerResolution(MaximumTime: POINTER(UInt32), MinimumTime: POINTER(UInt32), CurrentTime: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
 def RtlLocalTimeToSystemTime(LocalTime: POINTER(Int64), SystemTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
@@ -1288,16 +1262,8 @@ FEATURE_STATE_CHANGE_SUBSCRIPTION = IntPtr
 FH_SERVICE_PIPE_HANDLE = IntPtr
 class FILE_CASE_SENSITIVE_INFO(EasyCastStructure):
     Flags: UInt32
-FILE_FLUSH_MODE = Int32
-FILE_FLUSH_DEFAULT: FILE_FLUSH_MODE = 0
-FILE_FLUSH_DATA: FILE_FLUSH_MODE = 1
-FILE_FLUSH_MIN_METADATA: FILE_FLUSH_MODE = 2
-FILE_FLUSH_NO_SYNC: FILE_FLUSH_MODE = 3
 FILE_INFORMATION_CLASS = Int32
 FILE_INFORMATION_CLASS_FileDirectoryInformation: FILE_INFORMATION_CLASS = 1
-FILE_WRITE_FLAGS = Int32
-FILE_WRITE_FLAGS_NONE: FILE_WRITE_FLAGS = 0
-FILE_WRITE_FLAGS_WRITE_THROUGH: FILE_WRITE_FLAGS = 1
 HWINWATCH = IntPtr
 class HW_PROFILE_INFOA(EasyCastStructure):
     dwDockInfo: UInt32
@@ -1439,12 +1405,6 @@ class IMESTRUCT(EasyCastStructure):
     lParam1: Windows.Win32.Foundation.LPARAM
     lParam2: Windows.Win32.Foundation.LPARAM
     lParam3: Windows.Win32.Foundation.LPARAM
-class IO_STATUS_BLOCK(EasyCastStructure):
-    Anonymous: _Anonymous_e__Union
-    Information: UIntPtr
-    class _Anonymous_e__Union(EasyCastUnion):
-        Status: Windows.Win32.Foundation.NTSTATUS
-        Pointer: c_void_p
 class IWindowsLockModeHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f342d19e-cc22-4648-bb5d-03ccf75b47c5}')
@@ -1471,19 +1431,6 @@ class JIT_DEBUG_INFO(EasyCastStructure):
     lpExceptionAddress: UInt64
     lpExceptionRecord: UInt64
     lpContextRecord: UInt64
-KEY_SET_INFORMATION_CLASS = Int32
-KEY_SET_INFORMATION_CLASS_KeyWriteTimeInformation: KEY_SET_INFORMATION_CLASS = 0
-KEY_SET_INFORMATION_CLASS_KeyWow64FlagsInformation: KEY_SET_INFORMATION_CLASS = 1
-KEY_SET_INFORMATION_CLASS_KeyControlFlagsInformation: KEY_SET_INFORMATION_CLASS = 2
-KEY_SET_INFORMATION_CLASS_KeySetVirtualizationInformation: KEY_SET_INFORMATION_CLASS = 3
-KEY_SET_INFORMATION_CLASS_KeySetDebugInformation: KEY_SET_INFORMATION_CLASS = 4
-KEY_SET_INFORMATION_CLASS_KeySetHandleTagsInformation: KEY_SET_INFORMATION_CLASS = 5
-KEY_SET_INFORMATION_CLASS_MaxKeySetInfoClass: KEY_SET_INFORMATION_CLASS = 6
-class KEY_VALUE_ENTRY(EasyCastStructure):
-    ValueName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)
-    DataLength: UInt32
-    DataOffset: UInt32
-    Type: UInt32
 class LDR_DATA_TABLE_ENTRY(EasyCastStructure):
     Reserved1: c_void_p * 2
     InMemoryOrderLinks: Windows.Win32.System.Kernel.LIST_ENTRY
@@ -1498,16 +1445,6 @@ class LDR_DATA_TABLE_ENTRY(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         CheckSum: UInt32
         Reserved6: c_void_p
-class OBJECT_ATTRIBUTES(EasyCastStructure):
-    Length: UInt32
-    RootDirectory: Windows.Win32.Foundation.HANDLE
-    ObjectName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)
-    Attributes: UInt32
-    SecurityDescriptor: c_void_p
-    SecurityQualityOfService: c_void_p
-OBJECT_INFORMATION_CLASS = Int32
-OBJECT_INFORMATION_CLASS_ObjectBasicInformation: OBJECT_INFORMATION_CLASS = 0
-OBJECT_INFORMATION_CLASS_ObjectTypeInformation: OBJECT_INFORMATION_CLASS = 2
 @winfunctype_pointer
 def PDELAYLOAD_FAILURE_DLL_CALLBACK(NotificationReason: UInt32, DelayloadInfo: POINTER(Windows.Win32.System.WindowsProgramming.DELAYLOAD_INFO_head)) -> c_void_p: ...
 class PERUSERSECTIONA(EasyCastStructure):
@@ -1532,8 +1469,6 @@ class PERUSERSECTIONW(EasyCastStructure):
 def PFEATURE_STATE_CHANGE_CALLBACK(context: c_void_p) -> Void: ...
 @winfunctype_pointer
 def PFIBER_CALLOUT_ROUTINE(lpParameter: c_void_p) -> c_void_p: ...
-@winfunctype_pointer
-def PIO_APC_ROUTINE(ApcContext: c_void_p, IoStatusBlock: POINTER(Windows.Win32.System.WindowsProgramming.IO_STATUS_BLOCK_head), Reserved: UInt32) -> Void: ...
 @winfunctype_pointer
 def PQUERYACTCTXW_FUNC(dwFlags: UInt32, hActCtx: Windows.Win32.Foundation.HANDLE, pvSubInstance: c_void_p, ulInfoClass: UInt32, pvBuffer: c_void_p, cbBuffer: UIntPtr, pcbWrittenOrRequired: POINTER(UIntPtr)) -> Windows.Win32.Foundation.BOOL: ...
 class PUBLIC_OBJECT_BASIC_INFORMATION(EasyCastStructure):
@@ -1610,18 +1545,6 @@ class SYSTEM_CODEINTEGRITY_INFORMATION(EasyCastStructure):
     CodeIntegrityOptions: UInt32
 class SYSTEM_EXCEPTION_INFORMATION(EasyCastStructure):
     Reserved1: Byte * 16
-SYSTEM_INFORMATION_CLASS = Int32
-SYSTEM_INFORMATION_CLASS_SystemBasicInformation: SYSTEM_INFORMATION_CLASS = 0
-SYSTEM_INFORMATION_CLASS_SystemPerformanceInformation: SYSTEM_INFORMATION_CLASS = 2
-SYSTEM_INFORMATION_CLASS_SystemTimeOfDayInformation: SYSTEM_INFORMATION_CLASS = 3
-SYSTEM_INFORMATION_CLASS_SystemProcessInformation: SYSTEM_INFORMATION_CLASS = 5
-SYSTEM_INFORMATION_CLASS_SystemProcessorPerformanceInformation: SYSTEM_INFORMATION_CLASS = 8
-SYSTEM_INFORMATION_CLASS_SystemInterruptInformation: SYSTEM_INFORMATION_CLASS = 23
-SYSTEM_INFORMATION_CLASS_SystemExceptionInformation: SYSTEM_INFORMATION_CLASS = 33
-SYSTEM_INFORMATION_CLASS_SystemRegistryQuotaInformation: SYSTEM_INFORMATION_CLASS = 37
-SYSTEM_INFORMATION_CLASS_SystemLookasideInformation: SYSTEM_INFORMATION_CLASS = 45
-SYSTEM_INFORMATION_CLASS_SystemCodeIntegrityInformation: SYSTEM_INFORMATION_CLASS = 103
-SYSTEM_INFORMATION_CLASS_SystemPolicyInformation: SYSTEM_INFORMATION_CLASS = 134
 class SYSTEM_INTERRUPT_INFORMATION(EasyCastStructure):
     Reserved1: Byte * 24
 class SYSTEM_LOOKASIDE_INFORMATION(EasyCastStructure):
@@ -1840,19 +1763,15 @@ make_head(_module, 'IMAGE_THUNK_DATA64')
 make_head(_module, 'IMEPROA')
 make_head(_module, 'IMEPROW')
 make_head(_module, 'IMESTRUCT')
-make_head(_module, 'IO_STATUS_BLOCK')
 make_head(_module, 'IWindowsLockModeHelper')
 make_head(_module, 'JAVA_TRUST')
 make_head(_module, 'JIT_DEBUG_INFO')
-make_head(_module, 'KEY_VALUE_ENTRY')
 make_head(_module, 'LDR_DATA_TABLE_ENTRY')
-make_head(_module, 'OBJECT_ATTRIBUTES')
 make_head(_module, 'PDELAYLOAD_FAILURE_DLL_CALLBACK')
 make_head(_module, 'PERUSERSECTIONA')
 make_head(_module, 'PERUSERSECTIONW')
 make_head(_module, 'PFEATURE_STATE_CHANGE_CALLBACK')
 make_head(_module, 'PFIBER_CALLOUT_ROUTINE')
-make_head(_module, 'PIO_APC_ROUTINE')
 make_head(_module, 'PQUERYACTCTXW_FUNC')
 make_head(_module, 'PUBLIC_OBJECT_BASIC_INFORMATION')
 make_head(_module, 'PUBLIC_OBJECT_TYPE_INFORMATION')

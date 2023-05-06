@@ -153,13 +153,13 @@ def ReleaseSemaphore(hSemaphore: Windows.Win32.Foundation.HANDLE, lReleaseCount:
 @winfunctype('KERNEL32.dll')
 def ReleaseMutex(hMutex: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def WaitForSingleObject(hHandle: Windows.Win32.Foundation.HANDLE, dwMilliseconds: UInt32) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def WaitForSingleObject(hHandle: Windows.Win32.Foundation.HANDLE, dwMilliseconds: UInt32) -> Windows.Win32.Foundation.WAIT_EVENT: ...
 @winfunctype('KERNEL32.dll')
 def SleepEx(dwMilliseconds: UInt32, bAlertable: Windows.Win32.Foundation.BOOL) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def WaitForSingleObjectEx(hHandle: Windows.Win32.Foundation.HANDLE, dwMilliseconds: UInt32, bAlertable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def WaitForSingleObjectEx(hHandle: Windows.Win32.Foundation.HANDLE, dwMilliseconds: UInt32, bAlertable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.WAIT_EVENT: ...
 @winfunctype('KERNEL32.dll')
-def WaitForMultipleObjectsEx(nCount: UInt32, lpHandles: POINTER(Windows.Win32.Foundation.HANDLE), bWaitAll: Windows.Win32.Foundation.BOOL, dwMilliseconds: UInt32, bAlertable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def WaitForMultipleObjectsEx(nCount: UInt32, lpHandles: POINTER(Windows.Win32.Foundation.HANDLE), bWaitAll: Windows.Win32.Foundation.BOOL, dwMilliseconds: UInt32, bAlertable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.WAIT_EVENT: ...
 @winfunctype('KERNEL32.dll')
 def CreateMutexA(lpMutexAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), bInitialOwner: Windows.Win32.Foundation.BOOL, lpName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
@@ -211,7 +211,7 @@ def WakeByAddressSingle(Address: c_void_p) -> Void: ...
 @winfunctype('api-ms-win-core-synch-l1-2-0.dll')
 def WakeByAddressAll(Address: c_void_p) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def WaitForMultipleObjects(nCount: UInt32, lpHandles: POINTER(Windows.Win32.Foundation.HANDLE), bWaitAll: Windows.Win32.Foundation.BOOL, dwMilliseconds: UInt32) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def WaitForMultipleObjects(nCount: UInt32, lpHandles: POINTER(Windows.Win32.Foundation.HANDLE), bWaitAll: Windows.Win32.Foundation.BOOL, dwMilliseconds: UInt32) -> Windows.Win32.Foundation.WAIT_EVENT: ...
 @winfunctype('KERNEL32.dll')
 def CreateSemaphoreW(lpSemaphoreAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lInitialCount: Int32, lMaximumCount: Int32, lpName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
@@ -689,6 +689,8 @@ def PulseEvent(hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundat
 @winfunctype('KERNEL32.dll')
 def WinExec(lpCmdLine: Windows.Win32.Foundation.PSTR, uCmdShow: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
+def SignalObjectAndWait(hObjectToSignal: Windows.Win32.Foundation.HANDLE, hObjectToWaitOn: Windows.Win32.Foundation.HANDLE, dwMilliseconds: UInt32, bAlertable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.WAIT_EVENT: ...
+@winfunctype('KERNEL32.dll')
 def CreateSemaphoreA(lpSemaphoreAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lInitialCount: Int32, lMaximumCount: Int32, lpName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def CreateSemaphoreExA(lpSemaphoreAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lInitialCount: Int32, lMaximumCount: Int32, lpName: Windows.Win32.Foundation.PSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
@@ -738,12 +740,6 @@ def GetNumaAvailableMemoryNode(Node: Byte, AvailableBytes: POINTER(UInt64)) -> W
 def GetNumaAvailableMemoryNodeEx(Node: UInt16, AvailableBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetNumaProximityNode(ProximityId: UInt32, NodeNumber: POINTER(Byte)) -> Windows.Win32.Foundation.BOOL: ...
-@winfunctype('ntdll.dll')
-def NtQueryInformationProcess(ProcessHandle: Windows.Win32.Foundation.HANDLE, ProcessInformationClass: Windows.Win32.System.Threading.PROCESSINFOCLASS, ProcessInformation: c_void_p, ProcessInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtQueryInformationThread(ThreadHandle: Windows.Win32.Foundation.HANDLE, ThreadInformationClass: Windows.Win32.System.Threading.THREADINFOCLASS, ThreadInformation: c_void_p, ThreadInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ntdll.dll')
-def NtSetInformationThread(ThreadHandle: Windows.Win32.Foundation.HANDLE, ThreadInformationClass: Windows.Win32.System.Threading.THREADINFOCLASS, ThreadInformation: c_void_p, ThreadInformationLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 class BoundaryDescriptorHandle(EasyCastStructure):
     Value: IntPtr
 class CONDITION_VARIABLE(EasyCastStructure):
@@ -866,82 +862,6 @@ POWER_REQUEST_CONTEXT_DETAILED_STRING: POWER_REQUEST_CONTEXT_FLAGS = 2
 POWER_REQUEST_CONTEXT_SIMPLE_STRING: POWER_REQUEST_CONTEXT_FLAGS = 1
 @winfunctype_pointer
 def PPS_POST_PROCESS_INIT_ROUTINE() -> Void: ...
-PROCESSINFOCLASS = Int32
-PROCESSINFOCLASS_ProcessBasicInformation: PROCESSINFOCLASS = 0
-PROCESSINFOCLASS_ProcessQuotaLimits: PROCESSINFOCLASS = 1
-PROCESSINFOCLASS_ProcessIoCounters: PROCESSINFOCLASS = 2
-PROCESSINFOCLASS_ProcessVmCounters: PROCESSINFOCLASS = 3
-PROCESSINFOCLASS_ProcessTimes: PROCESSINFOCLASS = 4
-PROCESSINFOCLASS_ProcessBasePriority: PROCESSINFOCLASS = 5
-PROCESSINFOCLASS_ProcessRaisePriority: PROCESSINFOCLASS = 6
-PROCESSINFOCLASS_ProcessDebugPort: PROCESSINFOCLASS = 7
-PROCESSINFOCLASS_ProcessExceptionPort: PROCESSINFOCLASS = 8
-PROCESSINFOCLASS_ProcessAccessToken: PROCESSINFOCLASS = 9
-PROCESSINFOCLASS_ProcessLdtInformation: PROCESSINFOCLASS = 10
-PROCESSINFOCLASS_ProcessLdtSize: PROCESSINFOCLASS = 11
-PROCESSINFOCLASS_ProcessDefaultHardErrorMode: PROCESSINFOCLASS = 12
-PROCESSINFOCLASS_ProcessIoPortHandlers: PROCESSINFOCLASS = 13
-PROCESSINFOCLASS_ProcessPooledUsageAndLimits: PROCESSINFOCLASS = 14
-PROCESSINFOCLASS_ProcessWorkingSetWatch: PROCESSINFOCLASS = 15
-PROCESSINFOCLASS_ProcessUserModeIOPL: PROCESSINFOCLASS = 16
-PROCESSINFOCLASS_ProcessEnableAlignmentFaultFixup: PROCESSINFOCLASS = 17
-PROCESSINFOCLASS_ProcessPriorityClass: PROCESSINFOCLASS = 18
-PROCESSINFOCLASS_ProcessWx86Information: PROCESSINFOCLASS = 19
-PROCESSINFOCLASS_ProcessHandleCount: PROCESSINFOCLASS = 20
-PROCESSINFOCLASS_ProcessAffinityMask: PROCESSINFOCLASS = 21
-PROCESSINFOCLASS_ProcessPriorityBoost: PROCESSINFOCLASS = 22
-PROCESSINFOCLASS_ProcessDeviceMap: PROCESSINFOCLASS = 23
-PROCESSINFOCLASS_ProcessSessionInformation: PROCESSINFOCLASS = 24
-PROCESSINFOCLASS_ProcessForegroundInformation: PROCESSINFOCLASS = 25
-PROCESSINFOCLASS_ProcessWow64Information: PROCESSINFOCLASS = 26
-PROCESSINFOCLASS_ProcessImageFileName: PROCESSINFOCLASS = 27
-PROCESSINFOCLASS_ProcessLUIDDeviceMapsEnabled: PROCESSINFOCLASS = 28
-PROCESSINFOCLASS_ProcessBreakOnTermination: PROCESSINFOCLASS = 29
-PROCESSINFOCLASS_ProcessDebugObjectHandle: PROCESSINFOCLASS = 30
-PROCESSINFOCLASS_ProcessDebugFlags: PROCESSINFOCLASS = 31
-PROCESSINFOCLASS_ProcessHandleTracing: PROCESSINFOCLASS = 32
-PROCESSINFOCLASS_ProcessIoPriority: PROCESSINFOCLASS = 33
-PROCESSINFOCLASS_ProcessExecuteFlags: PROCESSINFOCLASS = 34
-PROCESSINFOCLASS_ProcessTlsInformation: PROCESSINFOCLASS = 35
-PROCESSINFOCLASS_ProcessCookie: PROCESSINFOCLASS = 36
-PROCESSINFOCLASS_ProcessImageInformation: PROCESSINFOCLASS = 37
-PROCESSINFOCLASS_ProcessCycleTime: PROCESSINFOCLASS = 38
-PROCESSINFOCLASS_ProcessPagePriority: PROCESSINFOCLASS = 39
-PROCESSINFOCLASS_ProcessInstrumentationCallback: PROCESSINFOCLASS = 40
-PROCESSINFOCLASS_ProcessThreadStackAllocation: PROCESSINFOCLASS = 41
-PROCESSINFOCLASS_ProcessWorkingSetWatchEx: PROCESSINFOCLASS = 42
-PROCESSINFOCLASS_ProcessImageFileNameWin32: PROCESSINFOCLASS = 43
-PROCESSINFOCLASS_ProcessImageFileMapping: PROCESSINFOCLASS = 44
-PROCESSINFOCLASS_ProcessAffinityUpdateMode: PROCESSINFOCLASS = 45
-PROCESSINFOCLASS_ProcessMemoryAllocationMode: PROCESSINFOCLASS = 46
-PROCESSINFOCLASS_ProcessGroupInformation: PROCESSINFOCLASS = 47
-PROCESSINFOCLASS_ProcessTokenVirtualizationEnabled: PROCESSINFOCLASS = 48
-PROCESSINFOCLASS_ProcessOwnerInformation: PROCESSINFOCLASS = 49
-PROCESSINFOCLASS_ProcessWindowInformation: PROCESSINFOCLASS = 50
-PROCESSINFOCLASS_ProcessHandleInformation: PROCESSINFOCLASS = 51
-PROCESSINFOCLASS_ProcessMitigationPolicy: PROCESSINFOCLASS = 52
-PROCESSINFOCLASS_ProcessDynamicFunctionTableInformation: PROCESSINFOCLASS = 53
-PROCESSINFOCLASS_ProcessHandleCheckingMode: PROCESSINFOCLASS = 54
-PROCESSINFOCLASS_ProcessKeepAliveCount: PROCESSINFOCLASS = 55
-PROCESSINFOCLASS_ProcessRevokeFileHandles: PROCESSINFOCLASS = 56
-PROCESSINFOCLASS_ProcessWorkingSetControl: PROCESSINFOCLASS = 57
-PROCESSINFOCLASS_ProcessHandleTable: PROCESSINFOCLASS = 58
-PROCESSINFOCLASS_ProcessCheckStackExtentsMode: PROCESSINFOCLASS = 59
-PROCESSINFOCLASS_ProcessCommandLineInformation: PROCESSINFOCLASS = 60
-PROCESSINFOCLASS_ProcessProtectionInformation: PROCESSINFOCLASS = 61
-PROCESSINFOCLASS_ProcessMemoryExhaustion: PROCESSINFOCLASS = 62
-PROCESSINFOCLASS_ProcessFaultInformation: PROCESSINFOCLASS = 63
-PROCESSINFOCLASS_ProcessTelemetryIdInformation: PROCESSINFOCLASS = 64
-PROCESSINFOCLASS_ProcessCommitReleaseInformation: PROCESSINFOCLASS = 65
-PROCESSINFOCLASS_ProcessReserved1Information: PROCESSINFOCLASS = 66
-PROCESSINFOCLASS_ProcessReserved2Information: PROCESSINFOCLASS = 67
-PROCESSINFOCLASS_ProcessSubsystemProcess: PROCESSINFOCLASS = 68
-PROCESSINFOCLASS_ProcessInPrivate: PROCESSINFOCLASS = 70
-PROCESSINFOCLASS_ProcessRaiseUMExceptionOnInvalidHandleClose: PROCESSINFOCLASS = 71
-PROCESSINFOCLASS_ProcessSubsystemInformation: PROCESSINFOCLASS = 75
-PROCESSINFOCLASS_ProcessWin32kSyscallFilterInformation: PROCESSINFOCLASS = 79
-PROCESSINFOCLASS_ProcessEnergyTrackingState: PROCESSINFOCLASS = 82
-PROCESSINFOCLASS_MaxProcessInfoClass: PROCESSINFOCLASS = 83
 PROCESSOR_FEATURE_ID = UInt32
 PF_ARM_64BIT_LOADSTORE_ATOMIC: PROCESSOR_FEATURE_ID = 25
 PF_ARM_DIVIDE_INSTRUCTION_AVAILABLE: PROCESSOR_FEATURE_ID = 24
@@ -1296,47 +1216,6 @@ class TEB(EasyCastStructure):
     ReservedForOle: c_void_p
     Reserved6: c_void_p * 4
     TlsExpansionSlots: c_void_p
-THREADINFOCLASS = Int32
-THREADINFOCLASS_ThreadBasicInformation: THREADINFOCLASS = 0
-THREADINFOCLASS_ThreadTimes: THREADINFOCLASS = 1
-THREADINFOCLASS_ThreadPriority: THREADINFOCLASS = 2
-THREADINFOCLASS_ThreadBasePriority: THREADINFOCLASS = 3
-THREADINFOCLASS_ThreadAffinityMask: THREADINFOCLASS = 4
-THREADINFOCLASS_ThreadImpersonationToken: THREADINFOCLASS = 5
-THREADINFOCLASS_ThreadDescriptorTableEntry: THREADINFOCLASS = 6
-THREADINFOCLASS_ThreadEnableAlignmentFaultFixup: THREADINFOCLASS = 7
-THREADINFOCLASS_ThreadEventPair_Reusable: THREADINFOCLASS = 8
-THREADINFOCLASS_ThreadQuerySetWin32StartAddress: THREADINFOCLASS = 9
-THREADINFOCLASS_ThreadZeroTlsCell: THREADINFOCLASS = 10
-THREADINFOCLASS_ThreadPerformanceCount: THREADINFOCLASS = 11
-THREADINFOCLASS_ThreadAmILastThread: THREADINFOCLASS = 12
-THREADINFOCLASS_ThreadIdealProcessor: THREADINFOCLASS = 13
-THREADINFOCLASS_ThreadPriorityBoost: THREADINFOCLASS = 14
-THREADINFOCLASS_ThreadSetTlsArrayAddress: THREADINFOCLASS = 15
-THREADINFOCLASS_ThreadIsIoPending: THREADINFOCLASS = 16
-THREADINFOCLASS_ThreadHideFromDebugger: THREADINFOCLASS = 17
-THREADINFOCLASS_ThreadBreakOnTermination: THREADINFOCLASS = 18
-THREADINFOCLASS_ThreadSwitchLegacyState: THREADINFOCLASS = 19
-THREADINFOCLASS_ThreadIsTerminated: THREADINFOCLASS = 20
-THREADINFOCLASS_ThreadLastSystemCall: THREADINFOCLASS = 21
-THREADINFOCLASS_ThreadIoPriority: THREADINFOCLASS = 22
-THREADINFOCLASS_ThreadCycleTime: THREADINFOCLASS = 23
-THREADINFOCLASS_ThreadPagePriority: THREADINFOCLASS = 24
-THREADINFOCLASS_ThreadActualBasePriority: THREADINFOCLASS = 25
-THREADINFOCLASS_ThreadTebInformation: THREADINFOCLASS = 26
-THREADINFOCLASS_ThreadCSwitchMon: THREADINFOCLASS = 27
-THREADINFOCLASS_ThreadCSwitchPmu: THREADINFOCLASS = 28
-THREADINFOCLASS_ThreadWow64Context: THREADINFOCLASS = 29
-THREADINFOCLASS_ThreadGroupInformation: THREADINFOCLASS = 30
-THREADINFOCLASS_ThreadUmsInformation: THREADINFOCLASS = 31
-THREADINFOCLASS_ThreadCounterProfiling: THREADINFOCLASS = 32
-THREADINFOCLASS_ThreadIdealProcessorEx: THREADINFOCLASS = 33
-THREADINFOCLASS_ThreadCpuAccountingInformation: THREADINFOCLASS = 34
-THREADINFOCLASS_ThreadSuspendCount: THREADINFOCLASS = 35
-THREADINFOCLASS_ThreadActualGroupAffinity: THREADINFOCLASS = 41
-THREADINFOCLASS_ThreadDynamicCodePolicyInfo: THREADINFOCLASS = 42
-THREADINFOCLASS_ThreadSubsystemInformation: THREADINFOCLASS = 45
-THREADINFOCLASS_MaxThreadInfoClass: THREADINFOCLASS = 53
 THREAD_ACCESS_RIGHTS = UInt32
 THREAD_TERMINATE: THREAD_ACCESS_RIGHTS = 1
 THREAD_SUSPEND_RESUME: THREAD_ACCESS_RIGHTS = 2

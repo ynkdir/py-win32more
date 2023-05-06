@@ -34,6 +34,12 @@ def GetOverlappedResultEx(hFile: Windows.Win32.Foundation.HANDLE, lpOverlapped: 
 def CancelSynchronousIo(hThread: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def BindIoCompletionCallback(FileHandle: Windows.Win32.Foundation.HANDLE, Function: Windows.Win32.System.IO.LPOVERLAPPED_COMPLETION_ROUTINE, Flags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+class IO_STATUS_BLOCK(EasyCastStructure):
+    Anonymous: _Anonymous_e__Union
+    Information: UIntPtr
+    class _Anonymous_e__Union(EasyCastUnion):
+        Status: Windows.Win32.Foundation.NTSTATUS
+        Pointer: c_void_p
 @winfunctype_pointer
 def LPOVERLAPPED_COMPLETION_ROUTINE(dwErrorCode: UInt32, dwNumberOfBytesTransfered: UInt32, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Void: ...
 class OVERLAPPED(EasyCastStructure):
@@ -52,6 +58,10 @@ class OVERLAPPED_ENTRY(EasyCastStructure):
     lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)
     Internal: UIntPtr
     dwNumberOfBytesTransferred: UInt32
+@winfunctype_pointer
+def PIO_APC_ROUTINE(ApcContext: c_void_p, IoStatusBlock: POINTER(Windows.Win32.System.IO.IO_STATUS_BLOCK_head), Reserved: UInt32) -> Void: ...
+make_head(_module, 'IO_STATUS_BLOCK')
 make_head(_module, 'LPOVERLAPPED_COMPLETION_ROUTINE')
 make_head(_module, 'OVERLAPPED')
 make_head(_module, 'OVERLAPPED_ENTRY')
+make_head(_module, 'PIO_APC_ROUTINE')

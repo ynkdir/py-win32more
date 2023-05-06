@@ -1022,23 +1022,42 @@ class IAppxSourceContentGroupMapReader(ComPtr):
     @commethod(4)
     def GetAutomaticGroups(self, automaticGroupsEnumerator: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxContentGroupsEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 PACKAGEDEPENDENCY_CONTEXT = IntPtr
-class PACKAGE_ID(EasyCastStructure):
-    reserved: UInt32
-    processorArchitecture: UInt32
-    version: Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION
-    name: Windows.Win32.Foundation.PWSTR
-    publisher: Windows.Win32.Foundation.PWSTR
-    resourceId: Windows.Win32.Foundation.PWSTR
-    publisherId: Windows.Win32.Foundation.PWSTR
-    _pack_ = 4
-class PACKAGE_INFO(EasyCastStructure):
-    reserved: UInt32
-    flags: UInt32
-    path: Windows.Win32.Foundation.PWSTR
-    packageFullName: Windows.Win32.Foundation.PWSTR
-    packageFamilyName: Windows.Win32.Foundation.PWSTR
-    packageId: Windows.Win32.Storage.Packaging.Appx.PACKAGE_ID
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class PACKAGE_ID(EasyCastStructure):
+        reserved: UInt32
+        processorArchitecture: UInt32
+        version: Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION
+        name: Windows.Win32.Foundation.PWSTR
+        publisher: Windows.Win32.Foundation.PWSTR
+        resourceId: Windows.Win32.Foundation.PWSTR
+        publisherId: Windows.Win32.Foundation.PWSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class PACKAGE_ID(EasyCastStructure):
+        reserved: UInt32
+        processorArchitecture: UInt32
+        version: Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION
+        name: Windows.Win32.Foundation.PWSTR
+        publisher: Windows.Win32.Foundation.PWSTR
+        resourceId: Windows.Win32.Foundation.PWSTR
+        publisherId: Windows.Win32.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    class PACKAGE_INFO(EasyCastStructure):
+        reserved: UInt32
+        flags: UInt32
+        path: Windows.Win32.Foundation.PWSTR
+        packageFullName: Windows.Win32.Foundation.PWSTR
+        packageFamilyName: Windows.Win32.Foundation.PWSTR
+        packageId: Windows.Win32.Storage.Packaging.Appx.PACKAGE_ID
+        _pack_ = 4
+if ARCH in 'X86':
+    class PACKAGE_INFO(EasyCastStructure):
+        reserved: UInt32
+        flags: UInt32
+        path: Windows.Win32.Foundation.PWSTR
+        packageFullName: Windows.Win32.Foundation.PWSTR
+        packageFamilyName: Windows.Win32.Foundation.PWSTR
+        packageId: Windows.Win32.Storage.Packaging.Appx.PACKAGE_ID
 class PACKAGE_VERSION(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
@@ -1172,7 +1191,13 @@ make_head(_module, 'IAppxPackageWriter3')
 make_head(_module, 'IAppxPackagingDiagnosticEventSink')
 make_head(_module, 'IAppxPackagingDiagnosticEventSinkManager')
 make_head(_module, 'IAppxSourceContentGroupMapReader')
-make_head(_module, 'PACKAGE_ID')
-make_head(_module, 'PACKAGE_INFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PACKAGE_ID')
+if ARCH in 'X86':
+    make_head(_module, 'PACKAGE_ID')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PACKAGE_INFO')
+if ARCH in 'X86':
+    make_head(_module, 'PACKAGE_INFO')
 make_head(_module, 'PACKAGE_VERSION')
 make_head(_module, '_PACKAGE_INFO_REFERENCE')

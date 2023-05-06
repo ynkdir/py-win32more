@@ -3376,10 +3376,15 @@ def LPTOP_LEVEL_EXCEPTION_FILTER(ExceptionInfo: POINTER(Windows.Win32.System.Dia
 class M128A(EasyCastStructure):
     Low: UInt64
     High: Int64
-class MINIDUMP_CALLBACK_INFORMATION(EasyCastStructure):
-    CallbackRoutine: Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_ROUTINE
-    CallbackParam: c_void_p
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class MINIDUMP_CALLBACK_INFORMATION(EasyCastStructure):
+        CallbackRoutine: Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_ROUTINE
+        CallbackParam: c_void_p
+        _pack_ = 4
+if ARCH in 'X86':
+    class MINIDUMP_CALLBACK_INFORMATION(EasyCastStructure):
+        CallbackRoutine: Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_ROUTINE
+        CallbackParam: c_void_p
 class MINIDUMP_CALLBACK_INPUT(EasyCastStructure):
     ProcessId: UInt32
     ProcessHandle: Windows.Win32.Foundation.HANDLE
@@ -3466,11 +3471,17 @@ class MINIDUMP_EXCEPTION(EasyCastStructure):
     __unusedAlignment: UInt32
     ExceptionInformation: UInt64 * 15
     _pack_ = 4
-class MINIDUMP_EXCEPTION_INFORMATION(EasyCastStructure):
-    ThreadId: UInt32
-    ExceptionPointers: POINTER(Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)
-    ClientPointers: Windows.Win32.Foundation.BOOL
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class MINIDUMP_EXCEPTION_INFORMATION(EasyCastStructure):
+        ThreadId: UInt32
+        ExceptionPointers: POINTER(Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)
+        ClientPointers: Windows.Win32.Foundation.BOOL
+        _pack_ = 4
+if ARCH in 'X86':
+    class MINIDUMP_EXCEPTION_INFORMATION(EasyCastStructure):
+        ThreadId: UInt32
+        ExceptionPointers: POINTER(Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)
+        ClientPointers: Windows.Win32.Foundation.BOOL
 class MINIDUMP_EXCEPTION_INFORMATION64(EasyCastStructure):
     ThreadId: UInt32
     ExceptionRecord: UInt64
@@ -4109,15 +4120,26 @@ class MINIDUMP_USER_RECORD(EasyCastStructure):
     Type: UInt32
     Memory: Windows.Win32.System.Diagnostics.Debug.MINIDUMP_LOCATION_DESCRIPTOR
     _pack_ = 4
-class MINIDUMP_USER_STREAM(EasyCastStructure):
-    Type: UInt32
-    BufferSize: UInt32
-    Buffer: c_void_p
-    _pack_ = 4
-class MINIDUMP_USER_STREAM_INFORMATION(EasyCastStructure):
-    UserStreamCount: UInt32
-    UserStreamArray: POINTER(Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM_head)
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class MINIDUMP_USER_STREAM(EasyCastStructure):
+        Type: UInt32
+        BufferSize: UInt32
+        Buffer: c_void_p
+        _pack_ = 4
+if ARCH in 'X86':
+    class MINIDUMP_USER_STREAM(EasyCastStructure):
+        Type: UInt32
+        BufferSize: UInt32
+        Buffer: c_void_p
+if ARCH in 'X64,ARM64':
+    class MINIDUMP_USER_STREAM_INFORMATION(EasyCastStructure):
+        UserStreamCount: UInt32
+        UserStreamArray: POINTER(Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM_head)
+        _pack_ = 4
+if ARCH in 'X86':
+    class MINIDUMP_USER_STREAM_INFORMATION(EasyCastStructure):
+        UserStreamCount: UInt32
+        UserStreamArray: POINTER(Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM_head)
 class MINIDUMP_VM_POST_READ_CALLBACK(EasyCastStructure):
     Offset: UInt64
     Buffer: c_void_p
@@ -5300,13 +5322,19 @@ make_head(_module, 'LOAD_DLL_DEBUG_INFO')
 make_head(_module, 'LPCALL_BACK_USER_INTERRUPT_ROUTINE')
 make_head(_module, 'LPTOP_LEVEL_EXCEPTION_FILTER')
 make_head(_module, 'M128A')
-make_head(_module, 'MINIDUMP_CALLBACK_INFORMATION')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MINIDUMP_CALLBACK_INFORMATION')
+if ARCH in 'X86':
+    make_head(_module, 'MINIDUMP_CALLBACK_INFORMATION')
 make_head(_module, 'MINIDUMP_CALLBACK_INPUT')
 make_head(_module, 'MINIDUMP_CALLBACK_OUTPUT')
 make_head(_module, 'MINIDUMP_CALLBACK_ROUTINE')
 make_head(_module, 'MINIDUMP_DIRECTORY')
 make_head(_module, 'MINIDUMP_EXCEPTION')
-make_head(_module, 'MINIDUMP_EXCEPTION_INFORMATION')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MINIDUMP_EXCEPTION_INFORMATION')
+if ARCH in 'X86':
+    make_head(_module, 'MINIDUMP_EXCEPTION_INFORMATION')
 make_head(_module, 'MINIDUMP_EXCEPTION_INFORMATION64')
 make_head(_module, 'MINIDUMP_EXCEPTION_STREAM')
 make_head(_module, 'MINIDUMP_FUNCTION_TABLE_DESCRIPTOR')
@@ -5367,8 +5395,14 @@ make_head(_module, 'MINIDUMP_TOKEN_INFO_LIST')
 make_head(_module, 'MINIDUMP_UNLOADED_MODULE')
 make_head(_module, 'MINIDUMP_UNLOADED_MODULE_LIST')
 make_head(_module, 'MINIDUMP_USER_RECORD')
-make_head(_module, 'MINIDUMP_USER_STREAM')
-make_head(_module, 'MINIDUMP_USER_STREAM_INFORMATION')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MINIDUMP_USER_STREAM')
+if ARCH in 'X86':
+    make_head(_module, 'MINIDUMP_USER_STREAM')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MINIDUMP_USER_STREAM_INFORMATION')
+if ARCH in 'X86':
+    make_head(_module, 'MINIDUMP_USER_STREAM_INFORMATION')
 make_head(_module, 'MINIDUMP_VM_POST_READ_CALLBACK')
 make_head(_module, 'MINIDUMP_VM_PRE_READ_CALLBACK')
 make_head(_module, 'MINIDUMP_VM_QUERY_CALLBACK')

@@ -3604,6 +3604,26 @@ def NCryptStreamOpenToUnprotectEx(pStreamInfo: POINTER(Windows.Win32.Security.Cr
 def NCryptStreamUpdate(hStream: Windows.Win32.Security.NCRYPT_STREAM_HANDLE, pbData: POINTER(Byte), cbData: UIntPtr, fFinal: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
 def NCryptStreamClose(hStream: Windows.Win32.Security.NCRYPT_STREAM_HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignError() -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerFreeSignerContext(pSignerContext: POINTER(Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerSign(pSubjectInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pSignerCert: POINTER(Windows.Win32.Security.Cryptography.SIGNER_CERT_head), pSignatureInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO_head), pProviderInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO_head), pwszHttpTimeStamp: Windows.Win32.Foundation.PWSTR, psRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerSignEx(dwFlags: Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pSignerCert: POINTER(Windows.Win32.Security.Cryptography.SIGNER_CERT_head), pSignatureInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO_head), pProviderInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO_head), pwszHttpTimeStamp: Windows.Win32.Foundation.PWSTR, psRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: c_void_p, ppSignerContext: POINTER(POINTER(Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerSignEx2(dwFlags: Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pSignerCert: POINTER(Windows.Win32.Security.Cryptography.SIGNER_CERT_head), pSignatureInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO_head), pProviderInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO_head), dwTimestampFlags: Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pszTimestampAlgorithmOid: Windows.Win32.Foundation.PSTR, pwszHttpTimeStamp: Windows.Win32.Foundation.PWSTR, psRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: c_void_p, ppSignerContext: POINTER(POINTER(Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)), pCryptoPolicy: POINTER(Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head), pReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerSignEx3(dwFlags: Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pSignerCert: POINTER(Windows.Win32.Security.Cryptography.SIGNER_CERT_head), pSignatureInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO_head), pProviderInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO_head), dwTimestampFlags: Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pszTimestampAlgorithmOid: Windows.Win32.Foundation.PSTR, pwszHttpTimeStamp: Windows.Win32.Foundation.PWSTR, psRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: c_void_p, ppSignerContext: POINTER(POINTER(Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)), pCryptoPolicy: POINTER(Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head), pDigestSignInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_DIGEST_SIGN_INFO_head), pReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerTimeStamp(pSubjectInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: Windows.Win32.Foundation.PWSTR, psRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerTimeStampEx(dwFlags: UInt32, pSubjectInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: Windows.Win32.Foundation.PWSTR, psRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: c_void_p, ppSignerContext: POINTER(POINTER(Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerTimeStampEx2(dwFlags: Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pSubjectInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: Windows.Win32.Foundation.PWSTR, dwAlgId: UInt32, psRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: c_void_p, ppSignerContext: POINTER(POINTER(Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Mssign32.dll')
+def SignerTimeStampEx3(dwFlags: Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, dwIndex: UInt32, pSubjectInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: Windows.Win32.Foundation.PWSTR, pszAlgorithmOid: Windows.Win32.Foundation.PWSTR, psRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: c_void_p, ppSignerContext: POINTER(POINTER(Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)), pCryptoPolicy: POINTER(Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head), pReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
 def CryptXmlClose(hCryptXml: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
@@ -3683,7 +3703,7 @@ class BCRYPT_ALGORITHM_IDENTIFIER(EasyCastStructure):
     pszName: Windows.Win32.Foundation.PWSTR
     dwClass: UInt32
     dwFlags: UInt32
-BCRYPT_ALG_HANDLE = IntPtr
+BCRYPT_ALG_HANDLE = c_void_p
 class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO(EasyCastStructure):
     cbSize: UInt32
     dwInfoVersion: UInt32
@@ -3762,8 +3782,8 @@ BCRYPT_PAD_NONE: BCRYPT_FLAGS = 1
 BCRYPT_PAD_OAEP: BCRYPT_FLAGS = 4
 BCRYPT_PAD_PKCS1: BCRYPT_FLAGS = 2
 BCRYPT_PAD_PSS: BCRYPT_FLAGS = 8
-BCRYPT_HANDLE = IntPtr
-BCRYPT_HASH_HANDLE = IntPtr
+BCRYPT_HANDLE = c_void_p
+BCRYPT_HASH_HANDLE = c_void_p
 BCRYPT_HASH_OPERATION_TYPE = Int32
 BCRYPT_HASH_OPERATION_HASH_DATA: BCRYPT_HASH_OPERATION_TYPE = 1
 BCRYPT_HASH_OPERATION_FINISH_HASH: BCRYPT_HASH_OPERATION_TYPE = 2
@@ -3786,7 +3806,7 @@ class BCRYPT_KEY_DATA_BLOB_HEADER(EasyCastStructure):
     dwMagic: UInt32
     dwVersion: UInt32
     cbKeyData: UInt32
-BCRYPT_KEY_HANDLE = IntPtr
+BCRYPT_KEY_HANDLE = c_void_p
 class BCRYPT_KEY_LENGTHS_STRUCT(EasyCastStructure):
     dwMinLength: UInt32
     dwMaxLength: UInt32
@@ -3848,7 +3868,7 @@ BCRYPT_RSAKEY_BLOB_MAGIC = UInt32
 BCRYPT_RSAPUBLIC_MAGIC: BCRYPT_RSAKEY_BLOB_MAGIC = 826364754
 BCRYPT_RSAPRIVATE_MAGIC: BCRYPT_RSAKEY_BLOB_MAGIC = 843141970
 BCRYPT_RSAFULLPRIVATE_MAGIC: BCRYPT_RSAKEY_BLOB_MAGIC = 859919186
-BCRYPT_SECRET_HANDLE = IntPtr
+BCRYPT_SECRET_HANDLE = c_void_p
 BCRYPT_TABLE = UInt32
 CRYPT_LOCAL: BCRYPT_TABLE = 1
 CRYPT_DOMAIN: BCRYPT_TABLE = 2
@@ -6347,6 +6367,14 @@ def PFNCryptStreamOutputCallback(pvCallbackCtxt: c_void_p, pbData: POINTER(Byte)
 @winfunctype_pointer
 def PFNCryptStreamOutputCallbackEx(pvCallbackCtxt: c_void_p, pbData: POINTER(Byte), cbData: UIntPtr, hDescriptor: Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, fFinal: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
+def PFN_AUTHENTICODE_DIGEST_SIGN(pSigningCert: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pMetadataBlob: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: UInt32, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFN_AUTHENTICODE_DIGEST_SIGN_EX(pMetadataBlob: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: UInt32, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppSignerCert: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), hCertChainStore: Windows.Win32.Security.Cryptography.HCERTSTORE) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE(pMetadataBlob: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: UInt32, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppSignerCert: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), hCertChainStore: Windows.Win32.Security.Cryptography.HCERTSTORE) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE(pSigningCert: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pMetadataBlob: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: UInt32, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype_pointer
 def PFN_CANCEL_ASYNC_RETRIEVAL_FUNC(hAsyncRetrieve: Windows.Win32.Security.Cryptography.HCRYPTASYNC) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK(pCert: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pvFindArg: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
@@ -6588,6 +6616,125 @@ class SCHANNEL_ALG(EasyCastStructure):
     cBits: UInt32
     dwFlags: UInt32
     dwReserved: UInt32
+class SIGNER_ATTR_AUTHCODE(EasyCastStructure):
+    cbSize: UInt32
+    fCommercial: Windows.Win32.Foundation.BOOL
+    fIndividual: Windows.Win32.Foundation.BOOL
+    pwszName: Windows.Win32.Foundation.PWSTR
+    pwszInfo: Windows.Win32.Foundation.PWSTR
+class SIGNER_BLOB_INFO(EasyCastStructure):
+    cbSize: UInt32
+    pGuidSubject: POINTER(Guid)
+    cbBlob: UInt32
+    pbBlob: POINTER(Byte)
+    pwszDisplayName: Windows.Win32.Foundation.PWSTR
+class SIGNER_CERT(EasyCastStructure):
+    cbSize: UInt32
+    dwCertChoice: Windows.Win32.Security.Cryptography.SIGNER_CERT_CHOICE
+    Anonymous: _Anonymous_e__Union
+    hwnd: Windows.Win32.Foundation.HWND
+    class _Anonymous_e__Union(EasyCastUnion):
+        pwszSpcFile: Windows.Win32.Foundation.PWSTR
+        pCertStoreInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_CERT_STORE_INFO_head)
+        pSpcChainInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_SPC_CHAIN_INFO_head)
+SIGNER_CERT_CHOICE = UInt32
+SIGNER_CERT_SPC_FILE: SIGNER_CERT_CHOICE = 1
+SIGNER_CERT_STORE: SIGNER_CERT_CHOICE = 2
+SIGNER_CERT_SPC_CHAIN: SIGNER_CERT_CHOICE = 3
+SIGNER_CERT_POLICY = UInt32
+SIGNER_CERT_POLICY_STORE: SIGNER_CERT_POLICY = 1
+SIGNER_CERT_POLICY_CHAIN: SIGNER_CERT_POLICY = 2
+SIGNER_CERT_POLICY_SPC: SIGNER_CERT_POLICY = 4
+SIGNER_CERT_POLICY_CHAIN_NO_ROOT: SIGNER_CERT_POLICY = 8
+class SIGNER_CERT_STORE_INFO(EasyCastStructure):
+    cbSize: UInt32
+    pSigningCert: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    dwCertPolicy: Windows.Win32.Security.Cryptography.SIGNER_CERT_POLICY
+    hCertStore: Windows.Win32.Security.Cryptography.HCERTSTORE
+class SIGNER_CONTEXT(EasyCastStructure):
+    cbSize: UInt32
+    cbBlob: UInt32
+    pbBlob: POINTER(Byte)
+class SIGNER_DIGEST_SIGN_INFO(EasyCastStructure):
+    cbSize: UInt32
+    dwDigestSignChoice: UInt32
+    Anonymous: _Anonymous_e__Union
+    pMetadataBlob: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    dwReserved: UInt32
+    dwReserved2: UInt32
+    dwReserved3: UInt32
+    class _Anonymous_e__Union(EasyCastUnion):
+        pfnAuthenticodeDigestSign: Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
+        pfnAuthenticodeDigestSignWithFileHandle: Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE
+        pfnAuthenticodeDigestSignEx: Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_EX
+        pfnAuthenticodeDigestSignExWithFileHandle: Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE
+class SIGNER_DIGEST_SIGN_INFO_V1(EasyCastStructure):
+    cbSize: UInt32
+    pfnAuthenticodeDigestSign: Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
+    pMetadataBlob: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+class SIGNER_DIGEST_SIGN_INFO_V2(EasyCastStructure):
+    cbSize: UInt32
+    pfnAuthenticodeDigestSign: Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
+    pfnAuthenticodeDigestSignEx: Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_EX
+    pMetadataBlob: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+class SIGNER_FILE_INFO(EasyCastStructure):
+    cbSize: UInt32
+    pwszFileName: Windows.Win32.Foundation.PWSTR
+    hFile: Windows.Win32.Foundation.HANDLE
+SIGNER_PRIVATE_KEY_CHOICE = UInt32
+PVK_TYPE_FILE_NAME: SIGNER_PRIVATE_KEY_CHOICE = 1
+PVK_TYPE_KEYCONTAINER: SIGNER_PRIVATE_KEY_CHOICE = 2
+class SIGNER_PROVIDER_INFO(EasyCastStructure):
+    cbSize: UInt32
+    pwszProviderName: Windows.Win32.Foundation.PWSTR
+    dwProviderType: UInt32
+    dwKeySpec: UInt32
+    dwPvkChoice: Windows.Win32.Security.Cryptography.SIGNER_PRIVATE_KEY_CHOICE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(EasyCastUnion):
+        pwszPvkFileName: Windows.Win32.Foundation.PWSTR
+        pwszKeyContainer: Windows.Win32.Foundation.PWSTR
+SIGNER_SIGNATURE_ATTRIBUTE_CHOICE = UInt32
+SIGNER_NO_ATTR: SIGNER_SIGNATURE_ATTRIBUTE_CHOICE = 0
+SIGNER_AUTHCODE_ATTR: SIGNER_SIGNATURE_ATTRIBUTE_CHOICE = 1
+class SIGNER_SIGNATURE_INFO(EasyCastStructure):
+    cbSize: UInt32
+    algidHash: UInt32
+    dwAttrChoice: Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_ATTRIBUTE_CHOICE
+    Anonymous: _Anonymous_e__Union
+    psAuthenticated: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)
+    psUnauthenticated: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)
+    class _Anonymous_e__Union(EasyCastUnion):
+        pAttrAuthcode: POINTER(Windows.Win32.Security.Cryptography.SIGNER_ATTR_AUTHCODE_head)
+SIGNER_SIGN_FLAGS = UInt32
+SIG_APPEND: SIGNER_SIGN_FLAGS = 4096
+SPC_INC_PE_RESOURCES_FLAG: SIGNER_SIGN_FLAGS = 128
+SPC_INC_PE_DEBUG_INFO_FLAG: SIGNER_SIGN_FLAGS = 64
+SPC_INC_PE_IMPORT_ADDR_TABLE_FLAG: SIGNER_SIGN_FLAGS = 32
+SPC_EXC_PE_PAGE_HASHES_FLAG: SIGNER_SIGN_FLAGS = 16
+SPC_INC_PE_PAGE_HASHES_FLAG: SIGNER_SIGN_FLAGS = 256
+SPC_DIGEST_GENERATE_FLAG: SIGNER_SIGN_FLAGS = 512
+SPC_DIGEST_SIGN_FLAG: SIGNER_SIGN_FLAGS = 1024
+SPC_DIGEST_SIGN_EX_FLAG: SIGNER_SIGN_FLAGS = 16384
+class SIGNER_SPC_CHAIN_INFO(EasyCastStructure):
+    cbSize: UInt32
+    pwszSpcFile: Windows.Win32.Foundation.PWSTR
+    dwCertPolicy: UInt32
+    hCertStore: Windows.Win32.Security.Cryptography.HCERTSTORE
+SIGNER_SUBJECT_CHOICE = UInt32
+SIGNER_SUBJECT_FILE: SIGNER_SUBJECT_CHOICE = 1
+SIGNER_SUBJECT_BLOB: SIGNER_SUBJECT_CHOICE = 2
+class SIGNER_SUBJECT_INFO(EasyCastStructure):
+    cbSize: UInt32
+    pdwIndex: POINTER(UInt32)
+    dwSubjectChoice: Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_CHOICE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(EasyCastUnion):
+        pSignerFileInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_FILE_INFO_head)
+        pSignerBlobInfo: POINTER(Windows.Win32.Security.Cryptography.SIGNER_BLOB_INFO_head)
+SIGNER_TIMESTAMP_FLAGS = UInt32
+SIGNER_TIMESTAMP_AUTHENTICODE: SIGNER_TIMESTAMP_FLAGS = 1
+SIGNER_TIMESTAMP_RFC3161: SIGNER_TIMESTAMP_FLAGS = 2
 class SSL_ECCKEY_BLOB(EasyCastStructure):
     dwCurveType: UInt32
     cbKey: UInt32
@@ -6989,6 +7136,10 @@ make_head(_module, 'PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC')
 make_head(_module, 'PCRYPT_RESOLVE_HCRYPTPROV_FUNC')
 make_head(_module, 'PFNCryptStreamOutputCallback')
 make_head(_module, 'PFNCryptStreamOutputCallbackEx')
+make_head(_module, 'PFN_AUTHENTICODE_DIGEST_SIGN')
+make_head(_module, 'PFN_AUTHENTICODE_DIGEST_SIGN_EX')
+make_head(_module, 'PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE')
+make_head(_module, 'PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE')
 make_head(_module, 'PFN_CANCEL_ASYNC_RETRIEVAL_FUNC')
 make_head(_module, 'PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK')
 make_head(_module, 'PFN_CERT_CREATE_CONTEXT_SORT_FUNC')
@@ -7082,6 +7233,19 @@ make_head(_module, 'RECIPIENTPOLICY2')
 make_head(_module, 'ROOT_INFO_LUID')
 make_head(_module, 'RSAPUBKEY')
 make_head(_module, 'SCHANNEL_ALG')
+make_head(_module, 'SIGNER_ATTR_AUTHCODE')
+make_head(_module, 'SIGNER_BLOB_INFO')
+make_head(_module, 'SIGNER_CERT')
+make_head(_module, 'SIGNER_CERT_STORE_INFO')
+make_head(_module, 'SIGNER_CONTEXT')
+make_head(_module, 'SIGNER_DIGEST_SIGN_INFO')
+make_head(_module, 'SIGNER_DIGEST_SIGN_INFO_V1')
+make_head(_module, 'SIGNER_DIGEST_SIGN_INFO_V2')
+make_head(_module, 'SIGNER_FILE_INFO')
+make_head(_module, 'SIGNER_PROVIDER_INFO')
+make_head(_module, 'SIGNER_SIGNATURE_INFO')
+make_head(_module, 'SIGNER_SPC_CHAIN_INFO')
+make_head(_module, 'SIGNER_SUBJECT_INFO')
 make_head(_module, 'SSL_ECCKEY_BLOB')
 make_head(_module, 'SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS')
 make_head(_module, 'SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA')

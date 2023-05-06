@@ -1758,9 +1758,9 @@ def GetInputState() -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def GetQueueStatus(flags: Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS) -> UInt32: ...
 @winfunctype('USER32.dll')
-def MsgWaitForMultipleObjects(nCount: UInt32, pHandles: POINTER(Windows.Win32.Foundation.HANDLE), fWaitAll: Windows.Win32.Foundation.BOOL, dwMilliseconds: UInt32, dwWakeMask: Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS) -> UInt32: ...
+def MsgWaitForMultipleObjects(nCount: UInt32, pHandles: POINTER(Windows.Win32.Foundation.HANDLE), fWaitAll: Windows.Win32.Foundation.BOOL, dwMilliseconds: UInt32, dwWakeMask: Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS) -> Windows.Win32.Foundation.WAIT_EVENT: ...
 @winfunctype('USER32.dll')
-def MsgWaitForMultipleObjectsEx(nCount: UInt32, pHandles: POINTER(Windows.Win32.Foundation.HANDLE), dwMilliseconds: UInt32, dwWakeMask: Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS, dwFlags: Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS) -> UInt32: ...
+def MsgWaitForMultipleObjectsEx(nCount: UInt32, pHandles: POINTER(Windows.Win32.Foundation.HANDLE), dwMilliseconds: UInt32, dwWakeMask: Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS, dwFlags: Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS) -> Windows.Win32.Foundation.WAIT_EVENT: ...
 @winfunctype('USER32.dll')
 def SetTimer(hWnd: Windows.Win32.Foundation.HWND, nIDEvent: UIntPtr, uElapse: UInt32, lpTimerFunc: Windows.Win32.UI.WindowsAndMessaging.TIMERPROC) -> UIntPtr: ...
 @winfunctype('USER32.dll')
@@ -2711,6 +2711,16 @@ class MENUBARINFO(EasyCastStructure):
     hMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU
     hwndMenu: Windows.Win32.Foundation.HWND
     _bitfield: Int32
+class MENUEX_TEMPLATE_HEADER(EasyCastStructure):
+    wVersion: UInt16
+    wOffset: UInt16
+    dwHelpId: UInt32
+class MENUEX_TEMPLATE_ITEM(EasyCastStructure):
+    dwType: UInt32
+    dwState: UInt32
+    uId: UInt32
+    wFlags: UInt16
+    szText: Char * 1
 class MENUGETOBJECTINFO(EasyCastStructure):
     dwFlags: Windows.Win32.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS
     uPos: UInt32
@@ -2775,6 +2785,17 @@ class MENUITEMTEMPLATE(EasyCastStructure):
 class MENUITEMTEMPLATEHEADER(EasyCastStructure):
     versionNumber: UInt16
     offset: UInt16
+class MENUTEMPLATEEX(EasyCastStructure):
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(EasyCastUnion):
+        Menu: _Menu_e__Struct
+        MenuEx: _MenuEx_e__Struct
+        class _Menu_e__Struct(EasyCastStructure):
+            mitHeader: Windows.Win32.UI.WindowsAndMessaging.MENUITEMTEMPLATEHEADER
+            miTemplate: Windows.Win32.UI.WindowsAndMessaging.MENUITEMTEMPLATE * 1
+        class _MenuEx_e__Struct(EasyCastStructure):
+            mexHeader: Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_HEADER
+            mexItem: Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_ITEM * 1
 MENU_ITEM_FLAGS = UInt32
 MF_BYCOMMAND: MENU_ITEM_FLAGS = 0
 MF_BYPOSITION: MENU_ITEM_FLAGS = 1024
@@ -3878,12 +3899,15 @@ make_head(_module, 'MDICREATESTRUCTA')
 make_head(_module, 'MDICREATESTRUCTW')
 make_head(_module, 'MDINEXTMENU')
 make_head(_module, 'MENUBARINFO')
+make_head(_module, 'MENUEX_TEMPLATE_HEADER')
+make_head(_module, 'MENUEX_TEMPLATE_ITEM')
 make_head(_module, 'MENUGETOBJECTINFO')
 make_head(_module, 'MENUINFO')
 make_head(_module, 'MENUITEMINFOA')
 make_head(_module, 'MENUITEMINFOW')
 make_head(_module, 'MENUITEMTEMPLATE')
 make_head(_module, 'MENUITEMTEMPLATEHEADER')
+make_head(_module, 'MENUTEMPLATEEX')
 make_head(_module, 'MESSAGE_RESOURCE_BLOCK')
 make_head(_module, 'MESSAGE_RESOURCE_DATA')
 make_head(_module, 'MESSAGE_RESOURCE_ENTRY')

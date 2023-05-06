@@ -11,7 +11,6 @@ import Windows.Win32.System.Kernel
 import Windows.Win32.System.PasswordManagement
 import Windows.Win32.System.Rpc
 import Windows.Win32.System.Threading
-import Windows.Win32.System.WindowsProgramming
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -1500,7 +1499,7 @@ def LsaEnumerateLogonSessions(LogonSessionCount: POINTER(UInt32), LogonSessionLi
 @winfunctype('SECUR32.dll')
 def LsaGetLogonSessionData(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), ppLogonSessionData: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_SESSION_DATA_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaOpenPolicy(SystemName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ObjectAttributes: POINTER(Windows.Win32.System.WindowsProgramming.OBJECT_ATTRIBUTES_head), DesiredAccess: UInt32, PolicyHandle: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaOpenPolicy(SystemName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ObjectAttributes: POINTER(Windows.Win32.Foundation.OBJECT_ATTRIBUTES_head), DesiredAccess: UInt32, PolicyHandle: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def LsaSetCAPs(CAPDNs: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CAPDNCount: UInt32, Flags: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
