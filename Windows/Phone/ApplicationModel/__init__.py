@@ -36,7 +36,7 @@ class IApplicationProfileStatics(ComPtr):
     _classid_ = 'Windows.Phone.ApplicationModel.IApplicationProfileStatics'
     _iid_ = Guid('{d5008ab4-7e7a-11e1-a7f2-b0a14824019b}')
     @winrt_commethod(6)
-    def get_Modes(self) -> Windows.Phone.ApplicationModel.ApplicationProfileModes: ...
+    def get_Modes(self: Windows.Phone.ApplicationModel.IApplicationProfileStatics) -> Windows.Phone.ApplicationModel.ApplicationProfileModes: ...
     Modes = property(get_Modes, None)
 make_head(_module, 'ApplicationProfile')
 make_head(_module, 'IApplicationProfileStatics')

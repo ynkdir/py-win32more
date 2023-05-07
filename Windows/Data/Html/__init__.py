@@ -30,6 +30,6 @@ class IHtmlUtilities(ComPtr):
     _classid_ = 'Windows.Data.Html.IHtmlUtilities'
     _iid_ = Guid('{fec00add-2399-4fac-b5a7-05e9acd7181d}')
     @winrt_commethod(6)
-    def ConvertToText(self, html: WinRT_String) -> WinRT_String: ...
+    def ConvertToText(self: Windows.Data.Html.IHtmlUtilities, html: WinRT_String) -> WinRT_String: ...
 make_head(_module, 'HtmlUtilities')
 make_head(_module, 'IHtmlUtilities')

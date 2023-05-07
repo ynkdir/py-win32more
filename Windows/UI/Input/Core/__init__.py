@@ -29,9 +29,9 @@ class IRadialControllerIndependentInputSource(ComPtr):
     _classid_ = 'Windows.UI.Input.Core.IRadialControllerIndependentInputSource'
     _iid_ = Guid('{3d577ef6-4cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
-    def get_Controller(self) -> Windows.UI.Input.RadialController: ...
+    def get_Controller(self: Windows.UI.Input.Core.IRadialControllerIndependentInputSource) -> Windows.UI.Input.RadialController: ...
     @winrt_commethod(7)
-    def get_Dispatcher(self) -> Windows.UI.Core.CoreDispatcher: ...
+    def get_Dispatcher(self: Windows.UI.Input.Core.IRadialControllerIndependentInputSource) -> Windows.UI.Core.CoreDispatcher: ...
     Controller = property(get_Controller, None)
     Dispatcher = property(get_Dispatcher, None)
 class IRadialControllerIndependentInputSource2(ComPtr):
@@ -39,14 +39,14 @@ class IRadialControllerIndependentInputSource2(ComPtr):
     _classid_ = 'Windows.UI.Input.Core.IRadialControllerIndependentInputSource2'
     _iid_ = Guid('{7073aad8-35f3-4eeb-8751-be4d0a66faf4}')
     @winrt_commethod(6)
-    def get_DispatcherQueue(self) -> Windows.System.DispatcherQueue: ...
+    def get_DispatcherQueue(self: Windows.UI.Input.Core.IRadialControllerIndependentInputSource2) -> Windows.System.DispatcherQueue: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
 class IRadialControllerIndependentInputSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Core.IRadialControllerIndependentInputSourceStatics'
     _iid_ = Guid('{3d577ef5-4cee-11e6-b535-001bdc06ab3b}')
     @winrt_commethod(6)
-    def CreateForView(self, view: Windows.ApplicationModel.Core.CoreApplicationView) -> Windows.UI.Input.Core.RadialControllerIndependentInputSource: ...
+    def CreateForView(self: Windows.UI.Input.Core.IRadialControllerIndependentInputSourceStatics, view: Windows.ApplicationModel.Core.CoreApplicationView) -> Windows.UI.Input.Core.RadialControllerIndependentInputSource: ...
 class RadialControllerIndependentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.Input.Core.IRadialControllerIndependentInputSource

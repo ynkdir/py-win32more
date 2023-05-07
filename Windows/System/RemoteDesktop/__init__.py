@@ -25,7 +25,7 @@ class IInteractiveSessionStatics(ComPtr):
     _classid_ = 'Windows.System.RemoteDesktop.IInteractiveSessionStatics'
     _iid_ = Guid('{60884631-dd3a-4576-9c8d-e8027618bdce}')
     @winrt_commethod(6)
-    def get_IsRemote(self) -> Boolean: ...
+    def get_IsRemote(self: Windows.System.RemoteDesktop.IInteractiveSessionStatics) -> Boolean: ...
     IsRemote = property(get_IsRemote, None)
 class _InteractiveSession_Meta_(ComPtr.__class__):
     pass

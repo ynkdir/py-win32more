@@ -25,7 +25,7 @@ class IRetailModeStatics(ComPtr):
     _classid_ = 'Windows.Phone.System.Profile.IRetailModeStatics'
     _iid_ = Guid('{d7ded029-fdda-43e7-93fb-e53ab6e89ec3}')
     @winrt_commethod(6)
-    def get_RetailModeEnabled(self) -> Boolean: ...
+    def get_RetailModeEnabled(self: Windows.Phone.System.Profile.IRetailModeStatics) -> Boolean: ...
     RetailModeEnabled = property(get_RetailModeEnabled, None)
 class _RetailMode_Meta_(ComPtr.__class__):
     pass

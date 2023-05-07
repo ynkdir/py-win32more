@@ -36,7 +36,7 @@ class IApplicationDataManagerStatics(ComPtr):
     _classid_ = 'Windows.Management.Core.IApplicationDataManagerStatics'
     _iid_ = Guid('{1e1862e3-698e-49a1-9752-dee94925b9b3}')
     @winrt_commethod(6)
-    def CreateForPackageFamily(self, packageFamilyName: WinRT_String) -> Windows.Storage.ApplicationData: ...
+    def CreateForPackageFamily(self: Windows.Management.Core.IApplicationDataManagerStatics, packageFamilyName: WinRT_String) -> Windows.Storage.ApplicationData: ...
 make_head(_module, 'ApplicationDataManager')
 make_head(_module, 'IApplicationDataManager')
 make_head(_module, 'IApplicationDataManagerStatics')

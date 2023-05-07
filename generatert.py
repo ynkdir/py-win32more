@@ -1197,9 +1197,7 @@ class Preprocessor:
 
 class PyGenerator:
     def emit(self, td: TypeDefinition) -> str:
-        if td.kind == "function_pointer":
-            return self.emit_function_pointer(td)
-        elif td.kind == "enum":
+        if td.kind == "enum":
             return self.emit_enum(td)
         elif td.kind == "struct":
             return self.emit_struct_union(td)
@@ -1209,23 +1207,6 @@ class PyGenerator:
             return self.emit_com(td)
         else:
             raise NotImplementedError()
-
-    def emit_function_pointer(self, td: TypeDefinition) -> str:
-        writer = StringIO()
-        indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
-        functype = self.function_pointer_functype(td)
-        md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
-        restype = md.signature.return_type.pytype
-        params_csv = md.format_parameters()
-        name = td.generic_strip_suffix(td.name)
-        writer.write(f"{indent}@{functype}\n")
-        writer.write(f"{indent}def {name}({params_csv}) -> {restype}: ...\n")
-        return writer.getvalue()
-
-    def function_pointer_functype(self, td: TypeDefinition) -> str:
-        if "WindowsRuntime" in td.attributes:
-            return "winfunctype_pointer"
-        raise NotImplementedError()
 
     def emit_enum(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1309,6 +1290,8 @@ class PyGenerator:
             metaclass_args = ""
         extends = self.com_base_type(td)
         writer.write(f"class {name}({base}{metaclass_args}):\n")
+        if td.basetype == "System.MulticastDelegate":
+            writer.write("    # System.MulticastDelegate\n")
         writer.write(f"    extends: {extends}\n")
         for ii in td.interface_implementations:
             if ii.custom_attributes.has_default():
@@ -1438,24 +1421,28 @@ class PyGenerator:
             method_name = md.custom_attributes.get_overload()
         else:
             method_name = md.name
-        params = md.format_parameters_list()
+        params = ["self"] + md.format_parameters_list()
         restype = md.signature.return_type.pytype
         if td.basetype == "System.MulticastDelegate":
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @winrt_commethod({vtbl_index})\n")
-            params.insert(0, "self")
+            params[0] = "self"
         elif "Static" in md.attributes:
             writer.write(f"    @winrt_classmethod\n")
             interface = self.com_get_static_for_method(td, method_name)
-            params.insert(0, f"cls: {interface}")
+            params[0] = f"cls: {interface}"
         elif "Abstract" not in td.attributes:
             writer.write(f"    @winrt_mixinmethod\n")
             interface = self.com_get_interface_for_method(td, method_name)
-            params.insert(0, f"self: {interface}")
+            params[0] = f"self: {interface}"
         else:
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @winrt_commethod({vtbl_index})\n")
-            params.insert(0, "self")
+            if td.is_generic:
+                interface = td.generic_fullname
+            else:
+                interface = td.fullname
+            params[0] = f"self: {interface}"
         params_csv = ", ".join(params)
         writer.write(f"    def {method_name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
@@ -1466,8 +1453,7 @@ class PyGenerator:
             name = td.generic_fullname
         else:
             name = td.fullname
-        params = [f"cls: {name}"]
-        params.extend(md.format_parameters_list())
+        params = [f"cls: {name}"] + md.format_parameters_list()
         params_csv = ", ".join(params)
         restype = md.signature.return_type.pytype
         writer.write(f"    @winrt_factorymethod\n")
@@ -1559,7 +1545,7 @@ class PyGenerator:
             for fd in td.fields:
                 if "HasDefault" not in fd.attributes and not fd.signature.is_guid:
                     writer.write(f"make_head(_module, '{fd.name}')\n")
-        elif td.kind in ["function_pointer", "union", "struct", "com"]:
+        elif td.kind in ["union", "struct", "com"]:
             indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
             writer.write(f"{indent}make_head(_module, '{td.name_no_generic}')\n")
         return writer.getvalue()

@@ -31,7 +31,7 @@ class ICorePerceptionAutomationStatics(ComPtr):
     _classid_ = 'Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics'
     _iid_ = Guid('{0bb04541-4ce2-4923-9a76-8187ecc59112}')
     @winrt_commethod(6)
-    def SetActivationFactoryProvider(self, provider: Windows.Foundation.IGetActivationFactory) -> Void: ...
+    def SetActivationFactoryProvider(self: Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics, provider: Windows.Foundation.IGetActivationFactory) -> Void: ...
 PerceptionAutomationCoreContract: UInt32 = 65536
 make_head(_module, 'CorePerceptionAutomation')
 make_head(_module, 'ICorePerceptionAutomationStatics')
