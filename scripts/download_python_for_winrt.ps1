@@ -12,7 +12,7 @@ Expand-Archive python-3.11.3-embed-amd64.zip -DestinationPath python
 
 mt.exe -inputresource:"python\python.exe;#1" -out:python.manifest
 
-(Get-Content python.manifest) -replace '^.*{e2011457-1546-43c5-a5fe-008deee3d3f0}.*$', "<maxversiontested Id=`"10.0.18362.0`"/>`r`n`$0" | Set-Content python.manifest
+(Get-Content python.manifest) -replace '.*{e2011457-1546-43c5-a5fe-008deee3d3f0}.*', "<maxversiontested Id=`"10.0.18362.0`"/>`r`n`$0" | Set-Content python.manifest
 
 mt.exe -manifest python.manifest -outputresource:"python\python.exe;#1"
 
