@@ -37,6 +37,20 @@ from Windows.Win32.System.WinRT import (
 T = TypeVar("T")
 
 
+def generic_get_type_hints(cls, prototype):
+    hints = get_type_hints(prototype)
+    if is_generic_class(cls):
+        hints = generic_map_types(cls, hints)
+    return hints
+
+
+def generic_map_types(generic_alias, hints):
+    generic_args = generic_alias.__args__
+    generic_parameters = generic_alias.__origin__.__parameters__
+    param_to_type = dict(zip(generic_parameters, generic_args))
+    return {k: param_to_type.get(t, t) for k, t in hints.items()}
+
+
 class WinRT_String(HSTRING):
     def __del__(self):
         if self:
@@ -59,10 +73,8 @@ class WinRT_String(HSTRING):
 
 
 class WinrtMethod:
-    def __init__(self, this, prototype, factory):
-        hints = get_type_hints(prototype)
-        if is_generic_instance(this):
-            hints = self.map_generic_types(this, hints)
+    def __init__(self, cls, prototype, factory):
+        hints = generic_get_type_hints(cls, prototype)
         restype = hints.pop("return")
         argtypes = list(hints.values())
         types = [HRESULT] + argtypes
@@ -78,12 +90,6 @@ class WinrtMethod:
         self.hints.update({i: v for i, v in enumerate(argtypes)})
         self.delegate = factory(prototype.__name__, types, tuple(params))
         self.restype = restype
-
-    def map_generic_types(self, this, hints):
-        generic_args = this.__orig_class__.__args__
-        generic_parameters = this.__class__.__parameters__
-        param_to_type = {generic_parameters[i]: t for i, t in enumerate(generic_args)}
-        return {k: param_to_type[t] if isinstance(t, TypeVar) else t for k, t in hints.items()}
 
     def __call__(self, this, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
@@ -123,10 +129,12 @@ def winrt_commethod(vtbl_index):
         def wrapper(self, *args, **kwargs):
             if is_generic_instance(self):
                 generic_args = self.__orig_class__.__args__
+                cls = self.__orig_class__
             else:
                 generic_args = None
+                cls = self.__class__
             if generic_args not in delegate_generic:
-                delegate_generic[generic_args] = WinrtMethod(self, prototype, factory)
+                delegate_generic[generic_args] = WinrtMethod(cls, prototype, factory)
             return delegate_generic[generic_args](self, *args, **kwargs)
 
         return wrapper
