@@ -13,9 +13,9 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Collection, MutableSequence, TextIO, overload
 
 if sys.version_info < (3, 11):
-    from typing_extensions import Self, TypeAlias
+    from typing_extensions import TypeAlias
 else:
-    from typing import Self, TypeAlias
+    from typing import TypeAlias
 
 BASE_EXPORTS = [
     "ARCH",
@@ -632,10 +632,16 @@ class FieldDefinition:
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, pid = self.custom_attributes.get_property_key()
             return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
-        elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY":
+        elif (
+            self.signature.kind == "Type"
+            and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
+        ):
             guid, pid = self.custom_attributes.get_property_key()
             return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
-        elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY":
+        elif (
+            self.signature.kind == "Type"
+            and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY"
+        ):
             value = self.custom_attributes.get_constant()
             return f"{self.signature.fullname}({value})"
         else:
@@ -1382,6 +1388,7 @@ class PyGenerator:
                 return (int(m.group(2)), m.group(1))
             else:
                 return (1, ii.fullname)
+
         for ii in sorted(td.interface_implementations, key=sortkey):
             td_interface = ii["_typedef"]
             for md in td_interface.method_definitions:
@@ -1428,11 +1435,11 @@ class PyGenerator:
             writer.write(f"    @winrt_commethod({vtbl_index})\n")
             params[0] = "self"
         elif "Static" in md.attributes:
-            writer.write(f"    @winrt_classmethod\n")
+            writer.write("    @winrt_classmethod\n")
             interface = self.com_get_static_for_method(td, method_name)
             params[0] = f"cls: {interface}"
         elif "Abstract" not in td.attributes:
-            writer.write(f"    @winrt_mixinmethod\n")
+            writer.write("    @winrt_mixinmethod\n")
             interface = self.com_get_interface_for_method(td, method_name)
             params[0] = f"self: {interface}"
         else:
@@ -1456,7 +1463,7 @@ class PyGenerator:
         params = [f"cls: {name}"] + md.format_parameters_list()
         params_csv = ", ".join(params)
         restype = md.signature.return_type.pytype
-        writer.write(f"    @winrt_factorymethod\n")
+        writer.write("    @winrt_factorymethod\n")
         writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
 
@@ -1466,7 +1473,7 @@ class PyGenerator:
             name = td.generic_fullname
         else:
             name = td.fullname
-        writer.write(f"    @winrt_activatemethod\n")
+        writer.write("    @winrt_activatemethod\n")
         writer.write(f"    def CreateInstance(cls) -> {name}: ...\n")
         return writer.getvalue()
 
@@ -1550,7 +1557,9 @@ class PyGenerator:
             writer.write(f"{indent}make_head(_module, '{td.name_no_generic}')\n")
         return writer.getvalue()
 
-    def write_architecture_specific_block_if_necessary(self, writer: TextIO, custom_attributes: CustomAttributeCollection) -> str:
+    def write_architecture_specific_block_if_necessary(
+        self, writer: TextIO, custom_attributes: CustomAttributeCollection
+    ) -> str:
         if custom_attributes.has_supported_architecture():
             arch = ",".join(custom_attributes.get_supported_architecture()).upper()
             writer.write(f"if ARCH in '{arch}':\n")
@@ -1601,7 +1610,9 @@ class Selector:
             yield td
             yield from self.select_dependencies(td, meta_group_by_fullname, selected)
 
-    def select_dependencies(self, td: TypeDefinition, meta_group_by_fullname: Mapping[str, Metadata], selected: set[int]) -> Iterable[TypeDefinition]:
+    def select_dependencies(
+        self, td: TypeDefinition, meta_group_by_fullname: Mapping[str, Metadata], selected: set[int]
+    ) -> Iterable[TypeDefinition]:
         for fullname_depended in self.find_dependencies(td):
             if fullname_depended not in meta_group_by_fullname:
                 continue
