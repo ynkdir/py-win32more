@@ -143,13 +143,9 @@ def winrt_commethod(vtbl_index):
 
 
 def winrt_mixinmethod(prototype):
-    interface_class = None
-
     def wrapper(self, *args, **kwargs):
-        nonlocal interface_class
-        if interface_class is None:
-            hints = get_type_hints(prototype)
-            interface_class = hints["self"]
+        hints = get_type_hints(prototype)
+        interface_class = hints["self"]
         interface = interface_class()
         if is_generic_class(interface_class):
             iid = _ro_get_parameterized_type_instance_iid(interface_class)
@@ -177,14 +173,10 @@ def is_generic_instance(obj):
 
 
 def winrt_classmethod(prototype):
-    factory_class = None
-
     @classmethod
     def wrapper(cls, *args, **kwargs):
-        nonlocal factory_class
-        if factory_class is None:
-            hints = get_type_hints(prototype)
-            factory_class = hints["cls"]
+        hints = get_type_hints(prototype)
+        factory_class = hints["cls"]
         factory = _ro_get_activation_factory(cls._classid_, factory_class)
         try:
             return getattr(factory, prototype.__name__)(*args, **kwargs)
