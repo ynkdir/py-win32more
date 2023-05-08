@@ -1702,10 +1702,10 @@ class ToastNotificationHistoryChangedTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger'
-    @winrt_activatemethod
-    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Background.IToastNotificationHistoryChangedTriggerFactory, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
 class UserNotificationChangedTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Background.IBackgroundTrigger
