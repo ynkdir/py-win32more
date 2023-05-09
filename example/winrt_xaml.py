@@ -2,9 +2,9 @@
 # This example requires "<maxversiontested Id="10.0.18362.0"/>" in python.exe's manifest.
 # See scripts/download_python_for_winrt.ps1.
 
+import tkinter as tk
 from ctypes import (
     WinError,
-    sizeof,
 )
 
 from Windows import (
@@ -34,19 +34,6 @@ from Windows.UI.Xaml.Media import (
 from Windows.Win32.Foundation import (
     HWND,
 )
-from Windows.Win32.Graphics.Gdi import (
-    COLOR_WINDOW,
-    HBRUSH,
-    HDC,
-    PAINTSTRUCT,
-    BeginPaint,
-    EndPaint,
-    TextOutW,
-    UpdateWindow,
-)
-from Windows.Win32.System.LibraryLoader import (
-    GetModuleHandleW,
-)
 from Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
     RoInitialize,
@@ -56,75 +43,24 @@ from Windows.Win32.System.WinRT.Xaml import (
     IDesktopWindowXamlSourceNative,
 )
 from Windows.Win32.UI.WindowsAndMessaging import (
-    CW_USEDEFAULT,
-    MB_OK,
-    MSG,
-    SW_SHOWNORMAL,
     SWP_SHOWWINDOW,
-    WM_DESTROY,
-    WM_PAINT,
-    WNDCLASSEXW,
-    WNDPROC,
-    WS_OVERLAPPEDWINDOW,
-    WS_VISIBLE,
-    CreateWindowExW,
-    DefWindowProcW,
-    DispatchMessageW,
-    GetMessageW,
-    LoadIconW,
-    MessageBoxW,
-    PostQuitMessage,
-    RegisterClassExW,
     SetWindowPos,
-    ShowWindow,
-    TranslateMessage,
 )
 
-# icon resource in python.exe
-IDI_APPLICATION = 1
 
-_hWnd = None
+def window_size_center(win, w, h):
+    sw = win.winfo_screenwidth()
+    sh = win.winfo_screenheight()
+    x = (sw // 2) - (w // 2)
+    y = (sh // 2) - (h // 2)
+    win.geometry(f"{w}x{h}+{x}+{y}")
 
 
-def WinMain():
-    global _hWnd
+def main():
+    root = tk.Tk()
+    window_size_center(root, 700, 400)
 
-    hInstance = GetModuleHandleW(None)
-    nCmdShow = SW_SHOWNORMAL
-
-    # The main window class name.
-    szWindowClass = "Win32DesktopApp"
-
-    windowClass = WNDCLASSEXW()
-    windowClass.cbSize = sizeof(WNDCLASSEXW)
-    windowClass.lpfnWndProc = WindowProc
-    windowClass.hInstance = hInstance
-    windowClass.lpszClassName = szWindowClass
-    windowClass.hbrBackground = HBRUSH(COLOR_WINDOW + 1)
-
-    windowClass.hIconSm = LoadIconW(windowClass.hInstance, IDI_APPLICATION)
-
-    if RegisterClassExW(windowClass) == 0:
-        MessageBoxW(0, "Windows registration failed!", "Error", MB_OK)
-        raise WinError()
-
-    _hWnd = CreateWindowExW(
-        0,
-        szWindowClass,
-        "Windows c++ Win32 Desktop App",
-        WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        0,
-        0,
-        hInstance,
-        0,
-    )
-    if _hWnd == 0:
-        MessageBoxW(0, "Call to CreateWindow failed!", "Error", MB_OK)
-        raise WinError()
+    hWnd = root.winfo_id()
 
     # Begin XAML Island section.
 
@@ -148,7 +84,7 @@ def WinMain():
         raise WinError(hr)
 
     # Parent the DesktopWindowXamlSource object to the current window.
-    hr = interop.AttachToWindow(_hWnd)
+    hr = interop.AttachToWindow(hWnd)
     if FAILED(hr):
         raise WinError(hr)
 
@@ -161,7 +97,7 @@ def WinMain():
         raise WinError(hr)
 
     # Update the XAML Island window size because initially it is 0,0.
-    SetWindowPos(hWndXamlIsland, 0, 200, 100, 800, 200, SWP_SHOWWINDOW)
+    SetWindowPos(hWndXamlIsland, 0, 100, 100, 500, 200, SWP_SHOWWINDOW)
 
     # Create the XAML content.
     xamlContainer = StackPanel.CreateInstance(None, None)
@@ -192,44 +128,10 @@ def WinMain():
 
     # End XAML Island section.
 
-    ShowWindow(_hWnd, nCmdShow)
-    UpdateWindow(_hWnd)
-
-    # Message loop:
-    msg = MSG()
-    while GetMessageW(msg, 0, 0, 0):
-        TranslateMessage(msg)
-        DispatchMessageW(msg)
-
-    # someobj.Release() call omitted.
+    root.mainloop()
 
     RoUninitialize()
 
-    return 0
-
-
-@WNDPROC
-def ChildWindowProc(hWnd, messageCode, wParam, lParam):
-    return DefWindowProcW(hWnd, messageCode, wParam, lParam)
-
-
-@WNDPROC
-def WindowProc(hWnd, messageCode, wParam, lParam):
-    if messageCode == WM_PAINT:
-        if hWnd == _hWnd:  # ?
-            ps = PAINTSTRUCT()
-            hdc = HDC()
-            greeting = "Hello World in Win32!"
-            hdc = BeginPaint(hWnd, ps)
-            TextOutW(hdc, 300, 5, greeting, len(greeting))
-            EndPaint(hWnd, ps)
-    elif messageCode == WM_DESTROY:
-        PostQuitMessage(0)
-    else:
-        return DefWindowProcW(hWnd, messageCode, wParam, lParam)
-
-    return 0
-
 
 if __name__ == "__main__":
-    WinMain()
+    main()

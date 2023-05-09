@@ -4,9 +4,14 @@
 
 # Download embeddable python package.
 
-Invoke-WebRequest https://www.python.org/ftp/python/3.11.3/python-3.11.3-embed-amd64.zip -OutFile python-3.11.3-embed-amd64.zip
+$version = "3.11.3"
+$arch = "amd64"
+$python_embed_url = "https://www.python.org/ftp/python/$version/python-$version-embed-$arch.zip"
+$tcltk_url = "https://www.python.org/ftp/python/$version/$arch/tcltk.msi"
 
-Expand-Archive python-3.11.3-embed-amd64.zip -DestinationPath python
+Invoke-WebRequest $python_embed_url -OutFile "python-$version-embed-$arch.zip"
+
+Expand-Archive python-$version-embed-$arch.zip -DestinationPath python
 
 # Edit python.exe's manifest for WinRT xaml api.
 
@@ -16,13 +21,23 @@ mt.exe -inputresource:"python\python.exe;#1" -out:python.manifest
 
 mt.exe -manifest python.manifest -outputresource:"python\python.exe;#1"
 
-# Enable site.
+# Enable site and Lib.
 
-(Get-Content python/python311._pth) -replace '^#import site$', 'import site' | Set-Content python/python311._pth
+(Get-Content python/python311._pth) -replace "^\.$", "Lib`r`n." -replace '^#import site$', 'import site' | Set-Content python/python311._pth
+New-Item python\Lib -ItemType Directory
 
 # Install pip.
 
 (Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py).Content | python\python.exe -
+
+# Install tkinter
+
+Invoke-WebRequest $tcltk_url -OutFile tcltk.msi
+Start-Process msiexec.exe "/a tcltk.msi targetdir=`"$PWD\__tmp`" /qn" -Wait
+Move-Item __tmp\DLLs\* python\
+Move-Item __tmp\Lib\* python\Lib\
+Move-Item __tmp\tcl python\
+Remove-Item -Recurse __tmp
 
 # Install py-win32more.
 
