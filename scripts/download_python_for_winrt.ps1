@@ -1,36 +1,43 @@
 # WinRT xaml api requires "maxversiontested" entry in manifest.
 # This script downloads embeddable python package and edit manifest.
-# Requires mt.exe which is installed with VisualStudio.
-
-# Download embeddable python package.
 
 $version = "3.11.3"
 $arch = "amd64"
 $python_embed_url = "https://www.python.org/ftp/python/$version/python-$version-embed-$arch.zip"
 $tcltk_url = "https://www.python.org/ftp/python/$version/$arch/tcltk.msi"
+$buildtools_url = "https://globalcdn.nuget.org/packages/microsoft.windows.sdk.buildtools.10.0.22621.1.nupkg"
+$mt_exe = ".\buildtools\bin\10.0.22621.0\x64\mt.exe"
 
-Invoke-WebRequest $python_embed_url -OutFile "python-$version-embed-$arch.zip"
+Write-Host "Download enbeddable python package." -ForegroundColor Green
 
-Expand-Archive python-$version-embed-$arch.zip -DestinationPath python
+Invoke-WebRequest $python_embed_url -OutFile python.zip
 
-# Edit python.exe's manifest for WinRT xaml api.
+Expand-Archive python.zip -DestinationPath python
 
-mt.exe -inputresource:"python\python.exe;#1" -out:python.manifest
+Write-Host "Download mt.exe" -ForegroundColor Green
+
+Invoke-WebRequest $buildtools_url -OutFile buildtools.zip
+
+Expand-Archive buildtools.zip -DestinationPath buildtools
+
+Write-Host "Edit python.exe's manifest for WinRT xaml api." -ForegroundColor Green
+
+& $mt_exe -inputresource:"python\python.exe;#1" -out:python.manifest
 
 (Get-Content python.manifest) -replace '.*{e2011457-1546-43c5-a5fe-008deee3d3f0}.*', "<maxversiontested Id=`"10.0.18362.0`"/>`r`n`$0" | Set-Content python.manifest
 
-mt.exe -manifest python.manifest -outputresource:"python\python.exe;#1"
+& $mt_exe -manifest python.manifest -outputresource:"python\python.exe;#1"
 
-# Enable site and Lib.
+Write-Host "Enable site and Lib." -ForegroundColor Green
 
 (Get-Content python/python311._pth) -replace "^\.$", "Lib`r`n." -replace '^#import site$', 'import site' | Set-Content python/python311._pth
 New-Item python\Lib -ItemType Directory
 
-# Install pip.
+Write-Host "Install pip." -ForegroundColor Green
 
 (Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py).Content | python\python.exe -
 
-# Install tkinter
+Write-Host "Install tkinter" -ForegroundColor Green
 
 Invoke-WebRequest $tcltk_url -OutFile tcltk.msi
 Start-Process msiexec.exe "/a tcltk.msi targetdir=`"$PWD\__tmp`" /qn" -Wait
@@ -39,10 +46,11 @@ Move-Item __tmp\Lib\* python\Lib\
 Move-Item __tmp\tcl python\
 Remove-Item -Recurse __tmp
 
-# Install py-win32more.
+Write-Host "Install py-win32more." -ForegroundColor Green
 
 # FIXME: Automatic build dependency installation doesn't work when using with embeddable python?
 python\python.exe -m pip install hatchling
 
 python\python.exe -m pip install -e $PSScriptRoot\..
 
+Write-Host "python\python.exe is ready." -ForegroundColor Green
