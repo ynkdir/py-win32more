@@ -15,12 +15,9 @@ from Windows.UI import (
 )
 from Windows.UI.Xaml import (
     HorizontalAlignment_Center,
-    IFrameworkElement,
-    IUIElement,
     VerticalAlignment_Center,
 )
 from Windows.UI.Xaml.Controls import (
-    IPanel,
     StackPanel,
     TextBox,
 )
@@ -58,7 +55,7 @@ def window_size_center(win, w, h):
 
 def main():
     root = tk.Tk()
-    window_size_center(root, 700, 400)
+    window_size_center(root, 1000, 400)
 
     hWnd = root.winfo_id()
 
@@ -97,38 +94,27 @@ def main():
         raise WinError(hr)
 
     # Update the XAML Island window size because initially it is 0,0.
-    SetWindowPos(hWndXamlIsland, 0, 100, 100, 500, 200, SWP_SHOWWINDOW)
+    SetWindowPos(hWndXamlIsland, 0, 100, 100, 800, 200, SWP_SHOWWINDOW)
 
     # Create the XAML content.
     xamlContainer = StackPanel.CreateInstance(None, None)
-    panel = IPanel()
-    hr = xamlContainer.QueryInterface(IPanel._iid_, panel)
-    if FAILED(hr):
-        raise WinError(hr)
-    uielement = IUIElement()
-    hr = xamlContainer.QueryInterface(IUIElement._iid_, uielement)
-    if FAILED(hr):
-        raise WinError(hr)
-    brush = SolidColorBrush.CreateInstanceWithColor(Colors.LightGray)
-    panel.Background = brush
+    xamlContainer.Background = SolidColorBrush.CreateInstanceWithColor(Colors.LightGray)
 
     tb = TextBox.CreateInstance(None, None)
-    fe = IFrameworkElement()
-    hr = tb.QueryInterface(IFrameworkElement._iid_, fe)
-    if FAILED(hr):
-        raise WinError(hr)
     tb.Text = "Hello World from Xaml Islands!"
-    fe.VerticalAlignment = VerticalAlignment_Center
-    fe.HorizontalAlignment = HorizontalAlignment_Center
-    fe.FontSize = 48
+    tb.VerticalAlignment = VerticalAlignment_Center
+    tb.HorizontalAlignment = HorizontalAlignment_Center
+    tb.FontSize = 48
 
-    panel.Children.Append(tb)
-    uielement.UpdateLayout()
+    xamlContainer.Children.Append(tb)
+    xamlContainer.UpdateLayout()
     desktopSource.Content = xamlContainer
 
     # End XAML Island section.
 
     root.mainloop()
+
+    # TODO: *.Release()
 
     RoUninitialize()
 

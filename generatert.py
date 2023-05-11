@@ -1378,18 +1378,7 @@ class PyGenerator:
         return ", ".join(ca.fixed_arguments[0].value for ca in td.custom_attributes.get_static())
 
     def com_get_interface_for_method(self, td: TypeDefinition, method_name: str) -> str:
-        def sortkey(ii):
-            if ii.custom_attributes.has_default():
-                return (0, ii.fullname)
-            name = ii.fullname
-            name = re.sub(r"`\d+$", "", name)  # strip generic name
-            m = re.match(r"^(.*?)(\d+)$", name)  # version from name IClass123
-            if m:
-                return (int(m.group(2)), m.group(1))
-            else:
-                return (1, ii.fullname)
-
-        for ii in sorted(td.interface_implementations, key=sortkey):
+        for ii in td.interface_implementations:
             td_interface = ii["_typedef"]
             for md in td_interface.method_definitions:
                 if md.custom_attributes.has_overload():
