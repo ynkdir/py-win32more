@@ -75,7 +75,6 @@ class WinRT_String(HSTRING):
 class WinrtMethod:
     def __init__(self, cls, prototype, factory):
         hints = generic_get_type_hints(cls, prototype)
-        del hints["self"]
         restype = hints.pop("return")
         argtypes = list(hints.values())
         types = [HRESULT] + argtypes

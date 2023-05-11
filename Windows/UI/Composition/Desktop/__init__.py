@@ -32,7 +32,7 @@ class IDesktopWindowTarget(ComPtr):
     _classid_ = 'Windows.UI.Composition.Desktop.IDesktopWindowTarget'
     _iid_ = Guid('{6329d6ca-3366-490e-9db3-25312929ac51}')
     @winrt_commethod(6)
-    def get_IsTopmost(self: Windows.UI.Composition.Desktop.IDesktopWindowTarget) -> Boolean: ...
+    def get_IsTopmost(self) -> Boolean: ...
     IsTopmost = property(get_IsTopmost, None)
 make_head(_module, 'DesktopWindowTarget')
 make_head(_module, 'IDesktopWindowTarget')

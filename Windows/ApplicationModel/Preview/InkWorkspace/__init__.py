@@ -27,13 +27,13 @@ class IInkWorkspaceHostedAppManager(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Preview.InkWorkspace.IInkWorkspaceHostedAppManager'
     _iid_ = Guid('{fe0a7990-5e59-4bb7-8a63-7d218cd96300}')
     @winrt_commethod(6)
-    def SetThumbnailAsync(self: Windows.ApplicationModel.Preview.InkWorkspace.IInkWorkspaceHostedAppManager, bitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncAction: ...
+    def SetThumbnailAsync(self, bitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncAction: ...
 class IInkWorkspaceHostedAppManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.InkWorkspace.IInkWorkspaceHostedAppManagerStatics'
     _iid_ = Guid('{cbfd8cc5-a162-4bc4-84ee-e8716d5233c5}')
     @winrt_commethod(6)
-    def GetForCurrentApp(self: Windows.ApplicationModel.Preview.InkWorkspace.IInkWorkspaceHostedAppManagerStatics) -> Windows.ApplicationModel.Preview.InkWorkspace.InkWorkspaceHostedAppManager: ...
+    def GetForCurrentApp(self) -> Windows.ApplicationModel.Preview.InkWorkspace.InkWorkspaceHostedAppManager: ...
 class InkWorkspaceHostedAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.ApplicationModel.Preview.InkWorkspace.IInkWorkspaceHostedAppManager

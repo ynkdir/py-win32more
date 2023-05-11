@@ -31,7 +31,7 @@ class IWindowManagementPreviewStatics(ComPtr):
     _classid_ = 'Windows.UI.WindowManagement.Preview.IWindowManagementPreviewStatics'
     _iid_ = Guid('{0f9725c6-c004-5a23-8fd2-8d092ce2704a}')
     @winrt_commethod(6)
-    def SetPreferredMinSize(self: Windows.UI.WindowManagement.Preview.IWindowManagementPreviewStatics, window: Windows.UI.WindowManagement.AppWindow, preferredFrameMinSize: Windows.Foundation.Size) -> Void: ...
+    def SetPreferredMinSize(self, window: Windows.UI.WindowManagement.AppWindow, preferredFrameMinSize: Windows.Foundation.Size) -> Void: ...
 class WindowManagementPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.UI.WindowManagement.Preview.IWindowManagementPreview

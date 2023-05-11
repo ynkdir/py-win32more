@@ -1422,7 +1422,6 @@ class PyGenerator:
         if td.basetype == "System.MulticastDelegate":
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @winrt_commethod({vtbl_index})\n")
-            params[0] = "self"
         elif "Static" in md.attributes:
             writer.write("    @winrt_classmethod\n")
             interface = self.com_get_static_for_method(td, method_name)
@@ -1434,11 +1433,6 @@ class PyGenerator:
         else:
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @winrt_commethod({vtbl_index})\n")
-            if td.is_generic:
-                interface = td.generic_fullname
-            else:
-                interface = td.fullname
-            params[0] = f"self: {interface}"
         params_csv = ", ".join(params)
         writer.write(f"    def {method_name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()

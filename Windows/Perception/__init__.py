@@ -26,9 +26,9 @@ class IPerceptionTimestamp(ComPtr):
     _classid_ = 'Windows.Perception.IPerceptionTimestamp'
     _iid_ = Guid('{87c24804-a22e-4adb-ba26-d78ef639bcf4}')
     @winrt_commethod(6)
-    def get_TargetTime(self: Windows.Perception.IPerceptionTimestamp) -> Windows.Foundation.DateTime: ...
+    def get_TargetTime(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
-    def get_PredictionAmount(self: Windows.Perception.IPerceptionTimestamp) -> Windows.Foundation.TimeSpan: ...
+    def get_PredictionAmount(self) -> Windows.Foundation.TimeSpan: ...
     TargetTime = property(get_TargetTime, None)
     PredictionAmount = property(get_PredictionAmount, None)
 class IPerceptionTimestamp2(ComPtr):
@@ -36,20 +36,20 @@ class IPerceptionTimestamp2(ComPtr):
     _classid_ = 'Windows.Perception.IPerceptionTimestamp2'
     _iid_ = Guid('{e354b7ed-2bd1-41b7-9ed0-74a15c354537}')
     @winrt_commethod(6)
-    def get_SystemRelativeTargetTime(self: Windows.Perception.IPerceptionTimestamp2) -> Windows.Foundation.TimeSpan: ...
+    def get_SystemRelativeTargetTime(self) -> Windows.Foundation.TimeSpan: ...
     SystemRelativeTargetTime = property(get_SystemRelativeTargetTime, None)
 class IPerceptionTimestampHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.IPerceptionTimestampHelperStatics'
     _iid_ = Guid('{47a611d4-a9df-4edc-855d-f4d339d967ac}')
     @winrt_commethod(6)
-    def FromHistoricalTargetTime(self: Windows.Perception.IPerceptionTimestampHelperStatics, targetTime: Windows.Foundation.DateTime) -> Windows.Perception.PerceptionTimestamp: ...
+    def FromHistoricalTargetTime(self, targetTime: Windows.Foundation.DateTime) -> Windows.Perception.PerceptionTimestamp: ...
 class IPerceptionTimestampHelperStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.IPerceptionTimestampHelperStatics2'
     _iid_ = Guid('{73d1a7fe-3fb9-4571-87d4-3c920a5e86eb}')
     @winrt_commethod(6)
-    def FromSystemRelativeTargetTime(self: Windows.Perception.IPerceptionTimestampHelperStatics2, targetTime: Windows.Foundation.TimeSpan) -> Windows.Perception.PerceptionTimestamp: ...
+    def FromSystemRelativeTargetTime(self, targetTime: Windows.Foundation.TimeSpan) -> Windows.Perception.PerceptionTimestamp: ...
 class PerceptionTimestamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Perception.IPerceptionTimestamp

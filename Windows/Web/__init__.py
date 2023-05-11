@@ -27,13 +27,13 @@ class IUriToStreamResolver(ComPtr):
     _classid_ = 'Windows.Web.IUriToStreamResolver'
     _iid_ = Guid('{b0aba86a-9aeb-4d3a-9590-003e3ca7e290}')
     @winrt_commethod(6)
-    def UriToStreamAsync(self: Windows.Web.IUriToStreamResolver, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IInputStream]: ...
+    def UriToStreamAsync(self, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IInputStream]: ...
 class IWebErrorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.IWebErrorStatics'
     _iid_ = Guid('{fe616766-bf27-4064-87b7-6563bb11ce2e}')
     @winrt_commethod(6)
-    def GetStatus(self: Windows.Web.IWebErrorStatics, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
+    def GetStatus(self, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 class WebError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.WebError'
