@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -182,26 +182,17 @@ class IWebUICommandBarSymbolIconFactory(ComPtr):
     _iid_ = Guid('{51be1a1f-3730-429e-b622-14e2b7bf6a07}')
     @winrt_commethod(6)
     def Create(self, symbol: WinRT_String) -> Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon: ...
-class MenuClosedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class MenuClosedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.Core.MenuClosedEventHandler'
     _iid_ = Guid('{435387c8-4dd0-4c52-9489-d390ce7721d2}')
-    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
-class MenuOpenedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class MenuOpenedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.Core.MenuOpenedEventHandler'
     _iid_ = Guid('{18dc0ad3-678f-4c19-8963-cc1c49a5ef9e}')
-    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
-class SizeChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SizeChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.Core.SizeChangedEventHandler'
     _iid_ = Guid('{d49cfe3c-dd2e-4c28-b627-303a7f911af5}')
-    @winrt_commethod(3)
     def Invoke(self, eventArgs: Windows.UI.WebUI.Core.WebUICommandBarSizeChangedEventArgs) -> Void: ...
 class WebUICommandBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -367,9 +358,6 @@ make_head(_module, 'IWebUICommandBarSizeChangedEventArgs')
 make_head(_module, 'IWebUICommandBarStatics')
 make_head(_module, 'IWebUICommandBarSymbolIcon')
 make_head(_module, 'IWebUICommandBarSymbolIconFactory')
-make_head(_module, 'MenuClosedEventHandler')
-make_head(_module, 'MenuOpenedEventHandler')
-make_head(_module, 'SizeChangedEventHandler')
 make_head(_module, 'WebUICommandBar')
 make_head(_module, 'WebUICommandBarBitmapIcon')
 make_head(_module, 'WebUICommandBarConfirmationButton')

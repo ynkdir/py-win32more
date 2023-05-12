@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -33,12 +33,9 @@ class ComponentLoadFailedEventArgs(ComPtr):
     def get_Completion(self: Windows.Media.Protection.IComponentLoadFailedEventArgs) -> Windows.Media.Protection.MediaProtectionServiceCompletion: ...
     Information = property(get_Information, None)
     Completion = property(get_Completion, None)
-class ComponentLoadFailedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ComponentLoadFailedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Protection.ComponentLoadFailedEventHandler'
     _iid_ = Guid('{95da643c-6db9-424b-86ca-091af432081c}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager, e: Windows.Media.Protection.ComponentLoadFailedEventArgs) -> Void: ...
 class ComponentRenewal(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -255,12 +252,9 @@ ProtectionCapabilityResult_NotSupported: ProtectionCapabilityResult = 0
 ProtectionCapabilityResult_Maybe: ProtectionCapabilityResult = 1
 ProtectionCapabilityResult_Probably: ProtectionCapabilityResult = 2
 ProtectionRenewalContract: UInt32 = 65536
-class RebootNeededEventHandler(ComPtr):
-    # System.MulticastDelegate
+class RebootNeededEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Protection.RebootNeededEventHandler'
     _iid_ = Guid('{64e12a45-973b-4a3a-b260-91898a49a82c}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager) -> Void: ...
 RenewalStatus = Int32
 RenewalStatus_NotStarted: RenewalStatus = 0
@@ -323,15 +317,11 @@ class ServiceRequestedEventArgs(ComPtr):
     Request = property(get_Request, None)
     Completion = property(get_Completion, None)
     MediaPlaybackItem = property(get_MediaPlaybackItem, None)
-class ServiceRequestedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ServiceRequestedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Protection.ServiceRequestedEventHandler'
     _iid_ = Guid('{d2d690ba-cac9-48e1-95c0-d38495a84055}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager, e: Windows.Media.Protection.ServiceRequestedEventArgs) -> Void: ...
 make_head(_module, 'ComponentLoadFailedEventArgs')
-make_head(_module, 'ComponentLoadFailedEventHandler')
 make_head(_module, 'ComponentRenewal')
 make_head(_module, 'HdcpSession')
 make_head(_module, 'IComponentLoadFailedEventArgs')
@@ -351,8 +341,6 @@ make_head(_module, 'MediaProtectionManager')
 make_head(_module, 'MediaProtectionPMPServer')
 make_head(_module, 'MediaProtectionServiceCompletion')
 make_head(_module, 'ProtectionCapabilities')
-make_head(_module, 'RebootNeededEventHandler')
 make_head(_module, 'RevocationAndRenewalInformation')
 make_head(_module, 'RevocationAndRenewalItem')
 make_head(_module, 'ServiceRequestedEventArgs')
-make_head(_module, 'ServiceRequestedEventHandler')

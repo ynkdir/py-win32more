@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -170,12 +170,9 @@ class IVector(Generic[T], ComPtr):
     @winrt_commethod(17)
     def ReplaceAll(self, items: POINTER(T)) -> Void: ...
     Size = property(get_Size, None)
-class MapChangedEventHandler(Generic[K, V], ComPtr):
-    # System.MulticastDelegate
+class MapChangedEventHandler(MulticastDelegate, Generic[K, V]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.Collections.MapChangedEventHandler'
     _iid_ = Guid('{179517f3-94ee-41f8-bddc-768a895544f3}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Foundation.Collections.IObservableMap[K, V], event: Windows.Foundation.Collections.IMapChangedEventArgs[K]) -> Void: ...
 class PropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -258,12 +255,9 @@ class ValueSet(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]: ...
     Size = property(get_Size, None)
-class VectorChangedEventHandler(Generic[T], ComPtr):
-    # System.MulticastDelegate
+class VectorChangedEventHandler(MulticastDelegate, Generic[T]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.Collections.VectorChangedEventHandler'
     _iid_ = Guid('{0c051752-9fbf-4c70-aa0c-0e4c82d9a761}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Foundation.Collections.IObservableVector[T], event: Windows.Foundation.Collections.IVectorChangedEventArgs) -> Void: ...
 make_head(_module, 'IIterable')
 make_head(_module, 'IIterator')
@@ -277,8 +271,6 @@ make_head(_module, 'IPropertySet')
 make_head(_module, 'IVectorChangedEventArgs')
 make_head(_module, 'IVectorView')
 make_head(_module, 'IVector')
-make_head(_module, 'MapChangedEventHandler')
 make_head(_module, 'PropertySet')
 make_head(_module, 'StringMap')
 make_head(_module, 'ValueSet')
-make_head(_module, 'VectorChangedEventHandler')

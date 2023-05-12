@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import uuid
-from ctypes import POINTER, WINFUNCTYPE, WinError, c_void_p, cast, pointer, wstring_at
+from ctypes import POINTER, WINFUNCTYPE, Structure, WinError, addressof, c_void_p, cast, pointer, py_object, wstring_at
 from typing import Generic, TypeVar, _GenericAlias
 
+import Windows.Win32.System.Com
 from Windows import (
     FAILED,
     Boolean,
@@ -24,7 +25,11 @@ from Windows import (
     easycast,
     get_type_hints,
 )
-from Windows.Win32.Foundation import HRESULT
+from Windows.Win32.Foundation import (
+    E_NOINTERFACE,
+    HRESULT,
+    S_OK,
+)
 from Windows.Win32.System.WinRT import (
     HSTRING,
     RoActivateInstance,
@@ -37,18 +42,37 @@ from Windows.Win32.System.WinRT import (
 T = TypeVar("T")
 
 
-def generic_get_type_hints(cls, prototype):
+def generic_get_type_hints(cls, prototype, use_generic_alias=False):
     hints = get_type_hints(prototype)
     if is_generic_class(cls):
-        hints = generic_map_types(cls, hints)
+        hints = generic_map_types(cls, hints, use_generic_alias)
     return hints
 
 
-def generic_map_types(generic_alias, hints):
+def generic_map_types(generic_alias, hints, use_generic_alias=False):
     generic_args = generic_alias.__args__
     generic_parameters = generic_alias.__origin__.__parameters__
     param_to_type = dict(zip(generic_parameters, generic_args))
-    return {k: param_to_type.get(t, t) for k, t in hints.items()}
+    newhints = {}
+    for k, t in hints.items():
+        if is_generic_class(t):
+            newhints[k] = generic_map_class(t, param_to_type, use_generic_alias)
+        else:
+            newhints[k] = param_to_type.get(t, t)
+    return newhints
+
+
+def generic_map_class(generic_alias, param_to_type, use_generic_alias=False):
+    args = []
+    for t in generic_alias.__args__:
+        if is_generic_class(t):
+            args.append(generic_map_class(t, param_to_type))
+        else:
+            args.append(param_to_type.get(t, t))
+    if use_generic_alias:
+        return generic_alias.__origin__[*args]
+    else:
+        return generic_alias.__origin__
 
 
 class WinRT_String(HSTRING):
@@ -86,10 +110,11 @@ class WinrtMethod:
             else:
                 return_type = POINTER(restype)
             types.append(return_type)
-        self.hints = hints
-        self.hints.update({i: v for i, v in enumerate(argtypes)})
         self.delegate = factory(prototype.__name__, types, tuple(params))
-        self.restype = restype
+        generic_hints = generic_get_type_hints(cls, prototype, True)
+        self.restype = generic_hints.pop("return")
+        self.generic_hints = generic_hints
+        self.generic_hints.update({i: v for i, v in enumerate(generic_hints.values())})
 
     def __call__(self, this, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
@@ -105,8 +130,26 @@ class WinrtMethod:
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        cargs = [easycast(v, self.hints[i]) if i in self.hints else v for i, v in enumerate(args)]
-        ckwargs = {k: easycast(v, self.hints[k]) if k in self.hints else v for k, v in kwargs.items()}
+        cargs = []
+        for i, v in enumerate(args):
+            if i in self.generic_hints:
+                if callable(v) and is_delegate_class(self.generic_hints[i]):
+                    cv = self.generic_hints[i].CreateInstance(v)
+                else:
+                    cv = easycast(v, self.generic_hints[i])
+            else:
+                cv = v
+            cargs.append(cv)
+        ckwargs = {}
+        for k, v in kwargs.items():
+            if k in self.generic_hints:
+                if callable(v) and is_delegate_class(self.generic_hints[k]):
+                    cv = self.generic_hints[k].CreateInstance(v)
+                else:
+                    cv = easycast(v, self.generic_hints[k])
+            else:
+                cv = v
+            cargs.append(cv)
         return cargs, ckwargs
 
     def make_result(self, result, _as_intptr):
@@ -170,6 +213,17 @@ def is_generic_class(cls):
 # Cls[T]()?
 def is_generic_instance(obj):
     return isinstance(obj, Generic)
+
+
+# Cls of Cls[T]?
+def is_generic_subclass(cls):
+    return issubclass(cls, Generic)
+
+
+def is_delegate_class(cls):
+    if is_generic_class(cls):
+        cls = cls.__origin__
+    return issubclass(cls, MulticastDelegate)
 
 
 def winrt_classmethod(prototype):
@@ -299,3 +353,99 @@ def _get_type_signature(cls) -> str:
         return "g16"
     else:
         raise NotImplementedError()
+
+
+class MulticastDelegateImpl(Structure):
+    _fields_ = [("lpvtbl", POINTER(c_void_p)), ("comptr", py_object)]
+
+    def __init__(self, comptr, cls, invoke_prototype):
+        self.lpvtbl = (c_void_p * 4)()
+        self.lpvtbl[0] = cast(self.QueryInterface, c_void_p)
+        self.lpvtbl[1] = cast(self.AddRef, c_void_p)
+        self.lpvtbl[2] = cast(self.Release, c_void_p)
+        self.lpvtbl[3] = cast(self._make_trampoline(cls, invoke_prototype), c_void_p)
+        self.comptr = py_object(comptr)
+
+    def _make_trampoline(self, cls, invoke_prototype):
+        hints = generic_get_type_hints(cls, invoke_prototype)
+        restype = hints.pop("return")
+        argtypes = list(hints.values())
+        factory = WINFUNCTYPE(restype, c_void_p, *argtypes)
+        return factory(self.Invoke)
+
+    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
+    def QueryInterface(this, riid, ppvObject):
+        self = cast(this, POINTER(MulticastDelegateImpl)).contents
+        return self.comptr.QueryInterface(riid, ppvObject)
+
+    @WINFUNCTYPE(UInt32, c_void_p)
+    def AddRef(this):
+        self = cast(this, POINTER(MulticastDelegateImpl)).contents
+        return self.comptr.AddRef()
+
+    @WINFUNCTYPE(UInt32, c_void_p)
+    def Release(this):
+        self = cast(this, POINTER(MulticastDelegateImpl)).contents
+        return self.comptr.Release()
+
+    # @WINFUNCTYPE(...)
+    @staticmethod
+    def Invoke(this, *args):
+        self = cast(this, POINTER(MulticastDelegateImpl)).contents
+        return self.comptr._Invoke(*args)
+
+
+class MulticastDelegate(ComPtr):
+    extends: Windows.Win32.System.Com.IUnknown
+
+    _keep_reference_in_python_world_ = {}
+
+    # FIXME: Workaround to get generic class __args__ in class method.
+    @classmethod
+    def __class_getitem__(cls, key):
+        generic_alias = super().__class_getitem__(key)
+        generic_alias.__generic_key = key
+        return generic_alias
+
+    # FIXME: With GenericClass[type].CreateInstance(), cls is passed as GenericClass instead of GenericClass[type].
+    @classmethod
+    def CreateInstance(cls, _callback):
+        if is_generic_subclass(cls):
+            cls = cls[cls.__generic_key]
+            self = cls()
+            self._iid_ = _ro_get_parameterized_type_instance_iid(cls)
+        else:
+            self = cls()
+        self._callback = _callback
+        self._comobj = MulticastDelegateImpl(self, cls, self.__class__.Invoke)
+        self.value = addressof(self._comobj)
+        self._refcount = 0
+        return self
+
+    def QueryInterface(self, riid, ppvObject):
+        if str(riid.contents) == str(self._iid_):
+            ppvObject.contents.value = self.value
+            self.AddRef()
+            return S_OK
+        elif str(riid.contents) == "{00000000-0000-0000-c000-000000000046}":  # IUnknown
+            ppvObject.contents.value = self.value
+            self.AddRef()
+            return S_OK
+        else:
+            return E_NOINTERFACE
+
+    def AddRef(self):
+        self._refcount += 1
+        if self._refcount == 1:
+            self._keep_reference_in_python_world_[id(self)] = self
+        return self._refcount
+
+    def Release(self):
+        self._refcount -= 1
+        if self._refcount == 0:
+            self._comobj.comptr = None
+            del self._keep_reference_in_python_world_[id(self)]
+        return self._refcount
+
+    def _Invoke(self, *args):
+        return self._callback(*args)

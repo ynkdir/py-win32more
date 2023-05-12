@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.UI.Xaml.Interop
@@ -21,12 +21,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class BindableVectorChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class BindableVectorChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Interop.BindableVectorChangedEventHandler'
     _iid_ = Guid('{624cd4e1-d007-43b1-9c03-af4d3e6258c4}')
-    @winrt_commethod(3)
     def Invoke(self, vector: Windows.UI.Xaml.Interop.IBindableObservableVector, e: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class IBindableIterable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -150,12 +147,9 @@ class NotifyCollectionChangedEventArgs(ComPtr):
     OldItems = property(get_OldItems, None)
     NewStartingIndex = property(get_NewStartingIndex, None)
     OldStartingIndex = property(get_OldStartingIndex, None)
-class NotifyCollectionChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class NotifyCollectionChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Interop.NotifyCollectionChangedEventHandler'
     _iid_ = Guid('{ca10b37c-f382-4591-8557-5e24965279b0}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs) -> Void: ...
 TypeKind = Int32
 TypeKind_Primitive: TypeKind = 0
@@ -164,7 +158,6 @@ TypeKind_Custom: TypeKind = 2
 class TypeName(EasyCastStructure):
     Name: WinRT_String
     Kind: Windows.UI.Xaml.Interop.TypeKind
-make_head(_module, 'BindableVectorChangedEventHandler')
 make_head(_module, 'IBindableIterable')
 make_head(_module, 'IBindableIterator')
 make_head(_module, 'IBindableObservableVector')
@@ -174,5 +167,4 @@ make_head(_module, 'INotifyCollectionChanged')
 make_head(_module, 'INotifyCollectionChangedEventArgs')
 make_head(_module, 'INotifyCollectionChangedEventArgsFactory')
 make_head(_module, 'NotifyCollectionChangedEventArgs')
-make_head(_module, 'NotifyCollectionChangedEventHandler')
 make_head(_module, 'TypeName')

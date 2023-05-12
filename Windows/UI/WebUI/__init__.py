@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel
 import Windows.ApplicationModel.Activation
@@ -57,12 +57,9 @@ class ActivatedDeferral(ComPtr):
     _classid_ = 'Windows.UI.WebUI.ActivatedDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.UI.WebUI.IActivatedDeferral) -> Void: ...
-class ActivatedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ActivatedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.ActivatedEventHandler'
     _iid_ = Guid('{50f1e730-c5d1-4b6b-9adb-8a11756be29c}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, eventArgs: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Void: ...
 class ActivatedOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -77,12 +74,9 @@ class BackgroundActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_TaskInstance(self: Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Windows.ApplicationModel.Background.IBackgroundTaskInstance: ...
     TaskInstance = property(get_TaskInstance, None)
-class BackgroundActivatedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class BackgroundActivatedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.BackgroundActivatedEventHandler'
     _iid_ = Guid('{edb19fbb-0761-47cc-9a77-24d7072965ca}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, eventArgs: Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Void: ...
 class EnteredBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -90,12 +84,9 @@ class EnteredBackgroundEventArgs(ComPtr):
     _classid_ = 'Windows.UI.WebUI.EnteredBackgroundEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
-class EnteredBackgroundEventHandler(ComPtr):
-    # System.MulticastDelegate
+class EnteredBackgroundEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.EnteredBackgroundEventHandler'
     _iid_ = Guid('{2b09a173-b68e-4def-88c1-8de84e5aab2f}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Void: ...
 class HtmlPrintDocumentSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -354,19 +345,13 @@ class LeavingBackgroundEventArgs(ComPtr):
     _classid_ = 'Windows.UI.WebUI.LeavingBackgroundEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
-class LeavingBackgroundEventHandler(ComPtr):
-    # System.MulticastDelegate
+class LeavingBackgroundEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.LeavingBackgroundEventHandler'
     _iid_ = Guid('{00b4ccd9-7a9c-4b6b-9ac4-13474f268bc4}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Void: ...
-class NavigatedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class NavigatedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.NavigatedEventHandler'
     _iid_ = Guid('{7af46fe6-40ca-4e49-a7d6-dbdb330cd1a3}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.WebUI.IWebUINavigatedEventArgs) -> Void: ...
 class NewWebUIViewCreatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -388,12 +373,9 @@ PrintContent_AllPages: PrintContent = 0
 PrintContent_CurrentPage: PrintContent = 1
 PrintContent_CustomPageRange: PrintContent = 2
 PrintContent_CurrentSelection: PrintContent = 3
-class ResumingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ResumingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.ResumingEventHandler'
     _iid_ = Guid('{26599ba9-a22d-4806-a728-acadc1d075fa}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class SuspendingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -408,12 +390,9 @@ class SuspendingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_SuspendingOperation(self: Windows.ApplicationModel.ISuspendingEventArgs) -> Windows.ApplicationModel.SuspendingOperation: ...
     SuspendingOperation = property(get_SuspendingOperation, None)
-class SuspendingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SuspendingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.WebUI.SuspendingEventHandler'
     _iid_ = Guid('{509c429c-78e2-4883-abc8-8960dcde1b5c}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.ISuspendingEventArgs) -> Void: ...
 class SuspendingOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1789,12 +1768,9 @@ class WebUIWebAuthenticationBrokerContinuationEventArgs(ComPtr):
     SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
 make_head(_module, 'ActivatedDeferral')
-make_head(_module, 'ActivatedEventHandler')
 make_head(_module, 'ActivatedOperation')
 make_head(_module, 'BackgroundActivatedEventArgs')
-make_head(_module, 'BackgroundActivatedEventHandler')
 make_head(_module, 'EnteredBackgroundEventArgs')
-make_head(_module, 'EnteredBackgroundEventHandler')
 make_head(_module, 'HtmlPrintDocumentSource')
 make_head(_module, 'IActivatedDeferral')
 make_head(_module, 'IActivatedEventArgsDeferral')
@@ -1813,13 +1789,9 @@ make_head(_module, 'IWebUINavigatedOperation')
 make_head(_module, 'IWebUIView')
 make_head(_module, 'IWebUIViewStatics')
 make_head(_module, 'LeavingBackgroundEventArgs')
-make_head(_module, 'LeavingBackgroundEventHandler')
-make_head(_module, 'NavigatedEventHandler')
 make_head(_module, 'NewWebUIViewCreatedEventArgs')
-make_head(_module, 'ResumingEventHandler')
 make_head(_module, 'SuspendingDeferral')
 make_head(_module, 'SuspendingEventArgs')
-make_head(_module, 'SuspendingEventHandler')
 make_head(_module, 'SuspendingOperation')
 make_head(_module, 'WebUIApplication')
 make_head(_module, 'WebUIAppointmentsProviderAddAppointmentActivatedEventArgs')

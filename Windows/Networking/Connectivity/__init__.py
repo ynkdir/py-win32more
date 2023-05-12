@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -979,12 +979,9 @@ class NetworkStateChangeEventDetails(ComPtr):
     HasNewWwanRegistrationState = property(get_HasNewWwanRegistrationState, None)
     HasNewTetheringOperationalState = property(get_HasNewTetheringOperationalState, None)
     HasNewTetheringClientCount = property(get_HasNewTetheringClientCount, None)
-class NetworkStatusChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class NetworkStatusChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Networking.Connectivity.NetworkStatusChangedEventHandler'
     _iid_ = Guid('{71ba143f-598e-49d0-84eb-8febaedcc195}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 NetworkTypes = UInt32
 NetworkTypes_None: NetworkTypes = 0
@@ -1166,7 +1163,6 @@ make_head(_module, 'NetworkInformation')
 make_head(_module, 'NetworkItem')
 make_head(_module, 'NetworkSecuritySettings')
 make_head(_module, 'NetworkStateChangeEventDetails')
-make_head(_module, 'NetworkStatusChangedEventHandler')
 make_head(_module, 'NetworkUsage')
 make_head(_module, 'NetworkUsageStates')
 make_head(_module, 'ProviderNetworkUsage')

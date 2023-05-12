@@ -61,6 +61,7 @@ WINRT_EXPORTS = [
     "winrt_classmethod",
     "winrt_factorymethod",
     "winrt_activatemethod",
+    "MulticastDelegate",
 ]
 WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
 
@@ -327,7 +328,7 @@ class TypeDefinition:
         if self.basetype is None or self.basetype == "System.Object" or self.basetype.startswith("Windows."):
             return "com"
         elif self.basetype == "System.MulticastDelegate":
-            return "com"
+            return "delegate"
         elif self.basetype == "System.Enum":
             return "enum"
         elif self.basetype == "System.ValueType":
@@ -1145,7 +1146,7 @@ class Preprocessor:
     # Add vtbl_index to COM methods.
     def patch_com_vtbl_index(self, meta: Metadata) -> None:
         for td in meta:
-            if td.kind == "com":
+            if td.kind == "com" or td.kind == "delegate":
                 vtbl_index = self.count_interface_method(td)
                 for md in td.method_definitions:
                     if md.name == ".ctor":
@@ -1211,6 +1212,8 @@ class PyGenerator:
             return self.emit_contract_version(td)
         elif td.kind == "com":
             return self.emit_com(td)
+        elif td.kind == "delegate":
+            return self.emit_delegate(td)
         else:
             raise NotImplementedError()
 
@@ -1296,8 +1299,6 @@ class PyGenerator:
             metaclass_args = ""
         extends = self.com_base_type(td)
         writer.write(f"class {name}({base}{metaclass_args}):\n")
-        if td.basetype == "System.MulticastDelegate":
-            writer.write("    # System.MulticastDelegate\n")
         writer.write(f"    extends: {extends}\n")
         for ii in td.interface_implementations:
             if ii.custom_attributes.has_default():
@@ -1366,8 +1367,6 @@ class PyGenerator:
             return "Windows.Win32.System.WinRT.IInspectable"
         elif td.basetype == "System.Object":
             return "Windows.Win32.System.WinRT.IInspectable"
-        elif td.basetype == "System.MulticastDelegate":
-            return "Windows.Win32.System.Com.IUnknown"
         else:
             return td.basetype
 
@@ -1420,8 +1419,7 @@ class PyGenerator:
         params = ["self"] + md.format_parameters_list()
         restype = md.signature.return_type.pytype
         if td.basetype == "System.MulticastDelegate":
-            vtbl_index = md["_vtbl_index"]
-            writer.write(f"    @winrt_commethod({vtbl_index})\n")
+            pass
         elif "Static" in md.attributes:
             writer.write("    @winrt_classmethod\n")
             interface = self.com_get_static_for_method(td, method_name)
@@ -1458,6 +1456,26 @@ class PyGenerator:
             name = td.fullname
         writer.write("    @winrt_activatemethod\n")
         writer.write(f"    def CreateInstance(cls) -> {name}: ...\n")
+        return writer.getvalue()
+
+    def emit_delegate(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        if td.is_generic:
+            generic_parameters = td.format_generic_parameters()
+            name = td.generic_strip_suffix(td.name)
+            base = f"MulticastDelegate, Generic[{generic_parameters}]"
+        else:
+            name = td.name
+            base = "MulticastDelegate"
+        writer.write(f"class {name}({base}):\n")
+        writer.write(f"    extends: Windows.Win32.System.Com.IUnknown\n")
+        if td.custom_attributes.has_guid():
+            guid = td.custom_attributes.get_guid()
+            writer.write(f"    _iid_ = Guid('{guid}')\n")
+        for md in td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            writer.write(self.winrt_method(td, md))
         return writer.getvalue()
 
     def emit_header(self, import_namespaces: set[str]) -> str:

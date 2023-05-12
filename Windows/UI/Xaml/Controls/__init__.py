@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Contacts
 import Windows.ApplicationModel.DataTransfer
@@ -495,12 +495,9 @@ class BackClickEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Handled(self: Windows.UI.Xaml.Controls.IBackClickEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
-class BackClickEventHandler(ComPtr):
-    # System.MulticastDelegate
+class BackClickEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.BackClickEventHandler'
     _iid_ = Guid('{fa9bc21f-9892-482e-abf6-eb2d607d32de}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.BackClickEventArgs) -> Void: ...
 BackgroundSizing = Int32
 BackgroundSizing_InnerBorderEdge: BackgroundSizing = 0
@@ -1482,12 +1479,9 @@ class CalendarViewDayItemChangingEventArgs(ComPtr):
     InRecycleQueue = property(get_InRecycleQueue, None)
     Item = property(get_Item, None)
     Phase = property(get_Phase, None)
-class CalendarViewDayItemChangingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class CalendarViewDayItemChangingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.CalendarViewDayItemChangingEventHandler'
     _iid_ = Guid('{8d745891-4de3-49cb-974b-083871a3afe6}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.UI.Xaml.Controls.CalendarView, e: Windows.UI.Xaml.Controls.CalendarViewDayItemChangingEventArgs) -> Void: ...
 CalendarViewDisplayMode = Int32
 CalendarViewDisplayMode_Month: CalendarViewDisplayMode = 0
@@ -1634,12 +1628,9 @@ class CleanUpVirtualizedItemEventArgs(ComPtr):
     Value = property(get_Value, None)
     UIElement = property(get_UIElement, None)
     Cancel = property(get_Cancel, put_Cancel)
-class CleanUpVirtualizedItemEventHandler(ComPtr):
-    # System.MulticastDelegate
+class CleanUpVirtualizedItemEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.CleanUpVirtualizedItemEventHandler'
     _iid_ = Guid('{cacad0d6-0f0d-4870-884d-f2dedf674288}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.CleanUpVirtualizedItemEventArgs) -> Void: ...
 ClickMode = Int32
 ClickMode_Release: ClickMode = 0
@@ -2730,12 +2721,9 @@ class ContextMenuEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     CursorLeft = property(get_CursorLeft, None)
     CursorTop = property(get_CursorTop, None)
-class ContextMenuOpeningEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ContextMenuOpeningEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.ContextMenuOpeningEventHandler'
     _iid_ = Guid('{df945151-745c-4446-b2fc-216d765847a0}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.ContextMenuEventArgs) -> Void: ...
 class _Control_Meta_(ComPtr.__class__):
     pass
@@ -3466,12 +3454,9 @@ class DragItemsStartingEventArgs(ComPtr):
     Cancel = property(get_Cancel, put_Cancel)
     Items = property(get_Items, None)
     Data = property(get_Data, None)
-class DragItemsStartingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DragItemsStartingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.DragItemsStartingEventHandler'
     _iid_ = Guid('{3aaeab4c-14cb-4434-becc-88a8585c2f89}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.DragItemsStartingEventArgs) -> Void: ...
 class DropDownButton(ComPtr):
     extends: Windows.UI.Xaml.Controls.Button
@@ -4273,12 +4258,9 @@ class HubSectionHeaderClickEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Section(self: Windows.UI.Xaml.Controls.IHubSectionHeaderClickEventArgs) -> Windows.UI.Xaml.Controls.HubSection: ...
     Section = property(get_Section, None)
-class HubSectionHeaderClickEventHandler(ComPtr):
-    # System.MulticastDelegate
+class HubSectionHeaderClickEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.HubSectionHeaderClickEventHandler'
     _iid_ = Guid('{afe17b9b-9c63-4583-88e4-c59019b7f49d}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.HubSectionHeaderClickEventArgs) -> Void: ...
 class _HyperlinkButton_Meta_(ComPtr.__class__):
     pass
@@ -18790,12 +18772,9 @@ class ItemClickEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ClickedItem(self: Windows.UI.Xaml.Controls.IItemClickEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     ClickedItem = property(get_ClickedItem, None)
-class ItemClickEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ItemClickEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.ItemClickEventHandler'
     _iid_ = Guid('{3df6d14e-e18a-4a75-9395-627c5f3cd489}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.ItemClickEventArgs) -> Void: ...
 class ItemCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -19653,19 +19632,13 @@ class ListViewItem(ComPtr):
     @winrt_mixinmethod
     def get_TemplateSettings(self: Windows.UI.Xaml.Controls.IListViewItem) -> Windows.UI.Xaml.Controls.Primitives.ListViewItemTemplateSettings: ...
     TemplateSettings = property(get_TemplateSettings, None)
-class ListViewItemToKeyHandler(ComPtr):
-    # System.MulticastDelegate
+class ListViewItemToKeyHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.ListViewItemToKeyHandler'
     _iid_ = Guid('{6af5da76-7e8b-4a91-9a56-460cb47d523f}')
-    @winrt_commethod(3)
     def Invoke(self, item: Windows.Win32.System.WinRT.IInspectable_head) -> WinRT_String: ...
-class ListViewKeyToItemHandler(ComPtr):
-    # System.MulticastDelegate
+class ListViewKeyToItemHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.ListViewKeyToItemHandler'
     _iid_ = Guid('{26fd5855-b530-4688-b9f0-428249178ef8}')
-    @winrt_commethod(3)
     def Invoke(self, key: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Win32.System.WinRT.IInspectable_head]: ...
 class ListViewPersistenceHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -21065,12 +21038,9 @@ class NotifyEventArgs(ComPtr):
     def get_CallingUri(self: Windows.UI.Xaml.Controls.INotifyEventArgs2) -> Windows.Foundation.Uri: ...
     Value = property(get_Value, None)
     CallingUri = property(get_CallingUri, None)
-class NotifyEventHandler(ComPtr):
-    # System.MulticastDelegate
+class NotifyEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.NotifyEventHandler'
     _iid_ = Guid('{c2fdd1f8-7105-4a74-a109-de29dff56b98}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.NotifyEventArgs) -> Void: ...
 Orientation = Int32
 Orientation_Vertical: Orientation = 0
@@ -23724,12 +23694,9 @@ class SectionsInViewChangedEventArgs(ComPtr):
     def get_RemovedSections(self: Windows.UI.Xaml.Controls.ISectionsInViewChangedEventArgs) -> Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Controls.HubSection]: ...
     AddedSections = property(get_AddedSections, None)
     RemovedSections = property(get_RemovedSections, None)
-class SectionsInViewChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SectionsInViewChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.SectionsInViewChangedEventHandler'
     _iid_ = Guid('{6becaa6a-63f8-47ff-b6ac-76e7da247d67}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.SectionsInViewChangedEventArgs) -> Void: ...
 class SelectionChangedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -23743,12 +23710,9 @@ class SelectionChangedEventArgs(ComPtr):
     def get_RemovedItems(self: Windows.UI.Xaml.Controls.ISelectionChangedEventArgs) -> Windows.Foundation.Collections.IVector[Windows.Win32.System.WinRT.IInspectable_head]: ...
     AddedItems = property(get_AddedItems, None)
     RemovedItems = property(get_RemovedItems, None)
-class SelectionChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SelectionChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.SelectionChangedEventHandler'
     _iid_ = Guid('{e1a05352-5aa0-42ca-9cd9-068a14db6e68}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.SelectionChangedEventArgs) -> Void: ...
 SelectionMode = Int32
 SelectionMode_Single: SelectionMode = 0
@@ -23849,12 +23813,9 @@ class SemanticZoomViewChangedEventArgs(ComPtr):
     IsSourceZoomedInView = property(get_IsSourceZoomedInView, put_IsSourceZoomedInView)
     SourceItem = property(get_SourceItem, put_SourceItem)
     DestinationItem = property(get_DestinationItem, put_DestinationItem)
-class SemanticZoomViewChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SemanticZoomViewChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.SemanticZoomViewChangedEventHandler'
     _iid_ = Guid('{1fa9161d-5d73-44fb-81ac-d1c9384919d4}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.SemanticZoomViewChangedEventArgs) -> Void: ...
 class _SettingsFlyout_Meta_(ComPtr.__class__):
     pass
@@ -25344,12 +25305,9 @@ class TextChangedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
     default_interface: Windows.UI.Xaml.Controls.ITextChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.TextChangedEventArgs'
-class TextChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class TextChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.TextChangedEventHandler'
     _iid_ = Guid('{8eb35b97-ad87-40e8-818b-77db24759566}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.TextChangedEventArgs) -> Void: ...
 class TextCommandBarFlyout(ComPtr):
     extends: Windows.UI.Xaml.Controls.CommandBarFlyout
@@ -25414,12 +25372,9 @@ class TextControlPasteEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Handled(self: Windows.UI.Xaml.Controls.ITextControlPasteEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
-class TextControlPasteEventHandler(ComPtr):
-    # System.MulticastDelegate
+class TextControlPasteEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.TextControlPasteEventHandler'
     _iid_ = Guid('{d56db359-6f77-4296-ab9c-794939444365}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.TextControlPasteEventArgs) -> Void: ...
 class TimePickedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
@@ -26779,12 +26734,9 @@ class WebViewNavigationFailedEventArgs(ComPtr):
     def get_WebErrorStatus(self: Windows.UI.Xaml.Controls.IWebViewNavigationFailedEventArgs) -> Windows.Web.WebErrorStatus: ...
     Uri = property(get_Uri, None)
     WebErrorStatus = property(get_WebErrorStatus, None)
-class WebViewNavigationFailedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class WebViewNavigationFailedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.WebViewNavigationFailedEventHandler'
     _iid_ = Guid('{a31eafe1-41dc-47f8-ae22-9706c8f143d4}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.WebViewNavigationFailedEventArgs) -> Void: ...
 class WebViewNavigationStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -26982,7 +26934,6 @@ make_head(_module, 'AutoSuggestBoxQuerySubmittedEventArgs')
 make_head(_module, 'AutoSuggestBoxSuggestionChosenEventArgs')
 make_head(_module, 'AutoSuggestBoxTextChangedEventArgs')
 make_head(_module, 'BackClickEventArgs')
-make_head(_module, 'BackClickEventHandler')
 make_head(_module, 'BitmapIcon')
 make_head(_module, 'BitmapIconSource')
 make_head(_module, 'Border')
@@ -26992,7 +26943,6 @@ make_head(_module, 'CalendarDatePickerDateChangedEventArgs')
 make_head(_module, 'CalendarView')
 make_head(_module, 'CalendarViewDayItem')
 make_head(_module, 'CalendarViewDayItemChangingEventArgs')
-make_head(_module, 'CalendarViewDayItemChangingEventHandler')
 make_head(_module, 'CalendarViewSelectedDatesChangedEventArgs')
 make_head(_module, 'CandidateWindowBoundsChangedEventArgs')
 make_head(_module, 'Canvas')
@@ -27001,7 +26951,6 @@ make_head(_module, 'CheckBox')
 make_head(_module, 'ChoosingGroupHeaderContainerEventArgs')
 make_head(_module, 'ChoosingItemContainerEventArgs')
 make_head(_module, 'CleanUpVirtualizedItemEventArgs')
-make_head(_module, 'CleanUpVirtualizedItemEventHandler')
 make_head(_module, 'ColorChangedEventArgs')
 make_head(_module, 'ColorPicker')
 make_head(_module, 'ColumnDefinition')
@@ -27024,7 +26973,6 @@ make_head(_module, 'ContentDialogOpenedEventArgs')
 make_head(_module, 'ContentLinkChangedEventArgs')
 make_head(_module, 'ContentPresenter')
 make_head(_module, 'ContextMenuEventArgs')
-make_head(_module, 'ContextMenuOpeningEventHandler')
 make_head(_module, 'Control')
 make_head(_module, 'ControlTemplate')
 make_head(_module, 'DataTemplateSelector')
@@ -27037,7 +26985,6 @@ make_head(_module, 'DatePickerSelectedValueChangedEventArgs')
 make_head(_module, 'DatePickerValueChangedEventArgs')
 make_head(_module, 'DragItemsCompletedEventArgs')
 make_head(_module, 'DragItemsStartingEventArgs')
-make_head(_module, 'DragItemsStartingEventHandler')
 make_head(_module, 'DropDownButton')
 make_head(_module, 'DropDownButtonAutomationPeer')
 make_head(_module, 'DynamicOverflowItemsChangingEventArgs')
@@ -27066,7 +27013,6 @@ make_head(_module, 'Hub')
 make_head(_module, 'HubSection')
 make_head(_module, 'HubSectionCollection')
 make_head(_module, 'HubSectionHeaderClickEventArgs')
-make_head(_module, 'HubSectionHeaderClickEventHandler')
 make_head(_module, 'HyperlinkButton')
 make_head(_module, 'IAnchorRequestedEventArgs')
 make_head(_module, 'IAppBar')
@@ -27943,7 +27889,6 @@ make_head(_module, 'InkToolbarToggleButton')
 make_head(_module, 'InkToolbarToolButton')
 make_head(_module, 'IsTextTrimmedChangedEventArgs')
 make_head(_module, 'ItemClickEventArgs')
-make_head(_module, 'ItemClickEventHandler')
 make_head(_module, 'ItemCollection')
 make_head(_module, 'ItemContainerGenerator')
 make_head(_module, 'ItemsControl')
@@ -27961,8 +27906,6 @@ make_head(_module, 'ListViewBase')
 make_head(_module, 'ListViewBaseHeaderItem')
 make_head(_module, 'ListViewHeaderItem')
 make_head(_module, 'ListViewItem')
-make_head(_module, 'ListViewItemToKeyHandler')
-make_head(_module, 'ListViewKeyToItemHandler')
 make_head(_module, 'ListViewPersistenceHelper')
 make_head(_module, 'MediaElement')
 make_head(_module, 'MediaPlayerElement')
@@ -27991,7 +27934,6 @@ make_head(_module, 'NavigationViewPaneClosingEventArgs')
 make_head(_module, 'NavigationViewSelectionChangedEventArgs')
 make_head(_module, 'NavigationViewTemplateSettings')
 make_head(_module, 'NotifyEventArgs')
-make_head(_module, 'NotifyEventHandler')
 make_head(_module, 'Page')
 make_head(_module, 'Panel')
 make_head(_module, 'ParallaxView')
@@ -28037,13 +27979,10 @@ make_head(_module, 'SearchBoxQuerySubmittedEventArgs')
 make_head(_module, 'SearchBoxResultSuggestionChosenEventArgs')
 make_head(_module, 'SearchBoxSuggestionsRequestedEventArgs')
 make_head(_module, 'SectionsInViewChangedEventArgs')
-make_head(_module, 'SectionsInViewChangedEventHandler')
 make_head(_module, 'SelectionChangedEventArgs')
-make_head(_module, 'SelectionChangedEventHandler')
 make_head(_module, 'SemanticZoom')
 make_head(_module, 'SemanticZoomLocation')
 make_head(_module, 'SemanticZoomViewChangedEventArgs')
-make_head(_module, 'SemanticZoomViewChangedEventHandler')
 make_head(_module, 'SettingsFlyout')
 make_head(_module, 'Slider')
 make_head(_module, 'SplitButton')
@@ -28067,7 +28006,6 @@ make_head(_module, 'TextBoxBeforeTextChangingEventArgs')
 make_head(_module, 'TextBoxSelectionChangingEventArgs')
 make_head(_module, 'TextBoxTextChangingEventArgs')
 make_head(_module, 'TextChangedEventArgs')
-make_head(_module, 'TextChangedEventHandler')
 make_head(_module, 'TextCommandBarFlyout')
 make_head(_module, 'TextCompositionChangedEventArgs')
 make_head(_module, 'TextCompositionEndedEventArgs')
@@ -28075,7 +28013,6 @@ make_head(_module, 'TextCompositionStartedEventArgs')
 make_head(_module, 'TextControlCopyingToClipboardEventArgs')
 make_head(_module, 'TextControlCuttingToClipboardEventArgs')
 make_head(_module, 'TextControlPasteEventArgs')
-make_head(_module, 'TextControlPasteEventHandler')
 make_head(_module, 'TimePickedEventArgs')
 make_head(_module, 'TimePicker')
 make_head(_module, 'TimePickerFlyout')
@@ -28114,7 +28051,6 @@ make_head(_module, 'WebViewDeferredPermissionRequest')
 make_head(_module, 'WebViewLongRunningScriptDetectedEventArgs')
 make_head(_module, 'WebViewNavigationCompletedEventArgs')
 make_head(_module, 'WebViewNavigationFailedEventArgs')
-make_head(_module, 'WebViewNavigationFailedEventHandler')
 make_head(_module, 'WebViewNavigationStartingEventArgs')
 make_head(_module, 'WebViewNewWindowRequestedEventArgs')
 make_head(_module, 'WebViewPermissionRequest')

@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.Enumeration
 import Windows.Foundation
@@ -3737,12 +3737,9 @@ class MediaCaptureFailedEventArgs(ComPtr):
     def get_Code(self: Windows.Media.Capture.IMediaCaptureFailedEventArgs) -> UInt32: ...
     Message = property(get_Message, None)
     Code = property(get_Code, None)
-class MediaCaptureFailedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class MediaCaptureFailedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Capture.MediaCaptureFailedEventHandler'
     _iid_ = Guid('{2014effb-5cd8-4f08-a314-0d360da59f14}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Capture.MediaCapture, errorEventArgs: Windows.Media.Capture.MediaCaptureFailedEventArgs) -> Void: ...
 class MediaCaptureFocusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -4052,12 +4049,9 @@ PowerlineFrequency_Disabled: PowerlineFrequency = 0
 PowerlineFrequency_FiftyHertz: PowerlineFrequency = 1
 PowerlineFrequency_SixtyHertz: PowerlineFrequency = 2
 PowerlineFrequency_Auto: PowerlineFrequency = 3
-class RecordLimitationExceededEventHandler(ComPtr):
-    # System.MulticastDelegate
+class RecordLimitationExceededEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Capture.RecordLimitationExceededEventHandler'
     _iid_ = Guid('{3fae8f2e-4fe1-4ffd-aaba-e1f1337d4e53}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Capture.MediaCapture) -> Void: ...
 class ScreenCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -4292,7 +4286,6 @@ make_head(_module, 'LowLagPhotoSequenceCapture')
 make_head(_module, 'MediaCapture')
 make_head(_module, 'MediaCaptureDeviceExclusiveControlStatusChangedEventArgs')
 make_head(_module, 'MediaCaptureFailedEventArgs')
-make_head(_module, 'MediaCaptureFailedEventHandler')
 make_head(_module, 'MediaCaptureFocusChangedEventArgs')
 make_head(_module, 'MediaCaptureInitializationSettings')
 make_head(_module, 'MediaCapturePauseResult')
@@ -4304,7 +4297,6 @@ make_head(_module, 'MediaCaptureVideoProfileMediaDescription')
 make_head(_module, 'OptionalReferencePhotoCapturedEventArgs')
 make_head(_module, 'PhotoCapturedEventArgs')
 make_head(_module, 'PhotoConfirmationCapturedEventArgs')
-make_head(_module, 'RecordLimitationExceededEventHandler')
 make_head(_module, 'ScreenCapture')
 make_head(_module, 'SourceSuspensionChangedEventArgs')
 make_head(_module, 'VideoStreamConfiguration')

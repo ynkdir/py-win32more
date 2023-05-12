@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -32,19 +32,13 @@ class ConnectionRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_PeerInformation(self: Windows.Networking.Proximity.IConnectionRequestedEventArgs) -> Windows.Networking.Proximity.PeerInformation: ...
     PeerInformation = property(get_PeerInformation, None)
-class DeviceArrivedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DeviceArrivedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Networking.Proximity.DeviceArrivedEventHandler'
     _iid_ = Guid('{efa9da69-f6e1-49c9-a49e-8e0fc58fb911}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice) -> Void: ...
-class DeviceDepartedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DeviceDepartedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Networking.Proximity.DeviceDepartedEventHandler'
     _iid_ = Guid('{efa9da69-f6e2-49c9-a49e-8e0fc58fb911}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class IConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -253,19 +247,13 @@ class ITriggeredConnectionStateChangedEventArgs(ComPtr):
     State = property(get_State, None)
     Id = property(get_Id, None)
     Socket = property(get_Socket, None)
-class MessageReceivedHandler(ComPtr):
-    # System.MulticastDelegate
+class MessageReceivedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Networking.Proximity.MessageReceivedHandler'
     _iid_ = Guid('{efab0782-f6e2-4675-a045-d8e320c24808}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice, message: Windows.Networking.Proximity.ProximityMessage) -> Void: ...
-class MessageTransmittedHandler(ComPtr):
-    # System.MulticastDelegate
+class MessageTransmittedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Networking.Proximity.MessageTransmittedHandler'
     _iid_ = Guid('{efaa0b4a-f6e2-4d7d-856c-78fc8efc021e}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice, messageId: Int64) -> Void: ...
 PeerDiscoveryTypes = UInt32
 PeerDiscoveryTypes_None: PeerDiscoveryTypes = 0
@@ -475,8 +463,6 @@ class TriggeredConnectionStateChangedEventArgs(ComPtr):
     Id = property(get_Id, None)
     Socket = property(get_Socket, None)
 make_head(_module, 'ConnectionRequestedEventArgs')
-make_head(_module, 'DeviceArrivedEventHandler')
-make_head(_module, 'DeviceDepartedEventHandler')
 make_head(_module, 'IConnectionRequestedEventArgs')
 make_head(_module, 'IPeerFinderStatics')
 make_head(_module, 'IPeerFinderStatics2')
@@ -488,8 +474,6 @@ make_head(_module, 'IProximityDevice')
 make_head(_module, 'IProximityDeviceStatics')
 make_head(_module, 'IProximityMessage')
 make_head(_module, 'ITriggeredConnectionStateChangedEventArgs')
-make_head(_module, 'MessageReceivedHandler')
-make_head(_module, 'MessageTransmittedHandler')
 make_head(_module, 'PeerFinder')
 make_head(_module, 'PeerInformation')
 make_head(_module, 'PeerWatcher')

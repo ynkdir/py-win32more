@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -21,47 +21,29 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AsyncActionCompletedHandler(ComPtr):
-    # System.MulticastDelegate
+class AsyncActionCompletedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.AsyncActionCompletedHandler'
     _iid_ = Guid('{a4ed5c81-76c9-40bd-8be6-b1d90fb20ae7}')
-    @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncAction, asyncStatus: Windows.Foundation.AsyncStatus) -> Void: ...
-class AsyncActionProgressHandler(Generic[TProgress], ComPtr):
-    # System.MulticastDelegate
+class AsyncActionProgressHandler(MulticastDelegate, Generic[TProgress]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.AsyncActionProgressHandler'
     _iid_ = Guid('{6d844858-0cff-4590-ae89-95a5a5c8b4b8}')
-    @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncActionWithProgress[TProgress], progressInfo: TProgress) -> Void: ...
-class AsyncActionWithProgressCompletedHandler(Generic[TProgress], ComPtr):
-    # System.MulticastDelegate
+class AsyncActionWithProgressCompletedHandler(MulticastDelegate, Generic[TProgress]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.AsyncActionWithProgressCompletedHandler'
     _iid_ = Guid('{9c029f91-cc84-44fd-ac26-0a6c4e555281}')
-    @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncActionWithProgress[TProgress], asyncStatus: Windows.Foundation.AsyncStatus) -> Void: ...
-class AsyncOperationCompletedHandler(Generic[TResult], ComPtr):
-    # System.MulticastDelegate
+class AsyncOperationCompletedHandler(MulticastDelegate, Generic[TResult]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.AsyncOperationCompletedHandler'
     _iid_ = Guid('{fcdcf02c-e5d8-4478-915a-4d90b74b83a5}')
-    @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncOperation[TResult], asyncStatus: Windows.Foundation.AsyncStatus) -> Void: ...
-class AsyncOperationProgressHandler(Generic[TResult, TProgress], ComPtr):
-    # System.MulticastDelegate
+class AsyncOperationProgressHandler(MulticastDelegate, Generic[TResult, TProgress]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.AsyncOperationProgressHandler'
     _iid_ = Guid('{55690902-0aab-421a-8778-f8ce5026d758}')
-    @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], progressInfo: TProgress) -> Void: ...
-class AsyncOperationWithProgressCompletedHandler(Generic[TResult, TProgress], ComPtr):
-    # System.MulticastDelegate
+class AsyncOperationWithProgressCompletedHandler(MulticastDelegate, Generic[TResult, TProgress]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.AsyncOperationWithProgressCompletedHandler'
     _iid_ = Guid('{e85df41d-6aa7-46e3-a8e2-f009d840c627}')
-    @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], asyncStatus: Windows.Foundation.AsyncStatus) -> Void: ...
 AsyncStatus = Int32
 AsyncStatus_Canceled: AsyncStatus = 2
@@ -80,19 +62,13 @@ class Deferral(ComPtr):
     def Complete(self: Windows.Foundation.IDeferral) -> Void: ...
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
-class DeferralCompletedHandler(ComPtr):
-    # System.MulticastDelegate
+class DeferralCompletedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.DeferralCompletedHandler'
     _iid_ = Guid('{ed32a372-f3c8-4faa-9cfb-470148da3888}')
-    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
-class EventHandler(Generic[T], ComPtr):
-    # System.MulticastDelegate
+class EventHandler(MulticastDelegate, Generic[T]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.EventHandler'
     _iid_ = Guid('{9de1c535-6ae1-11e0-84e1-18a905bcc53f}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, args: T) -> Void: ...
 class EventRegistrationToken(EasyCastStructure):
     Value: Int64
@@ -673,12 +649,9 @@ class Size(EasyCastStructure):
     Height: Single
 class TimeSpan(EasyCastStructure):
     Duration: Int64
-class TypedEventHandler(Generic[TSender, TResult], ComPtr):
-    # System.MulticastDelegate
+class TypedEventHandler(MulticastDelegate, Generic[TSender, TResult]):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Foundation.TypedEventHandler'
     _iid_ = Guid('{9de1c534-6ae1-11e0-84e1-18a905bcc53f}')
-    @winrt_commethod(3)
     def Invoke(self, sender: TSender, args: TResult) -> Void: ...
 UniversalApiContract: UInt32 = 983040
 class Uri(ComPtr):
@@ -779,16 +752,8 @@ class WwwFormUrlDecoderEntry(ComPtr):
     def get_Value(self: Windows.Foundation.IWwwFormUrlDecoderEntry) -> WinRT_String: ...
     Name = property(get_Name, None)
     Value = property(get_Value, None)
-make_head(_module, 'AsyncActionCompletedHandler')
-make_head(_module, 'AsyncActionProgressHandler')
-make_head(_module, 'AsyncActionWithProgressCompletedHandler')
-make_head(_module, 'AsyncOperationCompletedHandler')
-make_head(_module, 'AsyncOperationProgressHandler')
-make_head(_module, 'AsyncOperationWithProgressCompletedHandler')
 make_head(_module, 'DateTime')
 make_head(_module, 'Deferral')
-make_head(_module, 'DeferralCompletedHandler')
-make_head(_module, 'EventHandler')
 make_head(_module, 'EventRegistrationToken')
 make_head(_module, 'GuidHelper')
 make_head(_module, 'HResult')
@@ -823,7 +788,6 @@ make_head(_module, 'PropertyValue')
 make_head(_module, 'Rect')
 make_head(_module, 'Size')
 make_head(_module, 'TimeSpan')
-make_head(_module, 'TypedEventHandler')
 make_head(_module, 'Uri')
 make_head(_module, 'WwwFormUrlDecoder')
 make_head(_module, 'WwwFormUrlDecoderEntry')

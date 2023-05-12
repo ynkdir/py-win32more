@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.DataTransfer
 import Windows.Foundation
@@ -376,12 +376,9 @@ class DataProviderDeferral(ComPtr):
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DataProviderDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.DataTransfer.IDataProviderDeferral) -> Void: ...
-class DataProviderHandler(ComPtr):
-    # System.MulticastDelegate
+class DataProviderHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataProviderHandler'
     _iid_ = Guid('{e7ecd720-f2f4-4a2d-920e-170a2f482a27}')
-    @winrt_commethod(3)
     def Invoke(self, request: Windows.ApplicationModel.DataTransfer.DataProviderRequest) -> Void: ...
 class DataProviderRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1104,12 +1101,9 @@ class ShareProvider(ComPtr):
     DisplayIcon = property(get_DisplayIcon, None)
     BackgroundColor = property(get_BackgroundColor, None)
     Tag = property(get_Tag, put_Tag)
-class ShareProviderHandler(ComPtr):
-    # System.MulticastDelegate
+class ShareProviderHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareProviderHandler'
     _iid_ = Guid('{e7f9d9ba-e1ba-4e4d-bd65-d43845d3212f}')
-    @winrt_commethod(3)
     def Invoke(self, operation: Windows.ApplicationModel.DataTransfer.ShareProviderOperation) -> Void: ...
 class ShareProviderOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1223,7 +1217,6 @@ make_head(_module, 'DataPackagePropertySet')
 make_head(_module, 'DataPackagePropertySetView')
 make_head(_module, 'DataPackageView')
 make_head(_module, 'DataProviderDeferral')
-make_head(_module, 'DataProviderHandler')
 make_head(_module, 'DataProviderRequest')
 make_head(_module, 'DataRequest')
 make_head(_module, 'DataRequestDeferral')
@@ -1281,7 +1274,6 @@ make_head(_module, 'ITargetApplicationChosenEventArgs')
 make_head(_module, 'OperationCompletedEventArgs')
 make_head(_module, 'ShareCompletedEventArgs')
 make_head(_module, 'ShareProvider')
-make_head(_module, 'ShareProviderHandler')
 make_head(_module, 'ShareProviderOperation')
 make_head(_module, 'ShareProvidersRequestedEventArgs')
 make_head(_module, 'ShareTargetInfo')

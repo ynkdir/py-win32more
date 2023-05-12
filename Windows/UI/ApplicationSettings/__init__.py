@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -92,12 +92,9 @@ class CredentialCommand(ComPtr):
     def get_CredentialDeleted(self: Windows.UI.ApplicationSettings.ICredentialCommand) -> Windows.UI.ApplicationSettings.CredentialCommandCredentialDeletedHandler: ...
     PasswordCredential = property(get_PasswordCredential, None)
     CredentialDeleted = property(get_CredentialDeleted, None)
-class CredentialCommandCredentialDeletedHandler(ComPtr):
-    # System.MulticastDelegate
+class CredentialCommandCredentialDeletedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.ApplicationSettings.CredentialCommandCredentialDeletedHandler'
     _iid_ = Guid('{61c0e185-0977-4678-b4e2-98727afbeed9}')
-    @winrt_commethod(3)
     def Invoke(self, command: Windows.UI.ApplicationSettings.CredentialCommand) -> Void: ...
 class IAccountsSettingsPane(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -361,12 +358,9 @@ class WebAccountCommand(ComPtr):
     WebAccount = property(get_WebAccount, None)
     Invoked = property(get_Invoked, None)
     Actions = property(get_Actions, None)
-class WebAccountCommandInvokedHandler(ComPtr):
-    # System.MulticastDelegate
+class WebAccountCommandInvokedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.ApplicationSettings.WebAccountCommandInvokedHandler'
     _iid_ = Guid('{1ee6e459-1705-4a9a-b599-a0c3d6921973}')
-    @winrt_commethod(3)
     def Invoke(self, command: Windows.UI.ApplicationSettings.WebAccountCommand, args: Windows.UI.ApplicationSettings.WebAccountInvokedArgs) -> Void: ...
 class WebAccountInvokedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -387,18 +381,14 @@ class WebAccountProviderCommand(ComPtr):
     def get_Invoked(self: Windows.UI.ApplicationSettings.IWebAccountProviderCommand) -> Windows.UI.ApplicationSettings.WebAccountProviderCommandInvokedHandler: ...
     WebAccountProvider = property(get_WebAccountProvider, None)
     Invoked = property(get_Invoked, None)
-class WebAccountProviderCommandInvokedHandler(ComPtr):
-    # System.MulticastDelegate
+class WebAccountProviderCommandInvokedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.ApplicationSettings.WebAccountProviderCommandInvokedHandler'
     _iid_ = Guid('{b7de5527-4c8f-42dd-84da-5ec493abdb9a}')
-    @winrt_commethod(3)
     def Invoke(self, command: Windows.UI.ApplicationSettings.WebAccountProviderCommand) -> Void: ...
 make_head(_module, 'AccountsSettingsPane')
 make_head(_module, 'AccountsSettingsPaneCommandsRequestedEventArgs')
 make_head(_module, 'AccountsSettingsPaneEventDeferral')
 make_head(_module, 'CredentialCommand')
-make_head(_module, 'CredentialCommandCredentialDeletedHandler')
 make_head(_module, 'IAccountsSettingsPane')
 make_head(_module, 'IAccountsSettingsPaneCommandsRequestedEventArgs')
 make_head(_module, 'IAccountsSettingsPaneCommandsRequestedEventArgs2')
@@ -424,7 +414,5 @@ make_head(_module, 'SettingsPane')
 make_head(_module, 'SettingsPaneCommandsRequest')
 make_head(_module, 'SettingsPaneCommandsRequestedEventArgs')
 make_head(_module, 'WebAccountCommand')
-make_head(_module, 'WebAccountCommandInvokedHandler')
 make_head(_module, 'WebAccountInvokedArgs')
 make_head(_module, 'WebAccountProviderCommand')
-make_head(_module, 'WebAccountProviderCommandInvokedHandler')

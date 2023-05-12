@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -201,12 +201,9 @@ ApplicationDataLocality_Roaming: ApplicationDataLocality = 1
 ApplicationDataLocality_Temporary: ApplicationDataLocality = 2
 ApplicationDataLocality_LocalCache: ApplicationDataLocality = 3
 ApplicationDataLocality_SharedLocal: ApplicationDataLocality = 4
-class ApplicationDataSetVersionHandler(ComPtr):
-    # System.MulticastDelegate
+class ApplicationDataSetVersionHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Storage.ApplicationDataSetVersionHandler'
     _iid_ = Guid('{a05791e6-cc9f-4687-acab-a364fd785463}')
-    @winrt_commethod(3)
     def Invoke(self, setVersionRequest: Windows.Storage.SetVersionRequest) -> Void: ...
 class CachedFileManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1733,12 +1730,9 @@ class StreamedFileDataRequest(ComPtr):
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
     @winrt_mixinmethod
     def FailAndClose(self: Windows.Storage.IStreamedFileDataRequest, failureMode: Windows.Storage.StreamedFileFailureMode) -> Void: ...
-class StreamedFileDataRequestedHandler(ComPtr):
-    # System.MulticastDelegate
+class StreamedFileDataRequestedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Storage.StreamedFileDataRequestedHandler'
     _iid_ = Guid('{fef6a824-2fe1-4d07-a35b-b77c50b5f4cc}')
-    @winrt_commethod(3)
     def Invoke(self, stream: Windows.Storage.StreamedFileDataRequest) -> Void: ...
 StreamedFileFailureMode = Int32
 StreamedFileFailureMode_Failed: StreamedFileFailureMode = 0
@@ -2027,7 +2021,6 @@ make_head(_module, 'ApplicationData')
 make_head(_module, 'ApplicationDataCompositeValue')
 make_head(_module, 'ApplicationDataContainer')
 make_head(_module, 'ApplicationDataContainerSettings')
-make_head(_module, 'ApplicationDataSetVersionHandler')
 make_head(_module, 'CachedFileManager')
 make_head(_module, 'DownloadsFolder')
 make_head(_module, 'FileIO')
@@ -2112,7 +2105,6 @@ make_head(_module, 'StorageLibraryLastChangeId')
 make_head(_module, 'StorageProvider')
 make_head(_module, 'StorageStreamTransaction')
 make_head(_module, 'StreamedFileDataRequest')
-make_head(_module, 'StreamedFileDataRequestedHandler')
 make_head(_module, 'SystemAudioProperties')
 make_head(_module, 'SystemDataPaths')
 make_head(_module, 'SystemGPSProperties')

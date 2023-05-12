@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -171,12 +171,9 @@ class CurrentChangingEventArgs(ComPtr):
     def get_IsCancelable(self: Windows.UI.Xaml.Data.ICurrentChangingEventArgs) -> Boolean: ...
     Cancel = property(get_Cancel, put_Cancel)
     IsCancelable = property(get_IsCancelable, None)
-class CurrentChangingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class CurrentChangingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Data.CurrentChangingEventHandler'
     _iid_ = Guid('{f3888db8-139f-4dce-8dc9-f7f1444d1185}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Data.CurrentChangingEventArgs) -> Void: ...
 class IBinding(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -562,12 +559,9 @@ class PropertyChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_PropertyName(self: Windows.UI.Xaml.Data.IPropertyChangedEventArgs) -> WinRT_String: ...
     PropertyName = property(get_PropertyName, None)
-class PropertyChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class PropertyChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Data.PropertyChangedEventHandler'
     _iid_ = Guid('{50f19c16-0a22-4d8e-a089-1ea9951657d2}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Data.PropertyChangedEventArgs) -> Void: ...
 class RelativeSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
@@ -596,7 +590,6 @@ make_head(_module, 'BindingExpressionBase')
 make_head(_module, 'BindingOperations')
 make_head(_module, 'CollectionViewSource')
 make_head(_module, 'CurrentChangingEventArgs')
-make_head(_module, 'CurrentChangingEventHandler')
 make_head(_module, 'IBinding')
 make_head(_module, 'IBinding2')
 make_head(_module, 'IBindingBase')
@@ -631,5 +624,4 @@ make_head(_module, 'IValueConverter')
 make_head(_module, 'ItemIndexRange')
 make_head(_module, 'LoadMoreItemsResult')
 make_head(_module, 'PropertyChangedEventArgs')
-make_head(_module, 'PropertyChangedEventHandler')
 make_head(_module, 'RelativeSource')

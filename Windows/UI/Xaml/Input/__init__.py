@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.Input
 import Windows.Foundation
@@ -114,12 +114,9 @@ class ContextRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def TryGetPosition(self: Windows.UI.Xaml.Input.IContextRequestedEventArgs, relativeTo: Windows.UI.Xaml.UIElement, point: POINTER(Windows.Foundation.Point_head)) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
-class DoubleTappedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DoubleTappedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.DoubleTappedEventHandler'
     _iid_ = Guid('{3124d025-04a7-4d45-825e-8204a624dbf4}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs) -> Void: ...
 class DoubleTappedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -296,12 +293,9 @@ class GettingFocusEventArgs(ComPtr):
     InputDevice = property(get_InputDevice, None)
     Cancel = property(get_Cancel, put_Cancel)
     CorrelationId = property(get_CorrelationId, None)
-class HoldingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class HoldingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.HoldingEventHandler'
     _iid_ = Guid('{ecae8ccd-8e5e-4fbe-9846-30a6370afcdf}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.HoldingRoutedEventArgs) -> Void: ...
 class HoldingRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1314,12 +1308,9 @@ InputScopeNameValue_NumericPin: InputScopeNameValue = 64
 InputScopeNameValue_AlphanumericPin: InputScopeNameValue = 65
 InputScopeNameValue_FormulaNumber: InputScopeNameValue = 67
 InputScopeNameValue_ChatWithoutEmoji: InputScopeNameValue = 68
-class KeyEventHandler(ComPtr):
-    # System.MulticastDelegate
+class KeyEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.KeyEventHandler'
     _iid_ = Guid('{7c63d2e5-7a0e-4e12-b96a-7715aa6ff1c8}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.KeyRoutedEventArgs) -> Void: ...
 class KeyRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1454,12 +1445,9 @@ class LosingFocusEventArgs(ComPtr):
     InputDevice = property(get_InputDevice, None)
     Cancel = property(get_Cancel, put_Cancel)
     CorrelationId = property(get_CorrelationId, None)
-class ManipulationCompletedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ManipulationCompletedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.ManipulationCompletedEventHandler'
     _iid_ = Guid('{38ef4b0f-14f8-42df-9a1e-a4bcc4af77f4}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs) -> Void: ...
 class ManipulationCompletedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1490,12 +1478,9 @@ class ManipulationCompletedRoutedEventArgs(ComPtr):
     Velocities = property(get_Velocities, None)
     Handled = property(get_Handled, put_Handled)
     PointerDeviceType = property(get_PointerDeviceType, None)
-class ManipulationDeltaEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ManipulationDeltaEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.ManipulationDeltaEventHandler'
     _iid_ = Guid('{aa1160cb-dfb9-4c56-abdc-711b63c8eb94}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs) -> Void: ...
 class ManipulationDeltaRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1531,12 +1516,9 @@ class ManipulationDeltaRoutedEventArgs(ComPtr):
     Velocities = property(get_Velocities, None)
     Handled = property(get_Handled, put_Handled)
     PointerDeviceType = property(get_PointerDeviceType, None)
-class ManipulationInertiaStartingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ManipulationInertiaStartingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.ManipulationInertiaStartingEventHandler'
     _iid_ = Guid('{d39d6322-7c9c-481b-827b-c8b2d9bb6fc7}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs) -> Void: ...
 class ManipulationInertiaStartingRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1610,12 +1592,9 @@ class ManipulationPivot(ComPtr):
     def put_Radius(self: Windows.UI.Xaml.Input.IManipulationPivot, value: Double) -> Void: ...
     Center = property(get_Center, put_Center)
     Radius = property(get_Radius, put_Radius)
-class ManipulationStartedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ManipulationStartedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.ManipulationStartedEventHandler'
     _iid_ = Guid('{f88345f8-e0a3-4be2-b90c-dc20e6d8beb0}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationStartedRoutedEventArgs) -> Void: ...
 class ManipulationStartedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1642,12 +1621,9 @@ class ManipulationStartedRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Cumulative = property(get_Cumulative, None)
-class ManipulationStartingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ManipulationStartingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.ManipulationStartingEventHandler'
     _iid_ = Guid('{10d0b04e-bfe4-42cb-823c-3fecd8770ef8}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationStartingRoutedEventArgs) -> Void: ...
 class ManipulationStartingRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1706,12 +1682,9 @@ class Pointer(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     IsInContact = property(get_IsInContact, None)
     IsInRange = property(get_IsInRange, None)
-class PointerEventHandler(ComPtr):
-    # System.MulticastDelegate
+class PointerEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.PointerEventHandler'
     _iid_ = Guid('{e4385929-c004-4bcf-8970-359486e39f88}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.PointerRoutedEventArgs) -> Void: ...
 class PointerRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1750,12 +1723,9 @@ class ProcessKeyboardAcceleratorEventArgs(ComPtr):
     Key = property(get_Key, None)
     Modifiers = property(get_Modifiers, None)
     Handled = property(get_Handled, put_Handled)
-class RightTappedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class RightTappedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.RightTappedEventHandler'
     _iid_ = Guid('{2532a062-f447-4950-9c46-f1e34a2c2238}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.RightTappedRoutedEventArgs) -> Void: ...
 class RightTappedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1809,12 +1779,9 @@ StandardUICommandKind_Forward: StandardUICommandKind = 13
 StandardUICommandKind_Backward: StandardUICommandKind = 14
 StandardUICommandKind_Undo: StandardUICommandKind = 15
 StandardUICommandKind_Redo: StandardUICommandKind = 16
-class TappedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class TappedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Input.TappedEventHandler'
     _iid_ = Guid('{68d940cc-9ff0-49ce-b141-3f07ec477b97}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.TappedRoutedEventArgs) -> Void: ...
 class TappedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -1926,7 +1893,6 @@ make_head(_module, 'AccessKeyManager')
 make_head(_module, 'CanExecuteRequestedEventArgs')
 make_head(_module, 'CharacterReceivedRoutedEventArgs')
 make_head(_module, 'ContextRequestedEventArgs')
-make_head(_module, 'DoubleTappedEventHandler')
 make_head(_module, 'DoubleTappedRoutedEventArgs')
 make_head(_module, 'ExecuteRequestedEventArgs')
 make_head(_module, 'FindNextElementOptions')
@@ -1935,7 +1901,6 @@ make_head(_module, 'FocusManagerGotFocusEventArgs')
 make_head(_module, 'FocusManagerLostFocusEventArgs')
 make_head(_module, 'FocusMovementResult')
 make_head(_module, 'GettingFocusEventArgs')
-make_head(_module, 'HoldingEventHandler')
 make_head(_module, 'HoldingRoutedEventArgs')
 make_head(_module, 'IAccessKeyDisplayDismissedEventArgs')
 make_head(_module, 'IAccessKeyDisplayRequestedEventArgs')
@@ -2009,30 +1974,21 @@ make_head(_module, 'InertiaRotationBehavior')
 make_head(_module, 'InertiaTranslationBehavior')
 make_head(_module, 'InputScope')
 make_head(_module, 'InputScopeName')
-make_head(_module, 'KeyEventHandler')
 make_head(_module, 'KeyRoutedEventArgs')
 make_head(_module, 'KeyboardAccelerator')
 make_head(_module, 'KeyboardAcceleratorInvokedEventArgs')
 make_head(_module, 'LosingFocusEventArgs')
-make_head(_module, 'ManipulationCompletedEventHandler')
 make_head(_module, 'ManipulationCompletedRoutedEventArgs')
-make_head(_module, 'ManipulationDeltaEventHandler')
 make_head(_module, 'ManipulationDeltaRoutedEventArgs')
-make_head(_module, 'ManipulationInertiaStartingEventHandler')
 make_head(_module, 'ManipulationInertiaStartingRoutedEventArgs')
 make_head(_module, 'ManipulationPivot')
-make_head(_module, 'ManipulationStartedEventHandler')
 make_head(_module, 'ManipulationStartedRoutedEventArgs')
-make_head(_module, 'ManipulationStartingEventHandler')
 make_head(_module, 'ManipulationStartingRoutedEventArgs')
 make_head(_module, 'NoFocusCandidateFoundEventArgs')
 make_head(_module, 'Pointer')
-make_head(_module, 'PointerEventHandler')
 make_head(_module, 'PointerRoutedEventArgs')
 make_head(_module, 'ProcessKeyboardAcceleratorEventArgs')
-make_head(_module, 'RightTappedEventHandler')
 make_head(_module, 'RightTappedRoutedEventArgs')
 make_head(_module, 'StandardUICommand')
-make_head(_module, 'TappedEventHandler')
 make_head(_module, 'TappedRoutedEventArgs')
 make_head(_module, 'XamlUICommand')

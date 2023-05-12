@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -532,12 +532,9 @@ class DragCompletedEventArgs(ComPtr):
     HorizontalChange = property(get_HorizontalChange, None)
     VerticalChange = property(get_VerticalChange, None)
     Canceled = property(get_Canceled, None)
-class DragCompletedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DragCompletedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragCompletedEventHandler'
     _iid_ = Guid('{36b28888-19ac-4b4e-9137-a6cf2b023883}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs) -> Void: ...
 class DragDeltaEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -551,12 +548,9 @@ class DragDeltaEventArgs(ComPtr):
     def get_VerticalChange(self: Windows.UI.Xaml.Controls.Primitives.IDragDeltaEventArgs) -> Double: ...
     HorizontalChange = property(get_HorizontalChange, None)
     VerticalChange = property(get_VerticalChange, None)
-class DragDeltaEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DragDeltaEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragDeltaEventHandler'
     _iid_ = Guid('{4ac24f9f-ac28-49e9-9189-dccffeb66472}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs) -> Void: ...
 class DragStartedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
@@ -570,12 +564,9 @@ class DragStartedEventArgs(ComPtr):
     def get_VerticalOffset(self: Windows.UI.Xaml.Controls.Primitives.IDragStartedEventArgs) -> Double: ...
     HorizontalOffset = property(get_HorizontalOffset, None)
     VerticalOffset = property(get_VerticalOffset, None)
-class DragStartedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DragStartedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragStartedEventHandler'
     _iid_ = Guid('{d2eea48a-c65a-495d-a2f1-72c66989142d}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs) -> Void: ...
 EdgeTransitionLocation = Int32
 EdgeTransitionLocation_Left: EdgeTransitionLocation = 0
@@ -3423,12 +3414,9 @@ class ItemsChangedEventArgs(ComPtr):
     OldPosition = property(get_OldPosition, None)
     ItemCount = property(get_ItemCount, None)
     ItemUICount = property(get_ItemUICount, None)
-class ItemsChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ItemsChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventHandler'
     _iid_ = Guid('{178257be-a304-482f-8bf0-b9d2e39612a3}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventArgs) -> Void: ...
 class _JumpListItemBackgroundConverter_Meta_(ComPtr.__class__):
     pass
@@ -4485,12 +4473,9 @@ class RangeBaseValueChangedEventArgs(ComPtr):
     def get_NewValue(self: Windows.UI.Xaml.Controls.Primitives.IRangeBaseValueChangedEventArgs) -> Double: ...
     OldValue = property(get_OldValue, None)
     NewValue = property(get_NewValue, None)
-class RangeBaseValueChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class RangeBaseValueChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventHandler'
     _iid_ = Guid('{e3906fd9-4d1b-4ac8-a43c-c3b908742799}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs) -> Void: ...
 class _RepeatButton_Meta_(ComPtr.__class__):
     pass
@@ -4564,12 +4549,9 @@ class ScrollEventArgs(ComPtr):
     def get_ScrollEventType(self: Windows.UI.Xaml.Controls.Primitives.IScrollEventArgs) -> Windows.UI.Xaml.Controls.Primitives.ScrollEventType: ...
     NewValue = property(get_NewValue, None)
     ScrollEventType = property(get_ScrollEventType, None)
-class ScrollEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ScrollEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ScrollEventHandler'
     _iid_ = Guid('{8860b0a4-a383-4c83-b306-a1c39d7db87f}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs) -> Void: ...
 ScrollEventType = Int32
 ScrollEventType_SmallDecrement: ScrollEventType = 0
@@ -4844,11 +4826,8 @@ make_head(_module, 'CommandBarFlyoutCommandBar')
 make_head(_module, 'CommandBarFlyoutCommandBarTemplateSettings')
 make_head(_module, 'CommandBarTemplateSettings')
 make_head(_module, 'DragCompletedEventArgs')
-make_head(_module, 'DragCompletedEventHandler')
 make_head(_module, 'DragDeltaEventArgs')
-make_head(_module, 'DragDeltaEventHandler')
 make_head(_module, 'DragStartedEventArgs')
-make_head(_module, 'DragStartedEventHandler')
 make_head(_module, 'FlyoutBase')
 make_head(_module, 'FlyoutBaseClosingEventArgs')
 make_head(_module, 'FlyoutShowOptions')
@@ -4988,7 +4967,6 @@ make_head(_module, 'IToggleButtonStatics')
 make_head(_module, 'IToggleSwitchTemplateSettings')
 make_head(_module, 'IToolTipTemplateSettings')
 make_head(_module, 'ItemsChangedEventArgs')
-make_head(_module, 'ItemsChangedEventHandler')
 make_head(_module, 'JumpListItemBackgroundConverter')
 make_head(_module, 'JumpListItemForegroundConverter')
 make_head(_module, 'LayoutInformation')
@@ -5010,11 +4988,9 @@ make_head(_module, 'ProgressBarTemplateSettings')
 make_head(_module, 'ProgressRingTemplateSettings')
 make_head(_module, 'RangeBase')
 make_head(_module, 'RangeBaseValueChangedEventArgs')
-make_head(_module, 'RangeBaseValueChangedEventHandler')
 make_head(_module, 'RepeatButton')
 make_head(_module, 'ScrollBar')
 make_head(_module, 'ScrollEventArgs')
-make_head(_module, 'ScrollEventHandler')
 make_head(_module, 'Selector')
 make_head(_module, 'SelectorItem')
 make_head(_module, 'SettingsFlyoutTemplateSettings')

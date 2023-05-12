@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Data.Text
 import Windows.Foundation
@@ -267,12 +267,9 @@ class SelectableWordSegment(ComPtr):
     def get_SourceTextSegment(self: Windows.Data.Text.ISelectableWordSegment) -> Windows.Data.Text.TextSegment: ...
     Text = property(get_Text, None)
     SourceTextSegment = property(get_SourceTextSegment, None)
-class SelectableWordSegmentsTokenizingHandler(ComPtr):
-    # System.MulticastDelegate
+class SelectableWordSegmentsTokenizingHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Data.Text.SelectableWordSegmentsTokenizingHandler'
     _iid_ = Guid('{3a3dfc9c-aede-4dc7-9e6c-41c044bd3592}')
-    @winrt_commethod(3)
     def Invoke(self, precedingWords: Windows.Foundation.Collections.IIterable[Windows.Data.Text.SelectableWordSegment], words: Windows.Foundation.Collections.IIterable[Windows.Data.Text.SelectableWordSegment]) -> Void: ...
 class SelectableWordsSegmenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -461,12 +458,9 @@ class WordSegment(ComPtr):
     Text = property(get_Text, None)
     SourceTextSegment = property(get_SourceTextSegment, None)
     AlternateForms = property(get_AlternateForms, None)
-class WordSegmentsTokenizingHandler(ComPtr):
-    # System.MulticastDelegate
+class WordSegmentsTokenizingHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Data.Text.WordSegmentsTokenizingHandler'
     _iid_ = Guid('{a5dd6357-bf2a-4c4f-a31f-29e71c6f8b35}')
-    @winrt_commethod(3)
     def Invoke(self, precedingWords: Windows.Foundation.Collections.IIterable[Windows.Data.Text.WordSegment], words: Windows.Foundation.Collections.IIterable[Windows.Data.Text.WordSegment]) -> Void: ...
 class WordsSegmenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -504,7 +498,6 @@ make_head(_module, 'IWordSegment')
 make_head(_module, 'IWordsSegmenter')
 make_head(_module, 'IWordsSegmenterFactory')
 make_head(_module, 'SelectableWordSegment')
-make_head(_module, 'SelectableWordSegmentsTokenizingHandler')
 make_head(_module, 'SelectableWordsSegmenter')
 make_head(_module, 'SemanticTextQuery')
 make_head(_module, 'TextConversionGenerator')
@@ -514,5 +507,4 @@ make_head(_module, 'TextReverseConversionGenerator')
 make_head(_module, 'TextSegment')
 make_head(_module, 'UnicodeCharacters')
 make_head(_module, 'WordSegment')
-make_head(_module, 'WordSegmentsTokenizingHandler')
 make_head(_module, 'WordsSegmenter')

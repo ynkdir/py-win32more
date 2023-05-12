@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel
 import Windows.Foundation
@@ -51,12 +51,9 @@ GameListCategory = Int32
 GameListCategory_Candidate: GameListCategory = 0
 GameListCategory_ConfirmedBySystem: GameListCategory = 1
 GameListCategory_ConfirmedByUser: GameListCategory = 2
-class GameListChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class GameListChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameListChangedEventHandler'
     _iid_ = Guid('{25f6a421-d8f5-4d91-b40e-53d5e86fde64}')
-    @winrt_commethod(3)
     def Invoke(self, game: Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Void: ...
 class GameListEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -101,12 +98,9 @@ GameListEntryLaunchableState_NotLaunchable: GameListEntryLaunchableState = 0
 GameListEntryLaunchableState_ByLastRunningFullPath: GameListEntryLaunchableState = 1
 GameListEntryLaunchableState_ByUserProvidedPath: GameListEntryLaunchableState = 2
 GameListEntryLaunchableState_ByTile: GameListEntryLaunchableState = 3
-class GameListRemovedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class GameListRemovedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameListRemovedEventHandler'
     _iid_ = Guid('{10c5648f-6c8f-4712-9b38-474bc22e76d8}')
-    @winrt_commethod(3)
     def Invoke(self, identifier: WinRT_String) -> Void: ...
 class GameModeConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -303,9 +297,7 @@ class IGameModeUserConfigurationStatics(ComPtr):
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration: ...
 make_head(_module, 'GameList')
-make_head(_module, 'GameListChangedEventHandler')
 make_head(_module, 'GameListEntry')
-make_head(_module, 'GameListRemovedEventHandler')
 make_head(_module, 'GameModeConfiguration')
 make_head(_module, 'GameModeUserConfiguration')
 make_head(_module, 'IGameListEntry')

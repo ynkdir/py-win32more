@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.Sms
 import Windows.Foundation
@@ -1016,12 +1016,9 @@ SmsDeviceStatus_DeviceFailure: SmsDeviceStatus = 4
 SmsDeviceStatus_SubscriptionNotActivated: SmsDeviceStatus = 5
 SmsDeviceStatus_DeviceLocked: SmsDeviceStatus = 6
 SmsDeviceStatus_DeviceBlocked: SmsDeviceStatus = 7
-class SmsDeviceStatusChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SmsDeviceStatusChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Devices.Sms.SmsDeviceStatusChangedEventHandler'
     _iid_ = Guid('{982b1162-3dd7-4618-af89-0c272d5d06d8}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Devices.Sms.SmsDevice) -> Void: ...
 class SmsEncodedLength(EasyCastStructure):
     SegmentCount: UInt32
@@ -1133,12 +1130,9 @@ class SmsMessageReceivedEventArgs(ComPtr):
     def get_BinaryMessage(self: Windows.Devices.Sms.ISmsMessageReceivedEventArgs) -> Windows.Devices.Sms.SmsBinaryMessage: ...
     TextMessage = property(get_TextMessage, None)
     BinaryMessage = property(get_BinaryMessage, None)
-class SmsMessageReceivedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SmsMessageReceivedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Devices.Sms.SmsMessageReceivedEventHandler'
     _iid_ = Guid('{0b7ad409-ec2d-47ce-a253-732beeebcacd}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Devices.Sms.SmsDevice, e: Windows.Devices.Sms.SmsMessageReceivedEventArgs) -> Void: ...
 class SmsMessageReceivedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1515,12 +1509,10 @@ make_head(_module, 'SmsBroadcastMessage')
 make_head(_module, 'SmsDevice')
 make_head(_module, 'SmsDevice2')
 make_head(_module, 'SmsDeviceMessageStore')
-make_head(_module, 'SmsDeviceStatusChangedEventHandler')
 make_head(_module, 'SmsEncodedLength')
 make_head(_module, 'SmsFilterRule')
 make_head(_module, 'SmsFilterRules')
 make_head(_module, 'SmsMessageReceivedEventArgs')
-make_head(_module, 'SmsMessageReceivedEventHandler')
 make_head(_module, 'SmsMessageReceivedTriggerDetails')
 make_head(_module, 'SmsMessageRegistration')
 make_head(_module, 'SmsReceivedEventDetails')

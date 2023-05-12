@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -2747,12 +2747,9 @@ class RateChangedRoutedEventArgs(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.RateChangedRoutedEventArgs'
     @winrt_activatemethod
     def CreateInstance(cls) -> Windows.UI.Xaml.Media.RateChangedRoutedEventArgs: ...
-class RateChangedRoutedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class RateChangedRoutedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Media.RateChangedRoutedEventHandler'
     _iid_ = Guid('{08e9a257-ae05-489b-8839-28c6225d2349}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.RateChangedRoutedEventArgs) -> Void: ...
 class _RectangleGeometry_Meta_(ComPtr.__class__):
     pass
@@ -3110,12 +3107,9 @@ class TimelineMarkerRoutedEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Marker(self: Windows.UI.Xaml.Media.ITimelineMarkerRoutedEventArgs, value: Windows.UI.Xaml.Media.TimelineMarker) -> Void: ...
     Marker = property(get_Marker, put_Marker)
-class TimelineMarkerRoutedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class TimelineMarkerRoutedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Media.TimelineMarkerRoutedEventHandler'
     _iid_ = Guid('{72e2fa9c-6dea-4cbe-a159-06ce95fbeced}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs) -> Void: ...
 class Transform(ComPtr):
     extends: Windows.UI.Xaml.Media.GeneralTransform
@@ -3447,7 +3441,6 @@ make_head(_module, 'PolyQuadraticBezierSegment')
 make_head(_module, 'Projection')
 make_head(_module, 'QuadraticBezierSegment')
 make_head(_module, 'RateChangedRoutedEventArgs')
-make_head(_module, 'RateChangedRoutedEventHandler')
 make_head(_module, 'RectangleGeometry')
 make_head(_module, 'RenderedEventArgs')
 make_head(_module, 'RenderingEventArgs')
@@ -3464,7 +3457,6 @@ make_head(_module, 'TileBrush')
 make_head(_module, 'TimelineMarker')
 make_head(_module, 'TimelineMarkerCollection')
 make_head(_module, 'TimelineMarkerRoutedEventArgs')
-make_head(_module, 'TimelineMarkerRoutedEventHandler')
 make_head(_module, 'Transform')
 make_head(_module, 'TransformCollection')
 make_head(_module, 'TransformGroup')

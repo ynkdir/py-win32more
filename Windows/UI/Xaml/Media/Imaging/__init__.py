@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Background
 import Windows.Foundation
@@ -150,12 +150,9 @@ class DownloadProgressEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Progress(self: Windows.UI.Xaml.Media.Imaging.IDownloadProgressEventArgs, value: Int32) -> Void: ...
     Progress = property(get_Progress, put_Progress)
-class DownloadProgressEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DownloadProgressEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Media.Imaging.DownloadProgressEventHandler'
     _iid_ = Guid('{1abaee23-74ee-4cc7-99ba-b171e3cda61e}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs) -> Void: ...
 class IBitmapImage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -584,7 +581,6 @@ class XamlRenderingBackgroundTask(ComPtr):
 make_head(_module, 'BitmapImage')
 make_head(_module, 'BitmapSource')
 make_head(_module, 'DownloadProgressEventArgs')
-make_head(_module, 'DownloadProgressEventHandler')
 make_head(_module, 'IBitmapImage')
 make_head(_module, 'IBitmapImage2')
 make_head(_module, 'IBitmapImage3')

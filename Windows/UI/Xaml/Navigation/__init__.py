@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.UI.Xaml
@@ -154,19 +154,13 @@ class IPageStackEntryStatics(ComPtr):
     @winrt_commethod(6)
     def get_SourcePageTypeProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     SourcePageTypeProperty = property(get_SourcePageTypeProperty, None)
-class LoadCompletedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class LoadCompletedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Navigation.LoadCompletedEventHandler'
     _iid_ = Guid('{aebaf785-43fc-4e2c-95c3-97ae84eabc8e}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
-class NavigatedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class NavigatedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Navigation.NavigatedEventHandler'
     _iid_ = Guid('{7bd1cf54-23cf-4cce-b2f5-4ce78d96896e}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
 class NavigatingCancelEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -189,12 +183,9 @@ class NavigatingCancelEventArgs(ComPtr):
     SourcePageType = property(get_SourcePageType, None)
     Parameter = property(get_Parameter, None)
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
-class NavigatingCancelEventHandler(ComPtr):
-    # System.MulticastDelegate
+class NavigatingCancelEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Navigation.NavigatingCancelEventHandler'
     _iid_ = Guid('{75d6a78f-a302-4489-9898-24ea49182910}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs) -> Void: ...
 NavigationCacheMode = Int32
 NavigationCacheMode_Disabled: NavigationCacheMode = 0
@@ -239,24 +230,18 @@ class NavigationFailedEventArgs(ComPtr):
     Exception = property(get_Exception, None)
     Handled = property(get_Handled, put_Handled)
     SourcePageType = property(get_SourcePageType, None)
-class NavigationFailedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class NavigationFailedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Navigation.NavigationFailedEventHandler'
     _iid_ = Guid('{4dab4671-12b2-43c7-b892-9be2dcd3e88d}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationFailedEventArgs) -> Void: ...
 NavigationMode = Int32
 NavigationMode_New: NavigationMode = 0
 NavigationMode_Back: NavigationMode = 1
 NavigationMode_Forward: NavigationMode = 2
 NavigationMode_Refresh: NavigationMode = 3
-class NavigationStoppedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class NavigationStoppedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Navigation.NavigationStoppedEventHandler'
     _iid_ = Guid('{f0117ddb-12fa-4d8d-8b26-b383d09c2b3c}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
 class _PageStackEntry_Meta_(ComPtr.__class__):
     pass
@@ -289,12 +274,7 @@ make_head(_module, 'INavigationFailedEventArgs')
 make_head(_module, 'IPageStackEntry')
 make_head(_module, 'IPageStackEntryFactory')
 make_head(_module, 'IPageStackEntryStatics')
-make_head(_module, 'LoadCompletedEventHandler')
-make_head(_module, 'NavigatedEventHandler')
 make_head(_module, 'NavigatingCancelEventArgs')
-make_head(_module, 'NavigatingCancelEventHandler')
 make_head(_module, 'NavigationEventArgs')
 make_head(_module, 'NavigationFailedEventArgs')
-make_head(_module, 'NavigationFailedEventHandler')
-make_head(_module, 'NavigationStoppedEventHandler')
 make_head(_module, 'PageStackEntry')

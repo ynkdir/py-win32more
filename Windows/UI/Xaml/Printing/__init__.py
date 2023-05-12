@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Graphics.Printing
@@ -32,12 +32,9 @@ class AddPagesEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_PrintTaskOptions(self: Windows.UI.Xaml.Printing.IAddPagesEventArgs) -> Windows.Graphics.Printing.PrintTaskOptions: ...
     PrintTaskOptions = property(get_PrintTaskOptions, None)
-class AddPagesEventHandler(ComPtr):
-    # System.MulticastDelegate
+class AddPagesEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Printing.AddPagesEventHandler'
     _iid_ = Guid('{d4b57970-57a0-4209-847c-c093b54bc729}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.AddPagesEventArgs) -> Void: ...
 class GetPreviewPageEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -48,12 +45,9 @@ class GetPreviewPageEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_PageNumber(self: Windows.UI.Xaml.Printing.IGetPreviewPageEventArgs) -> Int32: ...
     PageNumber = property(get_PageNumber, None)
-class GetPreviewPageEventHandler(ComPtr):
-    # System.MulticastDelegate
+class GetPreviewPageEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Printing.GetPreviewPageEventHandler'
     _iid_ = Guid('{ccb3e9ed-9c11-4e50-ab49-e98086bbfdef}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.GetPreviewPageEventArgs) -> Void: ...
 class IAddPagesEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -133,12 +127,9 @@ class PaginateEventArgs(ComPtr):
     def get_CurrentPreviewPageNumber(self: Windows.UI.Xaml.Printing.IPaginateEventArgs) -> Int32: ...
     PrintTaskOptions = property(get_PrintTaskOptions, None)
     CurrentPreviewPageNumber = property(get_CurrentPreviewPageNumber, None)
-class PaginateEventHandler(ComPtr):
-    # System.MulticastDelegate
+class PaginateEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.Printing.PaginateEventHandler'
     _iid_ = Guid('{0cc05b61-811b-4a32-9965-13eb78dbb01b}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...
 PreviewPageCountType = Int32
 PreviewPageCountType_Final: PreviewPageCountType = 0
@@ -180,9 +171,7 @@ class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):
     DocumentSource = property(get_DocumentSource, None)
     _PrintDocument_Meta_.DocumentSourceProperty = property(get_DocumentSourceProperty.__wrapped__, None)
 make_head(_module, 'AddPagesEventArgs')
-make_head(_module, 'AddPagesEventHandler')
 make_head(_module, 'GetPreviewPageEventArgs')
-make_head(_module, 'GetPreviewPageEventHandler')
 make_head(_module, 'IAddPagesEventArgs')
 make_head(_module, 'IGetPreviewPageEventArgs')
 make_head(_module, 'IPaginateEventArgs')
@@ -190,5 +179,4 @@ make_head(_module, 'IPrintDocument')
 make_head(_module, 'IPrintDocumentFactory')
 make_head(_module, 'IPrintDocumentStatics')
 make_head(_module, 'PaginateEventArgs')
-make_head(_module, 'PaginateEventHandler')
 make_head(_module, 'PrintDocument')

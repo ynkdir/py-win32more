@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Activation
 import Windows.ApplicationModel.Background
@@ -216,12 +216,9 @@ class BackgroundTaskBuilder(ComPtr):
     CancelOnConditionLoss = property(get_CancelOnConditionLoss, put_CancelOnConditionLoss)
     IsNetworkRequested = property(get_IsNetworkRequested, put_IsNetworkRequested)
     TaskGroup = property(get_TaskGroup, put_TaskGroup)
-class BackgroundTaskCanceledEventHandler(ComPtr):
-    # System.MulticastDelegate
+class BackgroundTaskCanceledEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskCanceledEventHandler'
     _iid_ = Guid('{a6c4bac0-51f8-4c57-ac3f-156dd1680c4f}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.ApplicationModel.Background.IBackgroundTaskInstance, reason: Windows.ApplicationModel.Background.BackgroundTaskCancellationReason) -> Void: ...
 BackgroundTaskCancellationReason = Int32
 BackgroundTaskCancellationReason_Abort: BackgroundTaskCancellationReason = 0
@@ -245,12 +242,9 @@ class BackgroundTaskCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def CheckResult(self: Windows.ApplicationModel.Background.IBackgroundTaskCompletedEventArgs) -> Void: ...
     InstanceId = property(get_InstanceId, None)
-class BackgroundTaskCompletedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class BackgroundTaskCompletedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskCompletedEventHandler'
     _iid_ = Guid('{5b38e929-a086-46a7-a678-439135822bcf}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.ApplicationModel.Background.BackgroundTaskRegistration, args: Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs) -> Void: ...
 class BackgroundTaskDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -268,12 +262,9 @@ class BackgroundTaskProgressEventArgs(ComPtr):
     def get_Progress(self: Windows.ApplicationModel.Background.IBackgroundTaskProgressEventArgs) -> UInt32: ...
     InstanceId = property(get_InstanceId, None)
     Progress = property(get_Progress, None)
-class BackgroundTaskProgressEventHandler(ComPtr):
-    # System.MulticastDelegate
+class BackgroundTaskProgressEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskProgressEventHandler'
     _iid_ = Guid('{46e0683c-8a88-4c99-804c-76897f6277a6}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.ApplicationModel.Background.BackgroundTaskRegistration, args: Windows.ApplicationModel.Background.BackgroundTaskProgressEventArgs) -> Void: ...
 class _BackgroundTaskRegistration_Meta_(ComPtr.__class__):
     pass
@@ -1733,12 +1724,9 @@ make_head(_module, 'ApplicationTriggerDetails')
 make_head(_module, 'AppointmentStoreNotificationTrigger')
 make_head(_module, 'BackgroundExecutionManager')
 make_head(_module, 'BackgroundTaskBuilder')
-make_head(_module, 'BackgroundTaskCanceledEventHandler')
 make_head(_module, 'BackgroundTaskCompletedEventArgs')
-make_head(_module, 'BackgroundTaskCompletedEventHandler')
 make_head(_module, 'BackgroundTaskDeferral')
 make_head(_module, 'BackgroundTaskProgressEventArgs')
-make_head(_module, 'BackgroundTaskProgressEventHandler')
 make_head(_module, 'BackgroundTaskRegistration')
 make_head(_module, 'BackgroundTaskRegistrationGroup')
 make_head(_module, 'BackgroundWorkCost')

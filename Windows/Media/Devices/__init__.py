@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.Enumeration
 import Windows.Foundation
@@ -174,12 +174,9 @@ class CallControl(ComPtr):
     def FromId(cls: Windows.Media.Devices.ICallControlStatics, deviceId: WinRT_String) -> Windows.Media.Devices.CallControl: ...
     HasRinger = property(get_HasRinger, None)
 CallControlContract: UInt32 = 65536
-class CallControlEventHandler(ComPtr):
-    # System.MulticastDelegate
+class CallControlEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Devices.CallControlEventHandler'
     _iid_ = Guid('{596f759f-50df-4454-bc63-4d3d01b61958}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Devices.CallControl) -> Void: ...
 class CameraOcclusionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -273,12 +270,9 @@ class DialRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Contact(self: Windows.Media.Devices.IDialRequestedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     Contact = property(get_Contact, None)
-class DialRequestedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DialRequestedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Devices.DialRequestedEventHandler'
     _iid_ = Guid('{5abbffdb-c21f-4bc4-891b-257e28c1b1a4}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.DialRequestedEventArgs) -> Void: ...
 class DigitalWindowBounds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1778,12 +1772,9 @@ class KeypadPressedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_TelephonyKey(self: Windows.Media.Devices.IKeypadPressedEventArgs) -> Windows.Media.Devices.TelephonyKey: ...
     TelephonyKey = property(get_TelephonyKey, None)
-class KeypadPressedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class KeypadPressedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Devices.KeypadPressedEventHandler'
     _iid_ = Guid('{e637a454-c527-422c-8926-c9af83b559a0}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.KeypadPressedEventArgs) -> Void: ...
 class LowLagPhotoControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1999,12 +1990,9 @@ class RedialRequestedEventArgs(ComPtr):
     _classid_ = 'Windows.Media.Devices.RedialRequestedEventArgs'
     @winrt_mixinmethod
     def Handled(self: Windows.Media.Devices.IRedialRequestedEventArgs) -> Void: ...
-class RedialRequestedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class RedialRequestedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Media.Devices.RedialRequestedEventHandler'
     _iid_ = Guid('{baf257d1-4ebd-4b84-9f47-6ec43d75d8b1}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Devices.CallControl, e: Windows.Media.Devices.RedialRequestedEventArgs) -> Void: ...
 class RegionOfInterest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -2393,14 +2381,12 @@ make_head(_module, 'AudioDeviceModule')
 make_head(_module, 'AudioDeviceModuleNotificationEventArgs')
 make_head(_module, 'AudioDeviceModulesManager')
 make_head(_module, 'CallControl')
-make_head(_module, 'CallControlEventHandler')
 make_head(_module, 'CameraOcclusionInfo')
 make_head(_module, 'CameraOcclusionState')
 make_head(_module, 'CameraOcclusionStateChangedEventArgs')
 make_head(_module, 'DefaultAudioCaptureDeviceChangedEventArgs')
 make_head(_module, 'DefaultAudioRenderDeviceChangedEventArgs')
 make_head(_module, 'DialRequestedEventArgs')
-make_head(_module, 'DialRequestedEventHandler')
 make_head(_module, 'DigitalWindowBounds')
 make_head(_module, 'DigitalWindowCapability')
 make_head(_module, 'DigitalWindowControl')
@@ -2478,7 +2464,6 @@ make_head(_module, 'IZoomSettings')
 make_head(_module, 'InfraredTorchControl')
 make_head(_module, 'IsoSpeedControl')
 make_head(_module, 'KeypadPressedEventArgs')
-make_head(_module, 'KeypadPressedEventHandler')
 make_head(_module, 'LowLagPhotoControl')
 make_head(_module, 'LowLagPhotoSequenceControl')
 make_head(_module, 'MediaDevice')
@@ -2489,7 +2474,6 @@ make_head(_module, 'OpticalImageStabilizationControl')
 make_head(_module, 'PanelBasedOptimizationControl')
 make_head(_module, 'PhotoConfirmationControl')
 make_head(_module, 'RedialRequestedEventArgs')
-make_head(_module, 'RedialRequestedEventHandler')
 make_head(_module, 'RegionOfInterest')
 make_head(_module, 'RegionsOfInterestControl')
 make_head(_module, 'SceneModeControl')

@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.Perception
 import Windows.Devices.Perception.Provider
@@ -363,19 +363,13 @@ class PerceptionPropertyChangeRequest(ComPtr):
     Name = property(get_Name, None)
     Value = property(get_Value, None)
     Status = property(get_Status, put_Status)
-class PerceptionStartFaceAuthenticationHandler(ComPtr):
-    # System.MulticastDelegate
+class PerceptionStartFaceAuthenticationHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Devices.Perception.Provider.PerceptionStartFaceAuthenticationHandler'
     _iid_ = Guid('{74816d2a-2090-4670-8c48-ef39e7ff7c26}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup) -> Boolean: ...
-class PerceptionStopFaceAuthenticationHandler(ComPtr):
-    # System.MulticastDelegate
+class PerceptionStopFaceAuthenticationHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Devices.Perception.Provider.PerceptionStopFaceAuthenticationHandler'
     _iid_ = Guid('{387ee6aa-89cd-481e-aade-dd92f70b2ad7}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup) -> Void: ...
 class PerceptionVideoFrameAllocator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -415,6 +409,4 @@ make_head(_module, 'PerceptionFrame')
 make_head(_module, 'PerceptionFrameProviderInfo')
 make_head(_module, 'PerceptionFrameProviderManagerService')
 make_head(_module, 'PerceptionPropertyChangeRequest')
-make_head(_module, 'PerceptionStartFaceAuthenticationHandler')
-make_head(_module, 'PerceptionStopFaceAuthenticationHandler')
 make_head(_module, 'PerceptionVideoFrameAllocator')

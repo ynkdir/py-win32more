@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel
 import Windows.ApplicationModel.Activation
@@ -157,12 +157,9 @@ class Application(ComPtr, metaclass=_Application_Meta_):
 ApplicationHighContrastAdjustment = UInt32
 ApplicationHighContrastAdjustment_None: ApplicationHighContrastAdjustment = 0
 ApplicationHighContrastAdjustment_Auto: ApplicationHighContrastAdjustment = 4294967295
-class ApplicationInitializationCallback(ComPtr):
-    # System.MulticastDelegate
+class ApplicationInitializationCallback(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.ApplicationInitializationCallback'
     _iid_ = Guid('{b6351c55-c284-46e4-8310-fb0967fab76f}')
-    @winrt_commethod(3)
     def Invoke(self, p: Windows.UI.Xaml.ApplicationInitializationCallbackParams) -> Void: ...
 class ApplicationInitializationCallbackParams(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -222,12 +219,9 @@ class BindingFailedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Message(self: Windows.UI.Xaml.IBindingFailedEventArgs) -> WinRT_String: ...
     Message = property(get_Message, None)
-class BindingFailedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class BindingFailedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.BindingFailedEventHandler'
     _iid_ = Guid('{136b1782-54ba-420d-a1aa-82828721cde6}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.BindingFailedEventArgs) -> Void: ...
 class BringIntoViewOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -470,12 +464,9 @@ class CornerRadiusHelper(ComPtr):
     def FromRadii(cls: Windows.UI.Xaml.ICornerRadiusHelperStatics, topLeft: Double, topRight: Double, bottomRight: Double, bottomLeft: Double) -> Windows.UI.Xaml.CornerRadius: ...
     @winrt_classmethod
     def FromUniformRadius(cls: Windows.UI.Xaml.ICornerRadiusHelperStatics, uniformRadius: Double) -> Windows.UI.Xaml.CornerRadius: ...
-class CreateDefaultValueCallback(ComPtr):
-    # System.MulticastDelegate
+class CreateDefaultValueCallback(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.CreateDefaultValueCallback'
     _iid_ = Guid('{d6ecb12c-15b5-4ec8-b95c-cdd208f08153}')
-    @winrt_commethod(3)
     def Invoke(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class DataContextChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -636,12 +627,9 @@ class DependencyProperty(ComPtr, metaclass=_DependencyProperty_Meta_):
     @winrt_classmethod
     def RegisterAttached(cls: Windows.UI.Xaml.IDependencyPropertyStatics, name: WinRT_String, propertyType: Windows.UI.Xaml.Interop.TypeName, ownerType: Windows.UI.Xaml.Interop.TypeName, defaultMetadata: Windows.UI.Xaml.PropertyMetadata) -> Windows.UI.Xaml.DependencyProperty: ...
     _DependencyProperty_Meta_.UnsetValue = property(get_UnsetValue.__wrapped__, None)
-class DependencyPropertyChangedCallback(ComPtr):
-    # System.MulticastDelegate
+class DependencyPropertyChangedCallback(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.DependencyPropertyChangedCallback'
     _iid_ = Guid('{45883d16-27bf-4bc1-ac26-94c1601f3a49}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.UI.Xaml.DependencyObject, dp: Windows.UI.Xaml.DependencyProperty) -> Void: ...
 class DependencyPropertyChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -656,12 +644,9 @@ class DependencyPropertyChangedEventArgs(ComPtr):
     Property = property(get_Property, None)
     OldValue = property(get_OldValue, None)
     NewValue = property(get_NewValue, None)
-class DependencyPropertyChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DependencyPropertyChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.DependencyPropertyChangedEventHandler'
     _iid_ = Guid('{09223e5a-75be-4499-8180-1ddc005421c0}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.DependencyPropertyChangedEventArgs) -> Void: ...
 class DispatcherTimer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -720,12 +705,9 @@ class DragEventArgs(ComPtr):
     Modifiers = property(get_Modifiers, None)
     AcceptedOperation = property(get_AcceptedOperation, put_AcceptedOperation)
     AllowedOperations = property(get_AllowedOperations, None)
-class DragEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DragEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.DragEventHandler'
     _iid_ = Guid('{2ab1a205-1e73-4bcf-aabc-57b97e21961d}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.DragEventArgs) -> Void: ...
 class DragOperationDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -942,12 +924,9 @@ ElementTheme = Int32
 ElementTheme_Default: ElementTheme = 0
 ElementTheme_Light: ElementTheme = 1
 ElementTheme_Dark: ElementTheme = 2
-class EnteredBackgroundEventHandler(ComPtr):
-    # System.MulticastDelegate
+class EnteredBackgroundEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.EnteredBackgroundEventHandler'
     _iid_ = Guid('{93a956ae-1d7f-438b-b7b8-227d96b609c0}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.EnteredBackgroundEventArgs) -> Void: ...
 class EventTrigger(ComPtr):
     extends: Windows.UI.Xaml.TriggerBase
@@ -970,12 +949,9 @@ class ExceptionRoutedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorMessage(self: Windows.UI.Xaml.IExceptionRoutedEventArgs) -> WinRT_String: ...
     ErrorMessage = property(get_ErrorMessage, None)
-class ExceptionRoutedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class ExceptionRoutedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.ExceptionRoutedEventHandler'
     _iid_ = Guid('{68e0e810-f6ea-42bc-855b-5d9b67e6a262}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.ExceptionRoutedEventArgs) -> Void: ...
 FlowDirection = Int32
 FlowDirection_LeftToRight: FlowDirection = 0
@@ -4045,12 +4021,9 @@ class IXamlRootChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IXamlRootChangedEventArgs'
     _iid_ = Guid('{92d71c21-d23c-5a17-bcb8-001504b6bb19}')
-class LeavingBackgroundEventHandler(ComPtr):
-    # System.MulticastDelegate
+class LeavingBackgroundEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.LeavingBackgroundEventHandler'
     _iid_ = Guid('{aaad5dad-4fc6-4aa4-b7cf-877e36ada4f6}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.LeavingBackgroundEventArgs) -> Void: ...
 LineStackingStrategy = Int32
 LineStackingStrategy_MaxHeight: LineStackingStrategy = 0
@@ -4072,12 +4045,9 @@ class PointHelper(ComPtr):
     _classid_ = 'Windows.UI.Xaml.PointHelper'
     @winrt_classmethod
     def FromCoordinates(cls: Windows.UI.Xaml.IPointHelperStatics, x: Single, y: Single) -> Windows.Foundation.Point: ...
-class PropertyChangedCallback(ComPtr):
-    # System.MulticastDelegate
+class PropertyChangedCallback(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.PropertyChangedCallback'
     _iid_ = Guid('{5a9f8a25-d142-44a4-8231-fd676724f29b}')
-    @winrt_commethod(3)
     def Invoke(self, d: Windows.UI.Xaml.DependencyObject, e: Windows.UI.Xaml.DependencyPropertyChangedEventArgs) -> Void: ...
 class PropertyMetadata(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -4192,12 +4162,9 @@ class RoutedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_OriginalSource(self: Windows.UI.Xaml.IRoutedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     OriginalSource = property(get_OriginalSource, None)
-class RoutedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class RoutedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.RoutedEventHandler'
     _iid_ = Guid('{a856e674-b0b6-4bc3-bba8-1ba06e40d4b5}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.RoutedEventArgs) -> Void: ...
 class ScalarTransition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -4286,12 +4253,9 @@ class SizeChangedEventArgs(ComPtr):
     def get_NewSize(self: Windows.UI.Xaml.ISizeChangedEventArgs) -> Windows.Foundation.Size: ...
     PreviousSize = property(get_PreviousSize, None)
     NewSize = property(get_NewSize, None)
-class SizeChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SizeChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.SizeChangedEventHandler'
     _iid_ = Guid('{1115b13c-25d2-480b-89dc-eb3dcbd6b7fa}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.SizeChangedEventArgs) -> Void: ...
 class _SizeHelper_Meta_(ComPtr.__class__):
     pass
@@ -4358,12 +4322,9 @@ class Style(ComPtr):
     Setters = property(get_Setters, None)
     TargetType = property(get_TargetType, put_TargetType)
     BasedOn = property(get_BasedOn, put_BasedOn)
-class SuspendingEventHandler(ComPtr):
-    # System.MulticastDelegate
+class SuspendingEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.SuspendingEventHandler'
     _iid_ = Guid('{23429465-e36a-40e2-b139-a4704602a6e1}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.SuspendingEventArgs) -> Void: ...
 class TargetPropertyPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -5256,12 +5217,9 @@ class UnhandledExceptionEventArgs(ComPtr):
     Exception = property(get_Exception, None)
     Message = property(get_Message, None)
     Handled = property(get_Handled, put_Handled)
-class UnhandledExceptionEventHandler(ComPtr):
-    # System.MulticastDelegate
+class UnhandledExceptionEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.UnhandledExceptionEventHandler'
     _iid_ = Guid('{9274e6bd-49a1-4958-beee-d0e19587b6e3}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.UnhandledExceptionEventArgs) -> Void: ...
 class Vector3Transition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -5332,12 +5290,9 @@ class VisualStateChangedEventArgs(ComPtr):
     OldState = property(get_OldState, put_OldState)
     NewState = property(get_NewState, put_NewState)
     Control = property(get_Control, put_Control)
-class VisualStateChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class VisualStateChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.VisualStateChangedEventHandler'
     _iid_ = Guid('{e6d5bbd5-e029-43a6-b36d-84a81042d774}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.VisualStateChangedEventArgs) -> Void: ...
 class VisualStateGroup(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
@@ -5475,19 +5430,13 @@ class Window(ComPtr, metaclass=_Window_Meta_):
     Compositor = property(get_Compositor, None)
     UIContext = property(get_UIContext, None)
     _Window_Meta_.Current = property(get_Current.__wrapped__, None)
-class WindowActivatedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class WindowActivatedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.WindowActivatedEventHandler'
     _iid_ = Guid('{18026348-8619-4c7b-b534-ced45d9de219}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Core.WindowActivatedEventArgs) -> Void: ...
-class WindowClosedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class WindowClosedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.WindowClosedEventHandler'
     _iid_ = Guid('{0db89161-20d7-45df-9122-ba89576703ba}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Core.CoreWindowEventArgs) -> Void: ...
 class WindowCreatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -5496,19 +5445,13 @@ class WindowCreatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Window(self: Windows.UI.Xaml.IWindowCreatedEventArgs) -> Windows.UI.Xaml.Window: ...
     Window = property(get_Window, None)
-class WindowSizeChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class WindowSizeChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.WindowSizeChangedEventHandler'
     _iid_ = Guid('{5c21c742-2ced-4fd9-ba38-7118d40e966b}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Core.WindowSizeChangedEventArgs) -> Void: ...
-class WindowVisibilityChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class WindowVisibilityChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Xaml.WindowVisibilityChangedEventHandler'
     _iid_ = Guid('{10406ad6-b090-4a4a-b2ad-d682df27130f}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Core.VisibilityChangedEventArgs) -> Void: ...
 class XamlRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -5539,17 +5482,14 @@ class XamlRootChangedEventArgs(ComPtr):
     _classid_ = 'Windows.UI.Xaml.XamlRootChangedEventArgs'
 make_head(_module, 'AdaptiveTrigger')
 make_head(_module, 'Application')
-make_head(_module, 'ApplicationInitializationCallback')
 make_head(_module, 'ApplicationInitializationCallbackParams')
 make_head(_module, 'BindingFailedEventArgs')
-make_head(_module, 'BindingFailedEventHandler')
 make_head(_module, 'BringIntoViewOptions')
 make_head(_module, 'BringIntoViewRequestedEventArgs')
 make_head(_module, 'BrushTransition')
 make_head(_module, 'ColorPaletteResources')
 make_head(_module, 'CornerRadius')
 make_head(_module, 'CornerRadiusHelper')
-make_head(_module, 'CreateDefaultValueCallback')
 make_head(_module, 'DataContextChangedEventArgs')
 make_head(_module, 'DataTemplate')
 make_head(_module, 'DataTemplateKey')
@@ -5557,12 +5497,9 @@ make_head(_module, 'DebugSettings')
 make_head(_module, 'DependencyObject')
 make_head(_module, 'DependencyObjectCollection')
 make_head(_module, 'DependencyProperty')
-make_head(_module, 'DependencyPropertyChangedCallback')
 make_head(_module, 'DependencyPropertyChangedEventArgs')
-make_head(_module, 'DependencyPropertyChangedEventHandler')
 make_head(_module, 'DispatcherTimer')
 make_head(_module, 'DragEventArgs')
-make_head(_module, 'DragEventHandler')
 make_head(_module, 'DragOperationDeferral')
 make_head(_module, 'DragStartingEventArgs')
 make_head(_module, 'DragUI')
@@ -5574,10 +5511,8 @@ make_head(_module, 'EffectiveViewportChangedEventArgs')
 make_head(_module, 'ElementFactoryGetArgs')
 make_head(_module, 'ElementFactoryRecycleArgs')
 make_head(_module, 'ElementSoundPlayer')
-make_head(_module, 'EnteredBackgroundEventHandler')
 make_head(_module, 'EventTrigger')
 make_head(_module, 'ExceptionRoutedEventArgs')
-make_head(_module, 'ExceptionRoutedEventHandler')
 make_head(_module, 'FrameworkElement')
 make_head(_module, 'FrameworkTemplate')
 make_head(_module, 'FrameworkView')
@@ -5758,28 +5693,23 @@ make_head(_module, 'IWindowCreatedEventArgs')
 make_head(_module, 'IWindowStatics')
 make_head(_module, 'IXamlRoot')
 make_head(_module, 'IXamlRootChangedEventArgs')
-make_head(_module, 'LeavingBackgroundEventHandler')
 make_head(_module, 'MediaFailedRoutedEventArgs')
 make_head(_module, 'PointHelper')
-make_head(_module, 'PropertyChangedCallback')
 make_head(_module, 'PropertyMetadata')
 make_head(_module, 'PropertyPath')
 make_head(_module, 'RectHelper')
 make_head(_module, 'ResourceDictionary')
 make_head(_module, 'RoutedEvent')
 make_head(_module, 'RoutedEventArgs')
-make_head(_module, 'RoutedEventHandler')
 make_head(_module, 'ScalarTransition')
 make_head(_module, 'Setter')
 make_head(_module, 'SetterBase')
 make_head(_module, 'SetterBaseCollection')
 make_head(_module, 'SizeChangedEventArgs')
-make_head(_module, 'SizeChangedEventHandler')
 make_head(_module, 'SizeHelper')
 make_head(_module, 'StateTrigger')
 make_head(_module, 'StateTriggerBase')
 make_head(_module, 'Style')
-make_head(_module, 'SuspendingEventHandler')
 make_head(_module, 'TargetPropertyPath')
 make_head(_module, 'Thickness')
 make_head(_module, 'ThicknessHelper')
@@ -5790,19 +5720,13 @@ make_head(_module, 'TriggerCollection')
 make_head(_module, 'UIElement')
 make_head(_module, 'UIElementWeakCollection')
 make_head(_module, 'UnhandledExceptionEventArgs')
-make_head(_module, 'UnhandledExceptionEventHandler')
 make_head(_module, 'Vector3Transition')
 make_head(_module, 'VisualState')
 make_head(_module, 'VisualStateChangedEventArgs')
-make_head(_module, 'VisualStateChangedEventHandler')
 make_head(_module, 'VisualStateGroup')
 make_head(_module, 'VisualStateManager')
 make_head(_module, 'VisualTransition')
 make_head(_module, 'Window')
-make_head(_module, 'WindowActivatedEventHandler')
-make_head(_module, 'WindowClosedEventHandler')
 make_head(_module, 'WindowCreatedEventArgs')
-make_head(_module, 'WindowSizeChangedEventHandler')
-make_head(_module, 'WindowVisibilityChangedEventHandler')
 make_head(_module, 'XamlRoot')
 make_head(_module, 'XamlRootChangedEventArgs')

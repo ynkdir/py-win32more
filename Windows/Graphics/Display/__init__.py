@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -329,12 +329,9 @@ class DisplayProperties(ComPtr, metaclass=_DisplayProperties_Meta_):
     _DisplayProperties_Meta_.ResolutionScale = property(get_ResolutionScale.__wrapped__, None)
     _DisplayProperties_Meta_.LogicalDpi = property(get_LogicalDpi.__wrapped__, None)
     _DisplayProperties_Meta_.StereoEnabled = property(get_StereoEnabled.__wrapped__, None)
-class DisplayPropertiesEventHandler(ComPtr):
-    # System.MulticastDelegate
+class DisplayPropertiesEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Graphics.Display.DisplayPropertiesEventHandler'
     _iid_ = Guid('{dbdd8b01-f1a1-46d1-9ee3-543bcc995980}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class DisplayServices(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -700,7 +697,6 @@ make_head(_module, 'DisplayEnhancementOverrideCapabilities')
 make_head(_module, 'DisplayEnhancementOverrideCapabilitiesChangedEventArgs')
 make_head(_module, 'DisplayInformation')
 make_head(_module, 'DisplayProperties')
-make_head(_module, 'DisplayPropertiesEventHandler')
 make_head(_module, 'DisplayServices')
 make_head(_module, 'IAdvancedColorInfo')
 make_head(_module, 'IBrightnessOverride')

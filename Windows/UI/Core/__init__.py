@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -709,12 +709,9 @@ class CoreWindowResizeManager(ComPtr):
     @winrt_classmethod
     def GetForCurrentView(cls: Windows.UI.Core.ICoreWindowResizeManagerStatics) -> Windows.UI.Core.CoreWindowResizeManager: ...
     ShouldWaitForLayoutCompletion = property(get_ShouldWaitForLayoutCompletion, put_ShouldWaitForLayoutCompletion)
-class DispatchedHandler(ComPtr):
-    # System.MulticastDelegate
+class DispatchedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Core.DispatchedHandler'
     _iid_ = Guid('{d1f276c4-98d8-4636-bf49-eb79507548e9}')
-    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class IAcceleratorKeyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1423,12 +1420,9 @@ class IWindowSizeChangedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_Size(self) -> Windows.Foundation.Size: ...
     Size = property(get_Size, None)
-class IdleDispatchedHandler(ComPtr):
-    # System.MulticastDelegate
+class IdleDispatchedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.UI.Core.IdleDispatchedHandler'
     _iid_ = Guid('{a42b0c24-7f21-4abc-99c1-8f01007f0880}')
-    @winrt_commethod(3)
     def Invoke(self, e: Windows.UI.Core.IdleDispatchedHandlerArgs) -> Void: ...
 class IdleDispatchedHandlerArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1578,7 +1572,6 @@ make_head(_module, 'CoreWindowEventArgs')
 make_head(_module, 'CoreWindowFlyout')
 make_head(_module, 'CoreWindowPopupShowingEventArgs')
 make_head(_module, 'CoreWindowResizeManager')
-make_head(_module, 'DispatchedHandler')
 make_head(_module, 'IAcceleratorKeyEventArgs')
 make_head(_module, 'IAcceleratorKeyEventArgs2')
 make_head(_module, 'IAutomationProviderRequestedEventArgs')
@@ -1631,7 +1624,6 @@ make_head(_module, 'ITouchHitTestingEventArgs')
 make_head(_module, 'IVisibilityChangedEventArgs')
 make_head(_module, 'IWindowActivatedEventArgs')
 make_head(_module, 'IWindowSizeChangedEventArgs')
-make_head(_module, 'IdleDispatchedHandler')
 make_head(_module, 'IdleDispatchedHandlerArgs')
 make_head(_module, 'InputEnabledEventArgs')
 make_head(_module, 'KeyEventArgs')

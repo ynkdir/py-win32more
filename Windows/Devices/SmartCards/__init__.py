@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.SmartCards
 import Windows.Foundation
@@ -1376,12 +1376,9 @@ class SmartCardPinResetDeferral(ComPtr):
     _classid_ = 'Windows.Devices.SmartCards.SmartCardPinResetDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Devices.SmartCards.ISmartCardPinResetDeferral) -> Void: ...
-class SmartCardPinResetHandler(ComPtr):
-    # System.MulticastDelegate
+class SmartCardPinResetHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Devices.SmartCards.SmartCardPinResetHandler'
     _iid_ = Guid('{138d5e40-f3bc-4a5c-b41d-4b4ef684e237}')
-    @winrt_commethod(3)
     def Invoke(self, sender: Windows.Devices.SmartCards.SmartCardProvisioning, request: Windows.Devices.SmartCards.SmartCardPinResetRequest) -> Void: ...
 class SmartCardPinResetRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1588,7 +1585,6 @@ make_head(_module, 'SmartCardEmulatorConnectionDeactivatedEventArgs')
 make_head(_module, 'SmartCardEmulatorConnectionProperties')
 make_head(_module, 'SmartCardPinPolicy')
 make_head(_module, 'SmartCardPinResetDeferral')
-make_head(_module, 'SmartCardPinResetHandler')
 make_head(_module, 'SmartCardPinResetRequest')
 make_head(_module, 'SmartCardProvisioning')
 make_head(_module, 'SmartCardReader')

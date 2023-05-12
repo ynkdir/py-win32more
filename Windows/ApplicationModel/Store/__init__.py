@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Store
 import Windows.Foundation
@@ -410,12 +410,9 @@ class IUnfulfilledConsumable(ComPtr):
     ProductId = property(get_ProductId, None)
     TransactionId = property(get_TransactionId, None)
     OfferId = property(get_OfferId, None)
-class LicenseChangedEventHandler(ComPtr):
-    # System.MulticastDelegate
+class LicenseChangedEventHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.ApplicationModel.Store.LicenseChangedEventHandler'
     _iid_ = Guid('{d4a50255-1369-4c36-832f-6f2d88e3659b}')
-    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class LicenseInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -612,7 +609,6 @@ make_head(_module, 'IProductPurchaseDisplayProperties')
 make_head(_module, 'IProductPurchaseDisplayPropertiesFactory')
 make_head(_module, 'IPurchaseResults')
 make_head(_module, 'IUnfulfilledConsumable')
-make_head(_module, 'LicenseChangedEventHandler')
 make_head(_module, 'LicenseInformation')
 make_head(_module, 'ListingInformation')
 make_head(_module, 'ProductLicense')

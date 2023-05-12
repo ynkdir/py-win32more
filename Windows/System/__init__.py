@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel
 import Windows.Foundation
@@ -388,12 +388,9 @@ class DispatcherQueueController(ComPtr):
     @winrt_classmethod
     def CreateOnDedicatedThread(cls: Windows.System.IDispatcherQueueControllerStatics) -> Windows.System.DispatcherQueueController: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
-class DispatcherQueueHandler(ComPtr):
-    # System.MulticastDelegate
+class DispatcherQueueHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.System.DispatcherQueueHandler'
     _iid_ = Guid('{dfa2dc9c-1a2d-4917-98f2-939af1d6e0c8}')
-    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 DispatcherQueuePriority = Int32
 DispatcherQueuePriority_Low: DispatcherQueuePriority = -10
@@ -2163,7 +2160,6 @@ make_head(_module, 'AppUriHandlerRegistrationManager')
 make_head(_module, 'DateTimeSettings')
 make_head(_module, 'DispatcherQueue')
 make_head(_module, 'DispatcherQueueController')
-make_head(_module, 'DispatcherQueueHandler')
 make_head(_module, 'DispatcherQueueShutdownStartingEventArgs')
 make_head(_module, 'DispatcherQueueTimer')
 make_head(_module, 'FolderLauncherOptions')

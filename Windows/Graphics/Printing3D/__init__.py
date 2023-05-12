@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -646,12 +646,9 @@ class Print3DTaskSourceRequestedArgs(ComPtr):
     _classid_ = 'Windows.Graphics.Printing3D.Print3DTaskSourceRequestedArgs'
     @winrt_mixinmethod
     def SetSource(self: Windows.Graphics.Printing3D.IPrint3DTaskSourceRequestedArgs, source: Windows.Graphics.Printing3D.Printing3D3MFPackage) -> Void: ...
-class Print3DTaskSourceRequestedHandler(ComPtr):
-    # System.MulticastDelegate
+class Print3DTaskSourceRequestedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Graphics.Printing3D.Print3DTaskSourceRequestedHandler'
     _iid_ = Guid('{e9175e70-c917-46de-bb51-d9a94db3711f}')
-    @winrt_commethod(3)
     def Invoke(self, args: Windows.Graphics.Printing3D.Print3DTaskSourceRequestedArgs) -> Void: ...
 class Printing3D3MFPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1186,7 +1183,6 @@ make_head(_module, 'Print3DTaskRequest')
 make_head(_module, 'Print3DTaskRequestedEventArgs')
 make_head(_module, 'Print3DTaskSourceChangedEventArgs')
 make_head(_module, 'Print3DTaskSourceRequestedArgs')
-make_head(_module, 'Print3DTaskSourceRequestedHandler')
 make_head(_module, 'Printing3D3MFPackage')
 make_head(_module, 'Printing3DBaseMaterial')
 make_head(_module, 'Printing3DBaseMaterialGroup')

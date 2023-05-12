@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -22,12 +22,9 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class HostMessageReceivedCallback(ComPtr):
-    # System.MulticastDelegate
+class HostMessageReceivedCallback(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Security.Isolation.HostMessageReceivedCallback'
     _iid_ = Guid('{faf26ffa-8ce1-4cc1-b278-322d31a5e4a3}')
-    @winrt_commethod(3)
     def Invoke(self, receiverId: Guid, message: Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
 class IIsolatedWindowsEnvironment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -806,14 +803,10 @@ class IsolatedWindowsHostMessenger(ComPtr):
     def PostMessageToReceiver(cls: Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics, receiverId: Guid, message: Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
     @winrt_classmethod
     def GetFileId(cls: Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics, filePath: WinRT_String) -> Guid: ...
-class MessageReceivedCallback(ComPtr):
-    # System.MulticastDelegate
+class MessageReceivedCallback(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.Security.Isolation.MessageReceivedCallback'
     _iid_ = Guid('{f5b4c8ff-1d9d-4995-9fea-4d15257c0757}')
-    @winrt_commethod(3)
     def Invoke(self, receiverId: Guid, message: Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
-make_head(_module, 'HostMessageReceivedCallback')
 make_head(_module, 'IIsolatedWindowsEnvironment')
 make_head(_module, 'IIsolatedWindowsEnvironment2')
 make_head(_module, 'IIsolatedWindowsEnvironment3')
@@ -863,4 +856,3 @@ make_head(_module, 'IsolatedWindowsEnvironmentStartProcessResult')
 make_head(_module, 'IsolatedWindowsEnvironmentTelemetryParameters')
 make_head(_module, 'IsolatedWindowsEnvironmentUserInfo')
 make_head(_module, 'IsolatedWindowsHostMessenger')
-make_head(_module, 'MessageReceivedCallback')

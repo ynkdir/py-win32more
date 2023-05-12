@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
+from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.System.Threading
@@ -84,26 +84,17 @@ class ThreadPoolTimer(ComPtr):
     def CreateTimerWithCompletion(cls: Windows.System.Threading.IThreadPoolTimerStatics, handler: Windows.System.Threading.TimerElapsedHandler, delay: Windows.Foundation.TimeSpan, destroyed: Windows.System.Threading.TimerDestroyedHandler) -> Windows.System.Threading.ThreadPoolTimer: ...
     Period = property(get_Period, None)
     Delay = property(get_Delay, None)
-class TimerDestroyedHandler(ComPtr):
-    # System.MulticastDelegate
+class TimerDestroyedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.System.Threading.TimerDestroyedHandler'
     _iid_ = Guid('{34ed19fa-8384-4eb9-8209-fb5094eeec35}')
-    @winrt_commethod(3)
     def Invoke(self, timer: Windows.System.Threading.ThreadPoolTimer) -> Void: ...
-class TimerElapsedHandler(ComPtr):
-    # System.MulticastDelegate
+class TimerElapsedHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.System.Threading.TimerElapsedHandler'
     _iid_ = Guid('{faaea667-fbeb-49cb-adb2-71184c556e43}')
-    @winrt_commethod(3)
     def Invoke(self, timer: Windows.System.Threading.ThreadPoolTimer) -> Void: ...
-class WorkItemHandler(ComPtr):
-    # System.MulticastDelegate
+class WorkItemHandler(MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
-    _classid_ = 'Windows.System.Threading.WorkItemHandler'
     _iid_ = Guid('{1d1a8b8b-fa66-414f-9cbd-b65fc99d17fa}')
-    @winrt_commethod(3)
     def Invoke(self, operation: Windows.Foundation.IAsyncAction) -> Void: ...
 WorkItemOptions = UInt32
 WorkItemOptions_None: WorkItemOptions = 0
@@ -117,6 +108,3 @@ make_head(_module, 'IThreadPoolTimer')
 make_head(_module, 'IThreadPoolTimerStatics')
 make_head(_module, 'ThreadPool')
 make_head(_module, 'ThreadPoolTimer')
-make_head(_module, 'TimerDestroyedHandler')
-make_head(_module, 'TimerElapsedHandler')
-make_head(_module, 'WorkItemHandler')
