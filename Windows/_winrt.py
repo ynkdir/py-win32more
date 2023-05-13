@@ -44,7 +44,7 @@ T = TypeVar("T")
 
 def generic_get_type_hints(cls, prototype, use_generic_alias=False):
     hints = get_type_hints(prototype)
-    if is_generic_class(cls):
+    if is_generic_alias(cls):
         hints = generic_map_types(cls, hints, use_generic_alias)
     return hints
 
@@ -55,7 +55,7 @@ def generic_map_types(generic_alias, hints, use_generic_alias=False):
     param_to_type = dict(zip(generic_parameters, generic_args))
     newhints = {}
     for k, t in hints.items():
-        if is_generic_class(t):
+        if is_generic_alias(t):
             newhints[k] = generic_map_class(t, param_to_type, use_generic_alias)
         else:
             newhints[k] = param_to_type.get(t, t)
@@ -65,7 +65,7 @@ def generic_map_types(generic_alias, hints, use_generic_alias=False):
 def generic_map_class(generic_alias, param_to_type, use_generic_alias=False):
     args = []
     for t in generic_alias.__args__:
-        if is_generic_class(t):
+        if is_generic_alias(t):
             args.append(generic_map_class(t, param_to_type))
         else:
             args.append(param_to_type.get(t, t))
@@ -105,7 +105,7 @@ class WinrtMethod:
         params = [(1, name) for name in hints.keys()]
         if restype is not Void:
             params.append((1, "return"))
-            if is_generic_class(restype):
+            if is_generic_alias(restype):
                 return_type = POINTER(restype.__origin__)
             else:
                 return_type = POINTER(restype)
@@ -134,7 +134,7 @@ class WinrtMethod:
         for i, v in enumerate(args):
             if i in self.generic_hints:
                 if callable(v) and is_delegate_class(self.generic_hints[i]):
-                    cv = self.generic_hints[i].CreateInstance(v)
+                    cv = self.generic_hints[i]().CreateInstance(v)
                 else:
                     cv = easycast(v, self.generic_hints[i])
             else:
@@ -144,7 +144,7 @@ class WinrtMethod:
         for k, v in kwargs.items():
             if k in self.generic_hints:
                 if callable(v) and is_delegate_class(self.generic_hints[k]):
-                    cv = self.generic_hints[k].CreateInstance(v)
+                    cv = self.generic_hints[k]().CreateInstance(v)
                 else:
                     cv = easycast(v, self.generic_hints[k])
             else:
@@ -190,7 +190,7 @@ def winrt_mixinmethod(prototype):
         hints = get_type_hints(prototype)
         interface_class = hints["self"]
         interface = interface_class()
-        if is_generic_class(interface_class):
+        if is_generic_alias(interface_class):
             iid = _ro_get_parameterized_type_instance_iid(interface_class)
         else:
             iid = interface_class._iid_
@@ -206,7 +206,7 @@ def winrt_mixinmethod(prototype):
 
 
 # Cls[T]?
-def is_generic_class(cls):
+def is_generic_alias(cls):
     return isinstance(cls, _GenericAlias)
 
 
@@ -215,13 +215,8 @@ def is_generic_instance(obj):
     return isinstance(obj, Generic)
 
 
-# Cls of Cls[T]?
-def is_generic_subclass(cls):
-    return issubclass(cls, Generic)
-
-
 def is_delegate_class(cls):
-    if is_generic_class(cls):
+    if is_generic_alias(cls):
         cls = cls.__origin__
     return issubclass(cls, MulticastDelegate)
 
@@ -400,22 +395,14 @@ class MulticastDelegate(ComPtr):
 
     _keep_reference_in_python_world_ = {}
 
-    # FIXME: Workaround to get generic class __args__ in class method.
-    @classmethod
-    def __class_getitem__(cls, key):
-        generic_alias = super().__class_getitem__(key)
-        generic_alias.__generic_key = key
-        return generic_alias
-
-    # FIXME: With GenericClass[type].CreateInstance(), cls is passed as GenericClass instead of GenericClass[type].
-    @classmethod
-    def CreateInstance(cls, _callback):
-        if is_generic_subclass(cls):
-            cls = cls[cls.__generic_key]
-            self = cls()
+    # FIXME: How to get GenericClass[T].__args__ in class method?
+    # @classmethod
+    def CreateInstance(self, _callback):
+        if is_generic_instance(self):
+            cls = self.__orig_class__
             self._iid_ = _ro_get_parameterized_type_instance_iid(cls)
         else:
-            self = cls()
+            cls = self.__class__
         self._callback = _callback
         self._comobj = MulticastDelegateImpl(self, cls, self.__class__.Invoke)
         self.value = addressof(self._comobj)

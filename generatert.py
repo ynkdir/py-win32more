@@ -1463,7 +1463,7 @@ class PyGenerator:
         if td.is_generic:
             generic_parameters = td.format_generic_parameters()
             name = td.generic_strip_suffix(td.name)
-            base = f"MulticastDelegate, Generic[{generic_parameters}]"
+            base = f"Generic[{generic_parameters}], MulticastDelegate"
         else:
             name = td.name
             base = "MulticastDelegate"

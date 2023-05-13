@@ -170,7 +170,7 @@ class IVector(Generic[T], ComPtr):
     @winrt_commethod(17)
     def ReplaceAll(self, items: POINTER(T)) -> Void: ...
     Size = property(get_Size, None)
-class MapChangedEventHandler(MulticastDelegate, Generic[K, V]):
+class MapChangedEventHandler(Generic[K, V], MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{179517f3-94ee-41f8-bddc-768a895544f3}')
     def Invoke(self, sender: Windows.Foundation.Collections.IObservableMap[K, V], event: Windows.Foundation.Collections.IMapChangedEventArgs[K]) -> Void: ...
@@ -255,7 +255,7 @@ class ValueSet(ComPtr):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]: ...
     Size = property(get_Size, None)
-class VectorChangedEventHandler(MulticastDelegate, Generic[T]):
+class VectorChangedEventHandler(Generic[T], MulticastDelegate):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0c051752-9fbf-4c70-aa0c-0e4c82d9a761}')
     def Invoke(self, sender: Windows.Foundation.Collections.IObservableVector[T], event: Windows.Foundation.Collections.IVectorChangedEventArgs) -> Void: ...
