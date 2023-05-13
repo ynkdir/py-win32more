@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import uuid
 from ctypes import POINTER, WINFUNCTYPE, Structure, WinError, addressof, c_void_p, cast, pointer, py_object, wstring_at
 from typing import Generic, TypeVar, _GenericAlias
@@ -436,3 +437,12 @@ class MulticastDelegate(ComPtr):
 
     def _Invoke(self, *args):
         return self._callback(*args)
+
+
+def IAsyncOperation___await__(self):
+    event = asyncio.Event()
+    self.Completed = lambda asyncInfo, asyncStatus: event.set()
+    yield from event.wait().__await__()
+    r = self.GetResults()
+    self.Release()
+    return r

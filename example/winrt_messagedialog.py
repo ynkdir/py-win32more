@@ -4,12 +4,8 @@ from contextlib import ExitStack
 from ctypes import (
     WinError,
 )
-from typing import Generic, TypeVar
 
 from Windows import FAILED
-from Windows.Foundation import (
-    IAsyncOperation,
-)
 from Windows.UI.Popups import MessageDialog
 from Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
@@ -17,22 +13,6 @@ from Windows.Win32.System.WinRT import (
     RoUninitialize,
 )
 from Windows.Win32.UI.Shell import IInitializeWithWindow
-
-T = TypeVar("T")
-
-
-class AwaitAsyncOperation(Generic[T]):
-    def __init__(self, iasync: IAsyncOperation[T]):
-        self.iasync = iasync
-
-    # TODO: Move to IAsyncOperation
-    def __await__(self) -> T:
-        event = asyncio.Event()
-        self.iasync.Completed = lambda asyncInfo, asyncStatus: event.set()
-        yield from event.wait().__await__()
-        r = self.iasync.GetResults()
-        self.iasync.Release()
-        return r
 
 
 def initialize_with_window(obj, hwnd):
@@ -51,9 +31,7 @@ async def winrt_dialog(hwnd):
 
         initialize_with_window(dialog, hwnd)
 
-        iasync = dialog.ShowAsync()
-
-        uicommand = await AwaitAsyncOperation(iasync)
+        uicommand = await dialog.ShowAsync()
         defer.callback(uicommand.Release)
 
         print(uicommand, uicommand.Label)

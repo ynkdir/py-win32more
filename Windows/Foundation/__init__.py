@@ -158,6 +158,9 @@ class IAsyncOperation(Generic[TResult], ComPtr):
     @winrt_commethod(8)
     def GetResults(self) -> TResult: ...
     Completed = property(get_Completed, put_Completed)
+    def __await__(self):
+        from Windows._winrt import IAsyncOperation___await__
+        return IAsyncOperation___await__(self)
 class IClosable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IClosable'

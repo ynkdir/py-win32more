@@ -1284,13 +1284,13 @@ class PyGenerator:
         writer = StringIO()
         if td.is_generic:
             generic_parameters = td.format_generic_parameters()
-            name = td.generic_strip_suffix(td.name)
+            classname = td.generic_strip_suffix(td.name)
             base = f"Generic[{generic_parameters}], ComPtr"
         else:
-            name = td.name
+            classname = td.name
             base = "ComPtr"
         if self.com_has_classproperty(td):
-            metaclass = f"_{name}_Meta_"
+            metaclass = f"_{classname}_Meta_"
             metaclass_args = f", metaclass={metaclass}"
             writer.write(f"class {metaclass}(ComPtr.__class__):\n")
             writer.write("    pass\n")
@@ -1298,13 +1298,13 @@ class PyGenerator:
             metaclass = ""
             metaclass_args = ""
         extends = self.com_base_type(td)
-        writer.write(f"class {name}({base}{metaclass_args}):\n")
+        writer.write(f"class {classname}({base}{metaclass_args}):\n")
         writer.write(f"    extends: {extends}\n")
         for ii in td.interface_implementations:
             if ii.custom_attributes.has_default():
                 writer.write(f"    default_interface: {ii.generic_fullname}\n")
                 break
-        writer.write(f"    _classid_ = '{td.namespace}.{name}'\n")
+        writer.write(f"    _classid_ = '{td.namespace}.{classname}'\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
@@ -1360,6 +1360,10 @@ class PyGenerator:
                 writer.write(f"    {metaclass}.{name} = property({getter}, {setter})\n")
             else:
                 writer.write(f"    {name} = property({attrs['get']}, {attrs['put']})\n")
+        if f"{td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperation":
+            writer.write("    def __await__(self):\n")
+            writer.write("        from Windows._winrt import IAsyncOperation___await__\n")
+            writer.write("        return IAsyncOperation___await__(self)\n")
         return writer.getvalue()
 
     def com_base_type(self, td: TypeDefinition) -> str:
