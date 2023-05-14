@@ -444,5 +444,9 @@ def IAsyncOperation___await__(self):
     self.Completed = lambda asyncInfo, asyncStatus: event.set()
     yield from event.wait().__await__()
     r = self.GetResults()
-    self.Release()
     return r
+
+def IAsyncAction___await__(self):
+    event = asyncio.Event()
+    self.Completed = lambda asyncInfo, asyncStatus: event.set()
+    yield from event.wait().__await__()

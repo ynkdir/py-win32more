@@ -98,6 +98,9 @@ class IAsyncAction(ComPtr):
     @winrt_commethod(8)
     def GetResults(self) -> Void: ...
     Completed = property(get_Completed, put_Completed)
+    def __await__(self):
+        from Windows._winrt import IAsyncAction___await__
+        return IAsyncAction___await__(self)
 class IAsyncActionWithProgress(Generic[TProgress], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncActionWithProgress'
@@ -114,6 +117,9 @@ class IAsyncActionWithProgress(Generic[TProgress], ComPtr):
     def GetResults(self) -> Void: ...
     Progress = property(get_Progress, put_Progress)
     Completed = property(get_Completed, put_Completed)
+    def __await__(self):
+        from Windows._winrt import IAsyncAction___await__
+        return IAsyncAction___await__(self)
 class IAsyncInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncInfo'
@@ -147,6 +153,9 @@ class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr):
     def GetResults(self) -> TResult: ...
     Progress = property(get_Progress, put_Progress)
     Completed = property(get_Completed, put_Completed)
+    def __await__(self):
+        from Windows._winrt import IAsyncOperation___await__
+        return IAsyncOperation___await__(self)
 class IAsyncOperation(Generic[TResult], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncOperation'

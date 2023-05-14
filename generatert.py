@@ -1364,6 +1364,18 @@ class PyGenerator:
             writer.write("    def __await__(self):\n")
             writer.write("        from Windows._winrt import IAsyncOperation___await__\n")
             writer.write("        return IAsyncOperation___await__(self)\n")
+        elif f"{td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperationWithProgress":
+            writer.write("    def __await__(self):\n")
+            writer.write("        from Windows._winrt import IAsyncOperation___await__\n")
+            writer.write("        return IAsyncOperation___await__(self)\n")
+        elif f"{td.namespace}.{classname}" == "Windows.Foundation.IAsyncAction":
+            writer.write("    def __await__(self):\n")
+            writer.write("        from Windows._winrt import IAsyncAction___await__\n")
+            writer.write("        return IAsyncAction___await__(self)\n")
+        elif f"{td.namespace}.{classname}" == "Windows.Foundation.IAsyncActionWithProgress":
+            writer.write("    def __await__(self):\n")
+            writer.write("        from Windows._winrt import IAsyncAction___await__\n")
+            writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
 
     def com_base_type(self, td: TypeDefinition) -> str:
