@@ -11,7 +11,16 @@ from ctypes import (
     wstring_at,
 )
 
-from Windows import EasyCastStructure, ForeignFunction, Int16, UInt16, press
+from Windows import (
+    EasyCastStructure,
+    ForeignFunction,
+    Int16,
+    UInt16,
+    Void,
+    cfunctype_pointer,
+    press,
+    winfunctype_pointer,
+)
 
 
 def functype(prototype):
@@ -105,6 +114,68 @@ class TestEasyCast(unittest.TestCase):
         s.p = a
         self.assertIsInstance(s.p, int)
         self.assertEqual(s.p, addressof(a))
+
+    def test_callable_to_cfunctype(self):
+        @press
+        @cfunctype_pointer
+        def f() -> Void: ...
+
+        @functype
+        def g(f: f) -> py_object:
+            return f
+
+        def h():
+            pass
+
+        r = g(h)
+        self.assertTrue(bool(r))
+
+        r = g(lambda: None)
+        self.assertTrue(bool(r))
+
+    def test_callable_to_winfunctype(self):
+        @press
+        @winfunctype_pointer
+        def f() -> Void: ...
+
+        @functype
+        def g(f: f) -> py_object:
+            return f
+
+        def h():
+            pass
+
+        r = g(h)
+        self.assertTrue(bool(r))
+
+        r = g(lambda: None)
+        self.assertTrue(bool(r))
+
+    def test_none_to_cfunctype(self):
+        @press
+        @cfunctype_pointer
+        def f() -> Void:
+            ...
+
+        @functype
+        def g(f: f) -> py_object:
+            return f
+
+        r = g(None)
+        self.assertFalse(bool(r))
+
+    def test_none_to_winfunctype(self):
+        @press
+        @winfunctype_pointer
+        def f() -> Void:
+            ...
+
+        @functype
+        def g(f: f) -> py_object:
+            return f
+
+        r = g(None)
+        self.assertFalse(bool(r))
 
 
 if __name__ == "__main__":

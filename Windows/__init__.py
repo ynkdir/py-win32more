@@ -30,6 +30,7 @@ from ctypes import (
     pointer,
     sizeof,
     windll,
+    _CFuncPtr,
 )
 
 if "(arm64)" in sys.version.lower():
@@ -146,6 +147,13 @@ def easycast(obj, type_):
             if c_func is not None:
                 obj = c_func(obj)
             return cast(obj, type_)
+    if issubclass(type_, _CFuncPtr):
+        if isinstance(type_, _CFuncPtr):
+            return obj
+        elif callable(obj):
+            return type_(obj)
+        elif obj is None:
+            return type_()
     return obj
 
 
