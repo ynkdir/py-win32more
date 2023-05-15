@@ -370,6 +370,11 @@ ESimWatcherStatus_Started: ESimWatcherStatus = 1
 ESimWatcherStatus_EnumerationCompleted: ESimWatcherStatus = 2
 ESimWatcherStatus_Stopping: ESimWatcherStatus = 3
 ESimWatcherStatus_Stopped: ESimWatcherStatus = 4
+class FdnAccessManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.FdnAccessManager'
+    @winrt_classmethod
+    def RequestUnlockAsync(cls: Windows.Networking.NetworkOperators.IFdnAccessManagerStatics, contactListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class HotspotAuthenticationContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Networking.NetworkOperators.IHotspotAuthenticationContext
@@ -694,6 +699,12 @@ class IESimWatcher(ComPtr):
     @winrt_commethod(18)
     def remove_Updated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+class IFdnAccessManagerStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IFdnAccessManagerStatics'
+    _iid_ = Guid('{f2aa4395-f1e6-4319-aa3e-477ca64b2bdf}')
+    @winrt_commethod(6)
+    def RequestUnlockAsync(self, contactListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IHotspotAuthenticationContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IHotspotAuthenticationContext'
@@ -3127,6 +3138,7 @@ class NetworkOperatorTetheringOperationResult(ComPtr):
     def get_AdditionalErrorMessage(self: Windows.Networking.NetworkOperators.INetworkOperatorTetheringOperationResult) -> WinRT_String: ...
     Status = property(get_Status, None)
     AdditionalErrorMessage = property(get_AdditionalErrorMessage, None)
+NetworkOperatorsFdnContract: UInt32 = 65536
 NetworkRegistrationState = Int32
 NetworkRegistrationState_None: NetworkRegistrationState = 0
 NetworkRegistrationState_Deregistered: NetworkRegistrationState = 1
@@ -3296,6 +3308,7 @@ make_head(_module, 'ESimRemovedEventArgs')
 make_head(_module, 'ESimServiceInfo')
 make_head(_module, 'ESimUpdatedEventArgs')
 make_head(_module, 'ESimWatcher')
+make_head(_module, 'FdnAccessManager')
 make_head(_module, 'HotspotAuthenticationContext')
 make_head(_module, 'HotspotAuthenticationEventDetails')
 make_head(_module, 'HotspotCredentialsAuthenticationResult')
@@ -3316,6 +3329,7 @@ make_head(_module, 'IESimRemovedEventArgs')
 make_head(_module, 'IESimServiceInfo')
 make_head(_module, 'IESimUpdatedEventArgs')
 make_head(_module, 'IESimWatcher')
+make_head(_module, 'IFdnAccessManagerStatics')
 make_head(_module, 'IHotspotAuthenticationContext')
 make_head(_module, 'IHotspotAuthenticationContext2')
 make_head(_module, 'IHotspotAuthenticationContextStatics')
