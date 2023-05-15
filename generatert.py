@@ -873,6 +873,9 @@ class MethodDefinition:
         types = self.signature.parameter_types
         return [(pa.name, types[pa.sequence_number - 1]) for pa in self.parameters if pa.sequence_number != 0]
 
+    def get_parameter_names(self) -> list[str]:
+        return [pa.name for pa in self.parameters if pa.sequence_number != 0]
+
 
 class MethodSignature:
     def __init__(self, js: JsonType) -> None:
@@ -1392,16 +1395,19 @@ class PyGenerator:
     def com_static_types(self, td: TypeDefinition) -> str:
         return ", ".join(ca.fixed_arguments[0].value for ca in td.custom_attributes.get_static())
 
-    def com_get_interface_for_method(self, td: TypeDefinition, method_name: str) -> str:
+    def com_get_interface_for_method(self, td: TypeDefinition, method_name: str, params: list[str]) -> tuple[str, int]:
+        overload_count = 1
         for ii in td.interface_implementations:
             td_interface = ii["_typedef"]
             for md in td_interface.method_definitions:
                 if md.custom_attributes.has_overload():
-                    static_method_name = md.custom_attributes.get_overload()
+                    interface_method_name = md.custom_attributes.get_overload()
                 else:
-                    static_method_name = md.name
-                if static_method_name == method_name:
-                    return ii.generic_fullname
+                    interface_method_name = md.name
+                if interface_method_name == method_name:
+                    if md.get_parameter_names() == params:
+                        return ii.generic_fullname, overload_count
+                    overload_count += 1
         raise KeyError()
 
     def com_get_static_for_method(self, td: TypeDefinition, method_name: str) -> str:
@@ -1442,7 +1448,10 @@ class PyGenerator:
             params[0] = f"cls: {interface}"
         elif "Abstract" not in td.attributes:
             writer.write("    @winrt_mixinmethod\n")
-            interface = self.com_get_interface_for_method(td, method_name)
+            interface, overload_count = self.com_get_interface_for_method(td, method_name, md.get_parameter_names())
+            # FIXME: Workaround for overload method.
+            if overload_count > 1:
+                method_name = f"{method_name}_{overload_count}"
             params[0] = f"self: {interface}"
         else:
             vtbl_index = md["_vtbl_index"]
@@ -1484,7 +1493,7 @@ class PyGenerator:
             name = td.name
             base = "MulticastDelegate"
         writer.write(f"class {name}({base}):\n")
-        writer.write(f"    extends: Windows.Win32.System.Com.IUnknown\n")
+        writer.write("    extends: Windows.Win32.System.Com.IUnknown\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")

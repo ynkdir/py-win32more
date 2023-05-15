@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import re
 import uuid
 from ctypes import POINTER, WINFUNCTYPE, Structure, WinError, addressof, c_void_p, cast, pointer, py_object, wstring_at
 from typing import Generic, TypeVar, _GenericAlias
@@ -196,10 +197,15 @@ def winrt_mixinmethod(prototype):
         else:
             iid = interface_class._iid_
         hr = self.QueryInterface(iid, interface)
+        method_name = prototype.__name__
+        # FIXME: Workaround for overload method.
+        m = re.match(r"^(.*)_\d$", method_name)
+        if m:
+            method_name = m.group(1)
         if FAILED(hr):
             raise WinError(hr)
         try:
-            return getattr(interface, prototype.__name__)(*args, **kwargs)
+            return getattr(interface, method_name)(*args, **kwargs)
         finally:
             interface.Release()
 
@@ -445,6 +451,7 @@ def IAsyncOperation___await__(self):
     yield from event.wait().__await__()
     r = self.GetResults()
     return r
+
 
 def IAsyncAction___await__(self):
     event = asyncio.Event()
