@@ -241,7 +241,7 @@ def winrt_classmethod(prototype):
         try:
             return getattr(factory, prototype.__name__)(*args, **kwargs)
         finally:
-            factory.Release
+            factory.Release()
 
     return wrapper
 
