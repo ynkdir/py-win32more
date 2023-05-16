@@ -132,26 +132,20 @@ class WinrtMethod:
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        cargs = []
-        for i, v in enumerate(args):
-            if i in self.generic_hints:
-                if callable(v) and is_delegate_class(self.generic_hints[i]):
-                    cv = self.generic_hints[i]().CreateInstance(v)
-                else:
-                    cv = easycast(v, self.generic_hints[i])
-            else:
-                cv = v
-            cargs.append(cv)
-        ckwargs = {}
-        for k, v in kwargs.items():
+        def typecast(k, v):
             if k in self.generic_hints:
                 if callable(v) and is_delegate_class(self.generic_hints[k]):
-                    cv = self.generic_hints[k]().CreateInstance(v)
+                    return self.generic_hints[k]().CreateInstance(v)
+                # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
+                elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
+                    return self.generic_hints[k](v.value)
                 else:
-                    cv = easycast(v, self.generic_hints[k])
+                    return easycast(v, self.generic_hints[k])
             else:
-                cv = v
-            cargs.append(cv)
+                return v
+
+        cargs = [typecast(k, v) for k, v in enumerate(args)]
+        ckwargs = {k: typecast(k, v) for k, v in kwargs.items()}
         return cargs, ckwargs
 
     def make_result(self, result, _as_intptr):
@@ -226,6 +220,16 @@ def is_delegate_class(cls):
     if is_generic_alias(cls):
         cls = cls.__origin__
     return issubclass(cls, MulticastDelegate)
+
+
+def is_com_class(cls):
+    if is_generic_alias(cls):
+        cls = cls.__origin__
+    return issubclass(cls, ComPtr)
+
+
+def is_com_instance(obj):
+    return isinstance(obj, ComPtr)
 
 
 def winrt_classmethod(prototype):
