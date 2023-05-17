@@ -30,8 +30,6 @@ class TestWinrtStringMap(unittest.TestCase):
         m.Insert("key2", "value2")
         self.assertEqual(m.Lookup("key2"), "value2")
 
-        m.Release()
-
 
 if __name__ == "__main__":
     main()

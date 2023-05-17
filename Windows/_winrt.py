@@ -123,6 +123,9 @@ class WinrtMethod:
         cargs, ckwargs = self.make_args(args, kwargs)
         if self.restype is Void:
             result = None
+        elif is_com_class(self.restype):
+            result = self.restype(own=True)
+            ckwargs["return"] = pointer(result)
         else:
             result = self.restype()
             ckwargs["return"] = pointer(result)
@@ -135,10 +138,10 @@ class WinrtMethod:
         def typecast(k, v):
             if k in self.generic_hints:
                 if callable(v) and is_delegate_class(self.generic_hints[k]):
-                    return self.generic_hints[k]().CreateInstance(v)
+                    return self.generic_hints[k](own=True).CreateInstance(v)
                 # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    return self.generic_hints[k](v.value)
+                    return self.generic_hints[k](v.value, own=False)
                 else:
                     return easycast(v, self.generic_hints[k])
             else:
@@ -185,7 +188,7 @@ def winrt_mixinmethod(prototype):
     def wrapper(self, *args, **kwargs):
         hints = get_type_hints(prototype)
         interface_class = hints["self"]
-        interface = interface_class()
+        interface = interface_class(own=True)
         if is_generic_alias(interface_class):
             iid = _ro_get_parameterized_type_instance_iid(interface_class)
         else:
@@ -198,10 +201,7 @@ def winrt_mixinmethod(prototype):
         m = re.match(r"^(.*)_\d$", method_name)
         if m:
             method_name = m.group(1)
-        try:
-            return getattr(interface, method_name)(*args, **kwargs)
-        finally:
-            interface.Release()
+        return getattr(interface, method_name)(*args, **kwargs)
 
     return wrapper
 
@@ -238,10 +238,7 @@ def winrt_classmethod(prototype):
         hints = get_type_hints(prototype)
         factory_class = hints["cls"]
         factory = _ro_get_activation_factory(cls._classid_, factory_class)
-        try:
-            return getattr(factory, prototype.__name__)(*args, **kwargs)
-        finally:
-            factory.Release()
+        return getattr(factory, prototype.__name__)(*args, **kwargs)
 
     return wrapper
 
@@ -274,7 +271,7 @@ def _windows_get_string_raw_buffer(hs: HSTRING) -> str:
 
 def _ro_get_activation_factory(classid: str, factory_class: type[T]) -> T:
     hs = _windows_create_string(classid)
-    factory = factory_class()
+    factory = factory_class(own=True)
     hr = RoGetActivationFactory(hs, factory_class._iid_, factory)
     WindowsDeleteString(hs)
     if FAILED(hr):
@@ -284,7 +281,7 @@ def _ro_get_activation_factory(classid: str, factory_class: type[T]) -> T:
 
 def _ro_activate_instance(classid: str, cls: type[T]) -> T:
     hs = _windows_create_string(classid)
-    instance = cls()
+    instance = cls(own=True)
     hr = RoActivateInstance(hs, instance)
     WindowsDeleteString(hs)
     if FAILED(hr):
@@ -418,6 +415,7 @@ class MulticastDelegate(ComPtr):
         self._comobj = MulticastDelegateImpl(self, cls, self.__class__.Invoke)
         self.value = addressof(self._comobj)
         self._refcount = 0
+        self.AddRef()
         return self
 
     def QueryInterface(self, riid, ppvObject):
@@ -451,6 +449,7 @@ class MulticastDelegate(ComPtr):
 
 def IAsyncOperation___await__(self):
     event = asyncio.Event()
+    # FIXME: Seems to be not required to call asyncInfo.Release().  Where is documentation.
     self.Completed = lambda asyncInfo, asyncStatus: event.set()
     yield from event.wait().__await__()
     r = self.GetResults()

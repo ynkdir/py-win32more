@@ -53,7 +53,7 @@ def window_size_center(win, w, h):
     win.geometry(f"{w}x{h}+{x}+{y}")
 
 
-def main():
+def main2():
     root = tk.Tk()
     window_size_center(root, 1000, 400)
 
@@ -63,9 +63,6 @@ def main():
 
     # The call to winrt::init_apartment initializes COM; by default, in a multithreaded apartment.
     # winrt::init_apartment(apartment_type::single_threaded);
-    hr = RoInitialize(RO_INIT_SINGLETHREADED)
-    if FAILED(hr):
-        raise WinError(hr)
 
     # Initialize the XAML framework's core window for the current thread.
     WindowsXamlManager.InitializeForCurrentThread()
@@ -75,7 +72,7 @@ def main():
     desktopSource = DesktopWindowXamlSource.CreateInstance(None, None)
 
     # Get handle to the core window.
-    interop = IDesktopWindowXamlSourceNative()
+    interop = IDesktopWindowXamlSourceNative(own=True)
     hr = desktopSource.QueryInterface(IDesktopWindowXamlSourceNative._iid_, interop)
     if FAILED(hr):
         raise WinError(hr)
@@ -114,7 +111,13 @@ def main():
 
     root.mainloop()
 
-    # TODO: *.Release()
+
+def main():
+    hr = RoInitialize(RO_INIT_SINGLETHREADED)
+    if FAILED(hr):
+        raise WinError(hr)
+
+    main2()
 
     RoUninitialize()
 

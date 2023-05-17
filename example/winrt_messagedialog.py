@@ -1,6 +1,5 @@
 import asyncio
 import tkinter as tk
-from contextlib import ExitStack
 from ctypes import (
     WinError,
 )
@@ -16,32 +15,24 @@ from Windows.Win32.UI.Shell import IInitializeWithWindow
 
 
 def initialize_with_window(obj, hwnd):
-    ii = IInitializeWithWindow()
+    ii = IInitializeWithWindow(own=True)
     hr = obj.QueryInterface(IInitializeWithWindow._iid_, ii)
     if FAILED(hr):
         raise WinError(hr)
     ii.Initialize(hwnd)
-    ii.Release()
 
 
 async def winrt_dialog(hwnd):
-    with ExitStack() as defer:
-        dialog = MessageDialog.CreateWithTitle("This is WinRT MessageDialog", "WinRT MessageDialog")
-        defer.callback(dialog.Release)
+    dialog = MessageDialog.CreateWithTitle("This is WinRT MessageDialog", "WinRT MessageDialog")
 
-        initialize_with_window(dialog, hwnd)
+    initialize_with_window(dialog, hwnd)
 
-        uicommand = await dialog.ShowAsync()
-        defer.callback(uicommand.Release)
+    uicommand = await dialog.ShowAsync()
 
-        print(uicommand, uicommand.Label)
+    print(uicommand, uicommand.Label)
 
 
-async def main() -> None:
-    hr = RoInitialize(RO_INIT_SINGLETHREADED)
-    if FAILED(hr):
-        raise WinError(hr)
-
+async def main2() -> None:
     is_running = True
 
     def on_delete():
@@ -61,6 +52,14 @@ async def main() -> None:
         root.after(100, root.quit)
         root.mainloop()
         await asyncio.sleep(0)
+
+
+async def main() -> None:
+    hr = RoInitialize(RO_INIT_SINGLETHREADED)
+    if FAILED(hr):
+        raise WinError(hr)
+
+    await main2()
 
     RoUninitialize()
 
