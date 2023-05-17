@@ -73,7 +73,7 @@ class ComPtr(c_void_p):
         self._own = own
 
     def __del__(self):
-        if self and self._own:
+        if self and getattr(self, "_own", False):
             self.Release()
 
 
