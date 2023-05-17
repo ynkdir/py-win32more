@@ -10,6 +10,7 @@ from ctypes import (
     Array,
     Structure,
     Union,
+    _CFuncPtr,
     c_bool,
     c_byte,
     c_char_p,
@@ -30,7 +31,6 @@ from ctypes import (
     pointer,
     sizeof,
     windll,
-    _CFuncPtr,
 )
 
 if "(arm64)" in sys.version.lower():
@@ -66,8 +66,15 @@ Boolean = c_bool
 Void = None
 
 
+# FIXME: How to manage com reference count?  ContextManager style?
 class ComPtr(c_void_p):
-    pass
+    def __init__(self, value=None, own=False):
+        super().__init__(value)
+        self._own = own
+
+    def __del__(self):
+        if self and self._own:
+            self.Release()
 
 
 # to avoid auto conversion to str when struct.member access and function() result.
