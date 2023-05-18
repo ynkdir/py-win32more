@@ -6,6 +6,7 @@ from ctypes import (
 from pathlib import Path
 
 from Windows import FAILED
+from Windows.Foundation.Collections import StringMap
 from Windows.Storage import FileIO, PathIO, StorageFile
 from Windows.Win32.Foundation import WAIT_FAILED, WAIT_TIMEOUT
 from Windows.Win32.System.WinRT import (
@@ -65,6 +66,15 @@ class TestWinrt(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         RoUninitialize()
+
+    def test_stringmap(self):
+        m = StringMap.CreateInstance()
+
+        m.Insert("key1", "value1")
+        self.assertEqual(m.Lookup("key1"), "value1")
+
+        m.Insert("key2", "value2")
+        self.assertEqual(m.Lookup("key2"), "value2")
 
     def test_readfile(self):
         async def winrt_readfile():
