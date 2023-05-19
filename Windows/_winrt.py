@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 import re
 import uuid
-from ctypes import POINTER, WINFUNCTYPE, Structure, WinError, addressof, c_void_p, cast, pointer, py_object, wstring_at
+from ctypes import POINTER, WINFUNCTYPE, Structure, WinError, addressof, c_void_p, cast, pointer, py_object, wstring_at, Array
 from typing import Generic, TypeVar, _GenericAlias
 
 import Windows.Win32.System.Com

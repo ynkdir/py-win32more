@@ -147,10 +147,6 @@ class TType:
         elif self.kind == "Pointer" or self.kind == "Reference" or self.kind == "SZArray":
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "c_void_p"
-            elif self.type.kind == "Primitive" and self.type.name == "Byte":
-                return "c_char_p_no"  # safe?
-            elif self.type.kind == "Primitive" and self.type.name == "Char":
-                return "c_wchar_p_no"  # safe?
             elif self.type.is_struct:
                 return f"POINTER({self.type.fullname}_head)"
             else:

@@ -417,13 +417,13 @@ class IVpnInterfaceId(ComPtr):
     _classid_ = 'Windows.Networking.Vpn.IVpnInterfaceId'
     _iid_ = Guid('{9e2ddca2-1712-4ce4-b179-8c652c6d1011}')
     @winrt_commethod(6)
-    def GetAddressInfo(self, id: POINTER(c_char_p_no)) -> Void: ...
+    def GetAddressInfo(self, id: POINTER(POINTER(Byte))) -> Void: ...
 class IVpnInterfaceIdFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnInterfaceIdFactory'
     _iid_ = Guid('{9e2ddca2-1712-4ce4-b179-8c652c6d1000}')
     @winrt_commethod(6)
-    def CreateVpnInterfaceId(self, address: c_char_p_no) -> Windows.Networking.Vpn.VpnInterfaceId: ...
+    def CreateVpnInterfaceId(self, address: POINTER(Byte)) -> Windows.Networking.Vpn.VpnInterfaceId: ...
 class IVpnManagementAgent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnManagementAgent'
@@ -1322,9 +1322,9 @@ class VpnInterfaceId(ComPtr):
     default_interface: Windows.Networking.Vpn.IVpnInterfaceId
     _classid_ = 'Windows.Networking.Vpn.VpnInterfaceId'
     @winrt_factorymethod
-    def CreateVpnInterfaceId(cls: Windows.Networking.Vpn.IVpnInterfaceIdFactory, address: c_char_p_no) -> Windows.Networking.Vpn.VpnInterfaceId: ...
+    def CreateVpnInterfaceId(cls: Windows.Networking.Vpn.IVpnInterfaceIdFactory, address: POINTER(Byte)) -> Windows.Networking.Vpn.VpnInterfaceId: ...
     @winrt_mixinmethod
-    def GetAddressInfo(self: Windows.Networking.Vpn.IVpnInterfaceId, id: POINTER(c_char_p_no)) -> Void: ...
+    def GetAddressInfo(self: Windows.Networking.Vpn.IVpnInterfaceId, id: POINTER(POINTER(Byte))) -> Void: ...
 class VpnManagementAgent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Networking.Vpn.IVpnManagementAgent
