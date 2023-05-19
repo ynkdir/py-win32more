@@ -1,6 +1,6 @@
 # https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/host-standard-control-with-xaml-islands-cpp
 # This example requires "<maxversiontested Id="10.0.18362.0"/>" in python.exe's manifest.
-# See scripts/download_python_for_winrt.ps1.
+# Use Microsoft Store version of Python.
 
 import tkinter as tk
 from ctypes import (
@@ -65,7 +65,7 @@ def main2():
     # winrt::init_apartment(apartment_type::single_threaded);
 
     # Initialize the XAML framework's core window for the current thread.
-    WindowsXamlManager.InitializeForCurrentThread()
+    winxamlmanager = WindowsXamlManager.InitializeForCurrentThread()
 
     # This DesktopWindowXamlSource is the object that enables a non-UWP desktop application
     # to host WinRT XAML controls in any UI element that is associated with a window handle (HWND).
