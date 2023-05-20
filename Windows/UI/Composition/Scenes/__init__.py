@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -396,9 +396,9 @@ class SceneComponentCollection(ComPtr):
     @winrt_mixinmethod
     def Clear(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneComponent]) -> Void: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneComponent], startIndex: UInt32, items: POINTER(Windows.UI.Composition.Scenes.SceneComponent)) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneComponent], startIndex: UInt32, items: Annotated[SZArray[Windows.UI.Composition.Scenes.SceneComponent], 'Out']) -> UInt32: ...
     @winrt_mixinmethod
-    def ReplaceAll(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneComponent], items: POINTER(Windows.UI.Composition.Scenes.SceneComponent)) -> Void: ...
+    def ReplaceAll(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneComponent], items: Annotated[SZArray[Windows.UI.Composition.Scenes.SceneComponent], 'In']) -> Void: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Composition.Scenes.SceneComponent]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Composition.Scenes.SceneComponent]: ...
     Size = property(get_Size, None)
@@ -578,9 +578,9 @@ class SceneNodeCollection(ComPtr):
     @winrt_mixinmethod
     def Clear(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneNode]) -> Void: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneNode], startIndex: UInt32, items: POINTER(Windows.UI.Composition.Scenes.SceneNode)) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneNode], startIndex: UInt32, items: Annotated[SZArray[Windows.UI.Composition.Scenes.SceneNode], 'Out']) -> UInt32: ...
     @winrt_mixinmethod
-    def ReplaceAll(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneNode], items: POINTER(Windows.UI.Composition.Scenes.SceneNode)) -> Void: ...
+    def ReplaceAll(self: Windows.Foundation.Collections.IVector[Windows.UI.Composition.Scenes.SceneNode], items: Annotated[SZArray[Windows.UI.Composition.Scenes.SceneNode], 'In']) -> Void: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Composition.Scenes.SceneNode]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Composition.Scenes.SceneNode]: ...
     Size = property(get_Size, None)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Activation
 import Windows.Foundation
@@ -417,13 +417,13 @@ class IVpnInterfaceId(ComPtr):
     _classid_ = 'Windows.Networking.Vpn.IVpnInterfaceId'
     _iid_ = Guid('{9e2ddca2-1712-4ce4-b179-8c652c6d1011}')
     @winrt_commethod(6)
-    def GetAddressInfo(self, id: POINTER(POINTER(Byte))) -> Void: ...
+    def GetAddressInfo(self, id: POINTER(SZArray[Byte])) -> Void: ...
 class IVpnInterfaceIdFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnInterfaceIdFactory'
     _iid_ = Guid('{9e2ddca2-1712-4ce4-b179-8c652c6d1000}')
     @winrt_commethod(6)
-    def CreateVpnInterfaceId(self, address: POINTER(Byte)) -> Windows.Networking.Vpn.VpnInterfaceId: ...
+    def CreateVpnInterfaceId(self, address: Annotated[SZArray[Byte], 'In']) -> Windows.Networking.Vpn.VpnInterfaceId: ...
 class IVpnManagementAgent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnManagementAgent'
@@ -1322,9 +1322,9 @@ class VpnInterfaceId(ComPtr):
     default_interface: Windows.Networking.Vpn.IVpnInterfaceId
     _classid_ = 'Windows.Networking.Vpn.VpnInterfaceId'
     @winrt_factorymethod
-    def CreateVpnInterfaceId(cls: Windows.Networking.Vpn.IVpnInterfaceIdFactory, address: POINTER(Byte)) -> Windows.Networking.Vpn.VpnInterfaceId: ...
+    def CreateVpnInterfaceId(cls: Windows.Networking.Vpn.IVpnInterfaceIdFactory, address: Annotated[SZArray[Byte], 'In']) -> Windows.Networking.Vpn.VpnInterfaceId: ...
     @winrt_mixinmethod
-    def GetAddressInfo(self: Windows.Networking.Vpn.IVpnInterfaceId, id: POINTER(POINTER(Byte))) -> Void: ...
+    def GetAddressInfo(self: Windows.Networking.Vpn.IVpnInterfaceId, id: POINTER(SZArray[Byte])) -> Void: ...
 class VpnManagementAgent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     default_interface: Windows.Networking.Vpn.IVpnManagementAgent

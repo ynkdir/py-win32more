@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -344,7 +344,7 @@ class ISpatialStageFrameOfReference(ComPtr):
     @winrt_commethod(9)
     def GetCoordinateSystemAtCurrentLocation(self, locator: Windows.Perception.Spatial.SpatialLocator) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_commethod(10)
-    def TryGetMovementBounds(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem) -> POINTER(Windows.Foundation.Numerics.Vector3_head): ...
+    def TryGetMovementBounds(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem) -> SZArray[Windows.Foundation.Numerics.Vector3]: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
     MovementRange = property(get_MovementRange, None)
     LookDirectionRange = property(get_LookDirectionRange, None)
@@ -703,7 +703,7 @@ class SpatialStageFrameOfReference(ComPtr, metaclass=_SpatialStageFrameOfReferen
     @winrt_mixinmethod
     def GetCoordinateSystemAtCurrentLocation(self: Windows.Perception.Spatial.ISpatialStageFrameOfReference, locator: Windows.Perception.Spatial.SpatialLocator) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_mixinmethod
-    def TryGetMovementBounds(self: Windows.Perception.Spatial.ISpatialStageFrameOfReference, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem) -> POINTER(Windows.Foundation.Numerics.Vector3_head): ...
+    def TryGetMovementBounds(self: Windows.Perception.Spatial.ISpatialStageFrameOfReference, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem) -> SZArray[Windows.Foundation.Numerics.Vector3]: ...
     @winrt_classmethod
     def get_Current(cls: Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics) -> Windows.Perception.Spatial.SpatialStageFrameOfReference: ...
     @winrt_classmethod

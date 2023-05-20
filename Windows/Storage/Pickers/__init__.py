@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -49,9 +49,9 @@ class FileExtensionVector(ComPtr):
     @winrt_mixinmethod
     def Clear(self: Windows.Foundation.Collections.IVector[WinRT_String]) -> Void: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IVector[WinRT_String], startIndex: UInt32, items: POINTER(WinRT_String)) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IVector[WinRT_String], startIndex: UInt32, items: Annotated[SZArray[WinRT_String], 'Out']) -> UInt32: ...
     @winrt_mixinmethod
-    def ReplaceAll(self: Windows.Foundation.Collections.IVector[WinRT_String], items: POINTER(WinRT_String)) -> Void: ...
+    def ReplaceAll(self: Windows.Foundation.Collections.IVector[WinRT_String], items: Annotated[SZArray[WinRT_String], 'In']) -> Void: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.Collections.IIterator[WinRT_String]: ...
     Size = property(get_Size, None)
@@ -136,7 +136,7 @@ class FilePickerSelectedFilesArray(ComPtr):
     @winrt_mixinmethod
     def IndexOf(self: Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile], value: Windows.Storage.StorageFile, index: POINTER(UInt32)) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile], startIndex: UInt32, items: POINTER(Windows.Storage.StorageFile)) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile], startIndex: UInt32, items: Annotated[SZArray[Windows.Storage.StorageFile], 'Out']) -> UInt32: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Storage.StorageFile]) -> Windows.Foundation.Collections.IIterator[Windows.Storage.StorageFile]: ...
     Size = property(get_Size, None)

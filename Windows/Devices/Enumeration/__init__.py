@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Background
 import Windows.Devices.Enumeration
@@ -154,7 +154,7 @@ class DeviceInformationCollection(ComPtr):
     @winrt_mixinmethod
     def IndexOf(self: Windows.Foundation.Collections.IVectorView[Windows.Devices.Enumeration.DeviceInformation], value: Windows.Devices.Enumeration.DeviceInformation, index: POINTER(UInt32)) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IVectorView[Windows.Devices.Enumeration.DeviceInformation], startIndex: UInt32, items: POINTER(Windows.Devices.Enumeration.DeviceInformation)) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IVectorView[Windows.Devices.Enumeration.DeviceInformation], startIndex: UInt32, items: Annotated[SZArray[Windows.Devices.Enumeration.DeviceInformation], 'Out']) -> UInt32: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Devices.Enumeration.DeviceInformation]) -> Windows.Foundation.Collections.IIterator[Windows.Devices.Enumeration.DeviceInformation]: ...
     Size = property(get_Size, None)

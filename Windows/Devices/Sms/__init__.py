@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.Sms
 import Windows.Foundation
@@ -221,9 +221,9 @@ class ISmsBinaryMessage(ComPtr):
     @winrt_commethod(7)
     def put_Format(self, value: Windows.Devices.Sms.SmsDataFormat) -> Void: ...
     @winrt_commethod(8)
-    def GetData(self) -> POINTER(Byte): ...
+    def GetData(self) -> SZArray[Byte]: ...
     @winrt_commethod(9)
-    def SetData(self, value: POINTER(Byte)) -> Void: ...
+    def SetData(self, value: Annotated[SZArray[Byte], 'In']) -> Void: ...
     Format = property(get_Format, put_Format)
 class ISmsBroadcastMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -680,7 +680,7 @@ class ISmsTextMessageStatics(ComPtr):
     @winrt_commethod(6)
     def FromBinaryMessage(self, binaryMessage: Windows.Devices.Sms.SmsBinaryMessage) -> Windows.Devices.Sms.SmsTextMessage: ...
     @winrt_commethod(7)
-    def FromBinaryData(self, format: Windows.Devices.Sms.SmsDataFormat, value: POINTER(Byte)) -> Windows.Devices.Sms.SmsTextMessage: ...
+    def FromBinaryData(self, format: Windows.Devices.Sms.SmsDataFormat, value: Annotated[SZArray[Byte], 'In']) -> Windows.Devices.Sms.SmsTextMessage: ...
 class ISmsVoicemailMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sms.ISmsVoicemailMessage'
@@ -835,9 +835,9 @@ class SmsBinaryMessage(ComPtr):
     @winrt_mixinmethod
     def put_Format(self: Windows.Devices.Sms.ISmsBinaryMessage, value: Windows.Devices.Sms.SmsDataFormat) -> Void: ...
     @winrt_mixinmethod
-    def GetData(self: Windows.Devices.Sms.ISmsBinaryMessage) -> POINTER(Byte): ...
+    def GetData(self: Windows.Devices.Sms.ISmsBinaryMessage) -> SZArray[Byte]: ...
     @winrt_mixinmethod
-    def SetData(self: Windows.Devices.Sms.ISmsBinaryMessage, value: POINTER(Byte)) -> Void: ...
+    def SetData(self: Windows.Devices.Sms.ISmsBinaryMessage, value: Annotated[SZArray[Byte], 'In']) -> Void: ...
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.Sms.ISmsMessage) -> UInt32: ...
     @winrt_mixinmethod
@@ -1324,7 +1324,7 @@ class SmsTextMessage(ComPtr):
     @winrt_classmethod
     def FromBinaryMessage(cls: Windows.Devices.Sms.ISmsTextMessageStatics, binaryMessage: Windows.Devices.Sms.SmsBinaryMessage) -> Windows.Devices.Sms.SmsTextMessage: ...
     @winrt_classmethod
-    def FromBinaryData(cls: Windows.Devices.Sms.ISmsTextMessageStatics, format: Windows.Devices.Sms.SmsDataFormat, value: POINTER(Byte)) -> Windows.Devices.Sms.SmsTextMessage: ...
+    def FromBinaryData(cls: Windows.Devices.Sms.ISmsTextMessageStatics, format: Windows.Devices.Sms.SmsDataFormat, value: Annotated[SZArray[Byte], 'In']) -> Windows.Devices.Sms.SmsTextMessage: ...
     Timestamp = property(get_Timestamp, None)
     PartReferenceId = property(get_PartReferenceId, None)
     PartNumber = property(get_PartNumber, None)

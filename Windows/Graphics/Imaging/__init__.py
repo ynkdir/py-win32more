@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -183,7 +183,7 @@ class BitmapEncoder(ComPtr, metaclass=_BitmapEncoder_Meta_):
     @winrt_mixinmethod
     def get_BitmapTransform(self: Windows.Graphics.Imaging.IBitmapEncoder) -> Windows.Graphics.Imaging.BitmapTransform: ...
     @winrt_mixinmethod
-    def SetPixelData(self: Windows.Graphics.Imaging.IBitmapEncoder, pixelFormat: Windows.Graphics.Imaging.BitmapPixelFormat, alphaMode: Windows.Graphics.Imaging.BitmapAlphaMode, width: UInt32, height: UInt32, dpiX: Double, dpiY: Double, pixels: POINTER(Byte)) -> Void: ...
+    def SetPixelData(self: Windows.Graphics.Imaging.IBitmapEncoder, pixelFormat: Windows.Graphics.Imaging.BitmapPixelFormat, alphaMode: Windows.Graphics.Imaging.BitmapAlphaMode, width: UInt32, height: UInt32, dpiX: Double, dpiY: Double, pixels: Annotated[SZArray[Byte], 'In']) -> Void: ...
     @winrt_mixinmethod
     def GoToNextFrameAsync(self: Windows.Graphics.Imaging.IBitmapEncoder) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -503,7 +503,7 @@ class IBitmapEncoder(ComPtr):
     @winrt_commethod(15)
     def get_BitmapTransform(self) -> Windows.Graphics.Imaging.BitmapTransform: ...
     @winrt_commethod(16)
-    def SetPixelData(self, pixelFormat: Windows.Graphics.Imaging.BitmapPixelFormat, alphaMode: Windows.Graphics.Imaging.BitmapAlphaMode, width: UInt32, height: UInt32, dpiX: Double, dpiY: Double, pixels: POINTER(Byte)) -> Void: ...
+    def SetPixelData(self, pixelFormat: Windows.Graphics.Imaging.BitmapPixelFormat, alphaMode: Windows.Graphics.Imaging.BitmapAlphaMode, width: UInt32, height: UInt32, dpiX: Double, dpiY: Double, pixels: Annotated[SZArray[Byte], 'In']) -> Void: ...
     @winrt_commethod(17)
     def GoToNextFrameAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(18)
@@ -676,7 +676,7 @@ class IPixelDataProvider(ComPtr):
     _classid_ = 'Windows.Graphics.Imaging.IPixelDataProvider'
     _iid_ = Guid('{dd831f25-185c-4595-9fb9-ccbe6ec18a6f}')
     @winrt_commethod(6)
-    def DetachPixelData(self) -> POINTER(Byte): ...
+    def DetachPixelData(self) -> SZArray[Byte]: ...
 class ISoftwareBitmap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.ISoftwareBitmap'
@@ -789,7 +789,7 @@ class PixelDataProvider(ComPtr):
     default_interface: Windows.Graphics.Imaging.IPixelDataProvider
     _classid_ = 'Windows.Graphics.Imaging.PixelDataProvider'
     @winrt_mixinmethod
-    def DetachPixelData(self: Windows.Graphics.Imaging.IPixelDataProvider) -> POINTER(Byte): ...
+    def DetachPixelData(self: Windows.Graphics.Imaging.IPixelDataProvider) -> SZArray[Byte]: ...
 PngFilterMode = Int32
 PngFilterMode_Automatic: PngFilterMode = 0
 PngFilterMode_None: PngFilterMode = 1

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.UI.UIAutomation
@@ -71,7 +71,7 @@ class CoreAutomationRemoteOperation(ComPtr):
     @winrt_mixinmethod
     def AddToResults(self: Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation, operandId: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Void: ...
     @winrt_mixinmethod
-    def Execute(self: Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation, bytecodeBuffer: POINTER(Byte)) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult: ...
+    def Execute(self: Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation, bytecodeBuffer: Annotated[SZArray[Byte], 'In']) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult: ...
     @winrt_mixinmethod
     def ImportConnectionBoundObject(self: Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation2, operandId: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, connectionBoundObject: Windows.UI.UIAutomation.AutomationConnectionBoundObject) -> Void: ...
 class CoreAutomationRemoteOperationContext(ComPtr):
@@ -129,7 +129,7 @@ class ICoreAutomationRemoteOperation(ComPtr):
     @winrt_commethod(9)
     def AddToResults(self, operandId: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Void: ...
     @winrt_commethod(10)
-    def Execute(self, bytecodeBuffer: POINTER(Byte)) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult: ...
+    def Execute(self, bytecodeBuffer: Annotated[SZArray[Byte], 'In']) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult: ...
 class ICoreAutomationRemoteOperation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation2'
@@ -151,7 +151,7 @@ class ICoreAutomationRemoteOperationExtensionProvider(ComPtr):
     _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationExtensionProvider'
     _iid_ = Guid('{88f53e67-dc69-553b-a0aa-70477e724da8}')
     @winrt_commethod(6)
-    def CallExtension(self, extensionId: Guid, context: Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext, operandIds: POINTER(Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId_head)) -> Void: ...
+    def CallExtension(self, extensionId: Guid, context: Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext, operandIds: Annotated[SZArray[Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId], 'In']) -> Void: ...
     @winrt_commethod(7)
     def IsExtensionSupported(self, extensionId: Guid) -> Boolean: ...
 class IRemoteAutomationClientSession(ComPtr):

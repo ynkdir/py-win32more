@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Resources.Core
 import Windows.Foundation
@@ -258,7 +258,7 @@ class ResourceCandidateVectorView(ComPtr):
     @winrt_mixinmethod
     def IndexOf(self: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceCandidate], value: Windows.ApplicationModel.Resources.Core.ResourceCandidate, index: POINTER(UInt32)) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceCandidate], startIndex: UInt32, items: POINTER(Windows.ApplicationModel.Resources.Core.ResourceCandidate)) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceCandidate], startIndex: UInt32, items: Annotated[SZArray[Windows.ApplicationModel.Resources.Core.ResourceCandidate], 'Out']) -> UInt32: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Resources.Core.ResourceCandidate]) -> Windows.Foundation.Collections.IIterator[Windows.ApplicationModel.Resources.Core.ResourceCandidate]: ...
     Size = property(get_Size, None)
@@ -311,7 +311,7 @@ class ResourceContextLanguagesVectorView(ComPtr):
     @winrt_mixinmethod
     def IndexOf(self: Windows.Foundation.Collections.IVectorView[WinRT_String], value: WinRT_String, index: POINTER(UInt32)) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IVectorView[WinRT_String], startIndex: UInt32, items: POINTER(WinRT_String)) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IVectorView[WinRT_String], startIndex: UInt32, items: Annotated[SZArray[WinRT_String], 'Out']) -> UInt32: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.Collections.IIterator[WinRT_String]: ...
     Size = property(get_Size, None)
@@ -384,7 +384,7 @@ class ResourceMapIterator(ComPtr):
     @winrt_mixinmethod
     def MoveNext(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]]) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]], items: POINTER(Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource])) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]], items: Annotated[SZArray[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]], 'Out']) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
 class ResourceMapMapView(ComPtr):
@@ -413,7 +413,7 @@ class ResourceMapMapViewIterator(ComPtr):
     @winrt_mixinmethod
     def MoveNext(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]]) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]], items: POINTER(Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap])) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]], items: Annotated[SZArray[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]], 'Out']) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
 class ResourceQualifier(ComPtr):
@@ -489,7 +489,7 @@ class ResourceQualifierVectorView(ComPtr):
     @winrt_mixinmethod
     def IndexOf(self: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceQualifier], value: Windows.ApplicationModel.Resources.Core.ResourceQualifier, index: POINTER(UInt32)) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceQualifier], startIndex: UInt32, items: POINTER(Windows.ApplicationModel.Resources.Core.ResourceQualifier)) -> UInt32: ...
+    def GetMany(self: Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceQualifier], startIndex: UInt32, items: Annotated[SZArray[Windows.ApplicationModel.Resources.Core.ResourceQualifier], 'Out']) -> UInt32: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Resources.Core.ResourceQualifier]) -> Windows.Foundation.Collections.IIterator[Windows.ApplicationModel.Resources.Core.ResourceQualifier]: ...
     Size = property(get_Size, None)

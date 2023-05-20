@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -1944,7 +1944,7 @@ class ListViewBaseAutomationPeer(ComPtr):
     @winrt_mixinmethod
     def get_DropEffect(self: Windows.UI.Xaml.Automation.Provider.IDropTargetProvider) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_DropEffects(self: Windows.UI.Xaml.Automation.Provider.IDropTargetProvider) -> POINTER(WinRT_String): ...
+    def get_DropEffects(self: Windows.UI.Xaml.Automation.Provider.IDropTargetProvider) -> SZArray[WinRT_String]: ...
     DropEffect = property(get_DropEffect, None)
     DropEffects = property(get_DropEffects, None)
 class ListViewBaseHeaderItemAutomationPeer(ComPtr):
@@ -1982,7 +1982,7 @@ class LoopingSelectorAutomationPeer(ComPtr):
     @winrt_mixinmethod
     def get_IsSelectionRequired(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> Boolean: ...
     @winrt_mixinmethod
-    def GetSelection(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> POINTER(Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple): ...
+    def GetSelection(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> SZArray[Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple]: ...
     @winrt_mixinmethod
     def FindItemByProperty(self: Windows.UI.Xaml.Automation.Provider.IItemContainerProvider, startAfter: Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple, automationProperty: Windows.UI.Xaml.Automation.AutomationProperty, value: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple: ...
     @winrt_mixinmethod
@@ -2218,7 +2218,7 @@ class PivotAutomationPeer(ComPtr):
     @winrt_mixinmethod
     def get_IsSelectionRequired(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> Boolean: ...
     @winrt_mixinmethod
-    def GetSelection(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> POINTER(Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple): ...
+    def GetSelection(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> SZArray[Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple]: ...
     @winrt_mixinmethod
     def get_HorizontallyScrollable(self: Windows.UI.Xaml.Automation.Provider.IScrollProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -2413,7 +2413,7 @@ class SelectorAutomationPeer(ComPtr):
     @winrt_mixinmethod
     def get_IsSelectionRequired(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> Boolean: ...
     @winrt_mixinmethod
-    def GetSelection(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> POINTER(Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple): ...
+    def GetSelection(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> SZArray[Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple]: ...
     CanSelectMultiple = property(get_CanSelectMultiple, None)
     IsSelectionRequired = property(get_IsSelectionRequired, None)
 class SelectorItemAutomationPeer(ComPtr):

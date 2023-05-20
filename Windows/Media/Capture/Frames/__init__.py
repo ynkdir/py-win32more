@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.Enumeration
 import Windows.Foundation
@@ -284,9 +284,9 @@ class IMediaFrameSourceController2(ComPtr):
     _classid_ = 'Windows.Media.Capture.Frames.IMediaFrameSourceController2'
     _iid_ = Guid('{efc49fd4-fcf2-4a03-b4e4-ac9628739bee}')
     @winrt_commethod(6)
-    def GetPropertyByExtendedIdAsync(self, extendedPropertyId: POINTER(Byte), maxPropertyValueSize: Windows.Foundation.IReference[UInt32]) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult]: ...
+    def GetPropertyByExtendedIdAsync(self, extendedPropertyId: Annotated[SZArray[Byte], 'In'], maxPropertyValueSize: Windows.Foundation.IReference[UInt32]) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult]: ...
     @winrt_commethod(7)
-    def SetPropertyByExtendedIdAsync(self, extendedPropertyId: POINTER(Byte), propertyValue: POINTER(Byte)) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
+    def SetPropertyByExtendedIdAsync(self, extendedPropertyId: Annotated[SZArray[Byte], 'In'], propertyValue: Annotated[SZArray[Byte], 'In']) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
 class IMediaFrameSourceController3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Capture.Frames.IMediaFrameSourceController3'
@@ -588,9 +588,9 @@ class MediaFrameSourceController(ComPtr):
     @winrt_mixinmethod
     def get_VideoDeviceController(self: Windows.Media.Capture.Frames.IMediaFrameSourceController) -> Windows.Media.Devices.VideoDeviceController: ...
     @winrt_mixinmethod
-    def GetPropertyByExtendedIdAsync(self: Windows.Media.Capture.Frames.IMediaFrameSourceController2, extendedPropertyId: POINTER(Byte), maxPropertyValueSize: Windows.Foundation.IReference[UInt32]) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult]: ...
+    def GetPropertyByExtendedIdAsync(self: Windows.Media.Capture.Frames.IMediaFrameSourceController2, extendedPropertyId: Annotated[SZArray[Byte], 'In'], maxPropertyValueSize: Windows.Foundation.IReference[UInt32]) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult]: ...
     @winrt_mixinmethod
-    def SetPropertyByExtendedIdAsync(self: Windows.Media.Capture.Frames.IMediaFrameSourceController2, extendedPropertyId: POINTER(Byte), propertyValue: POINTER(Byte)) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
+    def SetPropertyByExtendedIdAsync(self: Windows.Media.Capture.Frames.IMediaFrameSourceController2, extendedPropertyId: Annotated[SZArray[Byte], 'In'], propertyValue: Annotated[SZArray[Byte], 'In']) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
     @winrt_mixinmethod
     def get_AudioDeviceController(self: Windows.Media.Capture.Frames.IMediaFrameSourceController3) -> Windows.Media.Devices.AudioDeviceController: ...
     VideoDeviceController = property(get_VideoDeviceController, None)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Devices.Haptics
 import Windows.Devices.Power
@@ -534,7 +534,7 @@ class IRawGameController(ComPtr):
     @winrt_commethod(12)
     def GetButtonLabel(self, buttonIndex: Int32) -> Windows.Gaming.Input.GameControllerButtonLabel: ...
     @winrt_commethod(13)
-    def GetCurrentReading(self, buttonArray: POINTER(Boolean), switchArray: POINTER(Windows.Gaming.Input.GameControllerSwitchPosition), axisArray: POINTER(Double)) -> UInt64: ...
+    def GetCurrentReading(self, buttonArray: Annotated[SZArray[Boolean], 'Out'], switchArray: Annotated[SZArray[Windows.Gaming.Input.GameControllerSwitchPosition], 'Out'], axisArray: Annotated[SZArray[Double], 'Out']) -> UInt64: ...
     @winrt_commethod(14)
     def GetSwitchKind(self, switchIndex: Int32) -> Windows.Gaming.Input.GameControllerSwitchKind: ...
     AxisCount = property(get_AxisCount, None)
@@ -736,7 +736,7 @@ class RawGameController(ComPtr, metaclass=_RawGameController_Meta_):
     @winrt_mixinmethod
     def GetButtonLabel(self: Windows.Gaming.Input.IRawGameController, buttonIndex: Int32) -> Windows.Gaming.Input.GameControllerButtonLabel: ...
     @winrt_mixinmethod
-    def GetCurrentReading(self: Windows.Gaming.Input.IRawGameController, buttonArray: POINTER(Boolean), switchArray: POINTER(Windows.Gaming.Input.GameControllerSwitchPosition), axisArray: POINTER(Double)) -> UInt64: ...
+    def GetCurrentReading(self: Windows.Gaming.Input.IRawGameController, buttonArray: Annotated[SZArray[Boolean], 'Out'], switchArray: Annotated[SZArray[Windows.Gaming.Input.GameControllerSwitchPosition], 'Out'], axisArray: Annotated[SZArray[Double], 'Out']) -> UInt64: ...
     @winrt_mixinmethod
     def GetSwitchKind(self: Windows.Gaming.Input.IRawGameController, switchIndex: Int32) -> Windows.Gaming.Input.GameControllerSwitchKind: ...
     @winrt_mixinmethod

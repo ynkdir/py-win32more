@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Annotated
 K = TypeVar('T')
 T = TypeVar('T')
 V = TypeVar('V')
@@ -8,7 +8,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
-from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from Windows._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import Windows.Win32.System.WinRT
 import Windows.Foundation
 import Windows.Foundation.Collections
@@ -338,7 +338,7 @@ class DisplayServices(ComPtr):
     default_interface: Windows.Graphics.Display.IDisplayServices
     _classid_ = 'Windows.Graphics.Display.DisplayServices'
     @winrt_classmethod
-    def FindAll(cls: Windows.Graphics.Display.IDisplayServicesStatics) -> POINTER(Windows.Graphics.DisplayId_head): ...
+    def FindAll(cls: Windows.Graphics.Display.IDisplayServicesStatics) -> SZArray[Windows.Graphics.DisplayId]: ...
 HdrMetadataFormat = Int32
 HdrMetadataFormat_Hdr10: HdrMetadataFormat = 0
 HdrMetadataFormat_Hdr10Plus: HdrMetadataFormat = 1
@@ -665,7 +665,7 @@ class IDisplayServicesStatics(ComPtr):
     _classid_ = 'Windows.Graphics.Display.IDisplayServicesStatics'
     _iid_ = Guid('{dc2096bf-730a-5560-b461-91c13d692e0c}')
     @winrt_commethod(6)
-    def FindAll(self) -> POINTER(Windows.Graphics.DisplayId_head): ...
+    def FindAll(self) -> SZArray[Windows.Graphics.DisplayId]: ...
 class NitRange(EasyCastStructure):
     MinNits: Single
     MaxNits: Single

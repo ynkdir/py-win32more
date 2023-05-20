@@ -55,6 +55,7 @@ BASE_EXPORTS = [
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
 WINRT_EXPORTS = [
+    "SZArray",
     "WinRT_String",
     "winrt_commethod",
     "winrt_mixinmethod",
@@ -144,13 +145,15 @@ class TType:
                 return "WinRT_String"
             else:
                 return self.name
-        elif self.kind == "Pointer" or self.kind == "Reference" or self.kind == "SZArray":
+        elif self.kind == "Pointer" or self.kind == "Reference":
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "c_void_p"
             elif self.type.is_struct:
                 return f"POINTER({self.type.fullname}_head)"
             else:
                 return f"POINTER({self.type.pytype})"
+        elif self.kind == "SZArray":
+            return f"SZArray[{self.type.pytype}]"
         elif self.kind == "Array":
             return f"{self.type.pytype} * {self.size}"
         elif self.kind == "Type":
@@ -862,12 +865,25 @@ class MethodDefinition:
         return ", ".join(self.format_parameters_list())
 
     def format_parameters_list(self) -> list[str]:
-        return [f"{name}: {type_.pytype}" for name, type_ in self.get_parameter_names_with_type()]
+        r = []
+        for pa, type_ in self.get_parameter_with_type():
+            if type_.kind == "SZArray":
+                attrs = []
+                if "Out" in pa.attributes:
+                    attrs.append("'Out'")
+                if "In" in pa.attributes:
+                    attrs.append("'In'")
+                annotated = ", ".join([type_.pytype] + attrs)
+                pytype = f"Annotated[{annotated}]"
+            else:
+                pytype = type_.pytype
+            r.append(f"{pa.name}: {pytype}")
+        return r
 
     # SequenceNumber == 0 is return type and it can be missing.
-    def get_parameter_names_with_type(self) -> list[tuple[str, TType]]:
+    def get_parameter_with_type(self) -> list[tuple[Parameter, TType]]:
         types = self.signature.parameter_types
-        return [(pa.name, types[pa.sequence_number - 1]) for pa in self.parameters if pa.sequence_number != 0]
+        return [(pa, types[pa.sequence_number - 1]) for pa in self.parameters if pa.sequence_number != 0]
 
     def get_parameter_names(self) -> list[str]:
         return [pa.name for pa in self.parameters if pa.sequence_number != 0]
@@ -1529,7 +1545,7 @@ class PyGenerator:
     def emit_import_typing(self) -> str:
         return "".join(
             [
-                "from typing import Generic, TypeVar\n",
+                "from typing import Generic, TypeVar, Annotated\n",
                 "K = TypeVar('T')\n",
                 "T = TypeVar('T')\n",
                 "V = TypeVar('V')\n",

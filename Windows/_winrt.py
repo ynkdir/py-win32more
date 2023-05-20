@@ -3,8 +3,19 @@ from __future__ import annotations
 import asyncio
 import re
 import uuid
-from ctypes import POINTER, WINFUNCTYPE, Structure, WinError, addressof, c_void_p, cast, pointer, py_object, wstring_at, Array
-from typing import Generic, TypeVar, _GenericAlias
+from ctypes import (
+    POINTER,
+    WINFUNCTYPE,
+    Structure,
+    WinError,
+    addressof,
+    c_void_p,
+    cast,
+    pointer,
+    py_object,
+    wstring_at,
+)
+from typing import Generic, TypeVar, _GenericAlias, get_args
 
 import Windows.Win32.System.Com
 from Windows import (
@@ -44,8 +55,8 @@ from Windows.Win32.System.WinRT import (
 T = TypeVar("T")
 
 
-def generic_get_type_hints(cls, prototype, use_generic_alias=False):
-    hints = get_type_hints(prototype)
+def generic_get_type_hints(cls, prototype, include_extras=False, use_generic_alias=False):
+    hints = get_type_hints(prototype, include_extras=include_extras)
     if is_generic_alias(cls):
         hints = generic_map_types(cls, hints, use_generic_alias)
     return hints
@@ -77,12 +88,42 @@ def generic_map_class(generic_alias, param_to_type, use_generic_alias=False):
         return generic_alias.__origin__
 
 
+class SZArray(Generic[T]):
+    def __init__(self, array=None):
+        if array:
+            self._array = array
+            self._length = UInt32(len(array))
+            self._contents = cast(array, c_void_p)
+        else:
+            self._array = None
+            self._length = UInt32(0)
+            self._contents = c_void_p(0)
+
+    @property
+    def _type_(self):
+        return self.__orig_class__.__args__[0]
+
+    @property
+    def length(self):
+        return self._length.value
+
+    @property
+    def contents(self):
+        return cast(self._contents, POINTER(self._type_))
+
+    def __getitem__(self, i):
+        return self.contents[i]
+
+    def __setitem__(self, i, value):
+        self.contents[i] = value
+
+
 class WinRT_String(HSTRING):
-    def __del__(self):
-        if self:
-            hr = WindowsDeleteString(self)
-            if FAILED(hr):
-                raise WinError(hr)
+    # def __del__(self):
+    #    if self:
+    #        hr = WindowsDeleteString(self)
+    #        if FAILED(hr):
+    #            raise WinError(hr)
 
     @classmethod
     def from_param(cls, obj):
@@ -101,19 +142,42 @@ class WinRT_String(HSTRING):
 class WinrtMethod:
     def __init__(self, cls, prototype, factory):
         hints = generic_get_type_hints(cls, prototype)
+        hints_extra = generic_get_type_hints(cls, prototype, include_extras=True)
         restype = hints.pop("return")
-        argtypes = list(hints.values())
-        types = [HRESULT] + argtypes
-        params = [(1, name) for name in hints.keys()]
-        if restype is not Void:
-            params.append((1, "return"))
-            if is_generic_alias(restype):
-                return_type = POINTER(restype.__origin__)
+
+        types = [HRESULT]
+        params = []
+        for name, type_ in hints.items():
+            if is_szarray_class(type_):
+                if "Out" in get_args(hints_extra[name]):
+                    types.append(POINTER(UInt32))
+                    params.append((1, f"{name}_length"))
+                    types.append(POINTER(c_void_p))
+                    params.append((1, name))
+                else:
+                    types.append(UInt32)
+                    params.append((1, f"{name}_length"))
+                    types.append(c_void_p)
+                    params.append((1, name))
             else:
-                return_type = POINTER(restype)
-            types.append(return_type)
+                types.append(type_)
+                params.append((1, name))
+
+        if restype is not Void:
+            if is_szarray_class(restype):
+                types.append(POINTER(UInt32))
+                params.append((1, "return_length"))
+                types.append(POINTER(c_void_p))
+                params.append((1, "return"))
+            elif is_generic_alias(restype):
+                types.append(POINTER(restype.__origin__))
+                params.append((1, "return"))
+            else:
+                types.append(POINTER(restype))
+                params.append((1, "return"))
+
         self.delegate = factory(prototype.__name__, types, tuple(params))
-        generic_hints = generic_get_type_hints(cls, prototype, True)
+        generic_hints = generic_get_type_hints(cls, prototype, use_generic_alias=True)
         self.restype = generic_hints.pop("return")
         self.generic_hints = generic_hints
         self.generic_hints.update({i: v for i, v in enumerate(generic_hints.values())})
@@ -123,6 +187,10 @@ class WinrtMethod:
         cargs, ckwargs = self.make_args(args, kwargs)
         if self.restype is Void:
             result = None
+        elif is_szarray_class(self.restype):
+            result = self.restype()
+            ckwargs["return_length"] = pointer(result._length)
+            ckwargs["return"] = pointer(result._contents)
         elif is_com_class(self.restype):
             result = self.restype(own=True)
             ckwargs["return"] = pointer(result)
@@ -135,25 +203,43 @@ class WinrtMethod:
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        def typecast(k, v):
+        cargs = []
+        for k, v in enumerate(args):
             if k in self.generic_hints:
-                if callable(v) and is_delegate_class(self.generic_hints[k]):
-                    return self.generic_hints[k](own=True).CreateInstance(v)
+                if isinstance(v, SZArray):
+                    cargs.append(v._length)
+                    cargs.append(v._contents)
+                elif callable(v) and is_delegate_class(self.generic_hints[k]):
+                    cargs.append(self.generic_hints[k](own=True).CreateInstance(v))
                 # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    return self.generic_hints[k](v.value, own=False)
+                    cargs.append(self.generic_hints[k](v.value, own=False))
                 else:
-                    return easycast(v, self.generic_hints[k])
+                    cargs.append(easycast(v, self.generic_hints[k]))
             else:
-                return v
-
-        cargs = [typecast(k, v) for k, v in enumerate(args)]
-        ckwargs = {k: typecast(k, v) for k, v in kwargs.items()}
+                cargs.append(v)
+        ckwargs = {}
+        for k, v in kwargs.items():
+            if k in self.generic_hints:
+                if isinstance(v, SZArray):
+                    ckwargs[f"{k}_length"] = v._length
+                    ckwargs[k] = v._contents
+                if callable(v) and is_delegate_class(self.generic_hints[k]):
+                    ckwargs[k] = self.generic_hints[k](own=True).CreateInstance(v)
+                # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
+                elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
+                    ckwargs[k] = self.generic_hints[k](v.value, own=False)
+                else:
+                    ckwargs[k] = easycast(v, self.generic_hints[k])
+            else:
+                ckwargs[k] = v
         return cargs, ckwargs
 
     def make_result(self, result, _as_intptr):
         if result is None:
             return None
+        elif isinstance(result, SZArray):
+            return result
         elif _as_intptr:
             return cast(result, c_void_p).value
         elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
@@ -230,6 +316,12 @@ def is_com_class(cls):
 
 def is_com_instance(obj):
     return isinstance(obj, ComPtr)
+
+
+def is_szarray_class(cls):
+    if is_generic_alias(cls):
+        cls = cls.__origin__
+    return issubclass(cls, SZArray)
 
 
 def winrt_classmethod(prototype):
