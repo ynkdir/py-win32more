@@ -145,17 +145,13 @@ class TType:
                 return "WinRT_String"
             else:
                 return self.name
-        elif self.kind == "Pointer" or self.kind == "Reference":
-            if self.type.kind == "Primitive" and self.type.name == "Void":
-                return "c_void_p"
-            elif self.type.is_struct:
+        elif self.kind == "Reference":
+            if self.type.is_struct:
                 return f"POINTER({self.type.fullname}_head)"
             else:
                 return f"POINTER({self.type.pytype})"
         elif self.kind == "SZArray":
             return f"SZArray[{self.type.pytype}]"
-        elif self.kind == "Array":
-            return f"{self.type.pytype} * {self.size}"
         elif self.kind == "Type":
             if self.is_nested:
                 return self.name
@@ -190,7 +186,7 @@ class TType:
         return name.split("`")[0]
 
     def get_element_type(self) -> TType:
-        if self.kind in ["Pointer", "SZArray", "Array", "Reference"]:
+        if self.kind in ["SZArray", "Reference"]:
             return self.type.get_element_type()
         elif self.kind in ["Primitive", "Type", "Generic", "GenericParameter"]:
             return self
@@ -230,8 +226,6 @@ class TType:
             yield from self.type.enumerate_types()
             for t in self.type_arguments:
                 yield from t.enumerate_types()
-        elif self.kind == "Pointer":
-            yield from self.type.enumerate_types()
         elif self.kind == "SZArray":
             yield from self.type.enumerate_types()
         elif self.kind == "Reference":
