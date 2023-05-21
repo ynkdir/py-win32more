@@ -6,7 +6,7 @@ from ctypes import (
 from pathlib import Path
 
 from Windows import FAILED
-from Windows._winrt import SZArray, WinRT_String, _windows_create_string, _windows_get_string_raw_buffer
+from Windows._winrt import SZArray, WinRT_String
 from Windows.Foundation.Collections import StringMap
 from Windows.Storage import FileIO, PathIO, StorageFile
 from Windows.Win32.Foundation import WAIT_FAILED, WAIT_TIMEOUT
@@ -102,7 +102,7 @@ class TestWinrt(unittest.TestCase):
         lines = Path(__file__).read_text().splitlines()
         array = SZArray[WinRT_String]((WinRT_String * 10)())
         ivector.GetMany(0, array)
-        lines10 = [_windows_get_string_raw_buffer(hs) for hs in array[0:10]]
+        lines10 = [s.strvalue for s in array[0:10]]
         self.assertEqual(lines10, lines[0:10])
 
     def test_szarray_in(self):
@@ -114,7 +114,7 @@ class TestWinrt(unittest.TestCase):
         array = SZArray[WinRT_String]((WinRT_String * 10)())
         for i in range(10):
             lines[i] = str(i)
-            array[i].value = _windows_create_string(str(i)).value
+            array[i] = WinRT_String(str(i), own=False)
         ivector.ReplaceAll(array)
         lines10 = [ivector.GetAt(i) for i in range(10)]
         self.assertEqual(lines10, lines[0:10])

@@ -118,25 +118,46 @@ class SZArray(Generic[T]):
         self.contents[i] = value
 
 
+# FIXME: Not work for array and struct entry.
 class WinRT_String(HSTRING):
-    # def __del__(self):
-    #    if self:
-    #        hr = WindowsDeleteString(self)
-    #        if FAILED(hr):
-    #            raise WinError(hr)
+    def __init__(self, obj=None, own=False):
+        if obj is None:
+            hs = HSTRING(0)
+        elif isinstance(obj, HSTRING):
+            hs = obj
+        elif isinstance(obj, String):
+            hs = _windows_create_string(obj.value)
+        elif isinstance(obj, str):
+            hs = _windows_create_string(obj)
+        else:
+            raise ValueError(obj)
+        # https://github.com/python/cpython/issues/73456
+        # super().__init__(hs.value)
+        self.value = hs.value
+        self._own = own
+
+
+    def __del__(self):
+       if self and getattr(self, "_own", False):
+           hr = WindowsDeleteString(self)
+           if FAILED(hr):
+               raise WinError(hr)
 
     @classmethod
     def from_param(cls, obj):
-        if isinstance(obj, str):
-            pass
-        elif isinstance(obj, String):
-            obj = obj.value
+        if isinstance(obj, String):
+            return cls(obj, own=True)
+        elif isinstance(obj, str):
+            return cls(obj, own=True)
         else:
-            raise TypeError()
-        return _windows_create_string(obj)
+            return cls(obj, own=False)
+
+    @property
+    def strvalue(self):
+        return _windows_get_string_raw_buffer(self)
 
     def __ctypes_from_outparam__(self):
-        return _windows_get_string_raw_buffer(self)
+        return self.strvalue
 
 
 class WinrtMethod:
