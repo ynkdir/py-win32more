@@ -1210,31 +1210,31 @@ def OleQueryLinkFromData(pSrcDataObject: Windows.Win32.System.Com.IDataObject_he
 @winfunctype('OLE32.dll')
 def OleQueryCreateFromData(pSrcDataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
-def OleCreate(rclsid: POINTER(Guid), riid: POINTER(Guid), renderopt: Windows.Win32.System.Ole.OLERENDER, pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreate(rclsid: POINTER(Guid), riid: POINTER(Guid), renderopt: UInt32, pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
-def OleCreateEx(rclsid: POINTER(Guid), riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: Windows.Win32.System.Ole.OLERENDER, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateEx(rclsid: POINTER(Guid), riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: UInt32, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
-def OleCreateFromData(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, riid: POINTER(Guid), renderopt: Windows.Win32.System.Ole.OLERENDER, pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateFromData(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, riid: POINTER(Guid), renderopt: UInt32, pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
-def OleCreateFromDataEx(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: Windows.Win32.System.Ole.OLERENDER, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateFromDataEx(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: UInt32, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
-def OleCreateLinkFromData(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, riid: POINTER(Guid), renderopt: Windows.Win32.System.Ole.OLERENDER, pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateLinkFromData(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, riid: POINTER(Guid), renderopt: UInt32, pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
-def OleCreateLinkFromDataEx(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: Windows.Win32.System.Ole.OLERENDER, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateLinkFromDataEx(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: UInt32, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
-def OleCreateStaticFromData(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, iid: POINTER(Guid), renderopt: Windows.Win32.System.Ole.OLERENDER, pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateStaticFromData(pSrcDataObj: Windows.Win32.System.Com.IDataObject_head, iid: POINTER(Guid), renderopt: UInt32, pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
-def OleCreateLink(pmkLinkSrc: Windows.Win32.System.Com.IMoniker_head, riid: POINTER(Guid), renderopt: Windows.Win32.System.Ole.OLERENDER, lpFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateLink(pmkLinkSrc: Windows.Win32.System.Com.IMoniker_head, riid: POINTER(Guid), renderopt: UInt32, lpFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
-def OleCreateLinkEx(pmkLinkSrc: Windows.Win32.System.Com.IMoniker_head, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: Windows.Win32.System.Ole.OLERENDER, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateLinkEx(pmkLinkSrc: Windows.Win32.System.Com.IMoniker_head, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: UInt32, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
-def OleCreateLinkToFile(lpszFileName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), renderopt: Windows.Win32.System.Ole.OLERENDER, lpFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateLinkToFile(lpszFileName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), renderopt: UInt32, lpFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
-def OleCreateLinkToFileEx(lpszFileName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: Windows.Win32.System.Ole.OLERENDER, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateLinkToFileEx(lpszFileName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: UInt32, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
-def OleCreateFromFile(rclsid: POINTER(Guid), lpszFileName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), renderopt: Windows.Win32.System.Ole.OLERENDER, lpFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateFromFile(rclsid: POINTER(Guid), lpszFileName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), renderopt: UInt32, lpFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
-def OleCreateFromFileEx(rclsid: POINTER(Guid), lpszFileName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: Windows.Win32.System.Ole.OLERENDER, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleCreateFromFileEx(rclsid: POINTER(Guid), lpszFileName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), dwFlags: Windows.Win32.System.Ole.OLECREATE, renderopt: UInt32, cFormats: UInt32, rgAdvf: POINTER(UInt32), rgFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), lpAdviseSink: Windows.Win32.System.Com.IAdviseSink_head, rgdwConnection: POINTER(UInt32), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
 def OleLoad(pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, riid: POINTER(Guid), pClientSite: Windows.Win32.System.Ole.IOleClientSite_head, ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
@@ -1298,7 +1298,7 @@ def OleGetIconOfClass(rclsid: POINTER(Guid), lpszLabel: Windows.Win32.Foundation
 @winfunctype('ole32.dll')
 def OleMetafilePictFromIconAndLabel(hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON, lpszLabel: Windows.Win32.Foundation.PWSTR, lpszSourceFile: Windows.Win32.Foundation.PWSTR, iIconIndex: UInt32) -> Windows.Win32.Foundation.HGLOBAL: ...
 @winfunctype('OLE32.dll')
-def OleRegGetUserType(clsid: POINTER(Guid), dwFormOfType: Windows.Win32.System.Ole.USERCLASSTYPE, pszUserType: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
+def OleRegGetUserType(clsid: POINTER(Guid), dwFormOfType: UInt32, pszUserType: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
 def OleRegGetMiscStatus(clsid: POINTER(Guid), dwAspect: UInt32, pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
@@ -1350,7 +1350,7 @@ def OleLoadPictureFileEx(varFileName: Windows.Win32.System.Variant.VARIANT, xSiz
 @winfunctype('OLEAUT32.dll')
 def OleSavePictureFile(lpdispPicture: Windows.Win32.System.Com.IDispatch_head, bstrFileName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLEAUT32.dll')
-def OleIconToCursor(hinstExe: Windows.Win32.Foundation.HMODULE, hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON) -> Windows.Win32.UI.WindowsAndMessaging.HCURSOR: ...
+def OleIconToCursor(hinstExe: Windows.Win32.Foundation.HINSTANCE, hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON) -> Windows.Win32.UI.WindowsAndMessaging.HCURSOR: ...
 @winfunctype('oledlg.dll')
 def OleUIAddVerbMenuW(lpOleObj: Windows.Win32.System.Ole.IOleObject_head, lpszShortType: Windows.Win32.Foundation.PWSTR, hMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU, uPos: UInt32, uIDVerbMin: UInt32, uIDVerbMax: UInt32, bAddConvert: Windows.Win32.Foundation.BOOL, idConvert: UInt32, lphMenu: POINTER(Windows.Win32.UI.WindowsAndMessaging.HMENU)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('oledlg.dll')
@@ -1424,7 +1424,7 @@ CHANGEKIND_GENERAL: CHANGEKIND = 4
 CHANGEKIND_INVALIDATE: CHANGEKIND = 5
 CHANGEKIND_CHANGEFAILED: CHANGEKIND = 6
 CHANGEKIND_MAX: CHANGEKIND = 7
-CHANGE_ICON_FLAGS = Int32
+CHANGE_ICON_FLAGS = UInt32
 CIF_SHOWHELP: CHANGE_ICON_FLAGS = 1
 CIF_SELECTCURRENT: CHANGE_ICON_FLAGS = 2
 CIF_SELECTDEFAULT: CHANGE_ICON_FLAGS = 4
@@ -1471,7 +1471,7 @@ class CONTROLINFO(EasyCastStructure):
     cb: UInt32
     hAccel: Windows.Win32.UI.WindowsAndMessaging.HACCEL
     cAccel: UInt16
-    dwFlags: Windows.Win32.System.Ole.CTRLINFO
+    dwFlags: UInt32
 CTRLINFO = Int32
 CTRLINFO_EATS_RETURN: CTRLINFO = 1
 CTRLINFO_EATS_ESCAPE: CTRLINFO = 2
@@ -1970,7 +1970,7 @@ class IOleClientSite(ComPtr):
     @commethod(3)
     def SaveObject(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetMoniker(self, dwAssign: Windows.Win32.System.Ole.OLEGETMONIKER, dwWhichMoniker: Windows.Win32.System.Ole.OLEWHICHMK, ppmk: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetMoniker(self, dwAssign: UInt32, dwWhichMoniker: UInt32, ppmk: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetContainer(self, ppContainer: POINTER(Windows.Win32.System.Ole.IOleContainer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1990,7 +1990,7 @@ class IOleContainer(ComPtr):
     extends: Windows.Win32.System.Ole.IParseDisplayName
     _iid_ = Guid('{0000011b-0000-0000-c000-000000000046}')
     @commethod(4)
-    def EnumObjects(self, grfFlags: Windows.Win32.System.Ole.OLECONTF, ppenum: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumObjects(self, grfFlags: UInt32, ppenum: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def LockContainer(self, fLock: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleControl(ComPtr):
@@ -2014,7 +2014,7 @@ class IOleControlSite(ComPtr):
     @commethod(5)
     def GetExtendedControl(self, ppDisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def TransformCoords(self, pPtlHimetric: POINTER(Windows.Win32.Foundation.POINTL_head), pPtfContainer: POINTER(Windows.Win32.System.Ole.POINTF_head), dwFlags: Windows.Win32.System.Ole.XFORMCOORDS) -> Windows.Win32.Foundation.HRESULT: ...
+    def TransformCoords(self, pPtlHimetric: POINTER(Windows.Win32.Foundation.POINTL_head), pPtfContainer: POINTER(Windows.Win32.System.Ole.POINTF_head), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def TranslateAccelerator(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), grfModifiers: Windows.Win32.System.Ole.KEYMODIFIERS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2224,11 +2224,11 @@ class IOleObject(ComPtr):
     @commethod(5)
     def SetHostNames(self, szContainerApp: Windows.Win32.Foundation.PWSTR, szContainerObj: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Close(self, dwSaveOption: Windows.Win32.System.Ole.OLECLOSE) -> Windows.Win32.Foundation.HRESULT: ...
+    def Close(self, dwSaveOption: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def SetMoniker(self, dwWhichMoniker: Windows.Win32.System.Ole.OLEWHICHMK, pmk: Windows.Win32.System.Com.IMoniker_head) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetMoniker(self, dwWhichMoniker: UInt32, pmk: Windows.Win32.System.Com.IMoniker_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetMoniker(self, dwAssign: Windows.Win32.System.Ole.OLEGETMONIKER, dwWhichMoniker: Windows.Win32.System.Ole.OLEWHICHMK, ppmk: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetMoniker(self, dwAssign: UInt32, dwWhichMoniker: UInt32, ppmk: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def InitFromData(self, pDataObject: Windows.Win32.System.Com.IDataObject_head, fCreation: Windows.Win32.Foundation.BOOL, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -2244,7 +2244,7 @@ class IOleObject(ComPtr):
     @commethod(15)
     def GetUserClassID(self, pClsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def GetUserType(self, dwFormOfType: Windows.Win32.System.Ole.USERCLASSTYPE, pszUserType: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetUserType(self, dwFormOfType: UInt32, pszUserType: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def SetExtent(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, psizel: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -2429,7 +2429,7 @@ class IPicture(ComPtr):
     @commethod(4)
     def get_hPal(self, phPal: POINTER(Windows.Win32.System.Ole.OLE_HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def get_Type(self, pType: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
+    def get_Type(self, pType: POINTER(Windows.Win32.System.Ole.PICTYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def get_Width(self, pWidth: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2525,7 +2525,7 @@ class IPropertyPage(ComPtr):
     @commethod(7)
     def SetObjects(self, cObjects: UInt32, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Show(self, nCmdShow: Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD) -> Windows.Win32.Foundation.HRESULT: ...
+    def Show(self, nCmdShow: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Move(self, pRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -2545,7 +2545,7 @@ class IPropertyPageSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b196b28c-bab4-101a-b69c-00aa00341d07}')
     @commethod(3)
-    def OnStatusChange(self, dwFlags: Windows.Win32.System.Ole.PROPPAGESTATUS) -> Windows.Win32.Foundation.HRESULT: ...
+    def OnStatusChange(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetLocaleID(self, pLocaleID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -2619,9 +2619,9 @@ class IRecordInfo(ComPtr):
     @commethod(11)
     def GetFieldNoCopy(self, pvData: c_void_p, szFieldName: Windows.Win32.Foundation.PWSTR, pvarField: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppvDataCArray: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def PutField(self, wFlags: Windows.Win32.System.Com.INVOKEKIND, pvData: c_void_p, szFieldName: Windows.Win32.Foundation.PWSTR, pvarField: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def PutField(self, wFlags: UInt32, pvData: c_void_p, szFieldName: Windows.Win32.Foundation.PWSTR, pvarField: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def PutFieldNoCopy(self, wFlags: Windows.Win32.System.Com.INVOKEKIND, pvData: c_void_p, szFieldName: Windows.Win32.Foundation.PWSTR, pvarField: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def PutFieldNoCopy(self, wFlags: UInt32, pvData: c_void_p, szFieldName: Windows.Win32.Foundation.PWSTR, pvarField: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetFieldNames(self, pcNames: POINTER(UInt32), rgBstrNames: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -2676,7 +2676,7 @@ class IVBGetControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{40a050a0-3c31-101b-a82e-08002b2b2337}')
     @commethod(3)
-    def EnumControls(self, dwOleContF: Windows.Win32.System.Ole.OLECONTF, dwWhich: Windows.Win32.System.Ole.ENUM_CONTROLS_WHICH_FLAGS, ppenumUnk: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumControls(self, dwOleContF: UInt32, dwWhich: Windows.Win32.System.Ole.ENUM_CONTROLS_WHICH_FLAGS, ppenumUnk: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVariantChangeType(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a6ef9862-c720-11d0-9337-00a0c90dcaa9}')
@@ -2694,7 +2694,7 @@ class IViewObject(ComPtr):
     @commethod(6)
     def Unfreeze(self, dwFreeze: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def SetAdvise(self, aspects: Windows.Win32.System.Com.DVASPECT, advf: Windows.Win32.System.Com.ADVF, pAdvSink: Windows.Win32.System.Com.IAdviseSink_head) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetAdvise(self, aspects: Windows.Win32.System.Com.DVASPECT, advf: UInt32, pAdvSink: Windows.Win32.System.Com.IAdviseSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetAdvise(self, pAspects: POINTER(UInt32), pAdvf: POINTER(UInt32), ppAdvSink: POINTER(Windows.Win32.System.Com.IAdviseSink_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IViewObject2(ComPtr):
@@ -2814,8 +2814,8 @@ OLECLOSE_SAVEIFDIRTY: OLECLOSE = 0
 OLECLOSE_NOSAVE: OLECLOSE = 1
 OLECLOSE_PROMPTSAVE: OLECLOSE = 2
 class OLECMD(EasyCastStructure):
-    cmdID: Windows.Win32.System.Ole.OLECMDID
-    cmdf: Windows.Win32.System.Ole.OLECMDF
+    cmdID: UInt32
+    cmdf: UInt32
 OLECMDEXECOPT = Int32
 OLECMDEXECOPT_DODEFAULT: OLECMDEXECOPT = 0
 OLECMDEXECOPT_PROMPTUSER: OLECMDEXECOPT = 1
@@ -3073,7 +3073,7 @@ class OLEUIBUSYA(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PSTR
     hResource: Windows.Win32.Foundation.HRSRC
     hTask: Windows.Win32.Media.HTASK
@@ -3085,7 +3085,7 @@ class OLEUIBUSYW(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PWSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PWSTR
     hResource: Windows.Win32.Foundation.HRSRC
     hTask: Windows.Win32.Media.HTASK
@@ -3097,7 +3097,7 @@ class OLEUICHANGEICONA(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PSTR
     hResource: Windows.Win32.Foundation.HRSRC
     hMetaPict: Windows.Win32.Foundation.HGLOBAL
@@ -3111,7 +3111,7 @@ class OLEUICHANGEICONW(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PWSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PWSTR
     hResource: Windows.Win32.Foundation.HRSRC
     hMetaPict: Windows.Win32.Foundation.HGLOBAL
@@ -3125,7 +3125,7 @@ class OLEUICHANGESOURCEA(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PSTR
     hResource: Windows.Win32.Foundation.HRSRC
     lpOFN: POINTER(Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)
@@ -3143,7 +3143,7 @@ class OLEUICHANGESOURCEW(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PWSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PWSTR
     hResource: Windows.Win32.Foundation.HRSRC
     lpOFN: POINTER(Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)
@@ -3161,7 +3161,7 @@ class OLEUICONVERTA(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PSTR
     hResource: Windows.Win32.Foundation.HRSRC
     clsid: Guid
@@ -3184,7 +3184,7 @@ class OLEUICONVERTW(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PWSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PWSTR
     hResource: Windows.Win32.Foundation.HRSRC
     clsid: Guid
@@ -3207,7 +3207,7 @@ class OLEUIEDITLINKSA(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PSTR
     hResource: Windows.Win32.Foundation.HRSRC
     lpOleUILinkContainer: Windows.Win32.System.Ole.IOleUILinkContainerA_head
@@ -3218,7 +3218,7 @@ class OLEUIEDITLINKSW(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PWSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PWSTR
     hResource: Windows.Win32.Foundation.HRSRC
     lpOleUILinkContainer: Windows.Win32.System.Ole.IOleUILinkContainerW_head
@@ -3245,7 +3245,7 @@ class OLEUIINSERTOBJECTA(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PSTR
     hResource: Windows.Win32.Foundation.HRSRC
     clsid: Guid
@@ -3268,7 +3268,7 @@ class OLEUIINSERTOBJECTW(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PWSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PWSTR
     hResource: Windows.Win32.Foundation.HRSRC
     clsid: Guid
@@ -3354,7 +3354,7 @@ class OLEUIPASTESPECIALA(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PSTR
     hResource: Windows.Win32.Foundation.HRSRC
     lpSrcDataObj: Windows.Win32.System.Com.IDataObject_head
@@ -3375,7 +3375,7 @@ class OLEUIPASTESPECIALW(EasyCastStructure):
     lpszCaption: Windows.Win32.Foundation.PWSTR
     lpfnHook: Windows.Win32.System.Ole.LPFNOLEUIHOOK
     lCustData: Windows.Win32.Foundation.LPARAM
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PWSTR
     hResource: Windows.Win32.Foundation.HRSRC
     lpSrcDataObj: Windows.Win32.System.Com.IDataObject_head
@@ -3416,7 +3416,7 @@ class OLEVERB(EasyCastStructure):
     lVerb: Windows.Win32.System.Ole.OLEIVERB
     lpszVerbName: Windows.Win32.Foundation.PWSTR
     fuFlags: Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS
-    grfAttribs: Windows.Win32.System.Ole.OLEVERBATTRIB
+    grfAttribs: UInt32
 OLEVERBATTRIB = Int32
 OLEVERBATTRIB_NEVERDIRTIES: OLEVERBATTRIB = 1
 OLEVERBATTRIB_ONCONTAINERMENU: OLEVERBATTRIB = 2
@@ -3472,7 +3472,7 @@ PSF_STAYONCLIPBOARDCHANGE: PASTE_SPECIAL_FLAGS = 64
 PSF_NOREFRESHDATAOBJECT: PASTE_SPECIAL_FLAGS = 128
 class PICTDESC(EasyCastStructure):
     cbSizeofstruct: UInt32
-    picType: Windows.Win32.System.Ole.PICTYPE
+    picType: UInt32
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         bmp: _bmp_e__Struct
@@ -3493,7 +3493,7 @@ class PICTDESC(EasyCastStructure):
 PICTUREATTRIBUTES = Int32
 PICTURE_SCALABLE: PICTUREATTRIBUTES = 1
 PICTURE_TRANSPARENT: PICTUREATTRIBUTES = 2
-PICTYPE = Int32
+PICTYPE = Int16
 PICTYPE_UNINITIALIZED: PICTYPE = -1
 PICTYPE_NONE: PICTYPE = 0
 PICTYPE_BITMAP: PICTYPE = 1
@@ -3540,7 +3540,7 @@ class QACONTAINER(EasyCastStructure):
     pAdviseSink: Windows.Win32.System.Ole.IAdviseSinkEx_head
     pPropertyNotifySink: Windows.Win32.System.Ole.IPropertyNotifySink_head
     pUnkEventSink: Windows.Win32.System.Com.IUnknown_head
-    dwAmbientFlags: Windows.Win32.System.Ole.QACONTAINERFLAGS
+    dwAmbientFlags: UInt32
     colorFore: UInt32
     colorBack: UInt32
     pFont: Windows.Win32.System.Ole.IFont_head
@@ -3562,11 +3562,11 @@ QACONTAINER_MESSAGEREFLECT: QACONTAINERFLAGS = 64
 QACONTAINER_SUPPORTSMNEMONICS: QACONTAINERFLAGS = 128
 class QACONTROL(EasyCastStructure):
     cbSize: UInt32
-    dwMiscStatus: Windows.Win32.System.Ole.OLEMISC
-    dwViewStatus: Windows.Win32.System.Ole.VIEWSTATUS
+    dwMiscStatus: UInt32
+    dwViewStatus: UInt32
     dwEventCookie: UInt32
     dwPropNotifyCookie: UInt32
-    dwPointerActivationPolicy: Windows.Win32.System.Ole.POINTERINACTIVE
+    dwPointerActivationPolicy: UInt32
 READYSTATE = Int32
 READYSTATE_UNINITIALIZED: READYSTATE = 0
 READYSTATE_LOADING: READYSTATE = 1

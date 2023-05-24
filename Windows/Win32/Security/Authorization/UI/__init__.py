@@ -137,7 +137,7 @@ class SI_INHERIT_TYPE(EasyCastStructure):
     pszName: Windows.Win32.Foundation.PWSTR
 class SI_OBJECT_INFO(EasyCastStructure):
     dwFlags: Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     pszServerName: Windows.Win32.Foundation.PWSTR
     pszObjectName: Windows.Win32.Foundation.PWSTR
     pszPageTitle: Windows.Win32.Foundation.PWSTR

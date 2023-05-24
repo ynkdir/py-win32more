@@ -501,17 +501,17 @@ def IsWow64Process2(hProcess: Windows.Win32.Foundation.HANDLE, pProcessMachine: 
 @winfunctype('KERNEL32.dll')
 def Wow64SuspendThread(hThread: Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def CreatePrivateNamespaceW(lpPrivateNamespaceAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpBoundaryDescriptor: c_void_p, lpAliasPrefix: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.System.Threading.NamespaceHandle: ...
+def CreatePrivateNamespaceW(lpPrivateNamespaceAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpBoundaryDescriptor: c_void_p, lpAliasPrefix: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def OpenPrivateNamespaceW(lpBoundaryDescriptor: c_void_p, lpAliasPrefix: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.System.Threading.NamespaceHandle: ...
+def OpenPrivateNamespaceW(lpBoundaryDescriptor: c_void_p, lpAliasPrefix: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def ClosePrivateNamespace(Handle: Windows.Win32.System.Threading.NamespaceHandle, Flags: UInt32) -> Windows.Win32.Foundation.BOOLEAN: ...
+def ClosePrivateNamespace(Handle: Windows.Win32.Foundation.HANDLE, Flags: UInt32) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('KERNEL32.dll')
-def CreateBoundaryDescriptorW(Name: Windows.Win32.Foundation.PWSTR, Flags: UInt32) -> Windows.Win32.System.Threading.BoundaryDescriptorHandle: ...
+def CreateBoundaryDescriptorW(Name: Windows.Win32.Foundation.PWSTR, Flags: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def AddSIDToBoundaryDescriptor(BoundaryDescriptor: POINTER(Windows.Win32.Foundation.HANDLE), RequiredSid: Windows.Win32.Foundation.PSID) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def DeleteBoundaryDescriptor(BoundaryDescriptor: Windows.Win32.System.Threading.BoundaryDescriptorHandle) -> Void: ...
+def DeleteBoundaryDescriptor(BoundaryDescriptor: Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def GetNumaHighestNodeNumber(HighestNodeNumber: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -711,11 +711,11 @@ def UnregisterWait(WaitHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32
 @winfunctype('KERNEL32.dll')
 def SetTimerQueueTimer(TimerQueue: Windows.Win32.Foundation.HANDLE, Callback: Windows.Win32.System.Threading.WAITORTIMERCALLBACK, Parameter: c_void_p, DueTime: UInt32, Period: UInt32, PreferIo: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def CreatePrivateNamespaceA(lpPrivateNamespaceAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpBoundaryDescriptor: c_void_p, lpAliasPrefix: Windows.Win32.Foundation.PSTR) -> Windows.Win32.System.Threading.NamespaceHandle: ...
+def CreatePrivateNamespaceA(lpPrivateNamespaceAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpBoundaryDescriptor: c_void_p, lpAliasPrefix: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def OpenPrivateNamespaceA(lpBoundaryDescriptor: c_void_p, lpAliasPrefix: Windows.Win32.Foundation.PSTR) -> Windows.Win32.System.Threading.NamespaceHandle: ...
+def OpenPrivateNamespaceA(lpBoundaryDescriptor: c_void_p, lpAliasPrefix: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def CreateBoundaryDescriptorA(Name: Windows.Win32.Foundation.PSTR, Flags: UInt32) -> Windows.Win32.System.Threading.BoundaryDescriptorHandle: ...
+def CreateBoundaryDescriptorA(Name: Windows.Win32.Foundation.PSTR, Flags: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def AddIntegrityLabelToBoundaryDescriptor(BoundaryDescriptor: POINTER(Windows.Win32.Foundation.HANDLE), IntegrityLabel: Windows.Win32.Foundation.PSID) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -740,8 +740,6 @@ def GetNumaAvailableMemoryNode(Node: Byte, AvailableBytes: POINTER(UInt64)) -> W
 def GetNumaAvailableMemoryNodeEx(Node: UInt16, AvailableBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetNumaProximityNode(ProximityId: UInt32, NodeNumber: POINTER(Byte)) -> Windows.Win32.Foundation.BOOL: ...
-class BoundaryDescriptorHandle(EasyCastStructure):
-    Value: IntPtr
 class CONDITION_VARIABLE(EasyCastStructure):
     Ptr: c_void_p
 CREATE_EVENT = UInt32
@@ -827,8 +825,6 @@ MEMORY_PRIORITY_BELOW_NORMAL: MEMORY_PRIORITY = 4
 MEMORY_PRIORITY_NORMAL: MEMORY_PRIORITY = 5
 class MEMORY_PRIORITY_INFORMATION(EasyCastStructure):
     MemoryPriority: Windows.Win32.System.Threading.MEMORY_PRIORITY
-class NamespaceHandle(EasyCastStructure):
-    Value: IntPtr
 class PEB(EasyCastStructure):
     Reserved1: Byte * 2
     BeingDebugged: Byte
@@ -1286,8 +1282,6 @@ TP_CALLBACK_PRIORITY_COUNT: TP_CALLBACK_PRIORITY = 3
 class TP_POOL_STACK_INFORMATION(EasyCastStructure):
     StackReserve: UIntPtr
     StackCommit: UIntPtr
-class TimerQueueHandle(EasyCastStructure):
-    Value: IntPtr
 class UMS_SCHEDULER_STARTUP_INFO(EasyCastStructure):
     UmsVersion: UInt32
     CompletionList: c_void_p
@@ -1325,7 +1319,6 @@ WT_TRANSFER_IMPERSONATION: WORKER_THREAD_FLAGS = 256
 WT_EXECUTEINTIMERTHREAD: WORKER_THREAD_FLAGS = 32
 make_head(_module, 'APC_CALLBACK_FUNCTION')
 make_head(_module, 'APP_MEMORY_INFORMATION')
-make_head(_module, 'BoundaryDescriptorHandle')
 make_head(_module, 'CONDITION_VARIABLE')
 make_head(_module, 'CRITICAL_SECTION')
 make_head(_module, 'CRITICAL_SECTION_DEBUG')
@@ -1337,7 +1330,6 @@ make_head(_module, 'IRtwqPlatformEvents')
 make_head(_module, 'LPFIBER_START_ROUTINE')
 make_head(_module, 'LPTHREAD_START_ROUTINE')
 make_head(_module, 'MEMORY_PRIORITY_INFORMATION')
-make_head(_module, 'NamespaceHandle')
 make_head(_module, 'PEB')
 make_head(_module, 'PEB_LDR_DATA')
 make_head(_module, 'PFLS_CALLBACK_FUNCTION')
@@ -1376,7 +1368,6 @@ make_head(_module, 'TEB')
 make_head(_module, 'THREAD_POWER_THROTTLING_STATE')
 make_head(_module, 'TP_CALLBACK_ENVIRON_V3')
 make_head(_module, 'TP_POOL_STACK_INFORMATION')
-make_head(_module, 'TimerQueueHandle')
 make_head(_module, 'UMS_SCHEDULER_STARTUP_INFO')
 make_head(_module, 'UMS_SYSTEM_THREAD_INFORMATION')
 make_head(_module, 'WAITORTIMERCALLBACK')

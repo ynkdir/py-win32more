@@ -144,9 +144,9 @@ def WNetDisconnectDialog1A(lpConnDlgStruct: POINTER(Windows.Win32.NetworkManagem
 @winfunctype('MPR.dll')
 def WNetDisconnectDialog1W(lpConnDlgStruct: POINTER(Windows.Win32.NetworkManagement.WNet.DISCDLGSTRUCTW_head)) -> UInt32: ...
 @winfunctype('MPR.dll')
-def WNetOpenEnumA(dwScope: Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE, dwType: Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE, dwUsage: Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE, lpNetResource: POINTER(Windows.Win32.NetworkManagement.WNet.NETRESOURCEA_head), lphEnum: POINTER(Windows.Win32.NetworkManagement.WNet.NetEnumHandle_head)) -> UInt32: ...
+def WNetOpenEnumA(dwScope: Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE, dwType: Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE, dwUsage: Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE, lpNetResource: POINTER(Windows.Win32.NetworkManagement.WNet.NETRESOURCEA_head), lphEnum: POINTER(Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('MPR.dll')
-def WNetOpenEnumW(dwScope: Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE, dwType: Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE, dwUsage: Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE, lpNetResource: POINTER(Windows.Win32.NetworkManagement.WNet.NETRESOURCEW_head), lphEnum: POINTER(Windows.Win32.NetworkManagement.WNet.NetEnumHandle_head)) -> UInt32: ...
+def WNetOpenEnumW(dwScope: Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE, dwType: Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE, dwUsage: Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE, lpNetResource: POINTER(Windows.Win32.NetworkManagement.WNet.NETRESOURCEW_head), lphEnum: POINTER(Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('MPR.dll')
 def WNetEnumResourceA(hEnum: Windows.Win32.Foundation.HANDLE, lpcCount: POINTER(UInt32), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('MPR.dll')
@@ -339,8 +339,6 @@ NP_PROPERTY_DIALOG_SELECTION = UInt32
 WNPS_FILE: NP_PROPERTY_DIALOG_SELECTION = 0
 WNPS_DIR: NP_PROPERTY_DIALOG_SELECTION = 1
 WNPS_MULT: NP_PROPERTY_DIALOG_SELECTION = 2
-class NetEnumHandle(EasyCastStructure):
-    Value: IntPtr
 @winfunctype_pointer
 def PF_AddConnectNotify(lpNotifyInfo: POINTER(Windows.Win32.NetworkManagement.WNet.NOTIFYINFO_head), lpAddInfo: POINTER(Windows.Win32.NetworkManagement.WNet.NOTIFYADD_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -439,7 +437,6 @@ make_head(_module, 'NETRESOURCEW')
 make_head(_module, 'NOTIFYADD')
 make_head(_module, 'NOTIFYCANCEL')
 make_head(_module, 'NOTIFYINFO')
-make_head(_module, 'NetEnumHandle')
 make_head(_module, 'PF_AddConnectNotify')
 make_head(_module, 'PF_CancelConnectNotify')
 make_head(_module, 'PF_NPAddConnection')

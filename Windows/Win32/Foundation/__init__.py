@@ -6762,11 +6762,17 @@ def GetHandleInformation(hObject: Windows.Win32.Foundation.HANDLE, lpdwFlags: PO
 @winfunctype('KERNEL32.dll')
 def SetHandleInformation(hObject: Windows.Win32.Foundation.HANDLE, dwMask: UInt32, dwFlags: Windows.Win32.Foundation.HANDLE_FLAGS) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
+def FreeLibrary(hLibModule: Windows.Win32.Foundation.HMODULE) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
 def GetLastError() -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('KERNEL32.dll')
 def SetLastError(dwErrCode: Windows.Win32.Foundation.WIN32_ERROR) -> Void: ...
 @winfunctype('USER32.dll')
 def SetLastErrorEx(dwErrCode: Windows.Win32.Foundation.WIN32_ERROR, dwType: UInt32) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def GlobalFree(hMem: Windows.Win32.Foundation.HGLOBAL) -> Windows.Win32.Foundation.HGLOBAL: ...
+@winfunctype('KERNEL32.dll')
+def LocalFree(hMem: Windows.Win32.Foundation.HLOCAL) -> Windows.Win32.Foundation.HLOCAL: ...
 @winfunctype('ntdll.dll')
 def RtlNtStatusToDosError(Status: Windows.Win32.Foundation.NTSTATUS) -> UInt32: ...
 BOOL = Int32
@@ -6813,6 +6819,7 @@ HANDLE_FLAG_INHERIT: HANDLE_FLAGS = 1
 HANDLE_FLAG_PROTECT_FROM_CLOSE: HANDLE_FLAGS = 2
 HANDLE_PTR = UIntPtr
 HGLOBAL = c_void_p
+HINSTANCE = IntPtr
 HLOCAL = c_void_p
 HLSURF = IntPtr
 HMODULE = IntPtr
@@ -6892,13 +6899,6 @@ STATUS_SEVERITY_SUCCESS: NTSTATUS_SEVERITY_CODE = 0
 STATUS_SEVERITY_INFORMATIONAL: NTSTATUS_SEVERITY_CODE = 1
 STATUS_SEVERITY_WARNING: NTSTATUS_SEVERITY_CODE = 2
 STATUS_SEVERITY_ERROR: NTSTATUS_SEVERITY_CODE = 3
-class OBJECT_ATTRIBUTES(EasyCastStructure):
-    Length: UInt32
-    RootDirectory: Windows.Win32.Foundation.HANDLE
-    ObjectName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)
-    Attributes: UInt32
-    SecurityDescriptor: c_void_p
-    SecurityQualityOfService: c_void_p
 @winfunctype_pointer
 def PAPCFUNC(Parameter: UIntPtr) -> Void: ...
 class POINT(EasyCastStructure):
@@ -10189,7 +10189,6 @@ make_head(_module, 'FILETIME')
 make_head(_module, 'FLOAT128')
 make_head(_module, 'LUID')
 make_head(_module, 'NEARPROC')
-make_head(_module, 'OBJECT_ATTRIBUTES')
 make_head(_module, 'PAPCFUNC')
 make_head(_module, 'POINT')
 make_head(_module, 'POINTL')

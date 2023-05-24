@@ -6468,8 +6468,8 @@ DOCHOSTUIFLAG_ENABLE_ACTIVEX_INACTIVATE_MODE: DOCHOSTUIFLAG = 536870912
 DOCHOSTUIFLAG_DPI_AWARE: DOCHOSTUIFLAG = 1073741824
 class DOCHOSTUIINFO(EasyCastStructure):
     cbSize: UInt32
-    dwFlags: Windows.Win32.Web.MsHtml.DOCHOSTUIFLAG
-    dwDoubleClick: Windows.Win32.Web.MsHtml.DOCHOSTUIDBLCLK
+    dwFlags: UInt32
+    dwDoubleClick: UInt32
     pchHostCss: Windows.Win32.Foundation.PWSTR
     pchHostNS: Windows.Win32.Foundation.PWSTR
 DOCHOSTUITYPE = Int32

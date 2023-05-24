@@ -131,7 +131,7 @@ class CERT_SELECTUI_INPUT(EasyCastStructure):
 class CERT_SELECT_STRUCT_A(EasyCastStructure):
     dwSize: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     pTemplateName: Windows.Win32.Foundation.PSTR
     dwFlags: Windows.Win32.Security.Cryptography.UI.CERT_SELECT_STRUCT_FLAGS
     szTitle: Windows.Win32.Foundation.PSTR
@@ -156,7 +156,7 @@ CSS_ENABLETEMPLATEHANDLE: CERT_SELECT_STRUCT_FLAGS = 64
 class CERT_SELECT_STRUCT_W(EasyCastStructure):
     dwSize: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     pTemplateName: Windows.Win32.Foundation.PWSTR
     dwFlags: Windows.Win32.Security.Cryptography.UI.CERT_SELECT_STRUCT_FLAGS
     szTitle: Windows.Win32.Foundation.PWSTR
@@ -194,7 +194,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST(EasyCastStructure):
 class CERT_VIEWPROPERTIES_STRUCT_A(EasyCastStructure):
     dwSize: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     dwFlags: Windows.Win32.Security.Cryptography.UI.CERT_VIEWPROPERTIES_STRUCT_FLAGS
     szTitle: Windows.Win32.Foundation.PSTR
     pCertContext: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
@@ -228,7 +228,7 @@ CM_ADD_CERT_STORES: CERT_VIEWPROPERTIES_STRUCT_FLAGS = 512
 class CERT_VIEWPROPERTIES_STRUCT_W(EasyCastStructure):
     dwSize: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     dwFlags: Windows.Win32.Security.Cryptography.UI.CERT_VIEWPROPERTIES_STRUCT_FLAGS
     szTitle: Windows.Win32.Foundation.PWSTR
     pCertContext: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)

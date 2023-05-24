@@ -22,7 +22,7 @@ class ABCFLOAT(EasyCastStructure):
     abcfC: Single
 class ABORTPATH(EasyCastStructure):
     emr: Windows.Win32.Graphics.Gdi.EMR
-ARC_DIRECTION = UInt32
+ARC_DIRECTION = Int32
 AD_COUNTERCLOCKWISE: ARC_DIRECTION = 1
 AD_CLOCKWISE: ARC_DIRECTION = 2
 class AXESLISTA(EasyCastStructure):
@@ -914,11 +914,11 @@ def CreateCompatibleBitmap(hdc: Windows.Win32.Graphics.Gdi.HDC, cx: Int32, cy: I
 @winfunctype('GDI32.dll')
 def CreateDiscardableBitmap(hdc: Windows.Win32.Graphics.Gdi.HDC, cx: Int32, cy: Int32) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('GDI32.dll')
-def CreateCompatibleDC(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Graphics.Gdi.CreatedHDC: ...
+def CreateCompatibleDC(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
-def CreateDCA(pwszDriver: Windows.Win32.Foundation.PSTR, pwszDevice: Windows.Win32.Foundation.PSTR, pszPort: Windows.Win32.Foundation.PSTR, pdm: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head)) -> Windows.Win32.Graphics.Gdi.CreatedHDC: ...
+def CreateDCA(pwszDriver: Windows.Win32.Foundation.PSTR, pwszDevice: Windows.Win32.Foundation.PSTR, pszPort: Windows.Win32.Foundation.PSTR, pdm: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head)) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
-def CreateDCW(pwszDriver: Windows.Win32.Foundation.PWSTR, pwszDevice: Windows.Win32.Foundation.PWSTR, pszPort: Windows.Win32.Foundation.PWSTR, pdm: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEW_head)) -> Windows.Win32.Graphics.Gdi.CreatedHDC: ...
+def CreateDCW(pwszDriver: Windows.Win32.Foundation.PWSTR, pwszDevice: Windows.Win32.Foundation.PWSTR, pszPort: Windows.Win32.Foundation.PWSTR, pdm: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEW_head)) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
 def CreateDIBitmap(hdc: Windows.Win32.Graphics.Gdi.HDC, pbmih: POINTER(Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER_head), flInit: UInt32, pjBits: c_void_p, pbmi: POINTER(Windows.Win32.Graphics.Gdi.BITMAPINFO_head), iUsage: Windows.Win32.Graphics.Gdi.DIB_USAGE) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('GDI32.dll')
@@ -940,13 +940,13 @@ def CreateFontW(cHeight: Int32, cWidth: Int32, cEscapement: Int32, cOrientation:
 @winfunctype('GDI32.dll')
 def CreateHatchBrush(iHatch: Windows.Win32.Graphics.Gdi.HATCH_BRUSH_STYLE, color: Windows.Win32.Foundation.COLORREF) -> Windows.Win32.Graphics.Gdi.HBRUSH: ...
 @winfunctype('GDI32.dll')
-def CreateICA(pszDriver: Windows.Win32.Foundation.PSTR, pszDevice: Windows.Win32.Foundation.PSTR, pszPort: Windows.Win32.Foundation.PSTR, pdm: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head)) -> Windows.Win32.Graphics.Gdi.CreatedHDC: ...
+def CreateICA(pszDriver: Windows.Win32.Foundation.PSTR, pszDevice: Windows.Win32.Foundation.PSTR, pszPort: Windows.Win32.Foundation.PSTR, pdm: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head)) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
-def CreateICW(pszDriver: Windows.Win32.Foundation.PWSTR, pszDevice: Windows.Win32.Foundation.PWSTR, pszPort: Windows.Win32.Foundation.PWSTR, pdm: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEW_head)) -> Windows.Win32.Graphics.Gdi.CreatedHDC: ...
+def CreateICW(pszDriver: Windows.Win32.Foundation.PWSTR, pszDevice: Windows.Win32.Foundation.PWSTR, pszPort: Windows.Win32.Foundation.PWSTR, pdm: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEW_head)) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
-def CreateMetaFileA(pszFile: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Graphics.Gdi.HdcMetdataFileHandle: ...
+def CreateMetaFileA(pszFile: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
-def CreateMetaFileW(pszFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Graphics.Gdi.HdcMetdataFileHandle: ...
+def CreateMetaFileW(pszFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
 def CreatePalette(plpal: POINTER(Windows.Win32.Graphics.Gdi.LOGPALETTE_head)) -> Windows.Win32.Graphics.Gdi.HPALETTE: ...
 @winfunctype('GDI32.dll')
@@ -970,7 +970,7 @@ def CreateScalableFontResourceW(fdwHidden: UInt32, lpszFont: Windows.Win32.Found
 @winfunctype('GDI32.dll')
 def CreateSolidBrush(color: Windows.Win32.Foundation.COLORREF) -> Windows.Win32.Graphics.Gdi.HBRUSH: ...
 @winfunctype('GDI32.dll')
-def DeleteDC(hdc: Windows.Win32.Graphics.Gdi.CreatedHDC) -> Windows.Win32.Foundation.BOOL: ...
+def DeleteDC(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def DeleteMetaFile(hmf: Windows.Win32.Graphics.Gdi.HMETAFILE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1018,7 +1018,7 @@ def GetDCBrushColor(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Founda
 @winfunctype('GDI32.dll')
 def GetDCPenColor(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.COLORREF: ...
 @winfunctype('GDI32.dll')
-def GetBkMode(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Graphics.Gdi.BACKGROUND_MODE: ...
+def GetBkMode(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Int32: ...
 @winfunctype('GDI32.dll')
 def GetBitmapBits(hbit: Windows.Win32.Graphics.Gdi.HBITMAP, cb: Int32, lpvBits: c_void_p) -> Int32: ...
 @winfunctype('GDI32.dll')
@@ -1054,11 +1054,11 @@ def GetClipRgn(hdc: Windows.Win32.Graphics.Gdi.HDC, hrgn: Windows.Win32.Graphics
 @winfunctype('GDI32.dll')
 def GetMetaRgn(hdc: Windows.Win32.Graphics.Gdi.HDC, hrgn: Windows.Win32.Graphics.Gdi.HRGN) -> Int32: ...
 @winfunctype('GDI32.dll')
-def GetCurrentObject(hdc: Windows.Win32.Graphics.Gdi.HDC, type: Windows.Win32.Graphics.Gdi.OBJ_TYPE) -> Windows.Win32.Graphics.Gdi.HGDIOBJ: ...
+def GetCurrentObject(hdc: Windows.Win32.Graphics.Gdi.HDC, type: UInt32) -> Windows.Win32.Graphics.Gdi.HGDIOBJ: ...
 @winfunctype('GDI32.dll')
 def GetCurrentPositionEx(hdc: Windows.Win32.Graphics.Gdi.HDC, lppt: POINTER(Windows.Win32.Foundation.POINT_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
-def GetDeviceCaps(hdc: Windows.Win32.Graphics.Gdi.HDC, index: Windows.Win32.Graphics.Gdi.GET_DEVICE_CAPS_INDEX) -> Int32: ...
+def GetDeviceCaps(hdc: Windows.Win32.Graphics.Gdi.HDC, index: Int32) -> Int32: ...
 @winfunctype('GDI32.dll')
 def GetDIBits(hdc: Windows.Win32.Graphics.Gdi.HDC, hbm: Windows.Win32.Graphics.Gdi.HBITMAP, start: UInt32, cLines: UInt32, lpvBits: c_void_p, lpbmi: POINTER(Windows.Win32.Graphics.Gdi.BITMAPINFO_head), usage: Windows.Win32.Graphics.Gdi.DIB_USAGE) -> Int32: ...
 @winfunctype('GDI32.dll')
@@ -1242,7 +1242,7 @@ def SetDCBrushColor(hdc: Windows.Win32.Graphics.Gdi.HDC, color: Windows.Win32.Fo
 @winfunctype('GDI32.dll')
 def SetDCPenColor(hdc: Windows.Win32.Graphics.Gdi.HDC, color: Windows.Win32.Foundation.COLORREF) -> Windows.Win32.Foundation.COLORREF: ...
 @winfunctype('GDI32.dll')
-def SetBkMode(hdc: Windows.Win32.Graphics.Gdi.HDC, mode: Windows.Win32.Graphics.Gdi.BACKGROUND_MODE) -> Int32: ...
+def SetBkMode(hdc: Windows.Win32.Graphics.Gdi.HDC, mode: Int32) -> Int32: ...
 @winfunctype('GDI32.dll')
 def SetBitmapBits(hbm: Windows.Win32.Graphics.Gdi.HBITMAP, cb: UInt32, pvBits: c_void_p) -> Int32: ...
 @winfunctype('GDI32.dll')
@@ -1316,9 +1316,9 @@ def CopyEnhMetaFileA(hEnh: Windows.Win32.Graphics.Gdi.HENHMETAFILE, lpFileName: 
 @winfunctype('GDI32.dll')
 def CopyEnhMetaFileW(hEnh: Windows.Win32.Graphics.Gdi.HENHMETAFILE, lpFileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Graphics.Gdi.HENHMETAFILE: ...
 @winfunctype('GDI32.dll')
-def CreateEnhMetaFileA(hdc: Windows.Win32.Graphics.Gdi.HDC, lpFilename: Windows.Win32.Foundation.PSTR, lprc: POINTER(Windows.Win32.Foundation.RECT_head), lpDesc: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Graphics.Gdi.HdcMetdataEnhFileHandle: ...
+def CreateEnhMetaFileA(hdc: Windows.Win32.Graphics.Gdi.HDC, lpFilename: Windows.Win32.Foundation.PSTR, lprc: POINTER(Windows.Win32.Foundation.RECT_head), lpDesc: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
-def CreateEnhMetaFileW(hdc: Windows.Win32.Graphics.Gdi.HDC, lpFilename: Windows.Win32.Foundation.PWSTR, lprc: POINTER(Windows.Win32.Foundation.RECT_head), lpDesc: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Graphics.Gdi.HdcMetdataEnhFileHandle: ...
+def CreateEnhMetaFileW(hdc: Windows.Win32.Graphics.Gdi.HDC, lpFilename: Windows.Win32.Foundation.PWSTR, lprc: POINTER(Windows.Win32.Foundation.RECT_head), lpDesc: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
 def DeleteEnhMetaFile(hmf: Windows.Win32.Graphics.Gdi.HENHMETAFILE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1408,7 +1408,7 @@ def StrokePath(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.
 @winfunctype('GDI32.dll')
 def WidenPath(hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
-def ExtCreatePen(iPenStyle: Windows.Win32.Graphics.Gdi.PEN_STYLE, cWidth: UInt32, plbrush: POINTER(Windows.Win32.Graphics.Gdi.LOGBRUSH_head), cStyle: UInt32, pstyle: POINTER(UInt32)) -> Windows.Win32.Graphics.Gdi.HPEN: ...
+def ExtCreatePen(iPenStyle: UInt32, cWidth: UInt32, plbrush: POINTER(Windows.Win32.Graphics.Gdi.LOGBRUSH_head), cStyle: UInt32, pstyle: POINTER(UInt32)) -> Windows.Win32.Graphics.Gdi.HPEN: ...
 @winfunctype('GDI32.dll')
 def GetMiterLimit(hdc: Windows.Win32.Graphics.Gdi.HDC, plimit: POINTER(Single)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1636,9 +1636,9 @@ def EqualRect(lprc1: POINTER(Windows.Win32.Foundation.RECT_head), lprc2: POINTER
 @winfunctype('USER32.dll')
 def PtInRect(lprc: POINTER(Windows.Win32.Foundation.RECT_head), pt: Windows.Win32.Foundation.POINT) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def LoadBitmapA(hInstance: Windows.Win32.Foundation.HMODULE, lpBitmapName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
+def LoadBitmapA(hInstance: Windows.Win32.Foundation.HINSTANCE, lpBitmapName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('USER32.dll')
-def LoadBitmapW(hInstance: Windows.Win32.Foundation.HMODULE, lpBitmapName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
+def LoadBitmapW(hInstance: Windows.Win32.Foundation.HINSTANCE, lpBitmapName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('USER32.dll')
 def ChangeDisplaySettingsA(lpDevMode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head), dwFlags: Windows.Win32.Graphics.Gdi.CDS_TYPE) -> Windows.Win32.Graphics.Gdi.DISP_CHANGE: ...
 @winfunctype('USER32.dll')
@@ -1759,7 +1759,7 @@ class BITMAPV5HEADER(EasyCastStructure):
     bV5ProfileData: UInt32
     bV5ProfileSize: UInt32
     bV5Reserved: UInt32
-BI_COMPRESSION = Int32
+BI_COMPRESSION = UInt32
 BI_RGB: BI_COMPRESSION = 0
 BI_RLE8: BI_COMPRESSION = 1
 BI_RLE4: BI_COMPRESSION = 2
@@ -1822,18 +1822,16 @@ class COLORADJUSTMENT(EasyCastStructure):
     caBrightness: Int16
     caColorfulness: Int16
     caRedGreenTint: Int16
-CREATE_FONT_PACKAGE_SUBSET_ENCODING = UInt16
+CREATE_FONT_PACKAGE_SUBSET_ENCODING = Int16
 TTFCFP_STD_MAC_CHAR_SET: CREATE_FONT_PACKAGE_SUBSET_ENCODING = 0
 TTFCFP_SYMBOL_CHAR_SET: CREATE_FONT_PACKAGE_SUBSET_ENCODING = 0
 TTFCFP_UNICODE_CHAR_SET: CREATE_FONT_PACKAGE_SUBSET_ENCODING = 1
-CREATE_FONT_PACKAGE_SUBSET_PLATFORM = UInt16
+CREATE_FONT_PACKAGE_SUBSET_PLATFORM = Int16
 TTFCFP_UNICODE_PLATFORMID: CREATE_FONT_PACKAGE_SUBSET_PLATFORM = 0
 TTFCFP_ISO_PLATFORMID: CREATE_FONT_PACKAGE_SUBSET_PLATFORM = 2
-CREATE_POLYGON_RGN_MODE = UInt32
+CREATE_POLYGON_RGN_MODE = Int32
 ALTERNATE: CREATE_POLYGON_RGN_MODE = 1
 WINDING: CREATE_POLYGON_RGN_MODE = 2
-class CreatedHDC(EasyCastStructure):
-    Value: IntPtr
 DC_LAYOUT = UInt32
 LAYOUT_BITMAPORIENTATIONPRESERVED: DC_LAYOUT = 8
 LAYOUT_RTL: DC_LAYOUT = 1
@@ -1935,10 +1933,10 @@ class DEVMODEW(EasyCastStructure):
     class _Anonymous2_e__Union(EasyCastUnion):
         dmDisplayFlags: UInt32
         dmNup: UInt32
-DEVMODE_COLLATE = UInt16
+DEVMODE_COLLATE = Int16
 DMCOLLATE_FALSE: DEVMODE_COLLATE = 0
 DMCOLLATE_TRUE: DEVMODE_COLLATE = 1
-DEVMODE_COLOR = UInt16
+DEVMODE_COLOR = Int16
 DMCOLOR_MONOCHROME: DEVMODE_COLOR = 1
 DMCOLOR_COLOR: DEVMODE_COLOR = 2
 DEVMODE_DISPLAY_FIXED_OUTPUT = UInt32
@@ -1950,7 +1948,7 @@ DMDO_DEFAULT: DEVMODE_DISPLAY_ORIENTATION = 0
 DMDO_90: DEVMODE_DISPLAY_ORIENTATION = 1
 DMDO_180: DEVMODE_DISPLAY_ORIENTATION = 2
 DMDO_270: DEVMODE_DISPLAY_ORIENTATION = 3
-DEVMODE_DUPLEX = UInt16
+DEVMODE_DUPLEX = Int16
 DMDUP_SIMPLEX: DEVMODE_DUPLEX = 1
 DMDUP_VERTICAL: DEVMODE_DUPLEX = 2
 DMDUP_HORIZONTAL: DEVMODE_DUPLEX = 3
@@ -1995,7 +1993,7 @@ DM_IN_BUFFER: DEVMODE_FIELD_FLAGS = 8
 DM_IN_PROMPT: DEVMODE_FIELD_FLAGS = 4
 DM_OUT_BUFFER: DEVMODE_FIELD_FLAGS = 2
 DM_OUT_DEFAULT: DEVMODE_FIELD_FLAGS = 1
-DEVMODE_TRUETYPE_OPTION = UInt16
+DEVMODE_TRUETYPE_OPTION = Int16
 DMTT_BITMAP: DEVMODE_TRUETYPE_OPTION = 1
 DMTT_DOWNLOAD: DEVMODE_TRUETYPE_OPTION = 2
 DMTT_SUBDEV: DEVMODE_TRUETYPE_OPTION = 3
@@ -2297,7 +2295,7 @@ class EMREXTFLOODFILL(EasyCastStructure):
 class EMREXTSELECTCLIPRGN(EasyCastStructure):
     emr: Windows.Win32.Graphics.Gdi.EMR
     cbRgnData: UInt32
-    iMode: Windows.Win32.Graphics.Gdi.RGN_COMBINE_MODE
+    iMode: UInt32
     RgnData: Byte * 1
 class EMREXTTEXTOUTA(EasyCastStructure):
     emr: Windows.Win32.Graphics.Gdi.EMR
@@ -2818,7 +2816,7 @@ class EXTLOGFONTW(EasyCastStructure):
     elfCulture: UInt32
     elfPanose: Windows.Win32.Graphics.Gdi.PANOSE
 class EXTLOGPEN(EasyCastStructure):
-    elpPenStyle: Windows.Win32.Graphics.Gdi.PEN_STYLE
+    elpPenStyle: UInt32
     elpWidth: UInt32
     elpBrushStyle: UInt32
     elpColor: Windows.Win32.Foundation.COLORREF
@@ -2826,7 +2824,7 @@ class EXTLOGPEN(EasyCastStructure):
     elpNumEntries: UInt32
     elpStyleEntry: UInt32 * 1
 class EXTLOGPEN32(EasyCastStructure):
-    elpPenStyle: Windows.Win32.Graphics.Gdi.PEN_STYLE
+    elpPenStyle: UInt32
     elpWidth: UInt32
     elpBrushStyle: UInt32
     elpColor: Windows.Win32.Foundation.COLORREF
@@ -3033,7 +3031,7 @@ GGO_GRAY8_BITMAP: GET_GLYPH_OUTLINE_FORMAT = 6
 GGO_METRICS: GET_GLYPH_OUTLINE_FORMAT = 0
 GGO_NATIVE: GET_GLYPH_OUTLINE_FORMAT = 2
 GGO_UNHINTED: GET_GLYPH_OUTLINE_FORMAT = 256
-GET_STOCK_OBJECT_FLAGS = UInt32
+GET_STOCK_OBJECT_FLAGS = Int32
 BLACK_BRUSH: GET_STOCK_OBJECT_FLAGS = 4
 DKGRAY_BRUSH: GET_STOCK_OBJECT_FLAGS = 3
 DC_BRUSH: GET_STOCK_OBJECT_FLAGS = 18
@@ -3079,14 +3077,14 @@ class GRADIENT_TRIANGLE(EasyCastStructure):
     Vertex1: UInt32
     Vertex2: UInt32
     Vertex3: UInt32
-GRAPHICS_MODE = UInt32
+GRAPHICS_MODE = Int32
 GM_COMPATIBLE: GRAPHICS_MODE = 1
 GM_ADVANCED: GRAPHICS_MODE = 2
 @winfunctype_pointer
 def GRAYSTRINGPROC(param0: Windows.Win32.Graphics.Gdi.HDC, param1: Windows.Win32.Foundation.LPARAM, param2: Int32) -> Windows.Win32.Foundation.BOOL: ...
 class HANDLETABLE(EasyCastStructure):
     objectHandle: Windows.Win32.Graphics.Gdi.HGDIOBJ * 1
-HATCH_BRUSH_STYLE = UInt32
+HATCH_BRUSH_STYLE = Int32
 HS_BDIAGONAL: HATCH_BRUSH_STYLE = 3
 HS_CROSS: HATCH_BRUSH_STYLE = 4
 HS_DIAGCROSS: HATCH_BRUSH_STYLE = 5
@@ -3096,7 +3094,7 @@ HS_VERTICAL: HATCH_BRUSH_STYLE = 1
 HBITMAP = IntPtr
 HBRUSH = IntPtr
 HDC = IntPtr
-HDC_MAP_MODE = UInt32
+HDC_MAP_MODE = Int32
 MM_ANISOTROPIC: HDC_MAP_MODE = 8
 MM_HIENGLISH: HDC_MAP_MODE = 5
 MM_HIMETRIC: HDC_MAP_MODE = 3
@@ -3113,10 +3111,6 @@ HMONITOR = IntPtr
 HPALETTE = IntPtr
 HPEN = IntPtr
 HRGN = IntPtr
-class HdcMetdataEnhFileHandle(EasyCastStructure):
-    Value: IntPtr
-class HdcMetdataFileHandle(EasyCastStructure):
-    Value: IntPtr
 class KERNINGPAIR(EasyCastStructure):
     wFirst: UInt16
     wSecond: UInt16
@@ -3166,7 +3160,7 @@ class LOGPALETTE(EasyCastStructure):
     palNumEntries: UInt16
     palPalEntry: Windows.Win32.Graphics.Gdi.PALETTEENTRY * 1
 class LOGPEN(EasyCastStructure):
-    lopnStyle: Windows.Win32.Graphics.Gdi.PEN_STYLE
+    lopnStyle: UInt32
     lopnWidth: Windows.Win32.Foundation.POINT
     lopnColor: Windows.Win32.Foundation.COLORREF
 @winfunctype_pointer
@@ -3501,7 +3495,7 @@ class PELARRAY(EasyCastStructure):
     paXExt: Int32
     paYExt: Int32
     paRGBs: Byte
-PEN_STYLE = UInt32
+PEN_STYLE = Int32
 PS_GEOMETRIC: PEN_STYLE = 65536
 PS_COSMETIC: PEN_STYLE = 0
 PS_SOLID: PEN_STYLE = 0
@@ -3628,7 +3622,7 @@ DCB_ACCUMULATE: SET_BOUNDS_RECT_FLAGS = 2
 DCB_DISABLE: SET_BOUNDS_RECT_FLAGS = 8
 DCB_ENABLE: SET_BOUNDS_RECT_FLAGS = 4
 DCB_RESET: SET_BOUNDS_RECT_FLAGS = 1
-STRETCH_BLT_MODE = UInt32
+STRETCH_BLT_MODE = Int32
 BLACKONWHITE: STRETCH_BLT_MODE = 1
 COLORONCOLOR: STRETCH_BLT_MODE = 3
 HALFTONE: STRETCH_BLT_MODE = 4
@@ -3826,7 +3820,6 @@ make_head(_module, 'CFP_REALLOCPROC')
 make_head(_module, 'CIEXYZ')
 make_head(_module, 'CIEXYZTRIPLE')
 make_head(_module, 'COLORADJUSTMENT')
-make_head(_module, 'CreatedHDC')
 make_head(_module, 'DESIGNVECTOR')
 make_head(_module, 'DEVMODEA')
 make_head(_module, 'DEVMODEW')
@@ -3927,8 +3920,6 @@ make_head(_module, 'GRADIENT_RECT')
 make_head(_module, 'GRADIENT_TRIANGLE')
 make_head(_module, 'GRAYSTRINGPROC')
 make_head(_module, 'HANDLETABLE')
-make_head(_module, 'HdcMetdataEnhFileHandle')
-make_head(_module, 'HdcMetdataFileHandle')
 make_head(_module, 'KERNINGPAIR')
 make_head(_module, 'LINEDDAPROC')
 make_head(_module, 'LOGBRUSH')

@@ -1339,7 +1339,7 @@ class IImePad(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5d8e643a-c3a9-11d1-afef-00805f0c8b6d}')
     @commethod(3)
-    def Request(self, pIImePadApplet: Windows.Win32.UI.Input.Ime.IImePadApplet_head, reqId: Windows.Win32.UI.Input.Ime.IME_PAD_REQUEST_FLAGS, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
+    def Request(self, pIImePadApplet: Windows.Win32.UI.Input.Ime.IImePadApplet_head, reqId: Int32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
 class IImePadApplet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5d8e643b-c3a9-11d1-afef-00805f0c8b6d}')

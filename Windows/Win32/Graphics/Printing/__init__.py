@@ -1995,7 +1995,7 @@ class BranchOfficeLogOfflineFileFull(EasyCastStructure):
 class COMPROPSHEETUI(EasyCastStructure):
     cbSize: UInt16
     Flags: UInt16
-    hInstCaller: Windows.Win32.Foundation.HMODULE
+    hInstCaller: Windows.Win32.Foundation.HINSTANCE
     pCallerName: POINTER(SByte)
     UserData: UIntPtr
     pHelpFile: POINTER(SByte)
@@ -3741,7 +3741,7 @@ class OEM_DMEXTRAHEADER(EasyCastStructure):
 class OIEXT(EasyCastStructure):
     cbSize: UInt16
     Flags: UInt16
-    hInstCaller: Windows.Win32.Foundation.HMODULE
+    hInstCaller: Windows.Win32.Foundation.HINSTANCE
     pHelpFile: POINTER(SByte)
     dwReserved: UIntPtr * 4
 class OPTCOMBO(EasyCastStructure):
@@ -4117,10 +4117,10 @@ class PRINTER_NOTIFY_OPTIONS_TYPE(EasyCastStructure):
     pFields: POINTER(UInt16)
 class PRINTER_OPTIONSA(EasyCastStructure):
     cbSize: UInt32
-    dwFlags: Windows.Win32.Graphics.Printing.PRINTER_OPTION_FLAGS
+    dwFlags: UInt32
 class PRINTER_OPTIONSW(EasyCastStructure):
     cbSize: UInt32
-    dwFlags: Windows.Win32.Graphics.Printing.PRINTER_OPTION_FLAGS
+    dwFlags: UInt32
 PRINTER_OPTION_FLAGS = Int32
 PRINTER_OPTION_NO_CACHE: PRINTER_OPTION_FLAGS = 1
 PRINTER_OPTION_CACHE: PRINTER_OPTION_FLAGS = 2
@@ -4355,7 +4355,7 @@ class PROPSHEETUI_INFO_HEADER(EasyCastStructure):
     Flags: UInt16
     pTitle: POINTER(SByte)
     hWndParent: Windows.Win32.Foundation.HWND
-    hInst: Windows.Win32.Foundation.HMODULE
+    hInst: Windows.Win32.Foundation.HINSTANCE
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON

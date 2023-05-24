@@ -140,7 +140,7 @@ class ACMFILTERCHOOSEA(EasyCastStructure):
     cchName: UInt32
     fdwEnum: UInt32
     pwfltrEnum: POINTER(Windows.Win32.Media.Audio.WAVEFILTER_head)
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     pszTemplateName: Windows.Win32.Foundation.PSTR
     lCustData: Windows.Win32.Foundation.LPARAM
     pfnHook: Windows.Win32.Media.Audio.ACMFILTERCHOOSEHOOKPROCA
@@ -162,7 +162,7 @@ class ACMFILTERCHOOSEW(EasyCastStructure):
     cchName: UInt32
     fdwEnum: UInt32
     pwfltrEnum: POINTER(Windows.Win32.Media.Audio.WAVEFILTER_head)
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     pszTemplateName: Windows.Win32.Foundation.PWSTR
     lCustData: Windows.Win32.Foundation.LPARAM
     pfnHook: Windows.Win32.Media.Audio.ACMFILTERCHOOSEHOOKPROCW
@@ -224,7 +224,7 @@ class ACMFORMATCHOOSEA(EasyCastStructure):
     cchName: UInt32
     fdwEnum: UInt32
     pwfxEnum: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head)
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     pszTemplateName: Windows.Win32.Foundation.PSTR
     lCustData: Windows.Win32.Foundation.LPARAM
     pfnHook: Windows.Win32.Media.Audio.ACMFORMATCHOOSEHOOKPROCA
@@ -246,7 +246,7 @@ class ACMFORMATCHOOSEW(EasyCastStructure):
     cchName: UInt32
     fdwEnum: UInt32
     pwfxEnum: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head)
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     pszTemplateName: Windows.Win32.Foundation.PWSTR
     lCustData: Windows.Win32.Foundation.LPARAM
     pfnHook: Windows.Win32.Media.Audio.ACMFORMATCHOOSEHOOKPROCW
@@ -1156,9 +1156,9 @@ def acmDriverEnum(fnCallback: Windows.Win32.Media.Audio.ACMDRIVERENUMCB, dwInsta
 @winfunctype('MSACM32.dll')
 def acmDriverID(hao: Windows.Win32.Media.Audio.HACMOBJ, phadid: POINTER(Windows.Win32.Media.Audio.HACMDRIVERID), fdwDriverID: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
-def acmDriverAddA(phadid: POINTER(Windows.Win32.Media.Audio.HACMDRIVERID), hinstModule: Windows.Win32.Foundation.HMODULE, lParam: Windows.Win32.Foundation.LPARAM, dwPriority: UInt32, fdwAdd: UInt32) -> UInt32: ...
+def acmDriverAddA(phadid: POINTER(Windows.Win32.Media.Audio.HACMDRIVERID), hinstModule: Windows.Win32.Foundation.HINSTANCE, lParam: Windows.Win32.Foundation.LPARAM, dwPriority: UInt32, fdwAdd: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
-def acmDriverAddW(phadid: POINTER(Windows.Win32.Media.Audio.HACMDRIVERID), hinstModule: Windows.Win32.Foundation.HMODULE, lParam: Windows.Win32.Foundation.LPARAM, dwPriority: UInt32, fdwAdd: UInt32) -> UInt32: ...
+def acmDriverAddW(phadid: POINTER(Windows.Win32.Media.Audio.HACMDRIVERID), hinstModule: Windows.Win32.Foundation.HINSTANCE, lParam: Windows.Win32.Foundation.LPARAM, dwPriority: UInt32, fdwAdd: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmDriverRemove(hadid: Windows.Win32.Media.Audio.HACMDRIVERID, fdwRemove: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')

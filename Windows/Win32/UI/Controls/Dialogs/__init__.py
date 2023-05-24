@@ -229,7 +229,7 @@ if ARCH in 'X64,ARM64':
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnHook: Windows.Win32.UI.Controls.Dialogs.LPCFHOOKPROC
         lpTemplateName: Windows.Win32.Foundation.PSTR
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpszStyle: Windows.Win32.Foundation.PSTR
         nFontType: Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
         ___MISSING_ALIGNMENT__: UInt16
@@ -247,7 +247,7 @@ if ARCH in 'X86':
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnHook: Windows.Win32.UI.Controls.Dialogs.LPCFHOOKPROC
         lpTemplateName: Windows.Win32.Foundation.PSTR
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpszStyle: Windows.Win32.Foundation.PSTR
         nFontType: Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
         ___MISSING_ALIGNMENT__: UInt16
@@ -266,7 +266,7 @@ if ARCH in 'X64,ARM64':
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnHook: Windows.Win32.UI.Controls.Dialogs.LPCFHOOKPROC
         lpTemplateName: Windows.Win32.Foundation.PWSTR
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpszStyle: Windows.Win32.Foundation.PWSTR
         nFontType: Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
         ___MISSING_ALIGNMENT__: UInt16
@@ -284,7 +284,7 @@ if ARCH in 'X86':
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnHook: Windows.Win32.UI.Controls.Dialogs.LPCFHOOKPROC
         lpTemplateName: Windows.Win32.Foundation.PWSTR
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpszStyle: Windows.Win32.Foundation.PWSTR
         nFontType: Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
         ___MISSING_ALIGNMENT__: UInt16
@@ -383,7 +383,7 @@ if ARCH in 'X64,ARM64':
     class FINDREPLACEA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         Flags: Windows.Win32.UI.Controls.Dialogs.FINDREPLACE_FLAGS
         lpstrFindWhat: Windows.Win32.Foundation.PSTR
         lpstrReplaceWith: Windows.Win32.Foundation.PSTR
@@ -396,7 +396,7 @@ if ARCH in 'X86':
     class FINDREPLACEA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         Flags: Windows.Win32.UI.Controls.Dialogs.FINDREPLACE_FLAGS
         lpstrFindWhat: Windows.Win32.Foundation.PSTR
         lpstrReplaceWith: Windows.Win32.Foundation.PSTR
@@ -410,7 +410,7 @@ if ARCH in 'X64,ARM64':
     class FINDREPLACEW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         Flags: Windows.Win32.UI.Controls.Dialogs.FINDREPLACE_FLAGS
         lpstrFindWhat: Windows.Win32.Foundation.PWSTR
         lpstrReplaceWith: Windows.Win32.Foundation.PWSTR
@@ -423,7 +423,7 @@ if ARCH in 'X86':
     class FINDREPLACEW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         Flags: Windows.Win32.UI.Controls.Dialogs.FINDREPLACE_FLAGS
         lpstrFindWhat: Windows.Win32.Foundation.PWSTR
         lpstrReplaceWith: Windows.Win32.Foundation.PWSTR
@@ -537,7 +537,7 @@ if ARCH in 'X64,ARM64':
     class OPENFILENAMEA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpstrFilter: Windows.Win32.Foundation.PSTR
         lpstrCustomFilter: Windows.Win32.Foundation.PSTR
         nMaxCustFilter: UInt32
@@ -562,7 +562,7 @@ if ARCH in 'X86':
     class OPENFILENAMEA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpstrFilter: Windows.Win32.Foundation.PSTR
         lpstrCustomFilter: Windows.Win32.Foundation.PSTR
         nMaxCustFilter: UInt32
@@ -588,7 +588,7 @@ if ARCH in 'X64,ARM64':
     class OPENFILENAMEW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpstrFilter: Windows.Win32.Foundation.PWSTR
         lpstrCustomFilter: Windows.Win32.Foundation.PWSTR
         nMaxCustFilter: UInt32
@@ -613,7 +613,7 @@ if ARCH in 'X86':
     class OPENFILENAMEW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpstrFilter: Windows.Win32.Foundation.PWSTR
         lpstrCustomFilter: Windows.Win32.Foundation.PWSTR
         nMaxCustFilter: UInt32
@@ -639,7 +639,7 @@ if ARCH in 'X64,ARM64':
     class OPENFILENAME_NT4A(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpstrFilter: Windows.Win32.Foundation.PSTR
         lpstrCustomFilter: Windows.Win32.Foundation.PSTR
         nMaxCustFilter: UInt32
@@ -661,7 +661,7 @@ if ARCH in 'X86':
     class OPENFILENAME_NT4A(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpstrFilter: Windows.Win32.Foundation.PSTR
         lpstrCustomFilter: Windows.Win32.Foundation.PSTR
         nMaxCustFilter: UInt32
@@ -684,7 +684,7 @@ if ARCH in 'X64,ARM64':
     class OPENFILENAME_NT4W(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpstrFilter: Windows.Win32.Foundation.PWSTR
         lpstrCustomFilter: Windows.Win32.Foundation.PWSTR
         nMaxCustFilter: UInt32
@@ -706,7 +706,7 @@ if ARCH in 'X86':
     class OPENFILENAME_NT4W(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpstrFilter: Windows.Win32.Foundation.PWSTR
         lpstrCustomFilter: Windows.Win32.Foundation.PWSTR
         nMaxCustFilter: UInt32
@@ -765,7 +765,7 @@ if ARCH in 'X64,ARM64':
         ptPaperSize: Windows.Win32.Foundation.POINT
         rtMinMargin: Windows.Win32.Foundation.RECT
         rtMargin: Windows.Win32.Foundation.RECT
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnPageSetupHook: Windows.Win32.UI.Controls.Dialogs.LPPAGESETUPHOOK
         lpfnPagePaintHook: Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
@@ -781,7 +781,7 @@ if ARCH in 'X86':
         ptPaperSize: Windows.Win32.Foundation.POINT
         rtMinMargin: Windows.Win32.Foundation.RECT
         rtMargin: Windows.Win32.Foundation.RECT
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnPageSetupHook: Windows.Win32.UI.Controls.Dialogs.LPPAGESETUPHOOK
         lpfnPagePaintHook: Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
@@ -798,7 +798,7 @@ if ARCH in 'X64,ARM64':
         ptPaperSize: Windows.Win32.Foundation.POINT
         rtMinMargin: Windows.Win32.Foundation.RECT
         rtMargin: Windows.Win32.Foundation.RECT
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnPageSetupHook: Windows.Win32.UI.Controls.Dialogs.LPPAGESETUPHOOK
         lpfnPagePaintHook: Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
@@ -814,7 +814,7 @@ if ARCH in 'X86':
         ptPaperSize: Windows.Win32.Foundation.POINT
         rtMinMargin: Windows.Win32.Foundation.RECT
         rtMargin: Windows.Win32.Foundation.RECT
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnPageSetupHook: Windows.Win32.UI.Controls.Dialogs.LPPAGESETUPHOOK
         lpfnPagePaintHook: Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
@@ -854,7 +854,7 @@ if ARCH in 'X64,ARM64':
         nMinPage: UInt16
         nMaxPage: UInt16
         nCopies: UInt16
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnPrintHook: Windows.Win32.UI.Controls.Dialogs.LPPRINTHOOKPROC
         lpfnSetupHook: Windows.Win32.UI.Controls.Dialogs.LPSETUPHOOKPROC
@@ -875,7 +875,7 @@ if ARCH in 'X86':
         nMinPage: UInt16
         nMaxPage: UInt16
         nCopies: UInt16
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnPrintHook: Windows.Win32.UI.Controls.Dialogs.LPPRINTHOOKPROC
         lpfnSetupHook: Windows.Win32.UI.Controls.Dialogs.LPSETUPHOOKPROC
@@ -900,7 +900,7 @@ if ARCH in 'X64,ARM64':
         nMinPage: UInt32
         nMaxPage: UInt32
         nCopies: UInt32
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpPrintTemplateName: Windows.Win32.Foundation.PSTR
         lpCallback: Windows.Win32.System.Com.IUnknown_head
         nPropertyPages: UInt32
@@ -923,7 +923,7 @@ if ARCH in 'X86':
         nMinPage: UInt32
         nMaxPage: UInt32
         nCopies: UInt32
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpPrintTemplateName: Windows.Win32.Foundation.PSTR
         lpCallback: Windows.Win32.System.Com.IUnknown_head
         nPropertyPages: UInt32
@@ -947,7 +947,7 @@ if ARCH in 'X64,ARM64':
         nMinPage: UInt32
         nMaxPage: UInt32
         nCopies: UInt32
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpPrintTemplateName: Windows.Win32.Foundation.PWSTR
         lpCallback: Windows.Win32.System.Com.IUnknown_head
         nPropertyPages: UInt32
@@ -970,7 +970,7 @@ if ARCH in 'X86':
         nMinPage: UInt32
         nMaxPage: UInt32
         nCopies: UInt32
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lpPrintTemplateName: Windows.Win32.Foundation.PWSTR
         lpCallback: Windows.Win32.System.Com.IUnknown_head
         nPropertyPages: UInt32
@@ -1020,7 +1020,7 @@ if ARCH in 'X64,ARM64':
         nMinPage: UInt16
         nMaxPage: UInt16
         nCopies: UInt16
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnPrintHook: Windows.Win32.UI.Controls.Dialogs.LPPRINTHOOKPROC
         lpfnSetupHook: Windows.Win32.UI.Controls.Dialogs.LPSETUPHOOKPROC
@@ -1041,7 +1041,7 @@ if ARCH in 'X86':
         nMinPage: UInt16
         nMaxPage: UInt16
         nCopies: UInt16
-        hInstance: Windows.Win32.Foundation.HMODULE
+        hInstance: Windows.Win32.Foundation.HINSTANCE
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnPrintHook: Windows.Win32.UI.Controls.Dialogs.LPPRINTHOOKPROC
         lpfnSetupHook: Windows.Win32.UI.Controls.Dialogs.LPSETUPHOOKPROC

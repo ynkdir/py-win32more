@@ -15,12 +15,16 @@ class AgileAttribute(EasyCastStructure):
     pass
 class AlsoUsableForAttribute(EasyCastStructure):
     otherType: String
+class AnsiAttribute(EasyCastStructure):
+    pass
 Architecture = Int32
 Architecture_None: Architecture = 0
 Architecture_X86: Architecture = 1
 Architecture_X64: Architecture = 2
 Architecture_Arm64: Architecture = 4
 Architecture_All: Architecture = 7
+class AssociatedEnumAttribute(EasyCastStructure):
+    Name: String
 class CanReturnErrorsAsSuccessAttribute(EasyCastStructure):
     pass
 class CanReturnMultipleSuccessValuesAttribute(EasyCastStructure):
@@ -93,3 +97,5 @@ class SupportedArchitectureAttribute(EasyCastStructure):
     arch: Windows.Win32.Foundation.Metadata.Architecture
 class SupportedOSPlatformAttribute(EasyCastStructure):
     platform: String
+class UnicodeAttribute(EasyCastStructure):
+    pass

@@ -162,7 +162,7 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION(EasyCastStructure):
     ReservationIops: Int64
     VolumeName: Windows.Win32.Foundation.PWSTR
     BaseIoSize: UInt32
-    ControlFlags: Windows.Win32.System.JobObjects.JOB_OBJECT_IO_RATE_CONTROL_FLAGS
+    ControlFlags: UInt32
 class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1(EasyCastStructure):
     MaxIops: Int64
     MaxBandwidth: Int64

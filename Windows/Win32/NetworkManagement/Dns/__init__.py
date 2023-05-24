@@ -277,9 +277,9 @@ def DnsGetApplicationSettings(pcServers: POINTER(UInt32), ppDefaultServers: POIN
 @winfunctype('DNSAPI.dll')
 def DnsSetApplicationSettings(cServers: UInt32, pServers: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_CUSTOM_SERVER_head), pSettings: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_APPLICATION_SETTINGS_head)) -> UInt32: ...
 @winfunctype('DNSAPI.dll')
-def DnsAcquireContextHandle_W(CredentialFlags: UInt32, Credentials: c_void_p, pContext: POINTER(Windows.Win32.NetworkManagement.Dns.DnsContextHandle_head)) -> Int32: ...
+def DnsAcquireContextHandle_W(CredentialFlags: UInt32, Credentials: c_void_p, pContext: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
-def DnsAcquireContextHandle_A(CredentialFlags: UInt32, Credentials: c_void_p, pContext: POINTER(Windows.Win32.NetworkManagement.Dns.DnsContextHandle_head)) -> Int32: ...
+def DnsAcquireContextHandle_A(CredentialFlags: UInt32, Credentials: c_void_p, pContext: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsReleaseContextHandle(hContext: Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('DNSAPI.dll')
@@ -1217,8 +1217,6 @@ class DNS_WKS_DATA(EasyCastStructure):
     IpAddress: UInt32
     chProtocol: Byte
     BitMask: Byte * 1
-class DnsContextHandle(EasyCastStructure):
-    Value: IntPtr
 class IP4_ARRAY(EasyCastStructure):
     AddrCount: UInt32
     AddrArray: UInt32 * 1
@@ -1360,7 +1358,6 @@ make_head(_module, 'DNS_WINS_DATA')
 make_head(_module, 'DNS_WIRE_QUESTION')
 make_head(_module, 'DNS_WIRE_RECORD')
 make_head(_module, 'DNS_WKS_DATA')
-make_head(_module, 'DnsContextHandle')
 make_head(_module, 'IP4_ARRAY')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'IP6_ADDRESS')

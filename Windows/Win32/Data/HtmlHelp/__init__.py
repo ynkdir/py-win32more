@@ -261,9 +261,9 @@ HHACT_TOC_PREV: Int32 = 21
 HHACT_NOTES: Int32 = 22
 HHACT_LAST_ENUM: Int32 = 23
 @winfunctype('htmlhelp.dll')
-def HtmlHelpA(hwndCaller: Windows.Win32.Foundation.HWND, pszFile: Windows.Win32.Foundation.PSTR, uCommand: Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND, dwData: UIntPtr) -> Windows.Win32.Foundation.HWND: ...
+def HtmlHelpA(hwndCaller: Windows.Win32.Foundation.HWND, pszFile: Windows.Win32.Foundation.PSTR, uCommand: UInt32, dwData: UIntPtr) -> Windows.Win32.Foundation.HWND: ...
 @winfunctype('htmlhelp.dll')
-def HtmlHelpW(hwndCaller: Windows.Win32.Foundation.HWND, pszFile: Windows.Win32.Foundation.PWSTR, uCommand: Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND, dwData: UIntPtr) -> Windows.Win32.Foundation.HWND: ...
+def HtmlHelpW(hwndCaller: Windows.Win32.Foundation.HWND, pszFile: Windows.Win32.Foundation.PWSTR, uCommand: UInt32, dwData: UIntPtr) -> Windows.Win32.Foundation.HWND: ...
 class COLUMNSTATUS(EasyCastStructure):
     cPropCount: Int32
     cPropsLoaded: Int32
@@ -324,7 +324,7 @@ HH_GPROPID_CURRENT_SUBSET: HH_GPROPID = 4
 HH_GPROPID_CONTENT_LANGUAGE: HH_GPROPID = 5
 class HH_POPUP(EasyCastStructure):
     cbStruct: Int32
-    hinst: Windows.Win32.Foundation.HMODULE
+    hinst: Windows.Win32.Foundation.HINSTANCE
     idString: UInt32
     pszText: POINTER(SByte)
     pt: Windows.Win32.Foundation.POINT

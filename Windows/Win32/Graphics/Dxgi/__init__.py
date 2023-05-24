@@ -16,6 +16,11 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
+DXGI_RESOURCE_PRIORITY_MINIMUM: UInt32 = 671088640
+DXGI_RESOURCE_PRIORITY_LOW: UInt32 = 1342177280
+DXGI_RESOURCE_PRIORITY_NORMAL: UInt32 = 2013265920
+DXGI_RESOURCE_PRIORITY_HIGH: UInt32 = 2684354560
+DXGI_RESOURCE_PRIORITY_MAXIMUM: UInt32 = 3355443200
 DXGI_MAP_READ: UInt32 = 1
 DXGI_MAP_WRITE: UInt32 = 2
 DXGI_MAP_DISCARD: UInt32 = 4
@@ -690,12 +695,6 @@ DXGI_RESIDENCY = Int32
 DXGI_RESIDENCY_FULLY_RESIDENT: DXGI_RESIDENCY = 1
 DXGI_RESIDENCY_RESIDENT_IN_SHARED_MEMORY: DXGI_RESIDENCY = 2
 DXGI_RESIDENCY_EVICTED_TO_DISK: DXGI_RESIDENCY = 3
-DXGI_RESOURCE_PRIORITY = UInt32
-DXGI_RESOURCE_PRIORITY_MINIMUM: DXGI_RESOURCE_PRIORITY = 671088640
-DXGI_RESOURCE_PRIORITY_LOW: DXGI_RESOURCE_PRIORITY = 1342177280
-DXGI_RESOURCE_PRIORITY_NORMAL: DXGI_RESOURCE_PRIORITY = 2013265920
-DXGI_RESOURCE_PRIORITY_HIGH: DXGI_RESOURCE_PRIORITY = 2684354560
-DXGI_RESOURCE_PRIORITY_MAXIMUM: DXGI_RESOURCE_PRIORITY = 3355443200
 class DXGI_RGBA(EasyCastStructure):
     r: Single
     g: Single
@@ -1163,7 +1162,7 @@ class IDXGIResource(ComPtr):
     @commethod(9)
     def GetUsage(self, pUsage: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_USAGE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def SetEvictionPriority(self, EvictionPriority: Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetEvictionPriority(self, EvictionPriority: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetEvictionPriority(self, pEvictionPriority: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDXGIResource1(ComPtr):

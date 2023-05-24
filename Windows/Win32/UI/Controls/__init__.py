@@ -2258,9 +2258,9 @@ def ImageList_Remove(himl: Windows.Win32.UI.Controls.HIMAGELIST, i: Int32) -> Wi
 @winfunctype('COMCTL32.dll')
 def ImageList_GetIcon(himl: Windows.Win32.UI.Controls.HIMAGELIST, i: Int32, flags: UInt32) -> Windows.Win32.UI.WindowsAndMessaging.HICON: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_LoadImageA(hi: Windows.Win32.Foundation.HMODULE, lpbmp: Windows.Win32.Foundation.PSTR, cx: Int32, cGrow: Int32, crMask: Windows.Win32.Foundation.COLORREF, uType: UInt32, uFlags: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.UI.Controls.HIMAGELIST: ...
+def ImageList_LoadImageA(hi: Windows.Win32.Foundation.HINSTANCE, lpbmp: Windows.Win32.Foundation.PSTR, cx: Int32, cGrow: Int32, crMask: Windows.Win32.Foundation.COLORREF, uType: UInt32, uFlags: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.UI.Controls.HIMAGELIST: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_LoadImageW(hi: Windows.Win32.Foundation.HMODULE, lpbmp: Windows.Win32.Foundation.PWSTR, cx: Int32, cGrow: Int32, crMask: Windows.Win32.Foundation.COLORREF, uType: UInt32, uFlags: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.UI.Controls.HIMAGELIST: ...
+def ImageList_LoadImageW(hi: Windows.Win32.Foundation.HINSTANCE, lpbmp: Windows.Win32.Foundation.PWSTR, cx: Int32, cGrow: Int32, crMask: Windows.Win32.Foundation.COLORREF, uType: UInt32, uFlags: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.UI.Controls.HIMAGELIST: ...
 @winfunctype('COMCTL32.dll')
 def ImageList_Copy(himlDst: Windows.Win32.UI.Controls.HIMAGELIST, iDst: Int32, himlSrc: Windows.Win32.UI.Controls.HIMAGELIST, iSrc: Int32, uFlags: Windows.Win32.UI.Controls.IMAGE_LIST_COPY_FLAGS) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
@@ -2300,9 +2300,9 @@ def ImageList_Duplicate(himl: Windows.Win32.UI.Controls.HIMAGELIST) -> Windows.W
 @winfunctype('COMCTL32.dll')
 def HIMAGELIST_QueryInterface(himl: Windows.Win32.UI.Controls.HIMAGELIST, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
-def CreateToolbarEx(hwnd: Windows.Win32.Foundation.HWND, ws: UInt32, wID: UInt32, nBitmaps: Int32, hBMInst: Windows.Win32.Foundation.HMODULE, wBMID: UIntPtr, lpButtons: POINTER(Windows.Win32.UI.Controls.TBBUTTON_head), iNumButtons: Int32, dxButton: Int32, dyButton: Int32, dxBitmap: Int32, dyBitmap: Int32, uStructSize: UInt32) -> Windows.Win32.Foundation.HWND: ...
+def CreateToolbarEx(hwnd: Windows.Win32.Foundation.HWND, ws: UInt32, wID: UInt32, nBitmaps: Int32, hBMInst: Windows.Win32.Foundation.HINSTANCE, wBMID: UIntPtr, lpButtons: POINTER(Windows.Win32.UI.Controls.TBBUTTON_head), iNumButtons: Int32, dxButton: Int32, dyButton: Int32, dxBitmap: Int32, dyBitmap: Int32, uStructSize: UInt32) -> Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMCTL32.dll')
-def CreateMappedBitmap(hInstance: Windows.Win32.Foundation.HMODULE, idBitmap: IntPtr, wFlags: UInt32, lpColorMap: POINTER(Windows.Win32.UI.Controls.COLORMAP_head), iNumMaps: Int32) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
+def CreateMappedBitmap(hInstance: Windows.Win32.Foundation.HINSTANCE, idBitmap: IntPtr, wFlags: UInt32, lpColorMap: POINTER(Windows.Win32.UI.Controls.COLORMAP_head), iNumMaps: Int32) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('COMCTL32.dll')
 def DrawStatusTextA(hDC: Windows.Win32.Graphics.Gdi.HDC, lprc: POINTER(Windows.Win32.Foundation.RECT_head), pszText: Windows.Win32.Foundation.PSTR, uFlags: UInt32) -> Void: ...
 @winfunctype('COMCTL32.dll')
@@ -2312,7 +2312,7 @@ def CreateStatusWindowA(style: Int32, lpszText: Windows.Win32.Foundation.PSTR, h
 @winfunctype('COMCTL32.dll')
 def CreateStatusWindowW(style: Int32, lpszText: Windows.Win32.Foundation.PWSTR, hwndParent: Windows.Win32.Foundation.HWND, wID: UInt32) -> Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMCTL32.dll')
-def MenuHelp(uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, hMainMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU, hInst: Windows.Win32.Foundation.HMODULE, hwndStatus: Windows.Win32.Foundation.HWND, lpwIDs: POINTER(UInt32)) -> Void: ...
+def MenuHelp(uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, hMainMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU, hInst: Windows.Win32.Foundation.HINSTANCE, hwndStatus: Windows.Win32.Foundation.HWND, lpwIDs: POINTER(UInt32)) -> Void: ...
 @winfunctype('COMCTL32.dll')
 def ShowHideMenuCtl(hWnd: Windows.Win32.Foundation.HWND, uFlags: UIntPtr, lpInfo: POINTER(Int32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
@@ -2324,11 +2324,11 @@ def DrawInsert(handParent: Windows.Win32.Foundation.HWND, hLB: Windows.Win32.Fou
 @winfunctype('COMCTL32.dll')
 def LBItemFromPt(hLB: Windows.Win32.Foundation.HWND, pt: Windows.Win32.Foundation.POINT, bAutoScroll: Windows.Win32.Foundation.BOOL) -> Int32: ...
 @winfunctype('COMCTL32.dll')
-def CreateUpDownControl(dwStyle: UInt32, x: Int32, y: Int32, cx: Int32, cy: Int32, hParent: Windows.Win32.Foundation.HWND, nID: Int32, hInst: Windows.Win32.Foundation.HMODULE, hBuddy: Windows.Win32.Foundation.HWND, nUpper: Int32, nLower: Int32, nPos: Int32) -> Windows.Win32.Foundation.HWND: ...
+def CreateUpDownControl(dwStyle: UInt32, x: Int32, y: Int32, cx: Int32, cy: Int32, hParent: Windows.Win32.Foundation.HWND, nID: Int32, hInst: Windows.Win32.Foundation.HINSTANCE, hBuddy: Windows.Win32.Foundation.HWND, nUpper: Int32, nLower: Int32, nPos: Int32) -> Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMCTL32.dll')
 def TaskDialogIndirect(pTaskConfig: POINTER(Windows.Win32.UI.Controls.TASKDIALOGCONFIG_head), pnButton: POINTER(Int32), pnRadioButton: POINTER(Int32), pfVerificationFlagChecked: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
-def TaskDialog(hwndOwner: Windows.Win32.Foundation.HWND, hInstance: Windows.Win32.Foundation.HMODULE, pszWindowTitle: Windows.Win32.Foundation.PWSTR, pszMainInstruction: Windows.Win32.Foundation.PWSTR, pszContent: Windows.Win32.Foundation.PWSTR, dwCommonButtons: Windows.Win32.UI.Controls.TASKDIALOG_COMMON_BUTTON_FLAGS, pszIcon: Windows.Win32.Foundation.PWSTR, pnButton: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+def TaskDialog(hwndOwner: Windows.Win32.Foundation.HWND, hInstance: Windows.Win32.Foundation.HINSTANCE, pszWindowTitle: Windows.Win32.Foundation.PWSTR, pszMainInstruction: Windows.Win32.Foundation.PWSTR, pszContent: Windows.Win32.Foundation.PWSTR, dwCommonButtons: Windows.Win32.UI.Controls.TASKDIALOG_COMMON_BUTTON_FLAGS, pszIcon: Windows.Win32.Foundation.PWSTR, pnButton: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
 def InitMUILanguage(uiLang: UInt16) -> Void: ...
 @winfunctype('COMCTL32.dll')
@@ -2418,15 +2418,15 @@ def FlatSB_SetScrollInfo(param0: Windows.Win32.Foundation.HWND, code: Windows.Wi
 @winfunctype('COMCTL32.dll')
 def FlatSB_SetScrollRange(param0: Windows.Win32.Foundation.HWND, code: Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, min: Int32, max: Int32, fRedraw: Windows.Win32.Foundation.BOOL) -> Int32: ...
 @winfunctype('COMCTL32.dll')
-def FlatSB_SetScrollProp(param0: Windows.Win32.Foundation.HWND, index: Windows.Win32.UI.Controls.WSB_PROP, newValue: IntPtr, param3: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
+def FlatSB_SetScrollProp(param0: Windows.Win32.Foundation.HWND, index: UInt32, newValue: IntPtr, param3: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
 def InitializeFlatSB(param0: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
 def UninitializeFlatSB(param0: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
-def LoadIconMetric(hinst: Windows.Win32.Foundation.HMODULE, pszName: Windows.Win32.Foundation.PWSTR, lims: Windows.Win32.UI.Controls._LI_METRIC, phico: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON)) -> Windows.Win32.Foundation.HRESULT: ...
+def LoadIconMetric(hinst: Windows.Win32.Foundation.HINSTANCE, pszName: Windows.Win32.Foundation.PWSTR, lims: Windows.Win32.UI.Controls._LI_METRIC, phico: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
-def LoadIconWithScaleDown(hinst: Windows.Win32.Foundation.HMODULE, pszName: Windows.Win32.Foundation.PWSTR, cx: Int32, cy: Int32, phico: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON)) -> Windows.Win32.Foundation.HRESULT: ...
+def LoadIconWithScaleDown(hinst: Windows.Win32.Foundation.HINSTANCE, pszName: Windows.Win32.Foundation.PWSTR, cx: Int32, cy: Int32, phico: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
 def DrawShadowText(hdc: Windows.Win32.Graphics.Gdi.HDC, pszText: Windows.Win32.Foundation.PWSTR, cch: UInt32, prc: POINTER(Windows.Win32.Foundation.RECT_head), dwFlags: UInt32, crText: Windows.Win32.Foundation.COLORREF, crShadow: Windows.Win32.Foundation.COLORREF, ixOffset: Int32, iyOffset: Int32) -> Int32: ...
 @winfunctype('COMCTL32.dll')
@@ -2478,47 +2478,47 @@ def IsThemePartDefined(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32,
 @winfunctype('UxTheme.dll')
 def IsThemeBackgroundPartiallyTransparent(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeColor(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, pColor: POINTER(Windows.Win32.Foundation.COLORREF)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeColor(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pColor: POINTER(Windows.Win32.Foundation.COLORREF)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeMetric(hTheme: Windows.Win32.UI.Controls.HTHEME, hdc: Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, piVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeMetric(hTheme: Windows.Win32.UI.Controls.HTHEME, hdc: Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Int32, piVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
 def GetThemeString(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pszBuff: Windows.Win32.Foundation.PWSTR, cchMaxBuffChars: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeBool(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, pfVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeBool(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pfVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeInt(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, piVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeInt(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, piVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeEnumValue(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, piVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeEnumValue(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, piVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemePosition(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, pPoint: POINTER(Windows.Win32.Foundation.POINT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemePosition(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pPoint: POINTER(Windows.Win32.Foundation.POINT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def GetThemeFont(hTheme: Windows.Win32.UI.Controls.HTHEME, hdc: Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Int32, pFont: POINTER(Windows.Win32.Graphics.Gdi.LOGFONTW_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def GetThemeRect(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeMargins(hTheme: Windows.Win32.UI.Controls.HTHEME, hdc: Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, prc: POINTER(Windows.Win32.Foundation.RECT_head), pMargins: POINTER(Windows.Win32.UI.Controls.MARGINS_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeMargins(hTheme: Windows.Win32.UI.Controls.HTHEME, hdc: Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Int32, prc: POINTER(Windows.Win32.Foundation.RECT_head), pMargins: POINTER(Windows.Win32.UI.Controls.MARGINS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeIntList(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, pIntList: POINTER(Windows.Win32.UI.Controls.INTLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeIntList(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pIntList: POINTER(Windows.Win32.UI.Controls.INTLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
 def GetThemePropertyOrigin(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pOrigin: POINTER(Windows.Win32.UI.Controls.PROPERTYORIGIN)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def SetWindowTheme(hwnd: Windows.Win32.Foundation.HWND, pszSubAppName: Windows.Win32.Foundation.PWSTR, pszSubIdList: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeFilename(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, pszThemeFileName: Windows.Win32.Foundation.PWSTR, cchMaxBuffChars: Int32) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeFilename(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pszThemeFileName: Windows.Win32.Foundation.PWSTR, cchMaxBuffChars: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
 def GetThemeSysColor(hTheme: Windows.Win32.UI.Controls.HTHEME, iColorId: Int32) -> Windows.Win32.Foundation.COLORREF: ...
 @winfunctype('UxTheme.dll')
-def GetThemeSysColorBrush(hTheme: Windows.Win32.UI.Controls.HTHEME, iColorId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID) -> Windows.Win32.Graphics.Gdi.HBRUSH: ...
+def GetThemeSysColorBrush(hTheme: Windows.Win32.UI.Controls.HTHEME, iColorId: Int32) -> Windows.Win32.Graphics.Gdi.HBRUSH: ...
 @winfunctype('UxTheme.dll')
-def GetThemeSysBool(hTheme: Windows.Win32.UI.Controls.HTHEME, iBoolId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID) -> Windows.Win32.Foundation.BOOL: ...
+def GetThemeSysBool(hTheme: Windows.Win32.UI.Controls.HTHEME, iBoolId: Int32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('UxTheme.dll')
 def GetThemeSysSize(hTheme: Windows.Win32.UI.Controls.HTHEME, iSizeId: Int32) -> Int32: ...
 @winfunctype('UxTheme.dll')
-def GetThemeSysFont(hTheme: Windows.Win32.UI.Controls.HTHEME, iFontId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, plf: POINTER(Windows.Win32.Graphics.Gdi.LOGFONTW_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeSysFont(hTheme: Windows.Win32.UI.Controls.HTHEME, iFontId: Int32, plf: POINTER(Windows.Win32.Graphics.Gdi.LOGFONTW_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeSysString(hTheme: Windows.Win32.UI.Controls.HTHEME, iStringId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, pszStringBuff: Windows.Win32.Foundation.PWSTR, cchMaxStringChars: Int32) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeSysString(hTheme: Windows.Win32.UI.Controls.HTHEME, iStringId: Int32, pszStringBuff: Windows.Win32.Foundation.PWSTR, cchMaxStringChars: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeSysInt(hTheme: Windows.Win32.UI.Controls.HTHEME, iIntId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, piValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeSysInt(hTheme: Windows.Win32.UI.Controls.HTHEME, iIntId: Int32, piValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def IsThemeActive() -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('UXTHEME.dll')
@@ -2548,9 +2548,9 @@ def SetWindowThemeAttribute(hwnd: Windows.Win32.Foundation.HWND, eAttribute: Win
 @winfunctype('UXTHEME.dll')
 def DrawThemeTextEx(hTheme: Windows.Win32.UI.Controls.HTHEME, hdc: Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pszText: Windows.Win32.Foundation.PWSTR, cchText: Int32, dwTextFlags: Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, pRect: POINTER(Windows.Win32.Foundation.RECT_head), pOptions: POINTER(Windows.Win32.UI.Controls.DTTOPTS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeBitmap(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Windows.Win32.UI.Controls.THEME_PROPERTY_SYMBOL_ID, dwFlags: Windows.Win32.UI.Controls.GET_THEME_BITMAP_FLAGS, phBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeBitmap(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, dwFlags: Windows.Win32.UI.Controls.GET_THEME_BITMAP_FLAGS, phBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeStream(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, ppvStream: POINTER(c_void_p), pcbStream: POINTER(UInt32), hInst: Windows.Win32.Foundation.HMODULE) -> Windows.Win32.Foundation.HRESULT: ...
+def GetThemeStream(hTheme: Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, ppvStream: POINTER(c_void_p), pcbStream: POINTER(UInt32), hInst: Windows.Win32.Foundation.HINSTANCE) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def BufferedPaintInit() -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
@@ -2614,7 +2614,7 @@ def SetScrollRange(hWnd: Windows.Win32.Foundation.HWND, nBar: Windows.Win32.UI.W
 @winfunctype('USER32.dll')
 def ShowScrollBar(hWnd: Windows.Win32.Foundation.HWND, wBar: Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, bShow: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def EnableScrollBar(hWnd: Windows.Win32.Foundation.HWND, wSBflags: Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, wArrows: Windows.Win32.UI.Controls.ENABLE_SCROLL_BAR_ARROWS) -> Windows.Win32.Foundation.BOOL: ...
+def EnableScrollBar(hWnd: Windows.Win32.Foundation.HWND, wSBflags: UInt32, wArrows: Windows.Win32.UI.Controls.ENABLE_SCROLL_BAR_ARROWS) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def DlgDirListA(hDlg: Windows.Win32.Foundation.HWND, lpPathSpec: Windows.Win32.Foundation.PSTR, nIDListBox: Int32, nIDStaticPath: Int32, uFileType: Windows.Win32.UI.Controls.DLG_DIR_LIST_FILE_TYPE) -> Int32: ...
 @winfunctype('USER32.dll')
@@ -3160,7 +3160,7 @@ class EDITBALLOONTIP(EasyCastStructure):
     pszTitle: Windows.Win32.Foundation.PWSTR
     pszText: Windows.Win32.Foundation.PWSTR
     ttiIcon: Windows.Win32.UI.Controls.EDITBALLOONTIP_ICON
-EDITBALLOONTIP_ICON = UInt32
+EDITBALLOONTIP_ICON = Int32
 TTI_ERROR: EDITBALLOONTIP_ICON = 3
 TTI_INFO: EDITBALLOONTIP_ICON = 1
 TTI_NONE: EDITBALLOONTIP_ICON = 0
@@ -3514,7 +3514,7 @@ HDFT_ISSTRING: HEADER_CONTROL_FORMAT_TYPE = 0
 HDFT_ISNUMBER: HEADER_CONTROL_FORMAT_TYPE = 1
 HDFT_ISDATE: HEADER_CONTROL_FORMAT_TYPE = 2
 HDFT_HASNOVALUE: HEADER_CONTROL_FORMAT_TYPE = 32768
-HEADER_CONTROL_NOTIFICATION_BUTTON = UInt32
+HEADER_CONTROL_NOTIFICATION_BUTTON = Int32
 HEADER_CONTROL_NOTIFICATION_BUTTON_LEFT: HEADER_CONTROL_NOTIFICATION_BUTTON = 0
 HEADER_CONTROL_NOTIFICATION_BUTTON_RIGHT: HEADER_CONTROL_NOTIFICATION_BUTTON = 1
 HEADER_CONTROL_NOTIFICATION_BUTTON_MIDDLE: HEADER_CONTROL_NOTIFICATION_BUTTON = 2
@@ -3962,7 +3962,7 @@ class LVCOLUMNW(EasyCastStructure):
     cxMin: Int32
     cxDefault: Int32
     cxIdeal: Int32
-LVCOLUMNW_FORMAT = UInt32
+LVCOLUMNW_FORMAT = Int32
 LVCFMT_LEFT: LVCOLUMNW_FORMAT = 0
 LVCFMT_RIGHT: LVCOLUMNW_FORMAT = 1
 LVCFMT_CENTER: LVCOLUMNW_FORMAT = 2
@@ -4679,7 +4679,7 @@ class NMPGSCROLL(EasyCastStructure):
     iYpos: Int32
     iScroll: Int32
     _pack_ = 1
-NMPGSCROLL_DIR = UInt32
+NMPGSCROLL_DIR = Int32
 PGF_SCROLLDOWN: NMPGSCROLL_DIR = 2
 PGF_SCROLLLEFT: NMPGSCROLL_DIR = 4
 PGF_SCROLLRIGHT: NMPGSCROLL_DIR = 8
@@ -4863,14 +4863,14 @@ class NMTTDISPINFOA(EasyCastStructure):
     hdr: Windows.Win32.UI.Controls.NMHDR
     lpszText: Windows.Win32.Foundation.PSTR
     szText: Windows.Win32.Foundation.CHAR * 80
-    hinst: Windows.Win32.Foundation.HMODULE
+    hinst: Windows.Win32.Foundation.HINSTANCE
     uFlags: Windows.Win32.UI.Controls.TOOLTIP_FLAGS
     lParam: Windows.Win32.Foundation.LPARAM
 class NMTTDISPINFOW(EasyCastStructure):
     hdr: Windows.Win32.UI.Controls.NMHDR
     lpszText: Windows.Win32.Foundation.PWSTR
     szText: Char * 80
-    hinst: Windows.Win32.Foundation.HMODULE
+    hinst: Windows.Win32.Foundation.HINSTANCE
     uFlags: Windows.Win32.UI.Controls.TOOLTIP_FLAGS
     lParam: Windows.Win32.Foundation.LPARAM
 class NMTVASYNCDRAW(EasyCastStructure):
@@ -5117,7 +5117,7 @@ class PROPSHEETHEADERA_V1(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     pszCaption: Windows.Win32.Foundation.PSTR
     nPages: UInt32
@@ -5137,7 +5137,7 @@ class PROPSHEETHEADERA_V2(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     pszCaption: Windows.Win32.Foundation.PSTR
     nPages: UInt32
@@ -5166,7 +5166,7 @@ class PROPSHEETHEADERW_V1(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     pszCaption: Windows.Win32.Foundation.PWSTR
     nPages: UInt32
@@ -5186,7 +5186,7 @@ class PROPSHEETHEADERW_V2(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     pszCaption: Windows.Win32.Foundation.PWSTR
     nPages: UInt32
@@ -5214,7 +5214,7 @@ class PROPSHEETHEADERW_V2(EasyCastStructure):
 class PROPSHEETPAGEA(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     pszTitle: Windows.Win32.Foundation.PSTR
@@ -5238,7 +5238,7 @@ class PROPSHEETPAGEA(EasyCastStructure):
 class PROPSHEETPAGEA_V1(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     pszTitle: Windows.Win32.Foundation.PSTR
@@ -5255,7 +5255,7 @@ class PROPSHEETPAGEA_V1(EasyCastStructure):
 class PROPSHEETPAGEA_V2(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     pszTitle: Windows.Win32.Foundation.PSTR
@@ -5274,7 +5274,7 @@ class PROPSHEETPAGEA_V2(EasyCastStructure):
 class PROPSHEETPAGEA_V3(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     pszTitle: Windows.Win32.Foundation.PSTR
@@ -5294,7 +5294,7 @@ class PROPSHEETPAGEA_V3(EasyCastStructure):
 class PROPSHEETPAGEW(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     pszTitle: Windows.Win32.Foundation.PWSTR
@@ -5318,7 +5318,7 @@ class PROPSHEETPAGEW(EasyCastStructure):
 class PROPSHEETPAGEW_V1(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     pszTitle: Windows.Win32.Foundation.PWSTR
@@ -5335,7 +5335,7 @@ class PROPSHEETPAGEW_V1(EasyCastStructure):
 class PROPSHEETPAGEW_V2(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     pszTitle: Windows.Win32.Foundation.PWSTR
@@ -5354,7 +5354,7 @@ class PROPSHEETPAGEW_V2(EasyCastStructure):
 class PROPSHEETPAGEW_V3(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     pszTitle: Windows.Win32.Foundation.PWSTR
@@ -5673,7 +5673,7 @@ TBP_SIZINGBARLEFT: TASKBARPARTS = 8
 class TASKDIALOGCONFIG(EasyCastStructure):
     cbSize: UInt32
     hwndParent: Windows.Win32.Foundation.HWND
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     dwFlags: Windows.Win32.UI.Controls.TASKDIALOG_FLAGS
     dwCommonButtons: Windows.Win32.UI.Controls.TASKDIALOG_COMMON_BUTTON_FLAGS
     pszWindowTitle: Windows.Win32.Foundation.PWSTR
@@ -5862,7 +5862,7 @@ TATT_SCALE_2D: TA_TRANSFORM_TYPE = 1
 TATT_OPACITY: TA_TRANSFORM_TYPE = 2
 TATT_CLIP: TA_TRANSFORM_TYPE = 3
 class TBADDBITMAP(EasyCastStructure):
-    hInst: Windows.Win32.Foundation.HMODULE
+    hInst: Windows.Win32.Foundation.HINSTANCE
     nID: UIntPtr
 if ARCH in 'X64,ARM64':
     class TBBUTTON(EasyCastStructure):
@@ -5930,9 +5930,9 @@ class TBMETRICS(EasyCastStructure):
     cxButtonSpacing: Int32
     cyButtonSpacing: Int32
 class TBREPLACEBITMAP(EasyCastStructure):
-    hInstOld: Windows.Win32.Foundation.HMODULE
+    hInstOld: Windows.Win32.Foundation.HINSTANCE
     nIDOld: UIntPtr
-    hInstNew: Windows.Win32.Foundation.HMODULE
+    hInstNew: Windows.Win32.Foundation.HINSTANCE
     nIDNew: UIntPtr
     nButtons: Int32
 class TBSAVEPARAMSA(EasyCastStructure):
@@ -6470,7 +6470,7 @@ class TTTOOLINFOA(EasyCastStructure):
     hwnd: Windows.Win32.Foundation.HWND
     uId: UIntPtr
     rect: Windows.Win32.Foundation.RECT
-    hinst: Windows.Win32.Foundation.HMODULE
+    hinst: Windows.Win32.Foundation.HINSTANCE
     lpszText: Windows.Win32.Foundation.PSTR
     lParam: Windows.Win32.Foundation.LPARAM
     lpReserved: c_void_p
@@ -6480,7 +6480,7 @@ class TTTOOLINFOW(EasyCastStructure):
     hwnd: Windows.Win32.Foundation.HWND
     uId: UIntPtr
     rect: Windows.Win32.Foundation.RECT
-    hinst: Windows.Win32.Foundation.HMODULE
+    hinst: Windows.Win32.Foundation.HINSTANCE
     lpszText: Windows.Win32.Foundation.PWSTR
     lParam: Windows.Win32.Foundation.LPARAM
     lpReserved: c_void_p
@@ -6685,7 +6685,7 @@ WP_FRAME: WINDOWPARTS = 38
 WP_BORDER: WINDOWPARTS = 39
 WINDOWTHEMEATTRIBUTETYPE = Int32
 WTA_NONCLIENT: WINDOWTHEMEATTRIBUTETYPE = 1
-WORD_BREAK_ACTION = UInt32
+WORD_BREAK_ACTION = Int32
 WB_CLASSIFY: WORD_BREAK_ACTION = 3
 WB_ISDELIMITER: WORD_BREAK_ACTION = 2
 WB_LEFT: WORD_BREAK_ACTION = 0

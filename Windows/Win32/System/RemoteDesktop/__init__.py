@@ -383,9 +383,9 @@ def WTSShutdownSystem(hServer: Windows.Win32.Foundation.HANDLE, ShutdownFlag: UI
 @winfunctype('WTSAPI32.dll')
 def WTSWaitSystemEvent(hServer: Windows.Win32.Foundation.HANDLE, EventMask: UInt32, pEventFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
-def WTSVirtualChannelOpen(hServer: Windows.Win32.Foundation.HANDLE, SessionId: UInt32, pVirtualName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.System.RemoteDesktop.HwtsVirtualChannelHandle: ...
+def WTSVirtualChannelOpen(hServer: Windows.Win32.Foundation.HANDLE, SessionId: UInt32, pVirtualName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('WTSAPI32.dll')
-def WTSVirtualChannelOpenEx(SessionId: UInt32, pVirtualName: Windows.Win32.Foundation.PSTR, flags: UInt32) -> Windows.Win32.System.RemoteDesktop.HwtsVirtualChannelHandle: ...
+def WTSVirtualChannelOpenEx(SessionId: UInt32, pVirtualName: Windows.Win32.Foundation.PSTR, flags: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('WTSAPI32.dll')
 def WTSVirtualChannelClose(hChannelHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
@@ -485,8 +485,6 @@ CONNECTION_REQUEST_CANCELLED: CONNECTION_CHANGE_NOTIFICATION = 5
 CONNECTION_REQUEST_LB_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 6
 CONNECTION_REQUEST_QUERY_PL_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 7
 CONNECTION_REQUEST_ORCH_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 8
-class HwtsVirtualChannelHandle(EasyCastStructure):
-    Value: IntPtr
 class IADsTSUserEx(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{c4930e79-2989-4462-8a60-2fcf2f2955ef}')
@@ -2736,7 +2734,6 @@ make_head(_module, 'CHANNEL_DEF')
 make_head(_module, 'CHANNEL_ENTRY_POINTS')
 make_head(_module, 'CHANNEL_PDU_HEADER')
 make_head(_module, 'CLIENT_DISPLAY')
-make_head(_module, 'HwtsVirtualChannelHandle')
 make_head(_module, 'IADsTSUserEx')
 make_head(_module, 'IAudioDeviceEndpoint')
 make_head(_module, 'IAudioEndpoint')

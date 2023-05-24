@@ -1477,11 +1477,11 @@ def RtlEncryptMemory(Memory: c_void_p, MemorySize: UInt32, OptionFlags: UInt32) 
 @winfunctype('ADVAPI32.dll', entry_point='md.import_.name')
 def RtlDecryptMemory(Memory: c_void_p, MemorySize: UInt32, OptionFlags: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SECUR32.dll')
-def LsaRegisterLogonProcess(LogonProcessName: POINTER(Windows.Win32.System.Kernel.STRING_head), LsaHandle: POINTER(Windows.Win32.Foundation.HANDLE), SecurityMode: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaRegisterLogonProcess(LogonProcessName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head), LsaHandle: POINTER(Windows.Win32.Foundation.HANDLE), SecurityMode: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SECUR32.dll')
-def LsaLogonUser(LsaHandle: Windows.Win32.Foundation.HANDLE, OriginName: POINTER(Windows.Win32.System.Kernel.STRING_head), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AuthenticationPackage: UInt32, AuthenticationInformation: c_void_p, AuthenticationInformationLength: UInt32, LocalGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head), SourceContext: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), ProfileBuffer: POINTER(c_void_p), ProfileBufferLength: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), Token: POINTER(Windows.Win32.Foundation.HANDLE), Quotas: POINTER(Windows.Win32.Security.QUOTA_LIMITS_head), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaLogonUser(LsaHandle: Windows.Win32.Foundation.HANDLE, OriginName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AuthenticationPackage: UInt32, AuthenticationInformation: c_void_p, AuthenticationInformationLength: UInt32, LocalGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head), SourceContext: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), ProfileBuffer: POINTER(c_void_p), ProfileBufferLength: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), Token: POINTER(Windows.Win32.Foundation.HANDLE), Quotas: POINTER(Windows.Win32.Security.QUOTA_LIMITS_head), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SECUR32.dll')
-def LsaLookupAuthenticationPackage(LsaHandle: Windows.Win32.Foundation.HANDLE, PackageName: POINTER(Windows.Win32.System.Kernel.STRING_head), AuthenticationPackage: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaLookupAuthenticationPackage(LsaHandle: Windows.Win32.Foundation.HANDLE, PackageName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head), AuthenticationPackage: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SECUR32.dll')
 def LsaFreeReturnBuffer(Buffer: c_void_p) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SECUR32.dll')
@@ -1499,11 +1499,11 @@ def LsaEnumerateLogonSessions(LogonSessionCount: POINTER(UInt32), LogonSessionLi
 @winfunctype('SECUR32.dll')
 def LsaGetLogonSessionData(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), ppLogonSessionData: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_SESSION_DATA_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaOpenPolicy(SystemName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ObjectAttributes: POINTER(Windows.Win32.Foundation.OBJECT_ATTRIBUTES_head), DesiredAccess: UInt32, PolicyHandle: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaOpenPolicy(SystemName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ObjectAttributes: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_OBJECT_ATTRIBUTES_head), DesiredAccess: UInt32, PolicyHandle: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaSetCAPs(CAPDNs: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CAPDNCount: UInt32, Flags: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaSetCAPs(CAPDNs: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), CAPDNCount: UInt32, Flags: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaGetAppliedCAPIDs(SystemName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CAPIDs: POINTER(POINTER(Windows.Win32.Foundation.PSID)), CAPIDCount: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaGetAppliedCAPIDs(SystemName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), CAPIDs: POINTER(POINTER(Windows.Win32.Foundation.PSID)), CAPIDCount: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def LsaQueryCAPs(CAPIDs: POINTER(Windows.Win32.Foundation.PSID), CAPIDCount: UInt32, CAPs: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.CENTRAL_ACCESS_POLICY_head)), CAPCount: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
@@ -1521,23 +1521,23 @@ def LsaUnregisterPolicyChangeNotification(InformationClass: Windows.Win32.Securi
 @winfunctype('ADVAPI32.dll')
 def LsaEnumerateTrustedDomains(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, EnumerationContext: POINTER(UInt32), Buffer: POINTER(c_void_p), PreferedMaximumLength: UInt32, CountReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaLookupNames(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, Count: UInt32, Names: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ReferencedDomains: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_REFERENCED_DOMAIN_LIST_head)), Sids: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TRANSLATED_SID_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaLookupNames(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, Count: UInt32, Names: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ReferencedDomains: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_REFERENCED_DOMAIN_LIST_head)), Sids: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TRANSLATED_SID_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaLookupNames2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, Flags: UInt32, Count: UInt32, Names: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ReferencedDomains: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_REFERENCED_DOMAIN_LIST_head)), Sids: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TRANSLATED_SID2_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaLookupNames2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, Flags: UInt32, Count: UInt32, Names: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ReferencedDomains: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_REFERENCED_DOMAIN_LIST_head)), Sids: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TRANSLATED_SID2_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def LsaLookupSids(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, Count: UInt32, Sids: POINTER(Windows.Win32.Foundation.PSID), ReferencedDomains: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_REFERENCED_DOMAIN_LIST_head)), Names: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TRANSLATED_NAME_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def LsaLookupSids2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, LookupOptions: UInt32, Count: UInt32, Sids: POINTER(Windows.Win32.Foundation.PSID), ReferencedDomains: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_REFERENCED_DOMAIN_LIST_head)), Names: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TRANSLATED_NAME_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaEnumerateAccountsWithUserRight(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, UserRight: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Buffer: POINTER(c_void_p), CountReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaEnumerateAccountsWithUserRight(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, UserRight: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Buffer: POINTER(c_void_p), CountReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaEnumerateAccountRights(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, AccountSid: Windows.Win32.Foundation.PSID, UserRights: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), CountOfRights: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaEnumerateAccountRights(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, AccountSid: Windows.Win32.Foundation.PSID, UserRights: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), CountOfRights: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaAddAccountRights(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, AccountSid: Windows.Win32.Foundation.PSID, UserRights: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CountOfRights: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaAddAccountRights(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, AccountSid: Windows.Win32.Foundation.PSID, UserRights: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), CountOfRights: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaRemoveAccountRights(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, AccountSid: Windows.Win32.Foundation.PSID, AllRights: Windows.Win32.Foundation.BOOLEAN, UserRights: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CountOfRights: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaRemoveAccountRights(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, AccountSid: Windows.Win32.Foundation.PSID, AllRights: Windows.Win32.Foundation.BOOLEAN, UserRights: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), CountOfRights: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaOpenTrustedDomainByName(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), DesiredAccess: UInt32, TrustedDomainHandle: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaOpenTrustedDomainByName(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), DesiredAccess: UInt32, TrustedDomainHandle: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def LsaQueryTrustedDomainInfo(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainSid: Windows.Win32.Foundation.PSID, InformationClass: Windows.Win32.Security.Authentication.Identity.TRUSTED_INFORMATION_CLASS, Buffer: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
@@ -1545,27 +1545,27 @@ def LsaSetTrustedDomainInformation(PolicyHandle: Windows.Win32.Security.Authenti
 @winfunctype('ADVAPI32.dll')
 def LsaDeleteTrustedDomain(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainSid: Windows.Win32.Foundation.PSID) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaQueryTrustedDomainInfoByName(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), InformationClass: Windows.Win32.Security.Authentication.Identity.TRUSTED_INFORMATION_CLASS, Buffer: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaQueryTrustedDomainInfoByName(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), InformationClass: Windows.Win32.Security.Authentication.Identity.TRUSTED_INFORMATION_CLASS, Buffer: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaSetTrustedDomainInfoByName(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), InformationClass: Windows.Win32.Security.Authentication.Identity.TRUSTED_INFORMATION_CLASS, Buffer: c_void_p) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaSetTrustedDomainInfoByName(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), InformationClass: Windows.Win32.Security.Authentication.Identity.TRUSTED_INFORMATION_CLASS, Buffer: c_void_p) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def LsaEnumerateTrustedDomainsEx(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, EnumerationContext: POINTER(UInt32), Buffer: POINTER(c_void_p), PreferedMaximumLength: UInt32, CountReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def LsaCreateTrustedDomainEx(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainInformation: POINTER(Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_INFORMATION_EX_head), AuthenticationInformation: POINTER(Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_AUTH_INFORMATION_head), DesiredAccess: UInt32, TrustedDomainHandle: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaQueryForestTrustInformation(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ForestTrustInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaQueryForestTrustInformation(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ForestTrustInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaSetForestTrustInformation(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ForestTrustInfo: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION_head), CheckOnly: Windows.Win32.Foundation.BOOLEAN, CollisionInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_INFORMATION_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaSetForestTrustInformation(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ForestTrustInfo: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION_head), CheckOnly: Windows.Win32.Foundation.BOOLEAN, CollisionInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_INFORMATION_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaStorePrivateData(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, KeyName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), PrivateData: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaStorePrivateData(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, KeyName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), PrivateData: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaRetrievePrivateData(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, KeyName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), PrivateData: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaRetrievePrivateData(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, KeyName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), PrivateData: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def LsaNtStatusToWinError(Status: Windows.Win32.Foundation.NTSTATUS) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
-def LsaQueryForestTrustInformation2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), HighestRecordType: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE, ForestTrustInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION2_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaQueryForestTrustInformation2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), HighestRecordType: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE, ForestTrustInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION2_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
-def LsaSetForestTrustInformation2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), HighestRecordType: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE, ForestTrustInfo: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION2_head), CheckOnly: Windows.Win32.Foundation.BOOLEAN, CollisionInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_INFORMATION_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def LsaSetForestTrustInformation2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), HighestRecordType: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE, ForestTrustInfo: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION2_head), CheckOnly: Windows.Win32.Foundation.BOOLEAN, CollisionInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_INFORMATION_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ADVAPI32.dll')
 def AuditSetSystemPolicy(pAuditPolicy: POINTER(Windows.Win32.Security.Authentication.Identity.AUDIT_POLICY_INFORMATION_head), dwPolicyCount: UInt32) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
@@ -1902,16 +1902,16 @@ def SLQueryLicenseValueFromApp(valueName: Windows.Win32.Foundation.PWSTR, valueT
 def SendSAS(AsUser: Windows.Win32.Foundation.BOOL) -> Void: ...
 class CENTRAL_ACCESS_POLICY(EasyCastStructure):
     CAPID: Windows.Win32.Foundation.PSID
-    Name: Windows.Win32.Foundation.UNICODE_STRING
-    Description: Windows.Win32.Foundation.UNICODE_STRING
-    ChangeId: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Description: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ChangeId: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Flags: UInt32
     CAPECount: UInt32
     CAPEs: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.CENTRAL_ACCESS_POLICY_ENTRY_head))
 class CENTRAL_ACCESS_POLICY_ENTRY(EasyCastStructure):
-    Name: Windows.Win32.Foundation.UNICODE_STRING
-    Description: Windows.Win32.Foundation.UNICODE_STRING
-    ChangeId: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Description: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ChangeId: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LengthAppliesTo: UInt32
     AppliesTo: POINTER(Byte)
     LengthSD: UInt32
@@ -2043,52 +2043,52 @@ ISC_REQ_DEFERRED_CRED_VALIDATION: ISC_REQ_HIGH_FLAGS = 8589934592
 ISC_REQ_NO_POST_HANDSHAKE_AUTH: ISC_REQ_HIGH_FLAGS = 17179869184
 class KDC_PROXY_CACHE_ENTRY_DATA(EasyCastStructure):
     SinceLastUsed: UInt64
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    ProxyServerName: Windows.Win32.Foundation.UNICODE_STRING
-    ProxyServerVdir: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ProxyServerName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ProxyServerVdir: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ProxyServerPort: UInt16
     LogonId: Windows.Win32.Foundation.LUID
-    CredUserName: Windows.Win32.Foundation.UNICODE_STRING
-    CredDomainName: Windows.Win32.Foundation.UNICODE_STRING
+    CredUserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    CredDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     GlobalCache: Windows.Win32.Foundation.BOOLEAN
 KERB_ADDRESS_TYPE = UInt32
 DS_INET_ADDRESS: KERB_ADDRESS_TYPE = 1
 DS_NETBIOS_ADDRESS: KERB_ADDRESS_TYPE = 2
 class KERB_ADD_BINDING_CACHE_ENTRY_EX_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
-    RealmName: Windows.Win32.Foundation.UNICODE_STRING
-    KdcAddress: Windows.Win32.Foundation.UNICODE_STRING
+    RealmName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    KdcAddress: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     AddressType: Windows.Win32.Security.Authentication.Identity.KERB_ADDRESS_TYPE
     DcFlags: UInt32
 class KERB_ADD_BINDING_CACHE_ENTRY_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
-    RealmName: Windows.Win32.Foundation.UNICODE_STRING
-    KdcAddress: Windows.Win32.Foundation.UNICODE_STRING
+    RealmName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    KdcAddress: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     AddressType: Windows.Win32.Security.Authentication.Identity.KERB_ADDRESS_TYPE
 class KERB_ADD_CREDENTIALS_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    Password: Windows.Win32.Foundation.UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LogonId: Windows.Win32.Foundation.LUID
     Flags: Windows.Win32.Security.Authentication.Identity.KERB_REQUEST_FLAGS
 class KERB_ADD_CREDENTIALS_REQUEST_EX(EasyCastStructure):
     Credentials: Windows.Win32.Security.Authentication.Identity.KERB_ADD_CREDENTIALS_REQUEST
     PrincipalNameCount: UInt32
-    PrincipalNames: Windows.Win32.Foundation.UNICODE_STRING * 1
+    PrincipalNames: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING * 1
 class KERB_AUTH_DATA(EasyCastStructure):
     Type: UInt32
     Length: UInt32
     Data: POINTER(Byte)
 class KERB_BINDING_CACHE_ENTRY_DATA(EasyCastStructure):
     DiscoveryTime: UInt64
-    RealmName: Windows.Win32.Foundation.UNICODE_STRING
-    KdcAddress: Windows.Win32.Foundation.UNICODE_STRING
+    RealmName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    KdcAddress: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     AddressType: Windows.Win32.Security.Authentication.Identity.KERB_ADDRESS_TYPE
     Flags: UInt32
     DcFlags: UInt32
     CacheFlags: UInt32
-    KdcName: Windows.Win32.Foundation.UNICODE_STRING
+    KdcName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class KERB_CERTIFICATE_HASHINFO(EasyCastStructure):
     StoreNameLength: UInt16
     HashLength: UInt16
@@ -2099,17 +2099,17 @@ KERB_CERTIFICATE_INFO_TYPE = Int32
 KERB_CERTIFICATE_INFO_TYPE_CertHashInfo: KERB_CERTIFICATE_INFO_TYPE = 1
 class KERB_CERTIFICATE_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    Pin: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Pin: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Flags: UInt32
     CspDataLength: UInt32
     CspData: POINTER(Byte)
 class KERB_CERTIFICATE_S4U_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
     Flags: UInt32
-    UserPrincipalName: Windows.Win32.Foundation.UNICODE_STRING
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
+    UserPrincipalName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     CertificateLength: UInt32
     Certificate: POINTER(Byte)
 class KERB_CERTIFICATE_UNLOCK_LOGON(EasyCastStructure):
@@ -2117,10 +2117,10 @@ class KERB_CERTIFICATE_UNLOCK_LOGON(EasyCastStructure):
     LogonId: Windows.Win32.Foundation.LUID
 class KERB_CHANGEPASSWORD_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    AccountName: Windows.Win32.Foundation.UNICODE_STRING
-    OldPassword: Windows.Win32.Foundation.UNICODE_STRING
-    NewPassword: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    AccountName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    OldPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    NewPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Impersonating: Windows.Win32.Foundation.BOOLEAN
 class KERB_CLEANUP_MACHINE_PKINIT_CREDS_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
@@ -2168,14 +2168,14 @@ class KERB_DECRYPT_RESPONSE(EasyCastStructure):
 class KERB_EXTERNAL_NAME(EasyCastStructure):
     NameType: Int16
     NameCount: UInt16
-    Names: Windows.Win32.Foundation.UNICODE_STRING * 1
+    Names: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING * 1
 class KERB_EXTERNAL_TICKET(EasyCastStructure):
     ServiceName: POINTER(Windows.Win32.Security.Authentication.Identity.KERB_EXTERNAL_NAME_head)
     TargetName: POINTER(Windows.Win32.Security.Authentication.Identity.KERB_EXTERNAL_NAME_head)
     ClientName: POINTER(Windows.Win32.Security.Authentication.Identity.KERB_EXTERNAL_NAME_head)
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    TargetDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    AltTargetDomainName: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    TargetDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    AltTargetDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     SessionKey: Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY
     TicketFlags: Windows.Win32.Security.Authentication.Identity.KERB_TICKET_FLAGS
     Flags: UInt32
@@ -2188,9 +2188,9 @@ class KERB_EXTERNAL_TICKET(EasyCastStructure):
     EncodedTicket: POINTER(Byte)
 class KERB_INTERACTIVE_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
-    LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    Password: Windows.Win32.Foundation.UNICODE_STRING
+    LogonDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class KERB_INTERACTIVE_PROFILE(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROFILE_BUFFER_TYPE
     LogonCount: UInt16
@@ -2201,12 +2201,12 @@ class KERB_INTERACTIVE_PROFILE(EasyCastStructure):
     PasswordLastSet: Int64
     PasswordCanChange: Int64
     PasswordMustChange: Int64
-    LogonScript: Windows.Win32.Foundation.UNICODE_STRING
-    HomeDirectory: Windows.Win32.Foundation.UNICODE_STRING
-    FullName: Windows.Win32.Foundation.UNICODE_STRING
-    ProfilePath: Windows.Win32.Foundation.UNICODE_STRING
-    HomeDirectoryDrive: Windows.Win32.Foundation.UNICODE_STRING
-    LogonServer: Windows.Win32.Foundation.UNICODE_STRING
+    LogonScript: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    HomeDirectory: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    FullName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ProfilePath: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    HomeDirectoryDrive: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    LogonServer: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserFlags: UInt32
 class KERB_INTERACTIVE_UNLOCK_LOGON(EasyCastStructure):
     Logon: Windows.Win32.Security.Authentication.Identity.KERB_INTERACTIVE_LOGON
@@ -2291,8 +2291,8 @@ class KERB_PURGE_TKT_CACHE_EX_REQUEST(EasyCastStructure):
 class KERB_PURGE_TKT_CACHE_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: Windows.Win32.Foundation.LUID
-    ServerName: Windows.Win32.Foundation.UNICODE_STRING
-    RealmName: Windows.Win32.Foundation.UNICODE_STRING
+    ServerName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    RealmName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class KERB_QUERY_BINDING_CACHE_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
 class KERB_QUERY_BINDING_CACHE_RESPONSE(EasyCastStructure):
@@ -2302,7 +2302,7 @@ class KERB_QUERY_BINDING_CACHE_RESPONSE(EasyCastStructure):
 class KERB_QUERY_DOMAIN_EXTENDED_POLICIES_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class KERB_QUERY_DOMAIN_EXTENDED_POLICIES_RESPONSE(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
@@ -2351,7 +2351,7 @@ class KERB_REFRESH_POLICY_RESPONSE(EasyCastStructure):
     Flags: UInt32
 class KERB_REFRESH_SCCRED_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
-    CredentialBlob: Windows.Win32.Foundation.UNICODE_STRING
+    CredentialBlob: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LogonId: Windows.Win32.Foundation.LUID
     Flags: UInt32
 KERB_REQUEST_FLAGS = UInt32
@@ -2361,9 +2361,9 @@ KERB_REQUEST_REMOVE_CREDENTIAL: KERB_REQUEST_FLAGS = 4
 class KERB_RETRIEVE_KEY_TAB_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    Password: Windows.Win32.Foundation.UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class KERB_RETRIEVE_KEY_TAB_RESPONSE(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     KeyTabLength: UInt32
@@ -2371,7 +2371,7 @@ class KERB_RETRIEVE_KEY_TAB_RESPONSE(EasyCastStructure):
 class KERB_RETRIEVE_TKT_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: Windows.Win32.Foundation.LUID
-    TargetName: Windows.Win32.Foundation.UNICODE_STRING
+    TargetName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     TicketFlags: UInt32
     CacheOptions: UInt32
     EncryptionType: Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY_TYPE
@@ -2379,13 +2379,13 @@ class KERB_RETRIEVE_TKT_REQUEST(EasyCastStructure):
 class KERB_RETRIEVE_TKT_RESPONSE(EasyCastStructure):
     Ticket: Windows.Win32.Security.Authentication.Identity.KERB_EXTERNAL_TICKET
 class KERB_S4U2PROXY_CACHE_ENTRY_INFO(EasyCastStructure):
-    ServerName: Windows.Win32.Foundation.UNICODE_STRING
+    ServerName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Flags: UInt32
     LastStatus: Windows.Win32.Foundation.NTSTATUS
     Expiry: Int64
 class KERB_S4U2PROXY_CRED(EasyCastStructure):
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Flags: UInt32
     LastStatus: Windows.Win32.Foundation.NTSTATUS
     Expiry: Int64
@@ -2394,32 +2394,32 @@ class KERB_S4U2PROXY_CRED(EasyCastStructure):
 class KERB_S4U_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
     Flags: UInt32
-    ClientUpn: Windows.Win32.Foundation.UNICODE_STRING
-    ClientRealm: Windows.Win32.Foundation.UNICODE_STRING
+    ClientUpn: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ClientRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class KERB_SETPASSWORD_EX_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: Windows.Win32.Foundation.LUID
     CredentialsHandle: Windows.Win32.Security.Credentials.SecHandle
     Flags: UInt32
-    AccountRealm: Windows.Win32.Foundation.UNICODE_STRING
-    AccountName: Windows.Win32.Foundation.UNICODE_STRING
-    Password: Windows.Win32.Foundation.UNICODE_STRING
-    ClientRealm: Windows.Win32.Foundation.UNICODE_STRING
-    ClientName: Windows.Win32.Foundation.UNICODE_STRING
+    AccountRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    AccountName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ClientRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ClientName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Impersonating: Windows.Win32.Foundation.BOOLEAN
-    KdcAddress: Windows.Win32.Foundation.UNICODE_STRING
+    KdcAddress: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     KdcAddressType: UInt32
 class KERB_SETPASSWORD_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: Windows.Win32.Foundation.LUID
     CredentialsHandle: Windows.Win32.Security.Credentials.SecHandle
     Flags: UInt32
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    AccountName: Windows.Win32.Foundation.UNICODE_STRING
-    Password: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    AccountName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class KERB_SMART_CARD_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
-    Pin: Windows.Win32.Foundation.UNICODE_STRING
+    Pin: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     CspDataLength: UInt32
     CspData: POINTER(Byte)
 class KERB_SMART_CARD_PROFILE(EasyCastStructure):
@@ -2437,28 +2437,28 @@ class KERB_SUBMIT_TKT_REQUEST(EasyCastStructure):
     KerbCredSize: UInt32
     KerbCredOffset: UInt32
 class KERB_TICKET_CACHE_INFO(EasyCastStructure):
-    ServerName: Windows.Win32.Foundation.UNICODE_STRING
-    RealmName: Windows.Win32.Foundation.UNICODE_STRING
+    ServerName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    RealmName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     StartTime: Int64
     EndTime: Int64
     RenewTime: Int64
     EncryptionType: Int32
     TicketFlags: Windows.Win32.Security.Authentication.Identity.KERB_TICKET_FLAGS
 class KERB_TICKET_CACHE_INFO_EX(EasyCastStructure):
-    ClientName: Windows.Win32.Foundation.UNICODE_STRING
-    ClientRealm: Windows.Win32.Foundation.UNICODE_STRING
-    ServerName: Windows.Win32.Foundation.UNICODE_STRING
-    ServerRealm: Windows.Win32.Foundation.UNICODE_STRING
+    ClientName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ClientRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ServerName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ServerRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     StartTime: Int64
     EndTime: Int64
     RenewTime: Int64
     EncryptionType: Int32
     TicketFlags: UInt32
 class KERB_TICKET_CACHE_INFO_EX2(EasyCastStructure):
-    ClientName: Windows.Win32.Foundation.UNICODE_STRING
-    ClientRealm: Windows.Win32.Foundation.UNICODE_STRING
-    ServerName: Windows.Win32.Foundation.UNICODE_STRING
-    ServerRealm: Windows.Win32.Foundation.UNICODE_STRING
+    ClientName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ClientRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ServerName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ServerRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     StartTime: Int64
     EndTime: Int64
     RenewTime: Int64
@@ -2467,10 +2467,10 @@ class KERB_TICKET_CACHE_INFO_EX2(EasyCastStructure):
     SessionKeyType: UInt32
     BranchId: UInt32
 class KERB_TICKET_CACHE_INFO_EX3(EasyCastStructure):
-    ClientName: Windows.Win32.Foundation.UNICODE_STRING
-    ClientRealm: Windows.Win32.Foundation.UNICODE_STRING
-    ServerName: Windows.Win32.Foundation.UNICODE_STRING
-    ServerRealm: Windows.Win32.Foundation.UNICODE_STRING
+    ClientName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ClientRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ServerName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ServerRealm: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     StartTime: Int64
     EndTime: Int64
     RenewTime: Int64
@@ -2479,7 +2479,7 @@ class KERB_TICKET_CACHE_INFO_EX3(EasyCastStructure):
     SessionKeyType: UInt32
     BranchId: UInt32
     CacheFlags: UInt32
-    KdcCalled: Windows.Win32.Foundation.UNICODE_STRING
+    KdcCalled: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 KERB_TICKET_FLAGS = UInt32
 KERB_TICKET_FLAGS_forwardable: KERB_TICKET_FLAGS = 1073741824
 KERB_TICKET_FLAGS_forwarded: KERB_TICKET_FLAGS = 536870912
@@ -2587,15 +2587,15 @@ class LSA_FOREST_TRUST_COLLISION_RECORD(EasyCastStructure):
     Index: UInt32
     Type: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_RECORD_TYPE
     Flags: UInt32
-    Name: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 LSA_FOREST_TRUST_COLLISION_RECORD_TYPE = Int32
 LSA_FOREST_TRUST_COLLISION_RECORD_TYPE_CollisionTdo: LSA_FOREST_TRUST_COLLISION_RECORD_TYPE = 0
 LSA_FOREST_TRUST_COLLISION_RECORD_TYPE_CollisionXref: LSA_FOREST_TRUST_COLLISION_RECORD_TYPE = 1
 LSA_FOREST_TRUST_COLLISION_RECORD_TYPE_CollisionOther: LSA_FOREST_TRUST_COLLISION_RECORD_TYPE = 2
 class LSA_FOREST_TRUST_DOMAIN_INFO(EasyCastStructure):
     Sid: Windows.Win32.Foundation.PSID
-    DnsName: Windows.Win32.Foundation.UNICODE_STRING
-    NetbiosName: Windows.Win32.Foundation.UNICODE_STRING
+    DnsName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    NetbiosName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class LSA_FOREST_TRUST_INFORMATION(EasyCastStructure):
     RecordCount: UInt32
     Entries: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_head))
@@ -2608,7 +2608,7 @@ class LSA_FOREST_TRUST_RECORD(EasyCastStructure):
     Time: Int64
     ForestTrustData: _ForestTrustData_e__Union
     class _ForestTrustData_e__Union(EasyCastUnion):
-        TopLevelName: Windows.Win32.Foundation.UNICODE_STRING
+        TopLevelName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
         DomainInfo: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_DOMAIN_INFO
         Data: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_BINARY_DATA
 class LSA_FOREST_TRUST_RECORD2(EasyCastStructure):
@@ -2617,7 +2617,7 @@ class LSA_FOREST_TRUST_RECORD2(EasyCastStructure):
     Time: Int64
     ForestTrustData: _ForestTrustData_e__Union
     class _ForestTrustData_e__Union(EasyCastUnion):
-        TopLevelName: Windows.Win32.Foundation.UNICODE_STRING
+        TopLevelName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
         DomainInfo: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_DOMAIN_INFO
         BinaryData: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_BINARY_DATA
         ScannerInfo: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_SCANNER_INFO
@@ -2630,8 +2630,8 @@ LSA_FOREST_TRUST_RECORD_TYPE_ForestTrustScannerInfo: LSA_FOREST_TRUST_RECORD_TYP
 LSA_FOREST_TRUST_RECORD_TYPE_ForestTrustRecordTypeLast: LSA_FOREST_TRUST_RECORD_TYPE = 4
 class LSA_FOREST_TRUST_SCANNER_INFO(EasyCastStructure):
     DomainSid: Windows.Win32.Foundation.PSID
-    DnsName: Windows.Win32.Foundation.UNICODE_STRING
-    NetbiosName: Windows.Win32.Foundation.UNICODE_STRING
+    DnsName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    NetbiosName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 LSA_HANDLE = IntPtr
 class LSA_LAST_INTER_LOGON_INFO(EasyCastStructure):
     LastSuccessfulLogon: Int64
@@ -2640,6 +2640,13 @@ class LSA_LAST_INTER_LOGON_INFO(EasyCastStructure):
 LSA_LOOKUP_DOMAIN_INFO_CLASS = Int32
 LSA_LOOKUP_DOMAIN_INFO_CLASS_AccountDomainInformation: LSA_LOOKUP_DOMAIN_INFO_CLASS = 5
 LSA_LOOKUP_DOMAIN_INFO_CLASS_DnsDomainInformation: LSA_LOOKUP_DOMAIN_INFO_CLASS = 12
+class LSA_OBJECT_ATTRIBUTES(EasyCastStructure):
+    Length: UInt32
+    RootDirectory: Windows.Win32.Foundation.HANDLE
+    ObjectName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)
+    Attributes: UInt32
+    SecurityDescriptor: c_void_p
+    SecurityQualityOfService: c_void_p
 class LSA_REFERENCED_DOMAIN_LIST(EasyCastStructure):
     Entries: UInt32
     Domains: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TRUST_INFORMATION_head)
@@ -2708,6 +2715,10 @@ class LSA_SECPKG_FUNCTION_TABLE(EasyCastStructure):
     GetAppModeInfo: Windows.Win32.Security.Authentication.Identity.PLSA_GET_APP_MODE_INFO
     SetAppModeInfo: Windows.Win32.Security.Authentication.Identity.PLSA_SET_APP_MODE_INFO
     GetClientInfoEx: Windows.Win32.Security.Authentication.Identity.PLSA_GET_CLIENT_INFO_EX
+class LSA_STRING(EasyCastStructure):
+    Length: UInt16
+    MaximumLength: UInt16
+    Buffer: Windows.Win32.Foundation.PSTR
 class LSA_TOKEN_INFORMATION_NULL(EasyCastStructure):
     ExpirationTime: Int64
     Groups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head)
@@ -2737,7 +2748,7 @@ class LSA_TOKEN_INFORMATION_V3(EasyCastStructure):
     DeviceGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head)
 class LSA_TRANSLATED_NAME(EasyCastStructure):
     Use: Windows.Win32.Security.SID_NAME_USE
-    Name: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainIndex: Int32
 class LSA_TRANSLATED_SID(EasyCastStructure):
     Use: Windows.Win32.Security.SID_NAME_USE
@@ -2749,8 +2760,12 @@ class LSA_TRANSLATED_SID2(EasyCastStructure):
     DomainIndex: Int32
     Flags: UInt32
 class LSA_TRUST_INFORMATION(EasyCastStructure):
-    Name: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Sid: Windows.Win32.Foundation.PSID
+class LSA_UNICODE_STRING(EasyCastStructure):
+    Length: UInt16
+    MaximumLength: UInt16
+    Buffer: Windows.Win32.Foundation.PWSTR
 @winfunctype_pointer
 def MAKE_SIGNATURE_FN(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: UInt32, param2: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 MSV1_0 = UInt32
@@ -2773,10 +2788,10 @@ class MSV1_0_AV_PAIR(EasyCastStructure):
     AvLen: UInt16
 class MSV1_0_CHANGEPASSWORD_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    AccountName: Windows.Win32.Foundation.UNICODE_STRING
-    OldPassword: Windows.Win32.Foundation.UNICODE_STRING
-    NewPassword: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    AccountName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    OldPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    NewPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Impersonating: Windows.Win32.Foundation.BOOLEAN
 class MSV1_0_CHANGEPASSWORD_RESPONSE(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
@@ -2792,9 +2807,9 @@ MSV1_0_CREDENTIAL_KEY_TYPE_LocalUserCredKey: MSV1_0_CREDENTIAL_KEY_TYPE = 3
 MSV1_0_CREDENTIAL_KEY_TYPE_ExternallySuppliedCredKey: MSV1_0_CREDENTIAL_KEY_TYPE = 4
 class MSV1_0_INTERACTIVE_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE
-    LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    Password: Windows.Win32.Foundation.UNICODE_STRING
+    LogonDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class MSV1_0_INTERACTIVE_PROFILE(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_PROFILE_BUFFER_TYPE
     LogonCount: UInt16
@@ -2805,12 +2820,12 @@ class MSV1_0_INTERACTIVE_PROFILE(EasyCastStructure):
     PasswordLastSet: Int64
     PasswordCanChange: Int64
     PasswordMustChange: Int64
-    LogonScript: Windows.Win32.Foundation.UNICODE_STRING
-    HomeDirectory: Windows.Win32.Foundation.UNICODE_STRING
-    FullName: Windows.Win32.Foundation.UNICODE_STRING
-    ProfilePath: Windows.Win32.Foundation.UNICODE_STRING
-    HomeDirectoryDrive: Windows.Win32.Foundation.UNICODE_STRING
-    LogonServer: Windows.Win32.Foundation.UNICODE_STRING
+    LogonScript: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    HomeDirectory: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    FullName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ProfilePath: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    HomeDirectoryDrive: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    LogonServer: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserFlags: UInt32
 class MSV1_0_IUM_SUPPLEMENTAL_CREDENTIAL(EasyCastStructure):
     Version: UInt32
@@ -2818,12 +2833,12 @@ class MSV1_0_IUM_SUPPLEMENTAL_CREDENTIAL(EasyCastStructure):
     EncryptedCreds: Byte * 1
 class MSV1_0_LM20_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE
-    LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    Workstation: Windows.Win32.Foundation.UNICODE_STRING
+    LogonDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Workstation: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ChallengeToClient: Byte * 8
-    CaseSensitiveChallengeResponse: Windows.Win32.System.Kernel.STRING
-    CaseInsensitiveChallengeResponse: Windows.Win32.System.Kernel.STRING
+    CaseSensitiveChallengeResponse: Windows.Win32.Security.Authentication.Identity.LSA_STRING
+    CaseInsensitiveChallengeResponse: Windows.Win32.Security.Authentication.Identity.LSA_STRING
     ParameterControl: UInt32
 class MSV1_0_LM20_LOGON_PROFILE(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_PROFILE_BUFFER_TYPE
@@ -2831,10 +2846,10 @@ class MSV1_0_LM20_LOGON_PROFILE(EasyCastStructure):
     LogoffTime: Int64
     UserFlags: Windows.Win32.Security.Authentication.Identity.MSV_SUB_AUTHENTICATION_FILTER
     UserSessionKey: Byte * 16
-    LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
+    LogonDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LanmanSessionKey: Byte * 8
-    LogonServer: Windows.Win32.Foundation.UNICODE_STRING
-    UserParameters: Windows.Win32.Foundation.UNICODE_STRING
+    LogonServer: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    UserParameters: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 MSV1_0_LOGON_SUBMIT_TYPE = Int32
 MsV1_0InteractiveLogon: MSV1_0_LOGON_SUBMIT_TYPE = 2
 MsV1_0Lm20Logon: MSV1_0_LOGON_SUBMIT_TYPE = 3
@@ -2857,8 +2872,8 @@ class MSV1_0_NTLM3_RESPONSE(EasyCastStructure):
     Buffer: Byte * 1
 class MSV1_0_PASSTHROUGH_REQUEST(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    PackageName: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    PackageName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DataLength: UInt32
     LogonData: POINTER(Byte)
     Pad: UInt32
@@ -2908,16 +2923,16 @@ class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL(EasyCastStructure):
 class MSV1_0_S4U_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE
     Flags: UInt32
-    UserPrincipalName: Windows.Win32.Foundation.UNICODE_STRING
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
+    UserPrincipalName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class MSV1_0_SUBAUTH_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE
-    LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    Workstation: Windows.Win32.Foundation.UNICODE_STRING
+    LogonDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Workstation: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ChallengeToClient: Byte * 8
-    AuthenticationInfo1: Windows.Win32.System.Kernel.STRING
-    AuthenticationInfo2: Windows.Win32.System.Kernel.STRING
+    AuthenticationInfo1: Windows.Win32.Security.Authentication.Identity.LSA_STRING
+    AuthenticationInfo2: Windows.Win32.Security.Authentication.Identity.LSA_STRING
     ParameterControl: Windows.Win32.Security.Authentication.Identity.MSV_SUBAUTH_LOGON_PARAMETER_CONTROL
     SubAuthPackageId: UInt32
 class MSV1_0_SUBAUTH_REQUEST(EasyCastStructure):
@@ -2949,8 +2964,8 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3(EasyCastStructure):
 class MSV1_0_VALIDATION_INFO(EasyCastStructure):
     LogoffTime: Int64
     KickoffTime: Int64
-    LogonServer: Windows.Win32.Foundation.UNICODE_STRING
-    LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
+    LogonServer: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    LogonDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     SessionKey: Windows.Win32.Security.Authentication.Identity.USER_SESSION_KEY
     Authoritative: Windows.Win32.Foundation.BOOLEAN
     UserFlags: UInt32
@@ -3006,7 +3021,7 @@ class NEGOTIATE_PACKAGE_PREFIXES(EasyCastStructure):
     Pad: UInt32
 class NETLOGON_GENERIC_INFO(EasyCastStructure):
     Identity: Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_IDENTITY_INFO
-    PackageName: Windows.Win32.Foundation.UNICODE_STRING
+    PackageName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DataLength: UInt32
     LogonData: POINTER(Byte)
 class NETLOGON_INTERACTIVE_INFO(EasyCastStructure):
@@ -3014,11 +3029,11 @@ class NETLOGON_INTERACTIVE_INFO(EasyCastStructure):
     LmOwfPassword: Windows.Win32.System.PasswordManagement.LM_OWF_PASSWORD
     NtOwfPassword: Windows.Win32.System.PasswordManagement.LM_OWF_PASSWORD
 class NETLOGON_LOGON_IDENTITY_INFO(EasyCastStructure):
-    LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
+    LogonDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ParameterControl: UInt32
     LogonId: Int64
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    Workstation: Windows.Win32.Foundation.UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Workstation: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 NETLOGON_LOGON_INFO_CLASS = Int32
 NETLOGON_LOGON_INFO_CLASS_NetlogonInteractiveInformation: NETLOGON_LOGON_INFO_CLASS = 1
 NETLOGON_LOGON_INFO_CLASS_NetlogonNetworkInformation: NETLOGON_LOGON_INFO_CLASS = 2
@@ -3030,8 +3045,8 @@ NETLOGON_LOGON_INFO_CLASS_NetlogonServiceTransitiveInformation: NETLOGON_LOGON_I
 class NETLOGON_NETWORK_INFO(EasyCastStructure):
     Identity: Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_IDENTITY_INFO
     LmChallenge: Windows.Win32.Security.Authentication.Identity.CLEAR_BLOCK
-    NtChallengeResponse: Windows.Win32.System.Kernel.STRING
-    LmChallengeResponse: Windows.Win32.System.Kernel.STRING
+    NtChallengeResponse: Windows.Win32.Security.Authentication.Identity.LSA_STRING
+    LmChallengeResponse: Windows.Win32.Security.Authentication.Identity.LSA_STRING
 class NETLOGON_SERVICE_INFO(EasyCastStructure):
     Identity: Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_IDENTITY_INFO
     LmOwfPassword: Windows.Win32.System.PasswordManagement.LM_OWF_PASSWORD
@@ -3053,8 +3068,8 @@ def PKSEC_SERIALIZE_WINNT_AUTH_DATA(pvAuthData: c_void_p, Size: POINTER(UInt32),
 class PKU2U_CERTIFICATE_S4U_LOGON(EasyCastStructure):
     MessageType: Windows.Win32.Security.Authentication.Identity.PKU2U_LOGON_SUBMIT_TYPE
     Flags: UInt32
-    UserPrincipalName: Windows.Win32.Foundation.UNICODE_STRING
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
+    UserPrincipalName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     CertificateLength: UInt32
     Certificate: POINTER(Byte)
 class PKU2U_CERT_BLOB(EasyCastStructure):
@@ -3069,7 +3084,7 @@ class PKU2U_CREDUI_CONTEXT(EasyCastStructure):
 PKU2U_LOGON_SUBMIT_TYPE = Int32
 PKU2U_LOGON_SUBMIT_TYPE_Pku2uCertificateS4ULogon: PKU2U_LOGON_SUBMIT_TYPE = 14
 @winfunctype_pointer
-def PLSA_ADD_CREDENTIAL(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthenticationPackage: UInt32, PrimaryKeyValue: POINTER(Windows.Win32.System.Kernel.STRING_head), Credentials: POINTER(Windows.Win32.System.Kernel.STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_ADD_CREDENTIAL(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthenticationPackage: UInt32, PrimaryKeyValue: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head), Credentials: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_ALLOCATE_CLIENT_BUFFER(ClientRequest: POINTER(c_void_p), LengthRequired: UInt32, ClientBaseAddress: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -3083,35 +3098,35 @@ def PLSA_AP_CALL_PACKAGE(ClientRequest: POINTER(c_void_p), ProtocolSubmitBuffer:
 @winfunctype_pointer
 def PLSA_AP_CALL_PACKAGE_PASSTHROUGH(ClientRequest: POINTER(c_void_p), ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_AP_INITIALIZE_PACKAGE(AuthenticationPackageId: UInt32, LsaDispatchTable: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_DISPATCH_TABLE_head), Database: POINTER(Windows.Win32.System.Kernel.STRING_head), Confidentiality: POINTER(Windows.Win32.System.Kernel.STRING_head), AuthenticationPackageName: POINTER(POINTER(Windows.Win32.System.Kernel.STRING_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_AP_INITIALIZE_PACKAGE(AuthenticationPackageId: UInt32, LsaDispatchTable: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_DISPATCH_TABLE_head), Database: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head), Confidentiality: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head), AuthenticationPackageName: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_AP_LOGON_TERMINATED(LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Void: ...
 @winfunctype_pointer
-def PLSA_AP_LOGON_USER(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AuthenticationInformation: c_void_p, ClientAuthenticationBase: c_void_p, AuthenticationInformationLength: UInt32, ProfileBuffer: POINTER(c_void_p), ProfileBufferLength: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), SubStatus: POINTER(Int32), TokenInformationType: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), TokenInformation: POINTER(c_void_p), AccountName: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), AuthenticatingAuthority: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_AP_LOGON_USER(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AuthenticationInformation: c_void_p, ClientAuthenticationBase: c_void_p, AuthenticationInformationLength: UInt32, ProfileBuffer: POINTER(c_void_p), ProfileBufferLength: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), SubStatus: POINTER(Int32), TokenInformationType: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), TokenInformation: POINTER(c_void_p), AccountName: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), AuthenticatingAuthority: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_AP_LOGON_USER_EX(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AuthenticationInformation: c_void_p, ClientAuthenticationBase: c_void_p, AuthenticationInformationLength: UInt32, ProfileBuffer: POINTER(c_void_p), ProfileBufferLength: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), SubStatus: POINTER(Int32), TokenInformationType: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), TokenInformation: POINTER(c_void_p), AccountName: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), AuthenticatingAuthority: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), MachineName: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_AP_LOGON_USER_EX(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AuthenticationInformation: c_void_p, ClientAuthenticationBase: c_void_p, AuthenticationInformationLength: UInt32, ProfileBuffer: POINTER(c_void_p), ProfileBufferLength: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), SubStatus: POINTER(Int32), TokenInformationType: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), TokenInformation: POINTER(c_void_p), AccountName: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), AuthenticatingAuthority: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), MachineName: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_AP_LOGON_USER_EX2(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferSize: UInt32, ProfileBuffer: POINTER(c_void_p), ProfileBufferSize: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), SubStatus: POINTER(Int32), TokenInformationType: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), TokenInformation: POINTER(c_void_p), AccountName: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), AuthenticatingAuthority: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), MachineName: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_AP_LOGON_USER_EX2(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferSize: UInt32, ProfileBuffer: POINTER(c_void_p), ProfileBufferSize: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), SubStatus: POINTER(Int32), TokenInformationType: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), TokenInformation: POINTER(c_void_p), AccountName: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), AuthenticatingAuthority: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), MachineName: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_AP_LOGON_USER_EX3(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferSize: UInt32, SurrogateLogon: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SURROGATE_LOGON_head), ProfileBuffer: POINTER(c_void_p), ProfileBufferSize: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), SubStatus: POINTER(Int32), TokenInformationType: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), TokenInformation: POINTER(c_void_p), AccountName: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), AuthenticatingAuthority: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), MachineName: POINTER(POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_AP_LOGON_USER_EX3(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferSize: UInt32, SurrogateLogon: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SURROGATE_LOGON_head), ProfileBuffer: POINTER(c_void_p), ProfileBufferSize: POINTER(UInt32), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), SubStatus: POINTER(Int32), TokenInformationType: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), TokenInformation: POINTER(c_void_p), AccountName: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), AuthenticatingAuthority: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), MachineName: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_AP_POST_LOGON_USER_SURROGATE(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferSize: UInt32, SurrogateLogon: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SURROGATE_LOGON_head), ProfileBuffer: c_void_p, ProfileBufferSize: UInt32, LogonId: POINTER(Windows.Win32.Foundation.LUID_head), Status: Windows.Win32.Foundation.NTSTATUS, SubStatus: Windows.Win32.Foundation.NTSTATUS, TokenInformationType: Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE, TokenInformation: c_void_p, AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), AuthenticatingAuthority: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), MachineName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_AP_POST_LOGON_USER_SURROGATE(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferSize: UInt32, SurrogateLogon: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SURROGATE_LOGON_head), ProfileBuffer: c_void_p, ProfileBufferSize: UInt32, LogonId: POINTER(Windows.Win32.Foundation.LUID_head), Status: Windows.Win32.Foundation.NTSTATUS, SubStatus: Windows.Win32.Foundation.NTSTATUS, TokenInformationType: Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE, TokenInformation: c_void_p, AccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), AuthenticatingAuthority: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), MachineName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_AP_PRE_LOGON_USER_SURROGATE(ClientRequest: POINTER(c_void_p), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferSize: UInt32, SurrogateLogon: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SURROGATE_LOGON_head), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_AUDIT_ACCOUNT_LOGON(AuditId: UInt32, Success: Windows.Win32.Foundation.BOOLEAN, Source: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ClientName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), MappedName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Status: Windows.Win32.Foundation.NTSTATUS) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_AUDIT_ACCOUNT_LOGON(AuditId: UInt32, Success: Windows.Win32.Foundation.BOOLEAN, Source: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ClientName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), MappedName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Status: Windows.Win32.Foundation.NTSTATUS) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_AUDIT_LOGON(Status: Windows.Win32.Foundation.NTSTATUS, SubStatus: Windows.Win32.Foundation.NTSTATUS, AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), AuthenticatingAuthority: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), WorkstationName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), UserSid: Windows.Win32.Foundation.PSID, LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Void: ...
+def PLSA_AUDIT_LOGON(Status: Windows.Win32.Foundation.NTSTATUS, SubStatus: Windows.Win32.Foundation.NTSTATUS, AccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), AuthenticatingAuthority: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), WorkstationName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), UserSid: Windows.Win32.Foundation.PSID, LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Void: ...
 @winfunctype_pointer
-def PLSA_AUDIT_LOGON_EX(Status: Windows.Win32.Foundation.NTSTATUS, SubStatus: Windows.Win32.Foundation.NTSTATUS, AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), AuthenticatingAuthority: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), WorkstationName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), UserSid: Windows.Win32.Foundation.PSID, LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL, TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Void: ...
+def PLSA_AUDIT_LOGON_EX(Status: Windows.Win32.Foundation.NTSTATUS, SubStatus: Windows.Win32.Foundation.NTSTATUS, AccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), AuthenticatingAuthority: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), WorkstationName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), UserSid: Windows.Win32.Foundation.PSID, LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL, TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Void: ...
 @winfunctype_pointer
 def PLSA_CALLBACK_FUNCTION(Argument1: UIntPtr, Argument2: UIntPtr, InputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head), OutputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_CALL_PACKAGE(AuthenticationPackage: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_CALL_PACKAGE(AuthenticationPackage: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_CALL_PACKAGEEX(AuthenticationPackage: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ClientBufferBase: c_void_p, ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_CALL_PACKAGEEX(AuthenticationPackage: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ClientBufferBase: c_void_p, ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_CALL_PACKAGE_PASSTHROUGH(AuthenticationPackage: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ClientBufferBase: c_void_p, ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_CALL_PACKAGE_PASSTHROUGH(AuthenticationPackage: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ClientBufferBase: c_void_p, ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_CANCEL_NOTIFICATION(NotifyHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -3121,13 +3136,13 @@ def PLSA_CLIENT_CALLBACK(Callback: Windows.Win32.Foundation.PSTR, Argument1: UIn
 @winfunctype_pointer
 def PLSA_CLOSE_SAM_USER(UserHandle: c_void_p) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_CONVERT_AUTH_DATA_TO_TOKEN(UserAuthData: c_void_p, UserAuthDataSize: UInt32, ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL, TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AuthorityName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Token: POINTER(Windows.Win32.Foundation.HANDLE), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_CONVERT_AUTH_DATA_TO_TOKEN(UserAuthData: c_void_p, UserAuthDataSize: UInt32, ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL, TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AuthorityName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Token: POINTER(Windows.Win32.Foundation.HANDLE), LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_COPY_FROM_CLIENT_BUFFER(ClientRequest: POINTER(c_void_p), Length: UInt32, BufferToCopy: c_void_p, ClientBaseAddress: c_void_p) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_COPY_TO_CLIENT_BUFFER(ClientRequest: POINTER(c_void_p), Length: UInt32, ClientBaseAddress: c_void_p, BufferToCopy: c_void_p) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_CRACK_SINGLE_NAME(FormatOffered: UInt32, PerformAtGC: Windows.Win32.Foundation.BOOLEAN, NameInput: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Prefix: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), RequestedFormat: UInt32, CrackedName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), DnsDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), SubStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_CRACK_SINGLE_NAME(FormatOffered: UInt32, PerformAtGC: Windows.Win32.Foundation.BOOLEAN, NameInput: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Prefix: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), RequestedFormat: UInt32, CrackedName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), DnsDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), SubStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_CREATE_LOGON_SESSION(LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -3135,11 +3150,11 @@ def PLSA_CREATE_SHARED_MEMORY(MaxSize: UInt32, InitialSize: UInt32) -> c_void_p:
 @winfunctype_pointer
 def PLSA_CREATE_THREAD(SecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), StackSize: UInt32, StartFunction: Windows.Win32.System.Threading.LPTHREAD_START_ROUTINE, ThreadParameter: c_void_p, CreationFlags: UInt32, ThreadId: POINTER(UInt32)) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype_pointer
-def PLSA_CREATE_TOKEN(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL, TokenInformationType: Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE, TokenInformation: c_void_p, TokenGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head), AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), AuthorityName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Workstation: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ProfilePath: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Token: POINTER(Windows.Win32.Foundation.HANDLE), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_CREATE_TOKEN(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL, TokenInformationType: Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE, TokenInformation: c_void_p, TokenGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head), AccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), AuthorityName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Workstation: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ProfilePath: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Token: POINTER(Windows.Win32.Foundation.HANDLE), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_CREATE_TOKEN_EX(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL, TokenInformationType: Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE, TokenInformation: c_void_p, TokenGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head), Workstation: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ProfilePath: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), SessionInformation: c_void_p, SessionInformationType: Windows.Win32.Security.Authentication.Identity.SECPKG_SESSIONINFO_TYPE, Token: POINTER(Windows.Win32.Foundation.HANDLE), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_CREATE_TOKEN_EX(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), TokenSource: POINTER(Windows.Win32.Security.TOKEN_SOURCE_head), LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL, TokenInformationType: Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE, TokenInformation: c_void_p, TokenGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head), Workstation: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ProfilePath: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), SessionInformation: c_void_p, SessionInformationType: Windows.Win32.Security.Authentication.Identity.SECPKG_SESSIONINFO_TYPE, Token: POINTER(Windows.Win32.Foundation.HANDLE), SubStatus: POINTER(Int32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_DELETE_CREDENTIAL(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthenticationPackage: UInt32, PrimaryKeyValue: POINTER(Windows.Win32.System.Kernel.STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_DELETE_CREDENTIAL(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthenticationPackage: UInt32, PrimaryKeyValue: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_DELETE_LOGON_SESSION(LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -3159,7 +3174,7 @@ def PLSA_FREE_SHARED_MEMORY(SharedMem: c_void_p, Memory: c_void_p) -> Void: ...
 @winfunctype_pointer
 def PLSA_GET_APP_MODE_INFO(UserFunction: POINTER(UInt32), Argument1: POINTER(UIntPtr), Argument2: POINTER(UIntPtr), UserData: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head), ReturnToLsa: POINTER(Windows.Win32.Foundation.BOOLEAN)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_GET_AUTH_DATA_FOR_USER(Name: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), NameType: Windows.Win32.Security.Authentication.Identity.SECPKG_NAME_TYPE, Prefix: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), UserAuthData: POINTER(POINTER(Byte)), UserAuthDataSize: POINTER(UInt32), UserFlatName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_GET_AUTH_DATA_FOR_USER(Name: POINTER(Windows.Win32.Security.Authentication.Identity.SECURITY_STRING_head), NameType: Windows.Win32.Security.Authentication.Identity.SECPKG_NAME_TYPE, Prefix: POINTER(Windows.Win32.Security.Authentication.Identity.SECURITY_STRING_head), UserAuthData: POINTER(POINTER(Byte)), UserAuthDataSize: POINTER(UInt32), UserFlatName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_GET_CALL_INFO(Info: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_CALL_INFO_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
@@ -3167,11 +3182,11 @@ def PLSA_GET_CLIENT_INFO(ClientInfo: POINTER(Windows.Win32.Security.Authenticati
 @winfunctype_pointer
 def PLSA_GET_CLIENT_INFO_EX(ClientInfo: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_CLIENT_INFO_EX_head), StructSize: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_GET_CREDENTIALS(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthenticationPackage: UInt32, QueryContext: POINTER(UInt32), RetrieveAllCredentials: Windows.Win32.Foundation.BOOLEAN, PrimaryKeyValue: POINTER(Windows.Win32.System.Kernel.STRING_head), PrimaryKeyLength: POINTER(UInt32), Credentials: POINTER(Windows.Win32.System.Kernel.STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_GET_CREDENTIALS(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthenticationPackage: UInt32, QueryContext: POINTER(UInt32), RetrieveAllCredentials: Windows.Win32.Foundation.BOOLEAN, PrimaryKeyValue: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head), PrimaryKeyLength: POINTER(UInt32), Credentials: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_GET_EXTENDED_CALL_FLAGS(Flags: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_GET_SERVICE_ACCOUNT_PASSWORD(AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), DomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CredFetch: Windows.Win32.Security.Authentication.Identity.CRED_FETCH, FileTimeExpiry: POINTER(Windows.Win32.Foundation.FILETIME_head), CurrentPassword: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), PreviousPassword: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), FileTimeCurrPwdValidForOutbound: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_GET_SERVICE_ACCOUNT_PASSWORD(AccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), DomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), CredFetch: Windows.Win32.Security.Authentication.Identity.CRED_FETCH, FileTimeExpiry: POINTER(Windows.Win32.Foundation.FILETIME_head), CurrentPassword: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), PreviousPassword: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), FileTimeCurrPwdValidForOutbound: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_GET_USER_AUTH_DATA(UserHandle: c_void_p, UserAuthData: POINTER(POINTER(Byte)), UserAuthDataSize: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -3183,7 +3198,7 @@ def PLSA_LOCATE_PKG_BY_ID(PackgeId: UInt32) -> c_void_p: ...
 @winfunctype_pointer
 def PLSA_MAP_BUFFER(InputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head), OutputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_OPEN_SAM_USER(Name: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), NameType: Windows.Win32.Security.Authentication.Identity.SECPKG_NAME_TYPE, Prefix: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), AllowGuest: Windows.Win32.Foundation.BOOLEAN, Reserved: UInt32, UserHandle: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_OPEN_SAM_USER(Name: POINTER(Windows.Win32.Security.Authentication.Identity.SECURITY_STRING_head), NameType: Windows.Win32.Security.Authentication.Identity.SECPKG_NAME_TYPE, Prefix: POINTER(Windows.Win32.Security.Authentication.Identity.SECURITY_STRING_head), AllowGuest: Windows.Win32.Foundation.BOOLEAN, Reserved: UInt32, UserHandle: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_OPEN_TOKEN_BY_LOGON_ID(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), RetTokenHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -3201,7 +3216,7 @@ def PLSA_REDIRECTED_LOGON_GET_SID(RedirectedLogonHandle: Windows.Win32.Foundatio
 @winfunctype_pointer
 def PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS(RedirectedLogonHandle: Windows.Win32.Foundation.HANDLE, SupplementalCredentials: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_REDIRECTED_LOGON_INIT(RedirectedLogonHandle: Windows.Win32.Foundation.HANDLE, PackageName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), SessionId: UInt32, LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PLSA_REDIRECTED_LOGON_INIT(RedirectedLogonHandle: Windows.Win32.Foundation.HANDLE, PackageName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), SessionId: UInt32, LogonId: POINTER(Windows.Win32.Foundation.LUID_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_REGISTER_CALLBACK(CallbackId: UInt32, Callback: Windows.Win32.Security.Authentication.Identity.PLSA_CALLBACK_FUNCTION) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -3215,7 +3230,7 @@ def PLSA_UNLOAD_PACKAGE() -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_UPDATE_PRIMARY_CREDENTIALS(PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), Credentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 class POLICY_ACCOUNT_DOMAIN_INFO(EasyCastStructure):
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainSid: Windows.Win32.Foundation.PSID
 class POLICY_AUDIT_CATEGORIES_INFO(EasyCastStructure):
     MaximumCategoryCount: UInt32
@@ -3255,9 +3270,9 @@ class POLICY_AUDIT_SUBCATEGORIES_INFO(EasyCastStructure):
 class POLICY_DEFAULT_QUOTA_INFO(EasyCastStructure):
     QuotaLimits: Windows.Win32.Security.QUOTA_LIMITS
 class POLICY_DNS_DOMAIN_INFO(EasyCastStructure):
-    Name: Windows.Win32.Foundation.UNICODE_STRING
-    DnsDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    DnsForestName: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DnsDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DnsForestName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainGuid: Guid
     Sid: Windows.Win32.Foundation.PSID
 class POLICY_DOMAIN_EFS_INFO(EasyCastStructure):
@@ -3312,27 +3327,27 @@ POLICY_NOTIFICATION_INFORMATION_CLASS_PolicyNotifyMachineAccountPasswordInformat
 POLICY_NOTIFICATION_INFORMATION_CLASS_PolicyNotifyGlobalSaclInformation: POLICY_NOTIFICATION_INFORMATION_CLASS = 8
 POLICY_NOTIFICATION_INFORMATION_CLASS_PolicyNotifyMax: POLICY_NOTIFICATION_INFORMATION_CLASS = 9
 class POLICY_PD_ACCOUNT_INFO(EasyCastStructure):
-    Name: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class POLICY_PRIMARY_DOMAIN_INFO(EasyCastStructure):
-    Name: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Sid: Windows.Win32.Foundation.PSID
 class POLICY_REPLICA_SOURCE_INFO(EasyCastStructure):
-    ReplicaSource: Windows.Win32.Foundation.UNICODE_STRING
-    ReplicaAccountName: Windows.Win32.Foundation.UNICODE_STRING
+    ReplicaSource: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ReplicaAccountName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 @winfunctype_pointer
 def PSAM_CREDENTIAL_UPDATE_FREE_ROUTINE(p: c_void_p) -> Void: ...
 @winfunctype_pointer
-def PSAM_CREDENTIAL_UPDATE_NOTIFY_ROUTINE(ClearPassword: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), OldCredentials: c_void_p, OldCredentialSize: UInt32, UserAccountControl: UInt32, UPN: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), UserName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), NetbiosDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), DnsDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), NewCredentials: POINTER(c_void_p), NewCredentialSize: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PSAM_CREDENTIAL_UPDATE_NOTIFY_ROUTINE(ClearPassword: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), OldCredentials: c_void_p, OldCredentialSize: UInt32, UserAccountControl: UInt32, UPN: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), UserName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), NetbiosDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), DnsDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), NewCredentials: POINTER(c_void_p), NewCredentialSize: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PSAM_CREDENTIAL_UPDATE_REGISTER_MAPPED_ENTRYPOINTS_ROUTINE(Table: POINTER(Windows.Win32.Security.Authentication.Identity.SAM_REGISTER_MAPPING_TABLE_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PSAM_CREDENTIAL_UPDATE_REGISTER_ROUTINE(CredentialName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
+def PSAM_CREDENTIAL_UPDATE_REGISTER_ROUTINE(CredentialName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
 def PSAM_INIT_NOTIFICATION_ROUTINE() -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
-def PSAM_PASSWORD_FILTER_ROUTINE(AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), FullName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Password: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), SetOperation: Windows.Win32.Foundation.BOOLEAN) -> Windows.Win32.Foundation.BOOLEAN: ...
+def PSAM_PASSWORD_FILTER_ROUTINE(AccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), FullName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Password: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), SetOperation: Windows.Win32.Foundation.BOOLEAN) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
-def PSAM_PASSWORD_NOTIFICATION_ROUTINE(UserName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), RelativeId: UInt32, NewPassword: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PSAM_PASSWORD_NOTIFICATION_ROUTINE(UserName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), RelativeId: UInt32, NewPassword: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 class PctPublicKey(EasyCastStructure):
     Type: UInt32
     cbKey: UInt32
@@ -3530,8 +3545,8 @@ SECPKG_CALL_PACKAGE_MESSAGE_TYPE_SecPkgCallPackageMaxMessage: SECPKG_CALL_PACKAG
 class SECPKG_CALL_PACKAGE_PIN_DC_REQUEST(EasyCastStructure):
     MessageType: UInt32
     Flags: UInt32
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    DcName: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DcName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DcFlags: UInt32
 class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST(EasyCastStructure):
     MessageType: UInt32
@@ -3604,7 +3619,7 @@ class SECPKG_EVENT_NOTIFY(EasyCastStructure):
 class SECPKG_EVENT_PACKAGE_CHANGE(EasyCastStructure):
     ChangeType: Windows.Win32.Security.Authentication.Identity.SECPKG_PACKAGE_CHANGE_TYPE
     PackageId: UIntPtr
-    PackageName: Windows.Win32.Foundation.UNICODE_STRING
+    PackageName: Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
 class SECPKG_EVENT_ROLE_CHANGE(EasyCastStructure):
     PreviousRole: UInt32
     NewRole: UInt32
@@ -3732,8 +3747,8 @@ class SECPKG_PARAMETERS(EasyCastStructure):
     MachineState: UInt32
     SetupMode: UInt32
     DomainSid: Windows.Win32.Foundation.PSID
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    DnsDomainName: Windows.Win32.Foundation.UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DnsDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainGuid: Guid
 class SECPKG_POST_LOGON_USER_INFO(EasyCastStructure):
     Flags: UInt32
@@ -3741,34 +3756,34 @@ class SECPKG_POST_LOGON_USER_INFO(EasyCastStructure):
     LinkedLogonId: Windows.Win32.Foundation.LUID
 class SECPKG_PRIMARY_CRED(EasyCastStructure):
     LogonId: Windows.Win32.Foundation.LUID
-    DownlevelName: Windows.Win32.Foundation.UNICODE_STRING
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    Password: Windows.Win32.Foundation.UNICODE_STRING
-    OldPassword: Windows.Win32.Foundation.UNICODE_STRING
+    DownlevelName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    OldPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserSid: Windows.Win32.Foundation.PSID
     Flags: UInt32
-    DnsDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    Upn: Windows.Win32.Foundation.UNICODE_STRING
-    LogonServer: Windows.Win32.Foundation.UNICODE_STRING
-    Spare1: Windows.Win32.Foundation.UNICODE_STRING
-    Spare2: Windows.Win32.Foundation.UNICODE_STRING
-    Spare3: Windows.Win32.Foundation.UNICODE_STRING
-    Spare4: Windows.Win32.Foundation.UNICODE_STRING
+    DnsDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Upn: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    LogonServer: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Spare1: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Spare2: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Spare3: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Spare4: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class SECPKG_PRIMARY_CRED_EX(EasyCastStructure):
     LogonId: Windows.Win32.Foundation.LUID
-    DownlevelName: Windows.Win32.Foundation.UNICODE_STRING
-    DomainName: Windows.Win32.Foundation.UNICODE_STRING
-    Password: Windows.Win32.Foundation.UNICODE_STRING
-    OldPassword: Windows.Win32.Foundation.UNICODE_STRING
+    DownlevelName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    OldPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserSid: Windows.Win32.Foundation.PSID
     Flags: UInt32
-    DnsDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    Upn: Windows.Win32.Foundation.UNICODE_STRING
-    LogonServer: Windows.Win32.Foundation.UNICODE_STRING
-    Spare1: Windows.Win32.Foundation.UNICODE_STRING
-    Spare2: Windows.Win32.Foundation.UNICODE_STRING
-    Spare3: Windows.Win32.Foundation.UNICODE_STRING
-    Spare4: Windows.Win32.Foundation.UNICODE_STRING
+    DnsDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Upn: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    LogonServer: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Spare1: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Spare2: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Spare3: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Spare4: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     PackageId: UIntPtr
     PrevLogonId: Windows.Win32.Foundation.LUID
     FlagsEx: UInt32
@@ -3791,7 +3806,7 @@ class SECPKG_SHORT_VECTOR(EasyCastStructure):
     ShortArrayOffset: UInt32
     ShortArrayCount: UInt16
 class SECPKG_SUPPLEMENTAL_CRED(EasyCastStructure):
-    PackageName: Windows.Win32.Foundation.UNICODE_STRING
+    PackageName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     CredentialSize: UInt32
     Credentials: POINTER(Byte)
 class SECPKG_SUPPLEMENTAL_CRED_ARRAY(EasyCastStructure):
@@ -3832,26 +3847,26 @@ class SECPKG_USER_FUNCTION_TABLE(EasyCastStructure):
     ImportContext: Windows.Win32.Security.Authentication.Identity.SpImportSecurityContextFn
     MarshalAttributeData: Windows.Win32.Security.Authentication.Identity.SpMarshalAttributeDataFn
 class SECPKG_WOW_CLIENT_DLL(EasyCastStructure):
-    WowClientDllPath: Windows.Win32.Foundation.UNICODE_STRING
+    WowClientDllPath: Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
 class SECURITY_LOGON_SESSION_DATA(EasyCastStructure):
     Size: UInt32
     LogonId: Windows.Win32.Foundation.LUID
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    LogonDomain: Windows.Win32.Foundation.UNICODE_STRING
-    AuthenticationPackage: Windows.Win32.Foundation.UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    LogonDomain: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    AuthenticationPackage: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LogonType: UInt32
     Session: UInt32
     Sid: Windows.Win32.Foundation.PSID
     LogonTime: Int64
-    LogonServer: Windows.Win32.Foundation.UNICODE_STRING
-    DnsDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    Upn: Windows.Win32.Foundation.UNICODE_STRING
+    LogonServer: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    DnsDomainName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Upn: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserFlags: UInt32
     LastLogonInfo: Windows.Win32.Security.Authentication.Identity.LSA_LAST_INTER_LOGON_INFO
-    LogonScript: Windows.Win32.Foundation.UNICODE_STRING
-    ProfilePath: Windows.Win32.Foundation.UNICODE_STRING
-    HomeDirectory: Windows.Win32.Foundation.UNICODE_STRING
-    HomeDirectoryDrive: Windows.Win32.Foundation.UNICODE_STRING
+    LogonScript: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ProfilePath: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    HomeDirectory: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    HomeDirectoryDrive: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LogoffTime: Int64
     KickOffTime: Int64
     PasswordLastSet: Int64
@@ -3881,10 +3896,14 @@ SECURITY_PACKAGE_OPTIONS_TYPE = UInt32
 SECPKG_OPTIONS_TYPE_UNKNOWN: SECURITY_PACKAGE_OPTIONS_TYPE = 0
 SECPKG_OPTIONS_TYPE_LSA: SECURITY_PACKAGE_OPTIONS_TYPE = 1
 SECPKG_OPTIONS_TYPE_SSPI: SECURITY_PACKAGE_OPTIONS_TYPE = 2
+class SECURITY_STRING(EasyCastStructure):
+    Length: UInt16
+    MaximumLength: UInt16
+    Buffer: POINTER(UInt16)
 class SECURITY_USER_DATA(EasyCastStructure):
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
-    LogonServer: Windows.Win32.Foundation.UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
+    LogonDomainName: Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
+    LogonServer: Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
     pSid: Windows.Win32.Foundation.PSID
 class SEC_APPLICATION_PROTOCOLS(EasyCastStructure):
     ProtocolListsSize: UInt32
@@ -4571,17 +4590,17 @@ class SecurityFunctionTableW(EasyCastStructure):
     QueryContextAttributesExW: Windows.Win32.Security.Authentication.Identity.QUERY_CONTEXT_ATTRIBUTES_EX_FN_W
     QueryCredentialsAttributesExW: Windows.Win32.Security.Authentication.Identity.QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W
 @winfunctype_pointer
-def SpAcceptCredentialsFn(LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpAcceptCredentialsFn(LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpAcceptLsaModeContextFn(CredentialHandle: UIntPtr, ContextHandle: UIntPtr, InputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextRequirements: UInt32, TargetDataRep: UInt32, NewContextHandle: POINTER(UIntPtr), OutputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextAttributes: POINTER(UInt32), ExpirationTime: POINTER(Int64), MappedContext: POINTER(Windows.Win32.Foundation.BOOLEAN), ContextData: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpAcquireCredentialsHandleFn(PrincipalName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CredentialUseFlags: UInt32, LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthorizationData: c_void_p, GetKeyFunciton: c_void_p, GetKeyArgument: c_void_p, CredentialHandle: POINTER(UIntPtr), ExpirationTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpAcquireCredentialsHandleFn(PrincipalName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), CredentialUseFlags: UInt32, LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthorizationData: c_void_p, GetKeyFunciton: c_void_p, GetKeyArgument: c_void_p, CredentialHandle: POINTER(UIntPtr), ExpirationTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpAddCredentialsFn(CredentialHandle: UIntPtr, PrincipalName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Package: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CredentialUseFlags: UInt32, AuthorizationData: c_void_p, GetKeyFunciton: c_void_p, GetKeyArgument: c_void_p, ExpirationTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpAddCredentialsFn(CredentialHandle: UIntPtr, PrincipalName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Package: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), CredentialUseFlags: UInt32, AuthorizationData: c_void_p, GetKeyFunciton: c_void_p, GetKeyArgument: c_void_p, ExpirationTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpApplyControlTokenFn(ContextHandle: UIntPtr, ControlToken: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpChangeAccountPasswordFn(pDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), pAccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), pOldPassword: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), pNewPassword: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Impersonating: Windows.Win32.Foundation.BOOLEAN, pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpChangeAccountPasswordFn(pDomainName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), pAccountName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), pOldPassword: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), pNewPassword: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), Impersonating: Windows.Win32.Foundation.BOOLEAN, pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpCompleteAuthTokenFn(ContextHandle: UIntPtr, InputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4589,7 +4608,7 @@ def SpDeleteContextFn(ContextHandle: UIntPtr) -> Windows.Win32.Foundation.NTSTAT
 @winfunctype_pointer
 def SpDeleteCredentialsFn(CredentialHandle: UIntPtr, Key: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpExchangeMetaDataFn(CredentialHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ContextRequirements: UInt32, MetaDataLength: UInt32, MetaData: POINTER(Byte), ContextHandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpExchangeMetaDataFn(CredentialHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ContextRequirements: UInt32, MetaDataLength: UInt32, MetaData: POINTER(Byte), ContextHandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpExportSecurityContextFn(phContext: UIntPtr, fFlags: UInt32, pPackedContext: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head), pToken: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4609,9 +4628,9 @@ def SpGetExtendedInformationFn(Class: Windows.Win32.Security.Authentication.Iden
 @winfunctype_pointer
 def SpGetInfoFn(PackageInfo: POINTER(Windows.Win32.Security.Authentication.Identity.SecPkgInfoA_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpGetRemoteCredGuardLogonBufferFn(CredHandle: UIntPtr, ContextHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), RedirectedLogonHandle: POINTER(Windows.Win32.Foundation.HANDLE), Callback: POINTER(Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_CALLBACK), CleanupCallback: POINTER(Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK), LogonBufferSize: POINTER(UInt32), LogonBuffer: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpGetRemoteCredGuardLogonBufferFn(CredHandle: UIntPtr, ContextHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), RedirectedLogonHandle: POINTER(Windows.Win32.Foundation.HANDLE), Callback: POINTER(Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_CALLBACK), CleanupCallback: POINTER(Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK), LogonBufferSize: POINTER(UInt32), LogonBuffer: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpGetRemoteCredGuardSupplementalCredsFn(CredHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), RedirectedLogonHandle: POINTER(Windows.Win32.Foundation.HANDLE), Callback: POINTER(Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_CALLBACK), CleanupCallback: POINTER(Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK), SupplementalCredsSize: POINTER(UInt32), SupplementalCreds: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpGetRemoteCredGuardSupplementalCredsFn(CredHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), RedirectedLogonHandle: POINTER(Windows.Win32.Foundation.HANDLE), Callback: POINTER(Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_CALLBACK), CleanupCallback: POINTER(Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK), SupplementalCredsSize: POINTER(UInt32), SupplementalCreds: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpGetTbalSupplementalCredsFn(LogonId: Windows.Win32.Foundation.LUID, SupplementalCredsSize: POINTER(UInt32), SupplementalCreds: POINTER(c_void_p)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4619,7 +4638,7 @@ def SpGetUserInfoFn(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), Flags:
 @winfunctype_pointer
 def SpImportSecurityContextFn(pPackedContext: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head), Token: Windows.Win32.Foundation.HANDLE, phContext: POINTER(UIntPtr)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpInitLsaModeContextFn(CredentialHandle: UIntPtr, ContextHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ContextRequirements: UInt32, TargetDataRep: UInt32, InputBuffers: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), NewContextHandle: POINTER(UIntPtr), OutputBuffers: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextAttributes: POINTER(UInt32), ExpirationTime: POINTER(Int64), MappedContext: POINTER(Windows.Win32.Foundation.BOOLEAN), ContextData: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpInitLsaModeContextFn(CredentialHandle: UIntPtr, ContextHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ContextRequirements: UInt32, TargetDataRep: UInt32, InputBuffers: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), NewContextHandle: POINTER(UIntPtr), OutputBuffers: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextAttributes: POINTER(UInt32), ExpirationTime: POINTER(Int64), MappedContext: POINTER(Windows.Win32.Foundation.BOOLEAN), ContextData: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpInitUserModeContextFn(ContextHandle: UIntPtr, PackedContext: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4639,7 +4658,7 @@ def SpQueryContextAttributesFn(ContextHandle: UIntPtr, ContextAttribute: UInt32,
 @winfunctype_pointer
 def SpQueryCredentialsAttributesFn(CredentialHandle: UIntPtr, CredentialAttribute: UInt32, Buffer: c_void_p) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpQueryMetaDataFn(CredentialHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ContextRequirements: UInt32, MetaDataLength: POINTER(UInt32), MetaData: POINTER(POINTER(Byte)), ContextHandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpQueryMetaDataFn(CredentialHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head), ContextRequirements: UInt32, MetaDataLength: POINTER(UInt32), MetaData: POINTER(POINTER(Byte)), ContextHandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpSaveCredentialsFn(CredentialHandle: UIntPtr, Credentials: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4698,7 +4717,7 @@ TOKENBINDING_TYPE_PROVIDED: TOKENBINDING_TYPE = 0
 TOKENBINDING_TYPE_REFERRED: TOKENBINDING_TYPE = 1
 class TRUSTED_CONTROLLERS_INFO(EasyCastStructure):
     Entries: UInt32
-    Names: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head)
+    Names: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)
 class TRUSTED_DOMAIN_AUTH_INFORMATION(EasyCastStructure):
     IncomingAuthInfos: UInt32
     IncomingAuthenticationInformation: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION_head)
@@ -4715,15 +4734,15 @@ class TRUSTED_DOMAIN_FULL_INFORMATION2(EasyCastStructure):
     PosixOffset: Windows.Win32.Security.Authentication.Identity.TRUSTED_POSIX_OFFSET_INFO
     AuthInformation: Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_AUTH_INFORMATION
 class TRUSTED_DOMAIN_INFORMATION_EX(EasyCastStructure):
-    Name: Windows.Win32.Foundation.UNICODE_STRING
-    FlatName: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    FlatName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Sid: Windows.Win32.Foundation.PSID
     TrustDirection: Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_TRUST_DIRECTION
     TrustType: Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_TRUST_TYPE
     TrustAttributes: Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_TRUST_ATTRIBUTES
 class TRUSTED_DOMAIN_INFORMATION_EX2(EasyCastStructure):
-    Name: Windows.Win32.Foundation.UNICODE_STRING
-    FlatName: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    FlatName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Sid: Windows.Win32.Foundation.PSID
     TrustDirection: UInt32
     TrustType: UInt32
@@ -4731,7 +4750,7 @@ class TRUSTED_DOMAIN_INFORMATION_EX2(EasyCastStructure):
     ForestTrustLength: UInt32
     ForestTrustInfo: POINTER(Byte)
 class TRUSTED_DOMAIN_NAME_INFO(EasyCastStructure):
-    Name: Windows.Win32.Foundation.UNICODE_STRING
+    Name: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class TRUSTED_DOMAIN_SUPPORTED_ENCRYPTION_TYPES(EasyCastStructure):
     SupportedEncryptionTypes: UInt32
 TRUSTED_DOMAIN_TRUST_ATTRIBUTES = UInt32
@@ -4769,8 +4788,8 @@ TRUSTED_INFORMATION_CLASS_TrustedDomainSupportedEncryptionTypes: TRUSTED_INFORMA
 TRUSTED_INFORMATION_CLASS_TrustedDomainAuthInformationInternalAes: TRUSTED_INFORMATION_CLASS = 14
 TRUSTED_INFORMATION_CLASS_TrustedDomainFullInformationInternalAes: TRUSTED_INFORMATION_CLASS = 15
 class TRUSTED_PASSWORD_INFO(EasyCastStructure):
-    Password: Windows.Win32.Foundation.UNICODE_STRING
-    OldPassword: Windows.Win32.Foundation.UNICODE_STRING
+    Password: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    OldPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 class TRUSTED_POSIX_OFFSET_INFO(EasyCastStructure):
     Offset: UInt32
 class USER_ALL_INFORMATION(EasyCastStructure):
@@ -4780,19 +4799,19 @@ class USER_ALL_INFORMATION(EasyCastStructure):
     AccountExpires: Int64
     PasswordCanChange: Int64
     PasswordMustChange: Int64
-    UserName: Windows.Win32.Foundation.UNICODE_STRING
-    FullName: Windows.Win32.Foundation.UNICODE_STRING
-    HomeDirectory: Windows.Win32.Foundation.UNICODE_STRING
-    HomeDirectoryDrive: Windows.Win32.Foundation.UNICODE_STRING
-    ScriptPath: Windows.Win32.Foundation.UNICODE_STRING
-    ProfilePath: Windows.Win32.Foundation.UNICODE_STRING
-    AdminComment: Windows.Win32.Foundation.UNICODE_STRING
-    WorkStations: Windows.Win32.Foundation.UNICODE_STRING
-    UserComment: Windows.Win32.Foundation.UNICODE_STRING
-    Parameters: Windows.Win32.Foundation.UNICODE_STRING
-    LmPassword: Windows.Win32.Foundation.UNICODE_STRING
-    NtPassword: Windows.Win32.Foundation.UNICODE_STRING
-    PrivateData: Windows.Win32.Foundation.UNICODE_STRING
+    UserName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    FullName: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    HomeDirectory: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    HomeDirectoryDrive: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ScriptPath: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    ProfilePath: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    AdminComment: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    WorkStations: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    UserComment: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    Parameters: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    LmPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    NtPassword: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    PrivateData: Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     SecurityDescriptor: Windows.Win32.Security.Authentication.Identity.SR_SECURITY_DESCRIPTOR
     UserId: UInt32
     PrimaryGroupId: UInt32
@@ -4971,8 +4990,10 @@ make_head(_module, 'LSA_FOREST_TRUST_RECORD')
 make_head(_module, 'LSA_FOREST_TRUST_RECORD2')
 make_head(_module, 'LSA_FOREST_TRUST_SCANNER_INFO')
 make_head(_module, 'LSA_LAST_INTER_LOGON_INFO')
+make_head(_module, 'LSA_OBJECT_ATTRIBUTES')
 make_head(_module, 'LSA_REFERENCED_DOMAIN_LIST')
 make_head(_module, 'LSA_SECPKG_FUNCTION_TABLE')
+make_head(_module, 'LSA_STRING')
 make_head(_module, 'LSA_TOKEN_INFORMATION_NULL')
 make_head(_module, 'LSA_TOKEN_INFORMATION_V1')
 make_head(_module, 'LSA_TOKEN_INFORMATION_V3')
@@ -4980,6 +5001,7 @@ make_head(_module, 'LSA_TRANSLATED_NAME')
 make_head(_module, 'LSA_TRANSLATED_SID')
 make_head(_module, 'LSA_TRANSLATED_SID2')
 make_head(_module, 'LSA_TRUST_INFORMATION')
+make_head(_module, 'LSA_UNICODE_STRING')
 make_head(_module, 'MAKE_SIGNATURE_FN')
 make_head(_module, 'MSV1_0_AV_PAIR')
 make_head(_module, 'MSV1_0_CHANGEPASSWORD_REQUEST')
@@ -5186,6 +5208,7 @@ make_head(_module, 'SECPKG_USER_FUNCTION_TABLE')
 make_head(_module, 'SECPKG_WOW_CLIENT_DLL')
 make_head(_module, 'SECURITY_LOGON_SESSION_DATA')
 make_head(_module, 'SECURITY_PACKAGE_OPTIONS')
+make_head(_module, 'SECURITY_STRING')
 make_head(_module, 'SECURITY_USER_DATA')
 make_head(_module, 'SEC_APPLICATION_PROTOCOLS')
 make_head(_module, 'SEC_APPLICATION_PROTOCOL_LIST')

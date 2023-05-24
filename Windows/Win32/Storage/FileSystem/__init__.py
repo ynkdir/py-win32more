@@ -327,33 +327,33 @@ def DeleteVolumeMountPointW(lpszVolumeMountPoint: Windows.Win32.Foundation.PWSTR
 @winfunctype('KERNEL32.dll')
 def FileTimeToLocalFileTime(lpFileTime: POINTER(Windows.Win32.Foundation.FILETIME_head), lpLocalFileTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindClose(hFindFile: Windows.Win32.Storage.FileSystem.FindFileHandle) -> Windows.Win32.Foundation.BOOL: ...
+def FindClose(hFindFile: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindCloseChangeNotification(hChangeHandle: Windows.Win32.Storage.FileSystem.FindChangeNotificationHandle) -> Windows.Win32.Foundation.BOOL: ...
+def FindCloseChangeNotification(hChangeHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstChangeNotificationA(lpPathName: Windows.Win32.Foundation.PSTR, bWatchSubtree: Windows.Win32.Foundation.BOOL, dwNotifyFilter: Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE) -> Windows.Win32.Storage.FileSystem.FindChangeNotificationHandle: ...
+def FindFirstChangeNotificationA(lpPathName: Windows.Win32.Foundation.PSTR, bWatchSubtree: Windows.Win32.Foundation.BOOL, dwNotifyFilter: Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstChangeNotificationW(lpPathName: Windows.Win32.Foundation.PWSTR, bWatchSubtree: Windows.Win32.Foundation.BOOL, dwNotifyFilter: Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE) -> Windows.Win32.Storage.FileSystem.FindChangeNotificationHandle: ...
+def FindFirstChangeNotificationW(lpPathName: Windows.Win32.Foundation.PWSTR, bWatchSubtree: Windows.Win32.Foundation.BOOL, dwNotifyFilter: Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstFileA(lpFileName: Windows.Win32.Foundation.PSTR, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAA_head)) -> Windows.Win32.Storage.FileSystem.FindFileHandle: ...
+def FindFirstFileA(lpFileName: Windows.Win32.Foundation.PSTR, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAA_head)) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstFileW(lpFileName: Windows.Win32.Foundation.PWSTR, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAW_head)) -> Windows.Win32.Storage.FileSystem.FindFileHandle: ...
+def FindFirstFileW(lpFileName: Windows.Win32.Foundation.PWSTR, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAW_head)) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstFileExA(lpFileName: Windows.Win32.Foundation.PSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS, lpFindFileData: c_void_p, fSearchOp: Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS, lpSearchFilter: c_void_p, dwAdditionalFlags: Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS) -> Windows.Win32.Storage.FileSystem.FindFileHandle: ...
+def FindFirstFileExA(lpFileName: Windows.Win32.Foundation.PSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS, lpFindFileData: c_void_p, fSearchOp: Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS, lpSearchFilter: c_void_p, dwAdditionalFlags: Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstFileExW(lpFileName: Windows.Win32.Foundation.PWSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS, lpFindFileData: c_void_p, fSearchOp: Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS, lpSearchFilter: c_void_p, dwAdditionalFlags: Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS) -> Windows.Win32.Storage.FileSystem.FindFileHandle: ...
+def FindFirstFileExW(lpFileName: Windows.Win32.Foundation.PWSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS, lpFindFileData: c_void_p, fSearchOp: Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS, lpSearchFilter: c_void_p, dwAdditionalFlags: Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstVolumeW(lpszVolumeName: Windows.Win32.Foundation.PWSTR, cchBufferLength: UInt32) -> Windows.Win32.Storage.FileSystem.FindVolumeHandle: ...
+def FindFirstVolumeW(lpszVolumeName: Windows.Win32.Foundation.PWSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindNextChangeNotification(hChangeHandle: Windows.Win32.Storage.FileSystem.FindChangeNotificationHandle) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextChangeNotification(hChangeHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindNextFileA(hFindFile: Windows.Win32.Storage.FileSystem.FindFileHandle, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAA_head)) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextFileA(hFindFile: Windows.Win32.Foundation.HANDLE, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAA_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindNextFileW(hFindFile: Windows.Win32.Storage.FileSystem.FindFileHandle, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAW_head)) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextFileW(hFindFile: Windows.Win32.Foundation.HANDLE, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAW_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindNextVolumeW(hFindVolume: Windows.Win32.Storage.FileSystem.FindVolumeHandle, lpszVolumeName: Windows.Win32.Foundation.PWSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextVolumeW(hFindVolume: Windows.Win32.Foundation.HANDLE, lpszVolumeName: Windows.Win32.Foundation.PWSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindVolumeClose(hFindVolume: Windows.Win32.Storage.FileSystem.FindVolumeHandle) -> Windows.Win32.Foundation.BOOL: ...
+def FindVolumeClose(hFindVolume: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def FlushFileBuffers(hFile: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -477,17 +477,17 @@ def GetCompressedFileSizeA(lpFileName: Windows.Win32.Foundation.PSTR, lpFileSize
 @winfunctype('KERNEL32.dll')
 def GetCompressedFileSizeW(lpFileName: Windows.Win32.Foundation.PWSTR, lpFileSizeHigh: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstStreamW(lpFileName: Windows.Win32.Foundation.PWSTR, InfoLevel: Windows.Win32.Storage.FileSystem.STREAM_INFO_LEVELS, lpFindStreamData: c_void_p, dwFlags: UInt32) -> Windows.Win32.Storage.FileSystem.FindStreamHandle: ...
+def FindFirstStreamW(lpFileName: Windows.Win32.Foundation.PWSTR, InfoLevel: Windows.Win32.Storage.FileSystem.STREAM_INFO_LEVELS, lpFindStreamData: c_void_p, dwFlags: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindNextStreamW(hFindStream: Windows.Win32.Storage.FileSystem.FindStreamHandle, lpFindStreamData: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextStreamW(hFindStream: Windows.Win32.Foundation.HANDLE, lpFindStreamData: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def AreFileApisANSI() -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetTempPathA(nBufferLength: UInt32, lpBuffer: Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstFileNameW(lpFileName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, StringLength: POINTER(UInt32), LinkName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Storage.FileSystem.FindFileNameHandle: ...
+def FindFirstFileNameW(lpFileName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, StringLength: POINTER(UInt32), LinkName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindNextFileNameW(hFindStream: Windows.Win32.Storage.FileSystem.FindFileNameHandle, StringLength: POINTER(UInt32), LinkName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextFileNameW(hFindStream: Windows.Win32.Foundation.HANDLE, StringLength: POINTER(UInt32), LinkName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetVolumeInformationA(lpRootPathName: Windows.Win32.Foundation.PSTR, lpVolumeNameBuffer: Windows.Win32.Foundation.PSTR, nVolumeNameSize: UInt32, lpVolumeSerialNumber: POINTER(UInt32), lpMaximumComponentLength: POINTER(UInt32), lpFileSystemFlags: POINTER(UInt32), lpFileSystemNameBuffer: Windows.Win32.Foundation.PSTR, nFileSystemNameSize: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -1027,9 +1027,9 @@ def CheckNameLegalDOS8Dot3A(lpName: Windows.Win32.Foundation.PSTR, lpOemName: Wi
 @winfunctype('KERNEL32.dll')
 def CheckNameLegalDOS8Dot3W(lpName: Windows.Win32.Foundation.PWSTR, lpOemName: Windows.Win32.Foundation.PSTR, OemNameSize: UInt32, pbNameContainsSpaces: POINTER(Windows.Win32.Foundation.BOOL), pbNameLegal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstFileTransactedA(lpFileName: Windows.Win32.Foundation.PSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS, lpFindFileData: c_void_p, fSearchOp: Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS, lpSearchFilter: c_void_p, dwAdditionalFlags: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Storage.FileSystem.FindFileHandle: ...
+def FindFirstFileTransactedA(lpFileName: Windows.Win32.Foundation.PSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS, lpFindFileData: c_void_p, fSearchOp: Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS, lpSearchFilter: c_void_p, dwAdditionalFlags: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstFileTransactedW(lpFileName: Windows.Win32.Foundation.PWSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS, lpFindFileData: c_void_p, fSearchOp: Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS, lpSearchFilter: c_void_p, dwAdditionalFlags: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Storage.FileSystem.FindFileHandle: ...
+def FindFirstFileTransactedW(lpFileName: Windows.Win32.Foundation.PWSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS, lpFindFileData: c_void_p, fSearchOp: Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS, lpSearchFilter: c_void_p, dwAdditionalFlags: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def CopyFileA(lpExistingFileName: Windows.Win32.Foundation.PSTR, lpNewFileName: Windows.Win32.Foundation.PSTR, bFailIfExists: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -1073,9 +1073,9 @@ def CreateHardLinkTransactedA(lpFileName: Windows.Win32.Foundation.PSTR, lpExist
 @winfunctype('KERNEL32.dll')
 def CreateHardLinkTransactedW(lpFileName: Windows.Win32.Foundation.PWSTR, lpExistingFileName: Windows.Win32.Foundation.PWSTR, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstStreamTransactedW(lpFileName: Windows.Win32.Foundation.PWSTR, InfoLevel: Windows.Win32.Storage.FileSystem.STREAM_INFO_LEVELS, lpFindStreamData: c_void_p, dwFlags: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Storage.FileSystem.FindStreamHandle: ...
+def FindFirstStreamTransactedW(lpFileName: Windows.Win32.Foundation.PWSTR, InfoLevel: Windows.Win32.Storage.FileSystem.STREAM_INFO_LEVELS, lpFindStreamData: c_void_p, dwFlags: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstFileNameTransactedW(lpFileName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, StringLength: POINTER(UInt32), LinkName: Windows.Win32.Foundation.PWSTR, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Storage.FileSystem.FindFileNameHandle: ...
+def FindFirstFileNameTransactedW(lpFileName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, StringLength: POINTER(UInt32), LinkName: Windows.Win32.Foundation.PWSTR, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def SetVolumeLabelA(lpRootPathName: Windows.Win32.Foundation.PSTR, lpVolumeName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -1089,19 +1089,19 @@ def ReadDirectoryChangesW(hDirectory: Windows.Win32.Foundation.HANDLE, lpBuffer:
 @winfunctype('KERNEL32.dll')
 def ReadDirectoryChangesExW(hDirectory: Windows.Win32.Foundation.HANDLE, lpBuffer: c_void_p, nBufferLength: UInt32, bWatchSubtree: Windows.Win32.Foundation.BOOL, dwNotifyFilter: Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpCompletionRoutine: Windows.Win32.System.IO.LPOVERLAPPED_COMPLETION_ROUTINE, ReadDirectoryNotifyInformationClass: Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstVolumeA(lpszVolumeName: Windows.Win32.Foundation.PSTR, cchBufferLength: UInt32) -> Windows.Win32.Storage.FileSystem.FindVolumeHandle: ...
+def FindFirstVolumeA(lpszVolumeName: Windows.Win32.Foundation.PSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindNextVolumeA(hFindVolume: Windows.Win32.Storage.FileSystem.FindVolumeHandle, lpszVolumeName: Windows.Win32.Foundation.PSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextVolumeA(hFindVolume: Windows.Win32.Foundation.HANDLE, lpszVolumeName: Windows.Win32.Foundation.PSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstVolumeMountPointA(lpszRootPathName: Windows.Win32.Foundation.PSTR, lpszVolumeMountPoint: Windows.Win32.Foundation.PSTR, cchBufferLength: UInt32) -> Windows.Win32.Storage.FileSystem.FindVolumeMountPointHandle: ...
+def FindFirstVolumeMountPointA(lpszRootPathName: Windows.Win32.Foundation.PSTR, lpszVolumeMountPoint: Windows.Win32.Foundation.PSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindFirstVolumeMountPointW(lpszRootPathName: Windows.Win32.Foundation.PWSTR, lpszVolumeMountPoint: Windows.Win32.Foundation.PWSTR, cchBufferLength: UInt32) -> Windows.Win32.Storage.FileSystem.FindVolumeMountPointHandle: ...
+def FindFirstVolumeMountPointW(lpszRootPathName: Windows.Win32.Foundation.PWSTR, lpszVolumeMountPoint: Windows.Win32.Foundation.PWSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FindNextVolumeMountPointA(hFindVolumeMountPoint: Windows.Win32.Storage.FileSystem.FindVolumeMountPointHandle, lpszVolumeMountPoint: Windows.Win32.Foundation.PSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextVolumeMountPointA(hFindVolumeMountPoint: Windows.Win32.Foundation.HANDLE, lpszVolumeMountPoint: Windows.Win32.Foundation.PSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindNextVolumeMountPointW(hFindVolumeMountPoint: Windows.Win32.Storage.FileSystem.FindVolumeMountPointHandle, lpszVolumeMountPoint: Windows.Win32.Foundation.PWSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def FindNextVolumeMountPointW(hFindVolumeMountPoint: Windows.Win32.Foundation.HANDLE, lpszVolumeMountPoint: Windows.Win32.Foundation.PWSTR, cchBufferLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def FindVolumeMountPointClose(hFindVolumeMountPoint: Windows.Win32.Storage.FileSystem.FindVolumeMountPointHandle) -> Windows.Win32.Foundation.BOOL: ...
+def FindVolumeMountPointClose(hFindVolumeMountPoint: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetVolumeMountPointA(lpszVolumeMountPoint: Windows.Win32.Foundation.PSTR, lpszVolumeName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -1442,7 +1442,7 @@ class CREATEFILE2_EXTENDED_PARAMETERS(EasyCastStructure):
     dwSecurityQosFlags: UInt32
     lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head)
     hTemplateFile: Windows.Win32.Foundation.HANDLE
-CREATE_TAPE_PARTITION_METHOD = Int32
+CREATE_TAPE_PARTITION_METHOD = UInt32
 TAPE_FIXED_PARTITIONS: CREATE_TAPE_PARTITION_METHOD = 0
 TAPE_INITIATOR_PARTITIONS: CREATE_TAPE_PARTITION_METHOD = 2
 TAPE_SELECT_PARTITIONS: CREATE_TAPE_PARTITION_METHOD = 1
@@ -1532,7 +1532,7 @@ class ENCRYPTION_PROTECTOR(EasyCastStructure):
 class ENCRYPTION_PROTECTOR_LIST(EasyCastStructure):
     nProtectors: UInt32
     pProtectors: POINTER(POINTER(Windows.Win32.Storage.FileSystem.ENCRYPTION_PROTECTOR_head))
-ERASE_TAPE_TYPE = Int32
+ERASE_TAPE_TYPE = UInt32
 TAPE_ERASE_LONG: ERASE_TAPE_TYPE = 1
 TAPE_ERASE_SHORT: ERASE_TAPE_TYPE = 0
 @winfunctype_pointer
@@ -1910,18 +1910,6 @@ class FIO_CONTEXT(EasyCastStructure):
     m_hFile: Windows.Win32.Foundation.HANDLE
     m_dwLinesOffset: UInt32
     m_dwHeaderLength: UInt32
-class FindChangeNotificationHandle(EasyCastStructure):
-    Value: IntPtr
-class FindFileHandle(EasyCastStructure):
-    Value: IntPtr
-class FindFileNameHandle(EasyCastStructure):
-    Value: IntPtr
-class FindStreamHandle(EasyCastStructure):
-    Value: IntPtr
-class FindVolumeHandle(EasyCastStructure):
-    Value: IntPtr
-class FindVolumeMountPointHandle(EasyCastStructure):
-    Value: IntPtr
 GETFINALPATHNAMEBYHANDLE_FLAGS = UInt32
 VOLUME_NAME_DOS: GETFINALPATHNAMEBYHANDLE_FLAGS = 0
 VOLUME_NAME_GUID: GETFINALPATHNAMEBYHANDLE_FLAGS = 1
@@ -2221,7 +2209,7 @@ class NTMS_COMPUTERINFORMATION(EasyCastStructure):
     dwMediaPoolPolicy: UInt32
 class NTMS_DRIVEINFORMATIONA(EasyCastStructure):
     Number: UInt32
-    State: Windows.Win32.Storage.FileSystem.NtmsDriveState
+    State: UInt32
     DriveType: Guid
     szDeviceName: Windows.Win32.Foundation.CHAR * 64
     szSerialNumber: Windows.Win32.Foundation.CHAR * 32
@@ -2238,7 +2226,7 @@ class NTMS_DRIVEINFORMATIONA(EasyCastStructure):
     dwDeferDismountDelay: UInt32
 class NTMS_DRIVEINFORMATIONW(EasyCastStructure):
     Number: UInt32
-    State: Windows.Win32.Storage.FileSystem.NtmsDriveState
+    State: UInt32
     DriveType: Guid
     szDeviceName: Char * 64
     szSerialNumber: Char * 32
@@ -2443,22 +2431,22 @@ class NTMS_I1_PMIDINFORMATIONW(EasyCastStructure):
     dwNumberOfPartitions: UInt32
 class NTMS_IEDOORINFORMATION(EasyCastStructure):
     Number: UInt32
-    State: Windows.Win32.Storage.FileSystem.NtmsDoorState
+    State: UInt32
     MaxOpenSecs: UInt16
     Library: Guid
 class NTMS_IEPORTINFORMATION(EasyCastStructure):
     Number: UInt32
-    Content: Windows.Win32.Storage.FileSystem.NtmsPortContent
-    Position: Windows.Win32.Storage.FileSystem.NtmsPortPosition
+    Content: UInt32
+    Position: UInt32
     MaxExtendSecs: UInt16
     Library: Guid
 class NTMS_LIBRARYINFORMATION(EasyCastStructure):
-    LibraryType: Windows.Win32.Storage.FileSystem.NtmsLibraryType
+    LibraryType: UInt32
     CleanerSlot: Guid
     CleanerSlotDefault: Guid
     LibrarySupportsDriveCleaning: Windows.Win32.Foundation.BOOL
     BarCodeReaderInstalled: Windows.Win32.Foundation.BOOL
-    InventoryMethod: Windows.Win32.Storage.FileSystem.NtmsInventoryMethod
+    InventoryMethod: UInt32
     dwCleanerUsesRemaining: UInt32
     FirstDriveNumber: UInt32
     dwNumberOfDrives: UInt32
@@ -2475,11 +2463,11 @@ class NTMS_LIBRARYINFORMATION(EasyCastStructure):
     dwNumberOfLibRequests: UInt32
     Reserved: Guid
     AutoRecovery: Windows.Win32.Foundation.BOOL
-    dwFlags: Windows.Win32.Storage.FileSystem.NtmsLibraryFlags
+    dwFlags: UInt32
 class NTMS_LIBREQUESTINFORMATIONA(EasyCastStructure):
-    OperationCode: Windows.Win32.Storage.FileSystem.NtmsLmOperation
+    OperationCode: UInt32
     OperationOption: UInt32
-    State: Windows.Win32.Storage.FileSystem.NtmsLmState
+    State: UInt32
     PartitionId: Guid
     DriveId: Guid
     PhysMediaId: Guid
@@ -2494,9 +2482,9 @@ class NTMS_LIBREQUESTINFORMATIONA(EasyCastStructure):
     WorkItemId: Guid
     dwPriority: UInt32
 class NTMS_LIBREQUESTINFORMATIONW(EasyCastStructure):
-    OperationCode: Windows.Win32.Storage.FileSystem.NtmsLmOperation
+    OperationCode: UInt32
     OperationOption: UInt32
-    State: Windows.Win32.Storage.FileSystem.NtmsLmState
+    State: UInt32
     PartitionId: Guid
     DriveId: Guid
     PhysMediaId: Guid
@@ -2526,22 +2514,22 @@ class NTMS_MEDIAPOOLINFORMATION(EasyCastStructure):
 class NTMS_MEDIATYPEINFORMATION(EasyCastStructure):
     MediaType: UInt32
     NumberOfSides: UInt32
-    ReadWriteCharacteristics: Windows.Win32.Storage.FileSystem.NtmsReadWriteCharacteristics
+    ReadWriteCharacteristics: UInt32
     DeviceType: Windows.Win32.Storage.FileSystem.FILE_DEVICE_TYPE
 class NTMS_MOUNT_INFORMATION(EasyCastStructure):
     dwSize: UInt32
     lpReserved: c_void_p
 class NTMS_NOTIFICATIONINFORMATION(EasyCastStructure):
-    dwOperation: Windows.Win32.Storage.FileSystem.NtmsNotificationOperations
+    dwOperation: UInt32
     ObjectId: Guid
 class NTMS_OBJECTINFORMATIONA(EasyCastStructure):
     dwSize: UInt32
-    dwType: Windows.Win32.Storage.FileSystem.NtmsObjectsTypes
+    dwType: UInt32
     Created: Windows.Win32.Foundation.SYSTEMTIME
     Modified: Windows.Win32.Foundation.SYSTEMTIME
     ObjectGuid: Guid
     Enabled: Windows.Win32.Foundation.BOOL
-    dwOperationalState: Windows.Win32.Storage.FileSystem.NtmsOperationalState
+    dwOperationalState: UInt32
     szName: Windows.Win32.Foundation.CHAR * 64
     szDescription: Windows.Win32.Foundation.CHAR * 127
     Info: _Info_e__Union
@@ -2564,12 +2552,12 @@ class NTMS_OBJECTINFORMATIONA(EasyCastStructure):
         Computer: Windows.Win32.Storage.FileSystem.NTMS_COMPUTERINFORMATION
 class NTMS_OBJECTINFORMATIONW(EasyCastStructure):
     dwSize: UInt32
-    dwType: Windows.Win32.Storage.FileSystem.NtmsObjectsTypes
+    dwType: UInt32
     Created: Windows.Win32.Foundation.SYSTEMTIME
     Modified: Windows.Win32.Foundation.SYSTEMTIME
     ObjectGuid: Guid
     Enabled: Windows.Win32.Foundation.BOOL
-    dwOperationalState: Windows.Win32.Storage.FileSystem.NtmsOperationalState
+    dwOperationalState: UInt32
     szName: Char * 64
     szDescription: Char * 127
     Info: _Info_e__Union
@@ -2594,25 +2582,25 @@ NTMS_OMID_TYPE = UInt32
 NTMS_OMID_TYPE_FILESYSTEM_INFO: NTMS_OMID_TYPE = 2
 NTMS_OMID_TYPE_RAW_LABEL: NTMS_OMID_TYPE = 1
 class NTMS_OPREQUESTINFORMATIONA(EasyCastStructure):
-    Request: Windows.Win32.Storage.FileSystem.NtmsOpreqCommand
+    Request: UInt32
     Submitted: Windows.Win32.Foundation.SYSTEMTIME
-    State: Windows.Win32.Storage.FileSystem.NtmsOpreqState
+    State: UInt32
     szMessage: Windows.Win32.Foundation.CHAR * 256
-    Arg1Type: Windows.Win32.Storage.FileSystem.NtmsObjectsTypes
+    Arg1Type: UInt32
     Arg1: Guid
-    Arg2Type: Windows.Win32.Storage.FileSystem.NtmsObjectsTypes
+    Arg2Type: UInt32
     Arg2: Guid
     szApplication: Windows.Win32.Foundation.CHAR * 64
     szUser: Windows.Win32.Foundation.CHAR * 64
     szComputer: Windows.Win32.Foundation.CHAR * 64
 class NTMS_OPREQUESTINFORMATIONW(EasyCastStructure):
-    Request: Windows.Win32.Storage.FileSystem.NtmsOpreqCommand
+    Request: UInt32
     Submitted: Windows.Win32.Foundation.SYSTEMTIME
-    State: Windows.Win32.Storage.FileSystem.NtmsOpreqState
+    State: UInt32
     szMessage: Char * 256
-    Arg1Type: Windows.Win32.Storage.FileSystem.NtmsObjectsTypes
+    Arg1Type: UInt32
     Arg1: Guid
-    Arg2Type: Windows.Win32.Storage.FileSystem.NtmsObjectsTypes
+    Arg2Type: UInt32
     Arg2: Guid
     szApplication: Char * 64
     szUser: Char * 64
@@ -2620,7 +2608,7 @@ class NTMS_OPREQUESTINFORMATIONW(EasyCastStructure):
 class NTMS_PARTITIONINFORMATIONA(EasyCastStructure):
     PhysicalMedia: Guid
     LogicalMedia: Guid
-    State: Windows.Win32.Storage.FileSystem.NtmsPartitionState
+    State: UInt32
     Side: UInt16
     dwOmidLabelIdLength: UInt32
     OmidLabelId: Byte * 255
@@ -2632,7 +2620,7 @@ class NTMS_PARTITIONINFORMATIONA(EasyCastStructure):
 class NTMS_PARTITIONINFORMATIONW(EasyCastStructure):
     PhysicalMedia: Guid
     LogicalMedia: Guid
-    State: Windows.Win32.Storage.FileSystem.NtmsPartitionState
+    State: UInt32
     Side: UInt16
     dwOmidLabelIdLength: UInt32
     OmidLabelId: Byte * 255
@@ -2649,9 +2637,9 @@ class NTMS_PMIDINFORMATIONA(EasyCastStructure):
     MediaType: Guid
     HomeSlot: Guid
     szBarCode: Windows.Win32.Foundation.CHAR * 64
-    BarCodeState: Windows.Win32.Storage.FileSystem.NtmsBarCodeState
+    BarCodeState: UInt32
     szSequenceNumber: Windows.Win32.Foundation.CHAR * 32
-    MediaState: Windows.Win32.Storage.FileSystem.NtmsMediaState
+    MediaState: UInt32
     dwNumberOfPartitions: UInt32
     dwMediaTypeCode: UInt32
     dwDensityCode: UInt32
@@ -2664,9 +2652,9 @@ class NTMS_PMIDINFORMATIONW(EasyCastStructure):
     MediaType: Guid
     HomeSlot: Guid
     szBarCode: Char * 64
-    BarCodeState: Windows.Win32.Storage.FileSystem.NtmsBarCodeState
+    BarCodeState: UInt32
     szSequenceNumber: Char * 32
-    MediaState: Windows.Win32.Storage.FileSystem.NtmsMediaState
+    MediaState: UInt32
     dwNumberOfPartitions: UInt32
     dwMediaTypeCode: UInt32
     dwDensityCode: UInt32
@@ -2944,7 +2932,7 @@ def PLOG_FULL_HANDLER_CALLBACK(hLogFile: Windows.Win32.Foundation.HANDLE, dwErro
 def PLOG_TAIL_ADVANCE_CALLBACK(hLogFile: Windows.Win32.Foundation.HANDLE, lsnTarget: Windows.Win32.Storage.FileSystem.CLS_LSN, pvClientContext: c_void_p) -> Void: ...
 @winfunctype_pointer
 def PLOG_UNPINNED_CALLBACK(hLogFile: Windows.Win32.Foundation.HANDLE, pvClientContext: c_void_p) -> Void: ...
-PREPARE_TAPE_OPERATION = Int32
+PREPARE_TAPE_OPERATION = UInt32
 TAPE_FORMAT: PREPARE_TAPE_OPERATION = 5
 TAPE_LOAD: PREPARE_TAPE_OPERATION = 0
 TAPE_LOCK: PREPARE_TAPE_OPERATION = 3
@@ -3191,7 +3179,7 @@ STREAM_INFO_LEVELS_FindStreamInfoMaxInfoLevel: STREAM_INFO_LEVELS = 1
 SYMBOLIC_LINK_FLAGS = UInt32
 SYMBOLIC_LINK_FLAG_DIRECTORY: SYMBOLIC_LINK_FLAGS = 1
 SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE: SYMBOLIC_LINK_FLAGS = 2
-TAPEMARK_TYPE = Int32
+TAPEMARK_TYPE = UInt32
 TAPE_FILEMARKS: TAPEMARK_TYPE = 1
 TAPE_LONG_FILEMARKS: TAPEMARK_TYPE = 3
 TAPE_SETMARKS: TAPEMARK_TYPE = 0
@@ -3206,7 +3194,7 @@ class TAPE_GET_POSITION(EasyCastStructure):
 TAPE_INFORMATION_TYPE = UInt32
 SET_TAPE_DRIVE_INFORMATION: TAPE_INFORMATION_TYPE = 1
 SET_TAPE_MEDIA_INFORMATION: TAPE_INFORMATION_TYPE = 0
-TAPE_POSITION_METHOD = Int32
+TAPE_POSITION_METHOD = UInt32
 TAPE_ABSOLUTE_BLOCK: TAPE_POSITION_METHOD = 1
 TAPE_LOGICAL_BLOCK: TAPE_POSITION_METHOD = 2
 TAPE_REWIND: TAPE_POSITION_METHOD = 0
@@ -3216,7 +3204,7 @@ TAPE_SPACE_RELATIVE_BLOCKS: TAPE_POSITION_METHOD = 5
 TAPE_SPACE_SEQUENTIAL_FMKS: TAPE_POSITION_METHOD = 7
 TAPE_SPACE_SEQUENTIAL_SMKS: TAPE_POSITION_METHOD = 9
 TAPE_SPACE_SETMARKS: TAPE_POSITION_METHOD = 8
-TAPE_POSITION_TYPE = Int32
+TAPE_POSITION_TYPE = UInt32
 TAPE_ABSOLUTE_POSITION: TAPE_POSITION_TYPE = 0
 TAPE_LOGICAL_POSITION: TAPE_POSITION_TYPE = 1
 class TAPE_PREPARE(EasyCastStructure):
@@ -3414,8 +3402,8 @@ class VS_FIXEDFILEINFO(EasyCastStructure):
     dwFileFlagsMask: UInt32
     dwFileFlags: Windows.Win32.Storage.FileSystem.VS_FIXEDFILEINFO_FILE_FLAGS
     dwFileOS: Windows.Win32.Storage.FileSystem.VS_FIXEDFILEINFO_FILE_OS
-    dwFileType: Windows.Win32.Storage.FileSystem.VS_FIXEDFILEINFO_FILE_TYPE
-    dwFileSubtype: Windows.Win32.Storage.FileSystem.VS_FIXEDFILEINFO_FILE_SUBTYPE
+    dwFileType: UInt32
+    dwFileSubtype: UInt32
     dwFileDateMS: UInt32
     dwFileDateLS: UInt32
 VS_FIXEDFILEINFO_FILE_FLAGS = UInt32
@@ -3425,7 +3413,7 @@ VS_FF_PATCHED: VS_FIXEDFILEINFO_FILE_FLAGS = 4
 VS_FF_PRIVATEBUILD: VS_FIXEDFILEINFO_FILE_FLAGS = 8
 VS_FF_INFOINFERRED: VS_FIXEDFILEINFO_FILE_FLAGS = 16
 VS_FF_SPECIALBUILD: VS_FIXEDFILEINFO_FILE_FLAGS = 32
-VS_FIXEDFILEINFO_FILE_OS = Int32
+VS_FIXEDFILEINFO_FILE_OS = UInt32
 VOS_UNKNOWN: VS_FIXEDFILEINFO_FILE_OS = 0
 VOS_DOS: VS_FIXEDFILEINFO_FILE_OS = 65536
 VOS_OS216: VS_FIXEDFILEINFO_FILE_OS = 131072
@@ -3616,12 +3604,6 @@ make_head(_module, 'FILE_STANDARD_INFO')
 make_head(_module, 'FILE_STORAGE_INFO')
 make_head(_module, 'FILE_STREAM_INFO')
 make_head(_module, 'FIO_CONTEXT')
-make_head(_module, 'FindChangeNotificationHandle')
-make_head(_module, 'FindFileHandle')
-make_head(_module, 'FindFileNameHandle')
-make_head(_module, 'FindStreamHandle')
-make_head(_module, 'FindVolumeHandle')
-make_head(_module, 'FindVolumeMountPointHandle')
 make_head(_module, 'IDiskQuotaControl')
 make_head(_module, 'IDiskQuotaEvents')
 make_head(_module, 'IDiskQuotaUser')

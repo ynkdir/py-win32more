@@ -1463,15 +1463,15 @@ def DsDeregisterDnsHostRecordsW(ServerName: Windows.Win32.Foundation.PWSTR, DnsD
 @winfunctype('NETAPI32.dll')
 def DsDeregisterDnsHostRecordsA(ServerName: Windows.Win32.Foundation.PSTR, DnsDomainName: Windows.Win32.Foundation.PSTR, DomainGuid: POINTER(Guid), DsaGuid: POINTER(Guid), DnsHostName: Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def DsGetDcOpenW(DnsName: Windows.Win32.Foundation.PWSTR, OptionFlags: UInt32, SiteName: Windows.Win32.Foundation.PWSTR, DomainGuid: POINTER(Guid), DnsForestName: Windows.Win32.Foundation.PWSTR, DcFlags: UInt32, RetGetDcContext: POINTER(Windows.Win32.Networking.ActiveDirectory.GetDcContextHandle_head)) -> UInt32: ...
+def DsGetDcOpenW(DnsName: Windows.Win32.Foundation.PWSTR, OptionFlags: UInt32, SiteName: Windows.Win32.Foundation.PWSTR, DomainGuid: POINTER(Guid), DnsForestName: Windows.Win32.Foundation.PWSTR, DcFlags: UInt32, RetGetDcContext: POINTER(Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def DsGetDcOpenA(DnsName: Windows.Win32.Foundation.PSTR, OptionFlags: UInt32, SiteName: Windows.Win32.Foundation.PSTR, DomainGuid: POINTER(Guid), DnsForestName: Windows.Win32.Foundation.PSTR, DcFlags: UInt32, RetGetDcContext: POINTER(Windows.Win32.Networking.ActiveDirectory.GetDcContextHandle_head)) -> UInt32: ...
+def DsGetDcOpenA(DnsName: Windows.Win32.Foundation.PSTR, OptionFlags: UInt32, SiteName: Windows.Win32.Foundation.PSTR, DomainGuid: POINTER(Guid), DnsForestName: Windows.Win32.Foundation.PSTR, DcFlags: UInt32, RetGetDcContext: POINTER(Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsGetDcNextW(GetDcContextHandle: Windows.Win32.Foundation.HANDLE, SockAddressCount: POINTER(UInt32), SockAddresses: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKET_ADDRESS_head)), DnsHostName: POINTER(Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsGetDcNextA(GetDcContextHandle: Windows.Win32.Foundation.HANDLE, SockAddressCount: POINTER(UInt32), SockAddresses: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKET_ADDRESS_head)), DnsHostName: POINTER(Windows.Win32.Foundation.PSTR)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def DsGetDcCloseW(GetDcContextHandle: Windows.Win32.Networking.ActiveDirectory.GetDcContextHandle) -> Void: ...
+def DsGetDcCloseW(GetDcContextHandle: Windows.Win32.Foundation.HANDLE) -> Void: ...
 BackLink = Guid('{fcbf906f-4080-11d1-a3ac-00c04fb950dc}')
 class CQFORM(EasyCastStructure):
     cbStruct: UInt32
@@ -1483,7 +1483,7 @@ class CQPAGE(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: UInt32
     pPageProc: Windows.Win32.Networking.ActiveDirectory.LPCQPAGEPROC
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     idPageName: Int32
     idPageTemplate: Int32
     pDlgProc: Windows.Win32.UI.WindowsAndMessaging.DLGPROC
@@ -1652,7 +1652,7 @@ class DSQUERYINITPARAMS(EasyCastStructure):
 class DSQUERYPARAMS(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: UInt32
-    hInstance: Windows.Win32.Foundation.HMODULE
+    hInstance: Windows.Win32.Foundation.HINSTANCE
     offsetQuery: Int32
     iColumns: Int32
     dwReserved: UInt32
@@ -2155,8 +2155,6 @@ DS_SPN_REPLACE_SPN_OP: DS_SPN_WRITE_OP = 1
 DS_SPN_DELETE_SPN_OP: DS_SPN_WRITE_OP = 2
 Email = Guid('{8f92a857-478e-11d1-a3b4-00c04fb950dc}')
 FaxNumber = Guid('{a5062215-4681-11d1-a3b4-00c04fb950dc}')
-class GetDcContextHandle(EasyCastStructure):
-    Value: IntPtr
 Hold = Guid('{b3ad3e13-4080-11d1-a3ac-00c04fb950dc}')
 class IADs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
@@ -3857,7 +3855,6 @@ make_head(_module, 'DS_SCHEMA_GUID_MAPW')
 make_head(_module, 'DS_SELECTION')
 make_head(_module, 'DS_SELECTION_LIST')
 make_head(_module, 'DS_SITE_COST_INFO')
-make_head(_module, 'GetDcContextHandle')
 make_head(_module, 'IADs')
 make_head(_module, 'IADsADSystemInfo')
 make_head(_module, 'IADsAccessControlEntry')

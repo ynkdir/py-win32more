@@ -153,7 +153,7 @@ def SnmpSvcGetUptime() -> UInt32: ...
 @winfunctype('snmpapi.dll')
 def SnmpSvcSetLogLevel(nLogLevel: Windows.Win32.NetworkManagement.Snmp.SNMP_LOG) -> Void: ...
 @winfunctype('snmpapi.dll')
-def SnmpSvcSetLogType(nLogType: Windows.Win32.NetworkManagement.Snmp.SNMP_OUTPUT_LOG_TYPE) -> Void: ...
+def SnmpSvcSetLogType(nLogType: Int32) -> Void: ...
 @cfunctype('snmpapi.dll', variadic=True)
 def SnmpUtilDbgPrint(nLogLevel: Windows.Win32.NetworkManagement.Snmp.SNMP_LOG, szFormat: Windows.Win32.Foundation.PSTR, *__arglist) -> Void: ...
 @winfunctype('mgmtapi.dll')
@@ -389,7 +389,7 @@ SNMP_GENERICTRAP_LINKUP: SNMP_GENERICTRAP = 3
 SNMP_GENERICTRAP_AUTHFAILURE: SNMP_GENERICTRAP = 4
 SNMP_GENERICTRAP_EGPNEIGHLOSS: SNMP_GENERICTRAP = 5
 SNMP_GENERICTRAP_ENTERSPECIFIC: SNMP_GENERICTRAP = 6
-SNMP_LOG = UInt32
+SNMP_LOG = Int32
 SNMP_LOG_SILENT: SNMP_LOG = 0
 SNMP_LOG_FATAL: SNMP_LOG = 1
 SNMP_LOG_ERROR: SNMP_LOG = 2

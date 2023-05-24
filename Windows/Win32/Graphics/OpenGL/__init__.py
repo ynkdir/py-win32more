@@ -1630,7 +1630,7 @@ PFD_LAYER_TYPE = SByte
 PFD_UNDERLAY_PLANE: PFD_LAYER_TYPE = -1
 PFD_MAIN_PLANE: PFD_LAYER_TYPE = 0
 PFD_OVERLAY_PLANE: PFD_LAYER_TYPE = 1
-PFD_PIXEL_TYPE = SByte
+PFD_PIXEL_TYPE = Byte
 PFD_TYPE_RGBA: PFD_PIXEL_TYPE = 0
 PFD_TYPE_COLORINDEX: PFD_PIXEL_TYPE = 1
 @winfunctype_pointer
@@ -1689,7 +1689,7 @@ class PIXELFORMATDESCRIPTOR(EasyCastStructure):
     cDepthBits: Byte
     cStencilBits: Byte
     cAuxBuffers: Byte
-    iLayerType: Windows.Win32.Graphics.OpenGL.PFD_LAYER_TYPE
+    iLayerType: Byte
     bReserved: Byte
     dwLayerMask: UInt32
     dwVisibleMask: UInt32

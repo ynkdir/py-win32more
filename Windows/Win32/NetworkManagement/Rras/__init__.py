@@ -1929,19 +1929,33 @@ class RASCOMMSETTINGS(EasyCastStructure):
     bStop: Byte
     bByteSize: Byte
     bAlign: Byte
-class RASCONNA(EasyCastStructure):
-    dwSize: UInt32
-    hrasconn: Windows.Win32.NetworkManagement.Rras.HRASCONN
-    szEntryName: Windows.Win32.Foundation.CHAR * 257
-    szDeviceType: Windows.Win32.Foundation.CHAR * 17
-    szDeviceName: Windows.Win32.Foundation.CHAR * 129
-    szPhonebook: Windows.Win32.Foundation.CHAR * 260
-    dwSubEntry: UInt32
-    guidEntry: Guid
-    dwFlags: UInt32
-    luid: Windows.Win32.Foundation.LUID
-    guidCorrelationId: Guid
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class RASCONNA(EasyCastStructure):
+        dwSize: UInt32
+        hrasconn: Windows.Win32.NetworkManagement.Rras.HRASCONN
+        szEntryName: Windows.Win32.Foundation.CHAR * 257
+        szDeviceType: Windows.Win32.Foundation.CHAR * 17
+        szDeviceName: Windows.Win32.Foundation.CHAR * 129
+        szPhonebook: Windows.Win32.Foundation.CHAR * 260
+        dwSubEntry: UInt32
+        guidEntry: Guid
+        dwFlags: UInt32
+        luid: Windows.Win32.Foundation.LUID
+        guidCorrelationId: Guid
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASCONNA(EasyCastStructure):
+        dwSize: UInt32
+        hrasconn: Windows.Win32.NetworkManagement.Rras.HRASCONN
+        szEntryName: Windows.Win32.Foundation.CHAR * 257
+        szDeviceType: Windows.Win32.Foundation.CHAR * 17
+        szDeviceName: Windows.Win32.Foundation.CHAR * 129
+        szPhonebook: Windows.Win32.Foundation.CHAR * 260
+        dwSubEntry: UInt32
+        guidEntry: Guid
+        dwFlags: UInt32
+        luid: Windows.Win32.Foundation.LUID
+        guidCorrelationId: Guid
 RASCONNSTATE = Int32
 RASCS_OpenPort: RASCONNSTATE = 0
 RASCS_PortOpened: RASCONNSTATE = 1
@@ -2000,19 +2014,33 @@ RASCSS_None: RASCONNSUBSTATE = 0
 RASCSS_Dormant: RASCONNSUBSTATE = 1
 RASCSS_Reconnecting: RASCONNSUBSTATE = 2
 RASCSS_Reconnected: RASCONNSUBSTATE = 8192
-class RASCONNW(EasyCastStructure):
-    dwSize: UInt32
-    hrasconn: Windows.Win32.NetworkManagement.Rras.HRASCONN
-    szEntryName: Char * 257
-    szDeviceType: Char * 17
-    szDeviceName: Char * 129
-    szPhonebook: Char * 260
-    dwSubEntry: UInt32
-    guidEntry: Guid
-    dwFlags: UInt32
-    luid: Windows.Win32.Foundation.LUID
-    guidCorrelationId: Guid
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class RASCONNW(EasyCastStructure):
+        dwSize: UInt32
+        hrasconn: Windows.Win32.NetworkManagement.Rras.HRASCONN
+        szEntryName: Char * 257
+        szDeviceType: Char * 17
+        szDeviceName: Char * 129
+        szPhonebook: Char * 260
+        dwSubEntry: UInt32
+        guidEntry: Guid
+        dwFlags: UInt32
+        luid: Windows.Win32.Foundation.LUID
+        guidCorrelationId: Guid
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASCONNW(EasyCastStructure):
+        dwSize: UInt32
+        hrasconn: Windows.Win32.NetworkManagement.Rras.HRASCONN
+        szEntryName: Char * 257
+        szDeviceType: Char * 17
+        szDeviceName: Char * 129
+        szPhonebook: Char * 260
+        dwSubEntry: UInt32
+        guidEntry: Guid
+        dwFlags: UInt32
+        luid: Windows.Win32.Foundation.LUID
+        guidCorrelationId: Guid
 class RASCREDENTIALSA(EasyCastStructure):
     dwSize: UInt32
     dwMask: UInt32
@@ -2079,32 +2107,60 @@ def RASDIALFUNC(param0: UInt32, param1: Windows.Win32.NetworkManagement.Rras.RAS
 def RASDIALFUNC1(param0: Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: UInt32, param2: Windows.Win32.NetworkManagement.Rras.RASCONNSTATE, param3: UInt32, param4: UInt32) -> Void: ...
 @winfunctype_pointer
 def RASDIALFUNC2(param0: UIntPtr, param1: UInt32, param2: Windows.Win32.NetworkManagement.Rras.HRASCONN, param3: UInt32, param4: Windows.Win32.NetworkManagement.Rras.RASCONNSTATE, param5: UInt32, param6: UInt32) -> UInt32: ...
-class RASDIALPARAMSA(EasyCastStructure):
-    dwSize: UInt32
-    szEntryName: Windows.Win32.Foundation.CHAR * 257
-    szPhoneNumber: Windows.Win32.Foundation.CHAR * 129
-    szCallbackNumber: Windows.Win32.Foundation.CHAR * 129
-    szUserName: Windows.Win32.Foundation.CHAR * 257
-    szPassword: Windows.Win32.Foundation.CHAR * 257
-    szDomain: Windows.Win32.Foundation.CHAR * 16
-    dwSubEntry: UInt32
-    dwCallbackId: UIntPtr
-    dwIfIndex: UInt32
-    szEncPassword: Windows.Win32.Foundation.PSTR
-    _pack_ = 4
-class RASDIALPARAMSW(EasyCastStructure):
-    dwSize: UInt32
-    szEntryName: Char * 257
-    szPhoneNumber: Char * 129
-    szCallbackNumber: Char * 129
-    szUserName: Char * 257
-    szPassword: Char * 257
-    szDomain: Char * 16
-    dwSubEntry: UInt32
-    dwCallbackId: UIntPtr
-    dwIfIndex: UInt32
-    szEncPassword: Windows.Win32.Foundation.PWSTR
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class RASDIALPARAMSA(EasyCastStructure):
+        dwSize: UInt32
+        szEntryName: Windows.Win32.Foundation.CHAR * 257
+        szPhoneNumber: Windows.Win32.Foundation.CHAR * 129
+        szCallbackNumber: Windows.Win32.Foundation.CHAR * 129
+        szUserName: Windows.Win32.Foundation.CHAR * 257
+        szPassword: Windows.Win32.Foundation.CHAR * 257
+        szDomain: Windows.Win32.Foundation.CHAR * 16
+        dwSubEntry: UInt32
+        dwCallbackId: UIntPtr
+        dwIfIndex: UInt32
+        szEncPassword: Windows.Win32.Foundation.PSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASDIALPARAMSA(EasyCastStructure):
+        dwSize: UInt32
+        szEntryName: Windows.Win32.Foundation.CHAR * 257
+        szPhoneNumber: Windows.Win32.Foundation.CHAR * 129
+        szCallbackNumber: Windows.Win32.Foundation.CHAR * 129
+        szUserName: Windows.Win32.Foundation.CHAR * 257
+        szPassword: Windows.Win32.Foundation.CHAR * 257
+        szDomain: Windows.Win32.Foundation.CHAR * 16
+        dwSubEntry: UInt32
+        dwCallbackId: UIntPtr
+        dwIfIndex: UInt32
+        szEncPassword: Windows.Win32.Foundation.PSTR
+if ARCH in 'X64,ARM64':
+    class RASDIALPARAMSW(EasyCastStructure):
+        dwSize: UInt32
+        szEntryName: Char * 257
+        szPhoneNumber: Char * 129
+        szCallbackNumber: Char * 129
+        szUserName: Char * 257
+        szPassword: Char * 257
+        szDomain: Char * 16
+        dwSubEntry: UInt32
+        dwCallbackId: UIntPtr
+        dwIfIndex: UInt32
+        szEncPassword: Windows.Win32.Foundation.PWSTR
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASDIALPARAMSW(EasyCastStructure):
+        dwSize: UInt32
+        szEntryName: Char * 257
+        szPhoneNumber: Char * 129
+        szCallbackNumber: Char * 129
+        szUserName: Char * 257
+        szPassword: Char * 257
+        szDomain: Char * 16
+        dwSubEntry: UInt32
+        dwCallbackId: UIntPtr
+        dwIfIndex: UInt32
+        szEncPassword: Windows.Win32.Foundation.PWSTR
 class RASEAPINFO(EasyCastStructure):
     dwSizeofEapInfo: UInt32
     pbEapInfo: POINTER(Byte)
@@ -2179,28 +2235,52 @@ class RASENTRYA(EasyCastStructure):
     IdiType: Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
     IdrType: Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
     fDisableIKEv2Fragmentation: Windows.Win32.Foundation.BOOL
-class RASENTRYDLGA(EasyCastStructure):
-    dwSize: UInt32
-    hwndOwner: Windows.Win32.Foundation.HWND
-    dwFlags: UInt32
-    xDlg: Int32
-    yDlg: Int32
-    szEntry: Windows.Win32.Foundation.CHAR * 257
-    dwError: UInt32
-    reserved: UIntPtr
-    reserved2: UIntPtr
-    _pack_ = 4
-class RASENTRYDLGW(EasyCastStructure):
-    dwSize: UInt32
-    hwndOwner: Windows.Win32.Foundation.HWND
-    dwFlags: UInt32
-    xDlg: Int32
-    yDlg: Int32
-    szEntry: Char * 257
-    dwError: UInt32
-    reserved: UIntPtr
-    reserved2: UIntPtr
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class RASENTRYDLGA(EasyCastStructure):
+        dwSize: UInt32
+        hwndOwner: Windows.Win32.Foundation.HWND
+        dwFlags: UInt32
+        xDlg: Int32
+        yDlg: Int32
+        szEntry: Windows.Win32.Foundation.CHAR * 257
+        dwError: UInt32
+        reserved: UIntPtr
+        reserved2: UIntPtr
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASENTRYDLGA(EasyCastStructure):
+        dwSize: UInt32
+        hwndOwner: Windows.Win32.Foundation.HWND
+        dwFlags: UInt32
+        xDlg: Int32
+        yDlg: Int32
+        szEntry: Windows.Win32.Foundation.CHAR * 257
+        dwError: UInt32
+        reserved: UIntPtr
+        reserved2: UIntPtr
+if ARCH in 'X64,ARM64':
+    class RASENTRYDLGW(EasyCastStructure):
+        dwSize: UInt32
+        hwndOwner: Windows.Win32.Foundation.HWND
+        dwFlags: UInt32
+        xDlg: Int32
+        yDlg: Int32
+        szEntry: Char * 257
+        dwError: UInt32
+        reserved: UIntPtr
+        reserved2: UIntPtr
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASENTRYDLGW(EasyCastStructure):
+        dwSize: UInt32
+        hwndOwner: Windows.Win32.Foundation.HWND
+        dwFlags: UInt32
+        xDlg: Int32
+        yDlg: Int32
+        szEntry: Char * 257
+        dwError: UInt32
+        reserved: UIntPtr
+        reserved2: UIntPtr
 class RASENTRYNAMEA(EasyCastStructure):
     dwSize: UInt32
     szEntryName: Windows.Win32.Foundation.CHAR * 257
@@ -2338,34 +2418,60 @@ class RASNOUSERW(EasyCastStructure):
     szUserName: Char * 257
     szPassword: Char * 257
     szDomain: Char * 16
-class RASPBDLGA(EasyCastStructure):
-    dwSize: UInt32
-    hwndOwner: Windows.Win32.Foundation.HWND
-    dwFlags: UInt32
-    xDlg: Int32
-    yDlg: Int32
-    dwCallbackId: UIntPtr
-    pCallback: Windows.Win32.NetworkManagement.Rras.RASPBDLGFUNCA
-    dwError: UInt32
-    reserved: UIntPtr
-    reserved2: UIntPtr
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class RASPBDLGA(EasyCastStructure):
+        dwSize: UInt32
+        hwndOwner: Windows.Win32.Foundation.HWND
+        dwFlags: UInt32
+        xDlg: Int32
+        yDlg: Int32
+        dwCallbackId: UIntPtr
+        pCallback: Windows.Win32.NetworkManagement.Rras.RASPBDLGFUNCA
+        dwError: UInt32
+        reserved: UIntPtr
+        reserved2: UIntPtr
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASPBDLGA(EasyCastStructure):
+        dwSize: UInt32
+        hwndOwner: Windows.Win32.Foundation.HWND
+        dwFlags: UInt32
+        xDlg: Int32
+        yDlg: Int32
+        dwCallbackId: UIntPtr
+        pCallback: Windows.Win32.NetworkManagement.Rras.RASPBDLGFUNCA
+        dwError: UInt32
+        reserved: UIntPtr
+        reserved2: UIntPtr
 @winfunctype_pointer
 def RASPBDLGFUNCA(param0: UIntPtr, param1: UInt32, param2: Windows.Win32.Foundation.PSTR, param3: c_void_p) -> Void: ...
 @winfunctype_pointer
 def RASPBDLGFUNCW(param0: UIntPtr, param1: UInt32, param2: Windows.Win32.Foundation.PWSTR, param3: c_void_p) -> Void: ...
-class RASPBDLGW(EasyCastStructure):
-    dwSize: UInt32
-    hwndOwner: Windows.Win32.Foundation.HWND
-    dwFlags: UInt32
-    xDlg: Int32
-    yDlg: Int32
-    dwCallbackId: UIntPtr
-    pCallback: Windows.Win32.NetworkManagement.Rras.RASPBDLGFUNCW
-    dwError: UInt32
-    reserved: UIntPtr
-    reserved2: UIntPtr
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class RASPBDLGW(EasyCastStructure):
+        dwSize: UInt32
+        hwndOwner: Windows.Win32.Foundation.HWND
+        dwFlags: UInt32
+        xDlg: Int32
+        yDlg: Int32
+        dwCallbackId: UIntPtr
+        pCallback: Windows.Win32.NetworkManagement.Rras.RASPBDLGFUNCW
+        dwError: UInt32
+        reserved: UIntPtr
+        reserved2: UIntPtr
+        _pack_ = 4
+if ARCH in 'X86':
+    class RASPBDLGW(EasyCastStructure):
+        dwSize: UInt32
+        hwndOwner: Windows.Win32.Foundation.HWND
+        dwFlags: UInt32
+        xDlg: Int32
+        yDlg: Int32
+        dwCallbackId: UIntPtr
+        pCallback: Windows.Win32.NetworkManagement.Rras.RASPBDLGFUNCW
+        dwError: UInt32
+        reserved: UIntPtr
+        reserved2: UIntPtr
 class RASPPPCCP(EasyCastStructure):
     dwSize: UInt32
     dwError: UInt32
@@ -2873,11 +2979,11 @@ class RTM_ROUTE_INFO(EasyCastStructure):
 @winfunctype_pointer
 def RasCustomDeleteEntryNotifyFn(lpszPhonebook: Windows.Win32.Foundation.PWSTR, lpszEntry: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def RasCustomDialDlgFn(hInstDll: Windows.Win32.Foundation.HMODULE, dwFlags: UInt32, lpszPhonebook: Windows.Win32.Foundation.PWSTR, lpszEntry: Windows.Win32.Foundation.PWSTR, lpszPhoneNumber: Windows.Win32.Foundation.PWSTR, lpInfo: POINTER(Windows.Win32.NetworkManagement.Rras.RASDIALDLG_head), pvInfo: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def RasCustomDialDlgFn(hInstDll: Windows.Win32.Foundation.HINSTANCE, dwFlags: UInt32, lpszPhonebook: Windows.Win32.Foundation.PWSTR, lpszEntry: Windows.Win32.Foundation.PWSTR, lpszPhoneNumber: Windows.Win32.Foundation.PWSTR, lpInfo: POINTER(Windows.Win32.NetworkManagement.Rras.RASDIALDLG_head), pvInfo: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def RasCustomDialFn(hInstDll: Windows.Win32.Foundation.HMODULE, lpRasDialExtensions: POINTER(Windows.Win32.NetworkManagement.Rras.RASDIALEXTENSIONS_head), lpszPhonebook: Windows.Win32.Foundation.PWSTR, lpRasDialParams: POINTER(Windows.Win32.NetworkManagement.Rras.RASDIALPARAMSA_head), dwNotifierType: UInt32, lpvNotifier: c_void_p, lphRasConn: POINTER(Windows.Win32.NetworkManagement.Rras.HRASCONN), dwFlags: UInt32) -> UInt32: ...
+def RasCustomDialFn(hInstDll: Windows.Win32.Foundation.HINSTANCE, lpRasDialExtensions: POINTER(Windows.Win32.NetworkManagement.Rras.RASDIALEXTENSIONS_head), lpszPhonebook: Windows.Win32.Foundation.PWSTR, lpRasDialParams: POINTER(Windows.Win32.NetworkManagement.Rras.RASDIALPARAMSA_head), dwNotifierType: UInt32, lpvNotifier: c_void_p, lphRasConn: POINTER(Windows.Win32.NetworkManagement.Rras.HRASCONN), dwFlags: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def RasCustomEntryDlgFn(hInstDll: Windows.Win32.Foundation.HMODULE, lpszPhonebook: Windows.Win32.Foundation.PWSTR, lpszEntry: Windows.Win32.Foundation.PWSTR, lpInfo: POINTER(Windows.Win32.NetworkManagement.Rras.RASENTRYDLGA_head), dwFlags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def RasCustomEntryDlgFn(hInstDll: Windows.Win32.Foundation.HINSTANCE, lpszPhonebook: Windows.Win32.Foundation.PWSTR, lpszEntry: Windows.Win32.Foundation.PWSTR, lpInfo: POINTER(Windows.Win32.NetworkManagement.Rras.RASENTRYDLGA_head), dwFlags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def RasCustomHangUpFn(hRasConn: Windows.Win32.NetworkManagement.Rras.HRASCONN) -> UInt32: ...
 @winfunctype_pointer
@@ -3013,10 +3119,16 @@ make_head(_module, 'RASAMBW')
 make_head(_module, 'RASAUTODIALENTRYA')
 make_head(_module, 'RASAUTODIALENTRYW')
 make_head(_module, 'RASCOMMSETTINGS')
-make_head(_module, 'RASCONNA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASCONNA')
+if ARCH in 'X86':
+    make_head(_module, 'RASCONNA')
 make_head(_module, 'RASCONNSTATUSA')
 make_head(_module, 'RASCONNSTATUSW')
-make_head(_module, 'RASCONNW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASCONNW')
+if ARCH in 'X86':
+    make_head(_module, 'RASCONNW')
 make_head(_module, 'RASCREDENTIALSA')
 make_head(_module, 'RASCREDENTIALSW')
 make_head(_module, 'RASCTRYINFO')
@@ -3032,14 +3144,26 @@ make_head(_module, 'RASDIALEXTENSIONS')
 make_head(_module, 'RASDIALFUNC')
 make_head(_module, 'RASDIALFUNC1')
 make_head(_module, 'RASDIALFUNC2')
-make_head(_module, 'RASDIALPARAMSA')
-make_head(_module, 'RASDIALPARAMSW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASDIALPARAMSA')
+if ARCH in 'X86':
+    make_head(_module, 'RASDIALPARAMSA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASDIALPARAMSW')
+if ARCH in 'X86':
+    make_head(_module, 'RASDIALPARAMSW')
 make_head(_module, 'RASEAPINFO')
 make_head(_module, 'RASEAPUSERIDENTITYA')
 make_head(_module, 'RASEAPUSERIDENTITYW')
 make_head(_module, 'RASENTRYA')
-make_head(_module, 'RASENTRYDLGA')
-make_head(_module, 'RASENTRYDLGW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASENTRYDLGA')
+if ARCH in 'X86':
+    make_head(_module, 'RASENTRYDLGA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASENTRYDLGW')
+if ARCH in 'X86':
+    make_head(_module, 'RASENTRYDLGW')
 make_head(_module, 'RASENTRYNAMEA')
 make_head(_module, 'RASENTRYNAMEW')
 make_head(_module, 'RASENTRYW')
@@ -3051,10 +3175,16 @@ make_head(_module, 'RASIPADDR')
 make_head(_module, 'RASIPXW')
 make_head(_module, 'RASNOUSERA')
 make_head(_module, 'RASNOUSERW')
-make_head(_module, 'RASPBDLGA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASPBDLGA')
+if ARCH in 'X86':
+    make_head(_module, 'RASPBDLGA')
 make_head(_module, 'RASPBDLGFUNCA')
 make_head(_module, 'RASPBDLGFUNCW')
-make_head(_module, 'RASPBDLGW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RASPBDLGW')
+if ARCH in 'X86':
+    make_head(_module, 'RASPBDLGW')
 make_head(_module, 'RASPPPCCP')
 make_head(_module, 'RASPPPIPA')
 make_head(_module, 'RASPPPIPV6')

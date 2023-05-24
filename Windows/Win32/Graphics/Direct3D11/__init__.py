@@ -734,9 +734,9 @@ D3D11_BUFFEREX_SRV_FLAG_RAW: D3D11_BUFFEREX_SRV_FLAG = 1
 class D3D11_BUFFER_DESC(EasyCastStructure):
     ByteWidth: UInt32
     Usage: Windows.Win32.Graphics.Direct3D11.D3D11_USAGE
-    BindFlags: Windows.Win32.Graphics.Direct3D11.D3D11_BIND_FLAG
-    CPUAccessFlags: Windows.Win32.Graphics.Direct3D11.D3D11_CPU_ACCESS_FLAG
-    MiscFlags: Windows.Win32.Graphics.Direct3D11.D3D11_RESOURCE_MISC_FLAG
+    BindFlags: UInt32
+    CPUAccessFlags: UInt32
+    MiscFlags: UInt32
     StructureByteStride: UInt32
 class D3D11_BUFFER_RTV(EasyCastStructure):
     Anonymous1: _Anonymous1_e__Union
@@ -3150,9 +3150,9 @@ class D3D11_TEXTURE1D_DESC(EasyCastStructure):
     ArraySize: UInt32
     Format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     Usage: Windows.Win32.Graphics.Direct3D11.D3D11_USAGE
-    BindFlags: Windows.Win32.Graphics.Direct3D11.D3D11_BIND_FLAG
-    CPUAccessFlags: Windows.Win32.Graphics.Direct3D11.D3D11_CPU_ACCESS_FLAG
-    MiscFlags: Windows.Win32.Graphics.Direct3D11.D3D11_RESOURCE_MISC_FLAG
+    BindFlags: UInt32
+    CPUAccessFlags: UInt32
+    MiscFlags: UInt32
 class D3D11_TEXTURE2D_DESC(EasyCastStructure):
     Width: UInt32
     Height: UInt32
@@ -3161,9 +3161,9 @@ class D3D11_TEXTURE2D_DESC(EasyCastStructure):
     Format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     SampleDesc: Windows.Win32.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC
     Usage: Windows.Win32.Graphics.Direct3D11.D3D11_USAGE
-    BindFlags: Windows.Win32.Graphics.Direct3D11.D3D11_BIND_FLAG
-    CPUAccessFlags: Windows.Win32.Graphics.Direct3D11.D3D11_CPU_ACCESS_FLAG
-    MiscFlags: Windows.Win32.Graphics.Direct3D11.D3D11_RESOURCE_MISC_FLAG
+    BindFlags: UInt32
+    CPUAccessFlags: UInt32
+    MiscFlags: UInt32
 class D3D11_TEXTURE2D_DESC1(EasyCastStructure):
     Width: UInt32
     Height: UInt32
@@ -3172,9 +3172,9 @@ class D3D11_TEXTURE2D_DESC1(EasyCastStructure):
     Format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     SampleDesc: Windows.Win32.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC
     Usage: Windows.Win32.Graphics.Direct3D11.D3D11_USAGE
-    BindFlags: Windows.Win32.Graphics.Direct3D11.D3D11_BIND_FLAG
-    CPUAccessFlags: Windows.Win32.Graphics.Direct3D11.D3D11_CPU_ACCESS_FLAG
-    MiscFlags: Windows.Win32.Graphics.Direct3D11.D3D11_RESOURCE_MISC_FLAG
+    BindFlags: UInt32
+    CPUAccessFlags: UInt32
+    MiscFlags: UInt32
     TextureLayout: Windows.Win32.Graphics.Direct3D11.D3D11_TEXTURE_LAYOUT
 class D3D11_TEXTURE3D_DESC(EasyCastStructure):
     Width: UInt32
@@ -3183,9 +3183,9 @@ class D3D11_TEXTURE3D_DESC(EasyCastStructure):
     MipLevels: UInt32
     Format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     Usage: Windows.Win32.Graphics.Direct3D11.D3D11_USAGE
-    BindFlags: Windows.Win32.Graphics.Direct3D11.D3D11_BIND_FLAG
-    CPUAccessFlags: Windows.Win32.Graphics.Direct3D11.D3D11_CPU_ACCESS_FLAG
-    MiscFlags: Windows.Win32.Graphics.Direct3D11.D3D11_RESOURCE_MISC_FLAG
+    BindFlags: UInt32
+    CPUAccessFlags: UInt32
+    MiscFlags: UInt32
 class D3D11_TEXTURE3D_DESC1(EasyCastStructure):
     Width: UInt32
     Height: UInt32
@@ -3193,9 +3193,9 @@ class D3D11_TEXTURE3D_DESC1(EasyCastStructure):
     MipLevels: UInt32
     Format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     Usage: Windows.Win32.Graphics.Direct3D11.D3D11_USAGE
-    BindFlags: Windows.Win32.Graphics.Direct3D11.D3D11_BIND_FLAG
-    CPUAccessFlags: Windows.Win32.Graphics.Direct3D11.D3D11_CPU_ACCESS_FLAG
-    MiscFlags: Windows.Win32.Graphics.Direct3D11.D3D11_RESOURCE_MISC_FLAG
+    BindFlags: UInt32
+    CPUAccessFlags: UInt32
+    MiscFlags: UInt32
     TextureLayout: Windows.Win32.Graphics.Direct3D11.D3D11_TEXTURE_LAYOUT
 D3D11_TEXTURECUBE_FACE = Int32
 D3D11_TEXTURECUBE_FACE_POSITIVE_X: D3D11_TEXTURECUBE_FACE = 0

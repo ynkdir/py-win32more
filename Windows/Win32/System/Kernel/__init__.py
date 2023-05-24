@@ -113,20 +113,6 @@ class NT_TIB(EasyCastStructure):
 class OBJECTID(EasyCastStructure):
     Lineage: Guid
     Uniquifier: UInt32
-class OBJECT_ATTRIBUTES32(EasyCastStructure):
-    Length: UInt32
-    RootDirectory: UInt32
-    ObjectName: UInt32
-    Attributes: UInt32
-    SecurityDescriptor: UInt32
-    SecurityQualityOfService: UInt32
-class OBJECT_ATTRIBUTES64(EasyCastStructure):
-    Length: UInt32
-    RootDirectory: UInt64
-    ObjectName: UInt64
-    Attributes: UInt32
-    SecurityDescriptor: UInt64
-    SecurityQualityOfService: UInt64
 class PROCESSOR_NUMBER(EasyCastStructure):
     Group: UInt16
     Number: Byte
@@ -237,8 +223,6 @@ make_head(_module, 'LIST_ENTRY32')
 make_head(_module, 'LIST_ENTRY64')
 make_head(_module, 'NT_TIB')
 make_head(_module, 'OBJECTID')
-make_head(_module, 'OBJECT_ATTRIBUTES32')
-make_head(_module, 'OBJECT_ATTRIBUTES64')
 make_head(_module, 'PROCESSOR_NUMBER')
 make_head(_module, 'QUAD')
 make_head(_module, 'RTL_BALANCED_NODE')

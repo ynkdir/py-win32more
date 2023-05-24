@@ -504,9 +504,9 @@ def D3D12GetInterface(rclsid: POINTER(Guid), riid: POINTER(Guid), ppvDebug: POIN
 @winfunctype_pointer
 def D3D12MessageFunc(Category: Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY, Severity: Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY, ID: Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE_ID, pDescription: Windows.Win32.Foundation.PSTR, pContext: c_void_p) -> Void: ...
 class D3D12_AUTO_BREADCRUMB_NODE(EasyCastStructure):
-    pCommandListDebugNameA: Windows.Win32.Foundation.PSTR
+    pCommandListDebugNameA: POINTER(Byte)
     pCommandListDebugNameW: Windows.Win32.Foundation.PWSTR
-    pCommandQueueDebugNameA: Windows.Win32.Foundation.PSTR
+    pCommandQueueDebugNameA: POINTER(Byte)
     pCommandQueueDebugNameW: Windows.Win32.Foundation.PWSTR
     pCommandList: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList_head
     pCommandQueue: Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue_head
@@ -515,9 +515,9 @@ class D3D12_AUTO_BREADCRUMB_NODE(EasyCastStructure):
     pCommandHistory: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_OP)
     pNext: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)
 class D3D12_AUTO_BREADCRUMB_NODE1(EasyCastStructure):
-    pCommandListDebugNameA: Windows.Win32.Foundation.PSTR
+    pCommandListDebugNameA: POINTER(Byte)
     pCommandListDebugNameW: Windows.Win32.Foundation.PWSTR
-    pCommandQueueDebugNameA: Windows.Win32.Foundation.PSTR
+    pCommandQueueDebugNameA: POINTER(Byte)
     pCommandQueueDebugNameW: Windows.Win32.Foundation.PWSTR
     pCommandList: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList_head
     pCommandQueue: Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue_head
@@ -1062,12 +1062,12 @@ class D3D12_DRAW_INDEXED_ARGUMENTS(EasyCastStructure):
     BaseVertexLocation: Int32
     StartInstanceLocation: UInt32
 class D3D12_DRED_ALLOCATION_NODE(EasyCastStructure):
-    ObjectNameA: Windows.Win32.Foundation.PSTR
+    ObjectNameA: POINTER(Byte)
     ObjectNameW: Windows.Win32.Foundation.PWSTR
     AllocationType: Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_TYPE
     pNext: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)
 class D3D12_DRED_ALLOCATION_NODE1(EasyCastStructure):
-    ObjectNameA: Windows.Win32.Foundation.PSTR
+    ObjectNameA: POINTER(Byte)
     ObjectNameW: Windows.Win32.Foundation.PWSTR
     AllocationType: Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_TYPE
     pNext: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)
@@ -1766,7 +1766,7 @@ class D3D12_MESSAGE(EasyCastStructure):
     Category: Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE_CATEGORY
     Severity: Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE_SEVERITY
     ID: Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE_ID
-    pDescription: Windows.Win32.Foundation.PSTR
+    pDescription: POINTER(Byte)
     DescriptionByteLength: UIntPtr
 D3D12_MESSAGE_CALLBACK_FLAGS = Int32
 D3D12_MESSAGE_CALLBACK_FLAG_NONE: D3D12_MESSAGE_CALLBACK_FLAGS = 0

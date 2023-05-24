@@ -560,7 +560,7 @@ CFM_MATH: CFM_MASK = 268435456
 CFM_MATHORDINARY: CFM_MASK = 536870912
 CFM_ALLEFFECTS: CFM_MASK = 2115207167
 class CHANGENOTIFY(EasyCastStructure):
-    dwChangeType: Windows.Win32.UI.Controls.RichEdit.CHANGETYPE
+    dwChangeType: UInt32
     pvCookieData: c_void_p
 CHANGETYPE = Int32
 CN_GENERIC: CHANGETYPE = 0
@@ -1337,7 +1337,7 @@ class ITextHost(ComPtr):
     @commethod(5)
     def TxShowScrollBar(self, fnBar: Int32, fShow: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(6)
-    def TxEnableScrollBar(self, fuSBFlags: Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, fuArrowflags: Windows.Win32.UI.Controls.ENABLE_SCROLL_BAR_ARROWS) -> Windows.Win32.Foundation.BOOL: ...
+    def TxEnableScrollBar(self, fuSBFlags: Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, fuArrowflags: Int32) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(7)
     def TxSetScrollRange(self, fnBar: Int32, nMinPos: Int32, nMaxPos: Int32, fRedraw: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(8)
@@ -1755,7 +1755,7 @@ class ITextRange2(ComPtr):
     @commethod(106)
     def GetMathFunctionType(self, bstr: Windows.Win32.Foundation.BSTR, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(107)
-    def InsertImage(self, width: Int32, height: Int32, ascent: Int32, Type: Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS, bstrAltText: Windows.Win32.Foundation.BSTR, pStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
+    def InsertImage(self, width: Int32, height: Int32, ascent: Int32, Type: Int32, bstrAltText: Windows.Win32.Foundation.BSTR, pStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextRow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{c241f5ef-7206-11d8-a2c7-00a0d1d6c6b3}')
@@ -2226,7 +2226,7 @@ if ARCH in 'X64,ARM64':
         xWidth: Int32
         yHeight: Int32
         Ascent: Int32
-        Type: Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS
+        Type: Int32
         pwszAlternateText: Windows.Win32.Foundation.PWSTR
         pIStream: Windows.Win32.System.Com.IStream_head
         _pack_ = 4
@@ -2235,7 +2235,7 @@ if ARCH in 'X86':
         xWidth: Int32
         yHeight: Int32
         Ascent: Int32
-        Type: Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS
+        Type: Int32
         pwszAlternateText: Windows.Win32.Foundation.PWSTR
         pIStream: Windows.Win32.System.Com.IStream_head
 RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE = UInt16

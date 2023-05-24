@@ -191,8 +191,6 @@ def BrowseForGPO(lpBrowseInfo: POINTER(Windows.Win32.System.GroupPolicy.GPOBROWS
 def ImportRSoPData(lpNameSpace: Windows.Win32.Foundation.PWSTR, lpFileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('GPEDIT.dll')
 def ExportRSoPData(lpNameSpace: Windows.Win32.Foundation.PWSTR, lpFileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class CriticalPolicySectionHandle(EasyCastStructure):
-    Value: IntPtr
 GPM = Guid('{f5694708-88fe-4b35-babf-e56162d5fbc8}')
 GPMAsyncCancel = Guid('{372796a9-76ec-479d-ad6c-556318ed5f9d}')
 GPMBackup = Guid('{ed1a54b8-5efa-482a-93c0-8ad86f0d68c3}')
@@ -1291,7 +1289,6 @@ SETTINGSTATUS_RSOPApplied: SETTINGSTATUS = 1
 SETTINGSTATUS_RSOPIgnored: SETTINGSTATUS = 2
 SETTINGSTATUS_RSOPFailed: SETTINGSTATUS = 3
 SETTINGSTATUS_RSOPSubsettingFailed: SETTINGSTATUS = 4
-make_head(_module, 'CriticalPolicySectionHandle')
 make_head(_module, 'GPOBROWSEINFO')
 make_head(_module, 'GROUP_POLICY_OBJECTA')
 make_head(_module, 'GROUP_POLICY_OBJECTW')

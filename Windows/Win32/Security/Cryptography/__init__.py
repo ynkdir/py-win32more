@@ -4410,9 +4410,9 @@ class CERT_RDN(EasyCastStructure):
     rgRDNAttr: POINTER(Windows.Win32.Security.Cryptography.CERT_RDN_ATTR_head)
 class CERT_RDN_ATTR(EasyCastStructure):
     pszObjId: Windows.Win32.Foundation.PSTR
-    dwValueType: Windows.Win32.Security.Cryptography.CERT_RDN_ATTR_VALUE_TYPE
+    dwValueType: UInt32
     Value: Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-CERT_RDN_ATTR_VALUE_TYPE = UInt32
+CERT_RDN_ATTR_VALUE_TYPE = Int32
 CERT_RDN_ANY_TYPE: CERT_RDN_ATTR_VALUE_TYPE = 0
 CERT_RDN_NUMERIC_STRING: CERT_RDN_ATTR_VALUE_TYPE = 3
 CERT_RDN_PRINTABLE_STRING: CERT_RDN_ATTR_VALUE_TYPE = 4

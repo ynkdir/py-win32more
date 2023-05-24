@@ -2055,6 +2055,15 @@ class DDMCCOMPBUFFERINFO(EasyCastStructure):
     dwBytesToAllocate: UInt32
     ddCompCaps: Windows.Win32.Graphics.DirectDraw.DDSCAPS2
     ddPixelFormat: Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
+class DDMDL(EasyCastStructure):
+    MdlNext: POINTER(Windows.Win32.Graphics.DirectDraw.DDMDL_head)
+    MdlSize: Int16
+    MdlFlags: Int16
+    Process: IntPtr
+    lpMappedSystemVa: POINTER(UInt32)
+    lpStartVa: POINTER(UInt32)
+    ByteCount: UInt32
+    ByteOffset: UInt32
 class DDMOCOMPBUFFERINFO(EasyCastStructure):
     dwSize: UInt32
     lpCompSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
@@ -2525,7 +2534,7 @@ class DDRAWI_DIRECTDRAW_LCL(EasyCastStructure):
     lpPrimary: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_INT_head)
     lpCB: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_INT_head)
     dwPreferredMode: UInt32
-    hD3DInstance: Windows.Win32.Foundation.HMODULE
+    hD3DInstance: Windows.Win32.Foundation.HINSTANCE
     pD3DIUnknown: Windows.Win32.System.Com.IUnknown_head
     lpDDCB: POINTER(Windows.Win32.Graphics.DirectDraw.DDHAL_CALLBACKS_head)
     hDDVxd: UIntPtr
@@ -2664,7 +2673,7 @@ class DDTRANSFERININFO(EasyCastStructure):
     dwEndLine: UInt32
     dwTransferID: UIntPtr
     dwTransferFlags: UInt32
-    lpDestMDL: POINTER(Windows.Win32.Graphics.DirectDraw.MDL_head)
+    lpDestMDL: POINTER(Windows.Win32.Graphics.DirectDraw.DDMDL_head)
 class DDTRANSFEROUTINFO(EasyCastStructure):
     dwBufferPolarity: UInt32
 class DDVERSIONDATA(EasyCastStructure):
@@ -4346,15 +4355,6 @@ def LPDDHEL_INIT(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DIRECT
 def LPDIRECTDRAWENUMERATEEXA(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXA, lpContext: c_void_p, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPDIRECTDRAWENUMERATEEXW(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXW, lpContext: c_void_p, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class MDL(EasyCastStructure):
-    MdlNext: POINTER(Windows.Win32.Graphics.DirectDraw.MDL_head)
-    MdlSize: Int16
-    MdlFlags: Int16
-    Process: IntPtr
-    lpMappedSystemVa: POINTER(UInt32)
-    lpStartVa: POINTER(UInt32)
-    ByteCount: UInt32
-    ByteOffset: UInt32
 @winfunctype_pointer
 def PDD_ALPHABLT(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_BLTDATA_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4733,6 +4733,7 @@ make_head(_module, 'DDLOCKININFO')
 make_head(_module, 'DDLOCKOUTINFO')
 make_head(_module, 'DDMCBUFFERINFO')
 make_head(_module, 'DDMCCOMPBUFFERINFO')
+make_head(_module, 'DDMDL')
 make_head(_module, 'DDMOCOMPBUFFERINFO')
 make_head(_module, 'DDMONITORINFO')
 make_head(_module, 'DDMORESURFACECAPS')
@@ -4981,7 +4982,6 @@ make_head(_module, 'LPDDHAL_WAITFORVERTICALBLANK')
 make_head(_module, 'LPDDHEL_INIT')
 make_head(_module, 'LPDIRECTDRAWENUMERATEEXA')
 make_head(_module, 'LPDIRECTDRAWENUMERATEEXW')
-make_head(_module, 'MDL')
 make_head(_module, 'PDD_ALPHABLT')
 make_head(_module, 'PDD_CANCREATESURFACE')
 make_head(_module, 'PDD_COLORCB_COLORCONTROL')
