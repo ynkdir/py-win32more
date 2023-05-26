@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Media.MediaFoundation
 import Windows.Win32.System.WinRT
@@ -20,24 +20,24 @@ class IAudioFrameNative(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('{20be1e2e-930f-4746-9335-3c332f255093}')
     @commethod(6)
-    def GetData(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetData(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAudioFrameNativeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('{7bd67cf8-bf7d-43e6-af8d-b170ee0c0110}')
     @commethod(6)
-    def CreateFromMFSample(self, data: Windows.Win32.Media.MediaFoundation.IMFSample_head, forceReadOnly: Windows.Win32.Foundation.BOOL, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateFromMFSample(self, data: Windows.Win32.Media.MediaFoundation.IMFSample_head, forceReadOnly: Windows.Win32.Foundation.BOOL, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVideoFrameNative(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('{26ba702b-314a-4620-aaf6-7a51aa58fa18}')
     @commethod(6)
-    def GetData(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetData(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetDevice(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDevice(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVideoFrameNativeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('{69e3693e-8e1e-4e63-ac4c-7fdc21d9731d}')
     @commethod(6)
-    def CreateFromMFSample(self, data: Windows.Win32.Media.MediaFoundation.IMFSample_head, subtype: POINTER(Guid), width: UInt32, height: UInt32, forceReadOnly: Windows.Win32.Foundation.BOOL, minDisplayAperture: POINTER(Windows.Win32.Media.MediaFoundation.MFVideoArea_head), device: Windows.Win32.Media.MediaFoundation.IMFDXGIDeviceManager_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateFromMFSample(self, data: Windows.Win32.Media.MediaFoundation.IMFSample_head, subtype: POINTER(Guid), width: UInt32, height: UInt32, forceReadOnly: Windows.Win32.Foundation.BOOL, minDisplayAperture: POINTER(Windows.Win32.Media.MediaFoundation.MFVideoArea_head), device: Windows.Win32.Media.MediaFoundation.IMFDXGIDeviceManager_head, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'IAudioFrameNative')
 make_head(_module, 'IAudioFrameNativeFactory')
 make_head(_module, 'IVideoFrameNative')

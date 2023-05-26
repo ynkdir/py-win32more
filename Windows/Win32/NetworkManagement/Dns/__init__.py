@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.Dns
 import sys
@@ -247,7 +247,7 @@ DNS_CONNECTION_PROXY_INFO_FLAG_DISABLED: UInt32 = 1
 DNS_CONNECTION_PROXY_INFO_FLAG_BYPASSLOCAL: UInt32 = 2
 DNS_CONNECTION_POLICY_ENTRY_ONDEMAND: UInt32 = 1
 @winfunctype('DNSAPI.dll')
-def DnsQueryConfig(Config: Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE, Flag: UInt32, pwsAdapterName: Windows.Win32.Foundation.PWSTR, pReserved: c_void_p, pBuffer: c_void_p, pBufLen: POINTER(UInt32)) -> Int32: ...
+def DnsQueryConfig(Config: Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE, Flag: UInt32, pwsAdapterName: Windows.Win32.Foundation.PWSTR, pReserved: VoidPtr, pBuffer: VoidPtr, pBufLen: POINTER(UInt32)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsRecordCopyEx(pRecord: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), CharSetIn: Windows.Win32.NetworkManagement.Dns.DNS_CHARSET, CharSetOut: Windows.Win32.NetworkManagement.Dns.DNS_CHARSET) -> POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head): ...
 @winfunctype('DNSAPI.dll')
@@ -259,13 +259,13 @@ def DnsRecordSetCompare(pRR1: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RE
 @winfunctype('DNSAPI.dll')
 def DnsRecordSetDetach(pRecordList: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)) -> POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head): ...
 @winfunctype('DNSAPI.dll')
-def DnsFree(pData: c_void_p, FreeType: Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE) -> Void: ...
+def DnsFree(pData: VoidPtr, FreeType: Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE) -> Void: ...
 @winfunctype('DNSAPI.dll')
-def DnsQuery_A(pszName: Windows.Win32.Foundation.PSTR, wType: Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: c_void_p, ppQueryResults: POINTER(POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)), pReserved: POINTER(c_void_p)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def DnsQuery_A(pszName: Windows.Win32.Foundation.PSTR, wType: Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: VoidPtr, ppQueryResults: POINTER(POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)), pReserved: POINTER(VoidPtr)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('DNSAPI.dll')
-def DnsQuery_UTF8(pszName: Windows.Win32.Foundation.PSTR, wType: Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: c_void_p, ppQueryResults: POINTER(POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)), pReserved: POINTER(c_void_p)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def DnsQuery_UTF8(pszName: Windows.Win32.Foundation.PSTR, wType: Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: VoidPtr, ppQueryResults: POINTER(POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)), pReserved: POINTER(VoidPtr)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('DNSAPI.dll')
-def DnsQuery_W(pszName: Windows.Win32.Foundation.PWSTR, wType: Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: c_void_p, ppQueryResults: POINTER(POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)), pReserved: POINTER(c_void_p)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def DnsQuery_W(pszName: Windows.Win32.Foundation.PWSTR, wType: Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: VoidPtr, ppQueryResults: POINTER(POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)), pReserved: POINTER(VoidPtr)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('DNSAPI.dll')
 def DnsQueryEx(pQueryRequest: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_QUERY_REQUEST_head), pQueryResults: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RESULT_head), pCancelHandle: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_QUERY_CANCEL_head)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
@@ -277,23 +277,23 @@ def DnsGetApplicationSettings(pcServers: POINTER(UInt32), ppDefaultServers: POIN
 @winfunctype('DNSAPI.dll')
 def DnsSetApplicationSettings(cServers: UInt32, pServers: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_CUSTOM_SERVER_head), pSettings: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_APPLICATION_SETTINGS_head)) -> UInt32: ...
 @winfunctype('DNSAPI.dll')
-def DnsAcquireContextHandle_W(CredentialFlags: UInt32, Credentials: c_void_p, pContext: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
+def DnsAcquireContextHandle_W(CredentialFlags: UInt32, Credentials: VoidPtr, pContext: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
-def DnsAcquireContextHandle_A(CredentialFlags: UInt32, Credentials: c_void_p, pContext: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
+def DnsAcquireContextHandle_A(CredentialFlags: UInt32, Credentials: VoidPtr, pContext: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsReleaseContextHandle(hContext: Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('DNSAPI.dll')
-def DnsModifyRecordsInSet_W(pAddRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), pDeleteRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hCredentials: Windows.Win32.Foundation.HANDLE, pExtraList: c_void_p, pReserved: c_void_p) -> Int32: ...
+def DnsModifyRecordsInSet_W(pAddRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), pDeleteRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hCredentials: Windows.Win32.Foundation.HANDLE, pExtraList: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
-def DnsModifyRecordsInSet_A(pAddRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), pDeleteRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hCredentials: Windows.Win32.Foundation.HANDLE, pExtraList: c_void_p, pReserved: c_void_p) -> Int32: ...
+def DnsModifyRecordsInSet_A(pAddRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), pDeleteRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hCredentials: Windows.Win32.Foundation.HANDLE, pExtraList: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
-def DnsModifyRecordsInSet_UTF8(pAddRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), pDeleteRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hCredentials: Windows.Win32.Foundation.HANDLE, pExtraList: c_void_p, pReserved: c_void_p) -> Int32: ...
+def DnsModifyRecordsInSet_UTF8(pAddRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), pDeleteRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hCredentials: Windows.Win32.Foundation.HANDLE, pExtraList: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
-def DnsReplaceRecordSetW(pReplaceSet: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hContext: Windows.Win32.Foundation.HANDLE, pExtraInfo: c_void_p, pReserved: c_void_p) -> Int32: ...
+def DnsReplaceRecordSetW(pReplaceSet: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hContext: Windows.Win32.Foundation.HANDLE, pExtraInfo: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
-def DnsReplaceRecordSetA(pReplaceSet: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hContext: Windows.Win32.Foundation.HANDLE, pExtraInfo: c_void_p, pReserved: c_void_p) -> Int32: ...
+def DnsReplaceRecordSetA(pReplaceSet: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hContext: Windows.Win32.Foundation.HANDLE, pExtraInfo: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
-def DnsReplaceRecordSetUTF8(pReplaceSet: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hContext: Windows.Win32.Foundation.HANDLE, pExtraInfo: c_void_p, pReserved: c_void_p) -> Int32: ...
+def DnsReplaceRecordSetUTF8(pReplaceSet: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head), Options: UInt32, hContext: Windows.Win32.Foundation.HANDLE, pExtraInfo: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsValidateName_W(pszName: Windows.Win32.Foundation.PWSTR, Format: Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT) -> Int32: ...
 @winfunctype('DNSAPI.dll')
@@ -313,7 +313,7 @@ def DnsExtractRecordsFromMessage_W(pDnsBuffer: POINTER(Windows.Win32.NetworkMana
 @winfunctype('DNSAPI.dll')
 def DnsExtractRecordsFromMessage_UTF8(pDnsBuffer: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_MESSAGE_BUFFER_head), wMessageLength: UInt16, ppRecord: POINTER(POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head))) -> Int32: ...
 @winfunctype('DNSAPI.dll')
-def DnsGetProxyInformation(hostName: Windows.Win32.Foundation.PWSTR, proxyInformation: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_PROXY_INFORMATION_head), defaultProxyInformation: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_PROXY_INFORMATION_head), completionRoutine: Windows.Win32.NetworkManagement.Dns.DNS_PROXY_COMPLETION_ROUTINE, completionContext: c_void_p) -> UInt32: ...
+def DnsGetProxyInformation(hostName: Windows.Win32.Foundation.PWSTR, proxyInformation: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_PROXY_INFORMATION_head), defaultProxyInformation: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_PROXY_INFORMATION_head), completionRoutine: Windows.Win32.NetworkManagement.Dns.DNS_PROXY_COMPLETION_ROUTINE, completionContext: VoidPtr) -> UInt32: ...
 @winfunctype('DNSAPI.dll')
 def DnsFreeProxyName(proxyName: Windows.Win32.Foundation.PWSTR) -> Void: ...
 @winfunctype('DNSAPI.dll')
@@ -621,7 +621,7 @@ class DNS_OPT_DATA(EasyCastStructure):
     wPad: UInt16
     Data: Byte * 1
 @winfunctype_pointer
-def DNS_PROXY_COMPLETION_ROUTINE(completionContext: c_void_p, status: Int32) -> Void: ...
+def DNS_PROXY_COMPLETION_ROUTINE(completionContext: VoidPtr, status: Int32) -> Void: ...
 class DNS_PROXY_INFORMATION(EasyCastStructure):
     version: UInt32
     proxyInformationType: Windows.Win32.NetworkManagement.Dns.DNS_PROXY_INFORMATION_TYPE
@@ -673,7 +673,7 @@ class DNS_QUERY_REQUEST(EasyCastStructure):
     pDnsServerList: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_ADDR_ARRAY_head)
     InterfaceIndex: UInt32
     pQueryCompletionCallback: Windows.Win32.NetworkManagement.Dns.PDNS_QUERY_COMPLETION_ROUTINE
-    pQueryContext: c_void_p
+    pQueryContext: VoidPtr
 class DNS_QUERY_REQUEST3(EasyCastStructure):
     Version: UInt32
     QueryName: Windows.Win32.Foundation.PWSTR
@@ -682,7 +682,7 @@ class DNS_QUERY_REQUEST3(EasyCastStructure):
     pDnsServerList: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_ADDR_ARRAY_head)
     InterfaceIndex: UInt32
     pQueryCompletionCallback: Windows.Win32.NetworkManagement.Dns.PDNS_QUERY_COMPLETION_ROUTINE
-    pQueryContext: c_void_p
+    pQueryContext: VoidPtr
     IsNetworkQueryRequired: Windows.Win32.Foundation.BOOL
     RequiredNetworkIndex: UInt32
     cCustomServers: UInt32
@@ -692,7 +692,7 @@ class DNS_QUERY_RESULT(EasyCastStructure):
     QueryStatus: Int32
     QueryOptions: UInt64
     pQueryRecords: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)
-    Reserved: c_void_p
+    Reserved: VoidPtr
 class DNS_RECORDA(EasyCastStructure):
     pNext: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)
     pName: Windows.Win32.Foundation.PSTR
@@ -922,12 +922,12 @@ class DNS_SERVICE_BROWSE_REQUEST(EasyCastStructure):
     InterfaceIndex: UInt32
     QueryName: Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
-    pQueryContext: c_void_p
+    pQueryContext: VoidPtr
     class _Anonymous_e__Union(EasyCastUnion):
         pBrowseCallback: Windows.Win32.NetworkManagement.Dns.PDNS_SERVICE_BROWSE_CALLBACK
         pBrowseCallbackV2: Windows.Win32.NetworkManagement.Dns.PDNS_QUERY_COMPLETION_ROUTINE
 class DNS_SERVICE_CANCEL(EasyCastStructure):
-    reserved: c_void_p
+    reserved: VoidPtr
 class DNS_SERVICE_INSTANCE(EasyCastStructure):
     pszInstanceName: Windows.Win32.Foundation.PWSTR
     pszHostName: Windows.Win32.Foundation.PWSTR
@@ -945,7 +945,7 @@ class DNS_SERVICE_REGISTER_REQUEST(EasyCastStructure):
     InterfaceIndex: UInt32
     pServiceInstance: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_SERVICE_INSTANCE_head)
     pRegisterCompletionCallback: Windows.Win32.NetworkManagement.Dns.PDNS_SERVICE_REGISTER_COMPLETE
-    pQueryContext: c_void_p
+    pQueryContext: VoidPtr
     hCredentials: Windows.Win32.Foundation.HANDLE
     unicastEnabled: Windows.Win32.Foundation.BOOL
 class DNS_SERVICE_RESOLVE_REQUEST(EasyCastStructure):
@@ -953,7 +953,7 @@ class DNS_SERVICE_RESOLVE_REQUEST(EasyCastStructure):
     InterfaceIndex: UInt32
     QueryName: Windows.Win32.Foundation.PWSTR
     pResolveCompletionCallback: Windows.Win32.NetworkManagement.Dns.PDNS_SERVICE_RESOLVE_COMPLETE
-    pQueryContext: c_void_p
+    pQueryContext: VoidPtr
 class DNS_SIG_DATAA(EasyCastStructure):
     wTypeCovered: UInt16
     chAlgorithm: Byte
@@ -1020,7 +1020,7 @@ class DNS_SVCB_PARAM(EasyCastStructure):
         wPort: UInt16
         pUnknown: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_UNKNOWN_head)
         pszDohPath: Windows.Win32.Foundation.PSTR
-        pReserved: c_void_p
+        pReserved: VoidPtr
 class DNS_SVCB_PARAM_ALPN(EasyCastStructure):
     cIds: UInt16
     rgIds: Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_ALPN_ID * 1
@@ -1234,8 +1234,8 @@ if ARCH in 'X86':
 class MDNS_QUERY_HANDLE(EasyCastStructure):
     nameBuf: Char * 256
     wType: UInt16
-    pSubscription: c_void_p
-    pWnfCallbackParams: c_void_p
+    pSubscription: VoidPtr
+    pWnfCallbackParams: VoidPtr
     stateNameData: UInt32 * 2
 class MDNS_QUERY_REQUEST(EasyCastStructure):
     Version: UInt32
@@ -1245,19 +1245,19 @@ class MDNS_QUERY_REQUEST(EasyCastStructure):
     QueryOptions: UInt64
     InterfaceIndex: UInt32
     pQueryCallback: Windows.Win32.NetworkManagement.Dns.PMDNS_QUERY_CALLBACK
-    pQueryContext: c_void_p
+    pQueryContext: VoidPtr
     fAnswerReceived: Windows.Win32.Foundation.BOOL
     ulResendCount: UInt32
 @winfunctype_pointer
-def PDNS_QUERY_COMPLETION_ROUTINE(pQueryContext: c_void_p, pQueryResults: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RESULT_head)) -> Void: ...
+def PDNS_QUERY_COMPLETION_ROUTINE(pQueryContext: VoidPtr, pQueryResults: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RESULT_head)) -> Void: ...
 @winfunctype_pointer
-def PDNS_SERVICE_BROWSE_CALLBACK(Status: UInt32, pQueryContext: c_void_p, pDnsRecord: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDW_head)) -> Void: ...
+def PDNS_SERVICE_BROWSE_CALLBACK(Status: UInt32, pQueryContext: VoidPtr, pDnsRecord: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDW_head)) -> Void: ...
 @winfunctype_pointer
-def PDNS_SERVICE_REGISTER_COMPLETE(Status: UInt32, pQueryContext: c_void_p, pInstance: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_SERVICE_INSTANCE_head)) -> Void: ...
+def PDNS_SERVICE_REGISTER_COMPLETE(Status: UInt32, pQueryContext: VoidPtr, pInstance: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_SERVICE_INSTANCE_head)) -> Void: ...
 @winfunctype_pointer
-def PDNS_SERVICE_RESOLVE_COMPLETE(Status: UInt32, pQueryContext: c_void_p, pInstance: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_SERVICE_INSTANCE_head)) -> Void: ...
+def PDNS_SERVICE_RESOLVE_COMPLETE(Status: UInt32, pQueryContext: VoidPtr, pInstance: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_SERVICE_INSTANCE_head)) -> Void: ...
 @winfunctype_pointer
-def PMDNS_QUERY_CALLBACK(pQueryContext: c_void_p, pQueryHandle: POINTER(Windows.Win32.NetworkManagement.Dns.MDNS_QUERY_HANDLE_head), pQueryResults: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RESULT_head)) -> Void: ...
+def PMDNS_QUERY_CALLBACK(pQueryContext: VoidPtr, pQueryHandle: POINTER(Windows.Win32.NetworkManagement.Dns.MDNS_QUERY_HANDLE_head), pQueryResults: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RESULT_head)) -> Void: ...
 class _DnsRecordOptA(EasyCastStructure):
     pNext: POINTER(Windows.Win32.NetworkManagement.Dns.DNS_RECORDA_head)
     pName: Windows.Win32.Foundation.PSTR

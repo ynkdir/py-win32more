@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Security
@@ -109,7 +109,7 @@ def DeviceCapabilitiesA(pDevice: Windows.Win32.Foundation.PSTR, pPort: Windows.W
 @winfunctype('winspool.drv')
 def DeviceCapabilitiesW(pDevice: Windows.Win32.Foundation.PWSTR, pPort: Windows.Win32.Foundation.PWSTR, fwCapability: Windows.Win32.Storage.Xps.PRINTER_DEVICE_CAPABILITIES, pOutput: Windows.Win32.Foundation.PWSTR, pDevMode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEW_head)) -> Int32: ...
 @winfunctype('GDI32.dll')
-def Escape(hdc: Windows.Win32.Graphics.Gdi.HDC, iEscape: Int32, cjIn: Int32, pvIn: Windows.Win32.Foundation.PSTR, pvOut: c_void_p) -> Int32: ...
+def Escape(hdc: Windows.Win32.Graphics.Gdi.HDC, iEscape: Int32, cjIn: Int32, pvIn: Windows.Win32.Foundation.PSTR, pvOut: VoidPtr) -> Int32: ...
 @winfunctype('GDI32.dll')
 def ExtEscape(hdc: Windows.Win32.Graphics.Gdi.HDC, iEscape: Int32, cjInput: Int32, lpInData: Windows.Win32.Foundation.PSTR, cjOutput: Int32, lpOutData: Windows.Win32.Foundation.PSTR) -> Int32: ...
 @winfunctype('GDI32.dll')

@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.SystemInformation
 import sys
@@ -233,7 +233,7 @@ def RtlGetProductInfo(OSMajorVersion: UInt32, OSMinorVersion: UInt32, SpMajorVer
 @winfunctype('ntdll.dll')
 def RtlOsDeploymentState(Flags: UInt32) -> Windows.Win32.System.SystemInformation.OS_DEPLOYEMENT_STATE_VALUES: ...
 @winfunctype('ntdllk.dll')
-def RtlGetSystemGlobalData(DataId: Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID, Buffer: c_void_p, Size: UInt32) -> UInt32: ...
+def RtlGetSystemGlobalData(DataId: Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID, Buffer: VoidPtr, Size: UInt32) -> UInt32: ...
 @winfunctype('ntdll.dll')
 def RtlGetDeviceFamilyInfoEnum(pullUAPInfo: POINTER(UInt64), pulDeviceFamily: POINTER(Windows.Win32.System.SystemInformation.DEVICEFAMILYINFOENUM), pulDeviceForm: POINTER(Windows.Win32.System.SystemInformation.DEVICEFAMILYDEVICEFORM)) -> Void: ...
 @winfunctype('ntdll.dll')
@@ -666,8 +666,8 @@ class SYSTEM_CPU_SET_INFORMATION(EasyCastStructure):
 class SYSTEM_INFO(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     dwPageSize: UInt32
-    lpMinimumApplicationAddress: c_void_p
-    lpMaximumApplicationAddress: c_void_p
+    lpMinimumApplicationAddress: VoidPtr
+    lpMaximumApplicationAddress: VoidPtr
     dwActiveProcessorMask: UIntPtr
     dwNumberOfProcessors: UInt32
     dwProcessorType: UInt32

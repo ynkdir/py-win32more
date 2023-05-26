@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Devices.Enumeration.Pnp
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
@@ -64,7 +64,7 @@ UPNP_E_DEVICE_NOTREGISTERED: Windows.Win32.Foundation.HRESULT = -2147180494
 REMOTE_ADDRESS_VALUE_NAME: String = 'RemoteAddress'
 ADDRESS_FAMILY_VALUE_NAME: String = 'AddressFamily'
 @winfunctype('CFGMGR32.dll')
-def SwDeviceCreate(pszEnumeratorName: Windows.Win32.Foundation.PWSTR, pszParentDeviceInstance: Windows.Win32.Foundation.PWSTR, pCreateInfo: POINTER(Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_INFO_head), cPropertyCount: UInt32, pProperties: POINTER(Windows.Win32.Devices.Properties.DEVPROPERTY_head), pCallback: Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_CALLBACK, pContext: c_void_p, phSwDevice: POINTER(Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE)) -> Windows.Win32.Foundation.HRESULT: ...
+def SwDeviceCreate(pszEnumeratorName: Windows.Win32.Foundation.PWSTR, pszParentDeviceInstance: Windows.Win32.Foundation.PWSTR, pCreateInfo: POINTER(Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_INFO_head), cPropertyCount: UInt32, pProperties: POINTER(Windows.Win32.Devices.Properties.DEVPROPERTY_head), pCallback: Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_CALLBACK, pContext: VoidPtr, phSwDevice: POINTER(Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CFGMGR32.dll')
 def SwDeviceClose(hSwDevice: Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE) -> Void: ...
 @winfunctype('CFGMGR32.dll')
@@ -76,7 +76,7 @@ def SwDevicePropertySet(hSwDevice: Windows.Win32.Devices.Enumeration.Pnp.HSWDEVI
 @winfunctype('CFGMGR32.dll')
 def SwDeviceInterfaceRegister(hSwDevice: Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE, pInterfaceClassGuid: POINTER(Guid), pszReferenceString: Windows.Win32.Foundation.PWSTR, cPropertyCount: UInt32, pProperties: POINTER(Windows.Win32.Devices.Properties.DEVPROPERTY_head), fEnabled: Windows.Win32.Foundation.BOOL, ppszDeviceInterfaceId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CFGMGR32.dll')
-def SwMemFree(pMem: c_void_p) -> Void: ...
+def SwMemFree(pMem: VoidPtr) -> Void: ...
 @winfunctype('CFGMGR32.dll')
 def SwDeviceInterfaceSetState(hSwDevice: Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE, pszDeviceInterfaceId: Windows.Win32.Foundation.PWSTR, fEnabled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CFGMGR32.dll')
@@ -343,7 +343,7 @@ SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesSilentInstall: SW_DEVICE_CAPABILITIES
 SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesNoDisplayInUI: SW_DEVICE_CAPABILITIES = 4
 SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesDriverRequired: SW_DEVICE_CAPABILITIES = 8
 @winfunctype_pointer
-def SW_DEVICE_CREATE_CALLBACK(hSwDevice: Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE, CreateResult: Windows.Win32.Foundation.HRESULT, pContext: c_void_p, pszDeviceInstanceId: Windows.Win32.Foundation.PWSTR) -> Void: ...
+def SW_DEVICE_CREATE_CALLBACK(hSwDevice: Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE, CreateResult: Windows.Win32.Foundation.HRESULT, pContext: VoidPtr, pszDeviceInstanceId: Windows.Win32.Foundation.PWSTR) -> Void: ...
 class SW_DEVICE_CREATE_INFO(EasyCastStructure):
     cbSize: UInt32
     pszInstanceId: Windows.Win32.Foundation.PWSTR

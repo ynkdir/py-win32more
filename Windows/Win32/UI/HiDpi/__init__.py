@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.UI.Controls
@@ -39,7 +39,7 @@ def LogicalToPhysicalPointForPerMonitorDPI(hWnd: Windows.Win32.Foundation.HWND, 
 @winfunctype('USER32.dll')
 def PhysicalToLogicalPointForPerMonitorDPI(hWnd: Windows.Win32.Foundation.HWND, lpPoint: POINTER(Windows.Win32.Foundation.POINT_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def SystemParametersInfoForDpi(uiAction: UInt32, uiParam: UInt32, pvParam: c_void_p, fWinIni: UInt32, dpi: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SystemParametersInfoForDpi(uiAction: UInt32, uiParam: UInt32, pvParam: VoidPtr, fWinIni: UInt32, dpi: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def SetThreadDpiAwarenessContext(dpiContext: Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT) -> Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT: ...
 @winfunctype('USER32.dll')

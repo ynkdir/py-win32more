@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D9
 import Windows.Win32.Graphics.DirectDraw
@@ -127,9 +127,9 @@ class AMVABUFFERINFO(EasyCastStructure):
     dwDataSize: UInt32
 class AMVABeginFrameInfo(EasyCastStructure):
     dwDestSurfaceIndex: UInt32
-    pInputData: c_void_p
+    pInputData: VoidPtr
     dwSizeInputData: UInt32
-    pOutputData: c_void_p
+    pOutputData: VoidPtr
     dwSizeOutputData: UInt32
 class AMVACompBufferInfo(EasyCastStructure):
     dwNumCompBuffers: UInt32
@@ -140,7 +140,7 @@ class AMVACompBufferInfo(EasyCastStructure):
     ddPixelFormat: Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
 class AMVAEndFrameInfo(EasyCastStructure):
     dwSizeMiscData: UInt32
-    pMiscData: c_void_p
+    pMiscData: VoidPtr
 class AMVAInternalMemInfo(EasyCastStructure):
     dwScratchMemAlloc: UInt32
 class AMVAUncompBufferInfo(EasyCastStructure):
@@ -2462,7 +2462,7 @@ class DXVA2_VIDEOSAMPLE(EasyCastStructure):
     End: Int64
     SampleFormat: Windows.Win32.Media.MediaFoundation.DXVA2_ExtendedFormat
     SampleFlags: UInt32
-    SrcResource: c_void_p
+    SrcResource: VoidPtr
     SrcRect: Windows.Win32.Foundation.RECT
     DstRect: Windows.Win32.Foundation.RECT
     Pal: Windows.Win32.Media.MediaFoundation.DXVA2_AYUVSample8 * 16
@@ -2931,7 +2931,7 @@ class IAMGraphStreams(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{632105fa-072e-11d3-8af9-00c04fb6bd3d}')
     @commethod(3)
-    def FindUpstreamInterface(self, pPin: Windows.Win32.Media.DirectShow.IPin_head, riid: POINTER(Guid), ppvInterface: POINTER(c_void_p), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def FindUpstreamInterface(self, pPin: Windows.Win32.Media.DirectShow.IPin_head, riid: POINTER(Guid), ppvInterface: POINTER(VoidPtr), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SyncUsingStreamOffset(self, bUseStreamOffset: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -3289,7 +3289,7 @@ class IAMResourceControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8389d2d0-77d7-11d1-abe6-00a0c905f375}')
     @commethod(3)
-    def Reserve(self, dwFlags: UInt32, pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def Reserve(self, dwFlags: UInt32, pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IAMStats(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{bc9bcf80-dcd2-11d2-abf6-00a0c905f375}')
@@ -3471,9 +3471,9 @@ class IAMVfwCompressDialogs(ComPtr):
     @commethod(3)
     def ShowDialog(self, iDialog: Int32, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetState(self, pState: c_void_p, pcbState: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetState(self, pState: VoidPtr, pcbState: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetState(self, pState: c_void_p, cbState: Int32) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetState(self, pState: VoidPtr, cbState: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SendDriverMessage(self, uMsg: Int32, dw1: Int32, dw2: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IAMVideoAccelerator(ComPtr):
@@ -3494,11 +3494,11 @@ class IAMVideoAccelerator(ComPtr):
     @commethod(9)
     def EndFrame(self, pEndFrameInfo: POINTER(Windows.Win32.Media.DirectShow.AMVAEndFrameInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetBuffer(self, dwTypeIndex: UInt32, dwBufferIndex: UInt32, bReadOnly: Windows.Win32.Foundation.BOOL, ppBuffer: POINTER(c_void_p), lpStride: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetBuffer(self, dwTypeIndex: UInt32, dwBufferIndex: UInt32, bReadOnly: Windows.Win32.Foundation.BOOL, ppBuffer: POINTER(VoidPtr), lpStride: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def ReleaseBuffer(self, dwTypeIndex: UInt32, dwBufferIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def Execute(self, dwFunction: UInt32, lpPrivateInputData: c_void_p, cbPrivateInputData: UInt32, lpPrivateOutputDat: c_void_p, cbPrivateOutputData: UInt32, dwNumBuffers: UInt32, pamvaBufferInfo: POINTER(Windows.Win32.Media.DirectShow.AMVABUFFERINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Execute(self, dwFunction: UInt32, lpPrivateInputData: VoidPtr, cbPrivateInputData: UInt32, lpPrivateOutputDat: VoidPtr, cbPrivateOutputData: UInt32, dwNumBuffers: UInt32, pamvaBufferInfo: POINTER(Windows.Win32.Media.DirectShow.AMVABUFFERINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def QueryRenderStatus(self, dwTypeIndex: UInt32, dwBufferIndex: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -3511,7 +3511,7 @@ class IAMVideoAcceleratorNotify(ComPtr):
     @commethod(4)
     def SetUncompSurfacesInfo(self, dwActualUncompSurfacesAllocated: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetCreateVideoAcceleratorData(self, pGuid: POINTER(Guid), pdwSizeMiscData: POINTER(UInt32), ppMiscData: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetCreateVideoAcceleratorData(self, pGuid: POINTER(Guid), pdwSizeMiscData: POINTER(UInt32), ppMiscData: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAMVideoCompression(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c6e13343-30ac-11d0-a18c-00a0c9118956}')
@@ -4443,7 +4443,7 @@ class ICaptureGraphBuilder(ComPtr):
     @commethod(5)
     def SetOutputFileName(self, pType: POINTER(Guid), lpstrFile: Windows.Win32.Foundation.PWSTR, ppf: POINTER(Windows.Win32.Media.DirectShow.IBaseFilter_head), ppSink: POINTER(Windows.Win32.Media.DirectShow.IFileSinkFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def FindInterface(self, pCategory: POINTER(Guid), pf: Windows.Win32.Media.DirectShow.IBaseFilter_head, riid: POINTER(Guid), ppint: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def FindInterface(self, pCategory: POINTER(Guid), pf: Windows.Win32.Media.DirectShow.IBaseFilter_head, riid: POINTER(Guid), ppint: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RenderStream(self, pCategory: POINTER(Guid), pSource: Windows.Win32.System.Com.IUnknown_head, pfCompressor: Windows.Win32.Media.DirectShow.IBaseFilter_head, pfRenderer: Windows.Win32.Media.DirectShow.IBaseFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -4462,7 +4462,7 @@ class ICaptureGraphBuilder2(ComPtr):
     @commethod(5)
     def SetOutputFileName(self, pType: POINTER(Guid), lpstrFile: Windows.Win32.Foundation.PWSTR, ppf: POINTER(Windows.Win32.Media.DirectShow.IBaseFilter_head), ppSink: POINTER(Windows.Win32.Media.DirectShow.IFileSinkFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def FindInterface(self, pCategory: POINTER(Guid), pType: POINTER(Guid), pf: Windows.Win32.Media.DirectShow.IBaseFilter_head, riid: POINTER(Guid), ppint: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def FindInterface(self, pCategory: POINTER(Guid), pType: POINTER(Guid), pf: Windows.Win32.Media.DirectShow.IBaseFilter_head, riid: POINTER(Guid), ppint: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RenderStream(self, pCategory: POINTER(Guid), pType: POINTER(Guid), pSource: Windows.Win32.System.Com.IUnknown_head, pfCompressor: Windows.Win32.Media.DirectShow.IBaseFilter_head, pfRenderer: Windows.Win32.Media.DirectShow.IBaseFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -4863,7 +4863,7 @@ class IDvdGraphBuilder(ComPtr):
     @commethod(3)
     def GetFiltergraph(self, ppGB: POINTER(Windows.Win32.Media.DirectShow.IGraphBuilder_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetDvdInterface(self, riid: POINTER(Guid), ppvIF: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDvdInterface(self, riid: POINTER(Guid), ppvIF: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def RenderDvdVideoVolume(self, lpcwszPathName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pStatus: POINTER(Windows.Win32.Media.DirectShow.AM_DVD_RENDERSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDvdInfo(ComPtr):
@@ -5321,7 +5321,7 @@ class IGraphConfig(ComPtr):
     @commethod(3)
     def Reconnect(self, pOutputPin: Windows.Win32.Media.DirectShow.IPin_head, pInputPin: Windows.Win32.Media.DirectShow.IPin_head, pmtFirstConnection: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head), pUsingFilter: Windows.Win32.Media.DirectShow.IBaseFilter_head, hAbortEvent: Windows.Win32.Foundation.HANDLE, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Reconfigure(self, pCallback: Windows.Win32.Media.DirectShow.IGraphConfigCallback_head, pvContext: c_void_p, dwFlags: UInt32, hAbortEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
+    def Reconfigure(self, pCallback: Windows.Win32.Media.DirectShow.IGraphConfigCallback_head, pvContext: VoidPtr, dwFlags: UInt32, hAbortEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def AddFilterToCache(self, pFilter: Windows.Win32.Media.DirectShow.IBaseFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -5342,7 +5342,7 @@ class IGraphConfigCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ade0fd60-d19d-11d2-abf6-00a0c905f375}')
     @commethod(3)
-    def Reconfigure(self, pvContext: c_void_p, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def Reconfigure(self, pvContext: VoidPtr, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IGraphVersion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{56a868ab-0ad4-11ce-b03a-0020af0ba770}')
@@ -5361,7 +5361,7 @@ class IKsNodeControl(ComPtr):
     @commethod(3)
     def put_NodeId(self, dwNodeId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def put_KsControl(self, pKsControl: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def put_KsControl(self, pKsControl: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IMPEG2PIDMap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{afb6c2a1-2c41-11d3-8a60-0000f81e0e4a}')

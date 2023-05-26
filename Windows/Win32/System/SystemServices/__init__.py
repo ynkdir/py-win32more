@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Security
@@ -2824,7 +2824,7 @@ class IMAGE_POLICY_ENTRY(EasyCastStructure):
     PolicyId: Windows.Win32.System.SystemServices.IMAGE_POLICY_ID
     u: _u_e__Union
     class _u_e__Union(EasyCastUnion):
-        None_: c_void_p
+        None_: VoidPtr
         BoolValue: Windows.Win32.Foundation.BOOLEAN
         Int8Value: SByte
         UInt8Value: Byte
@@ -3143,15 +3143,15 @@ class PACKEDEVENTINFO(EasyCastStructure):
     ulOffsets: UInt32 * 1
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
-    def PEXCEPTION_FILTER(ExceptionPointers: POINTER(Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), EstablisherFrame: c_void_p) -> Int32: ...
+    def PEXCEPTION_FILTER(ExceptionPointers: POINTER(Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), EstablisherFrame: VoidPtr) -> Int32: ...
 @winfunctype_pointer
-def PIMAGE_TLS_CALLBACK(DllHandle: c_void_p, Reason: UInt32, Reserved: c_void_p) -> Void: ...
+def PIMAGE_TLS_CALLBACK(DllHandle: VoidPtr, Reason: UInt32, Reserved: VoidPtr) -> Void: ...
 if ARCH in 'ARM64':
     @winfunctype_pointer
-    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: Windows.Win32.Foundation.HANDLE, TableAddress: c_void_p, Entries: POINTER(UInt32), Functions: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
+    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
 if ARCH in 'X64':
     @winfunctype_pointer
-    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: Windows.Win32.Foundation.HANDLE, TableAddress: c_void_p, Entries: POINTER(UInt32), Functions: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
+    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
 class PROCESSOR_IDLESTATE_INFO(EasyCastStructure):
     TimeCheck: UInt32
     DemotePercent: Byte
@@ -3318,9 +3318,9 @@ if ARCH in 'ARM64':
     def PTERMINATION_HANDLER(_abnormal_termination: Windows.Win32.Foundation.BOOLEAN, EstablisherFrame: UInt64) -> Void: ...
 if ARCH in 'X64':
     @winfunctype_pointer
-    def PTERMINATION_HANDLER(_abnormal_termination: Windows.Win32.Foundation.BOOLEAN, EstablisherFrame: c_void_p) -> Void: ...
+    def PTERMINATION_HANDLER(_abnormal_termination: Windows.Win32.Foundation.BOOLEAN, EstablisherFrame: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def PUMS_SCHEDULER_ENTRY_POINT(Reason: Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON, ActivationPayload: UIntPtr, SchedulerParam: c_void_p) -> Void: ...
+def PUMS_SCHEDULER_ENTRY_POINT(Reason: Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON, ActivationPayload: UIntPtr, SchedulerParam: VoidPtr) -> Void: ...
 class QUOTA_LIMITS_EX(EasyCastStructure):
     PagedPoolLimit: UIntPtr
     NonPagedPoolLimit: UIntPtr
@@ -3504,8 +3504,8 @@ class SERVERSILO_BASIC_INFORMATION(EasyCastStructure):
     State: Windows.Win32.System.SystemServices.SERVERSILO_STATE
     ExitStatus: UInt32
     IsDownlevelContainer: Windows.Win32.Foundation.BOOLEAN
-    ApiSetSchema: c_void_p
-    HostApiSetSchema: c_void_p
+    ApiSetSchema: VoidPtr
+    HostApiSetSchema: VoidPtr
 SERVERSILO_STATE = Int32
 SERVERSILO_INITING: SERVERSILO_STATE = 0
 SERVERSILO_STARTED: SERVERSILO_STATE = 1
@@ -3721,7 +3721,7 @@ class TAPE_SET_MEDIA_PARAMETERS(EasyCastStructure):
 class TAPE_WMI_OPERATIONS(EasyCastStructure):
     Method: UInt32
     DataBufferSize: UInt32
-    DataBuffer: c_void_p
+    DataBuffer: VoidPtr
 class TOKEN_BNO_ISOLATION_INFORMATION(EasyCastStructure):
     IsolationPrefix: Windows.Win32.Foundation.PWSTR
     IsolationEnabled: Windows.Win32.Foundation.BOOLEAN
@@ -3785,8 +3785,8 @@ class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION(EasyCastStructure):
     SuperiorEnlistmentPair: Windows.Win32.System.SystemServices.TRANSACTION_ENLISTMENT_PAIR
 class UMS_CREATE_THREAD_ATTRIBUTES(EasyCastStructure):
     UmsVersion: UInt32
-    UmsContext: c_void_p
-    UmsCompletionList: c_void_p
+    UmsContext: VoidPtr
+    UmsCompletionList: VoidPtr
 WORD_WHEEL_OPEN_FLAGS = UInt32
 ITWW_OPEN_CONNECT: WORD_WHEEL_OPEN_FLAGS = 0
 class XSAVE_CET_U_FORMAT(EasyCastStructure):

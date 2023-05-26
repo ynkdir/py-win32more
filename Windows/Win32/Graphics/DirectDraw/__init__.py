@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.DirectDraw
 import Windows.Win32.Graphics.Gdi
@@ -18,7 +18,7 @@ class ACCESSRECTLIST(EasyCastStructure):
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.ACCESSRECTLIST_head)
     rDest: Windows.Win32.Foundation.RECT
     lpOwner: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DIRECTDRAW_LCL_head)
-    lpSurfaceData: c_void_p
+    lpSurfaceData: VoidPtr
     dwFlags: UInt32
     lpHeapAliasInfo: POINTER(Windows.Win32.Graphics.DirectDraw.HEAPALIASINFO_head)
 class ATTACHLIST(EasyCastStructure):
@@ -965,17 +965,17 @@ DDTRANSFER_CANCEL: UInt32 = 128
 DDTRANSFER_HALFLINES: UInt32 = 256
 DXAPI_HALVERSION: UInt32 = 1
 @winfunctype('DDRAW.dll')
-def DirectDrawEnumerateW(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKW, lpContext: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def DirectDrawEnumerateW(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKW, lpContext: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DDRAW.dll')
-def DirectDrawEnumerateA(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKA, lpContext: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def DirectDrawEnumerateA(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKA, lpContext: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DDRAW.dll')
-def DirectDrawEnumerateExW(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXW, lpContext: c_void_p, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def DirectDrawEnumerateExW(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXW, lpContext: VoidPtr, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DDRAW.dll')
-def DirectDrawEnumerateExA(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXA, lpContext: c_void_p, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def DirectDrawEnumerateExA(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXA, lpContext: VoidPtr, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DDRAW.dll')
 def DirectDrawCreate(lpGUID: POINTER(Guid), lplpDD: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDraw_head), pUnkOuter: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DDRAW.dll')
-def DirectDrawCreateEx(lpGuid: POINTER(Guid), lplpDD: POINTER(c_void_p), iid: POINTER(Guid), pUnkOuter: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
+def DirectDrawCreateEx(lpGuid: POINTER(Guid), lplpDD: POINTER(VoidPtr), iid: POINTER(Guid), pUnkOuter: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DDRAW.dll')
 def DirectDrawCreateClipper(dwFlags: UInt32, lplpDDClipper: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDrawClipper_head), pUnkOuter: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class DBLNODE(EasyCastStructure):
@@ -1451,7 +1451,7 @@ class DDHALINFO(EasyCastStructure):
     dwNumModes: UInt32
     lpModeInfo: POINTER(Windows.Win32.Graphics.DirectDraw.DDHALMODEINFO_head)
     dwFlags: UInt32
-    lpPDevice: c_void_p
+    lpPDevice: VoidPtr
     hInstance: UInt32
     lpD3DGlobalDriverData: UIntPtr
     lpD3DHALCallbacks: UIntPtr
@@ -1478,9 +1478,9 @@ class DDHAL_BEGINMOCOMPFRAMEDATA(EasyCastStructure):
     lpMoComp: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDMOTIONCOMP_LCL_head)
     lpDestSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_LCL_head)
     dwInputDataSize: UInt32
-    lpInputData: c_void_p
+    lpInputData: VoidPtr
     dwOutputDataSize: UInt32
-    lpOutputData: c_void_p
+    lpOutputData: VoidPtr
     ddRVal: Windows.Win32.Foundation.HRESULT
     BeginMoCompFrame: Windows.Win32.Graphics.DirectDraw.LPDDHALMOCOMPCB_BEGINFRAME
 class DDHAL_BLTDATA(EasyCastStructure):
@@ -1547,7 +1547,7 @@ class DDHAL_CREATEMOCOMPDATA(EasyCastStructure):
     dwUncompWidth: UInt32
     dwUncompHeight: UInt32
     ddUncompPixelFormat: Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
-    lpData: c_void_p
+    lpData: VoidPtr
     dwDataSize: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
     CreateMoComp: Windows.Win32.Graphics.DirectDraw.LPDDHALMOCOMPCB_CREATE
@@ -1609,7 +1609,7 @@ class DDHAL_DDKERNELCALLBACKS(EasyCastStructure):
 class DDHAL_DDMISCELLANEOUS2CALLBACKS(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
-    Reserved: c_void_p
+    Reserved: VoidPtr
     CreateSurfaceEx: Windows.Win32.Graphics.DirectDraw.LPDDHAL_CREATESURFACEEX
     GetDriverState: Windows.Win32.Graphics.DirectDraw.LPDDHAL_GETDRIVERSTATE
     DestroyDDLocal: Windows.Win32.Graphics.DirectDraw.LPDDHAL_DESTROYDDLOCAL
@@ -1653,7 +1653,7 @@ class DDHAL_DDSURFACECALLBACKS(EasyCastStructure):
     GetFlipStatus: Windows.Win32.Graphics.DirectDraw.LPDDHALSURFCB_GETFLIPSTATUS
     UpdateOverlay: Windows.Win32.Graphics.DirectDraw.LPDDHALSURFCB_UPDATEOVERLAY
     SetOverlayPosition: Windows.Win32.Graphics.DirectDraw.LPDDHALSURFCB_SETOVERLAYPOSITION
-    reserved4: c_void_p
+    reserved4: VoidPtr
     SetPalette: Windows.Win32.Graphics.DirectDraw.LPDDHALSURFCB_SETPALETTE
 class DDHAL_DDVIDEOPORTCALLBACKS(EasyCastStructure):
     dwSize: UInt32
@@ -1664,7 +1664,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS(EasyCastStructure):
     GetVideoPortBandwidth: Windows.Win32.Graphics.DirectDraw.LPDDHALVPORTCB_GETBANDWIDTH
     GetVideoPortInputFormats: Windows.Win32.Graphics.DirectDraw.LPDDHALVPORTCB_GETINPUTFORMATS
     GetVideoPortOutputFormats: Windows.Win32.Graphics.DirectDraw.LPDDHALVPORTCB_GETOUTPUTFORMATS
-    lpReserved1: c_void_p
+    lpReserved1: VoidPtr
     GetVideoPortField: Windows.Win32.Graphics.DirectDraw.LPDDHALVPORTCB_GETFIELD
     GetVideoPortLine: Windows.Win32.Graphics.DirectDraw.LPDDHALVPORTCB_GETLINE
     GetVideoPortConnectInfo: Windows.Win32.Graphics.DirectDraw.LPDDHALVPORTCB_GETVPORTCONNECT
@@ -1711,7 +1711,7 @@ class DDHAL_DRVSETCOLORKEYDATA(EasyCastStructure):
 class DDHAL_ENDMOCOMPFRAMEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DIRECTDRAW_LCL_head)
     lpMoComp: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDMOTIONCOMP_LCL_head)
-    lpInputData: c_void_p
+    lpInputData: VoidPtr
     dwInputDataSize: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
     EndMoCompFrame: Windows.Win32.Graphics.DirectDraw.LPDDHALMOCOMPCB_ENDFRAME
@@ -1756,7 +1756,7 @@ class DDHAL_GETDRIVERINFODATA(EasyCastStructure):
     dwFlags: UInt32
     guidInfo: Guid
     dwExpectedSize: UInt32
-    lpvData: c_void_p
+    lpvData: VoidPtr
     dwActualSize: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
     dwContext: UIntPtr
@@ -1879,7 +1879,7 @@ class DDHAL_LOCKDATA(EasyCastStructure):
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_LCL_head)
     bHasRect: UInt32
     rArea: Windows.Win32.Foundation.RECTL
-    lpSurfData: c_void_p
+    lpSurfData: VoidPtr
     ddRVal: Windows.Win32.Foundation.HRESULT
     Lock: Windows.Win32.Graphics.DirectDraw.LPDDHALSURFCB_LOCK
     dwFlags: UInt32
@@ -1896,9 +1896,9 @@ class DDHAL_RENDERMOCOMPDATA(EasyCastStructure):
     dwNumBuffers: UInt32
     lpBufferInfo: POINTER(Windows.Win32.Graphics.DirectDraw.DDMCBUFFERINFO_head)
     dwFunction: UInt32
-    lpInputData: c_void_p
+    lpInputData: VoidPtr
     dwInputDataSize: UInt32
-    lpOutputData: c_void_p
+    lpOutputData: VoidPtr
     dwOutputDataSize: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
     RenderMoComp: Windows.Win32.Graphics.DirectDraw.LPDDHALMOCOMPCB_RENDER
@@ -2046,7 +2046,7 @@ class DDMCBUFFERINFO(EasyCastStructure):
     lpCompSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_LCL_head)
     dwDataOffset: UInt32
     dwDataSize: UInt32
-    lpPrivate: c_void_p
+    lpPrivate: VoidPtr
 class DDMCCOMPBUFFERINFO(EasyCastStructure):
     dwSize: UInt32
     dwNumCompBuffers: UInt32
@@ -2069,7 +2069,7 @@ class DDMOCOMPBUFFERINFO(EasyCastStructure):
     lpCompSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     dwDataOffset: UInt32
     dwDataSize: UInt32
-    lpPrivate: c_void_p
+    lpPrivate: VoidPtr
 class DDMONITORINFO(EasyCastStructure):
     Manufacturer: UInt16
     Product: UInt16
@@ -2222,7 +2222,7 @@ class DDPIXELFORMAT(EasyCastStructure):
         dwRGBZBitMask: UInt32
         dwYUVZBitMask: UInt32
 class DDRAWI_DDMOTIONCOMP_INT(EasyCastStructure):
-    lpVtbl: c_void_p
+    lpVtbl: VoidPtr
     lpLcl: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDMOTIONCOMP_LCL_head)
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDMOTIONCOMP_INT_head)
     dwIntRefCnt: UInt32
@@ -2239,9 +2239,9 @@ class DDRAWI_DDMOTIONCOMP_LCL(EasyCastStructure):
     dwDriverReserved1: UInt32
     dwDriverReserved2: UInt32
     dwDriverReserved3: UInt32
-    lpDriverReserved1: c_void_p
-    lpDriverReserved2: c_void_p
-    lpDriverReserved3: c_void_p
+    lpDriverReserved1: VoidPtr
+    lpDriverReserved2: VoidPtr
+    lpDriverReserved3: VoidPtr
 class DDRAWI_DDRAWCLIPPER_GBL(EasyCastStructure):
     dwRefCnt: UInt32
     dwFlags: UInt32
@@ -2251,7 +2251,7 @@ class DDRAWI_DDRAWCLIPPER_GBL(EasyCastStructure):
     hWnd: UIntPtr
     lpStaticClipList: POINTER(Windows.Win32.Graphics.Gdi.RGNDATA_head)
 class DDRAWI_DDRAWCLIPPER_INT(EasyCastStructure):
-    lpVtbl: c_void_p
+    lpVtbl: VoidPtr
     lpLcl: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWCLIPPER_LCL_head)
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWCLIPPER_INT_head)
     dwIntRefCnt: UInt32
@@ -2279,7 +2279,7 @@ class DDRAWI_DDRAWPALETTE_GBL(EasyCastStructure):
         dwReserved1: UIntPtr
         hHELGDIPalette: Windows.Win32.Graphics.Gdi.HPALETTE
 class DDRAWI_DDRAWPALETTE_INT(EasyCastStructure):
-    lpVtbl: c_void_p
+    lpVtbl: VoidPtr
     lpLcl: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWPALETTE_LCL_head)
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWPALETTE_INT_head)
     dwIntRefCnt: UInt32
@@ -2316,7 +2316,7 @@ class DDRAWI_DDRAWSURFACE_GBL(EasyCastStructure):
         dwBlockSizeX: UInt32
     class _Anonymous3_e__Union(EasyCastUnion):
         lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DIRECTDRAW_GBL_head)
-        lpDDHandle: c_void_p
+        lpDDHandle: VoidPtr
     class _Anonymous4_e__Union(EasyCastUnion):
         lPitch: Int32
         dwLinearSize: UInt32
@@ -2335,8 +2335,8 @@ class DDRAWI_DDRAWSURFACE_GBL_MORE(EasyCastStructure):
     lpColorInfo: POINTER(Windows.Win32.Graphics.DirectDraw.DDCOLORCONTROL_head)
     fpNTAlias: UIntPtr
     dwContentsStamp: UInt32
-    lpvUnswappedDriverReserved: c_void_p
-    lpDDRAWReserved2: c_void_p
+    lpvUnswappedDriverReserved: VoidPtr
+    lpDDRAWReserved2: VoidPtr
     dwDDRAWReserved1: UInt32
     dwDDRAWReserved2: UInt32
     fpAliasOfVidMem: UIntPtr
@@ -2344,7 +2344,7 @@ class DDRAWI_DDRAWSURFACE_GBL_MORE(EasyCastStructure):
         dwPhysicalPageTable: UInt32
         fpPhysicalVidMem: UIntPtr
 class DDRAWI_DDRAWSURFACE_INT(EasyCastStructure):
-    lpVtbl: c_void_p
+    lpVtbl: VoidPtr
     lpLcl: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_LCL_head)
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_INT_head)
     dwIntRefCnt: UInt32
@@ -2393,29 +2393,29 @@ class DDRAWI_DDRAWSURFACE_MORE(EasyCastStructure):
     lpDDIClipper: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWCLIPPER_INT_head)
     lpHeapAliasInfo: POINTER(Windows.Win32.Graphics.DirectDraw.HEAPALIASINFO_head)
     dwOverlayFlags: UInt32
-    rgjunc: c_void_p
+    rgjunc: VoidPtr
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDVIDEOPORT_LCL_head)
     lpddOverlayFX: POINTER(Windows.Win32.Graphics.DirectDraw.DDOVERLAYFX_head)
     ddsCapsEx: Windows.Win32.Graphics.DirectDraw.DDSCAPSEX
     dwTextureStage: UInt32
-    lpDDRAWReserved: c_void_p
-    lpDDRAWReserved2: c_void_p
-    lpDDrawReserved3: c_void_p
+    lpDDRAWReserved: VoidPtr
+    lpDDRAWReserved2: VoidPtr
+    lpDDrawReserved3: VoidPtr
     dwDDrawReserved4: UInt32
-    lpDDrawReserved5: c_void_p
+    lpDDrawReserved5: VoidPtr
     lpGammaRamp: POINTER(UInt32)
     lpOriginalGammaRamp: POINTER(UInt32)
-    lpDDrawReserved6: c_void_p
+    lpDDrawReserved6: VoidPtr
     dwSurfaceHandle: UInt32
     qwDDrawReserved8: UInt32 * 2
-    lpDDrawReserved9: c_void_p
+    lpDDrawReserved9: VoidPtr
     cSurfaces: UInt32
     pCreatedDDSurfaceDesc2: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head)
     slist: POINTER(POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWSURFACE_LCL_head))
     dwFVF: UInt32
-    lpVB: c_void_p
+    lpVB: VoidPtr
 class DDRAWI_DDVIDEOPORT_INT(EasyCastStructure):
-    lpVtbl: c_void_p
+    lpVtbl: VoidPtr
     lpLcl: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDVIDEOPORT_LCL_head)
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DDVIDEOPORT_INT_head)
     dwIntRefCnt: UInt32
@@ -2463,7 +2463,7 @@ class DDRAWI_DIRECTDRAW_GBL(EasyCastStructure):
     ddckCKDestOverlay: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     ddckCKSrcOverlay: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     vmiData: Windows.Win32.Graphics.DirectDraw.VIDMEMINFO
-    lpDriverHandle: c_void_p
+    lpDriverHandle: VoidPtr
     lpExclusiveOwner: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DIRECTDRAW_LCL_head)
     dwModeIndex: UInt32
     dwModeIndexOrig: UInt32
@@ -2495,8 +2495,8 @@ class DDRAWI_DIRECTDRAW_GBL(EasyCastStructure):
     lpD3DHALCallbacks2: UIntPtr
     rectDevice: Windows.Win32.Foundation.RECT
     cMonitors: UInt32
-    gpbmiSrc: c_void_p
-    gpbmiDest: c_void_p
+    gpbmiSrc: VoidPtr
+    gpbmiDest: VoidPtr
     phaiHeapAliases: POINTER(Windows.Win32.Graphics.DirectDraw.HEAPALIASINFO_head)
     hKernelHandle: UIntPtr
     pfnNotifyProc: UIntPtr
@@ -2515,7 +2515,7 @@ class DDRAWI_DIRECTDRAW_GBL(EasyCastStructure):
     hDDVxd: UInt32
     ddsCapsMore: Windows.Win32.Graphics.DirectDraw.DDSCAPSEX
 class DDRAWI_DIRECTDRAW_INT(EasyCastStructure):
-    lpVtbl: c_void_p
+    lpVtbl: VoidPtr
     lpLcl: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DIRECTDRAW_LCL_head)
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DIRECTDRAW_INT_head)
     dwIntRefCnt: UInt32
@@ -2619,7 +2619,7 @@ class DDSURFACEDESC(EasyCastStructure):
     Anonymous2: _Anonymous2_e__Union
     dwAlphaBitDepth: UInt32
     dwReserved: UInt32
-    lpSurface: c_void_p
+    lpSurface: VoidPtr
     ddckCKDestOverlay: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     ddckCKDestBlt: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     ddckCKSrcOverlay: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
@@ -2643,7 +2643,7 @@ class DDSURFACEDESC2(EasyCastStructure):
     Anonymous3: _Anonymous3_e__Union
     dwAlphaBitDepth: UInt32
     dwReserved: UInt32
-    lpSurface: c_void_p
+    lpSurface: VoidPtr
     Anonymous4: _Anonymous4_e__Union
     ddckCKDestBlt: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     ddckCKSrcOverlay: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
@@ -2768,7 +2768,7 @@ class DD_ADDATTACHEDSURFACEDATA(EasyCastStructure):
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     lpSurfAttached: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    AddAttachedSurface: c_void_p
+    AddAttachedSurface: VoidPtr
 class DD_ATTACHLIST(EasyCastStructure):
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.DD_ATTACHLIST_head)
     lpAttached: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
@@ -2777,9 +2777,9 @@ class DD_BEGINMOCOMPFRAMEDATA(EasyCastStructure):
     lpMoComp: POINTER(Windows.Win32.Graphics.DirectDraw.DD_MOTIONCOMP_LOCAL_head)
     lpDestSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     dwInputDataSize: UInt32
-    lpInputData: c_void_p
+    lpInputData: VoidPtr
     dwOutputDataSize: UInt32
-    lpOutputData: c_void_p
+    lpOutputData: VoidPtr
     ddRVal: Windows.Win32.Foundation.HRESULT
 class DD_BLTDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
@@ -2791,7 +2791,7 @@ class DD_BLTDATA(EasyCastStructure):
     dwROPFlags: UInt32
     bltFX: Windows.Win32.Graphics.DirectDraw.DDBLTFX
     ddRVal: Windows.Win32.Foundation.HRESULT
-    Blt: c_void_p
+    Blt: VoidPtr
     IsClipped: Windows.Win32.Foundation.BOOL
     rOrigDest: Windows.Win32.Foundation.RECTL
     rOrigSrc: Windows.Win32.Foundation.RECTL
@@ -2816,12 +2816,12 @@ class DD_CANCREATESURFACEDATA(EasyCastStructure):
     lpDDSurfaceDesc: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head)
     bIsDifferentPixelFormat: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    CanCreateSurface: c_void_p
+    CanCreateSurface: VoidPtr
 class DD_CANCREATEVPORTDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpDDVideoPortDesc: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTDESC_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    CanCreateVideoPort: c_void_p
+    CanCreateVideoPort: VoidPtr
 class DD_CLIPPER_GLOBAL(EasyCastStructure):
     dwReserved1: UIntPtr
 class DD_CLIPPER_LOCAL(EasyCastStructure):
@@ -2836,7 +2836,7 @@ class DD_COLORCONTROLDATA(EasyCastStructure):
     lpColorData: POINTER(Windows.Win32.Graphics.DirectDraw.DDCOLORCONTROL_head)
     dwFlags: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    ColorControl: c_void_p
+    ColorControl: VoidPtr
 class DD_CREATEMOCOMPDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpMoComp: POINTER(Windows.Win32.Graphics.DirectDraw.DD_MOTIONCOMP_LOCAL_head)
@@ -2844,7 +2844,7 @@ class DD_CREATEMOCOMPDATA(EasyCastStructure):
     dwUncompWidth: UInt32
     dwUncompHeight: UInt32
     ddUncompPixelFormat: Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
-    lpData: c_void_p
+    lpData: VoidPtr
     dwDataSize: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
 class DD_CREATEPALETTEDATA(EasyCastStructure):
@@ -2852,7 +2852,7 @@ class DD_CREATEPALETTEDATA(EasyCastStructure):
     lpDDPalette: POINTER(Windows.Win32.Graphics.DirectDraw.DD_PALETTE_GLOBAL_head)
     lpColorTable: POINTER(Windows.Win32.Graphics.Gdi.PALETTEENTRY_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    CreatePalette: c_void_p
+    CreatePalette: VoidPtr
     is_excl: Windows.Win32.Foundation.BOOL
 class DD_CREATESURFACEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
@@ -2860,7 +2860,7 @@ class DD_CREATESURFACEDATA(EasyCastStructure):
     lplpSList: POINTER(POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head))
     dwSCnt: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    CreateSurface: c_void_p
+    CreateSurface: VoidPtr
 class DD_CREATESURFACEEXDATA(EasyCastStructure):
     dwFlags: UInt32
     lpDDLcl: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
@@ -2871,7 +2871,7 @@ class DD_CREATEVPORTDATA(EasyCastStructure):
     lpDDVideoPortDesc: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTDESC_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    CreateVideoPort: c_void_p
+    CreateVideoPort: VoidPtr
 class DD_D3DBUFCALLBACKS(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
@@ -2892,19 +2892,19 @@ class DD_DESTROYPALETTEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDPalette: POINTER(Windows.Win32.Graphics.DirectDraw.DD_PALETTE_GLOBAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    DestroyPalette: c_void_p
+    DestroyPalette: VoidPtr
 class DD_DESTROYSURFACEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    DestroySurface: c_void_p
+    DestroySurface: VoidPtr
 class DD_DESTROYVPORTDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    DestroyVideoPort: c_void_p
+    DestroyVideoPort: VoidPtr
 class DD_DIRECTDRAW_GLOBAL(EasyCastStructure):
-    dhpdev: c_void_p
+    dhpdev: VoidPtr
     dwReserved1: UIntPtr
     dwReserved2: UIntPtr
     lpDDVideoPortCaps: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTCAPS_head)
@@ -2915,11 +2915,11 @@ class DD_DRVSETCOLORKEYDATA(EasyCastStructure):
     dwFlags: UInt32
     ckNew: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     ddRVal: Windows.Win32.Foundation.HRESULT
-    SetColorKey: c_void_p
+    SetColorKey: VoidPtr
 class DD_ENDMOCOMPFRAMEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpMoComp: POINTER(Windows.Win32.Graphics.DirectDraw.DD_MOTIONCOMP_LOCAL_head)
-    lpInputData: c_void_p
+    lpInputData: VoidPtr
     dwInputDataSize: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
 class DD_FLIPDATA(EasyCastStructure):
@@ -2928,7 +2928,7 @@ class DD_FLIPDATA(EasyCastStructure):
     lpSurfTarg: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     dwFlags: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    Flip: c_void_p
+    Flip: VoidPtr
     lpSurfCurrLeft: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     lpSurfTargLeft: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
 class DD_FLIPTOGDISURFACEDATA(EasyCastStructure):
@@ -2936,39 +2936,39 @@ class DD_FLIPTOGDISURFACEDATA(EasyCastStructure):
     dwToGDI: UInt32
     dwReserved: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    FlipToGDISurface: c_void_p
+    FlipToGDISurface: VoidPtr
 class DD_FLIPVPORTDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
     lpSurfCurr: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     lpSurfTarg: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    FlipVideoPort: c_void_p
+    FlipVideoPort: VoidPtr
 class DD_FREEDRIVERMEMORYDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    FreeDriverMemory: c_void_p
+    FreeDriverMemory: VoidPtr
 class DD_GETAVAILDRIVERMEMORYDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     DDSCaps: Windows.Win32.Graphics.DirectDraw.DDSCAPS
     dwTotal: UInt32
     dwFree: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetAvailDriverMemory: c_void_p
+    GetAvailDriverMemory: VoidPtr
 class DD_GETBLTSTATUSDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     dwFlags: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetBltStatus: c_void_p
+    GetBltStatus: VoidPtr
 class DD_GETDRIVERINFODATA(EasyCastStructure):
-    dhpdev: c_void_p
+    dhpdev: VoidPtr
     dwSize: UInt32
     dwFlags: UInt32
     guidInfo: Guid
     dwExpectedSize: UInt32
-    lpvData: c_void_p
+    lpvData: VoidPtr
     dwActualSize: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
 class DD_GETDRIVERSTATEDATA(EasyCastStructure):
@@ -2985,12 +2985,12 @@ class DD_GETFLIPSTATUSDATA(EasyCastStructure):
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     dwFlags: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetFlipStatus: c_void_p
+    GetFlipStatus: VoidPtr
 class DD_GETHEAPALIGNMENTDATA(EasyCastStructure):
     dwInstance: UIntPtr
     dwHeap: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetHeapAlignment: c_void_p
+    GetHeapAlignment: VoidPtr
     Alignment: Windows.Win32.Graphics.DirectDraw.HEAPALIGNMENT
 class DD_GETINTERNALMOCOMPDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
@@ -3024,7 +3024,7 @@ class DD_GETSCANLINEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     dwScanLine: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetScanLine: c_void_p
+    GetScanLine: VoidPtr
 class DD_GETVPORTBANDWIDTHDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
@@ -3034,25 +3034,25 @@ class DD_GETVPORTBANDWIDTHDATA(EasyCastStructure):
     dwFlags: UInt32
     lpBandwidth: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTBANDWIDTH_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetVideoPortBandwidth: c_void_p
+    GetVideoPortBandwidth: VoidPtr
 class DD_GETVPORTCONNECTDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     dwPortId: UInt32
     lpConnect: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTCONNECT_head)
     dwNumEntries: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetVideoPortConnectInfo: c_void_p
+    GetVideoPortConnectInfo: VoidPtr
 class DD_GETVPORTFIELDDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
     bField: Windows.Win32.Foundation.BOOL
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetVideoPortField: c_void_p
+    GetVideoPortField: VoidPtr
 class DD_GETVPORTFLIPSTATUSDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     fpSurface: UIntPtr
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetVideoPortFlipStatus: c_void_p
+    GetVideoPortFlipStatus: VoidPtr
 class DD_GETVPORTINPUTFORMATDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
@@ -3060,13 +3060,13 @@ class DD_GETVPORTINPUTFORMATDATA(EasyCastStructure):
     lpddpfFormat: POINTER(Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT_head)
     dwNumFormats: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetVideoPortInputFormats: c_void_p
+    GetVideoPortInputFormats: VoidPtr
 class DD_GETVPORTLINEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
     dwLine: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetVideoPortLine: c_void_p
+    GetVideoPortLine: VoidPtr
 class DD_GETVPORTOUTPUTFORMATDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
@@ -3075,21 +3075,21 @@ class DD_GETVPORTOUTPUTFORMATDATA(EasyCastStructure):
     lpddpfOutputFormats: POINTER(Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT_head)
     dwNumFormats: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetVideoPortInputFormats: c_void_p
+    GetVideoPortInputFormats: VoidPtr
 class DD_GETVPORTSIGNALDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
     dwStatus: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    GetVideoSignalStatus: c_void_p
+    GetVideoSignalStatus: VoidPtr
 class DD_HALINFO(EasyCastStructure):
     dwSize: UInt32
     vmiData: Windows.Win32.Graphics.DirectDraw.VIDEOMEMORYINFO
     ddCaps: Windows.Win32.Graphics.DirectDraw.DDNTCORECAPS
     GetDriverInfo: Windows.Win32.Graphics.DirectDraw.PDD_GETDRIVERINFO
     dwFlags: UInt32
-    lpD3DGlobalDriverData: c_void_p
-    lpD3DHALCallbacks: c_void_p
+    lpD3DGlobalDriverData: VoidPtr
+    lpD3DHALCallbacks: VoidPtr
     lpD3DBufCallbacks: POINTER(Windows.Win32.Graphics.DirectDraw.DD_D3DBUFCALLBACKS_head)
 class DD_HALINFO_V4(EasyCastStructure):
     dwSize: UInt32
@@ -3107,9 +3107,9 @@ class DD_LOCKDATA(EasyCastStructure):
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     bHasRect: UInt32
     rArea: Windows.Win32.Foundation.RECTL
-    lpSurfData: c_void_p
+    lpSurfData: VoidPtr
     ddRVal: Windows.Win32.Foundation.HRESULT
-    Lock: c_void_p
+    Lock: VoidPtr
     dwFlags: UInt32
     fpProcess: UIntPtr
 class DD_MAPMEMORYDATA(EasyCastStructure):
@@ -3168,9 +3168,9 @@ class DD_MOTIONCOMP_LOCAL(EasyCastStructure):
     dwDriverReserved1: UInt32
     dwDriverReserved2: UInt32
     dwDriverReserved3: UInt32
-    lpDriverReserved1: c_void_p
-    lpDriverReserved2: c_void_p
-    lpDriverReserved3: c_void_p
+    lpDriverReserved1: VoidPtr
+    lpDriverReserved2: VoidPtr
+    lpDriverReserved3: VoidPtr
 class DD_NONLOCALVIDMEMCAPS(EasyCastStructure):
     dwSize: UInt32
     dwNLVBCaps: UInt32
@@ -3209,23 +3209,23 @@ class DD_RENDERMOCOMPDATA(EasyCastStructure):
     dwNumBuffers: UInt32
     lpBufferInfo: POINTER(Windows.Win32.Graphics.DirectDraw.DDMOCOMPBUFFERINFO_head)
     dwFunction: UInt32
-    lpInputData: c_void_p
+    lpInputData: VoidPtr
     dwInputDataSize: UInt32
-    lpOutputData: c_void_p
+    lpOutputData: VoidPtr
     dwOutputDataSize: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
 class DD_SETCLIPLISTDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    SetClipList: c_void_p
+    SetClipList: VoidPtr
 class DD_SETCOLORKEYDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     dwFlags: UInt32
     ckNew: Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     ddRVal: Windows.Win32.Foundation.HRESULT
-    SetColorKey: c_void_p
+    SetColorKey: VoidPtr
 class DD_SETENTRIESDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDPalette: POINTER(Windows.Win32.Graphics.DirectDraw.DD_PALETTE_GLOBAL_head)
@@ -3233,13 +3233,13 @@ class DD_SETENTRIESDATA(EasyCastStructure):
     dwNumEntries: UInt32
     lpEntries: POINTER(Windows.Win32.Graphics.Gdi.PALETTEENTRY_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    SetEntries: c_void_p
+    SetEntries: VoidPtr
 class DD_SETEXCLUSIVEMODEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     dwEnterExcl: UInt32
     dwReserved: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    SetExclusiveMode: c_void_p
+    SetExclusiveMode: VoidPtr
 class DD_SETOVERLAYPOSITIONDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDSrcSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
@@ -3247,13 +3247,13 @@ class DD_SETOVERLAYPOSITIONDATA(EasyCastStructure):
     lXPos: Int32
     lYPos: Int32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    SetOverlayPosition: c_void_p
+    SetOverlayPosition: VoidPtr
 class DD_SETPALETTEDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     lpDDPalette: POINTER(Windows.Win32.Graphics.DirectDraw.DD_PALETTE_GLOBAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    SetPalette: c_void_p
+    SetPalette: VoidPtr
     Attach: Windows.Win32.Foundation.BOOL
 class DD_STEREOMODE(EasyCastStructure):
     dwSize: UInt32
@@ -3277,7 +3277,7 @@ class DD_SURFACECALLBACKS(EasyCastStructure):
     GetFlipStatus: Windows.Win32.Graphics.DirectDraw.PDD_SURFCB_GETFLIPSTATUS
     UpdateOverlay: Windows.Win32.Graphics.DirectDraw.PDD_SURFCB_UPDATEOVERLAY
     SetOverlayPosition: Windows.Win32.Graphics.DirectDraw.PDD_SURFCB_SETOVERLAYPOSITION
-    reserved4: c_void_p
+    reserved4: VoidPtr
     SetPalette: Windows.Win32.Graphics.DirectDraw.PDD_SURFCB_SETPALETTE
 class DD_SURFACE_GLOBAL(EasyCastStructure):
     Anonymous1: _Anonymous1_e__Union
@@ -3353,7 +3353,7 @@ class DD_UNLOCKDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    Unlock: c_void_p
+    Unlock: VoidPtr
 class DD_UPDATENONLOCALHEAPDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     dwHeap: UInt32
@@ -3361,7 +3361,7 @@ class DD_UPDATENONLOCALHEAPDATA(EasyCastStructure):
     fpGARTDev: UIntPtr
     ulPolicyMaxBytes: UIntPtr
     ddRVal: Windows.Win32.Foundation.HRESULT
-    UpdateNonLocalHeap: c_void_p
+    UpdateNonLocalHeap: VoidPtr
 class DD_UPDATEOVERLAYDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     lpDDDestSurface: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACE_LOCAL_head)
@@ -3371,7 +3371,7 @@ class DD_UPDATEOVERLAYDATA(EasyCastStructure):
     dwFlags: UInt32
     overlayFX: Windows.Win32.Graphics.DirectDraw.DDOVERLAYFX
     ddRVal: Windows.Win32.Foundation.HRESULT
-    UpdateOverlay: c_void_p
+    UpdateOverlay: VoidPtr
 class DD_UPDATEVPORTDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
@@ -3382,7 +3382,7 @@ class DD_UPDATEVPORTDATA(EasyCastStructure):
     dwNumAutoflip: UInt32
     dwNumVBIAutoflip: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    UpdateVideoPort: c_void_p
+    UpdateVideoPort: VoidPtr
 class DD_VIDEOPORTCALLBACKS(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
@@ -3392,7 +3392,7 @@ class DD_VIDEOPORTCALLBACKS(EasyCastStructure):
     GetVideoPortBandwidth: Windows.Win32.Graphics.DirectDraw.PDD_VPORTCB_GETBANDWIDTH
     GetVideoPortInputFormats: Windows.Win32.Graphics.DirectDraw.PDD_VPORTCB_GETINPUTFORMATS
     GetVideoPortOutputFormats: Windows.Win32.Graphics.DirectDraw.PDD_VPORTCB_GETOUTPUTFORMATS
-    lpReserved1: c_void_p
+    lpReserved1: VoidPtr
     GetVideoPortField: Windows.Win32.Graphics.DirectDraw.PDD_VPORTCB_GETFIELD
     GetVideoPortLine: Windows.Win32.Graphics.DirectDraw.PDD_VPORTCB_GETLINE
     GetVideoPortConnectInfo: Windows.Win32.Graphics.DirectDraw.PDD_VPORTCB_GETVPORTCONNECT
@@ -3419,14 +3419,14 @@ class DD_VPORTCOLORDATA(EasyCastStructure):
     dwFlags: UInt32
     lpColorData: POINTER(Windows.Win32.Graphics.DirectDraw.DDCOLORCONTROL_head)
     ddRVal: Windows.Win32.Foundation.HRESULT
-    ColorControl: c_void_p
+    ColorControl: VoidPtr
 class DD_WAITFORVERTICALBLANKDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL_head)
     dwFlags: UInt32
     bIsInVB: UInt32
     hEvent: UIntPtr
     ddRVal: Windows.Win32.Foundation.HRESULT
-    WaitForVerticalBlank: c_void_p
+    WaitForVerticalBlank: VoidPtr
 class DD_WAITFORVPORTSYNCDATA(EasyCastStructure):
     lpDD: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_LOCAL_head)
     lpVideoPort: POINTER(Windows.Win32.Graphics.DirectDraw.DD_VIDEOPORT_LOCAL_head)
@@ -3434,13 +3434,13 @@ class DD_WAITFORVPORTSYNCDATA(EasyCastStructure):
     dwLine: UInt32
     dwTimeOut: UInt32
     ddRVal: Windows.Win32.Foundation.HRESULT
-    UpdateVideoPort: c_void_p
+    UpdateVideoPort: VoidPtr
 class DXAPI_INTERFACE(EasyCastStructure):
     Size: UInt16
     Version: UInt16
-    Context: c_void_p
-    InterfaceReference: c_void_p
-    InterfaceDereference: c_void_p
+    Context: VoidPtr
+    InterfaceReference: VoidPtr
+    InterfaceDereference: VoidPtr
     DxGetIrqInfo: Windows.Win32.Graphics.DirectDraw.PDX_GETIRQINFO
     DxEnableIrq: Windows.Win32.Graphics.DirectDraw.PDX_ENABLEIRQ
     DxSkipNextField: Windows.Win32.Graphics.DirectDraw.PDX_SKIPNEXTFIELD
@@ -3458,7 +3458,7 @@ class DX_IRQDATA(EasyCastStructure):
     dwIrqFlags: UInt32
 class HEAPALIAS(EasyCastStructure):
     fpVidMem: UIntPtr
-    lpAlias: c_void_p
+    lpAlias: VoidPtr
     dwAliasSize: UInt32
 class HEAPALIASINFO(EasyCastStructure):
     dwRefCnt: UInt32
@@ -3482,7 +3482,7 @@ class IDDVideoPortContainer(ComPtr):
     @commethod(3)
     def CreateVideoPort(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTDESC_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDrawVideoPort_head), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def EnumVideoPorts(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTCAPS_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMVIDEOCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumVideoPorts(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTCAPS_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMVIDEOCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetVideoPortConnectInfo(self, param0: UInt32, pcInfo: POINTER(UInt32), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTCONNECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -3501,9 +3501,9 @@ class IDirectDraw(ComPtr):
     @commethod(7)
     def DuplicateSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def EnumDisplayModes(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMMODESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumDisplayModes(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMMODESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumSurfaces(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumSurfaces(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def FlipToGDISurface(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -3544,9 +3544,9 @@ class IDirectDraw2(ComPtr):
     @commethod(7)
     def DuplicateSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def EnumDisplayModes(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMMODESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumDisplayModes(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMMODESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumSurfaces(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumSurfaces(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def FlipToGDISurface(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -3589,9 +3589,9 @@ class IDirectDraw4(ComPtr):
     @commethod(7)
     def DuplicateSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def EnumDisplayModes(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMMODESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumDisplayModes(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMMODESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumSurfaces(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumSurfaces(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def FlipToGDISurface(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -3642,9 +3642,9 @@ class IDirectDraw7(ComPtr):
     @commethod(7)
     def DuplicateSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def EnumDisplayModes(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMMODESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumDisplayModes(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMMODESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumSurfaces(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: c_void_p, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK7) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumSurfaces(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: VoidPtr, param3: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK7) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def FlipToGDISurface(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -3750,9 +3750,9 @@ class IDirectDrawSurface(ComPtr):
     @commethod(8)
     def DeleteAttachedSurface(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumAttachedSurfaces(self, param0: c_void_p, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumAttachedSurfaces(self, param0: VoidPtr, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def EnumOverlayZOrders(self, param0: UInt32, param1: c_void_p, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumOverlayZOrders(self, param0: UInt32, param1: VoidPtr, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Flip(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -3796,7 +3796,7 @@ class IDirectDrawSurface(ComPtr):
     @commethod(31)
     def SetPalette(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawPalette_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
-    def Unlock(self, param0: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def Unlock(self, param0: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def UpdateOverlay(self, param0: POINTER(Windows.Win32.Foundation.RECT_head), param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head, param2: POINTER(Windows.Win32.Foundation.RECT_head), param3: UInt32, param4: POINTER(Windows.Win32.Graphics.DirectDraw.DDOVERLAYFX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
@@ -3819,9 +3819,9 @@ class IDirectDrawSurface2(ComPtr):
     @commethod(8)
     def DeleteAttachedSurface(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumAttachedSurfaces(self, param0: c_void_p, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumAttachedSurfaces(self, param0: VoidPtr, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def EnumOverlayZOrders(self, param0: UInt32, param1: c_void_p, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumOverlayZOrders(self, param0: UInt32, param1: VoidPtr, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Flip(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface2_head, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -3865,7 +3865,7 @@ class IDirectDrawSurface2(ComPtr):
     @commethod(31)
     def SetPalette(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawPalette_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
-    def Unlock(self, param0: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def Unlock(self, param0: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def UpdateOverlay(self, param0: POINTER(Windows.Win32.Foundation.RECT_head), param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface2_head, param2: POINTER(Windows.Win32.Foundation.RECT_head), param3: UInt32, param4: POINTER(Windows.Win32.Graphics.DirectDraw.DDOVERLAYFX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
@@ -3873,7 +3873,7 @@ class IDirectDrawSurface2(ComPtr):
     @commethod(35)
     def UpdateOverlayZOrder(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
-    def GetDDInterface(self, param0: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDDInterface(self, param0: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def PageLock(self, param0: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
@@ -3894,9 +3894,9 @@ class IDirectDrawSurface3(ComPtr):
     @commethod(8)
     def DeleteAttachedSurface(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface3_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumAttachedSurfaces(self, param0: c_void_p, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumAttachedSurfaces(self, param0: VoidPtr, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def EnumOverlayZOrders(self, param0: UInt32, param1: c_void_p, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumOverlayZOrders(self, param0: UInt32, param1: VoidPtr, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Flip(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface3_head, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -3940,7 +3940,7 @@ class IDirectDrawSurface3(ComPtr):
     @commethod(31)
     def SetPalette(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawPalette_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
-    def Unlock(self, param0: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def Unlock(self, param0: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def UpdateOverlay(self, param0: POINTER(Windows.Win32.Foundation.RECT_head), param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface3_head, param2: POINTER(Windows.Win32.Foundation.RECT_head), param3: UInt32, param4: POINTER(Windows.Win32.Graphics.DirectDraw.DDOVERLAYFX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
@@ -3948,7 +3948,7 @@ class IDirectDrawSurface3(ComPtr):
     @commethod(35)
     def UpdateOverlayZOrder(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface3_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
-    def GetDDInterface(self, param0: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDDInterface(self, param0: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def PageLock(self, param0: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
@@ -3971,9 +3971,9 @@ class IDirectDrawSurface4(ComPtr):
     @commethod(8)
     def DeleteAttachedSurface(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumAttachedSurfaces(self, param0: c_void_p, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumAttachedSurfaces(self, param0: VoidPtr, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def EnumOverlayZOrders(self, param0: UInt32, param1: c_void_p, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumOverlayZOrders(self, param0: UInt32, param1: VoidPtr, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK2) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Flip(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -4025,7 +4025,7 @@ class IDirectDrawSurface4(ComPtr):
     @commethod(35)
     def UpdateOverlayZOrder(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
-    def GetDDInterface(self, param0: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDDInterface(self, param0: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def PageLock(self, param0: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
@@ -4033,9 +4033,9 @@ class IDirectDrawSurface4(ComPtr):
     @commethod(39)
     def SetSurfaceDesc(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
-    def SetPrivateData(self, param0: POINTER(Guid), param1: c_void_p, param2: UInt32, param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetPrivateData(self, param0: POINTER(Guid), param1: VoidPtr, param2: UInt32, param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
-    def GetPrivateData(self, param0: POINTER(Guid), param1: c_void_p, param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetPrivateData(self, param0: POINTER(Guid), param1: VoidPtr, param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
     def FreePrivateData(self, param0: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(43)
@@ -4058,9 +4058,9 @@ class IDirectDrawSurface7(ComPtr):
     @commethod(8)
     def DeleteAttachedSurface(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumAttachedSurfaces(self, param0: c_void_p, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK7) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumAttachedSurfaces(self, param0: VoidPtr, param1: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK7) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def EnumOverlayZOrders(self, param0: UInt32, param1: c_void_p, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK7) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumOverlayZOrders(self, param0: UInt32, param1: VoidPtr, param2: Windows.Win32.Graphics.DirectDraw.LPDDENUMSURFACESCALLBACK7) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Flip(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -4112,7 +4112,7 @@ class IDirectDrawSurface7(ComPtr):
     @commethod(35)
     def UpdateOverlayZOrder(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
-    def GetDDInterface(self, param0: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDDInterface(self, param0: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def PageLock(self, param0: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
@@ -4120,9 +4120,9 @@ class IDirectDrawSurface7(ComPtr):
     @commethod(39)
     def SetSurfaceDesc(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
-    def SetPrivateData(self, param0: POINTER(Guid), param1: c_void_p, param2: UInt32, param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetPrivateData(self, param0: POINTER(Guid), param1: VoidPtr, param2: UInt32, param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
-    def GetPrivateData(self, param0: POINTER(Guid), param1: c_void_p, param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetPrivateData(self, param0: POINTER(Guid), param1: VoidPtr, param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
     def FreePrivateData(self, param0: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(43)
@@ -4187,29 +4187,29 @@ class IUNKNOWN_LIST(EasyCastStructure):
     lpGuid: POINTER(Guid)
     lpIUnknown: Windows.Win32.System.Com.IUnknown_head
 @winfunctype_pointer
-def LPCLIPPERCALLBACK(lpDDClipper: Windows.Win32.Graphics.DirectDraw.IDirectDrawClipper_head, hWnd: Windows.Win32.Foundation.HWND, code: UInt32, lpContext: c_void_p) -> UInt32: ...
+def LPCLIPPERCALLBACK(lpDDClipper: Windows.Win32.Graphics.DirectDraw.IDirectDrawClipper_head, hWnd: Windows.Win32.Foundation.HWND, code: UInt32, lpContext: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def LPDD32BITDRIVERINIT(dwContext: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def LPDDENUMCALLBACKA(param0: POINTER(Guid), param1: Windows.Win32.Foundation.PSTR, param2: Windows.Win32.Foundation.PSTR, param3: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPDDENUMCALLBACKA(param0: POINTER(Guid), param1: Windows.Win32.Foundation.PSTR, param2: Windows.Win32.Foundation.PSTR, param3: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPDDENUMCALLBACKEXA(param0: POINTER(Guid), param1: Windows.Win32.Foundation.PSTR, param2: Windows.Win32.Foundation.PSTR, param3: c_void_p, param4: Windows.Win32.Graphics.Gdi.HMONITOR) -> Windows.Win32.Foundation.BOOL: ...
+def LPDDENUMCALLBACKEXA(param0: POINTER(Guid), param1: Windows.Win32.Foundation.PSTR, param2: Windows.Win32.Foundation.PSTR, param3: VoidPtr, param4: Windows.Win32.Graphics.Gdi.HMONITOR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPDDENUMCALLBACKEXW(param0: POINTER(Guid), param1: Windows.Win32.Foundation.PWSTR, param2: Windows.Win32.Foundation.PWSTR, param3: c_void_p, param4: Windows.Win32.Graphics.Gdi.HMONITOR) -> Windows.Win32.Foundation.BOOL: ...
+def LPDDENUMCALLBACKEXW(param0: POINTER(Guid), param1: Windows.Win32.Foundation.PWSTR, param2: Windows.Win32.Foundation.PWSTR, param3: VoidPtr, param4: Windows.Win32.Graphics.Gdi.HMONITOR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPDDENUMCALLBACKW(param0: POINTER(Guid), param1: Windows.Win32.Foundation.PWSTR, param2: Windows.Win32.Foundation.PWSTR, param3: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPDDENUMCALLBACKW(param0: POINTER(Guid), param1: Windows.Win32.Foundation.PWSTR, param2: Windows.Win32.Foundation.PWSTR, param3: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPDDENUMMODESCALLBACK(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param1: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def LPDDENUMMODESCALLBACK(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param1: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def LPDDENUMMODESCALLBACK2(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param1: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def LPDDENUMMODESCALLBACK2(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param1: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def LPDDENUMSURFACESCALLBACK(param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def LPDDENUMSURFACESCALLBACK(param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param2: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def LPDDENUMSURFACESCALLBACK2(param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def LPDDENUMSURFACESCALLBACK2(param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def LPDDENUMSURFACESCALLBACK7(param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def LPDDENUMSURFACESCALLBACK7(param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def LPDDENUMVIDEOCALLBACK(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTCAPS_head), param1: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def LPDDENUMVIDEOCALLBACK(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTCAPS_head), param1: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 LPDDFXROP = IntPtr
 @winfunctype_pointer
 def LPDDGAMMACALIBRATORPROC(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDGAMMARAMP_head), param1: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -4352,9 +4352,9 @@ def LPDDHAL_WAITFORVERTICALBLANK(param0: POINTER(Windows.Win32.Graphics.DirectDr
 @winfunctype_pointer
 def LPDDHEL_INIT(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDRAWI_DIRECTDRAW_GBL_head), param1: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPDIRECTDRAWENUMERATEEXA(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXA, lpContext: c_void_p, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def LPDIRECTDRAWENUMERATEEXA(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXA, lpContext: VoidPtr, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def LPDIRECTDRAWENUMERATEEXW(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXW, lpContext: c_void_p, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def LPDIRECTDRAWENUMERATEEXW(lpCallback: Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXW, lpContext: VoidPtr, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PDD_ALPHABLT(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_BLTDATA_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4483,33 +4483,33 @@ def PDD_VPORTCB_WAITFORSYNC(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD
 @winfunctype_pointer
 def PDD_WAITFORVERTICALBLANK(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_WAITFORVERTICALBLANKDATA_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDX_BOBNEXTFIELD(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDBOBNEXTFIELDINFO_head), param2: c_void_p) -> UInt32: ...
+def PDX_BOBNEXTFIELD(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDBOBNEXTFIELDINFO_head), param2: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def PDX_ENABLEIRQ(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDENABLEIRQINFO_head), param2: c_void_p) -> UInt32: ...
+def PDX_ENABLEIRQ(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDENABLEIRQINFO_head), param2: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def PDX_FLIPOVERLAY(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDFLIPOVERLAYINFO_head), param2: c_void_p) -> UInt32: ...
+def PDX_FLIPOVERLAY(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDFLIPOVERLAYINFO_head), param2: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def PDX_FLIPVIDEOPORT(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDFLIPVIDEOPORTINFO_head), param2: c_void_p) -> UInt32: ...
+def PDX_FLIPVIDEOPORT(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDFLIPVIDEOPORTINFO_head), param2: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def PDX_GETCURRENTAUTOFLIP(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETCURRENTAUTOFLIPININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETCURRENTAUTOFLIPOUTINFO_head)) -> UInt32: ...
+def PDX_GETCURRENTAUTOFLIP(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETCURRENTAUTOFLIPININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETCURRENTAUTOFLIPOUTINFO_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDX_GETIRQINFO(param0: c_void_p, param1: c_void_p, param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETIRQINFO_head)) -> UInt32: ...
+def PDX_GETIRQINFO(param0: VoidPtr, param1: VoidPtr, param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETIRQINFO_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDX_GETPOLARITY(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETPOLARITYININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETPOLARITYOUTINFO_head)) -> UInt32: ...
+def PDX_GETPOLARITY(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETPOLARITYININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETPOLARITYOUTINFO_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDX_GETPREVIOUSAUTOFLIP(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETPREVIOUSAUTOFLIPININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETPREVIOUSAUTOFLIPOUTINFO_head)) -> UInt32: ...
+def PDX_GETPREVIOUSAUTOFLIP(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETPREVIOUSAUTOFLIPININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETPREVIOUSAUTOFLIPOUTINFO_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDX_GETTRANSFERSTATUS(param0: c_void_p, param1: c_void_p, param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETTRANSFERSTATUSOUTINFO_head)) -> UInt32: ...
+def PDX_GETTRANSFERSTATUS(param0: VoidPtr, param1: VoidPtr, param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDGETTRANSFERSTATUSOUTINFO_head)) -> UInt32: ...
 @winfunctype_pointer
 def PDX_IRQCALLBACK(pIrqData: POINTER(Windows.Win32.Graphics.DirectDraw.DX_IRQDATA_head)) -> Void: ...
 @winfunctype_pointer
-def PDX_LOCK(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDLOCKININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDLOCKOUTINFO_head)) -> UInt32: ...
+def PDX_LOCK(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDLOCKININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDLOCKOUTINFO_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDX_SETSTATE(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSETSTATEININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDSETSTATEOUTINFO_head)) -> UInt32: ...
+def PDX_SETSTATE(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSETSTATEININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDSETSTATEOUTINFO_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDX_SKIPNEXTFIELD(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSKIPNEXTFIELDINFO_head), param2: c_void_p) -> UInt32: ...
+def PDX_SKIPNEXTFIELD(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSKIPNEXTFIELDINFO_head), param2: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def PDX_TRANSFER(param0: c_void_p, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDTRANSFERININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDTRANSFEROUTINFO_head)) -> UInt32: ...
+def PDX_TRANSFER(param0: VoidPtr, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDTRANSFERININFO_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DDTRANSFEROUTINFO_head)) -> UInt32: ...
 class PROCESS_LIST(EasyCastStructure):
     lpLink: POINTER(Windows.Win32.Graphics.DirectDraw.PROCESS_LIST_head)
     dwProcessId: UInt32
@@ -4556,7 +4556,7 @@ class VIDEOMEMORYINFO(EasyCastStructure):
     dwTextureAlign: UInt32
     dwZBufferAlign: UInt32
     dwAlphaAlign: UInt32
-    pvPrimary: c_void_p
+    pvPrimary: VoidPtr
 class VIDMEM(EasyCastStructure):
     dwFlags: UInt32
     fpStart: UIntPtr
@@ -4587,8 +4587,8 @@ class VIDMEMINFO(EasyCastStructure):
 class VMEMHEAP(EasyCastStructure):
     dwFlags: UInt32
     stride: UInt32
-    freeList: c_void_p
-    allocList: c_void_p
+    freeList: VoidPtr
+    allocList: VoidPtr
     dwTotalSize: UInt32
     fpGARTLin: UIntPtr
     fpGARTDev: UIntPtr
@@ -4599,7 +4599,7 @@ class VMEMHEAP(EasyCastStructure):
     ddsCapsExAlt: Windows.Win32.Graphics.DirectDraw.DDSCAPSEX
     liPhysAGPBase: Int64
     hdevAGP: Windows.Win32.Foundation.HANDLE
-    pvPhysRsrv: c_void_p
+    pvPhysRsrv: VoidPtr
     pAgpCommitMask: POINTER(Byte)
     dwAgpCommitMaskSize: UInt32
 class VMEML(EasyCastStructure):

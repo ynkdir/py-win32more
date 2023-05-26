@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Security.Cryptography
 import Windows.Win32.System.Com
@@ -949,7 +949,7 @@ def GetExtensionVersion(pVer: POINTER(Windows.Win32.System.Iis.HSE_VERSION_INFO_
 @winfunctype('RpcProxy.dll')
 def HttpExtensionProc(pECB: POINTER(Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK_head)) -> UInt32: ...
 @winfunctype('RpcProxy.dll')
-def HttpFilterProc(pfc: POINTER(Windows.Win32.System.Iis.HTTP_FILTER_CONTEXT_head), NotificationType: UInt32, pvNotification: c_void_p) -> UInt32: ...
+def HttpFilterProc(pfc: POINTER(Windows.Win32.System.Iis.HTTP_FILTER_CONTEXT_head), NotificationType: UInt32, pvNotification: VoidPtr) -> UInt32: ...
 @winfunctype('RpcProxy.dll')
 def GetFilterVersion(pVer: POINTER(Windows.Win32.System.Iis.HTTP_FILTER_VERSION_head)) -> Windows.Win32.Foundation.BOOL: ...
 class AsyncIFtpAuthenticationProvider(ComPtr):
@@ -1049,7 +1049,7 @@ FTP_PROCESS_CLOSE_SESSION: FTP_PROCESS_STATUS = 1
 FTP_PROCESS_TERMINATE_SESSION: FTP_PROCESS_STATUS = 2
 FTP_PROCESS_REJECT_COMMAND: FTP_PROCESS_STATUS = 3
 FtpProvider = Guid('{70bdc667-33b2-45f0-ac52-c3ca46f7a656}')
-HCONN = c_void_p
+HCONN = VoidPtr
 class HSE_CUSTOM_ERROR_INFO(EasyCastStructure):
     pszStatus: Windows.Win32.Foundation.PSTR
     uHttpSubError: UInt16
@@ -1067,7 +1067,7 @@ class HSE_EXEC_UNICODE_URL_USER_INFO(EasyCastStructure):
     pszCustomAuthType: Windows.Win32.Foundation.PSTR
 class HSE_EXEC_URL_ENTITY_INFO(EasyCastStructure):
     cbAvailable: UInt32
-    lpbData: c_void_p
+    lpbData: VoidPtr
 class HSE_EXEC_URL_INFO(EasyCastStructure):
     pszUrl: Windows.Win32.Foundation.PSTR
     pszMethod: Windows.Win32.Foundation.PSTR
@@ -1097,14 +1097,14 @@ class HSE_SEND_HEADER_EX_INFO(EasyCastStructure):
     fKeepConn: Windows.Win32.Foundation.BOOL
 class HSE_TF_INFO(EasyCastStructure):
     pfnHseIO: Windows.Win32.System.Iis.PFN_HSE_IO_COMPLETION
-    pContext: c_void_p
+    pContext: VoidPtr
     hFile: Windows.Win32.Foundation.HANDLE
     pszStatusCode: Windows.Win32.Foundation.PSTR
     BytesToWrite: UInt32
     Offset: UInt32
-    pHead: c_void_p
+    pHead: VoidPtr
     HeadLength: UInt32
-    pTail: c_void_p
+    pTail: VoidPtr
     TailLength: UInt32
     dwFlags: UInt32
 class HSE_TRACE_INFO(EasyCastStructure):
@@ -1126,7 +1126,7 @@ class HSE_URL_MAPEX_INFO(EasyCastStructure):
     dwReserved2: UInt32
 class HSE_VECTOR_ELEMENT(EasyCastStructure):
     ElementType: UInt32
-    pvContext: c_void_p
+    pvContext: VoidPtr
     cbOffset: UInt64
     cbSize: UInt64
 class HSE_VERSION_INFO(EasyCastStructure):
@@ -1152,10 +1152,10 @@ class HTTP_FILTER_AUTH_COMPLETE_INFO(EasyCastStructure):
 class HTTP_FILTER_CONTEXT(EasyCastStructure):
     cbSize: UInt32
     Revision: UInt32
-    ServerContext: c_void_p
+    ServerContext: VoidPtr
     ulReserved: UInt32
     fIsSecurePort: Windows.Win32.Foundation.BOOL
-    pFilterContext: c_void_p
+    pFilterContext: VoidPtr
     GetServerVariable: IntPtr
     AddResponseHeaders: IntPtr
     WriteClient: IntPtr
@@ -1180,7 +1180,7 @@ class HTTP_FILTER_PREPROC_HEADERS(EasyCastStructure):
     HttpStatus: UInt32
     dwReserved: UInt32
 class HTTP_FILTER_RAW_DATA(EasyCastStructure):
-    pvInData: c_void_p
+    pvInData: VoidPtr
     cbInData: UInt32
     cbInBuffer: UInt32
     dwReserved: UInt32
@@ -1453,19 +1453,19 @@ def PFN_GETEXTENSIONVERSION(pVer: POINTER(Windows.Win32.System.Iis.HSE_VERSION_I
 @winfunctype_pointer
 def PFN_HSE_CACHE_INVALIDATION_CALLBACK(pszUrl: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK(pszProtocolManagerDll: Windows.Win32.Foundation.PWSTR, pszProtocolManagerDllInitFunction: Windows.Win32.Foundation.PWSTR, dwCustomInterfaceId: UInt32, ppCustomInterface: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK(pszProtocolManagerDll: Windows.Win32.Foundation.PWSTR, pszProtocolManagerDllInitFunction: Windows.Win32.Foundation.PWSTR, dwCustomInterfaceId: UInt32, ppCustomInterface: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_HSE_IO_COMPLETION(pECB: POINTER(Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK_head), pContext: c_void_p, cbIO: UInt32, dwError: UInt32) -> Void: ...
+def PFN_HSE_IO_COMPLETION(pECB: POINTER(Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK_head), pContext: VoidPtr, cbIO: UInt32, dwError: UInt32) -> Void: ...
 @winfunctype_pointer
 def PFN_HTTPEXTENSIONPROC(pECB: POINTER(Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK_head)) -> UInt32: ...
 @winfunctype_pointer
-def PFN_IIS_GETSERVERVARIABLE(param0: Windows.Win32.System.Iis.HCONN, param1: Windows.Win32.Foundation.PSTR, param2: c_void_p, param3: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_IIS_GETSERVERVARIABLE(param0: Windows.Win32.System.Iis.HCONN, param1: Windows.Win32.Foundation.PSTR, param2: VoidPtr, param3: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_IIS_READCLIENT(param0: Windows.Win32.System.Iis.HCONN, param1: c_void_p, param2: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_IIS_READCLIENT(param0: Windows.Win32.System.Iis.HCONN, param1: VoidPtr, param2: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_IIS_SERVERSUPPORTFUNCTION(param0: Windows.Win32.System.Iis.HCONN, param1: UInt32, param2: c_void_p, param3: POINTER(UInt32), param4: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_IIS_SERVERSUPPORTFUNCTION(param0: Windows.Win32.System.Iis.HCONN, param1: UInt32, param2: VoidPtr, param3: POINTER(UInt32), param4: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_IIS_WRITECLIENT(param0: Windows.Win32.System.Iis.HCONN, param1: c_void_p, param2: POINTER(UInt32), param3: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_IIS_WRITECLIENT(param0: Windows.Win32.System.Iis.HCONN, param1: VoidPtr, param2: POINTER(UInt32), param3: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_TERMINATEEXTENSION(dwFlags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

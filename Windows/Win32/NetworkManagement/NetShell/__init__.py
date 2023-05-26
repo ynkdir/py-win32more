@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.NetShell
 import sys
@@ -96,7 +96,7 @@ class NS_CONTEXT_ATTRIBUTES(EasyCastStructure):
     pfnCommitFn: Windows.Win32.NetworkManagement.NetShell.PNS_CONTEXT_COMMIT_FN
     pfnDumpFn: Windows.Win32.NetworkManagement.NetShell.PNS_CONTEXT_DUMP_FN
     pfnConnectFn: Windows.Win32.NetworkManagement.NetShell.PNS_CONTEXT_CONNECT_FN
-    pReserved: c_void_p
+    pReserved: VoidPtr
     pfnOsVersionCheck: Windows.Win32.NetworkManagement.NetShell.PNS_OSVERSIONCHECK
     class _Anonymous_e__Union(EasyCastUnion):
         Anonymous: _Anonymous_e__Struct
@@ -135,7 +135,7 @@ NS_REQ_ONE_OR_MORE: NS_REQS = 3
 @winfunctype_pointer
 def PFN_CUSTOM_HELP(hModule: Windows.Win32.Foundation.HANDLE, pwszCmdToken: Windows.Win32.Foundation.PWSTR) -> Void: ...
 @winfunctype_pointer
-def PFN_HANDLE_CMD(pwszMachine: Windows.Win32.Foundation.PWSTR, ppwcArguments: POINTER(Windows.Win32.Foundation.PWSTR), dwCurrentIndex: UInt32, dwArgCount: UInt32, dwFlags: UInt32, pvData: c_void_p, pbDone: POINTER(Windows.Win32.Foundation.BOOL)) -> UInt32: ...
+def PFN_HANDLE_CMD(pwszMachine: Windows.Win32.Foundation.PWSTR, ppwcArguments: POINTER(Windows.Win32.Foundation.PWSTR), dwCurrentIndex: UInt32, dwArgCount: UInt32, dwFlags: UInt32, pvData: VoidPtr, pbDone: POINTER(Windows.Win32.Foundation.BOOL)) -> UInt32: ...
 @winfunctype_pointer
 def PGET_RESOURCE_STRING_FN(dwMsgID: UInt32, lpBuffer: Windows.Win32.Foundation.PWSTR, nBufferMax: UInt32) -> UInt32: ...
 @winfunctype_pointer
@@ -143,9 +143,9 @@ def PNS_CONTEXT_COMMIT_FN(dwAction: UInt32) -> UInt32: ...
 @winfunctype_pointer
 def PNS_CONTEXT_CONNECT_FN(pwszMachine: Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype_pointer
-def PNS_CONTEXT_DUMP_FN(pwszRouter: Windows.Win32.Foundation.PWSTR, ppwcArguments: POINTER(Windows.Win32.Foundation.PWSTR), dwArgCount: UInt32, pvData: c_void_p) -> UInt32: ...
+def PNS_CONTEXT_DUMP_FN(pwszRouter: Windows.Win32.Foundation.PWSTR, ppwcArguments: POINTER(Windows.Win32.Foundation.PWSTR), dwArgCount: UInt32, pvData: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def PNS_DLL_INIT_FN(dwNetshVersion: UInt32, pReserved: c_void_p) -> UInt32: ...
+def PNS_DLL_INIT_FN(dwNetshVersion: UInt32, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def PNS_DLL_STOP_FN(dwReserved: UInt32) -> UInt32: ...
 @winfunctype_pointer

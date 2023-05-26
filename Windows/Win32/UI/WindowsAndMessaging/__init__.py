@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.UI.Shell
@@ -1528,9 +1528,9 @@ def SendMessageCallbackA(hWnd: Windows.Win32.Foundation.HWND, Msg: UInt32, wPara
 @winfunctype('USER32.dll')
 def SendMessageCallbackW(hWnd: Windows.Win32.Foundation.HWND, Msg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, lpResultCallBack: Windows.Win32.UI.WindowsAndMessaging.SENDASYNCPROC, dwData: UIntPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def RegisterDeviceNotificationA(hRecipient: Windows.Win32.Foundation.HANDLE, NotificationFilter: c_void_p, Flags: Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS) -> Windows.Win32.UI.WindowsAndMessaging.HDEVNOTIFY: ...
+def RegisterDeviceNotificationA(hRecipient: Windows.Win32.Foundation.HANDLE, NotificationFilter: VoidPtr, Flags: Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS) -> Windows.Win32.UI.WindowsAndMessaging.HDEVNOTIFY: ...
 @winfunctype('USER32.dll')
-def RegisterDeviceNotificationW(hRecipient: Windows.Win32.Foundation.HANDLE, NotificationFilter: c_void_p, Flags: Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS) -> Windows.Win32.UI.WindowsAndMessaging.HDEVNOTIFY: ...
+def RegisterDeviceNotificationW(hRecipient: Windows.Win32.Foundation.HANDLE, NotificationFilter: VoidPtr, Flags: Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS) -> Windows.Win32.UI.WindowsAndMessaging.HDEVNOTIFY: ...
 @winfunctype('USER32.dll')
 def UnregisterDeviceNotification(Handle: Windows.Win32.UI.WindowsAndMessaging.HDEVNOTIFY) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -1558,7 +1558,7 @@ def CallWindowProcW(lpPrevWndFunc: Windows.Win32.UI.WindowsAndMessaging.WNDPROC,
 @winfunctype('USER32.dll')
 def InSendMessage() -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def InSendMessageEx(lpReserved: c_void_p) -> UInt32: ...
+def InSendMessageEx(lpReserved: VoidPtr) -> UInt32: ...
 @winfunctype('USER32.dll')
 def RegisterClassA(lpWndClass: POINTER(Windows.Win32.UI.WindowsAndMessaging.WNDCLASSA_head)) -> UInt16: ...
 @winfunctype('USER32.dll')
@@ -1580,9 +1580,9 @@ def GetClassInfoExA(hInstance: Windows.Win32.Foundation.HINSTANCE, lpszClass: Wi
 @winfunctype('USER32.dll')
 def GetClassInfoExW(hInstance: Windows.Win32.Foundation.HINSTANCE, lpszClass: Windows.Win32.Foundation.PWSTR, lpwcx: POINTER(Windows.Win32.UI.WindowsAndMessaging.WNDCLASSEXW_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def CreateWindowExA(dwExStyle: Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE, lpClassName: Windows.Win32.Foundation.PSTR, lpWindowName: Windows.Win32.Foundation.PSTR, dwStyle: Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE, X: Int32, Y: Int32, nWidth: Int32, nHeight: Int32, hWndParent: Windows.Win32.Foundation.HWND, hMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU, hInstance: Windows.Win32.Foundation.HINSTANCE, lpParam: c_void_p) -> Windows.Win32.Foundation.HWND: ...
+def CreateWindowExA(dwExStyle: Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE, lpClassName: Windows.Win32.Foundation.PSTR, lpWindowName: Windows.Win32.Foundation.PSTR, dwStyle: Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE, X: Int32, Y: Int32, nWidth: Int32, nHeight: Int32, hWndParent: Windows.Win32.Foundation.HWND, hMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU, hInstance: Windows.Win32.Foundation.HINSTANCE, lpParam: VoidPtr) -> Windows.Win32.Foundation.HWND: ...
 @winfunctype('USER32.dll')
-def CreateWindowExW(dwExStyle: Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE, lpClassName: Windows.Win32.Foundation.PWSTR, lpWindowName: Windows.Win32.Foundation.PWSTR, dwStyle: Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE, X: Int32, Y: Int32, nWidth: Int32, nHeight: Int32, hWndParent: Windows.Win32.Foundation.HWND, hMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU, hInstance: Windows.Win32.Foundation.HINSTANCE, lpParam: c_void_p) -> Windows.Win32.Foundation.HWND: ...
+def CreateWindowExW(dwExStyle: Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE, lpClassName: Windows.Win32.Foundation.PWSTR, lpWindowName: Windows.Win32.Foundation.PWSTR, dwStyle: Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE, X: Int32, Y: Int32, nWidth: Int32, nHeight: Int32, hWndParent: Windows.Win32.Foundation.HWND, hMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU, hInstance: Windows.Win32.Foundation.HINSTANCE, lpParam: VoidPtr) -> Windows.Win32.Foundation.HWND: ...
 @winfunctype('USER32.dll')
 def IsWindow(hWnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -1794,9 +1794,9 @@ def LoadMenuA(hInstance: Windows.Win32.Foundation.HINSTANCE, lpMenuName: Windows
 @winfunctype('USER32.dll')
 def LoadMenuW(hInstance: Windows.Win32.Foundation.HINSTANCE, lpMenuName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.UI.WindowsAndMessaging.HMENU: ...
 @winfunctype('USER32.dll')
-def LoadMenuIndirectA(lpMenuTemplate: c_void_p) -> Windows.Win32.UI.WindowsAndMessaging.HMENU: ...
+def LoadMenuIndirectA(lpMenuTemplate: VoidPtr) -> Windows.Win32.UI.WindowsAndMessaging.HMENU: ...
 @winfunctype('USER32.dll')
-def LoadMenuIndirectW(lpMenuTemplate: c_void_p) -> Windows.Win32.UI.WindowsAndMessaging.HMENU: ...
+def LoadMenuIndirectW(lpMenuTemplate: VoidPtr) -> Windows.Win32.UI.WindowsAndMessaging.HMENU: ...
 @winfunctype('USER32.dll')
 def GetMenu(hWnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.UI.WindowsAndMessaging.HMENU: ...
 @winfunctype('USER32.dll')
@@ -2100,7 +2100,7 @@ def LoadCursorFromFileA(lpFileName: Windows.Win32.Foundation.PSTR) -> Windows.Wi
 @winfunctype('USER32.dll')
 def LoadCursorFromFileW(lpFileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.UI.WindowsAndMessaging.HCURSOR: ...
 @winfunctype('USER32.dll')
-def CreateCursor(hInst: Windows.Win32.Foundation.HINSTANCE, xHotSpot: Int32, yHotSpot: Int32, nWidth: Int32, nHeight: Int32, pvANDPlane: c_void_p, pvXORPlane: c_void_p) -> Windows.Win32.UI.WindowsAndMessaging.HCURSOR: ...
+def CreateCursor(hInst: Windows.Win32.Foundation.HINSTANCE, xHotSpot: Int32, yHotSpot: Int32, nWidth: Int32, nHeight: Int32, pvANDPlane: VoidPtr, pvXORPlane: VoidPtr) -> Windows.Win32.UI.WindowsAndMessaging.HCURSOR: ...
 @winfunctype('USER32.dll')
 def DestroyCursor(hCursor: Windows.Win32.UI.WindowsAndMessaging.HCURSOR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -2172,9 +2172,9 @@ def TileWindows(hwndParent: Windows.Win32.Foundation.HWND, wHow: Windows.Win32.U
 @winfunctype('USER32.dll')
 def CascadeWindows(hwndParent: Windows.Win32.Foundation.HWND, wHow: Windows.Win32.UI.WindowsAndMessaging.CASCADE_WINDOWS_HOW, lpRect: POINTER(Windows.Win32.Foundation.RECT_head), cKids: UInt32, lpKids: POINTER(Windows.Win32.Foundation.HWND)) -> UInt16: ...
 @winfunctype('USER32.dll')
-def SystemParametersInfoA(uiAction: Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION, uiParam: UInt32, pvParam: c_void_p, fWinIni: Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS) -> Windows.Win32.Foundation.BOOL: ...
+def SystemParametersInfoA(uiAction: Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION, uiParam: UInt32, pvParam: VoidPtr, fWinIni: Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def SystemParametersInfoW(uiAction: Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION, uiParam: UInt32, pvParam: c_void_p, fWinIni: Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS) -> Windows.Win32.Foundation.BOOL: ...
+def SystemParametersInfoW(uiAction: Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION, uiParam: UInt32, pvParam: VoidPtr, fWinIni: Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def SoundSentry() -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -2226,11 +2226,11 @@ def SetAdditionalForegroundBoostProcesses(topLevelWindow: Windows.Win32.Foundati
 @winfunctype('USER32.dll')
 def RegisterForTooltipDismissNotification(hWnd: Windows.Win32.Foundation.HWND, tdFlags: Windows.Win32.UI.WindowsAndMessaging.TOOLTIP_DISMISS_FLAGS) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('MrmSupport.dll')
-def CreateResourceIndexer(projectRoot: Windows.Win32.Foundation.PWSTR, extensionDllPath: Windows.Win32.Foundation.PWSTR, ppResourceIndexer: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def CreateResourceIndexer(projectRoot: Windows.Win32.Foundation.PWSTR, extensionDllPath: Windows.Win32.Foundation.PWSTR, ppResourceIndexer: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MrmSupport.dll')
-def DestroyResourceIndexer(resourceIndexer: c_void_p) -> Void: ...
+def DestroyResourceIndexer(resourceIndexer: VoidPtr) -> Void: ...
 @winfunctype('MrmSupport.dll')
-def IndexFilePath(resourceIndexer: c_void_p, filePath: Windows.Win32.Foundation.PWSTR, ppResourceUri: POINTER(Windows.Win32.Foundation.PWSTR), pQualifierCount: POINTER(UInt32), ppQualifiers: POINTER(POINTER(Windows.Win32.UI.WindowsAndMessaging.IndexedResourceQualifier_head))) -> Windows.Win32.Foundation.HRESULT: ...
+def IndexFilePath(resourceIndexer: VoidPtr, filePath: Windows.Win32.Foundation.PWSTR, ppResourceUri: POINTER(Windows.Win32.Foundation.PWSTR), pQualifierCount: POINTER(UInt32), ppQualifiers: POINTER(POINTER(Windows.Win32.UI.WindowsAndMessaging.IndexedResourceQualifier_head))) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MrmSupport.dll')
 def DestroyIndexedResults(resourceUri: Windows.Win32.Foundation.PWSTR, qualifierCount: UInt32, qualifiers: POINTER(Windows.Win32.UI.WindowsAndMessaging.IndexedResourceQualifier_head)) -> Void: ...
 @winfunctype('MrmSupport.dll')
@@ -2301,7 +2301,7 @@ class CLIENTCREATESTRUCT(EasyCastStructure):
     hWindowMenu: Windows.Win32.Foundation.HANDLE
     idFirstChild: UInt32
 class CREATESTRUCTA(EasyCastStructure):
-    lpCreateParams: c_void_p
+    lpCreateParams: VoidPtr
     hInstance: Windows.Win32.Foundation.HINSTANCE
     hMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU
     hwndParent: Windows.Win32.Foundation.HWND
@@ -2314,7 +2314,7 @@ class CREATESTRUCTA(EasyCastStructure):
     lpszClass: Windows.Win32.Foundation.PSTR
     dwExStyle: UInt32
 class CREATESTRUCTW(EasyCastStructure):
-    lpCreateParams: c_void_p
+    lpCreateParams: VoidPtr
     hInstance: Windows.Win32.Foundation.HINSTANCE
     hMenu: Windows.Win32.UI.WindowsAndMessaging.HMENU
     hwndParent: Windows.Win32.Foundation.HWND
@@ -2604,7 +2604,7 @@ class HARDWAREHOOKSTRUCT(EasyCastStructure):
     wParam: Windows.Win32.Foundation.WPARAM
     lParam: Windows.Win32.Foundation.LPARAM
 HCURSOR = IntPtr
-HDEVNOTIFY = c_void_p
+HDEVNOTIFY = VoidPtr
 HDWP = IntPtr
 HHOOK = IntPtr
 HICON = IntPtr
@@ -2724,8 +2724,8 @@ class MENUGETOBJECTINFO(EasyCastStructure):
     dwFlags: Windows.Win32.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS
     uPos: UInt32
     hmenu: Windows.Win32.UI.WindowsAndMessaging.HMENU
-    riid: c_void_p
-    pvObj: c_void_p
+    riid: VoidPtr
+    pvObj: VoidPtr
 MENUGETOBJECTINFO_FLAGS = UInt32
 MNGOF_BOTTOMGAP: MENUGETOBJECTINFO_FLAGS = 2
 MNGOF_TOPGAP: MENUGETOBJECTINFO_FLAGS = 1
@@ -3009,7 +3009,7 @@ MrmPlatformVersion_Default: MrmPlatformVersion = 0
 MrmPlatformVersion_Windows10_0_0_0: MrmPlatformVersion = 17432576
 MrmPlatformVersion_Windows10_0_0_5: MrmPlatformVersion = 17432581
 class MrmResourceIndexerHandle(EasyCastStructure):
-    handle: c_void_p
+    handle: VoidPtr
 class MrmResourceIndexerMessage(EasyCastStructure):
     severity: Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity
     id: UInt32

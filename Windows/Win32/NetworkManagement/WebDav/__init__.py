@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.WebDav
 import sys
@@ -46,7 +46,7 @@ def DavRegisterAuthCallback(CallBack: Windows.Win32.NetworkManagement.WebDav.PFN
 @winfunctype('davclnt.dll')
 def DavUnregisterAuthCallback(hCallback: UInt32) -> Void: ...
 class DAV_CALLBACK_AUTH_BLOB(EasyCastStructure):
-    pBuffer: c_void_p
+    pBuffer: VoidPtr
     ulSize: UInt32
     ulType: UInt32
 class DAV_CALLBACK_AUTH_UNP(EasyCastStructure):
@@ -62,7 +62,7 @@ class DAV_CALLBACK_CRED(EasyCastStructure):
 @winfunctype_pointer
 def PFNDAVAUTHCALLBACK(lpwzServerName: Windows.Win32.Foundation.PWSTR, lpwzRemoteName: Windows.Win32.Foundation.PWSTR, dwAuthScheme: UInt32, dwFlags: UInt32, pCallbackCred: POINTER(Windows.Win32.NetworkManagement.WebDav.DAV_CALLBACK_CRED_head), NextStep: POINTER(Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP), pFreeCred: POINTER(Windows.Win32.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK_FREECRED)) -> UInt32: ...
 @winfunctype_pointer
-def PFNDAVAUTHCALLBACK_FREECRED(pbuffer: c_void_p) -> UInt32: ...
+def PFNDAVAUTHCALLBACK_FREECRED(pbuffer: VoidPtr) -> UInt32: ...
 make_head(_module, 'DAV_CALLBACK_AUTH_BLOB')
 make_head(_module, 'DAV_CALLBACK_AUTH_UNP')
 make_head(_module, 'DAV_CALLBACK_CRED')

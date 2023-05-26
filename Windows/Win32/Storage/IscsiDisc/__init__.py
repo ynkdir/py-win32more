@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.IscsiDisc
 import Windows.Win32.System.Ioctl
@@ -23,7 +23,7 @@ class ATA_PASS_THROUGH_DIRECT(EasyCastStructure):
     DataTransferLength: UInt32
     TimeOutValue: UInt32
     ReservedAsUlong: UInt32
-    DataBuffer: c_void_p
+    DataBuffer: VoidPtr
     PreviousTaskFile: Byte * 8
     CurrentTaskFile: Byte * 8
 if ARCH in 'X64,ARM64':
@@ -37,7 +37,7 @@ if ARCH in 'X64,ARM64':
         DataTransferLength: UInt32
         TimeOutValue: UInt32
         ReservedAsUlong: UInt32
-        DataBuffer: c_void_p
+        DataBuffer: VoidPtr
         PreviousTaskFile: Byte * 8
         CurrentTaskFile: Byte * 8
 class ATA_PASS_THROUGH_EX(EasyCastStructure):
@@ -252,13 +252,13 @@ ISCSI_TARGET_FLAG_MERGE_TARGET_INFORMATION: UInt32 = 4
 @winfunctype('ISCSIDSC.dll')
 def GetIScsiVersionInformation(VersionInfo: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_VERSION_INFO_head)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetIScsiTargetInformationW(TargetName: Windows.Win32.Foundation.PWSTR, DiscoveryMechanism: Windows.Win32.Foundation.PWSTR, InfoClass: Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS, BufferSize: POINTER(UInt32), Buffer: c_void_p) -> UInt32: ...
+def GetIScsiTargetInformationW(TargetName: Windows.Win32.Foundation.PWSTR, DiscoveryMechanism: Windows.Win32.Foundation.PWSTR, InfoClass: Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS, BufferSize: POINTER(UInt32), Buffer: VoidPtr) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetIScsiTargetInformationA(TargetName: Windows.Win32.Foundation.PSTR, DiscoveryMechanism: Windows.Win32.Foundation.PSTR, InfoClass: Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS, BufferSize: POINTER(UInt32), Buffer: c_void_p) -> UInt32: ...
+def GetIScsiTargetInformationA(TargetName: Windows.Win32.Foundation.PSTR, DiscoveryMechanism: Windows.Win32.Foundation.PSTR, InfoClass: Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS, BufferSize: POINTER(UInt32), Buffer: VoidPtr) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def AddIScsiConnectionW(UniqueSessionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), Reserved: c_void_p, InitiatorPortNumber: UInt32, TargetPortal: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head), SecurityFlags: UInt64, LoginOptions: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), KeySize: UInt32, Key: Windows.Win32.Foundation.PSTR, ConnectionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
+def AddIScsiConnectionW(UniqueSessionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), Reserved: VoidPtr, InitiatorPortNumber: UInt32, TargetPortal: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head), SecurityFlags: UInt64, LoginOptions: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), KeySize: UInt32, Key: Windows.Win32.Foundation.PSTR, ConnectionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def AddIScsiConnectionA(UniqueSessionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), Reserved: c_void_p, InitiatorPortNumber: UInt32, TargetPortal: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head), SecurityFlags: UInt64, LoginOptions: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), KeySize: UInt32, Key: Windows.Win32.Foundation.PSTR, ConnectionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
+def AddIScsiConnectionA(UniqueSessionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), Reserved: VoidPtr, InitiatorPortNumber: UInt32, TargetPortal: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head), SecurityFlags: UInt64, LoginOptions: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), KeySize: UInt32, Key: Windows.Win32.Foundation.PSTR, ConnectionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def RemoveIScsiConnection(UniqueSessionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), ConnectionId: POINTER(Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
@@ -416,42 +416,42 @@ class DSM_NOTIFICATION_REQUEST_BLOCK(EasyCastStructure):
     DataSetRangesCount: UInt32
     DataSetRanges: Windows.Win32.Storage.IscsiDisc.MP_DEVICE_DATA_SET_RANGE * 1
 class DUMP_DRIVER(EasyCastStructure):
-    DumpDriverList: c_void_p
+    DumpDriverList: VoidPtr
     DriverName: Char * 15
     BaseName: Char * 15
 class DUMP_DRIVER_EX(EasyCastStructure):
-    DumpDriverList: c_void_p
+    DumpDriverList: VoidPtr
     DriverName: Char * 15
     BaseName: Char * 15
     DriverFullPath: Windows.Win32.Storage.IscsiDisc.NTSCSI_UNICODE_STRING
 class DUMP_POINTERS(EasyCastStructure):
     AdapterObject: POINTER(Windows.Win32.Storage.IscsiDisc._ADAPTER_OBJECT)
-    MappedRegisterBase: c_void_p
-    DumpData: c_void_p
-    CommonBufferVa: c_void_p
+    MappedRegisterBase: VoidPtr
+    DumpData: VoidPtr
+    CommonBufferVa: VoidPtr
     CommonBufferPa: Int64
     CommonBufferSize: UInt32
     AllocateCommonBuffers: Windows.Win32.Foundation.BOOLEAN
     UseDiskDump: Windows.Win32.Foundation.BOOLEAN
     Spare1: Byte * 2
-    DeviceObject: c_void_p
+    DeviceObject: VoidPtr
 class DUMP_POINTERS_EX(EasyCastStructure):
     Header: Windows.Win32.Storage.IscsiDisc.DUMP_POINTERS_VERSION
-    DumpData: c_void_p
-    CommonBufferVa: c_void_p
+    DumpData: VoidPtr
+    CommonBufferVa: VoidPtr
     CommonBufferSize: UInt32
     AllocateCommonBuffers: Windows.Win32.Foundation.BOOLEAN
-    DeviceObject: c_void_p
-    DriverList: c_void_p
+    DeviceObject: VoidPtr
+    DriverList: VoidPtr
     dwPortFlags: UInt32
     MaxDeviceDumpSectionSize: UInt32
     MaxDeviceDumpLevel: UInt32
     MaxTransferSize: UInt32
-    AdapterObject: c_void_p
-    MappedRegisterBase: c_void_p
+    AdapterObject: VoidPtr
+    MappedRegisterBase: VoidPtr
     DeviceReady: POINTER(Windows.Win32.Foundation.BOOLEAN)
     DumpDevicePowerOn: Windows.Win32.Storage.IscsiDisc.PDUMP_DEVICE_POWERON_ROUTINE
-    DumpDevicePowerOnContext: c_void_p
+    DumpDevicePowerOnContext: VoidPtr
 class DUMP_POINTERS_VERSION(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -847,7 +847,7 @@ NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeNone: NV_SEP_WRITE_CACHE_TYPE = 1
 NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteBack: NV_SEP_WRITE_CACHE_TYPE = 2
 NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteThrough: NV_SEP_WRITE_CACHE_TYPE = 3
 @winfunctype_pointer
-def PDUMP_DEVICE_POWERON_ROUTINE(Context: c_void_p) -> Int32: ...
+def PDUMP_DEVICE_POWERON_ROUTINE(Context: VoidPtr) -> Int32: ...
 class PERSISTENT_ISCSI_LOGIN_INFOA(EasyCastStructure):
     TargetName: Windows.Win32.Foundation.CHAR * 224
     IsInformationalSession: Windows.Win32.Foundation.BOOLEAN
@@ -948,7 +948,7 @@ class SCSI_PASS_THROUGH_DIRECT(EasyCastStructure):
     DataIn: Byte
     DataTransferLength: UInt32
     TimeOutValue: UInt32
-    DataBuffer: c_void_p
+    DataBuffer: VoidPtr
     SenseInfoOffset: UInt32
     Cdb: Byte * 16
 if ARCH in 'X64,ARM64':
@@ -963,7 +963,7 @@ if ARCH in 'X64,ARM64':
         DataIn: Byte
         DataTransferLength: UInt32
         TimeOutValue: UInt32
-        DataBuffer: c_void_p
+        DataBuffer: VoidPtr
         SenseInfoOffset: UInt32
         Cdb: Byte * 16
 if ARCH in 'X64,ARM64':
@@ -981,8 +981,8 @@ if ARCH in 'X64,ARM64':
         SenseInfoOffset: UInt32
         DataOutTransferLength: UInt32
         DataInTransferLength: UInt32
-        DataOutBuffer: c_void_p
-        DataInBuffer: c_void_p
+        DataOutBuffer: VoidPtr
+        DataInBuffer: VoidPtr
         Cdb: Byte * 1
 class SCSI_PASS_THROUGH_DIRECT_EX(EasyCastStructure):
     Version: UInt32
@@ -998,8 +998,8 @@ class SCSI_PASS_THROUGH_DIRECT_EX(EasyCastStructure):
     SenseInfoOffset: UInt32
     DataOutTransferLength: UInt32
     DataInTransferLength: UInt32
-    DataOutBuffer: c_void_p
-    DataInBuffer: c_void_p
+    DataOutBuffer: VoidPtr
+    DataInBuffer: VoidPtr
     Cdb: Byte * 1
 class SCSI_PASS_THROUGH_EX(EasyCastStructure):
     Version: UInt32

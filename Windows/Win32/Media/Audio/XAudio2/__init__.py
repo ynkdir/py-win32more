@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Media.Audio
 import Windows.Win32.Media.Audio.XAudio2
@@ -239,7 +239,7 @@ X3DAUDIO_CALCULATE_EMITTER_ANGLE: UInt32 = 64
 X3DAUDIO_CALCULATE_ZEROCENTER: UInt32 = 65536
 X3DAUDIO_CALCULATE_REDIRECT_TO_LFE: UInt32 = 131072
 @cfunctype('XAudio2_8.dll')
-def CreateFX(clsid: POINTER(Guid), pEffect: POINTER(Windows.Win32.System.Com.IUnknown_head), pInitDat: c_void_p, InitDataByteSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def CreateFX(clsid: POINTER(Guid), pEffect: POINTER(Windows.Win32.System.Com.IUnknown_head), pInitDat: VoidPtr, InitDataByteSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XAudio2_8.dll')
 def XAudio2CreateWithVersionInfo(ppXAudio2: POINTER(Windows.Win32.Media.Audio.XAudio2.IXAudio2_head), Flags: UInt32, XAudio2Processor: UInt32, ntddiVersion: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XAudio2_8.dll')
@@ -331,7 +331,7 @@ class IXAPO(ComPtr):
     @commethod(5)
     def IsOutputFormatSupported(self, pInputFormat: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head), pRequestedOutputFormat: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head), ppSupportedOutputFormat: POINTER(POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Initialize(self, pData: c_void_p, DataByteSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def Initialize(self, pData: VoidPtr, DataByteSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Reset(self) -> Void: ...
     @commethod(8)
@@ -359,9 +359,9 @@ class IXAPOParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{26d95c66-80f2-499a-ad54-5ae7f01c6d98}')
     @commethod(3)
-    def SetParameters(self, pParameters: c_void_p, ParameterByteSize: UInt32) -> Void: ...
+    def SetParameters(self, pParameters: VoidPtr, ParameterByteSize: UInt32) -> Void: ...
     @commethod(4)
-    def GetParameters(self, pParameters: c_void_p, ParameterByteSize: UInt32) -> Void: ...
+    def GetParameters(self, pParameters: VoidPtr, ParameterByteSize: UInt32) -> Void: ...
 class IXAudio2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2b02e3cf-2e0b-4ec3-be45-1b2a3fe7210d}')
@@ -384,7 +384,7 @@ class IXAudio2(ComPtr):
     @commethod(11)
     def GetPerformanceData(self, pPerfData: POINTER(Windows.Win32.Media.Audio.XAudio2.XAUDIO2_PERFORMANCE_DATA_head)) -> Void: ...
     @commethod(12)
-    def SetDebugConfiguration(self, pDebugConfiguration: POINTER(Windows.Win32.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION_head), pReserved: c_void_p) -> Void: ...
+    def SetDebugConfiguration(self, pDebugConfiguration: POINTER(Windows.Win32.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION_head), pReserved: VoidPtr) -> Void: ...
 class IXAudio2EngineCallback(ComPtr):
     extends: None
     @commethod(0)
@@ -443,9 +443,9 @@ class IXAudio2Voice(ComPtr):
     @commethod(5)
     def GetEffectState(self, EffectIndex: UInt32, pEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Void: ...
     @commethod(6)
-    def SetEffectParameters(self, EffectIndex: UInt32, pParameters: c_void_p, ParametersByteSize: UInt32, OperationSet: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetEffectParameters(self, EffectIndex: UInt32, pParameters: VoidPtr, ParametersByteSize: UInt32, OperationSet: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetEffectParameters(self, EffectIndex: UInt32, pParameters: c_void_p, ParametersByteSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetEffectParameters(self, EffectIndex: UInt32, pParameters: VoidPtr, ParametersByteSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetFilterParameters(self, pParameters: POINTER(Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head), OperationSet: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -477,13 +477,13 @@ class IXAudio2VoiceCallback(ComPtr):
     @commethod(2)
     def OnStreamEnd(self) -> Void: ...
     @commethod(3)
-    def OnBufferStart(self, pBufferContext: c_void_p) -> Void: ...
+    def OnBufferStart(self, pBufferContext: VoidPtr) -> Void: ...
     @commethod(4)
-    def OnBufferEnd(self, pBufferContext: c_void_p) -> Void: ...
+    def OnBufferEnd(self, pBufferContext: VoidPtr) -> Void: ...
     @commethod(5)
-    def OnLoopEnd(self, pBufferContext: c_void_p) -> Void: ...
+    def OnLoopEnd(self, pBufferContext: VoidPtr) -> Void: ...
     @commethod(6)
-    def OnVoiceError(self, pBufferContext: c_void_p, Error: Windows.Win32.Foundation.HRESULT) -> Void: ...
+    def OnVoiceError(self, pBufferContext: VoidPtr, Error: Windows.Win32.Foundation.HRESULT) -> Void: ...
 XAPO_BUFFER_FLAGS = Int32
 XAPO_BUFFER_SILENT: XAPO_BUFFER_FLAGS = 0
 XAPO_BUFFER_VALID: XAPO_BUFFER_FLAGS = 1
@@ -492,7 +492,7 @@ class XAPO_LOCKFORPROCESS_PARAMETERS(EasyCastStructure):
     MaxFrameCount: UInt32
     _pack_ = 1
 class XAPO_PROCESS_BUFFER_PARAMETERS(EasyCastStructure):
-    pBuffer: c_void_p
+    pBuffer: VoidPtr
     BufferFlags: Windows.Win32.Media.Audio.XAudio2.XAPO_BUFFER_FLAGS
     ValidFrameCount: UInt32
     _pack_ = 1
@@ -563,7 +563,7 @@ class XAUDIO2_BUFFER(EasyCastStructure):
     LoopBegin: UInt32
     LoopLength: UInt32
     LoopCount: UInt32
-    pContext: c_void_p
+    pContext: VoidPtr
     _pack_ = 1
 class XAUDIO2_BUFFER_WMA(EasyCastStructure):
     pDecodedPacketCumulativeBytes: POINTER(UInt32)
@@ -629,7 +629,7 @@ class XAUDIO2_VOICE_SENDS(EasyCastStructure):
     pSends: POINTER(Windows.Win32.Media.Audio.XAudio2.XAUDIO2_SEND_DESCRIPTOR_head)
     _pack_ = 1
 class XAUDIO2_VOICE_STATE(EasyCastStructure):
-    pCurrentBufferContext: c_void_p
+    pCurrentBufferContext: VoidPtr
     BuffersQueued: UInt32
     SamplesPlayed: UInt64
     _pack_ = 1

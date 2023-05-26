@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Diagnostics.ToolHelp
 import sys
@@ -26,7 +26,7 @@ def Heap32First(lphe: POINTER(Windows.Win32.System.Diagnostics.ToolHelp.HEAPENTR
 @winfunctype('KERNEL32.dll')
 def Heap32Next(lphe: POINTER(Windows.Win32.System.Diagnostics.ToolHelp.HEAPENTRY32_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def Toolhelp32ReadProcessMemory(th32ProcessID: UInt32, lpBaseAddress: c_void_p, lpBuffer: c_void_p, cbRead: UIntPtr, lpNumberOfBytesRead: POINTER(UIntPtr)) -> Windows.Win32.Foundation.BOOL: ...
+def Toolhelp32ReadProcessMemory(th32ProcessID: UInt32, lpBaseAddress: VoidPtr, lpBuffer: VoidPtr, cbRead: UIntPtr, lpNumberOfBytesRead: POINTER(UIntPtr)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def Process32FirstW(hSnapshot: Windows.Win32.Foundation.HANDLE, lppe: POINTER(Windows.Win32.System.Diagnostics.ToolHelp.PROCESSENTRY32W_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')

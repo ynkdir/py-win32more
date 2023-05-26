@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Globalization
 import Windows.Win32.Graphics.Direct2D
@@ -561,7 +561,7 @@ CFM_MATHORDINARY: CFM_MASK = 536870912
 CFM_ALLEFFECTS: CFM_MASK = 2115207167
 class CHANGENOTIFY(EasyCastStructure):
     dwChangeType: UInt32
-    pvCookieData: c_void_p
+    pvCookieData: VoidPtr
 CHANGETYPE = Int32
 CN_GENERIC: CHANGETYPE = 0
 CN_TEXTCHANGED: CHANGETYPE = 1
@@ -809,14 +809,14 @@ if ARCH in 'X64,ARM64':
         chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         dwFlags: UInt32
         pt: Windows.Win32.Foundation.POINT
-        pvReserved: c_void_p
+        pvReserved: VoidPtr
         _pack_ = 4
 if ARCH in 'X86':
     class GETCONTEXTMENUEX(EasyCastStructure):
         chrg: Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         dwFlags: UInt32
         pt: Windows.Win32.Foundation.POINT
-        pvReserved: c_void_p
+        pvReserved: VoidPtr
 if ARCH in 'X64,ARM64':
     class GETTEXTEX(EasyCastStructure):
         cb: UInt32
@@ -1401,7 +1401,7 @@ class ITextHost(ComPtr):
     @commethod(37)
     def TxGetPropertyBits(self, dwMask: UInt32, pdwBits: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
-    def TxNotify(self, iNotify: UInt32, pv: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def TxNotify(self, iNotify: UInt32, pv: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def TxImmGetContext(self) -> Windows.Win32.Globalization.HIMC: ...
     @commethod(40)
@@ -1882,15 +1882,15 @@ class ITextServices(ComPtr):
     @commethod(3)
     def TxSendMessage(self, msg: UInt32, wparam: Windows.Win32.Foundation.WPARAM, lparam: Windows.Win32.Foundation.LPARAM, plresult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def TxDraw(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, pvAspect: c_void_p, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), hdcDraw: Windows.Win32.Graphics.Gdi.HDC, hicTargetDev: Windows.Win32.Graphics.Gdi.HDC, lprcBounds: POINTER(Windows.Win32.Foundation.RECTL_head), lprcWBounds: POINTER(Windows.Win32.Foundation.RECTL_head), lprcUpdate: POINTER(Windows.Win32.Foundation.RECT_head), pfnContinue: IntPtr, dwContinue: UInt32, lViewId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
+    def TxDraw(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, pvAspect: VoidPtr, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), hdcDraw: Windows.Win32.Graphics.Gdi.HDC, hicTargetDev: Windows.Win32.Graphics.Gdi.HDC, lprcBounds: POINTER(Windows.Win32.Foundation.RECTL_head), lprcWBounds: POINTER(Windows.Win32.Foundation.RECTL_head), lprcUpdate: POINTER(Windows.Win32.Foundation.RECT_head), pfnContinue: IntPtr, dwContinue: UInt32, lViewId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def TxGetHScroll(self, plMin: POINTER(Int32), plMax: POINTER(Int32), plPos: POINTER(Int32), plPage: POINTER(Int32), pfEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def TxGetVScroll(self, plMin: POINTER(Int32), plMax: POINTER(Int32), plPos: POINTER(Int32), plPage: POINTER(Int32), pfEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def OnTxSetCursor(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, pvAspect: c_void_p, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), hdcDraw: Windows.Win32.Graphics.Gdi.HDC, hicTargetDev: Windows.Win32.Graphics.Gdi.HDC, lprcClient: POINTER(Windows.Win32.Foundation.RECT_head), x: Int32, y: Int32) -> Windows.Win32.Foundation.HRESULT: ...
+    def OnTxSetCursor(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, pvAspect: VoidPtr, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), hdcDraw: Windows.Win32.Graphics.Gdi.HDC, hicTargetDev: Windows.Win32.Graphics.Gdi.HDC, lprcClient: POINTER(Windows.Win32.Foundation.RECT_head), x: Int32, y: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def TxQueryHitPoint(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, pvAspect: c_void_p, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), hdcDraw: Windows.Win32.Graphics.Gdi.HDC, hicTargetDev: Windows.Win32.Graphics.Gdi.HDC, lprcClient: POINTER(Windows.Win32.Foundation.RECT_head), x: Int32, y: Int32, pHitResult: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def TxQueryHitPoint(self, dwDrawAspect: Windows.Win32.System.Com.DVASPECT, lindex: Int32, pvAspect: VoidPtr, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), hdcDraw: Windows.Win32.Graphics.Gdi.HDC, hicTargetDev: Windows.Win32.Graphics.Gdi.HDC, lprcClient: POINTER(Windows.Win32.Foundation.RECT_head), x: Int32, y: Int32, pHitResult: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def OnTxInPlaceActivate(self, prcClient: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)

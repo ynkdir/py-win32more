@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.System.JobObjects
@@ -19,7 +19,7 @@ def IsProcessInJob(ProcessHandle: Windows.Win32.Foundation.HANDLE, JobHandle: Wi
 @winfunctype('KERNEL32.dll')
 def CreateJobObjectW(lpJobAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def FreeMemoryJobObject(Buffer: c_void_p) -> Void: ...
+def FreeMemoryJobObject(Buffer: VoidPtr) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def OpenJobObjectW(dwDesiredAccess: UInt32, bInheritHandle: Windows.Win32.Foundation.BOOL, lpName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
@@ -27,11 +27,11 @@ def AssignProcessToJobObject(hJob: Windows.Win32.Foundation.HANDLE, hProcess: Wi
 @winfunctype('KERNEL32.dll')
 def TerminateJobObject(hJob: Windows.Win32.Foundation.HANDLE, uExitCode: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetInformationJobObject(hJob: Windows.Win32.Foundation.HANDLE, JobObjectInformationClass: Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS, lpJobObjectInformation: c_void_p, cbJobObjectInformationLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SetInformationJobObject(hJob: Windows.Win32.Foundation.HANDLE, JobObjectInformationClass: Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS, lpJobObjectInformation: VoidPtr, cbJobObjectInformationLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetIoRateControlInformationJobObject(hJob: Windows.Win32.Foundation.HANDLE, IoRateControlInfo: POINTER(Windows.Win32.System.JobObjects.JOBOBJECT_IO_RATE_CONTROL_INFORMATION_head)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def QueryInformationJobObject(hJob: Windows.Win32.Foundation.HANDLE, JobObjectInformationClass: Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS, lpJobObjectInformation: c_void_p, cbJobObjectInformationLength: UInt32, lpReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def QueryInformationJobObject(hJob: Windows.Win32.Foundation.HANDLE, JobObjectInformationClass: Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS, lpJobObjectInformation: VoidPtr, cbJobObjectInformationLength: UInt32, lpReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def QueryIoRateControlInformationJobObject(hJob: Windows.Win32.Foundation.HANDLE, VolumeName: Windows.Win32.Foundation.PWSTR, InfoBlocks: POINTER(POINTER(Windows.Win32.System.JobObjects.JOBOBJECT_IO_RATE_CONTROL_INFORMATION_head)), InfoBlockCount: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('USER32.dll')
@@ -94,7 +94,7 @@ JOBOBJECTINFOCLASS_JobObjectReserved26Information: JOBOBJECTINFOCLASS = 48
 JOBOBJECTINFOCLASS_JobObjectReserved27Information: JOBOBJECTINFOCLASS = 49
 JOBOBJECTINFOCLASS_MaxJobObjectInfoClass: JOBOBJECTINFOCLASS = 50
 class JOBOBJECT_ASSOCIATE_COMPLETION_PORT(EasyCastStructure):
-    CompletionKey: c_void_p
+    CompletionKey: VoidPtr
     CompletionPort: Windows.Win32.Foundation.HANDLE
 class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION(EasyCastStructure):
     TotalUserTime: Int64

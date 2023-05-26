@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
@@ -500,27 +500,27 @@ if ARCH in 'X64,ARM64':
     class OFNOTIFYEXA(EasyCastStructure):
         hdr: Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)
-        psf: c_void_p
-        pidl: c_void_p
+        psf: VoidPtr
+        pidl: VoidPtr
 if ARCH in 'X86':
     class OFNOTIFYEXA(EasyCastStructure):
         hdr: Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)
-        psf: c_void_p
-        pidl: c_void_p
+        psf: VoidPtr
+        pidl: VoidPtr
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class OFNOTIFYEXW(EasyCastStructure):
         hdr: Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)
-        psf: c_void_p
-        pidl: c_void_p
+        psf: VoidPtr
+        pidl: VoidPtr
 if ARCH in 'X86':
     class OFNOTIFYEXW(EasyCastStructure):
         hdr: Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)
-        psf: c_void_p
-        pidl: c_void_p
+        psf: VoidPtr
+        pidl: VoidPtr
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class OFNOTIFYW(EasyCastStructure):
@@ -555,7 +555,7 @@ if ARCH in 'X64,ARM64':
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnHook: Windows.Win32.UI.Controls.Dialogs.LPOFNHOOKPROC
         lpTemplateName: Windows.Win32.Foundation.PSTR
-        pvReserved: c_void_p
+        pvReserved: VoidPtr
         dwReserved: UInt32
         FlagsEx: Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
 if ARCH in 'X86':
@@ -580,7 +580,7 @@ if ARCH in 'X86':
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnHook: Windows.Win32.UI.Controls.Dialogs.LPOFNHOOKPROC
         lpTemplateName: Windows.Win32.Foundation.PSTR
-        pvReserved: c_void_p
+        pvReserved: VoidPtr
         dwReserved: UInt32
         FlagsEx: Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
         _pack_ = 1
@@ -606,7 +606,7 @@ if ARCH in 'X64,ARM64':
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnHook: Windows.Win32.UI.Controls.Dialogs.LPOFNHOOKPROC
         lpTemplateName: Windows.Win32.Foundation.PWSTR
-        pvReserved: c_void_p
+        pvReserved: VoidPtr
         dwReserved: UInt32
         FlagsEx: Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
 if ARCH in 'X86':
@@ -631,7 +631,7 @@ if ARCH in 'X86':
         lCustData: Windows.Win32.Foundation.LPARAM
         lpfnHook: Windows.Win32.UI.Controls.Dialogs.LPOFNHOOKPROC
         lpTemplateName: Windows.Win32.Foundation.PWSTR
-        pvReserved: c_void_p
+        pvReserved: VoidPtr
         dwReserved: UInt32
         FlagsEx: Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
         _pack_ = 1

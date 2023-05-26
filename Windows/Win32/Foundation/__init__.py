@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import sys
 _module = sys.modules[__name__]
@@ -6777,7 +6777,7 @@ def LocalFree(hMem: Windows.Win32.Foundation.HLOCAL) -> Windows.Win32.Foundation
 def RtlNtStatusToDosError(Status: Windows.Win32.Foundation.NTSTATUS) -> UInt32: ...
 BOOL = Int32
 BOOLEAN = Byte
-BSTR = c_wchar_p
+BSTR = String
 CHAR = Byte
 COLORREF = UInt32
 class DECIMAL(EasyCastStructure):
@@ -6818,9 +6818,9 @@ HANDLE_FLAGS = UInt32
 HANDLE_FLAG_INHERIT: HANDLE_FLAGS = 1
 HANDLE_FLAG_PROTECT_FROM_CLOSE: HANDLE_FLAGS = 2
 HANDLE_PTR = UIntPtr
-HGLOBAL = c_void_p
+HGLOBAL = VoidPtr
 HINSTANCE = IntPtr
-HLOCAL = c_void_p
+HLOCAL = VoidPtr
 HLSURF = IntPtr
 HMODULE = IntPtr
 HRESULT = Int32
@@ -6912,9 +6912,9 @@ class POINTS(EasyCastStructure):
     y: Int16
 @winfunctype_pointer
 def PROC() -> IntPtr: ...
-PSID = c_void_p
-PSTR = c_char_p
-PWSTR = c_wchar_p
+PSID = VoidPtr
+PSTR = Bytes
+PWSTR = String
 class RECT(EasyCastStructure):
     left: Int32
     top: Int32

@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.HttpServer
 import Windows.Win32.Networking.WinSock
@@ -114,9 +114,9 @@ HTTP_REQUEST_PROPERTY_SNI_FLAG_SNI_USED: UInt32 = 1
 HTTP_REQUEST_PROPERTY_SNI_FLAG_NO_SNI: UInt32 = 2
 HTTP_VERSION_CONSTANT: String = 'HTTP/1.0'
 @winfunctype('HTTPAPI.dll')
-def HttpInitialize(Version: Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, Flags: Windows.Win32.Networking.HttpServer.HTTP_INITIALIZE, pReserved: c_void_p) -> UInt32: ...
+def HttpInitialize(Version: Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, Flags: Windows.Win32.Networking.HttpServer.HTTP_INITIALIZE, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpTerminate(Flags: Windows.Win32.Networking.HttpServer.HTTP_INITIALIZE, pReserved: c_void_p) -> UInt32: ...
+def HttpTerminate(Flags: Windows.Win32.Networking.HttpServer.HTTP_INITIALIZE, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpCreateHttpHandle(RequestQueueHandle: POINTER(Windows.Win32.Foundation.HANDLE), Reserved: UInt32) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
@@ -124,11 +124,11 @@ def HttpCreateRequestQueue(Version: Windows.Win32.Networking.HttpServer.HTTPAPI_
 @winfunctype('HTTPAPI.dll')
 def HttpCloseRequestQueue(RequestQueueHandle: Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSetRequestQueueProperty(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: c_void_p, PropertyInformationLength: UInt32, Reserved1: UInt32, Reserved2: c_void_p) -> UInt32: ...
+def HttpSetRequestQueueProperty(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: VoidPtr, PropertyInformationLength: UInt32, Reserved1: UInt32, Reserved2: VoidPtr) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpQueryRequestQueueProperty(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: c_void_p, PropertyInformationLength: UInt32, Reserved1: UInt32, ReturnLength: POINTER(UInt32), Reserved2: c_void_p) -> UInt32: ...
+def HttpQueryRequestQueueProperty(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: VoidPtr, PropertyInformationLength: UInt32, Reserved1: UInt32, ReturnLength: POINTER(UInt32), Reserved2: VoidPtr) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSetRequestProperty(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, Id: UInt64, PropertyId: Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY, Input: c_void_p, InputPropertySize: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpSetRequestProperty(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, Id: UInt64, PropertyId: Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY, Input: VoidPtr, InputPropertySize: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpShutdownRequestQueue(RequestQueueHandle: Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
@@ -138,11 +138,11 @@ def HttpCreateServerSession(Version: Windows.Win32.Networking.HttpServer.HTTPAPI
 @winfunctype('HTTPAPI.dll')
 def HttpCloseServerSession(ServerSessionId: UInt64) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpQueryServerSessionProperty(ServerSessionId: UInt64, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: c_void_p, PropertyInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> UInt32: ...
+def HttpQueryServerSessionProperty(ServerSessionId: UInt64, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: VoidPtr, PropertyInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSetServerSessionProperty(ServerSessionId: UInt64, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: c_void_p, PropertyInformationLength: UInt32) -> UInt32: ...
+def HttpSetServerSessionProperty(ServerSessionId: UInt64, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: VoidPtr, PropertyInformationLength: UInt32) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpAddUrl(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, FullyQualifiedUrl: Windows.Win32.Foundation.PWSTR, Reserved: c_void_p) -> UInt32: ...
+def HttpAddUrl(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, FullyQualifiedUrl: Windows.Win32.Foundation.PWSTR, Reserved: VoidPtr) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpRemoveUrl(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, FullyQualifiedUrl: Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
@@ -154,19 +154,19 @@ def HttpAddUrlToUrlGroup(UrlGroupId: UInt64, pFullyQualifiedUrl: Windows.Win32.F
 @winfunctype('HTTPAPI.dll')
 def HttpRemoveUrlFromUrlGroup(UrlGroupId: UInt64, pFullyQualifiedUrl: Windows.Win32.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSetUrlGroupProperty(UrlGroupId: UInt64, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: c_void_p, PropertyInformationLength: UInt32) -> UInt32: ...
+def HttpSetUrlGroupProperty(UrlGroupId: UInt64, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: VoidPtr, PropertyInformationLength: UInt32) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpQueryUrlGroupProperty(UrlGroupId: UInt64, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: c_void_p, PropertyInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> UInt32: ...
+def HttpQueryUrlGroupProperty(UrlGroupId: UInt64, Property: Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: VoidPtr, PropertyInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpPrepareUrl(Reserved: c_void_p, Flags: UInt32, Url: Windows.Win32.Foundation.PWSTR, PreparedUrl: POINTER(Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
+def HttpPrepareUrl(Reserved: VoidPtr, Flags: UInt32, Url: Windows.Win32.Foundation.PWSTR, PreparedUrl: POINTER(Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpReceiveHttpRequest(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: Windows.Win32.Networking.HttpServer.HTTP_RECEIVE_HTTP_REQUEST_FLAGS, RequestBuffer: POINTER(Windows.Win32.Networking.HttpServer.HTTP_REQUEST_V2_head), RequestBufferLength: UInt32, BytesReturned: POINTER(UInt32), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpReceiveRequestEntityBody(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, EntityBuffer: c_void_p, EntityBufferLength: UInt32, BytesReturned: POINTER(UInt32), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpReceiveRequestEntityBody(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, EntityBuffer: VoidPtr, EntityBufferLength: UInt32, BytesReturned: POINTER(UInt32), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSendHttpResponse(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, HttpResponse: POINTER(Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_V2_head), CachePolicy: POINTER(Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_head), BytesSent: POINTER(UInt32), Reserved1: c_void_p, Reserved2: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), LogData: POINTER(Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_head)) -> UInt32: ...
+def HttpSendHttpResponse(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, HttpResponse: POINTER(Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_V2_head), CachePolicy: POINTER(Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_head), BytesSent: POINTER(UInt32), Reserved1: VoidPtr, Reserved2: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), LogData: POINTER(Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSendResponseEntityBody(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, EntityChunkCount: UInt16, EntityChunks: POINTER(Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_head), BytesSent: POINTER(UInt32), Reserved1: c_void_p, Reserved2: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), LogData: POINTER(Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_head)) -> UInt32: ...
+def HttpSendResponseEntityBody(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, EntityChunkCount: UInt16, EntityChunks: POINTER(Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_head), BytesSent: POINTER(UInt32), Reserved1: VoidPtr, Reserved2: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), LogData: POINTER(Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpDeclarePush(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Verb: Windows.Win32.Networking.HttpServer.HTTP_VERB, Path: Windows.Win32.Foundation.PWSTR, Query: Windows.Win32.Foundation.PSTR, Headers: POINTER(Windows.Win32.Networking.HttpServer.HTTP_REQUEST_HEADERS_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
@@ -188,17 +188,17 @@ def HttpFlushResponseCache(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, 
 @winfunctype('HTTPAPI.dll')
 def HttpAddFragmentToCache(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, UrlPrefix: Windows.Win32.Foundation.PWSTR, DataChunk: POINTER(Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_head), CachePolicy: POINTER(Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_head), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpReadFragmentFromCache(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, UrlPrefix: Windows.Win32.Foundation.PWSTR, ByteRange: POINTER(Windows.Win32.Networking.HttpServer.HTTP_BYTE_RANGE_head), Buffer: c_void_p, BufferLength: UInt32, BytesRead: POINTER(UInt32), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpReadFragmentFromCache(RequestQueueHandle: Windows.Win32.Foundation.HANDLE, UrlPrefix: Windows.Win32.Foundation.PWSTR, ByteRange: POINTER(Windows.Win32.Networking.HttpServer.HTTP_BYTE_RANGE_head), Buffer: VoidPtr, BufferLength: UInt32, BytesRead: POINTER(UInt32), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSetServiceConfiguration(ServiceHandle: Windows.Win32.Foundation.HANDLE, ConfigId: Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pConfigInformation: c_void_p, ConfigInformationLength: UInt32, pOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpSetServiceConfiguration(ServiceHandle: Windows.Win32.Foundation.HANDLE, ConfigId: Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pConfigInformation: VoidPtr, ConfigInformationLength: UInt32, pOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpUpdateServiceConfiguration(Handle: Windows.Win32.Foundation.HANDLE, ConfigId: Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, ConfigInfo: c_void_p, ConfigInfoLength: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpUpdateServiceConfiguration(Handle: Windows.Win32.Foundation.HANDLE, ConfigId: Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, ConfigInfo: VoidPtr, ConfigInfoLength: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpDeleteServiceConfiguration(ServiceHandle: Windows.Win32.Foundation.HANDLE, ConfigId: Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pConfigInformation: c_void_p, ConfigInformationLength: UInt32, pOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpDeleteServiceConfiguration(ServiceHandle: Windows.Win32.Foundation.HANDLE, ConfigId: Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pConfigInformation: VoidPtr, ConfigInformationLength: UInt32, pOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpQueryServiceConfiguration(ServiceHandle: Windows.Win32.Foundation.HANDLE, ConfigId: Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pInput: c_void_p, InputLength: UInt32, pOutput: c_void_p, OutputLength: UInt32, pReturnLength: POINTER(UInt32), pOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpQueryServiceConfiguration(ServiceHandle: Windows.Win32.Foundation.HANDLE, ConfigId: Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pInput: VoidPtr, InputLength: UInt32, pOutput: VoidPtr, OutputLength: UInt32, pReturnLength: POINTER(UInt32), pOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpGetExtension(Version: Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, Extension: UInt32, Buffer: c_void_p, BufferSize: UInt32) -> UInt32: ...
+def HttpGetExtension(Version: Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, Extension: UInt32, Buffer: VoidPtr, BufferSize: UInt32) -> UInt32: ...
 class HTTP2_SETTINGS_LIMITS_PARAM(EasyCastStructure):
     Http2MaxSettingsPerFrame: UInt32
     Http2MaxSettingsPerMinute: UInt32
@@ -259,7 +259,7 @@ HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID_CreateRequestQueueMax: HTTP_CREATE_REQUEST
 class HTTP_CREATE_REQUEST_QUEUE_PROPERTY_INFO(EasyCastStructure):
     PropertyId: Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID
     PropertyInfoLength: UInt32
-    PropertyInfo: c_void_p
+    PropertyInfo: VoidPtr
 class HTTP_DATA_CHUNK(EasyCastStructure):
     DataChunkType: Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE
     Anonymous: _Anonymous_e__Union
@@ -270,7 +270,7 @@ class HTTP_DATA_CHUNK(EasyCastStructure):
         FromFragmentCacheEx: _FromFragmentCacheEx_e__Struct
         Trailers: _Trailers_e__Struct
         class _FromMemory_e__Struct(EasyCastStructure):
-            pBuffer: c_void_p
+            pBuffer: VoidPtr
             BufferLength: UInt32
         class _FromFileHandle_e__Struct(EasyCastStructure):
             ByteRange: Windows.Win32.Networking.HttpServer.HTTP_BYTE_RANGE
@@ -297,7 +297,7 @@ HTTP_DELEGATE_REQUEST_PROPERTY_ID_DelegateRequestDelegateUrlProperty: HTTP_DELEG
 class HTTP_DELEGATE_REQUEST_PROPERTY_INFO(EasyCastStructure):
     PropertyId: Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID
     PropertyInfoLength: UInt32
-    PropertyInfo: c_void_p
+    PropertyInfo: VoidPtr
 HTTP_ENABLED_STATE = Int32
 HTTP_ENABLED_STATE_HttpEnabledStateActive: HTTP_ENABLED_STATE = 0
 HTTP_ENABLED_STATE_HttpEnabledStateInactive: HTTP_ENABLED_STATE = 1
@@ -391,7 +391,7 @@ class HTTP_LOGGING_INFO(EasyCastStructure):
     DirectoryName: Windows.Win32.Foundation.PWSTR
     Format: Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE
     Fields: UInt32
-    pExtFields: c_void_p
+    pExtFields: VoidPtr
     NumOfExtFields: UInt16
     MaxRecordSize: UInt16
     RolloverType: Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE
@@ -451,7 +451,7 @@ class HTTP_MULTIPLE_KNOWN_HEADERS(EasyCastStructure):
 class HTTP_PERFORMANCE_PARAM(EasyCastStructure):
     Type: Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE
     BufferSize: UInt32
-    Buffer: c_void_p
+    Buffer: VoidPtr
 HTTP_PERFORMANCE_PARAM_TYPE = Int32
 HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamSendBufferingFlags: HTTP_PERFORMANCE_PARAM_TYPE = 0
 HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamAggressiveICW: HTTP_PERFORMANCE_PARAM_TYPE = 1
@@ -471,7 +471,7 @@ HTTP_PROTECTION_LEVEL_TYPE_HttpProtectionLevelEdgeRestricted: HTTP_PROTECTION_LE
 HTTP_PROTECTION_LEVEL_TYPE_HttpProtectionLevelRestricted: HTTP_PROTECTION_LEVEL_TYPE = 2
 class HTTP_QOS_SETTING_INFO(EasyCastStructure):
     QosType: Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE
-    QosSetting: c_void_p
+    QosSetting: VoidPtr
 HTTP_QOS_SETTING_TYPE = Int32
 HTTP_QOS_SETTING_TYPE_HttpQosSettingTypeBandwidth: HTTP_QOS_SETTING_TYPE = 0
 HTTP_QOS_SETTING_TYPE_HttpQosSettingTypeConnectionLimit: HTTP_QOS_SETTING_TYPE = 1
@@ -537,7 +537,7 @@ class HTTP_REQUEST_AUTH_INFO(EasyCastStructure):
     ContextAttributes: UInt32
     PackedContextLength: UInt32
     PackedContextType: UInt32
-    PackedContext: c_void_p
+    PackedContext: VoidPtr
     MutualAuthDataLength: UInt32
     pMutualAuthData: Windows.Win32.Foundation.PSTR
     PackageNameLength: UInt16
@@ -563,7 +563,7 @@ class HTTP_REQUEST_HEADERS(EasyCastStructure):
 class HTTP_REQUEST_INFO(EasyCastStructure):
     InfoType: Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE
     InfoLength: UInt32
-    pInfo: c_void_p
+    pInfo: VoidPtr
 HTTP_REQUEST_INFO_TYPE = Int32
 HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeAuth: HTTP_REQUEST_INFO_TYPE = 0
 HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeChannelBind: HTTP_REQUEST_INFO_TYPE = 1
@@ -674,7 +674,7 @@ class HTTP_RESPONSE_HEADERS(EasyCastStructure):
 class HTTP_RESPONSE_INFO(EasyCastStructure):
     Type: Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE
     Length: UInt32
-    pInfo: c_void_p
+    pInfo: VoidPtr
 HTTP_RESPONSE_INFO_TYPE = Int32
 HTTP_RESPONSE_INFO_TYPE_HttpResponseInfoTypeMultipleKnownHeaders: HTTP_RESPONSE_INFO_TYPE = 0
 HTTP_RESPONSE_INFO_TYPE_HttpResponseInfoTypeAuthenticationProperty: HTTP_RESPONSE_INFO_TYPE = 1
@@ -802,7 +802,7 @@ class HTTP_SERVICE_CONFIG_SSL_KEY_EX(EasyCastStructure):
     IpPort: Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
 class HTTP_SERVICE_CONFIG_SSL_PARAM(EasyCastStructure):
     SslHashLength: UInt32
-    pSslHash: c_void_p
+    pSslHash: VoidPtr
     AppId: Guid
     pSslCertStoreName: Windows.Win32.Foundation.PWSTR
     DefaultCertCheckMode: UInt32
@@ -916,10 +916,10 @@ class HTTP_TIMEOUT_LIMIT_INFO(EasyCastStructure):
     MinSendRate: UInt32
 class HTTP_TLS_RESTRICTIONS_PARAM(EasyCastStructure):
     RestrictionCount: UInt32
-    TlsRestrictions: c_void_p
+    TlsRestrictions: VoidPtr
 class HTTP_TLS_SESSION_TICKET_KEYS_PARAM(EasyCastStructure):
     SessionTicketKeyCount: UInt32
-    SessionTicketKeys: c_void_p
+    SessionTicketKeys: VoidPtr
 class HTTP_TRANSPORT_ADDRESS(EasyCastStructure):
     pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
     pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)

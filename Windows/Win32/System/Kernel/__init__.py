@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Diagnostics.Debug
 import Windows.Win32.System.Kernel
@@ -63,7 +63,7 @@ class EXCEPTION_REGISTRATION_RECORD(EasyCastStructure):
     Next: POINTER(Windows.Win32.System.Kernel.EXCEPTION_REGISTRATION_RECORD_head)
     Handler: Windows.Win32.System.Kernel.EXCEPTION_ROUTINE
 @winfunctype_pointer
-def EXCEPTION_ROUTINE(ExceptionRecord: POINTER(Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head), EstablisherFrame: c_void_p, ContextRecord: POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), DispatcherContext: c_void_p) -> Windows.Win32.System.Kernel.EXCEPTION_DISPOSITION: ...
+def EXCEPTION_ROUTINE(ExceptionRecord: POINTER(Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head), EstablisherFrame: VoidPtr, ContextRecord: POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), DispatcherContext: VoidPtr) -> Windows.Win32.System.Kernel.EXCEPTION_DISPOSITION: ...
 if ARCH in 'X64,ARM64':
     class FLOATING_SAVE_AREA(EasyCastStructure):
         ControlWord: UInt32
@@ -101,14 +101,14 @@ NT_PRODUCT_TYPE_NtProductLanManNt: NT_PRODUCT_TYPE = 2
 NT_PRODUCT_TYPE_NtProductServer: NT_PRODUCT_TYPE = 3
 class NT_TIB(EasyCastStructure):
     ExceptionList: POINTER(Windows.Win32.System.Kernel.EXCEPTION_REGISTRATION_RECORD_head)
-    StackBase: c_void_p
-    StackLimit: c_void_p
-    SubSystemTib: c_void_p
+    StackBase: VoidPtr
+    StackLimit: VoidPtr
+    SubSystemTib: VoidPtr
     Anonymous: _Anonymous_e__Union
-    ArbitraryUserPointer: c_void_p
+    ArbitraryUserPointer: VoidPtr
     Self: POINTER(Windows.Win32.System.Kernel.NT_TIB_head)
     class _Anonymous_e__Union(EasyCastUnion):
-        FiberData: c_void_p
+        FiberData: VoidPtr
         Version: UInt32
 class OBJECTID(EasyCastStructure):
     Lineage: Guid

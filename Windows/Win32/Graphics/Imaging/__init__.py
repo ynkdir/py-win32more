@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct2D.Common
 import Windows.Win32.Graphics.Dxgi.Common
@@ -382,7 +382,7 @@ class IWICBitmapCodecProgressNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{64c1024e-c3cf-4462-8078-88c2b11c46d9}')
     @commethod(3)
-    def RegisterProgressNotification(self, pfnProgressNotification: Windows.Win32.Graphics.Imaging.PFNProgressNotification, pvData: c_void_p, dwProgressFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def RegisterProgressNotification(self, pfnProgressNotification: Windows.Win32.Graphics.Imaging.PFNProgressNotification, pvData: VoidPtr, dwProgressFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWICBitmapDecoder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9edde9e7-8dee-47ea-99df-e6faf2ed44bf}')
@@ -1005,7 +1005,7 @@ class IWICStreamProvider(ComPtr):
     @commethod(6)
     def RefreshStream(self) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFNProgressNotification(pvData: c_void_p, uFrameNum: UInt32, operation: Windows.Win32.Graphics.Imaging.WICProgressOperation, dblProgress: Double) -> Windows.Win32.Foundation.HRESULT: ...
+def PFNProgressNotification(pvData: VoidPtr, uFrameNum: UInt32, operation: Windows.Win32.Graphics.Imaging.WICProgressOperation, dblProgress: Double) -> Windows.Win32.Foundation.HRESULT: ...
 WIC8BIMIptcDigestProperties = UInt32
 WIC8BIMIptcDigestProperties_WIC8BIMIptcDigestPString: WIC8BIMIptcDigestProperties = 1
 WIC8BIMIptcDigestProperties_WIC8BIMIptcDigestIptcDigest: WIC8BIMIptcDigestProperties = 2

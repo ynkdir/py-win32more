@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Devices.PortableDevices
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Devices.Sensors
@@ -509,7 +509,7 @@ def IsKeyPresentInCollectionList(pList: POINTER(Windows.Win32.Devices.Sensors.SE
 @winfunctype('SensorsUtilsV2.dll')
 def IsCollectionListSame(ListA: POINTER(Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), ListB: POINTER(Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropVariantGetInformation(PropVariantValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), PropVariantOffset: POINTER(UInt32), PropVariantSize: POINTER(UInt32), PropVariantPointer: POINTER(c_void_p), RemappedType: POINTER(Windows.Win32.Devices.Properties.DEVPROPTYPE)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def PropVariantGetInformation(PropVariantValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), PropVariantOffset: POINTER(UInt32), PropVariantSize: POINTER(UInt32), PropVariantPointer: POINTER(VoidPtr), RemappedType: POINTER(Windows.Win32.Devices.Properties.DEVPROPTYPE)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
 def PropertiesListCopy(Target: POINTER(Windows.Win32.Devices.Sensors.SENSOR_PROPERTY_LIST_head), Source: POINTER(Windows.Win32.Devices.Sensors.SENSOR_PROPERTY_LIST_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')

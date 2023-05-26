@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.WindowsWebServices
 import Windows.Win32.Security.Authentication.Identity
@@ -164,11 +164,11 @@ WS_URL_FLAGS_ALLOW_HOST_WILDCARDS: Int32 = 1
 WS_URL_FLAGS_NO_PATH_COLLAPSE: Int32 = 2
 WS_URL_FLAGS_ZERO_TERMINATE: Int32 = 4
 @winfunctype('webservices.dll')
-def WsStartReaderCanonicalization(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeCallbackState: c_void_p, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_head), propertyCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsStartReaderCanonicalization(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeCallbackState: VoidPtr, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_head), propertyCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsEndReaderCanonicalization(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsStartWriterCanonicalization(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeCallbackState: c_void_p, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_head), propertyCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsStartWriterCanonicalization(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeCallbackState: VoidPtr, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_head), propertyCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsEndWriterCanonicalization(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -184,7 +184,7 @@ def WsSetInputToBuffer(reader: POINTER(Windows.Win32.Networking.WindowsWebServic
 @winfunctype('webservices.dll')
 def WsFreeReader(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER)) -> Void: ...
 @winfunctype('webservices.dll')
-def WsGetReaderProperty(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), id: Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetReaderProperty(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), id: Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsGetReaderNode(xmlReader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), node: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE_head)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -206,15 +206,15 @@ def WsReadEndElement(reader: POINTER(Windows.Win32.Networking.WindowsWebServices
 @winfunctype('webservices.dll')
 def WsFindAttribute(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), localName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), ns: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), required: Windows.Win32.Foundation.BOOL, attributeIndex: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadValue(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), valueType: Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadValue(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), valueType: Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsReadChars(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), chars: Windows.Win32.Foundation.PWSTR, maxCharCount: UInt32, actualCharCount: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsReadCharsUtf8(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), bytes: POINTER(Byte), maxByteCount: UInt32, actualByteCount: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadBytes(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), bytes: c_void_p, maxByteCount: UInt32, actualByteCount: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadBytes(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), bytes: VoidPtr, maxByteCount: UInt32, actualByteCount: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadArray(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), localName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), ns: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), valueType: Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE, array: c_void_p, arraySize: UInt32, itemOffset: UInt32, itemCount: UInt32, actualItemCount: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadArray(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), localName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), ns: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), valueType: Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE, array: VoidPtr, arraySize: UInt32, itemOffset: UInt32, itemCount: UInt32, actualItemCount: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsGetReaderPosition(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), nodePosition: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE_POSITION_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -230,7 +230,7 @@ def WsSetOutput(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_X
 @winfunctype('webservices.dll')
 def WsSetOutputToBuffer(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), buffer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_head), propertyCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetWriterProperty(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), id: Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetWriterProperty(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), id: Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsFlushWriter(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), minSize: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -244,17 +244,17 @@ def WsWriteStartAttribute(writer: POINTER(Windows.Win32.Networking.WindowsWebSer
 @winfunctype('webservices.dll')
 def WsWriteEndAttribute(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteValue(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), valueType: Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteValue(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), valueType: Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsWriteXmlBuffer(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), xmlBuffer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsReadXmlBuffer(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), xmlBuffer: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteXmlBufferToBytes(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), xmlBuffer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER), encoding: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING_head), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_head), propertyCount: UInt32, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), bytes: POINTER(c_void_p), byteCount: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteXmlBufferToBytes(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), xmlBuffer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER), encoding: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING_head), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_head), propertyCount: UInt32, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), bytes: POINTER(VoidPtr), byteCount: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadXmlBufferFromBytes(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), encoding: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING_head), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_head), propertyCount: UInt32, bytes: c_void_p, byteCount: UInt32, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), xmlBuffer: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadXmlBufferFromBytes(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), encoding: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING_head), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_head), propertyCount: UInt32, bytes: VoidPtr, byteCount: UInt32, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), xmlBuffer: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteArray(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), localName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), ns: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), valueType: Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE, array: c_void_p, arraySize: UInt32, itemOffset: UInt32, itemCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteArray(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), localName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), ns: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), valueType: Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE, array: VoidPtr, arraySize: UInt32, itemOffset: UInt32, itemCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsWriteQualifiedName(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), prefix: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), localName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), ns: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -262,11 +262,11 @@ def WsWriteChars(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_
 @winfunctype('webservices.dll')
 def WsWriteCharsUtf8(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), bytes: POINTER(Byte), byteCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteBytes(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), bytes: c_void_p, byteCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteBytes(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), bytes: VoidPtr, byteCount: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsPushBytes(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), callback: Windows.Win32.Networking.WindowsWebServices.WS_PUSH_BYTES_CALLBACK, callbackState: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsPushBytes(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), callback: Windows.Win32.Networking.WindowsWebServices.WS_PUSH_BYTES_CALLBACK, callbackState: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsPullBytes(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), callback: Windows.Win32.Networking.WindowsWebServices.WS_PULL_BYTES_CALLBACK, callbackState: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsPullBytes(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), callback: Windows.Win32.Networking.WindowsWebServices.WS_PULL_BYTES_CALLBACK, callbackState: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsWriteEndElement(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -300,25 +300,25 @@ def WsGetXmlAttribute(reader: POINTER(Windows.Win32.Networking.WindowsWebService
 @winfunctype('webservices.dll')
 def WsCopyNode(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsAsyncExecute(asyncState: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_STATE_head), operation: Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_FUNCTION, callbackModel: Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL, callbackState: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsAsyncExecute(asyncState: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_STATE_head), operation: Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_FUNCTION, callbackModel: Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL, callbackState: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsCreateChannel(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, channelBinding: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_BINDING, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_head), propertyCount: UInt32, securityDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_DESCRIPTION_head), channel: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsOpenChannel(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), endpointAddress: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSendMessage(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), messageDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, bodyValue: c_void_p, bodyValueSize: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSendMessage(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), messageDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, bodyValue: VoidPtr, bodyValueSize: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReceiveMessage(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), messageDescriptions: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head)), messageDescriptionCount: UInt32, receiveOption: Windows.Win32.Networking.WindowsWebServices.WS_RECEIVE_OPTION, readBodyOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, index: POINTER(UInt32), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReceiveMessage(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), messageDescriptions: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head)), messageDescriptionCount: UInt32, receiveOption: Windows.Win32.Networking.WindowsWebServices.WS_RECEIVE_OPTION, readBodyOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, index: POINTER(UInt32), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsRequestReply(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), requestMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), requestMessageDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, requestBodyValue: c_void_p, requestBodyValueSize: UInt32, replyMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), replyMessageDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsRequestReply(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), requestMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), requestMessageDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, requestBodyValue: VoidPtr, requestBodyValueSize: UInt32, replyMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), replyMessageDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSendReplyMessage(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), replyMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), replyMessageDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, replyBodyValue: c_void_p, replyBodyValueSize: UInt32, requestMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSendReplyMessage(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), replyMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), replyMessageDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, replyBodyValue: VoidPtr, replyBodyValueSize: UInt32, requestMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsSendFaultMessageForError(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), replyMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), faultError: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), faultErrorCode: Windows.Win32.Foundation.HRESULT, faultDisclosure: Windows.Win32.Networking.WindowsWebServices.WS_FAULT_DISCLOSURE, requestMessage: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetChannelProperty(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetChannelProperty(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSetChannelProperty(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSetChannelProperty(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsWriteMessageStart(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -340,11 +340,11 @@ def WsAbandonMessage(channel: POINTER(Windows.Win32.Networking.WindowsWebService
 @winfunctype('webservices.dll')
 def WsShutdownSessionChannel(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetOperationContextProperty(context: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), id: Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetOperationContextProperty(context: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), id: Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsGetDictionary(encoding: Windows.Win32.Networking.WindowsWebServices.WS_ENCODING, dictionary: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_DICTIONARY_head)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadEndpointAddressExtension(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), endpointAddress: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head), extensionType: Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_EXTENSION_TYPE, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadEndpointAddressExtension(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), endpointAddress: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head), extensionType: Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_EXTENSION_TYPE, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsCreateError(properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR_PROPERTY_head), propertyCount: UInt32, error: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR))) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -354,29 +354,29 @@ def WsGetErrorString(error: POINTER(Windows.Win32.Networking.WindowsWebServices.
 @winfunctype('webservices.dll')
 def WsCopyError(source: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), destination: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetErrorProperty(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), id: Windows.Win32.Networking.WindowsWebServices.WS_ERROR_PROPERTY_ID, buffer: c_void_p, bufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetErrorProperty(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), id: Windows.Win32.Networking.WindowsWebServices.WS_ERROR_PROPERTY_ID, buffer: VoidPtr, bufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSetErrorProperty(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), id: Windows.Win32.Networking.WindowsWebServices.WS_ERROR_PROPERTY_ID, value: c_void_p, valueSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSetErrorProperty(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), id: Windows.Win32.Networking.WindowsWebServices.WS_ERROR_PROPERTY_ID, value: VoidPtr, valueSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsResetError(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsFreeError(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Void: ...
 @winfunctype('webservices.dll')
-def WsGetFaultErrorProperty(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), id: Windows.Win32.Networking.WindowsWebServices.WS_FAULT_ERROR_PROPERTY_ID, buffer: c_void_p, bufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetFaultErrorProperty(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), id: Windows.Win32.Networking.WindowsWebServices.WS_FAULT_ERROR_PROPERTY_ID, buffer: VoidPtr, bufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSetFaultErrorProperty(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), id: Windows.Win32.Networking.WindowsWebServices.WS_FAULT_ERROR_PROPERTY_ID, value: c_void_p, valueSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSetFaultErrorProperty(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), id: Windows.Win32.Networking.WindowsWebServices.WS_FAULT_ERROR_PROPERTY_ID, value: VoidPtr, valueSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsCreateFaultFromError(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), faultErrorCode: Windows.Win32.Foundation.HRESULT, faultDisclosure: Windows.Win32.Networking.WindowsWebServices.WS_FAULT_DISCLOSURE, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), fault: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_FAULT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSetFaultErrorDetail(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), faultDetailDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_FAULT_DETAIL_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: c_void_p, valueSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSetFaultErrorDetail(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), faultDetailDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_FAULT_DETAIL_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: VoidPtr, valueSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetFaultErrorDetail(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), faultDetailDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_FAULT_DETAIL_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetFaultErrorDetail(error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR), faultDetailDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_FAULT_DETAIL_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsCreateHeap(maxSize: UIntPtr, trimSize: UIntPtr, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY_head), propertyCount: UInt32, heap: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsAlloc(heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), size: UIntPtr, ptr: POINTER(c_void_p), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsAlloc(heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), size: UIntPtr, ptr: POINTER(VoidPtr), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetHeapProperty(heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), id: Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetHeapProperty(heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), id: Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsResetHeap(heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -396,9 +396,9 @@ def WsResetListener(listener: POINTER(Windows.Win32.Networking.WindowsWebService
 @winfunctype('webservices.dll')
 def WsFreeListener(listener: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_LISTENER)) -> Void: ...
 @winfunctype('webservices.dll')
-def WsGetListenerProperty(listener: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_LISTENER), id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetListenerProperty(listener: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_LISTENER), id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSetListenerProperty(listener: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_LISTENER), id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSetListenerProperty(listener: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_LISTENER), id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsCreateChannelForListener(listener: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_LISTENER), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_head), propertyCount: UInt32, channel: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -414,39 +414,39 @@ def WsFreeMessage(message: POINTER(Windows.Win32.Networking.WindowsWebServices.W
 @winfunctype('webservices.dll')
 def WsGetHeaderAttributes(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), headerAttributes: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerType: Windows.Win32.Networking.WindowsWebServices.WS_HEADER_TYPE, valueType: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerType: Windows.Win32.Networking.WindowsWebServices.WS_HEADER_TYPE, valueType: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetCustomHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), customHeaderDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), repeatingOption: Windows.Win32.Networking.WindowsWebServices.WS_REPEATING_HEADER_OPTION, headerIndex: UInt32, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, headerAttributes: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetCustomHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), customHeaderDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), repeatingOption: Windows.Win32.Networking.WindowsWebServices.WS_REPEATING_HEADER_OPTION, headerIndex: UInt32, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, headerAttributes: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsRemoveHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerType: Windows.Win32.Networking.WindowsWebServices.WS_HEADER_TYPE, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSetHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerType: Windows.Win32.Networking.WindowsWebServices.WS_HEADER_TYPE, valueType: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSetHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerType: Windows.Win32.Networking.WindowsWebServices.WS_HEADER_TYPE, valueType: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsRemoveCustomHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), headerNs: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsAddCustomHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: c_void_p, valueSize: UInt32, headerAttributes: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsAddCustomHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: VoidPtr, valueSize: UInt32, headerAttributes: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsAddMappedHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), valueType: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsAddMappedHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), valueType: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsRemoveMappedHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetMappedHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), repeatingOption: Windows.Win32.Networking.WindowsWebServices.WS_REPEATING_HEADER_OPTION, headerIndex: UInt32, valueType: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetMappedHeader(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), headerName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), repeatingOption: Windows.Win32.Networking.WindowsWebServices.WS_REPEATING_HEADER_OPTION, headerIndex: UInt32, valueType: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteBody(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), bodyDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteBody(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), bodyDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadBody(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), bodyDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadBody(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), bodyDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteEnvelopeStart(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), doneCallback: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DONE_CALLBACK, doneCallbackState: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteEnvelopeStart(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), doneCallback: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DONE_CALLBACK, doneCallbackState: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsWriteEnvelopeEnd(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadEnvelopeStart(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), doneCallback: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DONE_CALLBACK, doneCallbackState: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadEnvelopeStart(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), doneCallback: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DONE_CALLBACK, doneCallbackState: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsReadEnvelopeEnd(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetMessageProperty(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), id: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetMessageProperty(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), id: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsSetMessageProperty(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), id: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsSetMessageProperty(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), id: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsAddressMessage(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), address: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -460,7 +460,7 @@ def WsFlushBody(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_
 @winfunctype('webservices.dll')
 def WsRequestSecurityToken(channel: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_PROPERTY_head), propertyCount: UInt32, token: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_TOKEN)), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetSecurityTokenProperty(securityToken: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_TOKEN), id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_TOKEN_PROPERTY_ID, value: c_void_p, valueSize: UInt32, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetSecurityTokenProperty(securityToken: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_TOKEN), id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_TOKEN_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsCreateXmlSecurityToken(tokenXml: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER), tokenKey: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_HANDLE_head), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_SECURITY_TOKEN_PROPERTY_head), propertyCount: UInt32, token: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_TOKEN)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -468,23 +468,23 @@ def WsFreeSecurityToken(token: POINTER(Windows.Win32.Networking.WindowsWebServic
 @winfunctype('webservices.dll')
 def WsRevokeSecurityContext(securityContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetSecurityContextProperty(securityContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT), id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetSecurityContextProperty(securityContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT), id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadElement(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), elementDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadElement(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), elementDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadAttribute(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), attributeDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ATTRIBUTE_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadAttribute(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), attributeDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ATTRIBUTE_DESCRIPTION_head), readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsReadType(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), typeMapping: Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, type: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, typeDescription: c_void_p, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsReadType(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), typeMapping: Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, type: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, typeDescription: VoidPtr, readOption: Windows.Win32.Networking.WindowsWebServices.WS_READ_OPTION, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteElement(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), elementDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteElement(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), elementDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteAttribute(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), attributeDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ATTRIBUTE_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteAttribute(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), attributeDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ATTRIBUTE_DESCRIPTION_head), writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsWriteType(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), typeMapping: Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, type: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, typeDescription: c_void_p, writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsWriteType(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), typeMapping: Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, type: Windows.Win32.Networking.WindowsWebServices.WS_TYPE, typeDescription: VoidPtr, writeOption: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsRegisterOperationForCancel(context: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), cancelCallback: Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CANCEL_CALLBACK, freestateCallback: Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_FREE_STATE_CALLBACK, userState: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsRegisterOperationForCancel(context: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), cancelCallback: Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CANCEL_CALLBACK, freestateCallback: Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_FREE_STATE_CALLBACK, userState: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetServiceHostProperty(serviceHost: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_HOST), id: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetServiceHostProperty(serviceHost: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_HOST), id: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsCreateServiceHost(endpoints: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ENDPOINT_head)), endpointCount: UInt16, serviceProperties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROPERTY_head), servicePropertyCount: UInt32, serviceHost: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_HOST)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -498,7 +498,7 @@ def WsFreeServiceHost(serviceHost: POINTER(Windows.Win32.Networking.WindowsWebSe
 @winfunctype('webservices.dll')
 def WsResetServiceHost(serviceHost: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_HOST), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetServiceProxyProperty(serviceProxy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY), id: Windows.Win32.Networking.WindowsWebServices.WS_PROXY_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetServiceProxyProperty(serviceProxy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY), id: Windows.Win32.Networking.WindowsWebServices.WS_PROXY_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsCreateServiceProxy(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, channelBinding: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_BINDING, securityDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_DESCRIPTION_head), properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_PROXY_PROPERTY_head), propertyCount: UInt32, channelProperties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_head), channelPropertyCount: UInt32, serviceProxy: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -514,7 +514,7 @@ def WsResetServiceProxy(serviceProxy: POINTER(Windows.Win32.Networking.WindowsWe
 @winfunctype('webservices.dll')
 def WsAbandonCall(serviceProxy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY), callId: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsCall(serviceProxy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY), operation: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_DESCRIPTION_head), arguments: POINTER(c_void_p), heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), callProperties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CALL_PROPERTY_head), callPropertyCount: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsCall(serviceProxy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY), operation: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_DESCRIPTION_head), arguments: POINTER(VoidPtr), heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), callProperties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CALL_PROPERTY_head), callPropertyCount: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsDecodeUrl(url: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), flags: UInt32, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), outUrl: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_URL_head)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -534,7 +534,7 @@ def WsFreeMetadata(metadata: POINTER(Windows.Win32.Networking.WindowsWebServices
 @winfunctype('webservices.dll')
 def WsResetMetadata(metadata: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_METADATA), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetMetadataProperty(metadata: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_METADATA), id: Windows.Win32.Networking.WindowsWebServices.WS_METADATA_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetMetadataProperty(metadata: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_METADATA), id: Windows.Win32.Networking.WindowsWebServices.WS_METADATA_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsGetMissingMetadataDocumentAddress(metadata: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_METADATA), address: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
@@ -542,13 +542,13 @@ def WsGetMetadataEndpoints(metadata: POINTER(Windows.Win32.Networking.WindowsWeb
 @winfunctype('webservices.dll')
 def WsMatchPolicyAlternative(policy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_POLICY), alternativeIndex: UInt32, policyConstraints: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_POLICY_CONSTRAINTS_head), matchRequired: Windows.Win32.Foundation.BOOL, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsGetPolicyProperty(policy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_POLICY), id: Windows.Win32.Networking.WindowsWebServices.WS_POLICY_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsGetPolicyProperty(policy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_POLICY), id: Windows.Win32.Networking.WindowsWebServices.WS_POLICY_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
 def WsGetPolicyAlternativeCount(policy: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_POLICY), count: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsCreateServiceProxyFromTemplate(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_PROXY_PROPERTY_head), propertyCount: UInt32, templateType: Windows.Win32.Networking.WindowsWebServices.WS_BINDING_TEMPLATE_TYPE, templateValue: c_void_p, templateSize: UInt32, templateDescription: c_void_p, templateDescriptionSize: UInt32, serviceProxy: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsCreateServiceProxyFromTemplate(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_PROXY_PROPERTY_head), propertyCount: UInt32, templateType: Windows.Win32.Networking.WindowsWebServices.WS_BINDING_TEMPLATE_TYPE, templateValue: VoidPtr, templateSize: UInt32, templateDescription: VoidPtr, templateDescriptionSize: UInt32, serviceProxy: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webservices.dll')
-def WsCreateServiceEndpointFromTemplate(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ENDPOINT_PROPERTY_head), propertyCount: UInt32, addressUrl: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), contract: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_CONTRACT_head), authorizationCallback: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_SECURITY_CALLBACK, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), templateType: Windows.Win32.Networking.WindowsWebServices.WS_BINDING_TEMPLATE_TYPE, templateValue: c_void_p, templateSize: UInt32, templateDescription: c_void_p, templateDescriptionSize: UInt32, serviceEndpoint: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ENDPOINT_head)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WsCreateServiceEndpointFromTemplate(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, properties: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ENDPOINT_PROPERTY_head), propertyCount: UInt32, addressUrl: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), contract: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_CONTRACT_head), authorizationCallback: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_SECURITY_CALLBACK, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), templateType: Windows.Win32.Networking.WindowsWebServices.WS_BINDING_TEMPLATE_TYPE, templateValue: VoidPtr, templateSize: UInt32, templateDescription: VoidPtr, templateDescriptionSize: UInt32, serviceEndpoint: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ENDPOINT_head)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('webauthn.dll')
 def WebAuthNGetApiVersionNumber() -> UInt32: ...
 @winfunctype('webauthn.dll')
@@ -670,7 +670,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION(EasyCastStructure):
     cbAttestation: UInt32
     pbAttestation: POINTER(Byte)
     dwAttestationDecodeType: UInt32
-    pvAttestationDecode: c_void_p
+    pvAttestationDecode: VoidPtr
     cbAttestationObject: UInt32
     pbAttestationObject: POINTER(Byte)
     cbCredentialId: UInt32
@@ -712,7 +712,7 @@ class WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT(EasyCastStructure):
 class WEBAUTHN_EXTENSION(EasyCastStructure):
     pwszExtensionIdentifier: Windows.Win32.Foundation.PWSTR
     cbExtension: UInt32
-    pvExtension: c_void_p
+    pvExtension: VoidPtr
 class WEBAUTHN_EXTENSIONS(EasyCastStructure):
     cExtensions: UInt32
     pExtensions: POINTER(Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_EXTENSION_head)
@@ -745,13 +745,13 @@ class WEBAUTHN_X5C(EasyCastStructure):
     cbData: UInt32
     pbData: POINTER(Byte)
 @winfunctype_pointer
-def WS_ABANDON_MESSAGE_CALLBACK(channelInstance: c_void_p, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ABANDON_MESSAGE_CALLBACK(channelInstance: VoidPtr, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_ABORT_CHANNEL_CALLBACK(channelInstance: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ABORT_CHANNEL_CALLBACK(channelInstance: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_ABORT_LISTENER_CALLBACK(listenerInstance: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ABORT_LISTENER_CALLBACK(listenerInstance: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_ACCEPT_CHANNEL_CALLBACK(listenerInstance: c_void_p, channelInstance: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ACCEPT_CHANNEL_CALLBACK(listenerInstance: VoidPtr, channelInstance: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 WS_ADDRESSING_VERSION = Int32
 WS_ADDRESSING_VERSION_0_9: WS_ADDRESSING_VERSION = 1
 WS_ADDRESSING_VERSION_1_0: WS_ADDRESSING_VERSION = 2
@@ -764,25 +764,25 @@ class WS_ANY_ATTRIBUTES(EasyCastStructure):
     attributes: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ANY_ATTRIBUTE_head)
     attributeCount: UInt32
 @winfunctype_pointer
-def WS_ASYNC_CALLBACK(errorCode: Windows.Win32.Foundation.HRESULT, callbackModel: Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL, callbackState: c_void_p) -> Void: ...
+def WS_ASYNC_CALLBACK(errorCode: Windows.Win32.Foundation.HRESULT, callbackModel: Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL, callbackState: VoidPtr) -> Void: ...
 class WS_ASYNC_CONTEXT(EasyCastStructure):
     callback: Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CALLBACK
-    callbackState: c_void_p
+    callbackState: VoidPtr
 @winfunctype_pointer
-def WS_ASYNC_FUNCTION(hr: Windows.Win32.Foundation.HRESULT, callbackModel: Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL, callbackState: c_void_p, next: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_OPERATION_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ASYNC_FUNCTION(hr: Windows.Win32.Foundation.HRESULT, callbackModel: Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL, callbackState: VoidPtr, next: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_OPERATION_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_ASYNC_OPERATION(EasyCastStructure):
     function: Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_FUNCTION
 class WS_ASYNC_STATE(EasyCastStructure):
-    internal0: c_void_p
-    internal1: c_void_p
-    internal2: c_void_p
-    internal3: c_void_p
-    internal4: c_void_p
+    internal0: VoidPtr
+    internal1: VoidPtr
+    internal2: VoidPtr
+    internal3: VoidPtr
+    internal4: VoidPtr
 class WS_ATTRIBUTE_DESCRIPTION(EasyCastStructure):
     attributeLocalName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
     attributeNs: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
     type: Windows.Win32.Networking.WindowsWebServices.WS_TYPE
-    typeDescription: c_void_p
+    typeDescription: VoidPtr
 WS_BINDING_TEMPLATE_TYPE = Int32
 WS_HTTP_BINDING_TEMPLATE_TYPE: WS_BINDING_TEMPLATE_TYPE = 0
 WS_HTTP_SSL_BINDING_TEMPLATE_TYPE: WS_BINDING_TEMPLATE_TYPE = 1
@@ -817,7 +817,7 @@ WS_SHORT_CALLBACK: WS_CALLBACK_MODEL = 0
 WS_LONG_CALLBACK: WS_CALLBACK_MODEL = 1
 class WS_CALL_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_CALL_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_CALL_PROPERTY_ID = Int32
 WS_CALL_PROPERTY_CHECK_MUST_UNDERSTAND: WS_CALL_PROPERTY_ID = 0
@@ -829,10 +829,10 @@ class WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE(EasyCastStructure):
     provider: UIntPtr
     keySpec: UInt32
 @winfunctype_pointer
-def WS_CERTIFICATE_VALIDATION_CALLBACK(certContext: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), state: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CERTIFICATE_VALIDATION_CALLBACK(certContext: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), state: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT(EasyCastStructure):
     callback: Windows.Win32.Networking.WindowsWebServices.WS_CERTIFICATE_VALIDATION_CALLBACK
-    state: c_void_p
+    state: VoidPtr
 class WS_CERT_CREDENTIAL(EasyCastStructure):
     credentialType: Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL_TYPE
 WS_CERT_CREDENTIAL_TYPE = Int32
@@ -843,7 +843,7 @@ class WS_CERT_ENDPOINT_IDENTITY(EasyCastStructure):
     identity: Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY
     rawCertificateData: Windows.Win32.Networking.WindowsWebServices.WS_BYTES
 @winfunctype_pointer
-def WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK(certIssuerListNotificationCallbackState: c_void_p, issuerList: POINTER(Windows.Win32.Security.Authentication.Identity.SecPkgContext_IssuerListInfoEx_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK(certIssuerListNotificationCallbackState: VoidPtr, issuerList: POINTER(Windows.Win32.Security.Authentication.Identity.SecPkgContext_IssuerListInfoEx_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_CERT_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
     bindingConstraint: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     bindingUsage: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
@@ -853,7 +853,7 @@ class WS_CERT_SIGNED_SAML_AUTHENTICATOR(EasyCastStructure):
     trustedIssuerCertCount: UInt32
     decryptionCert: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
     samlValidator: Windows.Win32.Networking.WindowsWebServices.WS_VALIDATE_SAML_CALLBACK
-    samlValidatorCallbackState: c_void_p
+    samlValidatorCallbackState: VoidPtr
 WS_CHANNEL = IntPtr
 WS_CHANNEL_BINDING = Int32
 WS_HTTP_CHANNEL_BINDING: WS_CHANNEL_BINDING = 0
@@ -862,7 +862,7 @@ WS_UDP_CHANNEL_BINDING: WS_CHANNEL_BINDING = 2
 WS_CUSTOM_CHANNEL_BINDING: WS_CHANNEL_BINDING = 3
 WS_NAMEDPIPE_CHANNEL_BINDING: WS_CHANNEL_BINDING = 4
 class WS_CHANNEL_DECODER(EasyCastStructure):
-    createContext: c_void_p
+    createContext: VoidPtr
     createDecoderCallback: Windows.Win32.Networking.WindowsWebServices.WS_CREATE_DECODER_CALLBACK
     decoderGetContentTypeCallback: Windows.Win32.Networking.WindowsWebServices.WS_DECODER_GET_CONTENT_TYPE_CALLBACK
     decoderStartCallback: Windows.Win32.Networking.WindowsWebServices.WS_DECODER_START_CALLBACK
@@ -870,7 +870,7 @@ class WS_CHANNEL_DECODER(EasyCastStructure):
     decoderEndCallback: Windows.Win32.Networking.WindowsWebServices.WS_DECODER_END_CALLBACK
     freeDecoderCallback: Windows.Win32.Networking.WindowsWebServices.WS_FREE_DECODER_CALLBACK
 class WS_CHANNEL_ENCODER(EasyCastStructure):
-    createContext: c_void_p
+    createContext: VoidPtr
     createEncoderCallback: Windows.Win32.Networking.WindowsWebServices.WS_CREATE_ENCODER_CALLBACK
     encoderGetContentTypeCallback: Windows.Win32.Networking.WindowsWebServices.WS_ENCODER_GET_CONTENT_TYPE_CALLBACK
     encoderStartCallback: Windows.Win32.Networking.WindowsWebServices.WS_ENCODER_START_CALLBACK
@@ -882,11 +882,11 @@ class WS_CHANNEL_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_CHANNEL_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 class WS_CHANNEL_PROPERTY_CONSTRAINT(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID
-    allowedValues: c_void_p
+    allowedValues: VoidPtr
     allowedValuesSize: UInt32
     out: _out_e__Struct
     class _out_e__Struct(EasyCastStructure):
@@ -969,9 +969,9 @@ class WS_CHAR_ARRAY_DESCRIPTION(EasyCastStructure):
     minCharCount: UInt32
     maxCharCount: UInt32
 @winfunctype_pointer
-def WS_CLOSE_CHANNEL_CALLBACK(channelInstance: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CLOSE_CHANNEL_CALLBACK(channelInstance: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_CLOSE_LISTENER_CALLBACK(listenerInstance: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CLOSE_LISTENER_CALLBACK(listenerInstance: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_CONTRACT_DESCRIPTION(EasyCastStructure):
     operationCount: UInt32
     operations: POINTER(POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_DESCRIPTION_head))
@@ -979,21 +979,21 @@ WS_COOKIE_MODE = Int32
 WS_MANUAL_COOKIE_MODE: WS_COOKIE_MODE = 1
 WS_AUTO_COOKIE_MODE: WS_COOKIE_MODE = 2
 @winfunctype_pointer
-def WS_CREATE_CHANNEL_CALLBACK(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, channelParameters: c_void_p, channelParametersSize: UInt32, channelInstance: POINTER(c_void_p), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CREATE_CHANNEL_CALLBACK(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, channelParameters: VoidPtr, channelParametersSize: UInt32, channelInstance: POINTER(VoidPtr), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK(listenerInstance: c_void_p, channelParameters: c_void_p, channelParametersSize: UInt32, channelInstance: POINTER(c_void_p), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK(listenerInstance: VoidPtr, channelParameters: VoidPtr, channelParametersSize: UInt32, channelInstance: POINTER(VoidPtr), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_CREATE_DECODER_CALLBACK(createContext: c_void_p, readCallback: Windows.Win32.Networking.WindowsWebServices.WS_READ_CALLBACK, readContext: c_void_p, decoderContext: POINTER(c_void_p), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CREATE_DECODER_CALLBACK(createContext: VoidPtr, readCallback: Windows.Win32.Networking.WindowsWebServices.WS_READ_CALLBACK, readContext: VoidPtr, decoderContext: POINTER(VoidPtr), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_CREATE_ENCODER_CALLBACK(createContext: c_void_p, writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeContext: c_void_p, encoderContext: POINTER(c_void_p), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CREATE_ENCODER_CALLBACK(createContext: VoidPtr, writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeContext: VoidPtr, encoderContext: POINTER(VoidPtr), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_CREATE_LISTENER_CALLBACK(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, listenerParameters: c_void_p, listenerParametersSize: UInt32, listenerInstance: POINTER(c_void_p), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_CREATE_LISTENER_CALLBACK(channelType: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, listenerParameters: VoidPtr, listenerParametersSize: UInt32, listenerInstance: POINTER(VoidPtr), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_CUSTOM_CERT_CREDENTIAL(EasyCastStructure):
     credential: Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL
     getCertCallback: Windows.Win32.Networking.WindowsWebServices.WS_GET_CERT_CALLBACK
-    getCertCallbackState: c_void_p
+    getCertCallbackState: VoidPtr
     certIssuerListNotificationCallback: Windows.Win32.Networking.WindowsWebServices.WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK
-    certIssuerListNotificationCallbackState: c_void_p
+    certIssuerListNotificationCallbackState: VoidPtr
 class WS_CUSTOM_CHANNEL_CALLBACKS(EasyCastStructure):
     createChannelCallback: Windows.Win32.Networking.WindowsWebServices.WS_CREATE_CHANNEL_CALLBACK
     freeChannelCallback: Windows.Win32.Networking.WindowsWebServices.WS_FREE_CHANNEL_CALLBACK
@@ -1028,7 +1028,7 @@ class WS_CUSTOM_TYPE_DESCRIPTION(EasyCastStructure):
     alignment: UInt32
     readCallback: Windows.Win32.Networking.WindowsWebServices.WS_READ_TYPE_CALLBACK
     writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_TYPE_CALLBACK
-    descriptionData: c_void_p
+    descriptionData: VoidPtr
     isDefaultValueCallback: Windows.Win32.Networking.WindowsWebServices.WS_IS_DEFAULT_VALUE_CALLBACK
 class WS_DATETIME(EasyCastStructure):
     ticks: UInt64
@@ -1044,15 +1044,15 @@ class WS_DECIMAL_DESCRIPTION(EasyCastStructure):
     minValue: Windows.Win32.Foundation.DECIMAL
     maxValue: Windows.Win32.Foundation.DECIMAL
 @winfunctype_pointer
-def WS_DECODER_DECODE_CALLBACK(encoderContext: c_void_p, buffer: c_void_p, maxLength: UInt32, length: POINTER(UInt32), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_DECODER_DECODE_CALLBACK(encoderContext: VoidPtr, buffer: VoidPtr, maxLength: UInt32, length: POINTER(UInt32), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_DECODER_END_CALLBACK(encoderContext: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_DECODER_END_CALLBACK(encoderContext: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_DECODER_GET_CONTENT_TYPE_CALLBACK(decoderContext: c_void_p, contentType: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), contentEncoding: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), newContentType: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_DECODER_GET_CONTENT_TYPE_CALLBACK(decoderContext: VoidPtr, contentType: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), contentEncoding: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), newContentType: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_DECODER_START_CALLBACK(encoderContext: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_DECODER_START_CALLBACK(encoderContext: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_DEFAULT_VALUE(EasyCastStructure):
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 class WS_DEFAULT_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(EasyCastStructure):
     credential: Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL
@@ -1082,20 +1082,20 @@ class WS_DURATION_DESCRIPTION(EasyCastStructure):
     maxValue: Windows.Win32.Networking.WindowsWebServices.WS_DURATION
     comparer: Windows.Win32.Networking.WindowsWebServices.WS_DURATION_COMPARISON_CALLBACK
 @winfunctype_pointer
-def WS_DYNAMIC_STRING_CALLBACK(callbackState: c_void_p, string: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), found: POINTER(Windows.Win32.Foundation.BOOL), id: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_DYNAMIC_STRING_CALLBACK(callbackState: VoidPtr, string: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head), found: POINTER(Windows.Win32.Foundation.BOOL), id: POINTER(UInt32), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_ELEMENT_DESCRIPTION(EasyCastStructure):
     elementLocalName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
     elementNs: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
     type: Windows.Win32.Networking.WindowsWebServices.WS_TYPE
-    typeDescription: c_void_p
+    typeDescription: VoidPtr
 @winfunctype_pointer
-def WS_ENCODER_ENCODE_CALLBACK(encoderContext: c_void_p, buffers: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_BYTES_head), count: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ENCODER_ENCODE_CALLBACK(encoderContext: VoidPtr, buffers: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_BYTES_head), count: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_ENCODER_END_CALLBACK(encoderContext: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ENCODER_END_CALLBACK(encoderContext: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_ENCODER_GET_CONTENT_TYPE_CALLBACK(encoderContext: c_void_p, contentType: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), newContentType: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), contentEncoding: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ENCODER_GET_CONTENT_TYPE_CALLBACK(encoderContext: VoidPtr, contentType: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), newContentType: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), contentEncoding: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_ENCODER_START_CALLBACK(encoderContext: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_ENCODER_START_CALLBACK(encoderContext: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 WS_ENCODING = Int32
 WS_ENCODING_XML_BINARY_1: WS_ENCODING = 0
 WS_ENCODING_XML_BINARY_SESSION_1: WS_ENCODING = 1
@@ -1146,7 +1146,7 @@ WS_ENVELOPE_VERSION_NONE: WS_ENVELOPE_VERSION = 3
 WS_ERROR = IntPtr
 class WS_ERROR_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_ERROR_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_ERROR_PROPERTY_ID = Int32
 WS_ERROR_PROPERTY_STRING_COUNT: WS_ERROR_PROPERTY_ID = 0
@@ -1192,7 +1192,7 @@ class WS_FIELD_DESCRIPTION(EasyCastStructure):
     localName: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
     ns: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
     type: Windows.Win32.Networking.WindowsWebServices.WS_TYPE
-    typeDescription: c_void_p
+    typeDescription: VoidPtr
     offset: UInt32
     options: UInt32
     defaultValue: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_DEFAULT_VALUE_head)
@@ -1218,19 +1218,19 @@ class WS_FLOAT_DESCRIPTION(EasyCastStructure):
     minValue: Single
     maxValue: Single
 @winfunctype_pointer
-def WS_FREE_CHANNEL_CALLBACK(channelInstance: c_void_p) -> Void: ...
+def WS_FREE_CHANNEL_CALLBACK(channelInstance: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def WS_FREE_DECODER_CALLBACK(decoderContext: c_void_p) -> Void: ...
+def WS_FREE_DECODER_CALLBACK(decoderContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def WS_FREE_ENCODER_CALLBACK(encoderContext: c_void_p) -> Void: ...
+def WS_FREE_ENCODER_CALLBACK(encoderContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def WS_FREE_LISTENER_CALLBACK(listenerInstance: c_void_p) -> Void: ...
+def WS_FREE_LISTENER_CALLBACK(listenerInstance: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def WS_GET_CERT_CALLBACK(getCertCallbackState: c_void_p, targetAddress: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head), viaUri: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), cert: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_GET_CERT_CALLBACK(getCertCallbackState: VoidPtr, targetAddress: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head), viaUri: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), cert: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_GET_CHANNEL_PROPERTY_CALLBACK(channelInstance: c_void_p, id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_GET_CHANNEL_PROPERTY_CALLBACK(channelInstance: VoidPtr, id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_GET_LISTENER_PROPERTY_CALLBACK(listenerInstance: c_void_p, id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_GET_LISTENER_PROPERTY_CALLBACK(listenerInstance: VoidPtr, id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_GUID_DESCRIPTION(EasyCastStructure):
     value: Guid
 WS_HEADER_TYPE = Int32
@@ -1247,7 +1247,7 @@ class WS_HEAP_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_HEAP_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_HEAP_PROPERTY_ID = Int32
 WS_HEAP_PROPERTY_MAX_SIZE: WS_HEAP_PROPERTY_ID = 0
@@ -1305,10 +1305,10 @@ WS_HTTP_PROXY_SETTING_MODE_AUTO: WS_HTTP_PROXY_SETTING_MODE = 1
 WS_HTTP_PROXY_SETTING_MODE_NONE: WS_HTTP_PROXY_SETTING_MODE = 2
 WS_HTTP_PROXY_SETTING_MODE_CUSTOM: WS_HTTP_PROXY_SETTING_MODE = 3
 @winfunctype_pointer
-def WS_HTTP_REDIRECT_CALLBACK(state: c_void_p, originalUrl: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), newUrl: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_HTTP_REDIRECT_CALLBACK(state: VoidPtr, originalUrl: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), newUrl: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_HTTP_REDIRECT_CALLBACK_CONTEXT(EasyCastStructure):
     callback: Windows.Win32.Networking.WindowsWebServices.WS_HTTP_REDIRECT_CALLBACK
-    state: c_void_p
+    state: VoidPtr
 class WS_HTTP_SSL_BINDING_TEMPLATE(EasyCastStructure):
     channelProperties: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
@@ -1407,7 +1407,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
         issuerAddress: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head)
         requestSecurityTokenTemplate: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
 @winfunctype_pointer
-def WS_IS_DEFAULT_VALUE_CALLBACK(descriptionData: c_void_p, value: c_void_p, defaultValue: c_void_p, valueSize: UInt32, isDefault: POINTER(Windows.Win32.Foundation.BOOL), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_IS_DEFAULT_VALUE_CALLBACK(descriptionData: VoidPtr, value: VoidPtr, defaultValue: VoidPtr, valueSize: UInt32, isDefault: POINTER(Windows.Win32.Foundation.BOOL), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_ITEM_RANGE(EasyCastStructure):
     minItemCount: UInt32
     maxItemCount: UInt32
@@ -1430,7 +1430,7 @@ class WS_LISTENER_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_LISTENER_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_LISTENER_PROPERTY_ID = Int32
 WS_LISTENER_PROPERTY_LISTEN_BACKLOG: WS_LISTENER_PROPERTY_ID = 0
@@ -1462,7 +1462,7 @@ class WS_MESSAGE_DESCRIPTION(EasyCastStructure):
     action: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
     bodyElementDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION_head)
 @winfunctype_pointer
-def WS_MESSAGE_DONE_CALLBACK(doneCallbackState: c_void_p) -> Void: ...
+def WS_MESSAGE_DONE_CALLBACK(doneCallbackState: VoidPtr) -> Void: ...
 WS_MESSAGE_INITIALIZATION = Int32
 WS_BLANK_MESSAGE: WS_MESSAGE_INITIALIZATION = 0
 WS_DUPLICATE_MESSAGE: WS_MESSAGE_INITIALIZATION = 1
@@ -1474,7 +1474,7 @@ class WS_MESSAGE_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_MESSAGE_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_MESSAGE_PROPERTY_ID = Int32
 WS_MESSAGE_PROPERTY_STATE: WS_MESSAGE_PROPERTY_ID = 0
@@ -1527,7 +1527,7 @@ WS_METADATA_EXCHANGE_TYPE_MEX: WS_METADATA_EXCHANGE_TYPE = 1
 WS_METADATA_EXCHANGE_TYPE_HTTP_GET: WS_METADATA_EXCHANGE_TYPE = 2
 class WS_METADATA_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_METADATA_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_METADATA_PROPERTY_ID = Int32
 WS_METADATA_PROPERTY_STATE: WS_METADATA_PROPERTY_ID = 1
@@ -1578,13 +1578,13 @@ class WS_NETTCP_URL(EasyCastStructure):
     fragment: Windows.Win32.Networking.WindowsWebServices.WS_STRING
 class WS_OPAQUE_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(EasyCastStructure):
     credential: Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL
-    opaqueAuthIdentity: c_void_p
+    opaqueAuthIdentity: VoidPtr
 @winfunctype_pointer
-def WS_OPEN_CHANNEL_CALLBACK(channelInstance: c_void_p, endpointAddress: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_OPEN_CHANNEL_CALLBACK(channelInstance: VoidPtr, endpointAddress: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_OPEN_LISTENER_CALLBACK(listenerInstance: c_void_p, url: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_OPEN_LISTENER_CALLBACK(listenerInstance: VoidPtr, url: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_OPERATION_CANCEL_CALLBACK(reason: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_CANCEL_REASON, state: c_void_p) -> Void: ...
+def WS_OPERATION_CANCEL_CALLBACK(reason: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_CANCEL_REASON, state: VoidPtr) -> Void: ...
 WS_OPERATION_CONTEXT = IntPtr
 WS_OPERATION_CONTEXT_PROPERTY_ID = Int32
 WS_OPERATION_CONTEXT_PROPERTY_CHANNEL: WS_OPERATION_CONTEXT_PROPERTY_ID = 0
@@ -1607,7 +1607,7 @@ class WS_OPERATION_DESCRIPTION(EasyCastStructure):
     stubCallback: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_STUB_CALLBACK
     style: Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_STYLE
 @winfunctype_pointer
-def WS_OPERATION_FREE_STATE_CALLBACK(state: c_void_p) -> Void: ...
+def WS_OPERATION_FREE_STATE_CALLBACK(state: VoidPtr) -> Void: ...
 WS_OPERATION_STYLE = Int32
 WS_NON_RPC_LITERAL_OPERATION: WS_OPERATION_STYLE = 0
 WS_RPC_LITERAL_OPERATION: WS_OPERATION_STYLE = 1
@@ -1637,7 +1637,7 @@ class WS_POLICY_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_POLICY_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_POLICY_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_POLICY_PROPERTY_ID = Int32
 WS_POLICY_PROPERTY_STATE: WS_POLICY_PROPERTY_ID = 1
@@ -1652,13 +1652,13 @@ WS_PROTECTION_LEVEL_NONE: WS_PROTECTION_LEVEL = 1
 WS_PROTECTION_LEVEL_SIGN: WS_PROTECTION_LEVEL = 2
 WS_PROTECTION_LEVEL_SIGN_AND_ENCRYPT: WS_PROTECTION_LEVEL = 3
 @winfunctype_pointer
-def WS_PROXY_MESSAGE_CALLBACK(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), state: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_PROXY_MESSAGE_CALLBACK(message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), state: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_PROXY_MESSAGE_CALLBACK_CONTEXT(EasyCastStructure):
     callback: Windows.Win32.Networking.WindowsWebServices.WS_PROXY_MESSAGE_CALLBACK
-    state: c_void_p
+    state: VoidPtr
 class WS_PROXY_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_PROXY_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_PROXY_PROPERTY_ID = Int32
 WS_PROXY_PROPERTY_CALL_TIMEOUT: WS_PROXY_PROPERTY_ID = 0
@@ -1669,18 +1669,18 @@ WS_PROXY_PROPERTY_MAX_PENDING_CALLS: WS_PROXY_PROPERTY_ID = 4
 WS_PROXY_PROPERTY_MAX_CLOSE_TIMEOUT: WS_PROXY_PROPERTY_ID = 5
 WS_PROXY_FAULT_LANG_ID: WS_PROXY_PROPERTY_ID = 6
 @winfunctype_pointer
-def WS_PULL_BYTES_CALLBACK(callbackState: c_void_p, bytes: c_void_p, maxSize: UInt32, actualSize: POINTER(UInt32), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_PULL_BYTES_CALLBACK(callbackState: VoidPtr, bytes: VoidPtr, maxSize: UInt32, actualSize: POINTER(UInt32), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_PUSH_BYTES_CALLBACK(callbackState: c_void_p, writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeCallbackState: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_PUSH_BYTES_CALLBACK(callbackState: VoidPtr, writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeCallbackState: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE(EasyCastStructure):
     keyHandle: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_HANDLE
     rawKeyBytes: Windows.Win32.Networking.WindowsWebServices.WS_BYTES
 @winfunctype_pointer
-def WS_READ_CALLBACK(callbackState: c_void_p, bytes: c_void_p, maxSize: UInt32, actualSize: POINTER(UInt32), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_READ_CALLBACK(callbackState: VoidPtr, bytes: VoidPtr, maxSize: UInt32, actualSize: POINTER(UInt32), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_READ_MESSAGE_END_CALLBACK(channelInstance: c_void_p, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_READ_MESSAGE_END_CALLBACK(channelInstance: VoidPtr, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_READ_MESSAGE_START_CALLBACK(channelInstance: c_void_p, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_READ_MESSAGE_START_CALLBACK(channelInstance: VoidPtr, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 WS_READ_OPTION = Int32
 WS_READ_REQUIRED_VALUE: WS_READ_OPTION = 1
 WS_READ_REQUIRED_POINTER: WS_READ_OPTION = 2
@@ -1688,7 +1688,7 @@ WS_READ_OPTIONAL_POINTER: WS_READ_OPTION = 3
 WS_READ_NILLABLE_POINTER: WS_READ_OPTION = 4
 WS_READ_NILLABLE_VALUE: WS_READ_OPTION = 5
 @winfunctype_pointer
-def WS_READ_TYPE_CALLBACK(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), typeMapping: Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, descriptionData: c_void_p, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_READ_TYPE_CALLBACK(reader: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_READER), typeMapping: Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, descriptionData: VoidPtr, heap: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_HEAP), value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 WS_RECEIVE_OPTION = Int32
 WS_RECEIVE_REQUIRED_MESSAGE: WS_RECEIVE_OPTION = 1
 WS_RECEIVE_OPTIONAL_MESSAGE: WS_RECEIVE_OPTION = 2
@@ -1701,11 +1701,11 @@ WS_REQUEST_SECURITY_TOKEN_ACTION_NEW_CONTEXT: WS_REQUEST_SECURITY_TOKEN_ACTION =
 WS_REQUEST_SECURITY_TOKEN_ACTION_RENEW_CONTEXT: WS_REQUEST_SECURITY_TOKEN_ACTION = 3
 class WS_REQUEST_SECURITY_TOKEN_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID
-    allowedValues: c_void_p
+    allowedValues: VoidPtr
     allowedValuesSize: UInt32
     out: _out_e__Struct
     class _out_e__Struct(EasyCastStructure):
@@ -1725,9 +1725,9 @@ WS_REQUEST_SECURITY_TOKEN_PROPERTY_SERVICE_REQUEST_PARAMETERS: WS_REQUEST_SECURI
 WS_REQUEST_SECURITY_TOKEN_PROPERTY_MESSAGE_PROPERTIES: WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID = 12
 WS_REQUEST_SECURITY_TOKEN_PROPERTY_BEARER_KEY_TYPE_VERSION: WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID = 13
 @winfunctype_pointer
-def WS_RESET_CHANNEL_CALLBACK(channelInstance: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_RESET_CHANNEL_CALLBACK(channelInstance: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_RESET_LISTENER_CALLBACK(listenerInstance: c_void_p, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_RESET_LISTENER_CALLBACK(listenerInstance: VoidPtr, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_RSA_ENDPOINT_IDENTITY(EasyCastStructure):
     identity: Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY
     modulus: Windows.Win32.Networking.WindowsWebServices.WS_BYTES
@@ -1771,7 +1771,7 @@ WS_SECURITY_ALGORITHM_ASYMMETRIC_KEYWRAP_RSA_OAEP: WS_SECURITY_ALGORITHM_ID = 17
 WS_SECURITY_ALGORITHM_KEY_DERIVATION_P_SHA1: WS_SECURITY_ALGORITHM_ID = 18
 class WS_SECURITY_ALGORITHM_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_ALGORITHM_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_SECURITY_ALGORITHM_PROPERTY_ID = Int32
 class WS_SECURITY_ALGORITHM_SUITE(EasyCastStructure):
@@ -1828,11 +1828,11 @@ class WS_SECURITY_BINDING_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_SECURITY_BINDING_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY_ID
-    allowedValues: c_void_p
+    allowedValues: VoidPtr
     allowedValuesSize: UInt32
     out: _out_e__Struct
     class _out_e__Struct(EasyCastStructure):
@@ -1892,7 +1892,7 @@ class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
     securityBindingProperties: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
 class WS_SECURITY_CONTEXT_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_SECURITY_CONTEXT_PROPERTY_ID = Int32
 WS_SECURITY_CONTEXT_PROPERTY_IDENTIFIER: WS_SECURITY_CONTEXT_PROPERTY_ID = 1
@@ -1937,11 +1937,11 @@ class WS_SECURITY_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_SECURITY_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 class WS_SECURITY_PROPERTY_CONSTRAINT(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY_ID
-    allowedValues: c_void_p
+    allowedValues: VoidPtr
     allowedValuesSize: UInt32
     out: _out_e__Struct
     class _out_e__Struct(EasyCastStructure):
@@ -1979,7 +1979,7 @@ WS_SECURITY_TOKEN_REFERENCE_MODE_CERT_THUMBPRINT: WS_SECURITY_TOKEN_REFERENCE_MO
 WS_SECURITY_TOKEN_REFERENCE_MODE_SECURITY_CONTEXT_ID: WS_SECURITY_TOKEN_REFERENCE_MODE = 4
 WS_SECURITY_TOKEN_REFERENCE_MODE_SAML_ASSERTION_ID: WS_SECURITY_TOKEN_REFERENCE_MODE = 5
 @winfunctype_pointer
-def WS_SERVICE_ACCEPT_CHANNEL_CALLBACK(context: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), channelState: POINTER(c_void_p), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_SERVICE_ACCEPT_CHANNEL_CALLBACK(context: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), channelState: POINTER(VoidPtr), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 WS_SERVICE_CANCEL_REASON = Int32
 WS_SERVICE_HOST_ABORT: WS_SERVICE_CANCEL_REASON = 0
 WS_SERVICE_CHANNEL_FAULTED: WS_SERVICE_CANCEL_REASON = 1
@@ -1988,7 +1988,7 @@ def WS_SERVICE_CLOSE_CHANNEL_CALLBACK(context: POINTER(Windows.Win32.Networking.
 class WS_SERVICE_CONTRACT(EasyCastStructure):
     contractDescription: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_CONTRACT_DESCRIPTION_head)
     defaultMessageHandlerCallback: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_MESSAGE_RECEIVE_CALLBACK
-    methodTable: c_void_p
+    methodTable: VoidPtr
 class WS_SERVICE_ENDPOINT(EasyCastStructure):
     address: Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS
     channelBinding: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_BINDING
@@ -2005,7 +2005,7 @@ class WS_SERVICE_ENDPOINT_METADATA(EasyCastStructure):
     bindingNs: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
 class WS_SERVICE_ENDPOINT_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ENDPOINT_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_SERVICE_ENDPOINT_PROPERTY_ID = Int32
 WS_SERVICE_ENDPOINT_PROPERTY_ACCEPT_CHANNEL_CALLBACK: WS_SERVICE_ENDPOINT_PROPERTY_ID = 0
@@ -2043,7 +2043,7 @@ class WS_SERVICE_METADATA_DOCUMENT(EasyCastStructure):
     name: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head)
 class WS_SERVICE_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 class WS_SERVICE_PROPERTY_ACCEPT_CALLBACK(EasyCastStructure):
     callback: Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ACCEPT_CHANNEL_CALLBACK
@@ -2070,13 +2070,13 @@ class WS_SERVICE_SECURITY_IDENTITIES(EasyCastStructure):
     serviceIdentities: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head)
     serviceIdentityCount: UInt32
 @winfunctype_pointer
-def WS_SERVICE_STUB_CALLBACK(context: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), frame: c_void_p, callback: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_SERVICE_STUB_CALLBACK(context: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), frame: VoidPtr, callback: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_SET_CHANNEL_PROPERTY_CALLBACK(channelInstance: c_void_p, id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_SET_CHANNEL_PROPERTY_CALLBACK(channelInstance: VoidPtr, id: Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_SET_LISTENER_PROPERTY_CALLBACK(listenerInstance: c_void_p, id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_SET_LISTENER_PROPERTY_CALLBACK(listenerInstance: VoidPtr, id: Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_SHUTDOWN_SESSION_CHANNEL_CALLBACK(channelInstance: c_void_p, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_SHUTDOWN_SESSION_CHANNEL_CALLBACK(channelInstance: VoidPtr, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_SOAPUDP_URL(EasyCastStructure):
     url: Windows.Win32.Networking.WindowsWebServices.WS_URL
     host: Windows.Win32.Networking.WindowsWebServices.WS_STRING
@@ -2506,7 +2506,7 @@ class WS_USERNAME_MESSAGE_SECURITY_BINDING(EasyCastStructure):
     bindingUsage: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
     clientCredential: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_CREDENTIAL_head)
     passwordValidator: Windows.Win32.Networking.WindowsWebServices.WS_VALIDATE_PASSWORD_CALLBACK
-    passwordValidatorCallbackState: c_void_p
+    passwordValidatorCallbackState: VoidPtr
 class WS_USERNAME_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
     bindingConstraint: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     bindingUsage: Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
@@ -2517,14 +2517,14 @@ class WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
     securityBindingProperties: Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     clientCredential: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_CREDENTIAL_head)
     passwordValidator: Windows.Win32.Networking.WindowsWebServices.WS_VALIDATE_PASSWORD_CALLBACK
-    passwordValidatorCallbackState: c_void_p
+    passwordValidatorCallbackState: VoidPtr
 class WS_UTF8_ARRAY_DESCRIPTION(EasyCastStructure):
     minByteCount: UInt32
     maxByteCount: UInt32
 @winfunctype_pointer
-def WS_VALIDATE_PASSWORD_CALLBACK(passwordValidatorCallbackState: c_void_p, username: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), password: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_VALIDATE_PASSWORD_CALLBACK(passwordValidatorCallbackState: VoidPtr, username: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), password: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_STRING_head), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_VALIDATE_SAML_CALLBACK(samlValidatorCallbackState: c_void_p, samlAssertion: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_VALIDATE_SAML_CALLBACK(samlValidatorCallbackState: VoidPtr, samlAssertion: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 WS_VALUE_TYPE = Int32
 WS_BOOL_VALUE_TYPE: WS_VALUE_TYPE = 0
 WS_INT8_VALUE_TYPE: WS_VALUE_TYPE = 1
@@ -2555,18 +2555,18 @@ WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_KERBEROS: WS_WINDOWS_INTEGRATED_AUTH_PACKAGE 
 WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_NTLM: WS_WINDOWS_INTEGRATED_AUTH_PACKAGE = 2
 WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_SPNEGO: WS_WINDOWS_INTEGRATED_AUTH_PACKAGE = 3
 @winfunctype_pointer
-def WS_WRITE_CALLBACK(callbackState: c_void_p, buffers: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_BYTES_head), count: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_WRITE_CALLBACK(callbackState: VoidPtr, buffers: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_BYTES_head), count: UInt32, asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_WRITE_MESSAGE_END_CALLBACK(channelInstance: c_void_p, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_WRITE_MESSAGE_END_CALLBACK(channelInstance: VoidPtr, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WS_WRITE_MESSAGE_START_CALLBACK(channelInstance: c_void_p, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_WRITE_MESSAGE_START_CALLBACK(channelInstance: VoidPtr, message: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), asyncContext: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 WS_WRITE_OPTION = Int32
 WS_WRITE_REQUIRED_VALUE: WS_WRITE_OPTION = 1
 WS_WRITE_REQUIRED_POINTER: WS_WRITE_OPTION = 2
 WS_WRITE_NILLABLE_VALUE: WS_WRITE_OPTION = 3
 WS_WRITE_NILLABLE_POINTER: WS_WRITE_OPTION = 4
 @winfunctype_pointer
-def WS_WRITE_TYPE_CALLBACK(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), typeMapping: Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, descriptionData: c_void_p, value: c_void_p, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
+def WS_WRITE_TYPE_CALLBACK(writer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), typeMapping: Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, descriptionData: VoidPtr, value: VoidPtr, valueSize: UInt32, error: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> Windows.Win32.Foundation.HRESULT: ...
 class WS_WSZ_DESCRIPTION(EasyCastStructure):
     minCharCount: UInt32
     maxCharCount: UInt32
@@ -2587,7 +2587,7 @@ class WS_XML_BOOL_TEXT(EasyCastStructure):
 WS_XML_BUFFER = IntPtr
 class WS_XML_BUFFER_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_XML_BUFFER_PROPERTY_ID = Int32
 WS_XML_CANONICALIZATION_ALGORITHM = Int32
@@ -2600,7 +2600,7 @@ class WS_XML_CANONICALIZATION_INCLUSIVE_PREFIXES(EasyCastStructure):
     prefixes: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING_head)
 class WS_XML_CANONICALIZATION_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_XML_CANONICALIZATION_PROPERTY_ID = Int32
 WS_XML_CANONICALIZATION_PROPERTY_ALGORITHM: WS_XML_CANONICALIZATION_PROPERTY_ID = 0
@@ -2652,7 +2652,7 @@ class WS_XML_NODE(EasyCastStructure):
     nodeType: Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE_TYPE
 class WS_XML_NODE_POSITION(EasyCastStructure):
     buffer: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
-    node: c_void_p
+    node: VoidPtr
 WS_XML_NODE_TYPE = Int32
 WS_XML_NODE_TYPE_ELEMENT: WS_XML_NODE_TYPE = 1
 WS_XML_NODE_TYPE_TEXT: WS_XML_NODE_TYPE = 2
@@ -2682,7 +2682,7 @@ class WS_XML_READER_BINARY_ENCODING(EasyCastStructure):
     dynamicDictionary: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_DICTIONARY_head)
 class WS_XML_READER_BUFFER_INPUT(EasyCastStructure):
     input: Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_INPUT
-    encodedData: c_void_p
+    encodedData: VoidPtr
     encodedDataSize: UInt32
 class WS_XML_READER_ENCODING(EasyCastStructure):
     encodingType: Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING_TYPE
@@ -2708,7 +2708,7 @@ class WS_XML_READER_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_XML_READER_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_XML_READER_PROPERTY_ID = Int32
 WS_XML_READER_PROPERTY_MAX_DEPTH: WS_XML_READER_PROPERTY_ID = 0
@@ -2731,13 +2731,13 @@ class WS_XML_READER_RAW_ENCODING(EasyCastStructure):
 class WS_XML_READER_STREAM_INPUT(EasyCastStructure):
     input: Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_INPUT
     readCallback: Windows.Win32.Networking.WindowsWebServices.WS_READ_CALLBACK
-    readCallbackState: c_void_p
+    readCallbackState: VoidPtr
 class WS_XML_READER_TEXT_ENCODING(EasyCastStructure):
     encoding: Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING
     charSet: Windows.Win32.Networking.WindowsWebServices.WS_CHARSET
 class WS_XML_SECURITY_TOKEN_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_XML_SECURITY_TOKEN_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_XML_SECURITY_TOKEN_PROPERTY_ID = Int32
 WS_XML_SECURITY_TOKEN_PROPERTY_ATTACHED_REFERENCE: WS_XML_SECURITY_TOKEN_PROPERTY_ID = 1
@@ -2799,7 +2799,7 @@ class WS_XML_WRITER_BINARY_ENCODING(EasyCastStructure):
     encoding: Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING
     staticDictionary: POINTER(Windows.Win32.Networking.WindowsWebServices.WS_XML_DICTIONARY_head)
     dynamicStringCallback: Windows.Win32.Networking.WindowsWebServices.WS_DYNAMIC_STRING_CALLBACK
-    dynamicStringCallbackState: c_void_p
+    dynamicStringCallbackState: VoidPtr
 class WS_XML_WRITER_BUFFER_OUTPUT(EasyCastStructure):
     output: Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_OUTPUT
 class WS_XML_WRITER_ENCODING(EasyCastStructure):
@@ -2827,7 +2827,7 @@ class WS_XML_WRITER_PROPERTIES(EasyCastStructure):
     propertyCount: UInt32
 class WS_XML_WRITER_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_ID
-    value: c_void_p
+    value: VoidPtr
     valueSize: UInt32
 WS_XML_WRITER_PROPERTY_ID = Int32
 WS_XML_WRITER_PROPERTY_MAX_DEPTH: WS_XML_WRITER_PROPERTY_ID = 0
@@ -2854,7 +2854,7 @@ class WS_XML_WRITER_RAW_ENCODING(EasyCastStructure):
 class WS_XML_WRITER_STREAM_OUTPUT(EasyCastStructure):
     output: Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_OUTPUT
     writeCallback: Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK
-    writeCallbackState: c_void_p
+    writeCallbackState: VoidPtr
 class WS_XML_WRITER_TEXT_ENCODING(EasyCastStructure):
     encoding: Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING
     charSet: Windows.Win32.Networking.WindowsWebServices.WS_CHARSET

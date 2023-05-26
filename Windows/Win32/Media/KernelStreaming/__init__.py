@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
 import Windows.Win32.Media
@@ -745,9 +745,9 @@ def KsResolveRequiredAttributes(DataRange: POINTER(Windows.Win32.Media.KernelStr
 @winfunctype('ksproxy.ax')
 def KsOpenDefaultDevice(Category: POINTER(Guid), Access: UInt32, DeviceHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
-def KsSynchronousDeviceControl(Handle: Windows.Win32.Foundation.HANDLE, IoControl: UInt32, InBuffer: c_void_p, InLength: UInt32, OutBuffer: c_void_p, OutLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def KsSynchronousDeviceControl(Handle: Windows.Win32.Foundation.HANDLE, IoControl: UInt32, InBuffer: VoidPtr, InLength: UInt32, OutBuffer: VoidPtr, OutLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
-def KsGetMultiplePinFactoryItems(FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, PropertyId: UInt32, Items: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def KsGetMultiplePinFactoryItems(FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, PropertyId: UInt32, Items: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
 def KsGetMediaTypeCount(FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, MediaTypeCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
@@ -927,11 +927,11 @@ class IKsControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{28f54685-06fd-11d2-b27a-00a0c9223196}')
     @commethod(3)
-    def KsProperty(self, Property: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), PropertyLength: UInt32, PropertyData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsProperty(self, Property: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), PropertyLength: UInt32, PropertyData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def KsMethod(self, Method: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), MethodLength: UInt32, MethodData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsMethod(self, Method: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), MethodLength: UInt32, MethodData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def KsEvent(self, Event: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), EventLength: UInt32, EventData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsEvent(self, Event: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), EventLength: UInt32, EventData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsDataTypeCompletion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{827d1a0e-0f73-11d2-b27a-00a0c9223196}')
@@ -941,11 +941,11 @@ class IKsDataTypeHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5ffbaa02-49a3-11d0-9f36-00aa00a216a1}')
     @commethod(3)
-    def KsCompleteIoOperation(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: c_void_p, IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION, Cancelled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsCompleteIoOperation(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: VoidPtr, IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION, Cancelled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def KsIsMediaTypeInRanges(self, DataRanges: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsIsMediaTypeInRanges(self, DataRanges: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def KsPrepareIoOperation(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: c_void_p, IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsPrepareIoOperation(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: VoidPtr, IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def KsQueryExtendedSize(self, ExtendedSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -1080,7 +1080,7 @@ class IKsTopology(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{28f54683-06fd-11d2-b27a-00a0c9223196}')
     @commethod(3)
-    def CreateNodeInstance(self, NodeId: UInt32, Flags: UInt32, DesiredAccess: UInt32, UnkOuter: Windows.Win32.System.Com.IUnknown_head, InterfaceId: POINTER(Guid), Interface: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateNodeInstance(self, NodeId: UInt32, Flags: UInt32, DesiredAccess: UInt32, UnkOuter: Windows.Win32.System.Com.IUnknown_head, InterfaceId: POINTER(Guid), Interface: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsTopologyInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{720d4ac0-7533-11d0-a5d6-28db04c10000}')
@@ -1099,7 +1099,7 @@ class IKsTopologyInfo(ComPtr):
     @commethod(9)
     def get_NodeType(self, dwNodeId: UInt32, pNodeType: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def CreateNodeInstance(self, dwNodeId: UInt32, iid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateNodeInstance(self, dwNodeId: UInt32, iid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class INTERLEAVED_AUDIO_FORMAT_INFORMATION(EasyCastStructure):
     Size: UInt32
     PrimaryChannelCount: UInt32
@@ -1873,7 +1873,7 @@ class KSDS3D_LISTENER_ORIENTATION(EasyCastStructure):
     Front: Windows.Win32.Media.KernelStreaming.DS3DVECTOR
     Top: Windows.Win32.Media.KernelStreaming.DS3DVECTOR
 class KSERROR(EasyCastStructure):
-    Context: c_void_p
+    Context: VoidPtr
     Status: UInt32
 class KSEVENTDATA(EasyCastStructure):
     NotificationType: UInt32
@@ -1890,7 +1890,7 @@ class KSEVENTDATA(EasyCastStructure):
             Reserved: UInt32
             Adjustment: Int32
         class _Alignment_e__Struct(EasyCastStructure):
-            Unused: c_void_p
+            Unused: VoidPtr
             Alignment: IntPtr * 2
 KSEVENTSETID_AudioControlChange = Guid('{e85e9698-fa2f-11d1-95bd-00c04fb925d3}')
 KSEVENTSETID_CameraAsyncControl = Guid('{22a11754-9701-4088-b33f-6b9cbc52df5e}')
@@ -2135,11 +2135,11 @@ class KSNODEPROPERTY(EasyCastStructure):
 if ARCH in 'X64,ARM64':
     class KSNODEPROPERTY_AUDIO_3D_LISTENER(EasyCastStructure):
         NodeProperty: Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
-        ListenerId: c_void_p
+        ListenerId: VoidPtr
 if ARCH in 'X86':
     class KSNODEPROPERTY_AUDIO_3D_LISTENER(EasyCastStructure):
         NodeProperty: Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
-        ListenerId: c_void_p
+        ListenerId: VoidPtr
         Reserved: UInt32
 class KSNODEPROPERTY_AUDIO_CHANNEL(EasyCastStructure):
     NodeProperty: Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
@@ -2153,12 +2153,12 @@ class KSNODEPROPERTY_AUDIO_DEV_SPECIFIC(EasyCastStructure):
 if ARCH in 'X64,ARM64':
     class KSNODEPROPERTY_AUDIO_PROPERTY(EasyCastStructure):
         NodeProperty: Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
-        AppContext: c_void_p
+        AppContext: VoidPtr
         Length: UInt32
 if ARCH in 'X86':
     class KSNODEPROPERTY_AUDIO_PROPERTY(EasyCastStructure):
         NodeProperty: Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
-        AppContext: c_void_p
+        AppContext: VoidPtr
         Length: UInt32
         Reserved: UInt32
 KSNODETYPE_1394_DA_STREAM = Guid('{dff21fe6-f70f-11d0-b917-00a0c9223196}')
@@ -2293,7 +2293,7 @@ KSPIN_MDL_CACHING_NOTIFY_CLEANALL_NOWAIT: KSPIN_MDL_CACHING_EVENT = 2
 KSPIN_MDL_CACHING_NOTIFY_ADDSAMPLE: KSPIN_MDL_CACHING_EVENT = 3
 class KSPIN_MDL_CACHING_NOTIFICATION(EasyCastStructure):
     Event: Windows.Win32.Media.KernelStreaming.KSPIN_MDL_CACHING_EVENT
-    Buffer: c_void_p
+    Buffer: VoidPtr
 class KSPIN_MDL_CACHING_NOTIFICATION32(EasyCastStructure):
     Event: Windows.Win32.Media.KernelStreaming.KSPIN_MDL_CACHING_EVENT
     Buffer: UInt32
@@ -3012,12 +3012,12 @@ class KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS_S(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     NetworkType: Guid
     BufferSize: UInt32
-    NetworkTunerCapabilities: c_void_p
+    NetworkTunerCapabilities: VoidPtr
 class KSPROPERTY_TUNER_SCAN_CAPS_S(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     fSupportsHardwareAssistedScanning: Windows.Win32.Foundation.BOOL
     SupportedBroadcastStandards: UInt32
-    GUIDBucket: c_void_p
+    GUIDBucket: VoidPtr
     lengthofBucket: UInt32
 class KSPROPERTY_TUNER_SCAN_STATUS_S(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
@@ -3335,16 +3335,16 @@ class KSP_TIMEFORMAT(EasyCastStructure):
     TargetFormat: Guid
     Time: Int64
 class KSQUALITY(EasyCastStructure):
-    Context: c_void_p
+    Context: VoidPtr
     Proportion: UInt32
     DeltaTime: Int64
 class KSQUALITY_MANAGER(EasyCastStructure):
     QualityManager: Windows.Win32.Foundation.HANDLE
-    Context: c_void_p
+    Context: VoidPtr
 class KSQUERYBUFFER(EasyCastStructure):
     Event: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     EventData: POINTER(Windows.Win32.Media.KernelStreaming.KSEVENTDATA_head)
-    Reserved: c_void_p
+    Reserved: VoidPtr
 class KSRATE(EasyCastStructure):
     PresentationStart: Int64
     Duration: Int64
@@ -3358,12 +3358,12 @@ class KSRELATIVEEVENT(EasyCastStructure):
     Size: UInt32
     Flags: UInt32
     Anonymous: _Anonymous_e__Union
-    Reserved: c_void_p
+    Reserved: VoidPtr
     Event: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     EventData: Windows.Win32.Media.KernelStreaming.KSEVENTDATA
     class _Anonymous_e__Union(EasyCastUnion):
         ObjectHandle: Windows.Win32.Foundation.HANDLE
-        ObjectPointer: c_void_p
+        ObjectPointer: VoidPtr
 KSRESET = Int32
 KSRESET_BEGIN: KSRESET = 0
 KSRESET_END: KSRESET = 1
@@ -3371,7 +3371,7 @@ class KSRESOLUTION(EasyCastStructure):
     Granularity: Int64
     Error: Int64
 class KSRTAUDIO_BUFFER(EasyCastStructure):
-    BufferAddress: c_void_p
+    BufferAddress: VoidPtr
     ActualBufferSize: UInt32
     CallMemoryBarrier: Windows.Win32.Foundation.BOOL
 class KSRTAUDIO_BUFFER32(EasyCastStructure):
@@ -3380,7 +3380,7 @@ class KSRTAUDIO_BUFFER32(EasyCastStructure):
     CallMemoryBarrier: Windows.Win32.Foundation.BOOL
 class KSRTAUDIO_BUFFER_PROPERTY(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
-    BaseAddress: c_void_p
+    BaseAddress: VoidPtr
     RequestedBufferSize: UInt32
 class KSRTAUDIO_BUFFER_PROPERTY32(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
@@ -3388,7 +3388,7 @@ class KSRTAUDIO_BUFFER_PROPERTY32(EasyCastStructure):
     RequestedBufferSize: UInt32
 class KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
-    BaseAddress: c_void_p
+    BaseAddress: VoidPtr
     RequestedBufferSize: UInt32
     NotificationCount: UInt32
 class KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION32(EasyCastStructure):
@@ -3406,7 +3406,7 @@ class KSRTAUDIO_HWLATENCY(EasyCastStructure):
     ChipsetDelay: UInt32
     CodecDelay: UInt32
 class KSRTAUDIO_HWREGISTER(EasyCastStructure):
-    Register: c_void_p
+    Register: VoidPtr
     Width: UInt32
     Numerator: UInt64
     Denominator: UInt64
@@ -3419,7 +3419,7 @@ class KSRTAUDIO_HWREGISTER32(EasyCastStructure):
     Accuracy: UInt32
 class KSRTAUDIO_HWREGISTER_PROPERTY(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
-    BaseAddress: c_void_p
+    BaseAddress: VoidPtr
 class KSRTAUDIO_HWREGISTER_PROPERTY32(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     BaseAddress: UInt32
@@ -3435,7 +3435,7 @@ class KSRTAUDIO_PACKETVREGISTER(EasyCastStructure):
     CompletedPacketHash: POINTER(UInt64)
 class KSRTAUDIO_PACKETVREGISTER_PROPERTY(EasyCastStructure):
     Property: Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
-    BaseAddress: c_void_p
+    BaseAddress: VoidPtr
 class KSRTAUDIO_SETWRITEPACKET_INFO(EasyCastStructure):
     PacketNumber: UInt32
     Flags: UInt32
@@ -3464,7 +3464,7 @@ if ARCH in 'X64,ARM64':
         Duration: Int64
         FrameExtent: UInt32
         DataUsed: UInt32
-        Data: c_void_p
+        Data: VoidPtr
         OptionsFlags: UInt32
         Reserved: UInt32
 if ARCH in 'X86':
@@ -3475,13 +3475,13 @@ if ARCH in 'X86':
         Duration: Int64
         FrameExtent: UInt32
         DataUsed: UInt32
-        Data: c_void_p
+        Data: VoidPtr
         OptionsFlags: UInt32
 class KSSTREAM_METADATA_INFO(EasyCastStructure):
     BufferSize: UInt32
     UsedSize: UInt32
-    Data: c_void_p
-    SystemVa: c_void_p
+    Data: VoidPtr
+    SystemVa: VoidPtr
     Flags: UInt32
     Reserved: UInt32
 class KSSTREAM_SEGMENT(EasyCastStructure):
@@ -3562,7 +3562,7 @@ class KSWAVETABLE_WAVE_DESC(EasyCastStructure):
 class KSWAVE_BUFFER(EasyCastStructure):
     Attributes: UInt32
     BufferSize: UInt32
-    BufferAddress: c_void_p
+    BufferAddress: VoidPtr
 class KSWAVE_COMPATCAPS(EasyCastStructure):
     ulDeviceType: UInt32
 class KSWAVE_INPUT_CAPABILITIES(EasyCastStructure):

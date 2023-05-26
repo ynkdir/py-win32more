@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.CloudFilters
 import Windows.Win32.Storage.FileSystem
@@ -27,7 +27,7 @@ def CfRegisterSyncRoot(SyncRootPath: Windows.Win32.Foundation.PWSTR, Registratio
 @winfunctype('cldapi.dll')
 def CfUnregisterSyncRoot(SyncRootPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfConnectSyncRoot(SyncRootPath: Windows.Win32.Foundation.PWSTR, CallbackTable: POINTER(Windows.Win32.Storage.CloudFilters.CF_CALLBACK_REGISTRATION_head), CallbackContext: c_void_p, ConnectFlags: Windows.Win32.Storage.CloudFilters.CF_CONNECT_FLAGS, ConnectionKey: POINTER(Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfConnectSyncRoot(SyncRootPath: Windows.Win32.Foundation.PWSTR, CallbackTable: POINTER(Windows.Win32.Storage.CloudFilters.CF_CALLBACK_REGISTRATION_head), CallbackContext: VoidPtr, ConnectFlags: Windows.Win32.Storage.CloudFilters.CF_CONNECT_FLAGS, ConnectionKey: POINTER(Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
 def CfDisconnectSyncRoot(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
@@ -55,9 +55,9 @@ def CfReleaseProtectedHandle(ProtectedHandle: Windows.Win32.Foundation.HANDLE) -
 @winfunctype('cldapi.dll')
 def CfCloseHandle(FileHandle: Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('cldapi.dll')
-def CfConvertToPlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, FileIdentity: c_void_p, FileIdentityLength: UInt32, ConvertFlags: Windows.Win32.Storage.CloudFilters.CF_CONVERT_FLAGS, ConvertUsn: POINTER(Int64), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfConvertToPlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, FileIdentity: VoidPtr, FileIdentityLength: UInt32, ConvertFlags: Windows.Win32.Storage.CloudFilters.CF_CONVERT_FLAGS, ConvertUsn: POINTER(Int64), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfUpdatePlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, FsMetadata: POINTER(Windows.Win32.Storage.CloudFilters.CF_FS_METADATA_head), FileIdentity: c_void_p, FileIdentityLength: UInt32, DehydrateRangeArray: POINTER(Windows.Win32.Storage.CloudFilters.CF_FILE_RANGE_head), DehydrateRangeCount: UInt32, UpdateFlags: Windows.Win32.Storage.CloudFilters.CF_UPDATE_FLAGS, UpdateUsn: POINTER(Int64), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfUpdatePlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, FsMetadata: POINTER(Windows.Win32.Storage.CloudFilters.CF_FS_METADATA_head), FileIdentity: VoidPtr, FileIdentityLength: UInt32, DehydrateRangeArray: POINTER(Windows.Win32.Storage.CloudFilters.CF_FILE_RANGE_head), DehydrateRangeCount: UInt32, UpdateFlags: Windows.Win32.Storage.CloudFilters.CF_UPDATE_FLAGS, UpdateUsn: POINTER(Int64), Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
 def CfRevertPlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, RevertFlags: Windows.Win32.Storage.CloudFilters.CF_REVERT_FLAGS, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
@@ -75,19 +75,19 @@ def CfGetCorrelationVector(FileHandle: Windows.Win32.Foundation.HANDLE, Correlat
 @winfunctype('cldapi.dll')
 def CfGetPlaceholderStateFromAttributeTag(FileAttributes: UInt32, ReparseTag: UInt32) -> Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE: ...
 @winfunctype('cldapi.dll')
-def CfGetPlaceholderStateFromFileInfo(InfoBuffer: c_void_p, InfoClass: Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS) -> Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE: ...
+def CfGetPlaceholderStateFromFileInfo(InfoBuffer: VoidPtr, InfoClass: Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS) -> Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE: ...
 @winfunctype('cldapi.dll')
 def CfGetPlaceholderStateFromFindData(FindData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAA_head)) -> Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE: ...
 @winfunctype('cldapi.dll')
-def CfGetPlaceholderInfo(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_INFO_CLASS, InfoBuffer: c_void_p, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfGetPlaceholderInfo(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_INFO_CLASS, InfoBuffer: VoidPtr, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfGetSyncRootInfoByPath(FilePath: Windows.Win32.Foundation.PWSTR, InfoClass: Windows.Win32.Storage.CloudFilters.CF_SYNC_ROOT_INFO_CLASS, InfoBuffer: c_void_p, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfGetSyncRootInfoByPath(FilePath: Windows.Win32.Foundation.PWSTR, InfoClass: Windows.Win32.Storage.CloudFilters.CF_SYNC_ROOT_INFO_CLASS, InfoBuffer: VoidPtr, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfGetSyncRootInfoByHandle(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_SYNC_ROOT_INFO_CLASS, InfoBuffer: c_void_p, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfGetSyncRootInfoByHandle(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_SYNC_ROOT_INFO_CLASS, InfoBuffer: VoidPtr, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfGetPlaceholderRangeInfo(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS, StartingOffset: Int64, Length: Int64, InfoBuffer: c_void_p, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfGetPlaceholderRangeInfo(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS, StartingOffset: Int64, Length: Int64, InfoBuffer: VoidPtr, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfGetPlaceholderRangeInfoForHydration(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY, TransferKey: Int64, FileId: Int64, InfoClass: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS, StartingOffset: Int64, RangeLength: Int64, InfoBuffer: c_void_p, InfoBufferSize: UInt32, InfoBufferWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfGetPlaceholderRangeInfoForHydration(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY, TransferKey: Int64, FileId: Int64, InfoClass: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS, StartingOffset: Int64, RangeLength: Int64, InfoBuffer: VoidPtr, InfoBufferSize: UInt32, InfoBufferWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
 def CfReportProviderProgress(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY, TransferKey: Int64, ProviderProgressTotal: Int64, ProviderProgressCompleted: Int64) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
@@ -129,16 +129,16 @@ CF_CALLBACK_FETCH_PLACEHOLDERS_FLAG_NONE: CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS =
 class CF_CALLBACK_INFO(EasyCastStructure):
     StructSize: UInt32
     ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY
-    CallbackContext: c_void_p
+    CallbackContext: VoidPtr
     VolumeGuidName: Windows.Win32.Foundation.PWSTR
     VolumeDosName: Windows.Win32.Foundation.PWSTR
     VolumeSerialNumber: UInt32
     SyncRootFileId: Int64
-    SyncRootIdentity: c_void_p
+    SyncRootIdentity: VoidPtr
     SyncRootIdentityLength: UInt32
     FileId: Int64
     FileSize: Int64
-    FileIdentity: c_void_p
+    FileIdentity: VoidPtr
     FileIdentityLength: UInt32
     NormalizedPath: Windows.Win32.Foundation.PWSTR
     TransferKey: Int64
@@ -337,12 +337,12 @@ class CF_OPERATION_PARAMETERS(EasyCastStructure):
         class _TransferData_e__Struct(EasyCastStructure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_TRANSFER_DATA_FLAGS
             CompletionStatus: Windows.Win32.Foundation.NTSTATUS
-            Buffer: c_void_p
+            Buffer: VoidPtr
             Offset: Int64
             Length: Int64
         class _RetrieveData_e__Struct(EasyCastStructure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_RETRIEVE_DATA_FLAGS
-            Buffer: c_void_p
+            Buffer: VoidPtr
             Offset: Int64
             Length: Int64
             ReturnedLength: Int64
@@ -354,7 +354,7 @@ class CF_OPERATION_PARAMETERS(EasyCastStructure):
         class _RestartHydration_e__Struct(EasyCastStructure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_RESTART_HYDRATION_FLAGS
             FsMetadata: POINTER(Windows.Win32.Storage.CloudFilters.CF_FS_METADATA_head)
-            FileIdentity: c_void_p
+            FileIdentity: VoidPtr
             FileIdentityLength: UInt32
         class _TransferPlaceholders_e__Struct(EasyCastStructure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS
@@ -366,7 +366,7 @@ class CF_OPERATION_PARAMETERS(EasyCastStructure):
         class _AckDehydrate_e__Struct(EasyCastStructure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_DEHYDRATE_FLAGS
             CompletionStatus: Windows.Win32.Foundation.NTSTATUS
-            FileIdentity: c_void_p
+            FileIdentity: VoidPtr
             FileIdentityLength: UInt32
         class _AckRename_e__Struct(EasyCastStructure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_RENAME_FLAGS
@@ -416,7 +416,7 @@ CF_PLACEHOLDER_CREATE_FLAG_ALWAYS_FULL: CF_PLACEHOLDER_CREATE_FLAGS = 8
 class CF_PLACEHOLDER_CREATE_INFO(EasyCastStructure):
     RelativeFileName: Windows.Win32.Foundation.PWSTR
     FsMetadata: Windows.Win32.Storage.CloudFilters.CF_FS_METADATA
-    FileIdentity: c_void_p
+    FileIdentity: VoidPtr
     FileIdentityLength: UInt32
     Flags: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_CREATE_FLAGS
     Result: Windows.Win32.Foundation.HRESULT
@@ -511,9 +511,9 @@ class CF_SYNC_REGISTRATION(EasyCastStructure):
     StructSize: UInt32
     ProviderName: Windows.Win32.Foundation.PWSTR
     ProviderVersion: Windows.Win32.Foundation.PWSTR
-    SyncRootIdentity: c_void_p
+    SyncRootIdentity: VoidPtr
     SyncRootIdentityLength: UInt32
-    FileIdentity: c_void_p
+    FileIdentity: VoidPtr
     FileIdentityLength: UInt32
     ProviderId: Guid
 class CF_SYNC_ROOT_BASIC_INFO(EasyCastStructure):

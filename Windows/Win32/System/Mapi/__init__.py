@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Mapi
 import sys
@@ -68,7 +68,7 @@ MAPI_E_NOT_SUPPORTED: UInt32 = 26
 MAPI_E_UNICODE_NOT_SUPPORTED: UInt32 = 27
 MAPI_E_ATTACHMENT_TOO_LARGE: UInt32 = 28
 @winfunctype('MAPI32.dll')
-def MAPIFreeBuffer(pv: c_void_p) -> UInt32: ...
+def MAPIFreeBuffer(pv: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def LPMAPIADDRESS(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszCaption: Windows.Win32.Foundation.PSTR, nEditFields: UInt32, lpszLabels: Windows.Win32.Foundation.PSTR, nRecips: UInt32, lpRecips: POINTER(Windows.Win32.System.Mapi.MapiRecipDesc_head), flFlags: UInt32, ulReserved: UInt32, lpnNewRecips: POINTER(UInt32), lppNewRecips: POINTER(POINTER(Windows.Win32.System.Mapi.MapiRecipDesc_head))) -> UInt32: ...
 @winfunctype_pointer
@@ -78,7 +78,7 @@ def LPMAPIDETAILS(lhSession: UIntPtr, ulUIParam: UIntPtr, lpRecip: POINTER(Windo
 @winfunctype_pointer
 def LPMAPIFINDNEXT(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszMessageType: Windows.Win32.Foundation.PSTR, lpszSeedMessageID: Windows.Win32.Foundation.PSTR, flFlags: UInt32, ulReserved: UInt32, lpszMessageID: Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPIFREEBUFFER(pv: c_void_p) -> UInt32: ...
+def LPMAPIFREEBUFFER(pv: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def LPMAPILOGOFF(lhSession: UIntPtr, ulUIParam: UIntPtr, flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
 @winfunctype_pointer
@@ -101,14 +101,14 @@ class MapiFileDesc(EasyCastStructure):
     nPosition: UInt32
     lpszPathName: Windows.Win32.Foundation.PSTR
     lpszFileName: Windows.Win32.Foundation.PSTR
-    lpFileType: c_void_p
+    lpFileType: VoidPtr
 class MapiFileDescW(EasyCastStructure):
     ulReserved: UInt32
     flFlags: UInt32
     nPosition: UInt32
     lpszPathName: Windows.Win32.Foundation.PWSTR
     lpszFileName: Windows.Win32.Foundation.PWSTR
-    lpFileType: c_void_p
+    lpFileType: VoidPtr
 class MapiFileTagExt(EasyCastStructure):
     ulReserved: UInt32
     cbTag: UInt32
@@ -147,14 +147,14 @@ class MapiRecipDesc(EasyCastStructure):
     lpszName: Windows.Win32.Foundation.PSTR
     lpszAddress: Windows.Win32.Foundation.PSTR
     ulEIDSize: UInt32
-    lpEntryID: c_void_p
+    lpEntryID: VoidPtr
 class MapiRecipDescW(EasyCastStructure):
     ulReserved: UInt32
     ulRecipClass: UInt32
     lpszName: Windows.Win32.Foundation.PWSTR
     lpszAddress: Windows.Win32.Foundation.PWSTR
     ulEIDSize: UInt32
-    lpEntryID: c_void_p
+    lpEntryID: VoidPtr
 make_head(_module, 'LPMAPIADDRESS')
 make_head(_module, 'LPMAPIDELETEMAIL')
 make_head(_module, 'LPMAPIDETAILS')

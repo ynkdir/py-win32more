@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Devices.ImageAcquisition
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
@@ -1518,7 +1518,7 @@ class IWiaItem2(ComPtr):
     @commethod(12)
     def CheckExtension(self, lFlags: Int32, bstrName: Windows.Win32.Foundation.BSTR, riidExtensionInterface: POINTER(Guid), pbExtensionExists: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def GetExtension(self, lFlags: Int32, bstrName: Windows.Win32.Foundation.BSTR, riidExtensionInterface: POINTER(Guid), ppOut: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetExtension(self, lFlags: Int32, bstrName: Windows.Win32.Foundation.BSTR, riidExtensionInterface: POINTER(Guid), ppOut: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetParentItem(self, ppIWiaItem2: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -1796,7 +1796,7 @@ class SCANINFO(EasyCastStructure):
     MaxBufferSize: Int32
     DeviceIOHandles: Windows.Win32.Foundation.HANDLE * 16
     lReserved: Int32 * 4
-    pMicroDriverContext: c_void_p
+    pMicroDriverContext: VoidPtr
 class SCANWINDOW(EasyCastStructure):
     xPos: Int32
     yPos: Int32

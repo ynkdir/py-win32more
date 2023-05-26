@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Data.Xml.MsXml
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.Packaging.Appx
@@ -1098,7 +1098,7 @@ PackagePathType_MachineExternal: PackagePathType = 3
 PackagePathType_UserExternal: PackagePathType = 4
 PackagePathType_EffectiveExternal: PackagePathType = 5
 class _PACKAGE_INFO_REFERENCE(EasyCastStructure):
-    reserved: c_void_p
+    reserved: VoidPtr
 make_head(_module, 'APPX_ENCRYPTED_EXEMPTIONS')
 make_head(_module, 'APPX_ENCRYPTED_PACKAGE_SETTINGS')
 make_head(_module, 'APPX_ENCRYPTED_PACKAGE_SETTINGS2')

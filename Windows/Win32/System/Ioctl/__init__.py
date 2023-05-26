@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
 import Windows.Win32.Security
@@ -1756,7 +1756,7 @@ class DISK_INT13_INFO(EasyCastStructure):
     NumberDrives: UInt16
 class DISK_LOGGING(EasyCastStructure):
     Function: Byte
-    BufferAddress: c_void_p
+    BufferAddress: VoidPtr
     BufferSize: UInt32
 class DISK_PARTITION_INFO(EasyCastStructure):
     SizeOfPartitionInfo: UInt32
@@ -1787,7 +1787,7 @@ class DISK_RECORD(EasyCastStructure):
     ByteOffset: Int64
     StartTime: Int64
     EndTime: Int64
-    VirtualAddress: c_void_p
+    VirtualAddress: VoidPtr
     NumberOfBytes: UInt32
     DeviceNumber: Byte
     ReadRequest: Windows.Win32.Foundation.BOOLEAN
@@ -2013,7 +2013,7 @@ class FILE_PREFETCH(EasyCastStructure):
 class FILE_PREFETCH_EX(EasyCastStructure):
     Type: UInt32
     Count: UInt32
-    Context: c_void_p
+    Context: VoidPtr
     Prefetch: UInt64 * 1
 class FILE_PROVIDER_EXTERNAL_INFO_V0(EasyCastStructure):
     Version: UInt32

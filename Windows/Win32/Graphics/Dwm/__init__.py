@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Dwm
 import Windows.Win32.Graphics.Gdi
@@ -49,7 +49,7 @@ def DwmGetColorizationColor(pcrColorization: POINTER(UInt32), pfOpaqueBlend: POI
 @winfunctype('dwmapi.dll')
 def DwmGetCompositionTimingInfo(hwnd: Windows.Win32.Foundation.HWND, pTimingInfo: POINTER(Windows.Win32.Graphics.Dwm.DWM_TIMING_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dwmapi.dll')
-def DwmGetWindowAttribute(hwnd: Windows.Win32.Foundation.HWND, dwAttribute: UInt32, pvAttribute: c_void_p, cbAttribute: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def DwmGetWindowAttribute(hwnd: Windows.Win32.Foundation.HWND, dwAttribute: UInt32, pvAttribute: VoidPtr, cbAttribute: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dwmapi.dll')
 def DwmIsCompositionEnabled(pfEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dwmapi.dll')
@@ -63,7 +63,7 @@ def DwmSetDxFrameDuration(hwnd: Windows.Win32.Foundation.HWND, cRefreshes: Int32
 @winfunctype('dwmapi.dll')
 def DwmSetPresentParameters(hwnd: Windows.Win32.Foundation.HWND, pPresentParams: POINTER(Windows.Win32.Graphics.Dwm.DWM_PRESENT_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dwmapi.dll')
-def DwmSetWindowAttribute(hwnd: Windows.Win32.Foundation.HWND, dwAttribute: UInt32, pvAttribute: c_void_p, cbAttribute: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def DwmSetWindowAttribute(hwnd: Windows.Win32.Foundation.HWND, dwAttribute: UInt32, pvAttribute: VoidPtr, cbAttribute: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dwmapi.dll')
 def DwmUnregisterThumbnail(hThumbnailId: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dwmapi.dll')

@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.System.Registry
@@ -950,9 +950,9 @@ def RegCreateKeyExA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.
 @winfunctype('ADVAPI32.dll')
 def RegCreateKeyExW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, Reserved: UInt32, lpClass: Windows.Win32.Foundation.PWSTR, dwOptions: Windows.Win32.System.Registry.REG_OPEN_CREATE_OPTIONS, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), phkResult: POINTER(Windows.Win32.System.Registry.HKEY), lpdwDisposition: POINTER(Windows.Win32.System.Registry.REG_CREATE_KEY_DISPOSITION)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegCreateKeyTransactedA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, Reserved: UInt32, lpClass: Windows.Win32.Foundation.PSTR, dwOptions: Windows.Win32.System.Registry.REG_OPEN_CREATE_OPTIONS, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), phkResult: POINTER(Windows.Win32.System.Registry.HKEY), lpdwDisposition: POINTER(Windows.Win32.System.Registry.REG_CREATE_KEY_DISPOSITION), hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParemeter: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegCreateKeyTransactedA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, Reserved: UInt32, lpClass: Windows.Win32.Foundation.PSTR, dwOptions: Windows.Win32.System.Registry.REG_OPEN_CREATE_OPTIONS, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), phkResult: POINTER(Windows.Win32.System.Registry.HKEY), lpdwDisposition: POINTER(Windows.Win32.System.Registry.REG_CREATE_KEY_DISPOSITION), hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParemeter: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegCreateKeyTransactedW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, Reserved: UInt32, lpClass: Windows.Win32.Foundation.PWSTR, dwOptions: Windows.Win32.System.Registry.REG_OPEN_CREATE_OPTIONS, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), phkResult: POINTER(Windows.Win32.System.Registry.HKEY), lpdwDisposition: POINTER(Windows.Win32.System.Registry.REG_CREATE_KEY_DISPOSITION), hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParemeter: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegCreateKeyTransactedW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, Reserved: UInt32, lpClass: Windows.Win32.Foundation.PWSTR, dwOptions: Windows.Win32.System.Registry.REG_OPEN_CREATE_OPTIONS, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), phkResult: POINTER(Windows.Win32.System.Registry.HKEY), lpdwDisposition: POINTER(Windows.Win32.System.Registry.REG_CREATE_KEY_DISPOSITION), hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParemeter: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def RegDeleteKeyA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -962,9 +962,9 @@ def RegDeleteKeyExA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.
 @winfunctype('ADVAPI32.dll')
 def RegDeleteKeyExW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, samDesired: UInt32, Reserved: UInt32) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegDeleteKeyTransactedA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, samDesired: UInt32, Reserved: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParameter: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegDeleteKeyTransactedA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, samDesired: UInt32, Reserved: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParameter: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegDeleteKeyTransactedW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, samDesired: UInt32, Reserved: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParameter: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegDeleteKeyTransactedW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, samDesired: UInt32, Reserved: UInt32, hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParameter: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def RegDisableReflectionKey(hBase: Windows.Win32.System.Registry.HKEY) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -1006,9 +1006,9 @@ def RegOpenKeyExA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Wi
 @winfunctype('ADVAPI32.dll')
 def RegOpenKeyExW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, ulOptions: UInt32, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, phkResult: POINTER(Windows.Win32.System.Registry.HKEY)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegOpenKeyTransactedA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, ulOptions: UInt32, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, phkResult: POINTER(Windows.Win32.System.Registry.HKEY), hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParemeter: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegOpenKeyTransactedA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, ulOptions: UInt32, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, phkResult: POINTER(Windows.Win32.System.Registry.HKEY), hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParemeter: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegOpenKeyTransactedW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, ulOptions: UInt32, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, phkResult: POINTER(Windows.Win32.System.Registry.HKEY), hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParemeter: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegOpenKeyTransactedW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, ulOptions: UInt32, samDesired: Windows.Win32.System.Registry.REG_SAM_FLAGS, phkResult: POINTER(Windows.Win32.System.Registry.HKEY), hTransaction: Windows.Win32.Foundation.HANDLE, pExtendedParemeter: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def RegQueryInfoKeyA(hKey: Windows.Win32.System.Registry.HKEY, lpClass: Windows.Win32.Foundation.PSTR, lpcchClass: POINTER(UInt32), lpReserved: POINTER(UInt32), lpcSubKeys: POINTER(UInt32), lpcbMaxSubKeyLen: POINTER(UInt32), lpcbMaxClassLen: POINTER(UInt32), lpcValues: POINTER(UInt32), lpcbMaxValueNameLen: POINTER(UInt32), lpcbMaxValueLen: POINTER(UInt32), lpcbSecurityDescriptor: POINTER(UInt32), lpftLastWriteTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -1058,9 +1058,9 @@ def RegDeleteKeyValueA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windo
 @winfunctype('ADVAPI32.dll')
 def RegDeleteKeyValueW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, lpValueName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegSetKeyValueA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, lpValueName: Windows.Win32.Foundation.PSTR, dwType: UInt32, lpData: c_void_p, cbData: UInt32) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegSetKeyValueA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, lpValueName: Windows.Win32.Foundation.PSTR, dwType: UInt32, lpData: VoidPtr, cbData: UInt32) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegSetKeyValueW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, lpValueName: Windows.Win32.Foundation.PWSTR, dwType: UInt32, lpData: c_void_p, cbData: UInt32) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegSetKeyValueW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, lpValueName: Windows.Win32.Foundation.PWSTR, dwType: UInt32, lpData: VoidPtr, cbData: UInt32) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def RegDeleteTreeA(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -1068,9 +1068,9 @@ def RegDeleteTreeW(hKey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.W
 @winfunctype('ADVAPI32.dll')
 def RegCopyTreeA(hKeySrc: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, hKeyDest: Windows.Win32.System.Registry.HKEY) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegGetValueA(hkey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, lpValue: Windows.Win32.Foundation.PSTR, dwFlags: Windows.Win32.System.Registry.REG_ROUTINE_FLAGS, pdwType: POINTER(Windows.Win32.System.Registry.REG_VALUE_TYPE), pvData: c_void_p, pcbData: POINTER(UInt32)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegGetValueA(hkey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PSTR, lpValue: Windows.Win32.Foundation.PSTR, dwFlags: Windows.Win32.System.Registry.REG_ROUTINE_FLAGS, pdwType: POINTER(Windows.Win32.System.Registry.REG_VALUE_TYPE), pvData: VoidPtr, pcbData: POINTER(UInt32)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def RegGetValueW(hkey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, lpValue: Windows.Win32.Foundation.PWSTR, dwFlags: Windows.Win32.System.Registry.REG_ROUTINE_FLAGS, pdwType: POINTER(Windows.Win32.System.Registry.REG_VALUE_TYPE), pvData: c_void_p, pcbData: POINTER(UInt32)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def RegGetValueW(hkey: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, lpValue: Windows.Win32.Foundation.PWSTR, dwFlags: Windows.Win32.System.Registry.REG_ROUTINE_FLAGS, pdwType: POINTER(Windows.Win32.System.Registry.REG_VALUE_TYPE), pvData: VoidPtr, pcbData: POINTER(UInt32)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def RegCopyTreeW(hKeySrc: Windows.Win32.System.Registry.HKEY, lpSubKey: Windows.Win32.Foundation.PWSTR, hKeyDest: Windows.Win32.System.Registry.HKEY) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -1086,7 +1086,7 @@ def RegSaveKeyExA(hKey: Windows.Win32.System.Registry.HKEY, lpFile: Windows.Win3
 @winfunctype('ADVAPI32.dll')
 def RegSaveKeyExW(hKey: Windows.Win32.System.Registry.HKEY, lpFile: Windows.Win32.Foundation.PWSTR, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), Flags: Windows.Win32.System.Registry.REG_SAVE_FORMAT) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('api-ms-win-core-state-helpers-l1-1-0.dll')
-def GetRegistryValueWithFallbackW(hkeyPrimary: Windows.Win32.System.Registry.HKEY, pwszPrimarySubKey: Windows.Win32.Foundation.PWSTR, hkeyFallback: Windows.Win32.System.Registry.HKEY, pwszFallbackSubKey: Windows.Win32.Foundation.PWSTR, pwszValue: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pdwType: POINTER(UInt32), pvData: c_void_p, cbDataIn: UInt32, pcbDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def GetRegistryValueWithFallbackW(hkeyPrimary: Windows.Win32.System.Registry.HKEY, pwszPrimarySubKey: Windows.Win32.Foundation.PWSTR, hkeyFallback: Windows.Win32.System.Registry.HKEY, pwszFallbackSubKey: Windows.Win32.Foundation.PWSTR, pwszValue: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pdwType: POINTER(UInt32), pvData: VoidPtr, cbDataIn: UInt32, pcbDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 class DSKTLSYSTEMTIME(EasyCastStructure):
     wYear: UInt16
     wMonth: UInt16
@@ -1099,16 +1099,16 @@ class DSKTLSYSTEMTIME(EasyCastStructure):
     wResult: UInt16
 HKEY = IntPtr
 @cfunctype_pointer
-def PQUERYHANDLER(keycontext: c_void_p, val_list: POINTER(Windows.Win32.System.Registry.val_context_head), num_vals: UInt32, outputbuffer: c_void_p, total_outlen: POINTER(UInt32), input_blen: UInt32) -> UInt32: ...
+def PQUERYHANDLER(keycontext: VoidPtr, val_list: POINTER(Windows.Win32.System.Registry.val_context_head), num_vals: UInt32, outputbuffer: VoidPtr, total_outlen: POINTER(UInt32), input_blen: UInt32) -> UInt32: ...
 class PVALUEA(EasyCastStructure):
     pv_valuename: Windows.Win32.Foundation.PSTR
     pv_valuelen: Int32
-    pv_value_context: c_void_p
+    pv_value_context: VoidPtr
     pv_type: UInt32
 class PVALUEW(EasyCastStructure):
     pv_valuename: Windows.Win32.Foundation.PWSTR
     pv_valuelen: Int32
-    pv_value_context: c_void_p
+    pv_value_context: VoidPtr
     pv_type: UInt32
 REG_CREATE_KEY_DISPOSITION = UInt32
 REG_CREATED_NEW_KEY: REG_CREATE_KEY_DISPOSITION = 1
@@ -1133,7 +1133,7 @@ class REG_PROVIDER(EasyCastStructure):
     pi_R3_1val: Windows.Win32.System.Registry.PQUERYHANDLER
     pi_R3_allvals: Windows.Win32.System.Registry.PQUERYHANDLER
     pi_flags: UInt32
-    pi_key_context: c_void_p
+    pi_key_context: VoidPtr
 REG_RESTORE_KEY_FLAGS = Int32
 REG_FORCE_RESTORE: REG_RESTORE_KEY_FLAGS = 8
 REG_WHOLE_HIVE_VOLATILE: REG_RESTORE_KEY_FLAGS = 1
@@ -1198,8 +1198,8 @@ class VALENTW(EasyCastStructure):
     ve_type: Windows.Win32.System.Registry.REG_VALUE_TYPE
 class val_context(EasyCastStructure):
     valuelen: Int32
-    value_context: c_void_p
-    val_buff_ptr: c_void_p
+    value_context: VoidPtr
+    val_buff_ptr: VoidPtr
 make_head(_module, 'DSKTLSYSTEMTIME')
 make_head(_module, 'PQUERYHANDLER')
 make_head(_module, 'PVALUEA')

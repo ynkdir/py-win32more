@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Recovery
 import Windows.Win32.System.WindowsProgramming
@@ -14,7 +14,7 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 @winfunctype('KERNEL32.dll')
-def RegisterApplicationRecoveryCallback(pRecoveyCallback: Windows.Win32.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK, pvParameter: c_void_p, dwPingInterval: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def RegisterApplicationRecoveryCallback(pRecoveyCallback: Windows.Win32.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK, pvParameter: VoidPtr, dwPingInterval: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
 def UnregisterApplicationRecoveryCallback() -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
@@ -22,7 +22,7 @@ def RegisterApplicationRestart(pwzCommandline: Windows.Win32.Foundation.PWSTR, d
 @winfunctype('KERNEL32.dll')
 def UnregisterApplicationRestart() -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
-def GetApplicationRecoveryCallback(hProcess: Windows.Win32.Foundation.HANDLE, pRecoveryCallback: POINTER(Windows.Win32.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK), ppvParameter: POINTER(c_void_p), pdwPingInterval: POINTER(UInt32), pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetApplicationRecoveryCallback(hProcess: Windows.Win32.Foundation.HANDLE, pRecoveryCallback: POINTER(Windows.Win32.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK), ppvParameter: POINTER(VoidPtr), pdwPingInterval: POINTER(UInt32), pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
 def GetApplicationRestartSettings(hProcess: Windows.Win32.Foundation.HANDLE, pwzCommandline: Windows.Win32.Foundation.PWSTR, pcchSize: POINTER(UInt32), pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')

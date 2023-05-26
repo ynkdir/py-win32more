@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Media.DirectShow
@@ -1390,7 +1390,7 @@ class ICreatePropBagOnRegKey(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8a674b48-1f63-11d3-b64c-00c04f79498e}')
     @commethod(3)
-    def Create(self, hkey: Windows.Win32.System.Registry.HKEY, subkey: Windows.Win32.Foundation.PWSTR, ulOptions: UInt32, samDesired: UInt32, iid: POINTER(Guid), ppBag: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, hkey: Windows.Win32.System.Registry.HKEY, subkey: Windows.Win32.Foundation.PWSTR, ulOptions: UInt32, samDesired: UInt32, iid: POINTER(Guid), ppBag: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDTFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c4c4c4b2-0049-4e2b-98fb-9537f6ce516d}')

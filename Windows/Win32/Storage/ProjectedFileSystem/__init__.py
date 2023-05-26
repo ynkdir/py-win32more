@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.ProjectedFileSystem
 import sys
@@ -13,7 +13,7 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjStartVirtualizing(virtualizationRootPath: Windows.Win32.Foundation.PWSTR, callbacks: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACKS_head), instanceContext: c_void_p, options: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_STARTVIRTUALIZING_OPTIONS_head), namespaceVirtualizationContext: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT)) -> Windows.Win32.Foundation.HRESULT: ...
+def PrjStartVirtualizing(virtualizationRootPath: Windows.Win32.Foundation.PWSTR, callbacks: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACKS_head), instanceContext: VoidPtr, options: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_STARTVIRTUALIZING_OPTIONS_head), namespaceVirtualizationContext: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjStopVirtualizing(namespaceVirtualizationContext: Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT) -> Void: ...
 @winfunctype('PROJECTEDFSLIB.dll')
@@ -31,13 +31,13 @@ def PrjUpdateFileIfNeeded(namespaceVirtualizationContext: Windows.Win32.Storage.
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjDeleteFile(namespaceVirtualizationContext: Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, destinationFileName: Windows.Win32.Foundation.PWSTR, updateFlags: Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_TYPES, failureReason: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_FAILURE_CAUSES)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjWriteFileData(namespaceVirtualizationContext: Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, dataStreamId: POINTER(Guid), buffer: c_void_p, byteOffset: UInt64, length: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def PrjWriteFileData(namespaceVirtualizationContext: Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, dataStreamId: POINTER(Guid), buffer: VoidPtr, byteOffset: UInt64, length: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjGetOnDiskFileState(destinationFileName: Windows.Win32.Foundation.PWSTR, fileState: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_FILE_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjAllocateAlignedBuffer(namespaceVirtualizationContext: Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, size: UIntPtr) -> c_void_p: ...
+def PrjAllocateAlignedBuffer(namespaceVirtualizationContext: Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, size: UIntPtr) -> VoidPtr: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjFreeAlignedBuffer(buffer: c_void_p) -> Void: ...
+def PrjFreeAlignedBuffer(buffer: VoidPtr) -> Void: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjCompleteCommand(namespaceVirtualizationContext: Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, commandId: Int32, completionResult: Windows.Win32.Foundation.HRESULT, extendedParameters: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
@@ -70,7 +70,7 @@ class PRJ_CALLBACK_DATA(EasyCastStructure):
     VersionInfo: POINTER(Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_VERSION_INFO_head)
     TriggeringProcessId: UInt32
     TriggeringProcessImageFileName: Windows.Win32.Foundation.PWSTR
-    InstanceContext: c_void_p
+    InstanceContext: VoidPtr
 PRJ_CALLBACK_DATA_FLAGS = Int32
 PRJ_CB_DATA_FLAG_ENUM_RESTART_SCAN: PRJ_CALLBACK_DATA_FLAGS = 1
 PRJ_CB_DATA_FLAG_ENUM_RETURN_SINGLE_ENTRY: PRJ_CALLBACK_DATA_FLAGS = 2

@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Security.Credentials
@@ -225,21 +225,21 @@ def CredGetTargetInfoW(TargetName: Windows.Win32.Foundation.PWSTR, Flags: UInt32
 @winfunctype('ADVAPI32.dll')
 def CredGetTargetInfoA(TargetName: Windows.Win32.Foundation.PSTR, Flags: UInt32, TargetInfo: POINTER(POINTER(Windows.Win32.Security.Credentials.CREDENTIAL_TARGET_INFORMATIONA_head))) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CredMarshalCredentialW(CredType: Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE, Credential: c_void_p, MarshaledCredential: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.BOOL: ...
+def CredMarshalCredentialW(CredType: Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE, Credential: VoidPtr, MarshaledCredential: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CredMarshalCredentialA(CredType: Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE, Credential: c_void_p, MarshaledCredential: POINTER(Windows.Win32.Foundation.PSTR)) -> Windows.Win32.Foundation.BOOL: ...
+def CredMarshalCredentialA(CredType: Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE, Credential: VoidPtr, MarshaledCredential: POINTER(Windows.Win32.Foundation.PSTR)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CredUnmarshalCredentialW(MarshaledCredential: Windows.Win32.Foundation.PWSTR, CredType: POINTER(Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE), Credential: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
+def CredUnmarshalCredentialW(MarshaledCredential: Windows.Win32.Foundation.PWSTR, CredType: POINTER(Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE), Credential: POINTER(VoidPtr)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CredUnmarshalCredentialA(MarshaledCredential: Windows.Win32.Foundation.PSTR, CredType: POINTER(Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE), Credential: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
+def CredUnmarshalCredentialA(MarshaledCredential: Windows.Win32.Foundation.PSTR, CredType: POINTER(Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE), Credential: POINTER(VoidPtr)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def CredIsMarshaledCredentialW(MarshaledCredential: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def CredIsMarshaledCredentialA(MarshaledCredential: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('credui.dll')
-def CredUnPackAuthenticationBufferW(dwFlags: Windows.Win32.Security.Credentials.CRED_PACK_FLAGS, pAuthBuffer: c_void_p, cbAuthBuffer: UInt32, pszUserName: Windows.Win32.Foundation.PWSTR, pcchMaxUserName: POINTER(UInt32), pszDomainName: Windows.Win32.Foundation.PWSTR, pcchMaxDomainName: POINTER(UInt32), pszPassword: Windows.Win32.Foundation.PWSTR, pcchMaxPassword: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def CredUnPackAuthenticationBufferW(dwFlags: Windows.Win32.Security.Credentials.CRED_PACK_FLAGS, pAuthBuffer: VoidPtr, cbAuthBuffer: UInt32, pszUserName: Windows.Win32.Foundation.PWSTR, pcchMaxUserName: POINTER(UInt32), pszDomainName: Windows.Win32.Foundation.PWSTR, pcchMaxDomainName: POINTER(UInt32), pszPassword: Windows.Win32.Foundation.PWSTR, pcchMaxPassword: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('credui.dll')
-def CredUnPackAuthenticationBufferA(dwFlags: Windows.Win32.Security.Credentials.CRED_PACK_FLAGS, pAuthBuffer: c_void_p, cbAuthBuffer: UInt32, pszUserName: Windows.Win32.Foundation.PSTR, pcchlMaxUserName: POINTER(UInt32), pszDomainName: Windows.Win32.Foundation.PSTR, pcchMaxDomainName: POINTER(UInt32), pszPassword: Windows.Win32.Foundation.PSTR, pcchMaxPassword: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def CredUnPackAuthenticationBufferA(dwFlags: Windows.Win32.Security.Credentials.CRED_PACK_FLAGS, pAuthBuffer: VoidPtr, cbAuthBuffer: UInt32, pszUserName: Windows.Win32.Foundation.PSTR, pcchlMaxUserName: POINTER(UInt32), pszDomainName: Windows.Win32.Foundation.PSTR, pcchMaxDomainName: POINTER(UInt32), pszPassword: Windows.Win32.Foundation.PSTR, pcchMaxPassword: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('credui.dll')
 def CredPackAuthenticationBufferW(dwFlags: Windows.Win32.Security.Credentials.CRED_PACK_FLAGS, pszUserName: Windows.Win32.Foundation.PWSTR, pszPassword: Windows.Win32.Foundation.PWSTR, pPackedCredentials: POINTER(Byte), pcbPackedCredentials: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('credui.dll')
@@ -263,15 +263,15 @@ def CredFindBestCredentialA(TargetName: Windows.Win32.Foundation.PSTR, Type: UIn
 @winfunctype('ADVAPI32.dll')
 def CredGetSessionTypes(MaximumPersistCount: UInt32, MaximumPersist: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CredFree(Buffer: c_void_p) -> Void: ...
+def CredFree(Buffer: VoidPtr) -> Void: ...
 @winfunctype('credui.dll')
 def CredUIPromptForCredentialsW(pUiInfo: POINTER(Windows.Win32.Security.Credentials.CREDUI_INFOW_head), pszTargetName: Windows.Win32.Foundation.PWSTR, pContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), dwAuthError: UInt32, pszUserName: Windows.Win32.Foundation.PWSTR, ulUserNameBufferSize: UInt32, pszPassword: Windows.Win32.Foundation.PWSTR, ulPasswordBufferSize: UInt32, save: POINTER(Windows.Win32.Foundation.BOOL), dwFlags: Windows.Win32.Security.Credentials.CREDUI_FLAGS) -> UInt32: ...
 @winfunctype('credui.dll')
 def CredUIPromptForCredentialsA(pUiInfo: POINTER(Windows.Win32.Security.Credentials.CREDUI_INFOA_head), pszTargetName: Windows.Win32.Foundation.PSTR, pContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), dwAuthError: UInt32, pszUserName: Windows.Win32.Foundation.PSTR, ulUserNameBufferSize: UInt32, pszPassword: Windows.Win32.Foundation.PSTR, ulPasswordBufferSize: UInt32, save: POINTER(Windows.Win32.Foundation.BOOL), dwFlags: Windows.Win32.Security.Credentials.CREDUI_FLAGS) -> UInt32: ...
 @winfunctype('credui.dll')
-def CredUIPromptForWindowsCredentialsW(pUiInfo: POINTER(Windows.Win32.Security.Credentials.CREDUI_INFOW_head), dwAuthError: UInt32, pulAuthPackage: POINTER(UInt32), pvInAuthBuffer: c_void_p, ulInAuthBufferSize: UInt32, ppvOutAuthBuffer: POINTER(c_void_p), pulOutAuthBufferSize: POINTER(UInt32), pfSave: POINTER(Windows.Win32.Foundation.BOOL), dwFlags: Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS) -> UInt32: ...
+def CredUIPromptForWindowsCredentialsW(pUiInfo: POINTER(Windows.Win32.Security.Credentials.CREDUI_INFOW_head), dwAuthError: UInt32, pulAuthPackage: POINTER(UInt32), pvInAuthBuffer: VoidPtr, ulInAuthBufferSize: UInt32, ppvOutAuthBuffer: POINTER(VoidPtr), pulOutAuthBufferSize: POINTER(UInt32), pfSave: POINTER(Windows.Win32.Foundation.BOOL), dwFlags: Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS) -> UInt32: ...
 @winfunctype('credui.dll')
-def CredUIPromptForWindowsCredentialsA(pUiInfo: POINTER(Windows.Win32.Security.Credentials.CREDUI_INFOA_head), dwAuthError: UInt32, pulAuthPackage: POINTER(UInt32), pvInAuthBuffer: c_void_p, ulInAuthBufferSize: UInt32, ppvOutAuthBuffer: POINTER(c_void_p), pulOutAuthBufferSize: POINTER(UInt32), pfSave: POINTER(Windows.Win32.Foundation.BOOL), dwFlags: Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS) -> UInt32: ...
+def CredUIPromptForWindowsCredentialsA(pUiInfo: POINTER(Windows.Win32.Security.Credentials.CREDUI_INFOA_head), dwAuthError: UInt32, pulAuthPackage: POINTER(UInt32), pvInAuthBuffer: VoidPtr, ulInAuthBufferSize: UInt32, ppvOutAuthBuffer: POINTER(VoidPtr), pulOutAuthBufferSize: POINTER(UInt32), pfSave: POINTER(Windows.Win32.Foundation.BOOL), dwFlags: Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS) -> UInt32: ...
 @winfunctype('credui.dll')
 def CredUIParseUserNameW(UserName: Windows.Win32.Foundation.PWSTR, user: Windows.Win32.Foundation.PWSTR, userBufferSize: UInt32, domain: Windows.Win32.Foundation.PWSTR, domainBufferSize: UInt32) -> UInt32: ...
 @winfunctype('credui.dll')
@@ -289,7 +289,7 @@ def CredUIStoreSSOCredW(pszRealm: Windows.Win32.Foundation.PWSTR, pszUsername: W
 @winfunctype('credui.dll')
 def CredUIReadSSOCredW(pszRealm: Windows.Win32.Foundation.PWSTR, ppszUsername: POINTER(Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype('WinSCard.dll')
-def SCardEstablishContext(dwScope: Windows.Win32.Security.Credentials.SCARD_SCOPE, pvReserved1: c_void_p, pvReserved2: c_void_p, phContext: POINTER(UIntPtr)) -> Int32: ...
+def SCardEstablishContext(dwScope: Windows.Win32.Security.Credentials.SCARD_SCOPE, pvReserved1: VoidPtr, pvReserved2: VoidPtr, phContext: POINTER(UIntPtr)) -> Int32: ...
 @winfunctype('WinSCard.dll')
 def SCardReleaseContext(hContext: UIntPtr) -> Int32: ...
 @winfunctype('WinSCard.dll')
@@ -355,7 +355,7 @@ def SCardForgetCardTypeA(hContext: UIntPtr, szCardName: Windows.Win32.Foundation
 @winfunctype('WinSCard.dll')
 def SCardForgetCardTypeW(hContext: UIntPtr, szCardName: Windows.Win32.Foundation.PWSTR) -> Int32: ...
 @winfunctype('WinSCard.dll')
-def SCardFreeMemory(hContext: UIntPtr, pvMem: c_void_p) -> Int32: ...
+def SCardFreeMemory(hContext: UIntPtr, pvMem: VoidPtr) -> Int32: ...
 @winfunctype('WinSCard.dll')
 def SCardAccessStartedEvent() -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('WinSCard.dll')
@@ -397,7 +397,7 @@ def SCardTransmit(hCard: UIntPtr, pioSendPci: POINTER(Windows.Win32.Security.Cre
 @winfunctype('WinSCard.dll')
 def SCardGetTransmitCount(hCard: UIntPtr, pcTransmitCount: POINTER(UInt32)) -> Int32: ...
 @winfunctype('WinSCard.dll')
-def SCardControl(hCard: UIntPtr, dwControlCode: UInt32, lpInBuffer: c_void_p, cbInBufferSize: UInt32, lpOutBuffer: c_void_p, cbOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> Int32: ...
+def SCardControl(hCard: UIntPtr, dwControlCode: UInt32, lpInBuffer: VoidPtr, cbInBufferSize: UInt32, lpOutBuffer: VoidPtr, cbOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> Int32: ...
 @winfunctype('WinSCard.dll')
 def SCardGetAttrib(hCard: UIntPtr, dwAttrId: UInt32, pbAttr: POINTER(Byte), pcbAttrLen: POINTER(UInt32)) -> Int32: ...
 @winfunctype('WinSCard.dll')
@@ -511,8 +511,8 @@ CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBothOld: CREDSPP_SUBMIT_TYPE = 51
 CREDSPP_SUBMIT_TYPE_CredsspCredEx: CREDSPP_SUBMIT_TYPE = 100
 class CREDSSP_CRED(EasyCastStructure):
     Type: Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE
-    pSchannelCred: c_void_p
-    pSpnegoCred: c_void_p
+    pSchannelCred: VoidPtr
+    pSpnegoCred: VoidPtr
 class CREDSSP_CRED_EX(EasyCastStructure):
     Type: Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE
     Version: UInt32
@@ -618,13 +618,13 @@ KeyCredentialManagerOperationType_KeyCredentialManagerProvisioning: KeyCredentia
 KeyCredentialManagerOperationType_KeyCredentialManagerPinChange: KeyCredentialManagerOperationType = 1
 KeyCredentialManagerOperationType_KeyCredentialManagerPinReset: KeyCredentialManagerOperationType = 2
 @winfunctype_pointer
-def LPOCNCHKPROC(param0: UIntPtr, param1: UIntPtr, param2: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPOCNCHKPROC(param0: UIntPtr, param1: UIntPtr, param2: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPOCNCONNPROCA(param0: UIntPtr, param1: Windows.Win32.Foundation.PSTR, param2: Windows.Win32.Foundation.PSTR, param3: c_void_p) -> UIntPtr: ...
+def LPOCNCONNPROCA(param0: UIntPtr, param1: Windows.Win32.Foundation.PSTR, param2: Windows.Win32.Foundation.PSTR, param3: VoidPtr) -> UIntPtr: ...
 @winfunctype_pointer
-def LPOCNCONNPROCW(param0: UIntPtr, param1: Windows.Win32.Foundation.PWSTR, param2: Windows.Win32.Foundation.PWSTR, param3: c_void_p) -> UIntPtr: ...
+def LPOCNCONNPROCW(param0: UIntPtr, param1: Windows.Win32.Foundation.PWSTR, param2: Windows.Win32.Foundation.PWSTR, param3: VoidPtr) -> UIntPtr: ...
 @winfunctype_pointer
-def LPOCNDSCPROC(param0: UIntPtr, param1: UIntPtr, param2: c_void_p) -> Void: ...
+def LPOCNDSCPROC(param0: UIntPtr, param1: UIntPtr, param2: VoidPtr) -> Void: ...
 class OPENCARDNAMEA(EasyCastStructure):
     dwStructSize: UInt32
     hwndOwner: Windows.Win32.Foundation.HWND
@@ -641,7 +641,7 @@ class OPENCARDNAMEA(EasyCastStructure):
     nMaxCard: UInt32
     lpstrTitle: Windows.Win32.Foundation.PSTR
     dwFlags: UInt32
-    pvUserData: c_void_p
+    pvUserData: VoidPtr
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
     dwActiveProtocol: UInt32
@@ -665,7 +665,7 @@ class OPENCARDNAMEW(EasyCastStructure):
     nMaxCard: UInt32
     lpstrTitle: Windows.Win32.Foundation.PWSTR
     dwFlags: UInt32
-    pvUserData: c_void_p
+    pvUserData: VoidPtr
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
     dwActiveProtocol: UInt32
@@ -683,7 +683,7 @@ class OPENCARDNAME_EXA(EasyCastStructure):
     hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON
     pOpenCardSearchCriteria: POINTER(Windows.Win32.Security.Credentials.OPENCARD_SEARCH_CRITERIAA_head)
     lpfnConnect: Windows.Win32.Security.Credentials.LPOCNCONNPROCA
-    pvUserData: c_void_p
+    pvUserData: VoidPtr
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
     lpstrRdr: Windows.Win32.Foundation.PSTR
@@ -702,7 +702,7 @@ class OPENCARDNAME_EXW(EasyCastStructure):
     hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON
     pOpenCardSearchCriteria: POINTER(Windows.Win32.Security.Credentials.OPENCARD_SEARCH_CRITERIAW_head)
     lpfnConnect: Windows.Win32.Security.Credentials.LPOCNCONNPROCW
-    pvUserData: c_void_p
+    pvUserData: VoidPtr
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
     lpstrRdr: Windows.Win32.Foundation.PWSTR
@@ -722,7 +722,7 @@ class OPENCARD_SEARCH_CRITERIAA(EasyCastStructure):
     lpfnCheck: Windows.Win32.Security.Credentials.LPOCNCHKPROC
     lpfnConnect: Windows.Win32.Security.Credentials.LPOCNCONNPROCA
     lpfnDisconnect: Windows.Win32.Security.Credentials.LPOCNDSCPROC
-    pvUserData: c_void_p
+    pvUserData: VoidPtr
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
 class OPENCARD_SEARCH_CRITERIAW(EasyCastStructure):
@@ -736,7 +736,7 @@ class OPENCARD_SEARCH_CRITERIAW(EasyCastStructure):
     lpfnCheck: Windows.Win32.Security.Credentials.LPOCNCHKPROC
     lpfnConnect: Windows.Win32.Security.Credentials.LPOCNCONNPROCW
     lpfnDisconnect: Windows.Win32.Security.Credentials.LPOCNDSCPROC
-    pvUserData: c_void_p
+    pvUserData: VoidPtr
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
 class READER_SEL_REQUEST(EasyCastStructure):
@@ -776,14 +776,14 @@ class SCARD_IO_REQUEST(EasyCastStructure):
     cbPciLength: UInt32
 class SCARD_READERSTATEA(EasyCastStructure):
     szReader: Windows.Win32.Foundation.PSTR
-    pvUserData: c_void_p
+    pvUserData: VoidPtr
     dwCurrentState: Windows.Win32.Security.Credentials.SCARD_STATE
     dwEventState: Windows.Win32.Security.Credentials.SCARD_STATE
     cbAtr: UInt32
     rgbAtr: Byte * 36
 class SCARD_READERSTATEW(EasyCastStructure):
     szReader: Windows.Win32.Foundation.PWSTR
-    pvUserData: c_void_p
+    pvUserData: VoidPtr
     dwCurrentState: Windows.Win32.Security.Credentials.SCARD_STATE
     dwEventState: Windows.Win32.Security.Credentials.SCARD_STATE
     cbAtr: UInt32

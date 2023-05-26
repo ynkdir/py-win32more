@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Security
@@ -21,25 +21,25 @@ def __getattr__(name):
 class ACTCTX_SECTION_KEYED_DATA_2600(EasyCastStructure):
     cbSize: UInt32
     ulDataFormatVersion: UInt32
-    lpData: c_void_p
+    lpData: VoidPtr
     ulLength: UInt32
-    lpSectionGlobalData: c_void_p
+    lpSectionGlobalData: VoidPtr
     ulSectionGlobalDataLength: UInt32
-    lpSectionBase: c_void_p
+    lpSectionBase: VoidPtr
     ulSectionTotalLength: UInt32
     hActCtx: Windows.Win32.Foundation.HANDLE
     ulAssemblyRosterIndex: UInt32
 class ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA(EasyCastStructure):
-    lpInformation: c_void_p
-    lpSectionBase: c_void_p
+    lpInformation: VoidPtr
+    lpSectionBase: VoidPtr
     ulSectionLength: UInt32
-    lpSectionGlobalDataBase: c_void_p
+    lpSectionGlobalDataBase: VoidPtr
     ulSectionGlobalDataLength: UInt32
 class ACTIVATION_CONTEXT_BASIC_INFORMATION(EasyCastStructure):
     hActCtx: Windows.Win32.Foundation.HANDLE
     dwFlags: UInt32
 @winfunctype_pointer
-def APPLICATION_RECOVERY_CALLBACK(pvParameter: c_void_p) -> UInt32: ...
+def APPLICATION_RECOVERY_CALLBACK(pvParameter: VoidPtr) -> UInt32: ...
 WLDP_DLL: String = 'WLDP.DLL'
 WLDP_GETLOCKDOWNPOLICY_FN: String = 'WldpGetLockdownPolicy'
 WLDP_ISCLASSINAPPROVEDLIST_FN: String = 'WldpIsClassInApprovedList'
@@ -713,7 +713,7 @@ def GlobalFix(hMem: Windows.Win32.Foundation.HGLOBAL) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def GlobalUnfix(hMem: Windows.Win32.Foundation.HGLOBAL) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def GlobalWire(hMem: Windows.Win32.Foundation.HGLOBAL) -> c_void_p: ...
+def GlobalWire(hMem: Windows.Win32.Foundation.HGLOBAL) -> VoidPtr: ...
 @winfunctype('KERNEL32.dll')
 def GlobalUnWire(hMem: Windows.Win32.Foundation.HGLOBAL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -743,11 +743,11 @@ def _lopen(lpPathName: Windows.Win32.Foundation.PSTR, iReadWrite: Int32) -> Int3
 @winfunctype('KERNEL32.dll')
 def _lcreat(lpPathName: Windows.Win32.Foundation.PSTR, iAttribute: Int32) -> Int32: ...
 @winfunctype('KERNEL32.dll')
-def _lread(hFile: Int32, lpBuffer: c_void_p, uBytes: UInt32) -> UInt32: ...
+def _lread(hFile: Int32, lpBuffer: VoidPtr, uBytes: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def _lwrite(hFile: Int32, lpBuffer: Windows.Win32.Foundation.PSTR, uBytes: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def _hread(hFile: Int32, lpBuffer: c_void_p, lBytes: Int32) -> Int32: ...
+def _hread(hFile: Int32, lpBuffer: VoidPtr, lBytes: Int32) -> Int32: ...
 @winfunctype('KERNEL32.dll')
 def _hwrite(hFile: Int32, lpBuffer: Windows.Win32.Foundation.PSTR, lBytes: Int32) -> Int32: ...
 @winfunctype('KERNEL32.dll')
@@ -765,21 +765,21 @@ def OpenWaitableTimerA(dwDesiredAccess: UInt32, bInheritHandle: Windows.Win32.Fo
 @winfunctype('KERNEL32.dll')
 def CreateWaitableTimerExA(lpTimerAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpTimerName: Windows.Win32.Foundation.PSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def GetFirmwareEnvironmentVariableA(lpName: Windows.Win32.Foundation.PSTR, lpGuid: Windows.Win32.Foundation.PSTR, pBuffer: c_void_p, nSize: UInt32) -> UInt32: ...
+def GetFirmwareEnvironmentVariableA(lpName: Windows.Win32.Foundation.PSTR, lpGuid: Windows.Win32.Foundation.PSTR, pBuffer: VoidPtr, nSize: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def GetFirmwareEnvironmentVariableW(lpName: Windows.Win32.Foundation.PWSTR, lpGuid: Windows.Win32.Foundation.PWSTR, pBuffer: c_void_p, nSize: UInt32) -> UInt32: ...
+def GetFirmwareEnvironmentVariableW(lpName: Windows.Win32.Foundation.PWSTR, lpGuid: Windows.Win32.Foundation.PWSTR, pBuffer: VoidPtr, nSize: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def GetFirmwareEnvironmentVariableExA(lpName: Windows.Win32.Foundation.PSTR, lpGuid: Windows.Win32.Foundation.PSTR, pBuffer: c_void_p, nSize: UInt32, pdwAttribubutes: POINTER(UInt32)) -> UInt32: ...
+def GetFirmwareEnvironmentVariableExA(lpName: Windows.Win32.Foundation.PSTR, lpGuid: Windows.Win32.Foundation.PSTR, pBuffer: VoidPtr, nSize: UInt32, pdwAttribubutes: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def GetFirmwareEnvironmentVariableExW(lpName: Windows.Win32.Foundation.PWSTR, lpGuid: Windows.Win32.Foundation.PWSTR, pBuffer: c_void_p, nSize: UInt32, pdwAttribubutes: POINTER(UInt32)) -> UInt32: ...
+def GetFirmwareEnvironmentVariableExW(lpName: Windows.Win32.Foundation.PWSTR, lpGuid: Windows.Win32.Foundation.PWSTR, pBuffer: VoidPtr, nSize: UInt32, pdwAttribubutes: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def SetFirmwareEnvironmentVariableA(lpName: Windows.Win32.Foundation.PSTR, lpGuid: Windows.Win32.Foundation.PSTR, pValue: c_void_p, nSize: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SetFirmwareEnvironmentVariableA(lpName: Windows.Win32.Foundation.PSTR, lpGuid: Windows.Win32.Foundation.PSTR, pValue: VoidPtr, nSize: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetFirmwareEnvironmentVariableW(lpName: Windows.Win32.Foundation.PWSTR, lpGuid: Windows.Win32.Foundation.PWSTR, pValue: c_void_p, nSize: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SetFirmwareEnvironmentVariableW(lpName: Windows.Win32.Foundation.PWSTR, lpGuid: Windows.Win32.Foundation.PWSTR, pValue: VoidPtr, nSize: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetFirmwareEnvironmentVariableExA(lpName: Windows.Win32.Foundation.PSTR, lpGuid: Windows.Win32.Foundation.PSTR, pValue: c_void_p, nSize: UInt32, dwAttributes: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SetFirmwareEnvironmentVariableExA(lpName: Windows.Win32.Foundation.PSTR, lpGuid: Windows.Win32.Foundation.PSTR, pValue: VoidPtr, nSize: UInt32, dwAttributes: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetFirmwareEnvironmentVariableExW(lpName: Windows.Win32.Foundation.PWSTR, lpGuid: Windows.Win32.Foundation.PWSTR, pValue: c_void_p, nSize: UInt32, dwAttributes: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SetFirmwareEnvironmentVariableExW(lpName: Windows.Win32.Foundation.PWSTR, lpGuid: Windows.Win32.Foundation.PWSTR, pValue: VoidPtr, nSize: UInt32, dwAttributes: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def IsNativeVhdBoot(NativeVhdBoot: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -827,17 +827,17 @@ def GetPrivateProfileSectionNamesA(lpszReturnBuffer: Windows.Win32.Foundation.PS
 @winfunctype('KERNEL32.dll')
 def GetPrivateProfileSectionNamesW(lpszReturnBuffer: Windows.Win32.Foundation.PWSTR, nSize: UInt32, lpFileName: Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def GetPrivateProfileStructA(lpszSection: Windows.Win32.Foundation.PSTR, lpszKey: Windows.Win32.Foundation.PSTR, lpStruct: c_void_p, uSizeStruct: UInt32, szFile: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.BOOL: ...
+def GetPrivateProfileStructA(lpszSection: Windows.Win32.Foundation.PSTR, lpszKey: Windows.Win32.Foundation.PSTR, lpStruct: VoidPtr, uSizeStruct: UInt32, szFile: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GetPrivateProfileStructW(lpszSection: Windows.Win32.Foundation.PWSTR, lpszKey: Windows.Win32.Foundation.PWSTR, lpStruct: c_void_p, uSizeStruct: UInt32, szFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
+def GetPrivateProfileStructW(lpszSection: Windows.Win32.Foundation.PWSTR, lpszKey: Windows.Win32.Foundation.PWSTR, lpStruct: VoidPtr, uSizeStruct: UInt32, szFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def WritePrivateProfileStructA(lpszSection: Windows.Win32.Foundation.PSTR, lpszKey: Windows.Win32.Foundation.PSTR, lpStruct: c_void_p, uSizeStruct: UInt32, szFile: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.BOOL: ...
+def WritePrivateProfileStructA(lpszSection: Windows.Win32.Foundation.PSTR, lpszKey: Windows.Win32.Foundation.PSTR, lpStruct: VoidPtr, uSizeStruct: UInt32, szFile: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def WritePrivateProfileStructW(lpszSection: Windows.Win32.Foundation.PWSTR, lpszKey: Windows.Win32.Foundation.PWSTR, lpStruct: c_void_p, uSizeStruct: UInt32, szFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
+def WritePrivateProfileStructW(lpszSection: Windows.Win32.Foundation.PWSTR, lpszKey: Windows.Win32.Foundation.PWSTR, lpStruct: VoidPtr, uSizeStruct: UInt32, szFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def IsBadHugeReadPtr(lp: c_void_p, ucb: UIntPtr) -> Windows.Win32.Foundation.BOOL: ...
+def IsBadHugeReadPtr(lp: VoidPtr, ucb: UIntPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def IsBadHugeWritePtr(lp: c_void_p, ucb: UIntPtr) -> Windows.Win32.Foundation.BOOL: ...
+def IsBadHugeWritePtr(lp: VoidPtr, ucb: UIntPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetComputerNameA(lpBuffer: Windows.Win32.Foundation.PSTR, nSize: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -909,7 +909,7 @@ def RecordFeatureUsage(featureId: UInt32, kind: UInt32, addend: UInt32, originNa
 @winfunctype('api-ms-win-core-featurestaging-l1-1-0.dll')
 def RecordFeatureError(featureId: UInt32, error: POINTER(Windows.Win32.System.WindowsProgramming.FEATURE_ERROR_head)) -> Void: ...
 @winfunctype('api-ms-win-core-featurestaging-l1-1-0.dll')
-def SubscribeFeatureStateChangeNotification(subscription: POINTER(Windows.Win32.System.WindowsProgramming.FEATURE_STATE_CHANGE_SUBSCRIPTION), callback: Windows.Win32.System.WindowsProgramming.PFEATURE_STATE_CHANGE_CALLBACK, context: c_void_p) -> Void: ...
+def SubscribeFeatureStateChangeNotification(subscription: POINTER(Windows.Win32.System.WindowsProgramming.FEATURE_STATE_CHANGE_SUBSCRIPTION), callback: Windows.Win32.System.WindowsProgramming.PFEATURE_STATE_CHANGE_CALLBACK, context: VoidPtr) -> Void: ...
 @winfunctype('api-ms-win-core-featurestaging-l1-1-0.dll')
 def UnsubscribeFeatureStateChangeNotification(subscription: Windows.Win32.System.WindowsProgramming.FEATURE_STATE_CHANGE_SUBSCRIPTION) -> Void: ...
 @winfunctype('api-ms-win-core-featurestaging-l1-1-1.dll')
@@ -923,9 +923,9 @@ def DCICreatePrimary(hdc: Windows.Win32.Graphics.Gdi.HDC, lplpSurface: POINTER(P
 @winfunctype('DCIMAN32.dll')
 def DCICreateOffscreen(hdc: Windows.Win32.Graphics.Gdi.HDC, dwCompression: UInt32, dwRedMask: UInt32, dwGreenMask: UInt32, dwBlueMask: UInt32, dwWidth: UInt32, dwHeight: UInt32, dwDCICaps: UInt32, dwBitCount: UInt32, lplpSurface: POINTER(POINTER(Windows.Win32.System.WindowsProgramming.DCIOFFSCREEN_head))) -> Int32: ...
 @winfunctype('DCIMAN32.dll')
-def DCICreateOverlay(hdc: Windows.Win32.Graphics.Gdi.HDC, lpOffscreenSurf: c_void_p, lplpSurface: POINTER(POINTER(Windows.Win32.System.WindowsProgramming.DCIOVERLAY_head))) -> Int32: ...
+def DCICreateOverlay(hdc: Windows.Win32.Graphics.Gdi.HDC, lpOffscreenSurf: VoidPtr, lplpSurface: POINTER(POINTER(Windows.Win32.System.WindowsProgramming.DCIOVERLAY_head))) -> Int32: ...
 @winfunctype('DCIMAN32.dll')
-def DCIEnum(hdc: Windows.Win32.Graphics.Gdi.HDC, lprDst: POINTER(Windows.Win32.Foundation.RECT_head), lprSrc: POINTER(Windows.Win32.Foundation.RECT_head), lpFnCallback: c_void_p, lpContext: c_void_p) -> Int32: ...
+def DCIEnum(hdc: Windows.Win32.Graphics.Gdi.HDC, lprDst: POINTER(Windows.Win32.Foundation.RECT_head), lprSrc: POINTER(Windows.Win32.Foundation.RECT_head), lpFnCallback: VoidPtr, lpContext: VoidPtr) -> Int32: ...
 @winfunctype('DCIMAN32.dll')
 def DCISetSrcDestClip(pdci: POINTER(Windows.Win32.System.WindowsProgramming.DCIOFFSCREEN_head), srcrc: POINTER(Windows.Win32.Foundation.RECT_head), destrc: POINTER(Windows.Win32.Foundation.RECT_head), prd: POINTER(Windows.Win32.Graphics.Gdi.RGNDATA_head)) -> Int32: ...
 @winfunctype('DCIMAN32.dll')
@@ -957,9 +957,9 @@ def DCISetDestination(pdci: POINTER(Windows.Win32.System.WindowsProgramming.DCIO
 @winfunctype('api-ms-win-dx-d3dkmt-l1-1-0.dll')
 def GdiEntry13() -> UInt32: ...
 @winfunctype('ADVPACK.dll')
-def RunSetupCommandA(hWnd: Windows.Win32.Foundation.HWND, szCmdName: Windows.Win32.Foundation.PSTR, szInfSection: Windows.Win32.Foundation.PSTR, szDir: Windows.Win32.Foundation.PSTR, lpszTitle: Windows.Win32.Foundation.PSTR, phEXE: POINTER(Windows.Win32.Foundation.HANDLE), dwFlags: UInt32, pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def RunSetupCommandA(hWnd: Windows.Win32.Foundation.HWND, szCmdName: Windows.Win32.Foundation.PSTR, szInfSection: Windows.Win32.Foundation.PSTR, szDir: Windows.Win32.Foundation.PSTR, lpszTitle: Windows.Win32.Foundation.PSTR, phEXE: POINTER(Windows.Win32.Foundation.HANDLE), dwFlags: UInt32, pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def RunSetupCommandW(hWnd: Windows.Win32.Foundation.HWND, szCmdName: Windows.Win32.Foundation.PWSTR, szInfSection: Windows.Win32.Foundation.PWSTR, szDir: Windows.Win32.Foundation.PWSTR, lpszTitle: Windows.Win32.Foundation.PWSTR, phEXE: POINTER(Windows.Win32.Foundation.HANDLE), dwFlags: UInt32, pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def RunSetupCommandW(hWnd: Windows.Win32.Foundation.HWND, szCmdName: Windows.Win32.Foundation.PWSTR, szInfSection: Windows.Win32.Foundation.PWSTR, szDir: Windows.Win32.Foundation.PWSTR, lpszTitle: Windows.Win32.Foundation.PWSTR, phEXE: POINTER(Windows.Win32.Foundation.HANDLE), dwFlags: UInt32, pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
 def NeedRebootInit() -> UInt32: ...
 @winfunctype('ADVPACK.dll')
@@ -969,9 +969,9 @@ def RebootCheckOnInstallA(hwnd: Windows.Win32.Foundation.HWND, pszINF: Windows.W
 @winfunctype('ADVPACK.dll')
 def RebootCheckOnInstallW(hwnd: Windows.Win32.Foundation.HWND, pszINF: Windows.Win32.Foundation.PWSTR, pszSec: Windows.Win32.Foundation.PWSTR, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def TranslateInfStringA(pszInfFilename: Windows.Win32.Foundation.PSTR, pszInstallSection: Windows.Win32.Foundation.PSTR, pszTranslateSection: Windows.Win32.Foundation.PSTR, pszTranslateKey: Windows.Win32.Foundation.PSTR, pszBuffer: Windows.Win32.Foundation.PSTR, cchBuffer: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def TranslateInfStringA(pszInfFilename: Windows.Win32.Foundation.PSTR, pszInstallSection: Windows.Win32.Foundation.PSTR, pszTranslateSection: Windows.Win32.Foundation.PSTR, pszTranslateKey: Windows.Win32.Foundation.PSTR, pszBuffer: Windows.Win32.Foundation.PSTR, cchBuffer: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def TranslateInfStringW(pszInfFilename: Windows.Win32.Foundation.PWSTR, pszInstallSection: Windows.Win32.Foundation.PWSTR, pszTranslateSection: Windows.Win32.Foundation.PWSTR, pszTranslateKey: Windows.Win32.Foundation.PWSTR, pszBuffer: Windows.Win32.Foundation.PWSTR, cchBuffer: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def TranslateInfStringW(pszInfFilename: Windows.Win32.Foundation.PWSTR, pszInstallSection: Windows.Win32.Foundation.PWSTR, pszTranslateSection: Windows.Win32.Foundation.PWSTR, pszTranslateKey: Windows.Win32.Foundation.PWSTR, pszBuffer: Windows.Win32.Foundation.PWSTR, cchBuffer: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
 def RegInstallA(hmod: Windows.Win32.Foundation.HMODULE, pszSection: Windows.Win32.Foundation.PSTR, pstTable: POINTER(Windows.Win32.System.WindowsProgramming.STRTABLEA_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
@@ -979,9 +979,9 @@ def RegInstallW(hmod: Windows.Win32.Foundation.HMODULE, pszSection: Windows.Win3
 @winfunctype('ADVPACK.dll')
 def LaunchINFSectionExW(hwnd: Windows.Win32.Foundation.HWND, hInstance: Windows.Win32.Foundation.HINSTANCE, pszParms: Windows.Win32.Foundation.PWSTR, nShow: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def ExecuteCabA(hwnd: Windows.Win32.Foundation.HWND, pCab: POINTER(Windows.Win32.System.WindowsProgramming.CABINFOA_head), pReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def ExecuteCabA(hwnd: Windows.Win32.Foundation.HWND, pCab: POINTER(Windows.Win32.System.WindowsProgramming.CABINFOA_head), pReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def ExecuteCabW(hwnd: Windows.Win32.Foundation.HWND, pCab: POINTER(Windows.Win32.System.WindowsProgramming.CABINFOW_head), pReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def ExecuteCabW(hwnd: Windows.Win32.Foundation.HWND, pCab: POINTER(Windows.Win32.System.WindowsProgramming.CABINFOW_head), pReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
 def AdvInstallFileA(hwnd: Windows.Win32.Foundation.HWND, lpszSourceDir: Windows.Win32.Foundation.PSTR, lpszSourceFile: Windows.Win32.Foundation.PSTR, lpszDestDir: Windows.Win32.Foundation.PSTR, lpszDestFile: Windows.Win32.Foundation.PSTR, dwFlags: UInt32, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
@@ -1029,19 +1029,19 @@ def DelNodeW(pszFileOrDirName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) 
 @winfunctype('ADVPACK.dll')
 def DelNodeRunDLL32W(hwnd: Windows.Win32.Foundation.HWND, hInstance: Windows.Win32.Foundation.HINSTANCE, pszParms: Windows.Win32.Foundation.PWSTR, nShow: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def OpenINFEngineA(pszInfFilename: Windows.Win32.Foundation.PSTR, pszInstallSection: Windows.Win32.Foundation.PSTR, dwFlags: UInt32, phInf: POINTER(c_void_p), pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def OpenINFEngineA(pszInfFilename: Windows.Win32.Foundation.PSTR, pszInstallSection: Windows.Win32.Foundation.PSTR, dwFlags: UInt32, phInf: POINTER(VoidPtr), pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def OpenINFEngineW(pszInfFilename: Windows.Win32.Foundation.PWSTR, pszInstallSection: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, phInf: POINTER(c_void_p), pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def OpenINFEngineW(pszInfFilename: Windows.Win32.Foundation.PWSTR, pszInstallSection: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, phInf: POINTER(VoidPtr), pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def TranslateInfStringExA(hInf: c_void_p, pszInfFilename: Windows.Win32.Foundation.PSTR, pszTranslateSection: Windows.Win32.Foundation.PSTR, pszTranslateKey: Windows.Win32.Foundation.PSTR, pszBuffer: Windows.Win32.Foundation.PSTR, dwBufferSize: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def TranslateInfStringExA(hInf: VoidPtr, pszInfFilename: Windows.Win32.Foundation.PSTR, pszTranslateSection: Windows.Win32.Foundation.PSTR, pszTranslateKey: Windows.Win32.Foundation.PSTR, pszBuffer: Windows.Win32.Foundation.PSTR, dwBufferSize: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def TranslateInfStringExW(hInf: c_void_p, pszInfFilename: Windows.Win32.Foundation.PWSTR, pszTranslateSection: Windows.Win32.Foundation.PWSTR, pszTranslateKey: Windows.Win32.Foundation.PWSTR, pszBuffer: Windows.Win32.Foundation.PWSTR, dwBufferSize: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def TranslateInfStringExW(hInf: VoidPtr, pszInfFilename: Windows.Win32.Foundation.PWSTR, pszTranslateSection: Windows.Win32.Foundation.PWSTR, pszTranslateKey: Windows.Win32.Foundation.PWSTR, pszBuffer: Windows.Win32.Foundation.PWSTR, dwBufferSize: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def CloseINFEngine(hInf: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def CloseINFEngine(hInf: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def ExtractFilesA(pszCabName: Windows.Win32.Foundation.PSTR, pszExpandDir: Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pszFileList: Windows.Win32.Foundation.PSTR, lpReserved: c_void_p, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def ExtractFilesA(pszCabName: Windows.Win32.Foundation.PSTR, pszExpandDir: Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pszFileList: Windows.Win32.Foundation.PSTR, lpReserved: VoidPtr, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
-def ExtractFilesW(pszCabName: Windows.Win32.Foundation.PWSTR, pszExpandDir: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pszFileList: Windows.Win32.Foundation.PWSTR, lpReserved: c_void_p, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def ExtractFilesW(pszCabName: Windows.Win32.Foundation.PWSTR, pszExpandDir: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pszFileList: Windows.Win32.Foundation.PWSTR, lpReserved: VoidPtr, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ADVPACK.dll')
 def LaunchINFSectionW(hwndOwner: Windows.Win32.Foundation.HWND, hInstance: Windows.Win32.Foundation.HINSTANCE, pszParams: Windows.Win32.Foundation.PWSTR, nShow: Int32) -> Int32: ...
 @winfunctype('ADVPACK.dll')
@@ -1089,7 +1089,7 @@ def WldpSetDynamicCodeTrust(fileHandle: Windows.Win32.Foundation.HANDLE) -> Wind
 @winfunctype('Wldp.dll')
 def WldpIsDynamicCodePolicyEnabled(isEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Wldp.dll')
-def WldpQueryDynamicCodeTrust(fileHandle: Windows.Win32.Foundation.HANDLE, baseImage: c_void_p, imageSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WldpQueryDynamicCodeTrust(fileHandle: Windows.Win32.Foundation.HANDLE, baseImage: VoidPtr, imageSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Wldp.dll')
 def WldpQueryDeviceSecurityInformation(information: POINTER(Windows.Win32.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head), informationLength: UInt32, returnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Wldp.dll')
@@ -1158,13 +1158,13 @@ class DCICREATEINPUT(EasyCastStructure):
     dwHeight: UInt32
     dwDCICaps: UInt32
     dwBitCount: UInt32
-    lpSurface: c_void_p
+    lpSurface: VoidPtr
 class DCIENUMINPUT(EasyCastStructure):
     cmd: Windows.Win32.System.WindowsProgramming.DCICMD
     rSrc: Windows.Win32.Foundation.RECT
     rDst: Windows.Win32.Foundation.RECT
     EnumCallback: IntPtr
-    lpContext: c_void_p
+    lpContext: VoidPtr
 class DCIOFFSCREEN(EasyCastStructure):
     dciInfo: Windows.Win32.System.WindowsProgramming.DCISURFACEINFO
     Draw: IntPtr
@@ -1210,8 +1210,8 @@ if ARCH in 'X64,ARM64':
         ThunkAddress: POINTER(Windows.Win32.System.WindowsProgramming.IMAGE_THUNK_DATA64_head)
         TargetDllName: Windows.Win32.Foundation.PSTR
         TargetApiDescriptor: Windows.Win32.System.WindowsProgramming.DELAYLOAD_PROC_DESCRIPTOR
-        TargetModuleBase: c_void_p
-        Unused: c_void_p
+        TargetModuleBase: VoidPtr
+        Unused: VoidPtr
         LastError: UInt32
 if ARCH in 'X86':
     class DELAYLOAD_INFO(EasyCastStructure):
@@ -1220,8 +1220,8 @@ if ARCH in 'X86':
         ThunkAddress: POINTER(Windows.Win32.System.WindowsProgramming.IMAGE_THUNK_DATA32_head)
         TargetDllName: Windows.Win32.Foundation.PSTR
         TargetApiDescriptor: Windows.Win32.System.WindowsProgramming.DELAYLOAD_PROC_DESCRIPTOR
-        TargetModuleBase: c_void_p
-        Unused: c_void_p
+        TargetModuleBase: VoidPtr
+        Unused: VoidPtr
         LastError: UInt32
 class DELAYLOAD_PROC_DESCRIPTOR(EasyCastStructure):
     ImportDescribedByName: UInt32
@@ -1231,7 +1231,7 @@ class DELAYLOAD_PROC_DESCRIPTOR(EasyCastStructure):
         Ordinal: UInt32
 DefaultBrowserSyncSettings = Guid('{3ac83423-3112-4aa6-9b5b-1feb23d0c5f9}')
 @winfunctype_pointer
-def ENUM_CALLBACK(lpSurfaceInfo: POINTER(Windows.Win32.System.WindowsProgramming.DCISURFACEINFO_head), lpContext: c_void_p) -> Void: ...
+def ENUM_CALLBACK(lpSurfaceInfo: POINTER(Windows.Win32.System.WindowsProgramming.DCISURFACEINFO_head), lpContext: VoidPtr) -> Void: ...
 EditionUpgradeBroker = Guid('{c4270827-4f39-45df-9288-12ff6b85a921}')
 EditionUpgradeHelper = Guid('{01776df3-b9af-4e50-9b1c-56e93116d704}')
 FEATURE_CHANGE_TIME = Int32
@@ -1432,21 +1432,21 @@ class JIT_DEBUG_INFO(EasyCastStructure):
     lpExceptionRecord: UInt64
     lpContextRecord: UInt64
 class LDR_DATA_TABLE_ENTRY(EasyCastStructure):
-    Reserved1: c_void_p * 2
+    Reserved1: VoidPtr * 2
     InMemoryOrderLinks: Windows.Win32.System.Kernel.LIST_ENTRY
-    Reserved2: c_void_p * 2
-    DllBase: c_void_p
-    Reserved3: c_void_p * 2
+    Reserved2: VoidPtr * 2
+    DllBase: VoidPtr
+    Reserved3: VoidPtr * 2
     FullDllName: Windows.Win32.Foundation.UNICODE_STRING
     Reserved4: Byte * 8
-    Reserved5: c_void_p * 3
+    Reserved5: VoidPtr * 3
     Anonymous: _Anonymous_e__Union
     TimeDateStamp: UInt32
     class _Anonymous_e__Union(EasyCastUnion):
         CheckSum: UInt32
-        Reserved6: c_void_p
+        Reserved6: VoidPtr
 @winfunctype_pointer
-def PDELAYLOAD_FAILURE_DLL_CALLBACK(NotificationReason: UInt32, DelayloadInfo: POINTER(Windows.Win32.System.WindowsProgramming.DELAYLOAD_INFO_head)) -> c_void_p: ...
+def PDELAYLOAD_FAILURE_DLL_CALLBACK(NotificationReason: UInt32, DelayloadInfo: POINTER(Windows.Win32.System.WindowsProgramming.DELAYLOAD_INFO_head)) -> VoidPtr: ...
 class PERUSERSECTIONA(EasyCastStructure):
     szGUID: Windows.Win32.Foundation.CHAR * 59
     szDispName: Windows.Win32.Foundation.CHAR * 128
@@ -1466,11 +1466,11 @@ class PERUSERSECTIONW(EasyCastStructure):
     dwIsInstalled: UInt32
     bRollback: Windows.Win32.Foundation.BOOL
 @winfunctype_pointer
-def PFEATURE_STATE_CHANGE_CALLBACK(context: c_void_p) -> Void: ...
+def PFEATURE_STATE_CHANGE_CALLBACK(context: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def PFIBER_CALLOUT_ROUTINE(lpParameter: c_void_p) -> c_void_p: ...
+def PFIBER_CALLOUT_ROUTINE(lpParameter: VoidPtr) -> VoidPtr: ...
 @winfunctype_pointer
-def PQUERYACTCTXW_FUNC(dwFlags: UInt32, hActCtx: Windows.Win32.Foundation.HANDLE, pvSubInstance: c_void_p, ulInfoClass: UInt32, pvBuffer: c_void_p, cbBuffer: UIntPtr, pcbWrittenOrRequired: POINTER(UIntPtr)) -> Windows.Win32.Foundation.BOOL: ...
+def PQUERYACTCTXW_FUNC(dwFlags: UInt32, hActCtx: Windows.Win32.Foundation.HANDLE, pvSubInstance: VoidPtr, ulInfoClass: UInt32, pvBuffer: VoidPtr, cbBuffer: UIntPtr, pcbWrittenOrRequired: POINTER(UIntPtr)) -> Windows.Win32.Foundation.BOOL: ...
 class PUBLIC_OBJECT_BASIC_INFORMATION(EasyCastStructure):
     Attributes: UInt32
     GrantedAccess: UInt32
@@ -1481,7 +1481,7 @@ class PUBLIC_OBJECT_TYPE_INFORMATION(EasyCastStructure):
     TypeName: Windows.Win32.Foundation.UNICODE_STRING
     Reserved: UInt32 * 22
 @winfunctype_pointer
-def PWINSTATIONQUERYINFORMATIONW(param0: Windows.Win32.Foundation.HANDLE, param1: UInt32, param2: Windows.Win32.System.WindowsProgramming.WINSTATIONINFOCLASS, param3: c_void_p, param4: UInt32, param5: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOLEAN: ...
+def PWINSTATIONQUERYINFORMATIONW(param0: Windows.Win32.Foundation.HANDLE, param1: UInt32, param2: Windows.Win32.System.WindowsProgramming.WINSTATIONINFOCLASS, param3: VoidPtr, param4: UInt32, param5: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
 def PWLDP_CANEXECUTEBUFFER_API(host: POINTER(Guid), options: Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_EVALUATION_OPTIONS, buffer: POINTER(Byte), bufferSize: UInt32, auditInfo: Windows.Win32.Foundation.PWSTR, result: POINTER(Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -1499,7 +1499,7 @@ def PWLDP_ISWCOSPRODUCTIONCONFIGURATION_API(IsProductionConfiguration: POINTER(W
 @winfunctype_pointer
 def PWLDP_QUERYDEVICESECURITYINFORMATION_API(information: POINTER(Windows.Win32.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head), informationLength: UInt32, returnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PWLDP_QUERYDYNAMICODETRUST_API(fileHandle: Windows.Win32.Foundation.HANDLE, baseImage: c_void_p, imageSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def PWLDP_QUERYDYNAMICODETRUST_API(fileHandle: Windows.Win32.Foundation.HANDLE, baseImage: VoidPtr, imageSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PWLDP_QUERYPOLICYSETTINGENABLED2_API(Setting: Windows.Win32.Foundation.PWSTR, Enabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -1538,7 +1538,7 @@ class STRTABLEW(EasyCastStructure):
     pse: POINTER(Windows.Win32.System.WindowsProgramming.STRENTRYW_head)
 class SYSTEM_BASIC_INFORMATION(EasyCastStructure):
     Reserved1: Byte * 24
-    Reserved2: c_void_p * 4
+    Reserved2: VoidPtr * 4
     NumberOfProcessors: SByte
 class SYSTEM_CODEINTEGRITY_INFORMATION(EasyCastStructure):
     Length: UInt32
@@ -1552,7 +1552,7 @@ class SYSTEM_LOOKASIDE_INFORMATION(EasyCastStructure):
 class SYSTEM_PERFORMANCE_INFORMATION(EasyCastStructure):
     Reserved1: Byte * 312
 class SYSTEM_POLICY_INFORMATION(EasyCastStructure):
-    Reserved1: c_void_p * 2
+    Reserved1: VoidPtr * 2
     Reserved2: UInt32 * 3
 class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION(EasyCastStructure):
     IdleTime: Int64
@@ -1567,18 +1567,18 @@ class SYSTEM_PROCESS_INFORMATION(EasyCastStructure):
     ImageName: Windows.Win32.Foundation.UNICODE_STRING
     BasePriority: Int32
     UniqueProcessId: Windows.Win32.Foundation.HANDLE
-    Reserved2: c_void_p
+    Reserved2: VoidPtr
     HandleCount: UInt32
     SessionId: UInt32
-    Reserved3: c_void_p
+    Reserved3: VoidPtr
     PeakVirtualSize: UIntPtr
     VirtualSize: UIntPtr
     Reserved4: UInt32
     PeakWorkingSetSize: UIntPtr
     WorkingSetSize: UIntPtr
-    Reserved5: c_void_p
+    Reserved5: VoidPtr
     QuotaPagedPoolUsage: UIntPtr
-    Reserved6: c_void_p
+    Reserved6: VoidPtr
     QuotaNonPagedPoolUsage: UIntPtr
     PagefileUsage: UIntPtr
     PeakPagefileUsage: UIntPtr
@@ -1587,11 +1587,11 @@ class SYSTEM_PROCESS_INFORMATION(EasyCastStructure):
 class SYSTEM_REGISTRY_QUOTA_INFORMATION(EasyCastStructure):
     RegistryQuotaAllowed: UInt32
     RegistryQuotaUsed: UInt32
-    Reserved1: c_void_p
+    Reserved1: VoidPtr
 class SYSTEM_THREAD_INFORMATION(EasyCastStructure):
     Reserved1: Int64 * 3
     Reserved2: UInt32
-    StartAddress: c_void_p
+    StartAddress: VoidPtr
     ClientId: Windows.Win32.System.WindowsProgramming.CLIENT_ID
     Priority: Int32
     BasePriority: Int32
@@ -1635,9 +1635,9 @@ class TDI_TL_IO_CONTROL_ENDPOINT(EasyCastStructure):
     Type: Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE
     Level: UInt32
     Anonymous: _Anonymous_e__Union
-    InputBuffer: c_void_p
+    InputBuffer: VoidPtr
     InputBufferLength: UInt32
-    OutputBuffer: c_void_p
+    OutputBuffer: VoidPtr
     OutputBufferLength: UInt32
     class _Anonymous_e__Union(EasyCastUnion):
         IoControlCode: UInt32

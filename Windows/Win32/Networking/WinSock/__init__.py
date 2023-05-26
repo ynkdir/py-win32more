@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.WinSock
 import Windows.Win32.System.Com
@@ -52,7 +52,7 @@ class ADDRINFOEX2A(EasyCastStructure):
     ai_addrlen: UIntPtr
     ai_canonname: Windows.Win32.Foundation.PSTR
     ai_addr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    ai_blob: c_void_p
+    ai_blob: VoidPtr
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOEX2A_head)
@@ -66,7 +66,7 @@ class ADDRINFOEX2W(EasyCastStructure):
     ai_addrlen: UIntPtr
     ai_canonname: Windows.Win32.Foundation.PWSTR
     ai_addr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    ai_blob: c_void_p
+    ai_blob: VoidPtr
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOEX2W_head)
@@ -80,7 +80,7 @@ class ADDRINFOEX3(EasyCastStructure):
     ai_addrlen: UIntPtr
     ai_canonname: Windows.Win32.Foundation.PWSTR
     ai_addr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    ai_blob: c_void_p
+    ai_blob: VoidPtr
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOEX3_head)
@@ -95,7 +95,7 @@ class ADDRINFOEX4(EasyCastStructure):
     ai_addrlen: UIntPtr
     ai_canonname: Windows.Win32.Foundation.PWSTR
     ai_addr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    ai_blob: c_void_p
+    ai_blob: VoidPtr
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOEX4_head)
@@ -111,7 +111,7 @@ class ADDRINFOEX5(EasyCastStructure):
     ai_addrlen: UIntPtr
     ai_canonname: Windows.Win32.Foundation.PWSTR
     ai_addr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    ai_blob: c_void_p
+    ai_blob: VoidPtr
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOEX5_head)
@@ -128,7 +128,7 @@ class ADDRINFOEX6(EasyCastStructure):
     ai_addrlen: UIntPtr
     ai_canonname: Windows.Win32.Foundation.PWSTR
     ai_addr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    ai_blob: c_void_p
+    ai_blob: VoidPtr
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOEX5_head)
@@ -148,7 +148,7 @@ class ADDRINFOEXA(EasyCastStructure):
     ai_addrlen: UIntPtr
     ai_canonname: Windows.Win32.Foundation.PSTR
     ai_addr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    ai_blob: c_void_p
+    ai_blob: VoidPtr
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOEXA_head)
@@ -160,7 +160,7 @@ class ADDRINFOEXW(EasyCastStructure):
     ai_addrlen: UIntPtr
     ai_canonname: Windows.Win32.Foundation.PWSTR
     ai_addr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    ai_blob: c_void_p
+    ai_blob: VoidPtr
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOEXW_head)
@@ -1570,7 +1570,7 @@ def WSAHtonl(s: Windows.Win32.Networking.WinSock.SOCKET, hostlong: UInt32, lpnet
 @winfunctype('WS2_32.dll')
 def WSAHtons(s: Windows.Win32.Networking.WinSock.SOCKET, hostshort: UInt16, lpnetshort: POINTER(UInt16)) -> Int32: ...
 @winfunctype('WS2_32.dll')
-def WSAIoctl(s: Windows.Win32.Networking.WinSock.SOCKET, dwIoControlCode: UInt32, lpvInBuffer: c_void_p, cbInBuffer: UInt32, lpvOutBuffer: c_void_p, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpCompletionRoutine: Windows.Win32.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE) -> Int32: ...
+def WSAIoctl(s: Windows.Win32.Networking.WinSock.SOCKET, dwIoControlCode: UInt32, lpvInBuffer: VoidPtr, cbInBuffer: UInt32, lpvOutBuffer: VoidPtr, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpCompletionRoutine: Windows.Win32.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAJoinLeaf(s: Windows.Win32.Networking.WinSock.SOCKET, name: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head), namelen: Int32, lpCallerData: POINTER(Windows.Win32.Networking.WinSock.WSABUF_head), lpCalleeData: POINTER(Windows.Win32.Networking.WinSock.WSABUF_head), lpSQOS: POINTER(Windows.Win32.Networking.WinSock.QOS_head), lpGQOS: POINTER(Windows.Win32.Networking.WinSock.QOS_head), dwFlags: UInt32) -> Windows.Win32.Networking.WinSock.SOCKET: ...
 @winfunctype('WS2_32.dll')
@@ -1618,7 +1618,7 @@ def WSALookupServiceNextA(hLookup: Windows.Win32.Foundation.HANDLE, dwControlFla
 @winfunctype('WS2_32.dll')
 def WSALookupServiceNextW(hLookup: Windows.Win32.Foundation.HANDLE, dwControlFlags: UInt32, lpdwBufferLength: POINTER(UInt32), lpqsResults: POINTER(Windows.Win32.Networking.WinSock.WSAQUERYSETW_head)) -> Int32: ...
 @winfunctype('WS2_32.dll')
-def WSANSPIoctl(hLookup: Windows.Win32.Foundation.HANDLE, dwControlCode: UInt32, lpvInBuffer: c_void_p, cbInBuffer: UInt32, lpvOutBuffer: c_void_p, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpCompletion: POINTER(Windows.Win32.Networking.WinSock.WSACOMPLETION_head)) -> Int32: ...
+def WSANSPIoctl(hLookup: Windows.Win32.Foundation.HANDLE, dwControlCode: UInt32, lpvInBuffer: VoidPtr, cbInBuffer: UInt32, lpvOutBuffer: VoidPtr, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpCompletion: POINTER(Windows.Win32.Networking.WinSock.WSACOMPLETION_head)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSALookupServiceEnd(hLookup: Windows.Win32.Foundation.HANDLE) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -1698,9 +1698,9 @@ def WSARecvEx(s: Windows.Win32.Networking.WinSock.SOCKET, buf: Windows.Win32.Fou
 @winfunctype('MSWSOCK.dll')
 def TransmitFile(hSocket: Windows.Win32.Networking.WinSock.SOCKET, hFile: Windows.Win32.Foundation.HANDLE, nNumberOfBytesToWrite: UInt32, nNumberOfBytesPerSend: UInt32, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpTransmitBuffers: POINTER(Windows.Win32.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head), dwReserved: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('MSWSOCK.dll')
-def AcceptEx(sListenSocket: Windows.Win32.Networking.WinSock.SOCKET, sAcceptSocket: Windows.Win32.Networking.WinSock.SOCKET, lpOutputBuffer: c_void_p, dwReceiveDataLength: UInt32, dwLocalAddressLength: UInt32, dwRemoteAddressLength: UInt32, lpdwBytesReceived: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
+def AcceptEx(sListenSocket: Windows.Win32.Networking.WinSock.SOCKET, sAcceptSocket: Windows.Win32.Networking.WinSock.SOCKET, lpOutputBuffer: VoidPtr, dwReceiveDataLength: UInt32, dwLocalAddressLength: UInt32, dwRemoteAddressLength: UInt32, lpdwBytesReceived: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('MSWSOCK.dll')
-def GetAcceptExSockaddrs(lpOutputBuffer: c_void_p, dwReceiveDataLength: UInt32, dwLocalAddressLength: UInt32, dwRemoteAddressLength: UInt32, LocalSockaddr: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)), LocalSockaddrLength: POINTER(Int32), RemoteSockaddr: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)), RemoteSockaddrLength: POINTER(Int32)) -> Void: ...
+def GetAcceptExSockaddrs(lpOutputBuffer: VoidPtr, dwReceiveDataLength: UInt32, dwLocalAddressLength: UInt32, dwRemoteAddressLength: UInt32, LocalSockaddr: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)), LocalSockaddrLength: POINTER(Int32), RemoteSockaddr: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)), RemoteSockaddrLength: POINTER(Int32)) -> Void: ...
 @winfunctype('WS2_32.dll')
 def WSCEnumProtocols(lpiProtocols: POINTER(Int32), lpProtocolBuffer: POINTER(Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOW_head), lpdwBufferLength: POINTER(UInt32), lpErrno: POINTER(Int32)) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -1736,13 +1736,13 @@ def WSAUnadvertiseProvider(puuidProviderId: POINTER(Guid)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAProviderCompleteAsyncCall(hAsyncCall: Windows.Win32.Foundation.HANDLE, iRetCode: Int32) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
-def EnumProtocolsA(lpiProtocols: POINTER(Int32), lpProtocolBuffer: c_void_p, lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
+def EnumProtocolsA(lpiProtocols: POINTER(Int32), lpProtocolBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
-def EnumProtocolsW(lpiProtocols: POINTER(Int32), lpProtocolBuffer: c_void_p, lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
+def EnumProtocolsW(lpiProtocols: POINTER(Int32), lpProtocolBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
-def GetAddressByNameA(dwNameSpace: UInt32, lpServiceType: POINTER(Guid), lpServiceName: Windows.Win32.Foundation.PSTR, lpiProtocols: POINTER(Int32), dwResolution: UInt32, lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head), lpCsaddrBuffer: c_void_p, lpdwBufferLength: POINTER(UInt32), lpAliasBuffer: Windows.Win32.Foundation.PSTR, lpdwAliasBufferLength: POINTER(UInt32)) -> Int32: ...
+def GetAddressByNameA(dwNameSpace: UInt32, lpServiceType: POINTER(Guid), lpServiceName: Windows.Win32.Foundation.PSTR, lpiProtocols: POINTER(Int32), dwResolution: UInt32, lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head), lpCsaddrBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32), lpAliasBuffer: Windows.Win32.Foundation.PSTR, lpdwAliasBufferLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
-def GetAddressByNameW(dwNameSpace: UInt32, lpServiceType: POINTER(Guid), lpServiceName: Windows.Win32.Foundation.PWSTR, lpiProtocols: POINTER(Int32), dwResolution: UInt32, lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head), lpCsaddrBuffer: c_void_p, lpdwBufferLength: POINTER(UInt32), lpAliasBuffer: Windows.Win32.Foundation.PWSTR, lpdwAliasBufferLength: POINTER(UInt32)) -> Int32: ...
+def GetAddressByNameW(dwNameSpace: UInt32, lpServiceType: POINTER(Guid), lpServiceName: Windows.Win32.Foundation.PWSTR, lpiProtocols: POINTER(Int32), dwResolution: UInt32, lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head), lpCsaddrBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32), lpAliasBuffer: Windows.Win32.Foundation.PWSTR, lpdwAliasBufferLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
 def GetTypeByNameA(lpServiceName: Windows.Win32.Foundation.PSTR, lpServiceType: POINTER(Guid)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
@@ -1756,9 +1756,9 @@ def SetServiceA(dwNameSpace: UInt32, dwOperation: Windows.Win32.Networking.WinSo
 @winfunctype('MSWSOCK.dll')
 def SetServiceW(dwNameSpace: UInt32, dwOperation: Windows.Win32.Networking.WinSock.SET_SERVICE_OPERATION, dwFlags: UInt32, lpServiceInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_INFOW_head), lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head), lpdwStatusFlags: POINTER(UInt32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
-def GetServiceA(dwNameSpace: UInt32, lpGuid: POINTER(Guid), lpServiceName: Windows.Win32.Foundation.PSTR, dwProperties: UInt32, lpBuffer: c_void_p, lpdwBufferSize: POINTER(UInt32), lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head)) -> Int32: ...
+def GetServiceA(dwNameSpace: UInt32, lpGuid: POINTER(Guid), lpServiceName: Windows.Win32.Foundation.PSTR, dwProperties: UInt32, lpBuffer: VoidPtr, lpdwBufferSize: POINTER(UInt32), lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
-def GetServiceW(dwNameSpace: UInt32, lpGuid: POINTER(Guid), lpServiceName: Windows.Win32.Foundation.PWSTR, dwProperties: UInt32, lpBuffer: c_void_p, lpdwBufferSize: POINTER(UInt32), lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head)) -> Int32: ...
+def GetServiceW(dwNameSpace: UInt32, lpGuid: POINTER(Guid), lpServiceName: Windows.Win32.Foundation.PWSTR, dwProperties: UInt32, lpBuffer: VoidPtr, lpdwBufferSize: POINTER(UInt32), lpServiceAsyncInfo: POINTER(Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO_head)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def getaddrinfo(pNodeName: Windows.Win32.Foundation.PSTR, pServiceName: Windows.Win32.Foundation.PSTR, pHints: POINTER(Windows.Win32.Networking.WinSock.ADDRINFOA_head), ppResult: POINTER(POINTER(Windows.Win32.Networking.WinSock.ADDRINFOA_head))) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -1788,13 +1788,13 @@ def getnameinfo(pSockaddr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_hea
 @winfunctype('WS2_32.dll')
 def GetNameInfoW(pSockaddr: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head), SockaddrLength: Windows.Win32.Networking.WinSock.socklen_t, pNodeBuffer: Windows.Win32.Foundation.PWSTR, NodeBufferSize: UInt32, pServiceBuffer: Windows.Win32.Foundation.PWSTR, ServiceBufferSize: UInt32, Flags: Int32) -> Int32: ...
 @winfunctype('WS2_32.dll')
-def inet_pton(Family: Int32, pszAddrString: Windows.Win32.Foundation.PSTR, pAddrBuf: c_void_p) -> Int32: ...
+def inet_pton(Family: Int32, pszAddrString: Windows.Win32.Foundation.PSTR, pAddrBuf: VoidPtr) -> Int32: ...
 @winfunctype('WS2_32.dll')
-def InetPtonW(Family: Int32, pszAddrString: Windows.Win32.Foundation.PWSTR, pAddrBuf: c_void_p) -> Int32: ...
+def InetPtonW(Family: Int32, pszAddrString: Windows.Win32.Foundation.PWSTR, pAddrBuf: VoidPtr) -> Int32: ...
 @winfunctype('WS2_32.dll')
-def inet_ntop(Family: Int32, pAddr: c_void_p, pStringBuf: Windows.Win32.Foundation.PSTR, StringBufSize: UIntPtr) -> Windows.Win32.Foundation.PSTR: ...
+def inet_ntop(Family: Int32, pAddr: VoidPtr, pStringBuf: Windows.Win32.Foundation.PSTR, StringBufSize: UIntPtr) -> Windows.Win32.Foundation.PSTR: ...
 @winfunctype('WS2_32.dll')
-def InetNtopW(Family: Int32, pAddr: c_void_p, pStringBuf: Windows.Win32.Foundation.PWSTR, StringBufSize: UIntPtr) -> Windows.Win32.Foundation.PWSTR: ...
+def InetNtopW(Family: Int32, pAddr: VoidPtr, pStringBuf: Windows.Win32.Foundation.PWSTR, StringBufSize: UIntPtr) -> Windows.Win32.Foundation.PWSTR: ...
 @winfunctype('fwpuclnt.dll')
 def WSASetSocketSecurity(Socket: Windows.Win32.Networking.WinSock.SOCKET, SecuritySettings: POINTER(Windows.Win32.Networking.WinSock.SOCKET_SECURITY_SETTINGS_head), SecuritySettingsLen: UInt32, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), CompletionRoutine: Windows.Win32.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE) -> Int32: ...
 @winfunctype('fwpuclnt.dll')
@@ -2311,13 +2311,13 @@ def LPBLOCKINGCALLBACK(dwContext: UIntPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPCONDITIONPROC(lpCallerId: POINTER(Windows.Win32.Networking.WinSock.WSABUF_head), lpCallerData: POINTER(Windows.Win32.Networking.WinSock.WSABUF_head), lpSQOS: POINTER(Windows.Win32.Networking.WinSock.QOS_head), lpGQOS: POINTER(Windows.Win32.Networking.WinSock.QOS_head), lpCalleeId: POINTER(Windows.Win32.Networking.WinSock.WSABUF_head), lpCalleeData: POINTER(Windows.Win32.Networking.WinSock.WSABUF_head), g: POINTER(UInt32), dwCallbackData: UIntPtr) -> Int32: ...
 @winfunctype_pointer
-def LPFN_ACCEPTEX(sListenSocket: Windows.Win32.Networking.WinSock.SOCKET, sAcceptSocket: Windows.Win32.Networking.WinSock.SOCKET, lpOutputBuffer: c_void_p, dwReceiveDataLength: UInt32, dwLocalAddressLength: UInt32, dwRemoteAddressLength: UInt32, lpdwBytesReceived: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_ACCEPTEX(sListenSocket: Windows.Win32.Networking.WinSock.SOCKET, sAcceptSocket: Windows.Win32.Networking.WinSock.SOCKET, lpOutputBuffer: VoidPtr, dwReceiveDataLength: UInt32, dwLocalAddressLength: UInt32, dwRemoteAddressLength: UInt32, lpdwBytesReceived: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_CONNECTEX(s: Windows.Win32.Networking.WinSock.SOCKET, name: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head), namelen: Int32, lpSendBuffer: c_void_p, dwSendDataLength: UInt32, lpdwBytesSent: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_CONNECTEX(s: Windows.Win32.Networking.WinSock.SOCKET, name: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head), namelen: Int32, lpSendBuffer: VoidPtr, dwSendDataLength: UInt32, lpdwBytesSent: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPFN_DISCONNECTEX(s: Windows.Win32.Networking.WinSock.SOCKET, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), dwFlags: UInt32, dwReserved: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_GETACCEPTEXSOCKADDRS(lpOutputBuffer: c_void_p, dwReceiveDataLength: UInt32, dwLocalAddressLength: UInt32, dwRemoteAddressLength: UInt32, LocalSockaddr: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)), LocalSockaddrLength: POINTER(Int32), RemoteSockaddr: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)), RemoteSockaddrLength: POINTER(Int32)) -> Void: ...
+def LPFN_GETACCEPTEXSOCKADDRS(lpOutputBuffer: VoidPtr, dwReceiveDataLength: UInt32, dwLocalAddressLength: UInt32, dwRemoteAddressLength: UInt32, LocalSockaddr: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)), LocalSockaddrLength: POINTER(Int32), RemoteSockaddr: POINTER(POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)), RemoteSockaddrLength: POINTER(Int32)) -> Void: ...
 @winfunctype_pointer
 def LPFN_NSPAPI() -> UInt32: ...
 @winfunctype_pointer
@@ -2325,7 +2325,7 @@ def LPFN_RIOCLOSECOMPLETIONQUEUE(CQ: Windows.Win32.Networking.WinSock.RIO_CQ) ->
 @winfunctype_pointer
 def LPFN_RIOCREATECOMPLETIONQUEUE(QueueSize: UInt32, NotificationCompletion: POINTER(Windows.Win32.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_head)) -> Windows.Win32.Networking.WinSock.RIO_CQ: ...
 @winfunctype_pointer
-def LPFN_RIOCREATEREQUESTQUEUE(Socket: Windows.Win32.Networking.WinSock.SOCKET, MaxOutstandingReceive: UInt32, MaxReceiveDataBuffers: UInt32, MaxOutstandingSend: UInt32, MaxSendDataBuffers: UInt32, ReceiveCQ: Windows.Win32.Networking.WinSock.RIO_CQ, SendCQ: Windows.Win32.Networking.WinSock.RIO_CQ, SocketContext: c_void_p) -> Windows.Win32.Networking.WinSock.RIO_RQ: ...
+def LPFN_RIOCREATEREQUESTQUEUE(Socket: Windows.Win32.Networking.WinSock.SOCKET, MaxOutstandingReceive: UInt32, MaxReceiveDataBuffers: UInt32, MaxOutstandingSend: UInt32, MaxSendDataBuffers: UInt32, ReceiveCQ: Windows.Win32.Networking.WinSock.RIO_CQ, SendCQ: Windows.Win32.Networking.WinSock.RIO_CQ, SocketContext: VoidPtr) -> Windows.Win32.Networking.WinSock.RIO_RQ: ...
 @winfunctype_pointer
 def LPFN_RIODEQUEUECOMPLETION(CQ: Windows.Win32.Networking.WinSock.RIO_CQ, Array: POINTER(Windows.Win32.Networking.WinSock.RIORESULT_head), ArraySize: UInt32) -> UInt32: ...
 @winfunctype_pointer
@@ -2333,9 +2333,9 @@ def LPFN_RIODEREGISTERBUFFER(BufferId: Windows.Win32.Networking.WinSock.RIO_BUFF
 @winfunctype_pointer
 def LPFN_RIONOTIFY(CQ: Windows.Win32.Networking.WinSock.RIO_CQ) -> Int32: ...
 @winfunctype_pointer
-def LPFN_RIORECEIVE(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_RIORECEIVE(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, Flags: UInt32, RequestContext: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_RIORECEIVEEX(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pControlContext: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pFlags: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), Flags: UInt32, RequestContext: c_void_p) -> Int32: ...
+def LPFN_RIORECEIVEEX(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pControlContext: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pFlags: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), Flags: UInt32, RequestContext: VoidPtr) -> Int32: ...
 @winfunctype_pointer
 def LPFN_RIOREGISTERBUFFER(DataBuffer: Windows.Win32.Foundation.PSTR, DataLength: UInt32) -> Windows.Win32.Networking.WinSock.RIO_BUFFERID: ...
 @winfunctype_pointer
@@ -2343,9 +2343,9 @@ def LPFN_RIORESIZECOMPLETIONQUEUE(CQ: Windows.Win32.Networking.WinSock.RIO_CQ, Q
 @winfunctype_pointer
 def LPFN_RIORESIZEREQUESTQUEUE(RQ: Windows.Win32.Networking.WinSock.RIO_RQ, MaxOutstandingReceive: UInt32, MaxOutstandingSend: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_RIOSEND(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_RIOSEND(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, Flags: UInt32, RequestContext: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_RIOSENDEX(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pControlContext: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pFlags: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_RIOSENDEX(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pControlContext: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pFlags: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), Flags: UInt32, RequestContext: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPFN_TRANSMITFILE(hSocket: Windows.Win32.Networking.WinSock.SOCKET, hFile: Windows.Win32.Foundation.HANDLE, nNumberOfBytesToWrite: UInt32, nNumberOfBytesPerSend: UInt32, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpTransmitBuffers: POINTER(Windows.Win32.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head), dwReserved: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2365,7 +2365,7 @@ def LPNSPGETSERVICECLASSINFO(lpProviderId: POINTER(Guid), lpdwBufSize: POINTER(U
 @winfunctype_pointer
 def LPNSPINSTALLSERVICECLASS(lpProviderId: POINTER(Guid), lpServiceClassInfo: POINTER(Windows.Win32.Networking.WinSock.WSASERVICECLASSINFOW_head)) -> Int32: ...
 @winfunctype_pointer
-def LPNSPIOCTL(hLookup: Windows.Win32.Foundation.HANDLE, dwControlCode: UInt32, lpvInBuffer: c_void_p, cbInBuffer: UInt32, lpvOutBuffer: c_void_p, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpCompletion: POINTER(Windows.Win32.Networking.WinSock.WSACOMPLETION_head), lpThreadId: POINTER(Windows.Win32.Networking.WinSock.WSATHREADID_head)) -> Int32: ...
+def LPNSPIOCTL(hLookup: Windows.Win32.Foundation.HANDLE, dwControlCode: UInt32, lpvInBuffer: VoidPtr, cbInBuffer: UInt32, lpvOutBuffer: VoidPtr, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpCompletion: POINTER(Windows.Win32.Networking.WinSock.WSACOMPLETION_head), lpThreadId: POINTER(Windows.Win32.Networking.WinSock.WSATHREADID_head)) -> Int32: ...
 @winfunctype_pointer
 def LPNSPLOOKUPSERVICEBEGIN(lpProviderId: POINTER(Guid), lpqsRestrictions: POINTER(Windows.Win32.Networking.WinSock.WSAQUERYSETW_head), lpServiceClassInfo: POINTER(Windows.Win32.Networking.WinSock.WSASERVICECLASSINFOW_head), dwControlFlags: UInt32, lphLookup: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype_pointer
@@ -2379,19 +2379,19 @@ def LPNSPSETSERVICE(lpProviderId: POINTER(Guid), lpServiceClassInfo: POINTER(Win
 @winfunctype_pointer
 def LPNSPSTARTUP(lpProviderId: POINTER(Guid), lpnspRoutines: POINTER(Windows.Win32.Networking.WinSock.NSP_ROUTINE_head)) -> Int32: ...
 @winfunctype_pointer
-def LPNSPV2CLEANUP(lpProviderId: POINTER(Guid), pvClientSessionArg: c_void_p) -> Int32: ...
+def LPNSPV2CLEANUP(lpProviderId: POINTER(Guid), pvClientSessionArg: VoidPtr) -> Int32: ...
 @winfunctype_pointer
-def LPNSPV2CLIENTSESSIONRUNDOWN(lpProviderId: POINTER(Guid), pvClientSessionArg: c_void_p) -> Void: ...
+def LPNSPV2CLIENTSESSIONRUNDOWN(lpProviderId: POINTER(Guid), pvClientSessionArg: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def LPNSPV2LOOKUPSERVICEBEGIN(lpProviderId: POINTER(Guid), lpqsRestrictions: POINTER(Windows.Win32.Networking.WinSock.WSAQUERYSET2W_head), dwControlFlags: UInt32, lpvClientSessionArg: c_void_p, lphLookup: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
+def LPNSPV2LOOKUPSERVICEBEGIN(lpProviderId: POINTER(Guid), lpqsRestrictions: POINTER(Windows.Win32.Networking.WinSock.WSAQUERYSET2W_head), dwControlFlags: UInt32, lpvClientSessionArg: VoidPtr, lphLookup: POINTER(Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype_pointer
 def LPNSPV2LOOKUPSERVICEEND(hLookup: Windows.Win32.Foundation.HANDLE) -> Int32: ...
 @winfunctype_pointer
 def LPNSPV2LOOKUPSERVICENEXTEX(hAsyncCall: Windows.Win32.Foundation.HANDLE, hLookup: Windows.Win32.Foundation.HANDLE, dwControlFlags: UInt32, lpdwBufferLength: POINTER(UInt32), lpqsResults: POINTER(Windows.Win32.Networking.WinSock.WSAQUERYSET2W_head)) -> Void: ...
 @winfunctype_pointer
-def LPNSPV2SETSERVICEEX(hAsyncCall: Windows.Win32.Foundation.HANDLE, lpProviderId: POINTER(Guid), lpqsRegInfo: POINTER(Windows.Win32.Networking.WinSock.WSAQUERYSET2W_head), essOperation: Windows.Win32.Networking.WinSock.WSAESETSERVICEOP, dwControlFlags: UInt32, lpvClientSessionArg: c_void_p) -> Void: ...
+def LPNSPV2SETSERVICEEX(hAsyncCall: Windows.Win32.Foundation.HANDLE, lpProviderId: POINTER(Guid), lpqsRegInfo: POINTER(Windows.Win32.Networking.WinSock.WSAQUERYSET2W_head), essOperation: Windows.Win32.Networking.WinSock.WSAESETSERVICEOP, dwControlFlags: UInt32, lpvClientSessionArg: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def LPNSPV2STARTUP(lpProviderId: POINTER(Guid), ppvClientSessionArg: POINTER(c_void_p)) -> Int32: ...
+def LPNSPV2STARTUP(lpProviderId: POINTER(Guid), ppvClientSessionArg: POINTER(VoidPtr)) -> Int32: ...
 @winfunctype_pointer
 def LPSERVICE_CALLBACK_PROC(lParam: Windows.Win32.Foundation.LPARAM, hAsyncTaskHandle: Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype_pointer
@@ -2483,7 +2483,7 @@ def LPWSPGETSOCKNAME(s: Windows.Win32.Networking.WinSock.SOCKET, name: POINTER(W
 @winfunctype_pointer
 def LPWSPGETSOCKOPT(s: Windows.Win32.Networking.WinSock.SOCKET, level: Int32, optname: Int32, optval: Windows.Win32.Foundation.PSTR, optlen: POINTER(Int32), lpErrno: POINTER(Int32)) -> Int32: ...
 @winfunctype_pointer
-def LPWSPIOCTL(s: Windows.Win32.Networking.WinSock.SOCKET, dwIoControlCode: UInt32, lpvInBuffer: c_void_p, cbInBuffer: UInt32, lpvOutBuffer: c_void_p, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpCompletionRoutine: Windows.Win32.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpThreadId: POINTER(Windows.Win32.Networking.WinSock.WSATHREADID_head), lpErrno: POINTER(Int32)) -> Int32: ...
+def LPWSPIOCTL(s: Windows.Win32.Networking.WinSock.SOCKET, dwIoControlCode: UInt32, lpvInBuffer: VoidPtr, cbInBuffer: UInt32, lpvOutBuffer: VoidPtr, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpCompletionRoutine: Windows.Win32.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpThreadId: POINTER(Windows.Win32.Networking.WinSock.WSATHREADID_head), lpErrno: POINTER(Int32)) -> Int32: ...
 @winfunctype_pointer
 def LPWSPJOINLEAF(s: Windows.Win32.Networking.WinSock.SOCKET, name: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head), namelen: Int32, lpCallerData: POINTER(Windows.Win32.Networking.WinSock.WSABUF_head), lpCalleeData: POINTER(Windows.Win32.Networking.WinSock.WSABUF_head), lpSQOS: POINTER(Windows.Win32.Networking.WinSock.QOS_head), lpGQOS: POINTER(Windows.Win32.Networking.WinSock.QOS_head), dwFlags: UInt32, lpErrno: POINTER(Int32)) -> Windows.Win32.Networking.WinSock.SOCKET: ...
 @winfunctype_pointer
@@ -3058,8 +3058,8 @@ class RIO_NOTIFICATION_COMPLETION(EasyCastStructure):
             NotifyReset: Windows.Win32.Foundation.BOOL
         class _Iocp_e__Struct(EasyCastStructure):
             IocpHandle: Windows.Win32.Foundation.HANDLE
-            CompletionKey: c_void_p
-            Overlapped: c_void_p
+            CompletionKey: VoidPtr
+            Overlapped: VoidPtr
 RIO_NOTIFICATION_COMPLETION_TYPE = Int32
 RIO_EVENT_COMPLETION: RIO_NOTIFICATION_COMPLETION_TYPE = 1
 RIO_IOCP_COMPLETION: RIO_NOTIFICATION_COMPLETION_TYPE = 2
@@ -3201,13 +3201,13 @@ class SERVICE_TYPE_VALUE_ABSA(EasyCastStructure):
     dwValueType: UInt32
     dwValueSize: UInt32
     lpValueName: Windows.Win32.Foundation.PSTR
-    lpValue: c_void_p
+    lpValue: VoidPtr
 class SERVICE_TYPE_VALUE_ABSW(EasyCastStructure):
     dwNameSpace: UInt32
     dwValueType: UInt32
     dwValueSize: UInt32
     lpValueName: Windows.Win32.Foundation.PWSTR
-    lpValue: c_void_p
+    lpValue: VoidPtr
 SET_SERVICE_OPERATION = UInt32
 SERVICE_REGISTER: SET_SERVICE_OPERATION = 1
 SERVICE_DEREGISTER: SET_SERVICE_OPERATION = 2
@@ -3367,7 +3367,7 @@ SOCKET_USAGE_TYPE = Int32
 SYSTEM_CRITICAL_SOCKET: SOCKET_USAGE_TYPE = 1
 class SOCK_NOTIFY_REGISTRATION(EasyCastStructure):
     socket: Windows.Win32.Networking.WinSock.SOCKET
-    completionKey: c_void_p
+    completionKey: VoidPtr
     eventFilter: UInt16
     operation: Byte
     triggerFlags: Byte
@@ -3505,9 +3505,9 @@ class TIMEVAL(EasyCastStructure):
     tv_sec: Int32
     tv_usec: Int32
 class TRANSMIT_FILE_BUFFERS(EasyCastStructure):
-    Head: c_void_p
+    Head: VoidPtr
     HeadLength: UInt32
-    Tail: c_void_p
+    Tail: VoidPtr
     TailLength: UInt32
 class TRANSMIT_PACKETS_ELEMENT(EasyCastStructure):
     dwElFlags: UInt32
@@ -3515,7 +3515,7 @@ class TRANSMIT_PACKETS_ELEMENT(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         Anonymous: _Anonymous_e__Struct
-        pBuffer: c_void_p
+        pBuffer: VoidPtr
         class _Anonymous_e__Struct(EasyCastStructure):
             nFileOffset: Int64
             hFile: Windows.Win32.Foundation.HANDLE
@@ -3690,13 +3690,13 @@ class WSANSCLASSINFOA(EasyCastStructure):
     dwNameSpace: UInt32
     dwValueType: UInt32
     dwValueSize: UInt32
-    lpValue: c_void_p
+    lpValue: VoidPtr
 class WSANSCLASSINFOW(EasyCastStructure):
     lpszName: Windows.Win32.Foundation.PWSTR
     dwNameSpace: UInt32
     dwValueType: UInt32
     dwValueSize: UInt32
-    lpValue: c_void_p
+    lpValue: VoidPtr
 class WSAPOLLDATA(EasyCastStructure):
     result: Int32
     fds: UInt32
@@ -3956,7 +3956,7 @@ WSA_SECURE_HOST_NOT_FOUND: WSA_ERROR = 11032
 WSA_IPSEC_NAME_POLICY_ERROR: WSA_ERROR = 11033
 class WSC_PROVIDER_AUDIT_INFO(EasyCastStructure):
     RecordSize: UInt32
-    Reserved: c_void_p
+    Reserved: VoidPtr
 WSC_PROVIDER_INFO_TYPE = Int32
 WSC_PROVIDER_INFO_TYPE_ProviderInfoLspCategories: WSC_PROVIDER_INFO_TYPE = 0
 WSC_PROVIDER_INFO_TYPE_ProviderInfoAudit: WSC_PROVIDER_INFO_TYPE = 1

@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Dxgi.Common
 import Windows.Win32.Graphics.Gdi
@@ -8249,7 +8249,7 @@ class IClassFactoryEx(ComPtr):
     extends: Windows.Win32.System.Com.IClassFactory
     _iid_ = Guid('{342d1ea0-ae25-11d1-89c5-006008c3fbfc}')
     @commethod(5)
-    def CreateInstanceWithContext(self, punkContext: Windows.Win32.System.Com.IUnknown_head, punkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateInstanceWithContext(self, punkContext: Windows.Win32.System.Com.IUnknown_head, punkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IClientCaps(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{7e8bc44d-aeff-11d1-89c2-00c04fb6bfc4}')
@@ -16345,7 +16345,7 @@ class IHTMLPainter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3050f6a6-98b5-11cf-bb82-00aa00bdce0b}')
     @commethod(3)
-    def Draw(self, rcBounds: Windows.Win32.Foundation.RECT, rcUpdate: Windows.Win32.Foundation.RECT, lDrawFlags: Int32, hdc: Windows.Win32.Graphics.Gdi.HDC, pvDrawObject: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def Draw(self, rcBounds: Windows.Win32.Foundation.RECT, rcUpdate: Windows.Win32.Foundation.RECT, lDrawFlags: Int32, hdc: Windows.Win32.Graphics.Gdi.HDC, pvDrawObject: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnResize(self, size: Windows.Win32.Foundation.SIZE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -21586,7 +21586,7 @@ class ISurfacePresenter(ComPtr):
     @commethod(3)
     def Present(self, uBuffer: UInt32, pDirty: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetBuffer(self, backBufferIndex: UInt32, riid: POINTER(Guid), ppBuffer: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetBuffer(self, backBufferIndex: UInt32, riid: POINTER(Guid), ppBuffer: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsCurrent(self, pIsCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITemplatePrinter(ComPtr):

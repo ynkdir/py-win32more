@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.Xps
 import Windows.Win32.Storage.Xps.Printing
@@ -32,7 +32,7 @@ class IPrintDocumentPackageTarget(ComPtr):
     @commethod(3)
     def GetPackageTargetTypes(self, targetCount: POINTER(UInt32), targetTypes: POINTER(POINTER(Guid))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetPackageTarget(self, guidTargetType: POINTER(Guid), riid: POINTER(Guid), ppvTarget: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetPackageTarget(self, guidTargetType: POINTER(Guid), riid: POINTER(Guid), ppvTarget: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintDocumentPackageTarget2(ComPtr):
@@ -41,7 +41,7 @@ class IPrintDocumentPackageTarget2(ComPtr):
     @commethod(3)
     def GetIsTargetIppPrinter(self, isIppPrinter: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetTargetIppPrintDevice(self, riid: POINTER(Guid), ppvTarget: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetTargetIppPrintDevice(self, riid: POINTER(Guid), ppvTarget: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintDocumentPackageTargetFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d2959bf7-b31b-4a3d-9600-712eb1335ba4}')

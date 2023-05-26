@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.UI.Magnification
@@ -72,7 +72,7 @@ MW_FILTERMODE = UInt32
 MW_FILTERMODE_EXCLUDE: MW_FILTERMODE = 0
 MW_FILTERMODE_INCLUDE: MW_FILTERMODE = 1
 @winfunctype_pointer
-def MagImageScalingCallback(hwnd: Windows.Win32.Foundation.HWND, srcdata: c_void_p, srcheader: Windows.Win32.UI.Magnification.MAGIMAGEHEADER, destdata: c_void_p, destheader: Windows.Win32.UI.Magnification.MAGIMAGEHEADER, unclipped: Windows.Win32.Foundation.RECT, clipped: Windows.Win32.Foundation.RECT, dirty: Windows.Win32.Graphics.Gdi.HRGN) -> Windows.Win32.Foundation.BOOL: ...
+def MagImageScalingCallback(hwnd: Windows.Win32.Foundation.HWND, srcdata: VoidPtr, srcheader: Windows.Win32.UI.Magnification.MAGIMAGEHEADER, destdata: VoidPtr, destheader: Windows.Win32.UI.Magnification.MAGIMAGEHEADER, unclipped: Windows.Win32.Foundation.RECT, clipped: Windows.Win32.Foundation.RECT, dirty: Windows.Win32.Graphics.Gdi.HRGN) -> Windows.Win32.Foundation.BOOL: ...
 make_head(_module, 'MAGCOLOREFFECT')
 make_head(_module, 'MAGIMAGEHEADER')
 make_head(_module, 'MAGTRANSFORM')

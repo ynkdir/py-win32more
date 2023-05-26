@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Media
 import Windows.Win32.Media.Audio
@@ -489,13 +489,13 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA(EasyCastStructure):
     WaveDeviceId: UInt32
 class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA(EasyCastStructure):
     Callback: Windows.Win32.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1
-    Context: c_void_p
+    Context: VoidPtr
 class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA(EasyCastStructure):
     Callback: Windows.Win32.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA
-    Context: c_void_p
+    Context: VoidPtr
 class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA(EasyCastStructure):
     Callback: Windows.Win32.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW
-    Context: c_void_p
+    Context: VoidPtr
 class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA(EasyCastStructure):
     DeviceName: Windows.Win32.Foundation.PSTR
     DataFlow: Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
@@ -578,7 +578,7 @@ class IDirectMusicDownload(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d2ac287b-b39b-11d1-8704-00600893b1bd}')
     @commethod(3)
-    def GetBuffer(self, ppvBuffer: POINTER(c_void_p), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetBuffer(self, ppvBuffer: POINTER(VoidPtr), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicDownloadedInstrument(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d2ac287e-b39b-11d1-8704-00600893b1bd}')
@@ -611,7 +611,7 @@ class IDirectMusicPort(ComPtr):
     @commethod(11)
     def GetCaps(self, pPortCaps: POINTER(Windows.Win32.Media.Audio.DirectMusic.DMUS_PORTCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def DeviceIoControl(self, dwIoControlCode: UInt32, lpInBuffer: c_void_p, nInBufferSize: UInt32, lpOutBuffer: c_void_p, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def DeviceIoControl(self, dwIoControlCode: UInt32, lpInBuffer: VoidPtr, nInBufferSize: UInt32, lpOutBuffer: VoidPtr, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetNumChannelGroups(self, dwChannelGroups: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -651,7 +651,7 @@ class IDirectMusicSynth(ComPtr):
     @commethod(5)
     def SetNumChannelGroups(self, dwGroups: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Download(self, phDownload: POINTER(Windows.Win32.Foundation.HANDLE), pvData: c_void_p, pbFree: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Download(self, phDownload: POINTER(Windows.Win32.Foundation.HANDLE), pvData: VoidPtr, pbFree: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Unload(self, hDownload: Windows.Win32.Foundation.HANDLE, lpFreeHandle: IntPtr, hUserData: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -719,14 +719,14 @@ class INSTHEADER(EasyCastStructure):
     cRegions: UInt32
     Locale: Windows.Win32.Media.Audio.DirectMusic.MIDILOCALE
 @winfunctype_pointer
-def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1(param0: POINTER(Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA_head), param1: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1(param0: POINTER(Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA_head), param1: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA(param0: POINTER(Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA_head), param1: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA(param0: POINTER(Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA_head), param1: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW(param0: POINTER(Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA_head), param1: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW(param0: POINTER(Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA_head), param1: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 class MDEVICECAPSEX(EasyCastStructure):
     cbSize: UInt32
-    pCaps: c_void_p
+    pCaps: VoidPtr
     _pack_ = 1
 class MIDILOCALE(EasyCastStructure):
     ulBank: UInt32

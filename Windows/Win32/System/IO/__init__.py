@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.IO
 import sys
@@ -21,7 +21,7 @@ def GetQueuedCompletionStatusEx(CompletionPort: Windows.Win32.Foundation.HANDLE,
 @winfunctype('KERNEL32.dll')
 def PostQueuedCompletionStatus(CompletionPort: Windows.Win32.Foundation.HANDLE, dwNumberOfBytesTransferred: UInt32, dwCompletionKey: UIntPtr, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def DeviceIoControl(hDevice: Windows.Win32.Foundation.HANDLE, dwIoControlCode: UInt32, lpInBuffer: c_void_p, nInBufferSize: UInt32, lpOutBuffer: c_void_p, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
+def DeviceIoControl(hDevice: Windows.Win32.Foundation.HANDLE, dwIoControlCode: UInt32, lpInBuffer: VoidPtr, nInBufferSize: UInt32, lpOutBuffer: VoidPtr, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetOverlappedResult(hFile: Windows.Win32.Foundation.HANDLE, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpNumberOfBytesTransferred: POINTER(UInt32), bWait: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -39,7 +39,7 @@ class IO_STATUS_BLOCK(EasyCastStructure):
     Information: UIntPtr
     class _Anonymous_e__Union(EasyCastUnion):
         Status: Windows.Win32.Foundation.NTSTATUS
-        Pointer: c_void_p
+        Pointer: VoidPtr
 @winfunctype_pointer
 def LPOVERLAPPED_COMPLETION_ROUTINE(dwErrorCode: UInt32, dwNumberOfBytesTransfered: UInt32, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Void: ...
 class OVERLAPPED(EasyCastStructure):
@@ -49,7 +49,7 @@ class OVERLAPPED(EasyCastStructure):
     hEvent: Windows.Win32.Foundation.HANDLE
     class _Anonymous_e__Union(EasyCastUnion):
         Anonymous: _Anonymous_e__Struct
-        Pointer: c_void_p
+        Pointer: VoidPtr
         class _Anonymous_e__Struct(EasyCastStructure):
             Offset: UInt32
             OffsetHigh: UInt32
@@ -59,7 +59,7 @@ class OVERLAPPED_ENTRY(EasyCastStructure):
     Internal: UIntPtr
     dwNumberOfBytesTransferred: UInt32
 @winfunctype_pointer
-def PIO_APC_ROUTINE(ApcContext: c_void_p, IoStatusBlock: POINTER(Windows.Win32.System.IO.IO_STATUS_BLOCK_head), Reserved: UInt32) -> Void: ...
+def PIO_APC_ROUTINE(ApcContext: VoidPtr, IoStatusBlock: POINTER(Windows.Win32.System.IO.IO_STATUS_BLOCK_head), Reserved: UInt32) -> Void: ...
 make_head(_module, 'IO_STATUS_BLOCK')
 make_head(_module, 'LPOVERLAPPED_COMPLETION_ROUTINE')
 make_head(_module, 'OVERLAPPED')

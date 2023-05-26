@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.AI.MachineLearning.DirectML
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D12
@@ -21,9 +21,9 @@ DML_TEMPORARY_BUFFER_ALIGNMENT: UInt32 = 256
 DML_PERSISTENT_BUFFER_ALIGNMENT: UInt32 = 256
 DML_MINIMUM_BUFFER_TENSOR_ALIGNMENT: UInt32 = 16
 @winfunctype('DirectML.dll')
-def DMLCreateDevice(d3d12Device: Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, flags: Windows.Win32.AI.MachineLearning.DirectML.DML_CREATE_DEVICE_FLAGS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DMLCreateDevice(d3d12Device: Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, flags: Windows.Win32.AI.MachineLearning.DirectML.DML_CREATE_DEVICE_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DirectML.dll')
-def DMLCreateDevice1(d3d12Device: Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, flags: Windows.Win32.AI.MachineLearning.DirectML.DML_CREATE_DEVICE_FLAGS, minimumFeatureLevel: Windows.Win32.AI.MachineLearning.DirectML.DML_FEATURE_LEVEL, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DMLCreateDevice1(d3d12Device: Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, flags: Windows.Win32.AI.MachineLearning.DirectML.DML_CREATE_DEVICE_FLAGS, minimumFeatureLevel: Windows.Win32.AI.MachineLearning.DirectML.DML_FEATURE_LEVEL, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class DML_ACTIVATION_CELU_OPERATOR_DESC(EasyCastStructure):
     InputTensor: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -174,7 +174,7 @@ class DML_BATCH_NORMALIZATION_OPERATOR_DESC(EasyCastStructure):
     FusedActivation: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
 class DML_BINDING_DESC(EasyCastStructure):
     Type: Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TYPE
-    Desc: c_void_p
+    Desc: VoidPtr
 class DML_BINDING_PROPERTIES(EasyCastStructure):
     RequiredDescriptorCount: UInt32
     TemporaryResourceSize: UInt64
@@ -617,7 +617,7 @@ class DML_GRAPH_DESC(EasyCastStructure):
     IntermediateEdges: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_DESC_head)
 class DML_GRAPH_EDGE_DESC(EasyCastStructure):
     Type: Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_TYPE
-    Desc: c_void_p
+    Desc: VoidPtr
 DML_GRAPH_EDGE_TYPE = Int32
 DML_GRAPH_EDGE_TYPE_INVALID: DML_GRAPH_EDGE_TYPE = 0
 DML_GRAPH_EDGE_TYPE_INPUT: DML_GRAPH_EDGE_TYPE = 1
@@ -625,7 +625,7 @@ DML_GRAPH_EDGE_TYPE_OUTPUT: DML_GRAPH_EDGE_TYPE = 2
 DML_GRAPH_EDGE_TYPE_INTERMEDIATE: DML_GRAPH_EDGE_TYPE = 3
 class DML_GRAPH_NODE_DESC(EasyCastStructure):
     Type: Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_NODE_TYPE
-    Desc: c_void_p
+    Desc: VoidPtr
 DML_GRAPH_NODE_TYPE = Int32
 DML_GRAPH_NODE_TYPE_INVALID: DML_GRAPH_NODE_TYPE = 0
 DML_GRAPH_NODE_TYPE_OPERATOR: DML_GRAPH_NODE_TYPE = 1
@@ -795,7 +795,7 @@ class DML_ONE_HOT_OPERATOR_DESC(EasyCastStructure):
     Axis: UInt32
 class DML_OPERATOR_DESC(EasyCastStructure):
     Type: Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_TYPE
-    Desc: c_void_p
+    Desc: VoidPtr
 class DML_OPERATOR_GRAPH_NODE_DESC(EasyCastStructure):
     Operator: Windows.Win32.AI.MachineLearning.DirectML.IDMLOperator_head
     Name: Windows.Win32.Foundation.PSTR
@@ -1183,7 +1183,7 @@ DML_TENSOR_DATA_TYPE_UINT64: DML_TENSOR_DATA_TYPE = 10
 DML_TENSOR_DATA_TYPE_INT64: DML_TENSOR_DATA_TYPE = 11
 class DML_TENSOR_DESC(EasyCastStructure):
     Type: Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_TYPE
-    Desc: c_void_p
+    Desc: VoidPtr
 DML_TENSOR_FLAGS = Int32
 DML_TENSOR_FLAG_NONE: DML_TENSOR_FLAGS = 0
 DML_TENSOR_FLAG_OWNED_BY_DML: DML_TENSOR_FLAGS = 1
@@ -1249,17 +1249,17 @@ class IDMLDevice(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLObject
     _iid_ = Guid('{6dbd6437-96fd-423f-a98c-ae5e7c2a573f}')
     @commethod(7)
-    def CheckFeatureSupport(self, feature: Windows.Win32.AI.MachineLearning.DirectML.DML_FEATURE, featureQueryDataSize: UInt32, featureQueryData: c_void_p, featureSupportDataSize: UInt32, featureSupportData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def CheckFeatureSupport(self, feature: Windows.Win32.AI.MachineLearning.DirectML.DML_FEATURE, featureQueryDataSize: UInt32, featureQueryData: VoidPtr, featureSupportDataSize: UInt32, featureSupportData: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def CreateOperator(self, desc: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateOperator(self, desc: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def CompileOperator(self, op: Windows.Win32.AI.MachineLearning.DirectML.IDMLOperator_head, flags: Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CompileOperator(self, op: Windows.Win32.AI.MachineLearning.DirectML.IDMLOperator_head, flags: Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def CreateOperatorInitializer(self, operatorCount: UInt32, operators: POINTER(Windows.Win32.AI.MachineLearning.DirectML.IDMLCompiledOperator_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateOperatorInitializer(self, operatorCount: UInt32, operators: POINTER(Windows.Win32.AI.MachineLearning.DirectML.IDMLCompiledOperator_head), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def CreateCommandRecorder(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommandRecorder(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def CreateBindingTable(self, desc: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TABLE_DESC_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateBindingTable(self, desc: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TABLE_DESC_head), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Evict(self, count: UInt32, ppObjects: POINTER(Windows.Win32.AI.MachineLearning.DirectML.IDMLPageable_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -1267,17 +1267,17 @@ class IDMLDevice(ComPtr):
     @commethod(15)
     def GetDeviceRemovedReason(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def GetParentDevice(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetParentDevice(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLDevice1(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLDevice
     _iid_ = Guid('{a0884f9a-d2be-4355-aa5d-5901281ad1d2}')
     @commethod(17)
-    def CompileGraph(self, desc: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_DESC_head), flags: Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CompileGraph(self, desc: POINTER(Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_DESC_head), flags: Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLDeviceChild(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLObject
     _iid_ = Guid('{27e83142-8165-49e3-974e-2fd66e4cb69d}')
     @commethod(7)
-    def GetDevice(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDevice(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMLDispatchable(ComPtr):
     extends: Windows.Win32.AI.MachineLearning.DirectML.IDMLPageable
     _iid_ = Guid('{dcb821a8-1039-441e-9f1c-b1759c2f3cec}')
@@ -1287,9 +1287,9 @@ class IDMLObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c8263aac-9e0c-4a2d-9b8e-007521a3317c}')
     @commethod(3)
-    def GetPrivateData(self, guid: POINTER(Guid), dataSize: POINTER(UInt32), data: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetPrivateData(self, guid: POINTER(Guid), dataSize: POINTER(UInt32), data: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SetPrivateData(self, guid: POINTER(Guid), dataSize: UInt32, data: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetPrivateData(self, guid: POINTER(Guid), dataSize: UInt32, data: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetPrivateDataInterface(self, guid: POINTER(Guid), data: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)

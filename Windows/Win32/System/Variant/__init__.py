@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Ole
@@ -53,7 +53,7 @@ def VariantChangeTypeEx(pvargDest: POINTER(Windows.Win32.System.Variant.VARIANT_
 @winfunctype('PROPSYS.dll')
 def InitVariantFromResource(hinst: Windows.Win32.Foundation.HINSTANCE, id: UInt32, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROPSYS.dll')
-def InitVariantFromBuffer(pv: c_void_p, cb: UInt32, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def InitVariantFromBuffer(pv: VoidPtr, cb: UInt32, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROPSYS.dll')
 def InitVariantFromGUIDAsString(guid: POINTER(Guid), pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROPSYS.dll')
@@ -115,7 +115,7 @@ def VariantToUInt64(varIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), p
 @winfunctype('PROPSYS.dll')
 def VariantToDouble(varIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), pdblRet: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROPSYS.dll')
-def VariantToBuffer(varIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), pv: c_void_p, cb: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def VariantToBuffer(varIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), pv: VoidPtr, cb: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROPSYS.dll')
 def VariantToGUID(varIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), pguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROPSYS.dll')
@@ -292,7 +292,7 @@ class VARIANT(EasyCastStructure):
                 ppdispVal: POINTER(Windows.Win32.System.Com.IDispatch_head)
                 pparray: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))
                 pvarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)
-                byref: c_void_p
+                byref: VoidPtr
                 cVal: Windows.Win32.Foundation.CHAR
                 uiVal: UInt16
                 ulVal: UInt32
@@ -308,7 +308,7 @@ class VARIANT(EasyCastStructure):
                 puintVal: POINTER(UInt32)
                 Anonymous: _Anonymous_e__Struct
                 class _Anonymous_e__Struct(EasyCastStructure):
-                    pvRecord: c_void_p
+                    pvRecord: VoidPtr
                     pRecInfo: Windows.Win32.System.Ole.IRecordInfo_head
 VAR_CHANGE_FLAGS = UInt16
 VARIANT_NOVALUEPROP: VAR_CHANGE_FLAGS = 1

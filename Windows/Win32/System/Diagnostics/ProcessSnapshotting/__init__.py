@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Diagnostics.Debug
 import Windows.Win32.System.Diagnostics.ProcessSnapshotting
@@ -20,9 +20,9 @@ def PssCaptureSnapshot(ProcessHandle: Windows.Win32.Foundation.HANDLE, CaptureFl
 @winfunctype('KERNEL32.dll')
 def PssFreeSnapshot(ProcessHandle: Windows.Win32.Foundation.HANDLE, SnapshotHandle: Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def PssQuerySnapshot(SnapshotHandle: Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS, InformationClass: Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_QUERY_INFORMATION_CLASS, Buffer: c_void_p, BufferLength: UInt32) -> UInt32: ...
+def PssQuerySnapshot(SnapshotHandle: Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS, InformationClass: Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_QUERY_INFORMATION_CLASS, Buffer: VoidPtr, BufferLength: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def PssWalkSnapshot(SnapshotHandle: Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS, InformationClass: Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_WALK_INFORMATION_CLASS, WalkMarkerHandle: Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSSWALK, Buffer: c_void_p, BufferLength: UInt32) -> UInt32: ...
+def PssWalkSnapshot(SnapshotHandle: Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS, InformationClass: Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_WALK_INFORMATION_CLASS, WalkMarkerHandle: Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSSWALK, Buffer: VoidPtr, BufferLength: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def PssDuplicateSnapshot(SourceProcessHandle: Windows.Win32.Foundation.HANDLE, SnapshotHandle: Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS, TargetProcessHandle: Windows.Win32.Foundation.HANDLE, TargetSnapshotHandle: POINTER(Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS), Flags: Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_DUPLICATE_FLAGS) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
@@ -38,16 +38,16 @@ def PssWalkMarkerSeekToBeginning(WalkMarkerHandle: Windows.Win32.System.Diagnost
 HPSS = IntPtr
 HPSSWALK = IntPtr
 class PSS_ALLOCATOR(EasyCastStructure):
-    Context: c_void_p
+    Context: VoidPtr
     AllocRoutine: IntPtr
     FreeRoutine: IntPtr
 class PSS_AUXILIARY_PAGES_INFORMATION(EasyCastStructure):
     AuxPagesCaptured: UInt32
 class PSS_AUXILIARY_PAGE_ENTRY(EasyCastStructure):
-    Address: c_void_p
+    Address: VoidPtr
     BasicInformation: Windows.Win32.System.Memory.MEMORY_BASIC_INFORMATION
     CaptureTime: Windows.Win32.Foundation.FILETIME
-    PageContents: c_void_p
+    PageContents: VoidPtr
     PageSize: UInt32
 PSS_CAPTURE_FLAGS = UInt32
 PSS_CAPTURE_NONE: PSS_CAPTURE_FLAGS = 0
@@ -101,7 +101,7 @@ class PSS_HANDLE_ENTRY(EasyCastStructure):
         Semaphore: _Semaphore_e__Struct
         class _Process_e__Struct(EasyCastStructure):
             ExitStatus: UInt32
-            PebBaseAddress: c_void_p
+            PebBaseAddress: VoidPtr
             AffinityMask: UIntPtr
             BasePriority: Int32
             ProcessId: UInt32
@@ -109,13 +109,13 @@ class PSS_HANDLE_ENTRY(EasyCastStructure):
             Flags: UInt32
         class _Thread_e__Struct(EasyCastStructure):
             ExitStatus: UInt32
-            TebBaseAddress: c_void_p
+            TebBaseAddress: VoidPtr
             ProcessId: UInt32
             ThreadId: UInt32
             AffinityMask: UIntPtr
             Priority: Int32
             BasePriority: Int32
-            Win32StartAddress: c_void_p
+            Win32StartAddress: VoidPtr
         class _Mutant_e__Struct(EasyCastStructure):
             CurrentCount: Int32
             Abandoned: Windows.Win32.Foundation.BOOL
@@ -125,7 +125,7 @@ class PSS_HANDLE_ENTRY(EasyCastStructure):
             ManualReset: Windows.Win32.Foundation.BOOL
             Signaled: Windows.Win32.Foundation.BOOL
         class _Section_e__Struct(EasyCastStructure):
-            BaseAddress: c_void_p
+            BaseAddress: VoidPtr
             AllocationAttributes: UInt32
             MaximumSize: Int64
         class _Semaphore_e__Struct(EasyCastStructure):
@@ -172,7 +172,7 @@ PSS_PROCESS_FLAGS_RESERVED_04: PSS_PROCESS_FLAGS = 8
 PSS_PROCESS_FLAGS_FROZEN: PSS_PROCESS_FLAGS = 16
 class PSS_PROCESS_INFORMATION(EasyCastStructure):
     ExitStatus: UInt32
-    PebBaseAddress: c_void_p
+    PebBaseAddress: VoidPtr
     AffinityMask: UIntPtr
     BasePriority: Int32
     ProcessId: UInt32
@@ -208,19 +208,19 @@ PSS_QUERY_HANDLE_TRACE_INFORMATION: PSS_QUERY_INFORMATION_CLASS = 6
 PSS_QUERY_PERFORMANCE_COUNTERS: PSS_QUERY_INFORMATION_CLASS = 7
 class PSS_THREAD_ENTRY(EasyCastStructure):
     ExitStatus: UInt32
-    TebBaseAddress: c_void_p
+    TebBaseAddress: VoidPtr
     ProcessId: UInt32
     ThreadId: UInt32
     AffinityMask: UIntPtr
     Priority: Int32
     BasePriority: Int32
-    LastSyscallFirstArgument: c_void_p
+    LastSyscallFirstArgument: VoidPtr
     LastSyscallNumber: UInt16
     CreateTime: Windows.Win32.Foundation.FILETIME
     ExitTime: Windows.Win32.Foundation.FILETIME
     KernelTime: Windows.Win32.Foundation.FILETIME
     UserTime: Windows.Win32.Foundation.FILETIME
-    Win32StartAddress: c_void_p
+    Win32StartAddress: VoidPtr
     CaptureTime: Windows.Win32.Foundation.FILETIME
     Flags: Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_THREAD_FLAGS
     SuspendCount: UInt16
@@ -235,8 +235,8 @@ class PSS_THREAD_INFORMATION(EasyCastStructure):
 class PSS_VA_CLONE_INFORMATION(EasyCastStructure):
     VaCloneHandle: Windows.Win32.Foundation.HANDLE
 class PSS_VA_SPACE_ENTRY(EasyCastStructure):
-    BaseAddress: c_void_p
-    AllocationBase: c_void_p
+    BaseAddress: VoidPtr
+    AllocationBase: VoidPtr
     AllocationProtect: UInt32
     RegionSize: UIntPtr
     State: UInt32
@@ -244,7 +244,7 @@ class PSS_VA_SPACE_ENTRY(EasyCastStructure):
     Type: UInt32
     TimeDateStamp: UInt32
     SizeOfImage: UInt32
-    ImageBase: c_void_p
+    ImageBase: VoidPtr
     CheckSum: UInt32
     MappedFileNameLength: UInt16
     MappedFileName: Windows.Win32.Foundation.PWSTR

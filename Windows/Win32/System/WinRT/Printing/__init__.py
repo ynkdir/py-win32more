@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Printing
 import Windows.Win32.Storage.Xps
@@ -20,9 +20,9 @@ class IPrintManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('{c5435a42-8d43-4e7b-a68a-ef311e392087}')
     @commethod(6)
-    def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), printManager: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), printManager: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def ShowPrintUIForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def ShowPrintUIForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), asyncOperation: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintWorkflowConfigurationNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c056be0a-9ee2-450a-9823-964f0006f2bb}')
@@ -66,9 +66,9 @@ class IPrinting3DManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('{9ca31010-1484-4587-b26b-dddf9f9caecd}')
     @commethod(6)
-    def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), printManager: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), printManager: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def ShowPrintUIForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def ShowPrintUIForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), asyncOperation: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'IPrintManagerInterop')
 make_head(_module, 'IPrintWorkflowConfigurationNative')
 make_head(_module, 'IPrintWorkflowObjectModelSourceFileContentNative')

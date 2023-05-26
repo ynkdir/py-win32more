@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.Ldap
 import Windows.Win32.Security.Authentication.Identity
@@ -367,13 +367,13 @@ def ldap_unbind(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head)) -> UInt32:
 @cfunctype('WLDAP32.dll')
 def ldap_unbind_s(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head)) -> UInt32: ...
 @cfunctype('WLDAP32.dll')
-def ldap_get_option(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), option: Int32, outvalue: c_void_p) -> UInt32: ...
+def ldap_get_option(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), option: Int32, outvalue: VoidPtr) -> UInt32: ...
 @cfunctype('WLDAP32.dll')
-def ldap_get_optionW(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), option: Int32, outvalue: c_void_p) -> UInt32: ...
+def ldap_get_optionW(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), option: Int32, outvalue: VoidPtr) -> UInt32: ...
 @cfunctype('WLDAP32.dll')
-def ldap_set_option(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), option: Int32, invalue: c_void_p) -> UInt32: ...
+def ldap_set_option(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), option: Int32, invalue: VoidPtr) -> UInt32: ...
 @cfunctype('WLDAP32.dll')
-def ldap_set_optionW(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), option: Int32, invalue: c_void_p) -> UInt32: ...
+def ldap_set_optionW(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), option: Int32, invalue: VoidPtr) -> UInt32: ...
 @cfunctype('WLDAP32.dll')
 def ldap_simple_bindW(ld: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), dn: Windows.Win32.Foundation.PWSTR, passwd: Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @cfunctype('WLDAP32.dll')
@@ -883,12 +883,12 @@ class LDAPControlW(EasyCastStructure):
 class LDAPMessage(EasyCastStructure):
     lm_msgid: UInt32
     lm_msgtype: UInt32
-    lm_ber: c_void_p
+    lm_ber: VoidPtr
     lm_chain: POINTER(Windows.Win32.Networking.Ldap.LDAPMessage_head)
     lm_next: POINTER(Windows.Win32.Networking.Ldap.LDAPMessage_head)
     lm_time: UInt32
     Connection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head)
-    Request: c_void_p
+    Request: VoidPtr
     lm_returncode: UInt32
     lm_referral: UInt16
     lm_chased: Windows.Win32.Foundation.BOOLEAN
@@ -924,7 +924,7 @@ class LDAPVLVInfo(EasyCastStructure):
     ldvlv_count: UInt32
     ldvlv_attrvalue: POINTER(Windows.Win32.Networking.Ldap.LDAP_BERVAL_head)
     ldvlv_context: POINTER(Windows.Win32.Networking.Ldap.LDAP_BERVAL_head)
-    ldvlv_extradata: c_void_p
+    ldvlv_extradata: VoidPtr
 class LDAP_BERVAL(EasyCastStructure):
     bv_len: UInt32
     bv_val: Windows.Win32.Foundation.PSTR
@@ -1005,12 +1005,12 @@ class LDAP_VERSION_INFO(EasyCastStructure):
     lv_major: UInt32
     lv_minor: UInt32
 @cfunctype_pointer
-def NOTIFYOFNEWCONNECTION(PrimaryConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), ReferralFromConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), NewDN: Windows.Win32.Foundation.PWSTR, HostName: Windows.Win32.Foundation.PSTR, NewConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), PortNumber: UInt32, SecAuthIdentity: c_void_p, CurrentUser: c_void_p, ErrorCodeFromBind: UInt32) -> Windows.Win32.Foundation.BOOLEAN: ...
+def NOTIFYOFNEWCONNECTION(PrimaryConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), ReferralFromConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), NewDN: Windows.Win32.Foundation.PWSTR, HostName: Windows.Win32.Foundation.PSTR, NewConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), PortNumber: UInt32, SecAuthIdentity: VoidPtr, CurrentUser: VoidPtr, ErrorCodeFromBind: UInt32) -> Windows.Win32.Foundation.BOOLEAN: ...
 PLDAPSearch = IntPtr
 @cfunctype_pointer
 def QUERYCLIENTCERT(Connection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), trusted_CAs: POINTER(Windows.Win32.Security.Authentication.Identity.SecPkgContext_IssuerListInfoEx_head), ppCertificate: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> Windows.Win32.Foundation.BOOLEAN: ...
 @cfunctype_pointer
-def QUERYFORCONNECTION(PrimaryConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), ReferralFromConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), NewDN: Windows.Win32.Foundation.PWSTR, HostName: Windows.Win32.Foundation.PSTR, PortNumber: UInt32, SecAuthIdentity: c_void_p, CurrentUserToken: c_void_p, ConnectionToUse: POINTER(POINTER(Windows.Win32.Networking.Ldap.LDAP_head))) -> UInt32: ...
+def QUERYFORCONNECTION(PrimaryConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), ReferralFromConnection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), NewDN: Windows.Win32.Foundation.PWSTR, HostName: Windows.Win32.Foundation.PSTR, PortNumber: UInt32, SecAuthIdentity: VoidPtr, CurrentUserToken: VoidPtr, ConnectionToUse: POINTER(POINTER(Windows.Win32.Networking.Ldap.LDAP_head))) -> UInt32: ...
 @cfunctype_pointer
 def VERIFYSERVERCERT(Connection: POINTER(Windows.Win32.Networking.Ldap.LDAP_head), pServerCert: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> Windows.Win32.Foundation.BOOLEAN: ...
 make_head(_module, 'BerElement')

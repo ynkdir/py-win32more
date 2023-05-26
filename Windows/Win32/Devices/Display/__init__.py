@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Devices.Display
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
@@ -847,9 +847,9 @@ def RestoreMonitorFactoryColorDefaults(hMonitor: Windows.Win32.Foundation.HANDLE
 @winfunctype('dxva2.dll')
 def RestoreMonitorFactoryDefaults(hMonitor: Windows.Win32.Foundation.HANDLE) -> Int32: ...
 @winfunctype('GDI32.dll')
-def BRUSHOBJ_pvAllocRbrush(pbo: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head), cj: UInt32) -> c_void_p: ...
+def BRUSHOBJ_pvAllocRbrush(pbo: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head), cj: UInt32) -> VoidPtr: ...
 @winfunctype('GDI32.dll')
-def BRUSHOBJ_pvGetRbrush(pbo: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head)) -> c_void_p: ...
+def BRUSHOBJ_pvGetRbrush(pbo: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head)) -> VoidPtr: ...
 @winfunctype('GDI32.dll')
 def BRUSHOBJ_ulGetBrushColor(pbo: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head)) -> UInt32: ...
 @winfunctype('GDI32.dll')
@@ -865,7 +865,7 @@ def FONTOBJ_cGetAllGlyphHandles(pfo: POINTER(Windows.Win32.Devices.Display.FONTO
 @winfunctype('GDI32.dll')
 def FONTOBJ_vGetInfo(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), cjSize: UInt32, pfi: POINTER(Windows.Win32.Devices.Display.FONTINFO_head)) -> Void: ...
 @winfunctype('GDI32.dll')
-def FONTOBJ_cGetGlyphs(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), iMode: UInt32, cGlyph: UInt32, phg: POINTER(UInt32), ppvGlyph: POINTER(c_void_p)) -> UInt32: ...
+def FONTOBJ_cGetGlyphs(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), iMode: UInt32, cGlyph: UInt32, phg: POINTER(UInt32), ppvGlyph: POINTER(VoidPtr)) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def FONTOBJ_pxoGetXform(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head)) -> POINTER(Windows.Win32.Devices.Display.XFORMOBJ_head): ...
 @winfunctype('GDI32.dll')
@@ -873,7 +873,7 @@ def FONTOBJ_pifi(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head)) -> PO
 @winfunctype('GDI32.dll')
 def FONTOBJ_pfdg(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head)) -> POINTER(Windows.Win32.Devices.Display.FD_GLYPHSET_head): ...
 @winfunctype('GDI32.dll')
-def FONTOBJ_pvTrueTypeFontFile(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), pcjFile: POINTER(UInt32)) -> c_void_p: ...
+def FONTOBJ_pvTrueTypeFontFile(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), pcjFile: POINTER(UInt32)) -> VoidPtr: ...
 @winfunctype('GDI32.dll')
 def FONTOBJ_pQueryGlyphAttrs(pfo: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), iMode: UInt32) -> POINTER(Windows.Win32.Devices.Display.FD_GLYPHATTR_head): ...
 @winfunctype('GDI32.dll')
@@ -899,7 +899,7 @@ def STROBJ_bGetAdvanceWidths(pso: POINTER(Windows.Win32.Devices.Display.STROBJ_h
 @winfunctype('GDI32.dll')
 def XFORMOBJ_iGetXform(pxo: POINTER(Windows.Win32.Devices.Display.XFORMOBJ_head), pxform: POINTER(Windows.Win32.Devices.Display.XFORML_head)) -> UInt32: ...
 @winfunctype('GDI32.dll')
-def XFORMOBJ_bApplyXform(pxo: POINTER(Windows.Win32.Devices.Display.XFORMOBJ_head), iMode: UInt32, cPoints: UInt32, pvIn: c_void_p, pvOut: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def XFORMOBJ_bApplyXform(pxo: POINTER(Windows.Win32.Devices.Display.XFORMOBJ_head), iMode: UInt32, cPoints: UInt32, pvIn: VoidPtr, pvOut: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def XLATEOBJ_iXlate(pxlo: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), iColor: UInt32) -> UInt32: ...
 @winfunctype('GDI32.dll')
@@ -909,7 +909,7 @@ def XLATEOBJ_cGetPalette(pxlo: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_he
 @winfunctype('GDI32.dll')
 def XLATEOBJ_hGetColorTransform(pxlo: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head)) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('GDI32.dll')
-def EngCreateBitmap(sizl: Windows.Win32.Foundation.SIZE, lWidth: Int32, iFormat: UInt32, fl: UInt32, pvBits: c_void_p) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
+def EngCreateBitmap(sizl: Windows.Win32.Foundation.SIZE, lWidth: Int32, iFormat: UInt32, fl: UInt32, pvBits: VoidPtr) -> Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('GDI32.dll')
 def EngCreateDeviceSurface(dhsurf: Windows.Win32.Devices.Display.DHSURF, sizl: Windows.Win32.Foundation.SIZE, iFormatCompat: UInt32) -> Windows.Win32.Devices.Display.HSURF: ...
 @winfunctype('GDI32.dll')
@@ -949,7 +949,7 @@ def EngStretchBltROP(psoDest: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head
 @winfunctype('GDI32.dll')
 def EngAlphaBlend(psoDest: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), psoSrc: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), pco: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), pxlo: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), prclDest: POINTER(Windows.Win32.Foundation.RECTL_head), prclSrc: POINTER(Windows.Win32.Foundation.RECTL_head), pBlendObj: POINTER(Windows.Win32.Devices.Display.BLENDOBJ_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
-def EngGradientFill(psoDest: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), pco: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), pxlo: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), pVertex: POINTER(Windows.Win32.Graphics.Gdi.TRIVERTEX_head), nVertex: UInt32, pMesh: c_void_p, nMesh: UInt32, prclExtents: POINTER(Windows.Win32.Foundation.RECTL_head), pptlDitherOrg: POINTER(Windows.Win32.Foundation.POINTL_head), ulMode: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def EngGradientFill(psoDest: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), pco: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), pxlo: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), pVertex: POINTER(Windows.Win32.Graphics.Gdi.TRIVERTEX_head), nVertex: UInt32, pMesh: VoidPtr, nMesh: UInt32, prclExtents: POINTER(Windows.Win32.Foundation.RECTL_head), pptlDitherOrg: POINTER(Windows.Win32.Foundation.POINTL_head), ulMode: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def EngTransparentBlt(psoDst: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), psoSrc: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), pco: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), pxlo: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), prclDst: POINTER(Windows.Win32.Foundation.RECTL_head), prclSrc: POINTER(Windows.Win32.Foundation.RECTL_head), TransColor: UInt32, bCalledFromBitBlt: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -977,7 +977,7 @@ def EngGetDriverName(hdev: Windows.Win32.Devices.Display.HDEV) -> Windows.Win32.
 @winfunctype('GDI32.dll')
 def EngLoadModule(pwsz: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('GDI32.dll')
-def EngFindResource(h: Windows.Win32.Foundation.HANDLE, iName: Int32, iType: Int32, pulSize: POINTER(UInt32)) -> c_void_p: ...
+def EngFindResource(h: Windows.Win32.Foundation.HANDLE, iName: Int32, iType: Int32, pulSize: POINTER(UInt32)) -> VoidPtr: ...
 @winfunctype('GDI32.dll')
 def EngFreeModule(h: Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('GDI32.dll')
@@ -1053,7 +1053,7 @@ class BRIGHTNESS_NIT_RANGES(EasyCastStructure):
     SupportedRanges: Windows.Win32.Devices.Display.BRIGHTNESS_NIT_RANGE * 16
 class BRUSHOBJ(EasyCastStructure):
     iSolidColor: UInt32
-    pvRbrush: c_void_p
+    pvRbrush: VoidPtr
     flColorType: UInt32
 BlackScreenDiagnosticsCalloutParam = Int32
 BlackScreenDiagnosticsCalloutParam_BlackScreenDiagnosticsData: BlackScreenDiagnosticsCalloutParam = 1
@@ -1434,7 +1434,7 @@ class DRH_APIBITMAPDATA(EasyCastStructure):
     pso: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head)
     b: Windows.Win32.Foundation.BOOL
 class DRIVEROBJ(EasyCastStructure):
-    pvObj: c_void_p
+    pvObj: VoidPtr
     pFreeProc: Windows.Win32.Devices.Display.FREEOBJPROC
     hdev: Windows.Win32.Devices.Display.HDEV
     dhpdev: Windows.Win32.Devices.Display.DHPDEV
@@ -1450,8 +1450,8 @@ DCT_DEFAULT: DSI_CONTROL_TRANSMISSION_MODE = 0
 DCT_FORCE_LOW_POWER: DSI_CONTROL_TRANSMISSION_MODE = 1
 DCT_FORCE_HIGH_PERFORMANCE: DSI_CONTROL_TRANSMISSION_MODE = 2
 class DXGK_WIN32K_PARAM_DATA(EasyCastStructure):
-    PathsArray: c_void_p
-    ModesArray: c_void_p
+    PathsArray: VoidPtr
+    ModesArray: VoidPtr
     NumPathArrayElements: UInt32
     NumModeArrayElements: UInt32
     SDCFlags: UInt32
@@ -1473,7 +1473,7 @@ ENG_DEVICE_ATTRIBUTE = Int32
 QDA_RESERVED: ENG_DEVICE_ATTRIBUTE = 0
 QDA_ACCELERATION_LEVEL: ENG_DEVICE_ATTRIBUTE = 1
 class ENG_EVENT(EasyCastStructure):
-    pKEvent: c_void_p
+    pKEvent: VoidPtr
     fFlags: UInt32
 ENG_SYSTEM_ATTRIBUTE = Int32
 ENG_SYSTEM_ATTRIBUTE_EngProcessorFeature: ENG_SYSTEM_ATTRIBUTE = 1
@@ -1602,8 +1602,8 @@ class FONTOBJ(EasyCastStructure):
     iFile: UIntPtr
     sizLogResPpi: Windows.Win32.Foundation.SIZE
     ulStyleSize: UInt32
-    pvConsumer: c_void_p
-    pvProducer: c_void_p
+    pvConsumer: VoidPtr
+    pvProducer: VoidPtr
 class FONTSIM(EasyCastStructure):
     dpBold: Int32
     dpItalic: Int32
@@ -1803,7 +1803,7 @@ if ARCH in 'X64,ARM64':
         cKerningPairs: UInt32
         ulPanoseCulture: UInt32
         panose: Windows.Win32.Graphics.Gdi.PANOSE
-        Align: c_void_p
+        Align: VoidPtr
 if ARCH in 'X86':
     class IFIMETRICS(EasyCastStructure):
         cjThis: UInt32
@@ -2141,7 +2141,7 @@ def PFN_DrvDisableSurface(param0: Windows.Win32.Devices.Display.DHPDEV) -> Void:
 @winfunctype_pointer
 def PFN_DrvDitherColor(param0: Windows.Win32.Devices.Display.DHPDEV, param1: UInt32, param2: UInt32, param3: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
-def PFN_DrvDrawEscape(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: UInt32, param2: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), param3: POINTER(Windows.Win32.Foundation.RECTL_head), param4: UInt32, param5: c_void_p) -> UInt32: ...
+def PFN_DrvDrawEscape(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: UInt32, param2: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), param3: POINTER(Windows.Win32.Foundation.RECTL_head), param4: UInt32, param5: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def PFN_DrvEnableDirectDraw(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DD_CALLBACKS_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SURFACECALLBACKS_head), param3: POINTER(Windows.Win32.Graphics.DirectDraw.DD_PALETTECALLBACKS_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2153,15 +2153,15 @@ def PFN_DrvEnableSurface(param0: Windows.Win32.Devices.Display.DHPDEV) -> Window
 @winfunctype_pointer
 def PFN_DrvEndDoc(pso: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), fl: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvEndDxInterop(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: Windows.Win32.Foundation.BOOL, param2: POINTER(Windows.Win32.Foundation.BOOL), KernelModeDeviceHandle: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_DrvEndDxInterop(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: Windows.Win32.Foundation.BOOL, param2: POINTER(Windows.Win32.Foundation.BOOL), KernelModeDeviceHandle: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvEscape(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: UInt32, param2: UInt32, param3: c_void_p, param4: UInt32, param5: c_void_p) -> UInt32: ...
+def PFN_DrvEscape(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: UInt32, param2: UInt32, param3: VoidPtr, param4: UInt32, param5: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def PFN_DrvFillPath(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.PATHOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), param3: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head), param4: POINTER(Windows.Win32.Foundation.POINTL_head), param5: UInt32, param6: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvFontManagement(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), param2: UInt32, param3: UInt32, param4: c_void_p, param5: UInt32, param6: c_void_p) -> UInt32: ...
+def PFN_DrvFontManagement(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), param2: UInt32, param3: UInt32, param4: VoidPtr, param5: UInt32, param6: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def PFN_DrvFree(param0: c_void_p, param1: UIntPtr) -> Void: ...
+def PFN_DrvFree(param0: VoidPtr, param1: UIntPtr) -> Void: ...
 @winfunctype_pointer
 def PFN_DrvGetDirectDrawInfo(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DD_HALINFO_head), param2: POINTER(UInt32), param3: POINTER(Windows.Win32.Graphics.DirectDraw.VIDEOMEMORY_head), param4: POINTER(UInt32), param5: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2169,21 +2169,21 @@ def PFN_DrvGetGlyphMode(dhpdev: Windows.Win32.Devices.Display.DHPDEV, pfo: POINT
 @winfunctype_pointer
 def PFN_DrvGetModes(param0: Windows.Win32.Foundation.HANDLE, param1: UInt32, param2: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEW_head)) -> UInt32: ...
 @winfunctype_pointer
-def PFN_DrvGetTrueTypeFile(param0: UIntPtr, param1: POINTER(UInt32)) -> c_void_p: ...
+def PFN_DrvGetTrueTypeFile(param0: UIntPtr, param1: POINTER(UInt32)) -> VoidPtr: ...
 @winfunctype_pointer
-def PFN_DrvGradientFill(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), param3: POINTER(Windows.Win32.Graphics.Gdi.TRIVERTEX_head), param4: UInt32, param5: c_void_p, param6: UInt32, param7: POINTER(Windows.Win32.Foundation.RECTL_head), param8: POINTER(Windows.Win32.Foundation.POINTL_head), param9: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_DrvGradientFill(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), param3: POINTER(Windows.Win32.Graphics.Gdi.TRIVERTEX_head), param4: UInt32, param5: VoidPtr, param6: UInt32, param7: POINTER(Windows.Win32.Foundation.RECTL_head), param8: POINTER(Windows.Win32.Foundation.POINTL_head), param9: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DrvIcmCheckBitmapBits(param0: Windows.Win32.Devices.Display.DHPDEV, param1: Windows.Win32.Foundation.HANDLE, param2: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param3: POINTER(Byte)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvIcmCreateColorTransform(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.UI.ColorSystem.LOGCOLORSPACEW_head), param2: c_void_p, param3: UInt32, param4: c_void_p, param5: UInt32, param6: c_void_p, param7: UInt32, param8: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
+def PFN_DrvIcmCreateColorTransform(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.UI.ColorSystem.LOGCOLORSPACEW_head), param2: VoidPtr, param3: UInt32, param4: VoidPtr, param5: UInt32, param6: VoidPtr, param7: UInt32, param8: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype_pointer
 def PFN_DrvIcmDeleteColorTransform(param0: Windows.Win32.Devices.Display.DHPDEV, param1: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvIcmSetDeviceGammaRamp(param0: Windows.Win32.Devices.Display.DHPDEV, param1: UInt32, param2: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_DrvIcmSetDeviceGammaRamp(param0: Windows.Win32.Devices.Display.DHPDEV, param1: UInt32, param2: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DrvLineTo(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head), param3: Int32, param4: Int32, param5: Int32, param6: Int32, param7: POINTER(Windows.Win32.Foundation.RECTL_head), param8: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvLoadFontFile(param0: UInt32, param1: POINTER(UIntPtr), param2: POINTER(c_void_p), param3: POINTER(UInt32), param4: POINTER(Windows.Win32.Graphics.Gdi.DESIGNVECTOR_head), param5: UInt32, param6: UInt32) -> UIntPtr: ...
+def PFN_DrvLoadFontFile(param0: UInt32, param1: POINTER(UIntPtr), param2: POINTER(VoidPtr), param3: POINTER(UInt32), param4: POINTER(Windows.Win32.Graphics.Gdi.DESIGNVECTOR_head), param5: UInt32, param6: UInt32) -> UIntPtr: ...
 @winfunctype_pointer
 def PFN_DrvLockDisplayArea(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.Foundation.RECTL_head)) -> Void: ...
 @winfunctype_pointer
@@ -2191,25 +2191,25 @@ def PFN_DrvMovePointer(pso: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head),
 @winfunctype_pointer
 def PFN_DrvNextBand(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), ppointl: POINTER(Windows.Win32.Foundation.POINTL_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvNotify(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: UInt32, param2: c_void_p) -> Void: ...
+def PFN_DrvNotify(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: UInt32, param2: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PFN_DrvPaint(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head), param3: POINTER(Windows.Win32.Foundation.POINTL_head), param4: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DrvPlgBlt(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param3: POINTER(Windows.Win32.Devices.Display.CLIPOBJ_head), param4: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), param5: POINTER(Windows.Win32.Graphics.Gdi.COLORADJUSTMENT_head), param6: POINTER(Windows.Win32.Foundation.POINTL_head), param7: POINTER(Windows.Win32.Devices.Display.POINTFIX_head), param8: POINTER(Windows.Win32.Foundation.RECTL_head), param9: POINTER(Windows.Win32.Foundation.POINTL_head), param10: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvQueryAdvanceWidths(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), param2: UInt32, param3: POINTER(UInt32), param4: c_void_p, param5: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_DrvQueryAdvanceWidths(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), param2: UInt32, param3: POINTER(UInt32), param4: VoidPtr, param5: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvQueryDeviceSupport(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.XFORMOBJ_head), param3: UInt32, param4: UInt32, param5: c_void_p, param6: UInt32, param7: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_DrvQueryDeviceSupport(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.XFORMOBJ_head), param3: UInt32, param4: UInt32, param5: VoidPtr, param6: UInt32, param7: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DrvQueryFont(param0: Windows.Win32.Devices.Display.DHPDEV, param1: UIntPtr, param2: UInt32, param3: POINTER(UIntPtr)) -> POINTER(Windows.Win32.Devices.Display.IFIMETRICS_head): ...
 @winfunctype_pointer
 def PFN_DrvQueryFontCaps(param0: UInt32, param1: POINTER(UInt32)) -> Int32: ...
 @winfunctype_pointer
-def PFN_DrvQueryFontData(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), param2: UInt32, param3: UInt32, param4: POINTER(Windows.Win32.Devices.Display.GLYPHDATA_head), param5: c_void_p, param6: UInt32) -> Int32: ...
+def PFN_DrvQueryFontData(param0: Windows.Win32.Devices.Display.DHPDEV, param1: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), param2: UInt32, param3: UInt32, param4: POINTER(Windows.Win32.Devices.Display.GLYPHDATA_head), param5: VoidPtr, param6: UInt32) -> Int32: ...
 @winfunctype_pointer
 def PFN_DrvQueryFontFile(param0: UIntPtr, param1: UInt32, param2: UInt32, param3: POINTER(UInt32)) -> Int32: ...
 @winfunctype_pointer
-def PFN_DrvQueryFontTree(param0: Windows.Win32.Devices.Display.DHPDEV, param1: UIntPtr, param2: UInt32, param3: UInt32, param4: POINTER(UIntPtr)) -> c_void_p: ...
+def PFN_DrvQueryFontTree(param0: Windows.Win32.Devices.Display.DHPDEV, param1: UIntPtr, param2: UInt32, param3: UInt32, param4: POINTER(UIntPtr)) -> VoidPtr: ...
 @winfunctype_pointer
 def PFN_DrvQueryGlyphAttrs(param0: POINTER(Windows.Win32.Devices.Display.FONTOBJ_head), param1: UInt32) -> POINTER(Windows.Win32.Devices.Display.FD_GLYPHATTR_head): ...
 @winfunctype_pointer
@@ -2225,9 +2225,9 @@ def PFN_DrvQueryTrueTypeTable(param0: UIntPtr, param1: UInt32, param2: UInt32, p
 @winfunctype_pointer
 def PFN_DrvRealizeBrush(param0: POINTER(Windows.Win32.Devices.Display.BRUSHOBJ_head), param1: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param2: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param3: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param4: POINTER(Windows.Win32.Devices.Display.XLATEOBJ_head), param5: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvRenderHint(dhpdev: Windows.Win32.Devices.Display.DHPDEV, NotifyCode: UInt32, Length: UIntPtr, Data: c_void_p) -> Int32: ...
+def PFN_DrvRenderHint(dhpdev: Windows.Win32.Devices.Display.DHPDEV, NotifyCode: UInt32, Length: UIntPtr, Data: VoidPtr) -> Int32: ...
 @winfunctype_pointer
-def PFN_DrvResetDevice(param0: Windows.Win32.Devices.Display.DHPDEV, param1: c_void_p) -> UInt32: ...
+def PFN_DrvResetDevice(param0: Windows.Win32.Devices.Display.DHPDEV, param1: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def PFN_DrvResetPDEV(dhpdevOld: Windows.Win32.Devices.Display.DHPDEV, dhpdevNew: Windows.Win32.Devices.Display.DHPDEV) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2245,7 +2245,7 @@ def PFN_DrvStartBanding(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_he
 @winfunctype_pointer
 def PFN_DrvStartDoc(pso: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), pwszDocName: Windows.Win32.Foundation.PWSTR, dwJobId: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_DrvStartDxInterop(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: Windows.Win32.Foundation.BOOL, KernelModeDeviceHandle: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_DrvStartDxInterop(param0: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head), param1: Windows.Win32.Foundation.BOOL, KernelModeDeviceHandle: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DrvStartPage(pso: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2309,7 +2309,7 @@ class POINTQF(EasyCastStructure):
     x: Int64
     y: Int64
 @winfunctype_pointer
-def PVIDEO_WIN32K_CALLOUT(Params: c_void_p) -> Void: ...
+def PVIDEO_WIN32K_CALLOUT(Params: VoidPtr) -> Void: ...
 QUERY_DISPLAY_CONFIG_FLAGS = UInt32
 QDC_ALL_PATHS: QUERY_DISPLAY_CONFIG_FLAGS = 1
 QDC_ONLY_ACTIVE_PATHS: QUERY_DISPLAY_CONFIG_FLAGS = 2
@@ -2346,7 +2346,7 @@ SDC_ALLOW_PATH_ORDER_CHANGES: SET_DISPLAY_CONFIG_FLAGS = 8192
 SDC_VIRTUAL_MODE_AWARE: SET_DISPLAY_CONFIG_FLAGS = 32768
 SDC_VIRTUAL_REFRESH_RATE_AWARE: SET_DISPLAY_CONFIG_FLAGS = 131072
 @cfunctype_pointer
-def SORTCOMP(pv1: c_void_p, pv2: c_void_p) -> Int32: ...
+def SORTCOMP(pv1: VoidPtr, pv2: VoidPtr) -> Int32: ...
 class STROBJ(EasyCastStructure):
     cGlyphs: UInt32
     flAccel: UInt32
@@ -2361,8 +2361,8 @@ class SURFOBJ(EasyCastStructure):
     hdev: Windows.Win32.Devices.Display.HDEV
     sizlBitmap: Windows.Win32.Foundation.SIZE
     cjBits: UInt32
-    pvBits: c_void_p
-    pvScan0: c_void_p
+    pvBits: VoidPtr
+    pvScan0: VoidPtr
     lDelta: Int32
     iUniq: UInt32
     iBitmapFormat: UInt32
@@ -2511,7 +2511,7 @@ class VIDEO_HARDWARE_STATE_HEADER(EasyCastStructure):
     DIBXlatOffset: UInt32
     DIBXlatLength: UInt32
     VesaInfoOffset: UInt32
-    FrameBufferData: c_void_p
+    FrameBufferData: VoidPtr
 class VIDEO_LOAD_FONT_INFORMATION(EasyCastStructure):
     WidthInPixels: UInt16
     HeightInPixels: UInt16
@@ -2522,11 +2522,11 @@ class VIDEO_LUT_RGB256WORDS(EasyCastStructure):
     Green: UInt16 * 256
     Blue: UInt16 * 256
 class VIDEO_MEMORY(EasyCastStructure):
-    RequestedVirtualAddress: c_void_p
+    RequestedVirtualAddress: VoidPtr
 class VIDEO_MEMORY_INFORMATION(EasyCastStructure):
-    VideoRamBase: c_void_p
+    VideoRamBase: VoidPtr
     VideoRamLength: UInt32
-    FrameBufferBase: c_void_p
+    FrameBufferBase: VoidPtr
     FrameBufferLength: UInt32
 class VIDEO_MODE(EasyCastStructure):
     RequestedMode: UInt32
@@ -2617,7 +2617,7 @@ VIDEO_POWER_STATE_VideoPowerMaximum: VIDEO_POWER_STATE = 7
 class VIDEO_PUBLIC_ACCESS_RANGES(EasyCastStructure):
     InIoSpace: UInt32
     MappedInIoSpace: UInt32
-    VirtualAddress: c_void_p
+    VirtualAddress: VoidPtr
 class VIDEO_QUERY_PERFORMANCE_COUNTER(EasyCastStructure):
     BufferSize: UInt32
     Buffer: POINTER(Windows.Win32.Devices.Display.VIDEO_PERFORMANCE_COUNTER_head)
@@ -2627,22 +2627,22 @@ class VIDEO_SHARE_MEMORY(EasyCastStructure):
     ProcessHandle: Windows.Win32.Foundation.HANDLE
     ViewOffset: UInt32
     ViewSize: UInt32
-    RequestedVirtualAddress: c_void_p
+    RequestedVirtualAddress: VoidPtr
 class VIDEO_SHARE_MEMORY_INFORMATION(EasyCastStructure):
     SharedViewOffset: UInt32
     SharedViewSize: UInt32
-    VirtualAddress: c_void_p
+    VirtualAddress: VoidPtr
 class VIDEO_VDM(EasyCastStructure):
     ProcessHandle: Windows.Win32.Foundation.HANDLE
 class VIDEO_WIN32K_CALLBACKS(EasyCastStructure):
-    PhysDisp: c_void_p
+    PhysDisp: VoidPtr
     Callout: Windows.Win32.Devices.Display.PVIDEO_WIN32K_CALLOUT
     bACPI: UInt32
     pPhysDeviceObject: Windows.Win32.Foundation.HANDLE
     DualviewFlags: UInt32
 class VIDEO_WIN32K_CALLBACKS_PARAMS(EasyCastStructure):
     CalloutType: Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE
-    PhysDisp: c_void_p
+    PhysDisp: VoidPtr
     Param: UIntPtr
     Status: Int32
     LockUserSession: Windows.Win32.Foundation.BOOLEAN
@@ -2668,7 +2668,7 @@ class WCRUN(EasyCastStructure):
     phg: POINTER(UInt32)
 class WNDOBJ(EasyCastStructure):
     coClient: Windows.Win32.Devices.Display.CLIPOBJ
-    pvConsumer: c_void_p
+    pvConsumer: VoidPtr
     rclClient: Windows.Win32.Foundation.RECTL
     psoOwner: POINTER(Windows.Win32.Devices.Display.SURFOBJ_head)
 @winfunctype_pointer

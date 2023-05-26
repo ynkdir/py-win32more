@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.System.Com
@@ -156,9 +156,9 @@ def ProcessGroupPolicyCompleted(extensionId: POINTER(Guid), pAsyncHandle: UIntPt
 @winfunctype('USERENV.dll')
 def ProcessGroupPolicyCompletedEx(extensionId: POINTER(Guid), pAsyncHandle: UIntPtr, dwStatus: UInt32, RsopStatus: Windows.Win32.Foundation.HRESULT) -> UInt32: ...
 @winfunctype('USERENV.dll')
-def RsopAccessCheckByType(pSecurityDescriptor: Windows.Win32.Security.PSECURITY_DESCRIPTOR, pPrincipalSelfSid: Windows.Win32.Foundation.PSID, pRsopToken: c_void_p, dwDesiredAccessMask: UInt32, pObjectTypeList: POINTER(Windows.Win32.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, pGenericMapping: POINTER(Windows.Win32.Security.GENERIC_MAPPING_head), pPrivilegeSet: POINTER(Windows.Win32.Security.PRIVILEGE_SET_head), pdwPrivilegeSetLength: POINTER(UInt32), pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+def RsopAccessCheckByType(pSecurityDescriptor: Windows.Win32.Security.PSECURITY_DESCRIPTOR, pPrincipalSelfSid: Windows.Win32.Foundation.PSID, pRsopToken: VoidPtr, dwDesiredAccessMask: UInt32, pObjectTypeList: POINTER(Windows.Win32.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, pGenericMapping: POINTER(Windows.Win32.Security.GENERIC_MAPPING_head), pPrivilegeSet: POINTER(Windows.Win32.Security.PRIVILEGE_SET_head), pdwPrivilegeSetLength: POINTER(UInt32), pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
-def RsopFileAccessCheck(pszFileName: Windows.Win32.Foundation.PWSTR, pRsopToken: c_void_p, dwDesiredAccessMask: UInt32, pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+def RsopFileAccessCheck(pszFileName: Windows.Win32.Foundation.PWSTR, pRsopToken: VoidPtr, dwDesiredAccessMask: UInt32, pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
 def RsopSetPolicySettingStatus(dwFlags: UInt32, pServices: Windows.Win32.System.Wmi.IWbemServices_head, pSettingInstance: Windows.Win32.System.Wmi.IWbemClassObject_head, nInfo: UInt32, pStatus: POINTER(Windows.Win32.System.GroupPolicy.POLICYSETTINGSTATUSINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
@@ -1280,7 +1280,7 @@ class RSOP_TARGET(EasyCastStructure):
     pwszAccountName: Windows.Win32.Foundation.PWSTR
     pwszNewSOM: Windows.Win32.Foundation.PWSTR
     psaSecurityGroups: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)
-    pRsopToken: c_void_p
+    pRsopToken: VoidPtr
     pGPOList: POINTER(Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)
     pWbemServices: Windows.Win32.System.Wmi.IWbemServices_head
 SETTINGSTATUS = Int32

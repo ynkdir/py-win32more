@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.WindowsFirewall
 import Windows.Win32.Security
@@ -22,7 +22,7 @@ NETISO_GEID_FOR_NEUTRAL_AWARE: UInt32 = 2
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
 def NetworkIsolationSetupAppContainerBinaries(applicationContainerSid: Windows.Win32.Foundation.PSID, packageFullName: Windows.Win32.Foundation.PWSTR, packageFolder: Windows.Win32.Foundation.PWSTR, displayName: Windows.Win32.Foundation.PWSTR, bBinariesFullyComputed: Windows.Win32.Foundation.BOOL, binaries: POINTER(Windows.Win32.Foundation.PWSTR), binariesCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
-def NetworkIsolationRegisterForAppContainerChanges(flags: UInt32, callback: Windows.Win32.NetworkManagement.WindowsFirewall.PAC_CHANGES_CALLBACK_FN, context: c_void_p, registrationObject: POINTER(Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def NetworkIsolationRegisterForAppContainerChanges(flags: UInt32, callback: Windows.Win32.NetworkManagement.WindowsFirewall.PAC_CHANGES_CALLBACK_FN, context: VoidPtr, registrationObject: POINTER(Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
 def NetworkIsolationUnregisterForAppContainerChanges(registrationObject: Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
@@ -992,7 +992,7 @@ NetFwProducts = Guid('{cc19079b-8272-4d73-bb70-cdb533527b61}')
 NetFwRule = Guid('{2c5bc43e-3369-4c33-ab0c-be9469677af4}')
 NetSharingManager = Guid('{5c63c1ad-3956-4ff8-8486-40034758315b}')
 @winfunctype_pointer
-def PAC_CHANGES_CALLBACK_FN(context: c_void_p, pChange: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CHANGE_head)) -> Void: ...
+def PAC_CHANGES_CALLBACK_FN(context: VoidPtr, pChange: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CHANGE_head)) -> Void: ...
 @winfunctype_pointer
 def PFN_FWADDDYNAMICKEYWORDADDRESS0(dynamicKeywordAddress: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS0_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -1006,7 +1006,7 @@ def PFN_FWFREEDYNAMICKEYWORDADDRESSDATA0(dynamicKeywordAddressData: POINTER(Wind
 @winfunctype_pointer
 def PFN_FWUPDATEDYNAMICKEYWORDADDRESS0(dynamicKeywordAddressId: Guid, updatedAddresses: Windows.Win32.Foundation.PWSTR, append: Windows.Win32.Foundation.BOOL) -> UInt32: ...
 @winfunctype_pointer
-def PNETISO_EDP_ID_CALLBACK_FN(context: c_void_p, wszEnterpriseId: Windows.Win32.Foundation.PWSTR, dwErr: UInt32) -> Void: ...
+def PNETISO_EDP_ID_CALLBACK_FN(context: VoidPtr, wszEnterpriseId: Windows.Win32.Foundation.PWSTR, dwErr: UInt32) -> Void: ...
 SHARINGCONNECTIONTYPE = Int32
 ICSSHARINGTYPE_PUBLIC: SHARINGCONNECTIONTYPE = 0
 ICSSHARINGTYPE_PRIVATE: SHARINGCONNECTIONTYPE = 1

@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Diagnostics.Debug
@@ -223,7 +223,7 @@ class IActiveScript(ComPtr):
     @commethod(3)
     def SetScriptSite(self, pass_: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptSite_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetScriptSite(self, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetScriptSite(self, riid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetScriptState(self, ss: Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPTSTATE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1198,7 +1198,7 @@ class IJsDebugDataTarget(ComPtr):
     @commethod(10)
     def CreateStackFrameEnumerator(self, threadId: UInt32, ppEnumerator: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumJsStackFrames_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def GetThreadContext(self, threadId: UInt32, contextFlags: UInt32, contextSize: UInt32, pContext: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetThreadContext(self, threadId: UInt32, contextFlags: UInt32, contextSize: UInt32, pContext: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsDebugFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c9196637-ab9d-44b2-bad2-13b95b3f390e}')
@@ -1539,7 +1539,7 @@ class PROFILER_HEAP_OBJECT(EasyCastStructure):
     optionalInfoCount: UInt16
     class _Anonymous_e__Union(EasyCastUnion):
         objectId: UIntPtr
-        externalObjectAddress: c_void_p
+        externalObjectAddress: VoidPtr
 PROFILER_HEAP_OBJECT_FLAGS = Int32
 PROFILER_HEAP_OBJECT_FLAGS_NEW_OBJECT: PROFILER_HEAP_OBJECT_FLAGS = 1
 PROFILER_HEAP_OBJECT_FLAGS_IS_ROOT: PROFILER_HEAP_OBJECT_FLAGS = 2
@@ -1595,7 +1595,7 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP(EasyCastStructure):
         stringValue: Windows.Win32.Foundation.PWSTR
         bstrValue: Windows.Win32.Foundation.BSTR
         objectId: UIntPtr
-        externalObjectAddress: c_void_p
+        externalObjectAddress: VoidPtr
         subString: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_PROPERTY_TYPE_SUBSTRING_INFO_head)
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = Int32
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_NONE: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = 0

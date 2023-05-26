@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Devices.WebServicesOnDevices
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.WinSock
@@ -67,17 +67,17 @@ def WSDCreateDeviceHostAdvanced(pszLocalId: Windows.Win32.Foundation.PWSTR, pCon
 @winfunctype('wsdapi.dll')
 def WSDCreateDeviceHost2(pszLocalId: Windows.Win32.Foundation.PWSTR, pContext: Windows.Win32.Devices.WebServicesOnDevices.IWSDXMLContext_head, pConfigParams: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_CONFIG_PARAM_head), dwConfigParamCount: UInt32, ppDeviceHost: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDDeviceHost_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wsdapi.dll')
-def WSDSetConfigurationOption(dwOption: UInt32, pVoid: c_void_p, cbInBuffer: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WSDSetConfigurationOption(dwOption: UInt32, pVoid: VoidPtr, cbInBuffer: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wsdapi.dll')
-def WSDGetConfigurationOption(dwOption: UInt32, pVoid: c_void_p, cbOutBuffer: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def WSDGetConfigurationOption(dwOption: UInt32, pVoid: VoidPtr, cbOutBuffer: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wsdapi.dll')
-def WSDAllocateLinkedMemory(pParent: c_void_p, cbSize: UIntPtr) -> c_void_p: ...
+def WSDAllocateLinkedMemory(pParent: VoidPtr, cbSize: UIntPtr) -> VoidPtr: ...
 @winfunctype('wsdapi.dll')
-def WSDFreeLinkedMemory(pVoid: c_void_p) -> Void: ...
+def WSDFreeLinkedMemory(pVoid: VoidPtr) -> Void: ...
 @winfunctype('wsdapi.dll')
-def WSDAttachLinkedMemory(pParent: c_void_p, pChild: c_void_p) -> Void: ...
+def WSDAttachLinkedMemory(pParent: VoidPtr, pChild: VoidPtr) -> Void: ...
 @winfunctype('wsdapi.dll')
-def WSDDetachLinkedMemory(pVoid: c_void_p) -> Void: ...
+def WSDDetachLinkedMemory(pVoid: VoidPtr) -> Void: ...
 @winfunctype('wsdapi.dll')
 def WSDXMLBuildAnyForSingleElement(pElementName: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_NAME_head), pszText: Windows.Win32.Foundation.PWSTR, ppAny: POINTER(POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wsdapi.dll')
@@ -158,7 +158,7 @@ class IWSDDeviceHost(ComPtr):
     @commethod(13)
     def SetServiceDiscoverable(self, pszServiceId: Windows.Win32.Foundation.PWSTR, fDiscoverable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def SignalEvent(self, pszServiceId: Windows.Win32.Foundation.PWSTR, pBody: c_void_p, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SignalEvent(self, pszServiceId: Windows.Win32.Foundation.PWSTR, pBody: VoidPtr, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSDDeviceHostNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b5bee9f9-eeda-41fe-96f7-f45e14990fb0}')
@@ -191,11 +191,11 @@ class IWSDEndpointProxy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1860d430-b24c-4975-9f90-dbb39baa24ec}')
     @commethod(3)
-    def SendOneWayRequest(self, pBody: c_void_p, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SendOneWayRequest(self, pBody: VoidPtr, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SendTwoWayRequest(self, pBody: c_void_p, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), pResponseContext: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_SYNCHRONOUS_RESPONSE_CONTEXT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SendTwoWayRequest(self, pBody: VoidPtr, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), pResponseContext: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_SYNCHRONOUS_RESPONSE_CONTEXT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SendTwoWayRequestAsync(self, pBody: c_void_p, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), pAsyncState: Windows.Win32.System.Com.IUnknown_head, pCallback: Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, pResult: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SendTwoWayRequestAsync(self, pBody: VoidPtr, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), pAsyncState: Windows.Win32.System.Com.IUnknown_head, pCallback: Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, pResult: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def AbortAsyncOperation(self, pAsyncResult: Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -304,7 +304,7 @@ class IWSDServiceMessaging(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{94974cf4-0cab-460d-a3f6-7a0ad623c0e6}')
     @commethod(3)
-    def SendResponse(self, pBody: c_void_p, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), pMessageParameters: Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters_head) -> Windows.Win32.Foundation.HRESULT: ...
+    def SendResponse(self, pBody: VoidPtr, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), pMessageParameters: Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FaultRequest(self, pRequestHeader: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_SOAP_HEADER_head), pMessageParameters: Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters_head, pFault: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_SOAP_FAULT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSDServiceProxy(ComPtr):
@@ -654,7 +654,7 @@ class WSD_CONFIG_ADDRESSES(EasyCastStructure):
     dwAddressCount: UInt32
 class WSD_CONFIG_PARAM(EasyCastStructure):
     configParamType: Windows.Win32.Devices.WebServicesOnDevices.WSD_CONFIG_PARAM_TYPE
-    pConfigData: c_void_p
+    pConfigData: VoidPtr
     dwConfigDataSize: UInt32
 WSD_CONFIG_PARAM_TYPE = Int32
 WSD_CONFIG_MAX_INBOUND_MESSAGE_SIZE: WSD_CONFIG_PARAM_TYPE = 1
@@ -713,7 +713,7 @@ class WSD_EVENT(EasyCastStructure):
 class WSD_EVENTING_DELIVERY_MODE(EasyCastStructure):
     Mode: Windows.Win32.Foundation.PWSTR
     Push: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_EVENTING_DELIVERY_MODE_PUSH_head)
-    Data: c_void_p
+    Data: VoidPtr
 class WSD_EVENTING_DELIVERY_MODE_PUSH(EasyCastStructure):
     NotifyTo: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_ENDPOINT_REFERENCE_head)
 class WSD_EVENTING_EXPIRES(EasyCastStructure):
@@ -722,12 +722,12 @@ class WSD_EVENTING_EXPIRES(EasyCastStructure):
 class WSD_EVENTING_FILTER(EasyCastStructure):
     Dialect: Windows.Win32.Foundation.PWSTR
     FilterAction: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_EVENTING_FILTER_ACTION_head)
-    Data: c_void_p
+    Data: VoidPtr
 class WSD_EVENTING_FILTER_ACTION(EasyCastStructure):
     Actions: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_URI_LIST_head)
 class WSD_HANDLER_CONTEXT(EasyCastStructure):
     Handler: Windows.Win32.Devices.WebServicesOnDevices.PWSD_SOAP_MESSAGE_HANDLER
-    PVoid: c_void_p
+    PVoid: VoidPtr
     Unknown: Windows.Win32.System.Com.IUnknown_head
 class WSD_HEADER_RELATESTO(EasyCastStructure):
     RelationshipType: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_NAME_head)
@@ -751,7 +751,7 @@ class WSD_LOCALIZED_STRING_LIST(EasyCastStructure):
 class WSD_METADATA_SECTION(EasyCastStructure):
     Dialect: Windows.Win32.Foundation.PWSTR
     Identifier: Windows.Win32.Foundation.PWSTR
-    Data: c_void_p
+    Data: VoidPtr
     MetadataReference: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_ENDPOINT_REFERENCE_head)
     Location: Windows.Win32.Foundation.PWSTR
     Any: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
@@ -871,7 +871,7 @@ class WSD_SOAP_HEADER(EasyCastStructure):
     AnyHeaders: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
 class WSD_SOAP_MESSAGE(EasyCastStructure):
     Header: Windows.Win32.Devices.WebServicesOnDevices.WSD_SOAP_HEADER
-    Body: c_void_p
+    Body: VoidPtr
     BodyType: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_TYPE_head)
 @winfunctype_pointer
 def WSD_STUB_FUNCTION(server: Windows.Win32.System.Com.IUnknown_head, session: Windows.Win32.Devices.WebServicesOnDevices.IWSDServiceMessaging_head, event: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_EVENT_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -879,7 +879,7 @@ class WSD_SYNCHRONOUS_RESPONSE_CONTEXT(EasyCastStructure):
     hr: Windows.Win32.Foundation.HRESULT
     eventHandle: Windows.Win32.Foundation.HANDLE
     messageParameters: Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters_head
-    results: c_void_p
+    results: VoidPtr
 class WSD_THIS_DEVICE_METADATA(EasyCastStructure):
     FriendlyName: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_LOCALIZED_STRING_LIST_head)
     FirmwareVersion: Windows.Win32.Foundation.PWSTR

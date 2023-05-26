@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Ole
@@ -251,7 +251,7 @@ def PerfDeleteInstance(Provider: Windows.Win32.Foundation.HANDLE, InstanceBlock:
 @winfunctype('ADVAPI32.dll')
 def PerfQueryInstance(ProviderHandle: Windows.Win32.Foundation.HANDLE, CounterSetGuid: POINTER(Guid), Name: Windows.Win32.Foundation.PWSTR, Id: UInt32) -> POINTER(Windows.Win32.System.Performance.PERF_COUNTERSET_INSTANCE_head): ...
 @winfunctype('ADVAPI32.dll')
-def PerfSetCounterRefValue(Provider: Windows.Win32.Foundation.HANDLE, Instance: POINTER(Windows.Win32.System.Performance.PERF_COUNTERSET_INSTANCE_head), CounterId: UInt32, Address: c_void_p) -> UInt32: ...
+def PerfSetCounterRefValue(Provider: Windows.Win32.Foundation.HANDLE, Instance: POINTER(Windows.Win32.System.Performance.PERF_COUNTERSET_INSTANCE_head), CounterId: UInt32, Address: VoidPtr) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def PerfSetULongCounterValue(Provider: Windows.Win32.Foundation.HANDLE, Instance: POINTER(Windows.Win32.System.Performance.PERF_COUNTERSET_INSTANCE_head), CounterId: UInt32, Value: UInt32) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
@@ -1781,7 +1781,7 @@ class PDH_TIME_INFO(EasyCastStructure):
     EndTime: Int64
     SampleCount: UInt32
 @winfunctype_pointer
-def PERFLIBREQUEST(RequestCode: UInt32, Buffer: c_void_p, BufferSize: UInt32) -> UInt32: ...
+def PERFLIBREQUEST(RequestCode: UInt32, Buffer: VoidPtr, BufferSize: UInt32) -> UInt32: ...
 class PERF_COUNTERSET_INFO(EasyCastStructure):
     CounterSetGuid: Guid
     ProviderGuid: Guid
@@ -1912,9 +1912,9 @@ class PERF_INSTANCE_HEADER(EasyCastStructure):
     Size: UInt32
     InstanceId: UInt32
 @winfunctype_pointer
-def PERF_MEM_ALLOC(AllocSize: UIntPtr, pContext: c_void_p) -> c_void_p: ...
+def PERF_MEM_ALLOC(AllocSize: UIntPtr, pContext: VoidPtr) -> VoidPtr: ...
 @winfunctype_pointer
-def PERF_MEM_FREE(pBuffer: c_void_p, pContext: c_void_p) -> Void: ...
+def PERF_MEM_FREE(pBuffer: VoidPtr, pContext: VoidPtr) -> Void: ...
 class PERF_MULTI_COUNTERS(EasyCastStructure):
     dwSize: UInt32
     dwCounters: UInt32
@@ -1959,7 +1959,7 @@ class PERF_PROVIDER_CONTEXT(EasyCastStructure):
     ControlCallback: Windows.Win32.System.Performance.PERFLIBREQUEST
     MemAllocRoutine: Windows.Win32.System.Performance.PERF_MEM_ALLOC
     MemFreeRoutine: Windows.Win32.System.Performance.PERF_MEM_FREE
-    pMemContext: c_void_p
+    pMemContext: VoidPtr
 class PERF_STRING_BUFFER_HEADER(EasyCastStructure):
     dwSize: UInt32
     dwCounters: UInt32
@@ -1967,11 +1967,11 @@ class PERF_STRING_COUNTER_HEADER(EasyCastStructure):
     dwCounterId: UInt32
     dwOffset: UInt32
 @winfunctype_pointer
-def PLA_CABEXTRACT_CALLBACK(FileName: Windows.Win32.Foundation.PWSTR, Context: c_void_p) -> Void: ...
+def PLA_CABEXTRACT_CALLBACK(FileName: Windows.Win32.Foundation.PWSTR, Context: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PM_CLOSE_PROC() -> UInt32: ...
 @winfunctype_pointer
-def PM_COLLECT_PROC(pValueName: Windows.Win32.Foundation.PWSTR, ppData: POINTER(c_void_p), pcbTotalBytes: POINTER(UInt32), pNumObjectTypes: POINTER(UInt32)) -> UInt32: ...
+def PM_COLLECT_PROC(pValueName: Windows.Win32.Foundation.PWSTR, ppData: POINTER(VoidPtr), pcbTotalBytes: POINTER(UInt32), pNumObjectTypes: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def PM_OPEN_PROC(pContext: Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 PerfCounterDataType = Int32

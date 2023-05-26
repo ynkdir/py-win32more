@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
 import Windows.Win32.System.Power
@@ -227,13 +227,13 @@ PDCAP_S4_SUPPORTED: UInt32 = 16777216
 PDCAP_S5_SUPPORTED: UInt32 = 33554432
 THERMAL_EVENT_VERSION: UInt32 = 1
 @winfunctype('POWRPROF.dll')
-def CallNtPowerInformation(InformationLevel: Windows.Win32.System.Power.POWER_INFORMATION_LEVEL, InputBuffer: c_void_p, InputBufferLength: UInt32, OutputBuffer: c_void_p, OutputBufferLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
+def CallNtPowerInformation(InformationLevel: Windows.Win32.System.Power.POWER_INFORMATION_LEVEL, InputBuffer: VoidPtr, InputBufferLength: UInt32, OutputBuffer: VoidPtr, OutputBufferLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('POWRPROF.dll')
 def GetPwrCapabilities(lpspc: POINTER(Windows.Win32.System.Power.SYSTEM_POWER_CAPABILITIES_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def PowerDeterminePlatformRoleEx(Version: Windows.Win32.System.Power.POWER_PLATFORM_ROLE_VERSION) -> Windows.Win32.System.Power.POWER_PLATFORM_ROLE: ...
 @winfunctype('POWRPROF.dll')
-def PowerRegisterSuspendResumeNotification(Flags: Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS, Recipient: Windows.Win32.Foundation.HANDLE, RegistrationHandle: POINTER(c_void_p)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def PowerRegisterSuspendResumeNotification(Flags: Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS, Recipient: Windows.Win32.Foundation.HANDLE, RegistrationHandle: POINTER(VoidPtr)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('POWRPROF.dll')
 def PowerUnregisterSuspendResumeNotification(RegistrationHandle: Windows.Win32.System.Power.HPOWERNOTIFY) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('POWRPROF.dll')
@@ -249,13 +249,13 @@ def PowerGetActiveScheme(UserRootPowerKey: Windows.Win32.System.Registry.HKEY, A
 @winfunctype('POWRPROF.dll')
 def PowerSetActiveScheme(UserRootPowerKey: Windows.Win32.System.Registry.HKEY, SchemeGuid: POINTER(Guid)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('POWRPROF.dll')
-def PowerSettingRegisterNotification(SettingGuid: POINTER(Guid), Flags: Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS, Recipient: Windows.Win32.Foundation.HANDLE, RegistrationHandle: POINTER(c_void_p)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def PowerSettingRegisterNotification(SettingGuid: POINTER(Guid), Flags: Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS, Recipient: Windows.Win32.Foundation.HANDLE, RegistrationHandle: POINTER(VoidPtr)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('POWRPROF.dll')
 def PowerSettingUnregisterNotification(RegistrationHandle: Windows.Win32.System.Power.HPOWERNOTIFY) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('POWRPROF.dll')
-def PowerRegisterForEffectivePowerModeNotifications(Version: UInt32, Callback: Windows.Win32.System.Power.EFFECTIVE_POWER_MODE_CALLBACK, Context: c_void_p, RegistrationHandle: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def PowerRegisterForEffectivePowerModeNotifications(Version: UInt32, Callback: Windows.Win32.System.Power.EFFECTIVE_POWER_MODE_CALLBACK, Context: VoidPtr, RegistrationHandle: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('POWRPROF.dll')
-def PowerUnregisterFromEffectivePowerModeNotifications(RegistrationHandle: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def PowerUnregisterFromEffectivePowerModeNotifications(RegistrationHandle: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('POWRPROF.dll')
 def GetPwrDiskSpindownRange(puiMax: POINTER(UInt32), puiMin: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
@@ -387,7 +387,7 @@ def PowerDeterminePlatformRole() -> Windows.Win32.System.Power.POWER_PLATFORM_RO
 @winfunctype('POWRPROF.dll')
 def DevicePowerEnumDevices(QueryIndex: UInt32, QueryInterpretationFlags: UInt32, QueryFlags: UInt32, pReturnBuffer: POINTER(Byte), pBufferSize: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def DevicePowerSetDeviceState(DeviceDescription: Windows.Win32.Foundation.PWSTR, SetFlags: UInt32, SetData: c_void_p) -> UInt32: ...
+def DevicePowerSetDeviceState(DeviceDescription: Windows.Win32.Foundation.PWSTR, SetFlags: UInt32, SetData: VoidPtr) -> UInt32: ...
 @winfunctype('POWRPROF.dll')
 def DevicePowerOpen(DebugMask: UInt32) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
@@ -490,7 +490,7 @@ class BATTERY_USB_CHARGER_STATUS(EasyCastStructure):
     Voltage: UInt32
     PortType: Windows.Win32.System.Power.USB_CHARGER_PORT
     PortId: UInt64
-    PowerSourceInformation: c_void_p
+    PowerSourceInformation: VoidPtr
     OemCharger: Guid
 class BATTERY_WAIT_STATUS(EasyCastStructure):
     BatteryTag: UInt32
@@ -509,7 +509,7 @@ class CM_POWER_DATA(EasyCastStructure):
     PD_DeepestSystemWake: Windows.Win32.System.Power.SYSTEM_POWER_STATE
 class DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS(EasyCastStructure):
     Callback: Windows.Win32.System.Power.PDEVICE_NOTIFY_CALLBACK_ROUTINE
-    Context: c_void_p
+    Context: VoidPtr
 DEVICE_POWER_STATE = Int32
 DEVICE_POWER_STATE_PowerDeviceUnspecified: DEVICE_POWER_STATE = 0
 DEVICE_POWER_STATE_PowerDeviceD0: DEVICE_POWER_STATE = 1
@@ -526,7 +526,7 @@ EFFECTIVE_POWER_MODE_EffectivePowerModeMaxPerformance: EFFECTIVE_POWER_MODE = 4
 EFFECTIVE_POWER_MODE_EffectivePowerModeGameMode: EFFECTIVE_POWER_MODE = 5
 EFFECTIVE_POWER_MODE_EffectivePowerModeMixedReality: EFFECTIVE_POWER_MODE = 6
 @winfunctype_pointer
-def EFFECTIVE_POWER_MODE_CALLBACK(Mode: Windows.Win32.System.Power.EFFECTIVE_POWER_MODE, Context: c_void_p) -> Void: ...
+def EFFECTIVE_POWER_MODE_CALLBACK(Mode: Windows.Win32.System.Power.EFFECTIVE_POWER_MODE, Context: VoidPtr) -> Void: ...
 class EMI_CHANNEL_MEASUREMENT_DATA(EasyCastStructure):
     AbsoluteEnergy: UInt64
     AbsoluteTime: UInt64
@@ -603,7 +603,7 @@ class MACHINE_PROCESSOR_POWER_POLICY(EasyCastStructure):
     ProcessorPolicyAc: Windows.Win32.System.Power.PROCESSOR_POWER_POLICY
     ProcessorPolicyDc: Windows.Win32.System.Power.PROCESSOR_POWER_POLICY
 @winfunctype_pointer
-def PDEVICE_NOTIFY_CALLBACK_ROUTINE(Context: c_void_p, Type: UInt32, Setting: c_void_p) -> UInt32: ...
+def PDEVICE_NOTIFY_CALLBACK_ROUTINE(Context: VoidPtr, Type: UInt32, Setting: VoidPtr) -> UInt32: ...
 class POWERBROADCAST_SETTING(EasyCastStructure):
     PowerSetting: Guid
     DataLength: UInt32
@@ -960,7 +960,7 @@ class PPM_WMI_IDLE_STATES_EX(EasyCastStructure):
     Count: UInt32
     TargetState: UInt32
     OldState: UInt32
-    TargetProcessors: c_void_p
+    TargetProcessors: VoidPtr
     State: Windows.Win32.System.Power.PPM_WMI_IDLE_STATE * 1
 class PPM_WMI_LEGACY_PERFSTATE(EasyCastStructure):
     Frequency: UInt32
@@ -1016,7 +1016,7 @@ class PPM_WMI_PERF_STATES_EX(EasyCastStructure):
     Type: Byte
     Reserved: Byte
     TimerInterval: UInt32
-    TargetProcessors: c_void_p
+    TargetProcessors: VoidPtr
     PStateHandler: UInt32
     PStateContext: UInt32
     TStateHandler: UInt32

@@ -19,36 +19,39 @@ else:
 
 BASE_EXPORTS = [
     "ARCH",
-    "MissingType",
-    "Byte",
-    "SByte",
-    "Char",
-    "Int16",
-    "UInt16",
-    "Int32",
-    "UInt32",
-    "Int64",
-    "UInt64",
-    "IntPtr",
-    "UIntPtr",
-    "Single",
-    "Double",
-    "String",
     "Boolean",
-    "Void",
-    "Guid",
-    "SUCCEEDED",
-    "FAILED",
-    "cfunctype",
-    "winfunctype",
-    "commethod",
-    "cfunctype_pointer",
-    "winfunctype_pointer",
-    "press",
-    "make_head",
+    "Byte",
+    "Bytes",
+    "Char",
+    "ComPtr",
+    "Double",
     "EasyCastStructure",
     "EasyCastUnion",
-    "ComPtr",
+    "FAILED",
+    "Guid",
+    "Int16",
+    "Int32",
+    "Int64",
+    "IntPtr",
+    "MissingType",
+    "SByte",
+    "SUCCEEDED",
+    "Single",
+    "String",
+    "String",
+    "UInt16",
+    "UInt32",
+    "UInt64",
+    "UIntPtr",
+    "Void",
+    "VoidPtr",
+    "cfunctype",
+    "cfunctype_pointer",
+    "commethod",
+    "make_head",
+    "press",
+    "winfunctype",
+    "winfunctype_pointer",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -115,7 +118,7 @@ class TType:
             return self.name
         elif self.kind == "Pointer":
             if self.type.kind == "Primitive" and self.type.name == "Void":
-                return "c_void_p"
+                return "VoidPtr"
             elif self.type.is_struct:
                 return f"POINTER({self.type.fullname}_head)"
             else:
@@ -1086,9 +1089,9 @@ class PyGenerator:
     def emit_native_typedef(self, td: TypeDefinition) -> str:
         pytype = td.fields[0].signature.pytype
         if pytype == "POINTER(Byte)":
-            pytype = "c_char_p"
+            pytype = "Bytes"
         elif pytype == "POINTER(Char)":
-            pytype = "c_wchar_p"
+            pytype = "String"
         return f"{td.name} = {pytype}\n"
 
     def emit_clsid(self, td: TypeDefinition) -> str:
@@ -1203,7 +1206,7 @@ class PyGenerator:
         return "from __future__ import annotations\n"
 
     def emit_import_ctypes(self) -> str:
-        return "from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
+        return "from ctypes import POINTER\n"
 
     def emit_import_base(self) -> str:
         return f"from Windows import {BASE_EXPORTS_CSV}\n"

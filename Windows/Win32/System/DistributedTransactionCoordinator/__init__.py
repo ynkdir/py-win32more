@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.DistributedTransactionCoordinator
@@ -90,13 +90,13 @@ OLE_TM_FLAG_INTERNAL_TO_TM: UInt32 = 1073741824
 CLSID_MSDtcTransactionManager: Guid = Guid('{5b18ab61-091d-11d1-97df-00c04fb9618a}')
 CLSID_MSDtcTransaction: Guid = Guid('{39f8d76b-0928-11d1-97df-00c04fb9618a}')
 @cfunctype('XOLEHLP.dll')
-def DtcGetTransactionManager(i_pszHost: Windows.Win32.Foundation.PSTR, i_pszTmName: Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_dwReserved1: UInt32, i_wcbReserved2: UInt16, i_pvReserved2: c_void_p, o_ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DtcGetTransactionManager(i_pszHost: Windows.Win32.Foundation.PSTR, i_pszTmName: Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_dwReserved1: UInt32, i_wcbReserved2: UInt16, i_pvReserved2: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @cfunctype('XOLEHLP.dll')
-def DtcGetTransactionManagerC(i_pszHost: Windows.Win32.Foundation.PSTR, i_pszTmName: Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_dwReserved1: UInt32, i_wcbReserved2: UInt16, i_pvReserved2: c_void_p, o_ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DtcGetTransactionManagerC(i_pszHost: Windows.Win32.Foundation.PSTR, i_pszTmName: Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_dwReserved1: UInt32, i_wcbReserved2: UInt16, i_pvReserved2: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @cfunctype('XOLEHLP.dll')
-def DtcGetTransactionManagerExA(i_pszHost: Windows.Win32.Foundation.PSTR, i_pszTmName: Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DtcGetTransactionManagerExA(i_pszHost: Windows.Win32.Foundation.PSTR, i_pszTmName: Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @cfunctype('XOLEHLP.dll')
-def DtcGetTransactionManagerExW(i_pwszHost: Windows.Win32.Foundation.PWSTR, i_pwszTmName: Windows.Win32.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DtcGetTransactionManagerExW(i_pwszHost: Windows.Win32.Foundation.PWSTR, i_pwszTmName: Windows.Win32.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class BOID(EasyCastStructure):
     rgb: Byte * 16
 DTCINITIATEDRECOVERYWORK = Int32
@@ -136,11 +136,11 @@ DTCLUXLNRESPONSE_OK_SENDCONFIRMATION: DTCLUXLNRESPONSE = 2
 DTCLUXLNRESPONSE_LOGNAMEMISMATCH: DTCLUXLNRESPONSE = 3
 DTCLUXLNRESPONSE_COLDWARMMISMATCH: DTCLUXLNRESPONSE = 4
 @cfunctype_pointer
-def DTC_GET_TRANSACTION_MANAGER(pszHost: Windows.Win32.Foundation.PSTR, pszTmName: Windows.Win32.Foundation.PSTR, rid: POINTER(Guid), dwReserved1: UInt32, wcbReserved2: UInt16, pvReserved2: c_void_p, ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DTC_GET_TRANSACTION_MANAGER(pszHost: Windows.Win32.Foundation.PSTR, pszTmName: Windows.Win32.Foundation.PSTR, rid: POINTER(Guid), dwReserved1: UInt32, wcbReserved2: UInt16, pvReserved2: VoidPtr, ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @cfunctype_pointer
-def DTC_GET_TRANSACTION_MANAGER_EX_A(i_pszHost: Windows.Win32.Foundation.PSTR, i_pszTmName: Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DTC_GET_TRANSACTION_MANAGER_EX_A(i_pszHost: Windows.Win32.Foundation.PSTR, i_pszTmName: Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @cfunctype_pointer
-def DTC_GET_TRANSACTION_MANAGER_EX_W(i_pwszHost: Windows.Win32.Foundation.PWSTR, i_pwszTmName: Windows.Win32.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+def DTC_GET_TRANSACTION_MANAGER_EX_W(i_pwszHost: Windows.Win32.Foundation.PWSTR, i_pwszTmName: Windows.Win32.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def DTC_INSTALL_CLIENT(i_pszRemoteTmHostName: POINTER(SByte), i_dwProtocol: UInt32, i_dwOverwrite: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 DTC_STATUS_ = Int32
@@ -173,7 +173,7 @@ class IDtcLuRecoveryInitiatedByDtc(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e764-1aea-11d0-944b-00a0c905416e}')
     @commethod(3)
-    def GetWork(self, pWork: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.DTCINITIATEDRECOVERYWORK), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetWork(self, pWork: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.DTCINITIATEDRECOVERYWORK), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDtcLuRecoveryInitiatedByDtcStatusWork(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e766-1aea-11d0-944b-00a0c905416e}')
@@ -403,7 +403,7 @@ class IGetDispenser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c23cc370-87ef-11ce-8081-0080c758527e}')
     @commethod(3)
-    def GetDispenser(self, iid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDispenser(self, iid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKernelTransaction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{79427a2b-f895-40e0-be79-b57dc82ed231}')
@@ -447,7 +447,7 @@ class IResourceManager(ComPtr):
     @commethod(5)
     def ReenlistmentComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetDistributedTransactionManager(self, iid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDistributedTransactionManager(self, iid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IResourceManager2(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager
     _iid_ = Guid('{d136c69a-f749-11d1-8f47-00c04f8ee57d}')
@@ -464,7 +464,7 @@ class IResourceManagerFactory2(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerFactory
     _iid_ = Guid('{6b369c21-fbd2-11d1-8f47-00c04f8ee57d}')
     @commethod(4)
-    def CreateEx(self, pguidRM: POINTER(Guid), pszRMName: Windows.Win32.Foundation.PSTR, pIResMgrSink: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerSink_head, riidRequested: POINTER(Guid), ppvResMgr: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateEx(self, pguidRM: POINTER(Guid), pszRMName: Windows.Win32.Foundation.PSTR, pIResMgrSink: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerSink_head, riidRequested: POINTER(Guid), ppvResMgr: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IResourceManagerRejoinable(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager2
     _iid_ = Guid('{6f6de620-b5df-4f3e-9cfa-c8aebd05172b}')
@@ -578,7 +578,7 @@ class ITransactionImport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e1cf9b5a-8745-11ce-a9ba-00aa006c3706}')
     @commethod(3)
-    def Import(self, cbTransactionCookie: UInt32, rgbTransactionCookie: POINTER(Byte), piid: POINTER(Guid), ppvTransaction: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Import(self, cbTransactionCookie: UInt32, rgbTransactionCookie: POINTER(Byte), piid: POINTER(Guid), ppvTransaction: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITransactionImportWhereabouts(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0141fda4-8fc0-11ce-bd18-204c4f4f5020}')

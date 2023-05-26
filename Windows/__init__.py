@@ -56,8 +56,10 @@ IntPtr = c_ssize_t
 UIntPtr = c_size_t
 Single = c_float
 Double = c_double
+Bytes = c_char_p
 String = c_wchar_p
 Boolean = c_bool
+VoidPtr = c_void_p
 Void = None
 
 

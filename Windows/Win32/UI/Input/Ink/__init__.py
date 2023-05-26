@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.UI.Input.Ink
@@ -34,9 +34,9 @@ class IInkDesktopHost(ComPtr):
     @commethod(3)
     def QueueWorkItem(self, workItem: Windows.Win32.UI.Input.Ink.IInkHostWorkItem_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CreateInkPresenter(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateInkPresenter(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def CreateAndInitializeInkPresenter(self, rootVisual: Windows.Win32.System.Com.IUnknown_head, width: Single, height: Single, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateAndInitializeInkPresenter(self, rootVisual: Windows.Win32.System.Com.IUnknown_head, width: Single, height: Single, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInkHostWorkItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ccda0a9a-1b78-4632-bb96-97800662e26c}')

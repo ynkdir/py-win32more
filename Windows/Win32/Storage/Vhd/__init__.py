@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.Storage.Vhd
@@ -88,9 +88,9 @@ def SetVirtualDiskInformation(VirtualDiskHandle: Windows.Win32.Foundation.HANDLE
 @winfunctype('VirtDisk.dll')
 def EnumerateVirtualDiskMetadata(VirtualDiskHandle: Windows.Win32.Foundation.HANDLE, NumberOfItems: POINTER(UInt32), Items: POINTER(Guid)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('VirtDisk.dll')
-def GetVirtualDiskMetadata(VirtualDiskHandle: Windows.Win32.Foundation.HANDLE, Item: POINTER(Guid), MetaDataSize: POINTER(UInt32), MetaData: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def GetVirtualDiskMetadata(VirtualDiskHandle: Windows.Win32.Foundation.HANDLE, Item: POINTER(Guid), MetaDataSize: POINTER(UInt32), MetaData: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('VirtDisk.dll')
-def SetVirtualDiskMetadata(VirtualDiskHandle: Windows.Win32.Foundation.HANDLE, Item: POINTER(Guid), MetaDataSize: UInt32, MetaData: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def SetVirtualDiskMetadata(VirtualDiskHandle: Windows.Win32.Foundation.HANDLE, Item: POINTER(Guid), MetaDataSize: UInt32, MetaData: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('VirtDisk.dll')
 def DeleteVirtualDiskMetadata(VirtualDiskHandle: Windows.Win32.Foundation.HANDLE, Item: POINTER(Guid)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('VirtDisk.dll')
@@ -436,7 +436,7 @@ class RAW_SCSI_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
             SenseInfoLength: Byte
             SrbFlags: UInt32
             DataTransferLength: UInt32
-            DataBuffer: c_void_p
+            DataBuffer: VoidPtr
             SenseInfo: POINTER(Byte)
             Cdb: POINTER(Byte)
 class RAW_SCSI_VIRTUAL_DISK_RESPONSE(EasyCastStructure):

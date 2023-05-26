@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.Security.WinWlx
@@ -81,7 +81,7 @@ def PWLX_ASSIGN_SHELL_PROTECTION(hWlx: Windows.Win32.Foundation.HANDLE, hToken: 
 @winfunctype_pointer
 def PWLX_CHANGE_PASSWORD_NOTIFY(hWlx: Windows.Win32.Foundation.HANDLE, pMprInfo: POINTER(Windows.Win32.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head), dwChangeInfo: UInt32) -> Int32: ...
 @winfunctype_pointer
-def PWLX_CHANGE_PASSWORD_NOTIFY_EX(hWlx: Windows.Win32.Foundation.HANDLE, pMprInfo: POINTER(Windows.Win32.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head), dwChangeInfo: UInt32, ProviderName: Windows.Win32.Foundation.PWSTR, Reserved: c_void_p) -> Int32: ...
+def PWLX_CHANGE_PASSWORD_NOTIFY_EX(hWlx: Windows.Win32.Foundation.HANDLE, pMprInfo: POINTER(Windows.Win32.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head), dwChangeInfo: UInt32, ProviderName: Windows.Win32.Foundation.PWSTR, Reserved: VoidPtr) -> Int32: ...
 @winfunctype_pointer
 def PWLX_CLOSE_USER_DESKTOP(hWlx: Windows.Win32.Foundation.HANDLE, pDesktop: POINTER(Windows.Win32.Security.WinWlx.WLX_DESKTOP_head), hToken: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -115,7 +115,7 @@ def PWLX_QUERY_TS_LOGON_CREDENTIALS(pCred: POINTER(Windows.Win32.Security.WinWlx
 @winfunctype_pointer
 def PWLX_SAS_NOTIFY(hWlx: Windows.Win32.Foundation.HANDLE, dwSasType: UInt32) -> Void: ...
 @winfunctype_pointer
-def PWLX_SET_CONTEXT_POINTER(hWlx: Windows.Win32.Foundation.HANDLE, pWlxContext: c_void_p) -> Void: ...
+def PWLX_SET_CONTEXT_POINTER(hWlx: Windows.Win32.Foundation.HANDLE, pWlxContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PWLX_SET_OPTION(hWlx: Windows.Win32.Foundation.HANDLE, Option: UInt32, Value: UIntPtr, OldValue: POINTER(UIntPtr)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

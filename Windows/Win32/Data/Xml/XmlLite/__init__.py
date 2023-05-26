@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Data.Xml.XmlLite
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
@@ -14,13 +14,13 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 @winfunctype('XmlLite.dll')
-def CreateXmlReader(riid: POINTER(Guid), ppvObject: POINTER(c_void_p), pMalloc: Windows.Win32.System.Com.IMalloc_head) -> Windows.Win32.Foundation.HRESULT: ...
+def CreateXmlReader(riid: POINTER(Guid), ppvObject: POINTER(VoidPtr), pMalloc: Windows.Win32.System.Com.IMalloc_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XmlLite.dll')
 def CreateXmlReaderInputWithEncodingCodePage(pInputStream: Windows.Win32.System.Com.IUnknown_head, pMalloc: Windows.Win32.System.Com.IMalloc_head, nEncodingCodePage: UInt32, fEncodingHint: Windows.Win32.Foundation.BOOL, pwszBaseUri: Windows.Win32.Foundation.PWSTR, ppInput: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XmlLite.dll')
 def CreateXmlReaderInputWithEncodingName(pInputStream: Windows.Win32.System.Com.IUnknown_head, pMalloc: Windows.Win32.System.Com.IMalloc_head, pwszEncodingName: Windows.Win32.Foundation.PWSTR, fEncodingHint: Windows.Win32.Foundation.BOOL, pwszBaseUri: Windows.Win32.Foundation.PWSTR, ppInput: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XmlLite.dll')
-def CreateXmlWriter(riid: POINTER(Guid), ppvObject: POINTER(c_void_p), pMalloc: Windows.Win32.System.Com.IMalloc_head) -> Windows.Win32.Foundation.HRESULT: ...
+def CreateXmlWriter(riid: POINTER(Guid), ppvObject: POINTER(VoidPtr), pMalloc: Windows.Win32.System.Com.IMalloc_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XmlLite.dll')
 def CreateXmlWriterOutputWithEncodingCodePage(pOutputStream: Windows.Win32.System.Com.IUnknown_head, pMalloc: Windows.Win32.System.Com.IMalloc_head, nEncodingCodePage: UInt32, ppOutput: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XmlLite.dll')

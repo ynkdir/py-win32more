@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Media.Audio
 import Windows.Win32.Media.Audio.Apo
@@ -22,13 +22,13 @@ class APOInitSystemEffects(EasyCastStructure):
     APOInit: Windows.Win32.Media.Audio.Apo.APOInitBaseStruct
     pAPOEndpointProperties: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head
     pAPOSystemEffectsProperties: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head
-    pReserved: c_void_p
+    pReserved: VoidPtr
     pDeviceCollection: Windows.Win32.Media.Audio.IMMDeviceCollection_head
 class APOInitSystemEffects2(EasyCastStructure):
     APOInit: Windows.Win32.Media.Audio.Apo.APOInitBaseStruct
     pAPOEndpointProperties: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head
     pAPOSystemEffectsProperties: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head
-    pReserved: c_void_p
+    pReserved: VoidPtr
     pDeviceCollection: Windows.Win32.Media.Audio.IMMDeviceCollection_head
     nSoftwareIoDeviceInCollection: UInt32
     nSoftwareIoConnectorIndex: UInt32
@@ -300,7 +300,7 @@ EAudioConstriction_eAudioConstriction44_16: EAudioConstriction = 2
 EAudioConstriction_eAudioConstriction14_14: EAudioConstriction = 3
 EAudioConstriction_eAudioConstrictionMute: EAudioConstriction = 4
 @winfunctype_pointer
-def FNAPONOTIFICATIONCALLBACK(pProperties: POINTER(Windows.Win32.Media.Audio.Apo.APO_REG_PROPERTIES_head), pvRefData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def FNAPONOTIFICATIONCALLBACK(pProperties: POINTER(Windows.Win32.Media.Audio.Apo.APO_REG_PROPERTIES_head), pvRefData: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IApoAcousticEchoCancellation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{25385759-3236-4101-a943-25693dfb5d2d}')

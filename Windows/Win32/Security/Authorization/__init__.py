@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.Security.Authorization
@@ -72,7 +72,7 @@ class ACTRL_OVERLAPPED(EasyCastStructure):
     Reserved2: UInt32
     hEvent: Windows.Win32.Foundation.HANDLE
     class _Anonymous_e__Union(EasyCastUnion):
-        Provider: c_void_p
+        Provider: VoidPtr
         Reserved1: UInt32
 class ACTRL_PROPERTY_ENTRYA(EasyCastStructure):
     lpProperty: Windows.Win32.Foundation.PSTR
@@ -143,7 +143,7 @@ class AUTHZ_ACCESS_REQUEST(EasyCastStructure):
     PrincipalSelfSid: Windows.Win32.Foundation.PSID
     ObjectTypeList: POINTER(Windows.Win32.Security.OBJECT_TYPE_LIST_head)
     ObjectTypeListLength: UInt32
-    OptionalArguments: c_void_p
+    OptionalArguments: VoidPtr
 AUTHZ_AUDIT_EVENT_HANDLE = IntPtr
 AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = Int32
 AUTHZ_AUDIT_EVENT_INFORMATION_CLASS_AuthzAuditEventInfoFlags: AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 1
@@ -229,7 +229,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE(EasyCastStructure):
     Version: UInt64
     pName: Windows.Win32.Foundation.PWSTR
 class AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE(EasyCastStructure):
-    pValue: c_void_p
+    pValue: VoidPtr
     ValueLength: UInt32
 AUTHZ_SECURITY_ATTRIBUTE_OPERATION = Int32
 AUTHZ_SECURITY_ATTRIBUTE_OPERATION_NONE: AUTHZ_SECURITY_ATTRIBUTE_OPERATION = 0
@@ -268,7 +268,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION(EasyCastStructure):
     dwObjectTypeNameCount: UInt32
     ObjectTypeNames: Windows.Win32.Security.Authorization.AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET * 1
     class _Anonymous_e__Union(EasyCastUnion):
-        pReserved: c_void_p
+        pReserved: VoidPtr
         pProviderGuid: POINTER(Guid)
 AZ_PROP_CONSTANTS = Int32
 AZ_PROP_NAME: AZ_PROP_CONSTANTS = 1
@@ -668,11 +668,11 @@ def AuthzInitializeRemoteResourceManager(pRpcInitInfo: POINTER(Windows.Win32.Sec
 @winfunctype('AUTHZ.dll')
 def AuthzFreeResourceManager(hAuthzResourceManager: Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
-def AuthzInitializeContextFromToken(Flags: UInt32, TokenHandle: Windows.Win32.Foundation.HANDLE, hAuthzResourceManager: Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_HANDLE, pExpirationTime: POINTER(Int64), Identifier: Windows.Win32.Foundation.LUID, DynamicGroupArgs: c_void_p, phAuthzClientContext: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE)) -> Windows.Win32.Foundation.BOOL: ...
+def AuthzInitializeContextFromToken(Flags: UInt32, TokenHandle: Windows.Win32.Foundation.HANDLE, hAuthzResourceManager: Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_HANDLE, pExpirationTime: POINTER(Int64), Identifier: Windows.Win32.Foundation.LUID, DynamicGroupArgs: VoidPtr, phAuthzClientContext: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
-def AuthzInitializeContextFromSid(Flags: UInt32, UserSid: Windows.Win32.Foundation.PSID, hAuthzResourceManager: Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_HANDLE, pExpirationTime: POINTER(Int64), Identifier: Windows.Win32.Foundation.LUID, DynamicGroupArgs: c_void_p, phAuthzClientContext: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE)) -> Windows.Win32.Foundation.BOOL: ...
+def AuthzInitializeContextFromSid(Flags: UInt32, UserSid: Windows.Win32.Foundation.PSID, hAuthzResourceManager: Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_HANDLE, pExpirationTime: POINTER(Int64), Identifier: Windows.Win32.Foundation.LUID, DynamicGroupArgs: VoidPtr, phAuthzClientContext: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
-def AuthzInitializeContextFromAuthzContext(Flags: UInt32, hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, pExpirationTime: POINTER(Int64), Identifier: Windows.Win32.Foundation.LUID, DynamicGroupArgs: c_void_p, phNewAuthzClientContext: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE)) -> Windows.Win32.Foundation.BOOL: ...
+def AuthzInitializeContextFromAuthzContext(Flags: UInt32, hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, pExpirationTime: POINTER(Int64), Identifier: Windows.Win32.Foundation.LUID, DynamicGroupArgs: VoidPtr, phNewAuthzClientContext: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
 def AuthzInitializeCompoundContext(UserContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, DeviceContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, phCompoundContext: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
@@ -686,7 +686,7 @@ def AuthzModifySids(hAuthzClientContext: Windows.Win32.Security.Authorization.AU
 @winfunctype('AUTHZ.dll')
 def AuthzSetAppContainerInformation(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, pAppContainerSid: Windows.Win32.Foundation.PSID, CapabilityCount: UInt32, pCapabilitySids: POINTER(Windows.Win32.Security.SID_AND_ATTRIBUTES_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
-def AuthzGetInformationFromContext(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, InfoClass: Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS, BufferSize: UInt32, pSizeRequired: POINTER(UInt32), Buffer: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def AuthzGetInformationFromContext(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, InfoClass: Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS, BufferSize: UInt32, pSizeRequired: POINTER(UInt32), Buffer: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
 def AuthzFreeContext(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @cfunctype('AUTHZ.dll', variadic=True)
@@ -712,7 +712,7 @@ def AuthzReportSecurityEvent(dwFlags: UInt32, hEventProvider: Windows.Win32.Secu
 @winfunctype('AUTHZ.dll')
 def AuthzReportSecurityEventFromParams(dwFlags: UInt32, hEventProvider: Windows.Win32.Security.Authorization.AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE, dwAuditId: UInt32, pUserSid: Windows.Win32.Foundation.PSID, pParams: POINTER(Windows.Win32.Security.Authorization.AUDIT_PARAMS_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
-def AuthzRegisterCapChangeNotification(phCapChangeSubscription: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE), pfnCapChangeCallback: Windows.Win32.System.Threading.LPTHREAD_START_ROUTINE, pCallbackContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def AuthzRegisterCapChangeNotification(phCapChangeSubscription: POINTER(Windows.Win32.Security.Authorization.AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE), pfnCapChangeCallback: Windows.Win32.System.Threading.LPTHREAD_START_ROUTINE, pCallbackContext: VoidPtr) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
 def AuthzUnregisterCapChangeNotification(hCapChangeSubscription: Windows.Win32.Security.Authorization.AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AUTHZ.dll')
@@ -752,13 +752,13 @@ def GetInheritanceSourceW(pObjectName: Windows.Win32.Foundation.PWSTR, ObjectTyp
 @winfunctype('ADVAPI32.dll')
 def FreeInheritedFromArray(pInheritArray: POINTER(Windows.Win32.Security.Authorization.INHERITED_FROMW_head), AceCnt: UInt16, pfnArray: POINTER(Windows.Win32.Security.Authorization.FN_OBJECT_MGR_FUNCTS_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def TreeResetNamedSecurityInfoA(pObjectName: Windows.Win32.Foundation.PSTR, ObjectType: Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: UInt32, pOwner: Windows.Win32.Foundation.PSID, pGroup: Windows.Win32.Foundation.PSID, pDacl: POINTER(Windows.Win32.Security.ACL_head), pSacl: POINTER(Windows.Win32.Security.ACL_head), KeepExplicit: Windows.Win32.Foundation.BOOL, fnProgress: Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def TreeResetNamedSecurityInfoA(pObjectName: Windows.Win32.Foundation.PSTR, ObjectType: Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: UInt32, pOwner: Windows.Win32.Foundation.PSID, pGroup: Windows.Win32.Foundation.PSID, pDacl: POINTER(Windows.Win32.Security.ACL_head), pSacl: POINTER(Windows.Win32.Security.ACL_head), KeepExplicit: Windows.Win32.Foundation.BOOL, fnProgress: Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def TreeResetNamedSecurityInfoW(pObjectName: Windows.Win32.Foundation.PWSTR, ObjectType: Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: UInt32, pOwner: Windows.Win32.Foundation.PSID, pGroup: Windows.Win32.Foundation.PSID, pDacl: POINTER(Windows.Win32.Security.ACL_head), pSacl: POINTER(Windows.Win32.Security.ACL_head), KeepExplicit: Windows.Win32.Foundation.BOOL, fnProgress: Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def TreeResetNamedSecurityInfoW(pObjectName: Windows.Win32.Foundation.PWSTR, ObjectType: Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: UInt32, pOwner: Windows.Win32.Foundation.PSID, pGroup: Windows.Win32.Foundation.PSID, pDacl: POINTER(Windows.Win32.Security.ACL_head), pSacl: POINTER(Windows.Win32.Security.ACL_head), KeepExplicit: Windows.Win32.Foundation.BOOL, fnProgress: Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def TreeSetNamedSecurityInfoA(pObjectName: Windows.Win32.Foundation.PSTR, ObjectType: Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: UInt32, pOwner: Windows.Win32.Foundation.PSID, pGroup: Windows.Win32.Foundation.PSID, pDacl: POINTER(Windows.Win32.Security.ACL_head), pSacl: POINTER(Windows.Win32.Security.ACL_head), dwAction: Windows.Win32.Security.Authorization.TREE_SEC_INFO, fnProgress: Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def TreeSetNamedSecurityInfoA(pObjectName: Windows.Win32.Foundation.PSTR, ObjectType: Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: UInt32, pOwner: Windows.Win32.Foundation.PSID, pGroup: Windows.Win32.Foundation.PSID, pDacl: POINTER(Windows.Win32.Security.ACL_head), pSacl: POINTER(Windows.Win32.Security.ACL_head), dwAction: Windows.Win32.Security.Authorization.TREE_SEC_INFO, fnProgress: Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def TreeSetNamedSecurityInfoW(pObjectName: Windows.Win32.Foundation.PWSTR, ObjectType: Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: UInt32, pOwner: Windows.Win32.Foundation.PSID, pGroup: Windows.Win32.Foundation.PSID, pDacl: POINTER(Windows.Win32.Security.ACL_head), pSacl: POINTER(Windows.Win32.Security.ACL_head), dwAction: Windows.Win32.Security.Authorization.TREE_SEC_INFO, fnProgress: Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: c_void_p) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def TreeSetNamedSecurityInfoW(pObjectName: Windows.Win32.Foundation.PWSTR, ObjectType: Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: UInt32, pOwner: Windows.Win32.Foundation.PSID, pGroup: Windows.Win32.Foundation.PSID, pDacl: POINTER(Windows.Win32.Security.ACL_head), pSacl: POINTER(Windows.Win32.Security.ACL_head), dwAction: Windows.Win32.Security.Authorization.TREE_SEC_INFO, fnProgress: Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: VoidPtr) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def BuildSecurityDescriptorA(pOwner: POINTER(Windows.Win32.Security.Authorization.TRUSTEE_A_head), pGroup: POINTER(Windows.Win32.Security.Authorization.TRUSTEE_A_head), cCountOfAccessEntries: UInt32, pListOfAccessEntries: POINTER(Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A_head), cCountOfAuditEntries: UInt32, pListOfAuditEntries: POINTER(Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A_head), pOldSD: Windows.Win32.Security.PSECURITY_DESCRIPTOR, pSizeNewSD: POINTER(UInt32), pNewSD: POINTER(Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -847,7 +847,7 @@ class EXPLICIT_ACCESS_W(EasyCastStructure):
 class FN_OBJECT_MGR_FUNCTS(EasyCastStructure):
     Placeholder: UInt32
 @winfunctype_pointer
-def FN_PROGRESS(pObjectName: Windows.Win32.Foundation.PWSTR, Status: UInt32, pInvokeSetting: POINTER(Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING), Args: c_void_p, SecuritySet: Windows.Win32.Foundation.BOOL) -> Void: ...
+def FN_PROGRESS(pObjectName: Windows.Win32.Foundation.PWSTR, Status: UInt32, pInvokeSetting: POINTER(Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING), Args: VoidPtr, SecuritySet: Windows.Win32.Foundation.BOOL) -> Void: ...
 class IAzApplication(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{987bc7c7-b813-4d27-bede-6ba5ae867e95}')
@@ -1713,15 +1713,15 @@ class OBJECTS_AND_SID(EasyCastStructure):
     InheritedObjectTypeGuid: Guid
     pSid: POINTER(Windows.Win32.Security.SID_head)
 @winfunctype_pointer
-def PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, Args: c_void_p, pSidAttrArray: POINTER(POINTER(Windows.Win32.Security.SID_AND_ATTRIBUTES_head)), pSidCount: POINTER(UInt32), pRestrictedSidAttrArray: POINTER(POINTER(Windows.Win32.Security.SID_AND_ATTRIBUTES_head)), pRestrictedSidCount: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, Args: VoidPtr, pSidAttrArray: POINTER(POINTER(Windows.Win32.Security.SID_AND_ATTRIBUTES_head)), pSidCount: POINTER(UInt32), pRestrictedSidAttrArray: POINTER(POINTER(Windows.Win32.Security.SID_AND_ATTRIBUTES_head)), pRestrictedSidCount: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_AUTHZ_DYNAMIC_ACCESS_CHECK(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, pAce: POINTER(Windows.Win32.Security.ACE_HEADER_head), pArgs: c_void_p, pbAceApplicable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_AUTHZ_DYNAMIC_ACCESS_CHECK(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, pAce: POINTER(Windows.Win32.Security.ACE_HEADER_head), pArgs: VoidPtr, pbAceApplicable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_AUTHZ_FREE_CENTRAL_ACCESS_POLICY(pCentralAccessPolicy: c_void_p) -> Void: ...
+def PFN_AUTHZ_FREE_CENTRAL_ACCESS_POLICY(pCentralAccessPolicy: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PFN_AUTHZ_FREE_DYNAMIC_GROUPS(pSidAttrArray: POINTER(Windows.Win32.Security.SID_AND_ATTRIBUTES_head)) -> Void: ...
 @winfunctype_pointer
-def PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, capid: Windows.Win32.Foundation.PSID, pArgs: c_void_p, pCentralAccessPolicyApplicable: POINTER(Windows.Win32.Foundation.BOOL), ppCentralAccessPolicy: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
+def PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY(hAuthzClientContext: Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, capid: Windows.Win32.Foundation.PSID, pArgs: VoidPtr, pCentralAccessPolicyApplicable: POINTER(Windows.Win32.Foundation.BOOL), ppCentralAccessPolicy: POINTER(VoidPtr)) -> Windows.Win32.Foundation.BOOL: ...
 PROG_INVOKE_SETTING = Int32
 PROG_INVOKE_SETTING_ProgressInvokeNever: PROG_INVOKE_SETTING = 1
 PROG_INVOKE_SETTING_ProgressInvokeEveryObject: PROG_INVOKE_SETTING = 2

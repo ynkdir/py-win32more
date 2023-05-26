@@ -1,6 +1,6 @@
 from __future__ import annotations
-from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from ctypes import POINTER
+from Windows import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import Windows.Win32.AI.MachineLearning.WinML
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D12
@@ -25,7 +25,7 @@ class IMLOperatorAttributes(ComPtr):
     @commethod(3)
     def GetAttributeElementCount(self, name: Windows.Win32.Foundation.PSTR, type: Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType, elementCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetAttribute(self, name: Windows.Win32.Foundation.PSTR, type: Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType, elementCount: UInt32, elementByteSize: UIntPtr, value: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetAttribute(self, name: Windows.Win32.Foundation.PSTR, type: Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType, elementCount: UInt32, elementByteSize: UIntPtr, value: VoidPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetStringAttributeElementLength(self, name: Windows.Win32.Foundation.PSTR, elementIndex: UInt32, attributeElementByteSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -119,7 +119,7 @@ class IMLOperatorTensor(ComPtr):
     @commethod(7)
     def IsDataInterface(self) -> Boolean: ...
     @commethod(8)
-    def GetData(self) -> c_void_p: ...
+    def GetData(self) -> VoidPtr: ...
     @commethod(9)
     def GetDataInterface(self, dataInterface: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Void: ...
 class IMLOperatorTensorShapeDescription(ComPtr):
@@ -199,7 +199,7 @@ class MLOperatorAttributeNameValue(EasyCastStructure):
     valueCount: UInt32
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        reserved: c_void_p
+        reserved: VoidPtr
         ints: POINTER(Int64)
         strings: POINTER(POINTER(SByte))
         floats: POINTER(Single)
@@ -264,7 +264,7 @@ class MLOperatorSchemaEdgeDescription(EasyCastStructure):
     typeFormat: Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeTypeFormat
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        reserved: c_void_p
+        reserved: VoidPtr
         typeLabel: Windows.Win32.Foundation.PSTR
         edgeDescription: Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription
 MLOperatorSchemaEdgeTypeFormat = Int32
@@ -318,7 +318,7 @@ class WINML_IMAGE_BINDING_DESC(EasyCastStructure):
     NumDimensions: UInt32
     pShape: POINTER(Int64)
     DataSize: UInt32
-    pData: c_void_p
+    pData: VoidPtr
 class WINML_IMAGE_VARIABLE_DESC(EasyCastStructure):
     ElementType: Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
@@ -369,7 +369,7 @@ class WINML_TENSOR_BINDING_DESC(EasyCastStructure):
     NumDimensions: UInt32
     pShape: POINTER(Int64)
     DataSize: UInt32
-    pData: c_void_p
+    pData: VoidPtr
 WINML_TENSOR_DATA_TYPE = Int32
 WINML_TENSOR_UNDEFINED: WINML_TENSOR_DATA_TYPE = 0
 WINML_TENSOR_FLOAT: WINML_TENSOR_DATA_TYPE = 1
