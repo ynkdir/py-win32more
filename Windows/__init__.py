@@ -16,20 +16,21 @@ from ctypes import (
     c_char_p,
     c_double,
     c_float,
-    c_int,
-    c_longlong,
-    c_short,
+    c_int16,
+    c_int32,
+    c_int64,
+    c_size_t,
+    c_ssize_t,
     c_ubyte,
-    c_uint,
-    c_ulonglong,
-    c_ushort,
+    c_uint16,
+    c_uint32,
+    c_uint64,
     c_void_p,
     c_wchar,
     c_wchar_p,
     cast,
     cdll,
     pointer,
-    sizeof,
     windll,
 )
 
@@ -45,20 +46,14 @@ MissingType = c_void_p
 Byte = c_ubyte
 SByte = c_byte
 Char = c_wchar
-Int16 = c_short
-UInt16 = c_ushort
-Int32 = c_int
-UInt32 = c_uint
-Int64 = c_longlong
-UInt64 = c_ulonglong
-if sizeof(c_void_p) == sizeof(Int64):
-    IntPtr = Int64
-    UIntPtr = UInt64
-elif sizeof(c_void_p) == sizeof(Int32):
-    IntPtr = Int32
-    UIntPtr = UInt32
-else:
-    raise NotImplementedError()
+Int16 = c_int16
+UInt16 = c_uint16
+Int32 = c_int32
+UInt32 = c_uint32
+Int64 = c_int64
+UInt64 = c_uint64
+IntPtr = c_ssize_t
+UIntPtr = c_size_t
 Single = c_float
 Double = c_double
 String = c_wchar_p
@@ -216,7 +211,9 @@ def FAILED(hr):
 
 
 def get_type_hints(prototype, include_extras=False):
-    hints = typing.get_type_hints(prototype, localns=getattr(prototype, "__dict__", None), include_extras=include_extras)
+    hints = typing.get_type_hints(
+        prototype, localns=getattr(prototype, "__dict__", None), include_extras=include_extras
+    )
     for name, type_ in hints.items():
         if type_ is None.__class__:
             hints[name] = None
