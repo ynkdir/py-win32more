@@ -4,14 +4,14 @@ from ctypes import (
     WinError,
 )
 
-from Windows import FAILED
-from Windows.UI.Popups import MessageDialog
-from Windows.Win32.System.WinRT import (
+from win32more import FAILED
+from win32more.Windows.UI.Popups import MessageDialog
+from win32more.Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
     RoInitialize,
     RoUninitialize,
 )
-from Windows.Win32.UI.Shell import IInitializeWithWindow
+from win32more.Windows.Win32.UI.Shell import IInitializeWithWindow
 
 
 def initialize_with_window(obj, hwnd):

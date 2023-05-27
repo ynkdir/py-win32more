@@ -17,6 +17,8 @@ if sys.version_info < (3, 11):
 else:
     from typing import TypeAlias
 
+PACKAGE_NAME = "win32more"
+
 BASE_EXPORTS = [
     "ARCH",
     "MissingType",
@@ -140,14 +142,14 @@ class TType:
     def pytype(self) -> str:
         if self.kind == "Primitive":
             if self.name == "Object":
-                return "Windows.Win32.System.WinRT.IInspectable_head"
+                return f"{PACKAGE_NAME}.Windows.Win32.System.WinRT.IInspectable_head"
             elif self.name == "String":
                 return "WinRT_String"
             else:
                 return self.name
         elif self.kind == "Reference":
             if self.type.is_struct:
-                return f"POINTER({self.type.fullname}_head)"
+                return f"POINTER({PACKAGE_NAME}.{self.type.fullname}_head)"
             else:
                 return f"POINTER({self.type.pytype})"
         elif self.kind == "SZArray":
@@ -161,13 +163,13 @@ class TType:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                 return self.fullname
             elif self.is_com:
-                return f"{self.fullname}"
+                return f"{PACKAGE_NAME}.{self.fullname}"
             else:
-                return self.fullname
+                return f"{PACKAGE_NAME}.{self.fullname}"
         elif self.kind == "Generic":
-            return self.generic_fullname
+            return f"{PACKAGE_NAME}.{self.generic_fullname}"
         elif self.kind == "GenericParameter":
-            return self.name
+            return f"{PACKAGE_NAME}.{self.name}"
         elif self.kind == "Modified" and self.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
             return self.unmodified_type.pytype
         else:
@@ -1311,7 +1313,7 @@ class PyGenerator:
         writer.write(f"    extends: {extends}\n")
         for ii in td.interface_implementations:
             if ii.custom_attributes.has_default():
-                writer.write(f"    default_interface: {ii.generic_fullname}\n")
+                writer.write(f"    default_interface: {PACKAGE_NAME}.{ii.generic_fullname}\n")
                 break
         writer.write(f"    _classid_ = '{td.namespace}.{classname}'\n")
         if td.custom_attributes.has_guid():
@@ -1389,11 +1391,11 @@ class PyGenerator:
 
     def com_base_type(self, td: TypeDefinition) -> str:
         if td.basetype is None:
-            return "Windows.Win32.System.WinRT.IInspectable"
+            return f"{PACKAGE_NAME}.Windows.Win32.System.WinRT.IInspectable"
         elif td.basetype == "System.Object":
-            return "Windows.Win32.System.WinRT.IInspectable"
+            return f"{PACKAGE_NAME}.Windows.Win32.System.WinRT.IInspectable"
         else:
-            return td.basetype
+            return f"{PACKAGE_NAME}.{td.basetype}"
 
     def com_implement_types(self, td: TypeDefinition) -> str:
         return ", ".join(ii.generic_fullname for ii in td.interface_implementations)
@@ -1458,7 +1460,7 @@ class PyGenerator:
             # FIXME: Workaround for overload method.
             if overload_count > 1:
                 method_name = f"{method_name}_{overload_count}"
-            params[0] = f"self: {interface}"
+            params[0] = f"self: {PACKAGE_NAME}.{interface}"
         else:
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @winrt_commethod({vtbl_index})\n")
@@ -1499,7 +1501,7 @@ class PyGenerator:
             name = td.name
             base = "MulticastDelegate"
         writer.write(f"class {name}({base}):\n")
-        writer.write("    extends: Windows.Win32.System.Com.IUnknown\n")
+        writer.write(f"    extends: {PACKAGE_NAME}.Windows.Win32.System.Com.IUnknown\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
@@ -1550,19 +1552,19 @@ class PyGenerator:
         )
 
     def emit_import_base(self) -> str:
-        return f"from Windows import {BASE_EXPORTS_CSV}\n"
+        return f"from {PACKAGE_NAME} import {BASE_EXPORTS_CSV}\n"
 
     def emit_import_winrt(self) -> str:
-        return f"from Windows._winrt import {WINRT_EXPORTS_CSV}\n"
+        return f"from {PACKAGE_NAME}._winrt import {WINRT_EXPORTS_CSV}\n"
 
     def emit_include_base(self) -> str:
-        return (Path(__file__).parent / "Windows\\__init__.py").read_text()
+        return (Path(__file__).parent / f"{PACKAGE_NAME}\\__init__.py").read_text()
 
     def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
-        writer.write("import Windows.Win32.System.WinRT\n")
+        writer.write(f"import {PACKAGE_NAME}.Windows.Win32.System.WinRT\n")
         for namespace in sorted(import_namespaces):
-            writer.write(f"import {namespace}\n")
+            writer.write(f"import {PACKAGE_NAME}.{namespace}\n")
         return writer.getvalue()
 
     def emit_getattr(self) -> str:
@@ -1698,7 +1700,7 @@ class Selector:
 
 
 def make_module_path_for_write(namespace) -> TextIO:
-    p = Path(namespace.replace(".", "/"))
+    p = Path(PACKAGE_NAME) / Path(namespace.replace(".", "/"))
     p.mkdir(parents=True, exist_ok=True)
     for i in range(len(p.parents) - 1):
         d = p.parents[i]

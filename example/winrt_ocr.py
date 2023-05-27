@@ -4,18 +4,18 @@ from ctypes import (
     WinError,
 )
 
-from Windows import FAILED
-from Windows.Graphics.Imaging import BitmapDecoder
-from Windows.Media.Ocr import OcrEngine
-from Windows.Storage import FileAccessMode_Read
-from Windows.Storage.Pickers import FileOpenPicker
-from Windows.UI.Popups import MessageDialog
-from Windows.Win32.System.WinRT import (
+from win32more import FAILED
+from win32more.Windows.Graphics.Imaging import BitmapDecoder
+from win32more.Windows.Media.Ocr import OcrEngine
+from win32more.Windows.Storage import FileAccessMode_Read
+from win32more.Windows.Storage.Pickers import FileOpenPicker
+from win32more.Windows.UI.Popups import MessageDialog
+from win32more.Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
     RoInitialize,
     RoUninitialize,
 )
-from Windows.Win32.UI.Shell import IInitializeWithWindow
+from win32more.Windows.Win32.UI.Shell import IInitializeWithWindow
 
 mainhwnd = None
 

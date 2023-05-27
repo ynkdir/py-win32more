@@ -5,17 +5,17 @@ from ctypes import (
 )
 from pathlib import Path
 
-from Windows import FAILED
-from Windows._winrt import SZArray, WinRT_String
-from Windows.Foundation.Collections import StringMap
-from Windows.Storage import FileIO, PathIO, StorageFile
-from Windows.Win32.Foundation import WAIT_FAILED, WAIT_TIMEOUT
-from Windows.Win32.System.WinRT import (
+from win32more import FAILED
+from win32more._winrt import SZArray, WinRT_String
+from win32more.Windows.Foundation.Collections import StringMap
+from win32more.Windows.Storage import FileIO, PathIO, StorageFile
+from win32more.Windows.Win32.Foundation import WAIT_FAILED, WAIT_TIMEOUT
+from win32more.Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
     RoInitialize,
     RoUninitialize,
 )
-from Windows.Win32.UI.WindowsAndMessaging import (
+from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     MSG,
     MWMO_INPUTAVAILABLE,
     PM_REMOVE,

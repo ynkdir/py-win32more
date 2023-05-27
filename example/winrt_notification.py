@@ -1,9 +1,9 @@
 from ctypes import WinError
 
-from Windows import FAILED
-from Windows.Data.Xml.Dom import XmlDocument
-from Windows.UI.Notifications import ToastNotification, ToastNotificationManager
-from Windows.Win32.System.WinRT import (
+from win32more import FAILED
+from win32more.Windows.Data.Xml.Dom import XmlDocument
+from win32more.Windows.UI.Notifications import ToastNotification, ToastNotificationManager
+from win32more.Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
     RoInitialize,
     RoUninitialize,

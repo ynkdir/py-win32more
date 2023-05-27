@@ -7,39 +7,39 @@ from ctypes import (
     WinError,
 )
 
-from Windows import (
+from win32more import (
     FAILED,
 )
-from Windows.UI import (
+from win32more.Windows.UI import (
     Colors,
 )
-from Windows.UI.Xaml import (
+from win32more.Windows.UI.Xaml import (
     HorizontalAlignment_Center,
     VerticalAlignment_Center,
 )
-from Windows.UI.Xaml.Controls import (
+from win32more.Windows.UI.Xaml.Controls import (
     StackPanel,
     TextBox,
 )
-from Windows.UI.Xaml.Hosting import (
+from win32more.Windows.UI.Xaml.Hosting import (
     DesktopWindowXamlSource,
     WindowsXamlManager,
 )
-from Windows.UI.Xaml.Media import (
+from win32more.Windows.UI.Xaml.Media import (
     SolidColorBrush,
 )
-from Windows.Win32.Foundation import (
+from win32more.Windows.Win32.Foundation import (
     HWND,
 )
-from Windows.Win32.System.WinRT import (
+from win32more.Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
     RoInitialize,
     RoUninitialize,
 )
-from Windows.Win32.System.WinRT.Xaml import (
+from win32more.Windows.Win32.System.WinRT.Xaml import (
     IDesktopWindowXamlSourceNative,
 )
-from Windows.Win32.UI.WindowsAndMessaging import (
+from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     SWP_SHOWWINDOW,
     SetWindowPos,
 )
