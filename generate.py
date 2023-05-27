@@ -17,6 +17,8 @@ if sys.version_info < (3, 11):
 else:
     from typing import TypeAlias
 
+PACKAGE_NAME = "win32more"
+
 BASE_EXPORTS = [
     "ARCH",
     "Boolean",
@@ -120,7 +122,7 @@ class TType:
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "VoidPtr"
             elif self.type.is_struct:
-                return f"POINTER({self.type.fullname}_head)"
+                return f"POINTER({PACKAGE_NAME}.{self.type.fullname}_head)"
             else:
                 return f"POINTER({self.type.pytype})"
         elif self.kind == "SZArray":
@@ -136,9 +138,9 @@ class TType:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                 return "MissingType"
             elif self.is_com:
-                return f"{self.fullname}_head"
+                return f"{PACKAGE_NAME}.{self.fullname}_head"
             else:
-                return self.fullname
+                return f"{PACKAGE_NAME}.{self.fullname}"
         else:
             raise NotImplementedError()
 
@@ -1171,7 +1173,8 @@ class PyGenerator:
     def com_base_type(self, td: TypeDefinition) -> str:
         if not td.interface_implementations:
             return "None"
-        return td.interface_implementations[0].interface.type_reference.fullname
+        base = td.interface_implementations[0].interface.type_reference.fullname
+        return f"{PACKAGE_NAME}.{base}"
 
     def emit_attribute(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1209,15 +1212,15 @@ class PyGenerator:
         return "from ctypes import POINTER\n"
 
     def emit_import_base(self) -> str:
-        return f"from Windows import {BASE_EXPORTS_CSV}\n"
+        return f"from {PACKAGE_NAME} import {BASE_EXPORTS_CSV}\n"
 
     def emit_include_base(self) -> str:
-        return (Path(__file__).parent / "Windows\\__init__.py").read_text()
+        return (Path(__file__).parent / f"{PACKAGE_NAME}\\__init__.py").read_text()
 
     def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
         for namespace in sorted(import_namespaces):
-            writer.write(f"import {namespace}\n")
+            writer.write(f"import {PACKAGE_NAME}.{namespace}\n")
         return writer.getvalue()
 
     def emit_getattr(self) -> str:
@@ -1349,7 +1352,7 @@ class Selector:
 
 
 def make_module_path_for_write(namespace) -> TextIO:
-    p = Path(namespace.replace(".", "/"))
+    p = Path(PACKAGE_NAME) / Path(namespace.replace(".", "/"))
     p.mkdir(parents=True, exist_ok=True)
     for i in range(len(p.parents) - 1):
         d = p.parents[i]

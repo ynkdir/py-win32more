@@ -3,10 +3,10 @@
 from contextlib import ExitStack
 from ctypes import WinError, byref, pointer
 
-from Windows import FAILED, Guid, Int32
-from Windows.Win32.Foundation import PWSTR, SysAllocString
-from Windows.Win32.Media.KernelStreaming import GUID_NULL
-from Windows.Win32.System.Com import (
+from win32more import FAILED, Guid, Int32
+from win32more.Windows.Win32.Foundation import PWSTR, SysAllocString
+from win32more.Windows.Win32.Media.KernelStreaming import GUID_NULL
+from win32more.Windows.Win32.System.Com import (
     CLSCTX_LOCAL_SERVER,
     DISPATCH_METHOD,
     DISPATCH_PROPERTYGET,
@@ -19,12 +19,12 @@ from Windows.Win32.System.Com import (
     CoUninitialize,
     IDispatch,
 )
-from Windows.Win32.System.Ole import (
+from win32more.Windows.Win32.System.Ole import (
     DISPID_PROPERTYPUT,
     SafeArrayCreate,
     SafeArrayPutElement,
 )
-from Windows.Win32.System.Variant import (
+from win32more.Windows.Win32.System.Variant import (
     VARIANT,
     VT_ARRAY,
     VT_BSTR,
@@ -36,7 +36,7 @@ from Windows.Win32.System.Variant import (
     VT_VARIANT,
     VariantClear,
 )
-from Windows.Win32.UI.WindowsAndMessaging import MB_OK, MessageBoxW
+from win32more.Windows.Win32.UI.WindowsAndMessaging import MB_OK, MessageBoxW
 
 # missing constants in win32metadata
 LOCALE_SYSTEM_DEFAULT = 2048

@@ -11,7 +11,7 @@ from ctypes import (
     wstring_at,
 )
 
-from Windows import (
+from win32more import (
     EasyCastStructure,
     ForeignFunction,
     Int16,

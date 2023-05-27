@@ -7,7 +7,7 @@ name = "py-win32more"
 version = "0.4.0"
 
 [tool.hatch.build]
-only-include = ["Windows"]
+only-include = ["win32more"]
 
 [tool.hatch.envs.default]
 dependencies = [
