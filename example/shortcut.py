@@ -1,15 +1,15 @@
 from ctypes import WinError
 from pathlib import Path
 
-from Windows import FAILED
-from Windows.Win32.System.Com import (
+from win32more import FAILED
+from win32more.Windows.Win32.System.Com import (
     CLSCTX_INPROC_SERVER,
     CoCreateInstance,
     CoInitialize,
     CoUninitialize,
     IPersistFile,
 )
-from Windows.Win32.UI.Shell import IShellLinkW, ShellLink
+from win32more.Windows.Win32.UI.Shell import IShellLinkW, ShellLink
 
 hr = CoInitialize(None)
 if FAILED(hr):

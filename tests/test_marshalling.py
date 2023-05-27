@@ -13,7 +13,7 @@ from ctypes import (
     py_object,
 )
 
-from Windows import (
+from win32more import (
     Boolean,
     Char,
     Double,

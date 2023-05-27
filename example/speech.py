@@ -1,9 +1,9 @@
 from contextlib import ExitStack
 from ctypes import WinError
 
-from Windows import FAILED
-from Windows.Win32.Foundation import PWSTR, S_OK
-from Windows.Win32.Media.Speech import (
+from win32more import FAILED
+from win32more.Windows.Win32.Foundation import PWSTR, S_OK
+from win32more.Windows.Win32.Media.Speech import (
     SPF_DEFAULT,
     IEnumSpObjectTokens,
     ISpObjectToken,
@@ -12,7 +12,7 @@ from Windows.Win32.Media.Speech import (
     SpObjectTokenCategory,
     SpVoice,
 )
-from Windows.Win32.System.Com import (
+from win32more.Windows.Win32.System.Com import (
     CLSCTX_INPROC_SERVER,
     CoCreateInstance,
     CoInitialize,

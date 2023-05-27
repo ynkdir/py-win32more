@@ -17,38 +17,43 @@ if sys.version_info < (3, 11):
 else:
     from typing import TypeAlias
 
+PACKAGE_NAME = "win32more"
+
 BASE_EXPORTS = [
     "ARCH",
-    "MissingType",
-    "Byte",
-    "SByte",
-    "Char",
-    "Int16",
-    "UInt16",
-    "Int32",
-    "UInt32",
-    "Int64",
-    "UInt64",
-    "IntPtr",
-    "UIntPtr",
-    "Single",
-    "Double",
-    "String",
     "Boolean",
-    "Void",
-    "Guid",
-    "SUCCEEDED",
-    "FAILED",
-    "cfunctype",
-    "winfunctype",
-    "commethod",
-    "cfunctype_pointer",
-    "winfunctype_pointer",
-    "press",
-    "make_head",
+    "Byte",
+    "Bytes",
+    "Char",
+    "ComPtr",
+    "Double",
     "EasyCastStructure",
     "EasyCastUnion",
-    "ComPtr",
+    "FAILED",
+    "Guid",
+    "Int16",
+    "Int32",
+    "Int64",
+    "IntPtr",
+    "MissingType",
+    "SByte",
+    "SUCCEEDED",
+    "Single",
+    "String",
+    "String",
+    "UInt16",
+    "UInt32",
+    "UInt64",
+    "UIntPtr",
+    "Void",
+    "VoidPtr",
+    "cfunctype",
+    "cfunctype_pointer",
+    "commethod",
+    "make_head",
+    "press",
+    "winfunctype",
+    "winfunctype_pointer",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -115,9 +120,9 @@ class TType:
             return self.name
         elif self.kind == "Pointer":
             if self.type.kind == "Primitive" and self.type.name == "Void":
-                return "c_void_p"
+                return "VoidPtr"
             elif self.type.is_struct:
-                return f"POINTER({self.type.fullname}_head)"
+                return f"POINTER({PACKAGE_NAME}.{self.type.fullname}_head)"
             else:
                 return f"POINTER({self.type.pytype})"
         elif self.kind == "SZArray":
@@ -133,9 +138,9 @@ class TType:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                 return "MissingType"
             elif self.is_com:
-                return f"{self.fullname}_head"
+                return f"{PACKAGE_NAME}.{self.fullname}_head"
             else:
-                return self.fullname
+                return f"{PACKAGE_NAME}.{self.fullname}"
         else:
             raise NotImplementedError()
 
@@ -1086,9 +1091,9 @@ class PyGenerator:
     def emit_native_typedef(self, td: TypeDefinition) -> str:
         pytype = td.fields[0].signature.pytype
         if pytype == "POINTER(Byte)":
-            pytype = "c_char_p"
+            pytype = "Bytes"
         elif pytype == "POINTER(Char)":
-            pytype = "c_wchar_p"
+            pytype = "String"
         return f"{td.name} = {pytype}\n"
 
     def emit_clsid(self, td: TypeDefinition) -> str:
@@ -1168,7 +1173,8 @@ class PyGenerator:
     def com_base_type(self, td: TypeDefinition) -> str:
         if not td.interface_implementations:
             return "None"
-        return td.interface_implementations[0].interface.type_reference.fullname
+        base = td.interface_implementations[0].interface.type_reference.fullname
+        return f"{PACKAGE_NAME}.{base}"
 
     def emit_attribute(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1203,18 +1209,18 @@ class PyGenerator:
         return "from __future__ import annotations\n"
 
     def emit_import_ctypes(self) -> str:
-        return "from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
+        return "from ctypes import POINTER\n"
 
     def emit_import_base(self) -> str:
-        return f"from Windows import {BASE_EXPORTS_CSV}\n"
+        return f"from {PACKAGE_NAME} import {BASE_EXPORTS_CSV}\n"
 
     def emit_include_base(self) -> str:
-        return (Path(__file__).parent / "Windows\\__init__.py").read_text()
+        return (Path(__file__).parent / f"{PACKAGE_NAME}\\__init__.py").read_text()
 
     def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
         for namespace in sorted(import_namespaces):
-            writer.write(f"import {namespace}\n")
+            writer.write(f"import {PACKAGE_NAME}.{namespace}\n")
         return writer.getvalue()
 
     def emit_getattr(self) -> str:
@@ -1346,7 +1352,7 @@ class Selector:
 
 
 def make_module_path_for_write(namespace) -> TextIO:
-    p = Path(namespace.replace(".", "/"))
+    p = Path(PACKAGE_NAME) / Path(namespace.replace(".", "/"))
     p.mkdir(parents=True, exist_ok=True)
     for i in range(len(p.parents) - 1):
         d = p.parents[i]

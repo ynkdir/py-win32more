@@ -1,10 +1,10 @@
 # https://learn.microsoft.com/en-us/windows/win32/learnwin32/your-first-windows-program
 
-from Windows import UInt32
-from Windows.Win32.Foundation import HWND, LPARAM, WPARAM
-from Windows.Win32.Graphics.Gdi import COLOR_WINDOW, HBRUSH, PAINTSTRUCT, BeginPaint, EndPaint, FillRect
-from Windows.Win32.System.LibraryLoader import GetModuleHandleW
-from Windows.Win32.UI.WindowsAndMessaging import (
+from win32more import UInt32
+from win32more.Windows.Win32.Foundation import HWND, LPARAM, WPARAM
+from win32more.Windows.Win32.Graphics.Gdi import COLOR_WINDOW, HBRUSH, PAINTSTRUCT, BeginPaint, EndPaint, FillRect
+from win32more.Windows.Win32.System.LibraryLoader import GetModuleHandleW
+from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     CW_USEDEFAULT,
     MSG,
     SW_SHOWNORMAL,

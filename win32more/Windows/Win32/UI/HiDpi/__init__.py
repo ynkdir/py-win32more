@@ -1,0 +1,108 @@
+from __future__ import annotations
+from ctypes import POINTER
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+import win32more.Windows.Win32.Foundation
+import win32more.Windows.Win32.Graphics.Gdi
+import win32more.Windows.Win32.UI.Controls
+import win32more.Windows.Win32.UI.HiDpi
+import win32more.Windows.Win32.UI.WindowsAndMessaging
+import sys
+_module = sys.modules[__name__]
+def __getattr__(name):
+    try:
+        prototype = globals()[f'{name}_head']
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    setattr(_module, name, press(prototype))
+    return getattr(_module, name)
+DPI_AWARENESS_CONTEXT_UNAWARE: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT = -1
+DPI_AWARENESS_CONTEXT_SYSTEM_AWARE: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT = -2
+DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT = -3
+DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT = -4
+DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT = -5
+@winfunctype('UxTheme.dll')
+def OpenThemeDataForDpi(hwnd: win32more.Windows.Win32.Foundation.HWND, pszClassList: win32more.Windows.Win32.Foundation.PWSTR, dpi: UInt32) -> win32more.Windows.Win32.UI.Controls.HTHEME: ...
+@winfunctype('USER32.dll')
+def SetDialogControlDpiChangeBehavior(hWnd: win32more.Windows.Win32.Foundation.HWND, mask: win32more.Windows.Win32.UI.HiDpi.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS, values: win32more.Windows.Win32.UI.HiDpi.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetDialogControlDpiChangeBehavior(hWnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.UI.HiDpi.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS: ...
+@winfunctype('USER32.dll')
+def SetDialogDpiChangeBehavior(hDlg: win32more.Windows.Win32.Foundation.HWND, mask: win32more.Windows.Win32.UI.HiDpi.DIALOG_DPI_CHANGE_BEHAVIORS, values: win32more.Windows.Win32.UI.HiDpi.DIALOG_DPI_CHANGE_BEHAVIORS) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetDialogDpiChangeBehavior(hDlg: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.UI.HiDpi.DIALOG_DPI_CHANGE_BEHAVIORS: ...
+@winfunctype('USER32.dll')
+def GetSystemMetricsForDpi(nIndex: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX, dpi: UInt32) -> Int32: ...
+@winfunctype('USER32.dll')
+def AdjustWindowRectExForDpi(lpRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), dwStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE, bMenu: win32more.Windows.Win32.Foundation.BOOL, dwExStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE, dpi: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def LogicalToPhysicalPointForPerMonitorDPI(hWnd: win32more.Windows.Win32.Foundation.HWND, lpPoint: POINTER(win32more.Windows.Win32.Foundation.POINT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def PhysicalToLogicalPointForPerMonitorDPI(hWnd: win32more.Windows.Win32.Foundation.HWND, lpPoint: POINTER(win32more.Windows.Win32.Foundation.POINT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SystemParametersInfoForDpi(uiAction: UInt32, uiParam: UInt32, pvParam: VoidPtr, fWinIni: UInt32, dpi: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetThreadDpiAwarenessContext(dpiContext: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT) -> win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT: ...
+@winfunctype('USER32.dll')
+def GetThreadDpiAwarenessContext() -> win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT: ...
+@winfunctype('USER32.dll')
+def GetWindowDpiAwarenessContext(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT: ...
+@winfunctype('USER32.dll')
+def GetAwarenessFromDpiAwarenessContext(value: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT) -> win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS: ...
+@winfunctype('USER32.dll')
+def GetDpiFromDpiAwarenessContext(value: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT) -> UInt32: ...
+@winfunctype('USER32.dll')
+def AreDpiAwarenessContextsEqual(dpiContextA: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT, dpiContextB: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IsValidDpiAwarenessContext(value: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetDpiForWindow(hwnd: win32more.Windows.Win32.Foundation.HWND) -> UInt32: ...
+@winfunctype('USER32.dll')
+def GetDpiForSystem() -> UInt32: ...
+@winfunctype('USER32.dll')
+def GetSystemDpiForProcess(hProcess: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('USER32.dll')
+def EnableNonClientDpiScaling(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetProcessDpiAwarenessContext(value: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetDpiAwarenessContextForProcess(hProcess: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT: ...
+@winfunctype('USER32.dll')
+def SetThreadDpiHostingBehavior(value: win32more.Windows.Win32.UI.HiDpi.DPI_HOSTING_BEHAVIOR) -> win32more.Windows.Win32.UI.HiDpi.DPI_HOSTING_BEHAVIOR: ...
+@winfunctype('USER32.dll')
+def GetThreadDpiHostingBehavior() -> win32more.Windows.Win32.UI.HiDpi.DPI_HOSTING_BEHAVIOR: ...
+@winfunctype('USER32.dll')
+def GetWindowDpiHostingBehavior(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.UI.HiDpi.DPI_HOSTING_BEHAVIOR: ...
+@winfunctype('api-ms-win-shcore-scaling-l1-1-1.dll')
+def SetProcessDpiAwareness(value: win32more.Windows.Win32.UI.HiDpi.PROCESS_DPI_AWARENESS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('api-ms-win-shcore-scaling-l1-1-1.dll')
+def GetProcessDpiAwareness(hprocess: win32more.Windows.Win32.Foundation.HANDLE, value: POINTER(win32more.Windows.Win32.UI.HiDpi.PROCESS_DPI_AWARENESS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('api-ms-win-shcore-scaling-l1-1-1.dll')
+def GetDpiForMonitor(hmonitor: win32more.Windows.Win32.Graphics.Gdi.HMONITOR, dpiType: win32more.Windows.Win32.UI.HiDpi.MONITOR_DPI_TYPE, dpiX: POINTER(UInt32), dpiY: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS = Int32
+DCDC_DEFAULT: DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS = 0
+DCDC_DISABLE_FONT_UPDATE: DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS = 1
+DCDC_DISABLE_RELAYOUT: DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS = 2
+DIALOG_DPI_CHANGE_BEHAVIORS = Int32
+DDC_DEFAULT: DIALOG_DPI_CHANGE_BEHAVIORS = 0
+DDC_DISABLE_ALL: DIALOG_DPI_CHANGE_BEHAVIORS = 1
+DDC_DISABLE_RESIZE: DIALOG_DPI_CHANGE_BEHAVIORS = 2
+DDC_DISABLE_CONTROL_RELAYOUT: DIALOG_DPI_CHANGE_BEHAVIORS = 4
+DPI_AWARENESS = Int32
+DPI_AWARENESS_INVALID: DPI_AWARENESS = -1
+DPI_AWARENESS_UNAWARE: DPI_AWARENESS = 0
+DPI_AWARENESS_SYSTEM_AWARE: DPI_AWARENESS = 1
+DPI_AWARENESS_PER_MONITOR_AWARE: DPI_AWARENESS = 2
+DPI_AWARENESS_CONTEXT = IntPtr
+DPI_HOSTING_BEHAVIOR = Int32
+DPI_HOSTING_BEHAVIOR_INVALID: DPI_HOSTING_BEHAVIOR = -1
+DPI_HOSTING_BEHAVIOR_DEFAULT: DPI_HOSTING_BEHAVIOR = 0
+DPI_HOSTING_BEHAVIOR_MIXED: DPI_HOSTING_BEHAVIOR = 1
+MONITOR_DPI_TYPE = Int32
+MDT_EFFECTIVE_DPI: MONITOR_DPI_TYPE = 0
+MDT_ANGULAR_DPI: MONITOR_DPI_TYPE = 1
+MDT_RAW_DPI: MONITOR_DPI_TYPE = 2
+MDT_DEFAULT: MONITOR_DPI_TYPE = 0
+PROCESS_DPI_AWARENESS = Int32
+PROCESS_DPI_UNAWARE: PROCESS_DPI_AWARENESS = 0
+PROCESS_SYSTEM_DPI_AWARE: PROCESS_DPI_AWARENESS = 1
+PROCESS_PER_MONITOR_DPI_AWARE: PROCESS_DPI_AWARENESS = 2
