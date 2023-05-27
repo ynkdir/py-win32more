@@ -559,7 +559,7 @@ class PrintWorkflowObjectModelSourceFileContent(ComPtr):
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelSourceFileContent
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent'
     @winrt_factorymethod
-    def CreateInstance(cls: Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelSourceFileContentFactory, xpsStream: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent: ...
+    def CreateInstance(cls: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelSourceFileContentFactory, xpsStream: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent: ...
 class PrintWorkflowObjectModelTargetPackage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelTargetPackage

@@ -29,7 +29,7 @@ class AppServiceCatalog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceCatalog'
     @winrt_classmethod
-    def FindAppServiceProvidersAsync(cls: Windows.ApplicationModel.AppService.IAppServiceCatalogStatics, appServiceName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppInfo]]: ...
+    def FindAppServiceProvidersAsync(cls: win32more.Windows.ApplicationModel.AppService.IAppServiceCatalogStatics, appServiceName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppInfo]]: ...
 class AppServiceClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceClosedEventArgs
@@ -47,7 +47,7 @@ class AppServiceConnection(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceConnection
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceConnection'
     @winrt_activatemethod
-    def CreateInstance(cls) -> Windows.ApplicationModel.AppService.AppServiceConnection: ...
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.AppService.AppServiceConnection: ...
     @winrt_mixinmethod
     def get_AppServiceName(self: win32more.Windows.ApplicationModel.AppService.IAppServiceConnection) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -77,7 +77,7 @@ class AppServiceConnection(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
-    def SendStatelessMessageAsync(cls: Windows.ApplicationModel.AppService.IAppServiceConnectionStatics, connection: win32more.Windows.ApplicationModel.AppService.AppServiceConnection, connectionRequest: win32more.Windows.System.RemoteSystems.RemoteSystemConnectionRequest, message: win32more.Windows.Foundation.Collections.ValueSet) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.AppService.StatelessAppServiceResponse]: ...
+    def SendStatelessMessageAsync(cls: win32more.Windows.ApplicationModel.AppService.IAppServiceConnectionStatics, connection: win32more.Windows.ApplicationModel.AppService.AppServiceConnection, connectionRequest: win32more.Windows.System.RemoteSystems.RemoteSystemConnectionRequest, message: win32more.Windows.Foundation.Collections.ValueSet) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.AppService.StatelessAppServiceResponse]: ...
     AppServiceName = property(get_AppServiceName, put_AppServiceName)
     PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
     User = property(get_User, put_User)

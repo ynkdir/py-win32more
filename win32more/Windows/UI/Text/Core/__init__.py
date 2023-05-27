@@ -331,7 +331,7 @@ class CoreTextServicesConstants(ComPtr, metaclass=_CoreTextServicesConstants_Met
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.CoreTextServicesConstants'
     @winrt_classmethod
-    def get_HiddenCharacter(cls: Windows.UI.Text.Core.ICoreTextServicesStatics) -> Char: ...
+    def get_HiddenCharacter(cls: win32more.Windows.UI.Text.Core.ICoreTextServicesStatics) -> Char: ...
     _CoreTextServicesConstants_Meta_.HiddenCharacter = property(get_HiddenCharacter.__wrapped__, None)
 class CoreTextServicesManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -346,7 +346,7 @@ class CoreTextServicesManager(ComPtr):
     @winrt_mixinmethod
     def CreateEditContext(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager) -> win32more.Windows.UI.Text.Core.CoreTextEditContext: ...
     @winrt_classmethod
-    def GetForCurrentView(cls: Windows.UI.Text.Core.ICoreTextServicesManagerStatics) -> win32more.Windows.UI.Text.Core.CoreTextServicesManager: ...
+    def GetForCurrentView(cls: win32more.Windows.UI.Text.Core.ICoreTextServicesManagerStatics) -> win32more.Windows.UI.Text.Core.CoreTextServicesManager: ...
     InputLanguage = property(get_InputLanguage, None)
 class CoreTextTextRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

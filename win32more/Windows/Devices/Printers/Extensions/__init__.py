@@ -183,7 +183,7 @@ class PrintExtensionContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintExtensionContext'
     @winrt_classmethod
-    def FromDeviceId(cls: Windows.Devices.Printers.Extensions.IPrintExtensionContextStatic, deviceId: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def FromDeviceId(cls: win32more.Windows.Devices.Printers.Extensions.IPrintExtensionContextStatic, deviceId: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
 class PrintNotificationEventDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails

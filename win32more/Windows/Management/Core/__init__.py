@@ -26,7 +26,7 @@ class ApplicationDataManager(ComPtr):
     default_interface: win32more.Windows.Management.Core.IApplicationDataManager
     _classid_ = 'Windows.Management.Core.ApplicationDataManager'
     @winrt_classmethod
-    def CreateForPackageFamily(cls: Windows.Management.Core.IApplicationDataManagerStatics, packageFamilyName: WinRT_String) -> win32more.Windows.Storage.ApplicationData: ...
+    def CreateForPackageFamily(cls: win32more.Windows.Management.Core.IApplicationDataManagerStatics, packageFamilyName: WinRT_String) -> win32more.Windows.Storage.ApplicationData: ...
 class IApplicationDataManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Core.IApplicationDataManager'

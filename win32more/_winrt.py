@@ -17,8 +17,8 @@ from ctypes import (
 )
 from typing import Generic, TypeVar, _GenericAlias, get_args
 
-import Windows.Win32.System.Com
-from Windows import (
+import win32more.Windows.Win32.System.Com
+from win32more import (
     FAILED,
     Boolean,
     Byte,
@@ -38,12 +38,12 @@ from Windows import (
     easycast,
     get_type_hints,
 )
-from Windows.Win32.Foundation import (
+from win32more.Windows.Win32.Foundation import (
     E_NOINTERFACE,
     HRESULT,
     S_OK,
 )
-from Windows.Win32.System.WinRT import (
+from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
     RoActivateInstance,
     RoGetActivationFactory,
@@ -512,7 +512,7 @@ class MulticastDelegateImpl(Structure):
 
 
 class MulticastDelegate(ComPtr):
-    extends: Windows.Win32.System.Com.IUnknown
+    extends: win32more.Windows.Win32.System.Com.IUnknown
 
     _keep_reference_in_python_world_ = {}
 

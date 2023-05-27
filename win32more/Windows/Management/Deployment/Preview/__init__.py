@@ -24,7 +24,7 @@ class ClassicAppManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.Preview.ClassicAppManager'
     @winrt_classmethod
-    def FindInstalledApp(cls: Windows.Management.Deployment.Preview.IClassicAppManagerStatics, appUninstallKey: WinRT_String) -> win32more.Windows.Management.Deployment.Preview.InstalledClassicAppInfo: ...
+    def FindInstalledApp(cls: win32more.Windows.Management.Deployment.Preview.IClassicAppManagerStatics, appUninstallKey: WinRT_String) -> win32more.Windows.Management.Deployment.Preview.InstalledClassicAppInfo: ...
 DeploymentPreviewContract: UInt32 = 65536
 class IClassicAppManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

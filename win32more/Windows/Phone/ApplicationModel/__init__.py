@@ -26,7 +26,7 @@ class ApplicationProfile(ComPtr, metaclass=_ApplicationProfile_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.ApplicationModel.ApplicationProfile'
     @winrt_classmethod
-    def get_Modes(cls: Windows.Phone.ApplicationModel.IApplicationProfileStatics) -> win32more.Windows.Phone.ApplicationModel.ApplicationProfileModes: ...
+    def get_Modes(cls: win32more.Windows.Phone.ApplicationModel.IApplicationProfileStatics) -> win32more.Windows.Phone.ApplicationModel.ApplicationProfileModes: ...
     _ApplicationProfile_Meta_.Modes = property(get_Modes.__wrapped__, None)
 ApplicationProfileModes = UInt32
 ApplicationProfileModes_Default: ApplicationProfileModes = 0

@@ -37,7 +37,7 @@ class WindowManagementPreview(ComPtr):
     default_interface: win32more.Windows.UI.WindowManagement.Preview.IWindowManagementPreview
     _classid_ = 'Windows.UI.WindowManagement.Preview.WindowManagementPreview'
     @winrt_classmethod
-    def SetPreferredMinSize(cls: Windows.UI.WindowManagement.Preview.IWindowManagementPreviewStatics, window: win32more.Windows.UI.WindowManagement.AppWindow, preferredFrameMinSize: win32more.Windows.Foundation.Size) -> Void: ...
+    def SetPreferredMinSize(cls: win32more.Windows.UI.WindowManagement.Preview.IWindowManagementPreviewStatics, window: win32more.Windows.UI.WindowManagement.AppWindow, preferredFrameMinSize: win32more.Windows.Foundation.Size) -> Void: ...
 make_head(_module, 'IWindowManagementPreview')
 make_head(_module, 'IWindowManagementPreviewStatics')
 make_head(_module, 'WindowManagementPreview')

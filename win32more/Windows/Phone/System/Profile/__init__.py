@@ -33,7 +33,7 @@ class RetailMode(ComPtr, metaclass=_RetailMode_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.System.Profile.RetailMode'
     @winrt_classmethod
-    def get_RetailModeEnabled(cls: Windows.Phone.System.Profile.IRetailModeStatics) -> Boolean: ...
+    def get_RetailModeEnabled(cls: win32more.Windows.Phone.System.Profile.IRetailModeStatics) -> Boolean: ...
     _RetailMode_Meta_.RetailModeEnabled = property(get_RetailModeEnabled.__wrapped__, None)
 make_head(_module, 'IRetailModeStatics')
 make_head(_module, 'RetailMode')

@@ -78,7 +78,7 @@ class WalletManagerSystem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Wallet.System.WalletManagerSystem'
     @winrt_classmethod
-    def RequestStoreAsync(cls: Windows.ApplicationModel.Wallet.System.IWalletManagerSystemStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Wallet.System.WalletItemSystemStore]: ...
+    def RequestStoreAsync(cls: win32more.Windows.ApplicationModel.Wallet.System.IWalletManagerSystemStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Wallet.System.WalletItemSystemStore]: ...
 make_head(_module, 'IWalletItemSystemStore')
 make_head(_module, 'IWalletItemSystemStore2')
 make_head(_module, 'IWalletManagerSystemStatics')

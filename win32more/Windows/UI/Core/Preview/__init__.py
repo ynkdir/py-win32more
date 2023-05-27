@@ -27,7 +27,7 @@ class CoreAppWindowPreview(ComPtr):
     default_interface: win32more.Windows.UI.Core.Preview.ICoreAppWindowPreview
     _classid_ = 'Windows.UI.Core.Preview.CoreAppWindowPreview'
     @winrt_classmethod
-    def GetIdFromWindow(cls: Windows.UI.Core.Preview.ICoreAppWindowPreviewStatics, window: win32more.Windows.UI.WindowManagement.AppWindow) -> Int32: ...
+    def GetIdFromWindow(cls: win32more.Windows.UI.Core.Preview.ICoreAppWindowPreviewStatics, window: win32more.Windows.UI.WindowManagement.AppWindow) -> Int32: ...
 class ICoreAppWindowPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.Preview.ICoreAppWindowPreview'
@@ -83,7 +83,7 @@ class SystemNavigationManagerPreview(ComPtr):
     @winrt_mixinmethod
     def remove_CloseRequested(self: win32more.Windows.UI.Core.Preview.ISystemNavigationManagerPreview, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def GetForCurrentView(cls: Windows.UI.Core.Preview.ISystemNavigationManagerPreviewStatics) -> win32more.Windows.UI.Core.Preview.SystemNavigationManagerPreview: ...
+    def GetForCurrentView(cls: win32more.Windows.UI.Core.Preview.ISystemNavigationManagerPreviewStatics) -> win32more.Windows.UI.Core.Preview.SystemNavigationManagerPreview: ...
 make_head(_module, 'CoreAppWindowPreview')
 make_head(_module, 'ICoreAppWindowPreview')
 make_head(_module, 'ICoreAppWindowPreviewStatics')

@@ -25,7 +25,7 @@ class CorePerceptionAutomation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Automation.Core.CorePerceptionAutomation'
     @winrt_classmethod
-    def SetActivationFactoryProvider(cls: Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics, provider: win32more.Windows.Foundation.IGetActivationFactory) -> Void: ...
+    def SetActivationFactoryProvider(cls: win32more.Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics, provider: win32more.Windows.Foundation.IGetActivationFactory) -> Void: ...
 class ICorePerceptionAutomationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Automation.Core.ICorePerceptionAutomationStatics'

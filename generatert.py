@@ -169,7 +169,7 @@ class TType:
         elif self.kind == "Generic":
             return f"{PACKAGE_NAME}.{self.generic_fullname}"
         elif self.kind == "GenericParameter":
-            return f"{PACKAGE_NAME}.{self.name}"
+            return self.name
         elif self.kind == "Modified" and self.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
             return self.unmodified_type.pytype
         else:
@@ -1373,19 +1373,19 @@ class PyGenerator:
                 writer.write(f"    {name} = property({attrs['get']}, {attrs['put']})\n")
         if f"{td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperation":
             writer.write("    def __await__(self):\n")
-            writer.write("        from Windows._winrt import IAsyncOperation___await__\n")
+            writer.write(f"        from {PACKAGE_NAME}._winrt import IAsyncOperation___await__\n")
             writer.write("        return IAsyncOperation___await__(self)\n")
         elif f"{td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperationWithProgress":
             writer.write("    def __await__(self):\n")
-            writer.write("        from Windows._winrt import IAsyncOperation___await__\n")
+            writer.write(f"        from {PACKAGE_NAME}._winrt import IAsyncOperation___await__\n")
             writer.write("        return IAsyncOperation___await__(self)\n")
         elif f"{td.namespace}.{classname}" == "Windows.Foundation.IAsyncAction":
             writer.write("    def __await__(self):\n")
-            writer.write("        from Windows._winrt import IAsyncAction___await__\n")
+            writer.write(f"        from {PACKAGE_NAME}._winrt import IAsyncAction___await__\n")
             writer.write("        return IAsyncAction___await__(self)\n")
         elif f"{td.namespace}.{classname}" == "Windows.Foundation.IAsyncActionWithProgress":
             writer.write("    def __await__(self):\n")
-            writer.write("        from Windows._winrt import IAsyncAction___await__\n")
+            writer.write(f"        from {PACKAGE_NAME}._winrt import IAsyncAction___await__\n")
             writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
 
@@ -1453,7 +1453,7 @@ class PyGenerator:
         elif "Static" in md.attributes:
             writer.write("    @winrt_classmethod\n")
             interface = self.com_get_static_for_method(td, method_name)
-            params[0] = f"cls: {interface}"
+            params[0] = f"cls: {PACKAGE_NAME}.{interface}"
         elif "Abstract" not in td.attributes:
             writer.write("    @winrt_mixinmethod\n")
             interface, overload_count = self.com_get_interface_for_method(td, method_name, md.get_parameter_names())
@@ -1474,7 +1474,7 @@ class PyGenerator:
             name = td.generic_fullname
         else:
             name = td.fullname
-        params = [f"cls: {name}"] + md.format_parameters_list()
+        params = [f"cls: {PACKAGE_NAME}.{name}"] + md.format_parameters_list()
         params_csv = ", ".join(params)
         restype = md.signature.return_type.pytype
         writer.write("    @winrt_factorymethod\n")
@@ -1488,7 +1488,7 @@ class PyGenerator:
         else:
             name = td.fullname
         writer.write("    @winrt_activatemethod\n")
-        writer.write(f"    def CreateInstance(cls) -> {name}: ...\n")
+        writer.write(f"    def CreateInstance(cls) -> {PACKAGE_NAME}.{name}: ...\n")
         return writer.getvalue()
 
     def emit_delegate(self, td: TypeDefinition) -> str:

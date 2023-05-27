@@ -24,7 +24,7 @@ class HtmlUtilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Data.Html.HtmlUtilities'
     @winrt_classmethod
-    def ConvertToText(cls: Windows.Data.Html.IHtmlUtilities, html: WinRT_String) -> WinRT_String: ...
+    def ConvertToText(cls: win32more.Windows.Data.Html.IHtmlUtilities, html: WinRT_String) -> WinRT_String: ...
 class IHtmlUtilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Data.Html.IHtmlUtilities'

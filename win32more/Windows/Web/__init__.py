@@ -38,7 +38,7 @@ class WebError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.WebError'
     @winrt_classmethod
-    def GetStatus(cls: Windows.Web.IWebErrorStatics, hresult: Int32) -> win32more.Windows.Web.WebErrorStatus: ...
+    def GetStatus(cls: win32more.Windows.Web.IWebErrorStatics, hresult: Int32) -> win32more.Windows.Web.WebErrorStatus: ...
 WebErrorStatus = Int32
 WebErrorStatus_Unknown: WebErrorStatus = 0
 WebErrorStatus_CertificateCommonNameIsIncorrect: WebErrorStatus = 1
