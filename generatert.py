@@ -155,15 +155,11 @@ class TType:
         elif self.kind == "SZArray":
             return f"SZArray[{self.type.pytype}]"
         elif self.kind == "Type":
-            if self.is_nested:
-                return self.name
-            elif self.is_guid:
+            if self.is_guid:
                 return "Guid"
             elif self.is_missing:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                 return self.fullname
-            elif self.is_com:
-                return f"{PACKAGE_NAME}.{self.fullname}"
             else:
                 return f"{PACKAGE_NAME}.{self.fullname}"
         elif self.kind == "Generic":
@@ -198,10 +194,6 @@ class TType:
             raise NotImplementedError()
 
     @property
-    def is_nested(self) -> bool:
-        return self.kind == "Type" and self.namespace == ""
-
-    @property
     def is_guid(self) -> bool:
         return self.kind == "Type" and self.fullname == "System.Guid"
 
@@ -212,13 +204,13 @@ class TType:
 
     @property
     def is_struct(self) -> bool:
-        if not self.is_nested and not self.is_guid and not self.is_missing:
+        if not self.is_guid and not self.is_missing:
             return self.kind == "Type" and self["_typedef"].kind in ("union", "struct")
         return False
 
     @property
     def is_com(self) -> bool:
-        if not self.is_nested and not self.is_guid and not self.is_missing:
+        if not self.is_guid and not self.is_missing:
             return self.kind == "Type" and self["_typedef"].kind == "com"
         return False
 
@@ -350,7 +342,7 @@ class TypeDefinition:
             yield ii.namespace
         for t in self.enumerate_types():
             t = t.get_element_type()
-            if t.kind == "Type" and not t.is_nested and not t.is_guid and not t.is_missing:
+            if t.kind == "Type" and not t.is_guid and not t.is_missing:
                 yield t.namespace
 
     def enumerate_names_having_architecture_attribute(self) -> Iterable[tuple[str, str]]:
@@ -1136,8 +1128,6 @@ class Preprocessor:
         nested_type_by_name = {nested_type.name: nested_type for nested_type in td.nested_types}
         for fd in td.fields:
             t = fd.signature.get_element_type()
-            if t.is_nested:
-                t["_typedef"] = nested_type_by_name[t.name]
         for nested_type in td.nested_types:
             self.patch_link_nestedtype(nested_type)
 
@@ -1239,8 +1229,7 @@ class PyGenerator:
     # _fields_ and _anonymous_ is defined at runtime.
     def emit_struct_union(self, td: TypeDefinition, indent="") -> str:
         writer = StringIO()
-        if not td.is_nested:
-            indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
+        indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
         base = self.struct_union_base_type(td)
         writer.write(f"{indent}class {td.name}({base}):\n")
         if self.struct_union_is_empty(td):
