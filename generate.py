@@ -125,8 +125,6 @@ class TType:
                 return f"POINTER({PACKAGE_NAME}.{self.type.fullname}_head)"
             else:
                 return f"POINTER({self.type.pytype})"
-        elif self.kind == "SZArray":
-            raise NotImplementedError()
         elif self.kind == "Array":
             return f"{self.type.pytype} * {self.size}"
         elif self.kind == "Type":
@@ -145,7 +143,7 @@ class TType:
             raise NotImplementedError()
 
     def get_element_type(self) -> TType:
-        if self.kind in ["Pointer", "SZArray", "Array"]:
+        if self.kind in ["Pointer", "Array"]:
             return self.type.get_element_type()
         elif self.kind in ["Primitive", "Type"]:
             return self
@@ -476,10 +474,16 @@ class FieldDefinition:
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, pid = self.custom_attributes.get_property_key()
             return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
-        elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY":
+        elif (
+            self.signature.kind == "Type"
+            and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
+        ):
             guid, pid = self.custom_attributes.get_property_key()
             return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
-        elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY":
+        elif (
+            self.signature.kind == "Type"
+            and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY"
+        ):
             value = self.custom_attributes.get_constant()
             return f"{self.signature.fullname}({value})"
         else:
@@ -1247,7 +1251,9 @@ class PyGenerator:
             writer.write(f"{indent}make_head(_module, '{td.name}')\n")
         return writer.getvalue()
 
-    def write_architecture_specific_block_if_necessary(self, writer: TextIO, custom_attributes: CustomAttributeCollection) -> str:
+    def write_architecture_specific_block_if_necessary(
+        self, writer: TextIO, custom_attributes: CustomAttributeCollection
+    ) -> str:
         if custom_attributes.has_supported_architecture():
             arch = ",".join(custom_attributes.get_supported_architecture()).upper()
             writer.write(f"if ARCH in '{arch}':\n")
@@ -1298,7 +1304,9 @@ class Selector:
             yield td
             yield from self.select_dependencies(td, meta_group_by_fullname, selected)
 
-    def select_dependencies(self, td: TypeDefinition, meta_group_by_fullname: Mapping[str, Metadata], selected: set[int]) -> Iterable[TypeDefinition]:
+    def select_dependencies(
+        self, td: TypeDefinition, meta_group_by_fullname: Mapping[str, Metadata], selected: set[int]
+    ) -> Iterable[TypeDefinition]:
         for fullname_depended in self.find_dependencies(td):
             if fullname_depended not in meta_group_by_fullname:
                 continue
