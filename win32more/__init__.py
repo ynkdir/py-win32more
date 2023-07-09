@@ -393,10 +393,11 @@ def press_struct(prototype):
 
 
 def press_interface(prototype):
-    hints = get_type_hints(prototype)
-    if hints["extends"] is None:
+    prototype._hints_ = get_type_hints(prototype)
+    if prototype._hints_["extends"] is None:
         return prototype
-    prototype.__bases__ = (hints["extends"],)
+    # Generic class have multiple base class (Generic[], ComPtr).
+    prototype.__bases__ = tuple(prototype._hints_["extends"] if t is ComPtr else t for t in prototype.__bases__)
     return prototype
 
 
