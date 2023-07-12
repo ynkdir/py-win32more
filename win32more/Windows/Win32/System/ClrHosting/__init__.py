@@ -26,7 +26,7 @@ APPDOMAIN_FORCE_TRIVIAL_WAIT_OPERATIONS: APPDOMAIN_SECURITY_FLAGS = 8
 DEPRECATED_CLR_API_MESG: String = 'This API has been deprecated. Refer to https://go.microsoft.com/fwlink/?LinkId=143720 for more details.'
 CLR_MAJOR_VERSION: UInt32 = 4
 CLR_MINOR_VERSION: UInt32 = 0
-CLR_BUILD_VERSION: UInt32 = 30319
+CLR_BUILD_VERSION: UInt32 = 22220
 CLR_ASSEMBLY_MAJOR_VERSION: UInt32 = 4
 CLR_ASSEMBLY_MINOR_VERSION: UInt32 = 0
 CLR_ASSEMBLY_BUILD_VERSION: UInt32 = 0
@@ -855,7 +855,7 @@ class IHostMalloc(ComPtr):
     @commethod(3)
     def Alloc(self, cbSize: UIntPtr, eCriticalLevel: win32more.Windows.Win32.System.ClrHosting.EMemoryCriticalLevel, ppMem: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def DebugAlloc(self, cbSize: UIntPtr, eCriticalLevel: win32more.Windows.Win32.System.ClrHosting.EMemoryCriticalLevel, pszFileName: win32more.Windows.Win32.Foundation.PSTR, iLineNo: Int32, ppMem: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DebugAlloc(self, cbSize: UIntPtr, eCriticalLevel: win32more.Windows.Win32.System.ClrHosting.EMemoryCriticalLevel, pszFileName: POINTER(Byte), iLineNo: Int32, ppMem: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Free(self, pMem: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IHostManualEvent(ComPtr):
@@ -1114,6 +1114,7 @@ RUNTIME_INFO_DONT_RETURN_DIRECTORY: RUNTIME_INFO_FLAGS = 16
 RUNTIME_INFO_DONT_RETURN_VERSION: RUNTIME_INFO_FLAGS = 32
 RUNTIME_INFO_DONT_SHOW_ERROR_DIALOG: RUNTIME_INFO_FLAGS = 64
 RUNTIME_INFO_IGNORE_ERROR_MODE: RUNTIME_INFO_FLAGS = 4096
+RUNTIME_INFO_REQUEST_ARM64: RUNTIME_INFO_FLAGS = 8192
 @winfunctype_pointer
 def RuntimeLoadedCallbackFnPtr(pRuntimeInfo: win32more.Windows.Win32.System.ClrHosting.ICLRRuntimeInfo_head, pfnCallbackThreadSet: win32more.Windows.Win32.System.ClrHosting.CallbackThreadSetFnPtr, pfnCallbackThreadUnset: win32more.Windows.Win32.System.ClrHosting.CallbackThreadUnsetFnPtr) -> Void: ...
 STARTUP_FLAGS = Int32

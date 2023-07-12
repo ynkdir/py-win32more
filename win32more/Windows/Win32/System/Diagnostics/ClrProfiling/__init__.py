@@ -14,8 +14,6 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-CorDB_CONTROL_Profiling: String = 'Cor_Enable_Profiling'
-CorDB_CONTROL_ProfilingL: String = 'Cor_Enable_Profiling'
 class COR_DEBUG_IL_TO_NATIVE_MAP(EasyCastStructure):
     ilOffset: UInt32
     nativeStartOffset: UInt32
@@ -43,11 +41,54 @@ COR_PRF_CODEGEN_DISABLE_ALL_OPTIMIZATIONS: COR_PRF_CODEGEN_FLAGS = 2
 class COR_PRF_CODE_INFO(EasyCastStructure):
     startAddress: UIntPtr
     size: UIntPtr
+COR_PRF_EVENTPIPE_LEVEL = Int32
+COR_PRF_EVENTPIPE_LOGALWAYS: COR_PRF_EVENTPIPE_LEVEL = 0
+COR_PRF_EVENTPIPE_CRITICAL: COR_PRF_EVENTPIPE_LEVEL = 1
+COR_PRF_EVENTPIPE_ERROR: COR_PRF_EVENTPIPE_LEVEL = 2
+COR_PRF_EVENTPIPE_WARNING: COR_PRF_EVENTPIPE_LEVEL = 3
+COR_PRF_EVENTPIPE_INFORMATIONAL: COR_PRF_EVENTPIPE_LEVEL = 4
+COR_PRF_EVENTPIPE_VERBOSE: COR_PRF_EVENTPIPE_LEVEL = 5
+class COR_PRF_EVENTPIPE_PARAM_DESC(EasyCastStructure):
+    type: UInt32
+    elementType: UInt32
+    name: win32more.Windows.Win32.Foundation.PWSTR
+COR_PRF_EVENTPIPE_PARAM_TYPE = Int32
+COR_PRF_EVENTPIPE_OBJECT: COR_PRF_EVENTPIPE_PARAM_TYPE = 1
+COR_PRF_EVENTPIPE_BOOLEAN: COR_PRF_EVENTPIPE_PARAM_TYPE = 3
+COR_PRF_EVENTPIPE_CHAR: COR_PRF_EVENTPIPE_PARAM_TYPE = 4
+COR_PRF_EVENTPIPE_SBYTE: COR_PRF_EVENTPIPE_PARAM_TYPE = 5
+COR_PRF_EVENTPIPE_BYTE: COR_PRF_EVENTPIPE_PARAM_TYPE = 6
+COR_PRF_EVENTPIPE_INT16: COR_PRF_EVENTPIPE_PARAM_TYPE = 7
+COR_PRF_EVENTPIPE_UINT16: COR_PRF_EVENTPIPE_PARAM_TYPE = 8
+COR_PRF_EVENTPIPE_INT32: COR_PRF_EVENTPIPE_PARAM_TYPE = 9
+COR_PRF_EVENTPIPE_UINT32: COR_PRF_EVENTPIPE_PARAM_TYPE = 10
+COR_PRF_EVENTPIPE_INT64: COR_PRF_EVENTPIPE_PARAM_TYPE = 11
+COR_PRF_EVENTPIPE_UINT64: COR_PRF_EVENTPIPE_PARAM_TYPE = 12
+COR_PRF_EVENTPIPE_SINGLE: COR_PRF_EVENTPIPE_PARAM_TYPE = 13
+COR_PRF_EVENTPIPE_DOUBLE: COR_PRF_EVENTPIPE_PARAM_TYPE = 14
+COR_PRF_EVENTPIPE_DECIMAL: COR_PRF_EVENTPIPE_PARAM_TYPE = 15
+COR_PRF_EVENTPIPE_DATETIME: COR_PRF_EVENTPIPE_PARAM_TYPE = 16
+COR_PRF_EVENTPIPE_GUID: COR_PRF_EVENTPIPE_PARAM_TYPE = 17
+COR_PRF_EVENTPIPE_STRING: COR_PRF_EVENTPIPE_PARAM_TYPE = 18
+COR_PRF_EVENTPIPE_ARRAY: COR_PRF_EVENTPIPE_PARAM_TYPE = 19
+class COR_PRF_EVENTPIPE_PROVIDER_CONFIG(EasyCastStructure):
+    providerName: win32more.Windows.Win32.Foundation.PWSTR
+    keywords: UInt64
+    loggingLevel: UInt32
+    filterData: win32more.Windows.Win32.Foundation.PWSTR
+class COR_PRF_EVENT_DATA(EasyCastStructure):
+    ptr: UInt64
+    size: UInt32
+    reserved: UInt32
 class COR_PRF_EX_CLAUSE_INFO(EasyCastStructure):
     clauseType: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_CLAUSE_TYPE
     programCounter: UIntPtr
     framePointer: UIntPtr
     shadowStackPointer: UIntPtr
+class COR_PRF_FILTER_DATA(EasyCastStructure):
+    Ptr: UInt64
+    Size: UInt32
+    Type: UInt32
 COR_PRF_FINALIZER_FLAGS = Int32
 COR_PRF_FINALIZER_CRITICAL: COR_PRF_FINALIZER_FLAGS = 1
 class COR_PRF_FUNCTION(EasyCastStructure):
@@ -65,6 +106,7 @@ COR_PRF_GC_GEN_0: COR_PRF_GC_GENERATION = 0
 COR_PRF_GC_GEN_1: COR_PRF_GC_GENERATION = 1
 COR_PRF_GC_GEN_2: COR_PRF_GC_GENERATION = 2
 COR_PRF_GC_LARGE_OBJECT_HEAP: COR_PRF_GC_GENERATION = 3
+COR_PRF_GC_PINNED_OBJECT_HEAP: COR_PRF_GC_GENERATION = 4
 class COR_PRF_GC_GENERATION_RANGE(EasyCastStructure):
     generation: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_GC_GENERATION
     rangeStart: UIntPtr
@@ -83,14 +125,25 @@ COR_PRF_GC_ROOT_STACK: COR_PRF_GC_ROOT_KIND = 1
 COR_PRF_GC_ROOT_FINALIZER: COR_PRF_GC_ROOT_KIND = 2
 COR_PRF_GC_ROOT_HANDLE: COR_PRF_GC_ROOT_KIND = 3
 COR_PRF_GC_ROOT_OTHER: COR_PRF_GC_ROOT_KIND = 0
+COR_PRF_HANDLE_TYPE = Int32
+COR_PRF_HANDLE_TYPE_WEAK: COR_PRF_HANDLE_TYPE = 1
+COR_PRF_HANDLE_TYPE_STRONG: COR_PRF_HANDLE_TYPE = 2
+COR_PRF_HANDLE_TYPE_PINNED: COR_PRF_HANDLE_TYPE = 3
 COR_PRF_HIGH_MONITOR = Int32
 COR_PRF_HIGH_MONITOR_NONE: COR_PRF_HIGH_MONITOR = 0
 COR_PRF_HIGH_ADD_ASSEMBLY_REFERENCES: COR_PRF_HIGH_MONITOR = 1
 COR_PRF_HIGH_IN_MEMORY_SYMBOLS_UPDATED: COR_PRF_HIGH_MONITOR = 2
 COR_PRF_HIGH_MONITOR_DYNAMIC_FUNCTION_UNLOADS: COR_PRF_HIGH_MONITOR = 4
+COR_PRF_HIGH_DISABLE_TIERED_COMPILATION: COR_PRF_HIGH_MONITOR = 8
+COR_PRF_HIGH_BASIC_GC: COR_PRF_HIGH_MONITOR = 16
+COR_PRF_HIGH_MONITOR_GC_MOVED_OBJECTS: COR_PRF_HIGH_MONITOR = 32
 COR_PRF_HIGH_REQUIRE_PROFILE_IMAGE: COR_PRF_HIGH_MONITOR = 0
-COR_PRF_HIGH_ALLOWABLE_AFTER_ATTACH: COR_PRF_HIGH_MONITOR = 6
-COR_PRF_HIGH_MONITOR_IMMUTABLE: COR_PRF_HIGH_MONITOR = 0
+COR_PRF_HIGH_MONITOR_LARGEOBJECT_ALLOCATED: COR_PRF_HIGH_MONITOR = 64
+COR_PRF_HIGH_MONITOR_EVENT_PIPE: COR_PRF_HIGH_MONITOR = 128
+COR_PRF_HIGH_MONITOR_PINNEDOBJECT_ALLOCATED: COR_PRF_HIGH_MONITOR = 256
+COR_PRF_HIGH_ALLOWABLE_AFTER_ATTACH: COR_PRF_HIGH_MONITOR = 246
+COR_PRF_HIGH_ALLOWABLE_NOTIFICATION_PROFILER: COR_PRF_HIGH_MONITOR = 254
+COR_PRF_HIGH_MONITOR_IMMUTABLE: COR_PRF_HIGH_MONITOR = 8
 COR_PRF_JIT_CACHE = Int32
 COR_PRF_CACHED_FUNCTION_FOUND: COR_PRF_JIT_CACHE = 0
 COR_PRF_CACHED_FUNCTION_NOT_FOUND: COR_PRF_JIT_CACHE = 1
@@ -146,8 +199,16 @@ COR_PRF_DISABLE_TRANSPARENCY_CHECKS_UNDER_FULL_TRUST: COR_PRF_MONITOR = 10737418
 COR_PRF_DISABLE_ALL_NGEN_IMAGES: COR_PRF_MONITOR = -2147483648
 COR_PRF_ALL: COR_PRF_MONITOR = -1879048193
 COR_PRF_REQUIRE_PROFILE_IMAGE: COR_PRF_MONITOR = 536877056
-COR_PRF_ALLOWABLE_AFTER_ATTACH: COR_PRF_MONITOR = 268501758
-COR_PRF_MONITOR_IMMUTABLE: COR_PRF_MONITOR = -285422592
+COR_PRF_ALLOWABLE_AFTER_ATTACH: COR_PRF_MONITOR = 268763902
+COR_PRF_ALLOWABLE_NOTIFICATION_PROFILER: COR_PRF_MONITOR = -1310512257
+COR_PRF_MONITOR_IMMUTABLE: COR_PRF_MONITOR = -285684736
+class COR_PRF_NONGC_HEAP_RANGE(EasyCastStructure):
+    rangeStart: UIntPtr
+    rangeLength: UIntPtr
+    rangeLengthReserved: UIntPtr
+COR_PRF_REJIT_FLAGS = Int32
+COR_PRF_REJIT_BLOCK_INLINING: COR_PRF_REJIT_FLAGS = 1
+COR_PRF_REJIT_INLINING_CALLBACKS: COR_PRF_REJIT_FLAGS = 2
 COR_PRF_RUNTIME_TYPE = Int32
 COR_PRF_DESKTOP_CLR: COR_PRF_RUNTIME_TYPE = 1
 COR_PRF_CORE_CLR: COR_PRF_RUNTIME_TYPE = 2
@@ -170,6 +231,7 @@ COR_PRF_SUSPEND_FOR_SHUTDOWN: COR_PRF_SUSPEND_REASON = 4
 COR_PRF_SUSPEND_FOR_INPROC_DEBUGGER: COR_PRF_SUSPEND_REASON = 6
 COR_PRF_SUSPEND_FOR_GC_PREP: COR_PRF_SUSPEND_REASON = 7
 COR_PRF_SUSPEND_FOR_REJIT: COR_PRF_SUSPEND_REASON = 8
+COR_PRF_SUSPEND_FOR_PROFILER: COR_PRF_SUSPEND_REASON = 9
 COR_PRF_TRANSITION_REASON = Int32
 COR_PRF_TRANSITION_CALL: COR_PRF_TRANSITION_REASON = 0
 COR_PRF_TRANSITION_RETURN: COR_PRF_TRANSITION_REASON = 1
@@ -177,6 +239,8 @@ CorDebugIlToNativeMappingTypes = Int32
 NO_MAPPING: CorDebugIlToNativeMappingTypes = -1
 PROLOG: CorDebugIlToNativeMappingTypes = -2
 EPILOG: CorDebugIlToNativeMappingTypes = -3
+@winfunctype_pointer
+def EventPipeProviderCallback(source_id: POINTER(Byte), is_enabled: UInt32, level: Byte, match_any_keywords: UInt64, match_all_keywords: UInt64, filter_data: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_FILTER_DATA_head), callback_data: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def FunctionEnter(funcID: UIntPtr) -> Void: ...
 @winfunctype_pointer
@@ -354,6 +418,18 @@ class ICorProfilerCallback(ComPtr):
     def ExceptionCLRCatcherFound(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(71)
     def ExceptionCLRCatcherExecute(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICorProfilerCallback10(ComPtr):
+    extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback9
+    _iid_ = Guid('{cec5b60e-c69c-495f-87f6-84d28ee16ffb}')
+    @commethod(95)
+    def EventPipeEventDelivered(self, provider: UIntPtr, eventId: UInt32, eventVersion: UInt32, cbMetadataBlob: UInt32, metadataBlob: POINTER(Byte), cbEventData: UInt32, eventData: POINTER(Byte), pActivityId: POINTER(Guid), pRelatedActivityId: POINTER(Guid), eventThread: UIntPtr, numStackFrames: UInt32, stackFrames: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(96)
+    def EventPipeProviderCreated(self, provider: UIntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICorProfilerCallback11(ComPtr):
+    extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback10
+    _iid_ = Guid('{42350846-aaed-47f7-b128-fd0c98881cde}')
+    @commethod(97)
+    def LoadAsNotificationOnly(self, pbNotificationOnly: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICorProfilerCallback2(ComPtr):
     extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback
     _iid_ = Guid('{8a8cc829-ccf2-49fe-bbae-0f022228071a}')
@@ -515,6 +591,63 @@ class ICorProfilerInfo(ComPtr):
     def EndInprocDebugging(self, dwProfilerContext: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def GetILToNativeMapping(self, functionId: UIntPtr, cMap: UInt32, pcMap: POINTER(UInt32), map: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_DEBUG_IL_TO_NATIVE_MAP_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICorProfilerInfo10(ComPtr):
+    extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo9
+    _iid_ = Guid('{2f1b5152-c869-40c9-aa5f-3abe026bd720}')
+    @commethod(93)
+    def EnumerateObjectReferences(self, objectId: UIntPtr, callback: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ObjectReferenceCallback, clientData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(94)
+    def IsFrozenObject(self, objectId: UIntPtr, pbFrozen: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(95)
+    def GetLOHObjectSizeThreshold(self, pThreshold: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(96)
+    def RequestReJITWithInliners(self, dwRejitFlags: UInt32, cFunctions: UInt32, moduleIds: POINTER(UIntPtr), methodIds: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(97)
+    def SuspendRuntime(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(98)
+    def ResumeRuntime(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICorProfilerInfo11(ComPtr):
+    extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo10
+    _iid_ = Guid('{06398876-8987-4154-b621-40a00d6e4d04}')
+    @commethod(99)
+    def GetEnvironmentVariableA(self, szName: win32more.Windows.Win32.Foundation.PWSTR, cchValue: UInt32, pcchValue: POINTER(UInt32), szValue: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(100)
+    def SetEnvironmentVariable(self, szName: win32more.Windows.Win32.Foundation.PWSTR, szValue: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICorProfilerInfo12(ComPtr):
+    extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo11
+    _iid_ = Guid('{27b24ccd-1cb1-47c5-96ee-98190dc30959}')
+    @commethod(101)
+    def EventPipeStartSession(self, cProviderConfigs: UInt32, pProviderConfigs: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_PROVIDER_CONFIG_head), requestRundown: win32more.Windows.Win32.Foundation.BOOL, pSession: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(102)
+    def EventPipeAddProviderToSession(self, session: UInt64, providerConfig: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_PROVIDER_CONFIG) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(103)
+    def EventPipeStopSession(self, session: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(104)
+    def EventPipeCreateProvider(self, providerName: win32more.Windows.Win32.Foundation.PWSTR, pProvider: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(105)
+    def EventPipeGetProviderInfo(self, provider: UIntPtr, cchName: UInt32, pcchName: POINTER(UInt32), providerName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(106)
+    def EventPipeDefineEvent(self, provider: UIntPtr, eventName: win32more.Windows.Win32.Foundation.PWSTR, eventID: UInt32, keywords: UInt64, eventVersion: UInt32, level: UInt32, opcode: Byte, needStack: win32more.Windows.Win32.Foundation.BOOL, cParamDescs: UInt32, pParamDescs: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_PARAM_DESC_head), pEvent: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(107)
+    def EventPipeWriteEvent(self, event: UIntPtr, cData: UInt32, data: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENT_DATA_head), pActivityId: POINTER(Guid), pRelatedActivityId: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICorProfilerInfo13(ComPtr):
+    extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo12
+    _iid_ = Guid('{6e6c7ee2-0701-4ec2-9d29-2e8733b66934}')
+    @commethod(108)
+    def CreateHandle(self, object: UIntPtr, type: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_HANDLE_TYPE, pHandle: POINTER(POINTER(VoidPtr))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(109)
+    def DestroyHandle(self, handle: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(110)
+    def GetObjectIDFromHandle(self, handle: POINTER(VoidPtr), pObject: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICorProfilerInfo14(ComPtr):
+    extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo13
+    _iid_ = Guid('{f460e352-d76d-4fe9-835f-f6af9d6e862d}')
+    @commethod(111)
+    def EnumerateNonGCObjects(self, ppEnum: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerObjectEnum_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(112)
+    def GetNonGCHeapBounds(self, cObjectRanges: UInt32, pcObjectRanges: POINTER(UInt32), ranges: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_NONGC_HEAP_RANGE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(113)
+    def EventPipeCreateProvider2(self, providerName: win32more.Windows.Win32.Foundation.PWSTR, pCallback: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.EventPipeProviderCallback), pProvider: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICorProfilerInfo2(ComPtr):
     extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo
     _iid_ = Guid('{cc0935cd-a518-487d-b0bb-a93214e65478}')
@@ -644,6 +777,15 @@ class ICorProfilerInfo8(ComPtr):
     def GetFunctionFromIP3(self, ip: POINTER(Byte), functionId: POINTER(UIntPtr), pReJitId: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(89)
     def GetDynamicFunctionInfo(self, functionId: UIntPtr, moduleId: POINTER(UIntPtr), ppvSig: POINTER(POINTER(Byte)), pbSig: POINTER(UInt32), cchName: UInt32, pcchName: POINTER(UInt32), wszName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICorProfilerInfo9(ComPtr):
+    extends: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo8
+    _iid_ = Guid('{008170db-f8cc-4796-9a51-dc8aa0b47012}')
+    @commethod(90)
+    def GetNativeCodeStartAddresses(self, functionID: UIntPtr, reJitId: UIntPtr, cCodeStartAddresses: UInt32, pcCodeStartAddresses: POINTER(UInt32), codeStartAddresses: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(91)
+    def GetILToNativeMapping3(self, pNativeCodeStartAddress: UIntPtr, cMap: UInt32, pcMap: POINTER(UInt32), map: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_DEBUG_IL_TO_NATIVE_MAP_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(92)
+    def GetCodeInfo4(self, pNativeCodeStartAddress: UIntPtr, cCodeInfos: UInt32, pcCodeInfos: POINTER(UInt32), codeInfos: POINTER(win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_CODE_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICorProfilerMethodEnum(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fccee788-0088-454b-a811-c99f298d1942}')
@@ -702,17 +844,25 @@ class IMethodMalloc(ComPtr):
     @commethod(3)
     def Alloc(self, cb: UInt32) -> VoidPtr: ...
 @winfunctype_pointer
+def ObjectReferenceCallback(root: UIntPtr, reference: POINTER(UIntPtr), clientData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype_pointer
 def StackSnapshotCallback(funcId: UIntPtr, ip: UIntPtr, frameInfo: UIntPtr, contextSize: UInt32, context: POINTER(Byte), clientData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'COR_DEBUG_IL_TO_NATIVE_MAP')
 make_head(_module, 'COR_IL_MAP')
 make_head(_module, 'COR_PRF_ASSEMBLY_REFERENCE_INFO')
 make_head(_module, 'COR_PRF_CODE_INFO')
+make_head(_module, 'COR_PRF_EVENTPIPE_PARAM_DESC')
+make_head(_module, 'COR_PRF_EVENTPIPE_PROVIDER_CONFIG')
+make_head(_module, 'COR_PRF_EVENT_DATA')
 make_head(_module, 'COR_PRF_EX_CLAUSE_INFO')
+make_head(_module, 'COR_PRF_FILTER_DATA')
 make_head(_module, 'COR_PRF_FUNCTION')
 make_head(_module, 'COR_PRF_FUNCTION_ARGUMENT_INFO')
 make_head(_module, 'COR_PRF_FUNCTION_ARGUMENT_RANGE')
 make_head(_module, 'COR_PRF_GC_GENERATION_RANGE')
 make_head(_module, 'COR_PRF_METHOD')
+make_head(_module, 'COR_PRF_NONGC_HEAP_RANGE')
+make_head(_module, 'EventPipeProviderCallback')
 make_head(_module, 'FunctionEnter')
 make_head(_module, 'FunctionEnter2')
 make_head(_module, 'FunctionEnter3')
@@ -730,6 +880,8 @@ make_head(_module, 'FunctionTailcall3')
 make_head(_module, 'FunctionTailcall3WithInfo')
 make_head(_module, 'ICorProfilerAssemblyReferenceProvider')
 make_head(_module, 'ICorProfilerCallback')
+make_head(_module, 'ICorProfilerCallback10')
+make_head(_module, 'ICorProfilerCallback11')
 make_head(_module, 'ICorProfilerCallback2')
 make_head(_module, 'ICorProfilerCallback3')
 make_head(_module, 'ICorProfilerCallback4')
@@ -741,6 +893,11 @@ make_head(_module, 'ICorProfilerCallback9')
 make_head(_module, 'ICorProfilerFunctionControl')
 make_head(_module, 'ICorProfilerFunctionEnum')
 make_head(_module, 'ICorProfilerInfo')
+make_head(_module, 'ICorProfilerInfo10')
+make_head(_module, 'ICorProfilerInfo11')
+make_head(_module, 'ICorProfilerInfo12')
+make_head(_module, 'ICorProfilerInfo13')
+make_head(_module, 'ICorProfilerInfo14')
 make_head(_module, 'ICorProfilerInfo2')
 make_head(_module, 'ICorProfilerInfo3')
 make_head(_module, 'ICorProfilerInfo4')
@@ -748,9 +905,11 @@ make_head(_module, 'ICorProfilerInfo5')
 make_head(_module, 'ICorProfilerInfo6')
 make_head(_module, 'ICorProfilerInfo7')
 make_head(_module, 'ICorProfilerInfo8')
+make_head(_module, 'ICorProfilerInfo9')
 make_head(_module, 'ICorProfilerMethodEnum')
 make_head(_module, 'ICorProfilerModuleEnum')
 make_head(_module, 'ICorProfilerObjectEnum')
 make_head(_module, 'ICorProfilerThreadEnum')
 make_head(_module, 'IMethodMalloc')
+make_head(_module, 'ObjectReferenceCallback')
 make_head(_module, 'StackSnapshotCallback')

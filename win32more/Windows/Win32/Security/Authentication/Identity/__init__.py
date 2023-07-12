@@ -1931,6 +1931,13 @@ CRED_FETCH = Int32
 CRED_FETCH_CredFetchDefault: CRED_FETCH = 0
 CRED_FETCH_CredFetchDPAPI: CRED_FETCH = 1
 CRED_FETCH_CredFetchForced: CRED_FETCH = 2
+class CRYPTO_SETTINGS(EasyCastStructure):
+    eAlgorithmUsage: win32more.Windows.Win32.Security.Authentication.Identity.eTlsAlgorithmUsage
+    strCngAlgId: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
+    cChainingModes: UInt32
+    rgstrChainingModes: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)
+    dwMinBitLength: UInt32
+    dwMaxBitLength: UInt32
 @winfunctype_pointer
 def CredFreeCredentialsFn(Count: UInt32, Credentials: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.ENCRYPTED_CREDENTIALW_head))) -> Void: ...
 @winfunctype_pointer
@@ -3459,6 +3466,18 @@ class SCH_CRED(EasyCastStructure):
     paPublic: POINTER(VoidPtr)
     cMappers: UInt32
     aphMappers: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity._HMAPPER))
+class SCH_CREDENTIALS(EasyCastStructure):
+    dwVersion: UInt32
+    dwCredFormat: UInt32
+    cCreds: UInt32
+    paCred: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))
+    hRootStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
+    cMappers: UInt32
+    aphMappers: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity._HMAPPER))
+    dwSessionLifespan: UInt32
+    dwFlags: UInt32
+    cTlsParameters: UInt32
+    pTlsParameters: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.TLS_PARAMETERS_head)
 class SCH_CRED_PUBLIC_CERTCHAIN(EasyCastStructure):
     dwType: UInt32
     cbCertChain: UInt32
@@ -4690,6 +4709,13 @@ def SslGetServerIdentityFn(ClientHello: POINTER(Byte), ClientHelloSize: UInt32, 
 class TLS_EXTENSION_SUBSCRIPTION(EasyCastStructure):
     ExtensionType: UInt16
     HandshakeType: UInt16
+class TLS_PARAMETERS(EasyCastStructure):
+    cAlpnIds: UInt32
+    rgstrAlpnIds: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING_head)
+    grbitDisabledProtocols: UInt32
+    cDisabledCrypto: UInt32
+    pDisabledCrypto: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.CRYPTO_SETTINGS_head)
+    dwFlags: UInt32
 TOKENBINDING_EXTENSION_FORMAT = Int32
 TOKENBINDING_EXTENSION_FORMAT_UNDEFINED: TOKENBINDING_EXTENSION_FORMAT = 0
 class TOKENBINDING_IDENTIFIER(EasyCastStructure):
@@ -4841,6 +4867,12 @@ class X509Certificate(EasyCastStructure):
     pszSubject: win32more.Windows.Win32.Foundation.PSTR
     pPublicKey: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.PctPublicKey_head)
 _HMAPPER = IntPtr
+eTlsAlgorithmUsage = Int32
+eTlsAlgorithmUsage_TlsParametersCngAlgUsageKeyExchange: eTlsAlgorithmUsage = 0
+eTlsAlgorithmUsage_TlsParametersCngAlgUsageSignature: eTlsAlgorithmUsage = 1
+eTlsAlgorithmUsage_TlsParametersCngAlgUsageCipher: eTlsAlgorithmUsage = 2
+eTlsAlgorithmUsage_TlsParametersCngAlgUsageDigest: eTlsAlgorithmUsage = 3
+eTlsAlgorithmUsage_TlsParametersCngAlgUsageCertSig: eTlsAlgorithmUsage = 4
 eTlsHashAlgorithm = Int32
 TlsHashAlgorithm_None: eTlsHashAlgorithm = 0
 TlsHashAlgorithm_Md5: eTlsHashAlgorithm = 1
@@ -4867,6 +4899,7 @@ make_head(_module, 'CHANGE_PASSWORD_FN_A')
 make_head(_module, 'CHANGE_PASSWORD_FN_W')
 make_head(_module, 'CLEAR_BLOCK')
 make_head(_module, 'COMPLETE_AUTH_TOKEN_FN')
+make_head(_module, 'CRYPTO_SETTINGS')
 make_head(_module, 'CredFreeCredentialsFn')
 make_head(_module, 'CredReadDomainCredentialsFn')
 make_head(_module, 'CredReadFn')
@@ -5164,6 +5197,7 @@ make_head(_module, 'SCHANNEL_CLIENT_SIGNATURE')
 make_head(_module, 'SCHANNEL_CRED')
 make_head(_module, 'SCHANNEL_SESSION_TOKEN')
 make_head(_module, 'SCH_CRED')
+make_head(_module, 'SCH_CREDENTIALS')
 make_head(_module, 'SCH_CRED_PUBLIC_CERTCHAIN')
 make_head(_module, 'SCH_CRED_SECRET_CAPI')
 make_head(_module, 'SCH_CRED_SECRET_PRIVKEY')
@@ -5384,6 +5418,7 @@ make_head(_module, 'SslDeserializeCertificateStoreFn')
 make_head(_module, 'SslGetExtensionsFn')
 make_head(_module, 'SslGetServerIdentityFn')
 make_head(_module, 'TLS_EXTENSION_SUBSCRIPTION')
+make_head(_module, 'TLS_PARAMETERS')
 make_head(_module, 'TOKENBINDING_IDENTIFIER')
 make_head(_module, 'TOKENBINDING_KEY_TYPES')
 make_head(_module, 'TOKENBINDING_RESULT_DATA')

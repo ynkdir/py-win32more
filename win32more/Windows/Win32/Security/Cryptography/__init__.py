@@ -2882,6 +2882,10 @@ AUDIT_STORE_IMPORT: win32more.Windows.Win32.Foundation.HRESULT = 1074070019
 AUDIT_STORE_EXPORT: win32more.Windows.Win32.Foundation.HRESULT = 1074070020
 AUDIT_STORE_DELETE: win32more.Windows.Win32.Foundation.HRESULT = 1074070021
 AUDIT_SERVICE_IDLE_STOP: win32more.Windows.Win32.Foundation.HRESULT = 1074070022
+@winfunctype('BCryptPrimitives.dll')
+def SystemPrng(pbRandomData: POINTER(Byte), cbRandomData: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('BCryptPrimitives.dll')
+def ProcessPrng(pbData: POINTER(Byte), cbData: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def CryptAcquireContextA(phProv: POINTER(UIntPtr), szContainer: win32more.Windows.Win32.Foundation.PSTR, szProvider: win32more.Windows.Win32.Foundation.PSTR, dwProvType: UInt32, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')

@@ -997,6 +997,13 @@ class IKsJackSinkInformation(ComPtr):
     _iid_ = Guid('{d9bd72ed-290f-4581-9ff3-61027a8fe532}')
     @commethod(3)
     def GetJackSinkInformation(self, pJackSinkInformation: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_SINK_INFORMATION_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IKsNodeControl(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{11737c14-24a7-4bb5-81a0-0d003813b0c4}')
+    @commethod(3)
+    def put_NodeId(self, dwNodeId: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def put_KsControl(self, pKsControl: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsNotifyEvent(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{412bd695-f84b-46c1-ac73-54196dbc8fa7}')
@@ -1071,6 +1078,15 @@ class IKsPinPipe(ComPtr):
     def KsGetPinName(self) -> win32more.Windows.Win32.Foundation.PWSTR: ...
     @commethod(13)
     def KsGetFilterName(self) -> win32more.Windows.Win32.Foundation.PWSTR: ...
+class IKsPropertySet(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{31efac30-515c-11d0-a9aa-00aa0061be93}')
+    @commethod(3)
+    def Set(self, guidPropSet: POINTER(Guid), dwPropID: UInt32, pInstanceData: VoidPtr, cbInstanceData: UInt32, pPropData: VoidPtr, cbPropData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def Get(self, guidPropSet: POINTER(Guid), dwPropID: UInt32, pInstanceData: VoidPtr, cbInstanceData: UInt32, pPropData: VoidPtr, cbPropData: UInt32, pcbReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def QuerySupported(self, guidPropSet: POINTER(Guid), dwPropID: UInt32, pTypeSupport: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsQualityForwarder(ComPtr):
     extends: win32more.Windows.Win32.Media.KernelStreaming.IKsObject
     _iid_ = Guid('{97ebaacb-95bd-11d0-a3ea-00a0c9223196}')
@@ -4394,12 +4410,14 @@ make_head(_module, 'IKsJackDescription')
 make_head(_module, 'IKsJackDescription2')
 make_head(_module, 'IKsJackDescription3')
 make_head(_module, 'IKsJackSinkInformation')
+make_head(_module, 'IKsNodeControl')
 make_head(_module, 'IKsNotifyEvent')
 make_head(_module, 'IKsObject')
 make_head(_module, 'IKsPin')
 make_head(_module, 'IKsPinEx')
 make_head(_module, 'IKsPinFactory')
 make_head(_module, 'IKsPinPipe')
+make_head(_module, 'IKsPropertySet')
 make_head(_module, 'IKsQualityForwarder')
 make_head(_module, 'IKsTopology')
 make_head(_module, 'IKsTopologyInfo')

@@ -5355,13 +5355,6 @@ class IIPDVDec(ComPtr):
     def get_IPDisplay(self, displayPix: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_IPDisplay(self, displayPix: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IKsNodeControl(ComPtr):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{11737c14-24a7-4bb5-81a0-0d003813b0c4}')
-    @commethod(3)
-    def put_NodeId(self, dwNodeId: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-    @commethod(4)
-    def put_KsControl(self, pKsControl: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMPEG2PIDMap(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{afb6c2a1-2c41-11d3-8a60-0000f81e0e4a}')
@@ -7958,7 +7951,6 @@ make_head(_module, 'IGraphConfig')
 make_head(_module, 'IGraphConfigCallback')
 make_head(_module, 'IGraphVersion')
 make_head(_module, 'IIPDVDec')
-make_head(_module, 'IKsNodeControl')
 make_head(_module, 'IMPEG2PIDMap')
 make_head(_module, 'IMPEG2StreamIdMap')
 make_head(_module, 'IMediaControl')
