@@ -74,6 +74,10 @@ GPO_INFO_FLAG_LOGRSOP_TRANSITION: UInt32 = 512
 GPO_INFO_FLAG_FORCED_REFRESH: UInt32 = 1024
 GPO_INFO_FLAG_SAFEMODE_BOOT: UInt32 = 2048
 GPO_INFO_FLAG_ASYNC_FOREGROUND: UInt32 = 4096
+REGISTRY_EXTENSION_GUID: Guid = Guid('{35378eac-683f-11d2-a89a-00c04fbbcfa2}')
+GROUP_POLICY_TRIGGER_EVENT_PROVIDER_GUID: Guid = Guid('{bd2f4252-5e1e-49fc-9a30-f3978ad89ee2}')
+MACHINE_POLICY_PRESENT_TRIGGER_GUID: Guid = Guid('{659fcae6-5bdb-4da9-b1ff-ca2a178d46e0}')
+USER_POLICY_PRESENT_TRIGGER_GUID: Guid = Guid('{54fb46c8-f089-464c-b1fd-59d1b62c3b50}')
 FLAG_NO_GPO_FILTER: UInt32 = 2147483648
 FLAG_NO_CSE_INVOKE: UInt32 = 1073741824
 FLAG_ASSUME_SLOW_LINK: UInt32 = 536870912
@@ -107,18 +111,12 @@ NODEID_MachineSWSettings: Guid = Guid('{8fc0b73a-a0e1-11d1-a7d3-0000f87571e3}')
 NODEID_User: Guid = Guid('{8fc0b738-a0e1-11d1-a7d3-0000f87571e3}')
 NODEID_UserSWSettings: Guid = Guid('{8fc0b73c-a0e1-11d1-a7d3-0000f87571e3}')
 CLSID_GroupPolicyObject: Guid = Guid('{ea502722-a23d-11d1-a7d3-0000f87571e3}')
+ADMXCOMMENTS_EXTENSION_GUID: Guid = Guid('{6c5a2a86-9eb3-42b9-aa83-a7371ba011b9}')
 CLSID_RSOPSnapIn: Guid = Guid('{6dc3804b-7212-458d-adb0-9a07e2ae1fa2}')
 NODEID_RSOPMachine: Guid = Guid('{bd4c1a2e-0b7a-4a62-a6b0-c0577539c97e}')
 NODEID_RSOPMachineSWSettings: Guid = Guid('{6a76273e-eb8e-45db-94c5-25663a5f2c1a}')
 NODEID_RSOPUser: Guid = Guid('{ab87364f-0cec-4cd8-9bf8-898f34628fb8}')
 NODEID_RSOPUserSWSettings: Guid = Guid('{e52c5ce3-fd27-4402-84de-d9a5f2858910}')
-GPO_SECTION_ROOT: UInt32 = 0
-GPO_SECTION_USER: UInt32 = 1
-GPO_SECTION_MACHINE: UInt32 = 2
-GPO_OPEN_LOAD_REGISTRY: UInt32 = 1
-GPO_OPEN_READ_ONLY: UInt32 = 2
-GPO_OPTION_DISABLE_USER: UInt32 = 1
-GPO_OPTION_DISABLE_MACHINE: UInt32 = 2
 RSOP_INFO_FLAG_DIAGNOSTIC_MODE: UInt32 = 1
 GPO_BROWSE_DISABLENEW: UInt32 = 1
 GPO_BROWSE_NOCOMPUTERS: UInt32 = 2
@@ -156,9 +154,9 @@ def ProcessGroupPolicyCompleted(extensionId: POINTER(Guid), pAsyncHandle: UIntPt
 @winfunctype('USERENV.dll')
 def ProcessGroupPolicyCompletedEx(extensionId: POINTER(Guid), pAsyncHandle: UIntPtr, dwStatus: UInt32, RsopStatus: win32more.Windows.Win32.Foundation.HRESULT) -> UInt32: ...
 @winfunctype('USERENV.dll')
-def RsopAccessCheckByType(pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, pPrincipalSelfSid: win32more.Windows.Win32.Foundation.PSID, pRsopToken: VoidPtr, dwDesiredAccessMask: UInt32, pObjectTypeList: POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, pGenericMapping: POINTER(win32more.Windows.Win32.Security.GENERIC_MAPPING_head), pPrivilegeSet: POINTER(win32more.Windows.Win32.Security.PRIVILEGE_SET_head), pdwPrivilegeSetLength: POINTER(UInt32), pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def RsopAccessCheckByType(pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, pPrincipalSelfSid: win32more.Windows.Win32.Foundation.PSID, pRsopToken: VoidPtr, dwDesiredAccessMask: UInt32, pObjectTypeList: POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, pGenericMapping: POINTER(win32more.Windows.Win32.Security.GENERIC_MAPPING_head), pPrivilegeSet: POINTER(win32more.Windows.Win32.Security.PRIVILEGE_SET_head), pdwPrivilegeSetLength: POINTER(UInt32), pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
-def RsopFileAccessCheck(pszFileName: win32more.Windows.Win32.Foundation.PWSTR, pRsopToken: VoidPtr, dwDesiredAccessMask: UInt32, pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def RsopFileAccessCheck(pszFileName: win32more.Windows.Win32.Foundation.PWSTR, pRsopToken: VoidPtr, dwDesiredAccessMask: UInt32, pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
 def RsopSetPolicySettingStatus(dwFlags: UInt32, pServices: win32more.Windows.Win32.System.Wmi.IWbemServices_head, pSettingInstance: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, nInfo: UInt32, pStatus: POINTER(win32more.Windows.Win32.System.GroupPolicy.POLICYSETTINGSTATUSINFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
@@ -321,6 +319,16 @@ GPO_LINK_GPLinkMachine: GPO_LINK = 1
 GPO_LINK_GPLinkSite: GPO_LINK = 2
 GPO_LINK_GPLinkDomain: GPO_LINK = 3
 GPO_LINK_GPLinkOrganizationalUnit: GPO_LINK = 4
+GPO_OPEN_FLAGS = UInt32
+GPO_OPEN_LOAD_REGISTRY: GPO_OPEN_FLAGS = 1
+GPO_OPEN_READ_ONLY: GPO_OPEN_FLAGS = 2
+GPO_OPTIONS = UInt32
+GPO_OPTION_DISABLE_USER: GPO_OPTIONS = 1
+GPO_OPTION_DISABLE_MACHINE: GPO_OPTIONS = 2
+GPO_SECTION = UInt32
+GPO_SECTION_ROOT: GPO_SECTION = 0
+GPO_SECTION_USER: GPO_SECTION = 1
+GPO_SECTION_MACHINE: GPO_SECTION = 2
 GROUP_POLICY_HINT_TYPE = Int32
 GROUP_POLICY_HINT_TYPE_GPHintUnknown: GROUP_POLICY_HINT_TYPE = 0
 GROUP_POLICY_HINT_TYPE_GPHintMachine: GROUP_POLICY_HINT_TYPE = 1
@@ -1177,11 +1185,11 @@ class IGroupPolicyObject(ComPtr):
     @commethod(3)
     def New(self, pszDomainName: win32more.Windows.Win32.Foundation.PWSTR, pszDisplayName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def OpenDSGPO(self, pszPath: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OpenDSGPO(self, pszPath: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.System.GroupPolicy.GPO_OPEN_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def OpenLocalMachineGPO(self, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OpenLocalMachineGPO(self, dwFlags: win32more.Windows.Win32.System.GroupPolicy.GPO_OPEN_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def OpenRemoteMachineGPO(self, pszComputerName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OpenRemoteMachineGPO(self, pszComputerName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.System.GroupPolicy.GPO_OPEN_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Save(self, bMachine: win32more.Windows.Win32.Foundation.BOOL, bAdd: win32more.Windows.Win32.Foundation.BOOL, pGuidExtension: POINTER(Guid), pGuid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1199,11 +1207,11 @@ class IGroupPolicyObject(ComPtr):
     @commethod(14)
     def GetFileSysPath(self, dwSection: UInt32, pszPath: win32more.Windows.Win32.Foundation.PWSTR, cchMaxPath: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def GetRegistryKey(self, dwSection: UInt32, hKey: POINTER(win32more.Windows.Win32.System.Registry.HKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetRegistryKey(self, dwSection: win32more.Windows.Win32.System.GroupPolicy.GPO_SECTION, hKey: POINTER(win32more.Windows.Win32.System.Registry.HKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def GetOptions(self, dwOptions: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOptions(self, dwOptions: POINTER(win32more.Windows.Win32.System.GroupPolicy.GPO_OPTIONS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def SetOptions(self, dwOptions: UInt32, dwMask: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetOptions(self, dwOptions: win32more.Windows.Win32.System.GroupPolicy.GPO_OPTIONS, dwMask: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetType(self, gpoType: POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)

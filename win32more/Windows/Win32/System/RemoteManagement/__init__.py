@@ -922,7 +922,7 @@ class WSMAN_PLUGIN_REQUEST(EasyCastStructure):
     locale: win32more.Windows.Win32.Foundation.PWSTR
     resourceUri: win32more.Windows.Win32.Foundation.PWSTR
     operationInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_INFO_head)
-    shutdownNotification: Int32
+    shutdownNotification: win32more.Windows.Win32.Foundation.BOOL
     shutdownNotificationHandle: win32more.Windows.Win32.Foundation.HANDLE
     dataLocale: win32more.Windows.Win32.Foundation.PWSTR
 @winfunctype_pointer

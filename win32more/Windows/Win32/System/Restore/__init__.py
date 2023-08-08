@@ -37,6 +37,8 @@ MAX_DESC_W: UInt32 = 256
 def SRSetRestorePointA(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Restore.RESTOREPOINTINFOA_head), pSMgrStatus: POINTER(win32more.Windows.Win32.System.Restore.STATEMGRSTATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('sfc.dll')
 def SRSetRestorePointW(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Restore.RESTOREPOINTINFOW_head), pSMgrStatus: POINTER(win32more.Windows.Win32.System.Restore.STATEMGRSTATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('SrClient.dll')
+def SRRemoveRestorePoint(dwRPNum: UInt32) -> UInt32: ...
 class RESTOREPOINTINFOA(EasyCastStructure):
     dwEventType: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_EVENT_TYPE
     dwRestorePtType: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_TYPE
@@ -68,7 +70,7 @@ DEVICE_DRIVER_INSTALL: RESTOREPOINTINFO_TYPE = 10
 MODIFY_SETTINGS: RESTOREPOINTINFO_TYPE = 12
 CANCELLED_OPERATION: RESTOREPOINTINFO_TYPE = 13
 class STATEMGRSTATUS(EasyCastStructure):
-    nStatus: UInt32
+    nStatus: win32more.Windows.Win32.Foundation.WIN32_ERROR
     llSequenceNumber: Int64
     _pack_ = 1
 make_head(_module, 'RESTOREPOINTINFOA')

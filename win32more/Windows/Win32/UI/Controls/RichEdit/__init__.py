@@ -823,7 +823,7 @@ if ARCH in 'X64,ARM64':
         flags: win32more.Windows.Win32.UI.Controls.RichEdit.GETTEXTEX_FLAGS
         codepage: UInt32
         lpDefaultChar: win32more.Windows.Win32.Foundation.PSTR
-        lpUsedDefChar: POINTER(Int32)
+        lpUsedDefChar: POINTER(win32more.Windows.Win32.Foundation.BOOL)
         _pack_ = 4
 if ARCH in 'X86':
     class GETTEXTEX(EasyCastStructure):
@@ -831,7 +831,7 @@ if ARCH in 'X86':
         flags: win32more.Windows.Win32.UI.Controls.RichEdit.GETTEXTEX_FLAGS
         codepage: UInt32
         lpDefaultChar: win32more.Windows.Win32.Foundation.PSTR
-        lpUsedDefChar: POINTER(Int32)
+        lpUsedDefChar: POINTER(win32more.Windows.Win32.Foundation.BOOL)
 GETTEXTEX_FLAGS = UInt32
 GT_DEFAULT: GETTEXTEX_FLAGS = 0
 GT_NOHIDDENTEXT: GETTEXTEX_FLAGS = 8

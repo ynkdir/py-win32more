@@ -505,6 +505,8 @@ DevProp_PciRootBus_SecondaryInterface_PciConventional: UInt32 = 0
 DevProp_PciRootBus_SecondaryInterface_PciXMode1: UInt32 = 1
 DevProp_PciRootBus_SecondaryInterface_PciXMode2: UInt32 = 2
 DevProp_PciRootBus_SecondaryInterface_PciExpress: UInt32 = 3
+def DEVPKEY_PciRootBus_SecondaryInterface():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=1)
 DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_33Mhz: UInt32 = 0
 DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_66Mhz: UInt32 = 1
 DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_66Mhz: UInt32 = 2
@@ -519,14 +521,48 @@ DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_133Mhz: UInt32 = 10
 DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_66Mhz: UInt32 = 11
 DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_100Mhz: UInt32 = 12
 DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_133Mhz: UInt32 = 13
+def DEVPKEY_PciRootBus_CurrentSpeedAndMode():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=2)
 DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_33Mhz: UInt32 = 1
 DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_66Mhz: UInt32 = 2
 DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_66Mhz: UInt32 = 4
 DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_133Mhz: UInt32 = 8
 DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_266Mhz: UInt32 = 16
 DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_533Mhz: UInt32 = 32
+def DEVPKEY_PciRootBus_SupportedSpeedsAndModes():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=3)
+def DEVPKEY_PciRootBus_DeviceIDMessagingCapable():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=4)
 DevProp_PciRootBus_BusWidth_32Bits: UInt32 = 0
 DevProp_PciRootBus_BusWidth_64Bits: UInt32 = 1
+def DEVPKEY_PciRootBus_SecondaryBusWidth():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=5)
+def DEVPKEY_PciRootBus_ExtendedConfigAvailable():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=6)
+def DEVPKEY_PciRootBus_ExtendedPCIConfigOpRegionSupport():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=7)
+def DEVPKEY_PciRootBus_ASPMSupport():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=8)
+def DEVPKEY_PciRootBus_ClockPowerManagementSupport():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=9)
+def DEVPKEY_PciRootBus_PCISegmentGroupsSupport():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=10)
+def DEVPKEY_PciRootBus_MSISupport():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=11)
+def DEVPKEY_PciRootBus_PCIExpressNativeHotPlugControl():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=12)
+def DEVPKEY_PciRootBus_SHPCNativeHotPlugControl():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=13)
+def DEVPKEY_PciRootBus_PCIExpressNativePMEControl():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=14)
+def DEVPKEY_PciRootBus_PCIExpressAERControl():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=15)
+def DEVPKEY_PciRootBus_PCIExpressCapabilityControl():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=16)
+def DEVPKEY_PciRootBus_NativePciExpressControl():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=17)
+def DEVPKEY_PciRootBus_SystemMsiSupport():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=18)
 DevProp_PciDevice_DeviceType_PciConventional: UInt32 = 0
 DevProp_PciDevice_DeviceType_PciX: UInt32 = 1
 DevProp_PciDevice_DeviceType_PciExpressEndpoint: UInt32 = 2
@@ -3465,6 +3501,24 @@ WL_DISPLAY_PAGES = Int32
 WL_DISPLAY_PAGES_WLConnectionPage: WL_DISPLAY_PAGES = 0
 WL_DISPLAY_PAGES_WLSecurityPage: WL_DISPLAY_PAGES = 1
 WL_DISPLAY_PAGES_WLAdvPage: WL_DISPLAY_PAGES = 2
+make_head(_module, 'DEVPKEY_PciRootBus_SecondaryInterface')
+make_head(_module, 'DEVPKEY_PciRootBus_CurrentSpeedAndMode')
+make_head(_module, 'DEVPKEY_PciRootBus_SupportedSpeedsAndModes')
+make_head(_module, 'DEVPKEY_PciRootBus_DeviceIDMessagingCapable')
+make_head(_module, 'DEVPKEY_PciRootBus_SecondaryBusWidth')
+make_head(_module, 'DEVPKEY_PciRootBus_ExtendedConfigAvailable')
+make_head(_module, 'DEVPKEY_PciRootBus_ExtendedPCIConfigOpRegionSupport')
+make_head(_module, 'DEVPKEY_PciRootBus_ASPMSupport')
+make_head(_module, 'DEVPKEY_PciRootBus_ClockPowerManagementSupport')
+make_head(_module, 'DEVPKEY_PciRootBus_PCISegmentGroupsSupport')
+make_head(_module, 'DEVPKEY_PciRootBus_MSISupport')
+make_head(_module, 'DEVPKEY_PciRootBus_PCIExpressNativeHotPlugControl')
+make_head(_module, 'DEVPKEY_PciRootBus_SHPCNativeHotPlugControl')
+make_head(_module, 'DEVPKEY_PciRootBus_PCIExpressNativePMEControl')
+make_head(_module, 'DEVPKEY_PciRootBus_PCIExpressAERControl')
+make_head(_module, 'DEVPKEY_PciRootBus_PCIExpressCapabilityControl')
+make_head(_module, 'DEVPKEY_PciRootBus_NativePciExpressControl')
+make_head(_module, 'DEVPKEY_PciRootBus_SystemMsiSupport')
 make_head(_module, 'DEVPKEY_WiFiDirect_DeviceAddress')
 make_head(_module, 'DEVPKEY_WiFiDirect_InterfaceAddress')
 make_head(_module, 'DEVPKEY_WiFiDirect_InterfaceGuid')

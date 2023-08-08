@@ -4,6 +4,8 @@ from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCast
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinHttp
 import win32more.Windows.Win32.Networking.WinSock
+import win32more.Windows.Win32.System.Com
+import win32more.Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -13,6 +15,12 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
+HTTPREQUEST_PROXYSETTING_DEFAULT: UInt32 = 0
+HTTPREQUEST_PROXYSETTING_PRECONFIG: UInt32 = 0
+HTTPREQUEST_PROXYSETTING_DIRECT: UInt32 = 1
+HTTPREQUEST_PROXYSETTING_PROXY: UInt32 = 2
+HTTPREQUEST_SETCREDENTIALS_FOR_SERVER: UInt32 = 0
+HTTPREQUEST_SETCREDENTIALS_FOR_PROXY: UInt32 = 1
 INTERNET_DEFAULT_PORT: UInt16 = 0
 INTERNET_DEFAULT_HTTP_PORT: UInt16 = 80
 INTERNET_DEFAULT_HTTPS_PORT: UInt16 = 443
@@ -682,6 +690,58 @@ def WinHttpFreeProxySettingsEx(ProxySettingsType: win32more.Windows.Win32.Networ
 class HTTP_VERSION_INFO(EasyCastStructure):
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
+class IWinHttpRequest(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IDispatch
+    _iid_ = Guid('{016fe2ec-b2c8-45f8-b23b-39e53a75396b}')
+    @commethod(7)
+    def SetProxy(self, ProxySetting: Int32, ProxyServer: win32more.Windows.Win32.System.Variant.VARIANT, BypassList: win32more.Windows.Win32.System.Variant.VARIANT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetCredentials(self, UserName: win32more.Windows.Win32.Foundation.BSTR, Password: win32more.Windows.Win32.Foundation.BSTR, Flags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def Open(self, Method: win32more.Windows.Win32.Foundation.BSTR, Url: win32more.Windows.Win32.Foundation.BSTR, Async: win32more.Windows.Win32.System.Variant.VARIANT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetRequestHeader(self, Header: win32more.Windows.Win32.Foundation.BSTR, Value: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetResponseHeader(self, Header: win32more.Windows.Win32.Foundation.BSTR, Value: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetAllResponseHeaders(self, Headers: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(13)
+    def Send(self, Body: win32more.Windows.Win32.System.Variant.VARIANT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Status(self, Status: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_StatusText(self, Status: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_ResponseText(self, Body: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_ResponseBody(self, Body: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_ResponseStream(self, Body: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_Option(self, Option: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption, Value: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(20)
+    def put_Option(self, Option: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption, Value: win32more.Windows.Win32.System.Variant.VARIANT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(21)
+    def WaitForResponse(self, Timeout: win32more.Windows.Win32.System.Variant.VARIANT, Succeeded: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(22)
+    def Abort(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(23)
+    def SetTimeouts(self, ResolveTimeout: Int32, ConnectTimeout: Int32, SendTimeout: Int32, ReceiveTimeout: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(24)
+    def SetClientCertificate(self, ClientCertificate: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(25)
+    def SetAutoLogonPolicy(self, AutoLogonPolicy: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestAutoLogonPolicy) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IWinHttpRequestEvents(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{f97f4e15-b787-4212-80d1-d380cbbf982e}')
+    @commethod(3)
+    def OnResponseStart(self, Status: Int32, ContentType: win32more.Windows.Win32.Foundation.BSTR) -> Void: ...
+    @commethod(4)
+    def OnResponseDataAvailable(self, Data: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY_head))) -> Void: ...
+    @commethod(5)
+    def OnResponseFinished(self) -> Void: ...
+    @commethod(6)
+    def OnError(self, ErrorNumber: Int32, ErrorDescription: win32more.Windows.Win32.Foundation.BSTR) -> Void: ...
 class URL_COMPONENTS(EasyCastStructure):
     dwStructSize: UInt32
     lpszScheme: win32more.Windows.Win32.Foundation.PWSTR
@@ -1023,7 +1083,48 @@ WIN_HTTP_CREATE_URL_FLAGS = UInt32
 ICU_ESCAPE: WIN_HTTP_CREATE_URL_FLAGS = 2147483648
 ICU_REJECT_USERPWD: WIN_HTTP_CREATE_URL_FLAGS = 16384
 ICU_DECODE: WIN_HTTP_CREATE_URL_FLAGS = 268435456
+WinHttpRequest = Guid('{2087c2f4-2cef-4953-a8ab-66779b670495}')
+WinHttpRequestAutoLogonPolicy = Int32
+AutoLogonPolicy_Always: WinHttpRequestAutoLogonPolicy = 0
+AutoLogonPolicy_OnlyIfBypassProxy: WinHttpRequestAutoLogonPolicy = 1
+AutoLogonPolicy_Never: WinHttpRequestAutoLogonPolicy = 2
+WinHttpRequestOption = Int32
+WinHttpRequestOption_UserAgentString: WinHttpRequestOption = 0
+WinHttpRequestOption_URL: WinHttpRequestOption = 1
+WinHttpRequestOption_URLCodePage: WinHttpRequestOption = 2
+WinHttpRequestOption_EscapePercentInURL: WinHttpRequestOption = 3
+WinHttpRequestOption_SslErrorIgnoreFlags: WinHttpRequestOption = 4
+WinHttpRequestOption_SelectCertificate: WinHttpRequestOption = 5
+WinHttpRequestOption_EnableRedirects: WinHttpRequestOption = 6
+WinHttpRequestOption_UrlEscapeDisable: WinHttpRequestOption = 7
+WinHttpRequestOption_UrlEscapeDisableQuery: WinHttpRequestOption = 8
+WinHttpRequestOption_SecureProtocols: WinHttpRequestOption = 9
+WinHttpRequestOption_EnableTracing: WinHttpRequestOption = 10
+WinHttpRequestOption_RevertImpersonationOverSsl: WinHttpRequestOption = 11
+WinHttpRequestOption_EnableHttpsToHttpRedirects: WinHttpRequestOption = 12
+WinHttpRequestOption_EnablePassportAuthentication: WinHttpRequestOption = 13
+WinHttpRequestOption_MaxAutomaticRedirects: WinHttpRequestOption = 14
+WinHttpRequestOption_MaxResponseHeaderSize: WinHttpRequestOption = 15
+WinHttpRequestOption_MaxResponseDrainSize: WinHttpRequestOption = 16
+WinHttpRequestOption_EnableHttp1_1: WinHttpRequestOption = 17
+WinHttpRequestOption_EnableCertificateRevocationCheck: WinHttpRequestOption = 18
+WinHttpRequestOption_RejectUserpwd: WinHttpRequestOption = 19
+WinHttpRequestSecureProtocols = Int32
+SecureProtocol_SSL2: WinHttpRequestSecureProtocols = 8
+SecureProtocol_SSL3: WinHttpRequestSecureProtocols = 32
+SecureProtocol_TLS1: WinHttpRequestSecureProtocols = 128
+SecureProtocol_TLS1_1: WinHttpRequestSecureProtocols = 512
+SecureProtocol_TLS1_2: WinHttpRequestSecureProtocols = 2048
+SecureProtocol_ALL: WinHttpRequestSecureProtocols = 168
+WinHttpRequestSslErrorFlags = Int32
+SslErrorFlag_UnknownCA: WinHttpRequestSslErrorFlags = 256
+SslErrorFlag_CertWrongUsage: WinHttpRequestSslErrorFlags = 512
+SslErrorFlag_CertCNInvalid: WinHttpRequestSslErrorFlags = 4096
+SslErrorFlag_CertDateInvalid: WinHttpRequestSslErrorFlags = 8192
+SslErrorFlag_Ignore_All: WinHttpRequestSslErrorFlags = 13056
 make_head(_module, 'HTTP_VERSION_INFO')
+make_head(_module, 'IWinHttpRequest')
+make_head(_module, 'IWinHttpRequestEvents')
 make_head(_module, 'URL_COMPONENTS')
 make_head(_module, 'WINHTTP_ASYNC_RESULT')
 make_head(_module, 'WINHTTP_AUTOPROXY_OPTIONS')

@@ -83,7 +83,7 @@ def GetLargePageMinimum() -> UIntPtr: ...
 @winfunctype('KERNEL32.dll')
 def GetProcessWorkingSetSizeEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, lpMinimumWorkingSetSize: POINTER(UIntPtr), lpMaximumWorkingSetSize: POINTER(UIntPtr), Flags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetProcessWorkingSetSizeEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwMinimumWorkingSetSize: UIntPtr, dwMaximumWorkingSetSize: UIntPtr, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetProcessWorkingSetSizeEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwMinimumWorkingSetSize: UIntPtr, dwMaximumWorkingSetSize: UIntPtr, Flags: win32more.Windows.Win32.System.Memory.SETPROCESSWORKINGSETSIZEEX_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def VirtualLock(lpAddress: VoidPtr, dwSize: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -451,6 +451,11 @@ SECTION_MAP_READ: SECTION_FLAGS = 4
 SECTION_MAP_EXECUTE: SECTION_FLAGS = 8
 SECTION_EXTEND_SIZE: SECTION_FLAGS = 16
 SECTION_MAP_EXECUTE_EXPLICIT: SECTION_FLAGS = 32
+SETPROCESSWORKINGSETSIZEEX_FLAGS = UInt32
+QUOTA_LIMITS_HARDWS_MIN_ENABLE: SETPROCESSWORKINGSETSIZEEX_FLAGS = 1
+QUOTA_LIMITS_HARDWS_MIN_DISABLE: SETPROCESSWORKINGSETSIZEEX_FLAGS = 2
+QUOTA_LIMITS_HARDWS_MAX_ENABLE: SETPROCESSWORKINGSETSIZEEX_FLAGS = 4
+QUOTA_LIMITS_HARDWS_MAX_DISABLE: SETPROCESSWORKINGSETSIZEEX_FLAGS = 8
 UNMAP_VIEW_OF_FILE_FLAGS = UInt32
 MEM_UNMAP_NONE: UNMAP_VIEW_OF_FILE_FLAGS = 0
 MEM_UNMAP_WITH_TRANSIENT_BOOST: UNMAP_VIEW_OF_FILE_FLAGS = 1

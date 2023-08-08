@@ -1,6 +1,7 @@
 from __future__ import annotations
 from ctypes import POINTER
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Streaming
 import sys
@@ -12,6 +13,35 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
+def DEVPKEY_Device_PacketWakeSupported():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=0)
+def DEVPKEY_Device_SendPacketWakeSupported():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=1)
+def DEVPKEY_Device_UDN():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=6)
+def DEVPKEY_Device_SupportsAudio():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=8)
+def DEVPKEY_Device_SupportsVideo():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=9)
+def DEVPKEY_Device_SupportsImages():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=10)
+def DEVPKEY_Device_SinkProtocolInfo():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=14)
+def DEVPKEY_Device_DLNADOC():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=15)
+def DEVPKEY_Device_DLNACAP():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=16)
+def DEVPKEY_Device_SupportsSearch():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=17)
+def DEVPKEY_Device_SupportsMute():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=18)
+def DEVPKEY_Device_MaxVolume():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=19)
+def DEVPKEY_Device_SupportsSetNextAVT():
+    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=20)
+GUID_DEVINTERFACE_DMR: Guid = Guid('{d0875fb4-2196-4c7a-a63d-e416addd60a1}')
+GUID_DEVINTERFACE_DMP: Guid = Guid('{25b4e268-2a05-496e-803b-266837fbda4b}')
+GUID_DEVINTERFACE_DMS: Guid = Guid('{c96037ae-a558-4470-b432-115a31b85553}')
 class CapturedMetadataExposureCompensation(EasyCastStructure):
     Flags: UInt64
     Value: Int32
@@ -64,6 +94,19 @@ class MetadataTimeStamps(EasyCastStructure):
     Flags: UInt32
     Device: Int64
     Presentation: Int64
+make_head(_module, 'DEVPKEY_Device_PacketWakeSupported')
+make_head(_module, 'DEVPKEY_Device_SendPacketWakeSupported')
+make_head(_module, 'DEVPKEY_Device_UDN')
+make_head(_module, 'DEVPKEY_Device_SupportsAudio')
+make_head(_module, 'DEVPKEY_Device_SupportsVideo')
+make_head(_module, 'DEVPKEY_Device_SupportsImages')
+make_head(_module, 'DEVPKEY_Device_SinkProtocolInfo')
+make_head(_module, 'DEVPKEY_Device_DLNADOC')
+make_head(_module, 'DEVPKEY_Device_DLNACAP')
+make_head(_module, 'DEVPKEY_Device_SupportsSearch')
+make_head(_module, 'DEVPKEY_Device_SupportsMute')
+make_head(_module, 'DEVPKEY_Device_MaxVolume')
+make_head(_module, 'DEVPKEY_Device_SupportsSetNextAVT')
 make_head(_module, 'CapturedMetadataExposureCompensation')
 make_head(_module, 'CapturedMetadataISOGains')
 make_head(_module, 'CapturedMetadataWhiteBalanceGains')

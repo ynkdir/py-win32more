@@ -5,6 +5,7 @@ import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsFirewall
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
+import win32more.Windows.Win32.System.Ole
 import win32more.Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
@@ -19,12 +20,18 @@ NETCON_MAX_NAME_LEN: UInt32 = 256
 S_OBJECT_NO_LONGER_VALID: win32more.Windows.Win32.Foundation.HRESULT = 2
 NETISO_GEID_FOR_WDAG: UInt32 = 1
 NETISO_GEID_FOR_NEUTRAL_AWARE: UInt32 = 2
+@winfunctype('Netshell.dll')
+def NcFreeNetconProperties(pProps: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFirewall.NETCON_PROPERTIES_head)) -> Void: ...
+@winfunctype('Netshell.dll')
+def NcIsValidConnectionName(pszwName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
 def NetworkIsolationSetupAppContainerBinaries(applicationContainerSid: win32more.Windows.Win32.Foundation.PSID, packageFullName: win32more.Windows.Win32.Foundation.PWSTR, packageFolder: win32more.Windows.Win32.Foundation.PWSTR, displayName: win32more.Windows.Win32.Foundation.PWSTR, bBinariesFullyComputed: win32more.Windows.Win32.Foundation.BOOL, binaries: POINTER(win32more.Windows.Win32.Foundation.PWSTR), binariesCount: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
 def NetworkIsolationRegisterForAppContainerChanges(flags: UInt32, callback: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.PAC_CHANGES_CALLBACK_FN, context: VoidPtr, registrationObject: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
 def NetworkIsolationUnregisterForAppContainerChanges(registrationObject: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('Firewallapi.dll')
+def NetworkIsolationEnumerateAppContainerRules(newEnum: POINTER(win32more.Windows.Win32.System.Ole.IEnumVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
 def NetworkIsolationFreeAppContainers(pPublicAppCs: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_APP_CONTAINER_head)) -> UInt32: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
@@ -35,6 +42,10 @@ def NetworkIsolationGetAppContainerConfig(pdwNumPublicAppCs: POINTER(UInt32), ap
 def NetworkIsolationSetAppContainerConfig(dwNumPublicAppCs: UInt32, appContainerSids: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES_head)) -> UInt32: ...
 @winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
 def NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName: win32more.Windows.Win32.Foundation.PWSTR, netIsoError: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFirewall.NETISO_ERROR_TYPE)) -> UInt32: ...
+@winfunctype('Firewallapi.dll')
+def NetworkIsolationGetEnterpriseIdAsync(wszServerName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, context: VoidPtr, callback: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.PNETISO_EDP_ID_CALLBACK_FN, hOperation: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('Firewallapi.dll')
+def NetworkIsolationGetEnterpriseIdClose(hOperation: win32more.Windows.Win32.Foundation.HANDLE, bWaitForOperation: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
 class FW_DYNAMIC_KEYWORD_ADDRESS0(EasyCastStructure):
     id: Guid
     keyword: win32more.Windows.Win32.Foundation.PWSTR

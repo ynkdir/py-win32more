@@ -1006,13 +1006,13 @@ class IWICStreamProvider(ComPtr):
     def RefreshStream(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFNProgressNotification(pvData: VoidPtr, uFrameNum: UInt32, operation: win32more.Windows.Win32.Graphics.Imaging.WICProgressOperation, dblProgress: Double) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-WIC8BIMIptcDigestProperties = UInt32
+WIC8BIMIptcDigestProperties = Int32
 WIC8BIMIptcDigestProperties_WIC8BIMIptcDigestPString: WIC8BIMIptcDigestProperties = 1
 WIC8BIMIptcDigestProperties_WIC8BIMIptcDigestIptcDigest: WIC8BIMIptcDigestProperties = 2
-WIC8BIMIptcProperties = UInt32
+WIC8BIMIptcProperties = Int32
 WIC8BIMIptcProperties_WIC8BIMIptcPString: WIC8BIMIptcProperties = 0
 WIC8BIMIptcProperties_WIC8BIMIptcEmbeddedIPTC: WIC8BIMIptcProperties = 1
-WIC8BIMResolutionInfoProperties = UInt32
+WIC8BIMResolutionInfoProperties = Int32
 WIC8BIMResolutionInfoProperties_WIC8BIMResolutionInfoPString: WIC8BIMResolutionInfoProperties = 1
 WIC8BIMResolutionInfoProperties_WIC8BIMResolutionInfoHResolution: WIC8BIMResolutionInfoProperties = 2
 WIC8BIMResolutionInfoProperties_WIC8BIMResolutionInfoHResolutionUnit: WIC8BIMResolutionInfoProperties = 3
@@ -1146,18 +1146,18 @@ class WICDdsParameters(EasyCastStructure):
 WICDecodeOptions = Int32
 WICDecodeOptions_WICDecodeMetadataCacheOnDemand: WICDecodeOptions = 0
 WICDecodeOptions_WICDecodeMetadataCacheOnLoad: WICDecodeOptions = 1
-WICGifApplicationExtensionProperties = UInt32
+WICGifApplicationExtensionProperties = Int32
 WICGifApplicationExtensionProperties_WICGifApplicationExtensionApplication: WICGifApplicationExtensionProperties = 1
 WICGifApplicationExtensionProperties_WICGifApplicationExtensionData: WICGifApplicationExtensionProperties = 2
-WICGifCommentExtensionProperties = UInt32
+WICGifCommentExtensionProperties = Int32
 WICGifCommentExtensionProperties_WICGifCommentExtensionText: WICGifCommentExtensionProperties = 1
-WICGifGraphicControlExtensionProperties = UInt32
+WICGifGraphicControlExtensionProperties = Int32
 WICGifGraphicControlExtensionProperties_WICGifGraphicControlExtensionDisposal: WICGifGraphicControlExtensionProperties = 1
 WICGifGraphicControlExtensionProperties_WICGifGraphicControlExtensionUserInputFlag: WICGifGraphicControlExtensionProperties = 2
 WICGifGraphicControlExtensionProperties_WICGifGraphicControlExtensionTransparencyFlag: WICGifGraphicControlExtensionProperties = 3
 WICGifGraphicControlExtensionProperties_WICGifGraphicControlExtensionDelay: WICGifGraphicControlExtensionProperties = 4
 WICGifGraphicControlExtensionProperties_WICGifGraphicControlExtensionTransparentColorIndex: WICGifGraphicControlExtensionProperties = 5
-WICGifImageDescriptorProperties = UInt32
+WICGifImageDescriptorProperties = Int32
 WICGifImageDescriptorProperties_WICGifImageDescriptorLeft: WICGifImageDescriptorProperties = 1
 WICGifImageDescriptorProperties_WICGifImageDescriptorTop: WICGifImageDescriptorProperties = 2
 WICGifImageDescriptorProperties_WICGifImageDescriptorWidth: WICGifImageDescriptorProperties = 3
@@ -1166,7 +1166,7 @@ WICGifImageDescriptorProperties_WICGifImageDescriptorLocalColorTableFlag: WICGif
 WICGifImageDescriptorProperties_WICGifImageDescriptorInterlaceFlag: WICGifImageDescriptorProperties = 6
 WICGifImageDescriptorProperties_WICGifImageDescriptorSortFlag: WICGifImageDescriptorProperties = 7
 WICGifImageDescriptorProperties_WICGifImageDescriptorLocalColorTableSize: WICGifImageDescriptorProperties = 8
-WICGifLogicalScreenDescriptorProperties = UInt32
+WICGifLogicalScreenDescriptorProperties = Int32
 WICGifLogicalScreenDescriptorProperties_WICGifLogicalScreenSignature: WICGifLogicalScreenDescriptorProperties = 1
 WICGifLogicalScreenDescriptorProperties_WICGifLogicalScreenDescriptorWidth: WICGifLogicalScreenDescriptorProperties = 2
 WICGifLogicalScreenDescriptorProperties_WICGifLogicalScreenDescriptorHeight: WICGifLogicalScreenDescriptorProperties = 3
@@ -1176,13 +1176,13 @@ WICGifLogicalScreenDescriptorProperties_WICGifLogicalScreenDescriptorSortFlag: W
 WICGifLogicalScreenDescriptorProperties_WICGifLogicalScreenDescriptorGlobalColorTableSize: WICGifLogicalScreenDescriptorProperties = 7
 WICGifLogicalScreenDescriptorProperties_WICGifLogicalScreenDescriptorBackgroundColorIndex: WICGifLogicalScreenDescriptorProperties = 8
 WICGifLogicalScreenDescriptorProperties_WICGifLogicalScreenDescriptorPixelAspectRatio: WICGifLogicalScreenDescriptorProperties = 9
-WICHeifHdrProperties = UInt32
+WICHeifHdrProperties = Int32
 WICHeifHdrProperties_WICHeifHdrMaximumLuminanceLevel: WICHeifHdrProperties = 1
 WICHeifHdrProperties_WICHeifHdrMaximumFrameAverageLuminanceLevel: WICHeifHdrProperties = 2
 WICHeifHdrProperties_WICHeifHdrMinimumMasteringDisplayLuminanceLevel: WICHeifHdrProperties = 3
 WICHeifHdrProperties_WICHeifHdrMaximumMasteringDisplayLuminanceLevel: WICHeifHdrProperties = 4
 WICHeifHdrProperties_WICHeifHdrCustomVideoPrimaries: WICHeifHdrProperties = 5
-WICHeifProperties = UInt32
+WICHeifProperties = Int32
 WICHeifProperties_WICHeifOrientation: WICHeifProperties = 1
 class WICImageParameters(EasyCastStructure):
     PixelFormat: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT
@@ -1192,9 +1192,9 @@ class WICImageParameters(EasyCastStructure):
     Left: Single
     PixelWidth: UInt32
     PixelHeight: UInt32
-WICJpegChrominanceProperties = UInt32
+WICJpegChrominanceProperties = Int32
 WICJpegChrominanceProperties_WICJpegChrominanceTable: WICJpegChrominanceProperties = 1
-WICJpegCommentProperties = UInt32
+WICJpegCommentProperties = Int32
 WICJpegCommentProperties_WICJpegCommentText: WICJpegCommentProperties = 1
 class WICJpegFrameHeader(EasyCastStructure):
     Width: UInt32
@@ -1205,10 +1205,10 @@ class WICJpegFrameHeader(EasyCastStructure):
     ComponentIdentifiers: UInt32
     SampleFactors: UInt32
     QuantizationTableIndices: UInt32
-WICJpegIndexingOptions = UInt32
+WICJpegIndexingOptions = Int32
 WICJpegIndexingOptions_WICJpegIndexingOptionsGenerateOnDemand: WICJpegIndexingOptions = 0
 WICJpegIndexingOptions_WICJpegIndexingOptionsGenerateOnLoad: WICJpegIndexingOptions = 1
-WICJpegLuminanceProperties = UInt32
+WICJpegLuminanceProperties = Int32
 WICJpegLuminanceProperties_WICJpegLuminanceTable: WICJpegLuminanceProperties = 1
 class WICJpegScanHeader(EasyCastStructure):
     cComponents: UInt32
@@ -1219,11 +1219,11 @@ class WICJpegScanHeader(EasyCastStructure):
     EndSpectralSelection: Byte
     SuccessiveApproximationHigh: Byte
     SuccessiveApproximationLow: Byte
-WICJpegScanType = UInt32
+WICJpegScanType = Int32
 WICJpegScanType_WICJpegScanTypeInterleaved: WICJpegScanType = 0
 WICJpegScanType_WICJpegScanTypePlanarComponents: WICJpegScanType = 1
 WICJpegScanType_WICJpegScanTypeProgressive: WICJpegScanType = 2
-WICJpegTransferMatrix = UInt32
+WICJpegTransferMatrix = Int32
 WICJpegTransferMatrix_WICJpegTransferMatrixIdentity: WICJpegTransferMatrix = 0
 WICJpegTransferMatrix_WICJpegTransferMatrixBT601: WICJpegTransferMatrix = 1
 WICJpegYCrCbSubsamplingOption = Int32
@@ -1268,7 +1268,7 @@ WICPersistOptions_WICPersistOptionStrictFormat: WICPersistOptions = 2
 WICPersistOptions_WICPersistOptionNoCacheStream: WICPersistOptions = 4
 WICPersistOptions_WICPersistOptionPreferUTF8: WICPersistOptions = 8
 WICPersistOptions_WICPersistOptionMask: WICPersistOptions = 65535
-WICPixelFormatNumericRepresentation = UInt32
+WICPixelFormatNumericRepresentation = Int32
 WICPixelFormatNumericRepresentation_WICPixelFormatNumericRepresentationUnspecified: WICPixelFormatNumericRepresentation = 0
 WICPixelFormatNumericRepresentation_WICPixelFormatNumericRepresentationIndexed: WICPixelFormatNumericRepresentation = 1
 WICPixelFormatNumericRepresentation_WICPixelFormatNumericRepresentationUnsignedInteger: WICPixelFormatNumericRepresentation = 2
@@ -1278,9 +1278,9 @@ WICPixelFormatNumericRepresentation_WICPixelFormatNumericRepresentationFloat: WI
 WICPlanarOptions = Int32
 WICPlanarOptions_WICPlanarOptionsDefault: WICPlanarOptions = 0
 WICPlanarOptions_WICPlanarOptionsPreserveSubsampling: WICPlanarOptions = 1
-WICPngBkgdProperties = UInt32
+WICPngBkgdProperties = Int32
 WICPngBkgdProperties_WICPngBkgdBackgroundColor: WICPngBkgdProperties = 1
-WICPngChrmProperties = UInt32
+WICPngChrmProperties = Int32
 WICPngChrmProperties_WICPngChrmWhitePointX: WICPngChrmProperties = 1
 WICPngChrmProperties_WICPngChrmWhitePointY: WICPngChrmProperties = 2
 WICPngChrmProperties_WICPngChrmRedX: WICPngChrmProperties = 3
@@ -1297,22 +1297,22 @@ WICPngFilterOption_WICPngFilterUp: WICPngFilterOption = 3
 WICPngFilterOption_WICPngFilterAverage: WICPngFilterOption = 4
 WICPngFilterOption_WICPngFilterPaeth: WICPngFilterOption = 5
 WICPngFilterOption_WICPngFilterAdaptive: WICPngFilterOption = 6
-WICPngGamaProperties = UInt32
+WICPngGamaProperties = Int32
 WICPngGamaProperties_WICPngGamaGamma: WICPngGamaProperties = 1
-WICPngHistProperties = UInt32
+WICPngHistProperties = Int32
 WICPngHistProperties_WICPngHistFrequencies: WICPngHistProperties = 1
-WICPngIccpProperties = UInt32
+WICPngIccpProperties = Int32
 WICPngIccpProperties_WICPngIccpProfileName: WICPngIccpProperties = 1
 WICPngIccpProperties_WICPngIccpProfileData: WICPngIccpProperties = 2
-WICPngItxtProperties = UInt32
+WICPngItxtProperties = Int32
 WICPngItxtProperties_WICPngItxtKeyword: WICPngItxtProperties = 1
 WICPngItxtProperties_WICPngItxtCompressionFlag: WICPngItxtProperties = 2
 WICPngItxtProperties_WICPngItxtLanguageTag: WICPngItxtProperties = 3
 WICPngItxtProperties_WICPngItxtTranslatedKeyword: WICPngItxtProperties = 4
 WICPngItxtProperties_WICPngItxtText: WICPngItxtProperties = 5
-WICPngSrgbProperties = UInt32
+WICPngSrgbProperties = Int32
 WICPngSrgbProperties_WICPngSrgbRenderingIntent: WICPngSrgbProperties = 1
-WICPngTimeProperties = UInt32
+WICPngTimeProperties = Int32
 WICPngTimeProperties_WICPngTimeYear: WICPngTimeProperties = 1
 WICPngTimeProperties_WICPngTimeMonth: WICPngTimeProperties = 2
 WICPngTimeProperties_WICPngTimeDay: WICPngTimeProperties = 3
@@ -1375,7 +1375,7 @@ class WICRect(EasyCastStructure):
     Y: Int32
     Width: Int32
     Height: Int32
-WICSectionAccessLevel = UInt32
+WICSectionAccessLevel = Int32
 WICSectionAccessLevel_WICSectionAccessLevelRead: WICSectionAccessLevel = 1
 WICSectionAccessLevel_WICSectionAccessLevelReadWrite: WICSectionAccessLevel = 3
 WICTiffCompressionOption = Int32
@@ -1387,9 +1387,9 @@ WICTiffCompressionOption_WICTiffCompressionLZW: WICTiffCompressionOption = 4
 WICTiffCompressionOption_WICTiffCompressionRLE: WICTiffCompressionOption = 5
 WICTiffCompressionOption_WICTiffCompressionZIP: WICTiffCompressionOption = 6
 WICTiffCompressionOption_WICTiffCompressionLZWHDifferencing: WICTiffCompressionOption = 7
-WICWebpAnimProperties = UInt32
+WICWebpAnimProperties = Int32
 WICWebpAnimProperties_WICWebpAnimLoopCount: WICWebpAnimProperties = 1
-WICWebpAnmfProperties = UInt32
+WICWebpAnmfProperties = Int32
 WICWebpAnmfProperties_WICWebpAnmfFrameDuration: WICWebpAnmfProperties = 1
 make_head(_module, 'IWICBitmap')
 make_head(_module, 'IWICBitmapClipper')

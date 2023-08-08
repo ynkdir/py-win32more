@@ -67,6 +67,10 @@ class MetadataTypedefAttribute(EasyCastStructure):
     pass
 class NativeArrayInfoAttribute(EasyCastStructure):
     pass
+class NativeBitfieldAttribute(EasyCastStructure):
+    name: String
+    offset: Int64
+    length: Int64
 class NativeEncodingAttribute(EasyCastStructure):
     Name: String
 class NativeInheritanceAttribute(EasyCastStructure):
@@ -84,8 +88,6 @@ class RAIIFreeAttribute(EasyCastStructure):
 class ReservedAttribute(EasyCastStructure):
     pass
 class RetValAttribute(EasyCastStructure):
-    pass
-class ReturnsUnownedHandle(EasyCastStructure):
     pass
 class ScopedEnumAttribute(EasyCastStructure):
     pass
