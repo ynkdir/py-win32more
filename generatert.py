@@ -1531,7 +1531,7 @@ class PyGenerator:
         return "".join(
             [
                 "from typing import Generic, TypeVar, Annotated\n",
-                "K = TypeVar('T')\n",
+                "K = TypeVar('K')\n",
                 "T = TypeVar('T')\n",
                 "V = TypeVar('V')\n",
                 "TProgress = TypeVar('TProgress')\n",

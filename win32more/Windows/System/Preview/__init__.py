@@ -1,7 +1,7 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
 from typing import Generic, TypeVar, Annotated
-K = TypeVar('T')
+K = TypeVar('K')
 T = TypeVar('T')
 V = TypeVar('V')
 TProgress = TypeVar('TProgress')
