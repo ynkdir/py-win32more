@@ -1,6 +1,11 @@
 from __future__ import annotations
 from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from typing import Generic, TypeVar, Annotated
+import sys
+from typing import Generic, TypeVar
+if sys.version_info < (3, 9):
+    from typing_extensions import Annotated
+else:
+    from typing import Annotated
 K = TypeVar('K')
 T = TypeVar('T')
 V = TypeVar('V')

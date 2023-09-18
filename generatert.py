@@ -1530,7 +1530,12 @@ class PyGenerator:
     def emit_import_typing(self) -> str:
         return "".join(
             [
-                "from typing import Generic, TypeVar, Annotated\n",
+                "import sys\n",
+                "from typing import Generic, TypeVar\n",
+                "if sys.version_info < (3, 9):\n",
+                "    from typing_extensions import Annotated\n",
+                "else:\n",
+                "    from typing import Annotated\n",
                 "K = TypeVar('K')\n",
                 "T = TypeVar('T')\n",
                 "V = TypeVar('V')\n",

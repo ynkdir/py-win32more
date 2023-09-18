@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import re
+import sys
 import uuid
 from ctypes import (
     POINTER,
@@ -15,7 +16,12 @@ from ctypes import (
     py_object,
     wstring_at,
 )
-from typing import Generic, TypeVar, _GenericAlias, get_args
+from typing import Generic, TypeVar, _GenericAlias
+
+if sys.version_info < (3, 8):
+    from typing_extensions import get_args
+else:
+    from typing import get_args
 
 import win32more.Windows.Win32.System.Com
 from win32more import (
@@ -136,12 +142,11 @@ class WinRT_String(HSTRING):
         self.value = hs.value
         self._own = own
 
-
     def __del__(self):
-       if self and getattr(self, "_own", False):
-           hr = WindowsDeleteString(self)
-           if FAILED(hr):
-               raise WinError(hr)
+        if self and getattr(self, "_own", False):
+            hr = WindowsDeleteString(self)
+            if FAILED(hr):
+                raise WinError(hr)
 
     @classmethod
     def from_param(cls, obj):
@@ -346,14 +351,18 @@ def is_szarray_class(cls):
 
 
 def winrt_classmethod(prototype):
-    @classmethod
     def wrapper(cls, *args, **kwargs):
         hints = get_type_hints(prototype)
         factory_class = hints["cls"]
         factory = _ro_get_activation_factory(cls._classid_, factory_class)
         return getattr(factory, prototype.__name__)(*args, **kwargs)
 
-    return wrapper
+    cm = classmethod(wrapper)
+
+    if sys.version_info < (3, 10):
+        cm.__wrapped__ = wrapper
+
+    return cm
 
 
 def winrt_factorymethod(prototype):
@@ -361,11 +370,15 @@ def winrt_factorymethod(prototype):
 
 
 def winrt_activatemethod(prototype):
-    @classmethod
     def wrapper(cls):
         return _ro_activate_instance(cls._classid_, cls)
 
-    return wrapper
+    cm = classmethod(wrapper)
+
+    if sys.version_info < (3, 10):
+        cm.__wrapped__ = wrapper
+
+    return cm
 
 
 def _windows_create_string(s: str) -> HSTRING:

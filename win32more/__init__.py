@@ -1,7 +1,6 @@
 import re
 import sys
 import types
-import typing
 import uuid
 from ctypes import (
     CFUNCTYPE,
@@ -33,6 +32,11 @@ from ctypes import (
     pointer,
     windll,
 )
+
+if sys.version_info < (3, 9):
+    from typing_extensions import get_type_hints as _get_type_hints
+else:
+    from typing import get_type_hints as _get_type_hints
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -92,6 +96,15 @@ def _patch_char_p(type_):
         return type_
 
 
+def _removesuffix(s, suffix):
+    if sys.version_info < (3, 9):
+        if s.endswith(suffix):
+            return s[: -len(suffix)]
+        else:
+            return s
+    return s.removesuffix(suffix)
+
+
 class EasyCastStructure(Structure):
     def __setattr__(self, name, obj):
         if name in self._hints_:
@@ -100,7 +113,7 @@ class EasyCastStructure(Structure):
 
     def __getattribute__(self, name):
         if name.endswith("_as_intptr"):
-            rawname = name.removesuffix("_as_intptr")
+            rawname = _removesuffix(name, "_as_intptr")
             obj = super().__getattribute__(rawname)
             return cast(obj, c_void_p).value
         obj = super().__getattribute__(name)
@@ -213,9 +226,7 @@ def FAILED(hr):
 
 
 def get_type_hints(prototype, **kwargs):
-    hints = typing.get_type_hints(
-        prototype, localns=getattr(prototype, "__dict__", None), **kwargs
-    )
+    hints = _get_type_hints(prototype, localns=getattr(prototype, "__dict__", None), **kwargs)
     for name, type_ in hints.items():
         if type_ is None.__class__:
             hints[name] = None
