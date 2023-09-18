@@ -83,7 +83,7 @@ def generic_map_class(generic_alias, param_to_type, use_generic_alias=False):
         else:
             args.append(param_to_type.get(t, t))
     if use_generic_alias:
-        return generic_alias.__origin__[*args]
+        return generic_alias.__origin__[tuple(args)]
     else:
         return generic_alias.__origin__
 
