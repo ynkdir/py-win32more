@@ -1125,11 +1125,7 @@ class Preprocessor:
             self.patch_link_nestedtype(td)
 
     def patch_link_nestedtype(self, td: TypeDefinition) -> None:
-        nested_type_by_name = {nested_type.name: nested_type for nested_type in td.nested_types}
-        for fd in td.fields:
-            t = fd.signature.get_element_type()
-        for nested_type in td.nested_types:
-            self.patch_link_nestedtype(nested_type)
+        assert not td.nested_types
 
     # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
     def patch_enum(self, meta: Metadata) -> None:
