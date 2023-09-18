@@ -350,19 +350,22 @@ def is_szarray_class(cls):
     return issubclass(cls, SZArray)
 
 
+def _classmethod(func):
+    cm = classmethod(func)
+    if sys.version_info < (3, 10):
+        cm.__wrapped__ = func
+    return cm
+
+
 def winrt_classmethod(prototype):
+    @_classmethod
     def wrapper(cls, *args, **kwargs):
         hints = get_type_hints(prototype)
         factory_class = hints["cls"]
         factory = _ro_get_activation_factory(cls._classid_, factory_class)
         return getattr(factory, prototype.__name__)(*args, **kwargs)
 
-    cm = classmethod(wrapper)
-
-    if sys.version_info < (3, 10):
-        cm.__wrapped__ = wrapper
-
-    return cm
+    return wrapper
 
 
 def winrt_factorymethod(prototype):
@@ -370,15 +373,11 @@ def winrt_factorymethod(prototype):
 
 
 def winrt_activatemethod(prototype):
+    @_classmethod
     def wrapper(cls):
         return _ro_activate_instance(cls._classid_, cls)
 
-    cm = classmethod(wrapper)
-
-    if sys.version_info < (3, 10):
-        cm.__wrapped__ = wrapper
-
-    return cm
+    return wrapper
 
 
 def _windows_create_string(s: str) -> HSTRING:
