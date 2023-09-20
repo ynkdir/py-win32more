@@ -1597,9 +1597,9 @@ def AuditLookupCategoryIdFromCategoryGuid(pAuditCategoryGuid: POINTER(Guid), pAu
 @winfunctype('ADVAPI32.dll')
 def AuditLookupCategoryGuidFromCategoryId(AuditCategoryId: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_AUDIT_EVENT_TYPE, pAuditCategoryGuid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
-def AuditSetSecurity(SecurityInformation: UInt32, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def AuditSetSecurity(SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
-def AuditQuerySecurity(SecurityInformation: UInt32, ppSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def AuditQuerySecurity(SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, ppSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
 def AuditSetGlobalSaclW(ObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR, Acl: POINTER(win32more.Windows.Win32.Security.ACL_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
@@ -3416,7 +3416,7 @@ class SCHANNEL_CERT_HASH_STORE(EasyCastStructure):
     pwszStoreName: Char * 128
 class SCHANNEL_CLIENT_SIGNATURE(EasyCastStructure):
     cbLength: UInt32
-    aiHash: UInt32
+    aiHash: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     cbHash: UInt32
     HashValue: Byte * 36
     CertThumbprint: Byte * 20
@@ -3428,7 +3428,7 @@ class SCHANNEL_CRED(EasyCastStructure):
     cMappers: UInt32
     aphMappers: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity._HMAPPER))
     cSupportedAlgs: UInt32
-    palgSupportedAlgs: POINTER(UInt32)
+    palgSupportedAlgs: POINTER(win32more.Windows.Win32.Security.Cryptography.ALG_ID)
     grbitEnabledProtocols: UInt32
     dwMinimumCipherStrength: UInt32
     dwMaximumCipherStrength: UInt32
@@ -4297,11 +4297,11 @@ class SecPkgContext_ClientSpecifiedTarget(EasyCastStructure):
     sTargetName: POINTER(UInt16)
 class SecPkgContext_ConnectionInfo(EasyCastStructure):
     dwProtocol: UInt32
-    aiCipher: UInt32
+    aiCipher: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwCipherStrength: UInt32
-    aiHash: UInt32
+    aiHash: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwHashStrength: UInt32
-    aiExch: UInt32
+    aiExch: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwExchStrength: UInt32
 class SecPkgContext_ConnectionInfoEx(EasyCastStructure):
     dwVersion: UInt32
@@ -4503,7 +4503,7 @@ class SecPkgCred_SessionTicketKeys(EasyCastStructure):
     pSessionTicketKeys: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgCred_SessionTicketKey_head)
 class SecPkgCred_SupportedAlgs(EasyCastStructure):
     cSupportedAlgs: UInt32
-    palgSupportedAlgs: POINTER(UInt32)
+    palgSupportedAlgs: POINTER(win32more.Windows.Win32.Security.Cryptography.ALG_ID)
 class SecPkgCred_SupportedProtocols(EasyCastStructure):
     grbitProtocol: UInt32
 class SecPkgCredentials_Cert(EasyCastStructure):
@@ -4860,7 +4860,7 @@ def VERIFY_SIGNATURE_FN(param0: POINTER(win32more.Windows.Win32.Security.Credent
 class X509Certificate(EasyCastStructure):
     Version: UInt32
     SerialNumber: UInt32 * 4
-    SignatureAlgorithm: UInt32
+    SignatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     ValidFrom: win32more.Windows.Win32.Foundation.FILETIME
     ValidUntil: win32more.Windows.Win32.Foundation.FILETIME
     pszIssuer: win32more.Windows.Win32.Foundation.PSTR

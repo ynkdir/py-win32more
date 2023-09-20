@@ -23,6 +23,8 @@ Architecture_X86: Architecture = 1
 Architecture_X64: Architecture = 2
 Architecture_Arm64: Architecture = 4
 Architecture_All: Architecture = 7
+class AssociatedConstantAttribute(EasyCastStructure):
+    Name: String
 class AssociatedEnumAttribute(EasyCastStructure):
     Name: String
 class CanReturnErrorsAsSuccessAttribute(EasyCastStructure):

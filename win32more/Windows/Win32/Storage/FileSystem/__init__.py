@@ -3,6 +3,7 @@ from ctypes import POINTER
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
+import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Storage.FileSystem
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.IO
@@ -1493,7 +1494,7 @@ class EFS_HASH_BLOB(EasyCastStructure):
 class EFS_KEY_INFO(EasyCastStructure):
     dwVersion: UInt32
     Entropy: UInt32
-    Algorithm: UInt32
+    Algorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     KeyLength: UInt32
 class EFS_PIN_BLOB(EasyCastStructure):
     cbPadding: UInt32

@@ -12,8 +12,8 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-DEVPROP_TRUE: Char = '\uffff'
-DEVPROP_FALSE: Char = '\x00'
+DEVPROP_TRUE: win32more.Windows.Win32.Devices.Properties.DEVPROP_BOOLEAN = 255
+DEVPROP_FALSE: win32more.Windows.Win32.Devices.Properties.DEVPROP_BOOLEAN = 0
 def DEVPKEY_DeviceInterface_Autoplay_Silent():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{434dd28f-9e75-450a-9ab9-ff61e618bad0}'), pid=2)
 def DEVPKEY_NAME():
@@ -457,7 +457,7 @@ DEVPROP_TYPE_BINARY: DEVPROPTYPE = 4099
 DEVPROP_TYPE_ERROR: DEVPROPTYPE = 23
 DEVPROP_TYPE_NTSTATUS: DEVPROPTYPE = 24
 DEVPROP_TYPE_STRING_INDIRECT: DEVPROPTYPE = 25
-DEVPROP_BOOLEAN = Char
+DEVPROP_BOOLEAN = Byte
 make_head(_module, 'DEVPKEY_DeviceInterface_Autoplay_Silent')
 make_head(_module, 'DEVPKEY_NAME')
 make_head(_module, 'DEVPKEY_Device_DeviceDesc')

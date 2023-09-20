@@ -4,6 +4,7 @@ from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCast
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.AppLocker
+import win32more.Windows.Win32.Security.Cryptography
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -83,7 +84,7 @@ class SAFER_CODE_PROPERTIES_V1(EasyCastStructure):
     ImageHash: Byte * 64
     dwImageHashSize: UInt32
     ImageSize: Int64
-    HashAlgorithm: UInt32
+    HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     pByteBlock: POINTER(Byte)
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     dwWVTUIChoice: UInt32
@@ -96,7 +97,7 @@ class SAFER_CODE_PROPERTIES_V2(EasyCastStructure):
     ImageHash: Byte * 64
     dwImageHashSize: UInt32
     ImageSize: Int64
-    HashAlgorithm: UInt32
+    HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     pByteBlock: POINTER(Byte)
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     dwWVTUIChoice: UInt32
@@ -116,14 +117,14 @@ class SAFER_HASH_IDENTIFICATION(EasyCastStructure):
     FriendlyName: Char * 256
     HashSize: UInt32
     ImageHash: Byte * 64
-    HashAlgorithm: UInt32
+    HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     ImageSize: Int64
     dwSaferFlags: UInt32
 class SAFER_HASH_IDENTIFICATION2(EasyCastStructure):
     hashIdentification: win32more.Windows.Win32.Security.AppLocker.SAFER_HASH_IDENTIFICATION
     HashSize: UInt32
     ImageHash: Byte * 64
-    HashAlgorithm: UInt32
+    HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
 class SAFER_IDENTIFICATION_HEADER(EasyCastStructure):
     dwIdentificationType: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_TYPES
     cbStructSize: UInt32

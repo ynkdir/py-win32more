@@ -303,8 +303,10 @@ TIMESTAMPING_FLAG_TX: UInt32 = 2
 SO_TIMESTAMP: UInt32 = 12298
 SO_TIMESTAMP_ID: UInt32 = 12299
 SIO_GET_TX_TIMESTAMP: UInt32 = 2550137066
+TCP_INITIAL_RTO_UNSPECIFIED_MAX_SYN_RETRANSMISSIONS: UInt16 = 65535
 TCP_INITIAL_RTO_DEFAULT_RTT: UInt32 = 0
 TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS: UInt32 = 0
+TCP_INITIAL_RTO_NO_SYN_RETRANSMISSIONS: UInt16 = 65534
 SIO_ACQUIRE_PORT_RESERVATION: UInt32 = 2550136932
 SIO_RELEASE_PORT_RESERVATION: UInt32 = 2550136933
 SIO_ASSOCIATE_PORT_RESERVATION: UInt32 = 2550136934
@@ -4019,8 +4021,6 @@ class netent(EasyCastStructure):
     n_aliases: POINTER(POINTER(SByte))
     n_addrtype: Int16
     n_net: UInt32
-class sa_family_t(EasyCastStructure):
-    Value: UInt16
 class sockaddr_gen(EasyCastUnion):
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKADDR
     AddressIn: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_IN
@@ -4391,7 +4391,6 @@ make_head(_module, 'WSPDATA')
 make_head(_module, 'WSPPROC_TABLE')
 make_head(_module, 'WSPUPCALLTABLE')
 make_head(_module, 'netent')
-make_head(_module, 'sa_family_t')
 make_head(_module, 'sockaddr_gen')
 make_head(_module, 'sockaddr_in6_old')
 make_head(_module, 'sockproto')

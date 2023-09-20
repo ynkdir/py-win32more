@@ -501,40 +501,14 @@ DOT11_MANUFACTURING_CALLBACK_REVISION_1: UInt32 = 1
 DOT11_SSID_MAX_LENGTH: UInt32 = 32
 DOT11_OI_MAX_LENGTH: UInt32 = 5
 DOT11_OI_MIN_LENGTH: UInt32 = 3
-DevProp_PciRootBus_SecondaryInterface_PciConventional: UInt32 = 0
-DevProp_PciRootBus_SecondaryInterface_PciXMode1: UInt32 = 1
-DevProp_PciRootBus_SecondaryInterface_PciXMode2: UInt32 = 2
-DevProp_PciRootBus_SecondaryInterface_PciExpress: UInt32 = 3
 def DEVPKEY_PciRootBus_SecondaryInterface():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=1)
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_33Mhz: UInt32 = 0
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_66Mhz: UInt32 = 1
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_66Mhz: UInt32 = 2
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_100Mhz: UInt32 = 3
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_133Mhz: UInt32 = 4
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_66Mhz: UInt32 = 5
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_100Mhz: UInt32 = 6
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_133Mhz: UInt32 = 7
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_66Mhz: UInt32 = 8
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_100Mhz: UInt32 = 9
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_133Mhz: UInt32 = 10
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_66Mhz: UInt32 = 11
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_100Mhz: UInt32 = 12
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_133Mhz: UInt32 = 13
 def DEVPKEY_PciRootBus_CurrentSpeedAndMode():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=2)
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_33Mhz: UInt32 = 1
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_66Mhz: UInt32 = 2
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_66Mhz: UInt32 = 4
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_133Mhz: UInt32 = 8
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_266Mhz: UInt32 = 16
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_533Mhz: UInt32 = 32
 def DEVPKEY_PciRootBus_SupportedSpeedsAndModes():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=3)
 def DEVPKEY_PciRootBus_DeviceIDMessagingCapable():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=4)
-DevProp_PciRootBus_BusWidth_32Bits: UInt32 = 0
-DevProp_PciRootBus_BusWidth_64Bits: UInt32 = 1
 def DEVPKEY_PciRootBus_SecondaryBusWidth():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=5)
 def DEVPKEY_PciRootBus_ExtendedConfigAvailable():
@@ -563,69 +537,6 @@ def DEVPKEY_PciRootBus_NativePciExpressControl():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=17)
 def DEVPKEY_PciRootBus_SystemMsiSupport():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{d817fc28-793e-4b9e-9970-469d8be63073}'), pid=18)
-DevProp_PciDevice_DeviceType_PciConventional: UInt32 = 0
-DevProp_PciDevice_DeviceType_PciX: UInt32 = 1
-DevProp_PciDevice_DeviceType_PciExpressEndpoint: UInt32 = 2
-DevProp_PciDevice_DeviceType_PciExpressLegacyEndpoint: UInt32 = 3
-DevProp_PciDevice_DeviceType_PciExpressRootComplexIntegratedEndpoint: UInt32 = 4
-DevProp_PciDevice_DeviceType_PciExpressTreatedAsPci: UInt32 = 5
-DevProp_PciDevice_BridgeType_PciConventional: UInt32 = 6
-DevProp_PciDevice_BridgeType_PciX: UInt32 = 7
-DevProp_PciDevice_BridgeType_PciExpressRootPort: UInt32 = 8
-DevProp_PciDevice_BridgeType_PciExpressUpstreamSwitchPort: UInt32 = 9
-DevProp_PciDevice_BridgeType_PciExpressDownstreamSwitchPort: UInt32 = 10
-DevProp_PciDevice_BridgeType_PciExpressToPciXBridge: UInt32 = 11
-DevProp_PciDevice_BridgeType_PciXToExpressBridge: UInt32 = 12
-DevProp_PciDevice_BridgeType_PciExpressTreatedAsPci: UInt32 = 13
-DevProp_PciDevice_BridgeType_PciExpressEventCollector: UInt32 = 14
-DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_33MHz: UInt32 = 0
-DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_66MHz: UInt32 = 1
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode_Conventional_Pci: UInt32 = 0
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_66Mhz: UInt32 = 1
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_100Mhz: UInt32 = 2
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_133MHZ: UInt32 = 3
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_66Mhz: UInt32 = 5
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_100Mhz: UInt32 = 6
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_133Mhz: UInt32 = 7
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_66MHz: UInt32 = 9
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_100MHz: UInt32 = 10
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_133MHz: UInt32 = 11
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_66MHz: UInt32 = 13
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_100MHz: UInt32 = 14
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_133MHz: UInt32 = 15
-DevProp_PciExpressDevice_PayloadOrRequestSize_128Bytes: UInt32 = 0
-DevProp_PciExpressDevice_PayloadOrRequestSize_256Bytes: UInt32 = 1
-DevProp_PciExpressDevice_PayloadOrRequestSize_512Bytes: UInt32 = 2
-DevProp_PciExpressDevice_PayloadOrRequestSize_1024Bytes: UInt32 = 3
-DevProp_PciExpressDevice_PayloadOrRequestSize_2048Bytes: UInt32 = 4
-DevProp_PciExpressDevice_PayloadOrRequestSize_4096Bytes: UInt32 = 5
-DevProp_PciExpressDevice_LinkSpeed_TwoAndHalf_Gbps: UInt32 = 1
-DevProp_PciExpressDevice_LinkSpeed_Five_Gbps: UInt32 = 2
-DevProp_PciExpressDevice_LinkWidth_By_1: UInt32 = 1
-DevProp_PciExpressDevice_LinkWidth_By_2: UInt32 = 2
-DevProp_PciExpressDevice_LinkWidth_By_4: UInt32 = 4
-DevProp_PciExpressDevice_LinkWidth_By_8: UInt32 = 8
-DevProp_PciExpressDevice_LinkWidth_By_12: UInt32 = 12
-DevProp_PciExpressDevice_LinkWidth_By_16: UInt32 = 16
-DevProp_PciExpressDevice_LinkWidth_By_32: UInt32 = 32
-DevProp_PciExpressDevice_Spec_Version_10: UInt32 = 1
-DevProp_PciExpressDevice_Spec_Version_11: UInt32 = 2
-DevProp_PciDevice_InterruptType_LineBased: UInt32 = 1
-DevProp_PciDevice_InterruptType_Msi: UInt32 = 2
-DevProp_PciDevice_InterruptType_MsiX: UInt32 = 4
-DevProp_PciDevice_SriovSupport_Ok: UInt32 = 0
-DevProp_PciDevice_SriovSupport_MissingAcs: UInt32 = 1
-DevProp_PciDevice_SriovSupport_MissingPfDriver: UInt32 = 2
-DevProp_PciDevice_SriovSupport_NoBusResource: UInt32 = 3
-DevProp_PciDevice_SriovSupport_DidntGetVfBarSpace: UInt32 = 4
-DevProp_PciDevice_AcsSupport_Present: UInt32 = 0
-DevProp_PciDevice_AcsSupport_NotNeeded: UInt32 = 1
-DevProp_PciDevice_AcsSupport_Missing: UInt32 = 2
-DevProp_PciDevice_AcsCompatibleUpHierarchy_NotSupported: UInt32 = 0
-DevProp_PciDevice_AcsCompatibleUpHierarchy_SingleFunctionSupported: UInt32 = 1
-DevProp_PciDevice_AcsCompatibleUpHierarchy_NoP2PSupported: UInt32 = 2
-DevProp_PciDevice_AcsCompatibleUpHierarchy_Supported: UInt32 = 3
-DevProp_PciDevice_AcsCompatibleUpHierarchy_Enhanced: UInt32 = 4
 WLAN_API_VERSION_1_0: UInt32 = 1
 WLAN_API_VERSION_2_0: UInt32 = 2
 WLAN_API_VERSION: UInt32 = 2
@@ -794,15 +705,6 @@ WLAN_CONNECTION_EAPOL_PASSTHROUGH: UInt32 = 8
 WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE: UInt32 = 16
 WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE_CONNECTION_MODE_AUTO: UInt32 = 32
 WLAN_CONNECTION_PERSIST_DISCOVERY_PROFILE_OVERWRITE_EXISTING: UInt32 = 64
-WLAN_NOTIFICATION_SOURCE_NONE: UInt32 = 0
-WLAN_NOTIFICATION_SOURCE_ALL: UInt32 = 65535
-WLAN_NOTIFICATION_SOURCE_ACM: UInt32 = 8
-WLAN_NOTIFICATION_SOURCE_MSM: UInt32 = 16
-WLAN_NOTIFICATION_SOURCE_SECURITY: UInt32 = 32
-WLAN_NOTIFICATION_SOURCE_IHV: UInt32 = 64
-WLAN_NOTIFICATION_SOURCE_HNWK: UInt32 = 128
-WLAN_NOTIFICATION_SOURCE_ONEX: UInt32 = 4
-WLAN_NOTIFICATION_SOURCE_DEVICE_SERVICE: UInt32 = 2048
 WFD_API_VERSION_1_0: UInt32 = 1
 WFD_API_VERSION: UInt32 = 1
 WLAN_UI_API_VERSION: UInt32 = 1
@@ -929,7 +831,7 @@ def WlanConnect2(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInte
 @winfunctype('wlanapi.dll')
 def WlanDisconnect(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanRegisterNotification(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, dwNotifSource: UInt32, bIgnoreDuplicate: win32more.Windows.Win32.Foundation.BOOL, funcCallback: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_CALLBACK, pCallbackContext: VoidPtr, pReserved: VoidPtr, pdwPrevNotifSource: POINTER(UInt32)) -> UInt32: ...
+def WlanRegisterNotification(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, dwNotifSource: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES, bIgnoreDuplicate: win32more.Windows.Win32.Foundation.BOOL, funcCallback: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_CALLBACK, pCallbackContext: VoidPtr, pReserved: VoidPtr, pdwPrevNotifSource: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanGetProfile(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), strProfileName: win32more.Windows.Win32.Foundation.PWSTR, pReserved: VoidPtr, pstrProfileXml: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pdwFlags: POINTER(UInt32), pdwGrantedAccess: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('wlanapi.dll')
@@ -1022,6 +924,109 @@ CH_DESCRIPTION_TYPE = Int32
 ch_description_type_logical: CH_DESCRIPTION_TYPE = 1
 ch_description_type_center_frequency: CH_DESCRIPTION_TYPE = 2
 ch_description_type_phy_specific: CH_DESCRIPTION_TYPE = 3
+DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = UInt32
+DevProp_PciDevice_AcsCompatibleUpHierarchy_NotSupported: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 0
+DevProp_PciDevice_AcsCompatibleUpHierarchy_SingleFunctionSupported: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 1
+DevProp_PciDevice_AcsCompatibleUpHierarchy_NoP2PSupported: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 2
+DevProp_PciDevice_AcsCompatibleUpHierarchy_Supported: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 3
+DevProp_PciDevice_AcsCompatibleUpHierarchy_Enhanced: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 4
+DEVPROP_PCIDEVICE_ACSSUPPORT = UInt32
+DevProp_PciDevice_AcsSupport_Present: DEVPROP_PCIDEVICE_ACSSUPPORT = 0
+DevProp_PciDevice_AcsSupport_NotNeeded: DEVPROP_PCIDEVICE_ACSSUPPORT = 1
+DevProp_PciDevice_AcsSupport_Missing: DEVPROP_PCIDEVICE_ACSSUPPORT = 2
+DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = UInt32
+DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_33MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 0
+DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_66MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 1
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode_Conventional_Pci: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 0
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_66Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 1
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_100Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 2
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_133MHZ: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 3
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_66Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 5
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_100Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 6
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_133Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 7
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_66MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 9
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_100MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 10
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_133MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 11
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_66MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 13
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_100MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 14
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_133MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 15
+DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = UInt32
+DevProp_PciDevice_DeviceType_PciConventional: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 0
+DevProp_PciDevice_DeviceType_PciX: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 1
+DevProp_PciDevice_DeviceType_PciExpressEndpoint: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 2
+DevProp_PciDevice_DeviceType_PciExpressLegacyEndpoint: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 3
+DevProp_PciDevice_DeviceType_PciExpressRootComplexIntegratedEndpoint: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 4
+DevProp_PciDevice_DeviceType_PciExpressTreatedAsPci: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 5
+DevProp_PciDevice_BridgeType_PciConventional: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 6
+DevProp_PciDevice_BridgeType_PciX: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 7
+DevProp_PciDevice_BridgeType_PciExpressRootPort: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 8
+DevProp_PciDevice_BridgeType_PciExpressUpstreamSwitchPort: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 9
+DevProp_PciDevice_BridgeType_PciExpressDownstreamSwitchPort: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 10
+DevProp_PciDevice_BridgeType_PciExpressToPciXBridge: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 11
+DevProp_PciDevice_BridgeType_PciXToExpressBridge: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 12
+DevProp_PciDevice_BridgeType_PciExpressTreatedAsPci: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 13
+DevProp_PciDevice_BridgeType_PciExpressEventCollector: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 14
+DEVPROP_PCIDEVICE_INTERRUPTTYPE = UInt32
+DevProp_PciDevice_InterruptType_LineBased: DEVPROP_PCIDEVICE_INTERRUPTTYPE = 1
+DevProp_PciDevice_InterruptType_Msi: DEVPROP_PCIDEVICE_INTERRUPTTYPE = 2
+DevProp_PciDevice_InterruptType_MsiX: DEVPROP_PCIDEVICE_INTERRUPTTYPE = 4
+DEVPROP_PCIDEVICE_SRIOVSUPPORT = UInt32
+DevProp_PciDevice_SriovSupport_Ok: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 0
+DevProp_PciDevice_SriovSupport_MissingAcs: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 1
+DevProp_PciDevice_SriovSupport_MissingPfDriver: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 2
+DevProp_PciDevice_SriovSupport_NoBusResource: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 3
+DevProp_PciDevice_SriovSupport_DidntGetVfBarSpace: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 4
+DEVPROP_PCIEXPRESSDEVICE_LINKSPEED = UInt32
+DevProp_PciExpressDevice_LinkSpeed_TwoAndHalf_Gbps: DEVPROP_PCIEXPRESSDEVICE_LINKSPEED = 1
+DevProp_PciExpressDevice_LinkSpeed_Five_Gbps: DEVPROP_PCIEXPRESSDEVICE_LINKSPEED = 2
+DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = UInt32
+DevProp_PciExpressDevice_LinkWidth_By_1: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 1
+DevProp_PciExpressDevice_LinkWidth_By_2: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 2
+DevProp_PciExpressDevice_LinkWidth_By_4: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 4
+DevProp_PciExpressDevice_LinkWidth_By_8: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 8
+DevProp_PciExpressDevice_LinkWidth_By_12: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 12
+DevProp_PciExpressDevice_LinkWidth_By_16: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 16
+DevProp_PciExpressDevice_LinkWidth_By_32: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 32
+DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = UInt32
+DevProp_PciExpressDevice_PayloadOrRequestSize_128Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 0
+DevProp_PciExpressDevice_PayloadOrRequestSize_256Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 1
+DevProp_PciExpressDevice_PayloadOrRequestSize_512Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 2
+DevProp_PciExpressDevice_PayloadOrRequestSize_1024Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 3
+DevProp_PciExpressDevice_PayloadOrRequestSize_2048Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 4
+DevProp_PciExpressDevice_PayloadOrRequestSize_4096Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 5
+DEVPROP_PCIEXPRESSDEVICE_SPEC_VERSION = UInt32
+DevProp_PciExpressDevice_Spec_Version_10: DEVPROP_PCIEXPRESSDEVICE_SPEC_VERSION = 1
+DevProp_PciExpressDevice_Spec_Version_11: DEVPROP_PCIEXPRESSDEVICE_SPEC_VERSION = 2
+DEVPROP_PCIROOTBUS_BUSWIDTH = UInt32
+DevProp_PciRootBus_BusWidth_32Bits: DEVPROP_PCIROOTBUS_BUSWIDTH = 0
+DevProp_PciRootBus_BusWidth_64Bits: DEVPROP_PCIROOTBUS_BUSWIDTH = 1
+DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = UInt32
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_33Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 0
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 1
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 2
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_100Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 3
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_133Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 4
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 5
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_100Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 6
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_133Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 7
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 8
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_100Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 9
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_133Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 10
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 11
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_100Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 12
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_133Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 13
+DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = UInt32
+DevProp_PciRootBus_SecondaryInterface_PciConventional: DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 0
+DevProp_PciRootBus_SecondaryInterface_PciXMode1: DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 1
+DevProp_PciRootBus_SecondaryInterface_PciXMode2: DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 2
+DevProp_PciRootBus_SecondaryInterface_PciExpress: DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 3
+DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = UInt32
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_33Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 1
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_66Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 2
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_66Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 4
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_133Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 8
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_266Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 16
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_533Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 32
 @winfunctype_pointer
 def DOT11EXTIHV_ADAPTER_RESET(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype_pointer
@@ -2919,7 +2924,7 @@ class IEnumDot11AdHocSecuritySettings(ComPtr):
     @commethod(6)
     def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class L2_NOTIFICATION_DATA(EasyCastStructure):
-    NotificationSource: UInt32
+    NotificationSource: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES
     NotificationCode: UInt32
     InterfaceGuid: Guid
     dwDataSize: UInt32
@@ -3400,6 +3405,16 @@ wlan_notification_msm_end: WLAN_NOTIFICATION_MSM = 17
 WLAN_NOTIFICATION_SECURITY = Int32
 wlan_notification_security_start: WLAN_NOTIFICATION_SECURITY = 0
 wlan_notification_security_end: WLAN_NOTIFICATION_SECURITY = 1
+WLAN_NOTIFICATION_SOURCES = UInt32
+WLAN_NOTIFICATION_SOURCE_NONE: WLAN_NOTIFICATION_SOURCES = 0
+WLAN_NOTIFICATION_SOURCE_ALL: WLAN_NOTIFICATION_SOURCES = 65535
+WLAN_NOTIFICATION_SOURCE_ACM: WLAN_NOTIFICATION_SOURCES = 8
+WLAN_NOTIFICATION_SOURCE_MSM: WLAN_NOTIFICATION_SOURCES = 16
+WLAN_NOTIFICATION_SOURCE_SECURITY: WLAN_NOTIFICATION_SOURCES = 32
+WLAN_NOTIFICATION_SOURCE_IHV: WLAN_NOTIFICATION_SOURCES = 64
+WLAN_NOTIFICATION_SOURCE_HNWK: WLAN_NOTIFICATION_SOURCES = 128
+WLAN_NOTIFICATION_SOURCE_ONEX: WLAN_NOTIFICATION_SOURCES = 4
+WLAN_NOTIFICATION_SOURCE_DEVICE_SERVICE: WLAN_NOTIFICATION_SOURCES = 2048
 WLAN_OPCODE_VALUE_TYPE = Int32
 wlan_opcode_value_type_query_only: WLAN_OPCODE_VALUE_TYPE = 0
 wlan_opcode_value_type_set_by_group_policy: WLAN_OPCODE_VALUE_TYPE = 1

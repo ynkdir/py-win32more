@@ -369,7 +369,7 @@ class MODIFIERS(EasyCastStructure):
 class MOUSEINPUT(EasyCastStructure):
     dx: Int32
     dy: Int32
-    mouseData: Int32
+    mouseData: UInt32
     dwFlags: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS
     time: UInt32
     dwExtraInfo: UIntPtr

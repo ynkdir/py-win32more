@@ -16,6 +16,60 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
+ALG_ID = UInt32
+CALG_MD2: ALG_ID = 32769
+CALG_MD4: ALG_ID = 32770
+CALG_MD5: ALG_ID = 32771
+CALG_SHA: ALG_ID = 32772
+CALG_SHA1: ALG_ID = 32772
+CALG_MAC: ALG_ID = 32773
+CALG_RSA_SIGN: ALG_ID = 9216
+CALG_DSS_SIGN: ALG_ID = 8704
+CALG_NO_SIGN: ALG_ID = 8192
+CALG_RSA_KEYX: ALG_ID = 41984
+CALG_DES: ALG_ID = 26113
+CALG_3DES_112: ALG_ID = 26121
+CALG_3DES: ALG_ID = 26115
+CALG_DESX: ALG_ID = 26116
+CALG_RC2: ALG_ID = 26114
+CALG_RC4: ALG_ID = 26625
+CALG_SEAL: ALG_ID = 26626
+CALG_DH_SF: ALG_ID = 43521
+CALG_DH_EPHEM: ALG_ID = 43522
+CALG_AGREEDKEY_ANY: ALG_ID = 43523
+CALG_KEA_KEYX: ALG_ID = 43524
+CALG_HUGHES_MD5: ALG_ID = 40963
+CALG_SKIPJACK: ALG_ID = 26122
+CALG_TEK: ALG_ID = 26123
+CALG_CYLINK_MEK: ALG_ID = 26124
+CALG_SSL3_SHAMD5: ALG_ID = 32776
+CALG_SSL3_MASTER: ALG_ID = 19457
+CALG_SCHANNEL_MASTER_HASH: ALG_ID = 19458
+CALG_SCHANNEL_MAC_KEY: ALG_ID = 19459
+CALG_SCHANNEL_ENC_KEY: ALG_ID = 19463
+CALG_PCT1_MASTER: ALG_ID = 19460
+CALG_SSL2_MASTER: ALG_ID = 19461
+CALG_TLS1_MASTER: ALG_ID = 19462
+CALG_RC5: ALG_ID = 26125
+CALG_HMAC: ALG_ID = 32777
+CALG_TLS1PRF: ALG_ID = 32778
+CALG_HASH_REPLACE_OWF: ALG_ID = 32779
+CALG_AES_128: ALG_ID = 26126
+CALG_AES_192: ALG_ID = 26127
+CALG_AES_256: ALG_ID = 26128
+CALG_AES: ALG_ID = 26129
+CALG_SHA_256: ALG_ID = 32780
+CALG_SHA_384: ALG_ID = 32781
+CALG_SHA_512: ALG_ID = 32782
+CALG_ECDH: ALG_ID = 43525
+CALG_ECDH_EPHEM: ALG_ID = 44550
+CALG_ECMQV: ALG_ID = 40961
+CALG_ECDSA: ALG_ID = 8707
+CALG_NULLCIPHER: ALG_ID = 24576
+CALG_THIRDPARTY_KEY_EXCHANGE: ALG_ID = 45056
+CALG_THIRDPARTY_SIGNATURE: ALG_ID = 12288
+CALG_THIRDPARTY_CIPHER: ALG_ID = 28672
+CALG_THIRDPARTY_HASH: ALG_ID = 36864
 class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA(EasyCastStructure):
     cbSize: UInt32
     dwRegPolicySettings: UInt32
@@ -2384,11 +2438,6 @@ CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC: String = 'CryptDllExportPublicKeyInfo
 CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC: String = 'CryptDllExportPublicKeyInfoFromBCryptKeyHandle'
 CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_FUNC: String = 'CryptDllImportPublicKeyInfoEx'
 CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC: String = 'CryptDllImportPublicKeyInfoEx2'
-CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG: UInt32 = 128
-CRYPT_ACQUIRE_NCRYPT_KEY_FLAGS_MASK: UInt32 = 458752
-CRYPT_ACQUIRE_ALLOW_NCRYPT_KEY_FLAG: UInt32 = 65536
-CRYPT_ACQUIRE_PREFER_NCRYPT_KEY_FLAG: UInt32 = 131072
-CRYPT_ACQUIRE_ONLY_NCRYPT_KEY_FLAG: UInt32 = 262144
 CRYPT_OID_IMPORT_PRIVATE_KEY_INFO_FUNC: String = 'CryptDllImportPrivateKeyInfoEx'
 CRYPT_OID_EXPORT_PRIVATE_KEY_INFO_FUNC: String = 'CryptDllExportPrivateKeyInfoEx'
 CRYPT_DELETE_KEYSET: UInt32 = 16
@@ -2893,9 +2942,9 @@ def CryptAcquireContextW(phProv: POINTER(UIntPtr), szContainer: win32more.Window
 @winfunctype('ADVAPI32.dll')
 def CryptReleaseContext(hProv: UIntPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CryptGenKey(hProv: UIntPtr, Algid: UInt32, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_FLAGS, phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptGenKey(hProv: UIntPtr, Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_FLAGS, phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CryptDeriveKey(hProv: UIntPtr, Algid: UInt32, hBaseData: UIntPtr, dwFlags: UInt32, phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptDeriveKey(hProv: UIntPtr, Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID, hBaseData: UIntPtr, dwFlags: UInt32, phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def CryptDestroyKey(hKey: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -2923,7 +2972,7 @@ def CryptEncrypt(hKey: UIntPtr, hHash: UIntPtr, Final: win32more.Windows.Win32.F
 @winfunctype('ADVAPI32.dll')
 def CryptDecrypt(hKey: UIntPtr, hHash: UIntPtr, Final: win32more.Windows.Win32.Foundation.BOOL, dwFlags: UInt32, pbData: POINTER(Byte), pdwDataLen: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CryptCreateHash(hProv: UIntPtr, Algid: UInt32, hKey: UIntPtr, dwFlags: UInt32, phHash: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptCreateHash(hProv: UIntPtr, Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID, hKey: UIntPtr, dwFlags: UInt32, phHash: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def CryptHashData(hHash: UIntPtr, pbData: POINTER(Byte), dwDataLen: UInt32, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -3371,7 +3420,7 @@ def CertIsStrongHashToSign(pStrongSignPara: POINTER(win32more.Windows.Win32.Secu
 @winfunctype('CRYPT32.dll')
 def CryptHashToBeSigned(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptHashCertificate(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, Algid: UInt32, dwFlags: UInt32, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptHashCertificate(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID, dwFlags: UInt32, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptHashCertificate2(pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pvReserved: VoidPtr, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
@@ -3411,7 +3460,7 @@ def CryptExportPublicKeyInfoFromBCryptKeyHandle(hBCryptKey: win32more.Windows.Wi
 @winfunctype('CRYPT32.dll')
 def CryptImportPublicKeyInfo(hCryptProv: UIntPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptImportPublicKeyInfoEx(hCryptProv: UIntPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), aiKeyAlg: UInt32, dwFlags: UInt32, pvAuxInfo: VoidPtr, phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptImportPublicKeyInfoEx(hCryptProv: UIntPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), aiKeyAlg: win32more.Windows.Win32.Security.Cryptography.ALG_ID, dwFlags: UInt32, pvAuxInfo: VoidPtr, phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptImportPublicKeyInfoEx2(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_IMPORT_PUBLIC_KEY_FLAGS, pvAuxInfo: VoidPtr, phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
@@ -3423,7 +3472,7 @@ def CryptImportPKCS8(sPrivateKeyAndParams: win32more.Windows.Win32.Security.Cryp
 @winfunctype('CRYPT32.dll')
 def CryptExportPKCS8(hCryptProv: UIntPtr, dwKeySpec: UInt32, pszPrivateKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pbPrivateKeyBlob: POINTER(Byte), pcbPrivateKeyBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptHashPublicKeyInfo(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, Algid: UInt32, dwFlags: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptHashPublicKeyInfo(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID, dwFlags: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertRDNValueToStrA(dwValueType: UInt32, pValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), psz: win32more.Windows.Win32.Foundation.PSTR, csz: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
@@ -3625,7 +3674,7 @@ def SignerTimeStamp(pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Crypt
 @winfunctype('Mssign32.dll')
 def SignerTimeStampEx(dwFlags: UInt32, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerTimeStampEx2(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, dwAlgId: UInt32, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerTimeStampEx2(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, dwAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
 def SignerTimeStampEx3(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, dwIndex: UInt32, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, pszAlgorithmOid: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)), pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head), pReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
@@ -4980,13 +5029,13 @@ class CMSG_STREAM_INFO(EasyCastStructure):
     pvArg: VoidPtr
 class CMS_DH_KEY_INFO(EasyCastStructure):
     dwVersion: UInt32
-    Algid: UInt32
+    Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     pszContentEncObjId: win32more.Windows.Win32.Foundation.PSTR
     PubInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     pReserved: VoidPtr
 class CMS_KEY_INFO(EasyCastStructure):
     dwVersion: UInt32
-    Algid: UInt32
+    Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     pbOID: POINTER(Byte)
     cbOID: UInt32
 class CPS_URLS(EasyCastStructure):
@@ -5074,10 +5123,15 @@ class CRYPT_3DES_KEY_STATE(EasyCastStructure):
     Feedback: Byte * 8
 CRYPT_ACQUIRE_FLAGS = UInt32
 CRYPT_ACQUIRE_CACHE_FLAG: CRYPT_ACQUIRE_FLAGS = 1
+CRYPT_ACQUIRE_USE_PROV_INFO_FLAG: CRYPT_ACQUIRE_FLAGS = 2
 CRYPT_ACQUIRE_COMPARE_KEY_FLAG: CRYPT_ACQUIRE_FLAGS = 4
 CRYPT_ACQUIRE_NO_HEALING: CRYPT_ACQUIRE_FLAGS = 8
 CRYPT_ACQUIRE_SILENT_FLAG: CRYPT_ACQUIRE_FLAGS = 64
-CRYPT_ACQUIRE_USE_PROV_INFO_FLAG: CRYPT_ACQUIRE_FLAGS = 2
+CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG: CRYPT_ACQUIRE_FLAGS = 128
+CRYPT_ACQUIRE_NCRYPT_KEY_FLAGS_MASK: CRYPT_ACQUIRE_FLAGS = 458752
+CRYPT_ACQUIRE_ALLOW_NCRYPT_KEY_FLAG: CRYPT_ACQUIRE_FLAGS = 65536
+CRYPT_ACQUIRE_PREFER_NCRYPT_KEY_FLAG: CRYPT_ACQUIRE_FLAGS = 131072
+CRYPT_ACQUIRE_ONLY_NCRYPT_KEY_FLAG: CRYPT_ACQUIRE_FLAGS = 262144
 class CRYPT_AES_128_KEY_STATE(EasyCastStructure):
     Key: Byte * 16
     IV: Byte * 16
@@ -5353,7 +5407,7 @@ class CRYPT_OID_INFO(EasyCastStructure):
     ExtraInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     class _Anonymous_e__Union(EasyCastUnion):
         dwValue: UInt32
-        Algid: UInt32
+        Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
         dwLength: UInt32
 class CRYPT_PASSWORD_CREDENTIALSA(EasyCastStructure):
     cbSize: UInt32
@@ -5952,7 +6006,7 @@ HCRYPTASYNC = IntPtr
 HCRYPTPROV_LEGACY = UIntPtr
 HCRYPTPROV_OR_NCRYPT_KEY_HANDLE = UIntPtr
 class HMAC_INFO(EasyCastStructure):
-    HashAlgid: UInt32
+    HashAlgid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     pbInnerString: POINTER(Byte)
     cbInnerString: UInt32
     pbOuterString: POINTER(Byte)
@@ -6371,13 +6425,13 @@ def PFNCryptStreamOutputCallback(pvCallbackCtxt: VoidPtr, pbData: POINTER(Byte),
 @winfunctype_pointer
 def PFNCryptStreamOutputCallbackEx(pvCallbackCtxt: VoidPtr, pbData: POINTER(Byte), cbData: UIntPtr, hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, fFinal: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_AUTHENTICODE_DIGEST_SIGN(pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: UInt32, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_AUTHENTICODE_DIGEST_SIGN(pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_AUTHENTICODE_DIGEST_SIGN_EX(pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: UInt32, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), hCertChainStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_AUTHENTICODE_DIGEST_SIGN_EX(pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), hCertChainStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE(pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: UInt32, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), hCertChainStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE(pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), hCertChainStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE(pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: UInt32, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE(pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_CANCEL_ASYNC_RETRIEVAL_FUNC(hAsyncRetrieve: win32more.Windows.Win32.Security.Cryptography.HCRYPTASYNC) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -6557,12 +6611,12 @@ class PRIVKEYVER3(EasyCastStructure):
     bitlenX: UInt32
     DSSSeed: win32more.Windows.Win32.Security.Cryptography.DSSSEED
 class PROV_ENUMALGS(EasyCastStructure):
-    aiAlgid: UInt32
+    aiAlgid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwBitLen: UInt32
     dwNameLen: UInt32
     szName: win32more.Windows.Win32.Foundation.CHAR * 20
 class PROV_ENUMALGS_EX(EasyCastStructure):
-    aiAlgid: UInt32
+    aiAlgid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwDefaultLen: UInt32
     dwMinLen: UInt32
     dwMaxLen: UInt32
@@ -6584,7 +6638,7 @@ class PUBLICKEYSTRUC(EasyCastStructure):
     bType: Byte
     bVersion: Byte
     reserved: UInt16
-    aiKeyAlg: UInt32
+    aiKeyAlg: win32more.Windows.Win32.Security.Cryptography.ALG_ID
 PaddingMode = Int32
 PaddingMode_None: PaddingMode = 1
 PaddingMode_PKCS7: PaddingMode = 2
@@ -6616,7 +6670,7 @@ class RSAPUBKEY(EasyCastStructure):
     pubexp: UInt32
 class SCHANNEL_ALG(EasyCastStructure):
     dwUse: UInt32
-    Algid: UInt32
+    Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     cBits: UInt32
     dwFlags: UInt32
     dwReserved: UInt32
@@ -6703,7 +6757,7 @@ SIGNER_NO_ATTR: SIGNER_SIGNATURE_ATTRIBUTE_CHOICE = 0
 SIGNER_AUTHCODE_ATTR: SIGNER_SIGNATURE_ATTRIBUTE_CHOICE = 1
 class SIGNER_SIGNATURE_INFO(EasyCastStructure):
     cbSize: UInt32
-    algidHash: UInt32
+    algidHash: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwAttrChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_ATTRIBUTE_CHOICE
     Anonymous: _Anonymous_e__Union
     psAuthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)
