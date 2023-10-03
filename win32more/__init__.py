@@ -69,6 +69,17 @@ Void = None
 
 # FIXME: How to manage com reference count?  ContextManager style?
 class ComPtr(c_void_p):
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+
+        cls._hints_ = get_type_hints(cls)
+        if cls._hints_["extends"] is not None:
+            # Generic class have multiple base class (Generic[], ComPtr).
+            cls.__bases__ = tuple(
+                cls._hints_["extends"] if t is ComPtr else t
+                for t in cls.__bases__
+            )
+
     def __init__(self, value=None, own=False):
         super().__init__(value)
         self._own = own
@@ -106,6 +117,26 @@ def _removesuffix(s, suffix):
 
 
 class EasyCastStructure(Structure):
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+
+        hints = {
+            name: _patch_char_p(type_)
+            for name, type_ in get_type_hints(cls).items()
+        }
+        anonymous = [
+            name for name in hints.keys()
+            if re.match(r"^Anonymous\d*$", name)
+        ]
+        if anonymous:
+            cls._anonymous_ = anonymous
+
+        cls._fields_ = list(hints.items())
+
+        for name in anonymous:
+            hints.update(hints[name]._hints_)
+        cls._hints_ = hints
+
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
@@ -354,64 +385,17 @@ def commethod(vtbl_index):
     return decorator
 
 
-def commonfunctype_pointer(prototype, functype):
-    def press_functype_pointer():
-        hints = get_type_hints(prototype)
-        types = list(hints.values())
-        types = types[-1:] + types[:-1]
-        return functype(*types)
-
-    return press_functype_pointer
-
 
 def cfunctype_pointer(prototype):
-    return commonfunctype_pointer(prototype, CFUNCTYPE)
+    hints = get_type_hints(prototype)
+    types = list(hints.values())
+    types = types[-1:] + types[:-1]
+    return CFUNCTYPE(*types)
 
 
 def winfunctype_pointer(prototype):
-    return commonfunctype_pointer(prototype, WINFUNCTYPE)
+    hints = get_type_hints(prototype)
+    types = list(hints.values())
+    types = types[-1:] + types[:-1]
+    return WINFUNCTYPE(*types)
 
-
-def press(prototype):
-    if isinstance(prototype, types.FunctionType):
-        # constant or function_pointer
-        return prototype()
-    elif issubclass(prototype, (Structure, Union)):
-        return press_struct(prototype)
-    elif issubclass(prototype, ComPtr):
-        return press_interface(prototype)
-    else:
-        raise NotImplementedError()
-
-
-def press_struct(prototype):
-    # FIXME: not work for Union.
-    # if hasattr(prototype, "_fields_"):
-    if "_fields_" in dir(prototype):
-        return prototype
-    hints = {name: _patch_char_p(type_) for name, type_ in get_type_hints(prototype).items()}
-    anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name)]
-    if anonymous:
-        prototype._anonymous_ = anonymous
-    for type_ in hints.values():
-        if type_ is not prototype and issubclass(type_, (Structure, Union)):
-            press_struct(type_)
-    prototype._fields_ = list(hints.items())
-    for name in anonymous:
-        hints.update(hints[name]._hints_)
-    prototype._hints_ = hints
-    return prototype
-
-
-def press_interface(prototype):
-    prototype._hints_ = get_type_hints(prototype)
-    if prototype._hints_["extends"] is None:
-        return prototype
-    # Generic class have multiple base class (Generic[], ComPtr).
-    prototype.__bases__ = tuple(prototype._hints_["extends"] if t is ComPtr else t for t in prototype.__bases__)
-    return prototype
-
-
-def make_head(module, name):
-    setattr(module, f"{name}_head", getattr(module, name))
-    delattr(module, name)
