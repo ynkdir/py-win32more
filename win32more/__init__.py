@@ -387,15 +387,15 @@ def commethod(vtbl_index):
 
 
 def cfunctype_pointer(prototype):
-    hints = get_type_hints(prototype)
-    types = list(hints.values())
+    types = list(get_type_hints(prototype).values())
+
     types = types[-1:] + types[:-1]
     return CFUNCTYPE(*types)
 
 
 def winfunctype_pointer(prototype):
-    hints = get_type_hints(prototype)
-    types = list(hints.values())
+    types = list(get_type_hints(prototype).values())
+
     types = types[-1:] + types[:-1]
     return WINFUNCTYPE(*types)
 
