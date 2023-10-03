@@ -50,7 +50,6 @@ BASE_EXPORTS = [
     "cfunctype",
     "cfunctype_pointer",
     "commethod",
-    "make_head",
     "press",
     "winfunctype",
     "winfunctype_pointer",
@@ -122,7 +121,7 @@ class TType:
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "VoidPtr"
             elif self.type.is_struct:
-                return f"POINTER({PACKAGE_NAME}.{self.type.fullname}_head)"
+                return f"POINTER({PACKAGE_NAME}.{self.type.fullname})"
             else:
                 return f"POINTER({self.type.pytype})"
         elif self.kind == "Array":
@@ -136,7 +135,7 @@ class TType:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                 return "MissingType"
             elif self.is_com:
-                return f"{PACKAGE_NAME}.{self.fullname}_head"
+                return f"{PACKAGE_NAME}.{self.fullname}"
             else:
                 return f"{PACKAGE_NAME}.{self.fullname}"
         else:
@@ -1198,7 +1197,6 @@ class PyGenerator:
         writer.write(self.emit_import_ctypes())
         writer.write(self.emit_import_base())
         writer.write(self.emit_import_namespaces(import_namespaces))
-        writer.write(self.emit_getattr())
         return writer.getvalue()
 
     def emit_header_one(self) -> str:
@@ -1206,7 +1204,6 @@ class PyGenerator:
         writer.write(self.emit_import_annotations())
         writer.write(self.emit_import_ctypes())
         writer.write(self.emit_include_base())
-        writer.write(self.emit_getattr())
         return writer.getvalue()
 
     def emit_import_annotations(self) -> str:
@@ -1225,30 +1222,6 @@ class PyGenerator:
         writer = StringIO()
         for namespace in sorted(import_namespaces):
             writer.write(f"import {PACKAGE_NAME}.{namespace}\n")
-        return writer.getvalue()
-
-    def emit_getattr(self) -> str:
-        writer = StringIO()
-        writer.write("import sys\n")
-        writer.write("_module = sys.modules[__name__]\n")
-        writer.write("def __getattr__(name):\n")
-        writer.write("    try:\n")
-        writer.write("        prototype = globals()[f'{name}_head']\n")
-        writer.write("    except KeyError:\n")
-        writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
-        writer.write("    setattr(_module, name, press(prototype))\n")
-        writer.write("    return getattr(_module, name)\n")
-        return writer.getvalue()
-
-    def emit_make_head(self, td: TypeDefinition) -> str:
-        writer = StringIO()
-        if td.kind == "object":  # CONSTANT, FUNCTION
-            for fd in td.fields:
-                if "HasDefault" not in fd.attributes and not fd.signature.is_guid:
-                    writer.write(f"make_head(_module, '{fd.name}')\n")
-        elif td.kind in ["function_pointer", "union", "struct", "com"]:
-            indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
-            writer.write(f"{indent}make_head(_module, '{td.name}')\n")
         return writer.getvalue()
 
     def write_architecture_specific_block_if_necessary(
@@ -1377,8 +1350,6 @@ def generate(meta: Metadata) -> None:
             writer.write(pg.emit_header(import_namespaces))
             for td in meta_group_by_namespace:
                 writer.write(pg.emit(td))
-            for td in meta_group_by_namespace:
-                writer.write(pg.emit_make_head(td))
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
@@ -1386,8 +1357,6 @@ def generate_one(meta: Metadata, writer: TextIO) -> None:
     writer.write(pg.emit_header_one())
     for td in meta:
         writer.write(pg.emit(td))
-    for td in meta:
-        writer.write(pg.emit_make_head(td))
 
 
 def xopen(path: str) -> TextIO | lzma.LZMAFile:
