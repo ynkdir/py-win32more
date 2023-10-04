@@ -153,20 +153,20 @@ class EasyCastMeta(type(Structure), type(Union)):
     def commit(cls, name):
         for struct in cls.registers[name]:
             hints = {
-                name: _patch_char_p(type_)
-                for name, type_ in get_type_hints(struct).items()
+                hint: _patch_char_p(type_)
+                for hint, type_ in get_type_hints(struct).items()
             }
             anonymous = [
-                name for name in hints.keys()
-                if re.match(r"^Anonymous\d*$", name)
+                hint for hint in hints.keys()
+                if re.match(r"^Anonymous\d*$", hint)
             ]
             if anonymous:
                 struct._anonymous_ = anonymous
 
             struct._fields_ = list(hints.items())
 
-            for name in anonymous:
-                hints.update(hints[name]._hints_)
+            for hint in anonymous:
+                hints.update(hints[hint]._hints_)
             struct._hints_ = hints
 
         del cls.registers[name]

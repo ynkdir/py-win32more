@@ -1502,6 +1502,7 @@ class PyGenerator:
         writer.write(self.emit_import_base())
         writer.write(self.emit_import_winrt())
         writer.write(self.emit_import_namespaces(import_namespaces))
+        writer.write(self.emit_getattr())
         return writer.getvalue()
 
     def emit_header_one(self) -> str:
@@ -1510,6 +1511,7 @@ class PyGenerator:
         writer.write(self.emit_import_ctypes())
         writer.write(self.emit_import_typing())
         writer.write(self.emit_include_base())
+        writer.write(self.emit_getattr())
         return writer.getvalue()
 
     def emit_import_annotations(self) -> str:
@@ -1551,6 +1553,15 @@ class PyGenerator:
         writer.write(f"import {PACKAGE_NAME}.Windows.Win32.System.WinRT\n")
         for namespace in sorted(import_namespaces):
             writer.write(f"import {PACKAGE_NAME}.{namespace}\n")
+        return writer.getvalue()
+
+    def emit_getattr(self) -> str:
+        writer = StringIO()
+        writer.write("import sys\n")
+        writer.write("_parent, _current = __name__.rsplit('.', 1)\n")
+        writer.write("if not hasattr(sys.modules[_parent], _current):\n")
+        writer.write("    setattr(sys.modules[_parent], _current, sys.modules[__name__])\n")
+        writer.write("del _parent, _current\n")
         return writer.getvalue()
 
     def write_architecture_specific_block_if_necessary(
