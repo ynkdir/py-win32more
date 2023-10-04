@@ -74,9 +74,6 @@ class ComPtrMeta(type(c_void_p)):
     def __init__(cls, name, bases, attrs):
         super().__init__(name, bases, attrs)
 
-        if "_ComPtrMeta" in attrs:
-            return
-
         ComPtrMeta.registers[cls.__module__].append(cls)
 
     @classmethod
@@ -139,9 +136,6 @@ class EasyCastMeta(type(Structure), type(Union)):
     def __init__(cls, name, bases, attrs):
         super().__init__(name, bases, attrs)
 
-        if "_EasyCastMeta" in attrs:
-            return
-
         # FIXME: not work for Union.
         # if hasattr(cls, "_fields_"):
         if "_fields_" in dir(cls):
@@ -173,8 +167,6 @@ class EasyCastMeta(type(Structure), type(Union)):
 
 
 class EasyCastStructure(Structure, metaclass=EasyCastMeta):
-    _EasyCastMeta = True
-
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
@@ -194,8 +186,6 @@ class EasyCastStructure(Structure, metaclass=EasyCastMeta):
 
 
 class EasyCastUnion(Union, metaclass=EasyCastMeta):
-    _EasyCastMeta = True
-
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
@@ -425,15 +415,30 @@ def commethod(vtbl_index):
     return decorator
 
 
+class BaseFuncType:
+    registers = defaultdict(list)
+
+    def __init__(self, fn, kind):
+        self._fn = fn
+        self._kind = kind
+        self.registers[fn.__module__].append(self)
+
+    def __call__(self, *args, **kwargs):
+        return self._fn(*args, **kwargs)
+
+    @classmethod
+    def commit(cls, name):
+        for struct in cls.registers[name]:
+            types = list(get_type_hints(struct._fn).values())
+            types = types[-1:] + types[:-1]
+            struct._fn = struct._kind(*types)
+
+        del cls.registers[name]
+
 
 def cfunctype_pointer(prototype):
-    types = list(get_type_hints(prototype).values())
-    types = types[-1:] + types[:-1]
-    return CFUNCTYPE(*types)
+    return BaseFuncType(prototype, CFUNCTYPE)
 
 
 def winfunctype_pointer(prototype):
-    types = list(get_type_hints(prototype).values())
-    types = types[-1:] + types[:-1]
-    return WINFUNCTYPE(*types)
-
+    return BaseFuncType(prototype, WINFUNCTYPE)
