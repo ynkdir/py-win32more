@@ -77,6 +77,8 @@ class ComPtrMeta(type(c_void_p)):
         if "_ComPtrMeta" in attrs:
             return
 
+        ComPtrMeta.registers[cls.__module__].append(cls)
+
     @classmethod
     def commit(cls, name):
         for struct in cls.registers[name]:
@@ -145,7 +147,7 @@ class EasyCastMeta(type(Structure), type(Union)):
         if "_fields_" in dir(cls):
             return
 
-        registers[cls.__module__].append(cls)
+        EasyCastMeta.registers[cls.__module__].append(cls)
 
     @classmethod
     def commit(cls, name):

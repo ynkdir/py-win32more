@@ -49,6 +49,7 @@ BASE_EXPORTS = [
     "cfunctype",
     "cfunctype_pointer",
     "commethod",
+    "EasyCastMeta",
     "winfunctype",
     "winfunctype_pointer",
 ]
