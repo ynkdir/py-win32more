@@ -69,25 +69,24 @@ Void = None
 
 
 class ComPtrMeta(type(c_void_p)):
-    registers = defaultdict(list)
-
-    def __init__(cls, name, bases, attrs):
-        super().__init__(name, bases, attrs)
-
-        ComPtrMeta.registers[cls.__module__].append(cls)
+    def __call__(cls, *args, **kwargs):
+        if not hasattr(cls, '__done_ctypes__'):
+            cls.__done_ctypes__ = True
+            ComPtrMeta.commit(cls)
+        return super().__call__(*args, **kwargs)
 
     @classmethod
-    def commit(cls, name):
-        for struct in cls.registers[name]:
-            struct._hints_ = get_type_hints(struct)
-            if struct._hints_["extends"] is not None:
-                # Generic class have multiple base class (Generic[], ComPtr).
-                struct.__bases__ = tuple(
-                    struct._hints_["extends"] if t is ComPtr else t
-                    for t in struct.__bases__
-                )
+    def commit(cls, struct):
+        struct._hints_ = get_hints(struct)
 
-        del cls.registers[name]
+        if struct._hints_["extends"] is None:
+            return
+
+        # Generic class have multiple base class (Generic[], ComPtr).
+        struct.__bases__ = tuple(
+            struct._hints_["extends"] if t is ComPtr else t
+            for t in struct.__bases__
+        )
 
 
 # FIXME: How to manage com reference count?  ContextManager style?
@@ -130,7 +129,9 @@ def _removesuffix(s, suffix):
 
 class EasyCastMeta(type(Structure), type(Union)):
     def __call__(cls, *args, **kwargs):
-        EasyCastMeta.commit(cls)
+        if not hasattr(cls, '__done_ctypes__'):
+            cls.__done_ctypes__ = True
+            EasyCastMeta.commit(cls)
         return super().__call__(*args, **kwargs)
 
     @classmethod
@@ -140,11 +141,7 @@ class EasyCastMeta(type(Structure), type(Union)):
         if "_fields_" in dir(struct):
             return
 
-        hints = {}
-        for hint, type_ in get_type_hints(struct).items():
-            type_ = _patch_char_p(type_)
-            if issubclass(type_, (EasyCastStructure, EasyCastUnion)) and "_fields_" not in dir(cls):
-                EasyCastMeta.commit(type_)
+        hints = get_hints(struct)
 
         anonymous = [
             hint for hint in hints.keys()
@@ -234,6 +231,19 @@ def get_type_hints(prototype, **kwargs):
     for name, type_ in hints.items():
         if type_ is None.__class__:
             hints[name] = None
+    return hints
+
+
+def get_hints(struct):
+    hints = {}
+    for hint, type_ in get_type_hints(struct).items():
+        type_ = _patch_char_p(type_)
+        if not hasattr(type_, '__done_ctypes__'):
+            if issubclass(type_, (EasyCastStructure, EasyCastUnion)):
+                EasyCastMeta.commit(type_)
+            elif issubclass(type_, ComPtr):
+                ComPtr.commit(type_)
+        hints[hint] = type_
     return hints
 
 
@@ -410,24 +420,21 @@ def commethod(vtbl_index):
 
 
 class BaseFuncType:
-    registers = defaultdict(list)
-
     def __init__(self, fn, kind):
         self._fn = fn
         self._kind = kind
-        self.registers[fn.__module__].append(self)
 
     def __call__(self, *args, **kwargs):
+        if not hasattr(self, '__done_ctypes__'):
+            self.__done_ctypes__ = True
+            BaseFuncType.commit(self)
         return self._fn(*args, **kwargs)
 
     @classmethod
-    def commit(cls, name):
-        for struct in cls.registers[name]:
-            types = list(get_type_hints(struct._fn).values())
-            types = types[-1:] + types[:-1]
-            struct._fn = struct._kind(*types)
-
-        del cls.registers[name]
+    def commit(cls, instance):
+        types = list(get_hints(instance._fn).values())
+        types = types[-1:] + types[:-1]
+        instance._fn = instance._kind(*types)
 
 
 def cfunctype_pointer(prototype):
