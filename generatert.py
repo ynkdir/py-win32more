@@ -1679,6 +1679,7 @@ def generate(meta: Metadata) -> None:
             writer.write(pg.emit_header(import_namespaces))
             for td in meta_group_by_namespace:
                 writer.write(pg.emit(td))
+            writer.write("EasyCastMeta.commit(__name__)\n")
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
@@ -1686,6 +1687,7 @@ def generate_one(meta: Metadata, writer: TextIO) -> None:
     writer.write(pg.emit_header_one())
     for td in meta:
         writer.write(pg.emit(td))
+    writer.write("EasyCastMeta.commit(__name__)\n")
 
 
 def xopen(path: str) -> TextIO | lzma.LZMAFile:
