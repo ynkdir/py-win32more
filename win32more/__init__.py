@@ -92,8 +92,6 @@ class ComPtrMeta(type(c_void_p)):
 
 # FIXME: How to manage com reference count?  ContextManager style?
 class ComPtr(c_void_p, metaclass=ComPtrMeta):
-    _ComPtrMeta = True
-
     def __init__(self, value=None, own=False):
         super().__init__(value)
         self._own = own
@@ -131,39 +129,35 @@ def _removesuffix(s, suffix):
 
 
 class EasyCastMeta(type(Structure), type(Union)):
-    registers = defaultdict(list)
-
-    def __init__(cls, name, bases, attrs):
-        super().__init__(name, bases, attrs)
-
-        # FIXME: not work for Union.
-        # if hasattr(cls, "_fields_"):
-        if "_fields_" in dir(cls):
-            return
-
-        EasyCastMeta.registers[cls.__module__].append(cls)
+    def __call__(cls, *args, **kwargs):
+        EasyCastMeta.commit(cls)
+        return super().__call__(*args, **kwargs)
 
     @classmethod
-    def commit(cls, name):
-        for struct in cls.registers[name]:
-            hints = {
-                hint: _patch_char_p(type_)
-                for hint, type_ in get_type_hints(struct).items()
-            }
-            anonymous = [
-                hint for hint in hints.keys()
-                if re.match(r"^Anonymous\d*$", hint)
-            ]
-            if anonymous:
-                struct._anonymous_ = anonymous
+    def commit(cls, struct):
+        # FIXME: not work for Union.
+        # if hasattr(cls, "_fields_"):
+        if "_fields_" in dir(struct):
+            return
 
-            struct._fields_ = list(hints.items())
+        hints = {}
+        for hint, type_ in get_type_hints(struct).items():
+            type_ = _patch_char_p(type_)
+            if issubclass(type_, (EasyCastStructure, EasyCastUnion)) and "_fields_" not in dir(cls):
+                EasyCastMeta.commit(type_)
 
-            for hint in anonymous:
-                hints.update(hints[hint]._hints_)
-            struct._hints_ = hints
+        anonymous = [
+            hint for hint in hints.keys()
+            if re.match(r"^Anonymous\d*$", hint)
+        ]
+        if anonymous:
+            struct._anonymous_ = anonymous
 
-        del cls.registers[name]
+        struct._fields_ = list(hints.items())
+
+        for hint in anonymous:
+            hints.update(hints[hint]._hints_)
+        struct._hints_ = hints
 
 
 class EasyCastStructure(Structure, metaclass=EasyCastMeta):
