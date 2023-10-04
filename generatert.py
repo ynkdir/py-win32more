@@ -48,7 +48,6 @@ BASE_EXPORTS = [
     "commethod",
     "cfunctype_pointer",
     "winfunctype_pointer",
-    "press",
     "EasyCastStructure",
     "EasyCastUnion",
     "ComPtr",

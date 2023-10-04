@@ -120,6 +120,11 @@ class EasyCastStructure(Structure):
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
 
+        # FIXME: not work for Union.
+        # if hasattr(cls, "_fields_"):
+        if "_fields_" in dir(cls):
+            return
+
         hints = {
             name: _patch_char_p(type_)
             for name, type_ in get_type_hints(cls).items()
@@ -205,6 +210,14 @@ def easycast(obj, type_):
     return obj
 
 
+def get_type_hints(prototype, **kwargs):
+    hints = _get_type_hints(prototype, localns=getattr(prototype, "__dict__", None), **kwargs)
+    for name, type_ in hints.items():
+        if type_ is None.__class__:
+            hints[name] = None
+    return hints
+
+
 class Guid(EasyCastStructure):
     _fields_ = [
         ("Data1", UInt32),
@@ -254,14 +267,6 @@ def SUCCEEDED(hr):
 
 def FAILED(hr):
     return hr < 0
-
-
-def get_type_hints(prototype, **kwargs):
-    hints = _get_type_hints(prototype, localns=getattr(prototype, "__dict__", None), **kwargs)
-    for name, type_ in hints.items():
-        if type_ is None.__class__:
-            hints[name] = None
-    return hints
 
 
 class ForeignFunction:

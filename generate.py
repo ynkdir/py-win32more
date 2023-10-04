@@ -40,7 +40,6 @@ BASE_EXPORTS = [
     "SUCCEEDED",
     "Single",
     "String",
-    "String",
     "UInt16",
     "UInt32",
     "UInt64",
@@ -50,7 +49,6 @@ BASE_EXPORTS = [
     "cfunctype",
     "cfunctype_pointer",
     "commethod",
-    "press",
     "winfunctype",
     "winfunctype_pointer",
 ]
