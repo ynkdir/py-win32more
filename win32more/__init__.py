@@ -67,10 +67,12 @@ VoidPtr = c_void_p
 Void = None
 
 
-# FIXME: How to manage com reference count?  ContextManager style?
-class ComPtr(c_void_p):
-    def __init_subclass__(cls, **kwargs):
-        super().__init_subclass__(**kwargs)
+class ComPtrMeta(type(c_void_p)):
+    def __init__(cls, name, bases, attrs):
+        super().__init__(name, bases, attrs)
+
+        if "_ComPtrMeta" in attrs:
+            return
 
         cls._hints_ = get_type_hints(cls)
         if cls._hints_["extends"] is not None:
@@ -79,6 +81,11 @@ class ComPtr(c_void_p):
                 cls._hints_["extends"] if t is ComPtr else t
                 for t in cls.__bases__
             )
+
+
+# FIXME: How to manage com reference count?  ContextManager style?
+class ComPtr(c_void_p, metaclass=ComPtrMeta):
+    _ComPtrMeta
 
     def __init__(self, value=None, own=False):
         super().__init__(value)
@@ -116,9 +123,12 @@ def _removesuffix(s, suffix):
     return s.removesuffix(suffix)
 
 
-class EasyCastStructure(Structure):
-    def __init_subclass__(cls, **kwargs):
-        super().__init_subclass__(**kwargs)
+class EasyCastMeta(type(Structure), type(Union)):
+    def __init__(cls, name, bases, attrs):
+        super().__init__(name, bases, attrs)
+
+        if "_EasyCastMeta" in attrs:
+            return
 
         # FIXME: not work for Union.
         # if hasattr(cls, "_fields_"):
@@ -142,6 +152,10 @@ class EasyCastStructure(Structure):
             hints.update(hints[name]._hints_)
         cls._hints_ = hints
 
+
+class EasyCastStructure(Structure, metaclass=EasyCastMeta):
+    _EasyCastMeta = True
+
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
@@ -160,7 +174,9 @@ class EasyCastStructure(Structure):
         return obj
 
 
-class EasyCastUnion(Union):
+class EasyCastUnion(Union, metaclass=EasyCastMeta):
+    _EasyCastMeta = True
+
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
