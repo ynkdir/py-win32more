@@ -239,7 +239,12 @@ def get_hints(struct):
     for hint, type_ in get_type_hints(struct).items():
         type_ = _patch_char_p(type_)
         if not hasattr(type_, '__done_ctypes__'):
-            if issubclass(type_, (EasyCastStructure, EasyCastUnion)):
+            if isinstance(type_, BaseFuncType):
+                if not hasattr(type_, '__done_ctypes__'):
+                    type_.__done_ctypes__ = True
+                    BaseFuncType.commit(type_)
+                type_ = type_._fn
+            elif issubclass(type_, (EasyCastStructure, EasyCastUnion)):
                 EasyCastMeta.commit(type_)
             elif issubclass(type_, ComPtr):
                 ComPtr.commit(type_)
