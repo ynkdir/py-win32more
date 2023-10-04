@@ -85,7 +85,7 @@ class ComPtrMeta(type(c_void_p)):
 
 # FIXME: How to manage com reference count?  ContextManager style?
 class ComPtr(c_void_p, metaclass=ComPtrMeta):
-    _ComPtrMeta
+    _ComPtrMeta = True
 
     def __init__(self, value=None, own=False):
         super().__init__(value)
