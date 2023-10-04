@@ -77,10 +77,10 @@ class ComPtrMeta(type(c_void_p)):
 
     @classmethod
     def commit(cls, struct):
-        struct._hints_ = get_hints(struct)
-
-        if struct._hints_["extends"] is None:
+        if struct.__annotations__["extends"] == 'None':
             return
+
+        struct._hints_ = get_hints(struct)
 
         # Generic class have multiple base class (Generic[], ComPtr).
         struct.__bases__ = tuple(
