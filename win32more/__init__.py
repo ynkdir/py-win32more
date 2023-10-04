@@ -32,6 +32,7 @@ from ctypes import (
     pointer,
     windll,
 )
+from collections import defaultdict
 
 if sys.version_info < (3, 9):
     from typing_extensions import get_type_hints as _get_type_hints
@@ -68,19 +69,26 @@ Void = None
 
 
 class ComPtrMeta(type(c_void_p)):
+    registers = defaultdict(list)
+
     def __init__(cls, name, bases, attrs):
         super().__init__(name, bases, attrs)
 
         if "_ComPtrMeta" in attrs:
             return
 
-        cls._hints_ = get_type_hints(cls)
-        if cls._hints_["extends"] is not None:
-            # Generic class have multiple base class (Generic[], ComPtr).
-            cls.__bases__ = tuple(
-                cls._hints_["extends"] if t is ComPtr else t
-                for t in cls.__bases__
-            )
+    @classmethod
+    def commit(cls, name):
+        for struct in cls.registers[name]:
+            struct._hints_ = get_type_hints(struct)
+            if struct._hints_["extends"] is not None:
+                # Generic class have multiple base class (Generic[], ComPtr).
+                struct.__bases__ = tuple(
+                    struct._hints_["extends"] if t is ComPtr else t
+                    for t in struct.__bases__
+                )
+
+        del cls.registers[name]
 
 
 # FIXME: How to manage com reference count?  ContextManager style?
@@ -124,6 +132,8 @@ def _removesuffix(s, suffix):
 
 
 class EasyCastMeta(type(Structure), type(Union)):
+    registers = defaultdict(list)
+
     def __init__(cls, name, bases, attrs):
         super().__init__(name, bases, attrs)
 
@@ -135,22 +145,29 @@ class EasyCastMeta(type(Structure), type(Union)):
         if "_fields_" in dir(cls):
             return
 
-        hints = {
-            name: _patch_char_p(type_)
-            for name, type_ in get_type_hints(cls).items()
-        }
-        anonymous = [
-            name for name in hints.keys()
-            if re.match(r"^Anonymous\d*$", name)
-        ]
-        if anonymous:
-            cls._anonymous_ = anonymous
+        registers[cls.__module__].append(cls)
 
-        cls._fields_ = list(hints.items())
+    @classmethod
+    def commit(cls, name):
+        for struct in cls.registers[name]:
+            hints = {
+                name: _patch_char_p(type_)
+                for name, type_ in get_type_hints(struct).items()
+            }
+            anonymous = [
+                name for name in hints.keys()
+                if re.match(r"^Anonymous\d*$", name)
+            ]
+            if anonymous:
+                struct._anonymous_ = anonymous
 
-        for name in anonymous:
-            hints.update(hints[name]._hints_)
-        cls._hints_ = hints
+            struct._fields_ = list(hints.items())
+
+            for name in anonymous:
+                hints.update(hints[name]._hints_)
+            struct._hints_ = hints
+
+        del cls.registers[name]
 
 
 class EasyCastStructure(Structure, metaclass=EasyCastMeta):
