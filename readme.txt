@@ -30,6 +30,3 @@ How to get latest metadata:
 > cd winmd-printer
 > dotnet run ..\Microsoft.Windows.SDK.Win32Metadata\Windows.Win32.winmd > ..\Windows.Win32.json
 > cd ..
-
-not maintained.
-not tested.
