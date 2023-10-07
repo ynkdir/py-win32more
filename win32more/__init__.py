@@ -451,12 +451,13 @@ class GetAttr:
                 f"module '{self._mod}' has no attribute '{name}'"
             ) from None
 
-        prottype.__done_ctypes__ = True
-        if issubclass(type_, (EasyCastStructure, EasyCastUnion, ComPtr)):
-            type_.__commit__()
-
         setattr(self._obj, name, prototype)
         delattr(self._obj, f'_unused_{name}')
+
+        if issubclass(prototype, (EasyCastStructure, EasyCastUnion, ComPtr)):
+            prototype.__done_ctypes__ = True
+            prototype.__commit__()
+
         return prototype
 
 
