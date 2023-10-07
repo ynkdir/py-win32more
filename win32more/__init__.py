@@ -68,15 +68,18 @@ VoidPtr = c_void_p
 Void = None
 
 
-class ComPtrMeta(type(c_void_p)):
-    def __call__(cls, *args, **kwargs):
-        if not hasattr(cls, '__done_ctypes__'):
-            cls.__done_ctypes__ = True
-            ComPtrMeta.commit(cls)
-        return super().__call__(*args, **kwargs)
+# FIXME: How to manage com reference count?  ContextManager style?
+class ComPtr(c_void_p):
+    def __init__(self, value=None, own=False):
+        super().__init__(value)
+        self._own = own
+
+    def __del__(self):
+        if self and getattr(self, "_own", False):
+            self.Release()
 
     @classmethod
-    def commit(cls, struct):
+    def __commit__(struct):
         if struct.__annotations__["extends"] == 'None':
             return
 
@@ -87,17 +90,6 @@ class ComPtrMeta(type(c_void_p)):
             struct._hints_["extends"] if t is ComPtr else t
             for t in struct.__bases__
         )
-
-
-# FIXME: How to manage com reference count?  ContextManager style?
-class ComPtr(c_void_p, metaclass=ComPtrMeta):
-    def __init__(self, value=None, own=False):
-        super().__init__(value)
-        self._own = own
-
-    def __del__(self):
-        if self and getattr(self, "_own", False):
-            self.Release()
 
 
 # to avoid auto conversion to str when struct.member access and function() result.
@@ -127,15 +119,9 @@ def _removesuffix(s, suffix):
     return s.removesuffix(suffix)
 
 
-class EasyCastMeta(type(Structure), type(Union)):
-    def __call__(cls, *args, **kwargs):
-        if not hasattr(cls, '__done_ctypes__'):
-            cls.__done_ctypes__ = True
-            EasyCastMeta.commit(cls)
-        return super().__call__(*args, **kwargs)
-
+class EasyCastBase:
     @classmethod
-    def commit(cls, struct):
+    def __commit__(struct):
         # FIXME: not work for Union.
         # if hasattr(cls, "_fields_"):
         if "_fields_" in dir(struct):
@@ -157,7 +143,7 @@ class EasyCastMeta(type(Structure), type(Union)):
         struct._hints_ = hints
 
 
-class EasyCastStructure(Structure, metaclass=EasyCastMeta):
+class EasyCastStructure(EasyCastBase, Structure):
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
@@ -176,7 +162,7 @@ class EasyCastStructure(Structure, metaclass=EasyCastMeta):
         return obj
 
 
-class EasyCastUnion(Union, metaclass=EasyCastMeta):
+class EasyCastUnion(EasyCastBase, Union):
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
@@ -249,10 +235,8 @@ def get_hints(struct, patch_return=False):
                 type_.__done_ctypes__ = True
                 BaseFuncType.commit(type_)
             type_ = type_._fn
-        elif issubclass(type_, (EasyCastStructure, EasyCastUnion)):
-            EasyCastMeta.commit(type_)
-        elif issubclass(type_, ComPtr):
-            ComPtr.commit(type_)
+        elif issubclass(type_, (EasyCastStructure, EasyCastUnion, ComPtr)):
+            type_.__commit__()
         hints[hint] = type_
     return hints
 
@@ -453,3 +437,40 @@ def cfunctype_pointer(prototype):
 
 def winfunctype_pointer(prototype):
     return BaseFuncType(prototype, WINFUNCTYPE)
+
+class GetAttr:
+    def __init__(self, mod):
+        self._mod = mod
+        self._obj = sys.modules[mod]
+
+    def __call__(self, name):
+        try:
+            prototype = self._obj.__dict__[f'_unused_{name}']
+        except KeyError:
+            raise AttributeError(
+                f"module '{self._mod}' has no attribute '{name}'"
+            ) from None
+
+        prottype.__done_ctypes__ = True
+        if issubclass(type_, (EasyCastStructure, EasyCastUnion, ComPtr)):
+            type_.__commit__()
+
+        setattr(self._obj, name, prototype)
+        delattr(self._obj, f'_unused_{name}')
+        return prototype
+
+
+def make_ready(mod: str) -> None:
+    obj = sys.modules[mod]
+
+    for name in dir(obj):
+        prototype = getattr(obj, name)
+        if (
+            isinstance(prototype, type)
+            and issubclass(prototype, (EasyCastStructure, EasyCastUnion, ComPtr))
+            and not hasattr(prototype, '__done_ctypes__')
+        ):
+            setattr(obj, f'_unused_{name}', prototype)
+            delattr(obj, name)
+
+    obj.__getattr__ = GetAttr(mod)
