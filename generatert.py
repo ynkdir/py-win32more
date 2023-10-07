@@ -71,6 +71,15 @@ WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
 JsonType: TypeAlias = Any
 
 
+def _removeprefix(s, prefix):
+    if sys.version_info < (3, 9):
+        if s.startswith(prefix):
+            return s[len(prefix):]
+        else:
+            return s
+    return s.removeprefix(prefix)
+
+
 class TType:
     def __init__(self, js: JsonType) -> None:
         self.js = js
@@ -1323,11 +1332,11 @@ class PyGenerator:
                 continue
             if "SpecialName" in md.attributes:
                 if md.name.startswith("get_"):
-                    property_name = md.name.removeprefix("get_")
+                    property_name = _removeprefix(md.name, "get_")
                     properties[property_name]["get"] = md.name
                     properties[property_name]["is_static"] = "Static" in md.attributes
                 elif md.name.startswith("put_"):
-                    property_name = md.name.removeprefix("put_")
+                    property_name = _removeprefix(md.name, "put_")
                     properties[property_name]["put"] = md.name
                     properties[property_name]["is_static"] = "Static" in md.attributes
                 elif md.name.startswith("add_"):
