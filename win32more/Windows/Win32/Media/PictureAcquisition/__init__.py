@@ -18,23 +18,23 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def PKEY_PhotoAcquire_RelativePathname():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=2)
 def PKEY_PhotoAcquire_FinalFilename():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=3)
 def PKEY_PhotoAcquire_GroupTag():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=4)
 def PKEY_PhotoAcquire_TransferResult():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=5)
 def PKEY_PhotoAcquire_OriginalFilename():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=6)
 def PKEY_PhotoAcquire_CameraSequenceNumber():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=7)
 def PKEY_PhotoAcquire_IntermediateFile():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=8)
 def PKEY_PhotoAcquire_SkipImport():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=9)
 def PKEY_PhotoAcquire_DuplicateDetectionID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=10)
 PROGRESS_INDETERMINATE: Int32 = -1
 PHOTOACQ_ERROR_RESTART_REQUIRED: win32more.Windows.Win32.Foundation.HRESULT = -2147180543
 PHOTOACQ_RUN_DEFAULT: UInt32 = 0

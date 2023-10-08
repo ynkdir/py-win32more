@@ -100,13 +100,13 @@ WCN_FLAG_AUTHENTICATED_VE: UInt32 = 2
 WCN_FLAG_ENCRYPTED_VE: UInt32 = 4
 SID_WcnProvider: Guid = Guid('{c100beca-d33a-4a4b-bf23-bbef4663d017}')
 def PKEY_WCN_DeviceType_Category():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=16)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=16)
 def PKEY_WCN_DeviceType_SubCategoryOUI():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=17)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=17)
 def PKEY_WCN_DeviceType_SubCategory():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=18)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=18)
 def PKEY_WCN_SSID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=32)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=32)
 class IWCNConnectNotify(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c100be9f-d33a-4a4b-bf23-bbef4663d017}')

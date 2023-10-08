@@ -14,11 +14,11 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def DEVPKEY_DeviceInterface_Serial_UsbVendorId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=2)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=2)
 def DEVPKEY_DeviceInterface_Serial_UsbProductId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=3)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=3)
 def DEVPKEY_DeviceInterface_Serial_PortName():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=4)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=4)
 IOCTL_SERIAL_SET_BAUD_RATE: UInt32 = 1769476
 IOCTL_SERIAL_SET_QUEUE_SIZE: UInt32 = 1769480
 IOCTL_SERIAL_SET_LINE_CONTROL: UInt32 = 1769484

@@ -1554,11 +1554,11 @@ MF_QUOTA_EXCEEDED_ERR: UInt32 = 2154823702
 MF_PARSE_ERR: UInt32 = 2154823761
 MF_TYPE_ERR: UInt32 = 2154840069
 def DEVPKEY_DeviceInterface_IsVirtualCamera():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=3)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=3)
 def DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=4)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=4)
 def DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=5)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=5)
 g_wszSpeechFormatCaps: String = 'SpeechFormatCap'
 g_wszWMCPCodecName: String = '_CODECNAME'
 g_wszWMCPSupportedVBRModes: String = '_SUPPORTEDVBRMODES'

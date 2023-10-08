@@ -154,21 +154,21 @@ GUID_DEVINTERFACE_HID: Guid = Guid('{4d1e55b2-f16f-11cf-88cb-001111000030}')
 GUID_HID_INTERFACE_NOTIFY: Guid = Guid('{2c4e2e88-25e6-4c33-882f-3d82e6073681}')
 GUID_HID_INTERFACE_HIDPARSE: Guid = Guid('{f5c315a5-69ac-4bc2-9279-d0b64576f44b}')
 def DEVPKEY_DeviceInterface_HID_UsagePage():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=2)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=2)
 def DEVPKEY_DeviceInterface_HID_UsageId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=3)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=3)
 def DEVPKEY_DeviceInterface_HID_IsReadOnly():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=4)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=4)
 def DEVPKEY_DeviceInterface_HID_VendorId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=5)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=5)
 def DEVPKEY_DeviceInterface_HID_ProductId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=6)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=6)
 def DEVPKEY_DeviceInterface_HID_VersionNumber():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=7)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=7)
 def DEVPKEY_DeviceInterface_HID_BackgroundAccess():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=8)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=8)
 def DEVPKEY_DeviceInterface_HID_WakeScreenOnInputCapable():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=9)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{cbf38310-4a17-4310-a1eb-247f0b67593b}'), pid=9)
 HID_REVISION: UInt32 = 1
 HIDP_STATUS_SUCCESS: win32more.Windows.Win32.Foundation.NTSTATUS = 1114112
 HIDP_STATUS_NULL: win32more.Windows.Win32.Foundation.NTSTATUS = -2146369535

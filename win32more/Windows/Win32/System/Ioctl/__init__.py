@@ -48,21 +48,21 @@ GUID_DEVINTERFACE_UNIFIED_ACCESS_RPMB: Guid = Guid('{27447c21-bcc3-4d07-a05b-a33
 GUID_DEVICEDUMP_STORAGE_DEVICE: Guid = Guid('{d8e2592f-1aab-4d56-a746-1f7585df40f4}')
 GUID_DEVICEDUMP_DRIVER_STORAGE_PORT: Guid = Guid('{da82441d-7142-4bc1-b844-0807c5a4b67f}')
 def DEVPKEY_Storage_Portable():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=2)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=2)
 def DEVPKEY_Storage_Removable_Media():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=3)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=3)
 def DEVPKEY_Storage_System_Critical():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=4)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=4)
 def DEVPKEY_Storage_Disk_Number():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=5)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=5)
 def DEVPKEY_Storage_Partition_Number():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=6)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=6)
 def DEVPKEY_Storage_Mbr_Type():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=7)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=7)
 def DEVPKEY_Storage_Gpt_Type():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=8)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=8)
 def DEVPKEY_Storage_Gpt_Name():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=9)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4d1ebee8-0803-4774-9842-b77db50265e9}'), pid=9)
 IOCTL_STORAGE_CHECK_VERIFY: UInt32 = 2967552
 IOCTL_STORAGE_CHECK_VERIFY2: UInt32 = 2951168
 IOCTL_STORAGE_MEDIA_REMOVAL: UInt32 = 2967556

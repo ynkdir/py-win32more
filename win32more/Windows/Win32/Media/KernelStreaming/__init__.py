@@ -266,11 +266,11 @@ KSDSOUND_BUFFER_CTRL_PAN: UInt32 = 4
 KSDSOUND_BUFFER_CTRL_VOLUME: UInt32 = 8
 KSDSOUND_BUFFER_CTRL_POSITIONNOTIFY: UInt32 = 16
 def DEVPKEY_KsAudio_PacketSize_Constraints():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=2)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=2)
 def DEVPKEY_KsAudio_Controller_DeviceInterface_Path():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=3)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=3)
 def DEVPKEY_KsAudio_PacketSize_Constraints2():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{9404f781-7191-409b-8b0b-80bf6ec229ae}'), pid=2)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{9404f781-7191-409b-8b0b-80bf6ec229ae}'), pid=2)
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_HEADPHONE: Int32 = -1
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_MIN: UInt32 = 5
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_NARROW: UInt32 = 10

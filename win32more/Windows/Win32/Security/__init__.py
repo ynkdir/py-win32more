@@ -100,29 +100,29 @@ AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess: AUDIT_EVENT_TYPE = 1
 SECURITY_DYNAMIC_TRACKING: win32more.Windows.Win32.Foundation.BOOLEAN = 1
 SECURITY_STATIC_TRACKING: win32more.Windows.Win32.Foundation.BOOLEAN = 0
 def SECURITY_NULL_SID_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 0))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 0))
 def SECURITY_WORLD_SID_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 1))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 1))
 def SECURITY_LOCAL_SID_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 2))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 2))
 def SECURITY_CREATOR_SID_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 3))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 3))
 def SECURITY_NON_UNIQUE_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 4))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 4))
 def SECURITY_NT_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 5))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 5))
 def SECURITY_RESOURCE_MANAGER_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 9))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 9))
 def SECURITY_APP_PACKAGE_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 15))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 15))
 def SECURITY_MANDATORY_LABEL_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 16))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 16))
 def SECURITY_SCOPED_POLICY_ID_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 17))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 17))
 def SECURITY_AUTHENTICATION_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 18))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 18))
 def SECURITY_PROCESS_TRUST_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 19))
+    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 19))
 SE_CREATE_TOKEN_NAME: String = 'SeCreateTokenPrivilege'
 SE_ASSIGNPRIMARYTOKEN_NAME: String = 'SeAssignPrimaryTokenPrivilege'
 SE_LOCK_MEMORY_NAME: String = 'SeLockMemoryPrivilege'

@@ -42,13 +42,13 @@ GUID_DEVINTERFACE_MONITOR: Guid = Guid('{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}')
 GUID_DISPLAY_DEVICE_ARRIVAL: Guid = Guid('{1ca05180-a699-450a-9a0c-de4fbe3ddd89}')
 GUID_DEVINTERFACE_VIDEO_OUTPUT_ARRIVAL: Guid = Guid('{1ad9e4f0-f88d-4360-bab9-4c2d55e564cd}')
 def DEVPKEY_IndirectDisplay():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=1)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=1)
 def DEVPKEY_Device_TerminalLuid():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=2)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=2)
 def DEVPKEY_Device_AdapterLuid():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=3)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=3)
 def DEVPKEY_Device_ActivityId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=4)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=4)
 INDIRECT_DISPLAY_INFO_FLAGS_CREATED_IDDCX_ADAPTER: UInt32 = 1
 VIDEO_DEVICE_NAME: String = 'DISPLAY%d'
 WVIDEO_DEVICE_NAME: String = 'DISPLAY%d'
