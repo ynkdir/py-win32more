@@ -23,13 +23,13 @@ class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS(EasyCastStructure):
     targetEndpointConnectorType: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType
     wfxDeviceFormat: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
 def DEVPKEY_AudioEndpointPlugin_FactoryCLSID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=1)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=1)
 def DEVPKEY_AudioEndpointPlugin_DataFlow():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=2)
 def DEVPKEY_AudioEndpointPlugin_PnPInterface():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=3)
 def DEVPKEY_AudioEndpointPlugin2_FactoryCLSID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=4)
 DEVINTERFACE_AUDIOENDPOINTPLUGIN = Guid('{9f2f7b66-65ac-4fa6-8ae4-123c78b89313}')
 EndpointConnectorType = Int32
 EndpointConnectorType_eHostProcessConnector: EndpointConnectorType = 0

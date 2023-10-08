@@ -17,7 +17,7 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def DEVPKEY_MTPBTH_IsConnected():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{ea1237fa-589d-4472-84e4-0abe36fd62ef}'), pid=2)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{ea1237fa-589d-4472-84e4-0abe36fd62ef}'), pid=2)
 GUID_DEVINTERFACE_WPD: Guid = Guid('{6ac27878-a6fa-4155-ba85-f98f491d4f33}')
 GUID_DEVINTERFACE_WPD_PRIVATE: Guid = Guid('{ba0c718f-4ded-49b7-bdd3-fabe28661211}')
 GUID_DEVINTERFACE_WPD_SERVICE: Guid = Guid('{9ef44f80-3d64-4246-a6aa-206f328d1edc}')
@@ -106,775 +106,775 @@ WPD_OBJECT_FORMAT_3G2A: Guid = Guid('{1a11202d-8759-4e34-ba5e-b1211087eee4}')
 WPD_OBJECT_FORMAT_ALL: Guid = Guid('{c1f62eb2-4bb3-479c-9cfa-05b5f3a57b22}')
 WPD_CATEGORY_NULL: Guid = Guid('{00000000-0000-0000-0000-000000000000}')
 def WPD_PROPERTY_NULL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00000000-0000-0000-0000-000000000000}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00000000-0000-0000-0000-000000000000}'), pid=0)
 WPD_OBJECT_PROPERTIES_V1: Guid = Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}')
 def WPD_OBJECT_CONTENT_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=7)
 def WPD_OBJECT_REFERENCES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=14)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=14)
 def WPD_OBJECT_CONTAINER_FUNCTIONAL_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=23)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=23)
 def WPD_OBJECT_GENERATE_THUMBNAIL_FROM_RESOURCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=24)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=24)
 def WPD_OBJECT_HINT_LOCATION_DISPLAY_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=25)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=25)
 WPD_OBJECT_PROPERTIES_V2: Guid = Guid('{0373cd3d-4a46-40d7-b4d8-73e8da74e775}')
 def WPD_OBJECT_SUPPORTED_UNITS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0373cd3d-4a46-40d7-b4d8-73e8da74e775}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0373cd3d-4a46-40d7-b4d8-73e8da74e775}'), pid=2)
 WPD_FUNCTIONAL_OBJECT_PROPERTIES_V1: Guid = Guid('{8f052d93-abca-4fc5-a5ac-b01df4dbe598}')
 def WPD_FUNCTIONAL_OBJECT_CATEGORY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8f052d93-abca-4fc5-a5ac-b01df4dbe598}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8f052d93-abca-4fc5-a5ac-b01df4dbe598}'), pid=2)
 WPD_STORAGE_OBJECT_PROPERTIES_V1: Guid = Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}')
 def WPD_STORAGE_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=2)
 def WPD_STORAGE_FILE_SYSTEM_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=3)
 def WPD_STORAGE_CAPACITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=4)
 def WPD_STORAGE_FREE_SPACE_IN_BYTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=5)
 def WPD_STORAGE_FREE_SPACE_IN_OBJECTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=6)
 def WPD_STORAGE_DESCRIPTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=7)
 def WPD_STORAGE_SERIAL_NUMBER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=8)
 def WPD_STORAGE_MAX_OBJECT_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=9)
 def WPD_STORAGE_CAPACITY_IN_OBJECTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=10)
 def WPD_STORAGE_ACCESS_CAPABILITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{01a3057a-74d6-4e80-bea7-dc4c212ce50a}'), pid=11)
 WPD_NETWORK_ASSOCIATION_PROPERTIES_V1: Guid = Guid('{e4c93c1f-b203-43f1-a100-5a07d11b0274}')
 def WPD_NETWORK_ASSOCIATION_HOST_NETWORK_IDENTIFIERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e4c93c1f-b203-43f1-a100-5a07d11b0274}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e4c93c1f-b203-43f1-a100-5a07d11b0274}'), pid=2)
 def WPD_NETWORK_ASSOCIATION_X509V3SEQUENCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e4c93c1f-b203-43f1-a100-5a07d11b0274}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e4c93c1f-b203-43f1-a100-5a07d11b0274}'), pid=3)
 WPD_STILL_IMAGE_CAPTURE_OBJECT_PROPERTIES_V1: Guid = Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}')
 def WPD_STILL_IMAGE_CAPTURE_RESOLUTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=2)
 def WPD_STILL_IMAGE_CAPTURE_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=3)
 def WPD_STILL_IMAGE_COMPRESSION_SETTING():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=4)
 def WPD_STILL_IMAGE_WHITE_BALANCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=5)
 def WPD_STILL_IMAGE_RGB_GAIN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=6)
 def WPD_STILL_IMAGE_FNUMBER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=7)
 def WPD_STILL_IMAGE_FOCAL_LENGTH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=8)
 def WPD_STILL_IMAGE_FOCUS_DISTANCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=9)
 def WPD_STILL_IMAGE_FOCUS_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=10)
 def WPD_STILL_IMAGE_EXPOSURE_METERING_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=11)
 def WPD_STILL_IMAGE_FLASH_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=12)
 def WPD_STILL_IMAGE_EXPOSURE_TIME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=13)
 def WPD_STILL_IMAGE_EXPOSURE_PROGRAM_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=14)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=14)
 def WPD_STILL_IMAGE_EXPOSURE_INDEX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=15)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=15)
 def WPD_STILL_IMAGE_EXPOSURE_BIAS_COMPENSATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=16)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=16)
 def WPD_STILL_IMAGE_CAPTURE_DELAY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=17)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=17)
 def WPD_STILL_IMAGE_CAPTURE_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=18)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=18)
 def WPD_STILL_IMAGE_CONTRAST():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=19)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=19)
 def WPD_STILL_IMAGE_SHARPNESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=20)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=20)
 def WPD_STILL_IMAGE_DIGITAL_ZOOM():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=21)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=21)
 def WPD_STILL_IMAGE_EFFECT_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=22)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=22)
 def WPD_STILL_IMAGE_BURST_NUMBER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=23)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=23)
 def WPD_STILL_IMAGE_BURST_INTERVAL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=24)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=24)
 def WPD_STILL_IMAGE_TIMELAPSE_NUMBER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=25)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=25)
 def WPD_STILL_IMAGE_TIMELAPSE_INTERVAL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=26)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=26)
 def WPD_STILL_IMAGE_FOCUS_METERING_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=27)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=27)
 def WPD_STILL_IMAGE_UPLOAD_URL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=28)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=28)
 def WPD_STILL_IMAGE_ARTIST():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=29)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=29)
 def WPD_STILL_IMAGE_CAMERA_MODEL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=30)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=30)
 def WPD_STILL_IMAGE_CAMERA_MANUFACTURER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=31)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{58c571ec-1bcb-42a7-8ac5-bb291573a260}'), pid=31)
 WPD_RENDERING_INFORMATION_OBJECT_PROPERTIES_V1: Guid = Guid('{c53d039f-ee23-4a31-8590-7639879870b4}')
 def WPD_RENDERING_INFORMATION_PROFILES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{c53d039f-ee23-4a31-8590-7639879870b4}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{c53d039f-ee23-4a31-8590-7639879870b4}'), pid=2)
 def WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{c53d039f-ee23-4a31-8590-7639879870b4}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{c53d039f-ee23-4a31-8590-7639879870b4}'), pid=3)
 def WPD_RENDERING_INFORMATION_PROFILE_ENTRY_CREATABLE_RESOURCES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{c53d039f-ee23-4a31-8590-7639879870b4}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{c53d039f-ee23-4a31-8590-7639879870b4}'), pid=4)
 WPD_CLIENT_INFORMATION_PROPERTIES_V1: Guid = Guid('{204d9f0c-2292-4080-9f42-40664e70f859}')
 def WPD_CLIENT_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=2)
 def WPD_CLIENT_MAJOR_VERSION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=3)
 def WPD_CLIENT_MINOR_VERSION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=4)
 def WPD_CLIENT_REVISION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=5)
 def WPD_CLIENT_WMDRM_APPLICATION_PRIVATE_KEY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=6)
 def WPD_CLIENT_WMDRM_APPLICATION_CERTIFICATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=7)
 def WPD_CLIENT_SECURITY_QUALITY_OF_SERVICE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=8)
 def WPD_CLIENT_DESIRED_ACCESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=9)
 def WPD_CLIENT_SHARE_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=10)
 def WPD_CLIENT_EVENT_COOKIE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=11)
 def WPD_CLIENT_MINIMUM_RESULTS_BUFFER_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=12)
 def WPD_CLIENT_MANUAL_CLOSE_ON_DISCONNECT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{204d9f0c-2292-4080-9f42-40664e70f859}'), pid=13)
 WPD_PROPERTY_ATTRIBUTES_V1: Guid = Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}')
 def WPD_PROPERTY_ATTRIBUTE_FORM():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=2)
 def WPD_PROPERTY_ATTRIBUTE_CAN_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=3)
 def WPD_PROPERTY_ATTRIBUTE_CAN_WRITE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=4)
 def WPD_PROPERTY_ATTRIBUTE_CAN_DELETE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=5)
 def WPD_PROPERTY_ATTRIBUTE_DEFAULT_VALUE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=6)
 def WPD_PROPERTY_ATTRIBUTE_FAST_PROPERTY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=7)
 def WPD_PROPERTY_ATTRIBUTE_RANGE_MIN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=8)
 def WPD_PROPERTY_ATTRIBUTE_RANGE_MAX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=9)
 def WPD_PROPERTY_ATTRIBUTE_RANGE_STEP():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=10)
 def WPD_PROPERTY_ATTRIBUTE_ENUMERATION_ELEMENTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=11)
 def WPD_PROPERTY_ATTRIBUTE_REGULAR_EXPRESSION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=12)
 def WPD_PROPERTY_ATTRIBUTE_MAX_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ab7943d8-6332-445f-a00d-8d5ef1e96f37}'), pid=13)
 WPD_PROPERTY_ATTRIBUTES_V2: Guid = Guid('{5d9da160-74ae-43cc-85a9-fe555a80798e}')
 def WPD_PROPERTY_ATTRIBUTE_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5d9da160-74ae-43cc-85a9-fe555a80798e}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5d9da160-74ae-43cc-85a9-fe555a80798e}'), pid=2)
 def WPD_PROPERTY_ATTRIBUTE_VARTYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5d9da160-74ae-43cc-85a9-fe555a80798e}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5d9da160-74ae-43cc-85a9-fe555a80798e}'), pid=3)
 WPD_CLASS_EXTENSION_OPTIONS_V1: Guid = Guid('{6309ffef-a87c-4ca7-8434-797576e40a96}')
 def WPD_CLASS_EXTENSION_OPTIONS_SUPPORTED_CONTENT_TYPES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{6309ffef-a87c-4ca7-8434-797576e40a96}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{6309ffef-a87c-4ca7-8434-797576e40a96}'), pid=2)
 def WPD_CLASS_EXTENSION_OPTIONS_DONT_REGISTER_WPD_DEVICE_INTERFACE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{6309ffef-a87c-4ca7-8434-797576e40a96}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{6309ffef-a87c-4ca7-8434-797576e40a96}'), pid=3)
 def WPD_CLASS_EXTENSION_OPTIONS_REGISTER_WPD_PRIVATE_DEVICE_INTERFACE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{6309ffef-a87c-4ca7-8434-797576e40a96}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{6309ffef-a87c-4ca7-8434-797576e40a96}'), pid=4)
 WPD_CLASS_EXTENSION_OPTIONS_V2: Guid = Guid('{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}')
 def WPD_CLASS_EXTENSION_OPTIONS_MULTITRANSPORT_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}'), pid=2)
 def WPD_CLASS_EXTENSION_OPTIONS_DEVICE_IDENTIFICATION_VALUES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}'), pid=3)
 def WPD_CLASS_EXTENSION_OPTIONS_TRANSPORT_BANDWIDTH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}'), pid=4)
 WPD_CLASS_EXTENSION_OPTIONS_V3: Guid = Guid('{65c160f8-1367-4ce2-939d-8310839f0d30}')
 def WPD_CLASS_EXTENSION_OPTIONS_SILENCE_AUTOPLAY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{65c160f8-1367-4ce2-939d-8310839f0d30}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{65c160f8-1367-4ce2-939d-8310839f0d30}'), pid=2)
 WPD_RESOURCE_ATTRIBUTES_V1: Guid = Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}')
 def WPD_RESOURCE_ATTRIBUTE_TOTAL_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=2)
 def WPD_RESOURCE_ATTRIBUTE_CAN_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=3)
 def WPD_RESOURCE_ATTRIBUTE_CAN_WRITE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=4)
 def WPD_RESOURCE_ATTRIBUTE_CAN_DELETE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=5)
 def WPD_RESOURCE_ATTRIBUTE_OPTIMAL_READ_BUFFER_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=6)
 def WPD_RESOURCE_ATTRIBUTE_OPTIMAL_WRITE_BUFFER_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=7)
 def WPD_RESOURCE_ATTRIBUTE_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=8)
 def WPD_RESOURCE_ATTRIBUTE_RESOURCE_KEY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{1eb6f604-9278-429f-93cc-5bb8c06656b6}'), pid=9)
 WPD_DEVICE_PROPERTIES_V1: Guid = Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}')
 def WPD_DEVICE_SYNC_PARTNER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=2)
 def WPD_DEVICE_FIRMWARE_VERSION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=3)
 def WPD_DEVICE_POWER_LEVEL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=4)
 def WPD_DEVICE_POWER_SOURCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=5)
 def WPD_DEVICE_PROTOCOL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=6)
 def WPD_DEVICE_MANUFACTURER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=7)
 def WPD_DEVICE_MODEL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=8)
 def WPD_DEVICE_SERIAL_NUMBER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=9)
 def WPD_DEVICE_SUPPORTS_NON_CONSUMABLE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=10)
 def WPD_DEVICE_DATETIME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=11)
 def WPD_DEVICE_FRIENDLY_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=12)
 def WPD_DEVICE_SUPPORTED_DRM_SCHEMES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=13)
 def WPD_DEVICE_SUPPORTED_FORMATS_ARE_ORDERED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=14)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=14)
 def WPD_DEVICE_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=15)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=15)
 def WPD_DEVICE_NETWORK_IDENTIFIER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=16)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{26d4979a-e643-4626-9e2b-736dc0c92fdc}'), pid=16)
 WPD_DEVICE_PROPERTIES_V2: Guid = Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}')
 def WPD_DEVICE_FUNCTIONAL_UNIQUE_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}'), pid=2)
 def WPD_DEVICE_MODEL_UNIQUE_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}'), pid=3)
 def WPD_DEVICE_TRANSPORT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}'), pid=4)
 def WPD_DEVICE_USE_DEVICE_STAGE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{463dd662-7fc4-4291-911c-7f4c9cca9799}'), pid=5)
 WPD_DEVICE_PROPERTIES_V3: Guid = Guid('{6c2b878c-c2ec-490d-b425-d7a75e23e5ed}')
 def WPD_DEVICE_EDP_IDENTITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{6c2b878c-c2ec-490d-b425-d7a75e23e5ed}'), pid=1)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{6c2b878c-c2ec-490d-b425-d7a75e23e5ed}'), pid=1)
 WPD_SERVICE_PROPERTIES_V1: Guid = Guid('{7510698a-cb54-481c-b8db-0d75c93f1c06}')
 def WPD_SERVICE_VERSION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7510698a-cb54-481c-b8db-0d75c93f1c06}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7510698a-cb54-481c-b8db-0d75c93f1c06}'), pid=2)
 WPD_EVENT_PROPERTIES_V1: Guid = Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}')
 def WPD_EVENT_PARAMETER_PNP_DEVICE_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=2)
 def WPD_EVENT_PARAMETER_EVENT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=3)
 def WPD_EVENT_PARAMETER_OPERATION_STATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=4)
 def WPD_EVENT_PARAMETER_OPERATION_PROGRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=5)
 def WPD_EVENT_PARAMETER_OBJECT_PARENT_PERSISTENT_UNIQUE_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=6)
 def WPD_EVENT_PARAMETER_OBJECT_CREATION_COOKIE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=7)
 def WPD_EVENT_PARAMETER_CHILD_HIERARCHY_CHANGED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{15ab1953-f817-4fef-a921-5676e838f6e0}'), pid=8)
 WPD_EVENT_PROPERTIES_V2: Guid = Guid('{52807b8a-4914-4323-9b9a-74f654b2b846}')
 def WPD_EVENT_PARAMETER_SERVICE_METHOD_CONTEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{52807b8a-4914-4323-9b9a-74f654b2b846}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{52807b8a-4914-4323-9b9a-74f654b2b846}'), pid=2)
 WPD_EVENT_OPTIONS_V1: Guid = Guid('{b3d8dad7-a361-4b83-8a48-5b02ce10713b}')
 def WPD_EVENT_OPTION_IS_BROADCAST_EVENT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3d8dad7-a361-4b83-8a48-5b02ce10713b}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3d8dad7-a361-4b83-8a48-5b02ce10713b}'), pid=2)
 def WPD_EVENT_OPTION_IS_AUTOPLAY_EVENT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3d8dad7-a361-4b83-8a48-5b02ce10713b}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3d8dad7-a361-4b83-8a48-5b02ce10713b}'), pid=3)
 WPD_EVENT_ATTRIBUTES_V1: Guid = Guid('{10c96578-2e81-4111-adde-e08ca6138f6d}')
 def WPD_EVENT_ATTRIBUTE_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10c96578-2e81-4111-adde-e08ca6138f6d}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10c96578-2e81-4111-adde-e08ca6138f6d}'), pid=2)
 def WPD_EVENT_ATTRIBUTE_PARAMETERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10c96578-2e81-4111-adde-e08ca6138f6d}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10c96578-2e81-4111-adde-e08ca6138f6d}'), pid=3)
 def WPD_EVENT_ATTRIBUTE_OPTIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10c96578-2e81-4111-adde-e08ca6138f6d}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10c96578-2e81-4111-adde-e08ca6138f6d}'), pid=4)
 WPD_API_OPTIONS_V1: Guid = Guid('{10e54a3e-052d-4777-a13c-de7614be2bc4}')
 def WPD_API_OPTION_USE_CLEAR_DATA_STREAM():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10e54a3e-052d-4777-a13c-de7614be2bc4}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10e54a3e-052d-4777-a13c-de7614be2bc4}'), pid=2)
 def WPD_API_OPTION_IOCTL_ACCESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10e54a3e-052d-4777-a13c-de7614be2bc4}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{10e54a3e-052d-4777-a13c-de7614be2bc4}'), pid=3)
 WPD_FORMAT_ATTRIBUTES_V1: Guid = Guid('{a0a02000-bcaf-4be8-b3f5-233f231cf58f}')
 def WPD_FORMAT_ATTRIBUTE_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a0a02000-bcaf-4be8-b3f5-233f231cf58f}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a0a02000-bcaf-4be8-b3f5-233f231cf58f}'), pid=2)
 def WPD_FORMAT_ATTRIBUTE_MIMETYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a0a02000-bcaf-4be8-b3f5-233f231cf58f}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a0a02000-bcaf-4be8-b3f5-233f231cf58f}'), pid=3)
 WPD_METHOD_ATTRIBUTES_V1: Guid = Guid('{f17a5071-f039-44af-8efe-432cf32e432a}')
 def WPD_METHOD_ATTRIBUTE_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f17a5071-f039-44af-8efe-432cf32e432a}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f17a5071-f039-44af-8efe-432cf32e432a}'), pid=2)
 def WPD_METHOD_ATTRIBUTE_ASSOCIATED_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f17a5071-f039-44af-8efe-432cf32e432a}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f17a5071-f039-44af-8efe-432cf32e432a}'), pid=3)
 def WPD_METHOD_ATTRIBUTE_ACCESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f17a5071-f039-44af-8efe-432cf32e432a}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f17a5071-f039-44af-8efe-432cf32e432a}'), pid=4)
 def WPD_METHOD_ATTRIBUTE_PARAMETERS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f17a5071-f039-44af-8efe-432cf32e432a}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f17a5071-f039-44af-8efe-432cf32e432a}'), pid=5)
 WPD_PARAMETER_ATTRIBUTES_V1: Guid = Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}')
 def WPD_PARAMETER_ATTRIBUTE_ORDER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=2)
 def WPD_PARAMETER_ATTRIBUTE_USAGE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=3)
 def WPD_PARAMETER_ATTRIBUTE_FORM():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=4)
 def WPD_PARAMETER_ATTRIBUTE_DEFAULT_VALUE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=5)
 def WPD_PARAMETER_ATTRIBUTE_RANGE_MIN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=6)
 def WPD_PARAMETER_ATTRIBUTE_RANGE_MAX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=7)
 def WPD_PARAMETER_ATTRIBUTE_RANGE_STEP():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=8)
 def WPD_PARAMETER_ATTRIBUTE_ENUMERATION_ELEMENTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=9)
 def WPD_PARAMETER_ATTRIBUTE_REGULAR_EXPRESSION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=10)
 def WPD_PARAMETER_ATTRIBUTE_MAX_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=11)
 def WPD_PARAMETER_ATTRIBUTE_VARTYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=12)
 def WPD_PARAMETER_ATTRIBUTE_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}'), pid=13)
 WPD_CATEGORY_COMMON: Guid = Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}')
 def WPD_COMMAND_COMMON_RESET_DEVICE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=2)
 def WPD_COMMAND_COMMON_GET_OBJECT_IDS_FROM_PERSISTENT_UNIQUE_IDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=3)
 def WPD_COMMAND_COMMON_SAVE_CLIENT_INFORMATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=4)
 def WPD_PROPERTY_COMMON_COMMAND_CATEGORY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1001)
 def WPD_PROPERTY_COMMON_COMMAND_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1002)
 def WPD_PROPERTY_COMMON_HRESULT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1003)
 def WPD_PROPERTY_COMMON_DRIVER_ERROR_CODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1004)
 def WPD_PROPERTY_COMMON_COMMAND_TARGET():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1006)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1006)
 def WPD_PROPERTY_COMMON_PERSISTENT_UNIQUE_IDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1007)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1007)
 def WPD_PROPERTY_COMMON_OBJECT_IDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1008)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1008)
 def WPD_PROPERTY_COMMON_CLIENT_INFORMATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1009)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1009)
 def WPD_PROPERTY_COMMON_CLIENT_INFORMATION_CONTEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1010)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1010)
 def WPD_PROPERTY_COMMON_ACTIVITY_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1011)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=1011)
 def WPD_OPTION_VALID_OBJECT_IDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=5001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f0422a9c-5dc8-4440-b5bd-5df28835658a}'), pid=5001)
 WPD_CATEGORY_OBJECT_ENUMERATION: Guid = Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}')
 def WPD_COMMAND_OBJECT_ENUMERATION_START_FIND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=2)
 def WPD_COMMAND_OBJECT_ENUMERATION_FIND_NEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=3)
 def WPD_COMMAND_OBJECT_ENUMERATION_END_FIND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=4)
 def WPD_PROPERTY_OBJECT_ENUMERATION_PARENT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1001)
 def WPD_PROPERTY_OBJECT_ENUMERATION_FILTER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1002)
 def WPD_PROPERTY_OBJECT_ENUMERATION_OBJECT_IDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1003)
 def WPD_PROPERTY_OBJECT_ENUMERATION_CONTEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1004)
 def WPD_PROPERTY_OBJECT_ENUMERATION_NUM_OBJECTS_REQUESTED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}'), pid=1005)
 WPD_CATEGORY_OBJECT_PROPERTIES: Guid = Guid('{9e5582e4-0814-44e6-981a-b2998d583804}')
 def WPD_COMMAND_OBJECT_PROPERTIES_GET_SUPPORTED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=2)
 def WPD_COMMAND_OBJECT_PROPERTIES_GET_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=3)
 def WPD_COMMAND_OBJECT_PROPERTIES_GET():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=4)
 def WPD_COMMAND_OBJECT_PROPERTIES_SET():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=5)
 def WPD_COMMAND_OBJECT_PROPERTIES_GET_ALL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=6)
 def WPD_COMMAND_OBJECT_PROPERTIES_DELETE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=7)
 def WPD_PROPERTY_OBJECT_PROPERTIES_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1001)
 def WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_KEYS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1002)
 def WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1003)
 def WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_VALUES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1004)
 def WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_WRITE_RESULTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1005)
 def WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_DELETE_RESULTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1006)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{9e5582e4-0814-44e6-981a-b2998d583804}'), pid=1006)
 WPD_CATEGORY_OBJECT_PROPERTIES_BULK: Guid = Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}')
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_START():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=2)
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_NEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=3)
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_END():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=4)
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_START():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=5)
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_NEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=6)
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_END():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=7)
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_START():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=8)
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_NEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=9)
 def WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_END():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=10)
 def WPD_PROPERTY_OBJECT_PROPERTIES_BULK_OBJECT_IDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1001)
 def WPD_PROPERTY_OBJECT_PROPERTIES_BULK_CONTEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1002)
 def WPD_PROPERTY_OBJECT_PROPERTIES_BULK_VALUES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1003)
 def WPD_PROPERTY_OBJECT_PROPERTIES_BULK_PROPERTY_KEYS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1004)
 def WPD_PROPERTY_OBJECT_PROPERTIES_BULK_DEPTH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1005)
 def WPD_PROPERTY_OBJECT_PROPERTIES_BULK_PARENT_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1006)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1006)
 def WPD_PROPERTY_OBJECT_PROPERTIES_BULK_OBJECT_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1007)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1007)
 def WPD_PROPERTY_OBJECT_PROPERTIES_BULK_WRITE_RESULTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1008)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}'), pid=1008)
 WPD_CATEGORY_OBJECT_RESOURCES: Guid = Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}')
 def WPD_COMMAND_OBJECT_RESOURCES_GET_SUPPORTED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=2)
 def WPD_COMMAND_OBJECT_RESOURCES_GET_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=3)
 def WPD_COMMAND_OBJECT_RESOURCES_OPEN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=4)
 def WPD_COMMAND_OBJECT_RESOURCES_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=5)
 def WPD_COMMAND_OBJECT_RESOURCES_WRITE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=6)
 def WPD_COMMAND_OBJECT_RESOURCES_CLOSE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=7)
 def WPD_COMMAND_OBJECT_RESOURCES_DELETE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=8)
 def WPD_COMMAND_OBJECT_RESOURCES_CREATE_RESOURCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=9)
 def WPD_COMMAND_OBJECT_RESOURCES_REVERT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=10)
 def WPD_COMMAND_OBJECT_RESOURCES_SEEK():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=11)
 def WPD_COMMAND_OBJECT_RESOURCES_COMMIT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=12)
 def WPD_COMMAND_OBJECT_RESOURCES_SEEK_IN_UNITS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=13)
 def WPD_PROPERTY_OBJECT_RESOURCES_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1001)
 def WPD_PROPERTY_OBJECT_RESOURCES_ACCESS_MODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1002)
 def WPD_PROPERTY_OBJECT_RESOURCES_RESOURCE_KEYS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1003)
 def WPD_PROPERTY_OBJECT_RESOURCES_RESOURCE_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1004)
 def WPD_PROPERTY_OBJECT_RESOURCES_CONTEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1005)
 def WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_TO_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1006)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1006)
 def WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1007)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1007)
 def WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_TO_WRITE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1008)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1008)
 def WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_WRITTEN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1009)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1009)
 def WPD_PROPERTY_OBJECT_RESOURCES_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1010)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1010)
 def WPD_PROPERTY_OBJECT_RESOURCES_OPTIMAL_TRANSFER_BUFFER_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1011)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1011)
 def WPD_PROPERTY_OBJECT_RESOURCES_SEEK_OFFSET():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1012)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1012)
 def WPD_PROPERTY_OBJECT_RESOURCES_SEEK_ORIGIN_FLAG():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1013)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1013)
 def WPD_PROPERTY_OBJECT_RESOURCES_POSITION_FROM_START():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1014)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1014)
 def WPD_PROPERTY_OBJECT_RESOURCES_SUPPORTS_UNITS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1015)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1015)
 def WPD_PROPERTY_OBJECT_RESOURCES_STREAM_UNITS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1016)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=1016)
 def WPD_OPTION_OBJECT_RESOURCES_SEEK_ON_READ_SUPPORTED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=5001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=5001)
 def WPD_OPTION_OBJECT_RESOURCES_SEEK_ON_WRITE_SUPPORTED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=5002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=5002)
 def WPD_OPTION_OBJECT_RESOURCES_NO_INPUT_BUFFER_ON_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=5003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}'), pid=5003)
 WPD_CATEGORY_OBJECT_MANAGEMENT: Guid = Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}')
 def WPD_COMMAND_OBJECT_MANAGEMENT_CREATE_OBJECT_WITH_PROPERTIES_ONLY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=2)
 def WPD_COMMAND_OBJECT_MANAGEMENT_CREATE_OBJECT_WITH_PROPERTIES_AND_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=3)
 def WPD_COMMAND_OBJECT_MANAGEMENT_WRITE_OBJECT_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=4)
 def WPD_COMMAND_OBJECT_MANAGEMENT_COMMIT_OBJECT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=5)
 def WPD_COMMAND_OBJECT_MANAGEMENT_REVERT_OBJECT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=6)
 def WPD_COMMAND_OBJECT_MANAGEMENT_DELETE_OBJECTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=7)
 def WPD_COMMAND_OBJECT_MANAGEMENT_MOVE_OBJECTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=8)
 def WPD_COMMAND_OBJECT_MANAGEMENT_COPY_OBJECTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=9)
 def WPD_COMMAND_OBJECT_MANAGEMENT_UPDATE_OBJECT_WITH_PROPERTIES_AND_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=10)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_CREATION_PROPERTIES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1001)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_CONTEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1002)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_NUM_BYTES_TO_WRITE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1003)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_NUM_BYTES_WRITTEN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1004)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1005)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1006)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1006)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_DELETE_OPTIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1007)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1007)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_OPTIMAL_TRANSFER_BUFFER_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1008)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1008)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_IDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1009)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1009)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_DELETE_RESULTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1010)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1010)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_DESTINATION_FOLDER_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1011)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1011)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_MOVE_RESULTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1012)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1012)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_COPY_RESULTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1013)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1013)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_UPDATE_PROPERTIES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1014)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1014)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_PROPERTY_KEYS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1015)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1015)
 def WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1016)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=1016)
 def WPD_OPTION_OBJECT_MANAGEMENT_RECURSIVE_DELETE_SUPPORTED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=5001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef1e43dd-a9ed-4341-8bcc-186192aea089}'), pid=5001)
 WPD_CATEGORY_CAPABILITIES: Guid = Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}')
 def WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_COMMANDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=2)
 def WPD_COMMAND_CAPABILITIES_GET_COMMAND_OPTIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=3)
 def WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FUNCTIONAL_CATEGORIES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=4)
 def WPD_COMMAND_CAPABILITIES_GET_FUNCTIONAL_OBJECTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=5)
 def WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_CONTENT_TYPES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=6)
 def WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FORMATS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=7)
 def WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FORMAT_PROPERTIES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=8)
 def WPD_COMMAND_CAPABILITIES_GET_FIXED_PROPERTY_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=9)
 def WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_EVENTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=10)
 def WPD_COMMAND_CAPABILITIES_GET_EVENT_OPTIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=11)
 def WPD_PROPERTY_CAPABILITIES_SUPPORTED_COMMANDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1001)
 def WPD_PROPERTY_CAPABILITIES_COMMAND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1002)
 def WPD_PROPERTY_CAPABILITIES_COMMAND_OPTIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1003)
 def WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_CATEGORIES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1004)
 def WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_CATEGORY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1005)
 def WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_OBJECTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1006)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1006)
 def WPD_PROPERTY_CAPABILITIES_CONTENT_TYPES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1007)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1007)
 def WPD_PROPERTY_CAPABILITIES_CONTENT_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1008)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1008)
 def WPD_PROPERTY_CAPABILITIES_FORMATS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1009)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1009)
 def WPD_PROPERTY_CAPABILITIES_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1010)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1010)
 def WPD_PROPERTY_CAPABILITIES_PROPERTY_KEYS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1011)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1011)
 def WPD_PROPERTY_CAPABILITIES_PROPERTY_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1012)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1012)
 def WPD_PROPERTY_CAPABILITIES_SUPPORTED_EVENTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1013)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1013)
 def WPD_PROPERTY_CAPABILITIES_EVENT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1014)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1014)
 def WPD_PROPERTY_CAPABILITIES_EVENT_OPTIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1015)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0cabec78-6b74-41c6-9216-2639d1fce356}'), pid=1015)
 WPD_CATEGORY_STORAGE: Guid = Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}')
 def WPD_COMMAND_STORAGE_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}'), pid=2)
 def WPD_COMMAND_STORAGE_EJECT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}'), pid=4)
 def WPD_PROPERTY_STORAGE_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}'), pid=1001)
 def WPD_PROPERTY_STORAGE_DESTINATION_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{d8f907a6-34cc-45fa-97fb-d007fa47ec94}'), pid=1002)
 WPD_CATEGORY_SMS: Guid = Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}')
 def WPD_COMMAND_SMS_SEND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=2)
 def WPD_PROPERTY_SMS_RECIPIENT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=1001)
 def WPD_PROPERTY_SMS_MESSAGE_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=1002)
 def WPD_PROPERTY_SMS_TEXT_MESSAGE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=1003)
 def WPD_PROPERTY_SMS_BINARY_MESSAGE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=1004)
 def WPD_OPTION_SMS_BINARY_MESSAGE_SUPPORTED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=5001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afc25d66-fe0d-4114-9097-970c93e920d1}'), pid=5001)
 WPD_CATEGORY_STILL_IMAGE_CAPTURE: Guid = Guid('{4fcd6982-22a2-4b05-a48b-62d38bf27b32}')
 def WPD_COMMAND_STILL_IMAGE_CAPTURE_INITIATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4fcd6982-22a2-4b05-a48b-62d38bf27b32}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4fcd6982-22a2-4b05-a48b-62d38bf27b32}'), pid=2)
 WPD_CATEGORY_MEDIA_CAPTURE: Guid = Guid('{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}')
 def WPD_COMMAND_MEDIA_CAPTURE_START():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}'), pid=2)
 def WPD_COMMAND_MEDIA_CAPTURE_STOP():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}'), pid=3)
 def WPD_COMMAND_MEDIA_CAPTURE_PAUSE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}'), pid=4)
 WPD_CATEGORY_DEVICE_HINTS: Guid = Guid('{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}')
 def WPD_COMMAND_DEVICE_HINTS_GET_CONTENT_LOCATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}'), pid=2)
 def WPD_PROPERTY_DEVICE_HINTS_CONTENT_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}'), pid=1001)
 def WPD_PROPERTY_DEVICE_HINTS_CONTENT_LOCATIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}'), pid=1002)
 WPD_CLASS_EXTENSION_V1: Guid = Guid('{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}')
 def WPD_COMMAND_CLASS_EXTENSION_WRITE_DEVICE_INFORMATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}'), pid=2)
 def WPD_PROPERTY_CLASS_EXTENSION_DEVICE_INFORMATION_VALUES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}'), pid=1001)
 def WPD_PROPERTY_CLASS_EXTENSION_DEVICE_INFORMATION_WRITE_RESULTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}'), pid=1002)
 WPD_CLASS_EXTENSION_V2: Guid = Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}')
 def WPD_COMMAND_CLASS_EXTENSION_REGISTER_SERVICE_INTERFACES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=2)
 def WPD_COMMAND_CLASS_EXTENSION_UNREGISTER_SERVICE_INTERFACES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=3)
 def WPD_PROPERTY_CLASS_EXTENSION_SERVICE_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=1001)
 def WPD_PROPERTY_CLASS_EXTENSION_SERVICE_INTERFACES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=1002)
 def WPD_PROPERTY_CLASS_EXTENSION_SERVICE_REGISTRATION_RESULTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}'), pid=1003)
 WPD_CATEGORY_NETWORK_CONFIGURATION: Guid = Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}')
 def WPD_COMMAND_GENERATE_KEYPAIR():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}'), pid=2)
 def WPD_COMMAND_COMMIT_KEYPAIR():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}'), pid=3)
 def WPD_COMMAND_PROCESS_WIRELESS_PROFILE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}'), pid=4)
 def WPD_PROPERTY_PUBLIC_KEY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78f9c6fc-79b8-473c-9060-6bd23dd072c4}'), pid=1001)
 WPD_CATEGORY_SERVICE_COMMON: Guid = Guid('{322f071d-36ef-477f-b4b5-6f52d734baee}')
 def WPD_COMMAND_SERVICE_COMMON_GET_SERVICE_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{322f071d-36ef-477f-b4b5-6f52d734baee}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{322f071d-36ef-477f-b4b5-6f52d734baee}'), pid=2)
 def WPD_PROPERTY_SERVICE_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{322f071d-36ef-477f-b4b5-6f52d734baee}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{322f071d-36ef-477f-b4b5-6f52d734baee}'), pid=1001)
 WPD_CATEGORY_SERVICE_CAPABILITIES: Guid = Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}')
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_METHODS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=2)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_METHODS_BY_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=3)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_METHOD_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=4)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_METHOD_PARAMETER_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=5)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_FORMATS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=6)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=7)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_FORMAT_PROPERTIES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=8)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_PROPERTY_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=9)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_EVENTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=10)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_EVENT_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=11)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_EVENT_PARAMETER_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=12)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_INHERITED_SERVICES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=13)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_RENDERING_PROFILES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=14)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=14)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_COMMANDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=15)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=15)
 def WPD_COMMAND_SERVICE_CAPABILITIES_GET_COMMAND_OPTIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=16)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=16)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_METHODS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1001)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1002)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_METHOD():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1003)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_METHOD_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1004)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_PARAMETER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1005)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_PARAMETER_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1006)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1006)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_FORMATS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1007)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1007)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_FORMAT_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1008)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1008)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_PROPERTY_KEYS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1009)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1009)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_PROPERTY_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1010)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1010)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_EVENTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1011)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1011)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_EVENT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1012)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1012)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_EVENT_ATTRIBUTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1013)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1013)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_INHERITANCE_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1014)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1014)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_INHERITED_SERVICES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1015)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1015)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_RENDERING_PROFILES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1016)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1016)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_COMMANDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1017)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1017)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_COMMAND():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1018)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1018)
 def WPD_PROPERTY_SERVICE_CAPABILITIES_COMMAND_OPTIONS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1019)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{24457e74-2e9f-44f9-8c57-1d1bcb170b89}'), pid=1019)
 WPD_CATEGORY_SERVICE_METHODS: Guid = Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}')
 def WPD_COMMAND_SERVICE_METHODS_START_INVOKE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=2)
 def WPD_COMMAND_SERVICE_METHODS_CANCEL_INVOKE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=3)
 def WPD_COMMAND_SERVICE_METHODS_END_INVOKE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=4)
 def WPD_PROPERTY_SERVICE_METHOD():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1001)
 def WPD_PROPERTY_SERVICE_METHOD_PARAMETER_VALUES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1002)
 def WPD_PROPERTY_SERVICE_METHOD_RESULT_VALUES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1003)
 def WPD_PROPERTY_SERVICE_METHOD_CONTEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1004)
 def WPD_PROPERTY_SERVICE_METHOD_HRESULT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2d521ca8-c1b0-4268-a342-cf19321569bc}'), pid=1005)
 def WPD_RESOURCE_DEFAULT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e81e79be-34f0-41bf-b53f-f1a06ae87842}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e81e79be-34f0-41bf-b53f-f1a06ae87842}'), pid=0)
 def WPD_RESOURCE_CONTACT_PHOTO():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2c4d6803-80ea-4580-af9a-5be1a23eddcb}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2c4d6803-80ea-4580-af9a-5be1a23eddcb}'), pid=0)
 def WPD_RESOURCE_THUMBNAIL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{c7c407ba-98fa-46b5-9960-23fec124cfde}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{c7c407ba-98fa-46b5-9960-23fec124cfde}'), pid=0)
 def WPD_RESOURCE_ICON():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f195fed8-aa28-4ee3-b153-e182dd5edc39}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f195fed8-aa28-4ee3-b153-e182dd5edc39}'), pid=0)
 def WPD_RESOURCE_AUDIO_CLIP():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3bc13982-85b1-48e0-95a6-8d3ad06be117}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{3bc13982-85b1-48e0-95a6-8d3ad06be117}'), pid=0)
 def WPD_RESOURCE_ALBUM_ART():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f02aa354-2300-4e2d-a1b9-3b6730f7fa21}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f02aa354-2300-4e2d-a1b9-3b6730f7fa21}'), pid=0)
 def WPD_RESOURCE_GENERIC():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b9b9f515-ba70-4647-94dc-fa4925e95a07}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b9b9f515-ba70-4647-94dc-fa4925e95a07}'), pid=0)
 def WPD_RESOURCE_VIDEO_CLIP():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b566ee42-6368-4290-8662-70182fb79f20}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b566ee42-6368-4290-8662-70182fb79f20}'), pid=0)
 def WPD_RESOURCE_BRANDING_ART():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b633b1ae-6caf-4a87-9589-22ded6dd5899}'), pid=0)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b633b1ae-6caf-4a87-9589-22ded6dd5899}'), pid=0)
 WPD_OBJECT_FORMAT_PROPERTIES_ONLY: Guid = Guid('{30010000-ae6c-4804-98ba-c57b46965fe7}')
 WPD_OBJECT_FORMAT_UNSPECIFIED: Guid = Guid('{30000000-ae6c-4804-98ba-c57b46965fe7}')
 WPD_OBJECT_FORMAT_SCRIPT: Guid = Guid('{30020000-ae6c-4804-98ba-c57b46965fe7}')
@@ -939,385 +939,385 @@ WPD_OBJECT_FORMAT_ATSCTS: Guid = Guid('{b9870000-ae6c-4804-98ba-c57b46965fe7}')
 WPD_OBJECT_FORMAT_DVBTS: Guid = Guid('{b9880000-ae6c-4804-98ba-c57b46965fe7}')
 WPD_OBJECT_FORMAT_MKV: Guid = Guid('{b9900000-ae6c-4804-98ba-c57b46965fe7}')
 def WPD_OBJECT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=2)
 def WPD_OBJECT_PARENT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=3)
 def WPD_OBJECT_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=4)
 def WPD_OBJECT_PERSISTENT_UNIQUE_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=5)
 def WPD_OBJECT_FORMAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=6)
 def WPD_OBJECT_ISHIDDEN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=9)
 def WPD_OBJECT_ISSYSTEM():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=10)
 def WPD_OBJECT_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=11)
 def WPD_OBJECT_ORIGINAL_FILE_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=12)
 def WPD_OBJECT_NON_CONSUMABLE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=13)
 def WPD_OBJECT_KEYWORDS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=15)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=15)
 def WPD_OBJECT_SYNC_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=16)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=16)
 def WPD_OBJECT_IS_DRM_PROTECTED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=17)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=17)
 def WPD_OBJECT_DATE_CREATED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=18)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=18)
 def WPD_OBJECT_DATE_MODIFIED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=19)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=19)
 def WPD_OBJECT_DATE_AUTHORED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=20)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=20)
 def WPD_OBJECT_BACK_REFERENCES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=21)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=21)
 def WPD_OBJECT_CAN_DELETE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=26)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=26)
 def WPD_OBJECT_LANGUAGE_LOCALE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=27)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}'), pid=27)
 WPD_FOLDER_OBJECT_PROPERTIES_V1: Guid = Guid('{7e9a7abf-e568-4b34-aa2f-13bb12ab177d}')
 def WPD_FOLDER_CONTENT_TYPES_ALLOWED():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e9a7abf-e568-4b34-aa2f-13bb12ab177d}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e9a7abf-e568-4b34-aa2f-13bb12ab177d}'), pid=2)
 WPD_IMAGE_OBJECT_PROPERTIES_V1: Guid = Guid('{63d64908-9fa1-479f-85ba-9952216447db}')
 def WPD_IMAGE_BITDEPTH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=3)
 def WPD_IMAGE_CROPPED_STATUS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=4)
 def WPD_IMAGE_COLOR_CORRECTED_STATUS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=5)
 def WPD_IMAGE_FNUMBER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=6)
 def WPD_IMAGE_EXPOSURE_TIME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=7)
 def WPD_IMAGE_EXPOSURE_INDEX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=8)
 def WPD_IMAGE_HORIZONTAL_RESOLUTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=9)
 def WPD_IMAGE_VERTICAL_RESOLUTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{63d64908-9fa1-479f-85ba-9952216447db}'), pid=10)
 WPD_DOCUMENT_OBJECT_PROPERTIES_V1: Guid = Guid('{0b110203-eb95-4f02-93e0-97c631493ad5}')
 WPD_MEDIA_PROPERTIES_V1: Guid = Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}')
 def WPD_MEDIA_TOTAL_BITRATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=2)
 def WPD_MEDIA_BITRATE_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=3)
 def WPD_MEDIA_COPYRIGHT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=4)
 def WPD_MEDIA_SUBSCRIPTION_CONTENT_ID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=5)
 def WPD_MEDIA_USE_COUNT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=6)
 def WPD_MEDIA_SKIP_COUNT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=7)
 def WPD_MEDIA_LAST_ACCESSED_TIME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=8)
 def WPD_MEDIA_PARENTAL_RATING():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=9)
 def WPD_MEDIA_META_GENRE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=10)
 def WPD_MEDIA_COMPOSER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=11)
 def WPD_MEDIA_EFFECTIVE_RATING():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=12)
 def WPD_MEDIA_SUB_TITLE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=13)
 def WPD_MEDIA_RELEASE_DATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=14)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=14)
 def WPD_MEDIA_SAMPLE_RATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=15)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=15)
 def WPD_MEDIA_STAR_RATING():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=16)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=16)
 def WPD_MEDIA_USER_EFFECTIVE_RATING():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=17)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=17)
 def WPD_MEDIA_TITLE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=18)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=18)
 def WPD_MEDIA_DURATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=19)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=19)
 def WPD_MEDIA_BUY_NOW():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=20)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=20)
 def WPD_MEDIA_ENCODING_PROFILE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=21)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=21)
 def WPD_MEDIA_WIDTH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=22)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=22)
 def WPD_MEDIA_HEIGHT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=23)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=23)
 def WPD_MEDIA_ARTIST():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=24)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=24)
 def WPD_MEDIA_ALBUM_ARTIST():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=25)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=25)
 def WPD_MEDIA_OWNER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=26)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=26)
 def WPD_MEDIA_MANAGING_EDITOR():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=27)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=27)
 def WPD_MEDIA_WEBMASTER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=28)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=28)
 def WPD_MEDIA_SOURCE_URL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=29)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=29)
 def WPD_MEDIA_DESTINATION_URL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=30)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=30)
 def WPD_MEDIA_DESCRIPTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=31)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=31)
 def WPD_MEDIA_GENRE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=32)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=32)
 def WPD_MEDIA_TIME_BOOKMARK():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=33)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=33)
 def WPD_MEDIA_OBJECT_BOOKMARK():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=34)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=34)
 def WPD_MEDIA_LAST_BUILD_DATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=35)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=35)
 def WPD_MEDIA_BYTE_BOOKMARK():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=36)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=36)
 def WPD_MEDIA_TIME_TO_LIVE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=37)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=37)
 def WPD_MEDIA_GUID():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=38)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=38)
 def WPD_MEDIA_SUB_DESCRIPTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=39)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=39)
 def WPD_MEDIA_AUDIO_ENCODING_PROFILE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=49)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}'), pid=49)
 WPD_CONTACT_OBJECT_PROPERTIES_V1: Guid = Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}')
 def WPD_CONTACT_DISPLAY_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=2)
 def WPD_CONTACT_FIRST_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=3)
 def WPD_CONTACT_MIDDLE_NAMES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=4)
 def WPD_CONTACT_LAST_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=5)
 def WPD_CONTACT_PREFIX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=6)
 def WPD_CONTACT_SUFFIX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=7)
 def WPD_CONTACT_PHONETIC_FIRST_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=8)
 def WPD_CONTACT_PHONETIC_LAST_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=9)
 def WPD_CONTACT_PERSONAL_FULL_POSTAL_ADDRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=10)
 def WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_LINE1():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=11)
 def WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_LINE2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=12)
 def WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_CITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=13)
 def WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_REGION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=14)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=14)
 def WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_POSTAL_CODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=15)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=15)
 def WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_COUNTRY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=16)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=16)
 def WPD_CONTACT_BUSINESS_FULL_POSTAL_ADDRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=17)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=17)
 def WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_LINE1():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=18)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=18)
 def WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_LINE2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=19)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=19)
 def WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_CITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=20)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=20)
 def WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_REGION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=21)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=21)
 def WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_POSTAL_CODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=22)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=22)
 def WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_COUNTRY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=23)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=23)
 def WPD_CONTACT_OTHER_FULL_POSTAL_ADDRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=24)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=24)
 def WPD_CONTACT_OTHER_POSTAL_ADDRESS_LINE1():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=25)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=25)
 def WPD_CONTACT_OTHER_POSTAL_ADDRESS_LINE2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=26)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=26)
 def WPD_CONTACT_OTHER_POSTAL_ADDRESS_CITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=27)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=27)
 def WPD_CONTACT_OTHER_POSTAL_ADDRESS_REGION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=28)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=28)
 def WPD_CONTACT_OTHER_POSTAL_ADDRESS_POSTAL_CODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=29)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=29)
 def WPD_CONTACT_OTHER_POSTAL_ADDRESS_POSTAL_COUNTRY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=30)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=30)
 def WPD_CONTACT_PRIMARY_EMAIL_ADDRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=31)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=31)
 def WPD_CONTACT_PERSONAL_EMAIL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=32)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=32)
 def WPD_CONTACT_PERSONAL_EMAIL2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=33)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=33)
 def WPD_CONTACT_BUSINESS_EMAIL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=34)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=34)
 def WPD_CONTACT_BUSINESS_EMAIL2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=35)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=35)
 def WPD_CONTACT_OTHER_EMAILS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=36)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=36)
 def WPD_CONTACT_PRIMARY_PHONE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=37)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=37)
 def WPD_CONTACT_PERSONAL_PHONE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=38)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=38)
 def WPD_CONTACT_PERSONAL_PHONE2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=39)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=39)
 def WPD_CONTACT_BUSINESS_PHONE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=40)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=40)
 def WPD_CONTACT_BUSINESS_PHONE2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=41)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=41)
 def WPD_CONTACT_MOBILE_PHONE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=42)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=42)
 def WPD_CONTACT_MOBILE_PHONE2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=43)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=43)
 def WPD_CONTACT_PERSONAL_FAX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=44)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=44)
 def WPD_CONTACT_BUSINESS_FAX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=45)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=45)
 def WPD_CONTACT_PAGER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=46)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=46)
 def WPD_CONTACT_OTHER_PHONES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=47)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=47)
 def WPD_CONTACT_PRIMARY_WEB_ADDRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=48)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=48)
 def WPD_CONTACT_PERSONAL_WEB_ADDRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=49)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=49)
 def WPD_CONTACT_BUSINESS_WEB_ADDRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=50)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=50)
 def WPD_CONTACT_INSTANT_MESSENGER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=51)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=51)
 def WPD_CONTACT_INSTANT_MESSENGER2():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=52)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=52)
 def WPD_CONTACT_INSTANT_MESSENGER3():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=53)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=53)
 def WPD_CONTACT_COMPANY_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=54)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=54)
 def WPD_CONTACT_PHONETIC_COMPANY_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=55)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=55)
 def WPD_CONTACT_ROLE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=56)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=56)
 def WPD_CONTACT_BIRTHDATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=57)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=57)
 def WPD_CONTACT_PRIMARY_FAX():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=58)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=58)
 def WPD_CONTACT_SPOUSE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=59)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=59)
 def WPD_CONTACT_CHILDREN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=60)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=60)
 def WPD_CONTACT_ASSISTANT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=61)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=61)
 def WPD_CONTACT_ANNIVERSARY_DATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=62)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=62)
 def WPD_CONTACT_RINGTONE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=63)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{fbd4fdab-987d-4777-b3f9-726185a9312b}'), pid=63)
 WPD_MUSIC_OBJECT_PROPERTIES_V1: Guid = Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}')
 def WPD_MUSIC_ALBUM():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=3)
 def WPD_MUSIC_TRACK():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=4)
 def WPD_MUSIC_LYRICS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=6)
 def WPD_MUSIC_MOOD():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=8)
 def WPD_AUDIO_BITRATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=9)
 def WPD_AUDIO_CHANNEL_COUNT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=10)
 def WPD_AUDIO_FORMAT_CODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=11)
 def WPD_AUDIO_BIT_DEPTH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=12)
 def WPD_AUDIO_BLOCK_ALIGNMENT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b324f56a-dc5d-46e5-b6df-d2ea414888c6}'), pid=13)
 WPD_VIDEO_OBJECT_PROPERTIES_V1: Guid = Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}')
 def WPD_VIDEO_AUTHOR():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=2)
 def WPD_VIDEO_RECORDEDTV_STATION_NAME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=4)
 def WPD_VIDEO_RECORDEDTV_CHANNEL_NUMBER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=5)
 def WPD_VIDEO_RECORDEDTV_REPEAT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=7)
 def WPD_VIDEO_BUFFER_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=8)
 def WPD_VIDEO_CREDITS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=9)
 def WPD_VIDEO_KEY_FRAME_DISTANCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=10)
 def WPD_VIDEO_QUALITY_SETTING():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=11)
 def WPD_VIDEO_SCAN_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=12)
 def WPD_VIDEO_BITRATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=13)
 def WPD_VIDEO_FOURCC_CODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=14)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=14)
 def WPD_VIDEO_FRAMERATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=15)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{346f2163-f998-4146-8b01-d19b4c00de9a}'), pid=15)
 WPD_COMMON_INFORMATION_OBJECT_PROPERTIES_V1: Guid = Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}')
 def WPD_COMMON_INFORMATION_SUBJECT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=2)
 def WPD_COMMON_INFORMATION_BODY_TEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=3)
 def WPD_COMMON_INFORMATION_PRIORITY():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=4)
 def WPD_COMMON_INFORMATION_START_DATETIME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=5)
 def WPD_COMMON_INFORMATION_END_DATETIME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=6)
 def WPD_COMMON_INFORMATION_NOTES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}'), pid=7)
 WPD_MEMO_OBJECT_PROPERTIES_V1: Guid = Guid('{5ffbfc7b-7483-41ad-afb9-da3f4e592b8d}')
 WPD_EMAIL_OBJECT_PROPERTIES_V1: Guid = Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}')
 def WPD_EMAIL_TO_LINE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=2)
 def WPD_EMAIL_CC_LINE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=3)
 def WPD_EMAIL_BCC_LINE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=4)
 def WPD_EMAIL_HAS_BEEN_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=7)
 def WPD_EMAIL_RECEIVED_TIME():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=8)
 def WPD_EMAIL_HAS_ATTACHMENTS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=9)
 def WPD_EMAIL_SENDER_ADDRESS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{41f8f65a-5484-4782-b13d-4740dd7c37c5}'), pid=10)
 WPD_APPOINTMENT_OBJECT_PROPERTIES_V1: Guid = Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}')
 def WPD_APPOINTMENT_LOCATION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=3)
 def WPD_APPOINTMENT_TYPE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=7)
 def WPD_APPOINTMENT_REQUIRED_ATTENDEES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=8)
 def WPD_APPOINTMENT_OPTIONAL_ATTENDEES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=9)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=9)
 def WPD_APPOINTMENT_ACCEPTED_ATTENDEES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=10)
 def WPD_APPOINTMENT_RESOURCES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=11)
 def WPD_APPOINTMENT_TENTATIVE_ATTENDEES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=12)
 def WPD_APPOINTMENT_DECLINED_ATTENDEES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{f99efd03-431d-40d8-a1c9-4e220d9c88d3}'), pid=13)
 WPD_TASK_OBJECT_PROPERTIES_V1: Guid = Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}')
 def WPD_TASK_STATUS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}'), pid=6)
 def WPD_TASK_PERCENT_COMPLETE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}'), pid=8)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}'), pid=8)
 def WPD_TASK_REMINDER_DATE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}'), pid=10)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}'), pid=10)
 def WPD_TASK_OWNER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{e354e95e-d8a0-4637-a03a-0cb26838dbc7}'), pid=11)
 WPD_SMS_OBJECT_PROPERTIES_V1: Guid = Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}')
 def WPD_SMS_PROVIDER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}'), pid=2)
 def WPD_SMS_TIMEOUT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}'), pid=3)
 def WPD_SMS_MAX_PAYLOAD():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}'), pid=4)
 def WPD_SMS_ENCODING():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{7e1074cc-50ff-4dd1-a742-53be6f093a0d}'), pid=5)
 WPD_SECTION_OBJECT_PROPERTIES_V1: Guid = Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}')
 def WPD_SECTION_DATA_OFFSET():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}'), pid=2)
 def WPD_SECTION_DATA_LENGTH():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}'), pid=3)
 def WPD_SECTION_DATA_UNITS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}'), pid=4)
 def WPD_SECTION_DATA_REFERENCED_OBJECT_RESOURCE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{516afd2b-c64e-44f0-98dc-bee1c88f7d66}'), pid=5)
 NAME_Undefined: String = 'Undefined'
 NAME_Association: String = 'Association'
 NAME_DeviceScript: String = 'DeviceScript'
@@ -1626,68 +1626,68 @@ NAME_TaskObj_BeginDate: String = 'BeginDate'
 NAME_TaskObj_EndDate: String = 'EndDate'
 WPD_CATEGORY_MTP_EXT_VENDOR_OPERATIONS: Guid = Guid('{4d545058-1a2e-4106-a357-771e0819fc56}')
 def WPD_COMMAND_MTP_EXT_GET_SUPPORTED_VENDOR_OPCODES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=11)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=11)
 def WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITHOUT_DATA_PHASE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=12)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=12)
 def WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITH_DATA_TO_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=13)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=13)
 def WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITH_DATA_TO_WRITE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=14)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=14)
 def WPD_COMMAND_MTP_EXT_READ_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=15)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=15)
 def WPD_COMMAND_MTP_EXT_WRITE_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=16)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=16)
 def WPD_COMMAND_MTP_EXT_END_DATA_TRANSFER():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=17)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=17)
 def WPD_COMMAND_MTP_EXT_GET_VENDOR_EXTENSION_DESCRIPTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=18)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=18)
 def WPD_PROPERTY_MTP_EXT_OPERATION_CODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1001)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1001)
 def WPD_PROPERTY_MTP_EXT_OPERATION_PARAMS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1002)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1002)
 def WPD_PROPERTY_MTP_EXT_RESPONSE_CODE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1003)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1003)
 def WPD_PROPERTY_MTP_EXT_RESPONSE_PARAMS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1004)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1004)
 def WPD_PROPERTY_MTP_EXT_VENDOR_OPERATION_CODES():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1005)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1005)
 def WPD_PROPERTY_MTP_EXT_TRANSFER_CONTEXT():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1006)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1006)
 def WPD_PROPERTY_MTP_EXT_TRANSFER_TOTAL_DATA_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1007)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1007)
 def WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_TO_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1008)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1008)
 def WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_READ():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1009)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1009)
 def WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_TO_WRITE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1010)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1010)
 def WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_WRITTEN():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1011)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1011)
 def WPD_PROPERTY_MTP_EXT_TRANSFER_DATA():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1012)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1012)
 def WPD_PROPERTY_MTP_EXT_OPTIMAL_TRANSFER_BUFFER_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1013)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1013)
 def WPD_PROPERTY_MTP_EXT_VENDOR_EXTENSION_DESCRIPTION():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1014)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-1a2e-4106-a357-771e0819fc56}'), pid=1014)
 WPD_PROPERTIES_MTP_VENDOR_EXTENDED_OBJECT_PROPS: Guid = Guid('{4d545058-4fce-4578-95c8-8698a9bc0f49}')
 WPD_PROPERTIES_MTP_VENDOR_EXTENDED_DEVICE_PROPS: Guid = Guid('{4d545058-8900-40b3-8f1d-dc246e1e8370}')
 WPD_EVENT_MTP_VENDOR_EXTENDED_EVENTS: Guid = Guid('{00000000-5738-4ff2-8445-be3126691059}')
 def WPD_PROPERTY_MTP_EXT_EVENT_PARAMS():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-ef88-4e4d-95c3-4f327f728a96}'), pid=1011)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4d545058-ef88-4e4d-95c3-4f327f728a96}'), pid=1011)
 CLSID_WPD_NAMESPACE_EXTENSION: Guid = Guid('{35786d3c-b075-49b9-88dd-029876e11c01}')
 WPDNSE_OBJECT_PROPERTIES_V1: Guid = Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}')
 def WPDNSE_OBJECT_HAS_CONTACT_PHOTO():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=2)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=2)
 def WPDNSE_OBJECT_HAS_THUMBNAIL():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=3)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=3)
 def WPDNSE_OBJECT_HAS_ICON():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=4)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=4)
 def WPDNSE_OBJECT_HAS_AUDIO_CLIP():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=5)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=5)
 def WPDNSE_OBJECT_HAS_ALBUM_ART():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=6)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=6)
 def WPDNSE_OBJECT_OPTIMAL_READ_BLOCK_SIZE():
-    return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=7)
+    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}'), pid=7)
 WPDNSE_PROPSHEET_DEVICE_GENERAL: UInt32 = 1
 WPDNSE_PROPSHEET_STORAGE_GENERAL: UInt32 = 2
 WPDNSE_PROPSHEET_CONTENT_GENERAL: UInt32 = 4

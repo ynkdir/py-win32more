@@ -14,31 +14,31 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def DEVPKEY_Device_PacketWakeSupported():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=0)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=0)
 def DEVPKEY_Device_SendPacketWakeSupported():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=1)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=1)
 def DEVPKEY_Device_UDN():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=6)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=6)
 def DEVPKEY_Device_SupportsAudio():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=8)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=8)
 def DEVPKEY_Device_SupportsVideo():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=9)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=9)
 def DEVPKEY_Device_SupportsImages():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=10)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=10)
 def DEVPKEY_Device_SinkProtocolInfo():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=14)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=14)
 def DEVPKEY_Device_DLNADOC():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=15)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=15)
 def DEVPKEY_Device_DLNACAP():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=16)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=16)
 def DEVPKEY_Device_SupportsSearch():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=17)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=17)
 def DEVPKEY_Device_SupportsMute():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=18)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=18)
 def DEVPKEY_Device_MaxVolume():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=19)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=19)
 def DEVPKEY_Device_SupportsSetNextAVT():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=20)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=20)
 GUID_DEVINTERFACE_DMR: Guid = Guid('{d0875fb4-2196-4c7a-a63d-e416addd60a1}')
 GUID_DEVINTERFACE_DMP: Guid = Guid('{25b4e268-2a05-496e-803b-266837fbda4b}')
 GUID_DEVINTERFACE_DMS: Guid = Guid('{c96037ae-a558-4470-b432-115a31b85553}')

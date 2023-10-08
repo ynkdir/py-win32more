@@ -282,9 +282,9 @@ STI_DEVICE_VALUE_TIMEOUT_A: String = 'PollTimeout'
 STI_DEVICE_VALUE_DISABLE_NOTIFICATIONS_A: String = 'DisableNotifications'
 REGSTR_VAL_BAUDRATE_A: String = 'BaudRate'
 def DEVPKEY_WIA_DeviceType():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}'), pid=2)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}'), pid=2)
 def DEVPKEY_WIA_USDClassId():
-    return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}'), pid=3)
+    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}'), pid=3)
 STI_USD_GENCAP_NATIVE_PUSHSUPPORT: UInt32 = 1
 STI_DEVICE_CREATE_FOR_MONITOR: UInt32 = 16777216
 lDEFAULT_PREFETCH_SIZE: Int32 = 100

@@ -473,19 +473,19 @@ class FieldDefinition:
             return f"Guid('{guid}')"
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, pid = self.custom_attributes.get_property_key()
-            return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
+            return f"{PACKAGE_NAME}.{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             self.signature.kind == "Type"
             and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
         ):
             guid, pid = self.custom_attributes.get_property_key()
-            return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
+            return f"{PACKAGE_NAME}.{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             self.signature.kind == "Type"
             and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY"
         ):
             value = self.custom_attributes.get_constant()
-            return f"{self.signature.fullname}({value})"
+            return f"{PACKAGE_NAME}.{self.signature.fullname}({value})"
         else:
             # FIXME:
             raise NotImplementedError()
