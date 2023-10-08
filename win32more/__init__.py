@@ -122,12 +122,12 @@ def _removesuffix(s, suffix):
 class EasyCastBase:
     @classmethod
     def __commit__(struct):
+        hints = get_hints(struct)
+
         # FIXME: not work for Union.
         # if hasattr(cls, "_fields_"):
         if "_fields_" in dir(struct):
             return
-
-        hints = get_hints(struct)
 
         anonymous = [
             hint for hint in hints.keys()
@@ -232,8 +232,8 @@ def get_hints(struct, patch_return=False):
 
         if isinstance(type_, BaseFuncType):
             if not hasattr(type_, '__done_ctypes__'):
-                type_.__done_ctypes__ = True
                 BaseFuncType.commit(type_)
+                type_.__done_ctypes__ = True
             type_ = type_._fn
         elif issubclass(type_, (EasyCastStructure, EasyCastUnion, ComPtr)):
             type_.__commit__()
@@ -420,8 +420,8 @@ class BaseFuncType:
 
     def __call__(self, *args, **kwargs):
         if not hasattr(self, '__done_ctypes__'):
-            self.__done_ctypes__ = True
             BaseFuncType.commit(self)
+            self.__done_ctypes__ = True
         return self._fn(*args, **kwargs)
 
     @classmethod
@@ -455,8 +455,8 @@ class GetAttr:
         delattr(self._obj, f'_unused_{name}')
 
         if issubclass(prototype, (EasyCastStructure, EasyCastUnion, ComPtr)):
-            prototype.__done_ctypes__ = True
             prototype.__commit__()
+            prototype.__done_ctypes__ = True
 
         return prototype
 
