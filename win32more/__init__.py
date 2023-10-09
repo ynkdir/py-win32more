@@ -82,6 +82,8 @@ class ComPtr(c_void_p):
     def __commit__(struct):
         if struct.__annotations__["extends"] == 'None':
             return
+        if "_hints_" in dir(struct):
+            return
 
         struct._hints_ = get_hints(struct)
 
@@ -223,19 +225,9 @@ def get_type_hints(prototype, **kwargs):
 def get_hints(struct, patch_return=False):
     hints = {}
     for hint, type_ in get_type_hints(struct).items():
-        if type_ is None or hasattr(type_, '__done_ctypes__'):
-            hints[hint] = type_
-            continue
-
         if not patch_return or hint == 'return':
             type_ = _patch_char_p(type_)
-
-        if isinstance(type_, BaseFuncType):
-            if not hasattr(type_, '__done_ctypes__'):
-                BaseFuncType.commit(type_)
-                type_.__done_ctypes__ = True
-            type_ = type_._fn
-        elif issubclass(type_, (EasyCastStructure, EasyCastUnion, ComPtr)):
+        if hasattr(type_, '__commit__'):
             type_.__commit__()
         hints[hint] = type_
     return hints
@@ -419,13 +411,12 @@ class BaseFuncType:
         self._kind = kind
 
     def __call__(self, *args, **kwargs):
-        if not hasattr(self, '__done_ctypes__'):
-            BaseFuncType.commit(self)
-            self.__done_ctypes__ = True
         return self._fn(*args, **kwargs)
 
     @classmethod
-    def commit(cls, instance):
+    def __commit__(cls, instance):
+        if isinstance(instance._fn, type(_CFuncPtr)):
+            return
         types = list(get_hints(instance._fn).values())
         types = types[-1:] + types[:-1]
         instance._fn = instance._kind(*types)
@@ -454,9 +445,8 @@ class GetAttr:
         setattr(self._obj, name, prototype)
         delattr(self._obj, f'_unused_{name}')
 
-        if issubclass(prototype, (EasyCastStructure, EasyCastUnion, ComPtr)):
+        if hasattr(prototype, '__commit__'):
             prototype.__commit__()
-            prototype.__done_ctypes__ = True
 
         return prototype
 
@@ -466,11 +456,7 @@ def make_ready(mod: str) -> None:
 
     for name in dir(obj):
         prototype = getattr(obj, name)
-        if (
-            isinstance(prototype, type)
-            and issubclass(prototype, (EasyCastStructure, EasyCastUnion, ComPtr))
-            and not hasattr(prototype, '__done_ctypes__')
-        ):
+        if hasattr(prototype, '__commit__'):
             setattr(obj, f'_unused_{name}', prototype)
             delattr(obj, name)
 

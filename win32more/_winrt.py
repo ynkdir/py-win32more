@@ -454,9 +454,7 @@ def _get_type_signature(cls) -> str:
     elif issubclass(cls, ComPtr) and "_iid_" in cls.__dict__:
         return str(cls._iid_)
     elif issubclass(cls, ComPtr):
-        if not hasattr(cls, '__done_ctypes__'):
-            cls.__commit__()
-            cls.__done_ctypes__ = True
+        cls.__commit__()
         default_interface = cls._hints_["default_interface"]
         args = _get_type_signature(default_interface)
         return f"rc({cls._classid_};{args})"
