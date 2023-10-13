@@ -32,7 +32,6 @@ from ctypes import (
     pointer,
     windll,
 )
-from collections import defaultdict
 
 if sys.version_info < (3, 9):
     from typing_extensions import get_type_hints as _get_type_hints
@@ -80,20 +79,11 @@ class ComPtr(c_void_p):
 
     @classmethod
     def __commit__(struct):
-        struct.__commit__ = None
-
-        if struct.__annotations__["extends"] == 'None':
-            return struct
-        if "_hints_" in dir(struct):
-            return struct
-
         struct._hints_ = get_hints(struct)
-
+        if struct._hints_["extends"] is None:
+            return struct
         # Generic class have multiple base class (Generic[], ComPtr).
-        struct.__bases__ = tuple(
-            struct._hints_["extends"] if t is ComPtr else t
-            for t in struct.__bases__
-        )
+        struct.__bases__ = tuple(struct._hints_["extends"] if t is ComPtr else t for t in struct.__bases__)
         return struct
 
 
@@ -127,21 +117,20 @@ def _removesuffix(s, suffix):
 class EasyCastBase:
     @classmethod
     def __commit__(struct):
-        struct.__commit__ = None
-
-        hints = get_hints(struct)
-
         # FIXME: not work for Union.
         # if hasattr(cls, "_fields_"):
         if "_fields_" in dir(struct):
             return struct
 
-        anonymous = [
-            hint for hint in hints.keys()
-            if re.match(r"^Anonymous\d*$", hint)
-        ]
+        hints = get_hints(struct)
+
+        anonymous = [hint for hint in hints.keys() if re.match(r"^Anonymous\d*$", hint)]
         if anonymous:
             struct._anonymous_ = anonymous
+
+        for type_ in hints.values():
+            if type_ is not struct and issubclass(type_, (Structure, Union)):
+                type_.__commit__()
 
         struct._fields_ = list(hints.items())
 
@@ -231,16 +220,13 @@ def get_type_hints(prototype, **kwargs):
 def get_hints(struct, patch_return=False):
     hints = {}
     for hint, type_ in get_type_hints(struct).items():
-        if not patch_return or hint == 'return':
+        if not patch_return or hint == "return":
             type_ = _patch_char_p(type_)
-        if getattr(type_, '__commit__', None):
-            type_ = type_.__commit__()
         hints[hint] = type_
     return hints
 
 
 class Guid(EasyCastStructure):
-    __commit__ = None  # No need for already finalized struct
     _fields_ = [
         ("Data1", UInt32),
         ("Data2", UInt16),
@@ -421,12 +407,9 @@ class BaseFuncType:
         return self._fn(*args, **kwargs)
 
     def __commit__(self):
-        if isinstance(self._fn, type(_CFuncPtr)):
-            return self._fn
         types = list(get_hints(self._fn).values())
         types = types[-1:] + types[:-1]
-        self._fn = self._kind(*types)
-        return self._fn
+        return self._kind(*types)
 
 
 def cfunctype_pointer(prototype):
@@ -436,6 +419,7 @@ def cfunctype_pointer(prototype):
 def winfunctype_pointer(prototype):
     return BaseFuncType(prototype, WINFUNCTYPE)
 
+
 class GetAttr:
     def __init__(self, mod):
         self._mod = mod
@@ -443,19 +427,21 @@ class GetAttr:
 
     def __call__(self, name):
         try:
-            prototype = self._obj.__dict__[f'_unused_{name}']
+            prototype = self._obj.__dict__[f"_unused_{name}"]
         except KeyError:
-            raise AttributeError(
-                f"module '{self._mod}' has no attribute '{name}'"
-            ) from None
-
+            raise AttributeError(f"module '{self._mod}' has no attribute '{name}'") from None
+        delattr(self._obj, f"_unused_{name}")
         setattr(self._obj, name, prototype)
-        delattr(self._obj, f'_unused_{name}')
+        setattr(self._obj, name, prototype.__commit__())
+        return getattr(self._obj, name)
 
-        if getattr(prototype, '__commit__', None):
-            prototype = prototype.__commit__()
 
-        return prototype
+class ConstantLazyLoader:
+    def __init__(self, prototype):
+        self._prototype = prototype
+
+    def __commit__(self):
+        return self._prototype()
 
 
 def make_ready(mod: str) -> None:
@@ -463,8 +449,14 @@ def make_ready(mod: str) -> None:
 
     for name in dir(obj):
         prototype = getattr(obj, name)
-        if getattr(prototype, '__commit__', None):
-            setattr(obj, f'_unused_{name}', prototype)
+        if isinstance(prototype, types.FunctionType) and prototype.__module__ == mod:
+            setattr(obj, f"_unused_{name}", ConstantLazyLoader(prototype))
+            delattr(obj, name)
+        elif isinstance(prototype, BaseFuncType):
+            setattr(obj, f"_unused_{name}", prototype)
+            delattr(obj, name)
+        elif getattr(prototype, "__commit__", None) and prototype.__module__ == mod:
+            setattr(obj, f"_unused_{name}", prototype)
             delattr(obj, name)
 
     obj.__getattr__ = GetAttr(mod)
