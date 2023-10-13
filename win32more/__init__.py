@@ -80,10 +80,12 @@ class ComPtr(c_void_p):
 
     @classmethod
     def __commit__(struct):
+        struct.__commit__ = None
+
         if struct.__annotations__["extends"] == 'None':
-            return
+            return struct
         if "_hints_" in dir(struct):
-            return
+            return struct
 
         struct._hints_ = get_hints(struct)
 
@@ -92,6 +94,7 @@ class ComPtr(c_void_p):
             struct._hints_["extends"] if t is ComPtr else t
             for t in struct.__bases__
         )
+        return struct
 
 
 # to avoid auto conversion to str when struct.member access and function() result.
@@ -124,12 +127,14 @@ def _removesuffix(s, suffix):
 class EasyCastBase:
     @classmethod
     def __commit__(struct):
+        struct.__commit__ = None
+
         hints = get_hints(struct)
 
         # FIXME: not work for Union.
         # if hasattr(cls, "_fields_"):
         if "_fields_" in dir(struct):
-            return
+            return struct
 
         anonymous = [
             hint for hint in hints.keys()
@@ -143,6 +148,7 @@ class EasyCastBase:
         for hint in anonymous:
             hints.update(hints[hint]._hints_)
         struct._hints_ = hints
+        return struct
 
 
 class EasyCastStructure(EasyCastBase, Structure):
@@ -227,13 +233,14 @@ def get_hints(struct, patch_return=False):
     for hint, type_ in get_type_hints(struct).items():
         if not patch_return or hint == 'return':
             type_ = _patch_char_p(type_)
-        if hasattr(type_, '__commit__'):
-            type_.__commit__()
+        if getattr(type_, '__commit__', None):
+            type_ = type_.__commit__()
         hints[hint] = type_
     return hints
 
 
 class Guid(EasyCastStructure):
+    __commit__ = None  # No need for already finalized struct
     _fields_ = [
         ("Data1", UInt32),
         ("Data2", UInt16),
@@ -413,13 +420,13 @@ class BaseFuncType:
     def __call__(self, *args, **kwargs):
         return self._fn(*args, **kwargs)
 
-    @classmethod
-    def __commit__(cls, instance):
-        if isinstance(instance._fn, type(_CFuncPtr)):
-            return
-        types = list(get_hints(instance._fn).values())
+    def __commit__(self):
+        if isinstance(self._fn, type(_CFuncPtr)):
+            return self._fn
+        types = list(get_hints(self._fn).values())
         types = types[-1:] + types[:-1]
-        instance._fn = instance._kind(*types)
+        self._fn = self._kind(*types)
+        return self._fn
 
 
 def cfunctype_pointer(prototype):
@@ -445,8 +452,8 @@ class GetAttr:
         setattr(self._obj, name, prototype)
         delattr(self._obj, f'_unused_{name}')
 
-        if hasattr(prototype, '__commit__'):
-            prototype.__commit__()
+        if getattr(prototype, '__commit__', None):
+            prototype = prototype.__commit__()
 
         return prototype
 
@@ -456,7 +463,7 @@ def make_ready(mod: str) -> None:
 
     for name in dir(obj):
         prototype = getattr(obj, name)
-        if hasattr(prototype, '__commit__'):
+        if getattr(prototype, '__commit__', None):
             setattr(obj, f'_unused_{name}', prototype)
             delattr(obj, name)
 

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "py-win32more"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
     "typing_extensions; python_version < '3.9'",
 ]
