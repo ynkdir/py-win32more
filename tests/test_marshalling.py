@@ -23,8 +23,10 @@ from win32more import (
     UInt32,
     UIntPtr,
     commethod,
-    press,
 )
+
+def commit(prototype):
+    return prototype.__commit__()
 
 
 def functype(prototype):
@@ -36,7 +38,7 @@ def functype(prototype):
 
 class TestMarshalling(unittest.TestCase):
     def test_c_void_p(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             c_void_p: c_void_p
 
@@ -72,7 +74,7 @@ class TestMarshalling(unittest.TestCase):
             s.c_void_p = b"abcdefg"
 
     def test_c_char_p(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             c_char_p: c_char_p
 
@@ -114,7 +116,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(s.c_char_p, b"abcdefg")
 
     def test_c_wchar_p(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             c_wchar_p: c_wchar_p
 
@@ -156,7 +158,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(s.c_wchar_p, "abcdefg")
 
     def test_boolean(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             boolean: Boolean
 
@@ -198,7 +200,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(s.boolean, True)
 
     def test_int32(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             int32: Int32
 
@@ -241,7 +243,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(s.int32, -1)
 
     def test_uint32(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             uint32: UInt32
 
@@ -284,7 +286,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(s.uint32, 0xFFFFFFFF)
 
     def test_double(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             double: Double
 
@@ -316,7 +318,7 @@ class TestMarshalling(unittest.TestCase):
             s.double = "abcdefg"
 
     def test_char(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             char: Char
 
@@ -351,7 +353,7 @@ class TestMarshalling(unittest.TestCase):
             s.char = b"a"
 
     def test_int32_array(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             int32_array_3: Int32 * 3
 
@@ -377,7 +379,7 @@ class TestMarshalling(unittest.TestCase):
             s.int32_array_3 = (3, 4, "5")
 
     def test_c_void_p_array(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             c_void_p_array_3: c_void_p * 3
 
@@ -402,7 +404,7 @@ class TestMarshalling(unittest.TestCase):
             s.c_void_p_array_3 = (3, 4, "5")
 
     def test_c_wchar_p_array(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             c_wchar_p_array_3: c_wchar_p * 3
 
@@ -579,21 +581,21 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(x, 42)
 
     def test_structure_tuple_unpack(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             a: Int32
             b: c_char_p
             c: c_wchar_p
             d: c_void_p
 
-        @press
+        @commit
         class T(EasyCastStructure):
             e: Int32
             f: S
             g: Int32
             h: Int32 * 3
 
-        @press
+        @commit
         class U(EasyCastStructure):
             i: T
 

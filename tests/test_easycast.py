@@ -18,9 +18,12 @@ from win32more import (
     UInt16,
     Void,
     cfunctype_pointer,
-    press,
     winfunctype_pointer,
 )
+
+
+def commit(prototype):
+    return prototype.__commit__()
 
 
 def functype(prototype):
@@ -105,7 +108,7 @@ class TestEasyCast(unittest.TestCase):
         self.assertEqual(p, addressof(a))
 
     def test_struct_array_to_c_void_p(self):
-        @press
+        @commit
         class S(EasyCastStructure):
             p: c_void_p
 
@@ -116,7 +119,7 @@ class TestEasyCast(unittest.TestCase):
         self.assertEqual(s.p, addressof(a))
 
     def test_callable_to_cfunctype(self):
-        @press
+        @commit
         @cfunctype_pointer
         def f() -> Void: ...
 
@@ -134,7 +137,7 @@ class TestEasyCast(unittest.TestCase):
         self.assertTrue(bool(r))
 
     def test_callable_to_winfunctype(self):
-        @press
+        @commit
         @winfunctype_pointer
         def f() -> Void: ...
 
@@ -152,7 +155,7 @@ class TestEasyCast(unittest.TestCase):
         self.assertTrue(bool(r))
 
     def test_none_to_cfunctype(self):
-        @press
+        @commit
         @cfunctype_pointer
         def f() -> Void:
             ...
@@ -165,7 +168,7 @@ class TestEasyCast(unittest.TestCase):
         self.assertFalse(bool(r))
 
     def test_none_to_winfunctype(self):
-        @press
+        @commit
         @winfunctype_pointer
         def f() -> Void:
             ...
