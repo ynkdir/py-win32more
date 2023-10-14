@@ -403,9 +403,6 @@ class BaseFuncType:
         self._fn = fn
         self._kind = kind
 
-    def __call__(self, *args, **kwargs):
-        return self._fn(*args, **kwargs)
-
     def __commit__(self):
         types = list(get_hints(self._fn).values())
         types = types[-1:] + types[:-1]
