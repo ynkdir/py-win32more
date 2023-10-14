@@ -45,6 +45,47 @@ elif "(amd64)" in sys.version.lower():
 else:
     ARCH = "X86"
 
+print_used = False
+
+EXCLUDED_ATTRS = [
+    "win32more",
+    "annotations",
+    "POINTER",
+
+    "ARCH",
+    "Boolean",
+    "Byte",
+    "Bytes",
+    "Char",
+    "ComPtr",
+    "Double",
+    "EasyCastStructure",
+    "EasyCastUnion",
+    "FAILED",
+    "Guid",
+    "Int16",
+    "Int32",
+    "Int64",
+    "IntPtr",
+    "MissingType",
+    "SByte",
+    "SUCCEEDED",
+    "Single",
+    "String",
+    "UInt16",
+    "UInt32",
+    "UInt64",
+    "UIntPtr",
+    "Void",
+    "VoidPtr",
+    "cfunctype",
+    "cfunctype_pointer",
+    "commethod",
+    "winfunctype",
+    "winfunctype_pointer",
+    "make_ready",
+]
+
 MissingType = c_void_p
 
 Byte = c_ubyte
@@ -429,8 +470,15 @@ class GetAttr:
             raise AttributeError(f"module '{self._mod}' has no attribute '{name}'") from None
         delattr(self._obj, f"_unused_{name}")
         setattr(self._obj, name, prototype)
-        setattr(self._obj, name, prototype.__commit__())
-        return getattr(self._obj, name)
+
+        if print_used:
+            print(f"[USED] {self._mod}.{name}")
+
+        if hasattr(prototype, '__commit__'):
+            prototype = prototype.__commit__()
+
+        setattr(self._obj, name, prototype)
+        return prototype
 
 
 class ConstantLazyLoader:
@@ -441,18 +489,49 @@ class ConstantLazyLoader:
         return self._prototype()
 
 
+class ConstantWithAnnotations:
+    def __init__(self, prototype, annotation, module):
+        self._prototype = prototype
+        # Maybe generator could do this for us, like func/struct parameters hints.
+        if annotation not in EXCLUDED_ATTRS and not annotation.startswith('win32more.'):
+            annotation = f"{module.__name__}.{annotation}"
+        self.__annotations__ = {'_': annotation}
+        self._module = module
+
+    def __commit__(self):
+        _get_type_hints(self, localns=self._module.__dict__)
+        return self._prototype
+
+
 def make_ready(mod: str) -> None:
     obj = sys.modules[mod]
 
     for name in dir(obj):
+        if name in EXCLUDED_ATTRS or (name.startswith('__') and name.endswith('__')):
+            continue
+
         prototype = getattr(obj, name)
+
         if isinstance(prototype, types.FunctionType) and prototype.__module__ == mod:
             setattr(obj, f"_unused_{name}", ConstantLazyLoader(prototype))
             delattr(obj, name)
-        elif isinstance(prototype, BaseFuncType):
+        elif (
+            isinstance(prototype, BaseFuncType) or
+            (
+                isinstance(prototype, type) and
+                issubclass(prototype, (EasyCastBase, ComPtr)) and
+                prototype.__module__ == mod
+            ) or
+            isinstance(prototype, types.FunctionType) and prototype.__module__ == "win32more"
+        ):
             setattr(obj, f"_unused_{name}", prototype)
             delattr(obj, name)
-        elif getattr(prototype, "__commit__", None) and prototype.__module__ == mod:
+        elif name in obj.__annotations__:
+            setattr(obj, f"_unused_{name}", ConstantWithAnnotations(
+                prototype, obj.__annotations__[name], obj
+            ))
+            delattr(obj, name)
+        else:
             setattr(obj, f"_unused_{name}", prototype)
             delattr(obj, name)
 
