@@ -39,6 +39,8 @@ test = "pytest {args:tests}"
 
 [[tool.hatch.envs.all.matrix]]
 python = [
+    "3.12-64",
+    "3.12-32",
     "3.11-64",
     "3.11-32",
     "3.10-64",
