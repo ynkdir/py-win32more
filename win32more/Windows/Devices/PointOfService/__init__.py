@@ -2909,12 +2909,12 @@ class IMagneticStripeReaderEncryptionAlgorithmsStatics(ComPtr):
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics'
     _iid_ = Guid('{53b57350-c3db-4754-9c00-41392374a109}')
     @winrt_commethod(6)
-    def get_None(self) -> UInt32: ...
+    def get_None_(self) -> UInt32: ...
     @winrt_commethod(7)
     def get_TripleDesDukpt(self) -> UInt32: ...
     @winrt_commethod(8)
     def get_ExtendedBase(self) -> UInt32: ...
-    None = property(get_None, None)
+    None_ = property(get_None_, None)
     TripleDesDukpt = property(get_TripleDesDukpt, None)
     ExtendedBase = property(get_ExtendedBase, None)
 class IMagneticStripeReaderErrorOccurredEventArgs(ComPtr):
@@ -4010,12 +4010,12 @@ class MagneticStripeReaderEncryptionAlgorithms(ComPtr, metaclass=_MagneticStripe
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.MagneticStripeReaderEncryptionAlgorithms'
     @winrt_classmethod
-    def get_None(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
+    def get_None_(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
     @winrt_classmethod
     def get_TripleDesDukpt(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
     @winrt_classmethod
     def get_ExtendedBase(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
-    _MagneticStripeReaderEncryptionAlgorithms_Meta_.None = property(get_None.__wrapped__, None)
+    _MagneticStripeReaderEncryptionAlgorithms_Meta_.None_ = property(get_None_.__wrapped__, None)
     _MagneticStripeReaderEncryptionAlgorithms_Meta_.TripleDesDukpt = property(get_TripleDesDukpt.__wrapped__, None)
     _MagneticStripeReaderEncryptionAlgorithms_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
 class MagneticStripeReaderErrorOccurredEventArgs(ComPtr):

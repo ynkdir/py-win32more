@@ -74,7 +74,7 @@ JsonType: TypeAlias = Any
 def _removeprefix(s, prefix):
     if sys.version_info < (3, 9):
         if s.startswith(prefix):
-            return s[len(prefix):]
+            return s[len(prefix) :]
         else:
             return s
     return s.removeprefix(prefix)
@@ -1167,6 +1167,11 @@ class Preprocessor:
 
     def patch_keyword_name_td(self, td: TypeDefinition) -> None:
         for md in td.method_definitions:
+            if "SpecialName" in md.attributes:
+                for prefix in ("get_", "put_", "add_", "remove_"):
+                    if md.name.startswith(prefix) and keyword.iskeyword(_removeprefix(md.name, prefix)):
+                        md["Name"] = md["Name"] + "_"
+                        break
             for pa in md.parameters:
                 if keyword.iskeyword(pa["Name"]):
                     pa["Name"] = pa["Name"] + "_"
