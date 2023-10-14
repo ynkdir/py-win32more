@@ -58,3 +58,7 @@ class TestSyntax(unittest.TestCase):
 
         self.assertNotEqual(sizeof(WNDCLASSA), 0)
         self.assertNotEqual(sizeof(WNDCLASSW), 0)
+
+
+if __name__ == "__main__":
+    unittest.main()
