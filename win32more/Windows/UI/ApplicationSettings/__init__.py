@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Security.Credentials
 import win32more.Windows.System
 import win32more.Windows.UI.ApplicationSettings
 import win32more.Windows.UI.Popups
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AccountsSettingsPane(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.IAccountsSettingsPane
@@ -192,7 +183,7 @@ class ISettingsCommandFactory(ComPtr):
     _classid_ = 'Windows.UI.ApplicationSettings.ISettingsCommandFactory'
     _iid_ = Guid('{68e15b33-1c83-433a-aa5a-ceeea5bd4764}')
     @winrt_commethod(6)
-    def CreateSettingsCommand(self, settingsCommandId: win32more.Windows.Win32.System.WinRT.IInspectable_head, label: WinRT_String, handler: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> win32more.Windows.UI.ApplicationSettings.SettingsCommand: ...
+    def CreateSettingsCommand(self, settingsCommandId: win32more.Windows.Win32.System.WinRT.IInspectable, label: WinRT_String, handler: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> win32more.Windows.UI.ApplicationSettings.SettingsCommand: ...
 class ISettingsCommandStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ApplicationSettings.ISettingsCommandStatics'
@@ -282,7 +273,7 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     default_interface: win32more.Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsCommand'
     @winrt_factorymethod
-    def CreateSettingsCommand(cls: win32more.Windows.UI.ApplicationSettings.ISettingsCommandFactory, settingsCommandId: win32more.Windows.Win32.System.WinRT.IInspectable_head, label: WinRT_String, handler: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> win32more.Windows.UI.ApplicationSettings.SettingsCommand: ...
+    def CreateSettingsCommand(cls: win32more.Windows.UI.ApplicationSettings.ISettingsCommandFactory, settingsCommandId: win32more.Windows.Win32.System.WinRT.IInspectable, label: WinRT_String, handler: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> win32more.Windows.UI.ApplicationSettings.SettingsCommand: ...
     @winrt_mixinmethod
     def get_Label(self: win32more.Windows.UI.Popups.IUICommand) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -292,9 +283,9 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     @winrt_mixinmethod
     def put_Invoked(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
     @winrt_mixinmethod
-    def get_Id(self: win32more.Windows.UI.Popups.IUICommand) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Id(self: win32more.Windows.UI.Popups.IUICommand) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_classmethod
     def get_AccountsCommand(cls: win32more.Windows.UI.ApplicationSettings.ISettingsCommandStatics) -> win32more.Windows.UI.ApplicationSettings.SettingsCommand: ...
     Label = property(get_Label, put_Label)
@@ -390,34 +381,4 @@ class WebAccountProviderCommandInvokedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b7de5527-4c8f-42dd-84da-5ec493abdb9a}')
     def Invoke(self, command: win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommand) -> Void: ...
-make_head(_module, 'AccountsSettingsPane')
-make_head(_module, 'AccountsSettingsPaneCommandsRequestedEventArgs')
-make_head(_module, 'AccountsSettingsPaneEventDeferral')
-make_head(_module, 'CredentialCommand')
-make_head(_module, 'IAccountsSettingsPane')
-make_head(_module, 'IAccountsSettingsPaneCommandsRequestedEventArgs')
-make_head(_module, 'IAccountsSettingsPaneCommandsRequestedEventArgs2')
-make_head(_module, 'IAccountsSettingsPaneEventDeferral')
-make_head(_module, 'IAccountsSettingsPaneStatics')
-make_head(_module, 'IAccountsSettingsPaneStatics2')
-make_head(_module, 'IAccountsSettingsPaneStatics3')
-make_head(_module, 'ICredentialCommand')
-make_head(_module, 'ICredentialCommandFactory')
-make_head(_module, 'ISettingsCommandFactory')
-make_head(_module, 'ISettingsCommandStatics')
-make_head(_module, 'ISettingsPane')
-make_head(_module, 'ISettingsPaneCommandsRequest')
-make_head(_module, 'ISettingsPaneCommandsRequestedEventArgs')
-make_head(_module, 'ISettingsPaneStatics')
-make_head(_module, 'IWebAccountCommand')
-make_head(_module, 'IWebAccountCommandFactory')
-make_head(_module, 'IWebAccountInvokedArgs')
-make_head(_module, 'IWebAccountProviderCommand')
-make_head(_module, 'IWebAccountProviderCommandFactory')
-make_head(_module, 'SettingsCommand')
-make_head(_module, 'SettingsPane')
-make_head(_module, 'SettingsPaneCommandsRequest')
-make_head(_module, 'SettingsPaneCommandsRequestedEventArgs')
-make_head(_module, 'WebAccountCommand')
-make_head(_module, 'WebAccountInvokedArgs')
-make_head(_module, 'WebAccountProviderCommand')
+make_ready(__name__)

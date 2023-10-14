@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Bluetooth
@@ -24,15 +24,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking.Sockets
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 BluetoothEventTriggeringMode = Int32
 BluetoothEventTriggeringMode_Serial: BluetoothEventTriggeringMode = 0
 BluetoothEventTriggeringMode_Batch: BluetoothEventTriggeringMode = 1
@@ -267,22 +258,4 @@ class RfcommOutboundConnectionInformation(ComPtr):
     @winrt_mixinmethod
     def put_RemoteServiceId(self: win32more.Windows.Devices.Bluetooth.Background.IRfcommOutboundConnectionInformation, value: win32more.Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId) -> Void: ...
     RemoteServiceId = property(get_RemoteServiceId, put_RemoteServiceId)
-make_head(_module, 'BluetoothLEAdvertisementPublisherTriggerDetails')
-make_head(_module, 'BluetoothLEAdvertisementWatcherTriggerDetails')
-make_head(_module, 'GattCharacteristicNotificationTriggerDetails')
-make_head(_module, 'GattServiceProviderConnection')
-make_head(_module, 'GattServiceProviderTriggerDetails')
-make_head(_module, 'IBluetoothLEAdvertisementPublisherTriggerDetails')
-make_head(_module, 'IBluetoothLEAdvertisementPublisherTriggerDetails2')
-make_head(_module, 'IBluetoothLEAdvertisementWatcherTriggerDetails')
-make_head(_module, 'IGattCharacteristicNotificationTriggerDetails')
-make_head(_module, 'IGattCharacteristicNotificationTriggerDetails2')
-make_head(_module, 'IGattServiceProviderConnection')
-make_head(_module, 'IGattServiceProviderConnectionStatics')
-make_head(_module, 'IGattServiceProviderTriggerDetails')
-make_head(_module, 'IRfcommConnectionTriggerDetails')
-make_head(_module, 'IRfcommInboundConnectionInformation')
-make_head(_module, 'IRfcommOutboundConnectionInformation')
-make_head(_module, 'RfcommConnectionTriggerDetails')
-make_head(_module, 'RfcommInboundConnectionInformation')
-make_head(_module, 'RfcommOutboundConnectionInformation')
+make_ready(__name__)

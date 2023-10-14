@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Networking
 import win32more.Windows.Networking.Connectivity
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 DomainNameType = Int32
 DomainNameType_Suffix: DomainNameType = 0
 DomainNameType_FullyQualified: DomainNameType = 1
@@ -154,10 +145,4 @@ class IHostNameStatics(ComPtr):
     _iid_ = Guid('{f68cd4bf-a388-4e8b-91ea-54dd6dd901c0}')
     @winrt_commethod(6)
     def Compare(self, value1: WinRT_String, value2: WinRT_String) -> Int32: ...
-make_head(_module, 'EndpointPair')
-make_head(_module, 'HostName')
-make_head(_module, 'IEndpointPair')
-make_head(_module, 'IEndpointPairFactory')
-make_head(_module, 'IHostName')
-make_head(_module, 'IHostNameFactory')
-make_head(_module, 'IHostNameStatics')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Geolocation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Services.Maps
 import win32more.Windows.UI.Popups
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class EnhancedWaypoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.IEnhancedWaypoint
@@ -945,53 +936,4 @@ TrafficCongestion_Heavy: TrafficCongestion = 4
 WaypointKind = Int32
 WaypointKind_Stop: WaypointKind = 0
 WaypointKind_Via: WaypointKind = 1
-make_head(_module, 'EnhancedWaypoint')
-make_head(_module, 'IEnhancedWaypoint')
-make_head(_module, 'IEnhancedWaypointFactory')
-make_head(_module, 'IManeuverWarning')
-make_head(_module, 'IMapAddress')
-make_head(_module, 'IMapAddress2')
-make_head(_module, 'IMapLocation')
-make_head(_module, 'IMapLocationFinderResult')
-make_head(_module, 'IMapLocationFinderStatics')
-make_head(_module, 'IMapLocationFinderStatics2')
-make_head(_module, 'IMapManagerStatics')
-make_head(_module, 'IMapRoute')
-make_head(_module, 'IMapRoute2')
-make_head(_module, 'IMapRoute3')
-make_head(_module, 'IMapRoute4')
-make_head(_module, 'IMapRouteDrivingOptions')
-make_head(_module, 'IMapRouteDrivingOptions2')
-make_head(_module, 'IMapRouteFinderResult')
-make_head(_module, 'IMapRouteFinderResult2')
-make_head(_module, 'IMapRouteFinderStatics')
-make_head(_module, 'IMapRouteFinderStatics2')
-make_head(_module, 'IMapRouteFinderStatics3')
-make_head(_module, 'IMapRouteLeg')
-make_head(_module, 'IMapRouteLeg2')
-make_head(_module, 'IMapRouteManeuver')
-make_head(_module, 'IMapRouteManeuver2')
-make_head(_module, 'IMapRouteManeuver3')
-make_head(_module, 'IMapServiceStatics')
-make_head(_module, 'IMapServiceStatics2')
-make_head(_module, 'IMapServiceStatics3')
-make_head(_module, 'IMapServiceStatics4')
-make_head(_module, 'IPlaceInfo')
-make_head(_module, 'IPlaceInfoCreateOptions')
-make_head(_module, 'IPlaceInfoStatics')
-make_head(_module, 'IPlaceInfoStatics2')
-make_head(_module, 'ManeuverWarning')
-make_head(_module, 'MapAddress')
-make_head(_module, 'MapLocation')
-make_head(_module, 'MapLocationFinder')
-make_head(_module, 'MapLocationFinderResult')
-make_head(_module, 'MapManager')
-make_head(_module, 'MapRoute')
-make_head(_module, 'MapRouteDrivingOptions')
-make_head(_module, 'MapRouteFinder')
-make_head(_module, 'MapRouteFinderResult')
-make_head(_module, 'MapRouteLeg')
-make_head(_module, 'MapRouteManeuver')
-make_head(_module, 'MapService')
-make_head(_module, 'PlaceInfo')
-make_head(_module, 'PlaceInfoCreateOptions')
+make_ready(__name__)

@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Playback
 import win32more.Windows.Media.Protection
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ComponentLoadFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IComponentLoadFailedEventArgs
@@ -71,7 +62,7 @@ class HdcpSession(ComPtr):
     @winrt_mixinmethod
     def SetDesiredMinProtectionAsync(self: win32more.Windows.Media.Protection.IHdcpSession, protection: win32more.Windows.Media.Protection.HdcpProtection) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Protection.HdcpSetProtectionResult]: ...
     @winrt_mixinmethod
-    def add_ProtectionChanged(self: win32more.Windows.Media.Protection.IHdcpSession, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.HdcpSession, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ProtectionChanged(self: win32more.Windows.Media.Protection.IHdcpSession, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.HdcpSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ProtectionChanged(self: win32more.Windows.Media.Protection.IHdcpSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -108,7 +99,7 @@ class IHdcpSession(ComPtr):
     @winrt_commethod(8)
     def SetDesiredMinProtectionAsync(self, protection: win32more.Windows.Media.Protection.HdcpProtection) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Protection.HdcpSetProtectionResult]: ...
     @winrt_commethod(9)
-    def add_ProtectionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.HdcpSession, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ProtectionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.HdcpSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ProtectionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IMediaProtectionManager(ComPtr):
@@ -326,26 +317,4 @@ class ServiceRequestedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d2d690ba-cac9-48e1-95c0-d38495a84055}')
     def Invoke(self, sender: win32more.Windows.Media.Protection.MediaProtectionManager, e: win32more.Windows.Media.Protection.ServiceRequestedEventArgs) -> Void: ...
-make_head(_module, 'ComponentLoadFailedEventArgs')
-make_head(_module, 'ComponentRenewal')
-make_head(_module, 'HdcpSession')
-make_head(_module, 'IComponentLoadFailedEventArgs')
-make_head(_module, 'IComponentRenewalStatics')
-make_head(_module, 'IHdcpSession')
-make_head(_module, 'IMediaProtectionManager')
-make_head(_module, 'IMediaProtectionPMPServer')
-make_head(_module, 'IMediaProtectionPMPServerFactory')
-make_head(_module, 'IMediaProtectionServiceCompletion')
-make_head(_module, 'IMediaProtectionServiceRequest')
-make_head(_module, 'IProtectionCapabilities')
-make_head(_module, 'IRevocationAndRenewalInformation')
-make_head(_module, 'IRevocationAndRenewalItem')
-make_head(_module, 'IServiceRequestedEventArgs')
-make_head(_module, 'IServiceRequestedEventArgs2')
-make_head(_module, 'MediaProtectionManager')
-make_head(_module, 'MediaProtectionPMPServer')
-make_head(_module, 'MediaProtectionServiceCompletion')
-make_head(_module, 'ProtectionCapabilities')
-make_head(_module, 'RevocationAndRenewalInformation')
-make_head(_module, 'RevocationAndRenewalItem')
-make_head(_module, 'ServiceRequestedEventArgs')
+make_ready(__name__)

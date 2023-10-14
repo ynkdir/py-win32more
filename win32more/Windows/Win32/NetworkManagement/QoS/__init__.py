@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
 import win32more.Windows.Win32.NetworkManagement.QoS
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.IO
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ADDRESS_LIST_DESCRIPTOR(EasyCastStructure):
     MediaType: UInt32
     AddressList: win32more.Windows.Win32.NetworkManagement.Ndis.NETWORK_ADDRESS_LIST
@@ -561,31 +552,31 @@ GUAR_ADSPARM_Dtot: Int32 = 134
 GUAR_ADSPARM_Csum: Int32 = 135
 GUAR_ADSPARM_Dsum: Int32 = 136
 @winfunctype('qwave.dll')
-def QOSCreateHandle(Version: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.QOS_VERSION_head), QOSHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QOSCreateHandle(Version: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.QOS_VERSION), QOSHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
 def QOSCloseHandle(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
-def QOSStartTrackingClient(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, DestAddr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_head), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QOSStartTrackingClient(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, DestAddr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
-def QOSStopTrackingClient(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, DestAddr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_head), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QOSStopTrackingClient(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, DestAddr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
 def QOSEnumerateFlows(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, Size: POINTER(UInt32), Buffer: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
-def QOSAddSocketToFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, Socket: win32more.Windows.Win32.Networking.WinSock.SOCKET, DestAddr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_head), TrafficType: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE, Flags: UInt32, FlowId: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QOSAddSocketToFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, Socket: win32more.Windows.Win32.Networking.WinSock.SOCKET, DestAddr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), TrafficType: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE, Flags: UInt32, FlowId: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
 def QOSRemoveSocketFromFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, Socket: win32more.Windows.Win32.Networking.WinSock.SOCKET, FlowId: UInt32, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
-def QOSSetFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, FlowId: UInt32, Operation: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SET_FLOW, Size: UInt32, Buffer: VoidPtr, Flags: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QOSSetFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, FlowId: UInt32, Operation: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SET_FLOW, Size: UInt32, Buffer: VoidPtr, Flags: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
-def QOSQueryFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, FlowId: UInt32, Operation: win32more.Windows.Win32.NetworkManagement.QoS.QOS_QUERY_FLOW, Size: POINTER(UInt32), Buffer: VoidPtr, Flags: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QOSQueryFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, FlowId: UInt32, Operation: win32more.Windows.Win32.NetworkManagement.QoS.QOS_QUERY_FLOW, Size: POINTER(UInt32), Buffer: VoidPtr, Flags: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
-def QOSNotifyFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, FlowId: UInt32, Operation: win32more.Windows.Win32.NetworkManagement.QoS.QOS_NOTIFY_FLOW, Size: POINTER(UInt32), Buffer: VoidPtr, Flags: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QOSNotifyFlow(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, FlowId: UInt32, Operation: win32more.Windows.Win32.NetworkManagement.QoS.QOS_NOTIFY_FLOW, Size: POINTER(UInt32), Buffer: VoidPtr, Flags: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('qwave.dll')
-def QOSCancel(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QOSCancel(QOSHandle: win32more.Windows.Win32.Foundation.HANDLE, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('TRAFFIC.dll')
-def TcRegisterClient(TciVersion: UInt32, ClRegCtx: win32more.Windows.Win32.Foundation.HANDLE, ClientHandlerList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TCI_CLIENT_FUNC_LIST_head), pClientHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def TcRegisterClient(TciVersion: UInt32, ClRegCtx: win32more.Windows.Win32.Foundation.HANDLE, ClientHandlerList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TCI_CLIENT_FUNC_LIST), pClientHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
-def TcEnumerateInterfaces(ClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pBufferSize: POINTER(UInt32), InterfaceBuffer: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_IFC_DESCRIPTOR_head)) -> UInt32: ...
+def TcEnumerateInterfaces(ClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pBufferSize: POINTER(UInt32), InterfaceBuffer: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_IFC_DESCRIPTOR)) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
 def TcOpenInterfaceA(pInterfaceName: win32more.Windows.Win32.Foundation.PSTR, ClientHandle: win32more.Windows.Win32.Foundation.HANDLE, ClIfcCtx: win32more.Windows.Win32.Foundation.HANDLE, pIfcHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
@@ -605,15 +596,15 @@ def TcSetFlowA(pFlowName: win32more.Windows.Win32.Foundation.PSTR, pGuidParam: P
 @winfunctype('TRAFFIC.dll')
 def TcSetFlowW(pFlowName: win32more.Windows.Win32.Foundation.PWSTR, pGuidParam: POINTER(Guid), BufferSize: UInt32, Buffer: VoidPtr) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
-def TcAddFlow(IfcHandle: win32more.Windows.Win32.Foundation.HANDLE, ClFlowCtx: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, pGenericFlow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FLOW_head), pFlowHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def TcAddFlow(IfcHandle: win32more.Windows.Win32.Foundation.HANDLE, ClFlowCtx: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, pGenericFlow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FLOW), pFlowHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
 def TcGetFlowNameA(FlowHandle: win32more.Windows.Win32.Foundation.HANDLE, StrSize: UInt32, pFlowName: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
 def TcGetFlowNameW(FlowHandle: win32more.Windows.Win32.Foundation.HANDLE, StrSize: UInt32, pFlowName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
-def TcModifyFlow(FlowHandle: win32more.Windows.Win32.Foundation.HANDLE, pGenericFlow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FLOW_head)) -> UInt32: ...
+def TcModifyFlow(FlowHandle: win32more.Windows.Win32.Foundation.HANDLE, pGenericFlow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FLOW)) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
-def TcAddFilter(FlowHandle: win32more.Windows.Win32.Foundation.HANDLE, pGenericFilter: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FILTER_head), pFilterHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def TcAddFilter(FlowHandle: win32more.Windows.Win32.Foundation.HANDLE, pGenericFilter: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FILTER), pFilterHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
 def TcDeregisterClient(ClientHandle: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
@@ -621,11 +612,11 @@ def TcDeleteFlow(FlowHandle: win32more.Windows.Win32.Foundation.HANDLE) -> UInt3
 @winfunctype('TRAFFIC.dll')
 def TcDeleteFilter(FilterHandle: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('TRAFFIC.dll')
-def TcEnumerateFlows(IfcHandle: win32more.Windows.Win32.Foundation.HANDLE, pEnumHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE), pFlowCount: POINTER(UInt32), pBufSize: POINTER(UInt32), Buffer: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.ENUMERATION_BUFFER_head)) -> UInt32: ...
+def TcEnumerateFlows(IfcHandle: win32more.Windows.Win32.Foundation.HANDLE, pEnumHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE), pFlowCount: POINTER(UInt32), pBufSize: POINTER(UInt32), Buffer: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.ENUMERATION_BUFFER)) -> UInt32: ...
 @winfunctype_pointer
-def CBADMITRESULT(LpmHandle: win32more.Windows.Win32.NetworkManagement.QoS.LPM_HANDLE, RequestHandle: win32more.Windows.Win32.NetworkManagement.QoS.RHANDLE, ulPcmActionFlags: UInt32, LpmError: Int32, PolicyDecisionsCount: Int32, pPolicyDecisions: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.POLICY_DECISION_head)) -> POINTER(UInt32): ...
+def CBADMITRESULT(LpmHandle: win32more.Windows.Win32.NetworkManagement.QoS.LPM_HANDLE, RequestHandle: win32more.Windows.Win32.NetworkManagement.QoS.RHANDLE, ulPcmActionFlags: UInt32, LpmError: Int32, PolicyDecisionsCount: Int32, pPolicyDecisions: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.POLICY_DECISION)) -> POINTER(UInt32): ...
 @winfunctype_pointer
-def CBGETRSVPOBJECTS(LpmHandle: win32more.Windows.Win32.NetworkManagement.QoS.LPM_HANDLE, RequestHandle: win32more.Windows.Win32.NetworkManagement.QoS.RHANDLE, LpmError: Int32, RsvpObjectsCount: Int32, ppRsvpObjects: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr_head))) -> POINTER(UInt32): ...
+def CBGETRSVPOBJECTS(LpmHandle: win32more.Windows.Win32.NetworkManagement.QoS.LPM_HANDLE, RequestHandle: win32more.Windows.Win32.NetworkManagement.QoS.RHANDLE, LpmError: Int32, RsvpObjectsCount: Int32, ppRsvpObjects: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr))) -> POINTER(UInt32): ...
 class CONTROL_SERVICE(EasyCastStructure):
     Length: UInt32
     Service: UInt32
@@ -643,7 +634,7 @@ class ENUMERATION_BUFFER(EasyCastStructure):
     OwnerProcessId: UInt32
     FlowNameLength: UInt16
     FlowName: Char * 256
-    pFlow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FLOW_head)
+    pFlow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FLOW)
     NumberOfFilters: UInt32
     GenericFilter: win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FILTER * 1
 class ERROR_SPEC(EasyCastStructure):
@@ -665,16 +656,16 @@ class FILTER_SPEC(EasyCastStructure):
 class FLOWDESCRIPTOR(EasyCastStructure):
     FlowSpec: win32more.Windows.Win32.Networking.WinSock.FLOWSPEC
     NumFilters: UInt32
-    FilterList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC_head)
+    FilterList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC)
 class FLOW_DESC(EasyCastStructure):
     u1: _u1_e__Union
     u2: _u2_e__Union
     class _u1_e__Union(EasyCastUnion):
-        stspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.SENDER_TSPEC_head)
-        isflow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.IS_FLOWSPEC_head)
+        stspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.SENDER_TSPEC)
+        isflow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.IS_FLOWSPEC)
     class _u2_e__Union(EasyCastUnion):
-        stemp: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FILTER_SPEC_head)
-        fspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FILTER_SPEC_head)
+        stemp: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FILTER_SPEC)
+        fspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FILTER_SPEC)
 FilterType = Int32
 FILTERSPECV4: FilterType = 1
 FILTERSPECV6: FilterType = 2
@@ -844,7 +835,7 @@ class POLICY_ELEMENT(EasyCastStructure):
     ucPeData: Byte * 4
 class QOS_DESTADDR(EasyCastStructure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
-    SocketAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_head)
+    SocketAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     SocketAddressLength: UInt32
 class QOS_DIFFSERV(EasyCastStructure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
@@ -977,17 +968,17 @@ class RSVP_HOP(EasyCastStructure):
         hop_ipv4: win32more.Windows.Win32.NetworkManagement.QoS.Rsvp_Hop_IPv4
 class RSVP_MSG_OBJS(EasyCastStructure):
     RsvpMsgType: Int32
-    pRsvpSession: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_SESSION_head)
-    pRsvpFromHop: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_HOP_head)
-    pRsvpToHop: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_HOP_head)
-    pResvStyle: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RESV_STYLE_head)
-    pRsvpScope: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_SCOPE_head)
+    pRsvpSession: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_SESSION)
+    pRsvpFromHop: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_HOP)
+    pRsvpToHop: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_HOP)
+    pResvStyle: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RESV_STYLE)
+    pRsvpScope: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_SCOPE)
     FlowDescCount: Int32
-    pFlowDescs: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FLOW_DESC_head)
+    pFlowDescs: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FLOW_DESC)
     PdObjectCount: Int32
-    ppPdObjects: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.QoS.POLICY_DATA_head))
-    pErrorSpec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.ERROR_SPEC_head)
-    pAdspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.ADSPEC_head)
+    ppPdObjects: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.QoS.POLICY_DATA))
+    pErrorSpec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.ERROR_SPEC)
+    pAdspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.ADSPEC)
 class RSVP_POLICY(EasyCastStructure):
     Len: UInt16
     Type: UInt16
@@ -1000,9 +991,9 @@ class RSVP_RESERVE_INFO(EasyCastStructure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     Style: UInt32
     ConfirmRequest: UInt32
-    PolicyElementList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_POLICY_INFO_head)
+    PolicyElementList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_POLICY_INFO)
     NumFlowDesc: UInt32
-    FlowDescList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FLOWDESCRIPTOR_head)
+    FlowDescList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FLOWDESCRIPTOR)
 class RSVP_SCOPE(EasyCastStructure):
     scopl_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     scope_u: _scope_u_e__Union
@@ -1144,104 +1135,4 @@ IS_WKP_MIN_LATENCY: int_serv_wkp = 8
 IS_WKP_COMPOSED_MTU: int_serv_wkp = 10
 IS_WKP_TB_TSPEC: int_serv_wkp = 127
 IS_WKP_Q_TSPEC: int_serv_wkp = 128
-make_head(_module, 'ADDRESS_LIST_DESCRIPTOR')
-make_head(_module, 'ADSPEC')
-make_head(_module, 'AD_GENERAL_PARAMS')
-make_head(_module, 'AD_GUARANTEED')
-make_head(_module, 'CBADMITRESULT')
-make_head(_module, 'CBGETRSVPOBJECTS')
-make_head(_module, 'CONTROL_SERVICE')
-make_head(_module, 'CtrlLoadFlowspec')
-make_head(_module, 'ENUMERATION_BUFFER')
-make_head(_module, 'ERROR_SPEC')
-make_head(_module, 'Error_Spec_IPv4')
-make_head(_module, 'FILTER_SPEC')
-make_head(_module, 'FLOWDESCRIPTOR')
-make_head(_module, 'FLOW_DESC')
-make_head(_module, 'Filter_Spec_IPv4')
-make_head(_module, 'Filter_Spec_IPv4GPI')
-make_head(_module, 'Gads_parms_t')
-make_head(_module, 'GenAdspecParams')
-make_head(_module, 'GenTspec')
-make_head(_module, 'GenTspecParms')
-make_head(_module, 'GuarFlowSpec')
-make_head(_module, 'GuarRspec')
-make_head(_module, 'HSP_UPGRADE_IMAGEDATA')
-make_head(_module, 'IDPE_ATTR')
-make_head(_module, 'ID_ERROR_OBJECT')
-make_head(_module, 'IN_ADDR_IPV4')
-make_head(_module, 'IN_ADDR_IPV6')
-make_head(_module, 'IPX_PATTERN')
-make_head(_module, 'IP_PATTERN')
-make_head(_module, 'IS_ADSPEC_BODY')
-make_head(_module, 'IS_FLOWSPEC')
-make_head(_module, 'IntServFlowSpec')
-make_head(_module, 'IntServMainHdr')
-make_head(_module, 'IntServParmHdr')
-make_head(_module, 'IntServServiceHdr')
-make_head(_module, 'IntServTspecBody')
-make_head(_module, 'LPMIPTABLE')
-make_head(_module, 'LPM_INIT_INFO')
-make_head(_module, 'PALLOCMEM')
-make_head(_module, 'PARAM_BUFFER')
-make_head(_module, 'PFREEMEM')
-make_head(_module, 'POLICY_DATA')
-make_head(_module, 'POLICY_DECISION')
-make_head(_module, 'POLICY_ELEMENT')
-make_head(_module, 'QOS_DESTADDR')
-make_head(_module, 'QOS_DIFFSERV')
-make_head(_module, 'QOS_DIFFSERV_RULE')
-make_head(_module, 'QOS_DS_CLASS')
-make_head(_module, 'QOS_FLOWRATE_OUTGOING')
-make_head(_module, 'QOS_FLOW_FUNDAMENTALS')
-make_head(_module, 'QOS_FRIENDLY_NAME')
-make_head(_module, 'QOS_OBJECT_HDR')
-make_head(_module, 'QOS_PACKET_PRIORITY')
-make_head(_module, 'QOS_SD_MODE')
-make_head(_module, 'QOS_SHAPING_RATE')
-make_head(_module, 'QOS_TCP_TRAFFIC')
-make_head(_module, 'QOS_TRAFFIC_CLASS')
-make_head(_module, 'QOS_VERSION')
-make_head(_module, 'QualAppFlowSpec')
-make_head(_module, 'QualTspec')
-make_head(_module, 'QualTspecParms')
-make_head(_module, 'RESV_STYLE')
-make_head(_module, 'RSVP_ADSPEC')
-make_head(_module, 'RSVP_FILTERSPEC')
-make_head(_module, 'RSVP_FILTERSPEC_V4')
-make_head(_module, 'RSVP_FILTERSPEC_V4_GPI')
-make_head(_module, 'RSVP_FILTERSPEC_V6')
-make_head(_module, 'RSVP_FILTERSPEC_V6_FLOW')
-make_head(_module, 'RSVP_FILTERSPEC_V6_GPI')
-make_head(_module, 'RSVP_HOP')
-make_head(_module, 'RSVP_MSG_OBJS')
-make_head(_module, 'RSVP_POLICY')
-make_head(_module, 'RSVP_POLICY_INFO')
-make_head(_module, 'RSVP_RESERVE_INFO')
-make_head(_module, 'RSVP_SCOPE')
-make_head(_module, 'RSVP_SESSION')
-make_head(_module, 'RSVP_STATUS_INFO')
-make_head(_module, 'RsvpObjHdr')
-make_head(_module, 'Rsvp_Hop_IPv4')
-make_head(_module, 'SENDER_TSPEC')
-make_head(_module, 'SIPAEVENT_KSR_SIGNATURE_PAYLOAD')
-make_head(_module, 'SIPAEVENT_REVOCATION_LIST_PAYLOAD')
-make_head(_module, 'SIPAEVENT_SBCP_INFO_PAYLOAD_V1')
-make_head(_module, 'SIPAEVENT_SI_POLICY_PAYLOAD')
-make_head(_module, 'SIPAEVENT_VSM_IDK_INFO_PAYLOAD')
-make_head(_module, 'SIPAEVENT_VSM_IDK_RSA_INFO')
-make_head(_module, 'Scope_list_ipv4')
-make_head(_module, 'Session_IPv4')
-make_head(_module, 'TCG_PCClientPCREventStruct')
-make_head(_module, 'TCG_PCClientTaggedEventStruct')
-make_head(_module, 'TCI_ADD_FLOW_COMPLETE_HANDLER')
-make_head(_module, 'TCI_CLIENT_FUNC_LIST')
-make_head(_module, 'TCI_DEL_FLOW_COMPLETE_HANDLER')
-make_head(_module, 'TCI_MOD_FLOW_COMPLETE_HANDLER')
-make_head(_module, 'TCI_NOTIFY_HANDLER')
-make_head(_module, 'TC_GEN_FILTER')
-make_head(_module, 'TC_GEN_FLOW')
-make_head(_module, 'TC_IFC_DESCRIPTOR')
-make_head(_module, 'TC_SUPPORTED_INFO_BUFFER')
-make_head(_module, 'WBCL_Iterator')
-make_head(_module, 'WBCL_LogHdr')
+make_ready(__name__)

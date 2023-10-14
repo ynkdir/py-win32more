@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Services.TargetedContent
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ITargetedContentAction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentAction'
@@ -532,32 +523,4 @@ TargetedContentValueKind_Booleans: TargetedContentValueKind = 10
 TargetedContentValueKind_Files: TargetedContentValueKind = 11
 TargetedContentValueKind_ImageFiles: TargetedContentValueKind = 12
 TargetedContentValueKind_Actions: TargetedContentValueKind = 13
-make_head(_module, 'ITargetedContentAction')
-make_head(_module, 'ITargetedContentAvailabilityChangedEventArgs')
-make_head(_module, 'ITargetedContentChangedEventArgs')
-make_head(_module, 'ITargetedContentCollection')
-make_head(_module, 'ITargetedContentContainer')
-make_head(_module, 'ITargetedContentContainerStatics')
-make_head(_module, 'ITargetedContentImage')
-make_head(_module, 'ITargetedContentItem')
-make_head(_module, 'ITargetedContentItemState')
-make_head(_module, 'ITargetedContentObject')
-make_head(_module, 'ITargetedContentStateChangedEventArgs')
-make_head(_module, 'ITargetedContentSubscription')
-make_head(_module, 'ITargetedContentSubscriptionOptions')
-make_head(_module, 'ITargetedContentSubscriptionStatics')
-make_head(_module, 'ITargetedContentValue')
-make_head(_module, 'TargetedContentAction')
-make_head(_module, 'TargetedContentAvailabilityChangedEventArgs')
-make_head(_module, 'TargetedContentChangedEventArgs')
-make_head(_module, 'TargetedContentCollection')
-make_head(_module, 'TargetedContentContainer')
-make_head(_module, 'TargetedContentFile')
-make_head(_module, 'TargetedContentImage')
-make_head(_module, 'TargetedContentItem')
-make_head(_module, 'TargetedContentItemState')
-make_head(_module, 'TargetedContentObject')
-make_head(_module, 'TargetedContentStateChangedEventArgs')
-make_head(_module, 'TargetedContentSubscription')
-make_head(_module, 'TargetedContentSubscriptionOptions')
-make_head(_module, 'TargetedContentValue')
+make_ready(__name__)

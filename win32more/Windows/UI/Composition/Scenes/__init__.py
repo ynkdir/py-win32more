@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Graphics.DirectX
 import win32more.Windows.UI.Composition
 import win32more.Windows.UI.Composition.Scenes
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ISceneBoundingBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Composition.Scenes.ISceneBoundingBox'
@@ -687,49 +678,4 @@ SceneWrappingMode = Int32
 SceneWrappingMode_ClampToEdge: SceneWrappingMode = 0
 SceneWrappingMode_MirroredRepeat: SceneWrappingMode = 1
 SceneWrappingMode_Repeat: SceneWrappingMode = 2
-make_head(_module, 'ISceneBoundingBox')
-make_head(_module, 'ISceneComponent')
-make_head(_module, 'ISceneComponentCollection')
-make_head(_module, 'ISceneComponentFactory')
-make_head(_module, 'ISceneMaterial')
-make_head(_module, 'ISceneMaterialFactory')
-make_head(_module, 'ISceneMaterialInput')
-make_head(_module, 'ISceneMaterialInputFactory')
-make_head(_module, 'ISceneMesh')
-make_head(_module, 'ISceneMeshMaterialAttributeMap')
-make_head(_module, 'ISceneMeshRendererComponent')
-make_head(_module, 'ISceneMeshRendererComponentStatics')
-make_head(_module, 'ISceneMeshStatics')
-make_head(_module, 'ISceneMetallicRoughnessMaterial')
-make_head(_module, 'ISceneMetallicRoughnessMaterialStatics')
-make_head(_module, 'ISceneModelTransform')
-make_head(_module, 'ISceneNode')
-make_head(_module, 'ISceneNodeCollection')
-make_head(_module, 'ISceneNodeStatics')
-make_head(_module, 'ISceneObject')
-make_head(_module, 'ISceneObjectFactory')
-make_head(_module, 'IScenePbrMaterial')
-make_head(_module, 'IScenePbrMaterialFactory')
-make_head(_module, 'ISceneRendererComponent')
-make_head(_module, 'ISceneRendererComponentFactory')
-make_head(_module, 'ISceneSurfaceMaterialInput')
-make_head(_module, 'ISceneSurfaceMaterialInputStatics')
-make_head(_module, 'ISceneVisual')
-make_head(_module, 'ISceneVisualStatics')
-make_head(_module, 'SceneBoundingBox')
-make_head(_module, 'SceneComponent')
-make_head(_module, 'SceneComponentCollection')
-make_head(_module, 'SceneMaterial')
-make_head(_module, 'SceneMaterialInput')
-make_head(_module, 'SceneMesh')
-make_head(_module, 'SceneMeshMaterialAttributeMap')
-make_head(_module, 'SceneMeshRendererComponent')
-make_head(_module, 'SceneMetallicRoughnessMaterial')
-make_head(_module, 'SceneModelTransform')
-make_head(_module, 'SceneNode')
-make_head(_module, 'SceneNodeCollection')
-make_head(_module, 'SceneObject')
-make_head(_module, 'ScenePbrMaterial')
-make_head(_module, 'SceneRendererComponent')
-make_head(_module, 'SceneSurfaceMaterialInput')
-make_head(_module, 'SceneVisual')
+make_ready(__name__)

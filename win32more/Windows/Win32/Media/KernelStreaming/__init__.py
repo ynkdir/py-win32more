@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
@@ -8,15 +8,6 @@ import win32more.Windows.Win32.Media.DirectShow
 import win32more.Windows.Win32.Media.KernelStreaming
 import win32more.Windows.Win32.Media.MediaFoundation
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ALLOCATOR_PROPERTIES_EX(EasyCastStructure):
     cBuffers: Int32
     cbBuffer: Int32
@@ -34,9 +25,9 @@ class ALLOCATOR_PROPERTIES_EX(EasyCastStructure):
     AllocatorPlace: win32more.Windows.Win32.Media.KernelStreaming.PIPE_ALLOCATOR_PLACE
     Dimensions: win32more.Windows.Win32.Media.KernelStreaming.PIPE_DIMENSIONS
     PhysicalRange: win32more.Windows.Win32.Media.KernelStreaming.KS_FRAMING_RANGE
-    PrevSegment: win32more.Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head
+    PrevSegment: win32more.Windows.Win32.Media.KernelStreaming.IKsAllocatorEx
     CountNextSegments: UInt32
-    NextSegments: POINTER(win32more.Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head)
+    NextSegments: POINTER(win32more.Windows.Win32.Media.KernelStreaming.IKsAllocatorEx)
     InsideFactors: UInt32
     NumberPins: UInt32
 APO_CLASS_UUID = Guid('{5989fce8-9cd0-467d-8a6a-5419e31529d4}')
@@ -725,23 +716,23 @@ PipeFactor_PhysicalEnd: UInt32 = 1024
 PipeFactor_LogicalEnd: UInt32 = 2048
 KSPROPERTY_MEMORY_TRANSPORT: Int32 = 1
 @winfunctype('ksuser.dll')
-def KsCreateAllocator(ConnectionHandle: win32more.Windows.Win32.Foundation.HANDLE, AllocatorFraming: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_head), AllocatorHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def KsCreateAllocator(ConnectionHandle: win32more.Windows.Win32.Foundation.HANDLE, AllocatorFraming: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING), AllocatorHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('ksuser.dll')
-def KsCreateClock(ConnectionHandle: win32more.Windows.Win32.Foundation.HANDLE, ClockCreate: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCLOCK_CREATE_head), ClockHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def KsCreateClock(ConnectionHandle: win32more.Windows.Win32.Foundation.HANDLE, ClockCreate: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCLOCK_CREATE), ClockHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('ksuser.dll')
-def KsCreatePin(FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, Connect: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSPIN_CONNECT_head), DesiredAccess: UInt32, ConnectionHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def KsCreatePin(FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, Connect: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSPIN_CONNECT), DesiredAccess: UInt32, ConnectionHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('ksuser.dll')
-def KsCreateTopologyNode(ParentHandle: win32more.Windows.Win32.Foundation.HANDLE, NodeCreate: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSNODE_CREATE_head), DesiredAccess: UInt32, NodeHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def KsCreateTopologyNode(ParentHandle: win32more.Windows.Win32.Foundation.HANDLE, NodeCreate: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSNODE_CREATE), DesiredAccess: UInt32, NodeHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('ksuser.dll')
-def KsCreateAllocator2(ConnectionHandle: win32more.Windows.Win32.Foundation.HANDLE, AllocatorFraming: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_head), AllocatorHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def KsCreateAllocator2(ConnectionHandle: win32more.Windows.Win32.Foundation.HANDLE, AllocatorFraming: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING), AllocatorHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksuser.dll')
-def KsCreateClock2(ConnectionHandle: win32more.Windows.Win32.Foundation.HANDLE, ClockCreate: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCLOCK_CREATE_head), ClockHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def KsCreateClock2(ConnectionHandle: win32more.Windows.Win32.Foundation.HANDLE, ClockCreate: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCLOCK_CREATE), ClockHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksuser.dll')
-def KsCreatePin2(FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, Connect: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSPIN_CONNECT_head), DesiredAccess: UInt32, ConnectionHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def KsCreatePin2(FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, Connect: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSPIN_CONNECT), DesiredAccess: UInt32, ConnectionHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksuser.dll')
-def KsCreateTopologyNode2(ParentHandle: win32more.Windows.Win32.Foundation.HANDLE, NodeCreate: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSNODE_CREATE_head), DesiredAccess: UInt32, NodeHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def KsCreateTopologyNode2(ParentHandle: win32more.Windows.Win32.Foundation.HANDLE, NodeCreate: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSNODE_CREATE), DesiredAccess: UInt32, NodeHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
-def KsResolveRequiredAttributes(DataRange: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head), Attributes: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def KsResolveRequiredAttributes(DataRange: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT), Attributes: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
 def KsOpenDefaultDevice(Category: POINTER(Guid), Access: UInt32, DeviceHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
@@ -751,7 +742,7 @@ def KsGetMultiplePinFactoryItems(FilterHandle: win32more.Windows.Win32.Foundatio
 @winfunctype('ksproxy.ax')
 def KsGetMediaTypeCount(FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, MediaTypeCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksproxy.ax')
-def KsGetMediaType(Position: Int32, AmMediaType: POINTER(win32more.Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head), FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def KsGetMediaType(Position: Int32, AmMediaType: POINTER(win32more.Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE), FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 BLUETOOTHLE_MIDI_SERVICE_UUID = Guid('{03b80e5a-ede8-4b33-a751-6ce34ec4c700}')
 BLUETOOTH_MIDI_DATAIO_CHARACTERISTIC = Guid('{7772e5db-3868-4112-a1a9-f2669d106bf3}')
 CAPTURE_MEMORY_ALLOCATION_FLAGS = Int32
@@ -886,20 +877,20 @@ class IKsAllocator(ComPtr):
     @commethod(4)
     def KsGetAllocatorMode(self) -> win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATORMODE: ...
     @commethod(5)
-    def KsGetAllocatorStatus(self, AllocatorStatus: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTREAMALLOCATOR_STATUS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsGetAllocatorStatus(self, AllocatorStatus: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTREAMALLOCATOR_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def KsSetAllocatorMode(self, Mode: win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATORMODE) -> Void: ...
 class IKsAllocatorEx(ComPtr):
     extends: win32more.Windows.Win32.Media.KernelStreaming.IKsAllocator
     _iid_ = Guid('{091bb63a-603f-11d1-b067-00a0c9062802}')
     @commethod(7)
-    def KsGetProperties(self) -> POINTER(win32more.Windows.Win32.Media.KernelStreaming.ALLOCATOR_PROPERTIES_EX_head): ...
+    def KsGetProperties(self) -> POINTER(win32more.Windows.Win32.Media.KernelStreaming.ALLOCATOR_PROPERTIES_EX): ...
     @commethod(8)
-    def KsSetProperties(self, param0: POINTER(win32more.Windows.Win32.Media.KernelStreaming.ALLOCATOR_PROPERTIES_EX_head)) -> Void: ...
+    def KsSetProperties(self, param0: POINTER(win32more.Windows.Win32.Media.KernelStreaming.ALLOCATOR_PROPERTIES_EX)) -> Void: ...
     @commethod(9)
     def KsSetAllocatorHandle(self, AllocatorHandle: win32more.Windows.Win32.Foundation.HANDLE) -> Void: ...
     @commethod(10)
-    def KsCreateAllocatorAndGetHandle(self, KsPin: win32more.Windows.Win32.Media.KernelStreaming.IKsPin_head) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+    def KsCreateAllocatorAndGetHandle(self, KsPin: win32more.Windows.Win32.Media.KernelStreaming.IKsPin) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 class IKsClockPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5c5cbd84-e755-11d0-ac18-00a0c9223196}')
@@ -912,60 +903,60 @@ class IKsClockPropertySet(ComPtr):
     @commethod(6)
     def KsSetPhysicalTime(self, Time: Int64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def KsGetCorrelatedTime(self, CorrelatedTime: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsGetCorrelatedTime(self, CorrelatedTime: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def KsSetCorrelatedTime(self, CorrelatedTime: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsSetCorrelatedTime(self, CorrelatedTime: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def KsGetCorrelatedPhysicalTime(self, CorrelatedTime: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsGetCorrelatedPhysicalTime(self, CorrelatedTime: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def KsSetCorrelatedPhysicalTime(self, CorrelatedTime: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsSetCorrelatedPhysicalTime(self, CorrelatedTime: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def KsGetResolution(self, Resolution: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSRESOLUTION_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsGetResolution(self, Resolution: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSRESOLUTION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def KsGetState(self, State: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTATE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsControl(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{28f54685-06fd-11d2-b27a-00a0c9223196}')
     @commethod(3)
-    def KsProperty(self, Property: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), PropertyLength: UInt32, PropertyData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsProperty(self, Property: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER), PropertyLength: UInt32, PropertyData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def KsMethod(self, Method: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), MethodLength: UInt32, MethodData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsMethod(self, Method: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER), MethodLength: UInt32, MethodData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def KsEvent(self, Event: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), EventLength: UInt32, EventData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsEvent(self, Event: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER), EventLength: UInt32, EventData: VoidPtr, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsDataTypeCompletion(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{827d1a0e-0f73-11d2-b27a-00a0c9223196}')
     @commethod(3)
-    def KsCompleteMediaType(self, FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, AmMediaType: POINTER(win32more.Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsCompleteMediaType(self, FilterHandle: win32more.Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, AmMediaType: POINTER(win32more.Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsDataTypeHandler(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5ffbaa02-49a3-11d0-9f36-00aa00a216a1}')
     @commethod(3)
-    def KsCompleteIoOperation(self, Sample: win32more.Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: VoidPtr, IoOperation: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION, Cancelled: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsCompleteIoOperation(self, Sample: win32more.Windows.Win32.Media.DirectShow.IMediaSample, StreamHeader: VoidPtr, IoOperation: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION, Cancelled: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def KsIsMediaTypeInRanges(self, DataRanges: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def KsPrepareIoOperation(self, Sample: win32more.Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: VoidPtr, IoOperation: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsPrepareIoOperation(self, Sample: win32more.Windows.Win32.Media.DirectShow.IMediaSample, StreamHeader: VoidPtr, IoOperation: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def KsQueryExtendedSize(self, ExtendedSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def KsSetMediaType(self, AmMediaType: POINTER(win32more.Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsSetMediaType(self, AmMediaType: POINTER(win32more.Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsFormatSupport(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3cb4a69d-bb6f-4d2b-95b7-452d2c155db5}')
     @commethod(3)
-    def IsFormatSupported(self, pKsFormat: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head), cbFormat: UInt32, pbSupported: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsFormatSupported(self, pKsFormat: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT), cbFormat: UInt32, pbSupported: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetDevicePreferredFormat(self, ppKsFormat: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDevicePreferredFormat(self, ppKsFormat: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsInterfaceHandler(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d3abc7e0-9a61-11d0-a40d-00a0c9223196}')
     @commethod(3)
-    def KsSetPin(self, KsPin: win32more.Windows.Win32.Media.KernelStreaming.IKsPin_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsSetPin(self, KsPin: win32more.Windows.Win32.Media.KernelStreaming.IKsPin) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def KsProcessMediaSamples(self, KsDataTypeHandler: win32more.Windows.Win32.Media.KernelStreaming.IKsDataTypeHandler_head, SampleList: POINTER(win32more.Windows.Win32.Media.DirectShow.IMediaSample_head), SampleCount: POINTER(Int32), IoOperation: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION, StreamSegment: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsProcessMediaSamples(self, KsDataTypeHandler: win32more.Windows.Win32.Media.KernelStreaming.IKsDataTypeHandler, SampleList: POINTER(win32more.Windows.Win32.Media.DirectShow.IMediaSample), SampleCount: POINTER(Int32), IoOperation: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION, StreamSegment: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def KsCompleteIo(self, StreamSegment: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsCompleteIo(self, StreamSegment: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsJackContainerId(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c99af463-d629-4ec4-8c00-e54d68154248}')
@@ -977,26 +968,26 @@ class IKsJackDescription(ComPtr):
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetJackDescription(self, nJack: UInt32, pDescription: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetJackDescription(self, nJack: UInt32, pDescription: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsJackDescription2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{478f3a9b-e0c9-4827-9228-6f5505ffe76a}')
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetJackDescription2(self, nJack: UInt32, pDescription2: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION2_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetJackDescription2(self, nJack: UInt32, pDescription2: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION2)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsJackDescription3(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e3f6778b-6660-4cc8-a291-ecc4192d9967}')
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetJackDescription3(self, nJack: UInt32, pDescription3: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION3_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetJackDescription3(self, nJack: UInt32, pDescription3: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION3)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsJackSinkInformation(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d9bd72ed-290f-4581-9ff3-61027a8fe532}')
     @commethod(3)
-    def GetJackSinkInformation(self, pJackSinkInformation: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_SINK_INFORMATION_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetJackSinkInformation(self, pJackSinkInformation: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSJACK_SINK_INFORMATION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsNodeControl(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{11737c14-24a7-4bb5-81a0-0d003813b0c4}')
@@ -1018,23 +1009,23 @@ class IKsPin(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b61178d1-a2d9-11cf-9e53-00aa00a216a1}')
     @commethod(3)
-    def KsQueryMediums(self, MediumList: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsQueryMediums(self, MediumList: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def KsQueryInterfaces(self, InterfaceList: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsQueryInterfaces(self, InterfaceList: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def KsCreateSinkPinHandle(self, Interface: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), Medium: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsCreateSinkPinHandle(self, Interface: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER), Medium: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def KsGetCurrentCommunication(self, Communication: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSPIN_COMMUNICATION), Interface: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), Medium: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsGetCurrentCommunication(self, Communication: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSPIN_COMMUNICATION), Interface: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER), Medium: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def KsPropagateAcquire(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def KsDeliver(self, Sample: win32more.Windows.Win32.Media.DirectShow.IMediaSample_head, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsDeliver(self, Sample: win32more.Windows.Win32.Media.DirectShow.IMediaSample, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def KsMediaSamplesCompleted(self, StreamSegment: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsMediaSamplesCompleted(self, StreamSegment: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def KsPeekAllocator(self, Operation: win32more.Windows.Win32.Media.KernelStreaming.KSPEEKOPERATION) -> win32more.Windows.Win32.Media.DirectShow.IMemAllocator_head: ...
+    def KsPeekAllocator(self, Operation: win32more.Windows.Win32.Media.KernelStreaming.KSPEEKOPERATION) -> win32more.Windows.Win32.Media.DirectShow.IMemAllocator: ...
     @commethod(11)
-    def KsReceiveAllocator(self, MemAllocator: win32more.Windows.Win32.Media.DirectShow.IMemAllocator_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsReceiveAllocator(self, MemAllocator: win32more.Windows.Win32.Media.DirectShow.IMemAllocator) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def KsRenegotiateAllocator(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1047,7 +1038,7 @@ class IKsPinEx(ComPtr):
     extends: win32more.Windows.Win32.Media.KernelStreaming.IKsPin
     _iid_ = Guid('{7bb38260-d19c-11d2-b38a-00a0c95ec22e}')
     @commethod(16)
-    def KsNotifyError(self, Sample: win32more.Windows.Win32.Media.DirectShow.IMediaSample_head, hr: win32more.Windows.Win32.Foundation.HRESULT) -> Void: ...
+    def KsNotifyError(self, Sample: win32more.Windows.Win32.Media.DirectShow.IMediaSample, hr: win32more.Windows.Win32.Foundation.HRESULT) -> Void: ...
 class IKsPinFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{cd5ebe6b-8b6e-11d1-8ae0-00a0c9223196}')
@@ -1057,15 +1048,15 @@ class IKsPinPipe(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e539cd90-a8b4-11d1-8189-00a0c9062802}')
     @commethod(3)
-    def KsGetPinFramingCache(self, FramingEx: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX_head)), FramingProp: POINTER(win32more.Windows.Win32.Media.KernelStreaming.FRAMING_PROP), Option: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsGetPinFramingCache(self, FramingEx: POINTER(POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX)), FramingProp: POINTER(win32more.Windows.Win32.Media.KernelStreaming.FRAMING_PROP), Option: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def KsSetPinFramingCache(self, FramingEx: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX_head), FramingProp: POINTER(win32more.Windows.Win32.Media.KernelStreaming.FRAMING_PROP), Option: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsSetPinFramingCache(self, FramingEx: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX), FramingProp: POINTER(win32more.Windows.Win32.Media.KernelStreaming.FRAMING_PROP), Option: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def KsGetConnectedPin(self) -> win32more.Windows.Win32.Media.DirectShow.IPin_head: ...
+    def KsGetConnectedPin(self) -> win32more.Windows.Win32.Media.DirectShow.IPin: ...
     @commethod(6)
-    def KsGetPipe(self, Operation: win32more.Windows.Win32.Media.KernelStreaming.KSPEEKOPERATION) -> win32more.Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head: ...
+    def KsGetPipe(self, Operation: win32more.Windows.Win32.Media.KernelStreaming.KSPEEKOPERATION) -> win32more.Windows.Win32.Media.KernelStreaming.IKsAllocatorEx: ...
     @commethod(7)
-    def KsSetPipe(self, KsAllocator: win32more.Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def KsSetPipe(self, KsAllocator: win32more.Windows.Win32.Media.KernelStreaming.IKsAllocatorEx) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def KsGetPipeAllocatorFlag(self) -> UInt32: ...
     @commethod(9)
@@ -1091,12 +1082,12 @@ class IKsQualityForwarder(ComPtr):
     extends: win32more.Windows.Win32.Media.KernelStreaming.IKsObject
     _iid_ = Guid('{97ebaacb-95bd-11d0-a3ea-00a0c9223196}')
     @commethod(4)
-    def KsFlushClient(self, Pin: win32more.Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Void: ...
+    def KsFlushClient(self, Pin: win32more.Windows.Win32.Media.KernelStreaming.IKsPin) -> Void: ...
 class IKsTopology(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{28f54683-06fd-11d2-b27a-00a0c9223196}')
     @commethod(3)
-    def CreateNodeInstance(self, NodeId: UInt32, Flags: UInt32, DesiredAccess: UInt32, UnkOuter: win32more.Windows.Win32.System.Com.IUnknown_head, InterfaceId: POINTER(Guid), Interface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateNodeInstance(self, NodeId: UInt32, Flags: UInt32, DesiredAccess: UInt32, UnkOuter: win32more.Windows.Win32.System.Com.IUnknown, InterfaceId: POINTER(Guid), Interface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IKsTopologyInfo(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{720d4ac0-7533-11d0-a5d6-28db04c10000}')
@@ -1107,7 +1098,7 @@ class IKsTopologyInfo(ComPtr):
     @commethod(5)
     def get_NumConnections(self, pdwNumConnections: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def get_ConnectionInfo(self, dwIndex: UInt32, pConnectionInfo: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSTOPOLOGY_CONNECTION_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_ConnectionInfo(self, dwIndex: UInt32, pConnectionInfo: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSTOPOLOGY_CONNECTION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def get_NodeName(self, dwNodeId: UInt32, pwchNodeName: win32more.Windows.Win32.Foundation.PWSTR, dwBufSize: UInt32, pdwNameLen: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1574,12 +1565,12 @@ class KSCAMERA_PROFILE_CONCURRENCYINFO(EasyCastStructure):
     ReferenceGuid: Guid
     Reserved: UInt32
     ProfileCount: UInt32
-    Profiles: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_INFO_head)
+    Profiles: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_INFO)
 class KSCAMERA_PROFILE_INFO(EasyCastStructure):
     ProfileId: Guid
     Index: UInt32
     PinCount: UInt32
-    Pins: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_PININFO_head)
+    Pins: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_PININFO)
 class KSCAMERA_PROFILE_MEDIAINFO(EasyCastStructure):
     Resolution: _Resolution_e__Struct
     MaxFrameRate: _MaxFrameRate_e__Struct
@@ -1598,7 +1589,7 @@ class KSCAMERA_PROFILE_PININFO(EasyCastStructure):
     PinCategory: Guid
     Anonymous: _Anonymous_e__Union
     MediaInfoCount: UInt32
-    MediaInfos: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_MEDIAINFO_head)
+    MediaInfos: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_MEDIAINFO)
     class _Anonymous_e__Union(EasyCastUnion):
         Anonymous: _Anonymous_e__Struct
         Reserved: UInt32
@@ -1808,7 +1799,7 @@ class KSDEVICE_PROFILE_INFO(EasyCastStructure):
             Info: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_INFO
             Reserved: UInt32
             ConcurrencyCount: UInt32
-            Concurrency: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_CONCURRENCYINFO_head)
+            Concurrency: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_CONCURRENCYINFO)
 KSDEVICE_THERMAL_STATE = Int32
 KSDEVICE_THERMAL_STATE_LOW: KSDEVICE_THERMAL_STATE = 0
 KSDEVICE_THERMAL_STATE_HIGH: KSDEVICE_THERMAL_STATE = 1
@@ -3359,7 +3350,7 @@ class KSQUALITY_MANAGER(EasyCastStructure):
     Context: VoidPtr
 class KSQUERYBUFFER(EasyCastStructure):
     Event: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
-    EventData: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSEVENTDATA_head)
+    EventData: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSEVENTDATA)
     Reserved: VoidPtr
 class KSRATE(EasyCastStructure):
     PresentationStart: Int64
@@ -3501,8 +3492,8 @@ class KSSTREAM_METADATA_INFO(EasyCastStructure):
     Flags: UInt32
     Reserved: UInt32
 class KSSTREAM_SEGMENT(EasyCastStructure):
-    KsInterfaceHandler: win32more.Windows.Win32.Media.KernelStreaming.IKsInterfaceHandler_head
-    KsDataTypeHandler: win32more.Windows.Win32.Media.KernelStreaming.IKsDataTypeHandler_head
+    KsInterfaceHandler: win32more.Windows.Win32.Media.KernelStreaming.IKsInterfaceHandler
+    KsDataTypeHandler: win32more.Windows.Win32.Media.KernelStreaming.IKsDataTypeHandler
     IoOperation: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION
     CompletionEvent: win32more.Windows.Win32.Foundation.HANDLE
 class KSSTREAM_UVC_METADATA(EasyCastStructure):
@@ -3543,7 +3534,7 @@ class KSTOPOLOGY(EasyCastStructure):
     TopologyNodesCount: UInt32
     TopologyNodes: POINTER(Guid)
     TopologyConnectionsCount: UInt32
-    TopologyConnections: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSTOPOLOGY_CONNECTION_head)
+    TopologyConnections: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSTOPOLOGY_CONNECTION)
     TopologyNodesNames: POINTER(Guid)
     Reserved: UInt32
 class KSTOPOLOGY_CONNECTION(EasyCastStructure):
@@ -4375,7 +4366,7 @@ class VRAM_SURFACE_INFO(EasyCastStructure):
     ullReserved: UInt64 * 16
 class VRAM_SURFACE_INFO_PROPERTY_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
-    pVramSurfaceInfo: POINTER(win32more.Windows.Win32.Media.KernelStreaming.VRAM_SURFACE_INFO_head)
+    pVramSurfaceInfo: POINTER(win32more.Windows.Win32.Media.KernelStreaming.VRAM_SURFACE_INFO)
 class WNF_KSCAMERA_STREAMSTATE_INFO(EasyCastStructure):
     ProcessId: UInt32
     SessionId: UInt32
@@ -4387,382 +4378,4 @@ class WST_BUFFER(EasyCastStructure):
 class WST_BUFFER_LINE(EasyCastStructure):
     Confidence: Byte
     Bytes: Byte * 42
-make_head(_module, 'ALLOCATOR_PROPERTIES_EX')
-make_head(_module, 'AUDIORESOURCEMANAGEMENT_RESOURCEGROUP')
-make_head(_module, 'DEVPKEY_KsAudio_PacketSize_Constraints')
-make_head(_module, 'DEVPKEY_KsAudio_Controller_DeviceInterface_Path')
-make_head(_module, 'DEVPKEY_KsAudio_PacketSize_Constraints2')
-make_head(_module, 'CC_BYTE_PAIR')
-make_head(_module, 'CC_HW_FIELD')
-make_head(_module, 'DEVCAPS')
-make_head(_module, 'DS3DVECTOR')
-make_head(_module, 'IKsAggregateControl')
-make_head(_module, 'IKsAllocator')
-make_head(_module, 'IKsAllocatorEx')
-make_head(_module, 'IKsClockPropertySet')
-make_head(_module, 'IKsControl')
-make_head(_module, 'IKsDataTypeCompletion')
-make_head(_module, 'IKsDataTypeHandler')
-make_head(_module, 'IKsFormatSupport')
-make_head(_module, 'IKsInterfaceHandler')
-make_head(_module, 'IKsJackContainerId')
-make_head(_module, 'IKsJackDescription')
-make_head(_module, 'IKsJackDescription2')
-make_head(_module, 'IKsJackDescription3')
-make_head(_module, 'IKsJackSinkInformation')
-make_head(_module, 'IKsNodeControl')
-make_head(_module, 'IKsNotifyEvent')
-make_head(_module, 'IKsObject')
-make_head(_module, 'IKsPin')
-make_head(_module, 'IKsPinEx')
-make_head(_module, 'IKsPinFactory')
-make_head(_module, 'IKsPinPipe')
-make_head(_module, 'IKsPropertySet')
-make_head(_module, 'IKsQualityForwarder')
-make_head(_module, 'IKsTopology')
-make_head(_module, 'IKsTopologyInfo')
-make_head(_module, 'INTERLEAVED_AUDIO_FORMAT_INFORMATION')
-make_head(_module, 'KSAC3_ALTERNATE_AUDIO')
-make_head(_module, 'KSAC3_BIT_STREAM_MODE')
-make_head(_module, 'KSAC3_DIALOGUE_LEVEL')
-make_head(_module, 'KSAC3_DOWNMIX')
-make_head(_module, 'KSAC3_ERROR_CONCEALMENT')
-make_head(_module, 'KSAC3_ROOM_TYPE')
-make_head(_module, 'KSALLOCATOR_FRAMING')
-make_head(_module, 'KSALLOCATOR_FRAMING_EX')
-make_head(_module, 'KSATTRIBUTE')
-make_head(_module, 'KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE')
-make_head(_module, 'KSAUDIOENGINE_BUFFER_SIZE_RANGE')
-make_head(_module, 'KSAUDIOENGINE_DESCRIPTOR')
-make_head(_module, 'KSAUDIOENGINE_DEVICECONTROLS')
-make_head(_module, 'KSAUDIOENGINE_VOLUMELEVEL')
-make_head(_module, 'KSAUDIOMODULE_DESCRIPTOR')
-make_head(_module, 'KSAUDIOMODULE_NOTIFICATION')
-make_head(_module, 'KSAUDIOMODULE_PROPERTY')
-make_head(_module, 'KSAUDIO_CHANNEL_CONFIG')
-make_head(_module, 'KSAUDIO_COPY_PROTECTION')
-make_head(_module, 'KSAUDIO_DYNAMIC_RANGE')
-make_head(_module, 'KSAUDIO_MICROPHONE_COORDINATES')
-make_head(_module, 'KSAUDIO_MIC_ARRAY_GEOMETRY')
-make_head(_module, 'KSAUDIO_MIXCAP_TABLE')
-make_head(_module, 'KSAUDIO_MIXLEVEL')
-make_head(_module, 'KSAUDIO_MIX_CAPS')
-make_head(_module, 'KSAUDIO_PACKETSIZE_CONSTRAINTS')
-make_head(_module, 'KSAUDIO_PACKETSIZE_CONSTRAINTS2')
-make_head(_module, 'KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT')
-make_head(_module, 'KSAUDIO_POSITION')
-make_head(_module, 'KSAUDIO_POSITIONEX')
-make_head(_module, 'KSAUDIO_PRESENTATION_POSITION')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_CAMERAOFFSET')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_CONFIGCAPS')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_CONFIGCAPSHEADER')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_SETTING')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_EVCOMPENSATION')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_FIELDOFVIEW')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_HEADER')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_METADATAINFO')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_PHOTOMODE')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_PROFILE')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_ROI_CONFIGCAPS')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_ROI_CONFIGCAPSHEADER')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_ROI_EXPOSURE')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_ROI_FOCUS')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_ROI_INFO')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_ROI_ISPCONTROL')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_ROI_ISPCONTROLHEADER')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_ROI_WHITEBALANCE')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_VALUE')
-make_head(_module, 'KSCAMERA_EXTENDEDPROP_VIDEOPROCSETTING')
-make_head(_module, 'KSCAMERA_MAXVIDEOFPS_FORPHOTORES')
-make_head(_module, 'KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK')
-make_head(_module, 'KSCAMERA_METADATA_CAPTURESTATS')
-make_head(_module, 'KSCAMERA_METADATA_DIGITALWINDOW')
-make_head(_module, 'KSCAMERA_METADATA_FRAMEILLUMINATION')
-make_head(_module, 'KSCAMERA_METADATA_ITEMHEADER')
-make_head(_module, 'KSCAMERA_METADATA_PHOTOCONFIRMATION')
-make_head(_module, 'KSCAMERA_PERFRAMESETTING_CAP_HEADER')
-make_head(_module, 'KSCAMERA_PERFRAMESETTING_CAP_ITEM_HEADER')
-make_head(_module, 'KSCAMERA_PERFRAMESETTING_CUSTOM_ITEM')
-make_head(_module, 'KSCAMERA_PERFRAMESETTING_FRAME_HEADER')
-make_head(_module, 'KSCAMERA_PERFRAMESETTING_HEADER')
-make_head(_module, 'KSCAMERA_PERFRAMESETTING_ITEM_HEADER')
-make_head(_module, 'KSCAMERA_PROFILE_CONCURRENCYINFO')
-make_head(_module, 'KSCAMERA_PROFILE_INFO')
-make_head(_module, 'KSCAMERA_PROFILE_MEDIAINFO')
-make_head(_module, 'KSCAMERA_PROFILE_PININFO')
-make_head(_module, 'KSCLOCK_CREATE')
-make_head(_module, 'KSCOMPONENTID')
-make_head(_module, 'KSCORRELATED_TIME')
-make_head(_module, 'KSDATAFORMAT')
-make_head(_module, 'KSDATARANGE_AUDIO')
-make_head(_module, 'KSDATARANGE_MUSIC')
-make_head(_module, 'KSDEVICE_PROFILE_INFO')
-make_head(_module, 'KSDISPLAYCHANGE')
-make_head(_module, 'KSDS3D_BUFFER_ALL')
-make_head(_module, 'KSDS3D_BUFFER_CONE_ANGLES')
-make_head(_module, 'KSDS3D_HRTF_FILTER_FORMAT_MSG')
-make_head(_module, 'KSDS3D_HRTF_INIT_MSG')
-make_head(_module, 'KSDS3D_HRTF_PARAMS_MSG')
-make_head(_module, 'KSDS3D_ITD_PARAMS')
-make_head(_module, 'KSDS3D_ITD_PARAMS_MSG')
-make_head(_module, 'KSDS3D_LISTENER_ALL')
-make_head(_module, 'KSDS3D_LISTENER_ORIENTATION')
-make_head(_module, 'KSERROR')
-make_head(_module, 'KSEVENTDATA')
-make_head(_module, 'KSEVENT_TIME_INTERVAL')
-make_head(_module, 'KSEVENT_TIME_MARK')
-make_head(_module, 'KSEVENT_TUNER_INITIATE_SCAN_S')
-make_head(_module, 'KSE_NODE')
-make_head(_module, 'KSE_PIN')
-make_head(_module, 'KSFRAMETIME')
-make_head(_module, 'KSGOP_USERDATA')
-make_head(_module, 'KSIDENTIFIER')
-make_head(_module, 'KSINTERVAL')
-make_head(_module, 'KSJACK_DESCRIPTION')
-make_head(_module, 'KSJACK_DESCRIPTION2')
-make_head(_module, 'KSJACK_DESCRIPTION3')
-make_head(_module, 'KSJACK_SINK_INFORMATION')
-make_head(_module, 'KSMPEGVID_RECT')
-make_head(_module, 'KSMULTIPLE_DATA_PROP')
-make_head(_module, 'KSMULTIPLE_ITEM')
-make_head(_module, 'KSMUSICFORMAT')
-make_head(_module, 'KSM_NODE')
-make_head(_module, 'KSNODEPROPERTY')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'KSNODEPROPERTY_AUDIO_3D_LISTENER')
-if ARCH in 'X86':
-    make_head(_module, 'KSNODEPROPERTY_AUDIO_3D_LISTENER')
-make_head(_module, 'KSNODEPROPERTY_AUDIO_CHANNEL')
-make_head(_module, 'KSNODEPROPERTY_AUDIO_DEV_SPECIFIC')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'KSNODEPROPERTY_AUDIO_PROPERTY')
-if ARCH in 'X86':
-    make_head(_module, 'KSNODEPROPERTY_AUDIO_PROPERTY')
-make_head(_module, 'KSNODE_CREATE')
-make_head(_module, 'KSPIN_CINSTANCES')
-make_head(_module, 'KSPIN_CONNECT')
-make_head(_module, 'KSPIN_MDL_CACHING_NOTIFICATION')
-make_head(_module, 'KSPIN_MDL_CACHING_NOTIFICATION32')
-make_head(_module, 'KSPIN_PHYSICALCONNECTION')
-make_head(_module, 'KSPRIORITY')
-make_head(_module, 'KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_CAPS_S')
-make_head(_module, 'KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_INTERLEAVE_S')
-make_head(_module, 'KSPROPERTY_ALLOCATOR_CONTROL_SURFACE_SIZE_S')
-make_head(_module, 'KSPROPERTY_BOUNDS_LONG')
-make_head(_module, 'KSPROPERTY_BOUNDS_LONGLONG')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_FLASH_S')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_FOCAL_LENGTH_S')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_IMAGE_PIN_CAPABILITY_S')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_NODE_FOCAL_LENGTH_S')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_NODE_S')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_NODE_S2')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_S')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_S2')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_S_EX')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_VIDEOSTABILIZATION_MODE_S')
-make_head(_module, 'KSPROPERTY_CROSSBAR_ACTIVE_S')
-make_head(_module, 'KSPROPERTY_CROSSBAR_CAPS_S')
-make_head(_module, 'KSPROPERTY_CROSSBAR_PININFO_S')
-make_head(_module, 'KSPROPERTY_CROSSBAR_ROUTE_S')
-make_head(_module, 'KSPROPERTY_DESCRIPTION')
-make_head(_module, 'KSPROPERTY_DROPPEDFRAMES_CURRENT_S')
-make_head(_module, 'KSPROPERTY_EXTDEVICE_S')
-make_head(_module, 'KSPROPERTY_EXTXPORT_NODE_S')
-make_head(_module, 'KSPROPERTY_EXTXPORT_S')
-make_head(_module, 'KSPROPERTY_MEDIAAVAILABLE')
-make_head(_module, 'KSPROPERTY_MEMBERSHEADER')
-make_head(_module, 'KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO')
-make_head(_module, 'KSPROPERTY_NETWORKCAMERACONTROL_METADATA_INFO')
-make_head(_module, 'KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_HEADER')
-make_head(_module, 'KSPROPERTY_POSITIONS')
-make_head(_module, 'KSPROPERTY_SELECTOR_NODE_S')
-make_head(_module, 'KSPROPERTY_SELECTOR_S')
-make_head(_module, 'KSPROPERTY_SERIAL')
-make_head(_module, 'KSPROPERTY_SERIALHDR')
-make_head(_module, 'KSPROPERTY_SPHLI')
-make_head(_module, 'KSPROPERTY_SPPAL')
-make_head(_module, 'KSPROPERTY_STEPPING_LONG')
-make_head(_module, 'KSPROPERTY_STEPPING_LONGLONG')
-make_head(_module, 'KSPROPERTY_TIMECODE_NODE_S')
-make_head(_module, 'KSPROPERTY_TIMECODE_S')
-make_head(_module, 'KSPROPERTY_TUNER_CAPS_S')
-make_head(_module, 'KSPROPERTY_TUNER_FREQUENCY_S')
-make_head(_module, 'KSPROPERTY_TUNER_IF_MEDIUM_S')
-make_head(_module, 'KSPROPERTY_TUNER_INPUT_S')
-make_head(_module, 'KSPROPERTY_TUNER_MODE_CAPS_S')
-make_head(_module, 'KSPROPERTY_TUNER_MODE_S')
-make_head(_module, 'KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS_S')
-make_head(_module, 'KSPROPERTY_TUNER_SCAN_CAPS_S')
-make_head(_module, 'KSPROPERTY_TUNER_SCAN_STATUS_S')
-make_head(_module, 'KSPROPERTY_TUNER_STANDARD_MODE_S')
-make_head(_module, 'KSPROPERTY_TUNER_STANDARD_S')
-make_head(_module, 'KSPROPERTY_TUNER_STATUS_S')
-make_head(_module, 'KSPROPERTY_TVAUDIO_CAPS_S')
-make_head(_module, 'KSPROPERTY_TVAUDIO_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_CC_SUBSTREAMS_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_NABTS_SUBSTREAMS_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_SCANLINES_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_STATISTICS_CC_PIN_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_STATISTICS_CC_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_STATISTICS_COMMON_PIN_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_STATISTICS_COMMON_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_STATISTICS_NABTS_PIN_S')
-make_head(_module, 'KSPROPERTY_VBICODECFILTERING_STATISTICS_NABTS_S')
-make_head(_module, 'KSPROPERTY_VIDEOCOMPRESSION_GETINFO_S')
-make_head(_module, 'KSPROPERTY_VIDEOCOMPRESSION_S')
-make_head(_module, 'KSPROPERTY_VIDEOCOMPRESSION_S1')
-make_head(_module, 'KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE_S')
-make_head(_module, 'KSPROPERTY_VIDEOCONTROL_CAPS_S')
-make_head(_module, 'KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S')
-make_head(_module, 'KSPROPERTY_VIDEOCONTROL_MODE_S')
-make_head(_module, 'KSPROPERTY_VIDEODECODER_CAPS_S')
-make_head(_module, 'KSPROPERTY_VIDEODECODER_S')
-make_head(_module, 'KSPROPERTY_VIDEODECODER_STATUS2_S')
-make_head(_module, 'KSPROPERTY_VIDEODECODER_STATUS_S')
-make_head(_module, 'KSPROPERTY_VIDEOENCODER_S')
-make_head(_module, 'KSPROPERTY_VIDEOPROCAMP_NODE_S')
-make_head(_module, 'KSPROPERTY_VIDEOPROCAMP_NODE_S2')
-make_head(_module, 'KSPROPERTY_VIDEOPROCAMP_S')
-make_head(_module, 'KSPROPERTY_VIDEOPROCAMP_S2')
-make_head(_module, 'KSP_NODE')
-make_head(_module, 'KSP_PIN')
-make_head(_module, 'KSP_TIMEFORMAT')
-make_head(_module, 'KSQUALITY')
-make_head(_module, 'KSQUALITY_MANAGER')
-make_head(_module, 'KSQUERYBUFFER')
-make_head(_module, 'KSRATE')
-make_head(_module, 'KSRATE_CAPABILITY')
-make_head(_module, 'KSRELATIVEEVENT')
-make_head(_module, 'KSRESOLUTION')
-make_head(_module, 'KSRTAUDIO_BUFFER')
-make_head(_module, 'KSRTAUDIO_BUFFER32')
-make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY')
-make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY32')
-make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION')
-make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION32')
-make_head(_module, 'KSRTAUDIO_GETREADPACKET_INFO')
-make_head(_module, 'KSRTAUDIO_HWLATENCY')
-make_head(_module, 'KSRTAUDIO_HWREGISTER')
-make_head(_module, 'KSRTAUDIO_HWREGISTER32')
-make_head(_module, 'KSRTAUDIO_HWREGISTER_PROPERTY')
-make_head(_module, 'KSRTAUDIO_HWREGISTER_PROPERTY32')
-make_head(_module, 'KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY')
-make_head(_module, 'KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY32')
-make_head(_module, 'KSRTAUDIO_PACKETVREGISTER')
-make_head(_module, 'KSRTAUDIO_PACKETVREGISTER_PROPERTY')
-make_head(_module, 'KSRTAUDIO_SETWRITEPACKET_INFO')
-make_head(_module, 'KSSOUNDDETECTORPROPERTY')
-make_head(_module, 'KSSTREAMALLOCATOR_STATUS')
-make_head(_module, 'KSSTREAMALLOCATOR_STATUS_EX')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'KSSTREAM_HEADER')
-if ARCH in 'X86':
-    make_head(_module, 'KSSTREAM_HEADER')
-make_head(_module, 'KSSTREAM_METADATA_INFO')
-make_head(_module, 'KSSTREAM_SEGMENT')
-make_head(_module, 'KSSTREAM_UVC_METADATA')
-make_head(_module, 'KSSTREAM_UVC_METADATATYPE_TIMESTAMP')
-make_head(_module, 'KSTELEPHONY_CALLCONTROL')
-make_head(_module, 'KSTELEPHONY_CALLINFO')
-make_head(_module, 'KSTELEPHONY_PROVIDERCHANGE')
-make_head(_module, 'KSTIME')
-make_head(_module, 'KSTOPOLOGY')
-make_head(_module, 'KSTOPOLOGY_CONNECTION')
-make_head(_module, 'KSTOPOLOGY_ENDPOINTID')
-make_head(_module, 'KSTOPOLOGY_ENDPOINTIDPAIR')
-make_head(_module, 'KSVPMAXPIXELRATE')
-make_head(_module, 'KSVPSIZE_PROP')
-make_head(_module, 'KSVPSURFACEPARAMS')
-make_head(_module, 'KSWAVETABLE_WAVE_DESC')
-make_head(_module, 'KSWAVE_BUFFER')
-make_head(_module, 'KSWAVE_COMPATCAPS')
-make_head(_module, 'KSWAVE_INPUT_CAPABILITIES')
-make_head(_module, 'KSWAVE_OUTPUT_CAPABILITIES')
-make_head(_module, 'KSWAVE_VOLUME')
-make_head(_module, 'KS_AMVPDATAINFO')
-make_head(_module, 'KS_AMVPDIMINFO')
-make_head(_module, 'KS_AMVPSIZE')
-make_head(_module, 'KS_AM_ExactRateChange')
-make_head(_module, 'KS_AM_SimpleRateChange')
-make_head(_module, 'KS_ANALOGVIDEOINFO')
-make_head(_module, 'KS_BITMAPINFOHEADER')
-make_head(_module, 'KS_COLCON')
-make_head(_module, 'KS_COMPRESSION')
-make_head(_module, 'KS_COPY_MACROVISION')
-make_head(_module, 'KS_DATAFORMAT_H264VIDEOINFO')
-make_head(_module, 'KS_DATAFORMAT_IMAGEINFO')
-make_head(_module, 'KS_DATAFORMAT_MPEGVIDEOINFO2')
-make_head(_module, 'KS_DATAFORMAT_VBIINFOHEADER')
-make_head(_module, 'KS_DATAFORMAT_VIDEOINFOHEADER')
-make_head(_module, 'KS_DATAFORMAT_VIDEOINFOHEADER2')
-make_head(_module, 'KS_DATAFORMAT_VIDEOINFO_PALETTE')
-make_head(_module, 'KS_DATARANGE_ANALOGVIDEO')
-make_head(_module, 'KS_DATARANGE_H264_VIDEO')
-make_head(_module, 'KS_DATARANGE_IMAGE')
-make_head(_module, 'KS_DATARANGE_MPEG1_VIDEO')
-make_head(_module, 'KS_DATARANGE_MPEG2_VIDEO')
-make_head(_module, 'KS_DATARANGE_VIDEO')
-make_head(_module, 'KS_DATARANGE_VIDEO2')
-make_head(_module, 'KS_DATARANGE_VIDEO_PALETTE')
-make_head(_module, 'KS_DATARANGE_VIDEO_VBI')
-make_head(_module, 'KS_DVDCOPY_BUSKEY')
-make_head(_module, 'KS_DVDCOPY_CHLGKEY')
-make_head(_module, 'KS_DVDCOPY_DISCKEY')
-make_head(_module, 'KS_DVDCOPY_REGION')
-make_head(_module, 'KS_DVDCOPY_SET_COPY_STATE')
-make_head(_module, 'KS_DVDCOPY_TITLEKEY')
-make_head(_module, 'KS_DVD_YCrCb')
-make_head(_module, 'KS_DVD_YUV')
-make_head(_module, 'KS_FRAME_INFO')
-make_head(_module, 'KS_FRAMING_ITEM')
-make_head(_module, 'KS_FRAMING_RANGE')
-make_head(_module, 'KS_FRAMING_RANGE_WEIGHTED')
-make_head(_module, 'KS_H264VIDEOINFO')
-make_head(_module, 'KS_MPEG1VIDEOINFO')
-make_head(_module, 'KS_MPEGAUDIOINFO')
-make_head(_module, 'KS_MPEGVIDEOINFO2')
-make_head(_module, 'KS_RGBQUAD')
-make_head(_module, 'KS_TRUECOLORINFO')
-make_head(_module, 'KS_TVTUNER_CHANGE_INFO')
-make_head(_module, 'KS_VBIINFOHEADER')
-make_head(_module, 'KS_VBI_FRAME_INFO')
-make_head(_module, 'KS_VIDEOINFO')
-make_head(_module, 'KS_VIDEOINFOHEADER')
-make_head(_module, 'KS_VIDEOINFOHEADER2')
-make_head(_module, 'KS_VIDEO_STREAM_CONFIG_CAPS')
-make_head(_module, 'LOOPEDSTREAMING_POSITION_EVENT_DATA')
-make_head(_module, 'MEDIUM_INFO')
-make_head(_module, 'MF_MDL_SHARED_PAYLOAD_KEY')
-make_head(_module, 'NABTSFEC_BUFFER')
-make_head(_module, 'NABTS_BUFFER')
-make_head(_module, 'NABTS_BUFFER_LINE')
-make_head(_module, 'OPTIMAL_WEIGHT_TOTALS')
-make_head(_module, 'PIPE_DIMENSIONS')
-make_head(_module, 'PIPE_TERMINATION')
-make_head(_module, 'SECURE_BUFFER_INFO')
-make_head(_module, 'SOUNDDETECTOR_PATTERNHEADER')
-make_head(_module, 'TRANSPORTAUDIOPARMS')
-make_head(_module, 'TRANSPORTBASICPARMS')
-make_head(_module, 'TRANSPORTSTATUS')
-make_head(_module, 'TRANSPORTVIDEOPARMS')
-make_head(_module, 'TRANSPORT_STATE')
-make_head(_module, 'TUNER_ANALOG_CAPS_S')
-make_head(_module, 'VBICAP_PROPERTIES_PROTECTION_S')
-make_head(_module, 'VBICODECFILTERING_CC_SUBSTREAMS')
-make_head(_module, 'VBICODECFILTERING_NABTS_SUBSTREAMS')
-make_head(_module, 'VBICODECFILTERING_SCANLINES')
-make_head(_module, 'VBICODECFILTERING_STATISTICS_CC')
-make_head(_module, 'VBICODECFILTERING_STATISTICS_CC_PIN')
-make_head(_module, 'VBICODECFILTERING_STATISTICS_COMMON')
-make_head(_module, 'VBICODECFILTERING_STATISTICS_COMMON_PIN')
-make_head(_module, 'VBICODECFILTERING_STATISTICS_NABTS')
-make_head(_module, 'VBICODECFILTERING_STATISTICS_NABTS_PIN')
-make_head(_module, 'VBICODECFILTERING_STATISTICS_TELETEXT')
-make_head(_module, 'VBICODECFILTERING_STATISTICS_TELETEXT_PIN')
-make_head(_module, 'VRAM_SURFACE_INFO')
-make_head(_module, 'VRAM_SURFACE_INFO_PROPERTY_S')
-make_head(_module, 'WNF_KSCAMERA_STREAMSTATE_INFO')
-make_head(_module, 'WST_BUFFER')
-make_head(_module, 'WST_BUFFER_LINE')
+make_ready(__name__)

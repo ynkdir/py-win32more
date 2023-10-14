@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
 import win32more.Windows.Security.Cryptography.Certificates
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class Certificate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICertificate
@@ -1432,69 +1423,4 @@ class UserCertificateStore(ComPtr):
     @winrt_mixinmethod
     def get_Name(self: win32more.Windows.Security.Cryptography.Certificates.IUserCertificateStore) -> WinRT_String: ...
     Name = property(get_Name, None)
-make_head(_module, 'Certificate')
-make_head(_module, 'CertificateChain')
-make_head(_module, 'CertificateEnrollmentManager')
-make_head(_module, 'CertificateExtension')
-make_head(_module, 'CertificateKeyUsages')
-make_head(_module, 'CertificateQuery')
-make_head(_module, 'CertificateRequestProperties')
-make_head(_module, 'CertificateStore')
-make_head(_module, 'CertificateStores')
-make_head(_module, 'ChainBuildingParameters')
-make_head(_module, 'ChainValidationParameters')
-make_head(_module, 'CmsAttachedSignature')
-make_head(_module, 'CmsDetachedSignature')
-make_head(_module, 'CmsSignerInfo')
-make_head(_module, 'CmsTimestampInfo')
-make_head(_module, 'ICertificate')
-make_head(_module, 'ICertificate2')
-make_head(_module, 'ICertificate3')
-make_head(_module, 'ICertificateChain')
-make_head(_module, 'ICertificateEnrollmentManagerStatics')
-make_head(_module, 'ICertificateEnrollmentManagerStatics2')
-make_head(_module, 'ICertificateEnrollmentManagerStatics3')
-make_head(_module, 'ICertificateExtension')
-make_head(_module, 'ICertificateFactory')
-make_head(_module, 'ICertificateKeyUsages')
-make_head(_module, 'ICertificateQuery')
-make_head(_module, 'ICertificateQuery2')
-make_head(_module, 'ICertificateRequestProperties')
-make_head(_module, 'ICertificateRequestProperties2')
-make_head(_module, 'ICertificateRequestProperties3')
-make_head(_module, 'ICertificateRequestProperties4')
-make_head(_module, 'ICertificateStore')
-make_head(_module, 'ICertificateStore2')
-make_head(_module, 'ICertificateStoresStatics')
-make_head(_module, 'ICertificateStoresStatics2')
-make_head(_module, 'IChainBuildingParameters')
-make_head(_module, 'IChainValidationParameters')
-make_head(_module, 'ICmsAttachedSignature')
-make_head(_module, 'ICmsAttachedSignatureFactory')
-make_head(_module, 'ICmsAttachedSignatureStatics')
-make_head(_module, 'ICmsDetachedSignature')
-make_head(_module, 'ICmsDetachedSignatureFactory')
-make_head(_module, 'ICmsDetachedSignatureStatics')
-make_head(_module, 'ICmsSignerInfo')
-make_head(_module, 'ICmsTimestampInfo')
-make_head(_module, 'IKeyAlgorithmNamesStatics')
-make_head(_module, 'IKeyAlgorithmNamesStatics2')
-make_head(_module, 'IKeyAttestationHelperStatics')
-make_head(_module, 'IKeyAttestationHelperStatics2')
-make_head(_module, 'IKeyStorageProviderNamesStatics')
-make_head(_module, 'IKeyStorageProviderNamesStatics2')
-make_head(_module, 'IPfxImportParameters')
-make_head(_module, 'IStandardCertificateStoreNamesStatics')
-make_head(_module, 'ISubjectAlternativeNameInfo')
-make_head(_module, 'ISubjectAlternativeNameInfo2')
-make_head(_module, 'IUserCertificateEnrollmentManager')
-make_head(_module, 'IUserCertificateEnrollmentManager2')
-make_head(_module, 'IUserCertificateStore')
-make_head(_module, 'KeyAlgorithmNames')
-make_head(_module, 'KeyAttestationHelper')
-make_head(_module, 'KeyStorageProviderNames')
-make_head(_module, 'PfxImportParameters')
-make_head(_module, 'StandardCertificateStoreNames')
-make_head(_module, 'SubjectAlternativeNameInfo')
-make_head(_module, 'UserCertificateEnrollmentManager')
-make_head(_module, 'UserCertificateStore')
+make_ready(__name__)

@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.HttpServer
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.IO
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 HTTP_DEMAND_CBT: UInt32 = 4
 HTTP_MAX_SERVER_QUEUE_LENGTH: UInt32 = 2147483647
 HTTP_MIN_SERVER_QUEUE_LENGTH: UInt32 = 1
@@ -120,7 +111,7 @@ def HttpTerminate(Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_INIT
 @winfunctype('HTTPAPI.dll')
 def HttpCreateHttpHandle(RequestQueueHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE), Reserved: UInt32) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpCreateRequestQueue(Version: win32more.Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, Name: win32more.Windows.Win32.Foundation.PWSTR, SecurityAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES_head), Flags: UInt32, RequestQueueHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def HttpCreateRequestQueue(Version: win32more.Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, Name: win32more.Windows.Win32.Foundation.PWSTR, SecurityAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES), Flags: UInt32, RequestQueueHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpCloseRequestQueue(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
@@ -128,11 +119,11 @@ def HttpSetRequestQueueProperty(RequestQueueHandle: win32more.Windows.Win32.Foun
 @winfunctype('HTTPAPI.dll')
 def HttpQueryRequestQueueProperty(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, Property: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY, PropertyInformation: VoidPtr, PropertyInformationLength: UInt32, Reserved1: UInt32, ReturnLength: POINTER(UInt32), Reserved2: VoidPtr) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSetRequestProperty(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, Id: UInt64, PropertyId: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY, Input: VoidPtr, InputPropertySize: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpSetRequestProperty(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, Id: UInt64, PropertyId: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY, Input: VoidPtr, InputPropertySize: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpShutdownRequestQueue(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpReceiveClientCertificate(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, ConnectionId: UInt64, Flags: UInt32, SslClientCertInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_CLIENT_CERT_INFO_head), SslClientCertInfoSize: UInt32, BytesReceived: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpReceiveClientCertificate(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, ConnectionId: UInt64, Flags: UInt32, SslClientCertInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_CLIENT_CERT_INFO), SslClientCertInfoSize: UInt32, BytesReceived: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpCreateServerSession(Version: win32more.Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, ServerSessionId: POINTER(UInt64), Reserved: UInt32) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
@@ -160,43 +151,43 @@ def HttpQueryUrlGroupProperty(UrlGroupId: UInt64, Property: win32more.Windows.Wi
 @winfunctype('HTTPAPI.dll')
 def HttpPrepareUrl(Reserved: VoidPtr, Flags: UInt32, Url: win32more.Windows.Win32.Foundation.PWSTR, PreparedUrl: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpReceiveHttpRequest(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_RECEIVE_HTTP_REQUEST_FLAGS, RequestBuffer: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_V2_head), RequestBufferLength: UInt32, BytesReturned: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpReceiveHttpRequest(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_RECEIVE_HTTP_REQUEST_FLAGS, RequestBuffer: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_V2), RequestBufferLength: UInt32, BytesReturned: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpReceiveRequestEntityBody(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, EntityBuffer: VoidPtr, EntityBufferLength: UInt32, BytesReturned: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpReceiveRequestEntityBody(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, EntityBuffer: VoidPtr, EntityBufferLength: UInt32, BytesReturned: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSendHttpResponse(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, HttpResponse: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_V2_head), CachePolicy: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_head), BytesSent: POINTER(UInt32), Reserved1: VoidPtr, Reserved2: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head), LogData: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_head)) -> UInt32: ...
+def HttpSendHttpResponse(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, HttpResponse: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_V2), CachePolicy: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY), BytesSent: POINTER(UInt32), Reserved1: VoidPtr, Reserved2: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), LogData: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSendResponseEntityBody(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, EntityChunkCount: UInt16, EntityChunks: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_head), BytesSent: POINTER(UInt32), Reserved1: VoidPtr, Reserved2: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head), LogData: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_head)) -> UInt32: ...
+def HttpSendResponseEntityBody(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Flags: UInt32, EntityChunkCount: UInt16, EntityChunks: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK), BytesSent: POINTER(UInt32), Reserved1: VoidPtr, Reserved2: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), LogData: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpDeclarePush(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Verb: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB, Path: win32more.Windows.Win32.Foundation.PWSTR, Query: win32more.Windows.Win32.Foundation.PSTR, Headers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_HEADERS_head)) -> UInt32: ...
+def HttpDeclarePush(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Verb: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB, Path: win32more.Windows.Win32.Foundation.PWSTR, Query: win32more.Windows.Win32.Foundation.PSTR, Headers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_HEADERS)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpWaitForDisconnect(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, ConnectionId: UInt64, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpWaitForDisconnect(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, ConnectionId: UInt64, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpWaitForDisconnectEx(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, ConnectionId: UInt64, Reserved: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpWaitForDisconnectEx(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, ConnectionId: UInt64, Reserved: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpCancelHttpRequest(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpCancelHttpRequest(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpWaitForDemandStart(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpWaitForDemandStart(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpIsFeatureSupported(FeatureId: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('HTTPAPI.dll')
-def HttpDelegateRequestEx(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, DelegateQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, DelegateUrlGroupId: UInt64, PropertyInfoSetSize: UInt32, PropertyInfoSet: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_INFO_head)) -> UInt32: ...
+def HttpDelegateRequestEx(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, DelegateQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, RequestId: UInt64, DelegateUrlGroupId: UInt64, PropertyInfoSetSize: UInt32, PropertyInfoSet: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_INFO)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpFindUrlGroupId(FullyQualifiedUrl: win32more.Windows.Win32.Foundation.PWSTR, RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, UrlGroupId: POINTER(UInt64)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpFlushResponseCache(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, UrlPrefix: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpFlushResponseCache(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, UrlPrefix: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpAddFragmentToCache(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, UrlPrefix: win32more.Windows.Win32.Foundation.PWSTR, DataChunk: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_head), CachePolicy: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_head), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpAddFragmentToCache(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, UrlPrefix: win32more.Windows.Win32.Foundation.PWSTR, DataChunk: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK), CachePolicy: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpReadFragmentFromCache(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, UrlPrefix: win32more.Windows.Win32.Foundation.PWSTR, ByteRange: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_BYTE_RANGE_head), Buffer: VoidPtr, BufferLength: UInt32, BytesRead: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpReadFragmentFromCache(RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE, UrlPrefix: win32more.Windows.Win32.Foundation.PWSTR, ByteRange: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_BYTE_RANGE), Buffer: VoidPtr, BufferLength: UInt32, BytesRead: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpSetServiceConfiguration(ServiceHandle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pConfigInformation: VoidPtr, ConfigInformationLength: UInt32, pOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpSetServiceConfiguration(ServiceHandle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pConfigInformation: VoidPtr, ConfigInformationLength: UInt32, pOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpUpdateServiceConfiguration(Handle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, ConfigInfo: VoidPtr, ConfigInfoLength: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpUpdateServiceConfiguration(Handle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, ConfigInfo: VoidPtr, ConfigInfoLength: UInt32, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpDeleteServiceConfiguration(ServiceHandle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pConfigInformation: VoidPtr, ConfigInformationLength: UInt32, pOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpDeleteServiceConfiguration(ServiceHandle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pConfigInformation: VoidPtr, ConfigInformationLength: UInt32, pOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
-def HttpQueryServiceConfiguration(ServiceHandle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pInput: VoidPtr, InputLength: UInt32, pOutput: VoidPtr, OutputLength: UInt32, pReturnLength: POINTER(UInt32), pOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> UInt32: ...
+def HttpQueryServiceConfiguration(ServiceHandle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pInput: VoidPtr, InputLength: UInt32, pOutput: VoidPtr, OutputLength: UInt32, pReturnLength: POINTER(UInt32), pOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpGetExtension(Version: win32more.Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, Extension: UInt32, Buffer: VoidPtr, BufferSize: UInt32) -> UInt32: ...
 class HTTP2_SETTINGS_LIMITS_PARAM(EasyCastStructure):
@@ -239,7 +230,7 @@ HTTP_CACHE_POLICY_TYPE_HttpCachePolicyMaximum: HTTP_CACHE_POLICY_TYPE = 3
 class HTTP_CHANNEL_BIND_INFO(EasyCastStructure):
     Hardening: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS
     Flags: UInt32
-    ServiceNames: POINTER(POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE_head))
+    ServiceNames: POINTER(POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE))
     NumberOfServiceNames: UInt32
 class HTTP_CONNECTION_LIMIT_INFO(EasyCastStructure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
@@ -283,7 +274,7 @@ class HTTP_DATA_CHUNK(EasyCastStructure):
             pFragmentName: win32more.Windows.Win32.Foundation.PWSTR
         class _Trailers_e__Struct(EasyCastStructure):
             TrailerCount: UInt16
-            pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER_head)
+            pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
 HTTP_DATA_CHUNK_TYPE = Int32
 HTTP_DATA_CHUNK_TYPE_HttpDataChunkFromMemory: HTTP_DATA_CHUNK_TYPE = 0
 HTTP_DATA_CHUNK_TYPE_HttpDataChunkFromFileHandle: HTTP_DATA_CHUNK_TYPE = 1
@@ -304,7 +295,7 @@ HTTP_ENABLED_STATE_HttpEnabledStateInactive: HTTP_ENABLED_STATE = 1
 class HTTP_ERROR_HEADERS_PARAM(EasyCastStructure):
     StatusCode: UInt16
     HeaderCount: UInt16
-    Headers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER_head)
+    Headers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
 HTTP_FEATURE_ID = Int32
 HTTP_FEATURE_ID_HttpFeatureUnknown: HTTP_FEATURE_ID = 0
 HTTP_FEATURE_ID_HttpFeatureResponseTrailers: HTTP_FEATURE_ID = 1
@@ -447,7 +438,7 @@ class HTTP_MULTIPLE_KNOWN_HEADERS(EasyCastStructure):
     HeaderId: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID
     Flags: UInt32
     KnownHeaderCount: UInt16
-    KnownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_KNOWN_HEADER_head)
+    KnownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_KNOWN_HEADER)
 class HTTP_PERFORMANCE_PARAM(EasyCastStructure):
     Type: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE
     BufferSize: UInt32
@@ -550,15 +541,15 @@ HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeNTLM: HTTP_REQUEST_AUTH_TYPE = 3
 HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeNegotiate: HTTP_REQUEST_AUTH_TYPE = 4
 HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeKerberos: HTTP_REQUEST_AUTH_TYPE = 5
 class HTTP_REQUEST_CHANNEL_BIND_STATUS(EasyCastStructure):
-    ServiceName: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE_head)
+    ServiceName: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE)
     ChannelToken: POINTER(Byte)
     ChannelTokenSize: UInt32
     Flags: UInt32
 class HTTP_REQUEST_HEADERS(EasyCastStructure):
     UnknownHeaderCount: UInt16
-    pUnknownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER_head)
+    pUnknownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
     TrailerCount: UInt16
-    pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER_head)
+    pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
     KnownHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_KNOWN_HEADER * 41
 class HTTP_REQUEST_INFO(EasyCastStructure):
     InfoType: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE
@@ -658,18 +649,18 @@ class HTTP_REQUEST_V1(EasyCastStructure):
     Headers: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_HEADERS
     BytesReceived: UInt64
     EntityChunkCount: UInt16
-    pEntityChunks: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_head)
+    pEntityChunks: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK)
     RawConnectionId: UInt64
-    pSslInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_INFO_head)
+    pSslInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_INFO)
 class HTTP_REQUEST_V2(EasyCastStructure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_V1
     RequestInfoCount: UInt16
-    pRequestInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_head)
+    pRequestInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO)
 class HTTP_RESPONSE_HEADERS(EasyCastStructure):
     UnknownHeaderCount: UInt16
-    pUnknownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER_head)
+    pUnknownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
     TrailerCount: UInt16
-    pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER_head)
+    pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
     KnownHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_KNOWN_HEADER * 30
 class HTTP_RESPONSE_INFO(EasyCastStructure):
     Type: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE
@@ -688,11 +679,11 @@ class HTTP_RESPONSE_V1(EasyCastStructure):
     pReason: win32more.Windows.Win32.Foundation.PSTR
     Headers: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_HEADERS
     EntityChunkCount: UInt16
-    pEntityChunks: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_head)
+    pEntityChunks: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK)
 class HTTP_RESPONSE_V2(EasyCastStructure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_V1
     ResponseInfoCount: UInt16
-    pResponseInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_head)
+    pResponseInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO)
 HTTP_SCHEME = Int32
 HTTP_SCHEME_HttpSchemeHttp: HTTP_SCHEME = 0
 HTTP_SCHEME_HttpSchemeHttps: HTTP_SCHEME = 1
@@ -765,7 +756,7 @@ HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSslScopedCcsCertInfoEx: HTTP_SERVICE_CON
 HTTP_SERVICE_CONFIG_ID_HttpServiceConfigMax: HTTP_SERVICE_CONFIG_ID = 13
 class HTTP_SERVICE_CONFIG_IP_LISTEN_PARAM(EasyCastStructure):
     AddrLength: UInt16
-    pAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_head)
+    pAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
 class HTTP_SERVICE_CONFIG_IP_LISTEN_QUERY(EasyCastStructure):
     AddrCount: UInt32
     AddrList: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE * 1
@@ -797,7 +788,7 @@ class HTTP_SERVICE_CONFIG_SSL_CCS_SET_EX(EasyCastStructure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_CCS_KEY
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_PARAM_EX
 class HTTP_SERVICE_CONFIG_SSL_KEY(EasyCastStructure):
-    pIpPort: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_head)
+    pIpPort: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
 class HTTP_SERVICE_CONFIG_SSL_KEY_EX(EasyCastStructure):
     IpPort: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
 class HTTP_SERVICE_CONFIG_SSL_PARAM(EasyCastStructure):
@@ -885,7 +876,7 @@ class HTTP_SSL_INFO(EasyCastStructure):
     ServerCertSubjectSize: UInt32
     pServerCertIssuer: win32more.Windows.Win32.Foundation.PSTR
     pServerCertSubject: win32more.Windows.Win32.Foundation.PSTR
-    pClientCertInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_CLIENT_CERT_INFO_head)
+    pClientCertInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_CLIENT_CERT_INFO)
     SslClientCertNegotiated: UInt32
 class HTTP_SSL_PROTOCOL_INFO(EasyCastStructure):
     Protocol: UInt32
@@ -921,8 +912,8 @@ class HTTP_TLS_SESSION_TICKET_KEYS_PARAM(EasyCastStructure):
     SessionTicketKeyCount: UInt32
     SessionTicketKeys: VoidPtr
 class HTTP_TRANSPORT_ADDRESS(EasyCastStructure):
-    pRemoteAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_head)
-    pLocalAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_head)
+    pRemoteAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
+    pLocalAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
 class HTTP_UNKNOWN_HEADER(EasyCastStructure):
     NameLength: UInt16
     RawValueLength: UInt16
@@ -966,93 +957,4 @@ class HTTP_WSK_API_TIMINGS(EasyCastStructure):
     ReleaseSum: UInt64
     ControlSocketCount: UInt64
     ControlSocketSum: UInt64
-make_head(_module, 'HTTP2_SETTINGS_LIMITS_PARAM')
-make_head(_module, 'HTTP2_WINDOW_SIZE_PARAM')
-make_head(_module, 'HTTPAPI_VERSION')
-make_head(_module, 'HTTP_BANDWIDTH_LIMIT_INFO')
-make_head(_module, 'HTTP_BINDING_INFO')
-make_head(_module, 'HTTP_BYTE_RANGE')
-make_head(_module, 'HTTP_CACHE_POLICY')
-make_head(_module, 'HTTP_CHANNEL_BIND_INFO')
-make_head(_module, 'HTTP_CONNECTION_LIMIT_INFO')
-make_head(_module, 'HTTP_COOKED_URL')
-make_head(_module, 'HTTP_CREATE_REQUEST_QUEUE_PROPERTY_INFO')
-make_head(_module, 'HTTP_DATA_CHUNK')
-make_head(_module, 'HTTP_DELEGATE_REQUEST_PROPERTY_INFO')
-make_head(_module, 'HTTP_ERROR_HEADERS_PARAM')
-make_head(_module, 'HTTP_FLOWRATE_INFO')
-make_head(_module, 'HTTP_KNOWN_HEADER')
-make_head(_module, 'HTTP_LISTEN_ENDPOINT_INFO')
-make_head(_module, 'HTTP_LOGGING_INFO')
-make_head(_module, 'HTTP_LOG_DATA')
-make_head(_module, 'HTTP_LOG_FIELDS_DATA')
-make_head(_module, 'HTTP_MULTIPLE_KNOWN_HEADERS')
-make_head(_module, 'HTTP_PERFORMANCE_PARAM')
-make_head(_module, 'HTTP_PROPERTY_FLAGS')
-make_head(_module, 'HTTP_PROTECTION_LEVEL_INFO')
-make_head(_module, 'HTTP_QOS_SETTING_INFO')
-make_head(_module, 'HTTP_QUERY_REQUEST_QUALIFIER_QUIC')
-make_head(_module, 'HTTP_QUERY_REQUEST_QUALIFIER_TCP')
-make_head(_module, 'HTTP_QUIC_API_TIMINGS')
-make_head(_module, 'HTTP_QUIC_CONNECTION_API_TIMINGS')
-make_head(_module, 'HTTP_QUIC_STREAM_API_TIMINGS')
-make_head(_module, 'HTTP_QUIC_STREAM_REQUEST_STATS')
-make_head(_module, 'HTTP_REQUEST_AUTH_INFO')
-make_head(_module, 'HTTP_REQUEST_CHANNEL_BIND_STATUS')
-make_head(_module, 'HTTP_REQUEST_HEADERS')
-make_head(_module, 'HTTP_REQUEST_INFO')
-make_head(_module, 'HTTP_REQUEST_PROPERTY_SNI')
-make_head(_module, 'HTTP_REQUEST_PROPERTY_STREAM_ERROR')
-make_head(_module, 'HTTP_REQUEST_SIZING_INFO')
-make_head(_module, 'HTTP_REQUEST_TIMING_INFO')
-make_head(_module, 'HTTP_REQUEST_TOKEN_BINDING_INFO')
-make_head(_module, 'HTTP_REQUEST_V1')
-make_head(_module, 'HTTP_REQUEST_V2')
-make_head(_module, 'HTTP_RESPONSE_HEADERS')
-make_head(_module, 'HTTP_RESPONSE_INFO')
-make_head(_module, 'HTTP_RESPONSE_V1')
-make_head(_module, 'HTTP_RESPONSE_V2')
-make_head(_module, 'HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS')
-make_head(_module, 'HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS')
-make_head(_module, 'HTTP_SERVER_AUTHENTICATION_INFO')
-make_head(_module, 'HTTP_SERVICE_BINDING_A')
-make_head(_module, 'HTTP_SERVICE_BINDING_BASE')
-make_head(_module, 'HTTP_SERVICE_BINDING_W')
-make_head(_module, 'HTTP_SERVICE_CONFIG_CACHE_SET')
-make_head(_module, 'HTTP_SERVICE_CONFIG_IP_LISTEN_PARAM')
-make_head(_module, 'HTTP_SERVICE_CONFIG_IP_LISTEN_QUERY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SETTING_SET')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_CCS_KEY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_CCS_QUERY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_CCS_QUERY_EX')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_CCS_SET')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_CCS_SET_EX')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_KEY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_KEY_EX')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_PARAM')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_PARAM_EX')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_QUERY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_QUERY_EX')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_SET')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_SET_EX')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_SNI_KEY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_SNI_QUERY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_SNI_QUERY_EX')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_SNI_SET')
-make_head(_module, 'HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX')
-make_head(_module, 'HTTP_SERVICE_CONFIG_TIMEOUT_SET')
-make_head(_module, 'HTTP_SERVICE_CONFIG_URLACL_KEY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_URLACL_PARAM')
-make_head(_module, 'HTTP_SERVICE_CONFIG_URLACL_QUERY')
-make_head(_module, 'HTTP_SERVICE_CONFIG_URLACL_SET')
-make_head(_module, 'HTTP_SSL_CLIENT_CERT_INFO')
-make_head(_module, 'HTTP_SSL_INFO')
-make_head(_module, 'HTTP_SSL_PROTOCOL_INFO')
-make_head(_module, 'HTTP_STATE_INFO')
-make_head(_module, 'HTTP_TIMEOUT_LIMIT_INFO')
-make_head(_module, 'HTTP_TLS_RESTRICTIONS_PARAM')
-make_head(_module, 'HTTP_TLS_SESSION_TICKET_KEYS_PARAM')
-make_head(_module, 'HTTP_TRANSPORT_ADDRESS')
-make_head(_module, 'HTTP_UNKNOWN_HEADER')
-make_head(_module, 'HTTP_VERSION')
-make_head(_module, 'HTTP_WSK_API_TIMINGS')
+make_ready(__name__)

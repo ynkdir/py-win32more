@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel
@@ -22,15 +22,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.UI.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AppListEntry(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Core.IAppListEntry
@@ -79,7 +70,7 @@ class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     @winrt_classmethod
     def Exit(cls: win32more.Windows.ApplicationModel.Core.ICoreApplicationExit) -> Void: ...
     @winrt_classmethod
-    def add_Exiting(cls: win32more.Windows.ApplicationModel.Core.ICoreApplicationExit, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Exiting(cls: win32more.Windows.ApplicationModel.Core.ICoreApplicationExit, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_Exiting(cls: win32more.Windows.ApplicationModel.Core.ICoreApplicationExit, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -107,7 +98,7 @@ class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     @winrt_classmethod
     def remove_Suspending(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def add_Resuming(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Resuming(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_Resuming(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -173,13 +164,13 @@ class CoreApplicationViewTitleBar(ComPtr):
     @winrt_mixinmethod
     def get_Height(self: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar) -> Double: ...
     @winrt_mixinmethod
-    def add_LayoutMetricsChanged(self: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Core.CoreApplicationViewTitleBar, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LayoutMetricsChanged(self: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Core.CoreApplicationViewTitleBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_LayoutMetricsChanged(self: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def get_IsVisible(self: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar) -> Boolean: ...
     @winrt_mixinmethod
-    def add_IsVisibleChanged(self: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Core.CoreApplicationViewTitleBar, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsVisibleChanged(self: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Core.CoreApplicationViewTitleBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsVisibleChanged(self: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ExtendViewIntoTitleBar = property(get_ExtendViewIntoTitleBar, put_ExtendViewIntoTitleBar)
@@ -233,7 +224,7 @@ class ICoreApplication(ComPtr):
     @winrt_commethod(8)
     def remove_Suspending(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
-    def add_Resuming(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Resuming(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_Resuming(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
@@ -279,7 +270,7 @@ class ICoreApplicationExit(ComPtr):
     @winrt_commethod(6)
     def Exit(self) -> Void: ...
     @winrt_commethod(7)
-    def add_Exiting(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Exiting(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Exiting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICoreApplicationUnhandledError(ComPtr):
@@ -365,13 +356,13 @@ class ICoreApplicationViewTitleBar(ComPtr):
     @winrt_commethod(10)
     def get_Height(self) -> Double: ...
     @winrt_commethod(11)
-    def add_LayoutMetricsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Core.CoreApplicationViewTitleBar, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LayoutMetricsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Core.CoreApplicationViewTitleBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_LayoutMetricsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
     def get_IsVisible(self) -> Boolean: ...
     @winrt_commethod(14)
-    def add_IsVisibleChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Core.CoreApplicationViewTitleBar, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsVisibleChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Core.CoreApplicationViewTitleBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_IsVisibleChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ExtendViewIntoTitleBar = property(get_ExtendViewIntoTitleBar, put_ExtendViewIntoTitleBar)
@@ -461,34 +452,4 @@ class UnhandledErrorDetectedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_UnhandledError(self: win32more.Windows.ApplicationModel.Core.IUnhandledErrorDetectedEventArgs) -> win32more.Windows.ApplicationModel.Core.UnhandledError: ...
     UnhandledError = property(get_UnhandledError, None)
-make_head(_module, 'AppListEntry')
-make_head(_module, 'CoreApplication')
-make_head(_module, 'CoreApplicationView')
-make_head(_module, 'CoreApplicationViewTitleBar')
-make_head(_module, 'HostedViewClosingEventArgs')
-make_head(_module, 'IAppListEntry')
-make_head(_module, 'IAppListEntry2')
-make_head(_module, 'IAppListEntry3')
-make_head(_module, 'IAppListEntry4')
-make_head(_module, 'ICoreApplication')
-make_head(_module, 'ICoreApplication2')
-make_head(_module, 'ICoreApplication3')
-make_head(_module, 'ICoreApplicationExit')
-make_head(_module, 'ICoreApplicationUnhandledError')
-make_head(_module, 'ICoreApplicationUseCount')
-make_head(_module, 'ICoreApplicationView')
-make_head(_module, 'ICoreApplicationView2')
-make_head(_module, 'ICoreApplicationView3')
-make_head(_module, 'ICoreApplicationView5')
-make_head(_module, 'ICoreApplicationView6')
-make_head(_module, 'ICoreApplicationViewTitleBar')
-make_head(_module, 'ICoreImmersiveApplication')
-make_head(_module, 'ICoreImmersiveApplication2')
-make_head(_module, 'ICoreImmersiveApplication3')
-make_head(_module, 'IFrameworkView')
-make_head(_module, 'IFrameworkViewSource')
-make_head(_module, 'IHostedViewClosingEventArgs')
-make_head(_module, 'IUnhandledError')
-make_head(_module, 'IUnhandledErrorDetectedEventArgs')
-make_head(_module, 'UnhandledError')
-make_head(_module, 'UnhandledErrorDetectedEventArgs')
+make_ready(__name__)

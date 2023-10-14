@@ -1,33 +1,24 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.ProjectedFileSystem
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjStartVirtualizing(virtualizationRootPath: win32more.Windows.Win32.Foundation.PWSTR, callbacks: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACKS_head), instanceContext: VoidPtr, options: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_STARTVIRTUALIZING_OPTIONS_head), namespaceVirtualizationContext: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjStartVirtualizing(virtualizationRootPath: win32more.Windows.Win32.Foundation.PWSTR, callbacks: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACKS), instanceContext: VoidPtr, options: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_STARTVIRTUALIZING_OPTIONS), namespaceVirtualizationContext: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjStopVirtualizing(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT) -> Void: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjClearNegativePathCache(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, totalEntryNumber: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjGetVirtualizationInstanceInfo(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, virtualizationInstanceInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_VIRTUALIZATION_INSTANCE_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjGetVirtualizationInstanceInfo(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, virtualizationInstanceInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_VIRTUALIZATION_INSTANCE_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjMarkDirectoryAsPlaceholder(rootPathName: win32more.Windows.Win32.Foundation.PWSTR, targetPathName: win32more.Windows.Win32.Foundation.PWSTR, versionInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_VERSION_INFO_head), virtualizationInstanceID: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjMarkDirectoryAsPlaceholder(rootPathName: win32more.Windows.Win32.Foundation.PWSTR, targetPathName: win32more.Windows.Win32.Foundation.PWSTR, versionInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_VERSION_INFO), virtualizationInstanceID: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjWritePlaceholderInfo(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, placeholderInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_INFO_head), placeholderInfoSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjWritePlaceholderInfo(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, placeholderInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_INFO), placeholderInfoSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjWritePlaceholderInfo2(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, placeholderInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_INFO_head), placeholderInfoSize: UInt32, ExtendedInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_EXTENDED_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjWritePlaceholderInfo2(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, placeholderInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_INFO), placeholderInfoSize: UInt32, ExtendedInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_EXTENDED_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjUpdateFileIfNeeded(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, placeholderInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_INFO_head), placeholderInfoSize: UInt32, updateFlags: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_TYPES, failureReason: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_FAILURE_CAUSES)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjUpdateFileIfNeeded(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, placeholderInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_INFO), placeholderInfoSize: UInt32, updateFlags: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_TYPES, failureReason: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_FAILURE_CAUSES)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjDeleteFile(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, updateFlags: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_TYPES, failureReason: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_FAILURE_CAUSES)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
@@ -39,11 +30,11 @@ def PrjAllocateAlignedBuffer(namespaceVirtualizationContext: win32more.Windows.W
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjFreeAlignedBuffer(buffer: VoidPtr) -> Void: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjCompleteCommand(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, commandId: Int32, completionResult: win32more.Windows.Win32.Foundation.HRESULT, extendedParameters: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjCompleteCommand(namespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, commandId: Int32, completionResult: win32more.Windows.Win32.Foundation.HRESULT, extendedParameters: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjFillDirEntryBuffer(fileName: win32more.Windows.Win32.Foundation.PWSTR, fileBasicInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_FILE_BASIC_INFO_head), dirEntryBufferHandle: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_DIR_ENTRY_BUFFER_HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjFillDirEntryBuffer(fileName: win32more.Windows.Win32.Foundation.PWSTR, fileBasicInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_FILE_BASIC_INFO), dirEntryBufferHandle: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_DIR_ENTRY_BUFFER_HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
-def PrjFillDirEntryBuffer2(dirEntryBufferHandle: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_DIR_ENTRY_BUFFER_HANDLE, fileName: win32more.Windows.Win32.Foundation.PWSTR, fileBasicInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_FILE_BASIC_INFO_head), extendedInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_EXTENDED_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrjFillDirEntryBuffer2(dirEntryBufferHandle: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_DIR_ENTRY_BUFFER_HANDLE, fileName: win32more.Windows.Win32.Foundation.PWSTR, fileBasicInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_FILE_BASIC_INFO), extendedInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_EXTENDED_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjFileNameMatch(fileNameToCheck: win32more.Windows.Win32.Foundation.PWSTR, pattern: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('PROJECTEDFSLIB.dll')
@@ -67,7 +58,7 @@ class PRJ_CALLBACK_DATA(EasyCastStructure):
     FileId: Guid
     DataStreamId: Guid
     FilePathName: win32more.Windows.Win32.Foundation.PWSTR
-    VersionInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_VERSION_INFO_head)
+    VersionInfo: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_VERSION_INFO)
     TriggeringProcessId: UInt32
     TriggeringProcessImageFileName: win32more.Windows.Win32.Foundation.PWSTR
     InstanceContext: VoidPtr
@@ -75,7 +66,7 @@ PRJ_CALLBACK_DATA_FLAGS = Int32
 PRJ_CB_DATA_FLAG_ENUM_RESTART_SCAN: PRJ_CALLBACK_DATA_FLAGS = 1
 PRJ_CB_DATA_FLAG_ENUM_RETURN_SINGLE_ENTRY: PRJ_CALLBACK_DATA_FLAGS = 2
 @winfunctype_pointer
-def PRJ_CANCEL_COMMAND_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head)) -> Void: ...
+def PRJ_CANCEL_COMMAND_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA)) -> Void: ...
 class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS(EasyCastStructure):
     CommandType: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_TYPE
     Anonymous: _Anonymous_e__Union
@@ -91,7 +82,7 @@ PRJ_COMPLETE_COMMAND_TYPE_NOTIFICATION: PRJ_COMPLETE_COMMAND_TYPE = 1
 PRJ_COMPLETE_COMMAND_TYPE_ENUMERATION: PRJ_COMPLETE_COMMAND_TYPE = 2
 PRJ_DIR_ENTRY_BUFFER_HANDLE = IntPtr
 @winfunctype_pointer
-def PRJ_END_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head), enumerationId: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PRJ_END_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), enumerationId: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class PRJ_EXTENDED_INFO(EasyCastStructure):
     InfoType: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_EXT_INFO_TYPE
     NextInfoOffset: UInt32
@@ -117,11 +108,11 @@ PRJ_FILE_STATE_DIRTY_PLACEHOLDER: PRJ_FILE_STATE = 4
 PRJ_FILE_STATE_FULL: PRJ_FILE_STATE = 8
 PRJ_FILE_STATE_TOMBSTONE: PRJ_FILE_STATE = 16
 @winfunctype_pointer
-def PRJ_GET_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head), enumerationId: POINTER(Guid), searchExpression: win32more.Windows.Win32.Foundation.PWSTR, dirEntryBufferHandle: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_DIR_ENTRY_BUFFER_HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PRJ_GET_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), enumerationId: POINTER(Guid), searchExpression: win32more.Windows.Win32.Foundation.PWSTR, dirEntryBufferHandle: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_DIR_ENTRY_BUFFER_HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PRJ_GET_FILE_DATA_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head), byteOffset: UInt64, length: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PRJ_GET_FILE_DATA_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), byteOffset: UInt64, length: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PRJ_GET_PLACEHOLDER_INFO_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PRJ_GET_PLACEHOLDER_INFO_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT = IntPtr
 PRJ_NOTIFICATION = Int32
 PRJ_NOTIFICATION_FILE_OPENED: PRJ_NOTIFICATION = 2
@@ -137,7 +128,7 @@ PRJ_NOTIFICATION_FILE_HANDLE_CLOSED_FILE_MODIFIED: PRJ_NOTIFICATION = 1024
 PRJ_NOTIFICATION_FILE_HANDLE_CLOSED_FILE_DELETED: PRJ_NOTIFICATION = 2048
 PRJ_NOTIFICATION_FILE_PRE_CONVERT_TO_FULL: PRJ_NOTIFICATION = 4096
 @winfunctype_pointer
-def PRJ_NOTIFICATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head), isDirectory: win32more.Windows.Win32.Foundation.BOOLEAN, notification: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, operationParameters: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_PARAMETERS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PRJ_NOTIFICATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), isDirectory: win32more.Windows.Win32.Foundation.BOOLEAN, notification: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, operationParameters: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class PRJ_NOTIFICATION_MAPPING(EasyCastStructure):
     NotificationBitMask: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFY_TYPES
     NotificationRoot: win32more.Windows.Win32.Foundation.PWSTR
@@ -189,7 +180,7 @@ class PRJ_PLACEHOLDER_VERSION_INFO(EasyCastStructure):
     ProviderID: Byte * 128
     ContentID: Byte * 128
 @winfunctype_pointer
-def PRJ_QUERY_FILE_NAME_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PRJ_QUERY_FILE_NAME_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PRJ_STARTVIRTUALIZING_FLAGS = Int32
 PRJ_FLAG_NONE: PRJ_STARTVIRTUALIZING_FLAGS = 0
 PRJ_FLAG_USE_NEGATIVE_PATH_CACHE: PRJ_STARTVIRTUALIZING_FLAGS = 1
@@ -197,10 +188,10 @@ class PRJ_STARTVIRTUALIZING_OPTIONS(EasyCastStructure):
     Flags: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_STARTVIRTUALIZING_FLAGS
     PoolThreadCount: UInt32
     ConcurrentThreadCount: UInt32
-    NotificationMappings: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_MAPPING_head)
+    NotificationMappings: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_MAPPING)
     NotificationMappingsCount: UInt32
 @winfunctype_pointer
-def PRJ_START_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head), enumerationId: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PRJ_START_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), enumerationId: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PRJ_UPDATE_FAILURE_CAUSES = Int32
 PRJ_UPDATE_FAILURE_CAUSE_NONE: PRJ_UPDATE_FAILURE_CAUSES = 0
 PRJ_UPDATE_FAILURE_CAUSE_DIRTY_METADATA: PRJ_UPDATE_FAILURE_CAUSES = 1
@@ -219,22 +210,4 @@ PRJ_UPDATE_MAX_VAL: PRJ_UPDATE_TYPES = 64
 class PRJ_VIRTUALIZATION_INSTANCE_INFO(EasyCastStructure):
     InstanceID: Guid
     WriteAlignment: UInt32
-make_head(_module, 'PRJ_CALLBACKS')
-make_head(_module, 'PRJ_CALLBACK_DATA')
-make_head(_module, 'PRJ_CANCEL_COMMAND_CB')
-make_head(_module, 'PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS')
-make_head(_module, 'PRJ_END_DIRECTORY_ENUMERATION_CB')
-make_head(_module, 'PRJ_EXTENDED_INFO')
-make_head(_module, 'PRJ_FILE_BASIC_INFO')
-make_head(_module, 'PRJ_GET_DIRECTORY_ENUMERATION_CB')
-make_head(_module, 'PRJ_GET_FILE_DATA_CB')
-make_head(_module, 'PRJ_GET_PLACEHOLDER_INFO_CB')
-make_head(_module, 'PRJ_NOTIFICATION_CB')
-make_head(_module, 'PRJ_NOTIFICATION_MAPPING')
-make_head(_module, 'PRJ_NOTIFICATION_PARAMETERS')
-make_head(_module, 'PRJ_PLACEHOLDER_INFO')
-make_head(_module, 'PRJ_PLACEHOLDER_VERSION_INFO')
-make_head(_module, 'PRJ_QUERY_FILE_NAME_CB')
-make_head(_module, 'PRJ_STARTVIRTUALIZING_OPTIONS')
-make_head(_module, 'PRJ_START_DIRECTORY_ENUMERATION_CB')
-make_head(_module, 'PRJ_VIRTUALIZATION_INSTANCE_INFO')
+make_ready(__name__)

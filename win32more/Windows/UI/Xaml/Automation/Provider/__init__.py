@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.UI.Xaml.Automation
 import win32more.Windows.UI.Xaml.Automation.Peers
 import win32more.Windows.UI.Xaml.Automation.Provider
 import win32more.Windows.UI.Xaml.Automation.Text
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IAnnotationProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IAnnotationProvider'
@@ -54,7 +45,7 @@ class ICustomNavigationProvider(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.ICustomNavigationProvider'
     _iid_ = Guid('{2bd8a6d0-2fa3-4717-b28c-4917ce54928d}')
     @winrt_commethod(6)
-    def NavigateCustom(self, direction: win32more.Windows.UI.Xaml.Automation.Peers.AutomationNavigationDirection) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def NavigateCustom(self, direction: win32more.Windows.UI.Xaml.Automation.Peers.AutomationNavigationDirection) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
 class IDockProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IDockProvider'
@@ -146,7 +137,7 @@ class IItemContainerProvider(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IItemContainerProvider'
     _iid_ = Guid('{ef5cd845-e1d4-40f4-bad5-c7fad44a703e}')
     @winrt_commethod(6)
-    def FindItemByProperty(self, startAfter: win32more.Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple, automationProperty: win32more.Windows.UI.Xaml.Automation.AutomationProperty, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple: ...
+    def FindItemByProperty(self, startAfter: win32more.Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple, automationProperty: win32more.Windows.UI.Xaml.Automation.AutomationProperty, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple: ...
 class IMultipleViewProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IMultipleViewProvider'
@@ -165,7 +156,7 @@ class IObjectModelProvider(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IObjectModelProvider'
     _iid_ = Guid('{c3ca36b9-0793-4ed0-bbf4-9ff4e0f98f80}')
     @winrt_commethod(6)
-    def GetUnderlyingObjectModel(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetUnderlyingObjectModel(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
 class IRangeValueProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IRangeValueProvider'
@@ -380,11 +371,11 @@ class ITextRangeProvider(ComPtr):
     @winrt_commethod(9)
     def ExpandToEnclosingUnit(self, unit: win32more.Windows.UI.Xaml.Automation.Text.TextUnit) -> Void: ...
     @winrt_commethod(10)
-    def FindAttribute(self, attributeId: Int32, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, backward: Boolean) -> win32more.Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
+    def FindAttribute(self, attributeId: Int32, value: win32more.Windows.Win32.System.WinRT.IInspectable, backward: Boolean) -> win32more.Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
     @winrt_commethod(11)
     def FindText(self, text: WinRT_String, backward: Boolean, ignoreCase: Boolean) -> win32more.Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
     @winrt_commethod(12)
-    def GetAttributeValue(self, attributeId: Int32) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetAttributeValue(self, attributeId: Int32) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(13)
     def GetBoundingRectangles(self, returnValue: POINTER(SZArray[Double])) -> Void: ...
     @winrt_commethod(14)
@@ -507,40 +498,4 @@ class IWindowProvider(ComPtr):
     Minimizable = property(get_Minimizable, None)
     InteractionState = property(get_InteractionState, None)
     VisualState = property(get_VisualState, None)
-make_head(_module, 'IAnnotationProvider')
-make_head(_module, 'ICustomNavigationProvider')
-make_head(_module, 'IDockProvider')
-make_head(_module, 'IDragProvider')
-make_head(_module, 'IDropTargetProvider')
-make_head(_module, 'IExpandCollapseProvider')
-make_head(_module, 'IGridItemProvider')
-make_head(_module, 'IGridProvider')
-make_head(_module, 'IIRawElementProviderSimple')
-make_head(_module, 'IInvokeProvider')
-make_head(_module, 'IItemContainerProvider')
-make_head(_module, 'IMultipleViewProvider')
-make_head(_module, 'IObjectModelProvider')
-make_head(_module, 'IRangeValueProvider')
-make_head(_module, 'IRawElementProviderSimple')
-make_head(_module, 'IScrollItemProvider')
-make_head(_module, 'IScrollProvider')
-make_head(_module, 'ISelectionItemProvider')
-make_head(_module, 'ISelectionProvider')
-make_head(_module, 'ISpreadsheetItemProvider')
-make_head(_module, 'ISpreadsheetProvider')
-make_head(_module, 'IStylesProvider')
-make_head(_module, 'ISynchronizedInputProvider')
-make_head(_module, 'ITableItemProvider')
-make_head(_module, 'ITableProvider')
-make_head(_module, 'ITextChildProvider')
-make_head(_module, 'ITextEditProvider')
-make_head(_module, 'ITextProvider')
-make_head(_module, 'ITextProvider2')
-make_head(_module, 'ITextRangeProvider')
-make_head(_module, 'ITextRangeProvider2')
-make_head(_module, 'IToggleProvider')
-make_head(_module, 'ITransformProvider')
-make_head(_module, 'ITransformProvider2')
-make_head(_module, 'IValueProvider')
-make_head(_module, 'IVirtualizedItemProvider')
-make_head(_module, 'IWindowProvider')
+make_ready(__name__)

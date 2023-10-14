@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -23,15 +23,6 @@ import win32more.Windows.Storage.Provider
 import win32more.Windows.Storage.Search
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AppDataPaths(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.IAppDataPaths
@@ -92,7 +83,7 @@ class ApplicationData(ComPtr, metaclass=_ApplicationData_Meta_):
     @winrt_mixinmethod
     def get_TemporaryFolder(self: win32more.Windows.Storage.IApplicationData) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_mixinmethod
-    def add_DataChanged(self: win32more.Windows.Storage.IApplicationData, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.ApplicationData, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DataChanged(self: win32more.Windows.Storage.IApplicationData, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.ApplicationData, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DataChanged(self: win32more.Windows.Storage.IApplicationData, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -130,25 +121,25 @@ class ApplicationDataCompositeValue(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.ApplicationDataCompositeValue: ...
     @winrt_mixinmethod
-    def add_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], vhnd: win32more.Windows.Foundation.Collections.MapChangedEventHandler[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], vhnd: win32more.Windows.Foundation.Collections.MapChangedEventHandler[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
-    def remove_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    def remove_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> UInt32: ...
+    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> UInt32: ...
     @winrt_mixinmethod
-    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Boolean: ...
+    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> Boolean: ...
     @winrt_mixinmethod
-    def GetView(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def GetView(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
-    def Insert(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
+    def Insert(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def Remove(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Void: ...
+    def Remove(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def Clear(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def Clear(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
     @winrt_mixinmethod
-    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
 class ApplicationDataContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -177,25 +168,25 @@ class ApplicationDataContainerSettings(ComPtr):
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Storage.ApplicationDataContainerSettings'
     @winrt_mixinmethod
-    def add_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], vhnd: win32more.Windows.Foundation.Collections.MapChangedEventHandler[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], vhnd: win32more.Windows.Foundation.Collections.MapChangedEventHandler[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
-    def remove_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    def remove_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> UInt32: ...
+    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> UInt32: ...
     @winrt_mixinmethod
-    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Boolean: ...
+    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> Boolean: ...
     @winrt_mixinmethod
-    def GetView(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def GetView(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
-    def Insert(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
+    def Insert(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def Remove(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Void: ...
+    def Remove(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def Clear(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def Clear(self: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
     @winrt_mixinmethod
-    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
 ApplicationDataCreateDisposition = Int32
 ApplicationDataCreateDisposition_Always: ApplicationDataCreateDisposition = 0
@@ -346,7 +337,7 @@ class IApplicationData(ComPtr):
     @winrt_commethod(14)
     def get_TemporaryFolder(self) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_commethod(15)
-    def add_DataChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.ApplicationData, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DataChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.ApplicationData, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_DataChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(17)
@@ -807,7 +798,7 @@ class IStorageLibrary(ComPtr):
     @winrt_commethod(9)
     def get_SaveFolder(self) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_commethod(10)
-    def add_DefinitionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.StorageLibrary, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DefinitionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.StorageLibrary, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_DefinitionChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Folders = property(get_Folders, None)
@@ -1610,7 +1601,7 @@ class StorageLibrary(ComPtr):
     @winrt_mixinmethod
     def get_SaveFolder(self: win32more.Windows.Storage.IStorageLibrary) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_mixinmethod
-    def add_DefinitionChanged(self: win32more.Windows.Storage.IStorageLibrary, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.StorageLibrary, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DefinitionChanged(self: win32more.Windows.Storage.IStorageLibrary, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.StorageLibrary, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DefinitionChanged(self: win32more.Windows.Storage.IStorageLibrary, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2021,102 +2012,4 @@ class UserDataPaths(ComPtr):
     Screenshots = property(get_Screenshots, None)
     Templates = property(get_Templates, None)
     Videos = property(get_Videos, None)
-make_head(_module, 'AppDataPaths')
-make_head(_module, 'ApplicationData')
-make_head(_module, 'ApplicationDataCompositeValue')
-make_head(_module, 'ApplicationDataContainer')
-make_head(_module, 'ApplicationDataContainerSettings')
-make_head(_module, 'CachedFileManager')
-make_head(_module, 'DownloadsFolder')
-make_head(_module, 'FileIO')
-make_head(_module, 'IAppDataPaths')
-make_head(_module, 'IAppDataPathsStatics')
-make_head(_module, 'IApplicationData')
-make_head(_module, 'IApplicationData2')
-make_head(_module, 'IApplicationData3')
-make_head(_module, 'IApplicationDataContainer')
-make_head(_module, 'IApplicationDataStatics')
-make_head(_module, 'IApplicationDataStatics2')
-make_head(_module, 'ICachedFileManagerStatics')
-make_head(_module, 'IDownloadsFolderStatics')
-make_head(_module, 'IDownloadsFolderStatics2')
-make_head(_module, 'IFileIOStatics')
-make_head(_module, 'IKnownFoldersCameraRollStatics')
-make_head(_module, 'IKnownFoldersPlaylistsStatics')
-make_head(_module, 'IKnownFoldersSavedPicturesStatics')
-make_head(_module, 'IKnownFoldersStatics')
-make_head(_module, 'IKnownFoldersStatics2')
-make_head(_module, 'IKnownFoldersStatics3')
-make_head(_module, 'IKnownFoldersStatics4')
-make_head(_module, 'IPathIOStatics')
-make_head(_module, 'ISetVersionDeferral')
-make_head(_module, 'ISetVersionRequest')
-make_head(_module, 'IStorageFile')
-make_head(_module, 'IStorageFile2')
-make_head(_module, 'IStorageFilePropertiesWithAvailability')
-make_head(_module, 'IStorageFileStatics')
-make_head(_module, 'IStorageFileStatics2')
-make_head(_module, 'IStorageFolder')
-make_head(_module, 'IStorageFolder2')
-make_head(_module, 'IStorageFolder3')
-make_head(_module, 'IStorageFolderStatics')
-make_head(_module, 'IStorageFolderStatics2')
-make_head(_module, 'IStorageItem')
-make_head(_module, 'IStorageItem2')
-make_head(_module, 'IStorageItemProperties')
-make_head(_module, 'IStorageItemProperties2')
-make_head(_module, 'IStorageItemPropertiesWithProvider')
-make_head(_module, 'IStorageLibrary')
-make_head(_module, 'IStorageLibrary2')
-make_head(_module, 'IStorageLibrary3')
-make_head(_module, 'IStorageLibraryChange')
-make_head(_module, 'IStorageLibraryChangeReader')
-make_head(_module, 'IStorageLibraryChangeReader2')
-make_head(_module, 'IStorageLibraryChangeTracker')
-make_head(_module, 'IStorageLibraryChangeTracker2')
-make_head(_module, 'IStorageLibraryChangeTrackerOptions')
-make_head(_module, 'IStorageLibraryLastChangeId')
-make_head(_module, 'IStorageLibraryLastChangeIdStatics')
-make_head(_module, 'IStorageLibraryStatics')
-make_head(_module, 'IStorageLibraryStatics2')
-make_head(_module, 'IStorageProvider')
-make_head(_module, 'IStorageProvider2')
-make_head(_module, 'IStorageStreamTransaction')
-make_head(_module, 'IStreamedFileDataRequest')
-make_head(_module, 'ISystemAudioProperties')
-make_head(_module, 'ISystemDataPaths')
-make_head(_module, 'ISystemDataPathsStatics')
-make_head(_module, 'ISystemGPSProperties')
-make_head(_module, 'ISystemImageProperties')
-make_head(_module, 'ISystemMediaProperties')
-make_head(_module, 'ISystemMusicProperties')
-make_head(_module, 'ISystemPhotoProperties')
-make_head(_module, 'ISystemProperties')
-make_head(_module, 'ISystemVideoProperties')
-make_head(_module, 'IUserDataPaths')
-make_head(_module, 'IUserDataPathsStatics')
-make_head(_module, 'KnownFolders')
-make_head(_module, 'PathIO')
-make_head(_module, 'SetVersionDeferral')
-make_head(_module, 'SetVersionRequest')
-make_head(_module, 'StorageFile')
-make_head(_module, 'StorageFolder')
-make_head(_module, 'StorageLibrary')
-make_head(_module, 'StorageLibraryChange')
-make_head(_module, 'StorageLibraryChangeReader')
-make_head(_module, 'StorageLibraryChangeTracker')
-make_head(_module, 'StorageLibraryChangeTrackerOptions')
-make_head(_module, 'StorageLibraryLastChangeId')
-make_head(_module, 'StorageProvider')
-make_head(_module, 'StorageStreamTransaction')
-make_head(_module, 'StreamedFileDataRequest')
-make_head(_module, 'SystemAudioProperties')
-make_head(_module, 'SystemDataPaths')
-make_head(_module, 'SystemGPSProperties')
-make_head(_module, 'SystemImageProperties')
-make_head(_module, 'SystemMediaProperties')
-make_head(_module, 'SystemMusicProperties')
-make_head(_module, 'SystemPhotoProperties')
-make_head(_module, 'SystemProperties')
-make_head(_module, 'SystemVideoProperties')
-make_head(_module, 'UserDataPaths')
+make_ready(__name__)

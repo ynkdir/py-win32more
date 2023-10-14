@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.WinWlx
 import win32more.Windows.Win32.System.StationsAndDesktops
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WLX_VERSION_1_0: UInt32 = 65536
 WLX_VERSION_1_1: UInt32 = 65537
 WLX_VERSION_1_2: UInt32 = 65538
@@ -79,19 +70,19 @@ def PFNMSGECALLBACK(bVerbose: win32more.Windows.Win32.Foundation.BOOL, lpMessage
 @winfunctype_pointer
 def PWLX_ASSIGN_SHELL_PROTECTION(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hToken: win32more.Windows.Win32.Foundation.HANDLE, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE) -> Int32: ...
 @winfunctype_pointer
-def PWLX_CHANGE_PASSWORD_NOTIFY(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pMprInfo: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head), dwChangeInfo: UInt32) -> Int32: ...
+def PWLX_CHANGE_PASSWORD_NOTIFY(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pMprInfo: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_MPR_NOTIFY_INFO), dwChangeInfo: UInt32) -> Int32: ...
 @winfunctype_pointer
-def PWLX_CHANGE_PASSWORD_NOTIFY_EX(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pMprInfo: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head), dwChangeInfo: UInt32, ProviderName: win32more.Windows.Win32.Foundation.PWSTR, Reserved: VoidPtr) -> Int32: ...
+def PWLX_CHANGE_PASSWORD_NOTIFY_EX(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pMprInfo: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_MPR_NOTIFY_INFO), dwChangeInfo: UInt32, ProviderName: win32more.Windows.Win32.Foundation.PWSTR, Reserved: VoidPtr) -> Int32: ...
 @winfunctype_pointer
-def PWLX_CLOSE_USER_DESKTOP(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pDesktop: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_DESKTOP_head), hToken: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PWLX_CLOSE_USER_DESKTOP(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pDesktop: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_DESKTOP), hToken: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PWLX_CREATE_USER_DESKTOP(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hToken: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, pszDesktopName: win32more.Windows.Win32.Foundation.PWSTR, ppDesktop: POINTER(POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_DESKTOP_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PWLX_CREATE_USER_DESKTOP(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hToken: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, pszDesktopName: win32more.Windows.Win32.Foundation.PWSTR, ppDesktop: POINTER(POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_DESKTOP))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PWLX_DIALOG_BOX(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hInst: win32more.Windows.Win32.Foundation.HANDLE, lpszTemplate: win32more.Windows.Win32.Foundation.PWSTR, hwndOwner: win32more.Windows.Win32.Foundation.HWND, dlgprc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC) -> Int32: ...
 @winfunctype_pointer
-def PWLX_DIALOG_BOX_INDIRECT(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hInst: win32more.Windows.Win32.Foundation.HANDLE, hDialogTemplate: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head), hwndOwner: win32more.Windows.Win32.Foundation.HWND, dlgprc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC) -> Int32: ...
+def PWLX_DIALOG_BOX_INDIRECT(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hInst: win32more.Windows.Win32.Foundation.HANDLE, hDialogTemplate: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE), hwndOwner: win32more.Windows.Win32.Foundation.HWND, dlgprc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC) -> Int32: ...
 @winfunctype_pointer
-def PWLX_DIALOG_BOX_INDIRECT_PARAM(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hInst: win32more.Windows.Win32.Foundation.HANDLE, hDialogTemplate: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head), hwndOwner: win32more.Windows.Win32.Foundation.HWND, dlgprc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC, dwInitParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
+def PWLX_DIALOG_BOX_INDIRECT_PARAM(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hInst: win32more.Windows.Win32.Foundation.HANDLE, hDialogTemplate: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE), hwndOwner: win32more.Windows.Win32.Foundation.HWND, dlgprc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC, dwInitParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 @winfunctype_pointer
 def PWLX_DIALOG_BOX_PARAM(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hInst: win32more.Windows.Win32.Foundation.HANDLE, lpszTemplate: win32more.Windows.Win32.Foundation.PWSTR, hwndOwner: win32more.Windows.Win32.Foundation.HWND, dlgprc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC, dwInitParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 @winfunctype_pointer
@@ -99,19 +90,19 @@ def PWLX_DISCONNECT() -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PWLX_GET_OPTION(hWlx: win32more.Windows.Win32.Foundation.HANDLE, Option: UInt32, Value: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PWLX_GET_SOURCE_DESKTOP(hWlx: win32more.Windows.Win32.Foundation.HANDLE, ppDesktop: POINTER(POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_DESKTOP_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PWLX_GET_SOURCE_DESKTOP(hWlx: win32more.Windows.Win32.Foundation.HANDLE, ppDesktop: POINTER(POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_DESKTOP))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PWLX_MESSAGE_BOX(hWlx: win32more.Windows.Win32.Foundation.HANDLE, hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpszText: win32more.Windows.Win32.Foundation.PWSTR, lpszTitle: win32more.Windows.Win32.Foundation.PWSTR, fuStyle: UInt32) -> Int32: ...
 @winfunctype_pointer
-def PWLX_QUERY_CLIENT_CREDENTIALS(pCred: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PWLX_QUERY_CLIENT_CREDENTIALS(pCred: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PWLX_QUERY_CONSOLESWITCH_CREDENTIALS(pCred: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0_head)) -> UInt32: ...
+def PWLX_QUERY_CONSOLESWITCH_CREDENTIALS(pCred: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0)) -> UInt32: ...
 @winfunctype_pointer
-def PWLX_QUERY_IC_CREDENTIALS(pCred: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PWLX_QUERY_IC_CREDENTIALS(pCred: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PWLX_QUERY_TERMINAL_SERVICES_DATA(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pTSData: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_TERMINAL_SERVICES_DATA_head), UserName: win32more.Windows.Win32.Foundation.PWSTR, Domain: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+def PWLX_QUERY_TERMINAL_SERVICES_DATA(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pTSData: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_TERMINAL_SERVICES_DATA), UserName: win32more.Windows.Win32.Foundation.PWSTR, Domain: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype_pointer
-def PWLX_QUERY_TS_LOGON_CREDENTIALS(pCred: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V2_0_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PWLX_QUERY_TS_LOGON_CREDENTIALS(pCred: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V2_0)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PWLX_SAS_NOTIFY(hWlx: win32more.Windows.Win32.Foundation.HANDLE, dwSasType: UInt32) -> Void: ...
 @winfunctype_pointer
@@ -119,7 +110,7 @@ def PWLX_SET_CONTEXT_POINTER(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pW
 @winfunctype_pointer
 def PWLX_SET_OPTION(hWlx: win32more.Windows.Win32.Foundation.HANDLE, Option: UInt32, Value: UIntPtr, OldValue: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PWLX_SET_RETURN_DESKTOP(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pDesktop: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_DESKTOP_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PWLX_SET_RETURN_DESKTOP(hWlx: win32more.Windows.Win32.Foundation.HANDLE, pDesktop: POINTER(win32more.Windows.Win32.Security.WinWlx.WLX_DESKTOP)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PWLX_SET_TIMEOUT(hWlx: win32more.Windows.Win32.Foundation.HANDLE, Timeout: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -318,46 +309,4 @@ class WLX_TERMINAL_SERVICES_DATA(EasyCastStructure):
     ProfilePath: Char * 257
     HomeDir: Char * 257
     HomeDirDrive: Char * 4
-make_head(_module, 'PFNMSGECALLBACK')
-make_head(_module, 'PWLX_ASSIGN_SHELL_PROTECTION')
-make_head(_module, 'PWLX_CHANGE_PASSWORD_NOTIFY')
-make_head(_module, 'PWLX_CHANGE_PASSWORD_NOTIFY_EX')
-make_head(_module, 'PWLX_CLOSE_USER_DESKTOP')
-make_head(_module, 'PWLX_CREATE_USER_DESKTOP')
-make_head(_module, 'PWLX_DIALOG_BOX')
-make_head(_module, 'PWLX_DIALOG_BOX_INDIRECT')
-make_head(_module, 'PWLX_DIALOG_BOX_INDIRECT_PARAM')
-make_head(_module, 'PWLX_DIALOG_BOX_PARAM')
-make_head(_module, 'PWLX_DISCONNECT')
-make_head(_module, 'PWLX_GET_OPTION')
-make_head(_module, 'PWLX_GET_SOURCE_DESKTOP')
-make_head(_module, 'PWLX_MESSAGE_BOX')
-make_head(_module, 'PWLX_QUERY_CLIENT_CREDENTIALS')
-make_head(_module, 'PWLX_QUERY_CONSOLESWITCH_CREDENTIALS')
-make_head(_module, 'PWLX_QUERY_IC_CREDENTIALS')
-make_head(_module, 'PWLX_QUERY_TERMINAL_SERVICES_DATA')
-make_head(_module, 'PWLX_QUERY_TS_LOGON_CREDENTIALS')
-make_head(_module, 'PWLX_SAS_NOTIFY')
-make_head(_module, 'PWLX_SET_CONTEXT_POINTER')
-make_head(_module, 'PWLX_SET_OPTION')
-make_head(_module, 'PWLX_SET_RETURN_DESKTOP')
-make_head(_module, 'PWLX_SET_TIMEOUT')
-make_head(_module, 'PWLX_SWITCH_DESKTOP_TO_USER')
-make_head(_module, 'PWLX_SWITCH_DESKTOP_TO_WINLOGON')
-make_head(_module, 'PWLX_USE_CTRL_ALT_DEL')
-make_head(_module, 'PWLX_WIN31_MIGRATE')
-make_head(_module, 'WLX_CLIENT_CREDENTIALS_INFO_V1_0')
-make_head(_module, 'WLX_CLIENT_CREDENTIALS_INFO_V2_0')
-make_head(_module, 'WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0')
-make_head(_module, 'WLX_DESKTOP')
-make_head(_module, 'WLX_DISPATCH_VERSION_1_0')
-make_head(_module, 'WLX_DISPATCH_VERSION_1_1')
-make_head(_module, 'WLX_DISPATCH_VERSION_1_2')
-make_head(_module, 'WLX_DISPATCH_VERSION_1_3')
-make_head(_module, 'WLX_DISPATCH_VERSION_1_4')
-make_head(_module, 'WLX_MPR_NOTIFY_INFO')
-make_head(_module, 'WLX_NOTIFICATION_INFO')
-make_head(_module, 'WLX_PROFILE_V1_0')
-make_head(_module, 'WLX_PROFILE_V2_0')
-make_head(_module, 'WLX_SC_NOTIFICATION_INFO')
-make_head(_module, 'WLX_TERMINAL_SERVICES_DATA')
+make_ready(__name__)

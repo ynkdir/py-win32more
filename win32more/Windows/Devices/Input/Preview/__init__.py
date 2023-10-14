@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.HumanInterfaceDevice
 import win32more.Windows.Devices.Input.Preview
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 GazeDeviceConfigurationStatePreview = Int32
 GazeDeviceConfigurationStatePreview_Unknown: GazeDeviceConfigurationStatePreview = 0
 GazeDeviceConfigurationStatePreview_Ready: GazeDeviceConfigurationStatePreview = 1
@@ -80,7 +71,7 @@ class GazeDeviceWatcherPreview(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Windows.Devices.Input.Preview.IGazeDeviceWatcherPreview, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Devices.Input.Preview.IGazeDeviceWatcherPreview, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.Preview.GazeDeviceWatcherPreview, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Devices.Input.Preview.IGazeDeviceWatcherPreview, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.Preview.GazeDeviceWatcherPreview, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Devices.Input.Preview.IGazeDeviceWatcherPreview, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -224,7 +215,7 @@ class IGazeDeviceWatcherPreview(ComPtr):
     @winrt_commethod(11)
     def remove_Updated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.Preview.GazeDeviceWatcherPreview, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.Preview.GazeDeviceWatcherPreview, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -326,24 +317,4 @@ class IGazePointPreview(ComPtr):
     HeadGazePosition = property(get_HeadGazePosition, None)
     Timestamp = property(get_Timestamp, None)
     HidInputReport = property(get_HidInputReport, None)
-make_head(_module, 'GazeDevicePreview')
-make_head(_module, 'GazeDeviceWatcherAddedPreviewEventArgs')
-make_head(_module, 'GazeDeviceWatcherPreview')
-make_head(_module, 'GazeDeviceWatcherRemovedPreviewEventArgs')
-make_head(_module, 'GazeDeviceWatcherUpdatedPreviewEventArgs')
-make_head(_module, 'GazeEnteredPreviewEventArgs')
-make_head(_module, 'GazeExitedPreviewEventArgs')
-make_head(_module, 'GazeInputSourcePreview')
-make_head(_module, 'GazeMovedPreviewEventArgs')
-make_head(_module, 'GazePointPreview')
-make_head(_module, 'IGazeDevicePreview')
-make_head(_module, 'IGazeDeviceWatcherAddedPreviewEventArgs')
-make_head(_module, 'IGazeDeviceWatcherPreview')
-make_head(_module, 'IGazeDeviceWatcherRemovedPreviewEventArgs')
-make_head(_module, 'IGazeDeviceWatcherUpdatedPreviewEventArgs')
-make_head(_module, 'IGazeEnteredPreviewEventArgs')
-make_head(_module, 'IGazeExitedPreviewEventArgs')
-make_head(_module, 'IGazeInputSourcePreview')
-make_head(_module, 'IGazeInputSourcePreviewStatics')
-make_head(_module, 'IGazeMovedPreviewEventArgs')
-make_head(_module, 'IGazePointPreview')
+make_ready(__name__)

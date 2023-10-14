@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.IscsiDisc
 import win32more.Windows.Win32.System.Ioctl
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ATA_PASS_THROUGH_DIRECT(EasyCastStructure):
     Length: UInt16
     AtaFlags: UInt16
@@ -250,89 +241,89 @@ ISCSI_LOGIN_OPTIONS_VERSION: UInt32 = 0
 ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET: UInt32 = 2
 ISCSI_TARGET_FLAG_MERGE_TARGET_INFORMATION: UInt32 = 4
 @winfunctype('ISCSIDSC.dll')
-def GetIScsiVersionInformation(VersionInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_VERSION_INFO_head)) -> UInt32: ...
+def GetIScsiVersionInformation(VersionInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_VERSION_INFO)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def GetIScsiTargetInformationW(TargetName: win32more.Windows.Win32.Foundation.PWSTR, DiscoveryMechanism: win32more.Windows.Win32.Foundation.PWSTR, InfoClass: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS, BufferSize: POINTER(UInt32), Buffer: VoidPtr) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def GetIScsiTargetInformationA(TargetName: win32more.Windows.Win32.Foundation.PSTR, DiscoveryMechanism: win32more.Windows.Win32.Foundation.PSTR, InfoClass: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS, BufferSize: POINTER(UInt32), Buffer: VoidPtr) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def AddIScsiConnectionW(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), Reserved: VoidPtr, InitiatorPortNumber: UInt32, TargetPortal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head), SecurityFlags: UInt64, LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), KeySize: UInt32, Key: win32more.Windows.Win32.Foundation.PSTR, ConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
+def AddIScsiConnectionW(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), Reserved: VoidPtr, InitiatorPortNumber: UInt32, TargetPortal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW), SecurityFlags: UInt64, LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS), KeySize: UInt32, Key: win32more.Windows.Win32.Foundation.PSTR, ConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def AddIScsiConnectionA(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), Reserved: VoidPtr, InitiatorPortNumber: UInt32, TargetPortal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head), SecurityFlags: UInt64, LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), KeySize: UInt32, Key: win32more.Windows.Win32.Foundation.PSTR, ConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
+def AddIScsiConnectionA(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), Reserved: VoidPtr, InitiatorPortNumber: UInt32, TargetPortal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA), SecurityFlags: UInt64, LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS), KeySize: UInt32, Key: win32more.Windows.Win32.Foundation.PSTR, ConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def RemoveIScsiConnection(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), ConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
+def RemoveIScsiConnection(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), ConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def ReportIScsiTargetsW(ForceUpdate: win32more.Windows.Win32.Foundation.BOOLEAN, BufferSize: POINTER(UInt32), Buffer: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def ReportIScsiTargetsA(ForceUpdate: win32more.Windows.Win32.Foundation.BOOLEAN, BufferSize: POINTER(UInt32), Buffer: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def AddIScsiStaticTargetW(TargetName: win32more.Windows.Win32.Foundation.PWSTR, TargetAlias: win32more.Windows.Win32.Foundation.PWSTR, TargetFlags: UInt32, Persist: win32more.Windows.Win32.Foundation.BOOLEAN, Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW_head), LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), PortalGroup: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_GROUPW_head)) -> UInt32: ...
+def AddIScsiStaticTargetW(TargetName: win32more.Windows.Win32.Foundation.PWSTR, TargetAlias: win32more.Windows.Win32.Foundation.PWSTR, TargetFlags: UInt32, Persist: win32more.Windows.Win32.Foundation.BOOLEAN, Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW), LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS), PortalGroup: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_GROUPW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def AddIScsiStaticTargetA(TargetName: win32more.Windows.Win32.Foundation.PSTR, TargetAlias: win32more.Windows.Win32.Foundation.PSTR, TargetFlags: UInt32, Persist: win32more.Windows.Win32.Foundation.BOOLEAN, Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA_head), LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), PortalGroup: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_GROUPA_head)) -> UInt32: ...
+def AddIScsiStaticTargetA(TargetName: win32more.Windows.Win32.Foundation.PSTR, TargetAlias: win32more.Windows.Win32.Foundation.PSTR, TargetFlags: UInt32, Persist: win32more.Windows.Win32.Foundation.BOOLEAN, Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA), LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS), PortalGroup: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_GROUPA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def RemoveIScsiStaticTargetW(TargetName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def RemoveIScsiStaticTargetA(TargetName: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def AddIScsiSendTargetPortalW(InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), SecurityFlags: UInt64, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head)) -> UInt32: ...
+def AddIScsiSendTargetPortalW(InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS), SecurityFlags: UInt64, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def AddIScsiSendTargetPortalA(InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), SecurityFlags: UInt64, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head)) -> UInt32: ...
+def AddIScsiSendTargetPortalA(InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS), SecurityFlags: UInt64, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def RemoveIScsiSendTargetPortalW(InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head)) -> UInt32: ...
+def RemoveIScsiSendTargetPortalW(InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def RemoveIScsiSendTargetPortalA(InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head)) -> UInt32: ...
+def RemoveIScsiSendTargetPortalA(InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def RefreshIScsiSendTargetPortalW(InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head)) -> UInt32: ...
+def RefreshIScsiSendTargetPortalW(InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def RefreshIScsiSendTargetPortalA(InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head)) -> UInt32: ...
+def RefreshIScsiSendTargetPortalA(InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportIScsiSendTargetPortalsW(PortalCount: POINTER(UInt32), PortalInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_INFOW_head)) -> UInt32: ...
+def ReportIScsiSendTargetPortalsW(PortalCount: POINTER(UInt32), PortalInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_INFOW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportIScsiSendTargetPortalsA(PortalCount: POINTER(UInt32), PortalInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_INFOA_head)) -> UInt32: ...
+def ReportIScsiSendTargetPortalsA(PortalCount: POINTER(UInt32), PortalInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_INFOA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportIScsiSendTargetPortalsExW(PortalCount: POINTER(UInt32), PortalInfoSize: POINTER(UInt32), PortalInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_INFO_EXW_head)) -> UInt32: ...
+def ReportIScsiSendTargetPortalsExW(PortalCount: POINTER(UInt32), PortalInfoSize: POINTER(UInt32), PortalInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_INFO_EXW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportIScsiSendTargetPortalsExA(PortalCount: POINTER(UInt32), PortalInfoSize: POINTER(UInt32), PortalInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_INFO_EXA_head)) -> UInt32: ...
+def ReportIScsiSendTargetPortalsExA(PortalCount: POINTER(UInt32), PortalInfoSize: POINTER(UInt32), PortalInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTAL_INFO_EXA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def LoginIScsiTargetW(TargetName: win32more.Windows.Win32.Foundation.PWSTR, IsInformationalSession: win32more.Windows.Win32.Foundation.BOOLEAN, InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, TargetPortal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head), SecurityFlags: UInt64, Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW_head), LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), KeySize: UInt32, Key: win32more.Windows.Win32.Foundation.PSTR, IsPersistent: win32more.Windows.Win32.Foundation.BOOLEAN, UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), UniqueConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
+def LoginIScsiTargetW(TargetName: win32more.Windows.Win32.Foundation.PWSTR, IsInformationalSession: win32more.Windows.Win32.Foundation.BOOLEAN, InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, TargetPortal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW), SecurityFlags: UInt64, Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW), LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS), KeySize: UInt32, Key: win32more.Windows.Win32.Foundation.PSTR, IsPersistent: win32more.Windows.Win32.Foundation.BOOLEAN, UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), UniqueConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def LoginIScsiTargetA(TargetName: win32more.Windows.Win32.Foundation.PSTR, IsInformationalSession: win32more.Windows.Win32.Foundation.BOOLEAN, InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, TargetPortal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head), SecurityFlags: UInt64, Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA_head), LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS_head), KeySize: UInt32, Key: win32more.Windows.Win32.Foundation.PSTR, IsPersistent: win32more.Windows.Win32.Foundation.BOOLEAN, UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), UniqueConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
+def LoginIScsiTargetA(TargetName: win32more.Windows.Win32.Foundation.PSTR, IsInformationalSession: win32more.Windows.Win32.Foundation.BOOLEAN, InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, TargetPortal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA), SecurityFlags: UInt64, Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA), LoginOptions: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS), KeySize: UInt32, Key: win32more.Windows.Win32.Foundation.PSTR, IsPersistent: win32more.Windows.Win32.Foundation.BOOLEAN, UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), UniqueConnectionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportIScsiPersistentLoginsW(Count: POINTER(UInt32), PersistentLoginInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.PERSISTENT_ISCSI_LOGIN_INFOW_head), BufferSizeInBytes: POINTER(UInt32)) -> UInt32: ...
+def ReportIScsiPersistentLoginsW(Count: POINTER(UInt32), PersistentLoginInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.PERSISTENT_ISCSI_LOGIN_INFOW), BufferSizeInBytes: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportIScsiPersistentLoginsA(Count: POINTER(UInt32), PersistentLoginInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.PERSISTENT_ISCSI_LOGIN_INFOA_head), BufferSizeInBytes: POINTER(UInt32)) -> UInt32: ...
+def ReportIScsiPersistentLoginsA(Count: POINTER(UInt32), PersistentLoginInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.PERSISTENT_ISCSI_LOGIN_INFOA), BufferSizeInBytes: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def LogoutIScsiTarget(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head)) -> UInt32: ...
+def LogoutIScsiTarget(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def RemoveIScsiPersistentTargetW(InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, TargetName: win32more.Windows.Win32.Foundation.PWSTR, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head)) -> UInt32: ...
+def RemoveIScsiPersistentTargetW(InitiatorInstance: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, TargetName: win32more.Windows.Win32.Foundation.PWSTR, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def RemoveIScsiPersistentTargetA(InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, TargetName: win32more.Windows.Win32.Foundation.PSTR, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head)) -> UInt32: ...
+def RemoveIScsiPersistentTargetA(InitiatorInstance: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, TargetName: win32more.Windows.Win32.Foundation.PSTR, Portal: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def SendScsiInquiry(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), Lun: UInt64, EvpdCmddt: Byte, PageCode: Byte, ScsiStatus: POINTER(Byte), ResponseSize: POINTER(UInt32), ResponseBuffer: POINTER(Byte), SenseSize: POINTER(UInt32), SenseBuffer: POINTER(Byte)) -> UInt32: ...
+def SendScsiInquiry(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), Lun: UInt64, EvpdCmddt: Byte, PageCode: Byte, ScsiStatus: POINTER(Byte), ResponseSize: POINTER(UInt32), ResponseBuffer: POINTER(Byte), SenseSize: POINTER(UInt32), SenseBuffer: POINTER(Byte)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def SendScsiReadCapacity(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), Lun: UInt64, ScsiStatus: POINTER(Byte), ResponseSize: POINTER(UInt32), ResponseBuffer: POINTER(Byte), SenseSize: POINTER(UInt32), SenseBuffer: POINTER(Byte)) -> UInt32: ...
+def SendScsiReadCapacity(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), Lun: UInt64, ScsiStatus: POINTER(Byte), ResponseSize: POINTER(UInt32), ResponseBuffer: POINTER(Byte), SenseSize: POINTER(UInt32), SenseBuffer: POINTER(Byte)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def SendScsiReportLuns(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), ScsiStatus: POINTER(Byte), ResponseSize: POINTER(UInt32), ResponseBuffer: POINTER(Byte), SenseSize: POINTER(UInt32), SenseBuffer: POINTER(Byte)) -> UInt32: ...
+def SendScsiReportLuns(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), ScsiStatus: POINTER(Byte), ResponseSize: POINTER(UInt32), ResponseBuffer: POINTER(Byte), SenseSize: POINTER(UInt32), SenseBuffer: POINTER(Byte)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def ReportIScsiInitiatorListW(BufferSize: POINTER(UInt32), Buffer: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def ReportIScsiInitiatorListA(BufferSize: POINTER(UInt32), Buffer: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportActiveIScsiTargetMappingsW(BufferSize: POINTER(UInt32), MappingCount: POINTER(UInt32), Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW_head)) -> UInt32: ...
+def ReportActiveIScsiTargetMappingsW(BufferSize: POINTER(UInt32), MappingCount: POINTER(UInt32), Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportActiveIScsiTargetMappingsA(BufferSize: POINTER(UInt32), MappingCount: POINTER(UInt32), Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA_head)) -> UInt32: ...
+def ReportActiveIScsiTargetMappingsA(BufferSize: POINTER(UInt32), MappingCount: POINTER(UInt32), Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def SetIScsiTunnelModeOuterAddressW(InitiatorName: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, DestinationAddress: win32more.Windows.Win32.Foundation.PWSTR, OuterModeAddress: win32more.Windows.Win32.Foundation.PWSTR, Persist: win32more.Windows.Win32.Foundation.BOOLEAN) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def SetIScsiTunnelModeOuterAddressA(InitiatorName: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, DestinationAddress: win32more.Windows.Win32.Foundation.PSTR, OuterModeAddress: win32more.Windows.Win32.Foundation.PSTR, Persist: win32more.Windows.Win32.Foundation.BOOLEAN) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def SetIScsiIKEInfoW(InitiatorName: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, AuthInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_INFORMATION_head), Persist: win32more.Windows.Win32.Foundation.BOOLEAN) -> UInt32: ...
+def SetIScsiIKEInfoW(InitiatorName: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, AuthInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_INFORMATION), Persist: win32more.Windows.Win32.Foundation.BOOLEAN) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def SetIScsiIKEInfoA(InitiatorName: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, AuthInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_INFORMATION_head), Persist: win32more.Windows.Win32.Foundation.BOOLEAN) -> UInt32: ...
+def SetIScsiIKEInfoA(InitiatorName: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, AuthInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_INFORMATION), Persist: win32more.Windows.Win32.Foundation.BOOLEAN) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetIScsiIKEInfoW(InitiatorName: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, Reserved: POINTER(UInt32), AuthInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_INFORMATION_head)) -> UInt32: ...
+def GetIScsiIKEInfoW(InitiatorName: win32more.Windows.Win32.Foundation.PWSTR, InitiatorPortNumber: UInt32, Reserved: POINTER(UInt32), AuthInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_INFORMATION)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetIScsiIKEInfoA(InitiatorName: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, Reserved: POINTER(UInt32), AuthInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_INFORMATION_head)) -> UInt32: ...
+def GetIScsiIKEInfoA(InitiatorName: win32more.Windows.Win32.Foundation.PSTR, InitiatorPortNumber: UInt32, Reserved: POINTER(UInt32), AuthInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_INFORMATION)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def SetIScsiGroupPresharedKey(KeyLength: UInt32, Key: POINTER(Byte), Persist: win32more.Windows.Win32.Foundation.BOOLEAN) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
@@ -364,15 +355,15 @@ def ReportISNSServerListW(BufferSizeInChar: POINTER(UInt32), Buffer: win32more.W
 @winfunctype('ISCSIDSC.dll')
 def ReportISNSServerListA(BufferSizeInChar: POINTER(UInt32), Buffer: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetIScsiSessionListW(BufferSize: POINTER(UInt32), SessionCount: POINTER(UInt32), SessionInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_SESSION_INFOW_head)) -> UInt32: ...
+def GetIScsiSessionListW(BufferSize: POINTER(UInt32), SessionCount: POINTER(UInt32), SessionInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_SESSION_INFOW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetIScsiSessionListA(BufferSize: POINTER(UInt32), SessionCount: POINTER(UInt32), SessionInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_SESSION_INFOA_head)) -> UInt32: ...
+def GetIScsiSessionListA(BufferSize: POINTER(UInt32), SessionCount: POINTER(UInt32), SessionInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_SESSION_INFOA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetIScsiSessionListEx(BufferSize: POINTER(UInt32), SessionCountPtr: POINTER(UInt32), SessionInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_SESSION_INFO_EX_head)) -> UInt32: ...
+def GetIScsiSessionListEx(BufferSize: POINTER(UInt32), SessionCountPtr: POINTER(UInt32), SessionInfo: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_SESSION_INFO_EX)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetDevicesForIScsiSessionW(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), DeviceCount: POINTER(UInt32), Devices: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_DEVICE_ON_SESSIONW_head)) -> UInt32: ...
+def GetDevicesForIScsiSessionW(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), DeviceCount: POINTER(UInt32), Devices: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_DEVICE_ON_SESSIONW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def GetDevicesForIScsiSessionA(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID_head), DeviceCount: POINTER(UInt32), Devices: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_DEVICE_ON_SESSIONA_head)) -> UInt32: ...
+def GetDevicesForIScsiSessionA(UniqueSessionId: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID), DeviceCount: POINTER(UInt32), Devices: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_DEVICE_ON_SESSIONA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def SetupPersistentIScsiVolumes() -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
@@ -392,9 +383,9 @@ def ReportPersistentIScsiDevicesW(BufferSizeInChar: POINTER(UInt32), Buffer: win
 @winfunctype('ISCSIDSC.dll')
 def ReportPersistentIScsiDevicesA(BufferSizeInChar: POINTER(UInt32), Buffer: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportIScsiTargetPortalsW(InitiatorName: win32more.Windows.Win32.Foundation.PWSTR, TargetName: win32more.Windows.Win32.Foundation.PWSTR, TargetPortalTag: POINTER(UInt16), ElementCount: POINTER(UInt32), Portals: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW_head)) -> UInt32: ...
+def ReportIScsiTargetPortalsW(InitiatorName: win32more.Windows.Win32.Foundation.PWSTR, TargetName: win32more.Windows.Win32.Foundation.PWSTR, TargetPortalTag: POINTER(UInt16), ElementCount: POINTER(UInt32), Portals: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
-def ReportIScsiTargetPortalsA(InitiatorName: win32more.Windows.Win32.Foundation.PSTR, TargetName: win32more.Windows.Win32.Foundation.PSTR, TargetPortalTag: POINTER(UInt16), ElementCount: POINTER(UInt32), Portals: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA_head)) -> UInt32: ...
+def ReportIScsiTargetPortalsA(InitiatorName: win32more.Windows.Win32.Foundation.PSTR, TargetName: win32more.Windows.Win32.Foundation.PSTR, TargetPortalTag: POINTER(UInt16), ElementCount: POINTER(UInt32), Portals: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA)) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def AddRadiusServerW(Address: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
@@ -610,7 +601,7 @@ class ISCSI_SESSION_INFOA(EasyCastStructure):
     ISID: Byte * 6
     TSID: Byte * 2
     ConnectionCount: UInt32
-    Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFOA_head)
+    Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFOA)
 class ISCSI_SESSION_INFOW(EasyCastStructure):
     SessionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitiatorName: win32more.Windows.Win32.Foundation.PWSTR
@@ -619,7 +610,7 @@ class ISCSI_SESSION_INFOW(EasyCastStructure):
     ISID: Byte * 6
     TSID: Byte * 2
     ConnectionCount: UInt32
-    Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFOW_head)
+    Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFOW)
 class ISCSI_SESSION_INFO_EX(EasyCastStructure):
     SessionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitialR2t: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -633,7 +624,7 @@ class ISCSI_SESSION_INFO_EX(EasyCastStructure):
     MaxBurstLength: UInt32
     MaximumConnections: UInt32
     ConnectionCount: UInt32
-    Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFO_EX_head)
+    Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFO_EX)
 class ISCSI_TARGET_MAPPINGA(EasyCastStructure):
     InitiatorName: win32more.Windows.Win32.Foundation.CHAR * 256
     TargetName: win32more.Windows.Win32.Foundation.CHAR * 224
@@ -642,7 +633,7 @@ class ISCSI_TARGET_MAPPINGA(EasyCastStructure):
     OSBusNumber: UInt32
     OSTargetNumber: UInt32
     LUNCount: UInt32
-    LUNList: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.SCSI_LUN_LIST_head)
+    LUNList: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.SCSI_LUN_LIST)
 class ISCSI_TARGET_MAPPINGW(EasyCastStructure):
     InitiatorName: Char * 256
     TargetName: Char * 224
@@ -651,7 +642,7 @@ class ISCSI_TARGET_MAPPINGW(EasyCastStructure):
     OSBusNumber: UInt32
     OSTargetNumber: UInt32
     LUNCount: UInt32
-    LUNList: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.SCSI_LUN_LIST_head)
+    LUNList: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.SCSI_LUN_LIST)
 class ISCSI_TARGET_PORTALA(EasyCastStructure):
     SymbolicName: win32more.Windows.Win32.Foundation.CHAR * 256
     Address: win32more.Windows.Win32.Foundation.CHAR * 256
@@ -855,7 +846,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOA(EasyCastStructure):
     InitiatorPortNumber: UInt32
     TargetPortal: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA
     SecurityFlags: UInt64
-    Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA_head)
+    Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA)
     LoginOptions: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS
 class PERSISTENT_ISCSI_LOGIN_INFOW(EasyCastStructure):
     TargetName: Char * 224
@@ -864,7 +855,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOW(EasyCastStructure):
     InitiatorPortNumber: UInt32
     TargetPortal: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW
     SecurityFlags: UInt64
-    Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW_head)
+    Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW)
     LoginOptions: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS
 class SCSI_ADAPTER_BUS_INFO(EasyCastStructure):
     NumberOfBuses: Byte
@@ -1113,95 +1104,4 @@ TARGET_INFORMATION_CLASS_InitiatorName: TARGET_INFORMATION_CLASS = 5
 TARGET_INFORMATION_CLASS_TargetFlags: TARGET_INFORMATION_CLASS = 6
 TARGET_INFORMATION_CLASS_LoginOptions: TARGET_INFORMATION_CLASS = 7
 _ADAPTER_OBJECT = IntPtr
-make_head(_module, 'ATA_PASS_THROUGH_DIRECT')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'ATA_PASS_THROUGH_DIRECT32')
-make_head(_module, 'ATA_PASS_THROUGH_EX')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'ATA_PASS_THROUGH_EX32')
-make_head(_module, 'DSM_NOTIFICATION_REQUEST_BLOCK')
-make_head(_module, 'DUMP_DRIVER')
-make_head(_module, 'DUMP_DRIVER_EX')
-make_head(_module, 'DUMP_POINTERS')
-make_head(_module, 'DUMP_POINTERS_EX')
-make_head(_module, 'DUMP_POINTERS_VERSION')
-make_head(_module, 'FIRMWARE_REQUEST_BLOCK')
-make_head(_module, 'HYBRID_DEMOTE_BY_SIZE')
-make_head(_module, 'HYBRID_DIRTY_THRESHOLDS')
-make_head(_module, 'HYBRID_INFORMATION')
-make_head(_module, 'HYBRID_REQUEST_BLOCK')
-make_head(_module, 'IDE_IO_CONTROL')
-make_head(_module, 'IKE_AUTHENTICATION_INFORMATION')
-make_head(_module, 'IKE_AUTHENTICATION_PRESHARED_KEY')
-make_head(_module, 'IO_SCSI_CAPABILITIES')
-make_head(_module, 'ISCSI_CONNECTION_INFOA')
-make_head(_module, 'ISCSI_CONNECTION_INFOW')
-make_head(_module, 'ISCSI_CONNECTION_INFO_EX')
-make_head(_module, 'ISCSI_DEVICE_ON_SESSIONA')
-make_head(_module, 'ISCSI_DEVICE_ON_SESSIONW')
-make_head(_module, 'ISCSI_LOGIN_OPTIONS')
-make_head(_module, 'ISCSI_SESSION_INFOA')
-make_head(_module, 'ISCSI_SESSION_INFOW')
-make_head(_module, 'ISCSI_SESSION_INFO_EX')
-make_head(_module, 'ISCSI_TARGET_MAPPINGA')
-make_head(_module, 'ISCSI_TARGET_MAPPINGW')
-make_head(_module, 'ISCSI_TARGET_PORTALA')
-make_head(_module, 'ISCSI_TARGET_PORTALW')
-make_head(_module, 'ISCSI_TARGET_PORTAL_GROUPA')
-make_head(_module, 'ISCSI_TARGET_PORTAL_GROUPW')
-make_head(_module, 'ISCSI_TARGET_PORTAL_INFOA')
-make_head(_module, 'ISCSI_TARGET_PORTAL_INFOW')
-make_head(_module, 'ISCSI_TARGET_PORTAL_INFO_EXA')
-make_head(_module, 'ISCSI_TARGET_PORTAL_INFO_EXW')
-make_head(_module, 'ISCSI_UNIQUE_SESSION_ID')
-make_head(_module, 'ISCSI_VERSION_INFO')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MPIO_PASS_THROUGH_PATH32')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MPIO_PASS_THROUGH_PATH32_EX')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32_EX')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT_EX')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH_EX')
-make_head(_module, 'MP_DEVICE_DATA_SET_RANGE')
-make_head(_module, 'NTSCSI_UNICODE_STRING')
-make_head(_module, 'NVCACHE_HINT_PAYLOAD')
-make_head(_module, 'NVCACHE_PRIORITY_LEVEL_DESCRIPTOR')
-make_head(_module, 'NVCACHE_REQUEST_BLOCK')
-make_head(_module, 'NV_FEATURE_PARAMETER')
-make_head(_module, 'NV_SEP_CACHE_PARAMETER')
-make_head(_module, 'PDUMP_DEVICE_POWERON_ROUTINE')
-make_head(_module, 'PERSISTENT_ISCSI_LOGIN_INFOA')
-make_head(_module, 'PERSISTENT_ISCSI_LOGIN_INFOW')
-make_head(_module, 'SCSI_ADAPTER_BUS_INFO')
-make_head(_module, 'SCSI_ADDRESS')
-make_head(_module, 'SCSI_BUS_DATA')
-make_head(_module, 'SCSI_INQUIRY_DATA')
-make_head(_module, 'SCSI_LUN_LIST')
-make_head(_module, 'SCSI_PASS_THROUGH')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'SCSI_PASS_THROUGH32')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'SCSI_PASS_THROUGH32_EX')
-make_head(_module, 'SCSI_PASS_THROUGH_DIRECT')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32_EX')
-make_head(_module, 'SCSI_PASS_THROUGH_DIRECT_EX')
-make_head(_module, 'SCSI_PASS_THROUGH_EX')
-make_head(_module, 'SRB_IO_CONTROL')
-make_head(_module, 'STORAGE_DIAGNOSTIC_MP_REQUEST')
-make_head(_module, 'STORAGE_ENDURANCE_DATA_DESCRIPTOR')
-make_head(_module, 'STORAGE_ENDURANCE_INFO')
-make_head(_module, 'STORAGE_FIRMWARE_ACTIVATE')
-make_head(_module, 'STORAGE_FIRMWARE_DOWNLOAD')
-make_head(_module, 'STORAGE_FIRMWARE_DOWNLOAD_V2')
-make_head(_module, 'STORAGE_FIRMWARE_INFO')
-make_head(_module, 'STORAGE_FIRMWARE_INFO_V2')
-make_head(_module, 'STORAGE_FIRMWARE_SLOT_INFO')
-make_head(_module, 'STORAGE_FIRMWARE_SLOT_INFO_V2')
+make_ready(__name__)

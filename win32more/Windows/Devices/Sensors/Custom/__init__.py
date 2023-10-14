@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Sensors.Custom
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CustomSensor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.Custom.ICustomSensor
@@ -67,7 +58,7 @@ class CustomSensorReading(ComPtr):
     @winrt_mixinmethod
     def get_Timestamp(self: win32more.Windows.Devices.Sensors.Custom.ICustomSensorReading) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.Custom.ICustomSensorReading) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.Custom.ICustomSensorReading) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.Custom.ICustomSensorReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     Timestamp = property(get_Timestamp, None)
@@ -120,7 +111,7 @@ class ICustomSensorReading(ComPtr):
     @winrt_commethod(6)
     def get_Timestamp(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     Properties = property(get_Properties, None)
 class ICustomSensorReading2(ComPtr):
@@ -145,12 +136,4 @@ class ICustomSensorStatics(ComPtr):
     def GetDeviceSelector(self, interfaceId: Guid) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, sensorId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.Custom.CustomSensor]: ...
-make_head(_module, 'CustomSensor')
-make_head(_module, 'CustomSensorReading')
-make_head(_module, 'CustomSensorReadingChangedEventArgs')
-make_head(_module, 'ICustomSensor')
-make_head(_module, 'ICustomSensor2')
-make_head(_module, 'ICustomSensorReading')
-make_head(_module, 'ICustomSensorReading2')
-make_head(_module, 'ICustomSensorReadingChangedEventArgs')
-make_head(_module, 'ICustomSensorStatics')
+make_ready(__name__)

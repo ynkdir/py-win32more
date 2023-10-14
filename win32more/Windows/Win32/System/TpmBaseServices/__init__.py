@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.TpmBaseServices
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 TBS_CONTEXT_VERSION_ONE: UInt32 = 1
 TBS_SUCCESS: UInt32 = 0
 TBS_OWNERAUTH_TYPE_FULL: UInt32 = 1
@@ -40,7 +31,7 @@ TBS_TCGLOG_SRTM_RESUME: UInt32 = 3
 TBS_TCGLOG_DRTM_BOOT: UInt32 = 4
 TBS_TCGLOG_DRTM_RESUME: UInt32 = 5
 @winfunctype('tbs.dll')
-def Tbsi_Context_Create(pContextParams: POINTER(win32more.Windows.Win32.System.TpmBaseServices.TBS_CONTEXT_PARAMS_head), phContext: POINTER(VoidPtr)) -> UInt32: ...
+def Tbsi_Context_Create(pContextParams: POINTER(win32more.Windows.Win32.System.TpmBaseServices.TBS_CONTEXT_PARAMS), phContext: POINTER(VoidPtr)) -> UInt32: ...
 @winfunctype('tbs.dll')
 def Tbsip_Context_Close(hContext: VoidPtr) -> UInt32: ...
 @winfunctype('tbs.dll')
@@ -97,7 +88,4 @@ class TPM_DEVICE_INFO(EasyCastStructure):
 class TPM_WNF_PROVISIONING(EasyCastStructure):
     status: UInt32
     message: Byte * 28
-make_head(_module, 'TBS_CONTEXT_PARAMS')
-make_head(_module, 'TBS_CONTEXT_PARAMS2')
-make_head(_module, 'TPM_DEVICE_INFO')
-make_head(_module, 'TPM_WNF_PROVISIONING')
+make_ready(__name__)

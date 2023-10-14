@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.IndexServer
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CI_VERSION_WDS30: UInt32 = 258
 CI_VERSION_WDS40: UInt32 = 265
 CI_VERSION_WIN70: UInt32 = 1792
@@ -161,13 +152,13 @@ FILTER_S_LAST_VALUES: win32more.Windows.Win32.Foundation.HRESULT = 268042
 FILTER_E_PASSWORD: win32more.Windows.Win32.Foundation.HRESULT = -2147215605
 FILTER_E_UNKNOWNFORMAT: win32more.Windows.Win32.Foundation.HRESULT = -2147215604
 @winfunctype('query.dll')
-def LoadIFilter(pwcsPath: win32more.Windows.Win32.Foundation.PWSTR, pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown_head, ppIUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def LoadIFilter(pwcsPath: win32more.Windows.Win32.Foundation.PWSTR, pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown, ppIUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('query.dll')
 def LoadIFilterEx(pwcsPath: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, riid: POINTER(Guid), ppIUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('query.dll')
-def BindIFilterFromStorage(pStg: win32more.Windows.Win32.System.Com.StructuredStorage.IStorage_head, pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown_head, ppIUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def BindIFilterFromStorage(pStg: win32more.Windows.Win32.System.Com.StructuredStorage.IStorage, pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown, ppIUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('query.dll')
-def BindIFilterFromStream(pStm: win32more.Windows.Win32.System.Com.IStream_head, pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown_head, ppIUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def BindIFilterFromStream(pStm: win32more.Windows.Win32.System.Com.IStream, pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown, ppIUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 CHUNKSTATE = Int32
 CHUNK_TEXT: CHUNKSTATE = 1
 CHUNK_VALUE: CHUNKSTATE = 2
@@ -254,13 +245,13 @@ class IFilter(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{89bcb740-6119-101a-bcb7-00dd010655af}')
     @commethod(3)
-    def Init(self, grfFlags: UInt32, cAttributes: UInt32, aAttributes: POINTER(win32more.Windows.Win32.Storage.IndexServer.FULLPROPSPEC_head), pFlags: POINTER(UInt32)) -> Int32: ...
+    def Init(self, grfFlags: UInt32, cAttributes: UInt32, aAttributes: POINTER(win32more.Windows.Win32.Storage.IndexServer.FULLPROPSPEC), pFlags: POINTER(UInt32)) -> Int32: ...
     @commethod(4)
-    def GetChunk(self, pStat: POINTER(win32more.Windows.Win32.Storage.IndexServer.STAT_CHUNK_head)) -> Int32: ...
+    def GetChunk(self, pStat: POINTER(win32more.Windows.Win32.Storage.IndexServer.STAT_CHUNK)) -> Int32: ...
     @commethod(5)
     def GetText(self, pcwcBuffer: POINTER(UInt32), awcBuffer: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
     @commethod(6)
-    def GetValue(self, ppPropValue: POINTER(POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head))) -> Int32: ...
+    def GetValue(self, ppPropValue: POINTER(POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT))) -> Int32: ...
     @commethod(7)
     def BindRegion(self, origPos: win32more.Windows.Win32.Storage.IndexServer.FILTERREGION, riid: POINTER(Guid), ppunk: POINTER(VoidPtr)) -> Int32: ...
 class IPhraseSink(ComPtr):
@@ -284,13 +275,4 @@ WORDREP_BREAK_EOW: WORDREP_BREAK_TYPE = 0
 WORDREP_BREAK_EOS: WORDREP_BREAK_TYPE = 1
 WORDREP_BREAK_EOP: WORDREP_BREAK_TYPE = 2
 WORDREP_BREAK_EOC: WORDREP_BREAK_TYPE = 3
-make_head(_module, 'CI_STATE')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DBID')
-if ARCH in 'X86':
-    make_head(_module, 'DBID')
-make_head(_module, 'FILTERREGION')
-make_head(_module, 'FULLPROPSPEC')
-make_head(_module, 'IFilter')
-make_head(_module, 'IPhraseSink')
-make_head(_module, 'STAT_CHUNK')
+make_ready(__name__)

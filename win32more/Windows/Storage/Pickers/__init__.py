@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Pickers
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class FileExtensionVector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[WinRT_String]
@@ -444,24 +435,4 @@ PickerLocationId_Unspecified: PickerLocationId = 9
 PickerViewMode = Int32
 PickerViewMode_List: PickerViewMode = 0
 PickerViewMode_Thumbnail: PickerViewMode = 1
-make_head(_module, 'FileExtensionVector')
-make_head(_module, 'FileOpenPicker')
-make_head(_module, 'FilePickerFileTypesOrderedMap')
-make_head(_module, 'FilePickerSelectedFilesArray')
-make_head(_module, 'FileSavePicker')
-make_head(_module, 'FolderPicker')
-make_head(_module, 'IFileOpenPicker')
-make_head(_module, 'IFileOpenPicker2')
-make_head(_module, 'IFileOpenPicker3')
-make_head(_module, 'IFileOpenPickerStatics')
-make_head(_module, 'IFileOpenPickerStatics2')
-make_head(_module, 'IFileOpenPickerWithOperationId')
-make_head(_module, 'IFileSavePicker')
-make_head(_module, 'IFileSavePicker2')
-make_head(_module, 'IFileSavePicker3')
-make_head(_module, 'IFileSavePicker4')
-make_head(_module, 'IFileSavePickerStatics')
-make_head(_module, 'IFolderPicker')
-make_head(_module, 'IFolderPicker2')
-make_head(_module, 'IFolderPicker3')
-make_head(_module, 'IFolderPickerStatics')
+make_ready(__name__)

@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetShell
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 NETSH_ERROR_BASE: UInt32 = 15000
 ERROR_NO_ENTRIES: UInt32 = 15000
 ERROR_INVALID_SYNTAX: UInt32 = 15001
@@ -45,11 +36,11 @@ NETSH_MAX_CMD_TOKEN_LENGTH: UInt32 = 128
 DEFAULT_CONTEXT_PRIORITY: UInt32 = 100
 GET_RESOURCE_STRING_FN_NAME: String = 'GetResourceString'
 @winfunctype('NETSH.dll')
-def MatchEnumTag(hModule: win32more.Windows.Win32.Foundation.HANDLE, pwcArg: win32more.Windows.Win32.Foundation.PWSTR, dwNumArg: UInt32, pEnumTable: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.TOKEN_VALUE_head), pdwValue: POINTER(UInt32)) -> UInt32: ...
+def MatchEnumTag(hModule: win32more.Windows.Win32.Foundation.HANDLE, pwcArg: win32more.Windows.Win32.Foundation.PWSTR, dwNumArg: UInt32, pEnumTable: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.TOKEN_VALUE), pdwValue: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('NETSH.dll')
 def MatchToken(pwszUserToken: win32more.Windows.Win32.Foundation.PWSTR, pwszCmdToken: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('NETSH.dll')
-def PreprocessCommand(hModule: win32more.Windows.Win32.Foundation.HANDLE, ppwcArguments: POINTER(win32more.Windows.Win32.Foundation.PWSTR), dwCurrentIndex: UInt32, dwArgCount: UInt32, pttTags: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.TAG_TYPE_head), dwTagCount: UInt32, dwMinArgs: UInt32, dwMaxArgs: UInt32, pdwTagType: POINTER(UInt32)) -> UInt32: ...
+def PreprocessCommand(hModule: win32more.Windows.Win32.Foundation.HANDLE, ppwcArguments: POINTER(win32more.Windows.Win32.Foundation.PWSTR), dwCurrentIndex: UInt32, dwArgCount: UInt32, pttTags: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.TAG_TYPE), dwTagCount: UInt32, dwMinArgs: UInt32, dwMaxArgs: UInt32, pdwTagType: POINTER(UInt32)) -> UInt32: ...
 @cfunctype('NETSH.dll', variadic=True)
 def PrintError(hModule: win32more.Windows.Win32.Foundation.HANDLE, dwErrId: UInt32, *__arglist) -> UInt32: ...
 @cfunctype('NETSH.dll', variadic=True)
@@ -57,9 +48,9 @@ def PrintMessageFromModule(hModule: win32more.Windows.Win32.Foundation.HANDLE, d
 @cfunctype('NETSH.dll', variadic=True)
 def PrintMessage(pwszFormat: win32more.Windows.Win32.Foundation.PWSTR, *__arglist) -> UInt32: ...
 @winfunctype('NETSH.dll')
-def RegisterContext(pChildContext: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.NS_CONTEXT_ATTRIBUTES_head)) -> UInt32: ...
+def RegisterContext(pChildContext: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.NS_CONTEXT_ATTRIBUTES)) -> UInt32: ...
 @winfunctype('NETSH.dll')
-def RegisterHelper(pguidParentContext: POINTER(Guid), pfnRegisterSubContext: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.NS_HELPER_ATTRIBUTES_head)) -> UInt32: ...
+def RegisterHelper(pguidParentContext: POINTER(Guid), pfnRegisterSubContext: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.NS_HELPER_ATTRIBUTES)) -> UInt32: ...
 class CMD_ENTRY(EasyCastStructure):
     pwszCmdToken: win32more.Windows.Win32.Foundation.PWSTR
     pfnCmdHandler: win32more.Windows.Win32.NetworkManagement.NetShell.PFN_HANDLE_CMD
@@ -73,7 +64,7 @@ class CMD_GROUP_ENTRY(EasyCastStructure):
     dwShortCmdHelpToken: UInt32
     ulCmdGroupSize: UInt32
     dwFlags: UInt32
-    pCmdGroup: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.CMD_ENTRY_head)
+    pCmdGroup: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.CMD_ENTRY)
     pOsVersionCheck: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_OSVERSIONCHECK
 NS_CMD_FLAGS = Int32
 CMD_FLAG_PRIVATE: NS_CMD_FLAGS = 1
@@ -90,9 +81,9 @@ class NS_CONTEXT_ATTRIBUTES(EasyCastStructure):
     dwFlags: UInt32
     ulPriority: UInt32
     ulNumTopCmds: UInt32
-    pTopCmds: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.CMD_ENTRY_head)
+    pTopCmds: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.CMD_ENTRY)
     ulNumGroups: UInt32
-    pCmdGroups: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.CMD_GROUP_ENTRY_head)
+    pCmdGroups: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.CMD_GROUP_ENTRY)
     pfnCommitFn: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_CONTEXT_COMMIT_FN
     pfnDumpFn: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_CONTEXT_DUMP_FN
     pfnConnectFn: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_CONTEXT_CONNECT_FN
@@ -161,20 +152,4 @@ class TAG_TYPE(EasyCastStructure):
 class TOKEN_VALUE(EasyCastStructure):
     pwszToken: win32more.Windows.Win32.Foundation.PWSTR
     dwValue: UInt32
-make_head(_module, 'CMD_ENTRY')
-make_head(_module, 'CMD_GROUP_ENTRY')
-make_head(_module, 'NS_CONTEXT_ATTRIBUTES')
-make_head(_module, 'NS_HELPER_ATTRIBUTES')
-make_head(_module, 'PFN_CUSTOM_HELP')
-make_head(_module, 'PFN_HANDLE_CMD')
-make_head(_module, 'PGET_RESOURCE_STRING_FN')
-make_head(_module, 'PNS_CONTEXT_COMMIT_FN')
-make_head(_module, 'PNS_CONTEXT_CONNECT_FN')
-make_head(_module, 'PNS_CONTEXT_DUMP_FN')
-make_head(_module, 'PNS_DLL_INIT_FN')
-make_head(_module, 'PNS_DLL_STOP_FN')
-make_head(_module, 'PNS_HELPER_START_FN')
-make_head(_module, 'PNS_HELPER_STOP_FN')
-make_head(_module, 'PNS_OSVERSIONCHECK')
-make_head(_module, 'TAG_TYPE')
-make_head(_module, 'TOKEN_VALUE')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -25,15 +25,6 @@ import win32more.Windows.System
 import win32more.Windows.UI
 import win32more.Windows.UI.Composition
 import win32more.Windows.UI.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AmbientLight(ComPtr):
     extends: win32more.Windows.UI.Composition.CompositionLight
     default_interface: win32more.Windows.UI.Composition.IAmbientLight
@@ -305,7 +296,7 @@ class CompositionCapabilities(ComPtr):
     @winrt_mixinmethod
     def AreEffectsFast(self: win32more.Windows.UI.Composition.ICompositionCapabilities) -> Boolean: ...
     @winrt_mixinmethod
-    def add_Changed(self: win32more.Windows.UI.Composition.ICompositionCapabilities, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Composition.CompositionCapabilities, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self: win32more.Windows.UI.Composition.ICompositionCapabilities, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Composition.CompositionCapabilities, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Changed(self: win32more.Windows.UI.Composition.ICompositionCapabilities, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -418,7 +409,7 @@ class CompositionCommitBatch(ComPtr):
     @winrt_mixinmethod
     def get_IsEnded(self: win32more.Windows.UI.Composition.ICompositionCommitBatch) -> Boolean: ...
     @winrt_mixinmethod
-    def add_Completed(self: win32more.Windows.UI.Composition.ICompositionCommitBatch, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.UI.Composition.CompositionBatchCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self: win32more.Windows.UI.Composition.ICompositionCommitBatch, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Composition.CompositionBatchCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Completed(self: win32more.Windows.UI.Composition.ICompositionCommitBatch, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsActive = property(get_IsActive, None)
@@ -976,21 +967,21 @@ class CompositionPropertySet(ComPtr):
     @winrt_mixinmethod
     def InsertVector4(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: win32more.Windows.Foundation.Numerics.Vector4) -> Void: ...
     @winrt_mixinmethod
-    def TryGetColor(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.UI.Color_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetColor(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.UI.Color)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_mixinmethod
-    def TryGetMatrix3x2(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Matrix3x2_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetMatrix3x2(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Matrix3x2)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_mixinmethod
-    def TryGetMatrix4x4(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Matrix4x4_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetMatrix4x4(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Matrix4x4)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_mixinmethod
-    def TryGetQuaternion(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Quaternion_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetQuaternion(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Quaternion)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_mixinmethod
     def TryGetScalar(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(Single)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_mixinmethod
-    def TryGetVector2(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector2_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetVector2(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector2)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_mixinmethod
-    def TryGetVector3(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector3_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetVector3(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector3)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_mixinmethod
-    def TryGetVector4(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector4_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetVector4(self: win32more.Windows.UI.Composition.ICompositionPropertySet, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector4)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_mixinmethod
     def InsertBoolean(self: win32more.Windows.UI.Composition.ICompositionPropertySet2, propertyName: WinRT_String, value: Boolean) -> Void: ...
     @winrt_mixinmethod
@@ -1062,7 +1053,7 @@ class CompositionScopedBatch(ComPtr):
     @winrt_mixinmethod
     def Suspend(self: win32more.Windows.UI.Composition.ICompositionScopedBatch) -> Void: ...
     @winrt_mixinmethod
-    def add_Completed(self: win32more.Windows.UI.Composition.ICompositionScopedBatch, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.UI.Composition.CompositionBatchCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self: win32more.Windows.UI.Composition.ICompositionScopedBatch, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Composition.CompositionBatchCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Completed(self: win32more.Windows.UI.Composition.ICompositionScopedBatch, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsActive = property(get_IsActive, None)
@@ -1945,7 +1936,7 @@ class ICompositionCapabilities(ComPtr):
     @winrt_commethod(7)
     def AreEffectsFast(self) -> Boolean: ...
     @winrt_commethod(8)
-    def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Composition.CompositionCapabilities, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Composition.CompositionCapabilities, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICompositionCapabilitiesStatics(ComPtr):
@@ -2037,7 +2028,7 @@ class ICompositionCommitBatch(ComPtr):
     @winrt_commethod(7)
     def get_IsEnded(self) -> Boolean: ...
     @winrt_commethod(8)
-    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.UI.Composition.CompositionBatchCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Composition.CompositionBatchCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsActive = property(get_IsActive, None)
@@ -2645,21 +2636,21 @@ class ICompositionPropertySet(ComPtr):
     @winrt_commethod(13)
     def InsertVector4(self, propertyName: WinRT_String, value: win32more.Windows.Foundation.Numerics.Vector4) -> Void: ...
     @winrt_commethod(14)
-    def TryGetColor(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.UI.Color_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetColor(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.UI.Color)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_commethod(15)
-    def TryGetMatrix3x2(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Matrix3x2_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetMatrix3x2(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Matrix3x2)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_commethod(16)
-    def TryGetMatrix4x4(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Matrix4x4_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetMatrix4x4(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Matrix4x4)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_commethod(17)
-    def TryGetQuaternion(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Quaternion_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetQuaternion(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Quaternion)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_commethod(18)
     def TryGetScalar(self, propertyName: WinRT_String, value: POINTER(Single)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_commethod(19)
-    def TryGetVector2(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector2_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetVector2(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector2)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_commethod(20)
-    def TryGetVector3(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector3_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetVector3(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector3)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
     @winrt_commethod(21)
-    def TryGetVector4(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector4_head)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
+    def TryGetVector4(self, propertyName: WinRT_String, value: POINTER(win32more.Windows.Foundation.Numerics.Vector4)) -> win32more.Windows.UI.Composition.CompositionGetValueStatus: ...
 class ICompositionPropertySet2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Composition.ICompositionPropertySet2'
@@ -2735,7 +2726,7 @@ class ICompositionScopedBatch(ComPtr):
     @winrt_commethod(10)
     def Suspend(self) -> Void: ...
     @winrt_commethod(11)
-    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.UI.Composition.CompositionBatchCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Composition.CompositionBatchCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsActive = property(get_IsActive, None)
@@ -4842,290 +4833,4 @@ class VisualUnorderedCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Composition.Visual]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Composition.Visual]: ...
     Count = property(get_Count, None)
-make_head(_module, 'AmbientLight')
-make_head(_module, 'AnimationController')
-make_head(_module, 'AnimationPropertyInfo')
-make_head(_module, 'BackEasingFunction')
-make_head(_module, 'BooleanKeyFrameAnimation')
-make_head(_module, 'BounceEasingFunction')
-make_head(_module, 'BounceScalarNaturalMotionAnimation')
-make_head(_module, 'BounceVector2NaturalMotionAnimation')
-make_head(_module, 'BounceVector3NaturalMotionAnimation')
-make_head(_module, 'CircleEasingFunction')
-make_head(_module, 'ColorKeyFrameAnimation')
-make_head(_module, 'CompositionAnimation')
-make_head(_module, 'CompositionAnimationGroup')
-make_head(_module, 'CompositionBackdropBrush')
-make_head(_module, 'CompositionBatchCompletedEventArgs')
-make_head(_module, 'CompositionBrush')
-make_head(_module, 'CompositionCapabilities')
-make_head(_module, 'CompositionClip')
-make_head(_module, 'CompositionColorBrush')
-make_head(_module, 'CompositionColorGradientStop')
-make_head(_module, 'CompositionColorGradientStopCollection')
-make_head(_module, 'CompositionCommitBatch')
-make_head(_module, 'CompositionContainerShape')
-make_head(_module, 'CompositionDrawingSurface')
-make_head(_module, 'CompositionEasingFunction')
-make_head(_module, 'CompositionEffectBrush')
-make_head(_module, 'CompositionEffectFactory')
-make_head(_module, 'CompositionEffectSourceParameter')
-make_head(_module, 'CompositionEllipseGeometry')
-make_head(_module, 'CompositionGeometricClip')
-make_head(_module, 'CompositionGeometry')
-make_head(_module, 'CompositionGradientBrush')
-make_head(_module, 'CompositionGraphicsDevice')
-make_head(_module, 'CompositionLight')
-make_head(_module, 'CompositionLineGeometry')
-make_head(_module, 'CompositionLinearGradientBrush')
-make_head(_module, 'CompositionMaskBrush')
-make_head(_module, 'CompositionMipmapSurface')
-make_head(_module, 'CompositionNineGridBrush')
-make_head(_module, 'CompositionObject')
-make_head(_module, 'CompositionPath')
-make_head(_module, 'CompositionPathGeometry')
-make_head(_module, 'CompositionProjectedShadow')
-make_head(_module, 'CompositionProjectedShadowCaster')
-make_head(_module, 'CompositionProjectedShadowCasterCollection')
-make_head(_module, 'CompositionProjectedShadowReceiver')
-make_head(_module, 'CompositionProjectedShadowReceiverUnorderedCollection')
-make_head(_module, 'CompositionPropertySet')
-make_head(_module, 'CompositionRadialGradientBrush')
-make_head(_module, 'CompositionRectangleGeometry')
-make_head(_module, 'CompositionRoundedRectangleGeometry')
-make_head(_module, 'CompositionScopedBatch')
-make_head(_module, 'CompositionShadow')
-make_head(_module, 'CompositionShape')
-make_head(_module, 'CompositionShapeCollection')
-make_head(_module, 'CompositionSpriteShape')
-make_head(_module, 'CompositionStrokeDashArray')
-make_head(_module, 'CompositionSurfaceBrush')
-make_head(_module, 'CompositionTarget')
-make_head(_module, 'CompositionTransform')
-make_head(_module, 'CompositionViewBox')
-make_head(_module, 'CompositionVirtualDrawingSurface')
-make_head(_module, 'CompositionVisualSurface')
-make_head(_module, 'Compositor')
-make_head(_module, 'ContainerVisual')
-make_head(_module, 'CubicBezierEasingFunction')
-make_head(_module, 'DelegatedInkTrailVisual')
-make_head(_module, 'DistantLight')
-make_head(_module, 'DropShadow')
-make_head(_module, 'ElasticEasingFunction')
-make_head(_module, 'ExponentialEasingFunction')
-make_head(_module, 'ExpressionAnimation')
-make_head(_module, 'IAmbientLight')
-make_head(_module, 'IAmbientLight2')
-make_head(_module, 'IAnimationController')
-make_head(_module, 'IAnimationControllerStatics')
-make_head(_module, 'IAnimationObject')
-make_head(_module, 'IAnimationPropertyInfo')
-make_head(_module, 'IAnimationPropertyInfo2')
-make_head(_module, 'IBackEasingFunction')
-make_head(_module, 'IBooleanKeyFrameAnimation')
-make_head(_module, 'IBounceEasingFunction')
-make_head(_module, 'IBounceScalarNaturalMotionAnimation')
-make_head(_module, 'IBounceVector2NaturalMotionAnimation')
-make_head(_module, 'IBounceVector3NaturalMotionAnimation')
-make_head(_module, 'ICircleEasingFunction')
-make_head(_module, 'IColorKeyFrameAnimation')
-make_head(_module, 'ICompositionAnimation')
-make_head(_module, 'ICompositionAnimation2')
-make_head(_module, 'ICompositionAnimation3')
-make_head(_module, 'ICompositionAnimation4')
-make_head(_module, 'ICompositionAnimationBase')
-make_head(_module, 'ICompositionAnimationFactory')
-make_head(_module, 'ICompositionAnimationGroup')
-make_head(_module, 'ICompositionBackdropBrush')
-make_head(_module, 'ICompositionBatchCompletedEventArgs')
-make_head(_module, 'ICompositionBrush')
-make_head(_module, 'ICompositionBrushFactory')
-make_head(_module, 'ICompositionCapabilities')
-make_head(_module, 'ICompositionCapabilitiesStatics')
-make_head(_module, 'ICompositionClip')
-make_head(_module, 'ICompositionClip2')
-make_head(_module, 'ICompositionClipFactory')
-make_head(_module, 'ICompositionColorBrush')
-make_head(_module, 'ICompositionColorGradientStop')
-make_head(_module, 'ICompositionColorGradientStopCollection')
-make_head(_module, 'ICompositionCommitBatch')
-make_head(_module, 'ICompositionContainerShape')
-make_head(_module, 'ICompositionDrawingSurface')
-make_head(_module, 'ICompositionDrawingSurface2')
-make_head(_module, 'ICompositionDrawingSurfaceFactory')
-make_head(_module, 'ICompositionEasingFunction')
-make_head(_module, 'ICompositionEasingFunctionFactory')
-make_head(_module, 'ICompositionEasingFunctionStatics')
-make_head(_module, 'ICompositionEffectBrush')
-make_head(_module, 'ICompositionEffectFactory')
-make_head(_module, 'ICompositionEffectSourceParameter')
-make_head(_module, 'ICompositionEffectSourceParameterFactory')
-make_head(_module, 'ICompositionEllipseGeometry')
-make_head(_module, 'ICompositionGeometricClip')
-make_head(_module, 'ICompositionGeometry')
-make_head(_module, 'ICompositionGeometryFactory')
-make_head(_module, 'ICompositionGradientBrush')
-make_head(_module, 'ICompositionGradientBrush2')
-make_head(_module, 'ICompositionGradientBrushFactory')
-make_head(_module, 'ICompositionGraphicsDevice')
-make_head(_module, 'ICompositionGraphicsDevice2')
-make_head(_module, 'ICompositionGraphicsDevice3')
-make_head(_module, 'ICompositionGraphicsDevice4')
-make_head(_module, 'ICompositionLight')
-make_head(_module, 'ICompositionLight2')
-make_head(_module, 'ICompositionLight3')
-make_head(_module, 'ICompositionLightFactory')
-make_head(_module, 'ICompositionLineGeometry')
-make_head(_module, 'ICompositionLinearGradientBrush')
-make_head(_module, 'ICompositionMaskBrush')
-make_head(_module, 'ICompositionMipmapSurface')
-make_head(_module, 'ICompositionNineGridBrush')
-make_head(_module, 'ICompositionObject')
-make_head(_module, 'ICompositionObject2')
-make_head(_module, 'ICompositionObject3')
-make_head(_module, 'ICompositionObject4')
-make_head(_module, 'ICompositionObject5')
-make_head(_module, 'ICompositionObjectFactory')
-make_head(_module, 'ICompositionObjectStatics')
-make_head(_module, 'ICompositionPath')
-make_head(_module, 'ICompositionPathFactory')
-make_head(_module, 'ICompositionPathGeometry')
-make_head(_module, 'ICompositionProjectedShadow')
-make_head(_module, 'ICompositionProjectedShadowCaster')
-make_head(_module, 'ICompositionProjectedShadowCasterCollection')
-make_head(_module, 'ICompositionProjectedShadowCasterCollectionStatics')
-make_head(_module, 'ICompositionProjectedShadowReceiver')
-make_head(_module, 'ICompositionProjectedShadowReceiverUnorderedCollection')
-make_head(_module, 'ICompositionPropertySet')
-make_head(_module, 'ICompositionPropertySet2')
-make_head(_module, 'ICompositionRadialGradientBrush')
-make_head(_module, 'ICompositionRectangleGeometry')
-make_head(_module, 'ICompositionRoundedRectangleGeometry')
-make_head(_module, 'ICompositionScopedBatch')
-make_head(_module, 'ICompositionShadow')
-make_head(_module, 'ICompositionShadowFactory')
-make_head(_module, 'ICompositionShape')
-make_head(_module, 'ICompositionShapeFactory')
-make_head(_module, 'ICompositionSpriteShape')
-make_head(_module, 'ICompositionSupportsSystemBackdrop')
-make_head(_module, 'ICompositionSurface')
-make_head(_module, 'ICompositionSurfaceBrush')
-make_head(_module, 'ICompositionSurfaceBrush2')
-make_head(_module, 'ICompositionSurfaceBrush3')
-make_head(_module, 'ICompositionSurfaceFacade')
-make_head(_module, 'ICompositionTarget')
-make_head(_module, 'ICompositionTargetFactory')
-make_head(_module, 'ICompositionTransform')
-make_head(_module, 'ICompositionTransformFactory')
-make_head(_module, 'ICompositionViewBox')
-make_head(_module, 'ICompositionVirtualDrawingSurface')
-make_head(_module, 'ICompositionVirtualDrawingSurfaceFactory')
-make_head(_module, 'ICompositionVisualSurface')
-make_head(_module, 'ICompositor')
-make_head(_module, 'ICompositor2')
-make_head(_module, 'ICompositor3')
-make_head(_module, 'ICompositor4')
-make_head(_module, 'ICompositor5')
-make_head(_module, 'ICompositor6')
-make_head(_module, 'ICompositor7')
-make_head(_module, 'ICompositor8')
-make_head(_module, 'ICompositorStatics')
-make_head(_module, 'ICompositorWithBlurredWallpaperBackdropBrush')
-make_head(_module, 'ICompositorWithProjectedShadow')
-make_head(_module, 'ICompositorWithRadialGradient')
-make_head(_module, 'ICompositorWithVisualSurface')
-make_head(_module, 'IContainerVisual')
-make_head(_module, 'IContainerVisualFactory')
-make_head(_module, 'ICubicBezierEasingFunction')
-make_head(_module, 'IDelegatedInkTrailVisual')
-make_head(_module, 'IDelegatedInkTrailVisualStatics')
-make_head(_module, 'IDistantLight')
-make_head(_module, 'IDistantLight2')
-make_head(_module, 'IDropShadow')
-make_head(_module, 'IDropShadow2')
-make_head(_module, 'IElasticEasingFunction')
-make_head(_module, 'IExponentialEasingFunction')
-make_head(_module, 'IExpressionAnimation')
-make_head(_module, 'IImplicitAnimationCollection')
-make_head(_module, 'IInsetClip')
-make_head(_module, 'IKeyFrameAnimation')
-make_head(_module, 'IKeyFrameAnimation2')
-make_head(_module, 'IKeyFrameAnimation3')
-make_head(_module, 'IKeyFrameAnimationFactory')
-make_head(_module, 'ILayerVisual')
-make_head(_module, 'ILayerVisual2')
-make_head(_module, 'ILinearEasingFunction')
-make_head(_module, 'INaturalMotionAnimation')
-make_head(_module, 'INaturalMotionAnimationFactory')
-make_head(_module, 'IPathKeyFrameAnimation')
-make_head(_module, 'IPointLight')
-make_head(_module, 'IPointLight2')
-make_head(_module, 'IPointLight3')
-make_head(_module, 'IPowerEasingFunction')
-make_head(_module, 'IQuaternionKeyFrameAnimation')
-make_head(_module, 'IRectangleClip')
-make_head(_module, 'IRedirectVisual')
-make_head(_module, 'IRenderingDeviceReplacedEventArgs')
-make_head(_module, 'IScalarKeyFrameAnimation')
-make_head(_module, 'IScalarNaturalMotionAnimation')
-make_head(_module, 'IScalarNaturalMotionAnimationFactory')
-make_head(_module, 'IShapeVisual')
-make_head(_module, 'ISineEasingFunction')
-make_head(_module, 'ISpotLight')
-make_head(_module, 'ISpotLight2')
-make_head(_module, 'ISpotLight3')
-make_head(_module, 'ISpringScalarNaturalMotionAnimation')
-make_head(_module, 'ISpringVector2NaturalMotionAnimation')
-make_head(_module, 'ISpringVector3NaturalMotionAnimation')
-make_head(_module, 'ISpriteVisual')
-make_head(_module, 'ISpriteVisual2')
-make_head(_module, 'IStepEasingFunction')
-make_head(_module, 'IVector2KeyFrameAnimation')
-make_head(_module, 'IVector2NaturalMotionAnimation')
-make_head(_module, 'IVector2NaturalMotionAnimationFactory')
-make_head(_module, 'IVector3KeyFrameAnimation')
-make_head(_module, 'IVector3NaturalMotionAnimation')
-make_head(_module, 'IVector3NaturalMotionAnimationFactory')
-make_head(_module, 'IVector4KeyFrameAnimation')
-make_head(_module, 'IVisual')
-make_head(_module, 'IVisual2')
-make_head(_module, 'IVisual3')
-make_head(_module, 'IVisual4')
-make_head(_module, 'IVisualCollection')
-make_head(_module, 'IVisualElement')
-make_head(_module, 'IVisualElement2')
-make_head(_module, 'IVisualFactory')
-make_head(_module, 'IVisualUnorderedCollection')
-make_head(_module, 'ImplicitAnimationCollection')
-make_head(_module, 'InitialValueExpressionCollection')
-make_head(_module, 'InkTrailPoint')
-make_head(_module, 'InsetClip')
-make_head(_module, 'KeyFrameAnimation')
-make_head(_module, 'LayerVisual')
-make_head(_module, 'LinearEasingFunction')
-make_head(_module, 'NaturalMotionAnimation')
-make_head(_module, 'PathKeyFrameAnimation')
-make_head(_module, 'PointLight')
-make_head(_module, 'PowerEasingFunction')
-make_head(_module, 'QuaternionKeyFrameAnimation')
-make_head(_module, 'RectangleClip')
-make_head(_module, 'RedirectVisual')
-make_head(_module, 'RenderingDeviceReplacedEventArgs')
-make_head(_module, 'ScalarKeyFrameAnimation')
-make_head(_module, 'ScalarNaturalMotionAnimation')
-make_head(_module, 'ShapeVisual')
-make_head(_module, 'SineEasingFunction')
-make_head(_module, 'SpotLight')
-make_head(_module, 'SpringScalarNaturalMotionAnimation')
-make_head(_module, 'SpringVector2NaturalMotionAnimation')
-make_head(_module, 'SpringVector3NaturalMotionAnimation')
-make_head(_module, 'SpriteVisual')
-make_head(_module, 'StepEasingFunction')
-make_head(_module, 'Vector2KeyFrameAnimation')
-make_head(_module, 'Vector2NaturalMotionAnimation')
-make_head(_module, 'Vector3KeyFrameAnimation')
-make_head(_module, 'Vector3NaturalMotionAnimation')
-make_head(_module, 'Vector4KeyFrameAnimation')
-make_head(_module, 'Visual')
-make_head(_module, 'VisualCollection')
-make_head(_module, 'VisualUnorderedCollection')
+make_ready(__name__)

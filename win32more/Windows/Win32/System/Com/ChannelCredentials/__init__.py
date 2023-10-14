@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.ChannelCredentials
 import win32more.Windows.Win32.System.Variant
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IChannelCredentials(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{181b448c-c17c-4b17-ac6d-06699b93198f}')
@@ -37,4 +28,4 @@ class IChannelCredentials(ComPtr):
     def SetServiceCertificateAuthentication(self, storeLocation: win32more.Windows.Win32.Foundation.BSTR, revocationMode: win32more.Windows.Win32.Foundation.BSTR, certificateValidationMode: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SetIssuedToken(self, localIssuerAddres: win32more.Windows.Win32.Foundation.BSTR, localIssuerBindingType: win32more.Windows.Win32.Foundation.BSTR, localIssuerBinding: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'IChannelCredentials')
+make_ready(__name__)

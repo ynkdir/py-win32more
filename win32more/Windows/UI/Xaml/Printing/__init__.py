@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics.Printing
 import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Printing
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AddPagesEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Printing.IAddPagesEventArgs
@@ -40,7 +31,7 @@ class AddPagesEventArgs(ComPtr):
 class AddPagesEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d4b57970-57a0-4209-847c-c093b54bc729}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Printing.AddPagesEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Printing.AddPagesEventArgs) -> Void: ...
 class GetPreviewPageEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Printing.IGetPreviewPageEventArgs
@@ -53,7 +44,7 @@ class GetPreviewPageEventArgs(ComPtr):
 class GetPreviewPageEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ccb3e9ed-9c11-4e50-ab49-e98086bbfdef}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Printing.GetPreviewPageEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Printing.GetPreviewPageEventArgs) -> Void: ...
 class IAddPagesEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Printing.IAddPagesEventArgs'
@@ -112,7 +103,7 @@ class IPrintDocumentFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Printing.IPrintDocumentFactory'
     _iid_ = Guid('{fb87b18f-2606-4a2f-99d4-a7cdbc35d7c7}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Printing.PrintDocument: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Printing.PrintDocument: ...
 class IPrintDocumentStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Printing.IPrintDocumentStatics'
@@ -135,7 +126,7 @@ class PaginateEventArgs(ComPtr):
 class PaginateEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0cc05b61-811b-4a32-9965-13eb78dbb01b}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...
 PreviewPageCountType = Int32
 PreviewPageCountType_Final: PreviewPageCountType = 0
 PreviewPageCountType_Intermediate: PreviewPageCountType = 1
@@ -146,7 +137,7 @@ class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Printing.IPrintDocument
     _classid_ = 'Windows.UI.Xaml.Printing.PrintDocument'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Printing.IPrintDocumentFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Printing.PrintDocument: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Printing.IPrintDocumentFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Printing.PrintDocument: ...
     @winrt_mixinmethod
     def get_DocumentSource(self: win32more.Windows.UI.Xaml.Printing.IPrintDocument) -> win32more.Windows.Graphics.Printing.IPrintDocumentSource: ...
     @winrt_mixinmethod
@@ -175,13 +166,4 @@ class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):
     def get_DocumentSourceProperty(cls: win32more.Windows.UI.Xaml.Printing.IPrintDocumentStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     DocumentSource = property(get_DocumentSource, None)
     _PrintDocument_Meta_.DocumentSourceProperty = property(get_DocumentSourceProperty.__wrapped__, None)
-make_head(_module, 'AddPagesEventArgs')
-make_head(_module, 'GetPreviewPageEventArgs')
-make_head(_module, 'IAddPagesEventArgs')
-make_head(_module, 'IGetPreviewPageEventArgs')
-make_head(_module, 'IPaginateEventArgs')
-make_head(_module, 'IPrintDocument')
-make_head(_module, 'IPrintDocumentFactory')
-make_head(_module, 'IPrintDocumentStatics')
-make_head(_module, 'PaginateEventArgs')
-make_head(_module, 'PrintDocument')
+make_ready(__name__)

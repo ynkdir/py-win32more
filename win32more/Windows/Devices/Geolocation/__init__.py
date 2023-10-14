@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AltitudeReferenceSystem = Int32
 AltitudeReferenceSystem_Unspecified: AltitudeReferenceSystem = 0
 AltitudeReferenceSystem_Terrain: AltitudeReferenceSystem = 1
@@ -769,53 +760,4 @@ VisitStateChange_TrackingLost: VisitStateChange = 0
 VisitStateChange_Arrived: VisitStateChange = 1
 VisitStateChange_Departed: VisitStateChange = 2
 VisitStateChange_OtherMovement: VisitStateChange = 3
-make_head(_module, 'BasicGeoposition')
-make_head(_module, 'CivicAddress')
-make_head(_module, 'GeoboundingBox')
-make_head(_module, 'Geocircle')
-make_head(_module, 'Geocoordinate')
-make_head(_module, 'GeocoordinateSatelliteData')
-make_head(_module, 'Geolocator')
-make_head(_module, 'Geopath')
-make_head(_module, 'Geopoint')
-make_head(_module, 'Geoposition')
-make_head(_module, 'Geovisit')
-make_head(_module, 'GeovisitMonitor')
-make_head(_module, 'GeovisitStateChangedEventArgs')
-make_head(_module, 'GeovisitTriggerDetails')
-make_head(_module, 'ICivicAddress')
-make_head(_module, 'IGeoboundingBox')
-make_head(_module, 'IGeoboundingBoxFactory')
-make_head(_module, 'IGeoboundingBoxStatics')
-make_head(_module, 'IGeocircle')
-make_head(_module, 'IGeocircleFactory')
-make_head(_module, 'IGeocoordinate')
-make_head(_module, 'IGeocoordinateSatelliteData')
-make_head(_module, 'IGeocoordinateSatelliteData2')
-make_head(_module, 'IGeocoordinateWithPoint')
-make_head(_module, 'IGeocoordinateWithPositionData')
-make_head(_module, 'IGeocoordinateWithPositionSourceTimestamp')
-make_head(_module, 'IGeocoordinateWithRemoteSource')
-make_head(_module, 'IGeolocator')
-make_head(_module, 'IGeolocator2')
-make_head(_module, 'IGeolocatorStatics')
-make_head(_module, 'IGeolocatorStatics2')
-make_head(_module, 'IGeolocatorWithScalarAccuracy')
-make_head(_module, 'IGeopath')
-make_head(_module, 'IGeopathFactory')
-make_head(_module, 'IGeopoint')
-make_head(_module, 'IGeopointFactory')
-make_head(_module, 'IGeoposition')
-make_head(_module, 'IGeoposition2')
-make_head(_module, 'IGeoshape')
-make_head(_module, 'IGeovisit')
-make_head(_module, 'IGeovisitMonitor')
-make_head(_module, 'IGeovisitMonitorStatics')
-make_head(_module, 'IGeovisitStateChangedEventArgs')
-make_head(_module, 'IGeovisitTriggerDetails')
-make_head(_module, 'IPositionChangedEventArgs')
-make_head(_module, 'IStatusChangedEventArgs')
-make_head(_module, 'IVenueData')
-make_head(_module, 'PositionChangedEventArgs')
-make_head(_module, 'StatusChangedEventArgs')
-make_head(_module, 'VenueData')
+make_ready(__name__)

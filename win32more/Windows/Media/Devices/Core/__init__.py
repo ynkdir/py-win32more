@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Media.Devices.Core
 import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Perception.Spatial
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CameraIntrinsics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.Core.ICameraIntrinsics
@@ -600,37 +591,4 @@ class VariablePhotoSequenceController(ComPtr):
     PhotosPerSecondLimit = property(get_PhotosPerSecondLimit, put_PhotosPerSecondLimit)
     FrameCapabilities = property(get_FrameCapabilities, None)
     DesiredFrameControllers = property(get_DesiredFrameControllers, None)
-make_head(_module, 'CameraIntrinsics')
-make_head(_module, 'DepthCorrelatedCoordinateMapper')
-make_head(_module, 'FrameControlCapabilities')
-make_head(_module, 'FrameController')
-make_head(_module, 'FrameExposureCapabilities')
-make_head(_module, 'FrameExposureCompensationCapabilities')
-make_head(_module, 'FrameExposureCompensationControl')
-make_head(_module, 'FrameExposureControl')
-make_head(_module, 'FrameFlashCapabilities')
-make_head(_module, 'FrameFlashControl')
-make_head(_module, 'FrameFocusCapabilities')
-make_head(_module, 'FrameFocusControl')
-make_head(_module, 'FrameIsoSpeedCapabilities')
-make_head(_module, 'FrameIsoSpeedControl')
-make_head(_module, 'ICameraIntrinsics')
-make_head(_module, 'ICameraIntrinsics2')
-make_head(_module, 'ICameraIntrinsicsFactory')
-make_head(_module, 'IDepthCorrelatedCoordinateMapper')
-make_head(_module, 'IFrameControlCapabilities')
-make_head(_module, 'IFrameControlCapabilities2')
-make_head(_module, 'IFrameController')
-make_head(_module, 'IFrameController2')
-make_head(_module, 'IFrameExposureCapabilities')
-make_head(_module, 'IFrameExposureCompensationCapabilities')
-make_head(_module, 'IFrameExposureCompensationControl')
-make_head(_module, 'IFrameExposureControl')
-make_head(_module, 'IFrameFlashCapabilities')
-make_head(_module, 'IFrameFlashControl')
-make_head(_module, 'IFrameFocusCapabilities')
-make_head(_module, 'IFrameFocusControl')
-make_head(_module, 'IFrameIsoSpeedCapabilities')
-make_head(_module, 'IFrameIsoSpeedControl')
-make_head(_module, 'IVariablePhotoSequenceController')
-make_head(_module, 'VariablePhotoSequenceController')
+make_ready(__name__)

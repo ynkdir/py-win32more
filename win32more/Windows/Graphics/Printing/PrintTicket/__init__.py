@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Printing.PrintTicket
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPrintTicketCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketCapabilities'
@@ -543,19 +534,4 @@ class WorkflowPrintTicketValidationResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketValidationResult) -> win32more.Windows.Foundation.HResult: ...
     Validated = property(get_Validated, None)
     ExtendedError = property(get_ExtendedError, None)
-make_head(_module, 'IPrintTicketCapabilities')
-make_head(_module, 'IPrintTicketFeature')
-make_head(_module, 'IPrintTicketOption')
-make_head(_module, 'IPrintTicketParameterDefinition')
-make_head(_module, 'IPrintTicketParameterInitializer')
-make_head(_module, 'IPrintTicketValue')
-make_head(_module, 'IWorkflowPrintTicket')
-make_head(_module, 'IWorkflowPrintTicketValidationResult')
-make_head(_module, 'PrintTicketCapabilities')
-make_head(_module, 'PrintTicketFeature')
-make_head(_module, 'PrintTicketOption')
-make_head(_module, 'PrintTicketParameterDefinition')
-make_head(_module, 'PrintTicketParameterInitializer')
-make_head(_module, 'PrintTicketValue')
-make_head(_module, 'WorkflowPrintTicket')
-make_head(_module, 'WorkflowPrintTicketValidationResult')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Enumeration
@@ -29,15 +29,6 @@ import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Media.Render
 import win32more.Windows.Media.Transcoding
 import win32more.Windows.Storage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AudioDeviceInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioDeviceInputNode
@@ -160,7 +151,7 @@ class AudioFileInputNode(ComPtr):
     @winrt_mixinmethod
     def get_SourceFile(self: win32more.Windows.Media.Audio.IAudioFileInputNode) -> win32more.Windows.Storage.StorageFile: ...
     @winrt_mixinmethod
-    def add_FileCompleted(self: win32more.Windows.Media.Audio.IAudioFileInputNode, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioFileInputNode, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FileCompleted(self: win32more.Windows.Media.Audio.IAudioFileInputNode, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioFileInputNode, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_FileCompleted(self: win32more.Windows.Media.Audio.IAudioFileInputNode, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -398,11 +389,11 @@ class AudioGraph(ComPtr):
     @winrt_mixinmethod
     def ResetAllNodes(self: win32more.Windows.Media.Audio.IAudioGraph) -> Void: ...
     @winrt_mixinmethod
-    def add_QuantumStarted(self: win32more.Windows.Media.Audio.IAudioGraph, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioGraph, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_QuantumStarted(self: win32more.Windows.Media.Audio.IAudioGraph, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioGraph, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_QuantumStarted(self: win32more.Windows.Media.Audio.IAudioGraph, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_QuantumProcessed(self: win32more.Windows.Media.Audio.IAudioGraph, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioGraph, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_QuantumProcessed(self: win32more.Windows.Media.Audio.IAudioGraph, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioGraph, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_QuantumProcessed(self: win32more.Windows.Media.Audio.IAudioGraph, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -682,7 +673,7 @@ class AudioPlaybackConnection(ComPtr):
     @winrt_mixinmethod
     def OpenAsync(self: win32more.Windows.Media.Audio.IAudioPlaybackConnection) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Audio.AudioPlaybackConnectionOpenResult]: ...
     @winrt_mixinmethod
-    def add_StateChanged(self: win32more.Windows.Media.Audio.IAudioPlaybackConnection, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioPlaybackConnection, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(self: win32more.Windows.Media.Audio.IAudioPlaybackConnection, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioPlaybackConnection, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StateChanged(self: win32more.Windows.Media.Audio.IAudioPlaybackConnection, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -716,7 +707,7 @@ class AudioStateMonitor(ComPtr):
     default_interface: win32more.Windows.Media.Audio.IAudioStateMonitor
     _classid_ = 'Windows.Media.Audio.AudioStateMonitor'
     @winrt_mixinmethod
-    def add_SoundLevelChanged(self: win32more.Windows.Media.Audio.IAudioStateMonitor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioStateMonitor, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SoundLevelChanged(self: win32more.Windows.Media.Audio.IAudioStateMonitor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioStateMonitor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SoundLevelChanged(self: win32more.Windows.Media.Audio.IAudioStateMonitor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -971,7 +962,7 @@ class IAudioFileInputNode(ComPtr):
     @winrt_commethod(17)
     def get_SourceFile(self) -> win32more.Windows.Storage.StorageFile: ...
     @winrt_commethod(18)
-    def add_FileCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioFileInputNode, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FileCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioFileInputNode, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_FileCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
@@ -1067,11 +1058,11 @@ class IAudioGraph(ComPtr):
     @winrt_commethod(21)
     def ResetAllNodes(self) -> Void: ...
     @winrt_commethod(22)
-    def add_QuantumStarted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioGraph, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_QuantumStarted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioGraph, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(23)
     def remove_QuantumStarted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(24)
-    def add_QuantumProcessed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioGraph, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_QuantumProcessed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioGraph, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(25)
     def remove_QuantumProcessed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(26)
@@ -1415,7 +1406,7 @@ class IAudioPlaybackConnection(ComPtr):
     @winrt_commethod(11)
     def OpenAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Audio.AudioPlaybackConnectionOpenResult]: ...
     @winrt_commethod(12)
-    def add_StateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioPlaybackConnection, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioPlaybackConnection, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
@@ -1443,7 +1434,7 @@ class IAudioStateMonitor(ComPtr):
     _classid_ = 'Windows.Media.Audio.IAudioStateMonitor'
     _iid_ = Guid('{1d13d136-0199-4cdc-b84e-e72c2b581ece}')
     @winrt_commethod(6)
-    def add_SoundLevelChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioStateMonitor, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SoundLevelChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioStateMonitor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_SoundLevelChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -1684,7 +1675,7 @@ class IMediaSourceAudioInputNode(ComPtr):
     @winrt_commethod(17)
     def get_MediaSource(self) -> win32more.Windows.Media.Core.MediaSource: ...
     @winrt_commethod(18)
-    def add_MediaSourceCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.MediaSourceAudioInputNode, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MediaSourceCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.MediaSourceAudioInputNode, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_MediaSourceCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
@@ -1843,7 +1834,7 @@ class ISpatialAudioDeviceConfiguration(ComPtr):
     @winrt_commethod(11)
     def SetDefaultSpatialAudioFormatAsync(self, subtype: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Audio.SetDefaultSpatialAudioFormatResult]: ...
     @winrt_commethod(12)
-    def add_ConfigurationChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.SpatialAudioDeviceConfiguration, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ConfigurationChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.SpatialAudioDeviceConfiguration, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_ConfigurationChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
@@ -1955,7 +1946,7 @@ class MediaSourceAudioInputNode(ComPtr):
     @winrt_mixinmethod
     def get_MediaSource(self: win32more.Windows.Media.Audio.IMediaSourceAudioInputNode) -> win32more.Windows.Media.Core.MediaSource: ...
     @winrt_mixinmethod
-    def add_MediaSourceCompleted(self: win32more.Windows.Media.Audio.IMediaSourceAudioInputNode, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.MediaSourceAudioInputNode, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MediaSourceCompleted(self: win32more.Windows.Media.Audio.IMediaSourceAudioInputNode, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.MediaSourceAudioInputNode, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_MediaSourceCompleted(self: win32more.Windows.Media.Audio.IMediaSourceAudioInputNode, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2175,7 +2166,7 @@ class SpatialAudioDeviceConfiguration(ComPtr):
     @winrt_mixinmethod
     def SetDefaultSpatialAudioFormatAsync(self: win32more.Windows.Media.Audio.ISpatialAudioDeviceConfiguration, subtype: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Audio.SetDefaultSpatialAudioFormatResult]: ...
     @winrt_mixinmethod
-    def add_ConfigurationChanged(self: win32more.Windows.Media.Audio.ISpatialAudioDeviceConfiguration, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.SpatialAudioDeviceConfiguration, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ConfigurationChanged(self: win32more.Windows.Media.Audio.ISpatialAudioDeviceConfiguration, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.SpatialAudioDeviceConfiguration, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ConfigurationChanged(self: win32more.Windows.Media.Audio.ISpatialAudioDeviceConfiguration, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -2228,107 +2219,4 @@ class SpatialAudioFormatSubtype(ComPtr, metaclass=_SpatialAudioFormatSubtype_Met
 SpatialAudioModel = Int32
 SpatialAudioModel_ObjectBased: SpatialAudioModel = 0
 SpatialAudioModel_FoldDown: SpatialAudioModel = 1
-make_head(_module, 'AudioDeviceInputNode')
-make_head(_module, 'AudioDeviceOutputNode')
-make_head(_module, 'AudioFileInputNode')
-make_head(_module, 'AudioFileOutputNode')
-make_head(_module, 'AudioFrameCompletedEventArgs')
-make_head(_module, 'AudioFrameInputNode')
-make_head(_module, 'AudioFrameOutputNode')
-make_head(_module, 'AudioGraph')
-make_head(_module, 'AudioGraphBatchUpdater')
-make_head(_module, 'AudioGraphConnection')
-make_head(_module, 'AudioGraphSettings')
-make_head(_module, 'AudioGraphUnrecoverableErrorOccurredEventArgs')
-make_head(_module, 'AudioNodeEmitter')
-make_head(_module, 'AudioNodeEmitterConeProperties')
-make_head(_module, 'AudioNodeEmitterDecayModel')
-make_head(_module, 'AudioNodeEmitterNaturalDecayModelProperties')
-make_head(_module, 'AudioNodeEmitterShape')
-make_head(_module, 'AudioNodeListener')
-make_head(_module, 'AudioPlaybackConnection')
-make_head(_module, 'AudioPlaybackConnectionOpenResult')
-make_head(_module, 'AudioStateMonitor')
-make_head(_module, 'AudioSubmixNode')
-make_head(_module, 'CreateAudioDeviceInputNodeResult')
-make_head(_module, 'CreateAudioDeviceOutputNodeResult')
-make_head(_module, 'CreateAudioFileInputNodeResult')
-make_head(_module, 'CreateAudioFileOutputNodeResult')
-make_head(_module, 'CreateAudioGraphResult')
-make_head(_module, 'CreateMediaSourceAudioInputNodeResult')
-make_head(_module, 'EchoEffectDefinition')
-make_head(_module, 'EqualizerBand')
-make_head(_module, 'EqualizerEffectDefinition')
-make_head(_module, 'FrameInputNodeQuantumStartedEventArgs')
-make_head(_module, 'IAudioDeviceInputNode')
-make_head(_module, 'IAudioDeviceOutputNode')
-make_head(_module, 'IAudioFileInputNode')
-make_head(_module, 'IAudioFileOutputNode')
-make_head(_module, 'IAudioFrameCompletedEventArgs')
-make_head(_module, 'IAudioFrameInputNode')
-make_head(_module, 'IAudioFrameOutputNode')
-make_head(_module, 'IAudioGraph')
-make_head(_module, 'IAudioGraph2')
-make_head(_module, 'IAudioGraph3')
-make_head(_module, 'IAudioGraphConnection')
-make_head(_module, 'IAudioGraphSettings')
-make_head(_module, 'IAudioGraphSettings2')
-make_head(_module, 'IAudioGraphSettingsFactory')
-make_head(_module, 'IAudioGraphStatics')
-make_head(_module, 'IAudioGraphUnrecoverableErrorOccurredEventArgs')
-make_head(_module, 'IAudioInputNode')
-make_head(_module, 'IAudioInputNode2')
-make_head(_module, 'IAudioNode')
-make_head(_module, 'IAudioNodeEmitter')
-make_head(_module, 'IAudioNodeEmitter2')
-make_head(_module, 'IAudioNodeEmitterConeProperties')
-make_head(_module, 'IAudioNodeEmitterDecayModel')
-make_head(_module, 'IAudioNodeEmitterDecayModelStatics')
-make_head(_module, 'IAudioNodeEmitterFactory')
-make_head(_module, 'IAudioNodeEmitterNaturalDecayModelProperties')
-make_head(_module, 'IAudioNodeEmitterShape')
-make_head(_module, 'IAudioNodeEmitterShapeStatics')
-make_head(_module, 'IAudioNodeListener')
-make_head(_module, 'IAudioNodeWithListener')
-make_head(_module, 'IAudioPlaybackConnection')
-make_head(_module, 'IAudioPlaybackConnectionOpenResult')
-make_head(_module, 'IAudioPlaybackConnectionStatics')
-make_head(_module, 'IAudioStateMonitor')
-make_head(_module, 'IAudioStateMonitorStatics')
-make_head(_module, 'ICreateAudioDeviceInputNodeResult')
-make_head(_module, 'ICreateAudioDeviceInputNodeResult2')
-make_head(_module, 'ICreateAudioDeviceOutputNodeResult')
-make_head(_module, 'ICreateAudioDeviceOutputNodeResult2')
-make_head(_module, 'ICreateAudioFileInputNodeResult')
-make_head(_module, 'ICreateAudioFileInputNodeResult2')
-make_head(_module, 'ICreateAudioFileOutputNodeResult')
-make_head(_module, 'ICreateAudioFileOutputNodeResult2')
-make_head(_module, 'ICreateAudioGraphResult')
-make_head(_module, 'ICreateAudioGraphResult2')
-make_head(_module, 'ICreateMediaSourceAudioInputNodeResult')
-make_head(_module, 'ICreateMediaSourceAudioInputNodeResult2')
-make_head(_module, 'IEchoEffectDefinition')
-make_head(_module, 'IEchoEffectDefinitionFactory')
-make_head(_module, 'IEqualizerBand')
-make_head(_module, 'IEqualizerEffectDefinition')
-make_head(_module, 'IEqualizerEffectDefinitionFactory')
-make_head(_module, 'IFrameInputNodeQuantumStartedEventArgs')
-make_head(_module, 'ILimiterEffectDefinition')
-make_head(_module, 'ILimiterEffectDefinitionFactory')
-make_head(_module, 'IMediaSourceAudioInputNode')
-make_head(_module, 'IReverbEffectDefinition')
-make_head(_module, 'IReverbEffectDefinitionFactory')
-make_head(_module, 'ISetDefaultSpatialAudioFormatResult')
-make_head(_module, 'ISpatialAudioDeviceConfiguration')
-make_head(_module, 'ISpatialAudioDeviceConfigurationStatics')
-make_head(_module, 'ISpatialAudioFormatConfiguration')
-make_head(_module, 'ISpatialAudioFormatConfigurationStatics')
-make_head(_module, 'ISpatialAudioFormatSubtypeStatics')
-make_head(_module, 'ISpatialAudioFormatSubtypeStatics2')
-make_head(_module, 'LimiterEffectDefinition')
-make_head(_module, 'MediaSourceAudioInputNode')
-make_head(_module, 'ReverbEffectDefinition')
-make_head(_module, 'SetDefaultSpatialAudioFormatResult')
-make_head(_module, 'SpatialAudioDeviceConfiguration')
-make_head(_module, 'SpatialAudioFormatConfiguration')
-make_head(_module, 'SpatialAudioFormatSubtype')
+make_ready(__name__)

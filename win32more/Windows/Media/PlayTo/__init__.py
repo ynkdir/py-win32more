@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.PlayTo
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CurrentTimeChangeRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.ICurrentTimeChangeRequestedEventArgs
@@ -128,11 +119,11 @@ class IPlayToReceiver(ComPtr):
     _classid_ = 'Windows.Media.PlayTo.IPlayToReceiver'
     _iid_ = Guid('{ac15cf47-a162-4aa6-af1b-3aa35f3b9069}')
     @winrt_commethod(6)
-    def add_PlayRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PlayRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PlayRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_PauseRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PauseRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_PauseRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -156,11 +147,11 @@ class IPlayToReceiver(ComPtr):
     @winrt_commethod(19)
     def remove_VolumeChangeRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(20)
-    def add_TimeUpdateRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TimeUpdateRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(21)
     def remove_TimeUpdateRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(22)
-    def add_StopRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StopRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(23)
     def remove_StopRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(24)
@@ -312,7 +303,7 @@ class ISourceChangeRequestedEventArgs(ComPtr):
     @winrt_commethod(14)
     def get_Rating(self) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_commethod(15)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Stream = property(get_Stream, None)
     Title = property(get_Title, None)
     Author = property(get_Author, None)
@@ -424,11 +415,11 @@ class PlayToReceiver(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.PlayTo.PlayToReceiver: ...
     @winrt_mixinmethod
-    def add_PlayRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PlayRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PlayRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PauseRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PauseRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PauseRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -452,11 +443,11 @@ class PlayToReceiver(ComPtr):
     @winrt_mixinmethod
     def remove_VolumeChangeRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_TimeUpdateRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TimeUpdateRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_TimeUpdateRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_StopRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StopRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.PlayTo.PlayToReceiver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StopRequested(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -604,7 +595,7 @@ class SourceChangeRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Rating(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Stream = property(get_Stream, None)
     Title = property(get_Title, None)
     Author = property(get_Author, None)
@@ -622,37 +613,4 @@ class VolumeChangeRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Volume(self: win32more.Windows.Media.PlayTo.IVolumeChangeRequestedEventArgs) -> Double: ...
     Volume = property(get_Volume, None)
-make_head(_module, 'CurrentTimeChangeRequestedEventArgs')
-make_head(_module, 'ICurrentTimeChangeRequestedEventArgs')
-make_head(_module, 'IMuteChangeRequestedEventArgs')
-make_head(_module, 'IPlayToConnection')
-make_head(_module, 'IPlayToConnectionErrorEventArgs')
-make_head(_module, 'IPlayToConnectionStateChangedEventArgs')
-make_head(_module, 'IPlayToConnectionTransferredEventArgs')
-make_head(_module, 'IPlayToManager')
-make_head(_module, 'IPlayToManagerStatics')
-make_head(_module, 'IPlayToReceiver')
-make_head(_module, 'IPlayToSource')
-make_head(_module, 'IPlayToSourceDeferral')
-make_head(_module, 'IPlayToSourceRequest')
-make_head(_module, 'IPlayToSourceRequestedEventArgs')
-make_head(_module, 'IPlayToSourceSelectedEventArgs')
-make_head(_module, 'IPlayToSourceWithPreferredSourceUri')
-make_head(_module, 'IPlaybackRateChangeRequestedEventArgs')
-make_head(_module, 'ISourceChangeRequestedEventArgs')
-make_head(_module, 'IVolumeChangeRequestedEventArgs')
-make_head(_module, 'MuteChangeRequestedEventArgs')
-make_head(_module, 'PlayToConnection')
-make_head(_module, 'PlayToConnectionErrorEventArgs')
-make_head(_module, 'PlayToConnectionStateChangedEventArgs')
-make_head(_module, 'PlayToConnectionTransferredEventArgs')
-make_head(_module, 'PlayToManager')
-make_head(_module, 'PlayToReceiver')
-make_head(_module, 'PlayToSource')
-make_head(_module, 'PlayToSourceDeferral')
-make_head(_module, 'PlayToSourceRequest')
-make_head(_module, 'PlayToSourceRequestedEventArgs')
-make_head(_module, 'PlayToSourceSelectedEventArgs')
-make_head(_module, 'PlaybackRateChangeRequestedEventArgs')
-make_head(_module, 'SourceChangeRequestedEventArgs')
-make_head(_module, 'VolumeChangeRequestedEventArgs')
+make_ready(__name__)

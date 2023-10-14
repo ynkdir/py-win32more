@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetBios
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ACTION_HEADER(EasyCastStructure):
     transport_id: UInt32
     action_code: UInt16
@@ -129,7 +120,7 @@ NRC_OPENERR: UInt32 = 63
 NRC_SYSTEM: UInt32 = 64
 NRC_PENDING: UInt32 = 255
 @winfunctype('NETAPI32.dll')
-def Netbios(pncb: POINTER(win32more.Windows.Win32.NetworkManagement.NetBios.NCB_head)) -> Byte: ...
+def Netbios(pncb: POINTER(win32more.Windows.Win32.NetworkManagement.NetBios.NCB)) -> Byte: ...
 class FIND_NAME_BUFFER(EasyCastStructure):
     length: Byte
     access_control: Byte
@@ -194,15 +185,4 @@ class SESSION_HEADER(EasyCastStructure):
     num_sess: Byte
     rcv_dg_outstanding: Byte
     rcv_any_outstanding: Byte
-make_head(_module, 'ACTION_HEADER')
-make_head(_module, 'ADAPTER_STATUS')
-make_head(_module, 'FIND_NAME_BUFFER')
-make_head(_module, 'FIND_NAME_HEADER')
-make_head(_module, 'LANA_ENUM')
-make_head(_module, 'NAME_BUFFER')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'NCB')
-if ARCH in 'X86':
-    make_head(_module, 'NCB')
-make_head(_module, 'SESSION_BUFFER')
-make_head(_module, 'SESSION_HEADER')
+make_ready(__name__)

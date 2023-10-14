@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Iis
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 IISADMIN_EXTENSIONS_REG_KEYA: String = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
 IISADMIN_EXTENSIONS_REG_KEYW: String = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
 IISADMIN_EXTENSIONS_REG_KEY: String = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
@@ -945,13 +936,13 @@ WEB_CORE_ACTIVATE_DLL_ENTRY: String = 'WebCoreActivate'
 WEB_CORE_SHUTDOWN_DLL_ENTRY: String = 'WebCoreShutdown'
 WEB_CORE_SET_METADATA_DLL_ENTRY: String = 'WebCoreSetMetadata'
 @winfunctype('RpcProxy.dll')
-def GetExtensionVersion(pVer: POINTER(win32more.Windows.Win32.System.Iis.HSE_VERSION_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetExtensionVersion(pVer: POINTER(win32more.Windows.Win32.System.Iis.HSE_VERSION_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('RpcProxy.dll')
-def HttpExtensionProc(pECB: POINTER(win32more.Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK_head)) -> UInt32: ...
+def HttpExtensionProc(pECB: POINTER(win32more.Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK)) -> UInt32: ...
 @winfunctype('RpcProxy.dll')
-def HttpFilterProc(pfc: POINTER(win32more.Windows.Win32.System.Iis.HTTP_FILTER_CONTEXT_head), NotificationType: UInt32, pvNotification: VoidPtr) -> UInt32: ...
+def HttpFilterProc(pfc: POINTER(win32more.Windows.Win32.System.Iis.HTTP_FILTER_CONTEXT), NotificationType: UInt32, pvNotification: VoidPtr) -> UInt32: ...
 @winfunctype('RpcProxy.dll')
-def GetFilterVersion(pVer: POINTER(win32more.Windows.Win32.System.Iis.HTTP_FILTER_VERSION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetFilterVersion(pVer: POINTER(win32more.Windows.Win32.System.Iis.HTTP_FILTER_VERSION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class AsyncIFtpAuthenticationProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c24efb65-9f3e-4996-8fb1-ce166916bab5}')
@@ -977,21 +968,21 @@ class AsyncIFtpLogProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{00a0ae46-2498-48b2-95e6-df678ed7d49f}')
     @commethod(3)
-    def Begin_Log(self, pLoggingParameters: POINTER(win32more.Windows.Win32.System.Iis.LOGGING_PARAMETERS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Begin_Log(self, pLoggingParameters: POINTER(win32more.Windows.Win32.System.Iis.LOGGING_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_Log(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpPostprocessProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a16b2542-9694-4eb1-a564-6c2e91fdc133}')
     @commethod(3)
-    def Begin_HandlePostprocess(self, pPostProcessParameters: POINTER(win32more.Windows.Win32.System.Iis.POST_PROCESS_PARAMETERS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Begin_HandlePostprocess(self, pPostProcessParameters: POINTER(win32more.Windows.Win32.System.Iis.POST_PROCESS_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_HandlePostprocess(self, pFtpProcessStatus: POINTER(win32more.Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpPreprocessProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6ff5fd8f-fd8e-48b1-a3e0-bf7073db4db5}')
     @commethod(3)
-    def Begin_HandlePreprocess(self, pPreProcessParameters: POINTER(win32more.Windows.Win32.System.Iis.PRE_PROCESS_PARAMETERS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Begin_HandlePreprocess(self, pPreProcessParameters: POINTER(win32more.Windows.Win32.System.Iis.PRE_PROCESS_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_HandlePreprocess(self, pFtpProcessStatus: POINTER(win32more.Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class AsyncIFtpRoleProvider(ComPtr):
@@ -1005,7 +996,7 @@ class AsyncIMSAdminBaseSinkW(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a9e69613-b80d-11d0-b9b9-00a0c922e750}')
     @commethod(3)
-    def Begin_SinkNotify(self, dwMDNumElements: UInt32, pcoChangeList: POINTER(win32more.Windows.Win32.System.Iis.MD_CHANGE_OBJECT_W_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Begin_SinkNotify(self, dwMDNumElements: UInt32, pcoChangeList: POINTER(win32more.Windows.Win32.System.Iis.MD_CHANGE_OBJECT_W)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_SinkNotify(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -1058,8 +1049,8 @@ class HSE_EXEC_UNICODE_URL_INFO(EasyCastStructure):
     pszUrl: win32more.Windows.Win32.Foundation.PWSTR
     pszMethod: win32more.Windows.Win32.Foundation.PSTR
     pszChildHeaders: win32more.Windows.Win32.Foundation.PSTR
-    pUserInfo: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_UNICODE_URL_USER_INFO_head)
-    pEntity: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_ENTITY_INFO_head)
+    pUserInfo: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_UNICODE_URL_USER_INFO)
+    pEntity: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_ENTITY_INFO)
     dwExecUrlFlags: UInt32
 class HSE_EXEC_UNICODE_URL_USER_INFO(EasyCastStructure):
     hImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE
@@ -1072,8 +1063,8 @@ class HSE_EXEC_URL_INFO(EasyCastStructure):
     pszUrl: win32more.Windows.Win32.Foundation.PSTR
     pszMethod: win32more.Windows.Win32.Foundation.PSTR
     pszChildHeaders: win32more.Windows.Win32.Foundation.PSTR
-    pUserInfo: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_USER_INFO_head)
-    pEntity: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_ENTITY_INFO_head)
+    pUserInfo: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_USER_INFO)
+    pEntity: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_ENTITY_INFO)
     dwExecUrlFlags: UInt32
 class HSE_EXEC_URL_STATUS(EasyCastStructure):
     uHttpStatusCode: UInt16
@@ -1088,7 +1079,7 @@ class HSE_RESPONSE_VECTOR(EasyCastStructure):
     pszStatus: win32more.Windows.Win32.Foundation.PSTR
     pszHeaders: win32more.Windows.Win32.Foundation.PSTR
     nElementCount: UInt32
-    lpElementArray: POINTER(win32more.Windows.Win32.System.Iis.HSE_VECTOR_ELEMENT_head)
+    lpElementArray: POINTER(win32more.Windows.Win32.System.Iis.HSE_VECTOR_ELEMENT)
 class HSE_SEND_HEADER_EX_INFO(EasyCastStructure):
     pszStatus: win32more.Windows.Win32.Foundation.PSTR
     pszHeader: win32more.Windows.Win32.Foundation.PSTR
@@ -1219,7 +1210,7 @@ class HTTP_TRACE_EVENT(EasyCastStructure):
     dwTimeStamp: UInt32
     dwFlags: UInt32
     cEventItems: UInt32
-    pEventItems: POINTER(win32more.Windows.Win32.System.Iis.HTTP_TRACE_EVENT_ITEM_head)
+    pEventItems: POINTER(win32more.Windows.Win32.System.Iis.HTTP_TRACE_EVENT_ITEM)
 class HTTP_TRACE_EVENT_ITEM(EasyCastStructure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     dwDataType: win32more.Windows.Win32.System.Iis.HTTP_TRACE_TYPE
@@ -1267,22 +1258,22 @@ class IFtpLogProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a18a94cc-8299-4408-816c-7c3baca1a40e}')
     @commethod(3)
-    def Log(self, pLoggingParameters: POINTER(win32more.Windows.Win32.System.Iis.LOGGING_PARAMETERS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Log(self, pLoggingParameters: POINTER(win32more.Windows.Win32.System.Iis.LOGGING_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IFtpPostprocessProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4522cbc6-16cd-49ad-8653-9a2c579e4280}')
     @commethod(3)
-    def HandlePostprocess(self, pPostProcessParameters: POINTER(win32more.Windows.Win32.System.Iis.POST_PROCESS_PARAMETERS_head), pFtpProcessStatus: POINTER(win32more.Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def HandlePostprocess(self, pPostProcessParameters: POINTER(win32more.Windows.Win32.System.Iis.POST_PROCESS_PARAMETERS), pFtpProcessStatus: POINTER(win32more.Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IFtpPreprocessProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a3c19b60-5a28-471a-8f93-ab30411cee82}')
     @commethod(3)
-    def HandlePreprocess(self, pPreProcessParameters: POINTER(win32more.Windows.Win32.System.Iis.PRE_PROCESS_PARAMETERS_head), pFtpProcessStatus: POINTER(win32more.Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def HandlePreprocess(self, pPreProcessParameters: POINTER(win32more.Windows.Win32.System.Iis.PRE_PROCESS_PARAMETERS), pFtpProcessStatus: POINTER(win32more.Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IFtpProviderConstruct(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4d1a3f7b-412d-447c-b199-64f967e9a2da}')
     @commethod(3)
-    def Construct(self, configurationEntries: POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Construct(self, configurationEntries: POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IFtpRoleProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{909c850d-8ca0-4674-96b8-cc2941535725}')
@@ -1302,7 +1293,7 @@ class IMSAdminBase2W(ComPtr):
     @commethod(38)
     def RestoreHistory(self, pszMDHistoryLocation: win32more.Windows.Win32.Foundation.PWSTR, dwMDMajorVersion: UInt32, dwMDMinorVersion: UInt32, dwMDFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
-    def EnumHistory(self, pszMDHistoryLocation: win32more.Windows.Win32.Foundation.PWSTR, pdwMDMajorVersion: POINTER(UInt32), pdwMDMinorVersion: POINTER(UInt32), pftMDHistoryTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), dwMDEnumIndex: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumHistory(self, pszMDHistoryLocation: win32more.Windows.Win32.Foundation.PWSTR, pdwMDMajorVersion: POINTER(UInt32), pdwMDMinorVersion: POINTER(UInt32), pftMDHistoryTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME), dwMDEnumIndex: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMSAdminBase3W(ComPtr):
     extends: win32more.Windows.Win32.System.Iis.IMSAdminBase2W
     _iid_ = Guid('{f612954d-3b0b-4c56-9563-227b7be624b4}')
@@ -1312,7 +1303,7 @@ class IMSAdminBaseSinkW(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a9e69612-b80d-11d0-b9b9-00a0c922e750}')
     @commethod(3)
-    def SinkNotify(self, dwMDNumElements: UInt32, pcoChangeList: POINTER(win32more.Windows.Win32.System.Iis.MD_CHANGE_OBJECT_W_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SinkNotify(self, dwMDNumElements: UInt32, pcoChangeList: POINTER(win32more.Windows.Win32.System.Iis.MD_CHANGE_OBJECT_W)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ShutdownNotify(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMSAdminBaseW(ComPtr):
@@ -1331,13 +1322,13 @@ class IMSAdminBaseW(ComPtr):
     @commethod(8)
     def RenameKey(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pszMDNewName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def SetData(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pmdrMDData: POINTER(win32more.Windows.Win32.System.Iis.METADATA_RECORD_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetData(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pmdrMDData: POINTER(win32more.Windows.Win32.System.Iis.METADATA_RECORD)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetData(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pmdrMDData: POINTER(win32more.Windows.Win32.System.Iis.METADATA_RECORD_head), pdwMDRequiredDataLen: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetData(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pmdrMDData: POINTER(win32more.Windows.Win32.System.Iis.METADATA_RECORD), pdwMDRequiredDataLen: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def DeleteData(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, dwMDIdentifier: UInt32, dwMDDataType: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def EnumData(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pmdrMDData: POINTER(win32more.Windows.Win32.System.Iis.METADATA_RECORD_head), dwMDEnumDataIndex: UInt32, pdwMDRequiredDataLen: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumData(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pmdrMDData: POINTER(win32more.Windows.Win32.System.Iis.METADATA_RECORD), dwMDEnumDataIndex: UInt32, pdwMDRequiredDataLen: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetAllData(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, dwMDAttributes: UInt32, dwMDUserType: UInt32, dwMDDataType: UInt32, pdwMDNumDataEntries: POINTER(UInt32), pdwMDDataSetNumber: POINTER(UInt32), dwMDBufferSize: UInt32, pbMDBuffer: POINTER(Byte), pdwMDRequiredBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -1355,15 +1346,15 @@ class IMSAdminBaseW(ComPtr):
     @commethod(20)
     def SaveData(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
-    def GetHandleInfo(self, hMDHandle: UInt32, pmdhiInfo: POINTER(win32more.Windows.Win32.System.Iis.METADATA_HANDLE_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetHandleInfo(self, hMDHandle: UInt32, pmdhiInfo: POINTER(win32more.Windows.Win32.System.Iis.METADATA_HANDLE_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def GetSystemChangeNumber(self, pdwSystemChangeNumber: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def GetDataSetNumber(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pdwMDDataSetNumber: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
-    def SetLastChangeTime(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pftMDLastChangeTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), bLocalTime: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetLastChangeTime(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pftMDLastChangeTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME), bLocalTime: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def GetLastChangeTime(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pftMDLastChangeTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), bLocalTime: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetLastChangeTime(self, hMDHandle: UInt32, pszMDPath: win32more.Windows.Win32.Foundation.PWSTR, pftMDLastChangeTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME), bLocalTime: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def KeyExchangePhase1(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
@@ -1373,11 +1364,11 @@ class IMSAdminBaseW(ComPtr):
     @commethod(29)
     def Restore(self, pszMDBackupLocation: win32more.Windows.Win32.Foundation.PWSTR, dwMDVersion: UInt32, dwMDFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
-    def EnumBackups(self, pszMDBackupLocation: win32more.Windows.Win32.Foundation.PWSTR, pdwMDVersion: POINTER(UInt32), pftMDBackupTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), dwMDEnumIndex: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumBackups(self, pszMDBackupLocation: win32more.Windows.Win32.Foundation.PWSTR, pdwMDVersion: POINTER(UInt32), pftMDBackupTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME), dwMDEnumIndex: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def DeleteBackup(self, pszMDBackupLocation: win32more.Windows.Win32.Foundation.PWSTR, dwMDVersion: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
-    def UnmarshalInterface(self, piadmbwInterface: POINTER(win32more.Windows.Win32.System.Iis.IMSAdminBaseW_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def UnmarshalInterface(self, piadmbwInterface: POINTER(win32more.Windows.Win32.System.Iis.IMSAdminBaseW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def GetServerGuid(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMSImpExpHelpW(ComPtr):
@@ -1449,15 +1440,15 @@ class METADATA_RECORD(EasyCastStructure):
     pbMDData: POINTER(Byte)
     dwMDDataTag: UInt32
 @winfunctype_pointer
-def PFN_GETEXTENSIONVERSION(pVer: POINTER(win32more.Windows.Win32.System.Iis.HSE_VERSION_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_GETEXTENSIONVERSION(pVer: POINTER(win32more.Windows.Win32.System.Iis.HSE_VERSION_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_HSE_CACHE_INVALIDATION_CALLBACK(pszUrl: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK(pszProtocolManagerDll: win32more.Windows.Win32.Foundation.PWSTR, pszProtocolManagerDllInitFunction: win32more.Windows.Win32.Foundation.PWSTR, dwCustomInterfaceId: UInt32, ppCustomInterface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_HSE_IO_COMPLETION(pECB: POINTER(win32more.Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK_head), pContext: VoidPtr, cbIO: UInt32, dwError: UInt32) -> Void: ...
+def PFN_HSE_IO_COMPLETION(pECB: POINTER(win32more.Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK), pContext: VoidPtr, cbIO: UInt32, dwError: UInt32) -> Void: ...
 @winfunctype_pointer
-def PFN_HTTPEXTENSIONPROC(pECB: POINTER(win32more.Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK_head)) -> UInt32: ...
+def PFN_HTTPEXTENSIONPROC(pECB: POINTER(win32more.Windows.Win32.System.Iis.EXTENSION_CONTROL_BLOCK)) -> UInt32: ...
 @winfunctype_pointer
 def PFN_IIS_GETSERVERVARIABLE(param0: win32more.Windows.Win32.System.Iis.HCONN, param1: win32more.Windows.Win32.Foundation.PSTR, param2: VoidPtr, param3: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -1531,77 +1522,4 @@ SF_STATUS_REQ_NEXT_NOTIFICATION: SF_STATUS_TYPE = 134217730
 SF_STATUS_REQ_HANDLED_NOTIFICATION: SF_STATUS_TYPE = 134217731
 SF_STATUS_REQ_ERROR: SF_STATUS_TYPE = 134217732
 SF_STATUS_REQ_READ_NEXT: SF_STATUS_TYPE = 134217733
-make_head(_module, 'AsyncIFtpAuthenticationProvider')
-make_head(_module, 'AsyncIFtpAuthorizationProvider')
-make_head(_module, 'AsyncIFtpHomeDirectoryProvider')
-make_head(_module, 'AsyncIFtpLogProvider')
-make_head(_module, 'AsyncIFtpPostprocessProvider')
-make_head(_module, 'AsyncIFtpPreprocessProvider')
-make_head(_module, 'AsyncIFtpRoleProvider')
-make_head(_module, 'AsyncIMSAdminBaseSinkW')
-make_head(_module, 'CERT_CONTEXT_EX')
-make_head(_module, 'CONFIGURATION_ENTRY')
-make_head(_module, 'EXTENSION_CONTROL_BLOCK')
-make_head(_module, 'HSE_CUSTOM_ERROR_INFO')
-make_head(_module, 'HSE_EXEC_UNICODE_URL_INFO')
-make_head(_module, 'HSE_EXEC_UNICODE_URL_USER_INFO')
-make_head(_module, 'HSE_EXEC_URL_ENTITY_INFO')
-make_head(_module, 'HSE_EXEC_URL_INFO')
-make_head(_module, 'HSE_EXEC_URL_STATUS')
-make_head(_module, 'HSE_EXEC_URL_USER_INFO')
-make_head(_module, 'HSE_RESPONSE_VECTOR')
-make_head(_module, 'HSE_SEND_HEADER_EX_INFO')
-make_head(_module, 'HSE_TF_INFO')
-make_head(_module, 'HSE_TRACE_INFO')
-make_head(_module, 'HSE_UNICODE_URL_MAPEX_INFO')
-make_head(_module, 'HSE_URL_MAPEX_INFO')
-make_head(_module, 'HSE_VECTOR_ELEMENT')
-make_head(_module, 'HSE_VERSION_INFO')
-make_head(_module, 'HTTP_FILTER_ACCESS_DENIED')
-make_head(_module, 'HTTP_FILTER_AUTHENT')
-make_head(_module, 'HTTP_FILTER_AUTH_COMPLETE_INFO')
-make_head(_module, 'HTTP_FILTER_CONTEXT')
-make_head(_module, 'HTTP_FILTER_LOG')
-make_head(_module, 'HTTP_FILTER_PREPROC_HEADERS')
-make_head(_module, 'HTTP_FILTER_RAW_DATA')
-make_head(_module, 'HTTP_FILTER_URL_MAP')
-make_head(_module, 'HTTP_FILTER_URL_MAP_EX')
-make_head(_module, 'HTTP_FILTER_VERSION')
-make_head(_module, 'HTTP_TRACE_CONFIGURATION')
-make_head(_module, 'HTTP_TRACE_EVENT')
-make_head(_module, 'HTTP_TRACE_EVENT_ITEM')
-make_head(_module, 'IADMEXT')
-make_head(_module, 'IFtpAuthenticationProvider')
-make_head(_module, 'IFtpAuthorizationProvider')
-make_head(_module, 'IFtpHomeDirectoryProvider')
-make_head(_module, 'IFtpLogProvider')
-make_head(_module, 'IFtpPostprocessProvider')
-make_head(_module, 'IFtpPreprocessProvider')
-make_head(_module, 'IFtpProviderConstruct')
-make_head(_module, 'IFtpRoleProvider')
-make_head(_module, 'IMSAdminBase2W')
-make_head(_module, 'IMSAdminBase3W')
-make_head(_module, 'IMSAdminBaseSinkW')
-make_head(_module, 'IMSAdminBaseW')
-make_head(_module, 'IMSImpExpHelpW')
-make_head(_module, 'LOGGING_PARAMETERS')
-make_head(_module, 'MD_CHANGE_OBJECT_W')
-make_head(_module, 'METADATA_GETALL_INTERNAL_RECORD')
-make_head(_module, 'METADATA_GETALL_RECORD')
-make_head(_module, 'METADATA_HANDLE_INFO')
-make_head(_module, 'METADATA_RECORD')
-make_head(_module, 'PFN_GETEXTENSIONVERSION')
-make_head(_module, 'PFN_HSE_CACHE_INVALIDATION_CALLBACK')
-make_head(_module, 'PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK')
-make_head(_module, 'PFN_HSE_IO_COMPLETION')
-make_head(_module, 'PFN_HTTPEXTENSIONPROC')
-make_head(_module, 'PFN_IIS_GETSERVERVARIABLE')
-make_head(_module, 'PFN_IIS_READCLIENT')
-make_head(_module, 'PFN_IIS_SERVERSUPPORTFUNCTION')
-make_head(_module, 'PFN_IIS_WRITECLIENT')
-make_head(_module, 'PFN_TERMINATEEXTENSION')
-make_head(_module, 'PFN_WEB_CORE_ACTIVATE')
-make_head(_module, 'PFN_WEB_CORE_SET_METADATA_DLL_ENTRY')
-make_head(_module, 'PFN_WEB_CORE_SHUTDOWN')
-make_head(_module, 'POST_PROCESS_PARAMETERS')
-make_head(_module, 'PRE_PROCESS_PARAMETERS')
+make_ready(__name__)

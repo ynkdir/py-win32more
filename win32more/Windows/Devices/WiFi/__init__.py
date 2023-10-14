@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.WiFi
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking.Connectivity
 import win32more.Windows.Security.Credentials
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IWiFiAdapter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFi.IWiFiAdapter'
@@ -40,7 +31,7 @@ class IWiFiAdapter(ComPtr):
     @winrt_commethod(8)
     def get_NetworkReport(self) -> win32more.Windows.Devices.WiFi.WiFiNetworkReport: ...
     @winrt_commethod(9)
-    def add_AvailableNetworksChanged(self, args: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.WiFi.WiFiAdapter, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AvailableNetworksChanged(self, args: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.WiFi.WiFiAdapter, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_AvailableNetworksChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
@@ -229,7 +220,7 @@ class WiFiAdapter(ComPtr):
     @winrt_mixinmethod
     def get_NetworkReport(self: win32more.Windows.Devices.WiFi.IWiFiAdapter) -> win32more.Windows.Devices.WiFi.WiFiNetworkReport: ...
     @winrt_mixinmethod
-    def add_AvailableNetworksChanged(self: win32more.Windows.Devices.WiFi.IWiFiAdapter, args: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.WiFi.WiFiAdapter, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AvailableNetworksChanged(self: win32more.Windows.Devices.WiFi.IWiFiAdapter, args: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.WiFi.WiFiAdapter, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AvailableNetworksChanged(self: win32more.Windows.Devices.WiFi.IWiFiAdapter, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -463,24 +454,4 @@ WiFiWpsKind_PushButton: WiFiWpsKind = 2
 WiFiWpsKind_Nfc: WiFiWpsKind = 3
 WiFiWpsKind_Ethernet: WiFiWpsKind = 4
 WiFiWpsKind_Usb: WiFiWpsKind = 5
-make_head(_module, 'IWiFiAdapter')
-make_head(_module, 'IWiFiAdapter2')
-make_head(_module, 'IWiFiAdapterStatics')
-make_head(_module, 'IWiFiAvailableNetwork')
-make_head(_module, 'IWiFiConnectionResult')
-make_head(_module, 'IWiFiNetworkReport')
-make_head(_module, 'IWiFiOnDemandHotspotConnectTriggerDetails')
-make_head(_module, 'IWiFiOnDemandHotspotConnectionResult')
-make_head(_module, 'IWiFiOnDemandHotspotNetwork')
-make_head(_module, 'IWiFiOnDemandHotspotNetworkProperties')
-make_head(_module, 'IWiFiOnDemandHotspotNetworkStatics')
-make_head(_module, 'IWiFiWpsConfigurationResult')
-make_head(_module, 'WiFiAdapter')
-make_head(_module, 'WiFiAvailableNetwork')
-make_head(_module, 'WiFiConnectionResult')
-make_head(_module, 'WiFiNetworkReport')
-make_head(_module, 'WiFiOnDemandHotspotConnectTriggerDetails')
-make_head(_module, 'WiFiOnDemandHotspotConnectionResult')
-make_head(_module, 'WiFiOnDemandHotspotNetwork')
-make_head(_module, 'WiFiOnDemandHotspotNetworkProperties')
-make_head(_module, 'WiFiWpsConfigurationResult')
+make_ready(__name__)

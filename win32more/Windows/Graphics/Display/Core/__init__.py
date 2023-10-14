@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Display.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 HdmiDisplayColorSpace = Int32
 HdmiDisplayColorSpace_RgbLimited: HdmiDisplayColorSpace = 0
 HdmiDisplayColorSpace_RgbFull: HdmiDisplayColorSpace = 1
@@ -67,7 +58,7 @@ class HdmiDisplayInformation(ComPtr):
     @winrt_mixinmethod
     def RequestSetCurrentDisplayModeWithHdrAndMetadataAsync(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, mode: win32more.Windows.Graphics.Display.Core.HdmiDisplayMode, hdrOption: win32more.Windows.Graphics.Display.Core.HdmiDisplayHdrOption, hdrMetadata: win32more.Windows.Graphics.Display.Core.HdmiDisplayHdr2086Metadata) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_DisplayModesChanged(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DisplayModesChanged(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DisplayModesChanged(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -133,7 +124,7 @@ class IHdmiDisplayInformation(ComPtr):
     @winrt_commethod(11)
     def RequestSetCurrentDisplayModeWithHdrAndMetadataAsync(self, mode: win32more.Windows.Graphics.Display.Core.HdmiDisplayMode, hdrOption: win32more.Windows.Graphics.Display.Core.HdmiDisplayHdrOption, hdrMetadata: win32more.Windows.Graphics.Display.Core.HdmiDisplayHdr2086Metadata) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(12)
-    def add_DisplayModesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DisplayModesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_DisplayModesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IHdmiDisplayInformationStatics(ComPtr):
@@ -185,10 +176,4 @@ class IHdmiDisplayMode2(ComPtr):
     @winrt_commethod(6)
     def get_IsDolbyVisionLowLatencySupported(self) -> Boolean: ...
     IsDolbyVisionLowLatencySupported = property(get_IsDolbyVisionLowLatencySupported, None)
-make_head(_module, 'HdmiDisplayHdr2086Metadata')
-make_head(_module, 'HdmiDisplayInformation')
-make_head(_module, 'HdmiDisplayMode')
-make_head(_module, 'IHdmiDisplayInformation')
-make_head(_module, 'IHdmiDisplayInformationStatics')
-make_head(_module, 'IHdmiDisplayMode')
-make_head(_module, 'IHdmiDisplayMode2')
+make_ready(__name__)

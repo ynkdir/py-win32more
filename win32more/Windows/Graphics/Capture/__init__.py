@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -24,15 +24,6 @@ import win32more.Windows.Security.Authorization.AppCapabilityAccess
 import win32more.Windows.System
 import win32more.Windows.UI
 import win32more.Windows.UI.Composition
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class Direct3D11CaptureFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFrame
@@ -57,7 +48,7 @@ class Direct3D11CaptureFramePool(ComPtr):
     @winrt_mixinmethod
     def TryGetNextFrame(self: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFramePool) -> win32more.Windows.Graphics.Capture.Direct3D11CaptureFrame: ...
     @winrt_mixinmethod
-    def add_FrameArrived(self: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFramePool, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Capture.Direct3D11CaptureFramePool, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FrameArrived(self: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFramePool, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Capture.Direct3D11CaptureFramePool, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_FrameArrived(self: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFramePool, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -88,7 +79,7 @@ class GraphicsCaptureItem(ComPtr):
     @winrt_mixinmethod
     def get_Size(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureItem) -> win32more.Windows.Graphics.SizeInt32: ...
     @winrt_mixinmethod
-    def add_Closed(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Capture.GraphicsCaptureItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Capture.GraphicsCaptureItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Closed(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureItem, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -149,7 +140,7 @@ class IDirect3D11CaptureFramePool(ComPtr):
     @winrt_commethod(7)
     def TryGetNextFrame(self) -> win32more.Windows.Graphics.Capture.Direct3D11CaptureFrame: ...
     @winrt_commethod(8)
-    def add_FrameArrived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Capture.Direct3D11CaptureFramePool, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FrameArrived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Capture.Direct3D11CaptureFramePool, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_FrameArrived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -184,7 +175,7 @@ class IGraphicsCaptureItem(ComPtr):
     @winrt_commethod(7)
     def get_Size(self) -> win32more.Windows.Graphics.SizeInt32: ...
     @winrt_commethod(8)
-    def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Capture.GraphicsCaptureItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Capture.GraphicsCaptureItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DisplayName = property(get_DisplayName, None)
@@ -239,22 +230,4 @@ class IGraphicsCaptureSessionStatics(ComPtr):
     _iid_ = Guid('{2224a540-5974-49aa-b232-0882536f4cb5}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
-make_head(_module, 'Direct3D11CaptureFrame')
-make_head(_module, 'Direct3D11CaptureFramePool')
-make_head(_module, 'GraphicsCaptureAccess')
-make_head(_module, 'GraphicsCaptureItem')
-make_head(_module, 'GraphicsCapturePicker')
-make_head(_module, 'GraphicsCaptureSession')
-make_head(_module, 'IDirect3D11CaptureFrame')
-make_head(_module, 'IDirect3D11CaptureFramePool')
-make_head(_module, 'IDirect3D11CaptureFramePoolStatics')
-make_head(_module, 'IDirect3D11CaptureFramePoolStatics2')
-make_head(_module, 'IGraphicsCaptureAccessStatics')
-make_head(_module, 'IGraphicsCaptureItem')
-make_head(_module, 'IGraphicsCaptureItemStatics')
-make_head(_module, 'IGraphicsCaptureItemStatics2')
-make_head(_module, 'IGraphicsCapturePicker')
-make_head(_module, 'IGraphicsCaptureSession')
-make_head(_module, 'IGraphicsCaptureSession2')
-make_head(_module, 'IGraphicsCaptureSession3')
-make_head(_module, 'IGraphicsCaptureSessionStatics')
+make_ready(__name__)

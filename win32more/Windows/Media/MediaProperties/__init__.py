@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Media.Core
 import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AudioEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IAudioEncodingProperties
@@ -972,26 +963,26 @@ MediaPixelFormat_Bgra8: MediaPixelFormat = 1
 MediaPixelFormat_P010: MediaPixelFormat = 2
 class MediaPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]
+    default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
     _classid_ = 'Windows.Media.MediaProperties.MediaPropertySet'
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.MediaPropertySet: ...
     @winrt_mixinmethod
-    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: Guid) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> UInt32: ...
+    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> UInt32: ...
     @winrt_mixinmethod
-    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: Guid) -> Boolean: ...
+    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> Boolean: ...
     @winrt_mixinmethod
-    def GetView(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def GetView(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
-    def Insert(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: Guid, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
+    def Insert(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def Remove(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: Guid) -> Void: ...
+    def Remove(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> Void: ...
     @winrt_mixinmethod
-    def Clear(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def Clear(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
     @winrt_mixinmethod
-    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
 class MediaRatio(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1148,52 +1139,4 @@ VideoEncodingQuality_Vga: VideoEncodingQuality = 6
 VideoEncodingQuality_Qvga: VideoEncodingQuality = 7
 VideoEncodingQuality_Uhd2160p: VideoEncodingQuality = 8
 VideoEncodingQuality_Uhd4320p: VideoEncodingQuality = 9
-make_head(_module, 'AudioEncodingProperties')
-make_head(_module, 'ContainerEncodingProperties')
-make_head(_module, 'H264ProfileIds')
-make_head(_module, 'IAudioEncodingProperties')
-make_head(_module, 'IAudioEncodingProperties2')
-make_head(_module, 'IAudioEncodingProperties3')
-make_head(_module, 'IAudioEncodingPropertiesStatics')
-make_head(_module, 'IAudioEncodingPropertiesStatics2')
-make_head(_module, 'IAudioEncodingPropertiesWithFormatUserData')
-make_head(_module, 'IContainerEncodingProperties')
-make_head(_module, 'IContainerEncodingProperties2')
-make_head(_module, 'IH264ProfileIdsStatics')
-make_head(_module, 'IImageEncodingProperties')
-make_head(_module, 'IImageEncodingProperties2')
-make_head(_module, 'IImageEncodingPropertiesStatics')
-make_head(_module, 'IImageEncodingPropertiesStatics2')
-make_head(_module, 'IImageEncodingPropertiesStatics3')
-make_head(_module, 'IMediaEncodingProfile')
-make_head(_module, 'IMediaEncodingProfile2')
-make_head(_module, 'IMediaEncodingProfile3')
-make_head(_module, 'IMediaEncodingProfileStatics')
-make_head(_module, 'IMediaEncodingProfileStatics2')
-make_head(_module, 'IMediaEncodingProfileStatics3')
-make_head(_module, 'IMediaEncodingProperties')
-make_head(_module, 'IMediaEncodingSubtypesStatics')
-make_head(_module, 'IMediaEncodingSubtypesStatics2')
-make_head(_module, 'IMediaEncodingSubtypesStatics3')
-make_head(_module, 'IMediaEncodingSubtypesStatics4')
-make_head(_module, 'IMediaEncodingSubtypesStatics5')
-make_head(_module, 'IMediaEncodingSubtypesStatics6')
-make_head(_module, 'IMediaRatio')
-make_head(_module, 'IMpeg2ProfileIdsStatics')
-make_head(_module, 'ITimedMetadataEncodingProperties')
-make_head(_module, 'ITimedMetadataEncodingPropertiesStatics')
-make_head(_module, 'IVideoEncodingProperties')
-make_head(_module, 'IVideoEncodingProperties2')
-make_head(_module, 'IVideoEncodingProperties3')
-make_head(_module, 'IVideoEncodingProperties4')
-make_head(_module, 'IVideoEncodingProperties5')
-make_head(_module, 'IVideoEncodingPropertiesStatics')
-make_head(_module, 'IVideoEncodingPropertiesStatics2')
-make_head(_module, 'ImageEncodingProperties')
-make_head(_module, 'MediaEncodingProfile')
-make_head(_module, 'MediaEncodingSubtypes')
-make_head(_module, 'MediaPropertySet')
-make_head(_module, 'MediaRatio')
-make_head(_module, 'Mpeg2ProfileIds')
-make_head(_module, 'TimedMetadataEncodingProperties')
-make_head(_module, 'VideoEncodingProperties')
+make_ready(__name__)

@@ -1,36 +1,27 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Input.XboxController
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 XINPUT_DLL_A: String = 'xinput1_4.dll'
 XINPUT_DLL_W: String = 'xinput1_4.dll'
 XINPUT_DLL: String = 'xinput1_4.dll'
 XUSER_MAX_COUNT: UInt32 = 4
 XUSER_INDEX_ANY: UInt32 = 255
 @winfunctype('xinput1_4.dll')
-def XInputGetState(dwUserIndex: UInt32, pState: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_STATE_head)) -> UInt32: ...
+def XInputGetState(dwUserIndex: UInt32, pState: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_STATE)) -> UInt32: ...
 @winfunctype('xinput1_4.dll')
-def XInputSetState(dwUserIndex: UInt32, pVibration: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_VIBRATION_head)) -> UInt32: ...
+def XInputSetState(dwUserIndex: UInt32, pVibration: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_VIBRATION)) -> UInt32: ...
 @winfunctype('xinput1_4.dll')
-def XInputGetCapabilities(dwUserIndex: UInt32, dwFlags: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_FLAG, pCapabilities: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_CAPABILITIES_head)) -> UInt32: ...
+def XInputGetCapabilities(dwUserIndex: UInt32, dwFlags: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_FLAG, pCapabilities: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_CAPABILITIES)) -> UInt32: ...
 @winfunctype('xinput1_4.dll')
 def XInputEnable(enable: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
 @winfunctype('xinput1_4.dll')
 def XInputGetAudioDeviceIds(dwUserIndex: UInt32, pRenderDeviceId: win32more.Windows.Win32.Foundation.PWSTR, pRenderCount: POINTER(UInt32), pCaptureDeviceId: win32more.Windows.Win32.Foundation.PWSTR, pCaptureCount: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('xinput1_4.dll')
-def XInputGetBatteryInformation(dwUserIndex: UInt32, devType: win32more.Windows.Win32.UI.Input.XboxController.BATTERY_DEVTYPE, pBatteryInformation: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_BATTERY_INFORMATION_head)) -> UInt32: ...
+def XInputGetBatteryInformation(dwUserIndex: UInt32, devType: win32more.Windows.Win32.UI.Input.XboxController.BATTERY_DEVTYPE, pBatteryInformation: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_BATTERY_INFORMATION)) -> UInt32: ...
 @winfunctype('xinput1_4.dll')
-def XInputGetKeystroke(dwUserIndex: UInt32, dwReserved: UInt32, pKeystroke: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_KEYSTROKE_head)) -> UInt32: ...
+def XInputGetKeystroke(dwUserIndex: UInt32, dwReserved: UInt32, pKeystroke: POINTER(win32more.Windows.Win32.UI.Input.XboxController.XINPUT_KEYSTROKE)) -> UInt32: ...
 BATTERY_DEVTYPE = Byte
 BATTERY_DEVTYPE_GAMEPAD: BATTERY_DEVTYPE = 0
 BATTERY_DEVTYPE_HEADSET: BATTERY_DEVTYPE = 1
@@ -152,9 +143,4 @@ VK_PAD_RTHUMB_UPLEFT: XINPUT_VIRTUAL_KEY = 22580
 VK_PAD_RTHUMB_UPRIGHT: XINPUT_VIRTUAL_KEY = 22581
 VK_PAD_RTHUMB_DOWNRIGHT: XINPUT_VIRTUAL_KEY = 22582
 VK_PAD_RTHUMB_DOWNLEFT: XINPUT_VIRTUAL_KEY = 22583
-make_head(_module, 'XINPUT_BATTERY_INFORMATION')
-make_head(_module, 'XINPUT_CAPABILITIES')
-make_head(_module, 'XINPUT_GAMEPAD')
-make_head(_module, 'XINPUT_KEYSTROKE')
-make_head(_module, 'XINPUT_STATE')
-make_head(_module, 'XINPUT_VIBRATION')
+make_ready(__name__)

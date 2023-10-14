@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Security.Cryptography.Sip
 import win32more.Windows.Win32.Security.WinTrust
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WINTRUST_CONFIG_REGPATH: String = 'Software\\Microsoft\\Cryptography\\Wintrust\\Config'
 WINTRUST_MAX_HEADER_BYTES_TO_MAP_VALUE_NAME: String = 'MaxHeaderBytesToMap'
 WINTRUST_MAX_HEADER_BYTES_TO_MAP_DEFAULT: UInt32 = 10485760
@@ -197,33 +188,33 @@ CCPI_RESULT_AUDIT: UInt32 = 3
 @winfunctype('WINTRUST.dll')
 def WinVerifyTrust(hwnd: win32more.Windows.Win32.Foundation.HWND, pgActionID: POINTER(Guid), pWVTData: VoidPtr) -> Int32: ...
 @winfunctype('WINTRUST.dll')
-def WinVerifyTrustEx(hwnd: win32more.Windows.Win32.Foundation.HWND, pgActionID: POINTER(Guid), pWinTrustData: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_head)) -> Int32: ...
+def WinVerifyTrustEx(hwnd: win32more.Windows.Win32.Foundation.HWND, pgActionID: POINTER(Guid), pWinTrustData: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA)) -> Int32: ...
 @winfunctype('WINTRUST.dll')
 def WintrustGetRegPolicyFlags(pdwPolicyFlags: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_POLICY_FLAGS)) -> Void: ...
 @winfunctype('WINTRUST.dll')
 def WintrustSetRegPolicyFlags(dwPolicyFlags: win32more.Windows.Win32.Security.WinTrust.WINTRUST_POLICY_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
-def WintrustAddActionID(pgActionID: POINTER(Guid), fdwFlags: UInt32, psProvInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_REGISTER_ACTIONID_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WintrustAddActionID(pgActionID: POINTER(Guid), fdwFlags: UInt32, psProvInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_REGISTER_ACTIONID)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
 def WintrustRemoveActionID(pgActionID: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
-def WintrustLoadFunctionPointers(pgActionID: POINTER(Guid), pPfns: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_FUNCTIONS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WintrustLoadFunctionPointers(pgActionID: POINTER(Guid), pPfns: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_FUNCTIONS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
-def WintrustAddDefaultForUsage(pszUsageOID: win32more.Windows.Win32.Foundation.PSTR, psDefUsage: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_REGDEFUSAGE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WintrustAddDefaultForUsage(pszUsageOID: win32more.Windows.Win32.Foundation.PSTR, psDefUsage: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_REGDEFUSAGE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
-def WintrustGetDefaultForUsage(dwAction: win32more.Windows.Win32.Security.WinTrust.WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION, pszUsageOID: win32more.Windows.Win32.Foundation.PSTR, psUsage: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DEFUSAGE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WintrustGetDefaultForUsage(dwAction: win32more.Windows.Win32.Security.WinTrust.WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION, pszUsageOID: win32more.Windows.Win32.Foundation.PSTR, psUsage: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DEFUSAGE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
-def WTHelperGetProvSignerFromChain(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head), idxSigner: UInt32, fCounterSigner: win32more.Windows.Win32.Foundation.BOOL, idxCounterSigner: UInt32) -> POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR_head): ...
+def WTHelperGetProvSignerFromChain(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), idxSigner: UInt32, fCounterSigner: win32more.Windows.Win32.Foundation.BOOL, idxCounterSigner: UInt32) -> POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR): ...
 @winfunctype('WINTRUST.dll')
-def WTHelperGetProvCertFromChain(pSgnr: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR_head), idxCert: UInt32) -> POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_CERT_head): ...
+def WTHelperGetProvCertFromChain(pSgnr: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR), idxCert: UInt32) -> POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_CERT): ...
 @winfunctype('WINTRUST.dll')
-def WTHelperProvDataFromStateData(hStateData: win32more.Windows.Win32.Foundation.HANDLE) -> POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head): ...
+def WTHelperProvDataFromStateData(hStateData: win32more.Windows.Win32.Foundation.HANDLE) -> POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA): ...
 @winfunctype('WINTRUST.dll')
-def WTHelperGetProvPrivateDataFromChain(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head), pgProviderID: POINTER(Guid)) -> POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_PRIVDATA_head): ...
+def WTHelperGetProvPrivateDataFromChain(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), pgProviderID: POINTER(Guid)) -> POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_PRIVDATA): ...
 @winfunctype('WINTRUST.dll')
-def WTHelperCertIsSelfSigned(dwEncoding: UInt32, pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WTHelperCertIsSelfSigned(dwEncoding: UInt32, pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
-def WTHelperCertCheckValidSignature(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WTHelperCertCheckValidSignature(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WINTRUST.dll')
 def OpenPersonalTrustDBDialogEx(hwndParent: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, pvReserved: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
@@ -243,7 +234,7 @@ class CAT_NAMEVALUE(EasyCastStructure):
 class CONFIG_CI_PROV_INFO(EasyCastStructure):
     cbSize: UInt32
     dwPolicies: UInt32
-    pPolicies: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    pPolicies: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     result: win32more.Windows.Win32.Security.WinTrust.CONFIG_CI_PROV_INFO_RESULT
     dwScenario: UInt32
 class CONFIG_CI_PROV_INFO_RESULT(EasyCastStructure):
@@ -253,7 +244,7 @@ class CONFIG_CI_PROV_INFO_RESULT(EasyCastStructure):
     fIsExplicitDeny: win32more.Windows.Win32.Foundation.BOOLEAN
 class CRYPT_PROVIDER_CERT(EasyCastStructure):
     cbStruct: UInt32
-    pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     fCommercial: win32more.Windows.Win32.Foundation.BOOL
     fTrustedRoot: win32more.Windows.Win32.Foundation.BOOL
     fSelfSigned: win32more.Windows.Win32.Foundation.BOOL
@@ -261,15 +252,15 @@ class CRYPT_PROVIDER_CERT(EasyCastStructure):
     dwRevokedReason: UInt32
     dwConfidence: UInt32
     dwError: UInt32
-    pTrustListContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)
+    pTrustListContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
     fTrustListSignerCert: win32more.Windows.Win32.Foundation.BOOL
-    pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)
+    pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
     dwCtlError: UInt32
     fIsCyclic: win32more.Windows.Win32.Foundation.BOOL
-    pChainElement: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_ELEMENT_head)
+    pChainElement: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_ELEMENT)
 class CRYPT_PROVIDER_DATA(EasyCastStructure):
     cbStruct: UInt32
-    pWintrustData: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_head)
+    pWintrustData: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA)
     fOpenedFile: win32more.Windows.Win32.Foundation.BOOL
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     pgActionID: POINTER(Guid)
@@ -277,7 +268,7 @@ class CRYPT_PROVIDER_DATA(EasyCastStructure):
     dwError: UInt32
     dwRegSecuritySettings: UInt32
     dwRegPolicySettings: UInt32
-    psPfns: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_FUNCTIONS_head)
+    psPfns: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_FUNCTIONS)
     cdwTrustStepErrors: UInt32
     padwTrustStepErrors: POINTER(UInt32)
     chStores: UInt32
@@ -285,9 +276,9 @@ class CRYPT_PROVIDER_DATA(EasyCastStructure):
     dwEncoding: UInt32
     hMsg: VoidPtr
     csSigners: UInt32
-    pasSigners: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR_head)
+    pasSigners: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR)
     csProvPrivData: UInt32
-    pasProvPrivData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_PRIVDATA_head)
+    pasProvPrivData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_PRIVDATA)
     dwSubjectChoice: UInt32
     Anonymous: _Anonymous_e__Union
     pszUsageOID: win32more.Windows.Win32.Foundation.PSTR
@@ -296,13 +287,13 @@ class CRYPT_PROVIDER_DATA(EasyCastStructure):
     pszCTLSignerUsageOID: win32more.Windows.Win32.Foundation.PSTR
     dwProvFlags: UInt32
     dwFinalError: UInt32
-    pRequestUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_USAGE_MATCH_head)
+    pRequestUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_USAGE_MATCH)
     dwTrustPubSettings: UInt32
     dwUIStateFlags: UInt32
-    pSigState: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SIGSTATE_head)
-    pSigSettings: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS_head)
+    pSigState: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SIGSTATE)
+    pSigSettings: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS)
     class _Anonymous_e__Union(EasyCastUnion):
-        pPDSip: POINTER(win32more.Windows.Win32.Security.WinTrust.PROVDATA_SIP_head)
+        pPDSip: POINTER(win32more.Windows.Win32.Security.WinTrust.PROVDATA_SIP)
 class CRYPT_PROVIDER_DEFUSAGE(EasyCastStructure):
     cbStruct: UInt32
     gActionID: Guid
@@ -323,7 +314,7 @@ class CRYPT_PROVIDER_FUNCTIONS(EasyCastStructure):
     pfnFinalPolicy: win32more.Windows.Win32.Security.WinTrust.PFN_PROVIDER_FINALPOLICY_CALL
     pfnCertCheckPolicy: win32more.Windows.Win32.Security.WinTrust.PFN_PROVIDER_CERTCHKPOLICY_CALL
     pfnTestFinalPolicy: win32more.Windows.Win32.Security.WinTrust.PFN_PROVIDER_TESTFINALPOLICY_CALL
-    psUIpfns: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVUI_FUNCS_head)
+    psUIpfns: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVUI_FUNCS)
     pfnCleanupPolicy: win32more.Windows.Win32.Security.WinTrust.PFN_PROVIDER_CLEANUP_CALL
 class CRYPT_PROVIDER_PRIVDATA(EasyCastStructure):
     cbStruct: UInt32
@@ -340,13 +331,13 @@ class CRYPT_PROVIDER_SGNR(EasyCastStructure):
     cbStruct: UInt32
     sftVerifyAsOf: win32more.Windows.Win32.Foundation.FILETIME
     csCertChain: UInt32
-    pasCertChain: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_CERT_head)
+    pasCertChain: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_CERT)
     dwSignerType: UInt32
-    psSigner: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO_head)
+    psSigner: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO)
     dwError: UInt32
     csCounterSigners: UInt32
-    pasCounterSigners: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR_head)
-    pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head)
+    pasCounterSigners: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR)
+    pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)
 class CRYPT_PROVIDER_SIGSTATE(EasyCastStructure):
     cbStruct: UInt32
     rhSecondarySigs: POINTER(VoidPtr)
@@ -359,7 +350,7 @@ class CRYPT_PROVIDER_SIGSTATE(EasyCastStructure):
     dwCryptoPolicySupport: UInt32
     iAttemptCount: UInt32
     fCheckedSealing: win32more.Windows.Win32.Foundation.BOOL
-    pSealingSignature: POINTER(win32more.Windows.Win32.Security.WinTrust.SEALING_SIGNATURE_ATTRIBUTE_head)
+    pSealingSignature: POINTER(win32more.Windows.Win32.Security.WinTrust.SEALING_SIGNATURE_ATTRIBUTE)
 class CRYPT_PROVUI_DATA(EasyCastStructure):
     cbStruct: UInt32
     dwFinalError: UInt32
@@ -372,7 +363,7 @@ class CRYPT_PROVUI_DATA(EasyCastStructure):
     pCopyActionTextNotSigned: win32more.Windows.Win32.Foundation.PWSTR
 class CRYPT_PROVUI_FUNCS(EasyCastStructure):
     cbStruct: UInt32
-    psUIData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVUI_DATA_head)
+    psUIData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVUI_DATA)
     pfnOnMoreInfoClick: win32more.Windows.Win32.Security.WinTrust.PFN_PROVUI_CALL
     pfnOnMoreInfoClickDefault: win32more.Windows.Win32.Security.WinTrust.PFN_PROVUI_CALL
     pfnOnAdvancedClick: win32more.Windows.Win32.Security.WinTrust.PFN_PROVUI_CALL
@@ -399,7 +390,7 @@ class DRIVER_VER_INFO(EasyCastStructure):
     dwVersion: UInt32
     wszVersion: Char * 260
     wszSignedBy: Char * 260
-    pcSignerCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pcSignerCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     sOSVersionLow: win32more.Windows.Win32.Security.WinTrust.DRIVER_VER_MAJORMINOR
     sOSVersionHigh: win32more.Windows.Win32.Security.WinTrust.DRIVER_VER_MAJORMINOR
     dwBuildNumberLow: UInt32
@@ -411,49 +402,49 @@ class INTENT_TO_SEAL_ATTRIBUTE(EasyCastStructure):
     version: UInt32
     seal: win32more.Windows.Win32.Foundation.BOOLEAN
 @winfunctype_pointer
-def PFN_ALLOCANDFILLDEFUSAGE(pszUsageOID: win32more.Windows.Win32.Foundation.PSTR, psDefUsage: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DEFUSAGE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_ALLOCANDFILLDEFUSAGE(pszUsageOID: win32more.Windows.Win32.Foundation.PSTR, psDefUsage: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DEFUSAGE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CPD_ADD_CERT(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head), idxSigner: UInt32, fCounterSigner: win32more.Windows.Win32.Foundation.BOOL, idxCounterSigner: UInt32, pCert2Add: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CPD_ADD_CERT(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), idxSigner: UInt32, fCounterSigner: win32more.Windows.Win32.Foundation.BOOL, idxCounterSigner: UInt32, pCert2Add: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CPD_ADD_PRIVDATA(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head), pPrivData2Add: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_PRIVDATA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CPD_ADD_PRIVDATA(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), pPrivData2Add: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_PRIVDATA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CPD_ADD_SGNR(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head), fCounterSigner: win32more.Windows.Win32.Foundation.BOOL, idxSigner: UInt32, pSgnr2Add: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CPD_ADD_SGNR(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), fCounterSigner: win32more.Windows.Win32.Foundation.BOOL, idxSigner: UInt32, pSgnr2Add: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CPD_ADD_STORE(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head), hStore2Add: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CPD_ADD_STORE(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), hStore2Add: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CPD_MEM_ALLOC(cbSize: UInt32) -> VoidPtr: ...
 @winfunctype_pointer
 def PFN_CPD_MEM_FREE(pvMem2Free: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def PFN_FREEDEFUSAGE(pszUsageOID: win32more.Windows.Win32.Foundation.PSTR, psDefUsage: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DEFUSAGE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_FREEDEFUSAGE(pszUsageOID: win32more.Windows.Win32.Foundation.PSTR, psDefUsage: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DEFUSAGE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_PROVIDER_CERTCHKPOLICY_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head), idxSigner: UInt32, fCounterSignerChain: win32more.Windows.Win32.Foundation.BOOL, idxCounterSigner: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_PROVIDER_CERTCHKPOLICY_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), idxSigner: UInt32, fCounterSignerChain: win32more.Windows.Win32.Foundation.BOOL, idxCounterSigner: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_PROVIDER_CERTTRUST_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_PROVIDER_CERTTRUST_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_PROVIDER_CLEANUP_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_PROVIDER_CLEANUP_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_PROVIDER_FINALPOLICY_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_PROVIDER_FINALPOLICY_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_PROVIDER_INIT_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_PROVIDER_INIT_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_PROVIDER_OBJTRUST_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_PROVIDER_OBJTRUST_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_PROVIDER_SIGTRUST_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_PROVIDER_SIGTRUST_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_PROVIDER_TESTFINALPOLICY_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_PROVIDER_TESTFINALPOLICY_CALL(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_PROVUI_CALL(hWndSecurityDialog: win32more.Windows.Win32.Foundation.HWND, pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_PROVUI_CALL(hWndSecurityDialog: win32more.Windows.Win32.Foundation.HWND, pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head), dwStepError: UInt32, dwRegPolicySettings: UInt32, cSigner: UInt32, rgpSigner: POINTER(POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO_head)), pvPolicyArg: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), dwStepError: UInt32, dwRegPolicySettings: UInt32, cSigner: UInt32, rgpSigner: POINTER(POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO)), pvPolicyArg: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class PROVDATA_SIP(EasyCastStructure):
     cbStruct: UInt32
     gSubject: Guid
-    pSip: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_DISPATCH_INFO_head)
-    pCATSip: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_DISPATCH_INFO_head)
-    psSipSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_SUBJECTINFO_head)
-    psSipCATSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_SUBJECTINFO_head)
-    psIndirectData: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_INDIRECT_DATA_head)
+    pSip: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_DISPATCH_INFO)
+    pCATSip: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_DISPATCH_INFO)
+    psSipSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_SUBJECTINFO)
+    psSipCATSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_SUBJECTINFO)
+    psIndirectData: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_INDIRECT_DATA)
 class SEALING_SIGNATURE_ATTRIBUTE(EasyCastStructure):
     version: UInt32
     signerIndex: UInt32
@@ -467,7 +458,7 @@ class SPC_FINANCIAL_CRITERIA(EasyCastStructure):
     fFinancialInfoAvailable: win32more.Windows.Win32.Foundation.BOOL
     fMeetsCriteria: win32more.Windows.Win32.Foundation.BOOL
 class SPC_IMAGE(EasyCastStructure):
-    pImageLink: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK_head)
+    pImageLink: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
     Bitmap: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Metafile: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     EnhancedMetafile: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -485,7 +476,7 @@ class SPC_LINK(EasyCastStructure):
         pwszFile: win32more.Windows.Win32.Foundation.PWSTR
 class SPC_PE_IMAGE_DATA(EasyCastStructure):
     Flags: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
-    pFile: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK_head)
+    pFile: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
 class SPC_SERIALIZED_OBJECT(EasyCastStructure):
     ClassId: Byte * 16
     SerializedData: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -498,14 +489,14 @@ class SPC_SIGINFO(EasyCastStructure):
     dwReserved4: UInt32
     dwReserved5: UInt32
 class SPC_SP_AGENCY_INFO(EasyCastStructure):
-    pPolicyInformation: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK_head)
+    pPolicyInformation: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
     pwszPolicyDisplayText: win32more.Windows.Win32.Foundation.PWSTR
-    pLogoImage: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_IMAGE_head)
-    pLogoLink: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK_head)
+    pLogoImage: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_IMAGE)
+    pLogoLink: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
 class SPC_SP_OPUS_INFO(EasyCastStructure):
     pwszProgramName: win32more.Windows.Win32.Foundation.PWSTR
-    pMoreInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK_head)
-    pPublisherInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK_head)
+    pMoreInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
+    pPublisherInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
 class SPC_STATEMENT_TYPE(EasyCastStructure):
     cKeyPurposeId: UInt32
     rgpszKeyPurposeId: POINTER(win32more.Windows.Win32.Foundation.PSTR)
@@ -526,16 +517,16 @@ class WINTRUST_CATALOG_INFO(EasyCastStructure):
     hMemberFile: win32more.Windows.Win32.Foundation.HANDLE
     pbCalculatedFileHash: POINTER(Byte)
     cbCalculatedFileHash: UInt32
-    pcCatalogContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)
+    pcCatalogContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
     hCatAdmin: IntPtr
 class WINTRUST_CERT_INFO(EasyCastStructure):
     cbStruct: UInt32
     pcwszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
-    psCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    psCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     chStores: UInt32
     pahStores: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     dwFlags: UInt32
-    psftVerifyAsOf: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
+    psftVerifyAsOf: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
 class WINTRUST_DATA(EasyCastStructure):
     cbStruct: UInt32
     pPolicyCallbackData: VoidPtr
@@ -549,13 +540,13 @@ class WINTRUST_DATA(EasyCastStructure):
     pwszURLReference: win32more.Windows.Win32.Foundation.PWSTR
     dwProvFlags: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_PROVIDER_FLAGS
     dwUIContext: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_UICONTEXT
-    pSignatureSettings: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS_head)
+    pSignatureSettings: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS)
     class _Anonymous_e__Union(EasyCastUnion):
-        pFile: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_FILE_INFO_head)
-        pCatalog: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_CATALOG_INFO_head)
-        pBlob: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_BLOB_INFO_head)
-        pSgnr: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SGNR_INFO_head)
-        pCert: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_CERT_INFO_head)
+        pFile: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_FILE_INFO)
+        pCatalog: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_CATALOG_INFO)
+        pBlob: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_BLOB_INFO)
+        pSgnr: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SGNR_INFO)
+        pCert: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_CERT_INFO)
 WINTRUST_DATA_PROVIDER_FLAGS = UInt32
 WTD_USE_IE4_TRUST_FLAG: WINTRUST_DATA_PROVIDER_FLAGS = 1
 WTD_NO_IE4_CHAIN_FLAG: WINTRUST_DATA_PROVIDER_FLAGS = 2
@@ -617,7 +608,7 @@ WTPF_ALLOWONLYPERTRUST: WINTRUST_POLICY_FLAGS = 262144
 class WINTRUST_SGNR_INFO(EasyCastStructure):
     cbStruct: UInt32
     pcwszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
-    psSignerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO_head)
+    psSignerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO)
     chStores: UInt32
     pahStores: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
 class WINTRUST_SIGNATURE_SETTINGS(EasyCastStructure):
@@ -626,7 +617,7 @@ class WINTRUST_SIGNATURE_SETTINGS(EasyCastStructure):
     dwFlags: win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS_FLAGS
     cSecondarySigs: UInt32
     dwVerifiedSigIndex: UInt32
-    pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head)
+    pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA)
 WINTRUST_SIGNATURE_SETTINGS_FLAGS = UInt32
 WSS_VERIFY_SPECIFIC: WINTRUST_SIGNATURE_SETTINGS_FLAGS = 1
 WSS_GET_SECONDARY_SIG_COUNT: WINTRUST_SIGNATURE_SETTINGS_FLAGS = 2
@@ -637,7 +628,7 @@ class WIN_CERTIFICATE(EasyCastStructure):
     bCertificate: Byte * 1
 class WIN_SPUB_TRUSTED_PUBLISHER_DATA(EasyCastStructure):
     hClientToken: win32more.Windows.Win32.Foundation.HANDLE
-    lpCertificate: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE_head)
+    lpCertificate: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE)
 class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT(EasyCastStructure):
     hClientToken: win32more.Windows.Win32.Foundation.HANDLE
     SubjectType: POINTER(Guid)
@@ -655,7 +646,7 @@ class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY(EasyCastStructure):
 class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE
-    pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA_head)
+    pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA)
     dwFlags: UInt32
     pvReserved: VoidPtr
     class _Anonymous_e__Union(EasyCastUnion):
@@ -663,8 +654,8 @@ class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO(EasyCastStructure):
         cbSize: UInt32
 class WTD_GENERIC_CHAIN_POLICY_DATA(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
-    pSignerChainInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_CREATE_INFO_head)
-    pCounterSignerChainInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_CREATE_INFO_head)
+    pSignerChainInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_CREATE_INFO)
+    pCounterSignerChainInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_CREATE_INFO)
     pfnPolicyCallback: win32more.Windows.Win32.Security.WinTrust.PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK
     pvPolicyArg: VoidPtr
     class _Anonymous_e__Union(EasyCastUnion):
@@ -672,79 +663,13 @@ class WTD_GENERIC_CHAIN_POLICY_DATA(EasyCastStructure):
         cbSize: UInt32
 class WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
-    pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head)
+    pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)
     dwSignerType: UInt32
-    pMsgSignerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO_head)
+    pMsgSignerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO)
     dwError: UInt32
     cCounterSigner: UInt32
-    rgpCounterSigner: POINTER(POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO_head))
+    rgpCounterSigner: POINTER(POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO))
     class _Anonymous_e__Union(EasyCastUnion):
         cbStruct: UInt32
         cbSize: UInt32
-make_head(_module, 'CAT_MEMBERINFO')
-make_head(_module, 'CAT_MEMBERINFO2')
-make_head(_module, 'CAT_NAMEVALUE')
-make_head(_module, 'CONFIG_CI_PROV_INFO')
-make_head(_module, 'CONFIG_CI_PROV_INFO_RESULT')
-make_head(_module, 'CRYPT_PROVIDER_CERT')
-make_head(_module, 'CRYPT_PROVIDER_DATA')
-make_head(_module, 'CRYPT_PROVIDER_DEFUSAGE')
-make_head(_module, 'CRYPT_PROVIDER_FUNCTIONS')
-make_head(_module, 'CRYPT_PROVIDER_PRIVDATA')
-make_head(_module, 'CRYPT_PROVIDER_REGDEFUSAGE')
-make_head(_module, 'CRYPT_PROVIDER_SGNR')
-make_head(_module, 'CRYPT_PROVIDER_SIGSTATE')
-make_head(_module, 'CRYPT_PROVUI_DATA')
-make_head(_module, 'CRYPT_PROVUI_FUNCS')
-make_head(_module, 'CRYPT_REGISTER_ACTIONID')
-make_head(_module, 'CRYPT_TRUST_REG_ENTRY')
-make_head(_module, 'DRIVER_VER_INFO')
-make_head(_module, 'DRIVER_VER_MAJORMINOR')
-make_head(_module, 'INTENT_TO_SEAL_ATTRIBUTE')
-make_head(_module, 'PFN_ALLOCANDFILLDEFUSAGE')
-make_head(_module, 'PFN_CPD_ADD_CERT')
-make_head(_module, 'PFN_CPD_ADD_PRIVDATA')
-make_head(_module, 'PFN_CPD_ADD_SGNR')
-make_head(_module, 'PFN_CPD_ADD_STORE')
-make_head(_module, 'PFN_CPD_MEM_ALLOC')
-make_head(_module, 'PFN_CPD_MEM_FREE')
-make_head(_module, 'PFN_FREEDEFUSAGE')
-make_head(_module, 'PFN_PROVIDER_CERTCHKPOLICY_CALL')
-make_head(_module, 'PFN_PROVIDER_CERTTRUST_CALL')
-make_head(_module, 'PFN_PROVIDER_CLEANUP_CALL')
-make_head(_module, 'PFN_PROVIDER_FINALPOLICY_CALL')
-make_head(_module, 'PFN_PROVIDER_INIT_CALL')
-make_head(_module, 'PFN_PROVIDER_OBJTRUST_CALL')
-make_head(_module, 'PFN_PROVIDER_SIGTRUST_CALL')
-make_head(_module, 'PFN_PROVIDER_TESTFINALPOLICY_CALL')
-make_head(_module, 'PFN_PROVUI_CALL')
-make_head(_module, 'PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK')
-make_head(_module, 'PROVDATA_SIP')
-make_head(_module, 'SEALING_SIGNATURE_ATTRIBUTE')
-make_head(_module, 'SEALING_TIMESTAMP_ATTRIBUTE')
-make_head(_module, 'SPC_FINANCIAL_CRITERIA')
-make_head(_module, 'SPC_IMAGE')
-make_head(_module, 'SPC_INDIRECT_DATA_CONTENT')
-make_head(_module, 'SPC_LINK')
-make_head(_module, 'SPC_PE_IMAGE_DATA')
-make_head(_module, 'SPC_SERIALIZED_OBJECT')
-make_head(_module, 'SPC_SIGINFO')
-make_head(_module, 'SPC_SP_AGENCY_INFO')
-make_head(_module, 'SPC_SP_OPUS_INFO')
-make_head(_module, 'SPC_STATEMENT_TYPE')
-make_head(_module, 'WINTRUST_BLOB_INFO')
-make_head(_module, 'WINTRUST_CATALOG_INFO')
-make_head(_module, 'WINTRUST_CERT_INFO')
-make_head(_module, 'WINTRUST_DATA')
-make_head(_module, 'WINTRUST_FILE_INFO')
-make_head(_module, 'WINTRUST_SGNR_INFO')
-make_head(_module, 'WINTRUST_SIGNATURE_SETTINGS')
-make_head(_module, 'WIN_CERTIFICATE')
-make_head(_module, 'WIN_SPUB_TRUSTED_PUBLISHER_DATA')
-make_head(_module, 'WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT')
-make_head(_module, 'WIN_TRUST_ACTDATA_SUBJECT_ONLY')
-make_head(_module, 'WIN_TRUST_SUBJECT_FILE')
-make_head(_module, 'WIN_TRUST_SUBJECT_FILE_AND_DISPLAY')
-make_head(_module, 'WTD_GENERIC_CHAIN_POLICY_CREATE_INFO')
-make_head(_module, 'WTD_GENERIC_CHAIN_POLICY_DATA')
-make_head(_module, 'WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO')
+make_ready(__name__)

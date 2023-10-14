@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.PortableDevices
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 def DEVPKEY_MTPBTH_IsConnected():
     return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{ea1237fa-589d-4472-84e4-0abe36fd62ef}'), pid=2)
 GUID_DEVINTERFACE_WPD: Guid = Guid('{6ac27878-a6fa-4155-ba85-f98f491d4f33}')
@@ -1831,13 +1822,13 @@ class IEnumPortableDeviceConnectors(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{bfdef549-9247-454f-bd82-06fe80853faa}')
     @commethod(3)
-    def Next(self, cRequested: UInt32, pConnectors: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceConnector_head), pcFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, cRequested: UInt32, pConnectors: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceConnector), pcFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, cConnectors: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IEnumPortableDeviceConnectors_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IEnumPortableDeviceConnectors)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IEnumPortableDeviceObjectIDs(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{10ece955-cf41-4728-bfa0-41eedf1bbf19}')
@@ -1848,21 +1839,21 @@ class IEnumPortableDeviceObjectIDs(ComPtr):
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IEnumPortableDeviceObjectIDs_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IEnumPortableDeviceObjectIDs)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMediaRadioManager(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6cfdcab5-fc47-42a5-9241-074b58830e73}')
     @commethod(3)
-    def GetRadioInstances(self, ppCollection: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IRadioInstanceCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetRadioInstances(self, ppCollection: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IRadioInstanceCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnSystemRadioStateChange(self, sysRadioState: win32more.Windows.Win32.Devices.PortableDevices.SYSTEM_RADIO_STATE, uTimeoutSec: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMediaRadioManagerNotifySink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{89d81f5f-c147-49ed-a11c-77b20c31e7c9}')
     @commethod(3)
-    def OnInstanceAdd(self, pRadioInstance: win32more.Windows.Win32.Devices.PortableDevices.IRadioInstance_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnInstanceAdd(self, pRadioInstance: win32more.Windows.Win32.Devices.PortableDevices.IRadioInstance) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnInstanceRemove(self, bstrRadioInstanceId: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -1871,19 +1862,19 @@ class IPortableDevice(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{625e2df8-6392-4cf0-9ad1-3cfa5f17775c}')
     @commethod(3)
-    def Open(self, pszPnPDeviceID: win32more.Windows.Win32.Foundation.PWSTR, pClientInfo: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Open(self, pszPnPDeviceID: win32more.Windows.Win32.Foundation.PWSTR, pClientInfo: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SendCommand(self, dwFlags: UInt32, pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SendCommand(self, dwFlags: UInt32, pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Content(self, ppContent: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceContent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Content(self, ppContent: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceContent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Capabilities(self, ppCapabilities: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceCapabilities_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Capabilities(self, ppCapabilities: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceCapabilities)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Close(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def Advise(self, dwFlags: UInt32, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceEventCallback_head, pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppszCookie: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Advise(self, dwFlags: UInt32, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceEventCallback, pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppszCookie: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Unadvise(self, pszCookie: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -1892,70 +1883,70 @@ class IPortableDeviceCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2c8c6dbf-e3dc-4061-becc-8542e810d126}')
     @commethod(3)
-    def GetSupportedCommands(self, ppCommands: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedCommands(self, ppCommands: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetCommandOptions(self, Command: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppOptions: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetCommandOptions(self, Command: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppOptions: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetFunctionalCategories(self, ppCategories: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetFunctionalCategories(self, ppCategories: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetFunctionalObjects(self, Category: POINTER(Guid), ppObjectIDs: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetFunctionalObjects(self, Category: POINTER(Guid), ppObjectIDs: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetSupportedContentTypes(self, Category: POINTER(Guid), ppContentTypes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedContentTypes(self, Category: POINTER(Guid), ppContentTypes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetSupportedFormats(self, ContentType: POINTER(Guid), ppFormats: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedFormats(self, ContentType: POINTER(Guid), ppFormats: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetSupportedFormatProperties(self, Format: POINTER(Guid), ppKeys: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedFormatProperties(self, Format: POINTER(Guid), ppKeys: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetFixedPropertyAttributes(self, Format: POINTER(Guid), Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetFixedPropertyAttributes(self, Format: POINTER(Guid), Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def GetSupportedEvents(self, ppEvents: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedEvents(self, ppEvents: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def GetEventOptions(self, Event: POINTER(Guid), ppOptions: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetEventOptions(self, Event: POINTER(Guid), ppOptions: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceConnector(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{625e2df8-6392-4cf0-9ad1-3cfa5f17775c}')
     @commethod(3)
-    def Connect(self, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IConnectionRequestCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Connect(self, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IConnectionRequestCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Disconnect(self, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IConnectionRequestCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Disconnect(self, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IConnectionRequestCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Cancel(self, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IConnectionRequestCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Cancel(self, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IConnectionRequestCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetProperty(self, pPropertyKey: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPKEY_head), pPropertyType: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE), ppData: POINTER(POINTER(Byte)), pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProperty(self, pPropertyKey: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPKEY), pPropertyType: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE), ppData: POINTER(POINTER(Byte)), pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def SetProperty(self, pPropertyKey: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPKEY_head), PropertyType: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE, pData: POINTER(Byte), cbData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetProperty(self, pPropertyKey: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPKEY), PropertyType: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE, pData: POINTER(Byte), cbData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetPnPID(self, ppwszPnPID: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceContent(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6a96ed84-7c73-4480-9938-bf5af477d426}')
     @commethod(3)
-    def EnumObjects(self, dwFlags: UInt32, pszParentObjectID: win32more.Windows.Win32.Foundation.PWSTR, pFilter: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppEnum: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IEnumPortableDeviceObjectIDs_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumObjects(self, dwFlags: UInt32, pszParentObjectID: win32more.Windows.Win32.Foundation.PWSTR, pFilter: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppEnum: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IEnumPortableDeviceObjectIDs)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Properties(self, ppProperties: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceProperties_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Properties(self, ppProperties: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceProperties)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Transfer(self, ppResources: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceResources_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Transfer(self, ppResources: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceResources)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def CreateObjectWithPropertiesOnly(self, pValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppszObjectID: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateObjectWithPropertiesOnly(self, pValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppszObjectID: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def CreateObjectWithPropertiesAndData(self, pValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppData: POINTER(win32more.Windows.Win32.System.Com.IStream_head), pdwOptimalWriteBufferSize: POINTER(UInt32), ppszCookie: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateObjectWithPropertiesAndData(self, pValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppData: POINTER(win32more.Windows.Win32.System.Com.IStream), pdwOptimalWriteBufferSize: POINTER(UInt32), ppszCookie: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Delete(self, dwOptions: UInt32, pObjectIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Delete(self, dwOptions: UInt32, pObjectIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetObjectIDsFromPersistentUniqueIDs(self, pPersistentUniqueIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head, ppObjectIDs: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetObjectIDsFromPersistentUniqueIDs(self, pPersistentUniqueIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection, ppObjectIDs: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def Move(self, pObjectIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head, pszDestinationFolderObjectID: win32more.Windows.Win32.Foundation.PWSTR, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Move(self, pObjectIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection, pszDestinationFolderObjectID: win32more.Windows.Win32.Foundation.PWSTR, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def Copy(self, pObjectIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head, pszDestinationFolderObjectID: win32more.Windows.Win32.Foundation.PWSTR, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Copy(self, pObjectIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection, pszDestinationFolderObjectID: win32more.Windows.Win32.Foundation.PWSTR, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceContent2(ComPtr):
     extends: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceContent
     _iid_ = Guid('{9b4add96-f6bf-4034-8708-eca72bf10554}')
     @commethod(13)
-    def UpdateObjectWithPropertiesAndData(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pProperties: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppData: POINTER(win32more.Windows.Win32.System.Com.IStream_head), pdwOptimalWriteBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def UpdateObjectWithPropertiesAndData(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pProperties: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppData: POINTER(win32more.Windows.Win32.System.Com.IStream), pdwOptimalWriteBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceDataStream(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IStream
     _iid_ = Guid('{88e04db3-1012-4d64-9996-f703a950d3f4}')
@@ -1967,21 +1958,21 @@ class IPortableDeviceDispatchFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5e1eafc3-e3d7-4132-96fa-759c0f9d1e0f}')
     @commethod(3)
-    def GetDeviceDispatch(self, pszPnPDeviceID: win32more.Windows.Win32.Foundation.PWSTR, ppDeviceDispatch: POINTER(win32more.Windows.Win32.System.Com.IDispatch_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDeviceDispatch(self, pszPnPDeviceID: win32more.Windows.Win32.Foundation.PWSTR, ppDeviceDispatch: POINTER(win32more.Windows.Win32.System.Com.IDispatch)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceEventCallback(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a8792a31-f385-493c-a893-40f64eb45f6e}')
     @commethod(3)
-    def OnEvent(self, pEventParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnEvent(self, pEventParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceKeyCollection(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{dada2357-e0ad-492e-98db-dd61c53ba353}')
     @commethod(3)
     def GetCount(self, pcElems: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetAt(self, dwIndex: UInt32, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAt(self, dwIndex: UInt32, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Add(self, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clear(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2009,9 +2000,9 @@ class IPortableDevicePropVariantCollection(ComPtr):
     @commethod(3)
     def GetCount(self, pcElems: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetAt(self, dwIndex: UInt32, pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAt(self, dwIndex: UInt32, pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Add(self, pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetType(self, pvt: POINTER(UInt16)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2024,26 +2015,26 @@ class IPortableDeviceProperties(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7f6d695c-03df-4439-a809-59266beee3a6}')
     @commethod(3)
-    def GetSupportedProperties(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, ppKeys: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedProperties(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, ppKeys: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetPropertyAttributes(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPropertyAttributes(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetValues(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head, ppValues: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetValues(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection, ppValues: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def SetValues(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetValues(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def Delete(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Delete(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDevicePropertiesBulk(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{482b05c0-4056-44ed-9e0f-5e23b009da93}')
     @commethod(3)
-    def QueueGetValuesByObjectList(self, pObjectIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropertiesBulkCallback_head, pContext: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def QueueGetValuesByObjectList(self, pObjectIDs: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropertiesBulkCallback, pContext: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def QueueGetValuesByObjectFormat(self, pguidObjectFormat: POINTER(Guid), pszParentObjectID: win32more.Windows.Win32.Foundation.PWSTR, dwDepth: UInt32, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropertiesBulkCallback_head, pContext: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def QueueGetValuesByObjectFormat(self, pguidObjectFormat: POINTER(Guid), pszParentObjectID: win32more.Windows.Win32.Foundation.PWSTR, dwDepth: UInt32, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropertiesBulkCallback, pContext: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def QueueSetValuesByObjectList(self, pObjectValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection_head, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropertiesBulkCallback_head, pContext: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def QueueSetValuesByObjectList(self, pObjectValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropertiesBulkCallback, pContext: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Start(self, pContext: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2054,35 +2045,35 @@ class IPortableDevicePropertiesBulkCallback(ComPtr):
     @commethod(3)
     def OnStart(self, pContext: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def OnProgress(self, pContext: POINTER(Guid), pResults: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnProgress(self, pContext: POINTER(Guid), pResults: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnEnd(self, pContext: POINTER(Guid), hrStatus: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceResources(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fd8878ac-d841-4d17-891c-e6829cdb6934}')
     @commethod(3)
-    def GetSupportedResources(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, ppKeys: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedResources(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, ppKeys: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetResourceAttributes(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppResourceAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetResourceAttributes(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppResourceAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetStream(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), dwMode: UInt32, pdwOptimalBufferSize: POINTER(UInt32), ppStream: POINTER(win32more.Windows.Win32.System.Com.IStream_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetStream(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), dwMode: UInt32, pdwOptimalBufferSize: POINTER(UInt32), ppStream: POINTER(win32more.Windows.Win32.System.Com.IStream)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Delete(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Delete(self, pszObjectID: win32more.Windows.Win32.Foundation.PWSTR, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def CreateResource(self, pResourceAttributes: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppData: POINTER(win32more.Windows.Win32.System.Com.IStream_head), pdwOptimalWriteBufferSize: POINTER(UInt32), ppszCookie: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateResource(self, pResourceAttributes: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppData: POINTER(win32more.Windows.Win32.System.Com.IStream), pdwOptimalWriteBufferSize: POINTER(UInt32), ppszCookie: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceService(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d3bd3a44-d7b5-40a9-98b7-2fa4d01dec08}')
     @commethod(3)
-    def Open(self, pszPnPServiceID: win32more.Windows.Win32.Foundation.PWSTR, pClientInfo: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Open(self, pszPnPServiceID: win32more.Windows.Win32.Foundation.PWSTR, pClientInfo: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Capabilities(self, ppCapabilities: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceCapabilities_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Capabilities(self, ppCapabilities: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceCapabilities)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Content(self, ppContent: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceContent2_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Content(self, ppContent: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceContent2)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Methods(self, ppMethods: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceMethods_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Methods(self, ppMethods: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceMethods)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2092,51 +2083,51 @@ class IPortableDeviceService(ComPtr):
     @commethod(10)
     def GetPnPServiceID(self, ppszPnPServiceID: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def Advise(self, dwFlags: UInt32, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceEventCallback_head, pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppszCookie: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Advise(self, dwFlags: UInt32, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceEventCallback, pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppszCookie: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Unadvise(self, pszCookie: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def SendCommand(self, dwFlags: UInt32, pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SendCommand(self, dwFlags: UInt32, pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceActivation(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e56b0534-d9b9-425c-9b99-75f97cb3d7c8}')
     @commethod(3)
-    def OpenAsync(self, pszPnPServiceID: win32more.Windows.Win32.Foundation.PWSTR, pClientInfo: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceOpenCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OpenAsync(self, pszPnPServiceID: win32more.Windows.Win32.Foundation.PWSTR, pClientInfo: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceOpenCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CancelOpenAsync(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{24dbd89d-413e-43e0-bd5b-197f3c56c886}')
     @commethod(3)
-    def GetSupportedMethods(self, ppMethods: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedMethods(self, ppMethods: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetSupportedMethodsByFormat(self, Format: POINTER(Guid), ppMethods: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedMethodsByFormat(self, Format: POINTER(Guid), ppMethods: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetMethodAttributes(self, Method: POINTER(Guid), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetMethodAttributes(self, Method: POINTER(Guid), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetMethodParameterAttributes(self, Method: POINTER(Guid), Parameter: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetMethodParameterAttributes(self, Method: POINTER(Guid), Parameter: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetSupportedFormats(self, ppFormats: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedFormats(self, ppFormats: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetFormatAttributes(self, Format: POINTER(Guid), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetFormatAttributes(self, Format: POINTER(Guid), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetSupportedFormatProperties(self, Format: POINTER(Guid), ppKeys: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedFormatProperties(self, Format: POINTER(Guid), ppKeys: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetFormatPropertyAttributes(self, Format: POINTER(Guid), Property: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetFormatPropertyAttributes(self, Format: POINTER(Guid), Property: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def GetSupportedEvents(self, ppEvents: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedEvents(self, ppEvents: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def GetEventAttributes(self, Event: POINTER(Guid), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetEventAttributes(self, Event: POINTER(Guid), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def GetEventParameterAttributes(self, Event: POINTER(Guid), Parameter: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetEventParameterAttributes(self, Event: POINTER(Guid), Parameter: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppAttributes: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def GetInheritedServices(self, dwInheritanceType: UInt32, ppServices: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInheritedServices(self, dwInheritanceType: UInt32, ppServices: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def GetFormatRenderingProfiles(self, Format: POINTER(Guid), ppRenderingProfiles: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetFormatRenderingProfiles(self, Format: POINTER(Guid), ppRenderingProfiles: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def GetSupportedCommands(self, ppCommands: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedCommands(self, ppCommands: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def GetCommandOptions(self, Command: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppOptions: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetCommandOptions(self, Command: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppOptions: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceManager(ComPtr):
@@ -2150,16 +2141,16 @@ class IPortableDeviceServiceMethodCallback(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c424233c-afce-4828-a756-7ed7a2350083}')
     @commethod(3)
-    def OnComplete(self, hrStatus: win32more.Windows.Win32.Foundation.HRESULT, pResults: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnComplete(self, hrStatus: win32more.Windows.Win32.Foundation.HRESULT, pResults: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceMethods(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e20333c9-fd34-412d-a381-cc6f2d820df7}')
     @commethod(3)
-    def Invoke(self, Method: POINTER(Guid), pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Invoke(self, Method: POINTER(Guid), pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def InvokeAsync(self, Method: POINTER(Guid), pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceMethodCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def InvokeAsync(self, Method: POINTER(Guid), pParameters: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceMethodCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Cancel(self, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceMethodCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Cancel(self, pCallback: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceMethodCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceOpenCallback(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{bced49c8-8efe-41ed-960b-61313abd47a9}')
@@ -2178,81 +2169,81 @@ class IPortableDeviceValues(ComPtr):
     @commethod(3)
     def GetCount(self, pcelt: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetAt(self, index: UInt32, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAt(self, index: UInt32, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def SetStringValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetStringValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetStringValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetStringValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def SetUnsignedIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetUnsignedIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetUnsignedIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetUnsignedIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def SetSignedIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetSignedIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def GetSignedIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSignedIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def SetUnsignedLargeIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetUnsignedLargeIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def GetUnsignedLargeIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetUnsignedLargeIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def SetSignedLargeIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: Int64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetSignedLargeIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: Int64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def GetSignedLargeIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSignedLargeIntegerValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def SetFloatValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetFloatValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
-    def GetFloatValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(Single)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetFloatValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(Single)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
-    def SetErrorValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetErrorValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
-    def GetErrorValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.Foundation.HRESULT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetErrorValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.Foundation.HRESULT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
-    def SetKeyValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetKeyValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
-    def GetKeyValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetKeyValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
-    def SetBoolValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetBoolValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
-    def GetBoolValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetBoolValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def SetIUnknownValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetIUnknownValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
-    def GetIUnknownValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppValue: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIUnknownValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppValue: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
-    def SetGuidValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Value: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetGuidValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Value: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
-    def GetGuidValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetGuidValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
-    def SetBufferValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(Byte), cbValue: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetBufferValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(Byte), cbValue: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
-    def GetBufferValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppValue: POINTER(POINTER(Byte)), pcbValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetBufferValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppValue: POINTER(POINTER(Byte)), pcbValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
-    def SetIPortableDeviceValuesValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetIPortableDeviceValuesValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
-    def GetIPortableDeviceValuesValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppValue: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIPortableDeviceValuesValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppValue: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
-    def SetIPortableDevicePropVariantCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetIPortableDevicePropVariantCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
-    def GetIPortableDevicePropVariantCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppValue: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIPortableDevicePropVariantCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppValue: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
-    def SetIPortableDeviceKeyCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetIPortableDeviceKeyCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
-    def GetIPortableDeviceKeyCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppValue: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIPortableDeviceKeyCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppValue: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
-    def SetIPortableDeviceValuesCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetIPortableDeviceValuesCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
-    def GetIPortableDeviceValuesCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppValue: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIPortableDeviceValuesCollectionValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), ppValue: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValuesCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
-    def RemoveValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RemoveValue(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
-    def CopyValuesFromPropertyStore(self, pStore: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CopyValuesFromPropertyStore(self, pStore: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
-    def CopyValuesToPropertyStore(self, pStore: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CopyValuesToPropertyStore(self, pStore: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
     def Clear(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceValuesCollection(ComPtr):
@@ -2261,9 +2252,9 @@ class IPortableDeviceValuesCollection(ComPtr):
     @commethod(3)
     def GetCount(self, pcElems: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetAt(self, dwIndex: UInt32, ppValues: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAt(self, dwIndex: UInt32, ppValues: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Add(self, pValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, pValues: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clear(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -2272,9 +2263,9 @@ class IPortableDeviceWebControl(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{94fc7953-5ca1-483a-8aee-df52e7747d00}')
     @commethod(7)
-    def GetDeviceFromId(self, deviceId: win32more.Windows.Win32.Foundation.BSTR, ppDevice: POINTER(win32more.Windows.Win32.System.Com.IDispatch_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDeviceFromId(self, deviceId: win32more.Windows.Win32.Foundation.BSTR, ppDevice: POINTER(win32more.Windows.Win32.System.Com.IDispatch)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetDeviceFromIdAsync(self, deviceId: win32more.Windows.Win32.Foundation.BSTR, pCompletionHandler: win32more.Windows.Win32.System.Com.IDispatch_head, pErrorHandler: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDeviceFromIdAsync(self, deviceId: win32more.Windows.Win32.Foundation.BSTR, pCompletionHandler: win32more.Windows.Win32.System.Com.IDispatch, pErrorHandler: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IRadioInstance(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{70aa1c9e-f2b4-4c61-86d3-6b9fb75fd1a2}')
@@ -2298,18 +2289,18 @@ class IRadioInstanceCollection(ComPtr):
     @commethod(3)
     def GetCount(self, pcInstance: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetAt(self, uIndex: UInt32, ppRadioInstance: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IRadioInstance_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAt(self, uIndex: UInt32, ppRadioInstance: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IRadioInstance)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWpdSerializer(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b32f4002-bb27-45ff-af4f-06631c1e8dad}')
     @commethod(3)
-    def GetIPortableDeviceValuesFromBuffer(self, pBuffer: POINTER(Byte), dwInputBufferLength: UInt32, ppParams: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIPortableDeviceValuesFromBuffer(self, pBuffer: POINTER(Byte), dwInputBufferLength: UInt32, ppParams: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def WriteIPortableDeviceValuesToBuffer(self, dwOutputBufferLength: UInt32, pResults: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, pBuffer: POINTER(Byte), pdwBytesWritten: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def WriteIPortableDeviceValuesToBuffer(self, dwOutputBufferLength: UInt32, pResults: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, pBuffer: POINTER(Byte), pdwBytesWritten: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetBufferFromIPortableDeviceValues(self, pSource: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppBuffer: POINTER(POINTER(Byte)), pdwBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetBufferFromIPortableDeviceValues(self, pSource: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppBuffer: POINTER(POINTER(Byte)), pdwBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetSerializedSize(self, pSource: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, pdwSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSerializedSize(self, pSource: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, pdwSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PortableDevice = Guid('{728a21c5-3d9e-48d7-9810-864848f0f404}')
 PortableDeviceDispatchFactory = Guid('{43232233-8338-4658-ae01-0b4ae830b6b0}')
 PortableDeviceFTM = Guid('{f7c0039a-4762-488a-b4b3-760ef9a1ba9b}')
@@ -2500,614 +2491,4 @@ WPD_PARAMETER_ATTRIBUTE_FORM_ENUMERATION: WpdParameterAttributeForm = 2
 WPD_PARAMETER_ATTRIBUTE_FORM_REGULAR_EXPRESSION: WpdParameterAttributeForm = 3
 WPD_PARAMETER_ATTRIBUTE_FORM_OBJECT_IDENTIFIER: WpdParameterAttributeForm = 4
 WpdSerializer = Guid('{0b91a74b-ad7c-4a9d-b563-29eef9167172}')
-make_head(_module, 'DEVPKEY_MTPBTH_IsConnected')
-make_head(_module, 'WPD_PROPERTY_NULL')
-make_head(_module, 'WPD_OBJECT_CONTENT_TYPE')
-make_head(_module, 'WPD_OBJECT_REFERENCES')
-make_head(_module, 'WPD_OBJECT_CONTAINER_FUNCTIONAL_OBJECT_ID')
-make_head(_module, 'WPD_OBJECT_GENERATE_THUMBNAIL_FROM_RESOURCE')
-make_head(_module, 'WPD_OBJECT_HINT_LOCATION_DISPLAY_NAME')
-make_head(_module, 'WPD_OBJECT_SUPPORTED_UNITS')
-make_head(_module, 'WPD_FUNCTIONAL_OBJECT_CATEGORY')
-make_head(_module, 'WPD_STORAGE_TYPE')
-make_head(_module, 'WPD_STORAGE_FILE_SYSTEM_TYPE')
-make_head(_module, 'WPD_STORAGE_CAPACITY')
-make_head(_module, 'WPD_STORAGE_FREE_SPACE_IN_BYTES')
-make_head(_module, 'WPD_STORAGE_FREE_SPACE_IN_OBJECTS')
-make_head(_module, 'WPD_STORAGE_DESCRIPTION')
-make_head(_module, 'WPD_STORAGE_SERIAL_NUMBER')
-make_head(_module, 'WPD_STORAGE_MAX_OBJECT_SIZE')
-make_head(_module, 'WPD_STORAGE_CAPACITY_IN_OBJECTS')
-make_head(_module, 'WPD_STORAGE_ACCESS_CAPABILITY')
-make_head(_module, 'WPD_NETWORK_ASSOCIATION_HOST_NETWORK_IDENTIFIERS')
-make_head(_module, 'WPD_NETWORK_ASSOCIATION_X509V3SEQUENCE')
-make_head(_module, 'WPD_STILL_IMAGE_CAPTURE_RESOLUTION')
-make_head(_module, 'WPD_STILL_IMAGE_CAPTURE_FORMAT')
-make_head(_module, 'WPD_STILL_IMAGE_COMPRESSION_SETTING')
-make_head(_module, 'WPD_STILL_IMAGE_WHITE_BALANCE')
-make_head(_module, 'WPD_STILL_IMAGE_RGB_GAIN')
-make_head(_module, 'WPD_STILL_IMAGE_FNUMBER')
-make_head(_module, 'WPD_STILL_IMAGE_FOCAL_LENGTH')
-make_head(_module, 'WPD_STILL_IMAGE_FOCUS_DISTANCE')
-make_head(_module, 'WPD_STILL_IMAGE_FOCUS_MODE')
-make_head(_module, 'WPD_STILL_IMAGE_EXPOSURE_METERING_MODE')
-make_head(_module, 'WPD_STILL_IMAGE_FLASH_MODE')
-make_head(_module, 'WPD_STILL_IMAGE_EXPOSURE_TIME')
-make_head(_module, 'WPD_STILL_IMAGE_EXPOSURE_PROGRAM_MODE')
-make_head(_module, 'WPD_STILL_IMAGE_EXPOSURE_INDEX')
-make_head(_module, 'WPD_STILL_IMAGE_EXPOSURE_BIAS_COMPENSATION')
-make_head(_module, 'WPD_STILL_IMAGE_CAPTURE_DELAY')
-make_head(_module, 'WPD_STILL_IMAGE_CAPTURE_MODE')
-make_head(_module, 'WPD_STILL_IMAGE_CONTRAST')
-make_head(_module, 'WPD_STILL_IMAGE_SHARPNESS')
-make_head(_module, 'WPD_STILL_IMAGE_DIGITAL_ZOOM')
-make_head(_module, 'WPD_STILL_IMAGE_EFFECT_MODE')
-make_head(_module, 'WPD_STILL_IMAGE_BURST_NUMBER')
-make_head(_module, 'WPD_STILL_IMAGE_BURST_INTERVAL')
-make_head(_module, 'WPD_STILL_IMAGE_TIMELAPSE_NUMBER')
-make_head(_module, 'WPD_STILL_IMAGE_TIMELAPSE_INTERVAL')
-make_head(_module, 'WPD_STILL_IMAGE_FOCUS_METERING_MODE')
-make_head(_module, 'WPD_STILL_IMAGE_UPLOAD_URL')
-make_head(_module, 'WPD_STILL_IMAGE_ARTIST')
-make_head(_module, 'WPD_STILL_IMAGE_CAMERA_MODEL')
-make_head(_module, 'WPD_STILL_IMAGE_CAMERA_MANUFACTURER')
-make_head(_module, 'WPD_RENDERING_INFORMATION_PROFILES')
-make_head(_module, 'WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPE')
-make_head(_module, 'WPD_RENDERING_INFORMATION_PROFILE_ENTRY_CREATABLE_RESOURCES')
-make_head(_module, 'WPD_CLIENT_NAME')
-make_head(_module, 'WPD_CLIENT_MAJOR_VERSION')
-make_head(_module, 'WPD_CLIENT_MINOR_VERSION')
-make_head(_module, 'WPD_CLIENT_REVISION')
-make_head(_module, 'WPD_CLIENT_WMDRM_APPLICATION_PRIVATE_KEY')
-make_head(_module, 'WPD_CLIENT_WMDRM_APPLICATION_CERTIFICATE')
-make_head(_module, 'WPD_CLIENT_SECURITY_QUALITY_OF_SERVICE')
-make_head(_module, 'WPD_CLIENT_DESIRED_ACCESS')
-make_head(_module, 'WPD_CLIENT_SHARE_MODE')
-make_head(_module, 'WPD_CLIENT_EVENT_COOKIE')
-make_head(_module, 'WPD_CLIENT_MINIMUM_RESULTS_BUFFER_SIZE')
-make_head(_module, 'WPD_CLIENT_MANUAL_CLOSE_ON_DISCONNECT')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_FORM')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_CAN_READ')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_CAN_WRITE')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_CAN_DELETE')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_DEFAULT_VALUE')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_FAST_PROPERTY')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_RANGE_MIN')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_RANGE_MAX')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_RANGE_STEP')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_ENUMERATION_ELEMENTS')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_REGULAR_EXPRESSION')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_MAX_SIZE')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_NAME')
-make_head(_module, 'WPD_PROPERTY_ATTRIBUTE_VARTYPE')
-make_head(_module, 'WPD_CLASS_EXTENSION_OPTIONS_SUPPORTED_CONTENT_TYPES')
-make_head(_module, 'WPD_CLASS_EXTENSION_OPTIONS_DONT_REGISTER_WPD_DEVICE_INTERFACE')
-make_head(_module, 'WPD_CLASS_EXTENSION_OPTIONS_REGISTER_WPD_PRIVATE_DEVICE_INTERFACE')
-make_head(_module, 'WPD_CLASS_EXTENSION_OPTIONS_MULTITRANSPORT_MODE')
-make_head(_module, 'WPD_CLASS_EXTENSION_OPTIONS_DEVICE_IDENTIFICATION_VALUES')
-make_head(_module, 'WPD_CLASS_EXTENSION_OPTIONS_TRANSPORT_BANDWIDTH')
-make_head(_module, 'WPD_CLASS_EXTENSION_OPTIONS_SILENCE_AUTOPLAY')
-make_head(_module, 'WPD_RESOURCE_ATTRIBUTE_TOTAL_SIZE')
-make_head(_module, 'WPD_RESOURCE_ATTRIBUTE_CAN_READ')
-make_head(_module, 'WPD_RESOURCE_ATTRIBUTE_CAN_WRITE')
-make_head(_module, 'WPD_RESOURCE_ATTRIBUTE_CAN_DELETE')
-make_head(_module, 'WPD_RESOURCE_ATTRIBUTE_OPTIMAL_READ_BUFFER_SIZE')
-make_head(_module, 'WPD_RESOURCE_ATTRIBUTE_OPTIMAL_WRITE_BUFFER_SIZE')
-make_head(_module, 'WPD_RESOURCE_ATTRIBUTE_FORMAT')
-make_head(_module, 'WPD_RESOURCE_ATTRIBUTE_RESOURCE_KEY')
-make_head(_module, 'WPD_DEVICE_SYNC_PARTNER')
-make_head(_module, 'WPD_DEVICE_FIRMWARE_VERSION')
-make_head(_module, 'WPD_DEVICE_POWER_LEVEL')
-make_head(_module, 'WPD_DEVICE_POWER_SOURCE')
-make_head(_module, 'WPD_DEVICE_PROTOCOL')
-make_head(_module, 'WPD_DEVICE_MANUFACTURER')
-make_head(_module, 'WPD_DEVICE_MODEL')
-make_head(_module, 'WPD_DEVICE_SERIAL_NUMBER')
-make_head(_module, 'WPD_DEVICE_SUPPORTS_NON_CONSUMABLE')
-make_head(_module, 'WPD_DEVICE_DATETIME')
-make_head(_module, 'WPD_DEVICE_FRIENDLY_NAME')
-make_head(_module, 'WPD_DEVICE_SUPPORTED_DRM_SCHEMES')
-make_head(_module, 'WPD_DEVICE_SUPPORTED_FORMATS_ARE_ORDERED')
-make_head(_module, 'WPD_DEVICE_TYPE')
-make_head(_module, 'WPD_DEVICE_NETWORK_IDENTIFIER')
-make_head(_module, 'WPD_DEVICE_FUNCTIONAL_UNIQUE_ID')
-make_head(_module, 'WPD_DEVICE_MODEL_UNIQUE_ID')
-make_head(_module, 'WPD_DEVICE_TRANSPORT')
-make_head(_module, 'WPD_DEVICE_USE_DEVICE_STAGE')
-make_head(_module, 'WPD_DEVICE_EDP_IDENTITY')
-make_head(_module, 'WPD_SERVICE_VERSION')
-make_head(_module, 'WPD_EVENT_PARAMETER_PNP_DEVICE_ID')
-make_head(_module, 'WPD_EVENT_PARAMETER_EVENT_ID')
-make_head(_module, 'WPD_EVENT_PARAMETER_OPERATION_STATE')
-make_head(_module, 'WPD_EVENT_PARAMETER_OPERATION_PROGRESS')
-make_head(_module, 'WPD_EVENT_PARAMETER_OBJECT_PARENT_PERSISTENT_UNIQUE_ID')
-make_head(_module, 'WPD_EVENT_PARAMETER_OBJECT_CREATION_COOKIE')
-make_head(_module, 'WPD_EVENT_PARAMETER_CHILD_HIERARCHY_CHANGED')
-make_head(_module, 'WPD_EVENT_PARAMETER_SERVICE_METHOD_CONTEXT')
-make_head(_module, 'WPD_EVENT_OPTION_IS_BROADCAST_EVENT')
-make_head(_module, 'WPD_EVENT_OPTION_IS_AUTOPLAY_EVENT')
-make_head(_module, 'WPD_EVENT_ATTRIBUTE_NAME')
-make_head(_module, 'WPD_EVENT_ATTRIBUTE_PARAMETERS')
-make_head(_module, 'WPD_EVENT_ATTRIBUTE_OPTIONS')
-make_head(_module, 'WPD_API_OPTION_USE_CLEAR_DATA_STREAM')
-make_head(_module, 'WPD_API_OPTION_IOCTL_ACCESS')
-make_head(_module, 'WPD_FORMAT_ATTRIBUTE_NAME')
-make_head(_module, 'WPD_FORMAT_ATTRIBUTE_MIMETYPE')
-make_head(_module, 'WPD_METHOD_ATTRIBUTE_NAME')
-make_head(_module, 'WPD_METHOD_ATTRIBUTE_ASSOCIATED_FORMAT')
-make_head(_module, 'WPD_METHOD_ATTRIBUTE_ACCESS')
-make_head(_module, 'WPD_METHOD_ATTRIBUTE_PARAMETERS')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_ORDER')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_USAGE')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_FORM')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_DEFAULT_VALUE')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_RANGE_MIN')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_RANGE_MAX')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_RANGE_STEP')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_ENUMERATION_ELEMENTS')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_REGULAR_EXPRESSION')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_MAX_SIZE')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_VARTYPE')
-make_head(_module, 'WPD_PARAMETER_ATTRIBUTE_NAME')
-make_head(_module, 'WPD_COMMAND_COMMON_RESET_DEVICE')
-make_head(_module, 'WPD_COMMAND_COMMON_GET_OBJECT_IDS_FROM_PERSISTENT_UNIQUE_IDS')
-make_head(_module, 'WPD_COMMAND_COMMON_SAVE_CLIENT_INFORMATION')
-make_head(_module, 'WPD_PROPERTY_COMMON_COMMAND_CATEGORY')
-make_head(_module, 'WPD_PROPERTY_COMMON_COMMAND_ID')
-make_head(_module, 'WPD_PROPERTY_COMMON_HRESULT')
-make_head(_module, 'WPD_PROPERTY_COMMON_DRIVER_ERROR_CODE')
-make_head(_module, 'WPD_PROPERTY_COMMON_COMMAND_TARGET')
-make_head(_module, 'WPD_PROPERTY_COMMON_PERSISTENT_UNIQUE_IDS')
-make_head(_module, 'WPD_PROPERTY_COMMON_OBJECT_IDS')
-make_head(_module, 'WPD_PROPERTY_COMMON_CLIENT_INFORMATION')
-make_head(_module, 'WPD_PROPERTY_COMMON_CLIENT_INFORMATION_CONTEXT')
-make_head(_module, 'WPD_PROPERTY_COMMON_ACTIVITY_ID')
-make_head(_module, 'WPD_OPTION_VALID_OBJECT_IDS')
-make_head(_module, 'WPD_COMMAND_OBJECT_ENUMERATION_START_FIND')
-make_head(_module, 'WPD_COMMAND_OBJECT_ENUMERATION_FIND_NEXT')
-make_head(_module, 'WPD_COMMAND_OBJECT_ENUMERATION_END_FIND')
-make_head(_module, 'WPD_PROPERTY_OBJECT_ENUMERATION_PARENT_ID')
-make_head(_module, 'WPD_PROPERTY_OBJECT_ENUMERATION_FILTER')
-make_head(_module, 'WPD_PROPERTY_OBJECT_ENUMERATION_OBJECT_IDS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_ENUMERATION_CONTEXT')
-make_head(_module, 'WPD_PROPERTY_OBJECT_ENUMERATION_NUM_OBJECTS_REQUESTED')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_GET_SUPPORTED')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_GET_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_GET')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_SET')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_GET_ALL')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_DELETE')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_OBJECT_ID')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_KEYS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_ATTRIBUTES')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_VALUES')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_WRITE_RESULTS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_DELETE_RESULTS')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_START')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_NEXT')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_END')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_START')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_NEXT')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_END')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_START')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_NEXT')
-make_head(_module, 'WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_END')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_BULK_OBJECT_IDS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_BULK_CONTEXT')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_BULK_VALUES')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_BULK_PROPERTY_KEYS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_BULK_DEPTH')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_BULK_PARENT_OBJECT_ID')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_BULK_OBJECT_FORMAT')
-make_head(_module, 'WPD_PROPERTY_OBJECT_PROPERTIES_BULK_WRITE_RESULTS')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_GET_SUPPORTED')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_GET_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_OPEN')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_READ')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_WRITE')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_CLOSE')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_DELETE')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_CREATE_RESOURCE')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_REVERT')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_SEEK')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_COMMIT')
-make_head(_module, 'WPD_COMMAND_OBJECT_RESOURCES_SEEK_IN_UNITS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_OBJECT_ID')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_ACCESS_MODE')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_RESOURCE_KEYS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_RESOURCE_ATTRIBUTES')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_CONTEXT')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_TO_READ')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_READ')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_TO_WRITE')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_WRITTEN')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_DATA')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_OPTIMAL_TRANSFER_BUFFER_SIZE')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_SEEK_OFFSET')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_SEEK_ORIGIN_FLAG')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_POSITION_FROM_START')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_SUPPORTS_UNITS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_RESOURCES_STREAM_UNITS')
-make_head(_module, 'WPD_OPTION_OBJECT_RESOURCES_SEEK_ON_READ_SUPPORTED')
-make_head(_module, 'WPD_OPTION_OBJECT_RESOURCES_SEEK_ON_WRITE_SUPPORTED')
-make_head(_module, 'WPD_OPTION_OBJECT_RESOURCES_NO_INPUT_BUFFER_ON_READ')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_CREATE_OBJECT_WITH_PROPERTIES_ONLY')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_CREATE_OBJECT_WITH_PROPERTIES_AND_DATA')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_WRITE_OBJECT_DATA')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_COMMIT_OBJECT')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_REVERT_OBJECT')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_DELETE_OBJECTS')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_MOVE_OBJECTS')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_COPY_OBJECTS')
-make_head(_module, 'WPD_COMMAND_OBJECT_MANAGEMENT_UPDATE_OBJECT_WITH_PROPERTIES_AND_DATA')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_CREATION_PROPERTIES')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_CONTEXT')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_NUM_BYTES_TO_WRITE')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_NUM_BYTES_WRITTEN')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_DATA')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_ID')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_DELETE_OPTIONS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_OPTIMAL_TRANSFER_BUFFER_SIZE')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_IDS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_DELETE_RESULTS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_DESTINATION_FOLDER_OBJECT_ID')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_MOVE_RESULTS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_COPY_RESULTS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_UPDATE_PROPERTIES')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_PROPERTY_KEYS')
-make_head(_module, 'WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_FORMAT')
-make_head(_module, 'WPD_OPTION_OBJECT_MANAGEMENT_RECURSIVE_DELETE_SUPPORTED')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_COMMANDS')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_COMMAND_OPTIONS')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FUNCTIONAL_CATEGORIES')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_FUNCTIONAL_OBJECTS')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_CONTENT_TYPES')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FORMATS')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FORMAT_PROPERTIES')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_FIXED_PROPERTY_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_EVENTS')
-make_head(_module, 'WPD_COMMAND_CAPABILITIES_GET_EVENT_OPTIONS')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_SUPPORTED_COMMANDS')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_COMMAND')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_COMMAND_OPTIONS')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_CATEGORIES')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_CATEGORY')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_OBJECTS')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_CONTENT_TYPES')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_CONTENT_TYPE')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_FORMATS')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_FORMAT')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_PROPERTY_KEYS')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_PROPERTY_ATTRIBUTES')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_SUPPORTED_EVENTS')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_EVENT')
-make_head(_module, 'WPD_PROPERTY_CAPABILITIES_EVENT_OPTIONS')
-make_head(_module, 'WPD_COMMAND_STORAGE_FORMAT')
-make_head(_module, 'WPD_COMMAND_STORAGE_EJECT')
-make_head(_module, 'WPD_PROPERTY_STORAGE_OBJECT_ID')
-make_head(_module, 'WPD_PROPERTY_STORAGE_DESTINATION_OBJECT_ID')
-make_head(_module, 'WPD_COMMAND_SMS_SEND')
-make_head(_module, 'WPD_PROPERTY_SMS_RECIPIENT')
-make_head(_module, 'WPD_PROPERTY_SMS_MESSAGE_TYPE')
-make_head(_module, 'WPD_PROPERTY_SMS_TEXT_MESSAGE')
-make_head(_module, 'WPD_PROPERTY_SMS_BINARY_MESSAGE')
-make_head(_module, 'WPD_OPTION_SMS_BINARY_MESSAGE_SUPPORTED')
-make_head(_module, 'WPD_COMMAND_STILL_IMAGE_CAPTURE_INITIATE')
-make_head(_module, 'WPD_COMMAND_MEDIA_CAPTURE_START')
-make_head(_module, 'WPD_COMMAND_MEDIA_CAPTURE_STOP')
-make_head(_module, 'WPD_COMMAND_MEDIA_CAPTURE_PAUSE')
-make_head(_module, 'WPD_COMMAND_DEVICE_HINTS_GET_CONTENT_LOCATION')
-make_head(_module, 'WPD_PROPERTY_DEVICE_HINTS_CONTENT_TYPE')
-make_head(_module, 'WPD_PROPERTY_DEVICE_HINTS_CONTENT_LOCATIONS')
-make_head(_module, 'WPD_COMMAND_CLASS_EXTENSION_WRITE_DEVICE_INFORMATION')
-make_head(_module, 'WPD_PROPERTY_CLASS_EXTENSION_DEVICE_INFORMATION_VALUES')
-make_head(_module, 'WPD_PROPERTY_CLASS_EXTENSION_DEVICE_INFORMATION_WRITE_RESULTS')
-make_head(_module, 'WPD_COMMAND_CLASS_EXTENSION_REGISTER_SERVICE_INTERFACES')
-make_head(_module, 'WPD_COMMAND_CLASS_EXTENSION_UNREGISTER_SERVICE_INTERFACES')
-make_head(_module, 'WPD_PROPERTY_CLASS_EXTENSION_SERVICE_OBJECT_ID')
-make_head(_module, 'WPD_PROPERTY_CLASS_EXTENSION_SERVICE_INTERFACES')
-make_head(_module, 'WPD_PROPERTY_CLASS_EXTENSION_SERVICE_REGISTRATION_RESULTS')
-make_head(_module, 'WPD_COMMAND_GENERATE_KEYPAIR')
-make_head(_module, 'WPD_COMMAND_COMMIT_KEYPAIR')
-make_head(_module, 'WPD_COMMAND_PROCESS_WIRELESS_PROFILE')
-make_head(_module, 'WPD_PROPERTY_PUBLIC_KEY')
-make_head(_module, 'WPD_COMMAND_SERVICE_COMMON_GET_SERVICE_OBJECT_ID')
-make_head(_module, 'WPD_PROPERTY_SERVICE_OBJECT_ID')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_METHODS')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_METHODS_BY_FORMAT')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_METHOD_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_METHOD_PARAMETER_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_FORMATS')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_FORMAT_PROPERTIES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_PROPERTY_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_EVENTS')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_EVENT_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_EVENT_PARAMETER_ATTRIBUTES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_INHERITED_SERVICES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_RENDERING_PROFILES')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_COMMANDS')
-make_head(_module, 'WPD_COMMAND_SERVICE_CAPABILITIES_GET_COMMAND_OPTIONS')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_METHODS')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_FORMAT')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_METHOD')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_METHOD_ATTRIBUTES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_PARAMETER')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_PARAMETER_ATTRIBUTES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_FORMATS')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_FORMAT_ATTRIBUTES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_PROPERTY_KEYS')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_PROPERTY_ATTRIBUTES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_EVENTS')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_EVENT')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_EVENT_ATTRIBUTES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_INHERITANCE_TYPE')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_INHERITED_SERVICES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_RENDERING_PROFILES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_COMMANDS')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_COMMAND')
-make_head(_module, 'WPD_PROPERTY_SERVICE_CAPABILITIES_COMMAND_OPTIONS')
-make_head(_module, 'WPD_COMMAND_SERVICE_METHODS_START_INVOKE')
-make_head(_module, 'WPD_COMMAND_SERVICE_METHODS_CANCEL_INVOKE')
-make_head(_module, 'WPD_COMMAND_SERVICE_METHODS_END_INVOKE')
-make_head(_module, 'WPD_PROPERTY_SERVICE_METHOD')
-make_head(_module, 'WPD_PROPERTY_SERVICE_METHOD_PARAMETER_VALUES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_METHOD_RESULT_VALUES')
-make_head(_module, 'WPD_PROPERTY_SERVICE_METHOD_CONTEXT')
-make_head(_module, 'WPD_PROPERTY_SERVICE_METHOD_HRESULT')
-make_head(_module, 'WPD_RESOURCE_DEFAULT')
-make_head(_module, 'WPD_RESOURCE_CONTACT_PHOTO')
-make_head(_module, 'WPD_RESOURCE_THUMBNAIL')
-make_head(_module, 'WPD_RESOURCE_ICON')
-make_head(_module, 'WPD_RESOURCE_AUDIO_CLIP')
-make_head(_module, 'WPD_RESOURCE_ALBUM_ART')
-make_head(_module, 'WPD_RESOURCE_GENERIC')
-make_head(_module, 'WPD_RESOURCE_VIDEO_CLIP')
-make_head(_module, 'WPD_RESOURCE_BRANDING_ART')
-make_head(_module, 'WPD_OBJECT_ID')
-make_head(_module, 'WPD_OBJECT_PARENT_ID')
-make_head(_module, 'WPD_OBJECT_NAME')
-make_head(_module, 'WPD_OBJECT_PERSISTENT_UNIQUE_ID')
-make_head(_module, 'WPD_OBJECT_FORMAT')
-make_head(_module, 'WPD_OBJECT_ISHIDDEN')
-make_head(_module, 'WPD_OBJECT_ISSYSTEM')
-make_head(_module, 'WPD_OBJECT_SIZE')
-make_head(_module, 'WPD_OBJECT_ORIGINAL_FILE_NAME')
-make_head(_module, 'WPD_OBJECT_NON_CONSUMABLE')
-make_head(_module, 'WPD_OBJECT_KEYWORDS')
-make_head(_module, 'WPD_OBJECT_SYNC_ID')
-make_head(_module, 'WPD_OBJECT_IS_DRM_PROTECTED')
-make_head(_module, 'WPD_OBJECT_DATE_CREATED')
-make_head(_module, 'WPD_OBJECT_DATE_MODIFIED')
-make_head(_module, 'WPD_OBJECT_DATE_AUTHORED')
-make_head(_module, 'WPD_OBJECT_BACK_REFERENCES')
-make_head(_module, 'WPD_OBJECT_CAN_DELETE')
-make_head(_module, 'WPD_OBJECT_LANGUAGE_LOCALE')
-make_head(_module, 'WPD_FOLDER_CONTENT_TYPES_ALLOWED')
-make_head(_module, 'WPD_IMAGE_BITDEPTH')
-make_head(_module, 'WPD_IMAGE_CROPPED_STATUS')
-make_head(_module, 'WPD_IMAGE_COLOR_CORRECTED_STATUS')
-make_head(_module, 'WPD_IMAGE_FNUMBER')
-make_head(_module, 'WPD_IMAGE_EXPOSURE_TIME')
-make_head(_module, 'WPD_IMAGE_EXPOSURE_INDEX')
-make_head(_module, 'WPD_IMAGE_HORIZONTAL_RESOLUTION')
-make_head(_module, 'WPD_IMAGE_VERTICAL_RESOLUTION')
-make_head(_module, 'WPD_MEDIA_TOTAL_BITRATE')
-make_head(_module, 'WPD_MEDIA_BITRATE_TYPE')
-make_head(_module, 'WPD_MEDIA_COPYRIGHT')
-make_head(_module, 'WPD_MEDIA_SUBSCRIPTION_CONTENT_ID')
-make_head(_module, 'WPD_MEDIA_USE_COUNT')
-make_head(_module, 'WPD_MEDIA_SKIP_COUNT')
-make_head(_module, 'WPD_MEDIA_LAST_ACCESSED_TIME')
-make_head(_module, 'WPD_MEDIA_PARENTAL_RATING')
-make_head(_module, 'WPD_MEDIA_META_GENRE')
-make_head(_module, 'WPD_MEDIA_COMPOSER')
-make_head(_module, 'WPD_MEDIA_EFFECTIVE_RATING')
-make_head(_module, 'WPD_MEDIA_SUB_TITLE')
-make_head(_module, 'WPD_MEDIA_RELEASE_DATE')
-make_head(_module, 'WPD_MEDIA_SAMPLE_RATE')
-make_head(_module, 'WPD_MEDIA_STAR_RATING')
-make_head(_module, 'WPD_MEDIA_USER_EFFECTIVE_RATING')
-make_head(_module, 'WPD_MEDIA_TITLE')
-make_head(_module, 'WPD_MEDIA_DURATION')
-make_head(_module, 'WPD_MEDIA_BUY_NOW')
-make_head(_module, 'WPD_MEDIA_ENCODING_PROFILE')
-make_head(_module, 'WPD_MEDIA_WIDTH')
-make_head(_module, 'WPD_MEDIA_HEIGHT')
-make_head(_module, 'WPD_MEDIA_ARTIST')
-make_head(_module, 'WPD_MEDIA_ALBUM_ARTIST')
-make_head(_module, 'WPD_MEDIA_OWNER')
-make_head(_module, 'WPD_MEDIA_MANAGING_EDITOR')
-make_head(_module, 'WPD_MEDIA_WEBMASTER')
-make_head(_module, 'WPD_MEDIA_SOURCE_URL')
-make_head(_module, 'WPD_MEDIA_DESTINATION_URL')
-make_head(_module, 'WPD_MEDIA_DESCRIPTION')
-make_head(_module, 'WPD_MEDIA_GENRE')
-make_head(_module, 'WPD_MEDIA_TIME_BOOKMARK')
-make_head(_module, 'WPD_MEDIA_OBJECT_BOOKMARK')
-make_head(_module, 'WPD_MEDIA_LAST_BUILD_DATE')
-make_head(_module, 'WPD_MEDIA_BYTE_BOOKMARK')
-make_head(_module, 'WPD_MEDIA_TIME_TO_LIVE')
-make_head(_module, 'WPD_MEDIA_GUID')
-make_head(_module, 'WPD_MEDIA_SUB_DESCRIPTION')
-make_head(_module, 'WPD_MEDIA_AUDIO_ENCODING_PROFILE')
-make_head(_module, 'WPD_CONTACT_DISPLAY_NAME')
-make_head(_module, 'WPD_CONTACT_FIRST_NAME')
-make_head(_module, 'WPD_CONTACT_MIDDLE_NAMES')
-make_head(_module, 'WPD_CONTACT_LAST_NAME')
-make_head(_module, 'WPD_CONTACT_PREFIX')
-make_head(_module, 'WPD_CONTACT_SUFFIX')
-make_head(_module, 'WPD_CONTACT_PHONETIC_FIRST_NAME')
-make_head(_module, 'WPD_CONTACT_PHONETIC_LAST_NAME')
-make_head(_module, 'WPD_CONTACT_PERSONAL_FULL_POSTAL_ADDRESS')
-make_head(_module, 'WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_LINE1')
-make_head(_module, 'WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_LINE2')
-make_head(_module, 'WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_CITY')
-make_head(_module, 'WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_REGION')
-make_head(_module, 'WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_POSTAL_CODE')
-make_head(_module, 'WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_COUNTRY')
-make_head(_module, 'WPD_CONTACT_BUSINESS_FULL_POSTAL_ADDRESS')
-make_head(_module, 'WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_LINE1')
-make_head(_module, 'WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_LINE2')
-make_head(_module, 'WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_CITY')
-make_head(_module, 'WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_REGION')
-make_head(_module, 'WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_POSTAL_CODE')
-make_head(_module, 'WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_COUNTRY')
-make_head(_module, 'WPD_CONTACT_OTHER_FULL_POSTAL_ADDRESS')
-make_head(_module, 'WPD_CONTACT_OTHER_POSTAL_ADDRESS_LINE1')
-make_head(_module, 'WPD_CONTACT_OTHER_POSTAL_ADDRESS_LINE2')
-make_head(_module, 'WPD_CONTACT_OTHER_POSTAL_ADDRESS_CITY')
-make_head(_module, 'WPD_CONTACT_OTHER_POSTAL_ADDRESS_REGION')
-make_head(_module, 'WPD_CONTACT_OTHER_POSTAL_ADDRESS_POSTAL_CODE')
-make_head(_module, 'WPD_CONTACT_OTHER_POSTAL_ADDRESS_POSTAL_COUNTRY')
-make_head(_module, 'WPD_CONTACT_PRIMARY_EMAIL_ADDRESS')
-make_head(_module, 'WPD_CONTACT_PERSONAL_EMAIL')
-make_head(_module, 'WPD_CONTACT_PERSONAL_EMAIL2')
-make_head(_module, 'WPD_CONTACT_BUSINESS_EMAIL')
-make_head(_module, 'WPD_CONTACT_BUSINESS_EMAIL2')
-make_head(_module, 'WPD_CONTACT_OTHER_EMAILS')
-make_head(_module, 'WPD_CONTACT_PRIMARY_PHONE')
-make_head(_module, 'WPD_CONTACT_PERSONAL_PHONE')
-make_head(_module, 'WPD_CONTACT_PERSONAL_PHONE2')
-make_head(_module, 'WPD_CONTACT_BUSINESS_PHONE')
-make_head(_module, 'WPD_CONTACT_BUSINESS_PHONE2')
-make_head(_module, 'WPD_CONTACT_MOBILE_PHONE')
-make_head(_module, 'WPD_CONTACT_MOBILE_PHONE2')
-make_head(_module, 'WPD_CONTACT_PERSONAL_FAX')
-make_head(_module, 'WPD_CONTACT_BUSINESS_FAX')
-make_head(_module, 'WPD_CONTACT_PAGER')
-make_head(_module, 'WPD_CONTACT_OTHER_PHONES')
-make_head(_module, 'WPD_CONTACT_PRIMARY_WEB_ADDRESS')
-make_head(_module, 'WPD_CONTACT_PERSONAL_WEB_ADDRESS')
-make_head(_module, 'WPD_CONTACT_BUSINESS_WEB_ADDRESS')
-make_head(_module, 'WPD_CONTACT_INSTANT_MESSENGER')
-make_head(_module, 'WPD_CONTACT_INSTANT_MESSENGER2')
-make_head(_module, 'WPD_CONTACT_INSTANT_MESSENGER3')
-make_head(_module, 'WPD_CONTACT_COMPANY_NAME')
-make_head(_module, 'WPD_CONTACT_PHONETIC_COMPANY_NAME')
-make_head(_module, 'WPD_CONTACT_ROLE')
-make_head(_module, 'WPD_CONTACT_BIRTHDATE')
-make_head(_module, 'WPD_CONTACT_PRIMARY_FAX')
-make_head(_module, 'WPD_CONTACT_SPOUSE')
-make_head(_module, 'WPD_CONTACT_CHILDREN')
-make_head(_module, 'WPD_CONTACT_ASSISTANT')
-make_head(_module, 'WPD_CONTACT_ANNIVERSARY_DATE')
-make_head(_module, 'WPD_CONTACT_RINGTONE')
-make_head(_module, 'WPD_MUSIC_ALBUM')
-make_head(_module, 'WPD_MUSIC_TRACK')
-make_head(_module, 'WPD_MUSIC_LYRICS')
-make_head(_module, 'WPD_MUSIC_MOOD')
-make_head(_module, 'WPD_AUDIO_BITRATE')
-make_head(_module, 'WPD_AUDIO_CHANNEL_COUNT')
-make_head(_module, 'WPD_AUDIO_FORMAT_CODE')
-make_head(_module, 'WPD_AUDIO_BIT_DEPTH')
-make_head(_module, 'WPD_AUDIO_BLOCK_ALIGNMENT')
-make_head(_module, 'WPD_VIDEO_AUTHOR')
-make_head(_module, 'WPD_VIDEO_RECORDEDTV_STATION_NAME')
-make_head(_module, 'WPD_VIDEO_RECORDEDTV_CHANNEL_NUMBER')
-make_head(_module, 'WPD_VIDEO_RECORDEDTV_REPEAT')
-make_head(_module, 'WPD_VIDEO_BUFFER_SIZE')
-make_head(_module, 'WPD_VIDEO_CREDITS')
-make_head(_module, 'WPD_VIDEO_KEY_FRAME_DISTANCE')
-make_head(_module, 'WPD_VIDEO_QUALITY_SETTING')
-make_head(_module, 'WPD_VIDEO_SCAN_TYPE')
-make_head(_module, 'WPD_VIDEO_BITRATE')
-make_head(_module, 'WPD_VIDEO_FOURCC_CODE')
-make_head(_module, 'WPD_VIDEO_FRAMERATE')
-make_head(_module, 'WPD_COMMON_INFORMATION_SUBJECT')
-make_head(_module, 'WPD_COMMON_INFORMATION_BODY_TEXT')
-make_head(_module, 'WPD_COMMON_INFORMATION_PRIORITY')
-make_head(_module, 'WPD_COMMON_INFORMATION_START_DATETIME')
-make_head(_module, 'WPD_COMMON_INFORMATION_END_DATETIME')
-make_head(_module, 'WPD_COMMON_INFORMATION_NOTES')
-make_head(_module, 'WPD_EMAIL_TO_LINE')
-make_head(_module, 'WPD_EMAIL_CC_LINE')
-make_head(_module, 'WPD_EMAIL_BCC_LINE')
-make_head(_module, 'WPD_EMAIL_HAS_BEEN_READ')
-make_head(_module, 'WPD_EMAIL_RECEIVED_TIME')
-make_head(_module, 'WPD_EMAIL_HAS_ATTACHMENTS')
-make_head(_module, 'WPD_EMAIL_SENDER_ADDRESS')
-make_head(_module, 'WPD_APPOINTMENT_LOCATION')
-make_head(_module, 'WPD_APPOINTMENT_TYPE')
-make_head(_module, 'WPD_APPOINTMENT_REQUIRED_ATTENDEES')
-make_head(_module, 'WPD_APPOINTMENT_OPTIONAL_ATTENDEES')
-make_head(_module, 'WPD_APPOINTMENT_ACCEPTED_ATTENDEES')
-make_head(_module, 'WPD_APPOINTMENT_RESOURCES')
-make_head(_module, 'WPD_APPOINTMENT_TENTATIVE_ATTENDEES')
-make_head(_module, 'WPD_APPOINTMENT_DECLINED_ATTENDEES')
-make_head(_module, 'WPD_TASK_STATUS')
-make_head(_module, 'WPD_TASK_PERCENT_COMPLETE')
-make_head(_module, 'WPD_TASK_REMINDER_DATE')
-make_head(_module, 'WPD_TASK_OWNER')
-make_head(_module, 'WPD_SMS_PROVIDER')
-make_head(_module, 'WPD_SMS_TIMEOUT')
-make_head(_module, 'WPD_SMS_MAX_PAYLOAD')
-make_head(_module, 'WPD_SMS_ENCODING')
-make_head(_module, 'WPD_SECTION_DATA_OFFSET')
-make_head(_module, 'WPD_SECTION_DATA_LENGTH')
-make_head(_module, 'WPD_SECTION_DATA_UNITS')
-make_head(_module, 'WPD_SECTION_DATA_REFERENCED_OBJECT_RESOURCE')
-make_head(_module, 'WPD_COMMAND_MTP_EXT_GET_SUPPORTED_VENDOR_OPCODES')
-make_head(_module, 'WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITHOUT_DATA_PHASE')
-make_head(_module, 'WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITH_DATA_TO_READ')
-make_head(_module, 'WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITH_DATA_TO_WRITE')
-make_head(_module, 'WPD_COMMAND_MTP_EXT_READ_DATA')
-make_head(_module, 'WPD_COMMAND_MTP_EXT_WRITE_DATA')
-make_head(_module, 'WPD_COMMAND_MTP_EXT_END_DATA_TRANSFER')
-make_head(_module, 'WPD_COMMAND_MTP_EXT_GET_VENDOR_EXTENSION_DESCRIPTION')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_OPERATION_CODE')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_OPERATION_PARAMS')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_RESPONSE_CODE')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_RESPONSE_PARAMS')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_VENDOR_OPERATION_CODES')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_TRANSFER_CONTEXT')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_TRANSFER_TOTAL_DATA_SIZE')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_TO_READ')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_READ')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_TO_WRITE')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_WRITTEN')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_TRANSFER_DATA')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_OPTIMAL_TRANSFER_BUFFER_SIZE')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_VENDOR_EXTENSION_DESCRIPTION')
-make_head(_module, 'WPD_PROPERTY_MTP_EXT_EVENT_PARAMS')
-make_head(_module, 'WPDNSE_OBJECT_HAS_CONTACT_PHOTO')
-make_head(_module, 'WPDNSE_OBJECT_HAS_THUMBNAIL')
-make_head(_module, 'WPDNSE_OBJECT_HAS_ICON')
-make_head(_module, 'WPDNSE_OBJECT_HAS_AUDIO_CLIP')
-make_head(_module, 'WPDNSE_OBJECT_HAS_ALBUM_ART')
-make_head(_module, 'WPDNSE_OBJECT_OPTIMAL_READ_BLOCK_SIZE')
-make_head(_module, 'IConnectionRequestCallback')
-make_head(_module, 'IEnumPortableDeviceConnectors')
-make_head(_module, 'IEnumPortableDeviceObjectIDs')
-make_head(_module, 'IMediaRadioManager')
-make_head(_module, 'IMediaRadioManagerNotifySink')
-make_head(_module, 'IPortableDevice')
-make_head(_module, 'IPortableDeviceCapabilities')
-make_head(_module, 'IPortableDeviceConnector')
-make_head(_module, 'IPortableDeviceContent')
-make_head(_module, 'IPortableDeviceContent2')
-make_head(_module, 'IPortableDeviceDataStream')
-make_head(_module, 'IPortableDeviceDispatchFactory')
-make_head(_module, 'IPortableDeviceEventCallback')
-make_head(_module, 'IPortableDeviceKeyCollection')
-make_head(_module, 'IPortableDeviceManager')
-make_head(_module, 'IPortableDevicePropVariantCollection')
-make_head(_module, 'IPortableDeviceProperties')
-make_head(_module, 'IPortableDevicePropertiesBulk')
-make_head(_module, 'IPortableDevicePropertiesBulkCallback')
-make_head(_module, 'IPortableDeviceResources')
-make_head(_module, 'IPortableDeviceService')
-make_head(_module, 'IPortableDeviceServiceActivation')
-make_head(_module, 'IPortableDeviceServiceCapabilities')
-make_head(_module, 'IPortableDeviceServiceManager')
-make_head(_module, 'IPortableDeviceServiceMethodCallback')
-make_head(_module, 'IPortableDeviceServiceMethods')
-make_head(_module, 'IPortableDeviceServiceOpenCallback')
-make_head(_module, 'IPortableDeviceUnitsStream')
-make_head(_module, 'IPortableDeviceValues')
-make_head(_module, 'IPortableDeviceValuesCollection')
-make_head(_module, 'IPortableDeviceWebControl')
-make_head(_module, 'IRadioInstance')
-make_head(_module, 'IRadioInstanceCollection')
-make_head(_module, 'IWpdSerializer')
-make_head(_module, 'WPD_COMMAND_ACCESS_LOOKUP_ENTRY')
+make_ready(__name__)

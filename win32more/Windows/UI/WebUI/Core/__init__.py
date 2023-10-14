@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI
 import win32more.Windows.UI.WebUI.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IWebUICommandBar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.Core.IWebUICommandBar'
@@ -351,22 +342,4 @@ class WebUICommandBarSymbolIcon(ComPtr):
     @winrt_mixinmethod
     def put_Symbol(self: win32more.Windows.UI.WebUI.Core.IWebUICommandBarSymbolIcon, value: WinRT_String) -> Void: ...
     Symbol = property(get_Symbol, put_Symbol)
-make_head(_module, 'IWebUICommandBar')
-make_head(_module, 'IWebUICommandBarBitmapIcon')
-make_head(_module, 'IWebUICommandBarBitmapIconFactory')
-make_head(_module, 'IWebUICommandBarConfirmationButton')
-make_head(_module, 'IWebUICommandBarElement')
-make_head(_module, 'IWebUICommandBarIcon')
-make_head(_module, 'IWebUICommandBarIconButton')
-make_head(_module, 'IWebUICommandBarItemInvokedEventArgs')
-make_head(_module, 'IWebUICommandBarSizeChangedEventArgs')
-make_head(_module, 'IWebUICommandBarStatics')
-make_head(_module, 'IWebUICommandBarSymbolIcon')
-make_head(_module, 'IWebUICommandBarSymbolIconFactory')
-make_head(_module, 'WebUICommandBar')
-make_head(_module, 'WebUICommandBarBitmapIcon')
-make_head(_module, 'WebUICommandBarConfirmationButton')
-make_head(_module, 'WebUICommandBarIconButton')
-make_head(_module, 'WebUICommandBarItemInvokedEventArgs')
-make_head(_module, 'WebUICommandBarSizeChangedEventArgs')
-make_head(_module, 'WebUICommandBarSymbolIcon')
+make_ready(__name__)

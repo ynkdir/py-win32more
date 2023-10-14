@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Appointments
 import win32more.Windows.ApplicationModel.Appointments.AppointmentsProvider
 import win32more.Windows.Foundation
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AddAppointmentOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.AppointmentsProvider.IAddAppointmentOperation
@@ -196,12 +187,4 @@ class ReplaceAppointmentOperation(ComPtr):
     AppointmentInformation = property(get_AppointmentInformation, None)
     InstanceStartDate = property(get_InstanceStartDate, None)
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
-make_head(_module, 'AddAppointmentOperation')
-make_head(_module, 'AppointmentsProviderLaunchActionVerbs')
-make_head(_module, 'IAddAppointmentOperation')
-make_head(_module, 'IAppointmentsProviderLaunchActionVerbsStatics')
-make_head(_module, 'IAppointmentsProviderLaunchActionVerbsStatics2')
-make_head(_module, 'IRemoveAppointmentOperation')
-make_head(_module, 'IReplaceAppointmentOperation')
-make_head(_module, 'RemoveAppointmentOperation')
-make_head(_module, 'ReplaceAppointmentOperation')
+make_ready(__name__)

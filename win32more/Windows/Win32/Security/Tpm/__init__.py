@@ -1,36 +1,27 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Tpm
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 TPMVSC_DEFAULT_ADMIN_ALGORITHM_ID: UInt32 = 130
 class ITpmVirtualSmartCardManager(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{112b1dff-d9dc-41f7-869f-d67fee7cb591}')
     @commethod(3)
-    def CreateVirtualSmartCard(self, pszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, fGenerate: win32more.Windows.Win32.Foundation.BOOL, pStatusCallback: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head, ppszInstanceId: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pfNeedReboot: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateVirtualSmartCard(self, pszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, fGenerate: win32more.Windows.Win32.Foundation.BOOL, pStatusCallback: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback, ppszInstanceId: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pfNeedReboot: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def DestroyVirtualSmartCard(self, pszInstanceId: win32more.Windows.Win32.Foundation.PWSTR, pStatusCallback: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head, pfNeedReboot: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DestroyVirtualSmartCard(self, pszInstanceId: win32more.Windows.Win32.Foundation.PWSTR, pStatusCallback: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback, pfNeedReboot: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITpmVirtualSmartCardManager2(ComPtr):
     extends: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManager
     _iid_ = Guid('{fdf8a2b9-02de-47f4-bc26-aa85ab5e5267}')
     @commethod(5)
-    def CreateVirtualSmartCardWithPinPolicy(self, pszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, pbPinPolicy: POINTER(Byte), cbPinPolicy: UInt32, fGenerate: win32more.Windows.Win32.Foundation.BOOL, pStatusCallback: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head, ppszInstanceId: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pfNeedReboot: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateVirtualSmartCardWithPinPolicy(self, pszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, pbPinPolicy: POINTER(Byte), cbPinPolicy: UInt32, fGenerate: win32more.Windows.Win32.Foundation.BOOL, pStatusCallback: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback, ppszInstanceId: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pfNeedReboot: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITpmVirtualSmartCardManager3(ComPtr):
     extends: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManager2
     _iid_ = Guid('{3c745a97-f375-4150-be17-5950f694c699}')
     @commethod(6)
-    def CreateVirtualSmartCardWithAttestation(self, pszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, pbPinPolicy: POINTER(Byte), cbPinPolicy: UInt32, attestationType: win32more.Windows.Win32.Security.Tpm.TPMVSC_ATTESTATION_TYPE, fGenerate: win32more.Windows.Win32.Foundation.BOOL, pStatusCallback: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head, ppszInstanceId: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateVirtualSmartCardWithAttestation(self, pszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, pbPinPolicy: POINTER(Byte), cbPinPolicy: UInt32, attestationType: win32more.Windows.Win32.Security.Tpm.TPMVSC_ATTESTATION_TYPE, fGenerate: win32more.Windows.Win32.Foundation.BOOL, pStatusCallback: win32more.Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback, ppszInstanceId: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITpmVirtualSmartCardManagerStatusCallback(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1a1bb35f-abb8-451c-a1ae-33d98f1bef4a}')
@@ -79,7 +70,4 @@ TPMVSC_ATTESTATION_NONE: TPMVSC_ATTESTATION_TYPE = 0
 TPMVSC_ATTESTATION_AIK_ONLY: TPMVSC_ATTESTATION_TYPE = 1
 TPMVSC_ATTESTATION_AIK_AND_CERTIFICATE: TPMVSC_ATTESTATION_TYPE = 2
 TpmVirtualSmartCardManager = Guid('{16a18e86-7f6e-4c20-ad89-4ffc0db7a96a}')
-make_head(_module, 'ITpmVirtualSmartCardManager')
-make_head(_module, 'ITpmVirtualSmartCardManager2')
-make_head(_module, 'ITpmVirtualSmartCardManager3')
-make_head(_module, 'ITpmVirtualSmartCardManagerStatusCallback')
+make_ready(__name__)

@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.TransactionServer
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 Catalog = Guid('{6eb22881-8a19-11d0-81b6-00a0c9231c29}')
 CatalogCollection = Guid('{6eb22883-8a19-11d0-81b6-00a0c9231c29}')
 CatalogObject = Guid('{6eb22882-8a19-11d0-81b6-00a0c9231c29}')
@@ -21,9 +12,9 @@ class ICatalog(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{6eb22870-8a19-11d0-81b6-00a0c9231c29}')
     @commethod(7)
-    def GetCollection(self, bstrCollName: win32more.Windows.Win32.Foundation.BSTR, ppCatalogCollection: POINTER(win32more.Windows.Win32.System.Com.IDispatch_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetCollection(self, bstrCollName: win32more.Windows.Win32.Foundation.BSTR, ppCatalogCollection: POINTER(win32more.Windows.Win32.System.Com.IDispatch)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Connect(self, bstrConnectString: win32more.Windows.Win32.Foundation.BSTR, ppCatalogCollection: POINTER(win32more.Windows.Win32.System.Com.IDispatch_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Connect(self, bstrConnectString: win32more.Windows.Win32.Foundation.BSTR, ppCatalogCollection: POINTER(win32more.Windows.Win32.System.Com.IDispatch)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_MajorVersion(self, retval: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -38,7 +29,7 @@ class IComponentUtil(ComPtr):
     @commethod(9)
     def ImportComponentByName(self, bstrProgID: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetCLSIDs(self, bstrDLLFile: win32more.Windows.Win32.Foundation.BSTR, bstrTypelibFile: win32more.Windows.Win32.Foundation.BSTR, aCLSIDs: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetCLSIDs(self, bstrDLLFile: win32more.Windows.Win32.Foundation.BSTR, bstrTypelibFile: win32more.Windows.Win32.Foundation.BSTR, aCLSIDs: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPackageUtil(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{6eb22874-8a19-11d0-81b6-00a0c9231c29}')
@@ -115,8 +106,4 @@ MTSPackageInstallOptions_mtsInstallUsers: MTSPackageInstallOptions = 1
 PackageUtil = Guid('{6eb22885-8a19-11d0-81b6-00a0c9231c29}')
 RemoteComponentUtil = Guid('{6eb22886-8a19-11d0-81b6-00a0c9231c29}')
 RoleAssociationUtil = Guid('{6eb22887-8a19-11d0-81b6-00a0c9231c29}')
-make_head(_module, 'ICatalog')
-make_head(_module, 'IComponentUtil')
-make_head(_module, 'IPackageUtil')
-make_head(_module, 'IRemoteComponentUtil')
-make_head(_module, 'IRoleAssociationUtil')
+make_ready(__name__)

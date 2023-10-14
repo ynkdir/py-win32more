@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -22,15 +22,6 @@ import win32more.Windows.Perception
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System.RemoteSystems
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ISpatialAnchor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.ISpatialAnchor'
@@ -228,7 +219,7 @@ class ISpatialEntityWatcher(ComPtr):
     @winrt_commethod(12)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.SpatialEntityWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.SpatialEntityWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(15)
@@ -275,7 +266,7 @@ class ISpatialLocator(ComPtr):
     @winrt_commethod(6)
     def get_Locatability(self) -> win32more.Windows.Perception.Spatial.SpatialLocatability: ...
     @winrt_commethod(7)
-    def add_LocatabilityChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.SpatialLocator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LocatabilityChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.SpatialLocator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_LocatabilityChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -360,7 +351,7 @@ class ISpatialStageFrameOfReferenceStatics(ComPtr):
     @winrt_commethod(6)
     def get_Current(self) -> win32more.Windows.Perception.Spatial.SpatialStageFrameOfReference: ...
     @winrt_commethod(7)
-    def add_CurrentChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CurrentChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_CurrentChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -566,7 +557,7 @@ class SpatialEntityWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.Perception.Spatial.ISpatialEntityWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Perception.Spatial.ISpatialEntityWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.SpatialEntityWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Perception.Spatial.ISpatialEntityWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.SpatialEntityWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Perception.Spatial.ISpatialEntityWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -622,7 +613,7 @@ class SpatialLocator(ComPtr):
     @winrt_mixinmethod
     def get_Locatability(self: win32more.Windows.Perception.Spatial.ISpatialLocator) -> win32more.Windows.Perception.Spatial.SpatialLocatability: ...
     @winrt_mixinmethod
-    def add_LocatabilityChanged(self: win32more.Windows.Perception.Spatial.ISpatialLocator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.SpatialLocator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LocatabilityChanged(self: win32more.Windows.Perception.Spatial.ISpatialLocator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.SpatialLocator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_LocatabilityChanged(self: win32more.Windows.Perception.Spatial.ISpatialLocator, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -712,7 +703,7 @@ class SpatialStageFrameOfReference(ComPtr, metaclass=_SpatialStageFrameOfReferen
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics) -> win32more.Windows.Perception.Spatial.SpatialStageFrameOfReference: ...
     @winrt_classmethod
-    def add_CurrentChanged(cls: win32more.Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CurrentChanged(cls: win32more.Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_CurrentChanged(cls: win32more.Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -728,59 +719,4 @@ class SpatialStationaryFrameOfReference(ComPtr):
     @winrt_mixinmethod
     def get_CoordinateSystem(self: win32more.Windows.Perception.Spatial.ISpatialStationaryFrameOfReference) -> win32more.Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
-make_head(_module, 'ISpatialAnchor')
-make_head(_module, 'ISpatialAnchor2')
-make_head(_module, 'ISpatialAnchorExportSufficiency')
-make_head(_module, 'ISpatialAnchorExporter')
-make_head(_module, 'ISpatialAnchorExporterStatics')
-make_head(_module, 'ISpatialAnchorManagerStatics')
-make_head(_module, 'ISpatialAnchorRawCoordinateSystemAdjustedEventArgs')
-make_head(_module, 'ISpatialAnchorStatics')
-make_head(_module, 'ISpatialAnchorStore')
-make_head(_module, 'ISpatialAnchorTransferManagerStatics')
-make_head(_module, 'ISpatialBoundingVolume')
-make_head(_module, 'ISpatialBoundingVolumeStatics')
-make_head(_module, 'ISpatialCoordinateSystem')
-make_head(_module, 'ISpatialEntity')
-make_head(_module, 'ISpatialEntityAddedEventArgs')
-make_head(_module, 'ISpatialEntityFactory')
-make_head(_module, 'ISpatialEntityRemovedEventArgs')
-make_head(_module, 'ISpatialEntityStore')
-make_head(_module, 'ISpatialEntityStoreStatics')
-make_head(_module, 'ISpatialEntityUpdatedEventArgs')
-make_head(_module, 'ISpatialEntityWatcher')
-make_head(_module, 'ISpatialLocation')
-make_head(_module, 'ISpatialLocation2')
-make_head(_module, 'ISpatialLocator')
-make_head(_module, 'ISpatialLocatorAttachedFrameOfReference')
-make_head(_module, 'ISpatialLocatorPositionalTrackingDeactivatingEventArgs')
-make_head(_module, 'ISpatialLocatorStatics')
-make_head(_module, 'ISpatialStageFrameOfReference')
-make_head(_module, 'ISpatialStageFrameOfReferenceStatics')
-make_head(_module, 'ISpatialStationaryFrameOfReference')
-make_head(_module, 'SpatialAnchor')
-make_head(_module, 'SpatialAnchorExportSufficiency')
-make_head(_module, 'SpatialAnchorExporter')
-make_head(_module, 'SpatialAnchorManager')
-make_head(_module, 'SpatialAnchorRawCoordinateSystemAdjustedEventArgs')
-make_head(_module, 'SpatialAnchorStore')
-make_head(_module, 'SpatialAnchorTransferManager')
-make_head(_module, 'SpatialBoundingBox')
-make_head(_module, 'SpatialBoundingFrustum')
-make_head(_module, 'SpatialBoundingOrientedBox')
-make_head(_module, 'SpatialBoundingSphere')
-make_head(_module, 'SpatialBoundingVolume')
-make_head(_module, 'SpatialCoordinateSystem')
-make_head(_module, 'SpatialEntity')
-make_head(_module, 'SpatialEntityAddedEventArgs')
-make_head(_module, 'SpatialEntityRemovedEventArgs')
-make_head(_module, 'SpatialEntityStore')
-make_head(_module, 'SpatialEntityUpdatedEventArgs')
-make_head(_module, 'SpatialEntityWatcher')
-make_head(_module, 'SpatialLocation')
-make_head(_module, 'SpatialLocator')
-make_head(_module, 'SpatialLocatorAttachedFrameOfReference')
-make_head(_module, 'SpatialLocatorPositionalTrackingDeactivatingEventArgs')
-make_head(_module, 'SpatialRay')
-make_head(_module, 'SpatialStageFrameOfReference')
-make_head(_module, 'SpatialStationaryFrameOfReference')
+make_ready(__name__)

@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.ConfigurationSnapin
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 cNodetypeSceTemplateServices: Guid = Guid('{24a7f717-1f0c-11d1-affb-00c04fb984f9}')
 cNodetypeSceAnalysisServices: Guid = Guid('{678050c7-1ff8-11d1-affb-00c04fb984f9}')
 cNodetypeSceEventLog: Guid = Guid('{2ce06698-4bf3-11d1-8c30-00c04fb984f9}')
@@ -52,7 +43,7 @@ class ISceSvcAttachmentData(ComPtr):
     @commethod(3)
     def GetData(self, scesvcHandle: VoidPtr, sceType: win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_INFO_TYPE, ppvData: POINTER(VoidPtr), psceEnumHandle: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Initialize(self, lpServiceName: POINTER(SByte), lpTemplateName: POINTER(SByte), lpSceSvcPersistInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.ISceSvcAttachmentPersistInfo_head, pscesvcHandle: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Initialize(self, lpServiceName: POINTER(SByte), lpTemplateName: POINTER(SByte), lpSceSvcPersistInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.ISceSvcAttachmentPersistInfo, pscesvcHandle: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def FreeBuffer(self, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -75,12 +66,12 @@ def PFSCE_QUERY_INFO(sceHandle: VoidPtr, sceType: win32more.Windows.Win32.Securi
 @winfunctype_pointer
 def PFSCE_SET_INFO(sceHandle: VoidPtr, sceType: win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_INFO_TYPE, lpPrefix: POINTER(SByte), bExact: win32more.Windows.Win32.Foundation.BOOL, pvInfo: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def PF_ConfigAnalyzeService(pSceCbInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO_head)) -> UInt32: ...
+def PF_ConfigAnalyzeService(pSceCbInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO)) -> UInt32: ...
 @winfunctype_pointer
-def PF_UpdateService(pSceCbInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO_head), ServiceInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CONFIGURATION_INFO_head)) -> UInt32: ...
+def PF_UpdateService(pSceCbInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO), ServiceInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CONFIGURATION_INFO)) -> UInt32: ...
 class SCESVC_ANALYSIS_INFO(EasyCastStructure):
     Count: UInt32
-    Lines: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_ANALYSIS_LINE_head)
+    Lines: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_ANALYSIS_LINE)
 class SCESVC_ANALYSIS_LINE(EasyCastStructure):
     Key: POINTER(SByte)
     Value: POINTER(Byte)
@@ -93,7 +84,7 @@ class SCESVC_CALLBACK_INFO(EasyCastStructure):
     pfLogInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.PFSCE_LOG_INFO
 class SCESVC_CONFIGURATION_INFO(EasyCastStructure):
     Count: UInt32
-    Lines: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CONFIGURATION_LINE_head)
+    Lines: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CONFIGURATION_LINE)
 class SCESVC_CONFIGURATION_LINE(EasyCastStructure):
     Key: POINTER(SByte)
     Value: POINTER(SByte)
@@ -108,16 +99,4 @@ SCE_LOG_LEVEL_ALWAYS: SCE_LOG_ERR_LEVEL = 0
 SCE_LOG_LEVEL_ERROR: SCE_LOG_ERR_LEVEL = 1
 SCE_LOG_LEVEL_DETAIL: SCE_LOG_ERR_LEVEL = 2
 SCE_LOG_LEVEL_DEBUG: SCE_LOG_ERR_LEVEL = 3
-make_head(_module, 'ISceSvcAttachmentData')
-make_head(_module, 'ISceSvcAttachmentPersistInfo')
-make_head(_module, 'PFSCE_FREE_INFO')
-make_head(_module, 'PFSCE_LOG_INFO')
-make_head(_module, 'PFSCE_QUERY_INFO')
-make_head(_module, 'PFSCE_SET_INFO')
-make_head(_module, 'PF_ConfigAnalyzeService')
-make_head(_module, 'PF_UpdateService')
-make_head(_module, 'SCESVC_ANALYSIS_INFO')
-make_head(_module, 'SCESVC_ANALYSIS_LINE')
-make_head(_module, 'SCESVC_CALLBACK_INFO')
-make_head(_module, 'SCESVC_CONFIGURATION_INFO')
-make_head(_module, 'SCESVC_CONFIGURATION_LINE')
+make_ready(__name__)

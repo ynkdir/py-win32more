@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Cabinets
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 INCLUDED_FCI: UInt32 = 1
 _A_NAME_IS_UTF: UInt32 = 128
 _A_EXEC: UInt32 = 64
@@ -45,7 +36,7 @@ tcompSHIFT_QUANTUM_MEM: UInt32 = 8
 tcompMASK_RESERVED: UInt32 = 57344
 INCLUDED_FDI: UInt32 = 1
 @cfunctype('Cabinet.dll')
-def FCICreate(perf: POINTER(win32more.Windows.Win32.Storage.Cabinets.ERF_head), pfnfcifp: win32more.Windows.Win32.Storage.Cabinets.PFNFCIFILEPLACED, pfna: win32more.Windows.Win32.Storage.Cabinets.PFNFCIALLOC, pfnf: win32more.Windows.Win32.Storage.Cabinets.PFNFCIFREE, pfnopen: win32more.Windows.Win32.Storage.Cabinets.PFNFCIOPEN, pfnread: win32more.Windows.Win32.Storage.Cabinets.PFNFCIREAD, pfnwrite: win32more.Windows.Win32.Storage.Cabinets.PFNFCIWRITE, pfnclose: win32more.Windows.Win32.Storage.Cabinets.PFNFCICLOSE, pfnseek: win32more.Windows.Win32.Storage.Cabinets.PFNFCISEEK, pfndelete: win32more.Windows.Win32.Storage.Cabinets.PFNFCIDELETE, pfnfcigtf: win32more.Windows.Win32.Storage.Cabinets.PFNFCIGETTEMPFILE, pccab: POINTER(win32more.Windows.Win32.Storage.Cabinets.CCAB_head), pv: VoidPtr) -> VoidPtr: ...
+def FCICreate(perf: POINTER(win32more.Windows.Win32.Storage.Cabinets.ERF), pfnfcifp: win32more.Windows.Win32.Storage.Cabinets.PFNFCIFILEPLACED, pfna: win32more.Windows.Win32.Storage.Cabinets.PFNFCIALLOC, pfnf: win32more.Windows.Win32.Storage.Cabinets.PFNFCIFREE, pfnopen: win32more.Windows.Win32.Storage.Cabinets.PFNFCIOPEN, pfnread: win32more.Windows.Win32.Storage.Cabinets.PFNFCIREAD, pfnwrite: win32more.Windows.Win32.Storage.Cabinets.PFNFCIWRITE, pfnclose: win32more.Windows.Win32.Storage.Cabinets.PFNFCICLOSE, pfnseek: win32more.Windows.Win32.Storage.Cabinets.PFNFCISEEK, pfndelete: win32more.Windows.Win32.Storage.Cabinets.PFNFCIDELETE, pfnfcigtf: win32more.Windows.Win32.Storage.Cabinets.PFNFCIGETTEMPFILE, pccab: POINTER(win32more.Windows.Win32.Storage.Cabinets.CCAB), pv: VoidPtr) -> VoidPtr: ...
 @cfunctype('Cabinet.dll')
 def FCIAddFile(hfci: VoidPtr, pszSourceFile: win32more.Windows.Win32.Foundation.PSTR, pszFileName: win32more.Windows.Win32.Foundation.PSTR, fExecute: win32more.Windows.Win32.Foundation.BOOL, pfnfcignc: win32more.Windows.Win32.Storage.Cabinets.PFNFCIGETNEXTCABINET, pfnfcis: win32more.Windows.Win32.Storage.Cabinets.PFNFCISTATUS, pfnfcigoi: win32more.Windows.Win32.Storage.Cabinets.PFNFCIGETOPENINFO, typeCompress: UInt16) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @cfunctype('Cabinet.dll')
@@ -55,9 +46,9 @@ def FCIFlushFolder(hfci: VoidPtr, pfnfcignc: win32more.Windows.Win32.Storage.Cab
 @cfunctype('Cabinet.dll')
 def FCIDestroy(hfci: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @cfunctype('Cabinet.dll')
-def FDICreate(pfnalloc: win32more.Windows.Win32.Storage.Cabinets.PFNALLOC, pfnfree: win32more.Windows.Win32.Storage.Cabinets.PFNFREE, pfnopen: win32more.Windows.Win32.Storage.Cabinets.PFNOPEN, pfnread: win32more.Windows.Win32.Storage.Cabinets.PFNREAD, pfnwrite: win32more.Windows.Win32.Storage.Cabinets.PFNWRITE, pfnclose: win32more.Windows.Win32.Storage.Cabinets.PFNCLOSE, pfnseek: win32more.Windows.Win32.Storage.Cabinets.PFNSEEK, cpuType: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE, perf: POINTER(win32more.Windows.Win32.Storage.Cabinets.ERF_head)) -> VoidPtr: ...
+def FDICreate(pfnalloc: win32more.Windows.Win32.Storage.Cabinets.PFNALLOC, pfnfree: win32more.Windows.Win32.Storage.Cabinets.PFNFREE, pfnopen: win32more.Windows.Win32.Storage.Cabinets.PFNOPEN, pfnread: win32more.Windows.Win32.Storage.Cabinets.PFNREAD, pfnwrite: win32more.Windows.Win32.Storage.Cabinets.PFNWRITE, pfnclose: win32more.Windows.Win32.Storage.Cabinets.PFNCLOSE, pfnseek: win32more.Windows.Win32.Storage.Cabinets.PFNSEEK, cpuType: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE, perf: POINTER(win32more.Windows.Win32.Storage.Cabinets.ERF)) -> VoidPtr: ...
 @cfunctype('Cabinet.dll')
-def FDIIsCabinet(hfdi: VoidPtr, hf: IntPtr, pfdici: POINTER(win32more.Windows.Win32.Storage.Cabinets.FDICABINETINFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def FDIIsCabinet(hfdi: VoidPtr, hf: IntPtr, pfdici: POINTER(win32more.Windows.Win32.Storage.Cabinets.FDICABINETINFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @cfunctype('Cabinet.dll')
 def FDICopy(hfdi: VoidPtr, pszCabinet: win32more.Windows.Win32.Foundation.PSTR, pszCabPath: win32more.Windows.Win32.Foundation.PSTR, flags: Int32, pfnfdin: win32more.Windows.Win32.Storage.Cabinets.PFNFDINOTIFY, pfnfdid: win32more.Windows.Win32.Storage.Cabinets.PFNFDIDECRYPT, pvUser: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @cfunctype('Cabinet.dll')
@@ -188,11 +179,11 @@ def PFNFCICLOSE(hf: IntPtr, err: POINTER(Int32), pv: VoidPtr) -> Int32: ...
 @cfunctype_pointer
 def PFNFCIDELETE(pszFile: win32more.Windows.Win32.Foundation.PSTR, err: POINTER(Int32), pv: VoidPtr) -> Int32: ...
 @cfunctype_pointer
-def PFNFCIFILEPLACED(pccab: POINTER(win32more.Windows.Win32.Storage.Cabinets.CCAB_head), pszFile: win32more.Windows.Win32.Foundation.PSTR, cbFile: Int32, fContinuation: win32more.Windows.Win32.Foundation.BOOL, pv: VoidPtr) -> Int32: ...
+def PFNFCIFILEPLACED(pccab: POINTER(win32more.Windows.Win32.Storage.Cabinets.CCAB), pszFile: win32more.Windows.Win32.Foundation.PSTR, cbFile: Int32, fContinuation: win32more.Windows.Win32.Foundation.BOOL, pv: VoidPtr) -> Int32: ...
 @cfunctype_pointer
 def PFNFCIFREE(memory: VoidPtr) -> Void: ...
 @cfunctype_pointer
-def PFNFCIGETNEXTCABINET(pccab: POINTER(win32more.Windows.Win32.Storage.Cabinets.CCAB_head), cbPrevCab: UInt32, pv: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFNFCIGETNEXTCABINET(pccab: POINTER(win32more.Windows.Win32.Storage.Cabinets.CCAB), cbPrevCab: UInt32, pv: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @cfunctype_pointer
 def PFNFCIGETOPENINFO(pszName: win32more.Windows.Win32.Foundation.PSTR, pdate: POINTER(UInt16), ptime: POINTER(UInt16), pattribs: POINTER(UInt16), err: POINTER(Int32), pv: VoidPtr) -> IntPtr: ...
 @cfunctype_pointer
@@ -208,9 +199,9 @@ def PFNFCISTATUS(typeStatus: UInt32, cb1: UInt32, cb2: UInt32, pv: VoidPtr) -> I
 @cfunctype_pointer
 def PFNFCIWRITE(hf: IntPtr, memory: VoidPtr, cb: UInt32, err: POINTER(Int32), pv: VoidPtr) -> UInt32: ...
 @cfunctype_pointer
-def PFNFDIDECRYPT(pfdid: POINTER(win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPT_head)) -> Int32: ...
+def PFNFDIDECRYPT(pfdid: POINTER(win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPT)) -> Int32: ...
 @cfunctype_pointer
-def PFNFDINOTIFY(fdint: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE, pfdin: POINTER(win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATION_head)) -> IntPtr: ...
+def PFNFDINOTIFY(fdint: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE, pfdin: POINTER(win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATION)) -> IntPtr: ...
 @cfunctype_pointer
 def PFNFREE(pv: VoidPtr) -> Void: ...
 @cfunctype_pointer
@@ -221,34 +212,4 @@ def PFNREAD(hf: IntPtr, pv: VoidPtr, cb: UInt32) -> UInt32: ...
 def PFNSEEK(hf: IntPtr, dist: Int32, seektype: Int32) -> Int32: ...
 @cfunctype_pointer
 def PFNWRITE(hf: IntPtr, pv: VoidPtr, cb: UInt32) -> UInt32: ...
-make_head(_module, 'CCAB')
-make_head(_module, 'ERF')
-make_head(_module, 'FDICABINETINFO')
-make_head(_module, 'FDIDECRYPT')
-make_head(_module, 'FDINOTIFICATION')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'FDISPILLFILE')
-if ARCH in 'X86':
-    make_head(_module, 'FDISPILLFILE')
-make_head(_module, 'PFNALLOC')
-make_head(_module, 'PFNCLOSE')
-make_head(_module, 'PFNFCIALLOC')
-make_head(_module, 'PFNFCICLOSE')
-make_head(_module, 'PFNFCIDELETE')
-make_head(_module, 'PFNFCIFILEPLACED')
-make_head(_module, 'PFNFCIFREE')
-make_head(_module, 'PFNFCIGETNEXTCABINET')
-make_head(_module, 'PFNFCIGETOPENINFO')
-make_head(_module, 'PFNFCIGETTEMPFILE')
-make_head(_module, 'PFNFCIOPEN')
-make_head(_module, 'PFNFCIREAD')
-make_head(_module, 'PFNFCISEEK')
-make_head(_module, 'PFNFCISTATUS')
-make_head(_module, 'PFNFCIWRITE')
-make_head(_module, 'PFNFDIDECRYPT')
-make_head(_module, 'PFNFDINOTIFY')
-make_head(_module, 'PFNFREE')
-make_head(_module, 'PFNOPEN')
-make_head(_module, 'PFNREAD')
-make_head(_module, 'PFNSEEK')
-make_head(_module, 'PFNWRITE')
+make_ready(__name__)

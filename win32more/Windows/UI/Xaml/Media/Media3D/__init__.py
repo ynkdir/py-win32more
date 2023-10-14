@@ -12,20 +12,11 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Media.Media3D
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _CompositeTransform3D_Meta_(ComPtr.__class__):
     pass
 class CompositeTransform3D(ComPtr, metaclass=_CompositeTransform3D_Meta_):
@@ -296,7 +287,7 @@ class ITransform3DFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.ITransform3DFactory'
     _iid_ = Guid('{052c1f7a-8d73-48cd-bbb8-d00434caae5d}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
 class Matrix3D(EasyCastStructure):
     M11: Double
     M12: Double
@@ -370,17 +361,5 @@ class Transform3D(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.Media3D.ITransform3D
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.Transform3D'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Media3D.ITransform3DFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
-make_head(_module, 'CompositeTransform3D')
-make_head(_module, 'ICompositeTransform3D')
-make_head(_module, 'ICompositeTransform3DStatics')
-make_head(_module, 'IMatrix3DHelper')
-make_head(_module, 'IMatrix3DHelperStatics')
-make_head(_module, 'IPerspectiveTransform3D')
-make_head(_module, 'IPerspectiveTransform3DStatics')
-make_head(_module, 'ITransform3D')
-make_head(_module, 'ITransform3DFactory')
-make_head(_module, 'Matrix3D')
-make_head(_module, 'Matrix3DHelper')
-make_head(_module, 'PerspectiveTransform3D')
-make_head(_module, 'Transform3D')
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Media3D.ITransform3DFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
+make_ready(__name__)

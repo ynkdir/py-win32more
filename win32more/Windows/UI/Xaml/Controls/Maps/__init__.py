@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Geolocation
@@ -25,21 +25,12 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Controls.Maps
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CustomMapTileDataSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource: ...
     @winrt_mixinmethod
     def add_BitmapRequested(self: win32more.Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource, win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -49,9 +40,9 @@ class HttpMapTileDataSource(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
     @winrt_factorymethod
-    def CreateInstanceWithUriFormatString(cls: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSourceFactory, uriFormatString: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
+    def CreateInstanceWithUriFormatString(cls: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSourceFactory, uriFormatString: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
     @winrt_mixinmethod
     def get_UriFormatString(self: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSource) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -82,7 +73,7 @@ class ICustomMapTileDataSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSourceFactory'
     _iid_ = Guid('{c8477947-c955-4f22-9444-a1d8d744af11}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource: ...
 class IHttpMapTileDataSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSource'
@@ -109,9 +100,9 @@ class IHttpMapTileDataSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSourceFactory'
     _iid_ = Guid('{53b4b107-84dc-4291-89f8-6d0bb612a055}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
     @winrt_commethod(7)
-    def CreateInstanceWithUriFormatString(self, uriFormatString: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
+    def CreateInstanceWithUriFormatString(self, uriFormatString: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
 class ILocalMapTileDataSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSource'
@@ -130,9 +121,9 @@ class ILocalMapTileDataSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSourceFactory'
     _iid_ = Guid('{c5cfe9fc-72ac-4839-8a0d-011f24693c79}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
     @winrt_commethod(7)
-    def CreateInstanceWithUriFormatString(self, uriFormatString: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
+    def CreateInstanceWithUriFormatString(self, uriFormatString: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
 class IMapActualCameraChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapActualCameraChangedEventArgs'
@@ -330,15 +321,15 @@ class IMapControl(ComPtr):
     @winrt_commethod(37)
     def get_TileSources(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource]: ...
     @winrt_commethod(38)
-    def add_CenterChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CenterChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(39)
     def remove_CenterChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(40)
-    def add_HeadingChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HeadingChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(41)
     def remove_HeadingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(42)
-    def add_LoadingStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LoadingStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(43)
     def remove_LoadingStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(44)
@@ -354,15 +345,15 @@ class IMapControl(ComPtr):
     @winrt_commethod(49)
     def remove_MapTapped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(50)
-    def add_PitchChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PitchChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(51)
     def remove_PitchChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(52)
-    def add_TransformOriginChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TransformOriginChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(53)
     def remove_TransformOriginChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(54)
-    def add_ZoomLevelChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ZoomLevelChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(55)
     def remove_ZoomLevelChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(56)
@@ -370,7 +361,7 @@ class IMapControl(ComPtr):
     @winrt_commethod(57)
     def GetLocationFromOffset(self, offset: win32more.Windows.Foundation.Point, location: POINTER(win32more.Windows.Devices.Geolocation.Geopoint)) -> Void: ...
     @winrt_commethod(58)
-    def GetOffsetFromLocation(self, location: win32more.Windows.Devices.Geolocation.Geopoint, offset: POINTER(win32more.Windows.Foundation.Point_head)) -> Void: ...
+    def GetOffsetFromLocation(self, location: win32more.Windows.Devices.Geolocation.Geopoint, offset: POINTER(win32more.Windows.Foundation.Point)) -> Void: ...
     @winrt_commethod(59)
     def IsLocationInView(self, location: win32more.Windows.Devices.Geolocation.Geopoint, isInView: POINTER(Boolean)) -> Void: ...
     @winrt_commethod(60)
@@ -859,7 +850,7 @@ class IMapControlTransitFeatureClickEventArgs(ComPtr):
     @winrt_commethod(7)
     def get_Location(self) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_commethod(8)
-    def get_TransitProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_TransitProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
@@ -872,7 +863,7 @@ class IMapControlTransitFeaturePointerEnteredEventArgs(ComPtr):
     @winrt_commethod(7)
     def get_Location(self) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_commethod(8)
-    def get_TransitProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_TransitProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
@@ -885,7 +876,7 @@ class IMapControlTransitFeaturePointerExitedEventArgs(ComPtr):
     @winrt_commethod(7)
     def get_Location(self) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_commethod(8)
-    def get_TransitProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_TransitProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
@@ -898,7 +889,7 @@ class IMapControlTransitFeatureRightTappedEventArgs(ComPtr):
     @winrt_commethod(7)
     def get_Location(self) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_commethod(8)
-    def get_TransitProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_TransitProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
@@ -915,7 +906,7 @@ class IMapCustomExperienceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapCustomExperienceFactory'
     _iid_ = Guid('{7a403fb5-a1b1-4e7f-921e-3e6b8d8ebed6}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperience: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperience: ...
 class IMapElement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapElement'
@@ -952,9 +943,9 @@ class IMapElement3(ComPtr):
     @winrt_commethod(9)
     def put_MapStyleSheetEntryState(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(10)
-    def get_Tag(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Tag(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(11)
-    def put_Tag(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Tag(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     MapStyleSheetEntry = property(get_MapStyleSheetEntry, put_MapStyleSheetEntry)
     MapStyleSheetEntryState = property(get_MapStyleSheetEntryState, put_MapStyleSheetEntryState)
     Tag = property(get_Tag, put_Tag)
@@ -1038,7 +1029,7 @@ class IMapElementFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapElementFactory'
     _iid_ = Guid('{4a30d007-0bd6-47a5-860b-7e7cf5f0c573}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElement: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElement: ...
 class IMapElementPointerEnteredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapElementPointerEnteredEventArgs'
@@ -1254,9 +1245,9 @@ class IMapItemsControl(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapItemsControl'
     _iid_ = Guid('{94c2c4d3-b335-42c5-b660-e6a07ec3bddc}')
     @winrt_commethod(6)
-    def get_ItemsSource(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_ItemsSource(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(7)
-    def put_ItemsSource(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_ItemsSource(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(8)
     def get_Items(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.DependencyObject]: ...
     @winrt_commethod(9)
@@ -1303,7 +1294,7 @@ class IMapLayerFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapLayerFactory'
     _iid_ = Guid('{e02a2207-dee3-47c8-9825-bd029c5752f7}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapLayer: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapLayer: ...
 class IMapLayerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapLayerStatics'
@@ -1326,7 +1317,7 @@ class IMapModel3DFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapModel3DFactory'
     _iid_ = Guid('{df7f0bcc-580a-498b-939b-0119a9dadb9e}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D: ...
 class IMapModel3DStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics'
@@ -1450,7 +1441,7 @@ class IMapRouteViewFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapRouteViewFactory'
     _iid_ = Guid('{f083addf-0066-4628-82fe-ea78c23cec1e}')
     @winrt_commethod(6)
-    def CreateInstanceWithMapRoute(self, route: win32more.Windows.Services.Maps.MapRoute, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapRouteView: ...
+    def CreateInstanceWithMapRoute(self, route: win32more.Windows.Services.Maps.MapRoute, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapRouteView: ...
 class IMapScene(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapScene'
@@ -1782,7 +1773,7 @@ class IMapTileDataSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapTileDataSourceFactory'
     _iid_ = Guid('{a3920fbd-e446-4648-a74d-fd2c5d557c06}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
 class IMapTileSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapTileSource'
@@ -1875,15 +1866,15 @@ class IMapTileSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory'
     _iid_ = Guid('{cd7f811f-77fa-482b-9d34-71d31d465c48}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_commethod(7)
-    def CreateInstanceWithDataSource(self, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstanceWithDataSource(self, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_commethod(8)
-    def CreateInstanceWithDataSourceAndZoomRange(self, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstanceWithDataSourceAndZoomRange(self, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_commethod(9)
-    def CreateInstanceWithDataSourceZoomRangeAndBounds(self, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: win32more.Windows.Devices.Geolocation.GeoboundingBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstanceWithDataSourceZoomRangeAndBounds(self, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: win32more.Windows.Devices.Geolocation.GeoboundingBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_commethod(10)
-    def CreateInstanceWithDataSourceZoomRangeBoundsAndTileSize(self, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: win32more.Windows.Devices.Geolocation.GeoboundingBox, tileSizeInPixels: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstanceWithDataSourceZoomRangeBoundsAndTileSize(self, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: win32more.Windows.Devices.Geolocation.GeoboundingBox, tileSizeInPixels: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
 class IMapTileSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapTileSourceStatics'
@@ -2039,9 +2030,9 @@ class LocalMapTileDataSource(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
     @winrt_factorymethod
-    def CreateInstanceWithUriFormatString(cls: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSourceFactory, uriFormatString: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
+    def CreateInstanceWithUriFormatString(cls: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSourceFactory, uriFormatString: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
     @winrt_mixinmethod
     def get_UriFormatString(self: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSource) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -2252,15 +2243,15 @@ class MapControl(ComPtr, metaclass=_MapControl_Meta_):
     @winrt_mixinmethod
     def get_TileSources(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource]: ...
     @winrt_mixinmethod
-    def add_CenterChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CenterChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CenterChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_HeadingChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HeadingChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_HeadingChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_LoadingStatusChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LoadingStatusChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_LoadingStatusChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2276,15 +2267,15 @@ class MapControl(ComPtr, metaclass=_MapControl_Meta_):
     @winrt_mixinmethod
     def remove_MapTapped(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PitchChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PitchChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PitchChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_TransformOriginChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TransformOriginChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_TransformOriginChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_ZoomLevelChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ZoomLevelChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ZoomLevelChanged(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2292,7 +2283,7 @@ class MapControl(ComPtr, metaclass=_MapControl_Meta_):
     @winrt_mixinmethod
     def GetLocationFromOffset(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, offset: win32more.Windows.Foundation.Point, location: POINTER(win32more.Windows.Devices.Geolocation.Geopoint)) -> Void: ...
     @winrt_mixinmethod
-    def GetOffsetFromLocation(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, location: win32more.Windows.Devices.Geolocation.Geopoint, offset: POINTER(win32more.Windows.Foundation.Point_head)) -> Void: ...
+    def GetOffsetFromLocation(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, location: win32more.Windows.Devices.Geolocation.Geopoint, offset: POINTER(win32more.Windows.Foundation.Point)) -> Void: ...
     @winrt_mixinmethod
     def IsLocationInView(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl, location: win32more.Windows.Devices.Geolocation.Geopoint, isInView: POINTER(Boolean)) -> Void: ...
     @winrt_mixinmethod
@@ -2723,7 +2714,7 @@ class MapControlTransitFeatureClickEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Location(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureClickEventArgs) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_mixinmethod
-    def get_TransitProperties(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureClickEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_TransitProperties(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureClickEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
@@ -2738,7 +2729,7 @@ class MapControlTransitFeaturePointerEnteredEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Location(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeaturePointerEnteredEventArgs) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_mixinmethod
-    def get_TransitProperties(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeaturePointerEnteredEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_TransitProperties(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeaturePointerEnteredEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
@@ -2753,7 +2744,7 @@ class MapControlTransitFeaturePointerExitedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Location(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeaturePointerExitedEventArgs) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_mixinmethod
-    def get_TransitProperties(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeaturePointerExitedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_TransitProperties(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeaturePointerExitedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
@@ -2768,7 +2759,7 @@ class MapControlTransitFeatureRightTappedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Location(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureRightTappedEventArgs) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_mixinmethod
-    def get_TransitProperties(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureRightTappedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_TransitProperties(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureRightTappedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
@@ -2777,7 +2768,7 @@ class MapCustomExperience(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapCustomExperience
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapCustomExperience'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapCustomExperienceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperience: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapCustomExperienceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperience: ...
 class MapCustomExperienceChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapCustomExperienceChangedEventArgs
@@ -2791,7 +2782,7 @@ class MapElement(ComPtr, metaclass=_MapElement_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElement'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElement: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElement: ...
     @winrt_mixinmethod
     def get_ZIndex(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement) -> Int32: ...
     @winrt_mixinmethod
@@ -2813,9 +2804,9 @@ class MapElement(ComPtr, metaclass=_MapElement_Meta_):
     @winrt_mixinmethod
     def put_MapStyleSheetEntryState(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement3, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def get_Tag(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement3) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Tag(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement3) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_Tag(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement3, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Tag(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement3, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_IsEnabled(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement4) -> Boolean: ...
     @winrt_mixinmethod
@@ -3116,9 +3107,9 @@ class MapItemsControl(ComPtr, metaclass=_MapItemsControl_Meta_):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapItemsControl: ...
     @winrt_mixinmethod
-    def get_ItemsSource(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapItemsControl) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_ItemsSource(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapItemsControl) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_ItemsSource(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapItemsControl, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_ItemsSource(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapItemsControl, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_Items(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapItemsControl) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.DependencyObject]: ...
     @winrt_mixinmethod
@@ -3144,7 +3135,7 @@ class MapLayer(ComPtr, metaclass=_MapLayer_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapLayer
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapLayer'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapLayerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapLayer: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapLayerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapLayer: ...
     @winrt_mixinmethod
     def get_MapTabIndex(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapLayer) -> Int32: ...
     @winrt_mixinmethod
@@ -3179,7 +3170,7 @@ class MapModel3D(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3D
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapModel3D'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D: ...
     @winrt_classmethod
     def CreateFrom3MFAsync(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics, source: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
     @winrt_classmethod
@@ -3290,7 +3281,7 @@ class MapRouteView(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapRouteView
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapRouteView'
     @winrt_factorymethod
-    def CreateInstanceWithMapRoute(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapRouteViewFactory, route: win32more.Windows.Services.Maps.MapRoute, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapRouteView: ...
+    def CreateInstanceWithMapRoute(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapRouteViewFactory, route: win32more.Windows.Services.Maps.MapRoute, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapRouteView: ...
     @winrt_mixinmethod
     def get_RouteColor(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapRouteView) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -3638,7 +3629,7 @@ class MapTileDataSource(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileDataSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileDataSource'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
 MapTileLayer = Int32
 MapTileLayer_LabelOverlay: MapTileLayer = 0
 MapTileLayer_RoadOverlay: MapTileLayer = 1
@@ -3652,15 +3643,15 @@ class MapTileSource(ComPtr, metaclass=_MapTileSource_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileSource'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_factorymethod
-    def CreateInstanceWithDataSource(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstanceWithDataSource(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_factorymethod
-    def CreateInstanceWithDataSourceAndZoomRange(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstanceWithDataSourceAndZoomRange(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_factorymethod
-    def CreateInstanceWithDataSourceZoomRangeAndBounds(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: win32more.Windows.Devices.Geolocation.GeoboundingBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstanceWithDataSourceZoomRangeAndBounds(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: win32more.Windows.Devices.Geolocation.GeoboundingBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_factorymethod
-    def CreateInstanceWithDataSourceZoomRangeBoundsAndTileSize(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: win32more.Windows.Devices.Geolocation.GeoboundingBox, tileSizeInPixels: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
+    def CreateInstanceWithDataSourceZoomRangeBoundsAndTileSize(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, dataSource: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: win32more.Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: win32more.Windows.Devices.Geolocation.GeoboundingBox, tileSizeInPixels: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_mixinmethod
     def get_DataSource(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSource) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
     @winrt_mixinmethod
@@ -3885,172 +3876,4 @@ class StreetsidePanorama(ComPtr):
     @winrt_classmethod
     def FindNearbyWithLocationAndRadiusAsync(cls: win32more.Windows.UI.Xaml.Controls.Maps.IStreetsidePanoramaStatics, location: win32more.Windows.Devices.Geolocation.Geopoint, radiusInMeters: Double) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Xaml.Controls.Maps.StreetsidePanorama]: ...
     Location = property(get_Location, None)
-make_head(_module, 'CustomMapTileDataSource')
-make_head(_module, 'HttpMapTileDataSource')
-make_head(_module, 'ICustomMapTileDataSource')
-make_head(_module, 'ICustomMapTileDataSourceFactory')
-make_head(_module, 'IHttpMapTileDataSource')
-make_head(_module, 'IHttpMapTileDataSourceFactory')
-make_head(_module, 'ILocalMapTileDataSource')
-make_head(_module, 'ILocalMapTileDataSourceFactory')
-make_head(_module, 'IMapActualCameraChangedEventArgs')
-make_head(_module, 'IMapActualCameraChangedEventArgs2')
-make_head(_module, 'IMapActualCameraChangingEventArgs')
-make_head(_module, 'IMapActualCameraChangingEventArgs2')
-make_head(_module, 'IMapBillboard')
-make_head(_module, 'IMapBillboardFactory')
-make_head(_module, 'IMapBillboardStatics')
-make_head(_module, 'IMapCamera')
-make_head(_module, 'IMapCameraFactory')
-make_head(_module, 'IMapContextRequestedEventArgs')
-make_head(_module, 'IMapControl')
-make_head(_module, 'IMapControl2')
-make_head(_module, 'IMapControl3')
-make_head(_module, 'IMapControl4')
-make_head(_module, 'IMapControl5')
-make_head(_module, 'IMapControl6')
-make_head(_module, 'IMapControl7')
-make_head(_module, 'IMapControl8')
-make_head(_module, 'IMapControlBusinessLandmarkClickEventArgs')
-make_head(_module, 'IMapControlBusinessLandmarkPointerEnteredEventArgs')
-make_head(_module, 'IMapControlBusinessLandmarkPointerExitedEventArgs')
-make_head(_module, 'IMapControlBusinessLandmarkRightTappedEventArgs')
-make_head(_module, 'IMapControlDataHelper')
-make_head(_module, 'IMapControlDataHelper2')
-make_head(_module, 'IMapControlDataHelperFactory')
-make_head(_module, 'IMapControlDataHelperStatics')
-make_head(_module, 'IMapControlStatics')
-make_head(_module, 'IMapControlStatics2')
-make_head(_module, 'IMapControlStatics4')
-make_head(_module, 'IMapControlStatics5')
-make_head(_module, 'IMapControlStatics6')
-make_head(_module, 'IMapControlStatics7')
-make_head(_module, 'IMapControlStatics8')
-make_head(_module, 'IMapControlTransitFeatureClickEventArgs')
-make_head(_module, 'IMapControlTransitFeaturePointerEnteredEventArgs')
-make_head(_module, 'IMapControlTransitFeaturePointerExitedEventArgs')
-make_head(_module, 'IMapControlTransitFeatureRightTappedEventArgs')
-make_head(_module, 'IMapCustomExperience')
-make_head(_module, 'IMapCustomExperienceChangedEventArgs')
-make_head(_module, 'IMapCustomExperienceFactory')
-make_head(_module, 'IMapElement')
-make_head(_module, 'IMapElement2')
-make_head(_module, 'IMapElement3')
-make_head(_module, 'IMapElement3D')
-make_head(_module, 'IMapElement3DStatics')
-make_head(_module, 'IMapElement4')
-make_head(_module, 'IMapElementClickEventArgs')
-make_head(_module, 'IMapElementFactory')
-make_head(_module, 'IMapElementPointerEnteredEventArgs')
-make_head(_module, 'IMapElementPointerExitedEventArgs')
-make_head(_module, 'IMapElementStatics')
-make_head(_module, 'IMapElementStatics2')
-make_head(_module, 'IMapElementStatics3')
-make_head(_module, 'IMapElementStatics4')
-make_head(_module, 'IMapElementsLayer')
-make_head(_module, 'IMapElementsLayerClickEventArgs')
-make_head(_module, 'IMapElementsLayerContextRequestedEventArgs')
-make_head(_module, 'IMapElementsLayerPointerEnteredEventArgs')
-make_head(_module, 'IMapElementsLayerPointerExitedEventArgs')
-make_head(_module, 'IMapElementsLayerStatics')
-make_head(_module, 'IMapIcon')
-make_head(_module, 'IMapIcon2')
-make_head(_module, 'IMapIconStatics')
-make_head(_module, 'IMapIconStatics2')
-make_head(_module, 'IMapInputEventArgs')
-make_head(_module, 'IMapItemsControl')
-make_head(_module, 'IMapItemsControlStatics')
-make_head(_module, 'IMapLayer')
-make_head(_module, 'IMapLayerFactory')
-make_head(_module, 'IMapLayerStatics')
-make_head(_module, 'IMapModel3D')
-make_head(_module, 'IMapModel3DFactory')
-make_head(_module, 'IMapModel3DStatics')
-make_head(_module, 'IMapPolygon')
-make_head(_module, 'IMapPolygon2')
-make_head(_module, 'IMapPolygonStatics')
-make_head(_module, 'IMapPolyline')
-make_head(_module, 'IMapPolylineStatics')
-make_head(_module, 'IMapRightTappedEventArgs')
-make_head(_module, 'IMapRouteView')
-make_head(_module, 'IMapRouteViewFactory')
-make_head(_module, 'IMapScene')
-make_head(_module, 'IMapSceneStatics')
-make_head(_module, 'IMapStyleSheet')
-make_head(_module, 'IMapStyleSheetEntriesStatics')
-make_head(_module, 'IMapStyleSheetEntryStatesStatics')
-make_head(_module, 'IMapStyleSheetStatics')
-make_head(_module, 'IMapTargetCameraChangedEventArgs')
-make_head(_module, 'IMapTargetCameraChangedEventArgs2')
-make_head(_module, 'IMapTileBitmapRequest')
-make_head(_module, 'IMapTileBitmapRequestDeferral')
-make_head(_module, 'IMapTileBitmapRequestedEventArgs')
-make_head(_module, 'IMapTileBitmapRequestedEventArgs2')
-make_head(_module, 'IMapTileDataSource')
-make_head(_module, 'IMapTileDataSourceFactory')
-make_head(_module, 'IMapTileSource')
-make_head(_module, 'IMapTileSource2')
-make_head(_module, 'IMapTileSourceFactory')
-make_head(_module, 'IMapTileSourceStatics')
-make_head(_module, 'IMapTileSourceStatics2')
-make_head(_module, 'IMapTileUriRequest')
-make_head(_module, 'IMapTileUriRequestDeferral')
-make_head(_module, 'IMapTileUriRequestedEventArgs')
-make_head(_module, 'IMapTileUriRequestedEventArgs2')
-make_head(_module, 'IStreetsideExperience')
-make_head(_module, 'IStreetsideExperienceFactory')
-make_head(_module, 'IStreetsidePanorama')
-make_head(_module, 'IStreetsidePanoramaStatics')
-make_head(_module, 'LocalMapTileDataSource')
-make_head(_module, 'MapActualCameraChangedEventArgs')
-make_head(_module, 'MapActualCameraChangingEventArgs')
-make_head(_module, 'MapBillboard')
-make_head(_module, 'MapCamera')
-make_head(_module, 'MapContextRequestedEventArgs')
-make_head(_module, 'MapControl')
-make_head(_module, 'MapControlBusinessLandmarkClickEventArgs')
-make_head(_module, 'MapControlBusinessLandmarkPointerEnteredEventArgs')
-make_head(_module, 'MapControlBusinessLandmarkPointerExitedEventArgs')
-make_head(_module, 'MapControlBusinessLandmarkRightTappedEventArgs')
-make_head(_module, 'MapControlDataHelper')
-make_head(_module, 'MapControlTransitFeatureClickEventArgs')
-make_head(_module, 'MapControlTransitFeaturePointerEnteredEventArgs')
-make_head(_module, 'MapControlTransitFeaturePointerExitedEventArgs')
-make_head(_module, 'MapControlTransitFeatureRightTappedEventArgs')
-make_head(_module, 'MapCustomExperience')
-make_head(_module, 'MapCustomExperienceChangedEventArgs')
-make_head(_module, 'MapElement')
-make_head(_module, 'MapElement3D')
-make_head(_module, 'MapElementClickEventArgs')
-make_head(_module, 'MapElementPointerEnteredEventArgs')
-make_head(_module, 'MapElementPointerExitedEventArgs')
-make_head(_module, 'MapElementsLayer')
-make_head(_module, 'MapElementsLayerClickEventArgs')
-make_head(_module, 'MapElementsLayerContextRequestedEventArgs')
-make_head(_module, 'MapElementsLayerPointerEnteredEventArgs')
-make_head(_module, 'MapElementsLayerPointerExitedEventArgs')
-make_head(_module, 'MapIcon')
-make_head(_module, 'MapInputEventArgs')
-make_head(_module, 'MapItemsControl')
-make_head(_module, 'MapLayer')
-make_head(_module, 'MapModel3D')
-make_head(_module, 'MapPolygon')
-make_head(_module, 'MapPolyline')
-make_head(_module, 'MapRightTappedEventArgs')
-make_head(_module, 'MapRouteView')
-make_head(_module, 'MapScene')
-make_head(_module, 'MapStyleSheet')
-make_head(_module, 'MapStyleSheetEntries')
-make_head(_module, 'MapStyleSheetEntryStates')
-make_head(_module, 'MapTargetCameraChangedEventArgs')
-make_head(_module, 'MapTileBitmapRequest')
-make_head(_module, 'MapTileBitmapRequestDeferral')
-make_head(_module, 'MapTileBitmapRequestedEventArgs')
-make_head(_module, 'MapTileDataSource')
-make_head(_module, 'MapTileSource')
-make_head(_module, 'MapTileUriRequest')
-make_head(_module, 'MapTileUriRequestDeferral')
-make_head(_module, 'MapTileUriRequestedEventArgs')
-make_head(_module, 'MapZoomLevelRange')
-make_head(_module, 'StreetsideExperience')
-make_head(_module, 'StreetsidePanorama')
+make_ready(__name__)

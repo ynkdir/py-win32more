@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Popups
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IMessageDialog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Popups.IMessageDialog'
@@ -95,9 +86,9 @@ class IUICommand(ComPtr):
     @winrt_commethod(9)
     def put_Invoked(self, value: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
     @winrt_commethod(10)
-    def get_Id(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Id(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(11)
-    def put_Id(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Id(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     Label = property(get_Label, put_Label)
     Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
@@ -110,7 +101,7 @@ class IUICommandFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithHandler(self, label: WinRT_String, action: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> win32more.Windows.UI.Popups.UICommand: ...
     @winrt_commethod(8)
-    def CreateWithHandlerAndId(self, label: WinRT_String, action: win32more.Windows.UI.Popups.UICommandInvokedHandler, commandId: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.UI.Popups.UICommand: ...
+    def CreateWithHandlerAndId(self, label: WinRT_String, action: win32more.Windows.UI.Popups.UICommandInvokedHandler, commandId: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.UI.Popups.UICommand: ...
 class MessageDialog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Popups.IMessageDialog
@@ -182,7 +173,7 @@ class UICommand(ComPtr):
     @winrt_factorymethod
     def CreateWithHandler(cls: win32more.Windows.UI.Popups.IUICommandFactory, label: WinRT_String, action: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> win32more.Windows.UI.Popups.UICommand: ...
     @winrt_factorymethod
-    def CreateWithHandlerAndId(cls: win32more.Windows.UI.Popups.IUICommandFactory, label: WinRT_String, action: win32more.Windows.UI.Popups.UICommandInvokedHandler, commandId: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.UI.Popups.UICommand: ...
+    def CreateWithHandlerAndId(cls: win32more.Windows.UI.Popups.IUICommandFactory, label: WinRT_String, action: win32more.Windows.UI.Popups.UICommandInvokedHandler, commandId: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.UI.Popups.UICommand: ...
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Popups.UICommand: ...
     @winrt_mixinmethod
@@ -194,9 +185,9 @@ class UICommand(ComPtr):
     @winrt_mixinmethod
     def put_Invoked(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
     @winrt_mixinmethod
-    def get_Id(self: win32more.Windows.UI.Popups.IUICommand) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Id(self: win32more.Windows.UI.Popups.IUICommand) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     Label = property(get_Label, put_Label)
     Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
@@ -219,18 +210,10 @@ class UICommandSeparator(ComPtr):
     @winrt_mixinmethod
     def put_Invoked(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
     @winrt_mixinmethod
-    def get_Id(self: win32more.Windows.UI.Popups.IUICommand) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Id(self: win32more.Windows.UI.Popups.IUICommand) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     Label = property(get_Label, put_Label)
     Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
-make_head(_module, 'IMessageDialog')
-make_head(_module, 'IMessageDialogFactory')
-make_head(_module, 'IPopupMenu')
-make_head(_module, 'IUICommand')
-make_head(_module, 'IUICommandFactory')
-make_head(_module, 'MessageDialog')
-make_head(_module, 'PopupMenu')
-make_head(_module, 'UICommand')
-make_head(_module, 'UICommandSeparator')
+make_ready(__name__)

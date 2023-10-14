@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.ParentalControls
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ARRAY_SEP_CHAR: UInt32 = 9
 WPCCHANNEL: UInt32 = 16
 WPC_SETTINGS_LOCATE: UInt32 = 20
@@ -148,7 +139,7 @@ class IWPCSettings(ComPtr):
     @commethod(3)
     def IsLoggingRequired(self, pfRequired: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetLastSettingsChangeTime(self, pTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetLastSettingsChangeTime(self, pTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetRestrictions(self, pdwRestrictions: POINTER(win32more.Windows.Win32.System.ParentalControls.WPCFLAG_RESTRICTION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWPCWebSettings(ComPtr):
@@ -162,16 +153,16 @@ class IWindowsParentalControls(ComPtr):
     extends: win32more.Windows.Win32.System.ParentalControls.IWindowsParentalControlsCore
     _iid_ = Guid('{28b4d88b-e072-49e6-804d-26edbe21a7b9}')
     @commethod(7)
-    def GetGamesSettings(self, pcszSID: win32more.Windows.Win32.Foundation.PWSTR, ppSettings: POINTER(win32more.Windows.Win32.System.ParentalControls.IWPCGamesSettings_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetGamesSettings(self, pcszSID: win32more.Windows.Win32.Foundation.PWSTR, ppSettings: POINTER(win32more.Windows.Win32.System.ParentalControls.IWPCGamesSettings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWindowsParentalControlsCore(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4ff40a0f-3f3b-4d7c-a41b-4f39d7b44d05}')
     @commethod(3)
     def GetVisibility(self, peVisibility: POINTER(win32more.Windows.Win32.System.ParentalControls.WPCFLAG_VISIBILITY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetUserSettings(self, pcszSID: win32more.Windows.Win32.Foundation.PWSTR, ppSettings: POINTER(win32more.Windows.Win32.System.ParentalControls.IWPCSettings_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetUserSettings(self, pcszSID: win32more.Windows.Win32.Foundation.PWSTR, ppSettings: POINTER(win32more.Windows.Win32.System.ParentalControls.IWPCSettings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetWebSettings(self, pcszSID: win32more.Windows.Win32.Foundation.PWSTR, ppSettings: POINTER(win32more.Windows.Win32.System.ParentalControls.IWPCWebSettings_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetWebSettings(self, pcszSID: win32more.Windows.Win32.Foundation.PWSTR, ppSettings: POINTER(win32more.Windows.Win32.System.ParentalControls.IWPCWebSettings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetWebFilterInfo(self, pguidID: POINTER(Guid), ppszName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 WPCFLAG_IM_FEATURE = Int32
@@ -504,11 +495,4 @@ WPC_SETTING_COUNT: WPC_SETTINGS = 37
 WindowsParentalControls = Guid('{e77cc89b-7401-4c04-8ced-149db35add04}')
 WpcProviderSupport = Guid('{bb18c7a0-2186-4be0-97d8-04847b628e02}')
 WpcSettingsProvider = Guid('{355dffaa-3b9f-435c-b428-5d44290bc5f2}')
-make_head(_module, 'IWPCGamesSettings')
-make_head(_module, 'IWPCProviderConfig')
-make_head(_module, 'IWPCProviderState')
-make_head(_module, 'IWPCProviderSupport')
-make_head(_module, 'IWPCSettings')
-make_head(_module, 'IWPCWebSettings')
-make_head(_module, 'IWindowsParentalControls')
-make_head(_module, 'IWindowsParentalControlsCore')
+make_ready(__name__)

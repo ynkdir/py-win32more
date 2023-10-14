@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -22,15 +22,6 @@ import win32more.Windows.Graphics.DirectX
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.Perception.Spatial.Surfaces
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ISpatialSurfaceInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.Surfaces.ISpatialSurfaceInfo'
@@ -133,7 +124,7 @@ class ISpatialSurfaceObserver(ComPtr):
     @winrt_commethod(8)
     def SetBoundingVolumes(self, bounds: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Perception.Spatial.SpatialBoundingVolume]) -> Void: ...
     @winrt_commethod(9)
-    def add_ObservedSurfacesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ObservedSurfacesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ObservedSurfacesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ISpatialSurfaceObserverStatics(ComPtr):
@@ -252,23 +243,11 @@ class SpatialSurfaceObserver(ComPtr):
     @winrt_mixinmethod
     def SetBoundingVolumes(self: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver, bounds: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Perception.Spatial.SpatialBoundingVolume]) -> Void: ...
     @winrt_mixinmethod
-    def add_ObservedSurfacesChanged(self: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ObservedSurfacesChanged(self: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ObservedSurfacesChanged(self: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def IsSupported(cls: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics2) -> Boolean: ...
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
-make_head(_module, 'ISpatialSurfaceInfo')
-make_head(_module, 'ISpatialSurfaceMesh')
-make_head(_module, 'ISpatialSurfaceMeshBuffer')
-make_head(_module, 'ISpatialSurfaceMeshOptions')
-make_head(_module, 'ISpatialSurfaceMeshOptionsStatics')
-make_head(_module, 'ISpatialSurfaceObserver')
-make_head(_module, 'ISpatialSurfaceObserverStatics')
-make_head(_module, 'ISpatialSurfaceObserverStatics2')
-make_head(_module, 'SpatialSurfaceInfo')
-make_head(_module, 'SpatialSurfaceMesh')
-make_head(_module, 'SpatialSurfaceMeshBuffer')
-make_head(_module, 'SpatialSurfaceMeshOptions')
-make_head(_module, 'SpatialSurfaceObserver')
+make_ready(__name__)

@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.CompositionSwapchain
 import win32more.Windows.Win32.Graphics.Dxgi.Common
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('dcomp.dll')
-def CreatePresentationFactory(d3dDevice: win32more.Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), presentationFactory: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreatePresentationFactory(d3dDevice: win32more.Windows.Win32.System.Com.IUnknown, riid: POINTER(Guid), presentationFactory: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class CompositionFrameDisplayInstance(EasyCastStructure):
     displayAdapterLUID: win32more.Windows.Win32.Foundation.LUID
     displayVidPnSourceId: UInt32
@@ -37,7 +28,7 @@ class ICompositionFramePresentStatistics(ComPtr):
     @commethod(6)
     def GetCompositionFrameId(self) -> UInt64: ...
     @commethod(7)
-    def GetDisplayInstanceArray(self, displayInstanceArrayCount: POINTER(UInt32), displayInstanceArray: POINTER(POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.CompositionFrameDisplayInstance_head))) -> Void: ...
+    def GetDisplayInstanceArray(self, displayInstanceArrayCount: POINTER(UInt32), displayInstanceArray: POINTER(POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.CompositionFrameDisplayInstance))) -> Void: ...
 class IIndependentFlipFramePresentStatistics(ComPtr):
     extends: win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentStatistics
     _iid_ = Guid('{8c93be27-ad94-4da0-8fd4-2413132d124e}')
@@ -85,14 +76,14 @@ class IPresentationFactory(ComPtr):
     @commethod(4)
     def IsPresentationSupportedWithIndependentFlip(self) -> Byte: ...
     @commethod(5)
-    def CreatePresentationManager(self, ppPresentationManager: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationManager_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreatePresentationManager(self, ppPresentationManager: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationManager)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPresentationManager(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fb562f82-6292-470a-88b1-843661e7f20c}')
     @commethod(3)
-    def AddBufferFromResource(self, resource: win32more.Windows.Win32.System.Com.IUnknown_head, presentationBuffer: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationBuffer_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddBufferFromResource(self, resource: win32more.Windows.Win32.System.Com.IUnknown, presentationBuffer: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationBuffer)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CreatePresentationSurface(self, compositionSurfaceHandle: win32more.Windows.Win32.Foundation.HANDLE, presentationSurface: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationSurface_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreatePresentationSurface(self, compositionSurfaceHandle: win32more.Windows.Win32.Foundation.HANDLE, presentationSurface: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationSurface)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetNextPresentId(self) -> UInt64: ...
     @commethod(6)
@@ -114,22 +105,22 @@ class IPresentationManager(ComPtr):
     @commethod(14)
     def EnablePresentStatisticsKind(self, presentStatisticsKind: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatisticsKind, enabled: Byte) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def GetNextPresentStatistics(self, nextPresentStatistics: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentStatistics_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetNextPresentStatistics(self, nextPresentStatistics: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentStatistics)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IPresentationSurface(ComPtr):
     extends: win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationContent
     _iid_ = Guid('{956710fb-ea40-4eba-a3eb-4375a0eb4edc}')
     @commethod(4)
-    def SetBuffer(self, presentationBuffer: win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationBuffer_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetBuffer(self, presentationBuffer: win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentationBuffer) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetColorSpace(self, colorSpace: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetAlphaMode(self, alphaMode: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_ALPHA_MODE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def SetSourceRect(self, sourceRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetSourceRect(self, sourceRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def SetTransform(self, transform: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentationTransform_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetTransform(self, transform: POINTER(win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentationTransform)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def RestrictToOutput(self, output: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RestrictToOutput(self, output: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetDisableReadback(self, value: Byte) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -151,15 +142,4 @@ class PresentationTransform(EasyCastStructure):
     M32: Single
 class SystemInterruptTime(EasyCastStructure):
     value: UInt64
-make_head(_module, 'CompositionFrameDisplayInstance')
-make_head(_module, 'ICompositionFramePresentStatistics')
-make_head(_module, 'IIndependentFlipFramePresentStatistics')
-make_head(_module, 'IPresentStatistics')
-make_head(_module, 'IPresentStatusPresentStatistics')
-make_head(_module, 'IPresentationBuffer')
-make_head(_module, 'IPresentationContent')
-make_head(_module, 'IPresentationFactory')
-make_head(_module, 'IPresentationManager')
-make_head(_module, 'IPresentationSurface')
-make_head(_module, 'PresentationTransform')
-make_head(_module, 'SystemInterruptTime')
+make_ready(__name__)

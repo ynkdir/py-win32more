@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.UserActivities
@@ -22,15 +22,6 @@ import win32more.Windows.Security.Credentials
 import win32more.Windows.System
 import win32more.Windows.UI
 import win32more.Windows.UI.Shell
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IUserActivity(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivity'
@@ -460,35 +451,4 @@ class UserActivityVisualElements(ComPtr):
     Attribution = property(get_Attribution, put_Attribution)
     Content = property(get_Content, put_Content)
     AttributionDisplayText = property(get_AttributionDisplayText, put_AttributionDisplayText)
-make_head(_module, 'IUserActivity')
-make_head(_module, 'IUserActivity2')
-make_head(_module, 'IUserActivity3')
-make_head(_module, 'IUserActivityAttribution')
-make_head(_module, 'IUserActivityAttributionFactory')
-make_head(_module, 'IUserActivityChannel')
-make_head(_module, 'IUserActivityChannel2')
-make_head(_module, 'IUserActivityChannelStatics')
-make_head(_module, 'IUserActivityChannelStatics2')
-make_head(_module, 'IUserActivityChannelStatics3')
-make_head(_module, 'IUserActivityContentInfo')
-make_head(_module, 'IUserActivityContentInfoStatics')
-make_head(_module, 'IUserActivityFactory')
-make_head(_module, 'IUserActivityRequest')
-make_head(_module, 'IUserActivityRequestManager')
-make_head(_module, 'IUserActivityRequestManagerStatics')
-make_head(_module, 'IUserActivityRequestedEventArgs')
-make_head(_module, 'IUserActivitySession')
-make_head(_module, 'IUserActivitySessionHistoryItem')
-make_head(_module, 'IUserActivityStatics')
-make_head(_module, 'IUserActivityVisualElements')
-make_head(_module, 'IUserActivityVisualElements2')
-make_head(_module, 'UserActivity')
-make_head(_module, 'UserActivityAttribution')
-make_head(_module, 'UserActivityChannel')
-make_head(_module, 'UserActivityContentInfo')
-make_head(_module, 'UserActivityRequest')
-make_head(_module, 'UserActivityRequestManager')
-make_head(_module, 'UserActivityRequestedEventArgs')
-make_head(_module, 'UserActivitySession')
-make_head(_module, 'UserActivitySessionHistoryItem')
-make_head(_module, 'UserActivityVisualElements')
+make_ready(__name__)

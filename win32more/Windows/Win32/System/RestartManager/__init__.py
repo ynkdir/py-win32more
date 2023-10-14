@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.RestartManager
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CCH_RM_SESSION_KEY: UInt32 = 32
 CCH_RM_MAX_APP_NAME: UInt32 = 255
 CCH_RM_MAX_SVC_NAME: UInt32 = 63
@@ -24,9 +15,9 @@ def RmJoinSession(pSessionHandle: POINTER(UInt32), strSessionKey: win32more.Wind
 @winfunctype('rstrtmgr.dll')
 def RmEndSession(dwSessionHandle: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('rstrtmgr.dll')
-def RmRegisterResources(dwSessionHandle: UInt32, nFiles: UInt32, rgsFileNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR), nApplications: UInt32, rgApplications: POINTER(win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS_head), nServices: UInt32, rgsServiceNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def RmRegisterResources(dwSessionHandle: UInt32, nFiles: UInt32, rgsFileNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR), nApplications: UInt32, rgApplications: POINTER(win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS), nServices: UInt32, rgsServiceNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('rstrtmgr.dll')
-def RmGetList(dwSessionHandle: UInt32, pnProcInfoNeeded: POINTER(UInt32), pnProcInfo: POINTER(UInt32), rgAffectedApps: POINTER(win32more.Windows.Win32.System.RestartManager.RM_PROCESS_INFO_head), lpdwRebootReasons: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def RmGetList(dwSessionHandle: UInt32, pnProcInfoNeeded: POINTER(UInt32), pnProcInfo: POINTER(UInt32), rgAffectedApps: POINTER(win32more.Windows.Win32.System.RestartManager.RM_PROCESS_INFO), lpdwRebootReasons: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('rstrtmgr.dll')
 def RmShutdown(dwSessionHandle: UInt32, lActionFlags: UInt32, fnStatus: win32more.Windows.Win32.System.RestartManager.RM_WRITE_STATUS_CALLBACK) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('rstrtmgr.dll')
@@ -34,9 +25,9 @@ def RmRestart(dwSessionHandle: UInt32, dwRestartFlags: UInt32, fnStatus: win32mo
 @winfunctype('RstrtMgr.dll')
 def RmCancelCurrentTask(dwSessionHandle: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('RstrtMgr.dll')
-def RmAddFilter(dwSessionHandle: UInt32, strModuleName: win32more.Windows.Win32.Foundation.PWSTR, pProcess: POINTER(win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS_head), strServiceShortName: win32more.Windows.Win32.Foundation.PWSTR, FilterAction: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def RmAddFilter(dwSessionHandle: UInt32, strModuleName: win32more.Windows.Win32.Foundation.PWSTR, pProcess: POINTER(win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS), strServiceShortName: win32more.Windows.Win32.Foundation.PWSTR, FilterAction: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('RstrtMgr.dll')
-def RmRemoveFilter(dwSessionHandle: UInt32, strModuleName: win32more.Windows.Win32.Foundation.PWSTR, pProcess: POINTER(win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS_head), strServiceShortName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def RmRemoveFilter(dwSessionHandle: UInt32, strModuleName: win32more.Windows.Win32.Foundation.PWSTR, pProcess: POINTER(win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS), strServiceShortName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('RstrtMgr.dll')
 def RmGetFilterList(dwSessionHandle: UInt32, pbFilterBuf: POINTER(Byte), cbFilterBuf: UInt32, cbFilterBufNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 RM_APP_STATUS = Int32
@@ -98,7 +89,4 @@ class RM_UNIQUE_PROCESS(EasyCastStructure):
     ProcessStartTime: win32more.Windows.Win32.Foundation.FILETIME
 @winfunctype_pointer
 def RM_WRITE_STATUS_CALLBACK(nPercentComplete: UInt32) -> Void: ...
-make_head(_module, 'RM_FILTER_INFO')
-make_head(_module, 'RM_PROCESS_INFO')
-make_head(_module, 'RM_UNIQUE_PROCESS')
-make_head(_module, 'RM_WRITE_STATUS_CALLBACK')
+make_ready(__name__)

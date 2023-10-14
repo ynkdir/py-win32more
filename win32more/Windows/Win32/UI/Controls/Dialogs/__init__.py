@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Controls
 import win32more.Windows.Win32.UI.Controls.Dialogs
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 OFN_SHAREFALLTHROUGH: UInt32 = 2
 OFN_SHARENOWARN: UInt32 = 1
 OFN_SHAREWARN: UInt32 = 0
@@ -116,47 +107,47 @@ COLOR_SOLID_RIGHT: UInt32 = 731
 NUM_BASIC_COLORS: UInt32 = 48
 NUM_CUSTOM_COLORS: UInt32 = 16
 @winfunctype('COMDLG32.dll')
-def GetOpenFileNameA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetOpenFileNameA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def GetOpenFileNameW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetOpenFileNameW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def GetSaveFileNameA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetSaveFileNameA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def GetSaveFileNameW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetSaveFileNameW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
 def GetFileTitleA(param0: win32more.Windows.Win32.Foundation.PSTR, Buf: win32more.Windows.Win32.Foundation.PSTR, cchSize: UInt16) -> Int16: ...
 @winfunctype('COMDLG32.dll')
 def GetFileTitleW(param0: win32more.Windows.Win32.Foundation.PWSTR, Buf: win32more.Windows.Win32.Foundation.PWSTR, cchSize: UInt16) -> Int16: ...
 @winfunctype('COMDLG32.dll')
-def ChooseColorA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSECOLORA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ChooseColorA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSECOLORA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def ChooseColorW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSECOLORW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ChooseColorW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSECOLORW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def FindTextA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEA_head)) -> win32more.Windows.Win32.Foundation.HWND: ...
+def FindTextA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEA)) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMDLG32.dll')
-def FindTextW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEW_head)) -> win32more.Windows.Win32.Foundation.HWND: ...
+def FindTextW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEW)) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMDLG32.dll')
-def ReplaceTextA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEA_head)) -> win32more.Windows.Win32.Foundation.HWND: ...
+def ReplaceTextA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEA)) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMDLG32.dll')
-def ReplaceTextW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEW_head)) -> win32more.Windows.Win32.Foundation.HWND: ...
+def ReplaceTextW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEW)) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMDLG32.dll')
-def ChooseFontA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONTA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ChooseFontA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONTA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def ChooseFontW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONTW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ChooseFontW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONTW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def PrintDlgA(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PrintDlgA(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def PrintDlgW(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PrintDlgW(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def PrintDlgExA(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGEXA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrintDlgExA(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGEXA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMDLG32.dll')
-def PrintDlgExW(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGEXW_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PrintDlgExW(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGEXW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMDLG32.dll')
 def CommDlgExtendedError() -> win32more.Windows.Win32.UI.Controls.Dialogs.COMMON_DLG_ERRORS: ...
 @winfunctype('COMDLG32.dll')
-def PageSetupDlgA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLGA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PageSetupDlgA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLGA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
-def PageSetupDlgW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLGW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PageSetupDlgW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLGW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
     class CHOOSECOLORA(EasyCastStructure):
         lStructSize: UInt32
@@ -218,7 +209,7 @@ if ARCH in 'X64,ARM64':
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
         hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
-        lpLogFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA_head)
+        lpLogFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA)
         iPointSize: Int32
         Flags: win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
         rgbColors: win32more.Windows.Win32.Foundation.COLORREF
@@ -236,7 +227,7 @@ if ARCH in 'X86':
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
         hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
-        lpLogFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA_head)
+        lpLogFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA)
         iPointSize: Int32
         Flags: win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
         rgbColors: win32more.Windows.Win32.Foundation.COLORREF
@@ -255,7 +246,7 @@ if ARCH in 'X64,ARM64':
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
         hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
-        lpLogFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW_head)
+        lpLogFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW)
         iPointSize: Int32
         Flags: win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
         rgbColors: win32more.Windows.Win32.Foundation.COLORREF
@@ -273,7 +264,7 @@ if ARCH in 'X86':
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
         hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
-        lpLogFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW_head)
+        lpLogFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW)
         iPointSize: Int32
         Flags: win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
         rgbColors: win32more.Windows.Win32.Foundation.COLORREF
@@ -467,7 +458,7 @@ class IPrintDialogServices(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{509aaeda-5639-11d1-b6a1-0000f8757bf9}')
     @commethod(3)
-    def GetCurrentDevMode(self, pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA_head), pcbSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetCurrentDevMode(self, pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), pcbSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCurrentPrinterName(self, pPrinterName: win32more.Windows.Win32.Foundation.PWSTR, pcchSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -491,49 +482,49 @@ def LPSETUPHOOKPROC(param0: win32more.Windows.Win32.Foundation.HWND, param1: UIn
 if ARCH in 'X64,ARM64':
     class OFNOTIFYA(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)
+        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)
         pszFile: win32more.Windows.Win32.Foundation.PSTR
 if ARCH in 'X86':
     class OFNOTIFYA(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)
+        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)
         pszFile: win32more.Windows.Win32.Foundation.PSTR
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class OFNOTIFYEXA(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)
+        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)
         psf: VoidPtr
         pidl: VoidPtr
 if ARCH in 'X86':
     class OFNOTIFYEXA(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA_head)
+        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)
         psf: VoidPtr
         pidl: VoidPtr
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class OFNOTIFYEXW(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)
+        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
         psf: VoidPtr
         pidl: VoidPtr
 if ARCH in 'X86':
     class OFNOTIFYEXW(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)
+        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
         psf: VoidPtr
         pidl: VoidPtr
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class OFNOTIFYW(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)
+        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
         pszFile: win32more.Windows.Win32.Foundation.PWSTR
 if ARCH in 'X86':
     class OFNOTIFYW(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW_head)
+        lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
         pszFile: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 1
 if ARCH in 'X64,ARM64':
@@ -899,13 +890,13 @@ if ARCH in 'X64,ARM64':
         ExclusionFlags: UInt32
         nPageRanges: UInt32
         nMaxPageRanges: UInt32
-        lpPageRanges: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTPAGERANGE_head)
+        lpPageRanges: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTPAGERANGE)
         nMinPage: UInt32
         nMaxPage: UInt32
         nCopies: UInt32
         hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
         lpPrintTemplateName: win32more.Windows.Win32.Foundation.PSTR
-        lpCallback: win32more.Windows.Win32.System.Com.IUnknown_head
+        lpCallback: win32more.Windows.Win32.System.Com.IUnknown
         nPropertyPages: UInt32
         lphPropertyPages: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
         nStartPage: UInt32
@@ -922,13 +913,13 @@ if ARCH in 'X86':
         ExclusionFlags: UInt32
         nPageRanges: UInt32
         nMaxPageRanges: UInt32
-        lpPageRanges: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTPAGERANGE_head)
+        lpPageRanges: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTPAGERANGE)
         nMinPage: UInt32
         nMaxPage: UInt32
         nCopies: UInt32
         hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
         lpPrintTemplateName: win32more.Windows.Win32.Foundation.PSTR
-        lpCallback: win32more.Windows.Win32.System.Com.IUnknown_head
+        lpCallback: win32more.Windows.Win32.System.Com.IUnknown
         nPropertyPages: UInt32
         lphPropertyPages: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
         nStartPage: UInt32
@@ -946,13 +937,13 @@ if ARCH in 'X64,ARM64':
         ExclusionFlags: UInt32
         nPageRanges: UInt32
         nMaxPageRanges: UInt32
-        lpPageRanges: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTPAGERANGE_head)
+        lpPageRanges: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTPAGERANGE)
         nMinPage: UInt32
         nMaxPage: UInt32
         nCopies: UInt32
         hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
         lpPrintTemplateName: win32more.Windows.Win32.Foundation.PWSTR
-        lpCallback: win32more.Windows.Win32.System.Com.IUnknown_head
+        lpCallback: win32more.Windows.Win32.System.Com.IUnknown
         nPropertyPages: UInt32
         lphPropertyPages: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
         nStartPage: UInt32
@@ -969,13 +960,13 @@ if ARCH in 'X86':
         ExclusionFlags: UInt32
         nPageRanges: UInt32
         nMaxPageRanges: UInt32
-        lpPageRanges: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTPAGERANGE_head)
+        lpPageRanges: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTPAGERANGE)
         nMinPage: UInt32
         nMaxPage: UInt32
         nCopies: UInt32
         hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
         lpPrintTemplateName: win32more.Windows.Win32.Foundation.PWSTR
-        lpCallback: win32more.Windows.Win32.System.Com.IUnknown_head
+        lpCallback: win32more.Windows.Win32.System.Com.IUnknown
         nPropertyPages: UInt32
         lphPropertyPages: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
         nStartPage: UInt32
@@ -1062,101 +1053,4 @@ if ARCH in 'X86':
         nFromPage: UInt32
         nToPage: UInt32
         _pack_ = 1
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'CHOOSECOLORA')
-if ARCH in 'X86':
-    make_head(_module, 'CHOOSECOLORA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'CHOOSECOLORW')
-if ARCH in 'X86':
-    make_head(_module, 'CHOOSECOLORW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'CHOOSEFONTA')
-if ARCH in 'X86':
-    make_head(_module, 'CHOOSEFONTA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'CHOOSEFONTW')
-if ARCH in 'X86':
-    make_head(_module, 'CHOOSEFONTW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DEVNAMES')
-if ARCH in 'X86':
-    make_head(_module, 'DEVNAMES')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'FINDREPLACEA')
-if ARCH in 'X86':
-    make_head(_module, 'FINDREPLACEA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'FINDREPLACEW')
-if ARCH in 'X86':
-    make_head(_module, 'FINDREPLACEW')
-make_head(_module, 'IPrintDialogCallback')
-make_head(_module, 'IPrintDialogServices')
-make_head(_module, 'LPCCHOOKPROC')
-make_head(_module, 'LPCFHOOKPROC')
-make_head(_module, 'LPFRHOOKPROC')
-make_head(_module, 'LPOFNHOOKPROC')
-make_head(_module, 'LPPAGEPAINTHOOK')
-make_head(_module, 'LPPAGESETUPHOOK')
-make_head(_module, 'LPPRINTHOOKPROC')
-make_head(_module, 'LPSETUPHOOKPROC')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'OFNOTIFYA')
-if ARCH in 'X86':
-    make_head(_module, 'OFNOTIFYA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'OFNOTIFYEXA')
-if ARCH in 'X86':
-    make_head(_module, 'OFNOTIFYEXA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'OFNOTIFYEXW')
-if ARCH in 'X86':
-    make_head(_module, 'OFNOTIFYEXW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'OFNOTIFYW')
-if ARCH in 'X86':
-    make_head(_module, 'OFNOTIFYW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'OPENFILENAMEA')
-if ARCH in 'X86':
-    make_head(_module, 'OPENFILENAMEA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'OPENFILENAMEW')
-if ARCH in 'X86':
-    make_head(_module, 'OPENFILENAMEW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'OPENFILENAME_NT4A')
-if ARCH in 'X86':
-    make_head(_module, 'OPENFILENAME_NT4A')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'OPENFILENAME_NT4W')
-if ARCH in 'X86':
-    make_head(_module, 'OPENFILENAME_NT4W')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'PAGESETUPDLGA')
-if ARCH in 'X86':
-    make_head(_module, 'PAGESETUPDLGA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'PAGESETUPDLGW')
-if ARCH in 'X86':
-    make_head(_module, 'PAGESETUPDLGW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'PRINTDLGA')
-if ARCH in 'X86':
-    make_head(_module, 'PRINTDLGA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'PRINTDLGEXA')
-if ARCH in 'X86':
-    make_head(_module, 'PRINTDLGEXA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'PRINTDLGEXW')
-if ARCH in 'X86':
-    make_head(_module, 'PRINTDLGEXW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'PRINTDLGW')
-if ARCH in 'X86':
-    make_head(_module, 'PRINTDLGW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'PRINTPAGERANGE')
-if ARCH in 'X86':
-    make_head(_module, 'PRINTPAGERANGE')
+make_ready(__name__)

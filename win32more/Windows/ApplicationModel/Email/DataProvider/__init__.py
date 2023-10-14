@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Email
@@ -20,15 +20,6 @@ import win32more.Windows.ApplicationModel.Email.DataProvider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Cryptography.Certificates
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class EmailDataProviderConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailDataProviderConnection
@@ -983,67 +974,4 @@ class IEmailMailboxValidateCertificatesRequestEventArgs(ComPtr):
     @winrt_commethod(7)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-make_head(_module, 'EmailDataProviderConnection')
-make_head(_module, 'EmailDataProviderTriggerDetails')
-make_head(_module, 'EmailMailboxCreateFolderRequest')
-make_head(_module, 'EmailMailboxCreateFolderRequestEventArgs')
-make_head(_module, 'EmailMailboxDeleteFolderRequest')
-make_head(_module, 'EmailMailboxDeleteFolderRequestEventArgs')
-make_head(_module, 'EmailMailboxDownloadAttachmentRequest')
-make_head(_module, 'EmailMailboxDownloadAttachmentRequestEventArgs')
-make_head(_module, 'EmailMailboxDownloadMessageRequest')
-make_head(_module, 'EmailMailboxDownloadMessageRequestEventArgs')
-make_head(_module, 'EmailMailboxEmptyFolderRequest')
-make_head(_module, 'EmailMailboxEmptyFolderRequestEventArgs')
-make_head(_module, 'EmailMailboxForwardMeetingRequest')
-make_head(_module, 'EmailMailboxForwardMeetingRequestEventArgs')
-make_head(_module, 'EmailMailboxGetAutoReplySettingsRequest')
-make_head(_module, 'EmailMailboxGetAutoReplySettingsRequestEventArgs')
-make_head(_module, 'EmailMailboxMoveFolderRequest')
-make_head(_module, 'EmailMailboxMoveFolderRequestEventArgs')
-make_head(_module, 'EmailMailboxProposeNewTimeForMeetingRequest')
-make_head(_module, 'EmailMailboxProposeNewTimeForMeetingRequestEventArgs')
-make_head(_module, 'EmailMailboxResolveRecipientsRequest')
-make_head(_module, 'EmailMailboxResolveRecipientsRequestEventArgs')
-make_head(_module, 'EmailMailboxServerSearchReadBatchRequest')
-make_head(_module, 'EmailMailboxServerSearchReadBatchRequestEventArgs')
-make_head(_module, 'EmailMailboxSetAutoReplySettingsRequest')
-make_head(_module, 'EmailMailboxSetAutoReplySettingsRequestEventArgs')
-make_head(_module, 'EmailMailboxSyncManagerSyncRequest')
-make_head(_module, 'EmailMailboxSyncManagerSyncRequestEventArgs')
-make_head(_module, 'EmailMailboxUpdateMeetingResponseRequest')
-make_head(_module, 'EmailMailboxUpdateMeetingResponseRequestEventArgs')
-make_head(_module, 'EmailMailboxValidateCertificatesRequest')
-make_head(_module, 'EmailMailboxValidateCertificatesRequestEventArgs')
-make_head(_module, 'IEmailDataProviderConnection')
-make_head(_module, 'IEmailDataProviderTriggerDetails')
-make_head(_module, 'IEmailMailboxCreateFolderRequest')
-make_head(_module, 'IEmailMailboxCreateFolderRequestEventArgs')
-make_head(_module, 'IEmailMailboxDeleteFolderRequest')
-make_head(_module, 'IEmailMailboxDeleteFolderRequestEventArgs')
-make_head(_module, 'IEmailMailboxDownloadAttachmentRequest')
-make_head(_module, 'IEmailMailboxDownloadAttachmentRequestEventArgs')
-make_head(_module, 'IEmailMailboxDownloadMessageRequest')
-make_head(_module, 'IEmailMailboxDownloadMessageRequestEventArgs')
-make_head(_module, 'IEmailMailboxEmptyFolderRequest')
-make_head(_module, 'IEmailMailboxEmptyFolderRequestEventArgs')
-make_head(_module, 'IEmailMailboxForwardMeetingRequest')
-make_head(_module, 'IEmailMailboxForwardMeetingRequestEventArgs')
-make_head(_module, 'IEmailMailboxGetAutoReplySettingsRequest')
-make_head(_module, 'IEmailMailboxGetAutoReplySettingsRequestEventArgs')
-make_head(_module, 'IEmailMailboxMoveFolderRequest')
-make_head(_module, 'IEmailMailboxMoveFolderRequestEventArgs')
-make_head(_module, 'IEmailMailboxProposeNewTimeForMeetingRequest')
-make_head(_module, 'IEmailMailboxProposeNewTimeForMeetingRequestEventArgs')
-make_head(_module, 'IEmailMailboxResolveRecipientsRequest')
-make_head(_module, 'IEmailMailboxResolveRecipientsRequestEventArgs')
-make_head(_module, 'IEmailMailboxServerSearchReadBatchRequest')
-make_head(_module, 'IEmailMailboxServerSearchReadBatchRequestEventArgs')
-make_head(_module, 'IEmailMailboxSetAutoReplySettingsRequest')
-make_head(_module, 'IEmailMailboxSetAutoReplySettingsRequestEventArgs')
-make_head(_module, 'IEmailMailboxSyncManagerSyncRequest')
-make_head(_module, 'IEmailMailboxSyncManagerSyncRequestEventArgs')
-make_head(_module, 'IEmailMailboxUpdateMeetingResponseRequest')
-make_head(_module, 'IEmailMailboxUpdateMeetingResponseRequestEventArgs')
-make_head(_module, 'IEmailMailboxValidateCertificatesRequest')
-make_head(_module, 'IEmailMailboxValidateCertificatesRequestEventArgs')
+make_ready(__name__)

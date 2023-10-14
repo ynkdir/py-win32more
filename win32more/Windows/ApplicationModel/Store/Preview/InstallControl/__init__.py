@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Store.Preview.InstallControl
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Management.Deployment
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AppInstallItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem
@@ -50,11 +41,11 @@ class AppInstallItem(ComPtr):
     @winrt_mixinmethod
     def Restart(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem) -> Void: ...
     @winrt_mixinmethod
-    def add_Completed(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Completed(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_StatusChanged(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusChanged(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StatusChanged(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -409,11 +400,11 @@ class IAppInstallItem(ComPtr):
     @winrt_commethod(13)
     def Restart(self) -> Void: ...
     @winrt_commethod(14)
-    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
-    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ProductId = property(get_ProductId, None)
@@ -763,31 +754,4 @@ class IGetEntitlementResult(ComPtr):
     @winrt_commethod(6)
     def get_Status(self) -> win32more.Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementStatus: ...
     Status = property(get_Status, None)
-make_head(_module, 'AppInstallItem')
-make_head(_module, 'AppInstallManager')
-make_head(_module, 'AppInstallManagerItemEventArgs')
-make_head(_module, 'AppInstallOptions')
-make_head(_module, 'AppInstallStatus')
-make_head(_module, 'AppUpdateOptions')
-make_head(_module, 'GetEntitlementResult')
-make_head(_module, 'IAppInstallItem')
-make_head(_module, 'IAppInstallItem2')
-make_head(_module, 'IAppInstallItem3')
-make_head(_module, 'IAppInstallItem4')
-make_head(_module, 'IAppInstallItem5')
-make_head(_module, 'IAppInstallManager')
-make_head(_module, 'IAppInstallManager2')
-make_head(_module, 'IAppInstallManager3')
-make_head(_module, 'IAppInstallManager4')
-make_head(_module, 'IAppInstallManager5')
-make_head(_module, 'IAppInstallManager6')
-make_head(_module, 'IAppInstallManager7')
-make_head(_module, 'IAppInstallManagerItemEventArgs')
-make_head(_module, 'IAppInstallOptions')
-make_head(_module, 'IAppInstallOptions2')
-make_head(_module, 'IAppInstallStatus')
-make_head(_module, 'IAppInstallStatus2')
-make_head(_module, 'IAppInstallStatus3')
-make_head(_module, 'IAppUpdateOptions')
-make_head(_module, 'IAppUpdateOptions2')
-make_head(_module, 'IGetEntitlementResult')
+make_ready(__name__)

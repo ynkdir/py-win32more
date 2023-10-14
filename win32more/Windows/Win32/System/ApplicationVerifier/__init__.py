@@ -1,23 +1,14 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.ApplicationVerifier
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AVRF_BACKTRACE_INFORMATION(EasyCastStructure):
     Depth: UInt32
     Index: UInt32
     ReturnAddresses: UInt64 * 32
 @winfunctype_pointer
-def AVRF_HANDLEOPERATION_ENUMERATE_CALLBACK(HandleOperation: POINTER(win32more.Windows.Win32.System.ApplicationVerifier.AVRF_HANDLE_OPERATION_head), EnumerationContext: VoidPtr, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
+def AVRF_HANDLEOPERATION_ENUMERATE_CALLBACK(HandleOperation: POINTER(win32more.Windows.Win32.System.ApplicationVerifier.AVRF_HANDLE_OPERATION), EnumerationContext: VoidPtr, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
 class AVRF_HANDLE_OPERATION(EasyCastStructure):
     Handle: UInt64
     ProcessId: UInt32
@@ -26,7 +17,7 @@ class AVRF_HANDLE_OPERATION(EasyCastStructure):
     Spare0: UInt32
     BackTraceInformation: win32more.Windows.Win32.System.ApplicationVerifier.AVRF_BACKTRACE_INFORMATION
 @winfunctype_pointer
-def AVRF_HEAPALLOCATION_ENUMERATE_CALLBACK(HeapAllocation: POINTER(win32more.Windows.Win32.System.ApplicationVerifier.AVRF_HEAP_ALLOCATION_head), EnumerationContext: VoidPtr, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
+def AVRF_HEAPALLOCATION_ENUMERATE_CALLBACK(HeapAllocation: POINTER(win32more.Windows.Win32.System.ApplicationVerifier.AVRF_HEAP_ALLOCATION), EnumerationContext: VoidPtr, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
 class AVRF_HEAP_ALLOCATION(EasyCastStructure):
     HeapHandle: UInt64
     UserAllocation: UInt64
@@ -36,7 +27,7 @@ class AVRF_HEAP_ALLOCATION(EasyCastStructure):
     UserAllocationState: UInt32
     HeapState: UInt32
     HeapContext: UInt64
-    BackTraceInformation: POINTER(win32more.Windows.Win32.System.ApplicationVerifier.AVRF_BACKTRACE_INFORMATION_head)
+    BackTraceInformation: POINTER(win32more.Windows.Win32.System.ApplicationVerifier.AVRF_BACKTRACE_INFORMATION)
 @winfunctype_pointer
 def AVRF_RESOURCE_ENUMERATE_CALLBACK(ResourceDescription: VoidPtr, EnumerationContext: VoidPtr, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
 AVRF_MAX_TRACES: UInt32 = 32
@@ -65,9 +56,4 @@ eUserAllocationState = Int32
 eUserAllocationState_AllocationStateUnknown: eUserAllocationState = 0
 eUserAllocationState_AllocationStateBusy: eUserAllocationState = 1
 eUserAllocationState_AllocationStateFree: eUserAllocationState = 2
-make_head(_module, 'AVRF_BACKTRACE_INFORMATION')
-make_head(_module, 'AVRF_HANDLEOPERATION_ENUMERATE_CALLBACK')
-make_head(_module, 'AVRF_HANDLE_OPERATION')
-make_head(_module, 'AVRF_HEAPALLOCATION_ENUMERATE_CALLBACK')
-make_head(_module, 'AVRF_HEAP_ALLOCATION')
-make_head(_module, 'AVRF_RESOURCE_ENUMERATE_CALLBACK')
+make_ready(__name__)

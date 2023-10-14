@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -8,15 +8,6 @@ import win32more.Windows.Win32.Media.Audio.Endpoints
 import win32more.Windows.Win32.Media.KernelStreaming
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS(EasyCastStructure):
     u32Size: UInt32
     u32TSSessionId: UInt32
@@ -48,7 +39,7 @@ class IAudioEndpointLastBufferControl(ComPtr):
     @commethod(3)
     def IsLastBufferControlSupported(self) -> win32more.Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
-    def ReleaseOutputDataPointerForLastBuffer(self, pConnectionProperty: POINTER(win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head)) -> Void: ...
+    def ReleaseOutputDataPointerForLastBuffer(self, pConnectionProperty: POINTER(win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY)) -> Void: ...
 class IAudioEndpointOffloadStreamMeter(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e1546dce-9dd1-418b-9ab2-348ced161c86}')
@@ -76,9 +67,9 @@ class IAudioEndpointVolume(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5cdf2c82-841e-4546-9722-0cf74078229a}')
     @commethod(3)
-    def RegisterControlChangeNotify(self, pNotify: win32more.Windows.Win32.Media.Audio.Endpoints.IAudioEndpointVolumeCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RegisterControlChangeNotify(self, pNotify: win32more.Windows.Win32.Media.Audio.Endpoints.IAudioEndpointVolumeCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def UnregisterControlChangeNotify(self, pNotify: win32more.Windows.Win32.Media.Audio.Endpoints.IAudioEndpointVolumeCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def UnregisterControlChangeNotify(self, pNotify: win32more.Windows.Win32.Media.Audio.Endpoints.IAudioEndpointVolumeCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetChannelCount(self, pnChannelCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -115,7 +106,7 @@ class IAudioEndpointVolumeCallback(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{657804fa-d6ad-4496-8a60-352752af4f89}')
     @commethod(3)
-    def OnNotify(self, pNotify: POINTER(win32more.Windows.Win32.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnNotify(self, pNotify: POINTER(win32more.Windows.Win32.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IAudioEndpointVolumeEx(ComPtr):
     extends: win32more.Windows.Win32.Media.Audio.Endpoints.IAudioEndpointVolume
     _iid_ = Guid('{66e11784-f695-4f28-a505-a7080081a78f}')
@@ -145,26 +136,11 @@ class IHardwareAudioEngineBase(ComPtr):
     @commethod(3)
     def GetAvailableOffloadConnectorCount(self, _pwstrDeviceId: win32more.Windows.Win32.Foundation.PWSTR, _uConnectorId: UInt32, _pAvailableConnectorInstanceCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetEngineFormat(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice_head, _bRequestDeviceFormat: win32more.Windows.Win32.Foundation.BOOL, _ppwfxFormat: POINTER(POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetEngineFormat(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice, _bRequestDeviceFormat: win32more.Windows.Win32.Foundation.BOOL, _ppwfxFormat: POINTER(POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetEngineDeviceFormat(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice_head, _pwfxFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetEngineDeviceFormat(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice, _pwfxFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def SetGfxState(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice_head, _bEnable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetGfxState(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice, _bEnable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetGfxState(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice_head, _pbEnable: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'AUDIO_ENDPOINT_SHARED_CREATE_PARAMS')
-make_head(_module, 'DEVPKEY_AudioEndpointPlugin_FactoryCLSID')
-make_head(_module, 'DEVPKEY_AudioEndpointPlugin_DataFlow')
-make_head(_module, 'DEVPKEY_AudioEndpointPlugin_PnPInterface')
-make_head(_module, 'DEVPKEY_AudioEndpointPlugin2_FactoryCLSID')
-make_head(_module, 'IAudioEndpointFormatControl')
-make_head(_module, 'IAudioEndpointLastBufferControl')
-make_head(_module, 'IAudioEndpointOffloadStreamMeter')
-make_head(_module, 'IAudioEndpointOffloadStreamMute')
-make_head(_module, 'IAudioEndpointOffloadStreamVolume')
-make_head(_module, 'IAudioEndpointVolume')
-make_head(_module, 'IAudioEndpointVolumeCallback')
-make_head(_module, 'IAudioEndpointVolumeEx')
-make_head(_module, 'IAudioLfxControl')
-make_head(_module, 'IAudioMeterInformation')
-make_head(_module, 'IHardwareAudioEngineBase')
+    def GetGfxState(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice, _pbEnable: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+make_ready(__name__)

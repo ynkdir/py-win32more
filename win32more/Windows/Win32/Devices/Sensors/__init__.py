@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.PortableDevices
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Devices.Sensors
@@ -8,15 +8,6 @@ import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ACTIVITY_STATE = Int32
 ActivityState_Unknown: ACTIVITY_STATE = 1
 ActivityState_Stationary: ACTIVITY_STATE = 2
@@ -473,81 +464,81 @@ SENSOR_PROPERTY_LIST_HEADER_SIZE: UInt32 = 8
 @winfunctype('SensorsUtilsV2.dll')
 def GetPerformanceTime(TimeMs: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def InitPropVariantFromFloat(fltVal: Single, ppropvar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def InitPropVariantFromFloat(fltVal: Single, ppropvar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetPropVariant(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), TypeCheck: win32more.Windows.Win32.Foundation.BOOLEAN, pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetPropVariant(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), TypeCheck: win32more.Windows.Win32.Foundation.BOOLEAN, pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeySetPropVariant(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), TypeCheck: win32more.Windows.Win32.Foundation.BOOLEAN, pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeySetPropVariant(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), TypeCheck: win32more.Windows.Win32.Foundation.BOOLEAN, pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetFileTime(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetFileTime(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(win32more.Windows.Win32.Foundation.FILETIME)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetGuid(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetGuid(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetBool(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetBool(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetUlong(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetUlong(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetUshort(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(UInt16)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetUshort(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(UInt16)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetFloat(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(Single)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetFloat(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(Single)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetDouble(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(Double)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetDouble(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(Double)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetInt32(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetInt32(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetInt64(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pRetValue: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetInt64(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pRetValue: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetNthUlong(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Occurrence: UInt32, pRetValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetNthUlong(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Occurrence: UInt32, pRetValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetNthUshort(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Occurrence: UInt32, pRetValue: POINTER(UInt16)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetNthUshort(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Occurrence: UInt32, pRetValue: POINTER(UInt16)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropKeyFindKeyGetNthInt64(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), Occurrence: UInt32, pRetValue: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropKeyFindKeyGetNthInt64(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), Occurrence: UInt32, pRetValue: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def IsKeyPresentInPropertyList(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_PROPERTY_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def IsKeyPresentInPropertyList(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_PROPERTY_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SensorsUtilsV2.dll')
-def IsKeyPresentInCollectionList(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def IsKeyPresentInCollectionList(pList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SensorsUtilsV2.dll')
-def IsCollectionListSame(ListA: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), ListB: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def IsCollectionListSame(ListA: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), ListB: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropVariantGetInformation(PropVariantValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), PropVariantOffset: POINTER(UInt32), PropVariantSize: POINTER(UInt32), PropVariantPointer: POINTER(VoidPtr), RemappedType: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropVariantGetInformation(PropVariantValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT), PropVariantOffset: POINTER(UInt32), PropVariantSize: POINTER(UInt32), PropVariantPointer: POINTER(VoidPtr), RemappedType: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def PropertiesListCopy(Target: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_PROPERTY_LIST_head), Source: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_PROPERTY_LIST_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def PropertiesListCopy(Target: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_PROPERTY_LIST), Source: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_PROPERTY_LIST)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
 def PropertiesListGetFillableCount(BufferSizeBytes: UInt32) -> UInt32: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListGetMarshalledSize(Collection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> UInt32: ...
+def CollectionsListGetMarshalledSize(Collection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> UInt32: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListCopyAndMarshall(Target: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), Source: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def CollectionsListCopyAndMarshall(Target: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), Source: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListMarshall(Target: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def CollectionsListMarshall(Target: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListGetMarshalledSizeWithoutSerialization(Collection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> UInt32: ...
+def CollectionsListGetMarshalledSizeWithoutSerialization(Collection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> UInt32: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListUpdateMarshalledPointer(Collection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def CollectionsListUpdateMarshalledPointer(Collection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
 def SerializationBufferAllocate(SizeInBytes: UInt32, pBuffer: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
 def SerializationBufferFree(Buffer: POINTER(Byte)) -> Void: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListGetSerializedSize(Collection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> UInt32: ...
+def CollectionsListGetSerializedSize(Collection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> UInt32: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListSerializeToBuffer(SourceCollection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), TargetBufferSizeInBytes: UInt32, TargetBuffer: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def CollectionsListSerializeToBuffer(SourceCollection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), TargetBufferSizeInBytes: UInt32, TargetBuffer: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListAllocateBufferAndSerialize(SourceCollection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pTargetBufferSizeInBytes: POINTER(UInt32), pTargetBuffer: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def CollectionsListAllocateBufferAndSerialize(SourceCollection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pTargetBufferSizeInBytes: POINTER(UInt32), pTargetBuffer: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListDeserializeFromBuffer(SourceBufferSizeInBytes: UInt32, SourceBuffer: POINTER(Byte), TargetCollection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def CollectionsListDeserializeFromBuffer(SourceBufferSizeInBytes: UInt32, SourceBuffer: POINTER(Byte), TargetCollection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def SensorCollectionGetAt(Index: UInt32, pSensorsList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def SensorCollectionGetAt(Index: UInt32, pSensorsList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
 def CollectionsListGetFillableCount(BufferSizeBytes: UInt32) -> UInt32: ...
 @winfunctype('SensorsUtilsV2.dll')
-def EvaluateActivityThresholds(newSample: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), oldSample: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), thresholds: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def EvaluateActivityThresholds(newSample: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), oldSample: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), thresholds: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SensorsUtilsV2.dll')
-def CollectionsListSortSubscribedActivitiesByConfidence(thresholds: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), pCollection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def CollectionsListSortSubscribedActivitiesByConfidence(thresholds: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), pCollection: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SensorsUtilsV2.dll')
-def InitPropVariantFromCLSIDArray(members: POINTER(Guid), size: UInt32, ppropvar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def InitPropVariantFromCLSIDArray(members: POINTER(Guid), size: UInt32, ppropvar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SensorsUtilsV2.dll')
-def IsSensorSubscribed(subscriptionList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST_head), currentType: Guid) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def IsSensorSubscribed(subscriptionList: POINTER(win32more.Windows.Win32.Devices.Sensors.SENSOR_COLLECTION_LIST), currentType: Guid) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SensorsUtilsV2.dll')
 def IsGUIDPresentInList(guidArray: POINTER(Guid), arrayLength: UInt32, guidElem: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 ELEVATION_CHANGE_MODE = Int32
@@ -583,19 +574,19 @@ class ISensor(ComPtr):
     @commethod(6)
     def GetFriendlyName(self, pFriendlyName: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetProperty(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pProperty: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProperty(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pProperty: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetProperties(self, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head, ppProperties: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProperties(self, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection, ppProperties: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetSupportedDataFields(self, ppDataFields: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedDataFields(self, ppDataFields: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def SetProperties(self, pProperties: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetProperties(self, pProperties: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues, ppResults: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def SupportsDataField(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pIsSupported: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SupportsDataField(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pIsSupported: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetState(self, pState: POINTER(win32more.Windows.Win32.Devices.Sensors.SensorState)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def GetData(self, ppDataReport: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensorDataReport_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetData(self, ppDataReport: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensorDataReport)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def SupportsEvent(self, eventGuid: POINTER(Guid), pIsSupported: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -603,18 +594,18 @@ class ISensor(ComPtr):
     @commethod(16)
     def SetEventInterest(self, pValues: POINTER(Guid), count: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def SetEventSink(self, pEvents: win32more.Windows.Win32.Devices.Sensors.ISensorEvents_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetEventSink(self, pEvents: win32more.Windows.Win32.Devices.Sensors.ISensorEvents) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISensorCollection(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{23571e11-e545-4dd8-a337-b89bf44b10df}')
     @commethod(3)
-    def GetAt(self, ulIndex: UInt32, ppSensor: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensor_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAt(self, ulIndex: UInt32, ppSensor: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensor)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCount(self, pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Add(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Remove(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Remove(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveByID(self, sensorID: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -623,40 +614,40 @@ class ISensorDataReport(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0ab9df9b-c4b5-4796-8898-0470706a2e1d}')
     @commethod(3)
-    def GetTimestamp(self, pTimeStamp: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetTimestamp(self, pTimeStamp: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetSensorValue(self, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSensorValue(self, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetSensorValues(self, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head, ppValues: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSensorValues(self, pKeys: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection, ppValues: POINTER(win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISensorEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5d8dcc91-4641-47e7-b7c3-b74f48a6c391}')
     @commethod(3)
-    def OnStateChanged(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor_head, state: win32more.Windows.Win32.Devices.Sensors.SensorState) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnStateChanged(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor, state: win32more.Windows.Win32.Devices.Sensors.SensorState) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def OnDataUpdated(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor_head, pNewData: win32more.Windows.Win32.Devices.Sensors.ISensorDataReport_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnDataUpdated(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor, pNewData: win32more.Windows.Win32.Devices.Sensors.ISensorDataReport) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def OnEvent(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor_head, eventID: POINTER(Guid), pEventData: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnEvent(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor, eventID: POINTER(Guid), pEventData: win32more.Windows.Win32.Devices.PortableDevices.IPortableDeviceValues) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnLeave(self, ID: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISensorManager(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{bd77db67-45a8-42dc-8d00-6dcf15f8377a}')
     @commethod(3)
-    def GetSensorsByCategory(self, sensorCategory: POINTER(Guid), ppSensorsFound: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensorCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSensorsByCategory(self, sensorCategory: POINTER(Guid), ppSensorsFound: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensorCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetSensorsByType(self, sensorType: POINTER(Guid), ppSensorsFound: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensorCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSensorsByType(self, sensorType: POINTER(Guid), ppSensorsFound: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensorCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetSensorByID(self, sensorID: POINTER(Guid), ppSensor: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensor_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSensorByID(self, sensorID: POINTER(Guid), ppSensor: POINTER(win32more.Windows.Win32.Devices.Sensors.ISensor)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def SetEventSink(self, pEvents: win32more.Windows.Win32.Devices.Sensors.ISensorManagerEvents_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetEventSink(self, pEvents: win32more.Windows.Win32.Devices.Sensors.ISensorManagerEvents) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def RequestPermissions(self, hParent: win32more.Windows.Win32.Foundation.HWND, pSensors: win32more.Windows.Win32.Devices.Sensors.ISensorCollection_head, fModal: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RequestPermissions(self, hParent: win32more.Windows.Win32.Foundation.HWND, pSensors: win32more.Windows.Win32.Devices.Sensors.ISensorCollection, fModal: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISensorManagerEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9b3b0b86-266a-4aad-b21f-fde5501001b7}')
     @commethod(3)
-    def OnSensorEnter(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor_head, state: win32more.Windows.Win32.Devices.Sensors.SensorState) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnSensorEnter(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor, state: win32more.Windows.Win32.Devices.Sensors.SensorState) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 LOCATION_DESIRED_ACCURACY = Int32
 LOCATION_DESIRED_ACCURACY_DEFAULT: LOCATION_DESIRED_ACCURACY = 0
 LOCATION_DESIRED_ACCURACY_HIGH: LOCATION_DESIRED_ACCURACY = 1
@@ -772,173 +763,4 @@ class VEC3D(EasyCastStructure):
     X: Single
     Y: Single
     Z: Single
-make_head(_module, 'SENSOR_EVENT_PARAMETER_EVENT_ID')
-make_head(_module, 'SENSOR_EVENT_PARAMETER_STATE')
-make_head(_module, 'SENSOR_PROPERTY_TYPE')
-make_head(_module, 'SENSOR_PROPERTY_STATE')
-make_head(_module, 'SENSOR_PROPERTY_PERSISTENT_UNIQUE_ID')
-make_head(_module, 'SENSOR_PROPERTY_MANUFACTURER')
-make_head(_module, 'SENSOR_PROPERTY_MODEL')
-make_head(_module, 'SENSOR_PROPERTY_SERIAL_NUMBER')
-make_head(_module, 'SENSOR_PROPERTY_FRIENDLY_NAME')
-make_head(_module, 'SENSOR_PROPERTY_DESCRIPTION')
-make_head(_module, 'SENSOR_PROPERTY_CONNECTION_TYPE')
-make_head(_module, 'SENSOR_PROPERTY_MIN_REPORT_INTERVAL')
-make_head(_module, 'SENSOR_PROPERTY_CURRENT_REPORT_INTERVAL')
-make_head(_module, 'SENSOR_PROPERTY_CHANGE_SENSITIVITY')
-make_head(_module, 'SENSOR_PROPERTY_DEVICE_PATH')
-make_head(_module, 'SENSOR_PROPERTY_LIGHT_RESPONSE_CURVE')
-make_head(_module, 'SENSOR_PROPERTY_ACCURACY')
-make_head(_module, 'SENSOR_PROPERTY_RESOLUTION')
-make_head(_module, 'SENSOR_PROPERTY_LOCATION_DESIRED_ACCURACY')
-make_head(_module, 'SENSOR_PROPERTY_RANGE_MINIMUM')
-make_head(_module, 'SENSOR_PROPERTY_RANGE_MAXIMUM')
-make_head(_module, 'SENSOR_PROPERTY_HID_USAGE')
-make_head(_module, 'SENSOR_PROPERTY_RADIO_STATE')
-make_head(_module, 'SENSOR_PROPERTY_RADIO_STATE_PREVIOUS')
-make_head(_module, 'SENSOR_DATA_TYPE_TIMESTAMP')
-make_head(_module, 'SENSOR_DATA_TYPE_LATITUDE_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_LONGITUDE_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_ALTITUDE_SEALEVEL_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_ALTITUDE_ELLIPSOID_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_SPEED_KNOTS')
-make_head(_module, 'SENSOR_DATA_TYPE_TRUE_HEADING_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_HEADING_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_VARIATION')
-make_head(_module, 'SENSOR_DATA_TYPE_FIX_QUALITY')
-make_head(_module, 'SENSOR_DATA_TYPE_FIX_TYPE')
-make_head(_module, 'SENSOR_DATA_TYPE_POSITION_DILUTION_OF_PRECISION')
-make_head(_module, 'SENSOR_DATA_TYPE_HORIZONAL_DILUTION_OF_PRECISION')
-make_head(_module, 'SENSOR_DATA_TYPE_VERTICAL_DILUTION_OF_PRECISION')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_USED_COUNT')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_USED_PRNS')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_IN_VIEW')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_PRNS')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_ELEVATION')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_AZIMUTH')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_STN_RATIO')
-make_head(_module, 'SENSOR_DATA_TYPE_ERROR_RADIUS_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_ADDRESS1')
-make_head(_module, 'SENSOR_DATA_TYPE_ADDRESS2')
-make_head(_module, 'SENSOR_DATA_TYPE_CITY')
-make_head(_module, 'SENSOR_DATA_TYPE_STATE_PROVINCE')
-make_head(_module, 'SENSOR_DATA_TYPE_POSTALCODE')
-make_head(_module, 'SENSOR_DATA_TYPE_COUNTRY_REGION')
-make_head(_module, 'SENSOR_DATA_TYPE_ALTITUDE_ELLIPSOID_ERROR_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_ALTITUDE_SEALEVEL_ERROR_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_GPS_SELECTION_MODE')
-make_head(_module, 'SENSOR_DATA_TYPE_GPS_OPERATION_MODE')
-make_head(_module, 'SENSOR_DATA_TYPE_GPS_STATUS')
-make_head(_module, 'SENSOR_DATA_TYPE_GEOIDAL_SEPARATION')
-make_head(_module, 'SENSOR_DATA_TYPE_DGPS_DATA_AGE')
-make_head(_module, 'SENSOR_DATA_TYPE_ALTITUDE_ANTENNA_SEALEVEL_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_DIFFERENTIAL_REFERENCE_STATION_ID')
-make_head(_module, 'SENSOR_DATA_TYPE_NMEA_SENTENCE')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_ID')
-make_head(_module, 'SENSOR_DATA_TYPE_LOCATION_SOURCE')
-make_head(_module, 'SENSOR_DATA_TYPE_SATELLITES_USED_PRNS_AND_CONSTELLATIONS')
-make_head(_module, 'SENSOR_DATA_TYPE_TEMPERATURE_CELSIUS')
-make_head(_module, 'SENSOR_DATA_TYPE_RELATIVE_HUMIDITY_PERCENT')
-make_head(_module, 'SENSOR_DATA_TYPE_ATMOSPHERIC_PRESSURE_BAR')
-make_head(_module, 'SENSOR_DATA_TYPE_WIND_DIRECTION_DEGREES_ANTICLOCKWISE')
-make_head(_module, 'SENSOR_DATA_TYPE_WIND_SPEED_METERS_PER_SECOND')
-make_head(_module, 'SENSOR_DATA_TYPE_ACCELERATION_X_G')
-make_head(_module, 'SENSOR_DATA_TYPE_ACCELERATION_Y_G')
-make_head(_module, 'SENSOR_DATA_TYPE_ACCELERATION_Z_G')
-make_head(_module, 'SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_X_DEGREES_PER_SECOND_SQUARED')
-make_head(_module, 'SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_Y_DEGREES_PER_SECOND_SQUARED')
-make_head(_module, 'SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_Z_DEGREES_PER_SECOND_SQUARED')
-make_head(_module, 'SENSOR_DATA_TYPE_SPEED_METERS_PER_SECOND')
-make_head(_module, 'SENSOR_DATA_TYPE_MOTION_STATE')
-make_head(_module, 'SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND')
-make_head(_module, 'SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND')
-make_head(_module, 'SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND')
-make_head(_module, 'SENSOR_DATA_TYPE_TILT_X_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_TILT_Y_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_TILT_Z_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_HEADING_X_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_HEADING_Y_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_HEADING_Z_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_DISTANCE_X_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_DISTANCE_Y_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_DISTANCE_Z_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_HEADING_COMPENSATED_MAGNETIC_NORTH_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_HEADING_COMPENSATED_TRUE_NORTH_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_HEADING_MAGNETIC_NORTH_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_HEADING_TRUE_NORTH_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_QUADRANT_ANGLE_DEGREES')
-make_head(_module, 'SENSOR_DATA_TYPE_ROTATION_MATRIX')
-make_head(_module, 'SENSOR_DATA_TYPE_QUATERNION')
-make_head(_module, 'SENSOR_DATA_TYPE_SIMPLE_DEVICE_ORIENTATION')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS')
-make_head(_module, 'SENSOR_DATA_TYPE_MAGNETOMETER_ACCURACY')
-make_head(_module, 'SENSOR_DATA_TYPE_BOOLEAN_SWITCH_STATE')
-make_head(_module, 'SENSOR_DATA_TYPE_MULTIVALUE_SWITCH_STATE')
-make_head(_module, 'SENSOR_DATA_TYPE_FORCE_NEWTONS')
-make_head(_module, 'SENSOR_DATA_TYPE_ABSOLUTE_PRESSURE_PASCAL')
-make_head(_module, 'SENSOR_DATA_TYPE_GAUGE_PRESSURE_PASCAL')
-make_head(_module, 'SENSOR_DATA_TYPE_STRAIN')
-make_head(_module, 'SENSOR_DATA_TYPE_WEIGHT_KILOGRAMS')
-make_head(_module, 'SENSOR_DATA_TYPE_BOOLEAN_SWITCH_ARRAY_STATES')
-make_head(_module, 'SENSOR_DATA_TYPE_HUMAN_PRESENCE')
-make_head(_module, 'SENSOR_DATA_TYPE_HUMAN_PROXIMITY_METERS')
-make_head(_module, 'SENSOR_DATA_TYPE_TOUCH_STATE')
-make_head(_module, 'SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX')
-make_head(_module, 'SENSOR_DATA_TYPE_LIGHT_TEMPERATURE_KELVIN')
-make_head(_module, 'SENSOR_DATA_TYPE_LIGHT_CHROMACITY')
-make_head(_module, 'SENSOR_DATA_TYPE_RFID_TAG_40_BIT')
-make_head(_module, 'SENSOR_DATA_TYPE_VOLTAGE_VOLTS')
-make_head(_module, 'SENSOR_DATA_TYPE_CURRENT_AMPS')
-make_head(_module, 'SENSOR_DATA_TYPE_CAPACITANCE_FARAD')
-make_head(_module, 'SENSOR_DATA_TYPE_RESISTANCE_OHMS')
-make_head(_module, 'SENSOR_DATA_TYPE_INDUCTANCE_HENRY')
-make_head(_module, 'SENSOR_DATA_TYPE_ELECTRICAL_POWER_WATTS')
-make_head(_module, 'SENSOR_DATA_TYPE_ELECTRICAL_PERCENT_OF_RANGE')
-make_head(_module, 'SENSOR_DATA_TYPE_ELECTRICAL_FREQUENCY_HERTZ')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_USAGE')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_BOOLEAN_ARRAY')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE1')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE2')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE3')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE4')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE5')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE6')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE7')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE8')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE9')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE10')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE11')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE12')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE13')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE14')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE15')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE16')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE17')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE18')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE19')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE20')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE21')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE22')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE23')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE24')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE25')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE26')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE27')
-make_head(_module, 'SENSOR_DATA_TYPE_CUSTOM_VALUE28')
-make_head(_module, 'SENSOR_PROPERTY_CLEAR_ASSISTANCE_DATA')
-make_head(_module, 'SENSOR_PROPERTY_TURN_ON_OFF_NMEA')
-make_head(_module, 'ILocationPermissions')
-make_head(_module, 'ISensor')
-make_head(_module, 'ISensorCollection')
-make_head(_module, 'ISensorDataReport')
-make_head(_module, 'ISensorEvents')
-make_head(_module, 'ISensorManager')
-make_head(_module, 'ISensorManagerEvents')
-make_head(_module, 'MATRIX3X3')
-make_head(_module, 'QUATERNION')
-make_head(_module, 'SENSOR_COLLECTION_LIST')
-make_head(_module, 'SENSOR_PROPERTY_LIST')
-make_head(_module, 'SENSOR_VALUE_PAIR')
-make_head(_module, 'VEC3D')
+make_ready(__name__)

@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Streaming
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 def DEVPKEY_Device_PacketWakeSupported():
     return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=0)
 def DEVPKEY_Device_SendPacketWakeSupported():
@@ -94,28 +85,4 @@ class MetadataTimeStamps(EasyCastStructure):
     Flags: UInt32
     Device: Int64
     Presentation: Int64
-make_head(_module, 'DEVPKEY_Device_PacketWakeSupported')
-make_head(_module, 'DEVPKEY_Device_SendPacketWakeSupported')
-make_head(_module, 'DEVPKEY_Device_UDN')
-make_head(_module, 'DEVPKEY_Device_SupportsAudio')
-make_head(_module, 'DEVPKEY_Device_SupportsVideo')
-make_head(_module, 'DEVPKEY_Device_SupportsImages')
-make_head(_module, 'DEVPKEY_Device_SinkProtocolInfo')
-make_head(_module, 'DEVPKEY_Device_DLNADOC')
-make_head(_module, 'DEVPKEY_Device_DLNACAP')
-make_head(_module, 'DEVPKEY_Device_SupportsSearch')
-make_head(_module, 'DEVPKEY_Device_SupportsMute')
-make_head(_module, 'DEVPKEY_Device_MaxVolume')
-make_head(_module, 'DEVPKEY_Device_SupportsSetNextAVT')
-make_head(_module, 'CapturedMetadataExposureCompensation')
-make_head(_module, 'CapturedMetadataISOGains')
-make_head(_module, 'CapturedMetadataWhiteBalanceGains')
-make_head(_module, 'FaceCharacterization')
-make_head(_module, 'FaceCharacterizationBlobHeader')
-make_head(_module, 'FaceRectInfo')
-make_head(_module, 'FaceRectInfoBlobHeader')
-make_head(_module, 'HistogramBlobHeader')
-make_head(_module, 'HistogramDataHeader')
-make_head(_module, 'HistogramGrid')
-make_head(_module, 'HistogramHeader')
-make_head(_module, 'MetadataTimeStamps')
+make_ready(__name__)

@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.InstallableFileSystems
 import win32more.Windows.Win32.System.IO
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 FILTER_NAME_MAX_CHARS: UInt32 = 255
 VOLUME_NAME_MAX_CHARS: UInt32 = 1024
 INSTANCE_NAME_MAX_CHARS: UInt32 = 255
@@ -147,13 +138,13 @@ def FilterGetInformation(hFilter: win32more.Windows.Win32.Storage.InstallableFil
 @winfunctype('FLTLIB.dll')
 def FilterInstanceGetInformation(hInstance: win32more.Windows.Win32.Storage.InstallableFileSystems.HFILTER_INSTANCE, dwInformationClass: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS, lpBuffer: VoidPtr, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
-def FilterConnectCommunicationPort(lpPortName: win32more.Windows.Win32.Foundation.PWSTR, dwOptions: UInt32, lpContext: VoidPtr, wSizeOfContext: UInt16, lpSecurityAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES_head), hPort: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def FilterConnectCommunicationPort(lpPortName: win32more.Windows.Win32.Foundation.PWSTR, dwOptions: UInt32, lpContext: VoidPtr, wSizeOfContext: UInt16, lpSecurityAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES), hPort: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterSendMessage(hPort: win32more.Windows.Win32.Foundation.HANDLE, lpInBuffer: VoidPtr, dwInBufferSize: UInt32, lpOutBuffer: VoidPtr, dwOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
-def FilterGetMessage(hPort: win32more.Windows.Win32.Foundation.HANDLE, lpMessageBuffer: POINTER(win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_MESSAGE_HEADER_head), dwMessageBufferSize: UInt32, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def FilterGetMessage(hPort: win32more.Windows.Win32.Foundation.HANDLE, lpMessageBuffer: POINTER(win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_MESSAGE_HEADER), dwMessageBufferSize: UInt32, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
-def FilterReplyMessage(hPort: win32more.Windows.Win32.Foundation.HANDLE, lpReplyBuffer: POINTER(win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_REPLY_HEADER_head), dwReplyBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def FilterReplyMessage(hPort: win32more.Windows.Win32.Foundation.HANDLE, lpReplyBuffer: POINTER(win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_REPLY_HEADER), dwReplyBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterGetDosName(lpVolumeName: win32more.Windows.Win32.Foundation.PWSTR, lpDosName: win32more.Windows.Win32.Foundation.PWSTR, dwDosNameBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class FILTER_AGGREGATE_BASIC_INFORMATION(EasyCastStructure):
@@ -311,14 +302,4 @@ class INSTANCE_PARTIAL_INFORMATION(EasyCastStructure):
     InstanceNameBufferOffset: UInt16
     AltitudeLength: UInt16
     AltitudeBufferOffset: UInt16
-make_head(_module, 'FILTER_AGGREGATE_BASIC_INFORMATION')
-make_head(_module, 'FILTER_AGGREGATE_STANDARD_INFORMATION')
-make_head(_module, 'FILTER_FULL_INFORMATION')
-make_head(_module, 'FILTER_MESSAGE_HEADER')
-make_head(_module, 'FILTER_REPLY_HEADER')
-make_head(_module, 'FILTER_VOLUME_BASIC_INFORMATION')
-make_head(_module, 'FILTER_VOLUME_STANDARD_INFORMATION')
-make_head(_module, 'INSTANCE_AGGREGATE_STANDARD_INFORMATION')
-make_head(_module, 'INSTANCE_BASIC_INFORMATION')
-make_head(_module, 'INSTANCE_FULL_INFORMATION')
-make_head(_module, 'INSTANCE_PARTIAL_INFORMATION')
+make_ready(__name__)

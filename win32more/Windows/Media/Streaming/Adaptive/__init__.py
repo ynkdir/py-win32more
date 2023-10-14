@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Media.Core
 import win32more.Windows.Media.Streaming.Adaptive
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Web.Http
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AdaptiveMediaSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSource
@@ -887,45 +878,4 @@ class IAdaptiveMediaSourceStatics(ComPtr):
     def CreateFromStreamAsync(self, stream: win32more.Windows.Storage.Streams.IInputStream, uri: win32more.Windows.Foundation.Uri, contentType: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCreationResult]: ...
     @winrt_commethod(10)
     def CreateFromStreamWithDownloaderAsync(self, stream: win32more.Windows.Storage.Streams.IInputStream, uri: win32more.Windows.Foundation.Uri, contentType: WinRT_String, httpClient: win32more.Windows.Web.Http.HttpClient) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCreationResult]: ...
-make_head(_module, 'AdaptiveMediaSource')
-make_head(_module, 'AdaptiveMediaSourceAdvancedSettings')
-make_head(_module, 'AdaptiveMediaSourceCorrelatedTimes')
-make_head(_module, 'AdaptiveMediaSourceCreationResult')
-make_head(_module, 'AdaptiveMediaSourceDiagnosticAvailableEventArgs')
-make_head(_module, 'AdaptiveMediaSourceDiagnostics')
-make_head(_module, 'AdaptiveMediaSourceDownloadBitrateChangedEventArgs')
-make_head(_module, 'AdaptiveMediaSourceDownloadCompletedEventArgs')
-make_head(_module, 'AdaptiveMediaSourceDownloadFailedEventArgs')
-make_head(_module, 'AdaptiveMediaSourceDownloadRequestedDeferral')
-make_head(_module, 'AdaptiveMediaSourceDownloadRequestedEventArgs')
-make_head(_module, 'AdaptiveMediaSourceDownloadResult')
-make_head(_module, 'AdaptiveMediaSourceDownloadStatistics')
-make_head(_module, 'AdaptiveMediaSourcePlaybackBitrateChangedEventArgs')
-make_head(_module, 'IAdaptiveMediaSource')
-make_head(_module, 'IAdaptiveMediaSource2')
-make_head(_module, 'IAdaptiveMediaSource3')
-make_head(_module, 'IAdaptiveMediaSourceAdvancedSettings')
-make_head(_module, 'IAdaptiveMediaSourceCorrelatedTimes')
-make_head(_module, 'IAdaptiveMediaSourceCreationResult')
-make_head(_module, 'IAdaptiveMediaSourceCreationResult2')
-make_head(_module, 'IAdaptiveMediaSourceDiagnosticAvailableEventArgs')
-make_head(_module, 'IAdaptiveMediaSourceDiagnosticAvailableEventArgs2')
-make_head(_module, 'IAdaptiveMediaSourceDiagnosticAvailableEventArgs3')
-make_head(_module, 'IAdaptiveMediaSourceDiagnostics')
-make_head(_module, 'IAdaptiveMediaSourceDownloadBitrateChangedEventArgs')
-make_head(_module, 'IAdaptiveMediaSourceDownloadBitrateChangedEventArgs2')
-make_head(_module, 'IAdaptiveMediaSourceDownloadCompletedEventArgs')
-make_head(_module, 'IAdaptiveMediaSourceDownloadCompletedEventArgs2')
-make_head(_module, 'IAdaptiveMediaSourceDownloadCompletedEventArgs3')
-make_head(_module, 'IAdaptiveMediaSourceDownloadFailedEventArgs')
-make_head(_module, 'IAdaptiveMediaSourceDownloadFailedEventArgs2')
-make_head(_module, 'IAdaptiveMediaSourceDownloadFailedEventArgs3')
-make_head(_module, 'IAdaptiveMediaSourceDownloadRequestedDeferral')
-make_head(_module, 'IAdaptiveMediaSourceDownloadRequestedEventArgs')
-make_head(_module, 'IAdaptiveMediaSourceDownloadRequestedEventArgs2')
-make_head(_module, 'IAdaptiveMediaSourceDownloadRequestedEventArgs3')
-make_head(_module, 'IAdaptiveMediaSourceDownloadResult')
-make_head(_module, 'IAdaptiveMediaSourceDownloadResult2')
-make_head(_module, 'IAdaptiveMediaSourceDownloadStatistics')
-make_head(_module, 'IAdaptiveMediaSourcePlaybackBitrateChangedEventArgs')
-make_head(_module, 'IAdaptiveMediaSourceStatics')
+make_ready(__name__)

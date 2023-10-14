@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WCM_API_VERSION_1_0: UInt32 = 1
 WCM_API_VERSION: UInt32 = 1
 WCM_UNKNOWN_DATAPLAN_STATUS: UInt32 = 4294967295
@@ -23,9 +14,9 @@ def WcmQueryProperty(pInterface: POINTER(Guid), strProfileName: win32more.Window
 @winfunctype('wcmapi.dll')
 def WcmSetProperty(pInterface: POINTER(Guid), strProfileName: win32more.Windows.Win32.Foundation.PWSTR, Property: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY, pReserved: VoidPtr, dwDataSize: UInt32, pbData: POINTER(Byte)) -> UInt32: ...
 @winfunctype('wcmapi.dll')
-def WcmGetProfileList(pReserved: VoidPtr, ppProfileList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROFILE_INFO_LIST_head))) -> UInt32: ...
+def WcmGetProfileList(pReserved: VoidPtr, ppProfileList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROFILE_INFO_LIST))) -> UInt32: ...
 @winfunctype('wcmapi.dll')
-def WcmSetProfileList(pProfileList: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROFILE_INFO_LIST_head), dwPosition: UInt32, fIgnoreUnknownProfiles: win32more.Windows.Win32.Foundation.BOOL, pReserved: VoidPtr) -> UInt32: ...
+def WcmSetProfileList(pProfileList: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROFILE_INFO_LIST), dwPosition: UInt32, fIgnoreUnknownProfiles: win32more.Windows.Win32.Foundation.BOOL, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wcmapi.dll')
 def WcmFreeMemory(pMemory: VoidPtr) -> Void: ...
 @winfunctype('OnDemandConnRouteHelper.dll')
@@ -35,16 +26,16 @@ def OnDemandRegisterNotification(callback: win32more.Windows.Win32.NetworkManage
 @winfunctype('OnDemandConnRouteHelper.dll')
 def OnDemandUnRegisterNotification(registrationHandle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OnDemandConnRouteHelper.dll')
-def GetInterfaceContextTableForHostName(HostName: win32more.Windows.Win32.Foundation.PWSTR, ProxyName: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32, ConnectionProfileFilterRawData: POINTER(Byte), ConnectionProfileFilterRawDataSize: UInt32, InterfaceContextTable: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.NET_INTERFACE_CONTEXT_TABLE_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetInterfaceContextTableForHostName(HostName: win32more.Windows.Win32.Foundation.PWSTR, ProxyName: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32, ConnectionProfileFilterRawData: POINTER(Byte), ConnectionProfileFilterRawDataSize: UInt32, InterfaceContextTable: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.NET_INTERFACE_CONTEXT_TABLE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OnDemandConnRouteHelper.dll')
-def FreeInterfaceContextTable(InterfaceContextTable: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.NET_INTERFACE_CONTEXT_TABLE_head)) -> Void: ...
+def FreeInterfaceContextTable(InterfaceContextTable: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.NET_INTERFACE_CONTEXT_TABLE)) -> Void: ...
 class NET_INTERFACE_CONTEXT(EasyCastStructure):
     InterfaceIndex: UInt32
     ConfigurationName: win32more.Windows.Win32.Foundation.PWSTR
 class NET_INTERFACE_CONTEXT_TABLE(EasyCastStructure):
     InterfaceContextHandle: win32more.Windows.Win32.Foundation.HANDLE
     NumberOfEntries: UInt32
-    InterfaceContextArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.NET_INTERFACE_CONTEXT_head)
+    InterfaceContextArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.NET_INTERFACE_CONTEXT)
 @winfunctype_pointer
 def ONDEMAND_NOTIFICATION_CALLBACK(param0: VoidPtr) -> Void: ...
 class WCM_BILLING_CYCLE_INFO(EasyCastStructure):
@@ -112,14 +103,4 @@ class WCM_TIME_INTERVAL(EasyCastStructure):
 class WCM_USAGE_DATA(EasyCastStructure):
     UsageInMegabytes: UInt32
     LastSyncTime: win32more.Windows.Win32.Foundation.FILETIME
-make_head(_module, 'NET_INTERFACE_CONTEXT')
-make_head(_module, 'NET_INTERFACE_CONTEXT_TABLE')
-make_head(_module, 'ONDEMAND_NOTIFICATION_CALLBACK')
-make_head(_module, 'WCM_BILLING_CYCLE_INFO')
-make_head(_module, 'WCM_CONNECTION_COST_DATA')
-make_head(_module, 'WCM_DATAPLAN_STATUS')
-make_head(_module, 'WCM_POLICY_VALUE')
-make_head(_module, 'WCM_PROFILE_INFO')
-make_head(_module, 'WCM_PROFILE_INFO_LIST')
-make_head(_module, 'WCM_TIME_INTERVAL')
-make_head(_module, 'WCM_USAGE_DATA')
+make_ready(__name__)

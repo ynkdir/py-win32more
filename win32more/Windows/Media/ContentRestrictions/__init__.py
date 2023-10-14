@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.ContentRestrictions
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ContentAccessRestrictionLevel = Int32
 ContentAccessRestrictionLevel_Allow: ContentAccessRestrictionLevel = 0
 ContentAccessRestrictionLevel_Warn: ContentAccessRestrictionLevel = 1
@@ -105,7 +96,7 @@ class IRatedContentRestrictions(ComPtr):
     @winrt_commethod(8)
     def RequestContentAccessAsync(self, RatedContentDescription: win32more.Windows.Media.ContentRestrictions.RatedContentDescription) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(9)
-    def add_RestrictionsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_RestrictionsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_RestrictionsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IRatedContentRestrictionsFactory(ComPtr):
@@ -167,14 +158,7 @@ class RatedContentRestrictions(ComPtr):
     @winrt_mixinmethod
     def RequestContentAccessAsync(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, RatedContentDescription: win32more.Windows.Media.ContentRestrictions.RatedContentDescription) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_RestrictionsChanged(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_RestrictionsChanged(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_RestrictionsChanged(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-make_head(_module, 'ContentRestrictionsBrowsePolicy')
-make_head(_module, 'IContentRestrictionsBrowsePolicy')
-make_head(_module, 'IRatedContentDescription')
-make_head(_module, 'IRatedContentDescriptionFactory')
-make_head(_module, 'IRatedContentRestrictions')
-make_head(_module, 'IRatedContentRestrictionsFactory')
-make_head(_module, 'RatedContentDescription')
-make_head(_module, 'RatedContentRestrictions')
+make_ready(__name__)

@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D.Common
 import win32more.Windows.Win32.Graphics.Dxgi.Common
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE = Int32
 D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE = 0
 D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE_LINEAR: D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE = 1
@@ -236,28 +227,11 @@ class ID2D1SimplifiedGeometrySink(ComPtr):
     @commethod(5)
     def BeginFigure(self, startPoint: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F, figureBegin: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_FIGURE_BEGIN) -> Void: ...
     @commethod(6)
-    def AddLines(self, points: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F_head), pointsCount: UInt32) -> Void: ...
+    def AddLines(self, points: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F), pointsCount: UInt32) -> Void: ...
     @commethod(7)
-    def AddBeziers(self, beziers: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_BEZIER_SEGMENT_head), beziersCount: UInt32) -> Void: ...
+    def AddBeziers(self, beziers: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_BEZIER_SEGMENT), beziersCount: UInt32) -> Void: ...
     @commethod(8)
     def EndFigure(self, figureEnd: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_FIGURE_END) -> Void: ...
     @commethod(9)
     def Close(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'D2D1_BEZIER_SEGMENT')
-make_head(_module, 'D2D1_COLOR_F')
-make_head(_module, 'D2D1_PIXEL_FORMAT')
-make_head(_module, 'D2D_COLOR_F')
-make_head(_module, 'D2D_MATRIX_3X2_F')
-make_head(_module, 'D2D_MATRIX_4X3_F')
-make_head(_module, 'D2D_MATRIX_4X4_F')
-make_head(_module, 'D2D_MATRIX_5X4_F')
-make_head(_module, 'D2D_POINT_2F')
-make_head(_module, 'D2D_POINT_2U')
-make_head(_module, 'D2D_RECT_F')
-make_head(_module, 'D2D_RECT_U')
-make_head(_module, 'D2D_SIZE_F')
-make_head(_module, 'D2D_SIZE_U')
-make_head(_module, 'D2D_VECTOR_2F')
-make_head(_module, 'D2D_VECTOR_3F')
-make_head(_module, 'D2D_VECTOR_4F')
-make_head(_module, 'ID2D1SimplifiedGeometrySink')
+make_ready(__name__)

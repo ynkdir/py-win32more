@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.System.RemoteSystems
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AppServiceCatalog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceCatalog'
@@ -325,26 +316,4 @@ StatelessAppServiceResponseStatus_AuthenticationError: StatelessAppServiceRespon
 StatelessAppServiceResponseStatus_NetworkNotAvailable: StatelessAppServiceResponseStatus = 12
 StatelessAppServiceResponseStatus_DisabledByPolicy: StatelessAppServiceResponseStatus = 13
 StatelessAppServiceResponseStatus_WebServiceUnavailable: StatelessAppServiceResponseStatus = 14
-make_head(_module, 'AppServiceCatalog')
-make_head(_module, 'AppServiceClosedEventArgs')
-make_head(_module, 'AppServiceConnection')
-make_head(_module, 'AppServiceDeferral')
-make_head(_module, 'AppServiceRequest')
-make_head(_module, 'AppServiceRequestReceivedEventArgs')
-make_head(_module, 'AppServiceResponse')
-make_head(_module, 'AppServiceTriggerDetails')
-make_head(_module, 'IAppServiceCatalogStatics')
-make_head(_module, 'IAppServiceClosedEventArgs')
-make_head(_module, 'IAppServiceConnection')
-make_head(_module, 'IAppServiceConnection2')
-make_head(_module, 'IAppServiceConnectionStatics')
-make_head(_module, 'IAppServiceDeferral')
-make_head(_module, 'IAppServiceRequest')
-make_head(_module, 'IAppServiceRequestReceivedEventArgs')
-make_head(_module, 'IAppServiceResponse')
-make_head(_module, 'IAppServiceTriggerDetails')
-make_head(_module, 'IAppServiceTriggerDetails2')
-make_head(_module, 'IAppServiceTriggerDetails3')
-make_head(_module, 'IAppServiceTriggerDetails4')
-make_head(_module, 'IStatelessAppServiceResponse')
-make_head(_module, 'StatelessAppServiceResponse')
+make_ready(__name__)

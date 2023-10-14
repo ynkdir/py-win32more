@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Printers
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Printing
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IIppAttributeError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.IIppAttributeError'
@@ -642,34 +633,4 @@ class PrintSchema(ComPtr):
     @winrt_mixinmethod
     def MergeAndValidateWithDefaultPrintTicketAsync(self: win32more.Windows.Devices.Printers.IPrintSchema, deltaTicket: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
 PrintersContract: UInt32 = 65536
-make_head(_module, 'IIppAttributeError')
-make_head(_module, 'IIppAttributeValue')
-make_head(_module, 'IIppAttributeValueStatics')
-make_head(_module, 'IIppIntegerRange')
-make_head(_module, 'IIppIntegerRangeFactory')
-make_head(_module, 'IIppPrintDevice')
-make_head(_module, 'IIppPrintDevice2')
-make_head(_module, 'IIppPrintDeviceStatics')
-make_head(_module, 'IIppResolution')
-make_head(_module, 'IIppResolutionFactory')
-make_head(_module, 'IIppSetAttributesResult')
-make_head(_module, 'IIppTextWithLanguage')
-make_head(_module, 'IIppTextWithLanguageFactory')
-make_head(_module, 'IPageConfigurationSettings')
-make_head(_module, 'IPdlPassthroughProvider')
-make_head(_module, 'IPdlPassthroughTarget')
-make_head(_module, 'IPrint3DDevice')
-make_head(_module, 'IPrint3DDeviceStatics')
-make_head(_module, 'IPrintSchema')
-make_head(_module, 'IppAttributeError')
-make_head(_module, 'IppAttributeValue')
-make_head(_module, 'IppIntegerRange')
-make_head(_module, 'IppPrintDevice')
-make_head(_module, 'IppResolution')
-make_head(_module, 'IppSetAttributesResult')
-make_head(_module, 'IppTextWithLanguage')
-make_head(_module, 'PageConfigurationSettings')
-make_head(_module, 'PdlPassthroughProvider')
-make_head(_module, 'PdlPassthroughTarget')
-make_head(_module, 'Print3DDevice')
-make_head(_module, 'PrintSchema')
+make_ready(__name__)

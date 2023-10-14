@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.DistributedTransactionCoordinator
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 APPLICATIONTYPE = Int32
 LOCAL_APPLICATIONTYPE: APPLICATIONTYPE = 0
 CLUSTERRESOURCE_APPLICATIONTYPE: APPLICATIONTYPE = 1
@@ -168,7 +159,7 @@ class IDtcLuRecoveryFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e762-1aea-11d0-944b-00a0c905416e}')
     @commethod(3)
-    def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, ppRecovery: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRecovery_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, ppRecovery: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRecovery)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDtcLuRecoveryInitiatedByDtc(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e764-1aea-11d0-944b-00a0c905416e}')
@@ -212,7 +203,7 @@ class IDtcLuRecoveryInitiatedByLu(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e768-1aea-11d0-944b-00a0c905416e}')
     @commethod(3)
-    def GetObjectToHandleWorkFromLu(self, ppWork: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRecoveryInitiatedByLuWork_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetObjectToHandleWorkFromLu(self, ppWork: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRecoveryInitiatedByLuWork)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDtcLuRecoveryInitiatedByLuWork(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ac2b8ad1-d6f0-11d0-b386-00a0c9083365}')
@@ -251,7 +242,7 @@ class IDtcLuRmEnlistmentFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e771-1aea-11d0-944b-00a0c905416e}')
     @commethod(3)
-    def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, pITransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pTransId: POINTER(Byte), cbTransId: UInt32, pRmEnlistmentSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRmEnlistmentSink_head, ppRmEnlistment: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRmEnlistment_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, pITransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction, pTransId: POINTER(Byte), cbTransId: UInt32, pRmEnlistmentSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRmEnlistmentSink, ppRmEnlistment: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRmEnlistment)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDtcLuRmEnlistmentSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e770-1aea-11d0-944b-00a0c905416e}')
@@ -294,7 +285,7 @@ class IDtcLuSubordinateDtcFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e775-1aea-11d0-944b-00a0c905416e}')
     @commethod(3)
-    def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, punkTransactionOuter: win32more.Windows.Win32.System.Com.IUnknown_head, isoLevel: Int32, isoFlags: UInt32, pOptions: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head, ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head), pTransId: POINTER(Byte), cbTransId: UInt32, pSubordinateDtcSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtcSink_head, ppSubordinateDtc: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtc_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, punkTransactionOuter: win32more.Windows.Win32.System.Com.IUnknown, isoLevel: Int32, isoFlags: UInt32, pOptions: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions, ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction), pTransId: POINTER(Byte), cbTransId: UInt32, pSubordinateDtcSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtcSink, ppSubordinateDtc: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDtcLuSubordinateDtcSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4131e774-1aea-11d0-944b-00a0c905416e}')
@@ -371,21 +362,21 @@ class IDtcToXaHelper(ComPtr):
     @commethod(3)
     def Close(self, i_fDoRecovery: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def TranslateTridToXid(self, pITransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pguidBqual: POINTER(Guid), pXid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def TranslateTridToXid(self, pITransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction, pguidBqual: POINTER(Guid), pXid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDtcToXaHelperFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a9861610-304a-11d1-9813-00a0c905416e}')
     @commethod(3)
-    def Create(self, pszDSN: win32more.Windows.Win32.Foundation.PSTR, pszClientDllName: win32more.Windows.Win32.Foundation.PSTR, pguidRm: POINTER(Guid), ppXaHelper: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcToXaHelper_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, pszDSN: win32more.Windows.Win32.Foundation.PSTR, pszClientDllName: win32more.Windows.Win32.Foundation.PSTR, pguidRm: POINTER(Guid), ppXaHelper: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IDtcToXaHelper)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDtcToXaHelperSinglePipe(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{47ed4971-53b3-11d1-bbb9-00c04fd658f6}')
     @commethod(3)
     def XARMCreate(self, pszDSN: win32more.Windows.Win32.Foundation.PSTR, pszClientDll: win32more.Windows.Win32.Foundation.PSTR, pdwRMCookie: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def ConvertTridToXID(self, pdwITrans: POINTER(UInt32), dwRMCookie: UInt32, pxid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ConvertTridToXID(self, pdwITrans: POINTER(UInt32), dwRMCookie: UInt32, pxid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def EnlistWithRM(self, dwRMCookie: UInt32, i_pITransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, i_pITransRes: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionResourceAsync_head, o_ppITransEnslitment: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnlistWithRM(self, dwRMCookie: UInt32, i_pITransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction, i_pITransRes: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionResourceAsync, o_ppITransEnslitment: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def ReleaseRMCookie(self, i_dwRMCookie: UInt32, i_fNormal: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
 class IDtcToXaMapper(ComPtr):
@@ -394,7 +385,7 @@ class IDtcToXaMapper(ComPtr):
     @commethod(3)
     def RequestNewResourceManager(self, pszDSN: win32more.Windows.Win32.Foundation.PSTR, pszClientDllName: win32more.Windows.Win32.Foundation.PSTR, pdwRMCookie: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def TranslateTridToXid(self, pdwITransaction: POINTER(UInt32), dwRMCookie: UInt32, pXid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def TranslateTridToXid(self, pdwITransaction: POINTER(UInt32), dwRMCookie: UInt32, pXid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def EnlistResourceManager(self, dwRMCookie: UInt32, pdwITransaction: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -436,12 +427,12 @@ class IRMHelper(ComPtr):
     @commethod(3)
     def RMCount(self, dwcTotalNumberOfRMs: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def RMInfo(self, pXa_Switch: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.xa_switch_t_head), fCDeclCallingConv: win32more.Windows.Win32.Foundation.BOOL, pszOpenString: win32more.Windows.Win32.Foundation.PSTR, pszCloseString: win32more.Windows.Win32.Foundation.PSTR, guidRMRecovery: Guid) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RMInfo(self, pXa_Switch: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.xa_switch_t), fCDeclCallingConv: win32more.Windows.Win32.Foundation.BOOL, pszOpenString: win32more.Windows.Win32.Foundation.PSTR, pszCloseString: win32more.Windows.Win32.Foundation.PSTR, guidRMRecovery: Guid) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IResourceManager(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{13741d21-87eb-11ce-8081-0080c758527e}')
     @commethod(3)
-    def Enlist(self, pTransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pRes: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionResourceAsync_head, pUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), pisoLevel: POINTER(Int32), ppEnlist: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Enlist(self, pTransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction, pRes: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionResourceAsync, pUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), pisoLevel: POINTER(Int32), ppEnlist: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Reenlist(self, pPrepInfo: POINTER(Byte), cbPrepInfo: UInt32, lTimeout: UInt32, pXactStat: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -452,19 +443,19 @@ class IResourceManager2(ComPtr):
     extends: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager
     _iid_ = Guid('{d136c69a-f749-11d1-8f47-00c04f8ee57d}')
     @commethod(7)
-    def Enlist2(self, pTransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pResAsync: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionResourceAsync_head, pUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), pisoLevel: POINTER(Int32), pXid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), ppEnlist: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Enlist2(self, pTransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction, pResAsync: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionResourceAsync, pUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), pisoLevel: POINTER(Int32), pXid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), ppEnlist: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Reenlist2(self, pXid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), dwTimeout: UInt32, pXactStat: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Reenlist2(self, pXid: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), dwTimeout: UInt32, pXactStat: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IResourceManagerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{13741d20-87eb-11ce-8081-0080c758527e}')
     @commethod(3)
-    def Create(self, pguidRM: POINTER(Guid), pszRMName: win32more.Windows.Win32.Foundation.PSTR, pIResMgrSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerSink_head, ppResMgr: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, pguidRM: POINTER(Guid), pszRMName: win32more.Windows.Win32.Foundation.PSTR, pIResMgrSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerSink, ppResMgr: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IResourceManagerFactory2(ComPtr):
     extends: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerFactory
     _iid_ = Guid('{6b369c21-fbd2-11d1-8f47-00c04f8ee57d}')
     @commethod(4)
-    def CreateEx(self, pguidRM: POINTER(Guid), pszRMName: win32more.Windows.Win32.Foundation.PSTR, pIResMgrSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerSink_head, riidRequested: POINTER(Guid), ppvResMgr: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateEx(self, pguidRM: POINTER(Guid), pszRMName: win32more.Windows.Win32.Foundation.PSTR, pIResMgrSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerSink, riidRequested: POINTER(Guid), ppvResMgr: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IResourceManagerRejoinable(ComPtr):
     extends: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager2
     _iid_ = Guid('{6f6de620-b5df-4f3e-9cfa-c8aebd05172b}')
@@ -501,9 +492,9 @@ class ITipHelper(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{17cf72d1-bac5-11d1-b1bf-00c04fc2f3ef}')
     @commethod(3)
-    def Pull(self, i_pszTxUrl: POINTER(Byte), o_ppITransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Pull(self, i_pszTxUrl: POINTER(Byte), o_ppITransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def PullAsync(self, i_pszTxUrl: POINTER(Byte), i_pTipPullSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITipPullSink_head, o_ppITransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PullAsync(self, i_pszTxUrl: POINTER(Byte), i_pTipPullSink: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITipPullSink, o_ppITransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetLocalTmUrl(self, o_ppszLocalTmUrl: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITipPullSink(ComPtr):
@@ -531,31 +522,31 @@ class ITransaction(ComPtr):
     @commethod(3)
     def Commit(self, fRetaining: win32more.Windows.Win32.Foundation.BOOL, grfTC: UInt32, grfRM: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Abort(self, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), fRetaining: win32more.Windows.Win32.Foundation.BOOL, fAsync: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Abort(self, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), fRetaining: win32more.Windows.Win32.Foundation.BOOL, fAsync: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetTransactionInfo(self, pinfo: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTTRANSINFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetTransactionInfo(self, pinfo: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTTRANSINFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransaction2(ComPtr):
     extends: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionCloner
     _iid_ = Guid('{34021548-0065-11d3-bac1-00c04f797be2}')
     @commethod(7)
-    def GetTransactionInfo2(self, pinfo: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTTRANSINFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetTransactionInfo2(self, pinfo: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTTRANSINFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionCloner(ComPtr):
     extends: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction
     _iid_ = Guid('{02656950-2152-11d0-944c-00a0c905416e}')
     @commethod(6)
-    def CloneWithCommitDisabled(self, ppITransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CloneWithCommitDisabled(self, ppITransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionDispenser(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3a6ad9e1-23b9-11cf-ad60-00aa00a74ccd}')
     @commethod(3)
-    def GetOptionsObject(self, ppOptions: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOptionsObject(self, ppOptions: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def BeginTransaction(self, punkOuter: win32more.Windows.Win32.System.Com.IUnknown_head, isoLevel: Int32, isoFlags: UInt32, pOptions: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head, ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def BeginTransaction(self, punkOuter: win32more.Windows.Win32.System.Com.IUnknown, isoLevel: Int32, isoFlags: UInt32, pOptions: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions, ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionEnlistmentAsync(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0fb15081-af41-11ce-bd2b-204c4f4f5020}')
     @commethod(3)
-    def PrepareRequestDone(self, hr: win32more.Windows.Win32.Foundation.HRESULT, pmk: win32more.Windows.Win32.System.Com.IMoniker_head, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PrepareRequestDone(self, hr: win32more.Windows.Win32.Foundation.HRESULT, pmk: win32more.Windows.Win32.System.Com.IMoniker, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CommitRequestDone(self, hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -564,16 +555,16 @@ class ITransactionExport(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0141fda5-8fc0-11ce-bd18-204c4f4f5020}')
     @commethod(3)
-    def Export(self, punkTransaction: win32more.Windows.Win32.System.Com.IUnknown_head, pcbTransactionCookie: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Export(self, punkTransaction: win32more.Windows.Win32.System.Com.IUnknown, pcbTransactionCookie: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetTransactionCookie(self, punkTransaction: win32more.Windows.Win32.System.Com.IUnknown_head, cbTransactionCookie: UInt32, rgbTransactionCookie: POINTER(Byte), pcbUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetTransactionCookie(self, punkTransaction: win32more.Windows.Win32.System.Com.IUnknown, cbTransactionCookie: UInt32, rgbTransactionCookie: POINTER(Byte), pcbUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionExportFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e1cf9b53-8745-11ce-a9ba-00aa006c3706}')
     @commethod(3)
     def GetRemoteClassId(self, pclsid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Create(self, cbWhereabouts: UInt32, rgbWhereabouts: POINTER(Byte), ppExport: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionExport_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, cbWhereabouts: UInt32, rgbWhereabouts: POINTER(Byte), ppExport: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionExport)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionImport(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e1cf9b5a-8745-11ce-a9ba-00aa006c3706}')
@@ -590,30 +581,30 @@ class ITransactionLastEnlistmentAsync(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c82bd533-5b30-11d3-8a91-00c04f79eb6d}')
     @commethod(3)
-    def TransactionOutcome(self, XactStat: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def TransactionOutcome(self, XactStat: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionLastResourceAsync(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c82bd532-5b30-11d3-8a91-00c04f79eb6d}')
     @commethod(3)
     def DelegateCommit(self, grfRM: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def ForgetRequest(self, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ForgetRequest(self, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionOptions(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3a6ad9e0-23b9-11cf-ad60-00aa00a74ccd}')
     @commethod(3)
-    def SetOptions(self, pOptions: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTOPT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetOptions(self, pOptions: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTOPT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetOptions(self, pOptions: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTOPT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOptions(self, pOptions: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTOPT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionOutcomeEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3a6ad9e2-23b9-11cf-ad60-00aa00a74ccd}')
     @commethod(3)
-    def Committed(self, fRetaining: win32more.Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Committed(self, fRetaining: win32more.Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Aborted(self, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), fRetaining: win32more.Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Aborted(self, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), fRetaining: win32more.Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def HeuristicDecision(self, dwDecision: UInt32, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def HeuristicDecision(self, dwDecision: UInt32, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Indoubt(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionPhase0EnlistmentAsync(ComPtr):
@@ -628,12 +619,12 @@ class ITransactionPhase0EnlistmentAsync(ComPtr):
     @commethod(6)
     def Unenlist(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetTransaction(self, ppITransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetTransaction(self, ppITransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionPhase0Factory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{82dc88e0-a954-11d1-8f88-00600895e7d5}')
     @commethod(3)
-    def Create(self, pPhase0Notify: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionPhase0NotifyAsync_head, ppPhase0Enlistment: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionPhase0EnlistmentAsync_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, pPhase0Notify: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionPhase0NotifyAsync, ppPhase0Enlistment: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionPhase0EnlistmentAsync)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionPhase0NotifyAsync(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ef081809-0c76-11d2-87a6-00c04f990f34}')
@@ -645,7 +636,7 @@ class ITransactionReceiver(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{59313e03-b36c-11cf-a539-00aa006887c3}')
     @commethod(3)
-    def UnmarshalPropagationToken(self, cbToken: UInt32, rgbToken: POINTER(Byte), ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def UnmarshalPropagationToken(self, cbToken: UInt32, rgbToken: POINTER(Byte), ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetReturnTokenSize(self, pcbReturnToken: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -656,16 +647,16 @@ class ITransactionReceiverFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{59313e02-b36c-11cf-a539-00aa006887c3}')
     @commethod(3)
-    def Create(self, ppReceiver: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionReceiver_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, ppReceiver: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionReceiver)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionResource(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ee5ff7b3-4572-11d0-9452-00a0c905416e}')
     @commethod(3)
     def PrepareRequest(self, fRetaining: win32more.Windows.Win32.Foundation.BOOL, grfRM: UInt32, fWantMoniker: win32more.Windows.Win32.Foundation.BOOL, fSinglePhase: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CommitRequest(self, grfRM: UInt32, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CommitRequest(self, grfRM: UInt32, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def AbortRequest(self, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), fRetaining: win32more.Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AbortRequest(self, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), fRetaining: win32more.Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def TMDown(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionResourceAsync(ComPtr):
@@ -674,16 +665,16 @@ class ITransactionResourceAsync(ComPtr):
     @commethod(3)
     def PrepareRequest(self, fRetaining: win32more.Windows.Win32.Foundation.BOOL, grfRM: UInt32, fWantMoniker: win32more.Windows.Win32.Foundation.BOOL, fSinglePhase: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CommitRequest(self, grfRM: UInt32, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CommitRequest(self, grfRM: UInt32, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def AbortRequest(self, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), fRetaining: win32more.Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AbortRequest(self, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID), fRetaining: win32more.Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def TMDown(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionTransmitter(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{59313e01-b36c-11cf-a539-00aa006887c3}')
     @commethod(3)
-    def Set(self, pTransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Set(self, pTransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPropagationTokenSize(self, pcbToken: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -696,17 +687,17 @@ class ITransactionTransmitterFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{59313e00-b36c-11cf-a539-00aa006887c3}')
     @commethod(3)
-    def Create(self, ppTransmitter: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionTransmitter_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, ppTransmitter: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionTransmitter)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionVoterBallotAsync2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5433376c-414d-11d3-b206-00c04fc2f3ef}')
     @commethod(3)
-    def VoteRequestDone(self, hr: win32more.Windows.Win32.Foundation.HRESULT, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def VoteRequestDone(self, hr: win32more.Windows.Win32.Foundation.HRESULT, pboidReason: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionVoterFactory2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5433376a-414d-11d3-b206-00c04fc2f3ef}')
     @commethod(3)
-    def Create(self, pTransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pVoterNotify: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionVoterNotifyAsync2_head, ppVoterBallot: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionVoterBallotAsync2_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, pTransaction: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction, pVoterNotify: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionVoterNotifyAsync2, ppVoterBallot: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionVoterBallotAsync2)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITransactionVoterNotifyAsync2(ComPtr):
     extends: win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOutcomeEvents
     _iid_ = Guid('{5433376b-414d-11d3-b206-00c04fc2f3ef}')
@@ -723,17 +714,17 @@ class IXAObtainRMInfo(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e793f6d2-f53d-11cf-a60d-00a0c905416e}')
     @commethod(3)
-    def ObtainRMInfo(self, pIRMHelper: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IRMHelper_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ObtainRMInfo(self, pIRMHelper: win32more.Windows.Win32.System.DistributedTransactionCoordinator.IRMHelper) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IXATransLookup(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f3b1f131-eeda-11ce-aed4-00aa0051e2c4}')
     @commethod(3)
-    def Lookup(self, ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Lookup(self, ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IXATransLookup2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{bf193c85-0d1a-4290-b88f-d2cb8873d1e7}')
     @commethod(3)
-    def Lookup(self, pXID: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Lookup(self, pXID: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class OLE_TM_CONFIG_PARAMS_V1(EasyCastStructure):
     dwVersion: UInt32
     dwcConcurrencyHint: UInt32
@@ -834,23 +825,23 @@ dwUSER_MS_SQLSERVER: XACT_DTC_CONSTANTS = 65535
 @cfunctype_pointer
 def XA_CLOSE_EPT(param0: win32more.Windows.Win32.Foundation.PSTR, param1: Int32, param2: Int32) -> Int32: ...
 @cfunctype_pointer
-def XA_COMMIT_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+def XA_COMMIT_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32) -> Int32: ...
 @cfunctype_pointer
 def XA_COMPLETE_EPT(param0: POINTER(Int32), param1: POINTER(Int32), param2: Int32, param3: Int32) -> Int32: ...
 @cfunctype_pointer
-def XA_END_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+def XA_END_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32) -> Int32: ...
 @cfunctype_pointer
-def XA_FORGET_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+def XA_FORGET_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32) -> Int32: ...
 @cfunctype_pointer
 def XA_OPEN_EPT(param0: win32more.Windows.Win32.Foundation.PSTR, param1: Int32, param2: Int32) -> Int32: ...
 @cfunctype_pointer
-def XA_PREPARE_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+def XA_PREPARE_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32) -> Int32: ...
 @cfunctype_pointer
-def XA_RECOVER_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32, param3: Int32) -> Int32: ...
+def XA_RECOVER_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32, param3: Int32) -> Int32: ...
 @cfunctype_pointer
-def XA_ROLLBACK_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+def XA_ROLLBACK_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32) -> Int32: ...
 @cfunctype_pointer
-def XA_START_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+def XA_START_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32) -> Int32: ...
 class XID(EasyCastStructure):
     formatID: Int32
     gtrid_length: Int32
@@ -870,92 +861,4 @@ class xa_switch_t(EasyCastStructure):
     xa_recover_entry: IntPtr
     xa_forget_entry: IntPtr
     xa_complete_entry: IntPtr
-make_head(_module, 'BOID')
-make_head(_module, 'DTC_GET_TRANSACTION_MANAGER')
-make_head(_module, 'DTC_GET_TRANSACTION_MANAGER_EX_A')
-make_head(_module, 'DTC_GET_TRANSACTION_MANAGER_EX_W')
-make_head(_module, 'DTC_INSTALL_CLIENT')
-make_head(_module, 'IDtcLuConfigure')
-make_head(_module, 'IDtcLuRecovery')
-make_head(_module, 'IDtcLuRecoveryFactory')
-make_head(_module, 'IDtcLuRecoveryInitiatedByDtc')
-make_head(_module, 'IDtcLuRecoveryInitiatedByDtcStatusWork')
-make_head(_module, 'IDtcLuRecoveryInitiatedByDtcTransWork')
-make_head(_module, 'IDtcLuRecoveryInitiatedByLu')
-make_head(_module, 'IDtcLuRecoveryInitiatedByLuWork')
-make_head(_module, 'IDtcLuRmEnlistment')
-make_head(_module, 'IDtcLuRmEnlistmentFactory')
-make_head(_module, 'IDtcLuRmEnlistmentSink')
-make_head(_module, 'IDtcLuSubordinateDtc')
-make_head(_module, 'IDtcLuSubordinateDtcFactory')
-make_head(_module, 'IDtcLuSubordinateDtcSink')
-make_head(_module, 'IDtcNetworkAccessConfig')
-make_head(_module, 'IDtcNetworkAccessConfig2')
-make_head(_module, 'IDtcNetworkAccessConfig3')
-make_head(_module, 'IDtcToXaHelper')
-make_head(_module, 'IDtcToXaHelperFactory')
-make_head(_module, 'IDtcToXaHelperSinglePipe')
-make_head(_module, 'IDtcToXaMapper')
-make_head(_module, 'IGetDispenser')
-make_head(_module, 'IKernelTransaction')
-make_head(_module, 'ILastResourceManager')
-make_head(_module, 'IPrepareInfo')
-make_head(_module, 'IPrepareInfo2')
-make_head(_module, 'IRMHelper')
-make_head(_module, 'IResourceManager')
-make_head(_module, 'IResourceManager2')
-make_head(_module, 'IResourceManagerFactory')
-make_head(_module, 'IResourceManagerFactory2')
-make_head(_module, 'IResourceManagerRejoinable')
-make_head(_module, 'IResourceManagerSink')
-make_head(_module, 'ITipHelper')
-make_head(_module, 'ITipPullSink')
-make_head(_module, 'ITipTransaction')
-make_head(_module, 'ITmNodeName')
-make_head(_module, 'ITransaction')
-make_head(_module, 'ITransaction2')
-make_head(_module, 'ITransactionCloner')
-make_head(_module, 'ITransactionDispenser')
-make_head(_module, 'ITransactionEnlistmentAsync')
-make_head(_module, 'ITransactionExport')
-make_head(_module, 'ITransactionExportFactory')
-make_head(_module, 'ITransactionImport')
-make_head(_module, 'ITransactionImportWhereabouts')
-make_head(_module, 'ITransactionLastEnlistmentAsync')
-make_head(_module, 'ITransactionLastResourceAsync')
-make_head(_module, 'ITransactionOptions')
-make_head(_module, 'ITransactionOutcomeEvents')
-make_head(_module, 'ITransactionPhase0EnlistmentAsync')
-make_head(_module, 'ITransactionPhase0Factory')
-make_head(_module, 'ITransactionPhase0NotifyAsync')
-make_head(_module, 'ITransactionReceiver')
-make_head(_module, 'ITransactionReceiverFactory')
-make_head(_module, 'ITransactionResource')
-make_head(_module, 'ITransactionResourceAsync')
-make_head(_module, 'ITransactionTransmitter')
-make_head(_module, 'ITransactionTransmitterFactory')
-make_head(_module, 'ITransactionVoterBallotAsync2')
-make_head(_module, 'ITransactionVoterFactory2')
-make_head(_module, 'ITransactionVoterNotifyAsync2')
-make_head(_module, 'IXAConfig')
-make_head(_module, 'IXAObtainRMInfo')
-make_head(_module, 'IXATransLookup')
-make_head(_module, 'IXATransLookup2')
-make_head(_module, 'OLE_TM_CONFIG_PARAMS_V1')
-make_head(_module, 'OLE_TM_CONFIG_PARAMS_V2')
-make_head(_module, 'PROXY_CONFIG_PARAMS')
-make_head(_module, 'XACTOPT')
-make_head(_module, 'XACTSTATS')
-make_head(_module, 'XACTTRANSINFO')
-make_head(_module, 'XA_CLOSE_EPT')
-make_head(_module, 'XA_COMMIT_EPT')
-make_head(_module, 'XA_COMPLETE_EPT')
-make_head(_module, 'XA_END_EPT')
-make_head(_module, 'XA_FORGET_EPT')
-make_head(_module, 'XA_OPEN_EPT')
-make_head(_module, 'XA_PREPARE_EPT')
-make_head(_module, 'XA_RECOVER_EPT')
-make_head(_module, 'XA_ROLLBACK_EPT')
-make_head(_module, 'XA_START_EPT')
-make_head(_module, 'XID')
-make_head(_module, 'xa_switch_t')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel
@@ -47,15 +47,6 @@ import win32more.Windows.UI.WebUI
 import win32more.Windows.Web
 import win32more.Windows.Web.Http
 import win32more.Windows.Web.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ActivatedDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.IActivatedDeferral
@@ -65,7 +56,7 @@ class ActivatedDeferral(ComPtr):
 class ActivatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{50f1e730-c5d1-4b6b-9adb-8a11756be29c}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, eventArgs: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, eventArgs: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Void: ...
 class ActivatedOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.IActivatedOperation
@@ -82,7 +73,7 @@ class BackgroundActivatedEventArgs(ComPtr):
 class BackgroundActivatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{edb19fbb-0761-47cc-9a77-24d7072965ca}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, eventArgs: win32more.Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, eventArgs: win32more.Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Void: ...
 class EnteredBackgroundEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IEnteredBackgroundEventArgs
@@ -92,7 +83,7 @@ class EnteredBackgroundEventArgs(ComPtr):
 class EnteredBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2b09a173-b68e-4def-88c1-8de84e5aab2f}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Void: ...
 class HtmlPrintDocumentSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.IHtmlPrintDocumentSource
@@ -323,7 +314,7 @@ class IWebUIView(ComPtr):
     @winrt_commethod(6)
     def get_ApplicationViewId(self) -> Int32: ...
     @winrt_commethod(7)
-    def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.WebUI.WebUIView, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.WebUI.WebUIView, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -353,11 +344,11 @@ class LeavingBackgroundEventArgs(ComPtr):
 class LeavingBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{00b4ccd9-7a9c-4b6b-9ac4-13474f268bc4}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Void: ...
 class NavigatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7af46fe6-40ca-4e49-a7d6-dbdb330cd1a3}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.WebUI.IWebUINavigatedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.WebUI.IWebUINavigatedEventArgs) -> Void: ...
 class NewWebUIViewCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.INewWebUIViewCreatedEventArgs
@@ -381,7 +372,7 @@ PrintContent_CurrentSelection: PrintContent = 3
 class ResumingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{26599ba9-a22d-4806-a728-acadc1d075fa}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
 class SuspendingDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ISuspendingDeferral
@@ -398,7 +389,7 @@ class SuspendingEventArgs(ComPtr):
 class SuspendingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{509c429c-78e2-4883-abc8-8960dcde1b5c}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.ApplicationModel.ISuspendingEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.ISuspendingEventArgs) -> Void: ...
 class SuspendingOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ISuspendingOperation
@@ -608,7 +599,7 @@ class WebUIBackgroundTaskInstanceRuntimeClass(ComPtr):
     @winrt_mixinmethod
     def put_Progress(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskInstance, value: UInt32) -> Void: ...
     @winrt_mixinmethod
-    def get_TriggerDetails(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_TriggerDetails(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def add_Canceled(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskInstance, cancelHandler: win32more.Windows.ApplicationModel.Background.BackgroundTaskCanceledEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -672,9 +663,9 @@ class WebUICameraSettingsActivatedEventArgs(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUICameraSettingsActivatedEventArgs'
     @winrt_mixinmethod
-    def get_VideoDeviceController(self: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_VideoDeviceController(self: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_VideoDeviceExtension(self: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_VideoDeviceExtension(self: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ActivationKind: ...
     @winrt_mixinmethod
@@ -1171,7 +1162,7 @@ class WebUILockScreenActivatedEventArgs(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUILockScreenActivatedEventArgs'
     @winrt_mixinmethod
-    def get_Info(self: win32more.Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Info(self: win32more.Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ActivationKind: ...
     @winrt_mixinmethod
@@ -1400,7 +1391,7 @@ class WebUIRestrictedLaunchActivatedEventArgs(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs
     _classid_ = 'Windows.UI.WebUI.WebUIRestrictedLaunchActivatedEventArgs'
     @winrt_mixinmethod
-    def get_SharedContext(self: win32more.Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SharedContext(self: win32more.Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ActivationKind: ...
     @winrt_mixinmethod
@@ -1540,7 +1531,7 @@ class WebUIView(ComPtr):
     @winrt_mixinmethod
     def get_ApplicationViewId(self: win32more.Windows.UI.WebUI.IWebUIView) -> Int32: ...
     @winrt_mixinmethod
-    def add_Closed(self: win32more.Windows.UI.WebUI.IWebUIView, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.WebUI.WebUIView, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self: win32more.Windows.UI.WebUI.IWebUIView, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.WebUI.WebUIView, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Closed(self: win32more.Windows.UI.WebUI.IWebUIView, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1638,7 +1629,7 @@ class WebUIView(ComPtr):
     @winrt_mixinmethod
     def remove_LongRunningScriptDetected(self: win32more.Windows.Web.UI.IWebViewControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_UnsafeContentWarningDisplaying(self: win32more.Windows.Web.UI.IWebViewControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.IWebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UnsafeContentWarningDisplaying(self: win32more.Windows.Web.UI.IWebViewControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.IWebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_UnsafeContentWarningDisplaying(self: win32more.Windows.Web.UI.IWebViewControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1658,7 +1649,7 @@ class WebUIView(ComPtr):
     @winrt_mixinmethod
     def remove_NewWindowRequested(self: win32more.Windows.Web.UI.IWebViewControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_ContainsFullScreenElementChanged(self: win32more.Windows.Web.UI.IWebViewControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.IWebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ContainsFullScreenElementChanged(self: win32more.Windows.Web.UI.IWebViewControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.IWebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ContainsFullScreenElementChanged(self: win32more.Windows.Web.UI.IWebViewControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1772,81 +1763,4 @@ class WebUIWebAuthenticationBrokerContinuationEventArgs(ComPtr):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
-make_head(_module, 'ActivatedDeferral')
-make_head(_module, 'ActivatedOperation')
-make_head(_module, 'BackgroundActivatedEventArgs')
-make_head(_module, 'EnteredBackgroundEventArgs')
-make_head(_module, 'HtmlPrintDocumentSource')
-make_head(_module, 'IActivatedDeferral')
-make_head(_module, 'IActivatedEventArgsDeferral')
-make_head(_module, 'IActivatedOperation')
-make_head(_module, 'IHtmlPrintDocumentSource')
-make_head(_module, 'INewWebUIViewCreatedEventArgs')
-make_head(_module, 'IWebUIActivationStatics')
-make_head(_module, 'IWebUIActivationStatics2')
-make_head(_module, 'IWebUIActivationStatics3')
-make_head(_module, 'IWebUIActivationStatics4')
-make_head(_module, 'IWebUIBackgroundTaskInstance')
-make_head(_module, 'IWebUIBackgroundTaskInstanceStatics')
-make_head(_module, 'IWebUINavigatedDeferral')
-make_head(_module, 'IWebUINavigatedEventArgs')
-make_head(_module, 'IWebUINavigatedOperation')
-make_head(_module, 'IWebUIView')
-make_head(_module, 'IWebUIViewStatics')
-make_head(_module, 'LeavingBackgroundEventArgs')
-make_head(_module, 'NewWebUIViewCreatedEventArgs')
-make_head(_module, 'SuspendingDeferral')
-make_head(_module, 'SuspendingEventArgs')
-make_head(_module, 'SuspendingOperation')
-make_head(_module, 'WebUIApplication')
-make_head(_module, 'WebUIAppointmentsProviderAddAppointmentActivatedEventArgs')
-make_head(_module, 'WebUIAppointmentsProviderRemoveAppointmentActivatedEventArgs')
-make_head(_module, 'WebUIAppointmentsProviderReplaceAppointmentActivatedEventArgs')
-make_head(_module, 'WebUIAppointmentsProviderShowAppointmentDetailsActivatedEventArgs')
-make_head(_module, 'WebUIAppointmentsProviderShowTimeFrameActivatedEventArgs')
-make_head(_module, 'WebUIBackgroundTaskInstance')
-make_head(_module, 'WebUIBackgroundTaskInstanceRuntimeClass')
-make_head(_module, 'WebUIBarcodeScannerPreviewActivatedEventArgs')
-make_head(_module, 'WebUICachedFileUpdaterActivatedEventArgs')
-make_head(_module, 'WebUICameraSettingsActivatedEventArgs')
-make_head(_module, 'WebUICommandLineActivatedEventArgs')
-make_head(_module, 'WebUIContactCallActivatedEventArgs')
-make_head(_module, 'WebUIContactMapActivatedEventArgs')
-make_head(_module, 'WebUIContactMessageActivatedEventArgs')
-make_head(_module, 'WebUIContactPanelActivatedEventArgs')
-make_head(_module, 'WebUIContactPickerActivatedEventArgs')
-make_head(_module, 'WebUIContactPostActivatedEventArgs')
-make_head(_module, 'WebUIContactVideoCallActivatedEventArgs')
-make_head(_module, 'WebUIDeviceActivatedEventArgs')
-make_head(_module, 'WebUIDevicePairingActivatedEventArgs')
-make_head(_module, 'WebUIDialReceiverActivatedEventArgs')
-make_head(_module, 'WebUIFileActivatedEventArgs')
-make_head(_module, 'WebUIFileOpenPickerActivatedEventArgs')
-make_head(_module, 'WebUIFileOpenPickerContinuationEventArgs')
-make_head(_module, 'WebUIFileSavePickerActivatedEventArgs')
-make_head(_module, 'WebUIFileSavePickerContinuationEventArgs')
-make_head(_module, 'WebUIFolderPickerContinuationEventArgs')
-make_head(_module, 'WebUILaunchActivatedEventArgs')
-make_head(_module, 'WebUILockScreenActivatedEventArgs')
-make_head(_module, 'WebUILockScreenCallActivatedEventArgs')
-make_head(_module, 'WebUILockScreenComponentActivatedEventArgs')
-make_head(_module, 'WebUINavigatedDeferral')
-make_head(_module, 'WebUINavigatedEventArgs')
-make_head(_module, 'WebUINavigatedOperation')
-make_head(_module, 'WebUIPhoneCallActivatedEventArgs')
-make_head(_module, 'WebUIPrint3DWorkflowActivatedEventArgs')
-make_head(_module, 'WebUIPrintTaskSettingsActivatedEventArgs')
-make_head(_module, 'WebUIPrintWorkflowForegroundTaskActivatedEventArgs')
-make_head(_module, 'WebUIProtocolActivatedEventArgs')
-make_head(_module, 'WebUIProtocolForResultsActivatedEventArgs')
-make_head(_module, 'WebUIRestrictedLaunchActivatedEventArgs')
-make_head(_module, 'WebUISearchActivatedEventArgs')
-make_head(_module, 'WebUIShareTargetActivatedEventArgs')
-make_head(_module, 'WebUIStartupTaskActivatedEventArgs')
-make_head(_module, 'WebUIToastNotificationActivatedEventArgs')
-make_head(_module, 'WebUIUserDataAccountProviderActivatedEventArgs')
-make_head(_module, 'WebUIView')
-make_head(_module, 'WebUIVoiceCommandActivatedEventArgs')
-make_head(_module, 'WebUIWalletActionActivatedEventArgs')
-make_head(_module, 'WebUIWebAccountProviderActivatedEventArgs')
-make_head(_module, 'WebUIWebAuthenticationBrokerContinuationEventArgs')
+make_ready(__name__)

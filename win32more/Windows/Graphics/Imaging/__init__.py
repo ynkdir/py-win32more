@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.DirectX.Direct3D11
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 BitmapAlphaMode = Int32
 BitmapAlphaMode_Premultiplied: BitmapAlphaMode = 0
 BitmapAlphaMode_Straight: BitmapAlphaMode = 1
@@ -388,9 +379,9 @@ class BitmapTypedValue(ComPtr):
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapTypedValue
     _classid_ = 'Windows.Graphics.Imaging.BitmapTypedValue'
     @winrt_factorymethod
-    def Create(cls: win32more.Windows.Graphics.Imaging.IBitmapTypedValueFactory, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, type: win32more.Windows.Foundation.PropertyType) -> win32more.Windows.Graphics.Imaging.BitmapTypedValue: ...
+    def Create(cls: win32more.Windows.Graphics.Imaging.IBitmapTypedValueFactory, value: win32more.Windows.Win32.System.WinRT.IInspectable, type: win32more.Windows.Foundation.PropertyType) -> win32more.Windows.Graphics.Imaging.BitmapTypedValue: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Foundation.PropertyType: ...
     Value = property(get_Value, None)
@@ -665,7 +656,7 @@ class IBitmapTypedValue(ComPtr):
     _classid_ = 'Windows.Graphics.Imaging.IBitmapTypedValue'
     _iid_ = Guid('{cd8044a9-2443-4000-b0cd-79316c56f589}')
     @winrt_commethod(6)
-    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(7)
     def get_Type(self) -> win32more.Windows.Foundation.PropertyType: ...
     Value = property(get_Value, None)
@@ -675,7 +666,7 @@ class IBitmapTypedValueFactory(ComPtr):
     _classid_ = 'Windows.Graphics.Imaging.IBitmapTypedValueFactory'
     _iid_ = Guid('{92dbb599-ce13-46bb-9545-cb3a3f63eb8b}')
     @winrt_commethod(6)
-    def Create(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, type: win32more.Windows.Foundation.PropertyType) -> win32more.Windows.Graphics.Imaging.BitmapTypedValue: ...
+    def Create(self, value: win32more.Windows.Win32.System.WinRT.IInspectable, type: win32more.Windows.Foundation.PropertyType) -> win32more.Windows.Graphics.Imaging.BitmapTypedValue: ...
 class IPixelDataProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IPixelDataProvider'
@@ -871,39 +862,4 @@ TiffCompressionMode_Lzw: TiffCompressionMode = 4
 TiffCompressionMode_Rle: TiffCompressionMode = 5
 TiffCompressionMode_Zip: TiffCompressionMode = 6
 TiffCompressionMode_LzwhDifferencing: TiffCompressionMode = 7
-make_head(_module, 'BitmapBounds')
-make_head(_module, 'BitmapBuffer')
-make_head(_module, 'BitmapCodecInformation')
-make_head(_module, 'BitmapDecoder')
-make_head(_module, 'BitmapEncoder')
-make_head(_module, 'BitmapFrame')
-make_head(_module, 'BitmapPlaneDescription')
-make_head(_module, 'BitmapProperties')
-make_head(_module, 'BitmapPropertiesView')
-make_head(_module, 'BitmapPropertySet')
-make_head(_module, 'BitmapSize')
-make_head(_module, 'BitmapTransform')
-make_head(_module, 'BitmapTypedValue')
-make_head(_module, 'IBitmapBuffer')
-make_head(_module, 'IBitmapCodecInformation')
-make_head(_module, 'IBitmapDecoder')
-make_head(_module, 'IBitmapDecoderStatics')
-make_head(_module, 'IBitmapDecoderStatics2')
-make_head(_module, 'IBitmapEncoder')
-make_head(_module, 'IBitmapEncoderStatics')
-make_head(_module, 'IBitmapEncoderStatics2')
-make_head(_module, 'IBitmapEncoderWithSoftwareBitmap')
-make_head(_module, 'IBitmapFrame')
-make_head(_module, 'IBitmapFrameWithSoftwareBitmap')
-make_head(_module, 'IBitmapProperties')
-make_head(_module, 'IBitmapPropertiesView')
-make_head(_module, 'IBitmapTransform')
-make_head(_module, 'IBitmapTypedValue')
-make_head(_module, 'IBitmapTypedValueFactory')
-make_head(_module, 'IPixelDataProvider')
-make_head(_module, 'ISoftwareBitmap')
-make_head(_module, 'ISoftwareBitmapFactory')
-make_head(_module, 'ISoftwareBitmapStatics')
-make_head(_module, 'ImageStream')
-make_head(_module, 'PixelDataProvider')
-make_head(_module, 'SoftwareBitmap')
+make_ready(__name__)

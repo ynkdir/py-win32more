@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.AppService
@@ -22,15 +22,6 @@ import win32more.Windows.Networking
 import win32more.Windows.Security.Credentials
 import win32more.Windows.System
 import win32more.Windows.System.RemoteSystems
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IKnownRemoteSystemCapabilitiesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics'
@@ -508,7 +499,7 @@ class IRemoteSystemSessionParticipantWatcher(ComPtr):
     @winrt_commethod(12)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
@@ -1127,7 +1118,7 @@ class RemoteSystemSessionParticipantWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
@@ -1267,111 +1258,4 @@ class RemoteSystemWebAccountFilter(ComPtr):
     @winrt_mixinmethod
     def get_Account(self: win32more.Windows.System.RemoteSystems.IRemoteSystemWebAccountFilter) -> win32more.Windows.Security.Credentials.WebAccount: ...
     Account = property(get_Account, None)
-make_head(_module, 'IKnownRemoteSystemCapabilitiesStatics')
-make_head(_module, 'IRemoteSystem')
-make_head(_module, 'IRemoteSystem2')
-make_head(_module, 'IRemoteSystem3')
-make_head(_module, 'IRemoteSystem4')
-make_head(_module, 'IRemoteSystem5')
-make_head(_module, 'IRemoteSystem6')
-make_head(_module, 'IRemoteSystemAddedEventArgs')
-make_head(_module, 'IRemoteSystemApp')
-make_head(_module, 'IRemoteSystemApp2')
-make_head(_module, 'IRemoteSystemAppRegistration')
-make_head(_module, 'IRemoteSystemAppRegistrationStatics')
-make_head(_module, 'IRemoteSystemAuthorizationKindFilter')
-make_head(_module, 'IRemoteSystemAuthorizationKindFilterFactory')
-make_head(_module, 'IRemoteSystemConnectionInfo')
-make_head(_module, 'IRemoteSystemConnectionInfoStatics')
-make_head(_module, 'IRemoteSystemConnectionRequest')
-make_head(_module, 'IRemoteSystemConnectionRequest2')
-make_head(_module, 'IRemoteSystemConnectionRequest3')
-make_head(_module, 'IRemoteSystemConnectionRequestFactory')
-make_head(_module, 'IRemoteSystemConnectionRequestStatics')
-make_head(_module, 'IRemoteSystemConnectionRequestStatics2')
-make_head(_module, 'IRemoteSystemDiscoveryTypeFilter')
-make_head(_module, 'IRemoteSystemDiscoveryTypeFilterFactory')
-make_head(_module, 'IRemoteSystemEnumerationCompletedEventArgs')
-make_head(_module, 'IRemoteSystemFilter')
-make_head(_module, 'IRemoteSystemKindFilter')
-make_head(_module, 'IRemoteSystemKindFilterFactory')
-make_head(_module, 'IRemoteSystemKindStatics')
-make_head(_module, 'IRemoteSystemKindStatics2')
-make_head(_module, 'IRemoteSystemRemovedEventArgs')
-make_head(_module, 'IRemoteSystemSession')
-make_head(_module, 'IRemoteSystemSessionAddedEventArgs')
-make_head(_module, 'IRemoteSystemSessionController')
-make_head(_module, 'IRemoteSystemSessionControllerFactory')
-make_head(_module, 'IRemoteSystemSessionCreationResult')
-make_head(_module, 'IRemoteSystemSessionDisconnectedEventArgs')
-make_head(_module, 'IRemoteSystemSessionInfo')
-make_head(_module, 'IRemoteSystemSessionInvitation')
-make_head(_module, 'IRemoteSystemSessionInvitationListener')
-make_head(_module, 'IRemoteSystemSessionInvitationReceivedEventArgs')
-make_head(_module, 'IRemoteSystemSessionJoinRequest')
-make_head(_module, 'IRemoteSystemSessionJoinRequestedEventArgs')
-make_head(_module, 'IRemoteSystemSessionJoinResult')
-make_head(_module, 'IRemoteSystemSessionMessageChannel')
-make_head(_module, 'IRemoteSystemSessionMessageChannelFactory')
-make_head(_module, 'IRemoteSystemSessionOptions')
-make_head(_module, 'IRemoteSystemSessionParticipant')
-make_head(_module, 'IRemoteSystemSessionParticipantAddedEventArgs')
-make_head(_module, 'IRemoteSystemSessionParticipantRemovedEventArgs')
-make_head(_module, 'IRemoteSystemSessionParticipantWatcher')
-make_head(_module, 'IRemoteSystemSessionRemovedEventArgs')
-make_head(_module, 'IRemoteSystemSessionStatics')
-make_head(_module, 'IRemoteSystemSessionUpdatedEventArgs')
-make_head(_module, 'IRemoteSystemSessionValueSetReceivedEventArgs')
-make_head(_module, 'IRemoteSystemSessionWatcher')
-make_head(_module, 'IRemoteSystemStatics')
-make_head(_module, 'IRemoteSystemStatics2')
-make_head(_module, 'IRemoteSystemStatics3')
-make_head(_module, 'IRemoteSystemStatusTypeFilter')
-make_head(_module, 'IRemoteSystemStatusTypeFilterFactory')
-make_head(_module, 'IRemoteSystemUpdatedEventArgs')
-make_head(_module, 'IRemoteSystemWatcher')
-make_head(_module, 'IRemoteSystemWatcher2')
-make_head(_module, 'IRemoteSystemWatcher3')
-make_head(_module, 'IRemoteSystemWatcherErrorOccurredEventArgs')
-make_head(_module, 'IRemoteSystemWebAccountFilter')
-make_head(_module, 'IRemoteSystemWebAccountFilterFactory')
-make_head(_module, 'KnownRemoteSystemCapabilities')
-make_head(_module, 'RemoteSystem')
-make_head(_module, 'RemoteSystemAddedEventArgs')
-make_head(_module, 'RemoteSystemApp')
-make_head(_module, 'RemoteSystemAppRegistration')
-make_head(_module, 'RemoteSystemAuthorizationKindFilter')
-make_head(_module, 'RemoteSystemConnectionInfo')
-make_head(_module, 'RemoteSystemConnectionRequest')
-make_head(_module, 'RemoteSystemDiscoveryTypeFilter')
-make_head(_module, 'RemoteSystemEnumerationCompletedEventArgs')
-make_head(_module, 'RemoteSystemKindFilter')
-make_head(_module, 'RemoteSystemKinds')
-make_head(_module, 'RemoteSystemRemovedEventArgs')
-make_head(_module, 'RemoteSystemSession')
-make_head(_module, 'RemoteSystemSessionAddedEventArgs')
-make_head(_module, 'RemoteSystemSessionController')
-make_head(_module, 'RemoteSystemSessionCreationResult')
-make_head(_module, 'RemoteSystemSessionDisconnectedEventArgs')
-make_head(_module, 'RemoteSystemSessionInfo')
-make_head(_module, 'RemoteSystemSessionInvitation')
-make_head(_module, 'RemoteSystemSessionInvitationListener')
-make_head(_module, 'RemoteSystemSessionInvitationReceivedEventArgs')
-make_head(_module, 'RemoteSystemSessionJoinRequest')
-make_head(_module, 'RemoteSystemSessionJoinRequestedEventArgs')
-make_head(_module, 'RemoteSystemSessionJoinResult')
-make_head(_module, 'RemoteSystemSessionMessageChannel')
-make_head(_module, 'RemoteSystemSessionOptions')
-make_head(_module, 'RemoteSystemSessionParticipant')
-make_head(_module, 'RemoteSystemSessionParticipantAddedEventArgs')
-make_head(_module, 'RemoteSystemSessionParticipantRemovedEventArgs')
-make_head(_module, 'RemoteSystemSessionParticipantWatcher')
-make_head(_module, 'RemoteSystemSessionRemovedEventArgs')
-make_head(_module, 'RemoteSystemSessionUpdatedEventArgs')
-make_head(_module, 'RemoteSystemSessionValueSetReceivedEventArgs')
-make_head(_module, 'RemoteSystemSessionWatcher')
-make_head(_module, 'RemoteSystemStatusTypeFilter')
-make_head(_module, 'RemoteSystemUpdatedEventArgs')
-make_head(_module, 'RemoteSystemWatcher')
-make_head(_module, 'RemoteSystemWatcherErrorOccurredEventArgs')
-make_head(_module, 'RemoteSystemWebAccountFilter')
+make_ready(__name__)

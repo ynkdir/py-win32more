@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Globalization
 import win32more.Windows.UI.Text
 import win32more.Windows.UI.Text.Core
 import win32more.Windows.UI.ViewManagement
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CoreTextCompositionCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextCompositionCompletedEventArgs
@@ -114,7 +105,7 @@ class CoreTextEditContext(ComPtr):
     @winrt_mixinmethod
     def remove_CompositionCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_FocusRemoved(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FocusRemoved(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_FocusRemoved(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -128,7 +119,7 @@ class CoreTextEditContext(ComPtr):
     @winrt_mixinmethod
     def NotifyLayoutChanged(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext) -> Void: ...
     @winrt_mixinmethod
-    def add_NotifyFocusLeaveCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NotifyFocusLeaveCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_NotifyFocusLeaveCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext2, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Name = property(get_Name, put_Name)
@@ -345,7 +336,7 @@ class CoreTextServicesManager(ComPtr):
     @winrt_mixinmethod
     def get_InputLanguage(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager) -> win32more.Windows.Globalization.Language: ...
     @winrt_mixinmethod
-    def add_InputLanguageChanged(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextServicesManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InputLanguageChanged(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextServicesManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_InputLanguageChanged(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -490,7 +481,7 @@ class ICoreTextEditContext(ComPtr):
     @winrt_commethod(29)
     def remove_CompositionCompleted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(30)
-    def add_FocusRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FocusRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(31)
     def remove_FocusRemoved(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(32)
@@ -512,7 +503,7 @@ class ICoreTextEditContext2(ComPtr):
     _classid_ = 'Windows.UI.Text.Core.ICoreTextEditContext2'
     _iid_ = Guid('{b1867dbb-083b-49e1-b281-2b35d62bf466}')
     @winrt_commethod(6)
-    def add_NotifyFocusLeaveCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NotifyFocusLeaveCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_NotifyFocusLeaveCompleted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICoreTextFormatUpdatingEventArgs(ComPtr):
@@ -635,7 +626,7 @@ class ICoreTextServicesManager(ComPtr):
     @winrt_commethod(6)
     def get_InputLanguage(self) -> win32more.Windows.Globalization.Language: ...
     @winrt_commethod(7)
-    def add_InputLanguageChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextServicesManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InputLanguageChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextServicesManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_InputLanguageChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -704,39 +695,4 @@ class ICoreTextTextUpdatingEventArgs(ComPtr):
     InputLanguage = property(get_InputLanguage, None)
     Result = property(get_Result, put_Result)
     IsCanceled = property(get_IsCanceled, None)
-make_head(_module, 'CoreTextCompositionCompletedEventArgs')
-make_head(_module, 'CoreTextCompositionSegment')
-make_head(_module, 'CoreTextCompositionStartedEventArgs')
-make_head(_module, 'CoreTextEditContext')
-make_head(_module, 'CoreTextFormatUpdatingEventArgs')
-make_head(_module, 'CoreTextLayoutBounds')
-make_head(_module, 'CoreTextLayoutRequest')
-make_head(_module, 'CoreTextLayoutRequestedEventArgs')
-make_head(_module, 'CoreTextRange')
-make_head(_module, 'CoreTextSelectionRequest')
-make_head(_module, 'CoreTextSelectionRequestedEventArgs')
-make_head(_module, 'CoreTextSelectionUpdatingEventArgs')
-make_head(_module, 'CoreTextServicesConstants')
-make_head(_module, 'CoreTextServicesManager')
-make_head(_module, 'CoreTextTextRequest')
-make_head(_module, 'CoreTextTextRequestedEventArgs')
-make_head(_module, 'CoreTextTextUpdatingEventArgs')
-make_head(_module, 'ICoreTextCompositionCompletedEventArgs')
-make_head(_module, 'ICoreTextCompositionSegment')
-make_head(_module, 'ICoreTextCompositionStartedEventArgs')
-make_head(_module, 'ICoreTextEditContext')
-make_head(_module, 'ICoreTextEditContext2')
-make_head(_module, 'ICoreTextFormatUpdatingEventArgs')
-make_head(_module, 'ICoreTextLayoutBounds')
-make_head(_module, 'ICoreTextLayoutRequest')
-make_head(_module, 'ICoreTextLayoutRequest2')
-make_head(_module, 'ICoreTextLayoutRequestedEventArgs')
-make_head(_module, 'ICoreTextSelectionRequest')
-make_head(_module, 'ICoreTextSelectionRequestedEventArgs')
-make_head(_module, 'ICoreTextSelectionUpdatingEventArgs')
-make_head(_module, 'ICoreTextServicesManager')
-make_head(_module, 'ICoreTextServicesManagerStatics')
-make_head(_module, 'ICoreTextServicesStatics')
-make_head(_module, 'ICoreTextTextRequest')
-make_head(_module, 'ICoreTextTextRequestedEventArgs')
-make_head(_module, 'ICoreTextTextUpdatingEventArgs')
+make_ready(__name__)

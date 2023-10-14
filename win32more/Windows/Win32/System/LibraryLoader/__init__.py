@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.LibraryLoader
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 FIND_RESOURCE_DIRECTORY_TYPES: UInt32 = 256
 FIND_RESOURCE_DIRECTORY_NAMES: UInt32 = 512
 FIND_RESOURCE_DIRECTORY_LANGUAGES: UInt32 = 1024
@@ -160,19 +151,9 @@ def PGET_MODULE_HANDLE_EXW(dwFlags: UInt32, lpModuleName: win32more.Windows.Win3
 class REDIRECTION_DESCRIPTOR(EasyCastStructure):
     Version: UInt32
     FunctionCount: UInt32
-    Redirections: POINTER(win32more.Windows.Win32.System.LibraryLoader.REDIRECTION_FUNCTION_DESCRIPTOR_head)
+    Redirections: POINTER(win32more.Windows.Win32.System.LibraryLoader.REDIRECTION_FUNCTION_DESCRIPTOR)
 class REDIRECTION_FUNCTION_DESCRIPTOR(EasyCastStructure):
     DllName: win32more.Windows.Win32.Foundation.PSTR
     FunctionName: win32more.Windows.Win32.Foundation.PSTR
     RedirectionTarget: VoidPtr
-make_head(_module, 'ENUMRESLANGPROCA')
-make_head(_module, 'ENUMRESLANGPROCW')
-make_head(_module, 'ENUMRESNAMEPROCA')
-make_head(_module, 'ENUMRESNAMEPROCW')
-make_head(_module, 'ENUMRESTYPEPROCA')
-make_head(_module, 'ENUMRESTYPEPROCW')
-make_head(_module, 'ENUMUILANG')
-make_head(_module, 'PGET_MODULE_HANDLE_EXA')
-make_head(_module, 'PGET_MODULE_HANDLE_EXW')
-make_head(_module, 'REDIRECTION_DESCRIPTOR')
-make_head(_module, 'REDIRECTION_FUNCTION_DESCRIPTOR')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Appointments
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Phone.Notification.Management
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _AccessoryManager_Meta_(ComPtr.__class__):
     pass
 class AccessoryManager(ComPtr, metaclass=_AccessoryManager_Meta_):
@@ -1305,51 +1296,4 @@ class VolumeInfo(ComPtr):
     MediaVolume = property(get_MediaVolume, None)
     IsMuted = property(get_IsMuted, None)
     IsVibrateEnabled = property(get_IsVibrateEnabled, None)
-make_head(_module, 'AccessoryManager')
-make_head(_module, 'AlarmNotificationTriggerDetails')
-make_head(_module, 'AppNotificationInfo')
-make_head(_module, 'BinaryId')
-make_head(_module, 'CalendarChangedNotificationTriggerDetails')
-make_head(_module, 'CortanaTileNotificationTriggerDetails')
-make_head(_module, 'EmailAccountInfo')
-make_head(_module, 'EmailFolderInfo')
-make_head(_module, 'EmailNotificationTriggerDetails')
-make_head(_module, 'EmailReadNotificationTriggerDetails')
-make_head(_module, 'IAccessoryManager')
-make_head(_module, 'IAccessoryManager2')
-make_head(_module, 'IAccessoryManager3')
-make_head(_module, 'IAccessoryNotificationTriggerDetails')
-make_head(_module, 'IAlarmNotificationTriggerDetails')
-make_head(_module, 'IAlarmNotificationTriggerDetails2')
-make_head(_module, 'IAppNotificationInfo')
-make_head(_module, 'IBinaryId')
-make_head(_module, 'ICalendarChangedNotificationTriggerDetails')
-make_head(_module, 'ICortanaTileNotificationTriggerDetails')
-make_head(_module, 'IEmailAccountInfo')
-make_head(_module, 'IEmailFolderInfo')
-make_head(_module, 'IEmailNotificationTriggerDetails')
-make_head(_module, 'IEmailNotificationTriggerDetails2')
-make_head(_module, 'IEmailReadNotificationTriggerDetails')
-make_head(_module, 'IMediaControlsTriggerDetails')
-make_head(_module, 'IMediaMetadata')
-make_head(_module, 'IPhoneCallDetails')
-make_head(_module, 'IPhoneLineDetails')
-make_head(_module, 'IPhoneLineDetails2')
-make_head(_module, 'IPhoneNotificationTriggerDetails')
-make_head(_module, 'IReminderNotificationTriggerDetails')
-make_head(_module, 'IReminderNotificationTriggerDetails2')
-make_head(_module, 'ISpeedDialEntry')
-make_head(_module, 'ITextResponse')
-make_head(_module, 'IToastNotificationTriggerDetails')
-make_head(_module, 'IToastNotificationTriggerDetails2')
-make_head(_module, 'IVolumeInfo')
-make_head(_module, 'MediaControlsTriggerDetails')
-make_head(_module, 'MediaMetadata')
-make_head(_module, 'PhoneCallDetails')
-make_head(_module, 'PhoneLineDetails')
-make_head(_module, 'PhoneNotificationTriggerDetails')
-make_head(_module, 'ReminderNotificationTriggerDetails')
-make_head(_module, 'SpeedDialEntry')
-make_head(_module, 'TextResponse')
-make_head(_module, 'ToastNotificationTriggerDetails')
-make_head(_module, 'VolumeInfo')
+make_ready(__name__)

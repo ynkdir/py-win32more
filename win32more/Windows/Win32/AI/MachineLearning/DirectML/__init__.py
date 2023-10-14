@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.AI.MachineLearning.DirectML
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 DML_TARGET_VERSION: UInt32 = 20480
 DML_TENSOR_DIMENSION_COUNT_MAX: UInt32 = 5
 DML_TENSOR_DIMENSION_COUNT_MAX1: UInt32 = 8
@@ -21,119 +12,119 @@ DML_TEMPORARY_BUFFER_ALIGNMENT: UInt32 = 256
 DML_PERSISTENT_BUFFER_ALIGNMENT: UInt32 = 256
 DML_MINIMUM_BUFFER_TENSOR_ALIGNMENT: UInt32 = 16
 @winfunctype('DirectML.dll')
-def DMLCreateDevice(d3d12Device: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, flags: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_CREATE_DEVICE_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DMLCreateDevice(d3d12Device: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device, flags: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_CREATE_DEVICE_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DirectML.dll')
-def DMLCreateDevice1(d3d12Device: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, flags: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_CREATE_DEVICE_FLAGS, minimumFeatureLevel: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_FEATURE_LEVEL, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DMLCreateDevice1(d3d12Device: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device, flags: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_CREATE_DEVICE_FLAGS, minimumFeatureLevel: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_FEATURE_LEVEL, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class DML_ACTIVATION_CELU_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
 class DML_ACTIVATION_ELU_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
 class DML_ACTIVATION_HARDMAX_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_HARD_SIGMOID_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
     Beta: Single
 class DML_ACTIVATION_IDENTITY_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_LEAKY_RELU_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
 class DML_ACTIVATION_LINEAR_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
     Beta: Single
 class DML_ACTIVATION_LOG_SOFTMAX_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_PARAMETERIZED_RELU_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    SlopeTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    SlopeTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_PARAMETRIC_SOFTPLUS_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
     Beta: Single
 class DML_ACTIVATION_RELU_GRAD_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_RELU_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_SCALED_ELU_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
     Gamma: Single
 class DML_ACTIVATION_SCALED_TANH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
     Beta: Single
 class DML_ACTIVATION_SHRINK_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Bias: Single
     Threshold: Single
 class DML_ACTIVATION_SIGMOID_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_SOFTMAX_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_SOFTPLUS_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Steepness: Single
 class DML_ACTIVATION_SOFTSIGN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_TANH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ACTIVATION_THRESHOLDED_RELU_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Alpha: Single
 class DML_ADAM_OPTIMIZER_OPERATOR_DESC(EasyCastStructure):
-    InputParametersTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputFirstMomentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputSecondMomentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    GradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    TrainingStepTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputParametersTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputFirstMomentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputSecondMomentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputParametersTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputFirstMomentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputSecondMomentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    GradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    TrainingStepTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputParametersTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputFirstMomentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputSecondMomentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     LearningRate: Single
     Beta1: Single
     Beta2: Single
     Epsilon: Single
 class DML_ARGMAX_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     AxisCount: UInt32
     Axes: POINTER(UInt32)
     AxisDirection: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_AXIS_DIRECTION
 class DML_ARGMIN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     AxisCount: UInt32
     Axes: POINTER(UInt32)
     AxisDirection: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_AXIS_DIRECTION
 class DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC(EasyCastStructure):
-    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     WindowSize: POINTER(UInt32)
@@ -141,8 +132,8 @@ class DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC(EasyCastStructure):
     EndPadding: POINTER(UInt32)
     IncludePadding: win32more.Windows.Win32.Foundation.BOOL
 class DML_AVERAGE_POOLING_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     WindowSize: POINTER(UInt32)
@@ -153,25 +144,25 @@ DML_AXIS_DIRECTION = Int32
 DML_AXIS_DIRECTION_INCREASING: DML_AXIS_DIRECTION = 0
 DML_AXIS_DIRECTION_DECREASING: DML_AXIS_DIRECTION = 1
 class DML_BATCH_NORMALIZATION_GRAD_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    MeanTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    VarianceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputScaleGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputBiasGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    MeanTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    VarianceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputScaleGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputBiasGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Epsilon: Single
 class DML_BATCH_NORMALIZATION_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    MeanTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    VarianceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    MeanTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    VarianceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Spatial: win32more.Windows.Win32.Foundation.BOOL
     Epsilon: Single
-    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
 class DML_BINDING_DESC(EasyCastStructure):
     Type: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TYPE
     Desc: VoidPtr
@@ -180,7 +171,7 @@ class DML_BINDING_PROPERTIES(EasyCastStructure):
     TemporaryResourceSize: UInt64
     PersistentResourceSize: UInt64
 class DML_BINDING_TABLE_DESC(EasyCastStructure):
-    Dispatchable: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable_head
+    Dispatchable: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable
     CPUDescriptorHandle: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE
     GPUDescriptorHandle: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE
     SizeInDescriptors: UInt32
@@ -190,9 +181,9 @@ DML_BINDING_TYPE_BUFFER: DML_BINDING_TYPE = 1
 DML_BINDING_TYPE_BUFFER_ARRAY: DML_BINDING_TYPE = 2
 class DML_BUFFER_ARRAY_BINDING(EasyCastStructure):
     BindingCount: UInt32
-    Bindings: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BUFFER_BINDING_head)
+    Bindings: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BUFFER_BINDING)
 class DML_BUFFER_BINDING(EasyCastStructure):
-    Buffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    Buffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Offset: UInt64
     SizeInBytes: UInt64
 class DML_BUFFER_TENSOR_DESC(EasyCastStructure):
@@ -204,17 +195,17 @@ class DML_BUFFER_TENSOR_DESC(EasyCastStructure):
     TotalTensorSizeInBytes: UInt64
     GuaranteedBaseOffsetAlignment: UInt32
 class DML_CAST_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 DML_CONVOLUTION_DIRECTION = Int32
 DML_CONVOLUTION_DIRECTION_FORWARD: DML_CONVOLUTION_DIRECTION = 0
 DML_CONVOLUTION_DIRECTION_BACKWARD: DML_CONVOLUTION_DIRECTION = 1
 class DML_CONVOLUTION_INTEGER_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    FilterTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    FilterZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    FilterTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    FilterZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     Dilations: POINTER(UInt32)
@@ -225,10 +216,10 @@ DML_CONVOLUTION_MODE = Int32
 DML_CONVOLUTION_MODE_CONVOLUTION: DML_CONVOLUTION_MODE = 0
 DML_CONVOLUTION_MODE_CROSS_CORRELATION: DML_CONVOLUTION_MODE = 1
 class DML_CONVOLUTION_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    FilterTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    FilterTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Mode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_CONVOLUTION_MODE
     Direction: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_CONVOLUTION_DIRECTION
     DimensionCount: UInt32
@@ -238,19 +229,19 @@ class DML_CONVOLUTION_OPERATOR_DESC(EasyCastStructure):
     EndPadding: POINTER(UInt32)
     OutputPadding: POINTER(UInt32)
     GroupCount: UInt32
-    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
 DML_CREATE_DEVICE_FLAGS = Int32
 DML_CREATE_DEVICE_FLAG_NONE: DML_CREATE_DEVICE_FLAGS = 0
 DML_CREATE_DEVICE_FLAG_DEBUG: DML_CREATE_DEVICE_FLAGS = 1
 class DML_CUMULATIVE_PRODUCT_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
     AxisDirection: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_AXIS_DIRECTION
     HasExclusiveProduct: win32more.Windows.Win32.Foundation.BOOL
 class DML_CUMULATIVE_SUMMATION_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
     AxisDirection: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_AXIS_DIRECTION
     HasExclusiveSum: win32more.Windows.Win32.Foundation.BOOL
@@ -258,282 +249,282 @@ DML_DEPTH_SPACE_ORDER = Int32
 DML_DEPTH_SPACE_ORDER_DEPTH_COLUMN_ROW: DML_DEPTH_SPACE_ORDER = 0
 DML_DEPTH_SPACE_ORDER_COLUMN_ROW_DEPTH: DML_DEPTH_SPACE_ORDER = 1
 class DML_DEPTH_TO_SPACE1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     BlockSize: UInt32
     Order: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_DEPTH_SPACE_ORDER
 class DML_DEPTH_TO_SPACE_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     BlockSize: UInt32
 class DML_DIAGONAL_MATRIX_OPERATOR_DESC(EasyCastStructure):
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Offset: Int32
     Value: Single
 class DML_DYNAMIC_QUANTIZE_LINEAR_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_ABS_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_ACOSH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_ACOS_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_ADD1_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
 class DML_ELEMENT_WISE_ADD_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_ASINH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_ASIN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_ATANH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_ATAN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_BIT_AND_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_BIT_COUNT_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_BIT_NOT_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_BIT_OR_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_BIT_SHIFT_LEFT_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_BIT_SHIFT_RIGHT_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_BIT_XOR_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_CEIL_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_CLIP_GRAD_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Min: Single
     Max: Single
 class DML_ELEMENT_WISE_CLIP_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
     Min: Single
     Max: Single
 class DML_ELEMENT_WISE_CONSTANT_POW_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
     Exponent: Single
 class DML_ELEMENT_WISE_COSH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_COS_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_DEQUANTIZE_LINEAR_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_DIFFERENCE_SQUARE_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_DIVIDE_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_ERF_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_EXP_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_FLOOR_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_IDENTITY_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_IF_OPERATOR_DESC(EasyCastStructure):
-    ConditionTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ConditionTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_IS_INFINITY_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     InfinityMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_IS_INFINITY_MODE
 class DML_ELEMENT_WISE_IS_NAN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_AND_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_EQUALS_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_GREATER_THAN_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_GREATER_THAN_OR_EQUAL_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_LESS_THAN_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_LESS_THAN_OR_EQUAL_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_NOT_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_OR_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOGICAL_XOR_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_LOG_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_MAX_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_MEAN_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_MIN_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_MODULUS_FLOOR_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_MODULUS_TRUNCATE_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_MULTIPLY_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_POW_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ExponentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ExponentTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_QUANTIZED_LINEAR_ADD_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    AScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    AZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    AScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    AZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_QUANTIZE_LINEAR_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_RECIP_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_ROUND_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     RoundingMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_ROUNDING_MODE
 class DML_ELEMENT_WISE_SIGN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_SINH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_SIN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_SQRT_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_SUBTRACT_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ELEMENT_WISE_TANH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_TAN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
 class DML_ELEMENT_WISE_THRESHOLD_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleBias: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALE_BIAS)
     Min: Single
 DML_EXECUTION_FLAGS = Int32
 DML_EXECUTION_FLAG_NONE: DML_EXECUTION_FLAGS = 0
@@ -562,59 +553,59 @@ class DML_FEATURE_QUERY_FEATURE_LEVELS(EasyCastStructure):
 class DML_FEATURE_QUERY_TENSOR_DATA_TYPE_SUPPORT(EasyCastStructure):
     DataType: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DATA_TYPE
 class DML_FILL_VALUE_CONSTANT_OPERATOR_DESC(EasyCastStructure):
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     ValueDataType: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DATA_TYPE
     Value: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALAR_UNION
 class DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC(EasyCastStructure):
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     ValueDataType: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DATA_TYPE
     ValueStart: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALAR_UNION
     ValueDelta: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SCALAR_UNION
 class DML_GATHER_ELEMENTS_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
 class DML_GATHER_ND1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     InputDimensionCount: UInt32
     IndicesDimensionCount: UInt32
     BatchDimensionCount: UInt32
 class DML_GATHER_ND_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     InputDimensionCount: UInt32
     IndicesDimensionCount: UInt32
 class DML_GATHER_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
     IndexDimensions: UInt32
 class DML_GEMM_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    CTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    CTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     TransA: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_MATRIX_TRANSFORM
     TransB: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_MATRIX_TRANSFORM
     Alpha: Single
     Beta: Single
-    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
 class DML_GRAPH_DESC(EasyCastStructure):
     InputCount: UInt32
     OutputCount: UInt32
     NodeCount: UInt32
-    Nodes: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_NODE_DESC_head)
+    Nodes: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_NODE_DESC)
     InputEdgeCount: UInt32
-    InputEdges: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_DESC_head)
+    InputEdges: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_DESC)
     OutputEdgeCount: UInt32
-    OutputEdges: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_DESC_head)
+    OutputEdges: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_DESC)
     IntermediateEdgeCount: UInt32
-    IntermediateEdges: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_DESC_head)
+    IntermediateEdges: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_DESC)
 class DML_GRAPH_EDGE_DESC(EasyCastStructure):
     Type: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_EDGE_TYPE
     Desc: VoidPtr
@@ -630,16 +621,16 @@ DML_GRAPH_NODE_TYPE = Int32
 DML_GRAPH_NODE_TYPE_INVALID: DML_GRAPH_NODE_TYPE = 0
 DML_GRAPH_NODE_TYPE_OPERATOR: DML_GRAPH_NODE_TYPE = 1
 class DML_GRU_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    WeightTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    RecurrenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    HiddenInitTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    SequenceLengthsTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputSequenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputSingleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    WeightTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    RecurrenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    HiddenInitTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    SequenceLengthsTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputSequenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputSingleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     ActivationDescCount: UInt32
-    ActivationDescs: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    ActivationDescs: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
     Direction: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_RECURRENT_NETWORK_DIRECTION
     LinearBeforeReset: win32more.Windows.Win32.Foundation.BOOL
 class DML_INPUT_GRAPH_EDGE_DESC(EasyCastStructure):
@@ -662,35 +653,35 @@ DML_IS_INFINITY_MODE_POSITIVE: DML_IS_INFINITY_MODE = 1
 DML_IS_INFINITY_MODE_NEGATIVE: DML_IS_INFINITY_MODE = 2
 class DML_JOIN_OPERATOR_DESC(EasyCastStructure):
     InputCount: UInt32
-    InputTensors: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensors: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
 class DML_LOCAL_RESPONSE_NORMALIZATION_GRAD_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     CrossChannel: win32more.Windows.Win32.Foundation.BOOL
     LocalSize: UInt32
     Alpha: Single
     Beta: Single
     Bias: Single
 class DML_LOCAL_RESPONSE_NORMALIZATION_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     CrossChannel: win32more.Windows.Win32.Foundation.BOOL
     LocalSize: UInt32
     Alpha: Single
     Beta: Single
     Bias: Single
 class DML_LP_NORMALIZATION_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
     Epsilon: Single
     P: UInt32
 class DML_LP_POOLING_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     WindowSize: POINTER(UInt32)
@@ -698,45 +689,45 @@ class DML_LP_POOLING_OPERATOR_DESC(EasyCastStructure):
     EndPadding: POINTER(UInt32)
     P: UInt32
 class DML_LSTM_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    WeightTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    RecurrenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    HiddenInitTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    CellMemInitTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    SequenceLengthsTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    PeepholeTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputSequenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputSingleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputCellSingleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    WeightTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    RecurrenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    HiddenInitTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    CellMemInitTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    SequenceLengthsTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    PeepholeTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputSequenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputSingleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputCellSingleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     ActivationDescCount: UInt32
-    ActivationDescs: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    ActivationDescs: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
     Direction: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_RECURRENT_NETWORK_DIRECTION
     ClipThreshold: Single
     UseClipThreshold: win32more.Windows.Win32.Foundation.BOOL
     CoupleInputForget: win32more.Windows.Win32.Foundation.BOOL
 class DML_MATRIX_MULTIPLY_INTEGER_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    AZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    AZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 DML_MATRIX_TRANSFORM = Int32
 DML_MATRIX_TRANSFORM_NONE: DML_MATRIX_TRANSFORM = 0
 DML_MATRIX_TRANSFORM_TRANSPOSE: DML_MATRIX_TRANSFORM = 1
 class DML_MAX_POOLING1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputIndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputIndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     WindowSize: POINTER(UInt32)
     StartPadding: POINTER(UInt32)
     EndPadding: POINTER(UInt32)
 class DML_MAX_POOLING2_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputIndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputIndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     WindowSize: POINTER(UInt32)
@@ -744,9 +735,9 @@ class DML_MAX_POOLING2_OPERATOR_DESC(EasyCastStructure):
     EndPadding: POINTER(UInt32)
     Dilations: POINTER(UInt32)
 class DML_MAX_POOLING_GRAD_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     WindowSize: POINTER(UInt32)
@@ -754,50 +745,50 @@ class DML_MAX_POOLING_GRAD_OPERATOR_DESC(EasyCastStructure):
     EndPadding: POINTER(UInt32)
     Dilations: POINTER(UInt32)
 class DML_MAX_POOLING_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     WindowSize: POINTER(UInt32)
     StartPadding: POINTER(UInt32)
     EndPadding: POINTER(UInt32)
 class DML_MAX_UNPOOLING_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     AxisCount: UInt32
     Axes: POINTER(UInt32)
     NormalizeVariance: win32more.Windows.Win32.Foundation.BOOL
     Epsilon: Single
-    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
 class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     CrossChannel: win32more.Windows.Win32.Foundation.BOOL
     NormalizeVariance: win32more.Windows.Win32.Foundation.BOOL
     Epsilon: Single
-    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    FusedActivation: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
 class DML_NONZERO_COORDINATES_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputCountTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputCoordinatesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputCountTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputCoordinatesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_ONE_HOT_OPERATOR_DESC(EasyCastStructure):
-    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ValuesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ValuesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
 class DML_OPERATOR_DESC(EasyCastStructure):
     Type: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_TYPE
     Desc: VoidPtr
 class DML_OPERATOR_GRAPH_NODE_DESC(EasyCastStructure):
-    Operator: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLOperator_head
+    Operator: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLOperator
     Name: win32more.Windows.Win32.Foundation.PSTR
 DML_OPERATOR_TYPE = Int32
 DML_OPERATOR_INVALID: DML_OPERATOR_TYPE = 0
@@ -962,24 +953,24 @@ DML_PADDING_MODE_EDGE: DML_PADDING_MODE = 1
 DML_PADDING_MODE_REFLECTION: DML_PADDING_MODE = 2
 DML_PADDING_MODE_SYMMETRIC: DML_PADDING_MODE = 3
 class DML_PADDING_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     PaddingMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_PADDING_MODE
     PaddingValue: Single
     DimensionCount: UInt32
     StartPadding: POINTER(UInt32)
     EndPadding: POINTER(UInt32)
 class DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    FilterTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    FilterScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    FilterZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    InputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    FilterTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    FilterScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    FilterZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Strides: POINTER(UInt32)
     Dilations: POINTER(UInt32)
@@ -987,19 +978,19 @@ class DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC(EasyCastStructure):
     EndPadding: POINTER(UInt32)
     GroupCount: UInt32
 class DML_QUANTIZED_LINEAR_MATRIX_MULTIPLY_OPERATOR_DESC(EasyCastStructure):
-    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    AScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    AZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ATensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    AScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    AZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputScaleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputZeroPointTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
 class DML_RANDOM_GENERATOR_OPERATOR_DESC(EasyCastStructure):
-    InputStateTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputStateTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputStateTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputStateTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Type: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_RANDOM_GENERATOR_TYPE
 DML_RANDOM_GENERATOR_TYPE = Int32
 DML_RANDOM_GENERATOR_TYPE_PHILOX_4X32_10: DML_RANDOM_GENERATOR_TYPE = 0
@@ -1022,54 +1013,54 @@ DML_REDUCE_FUNCTION_SUM: DML_REDUCE_FUNCTION = 10
 DML_REDUCE_FUNCTION_SUM_SQUARE: DML_REDUCE_FUNCTION = 11
 class DML_REDUCE_OPERATOR_DESC(EasyCastStructure):
     Function: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_REDUCE_FUNCTION
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     AxisCount: UInt32
     Axes: POINTER(UInt32)
 class DML_RESAMPLE1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     InterpolationMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
     DimensionCount: UInt32
     Scales: POINTER(Single)
     InputPixelOffsets: POINTER(Single)
     OutputPixelOffsets: POINTER(Single)
 class DML_RESAMPLE_GRAD_OPERATOR_DESC(EasyCastStructure):
-    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     InterpolationMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
     DimensionCount: UInt32
     Scales: POINTER(Single)
     InputPixelOffsets: POINTER(Single)
     OutputPixelOffsets: POINTER(Single)
 class DML_RESAMPLE_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     InterpolationMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
     ScaleCount: UInt32
     Scales: POINTER(Single)
 class DML_REVERSE_SUBSEQUENCES_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    SequenceLengthsTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    SequenceLengthsTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
 class DML_RNN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    WeightTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    RecurrenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    HiddenInitTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    SequenceLengthsTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputSequenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputSingleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    WeightTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    RecurrenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BiasTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    HiddenInitTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    SequenceLengthsTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputSequenceTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputSingleTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     ActivationDescCount: UInt32
-    ActivationDescs: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+    ActivationDescs: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC)
     Direction: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_RECURRENT_NETWORK_DIRECTION
 class DML_ROI_ALIGN1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ROITensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BatchIndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ROITensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BatchIndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     ReductionFunction: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_REDUCE_FUNCTION
     InterpolationMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
     SpatialScaleX: Single
@@ -1081,10 +1072,10 @@ class DML_ROI_ALIGN1_OPERATOR_DESC(EasyCastStructure):
     MaximumSamplesPerOutput: UInt32
     AlignRegionsToCorners: win32more.Windows.Win32.Foundation.BOOL
 class DML_ROI_ALIGN_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ROITensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BatchIndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ROITensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    BatchIndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     ReductionFunction: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_REDUCE_FUNCTION
     InterpolationMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
     SpatialScaleX: Single
@@ -1093,9 +1084,9 @@ class DML_ROI_ALIGN_OPERATOR_DESC(EasyCastStructure):
     MinimumSamplesPerOutput: UInt32
     MaximumSamplesPerOutput: UInt32
 class DML_ROI_POOLING_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ROITensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    ROITensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     SpatialScale: Single
     PooledSize: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SIZE_2D
 DML_ROUNDING_MODE = Int32
@@ -1118,55 +1109,55 @@ class DML_SCALE_BIAS(EasyCastStructure):
     Scale: Single
     Bias: Single
 class DML_SCATTER_ND_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    UpdatesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    UpdatesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     InputDimensionCount: UInt32
     IndicesDimensionCount: UInt32
 class DML_SCATTER_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    UpdatesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    IndicesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    UpdatesTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
 class DML_SIZE_2D(EasyCastStructure):
     Width: UInt32
     Height: UInt32
 class DML_SLICE1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     InputWindowOffsets: POINTER(UInt32)
     InputWindowSizes: POINTER(UInt32)
     InputWindowStrides: POINTER(Int32)
 class DML_SLICE_GRAD_OPERATOR_DESC(EasyCastStructure):
-    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputGradientTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     InputWindowOffsets: POINTER(UInt32)
     InputWindowSizes: POINTER(UInt32)
     InputWindowStrides: POINTER(Int32)
 class DML_SLICE_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     DimensionCount: UInt32
     Offsets: POINTER(UInt32)
     Sizes: POINTER(UInt32)
     Strides: POINTER(UInt32)
 class DML_SPACE_TO_DEPTH1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     BlockSize: UInt32
     Order: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_DEPTH_SPACE_ORDER
 class DML_SPACE_TO_DEPTH_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     BlockSize: UInt32
 class DML_SPLIT_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     OutputCount: UInt32
-    OutputTensors: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensors: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
 DML_TENSOR_DATA_TYPE = Int32
 DML_TENSOR_DATA_TYPE_UNKNOWN: DML_TENSOR_DATA_TYPE = 0
@@ -1191,31 +1182,31 @@ DML_TENSOR_TYPE = Int32
 DML_TENSOR_TYPE_INVALID: DML_TENSOR_TYPE = 0
 DML_TENSOR_TYPE_BUFFER: DML_TENSOR_TYPE = 1
 class DML_TILE_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     RepeatsCount: UInt32
     Repeats: POINTER(UInt32)
 class DML_TOP_K1_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputValueTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputIndexTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputValueTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputIndexTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
     K: UInt32
     AxisDirection: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_AXIS_DIRECTION
 class DML_TOP_K_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputValueTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputIndexTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputValueTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputIndexTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Axis: UInt32
     K: UInt32
 class DML_UPSAMPLE_2D_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     ScaleSize: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_SIZE_2D
     InterpolationMode: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
 class DML_VALUE_SCALE_2D_OPERATOR_DESC(EasyCastStructure):
-    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
+    OutputTensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_TENSOR_DESC)
     Scale: Single
     ChannelCount: UInt32
     Bias: POINTER(Single)
@@ -1223,20 +1214,20 @@ class IDMLBindingTable(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDeviceChild
     _iid_ = Guid('{29c687dc-de74-4e3b-ab00-1168f2fc3cfc}')
     @commethod(8)
-    def BindInputs(self, bindingCount: UInt32, bindings: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC_head)) -> Void: ...
+    def BindInputs(self, bindingCount: UInt32, bindings: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC)) -> Void: ...
     @commethod(9)
-    def BindOutputs(self, bindingCount: UInt32, bindings: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC_head)) -> Void: ...
+    def BindOutputs(self, bindingCount: UInt32, bindings: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC)) -> Void: ...
     @commethod(10)
-    def BindTemporaryResource(self, binding: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC_head)) -> Void: ...
+    def BindTemporaryResource(self, binding: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC)) -> Void: ...
     @commethod(11)
-    def BindPersistentResource(self, binding: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC_head)) -> Void: ...
+    def BindPersistentResource(self, binding: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_DESC)) -> Void: ...
     @commethod(12)
-    def Reset(self, desc: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TABLE_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Reset(self, desc: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TABLE_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDMLCommandRecorder(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDeviceChild
     _iid_ = Guid('{e6857a76-2e3e-4fdd-bff4-5d2ba10fb453}')
     @commethod(8)
-    def RecordDispatch(self, commandList: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandList_head, dispatchable: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable_head, bindings: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLBindingTable_head) -> Void: ...
+    def RecordDispatch(self, commandList: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandList, dispatchable: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable, bindings: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLBindingTable) -> Void: ...
 class IDMLCompiledOperator(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable
     _iid_ = Guid('{6b15e56a-bf5c-4902-92d8-da3a650afea4}')
@@ -1251,19 +1242,19 @@ class IDMLDevice(ComPtr):
     @commethod(7)
     def CheckFeatureSupport(self, feature: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_FEATURE, featureQueryDataSize: UInt32, featureQueryData: VoidPtr, featureSupportDataSize: UInt32, featureSupportData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def CreateOperator(self, desc: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateOperator(self, desc: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_OPERATOR_DESC), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def CompileOperator(self, op: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLOperator_head, flags: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CompileOperator(self, op: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLOperator, flags: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def CreateOperatorInitializer(self, operatorCount: UInt32, operators: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLCompiledOperator_head), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateOperatorInitializer(self, operatorCount: UInt32, operators: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLCompiledOperator), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def CreateCommandRecorder(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def CreateBindingTable(self, desc: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TABLE_DESC_head), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateBindingTable(self, desc: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_BINDING_TABLE_DESC), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def Evict(self, count: UInt32, ppObjects: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLPageable_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Evict(self, count: UInt32, ppObjects: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLPageable)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def MakeResident(self, count: UInt32, ppObjects: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLPageable_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def MakeResident(self, count: UInt32, ppObjects: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLPageable)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetDeviceRemovedReason(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -1272,7 +1263,7 @@ class IDMLDevice1(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDevice
     _iid_ = Guid('{a0884f9a-d2be-4355-aa5d-5901281ad1d2}')
     @commethod(17)
-    def CompileGraph(self, desc: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_DESC_head), flags: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CompileGraph(self, desc: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_GRAPH_DESC), flags: win32more.Windows.Win32.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDMLDeviceChild(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLObject
     _iid_ = Guid('{27e83142-8165-49e3-974e-2fd66e4cb69d}')
@@ -1291,7 +1282,7 @@ class IDMLObject(ComPtr):
     @commethod(4)
     def SetPrivateData(self, guid: POINTER(Guid), dataSize: UInt32, data: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetPrivateDataInterface(self, guid: POINTER(Guid), data: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetPrivateDataInterface(self, guid: POINTER(Guid), data: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetName(self, name: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDMLOperator(ComPtr):
@@ -1301,190 +1292,8 @@ class IDMLOperatorInitializer(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDispatchable
     _iid_ = Guid('{427c1113-435c-469c-8676-4d5dd072f813}')
     @commethod(9)
-    def Reset(self, operatorCount: UInt32, operators: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLCompiledOperator_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Reset(self, operatorCount: UInt32, operators: POINTER(win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLCompiledOperator)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDMLPageable(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.DirectML.IDMLDeviceChild
     _iid_ = Guid('{b1ab0825-4542-4a4b-8617-6dde6e8f6201}')
-make_head(_module, 'DML_ACTIVATION_CELU_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_ELU_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_HARDMAX_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_HARD_SIGMOID_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_IDENTITY_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_LEAKY_RELU_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_LINEAR_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_LOG_SOFTMAX_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_PARAMETERIZED_RELU_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_PARAMETRIC_SOFTPLUS_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_RELU_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_RELU_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_SCALED_ELU_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_SCALED_TANH_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_SHRINK_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_SIGMOID_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_SOFTMAX_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_SOFTPLUS_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_SOFTSIGN_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_TANH_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_THRESHOLDED_RELU_OPERATOR_DESC')
-make_head(_module, 'DML_ADAM_OPTIMIZER_OPERATOR_DESC')
-make_head(_module, 'DML_ARGMAX_OPERATOR_DESC')
-make_head(_module, 'DML_ARGMIN_OPERATOR_DESC')
-make_head(_module, 'DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_AVERAGE_POOLING_OPERATOR_DESC')
-make_head(_module, 'DML_BATCH_NORMALIZATION_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_BATCH_NORMALIZATION_OPERATOR_DESC')
-make_head(_module, 'DML_BINDING_DESC')
-make_head(_module, 'DML_BINDING_PROPERTIES')
-make_head(_module, 'DML_BINDING_TABLE_DESC')
-make_head(_module, 'DML_BUFFER_ARRAY_BINDING')
-make_head(_module, 'DML_BUFFER_BINDING')
-make_head(_module, 'DML_BUFFER_TENSOR_DESC')
-make_head(_module, 'DML_CAST_OPERATOR_DESC')
-make_head(_module, 'DML_CONVOLUTION_INTEGER_OPERATOR_DESC')
-make_head(_module, 'DML_CONVOLUTION_OPERATOR_DESC')
-make_head(_module, 'DML_CUMULATIVE_PRODUCT_OPERATOR_DESC')
-make_head(_module, 'DML_CUMULATIVE_SUMMATION_OPERATOR_DESC')
-make_head(_module, 'DML_DEPTH_TO_SPACE1_OPERATOR_DESC')
-make_head(_module, 'DML_DEPTH_TO_SPACE_OPERATOR_DESC')
-make_head(_module, 'DML_DIAGONAL_MATRIX_OPERATOR_DESC')
-make_head(_module, 'DML_DYNAMIC_QUANTIZE_LINEAR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ABS_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ACOSH_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ACOS_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ADD1_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ADD_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ASINH_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ASIN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ATANH_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ATAN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_BIT_AND_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_BIT_COUNT_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_BIT_NOT_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_BIT_OR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_BIT_SHIFT_LEFT_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_BIT_SHIFT_RIGHT_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_BIT_XOR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_CEIL_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_CLIP_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_CLIP_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_CONSTANT_POW_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_COSH_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_COS_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_DEQUANTIZE_LINEAR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_DIFFERENCE_SQUARE_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_DIVIDE_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ERF_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_EXP_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_FLOOR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_IDENTITY_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_IF_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_IS_INFINITY_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_IS_NAN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_AND_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_EQUALS_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_GREATER_THAN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_GREATER_THAN_OR_EQUAL_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_LESS_THAN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_LESS_THAN_OR_EQUAL_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_NOT_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_OR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_XOR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOG_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_MAX_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_MEAN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_MIN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_MODULUS_FLOOR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_MODULUS_TRUNCATE_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_MULTIPLY_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_POW_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_QUANTIZED_LINEAR_ADD_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_QUANTIZE_LINEAR_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_RECIP_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ROUND_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_SIGN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_SINH_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_SIN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_SQRT_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_SUBTRACT_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_TANH_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_TAN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_THRESHOLD_OPERATOR_DESC')
-make_head(_module, 'DML_FEATURE_DATA_FEATURE_LEVELS')
-make_head(_module, 'DML_FEATURE_DATA_TENSOR_DATA_TYPE_SUPPORT')
-make_head(_module, 'DML_FEATURE_QUERY_FEATURE_LEVELS')
-make_head(_module, 'DML_FEATURE_QUERY_TENSOR_DATA_TYPE_SUPPORT')
-make_head(_module, 'DML_FILL_VALUE_CONSTANT_OPERATOR_DESC')
-make_head(_module, 'DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC')
-make_head(_module, 'DML_GATHER_ELEMENTS_OPERATOR_DESC')
-make_head(_module, 'DML_GATHER_ND1_OPERATOR_DESC')
-make_head(_module, 'DML_GATHER_ND_OPERATOR_DESC')
-make_head(_module, 'DML_GATHER_OPERATOR_DESC')
-make_head(_module, 'DML_GEMM_OPERATOR_DESC')
-make_head(_module, 'DML_GRAPH_DESC')
-make_head(_module, 'DML_GRAPH_EDGE_DESC')
-make_head(_module, 'DML_GRAPH_NODE_DESC')
-make_head(_module, 'DML_GRU_OPERATOR_DESC')
-make_head(_module, 'DML_INPUT_GRAPH_EDGE_DESC')
-make_head(_module, 'DML_INTERMEDIATE_GRAPH_EDGE_DESC')
-make_head(_module, 'DML_JOIN_OPERATOR_DESC')
-make_head(_module, 'DML_LOCAL_RESPONSE_NORMALIZATION_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_LOCAL_RESPONSE_NORMALIZATION_OPERATOR_DESC')
-make_head(_module, 'DML_LP_NORMALIZATION_OPERATOR_DESC')
-make_head(_module, 'DML_LP_POOLING_OPERATOR_DESC')
-make_head(_module, 'DML_LSTM_OPERATOR_DESC')
-make_head(_module, 'DML_MATRIX_MULTIPLY_INTEGER_OPERATOR_DESC')
-make_head(_module, 'DML_MAX_POOLING1_OPERATOR_DESC')
-make_head(_module, 'DML_MAX_POOLING2_OPERATOR_DESC')
-make_head(_module, 'DML_MAX_POOLING_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_MAX_POOLING_OPERATOR_DESC')
-make_head(_module, 'DML_MAX_UNPOOLING_OPERATOR_DESC')
-make_head(_module, 'DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC')
-make_head(_module, 'DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC')
-make_head(_module, 'DML_NONZERO_COORDINATES_OPERATOR_DESC')
-make_head(_module, 'DML_ONE_HOT_OPERATOR_DESC')
-make_head(_module, 'DML_OPERATOR_DESC')
-make_head(_module, 'DML_OPERATOR_GRAPH_NODE_DESC')
-make_head(_module, 'DML_OUTPUT_GRAPH_EDGE_DESC')
-make_head(_module, 'DML_PADDING_OPERATOR_DESC')
-make_head(_module, 'DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC')
-make_head(_module, 'DML_QUANTIZED_LINEAR_MATRIX_MULTIPLY_OPERATOR_DESC')
-make_head(_module, 'DML_RANDOM_GENERATOR_OPERATOR_DESC')
-make_head(_module, 'DML_REDUCE_OPERATOR_DESC')
-make_head(_module, 'DML_RESAMPLE1_OPERATOR_DESC')
-make_head(_module, 'DML_RESAMPLE_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_RESAMPLE_OPERATOR_DESC')
-make_head(_module, 'DML_REVERSE_SUBSEQUENCES_OPERATOR_DESC')
-make_head(_module, 'DML_RNN_OPERATOR_DESC')
-make_head(_module, 'DML_ROI_ALIGN1_OPERATOR_DESC')
-make_head(_module, 'DML_ROI_ALIGN_OPERATOR_DESC')
-make_head(_module, 'DML_ROI_POOLING_OPERATOR_DESC')
-make_head(_module, 'DML_SCALAR_UNION')
-make_head(_module, 'DML_SCALE_BIAS')
-make_head(_module, 'DML_SCATTER_ND_OPERATOR_DESC')
-make_head(_module, 'DML_SCATTER_OPERATOR_DESC')
-make_head(_module, 'DML_SIZE_2D')
-make_head(_module, 'DML_SLICE1_OPERATOR_DESC')
-make_head(_module, 'DML_SLICE_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_SLICE_OPERATOR_DESC')
-make_head(_module, 'DML_SPACE_TO_DEPTH1_OPERATOR_DESC')
-make_head(_module, 'DML_SPACE_TO_DEPTH_OPERATOR_DESC')
-make_head(_module, 'DML_SPLIT_OPERATOR_DESC')
-make_head(_module, 'DML_TENSOR_DESC')
-make_head(_module, 'DML_TILE_OPERATOR_DESC')
-make_head(_module, 'DML_TOP_K1_OPERATOR_DESC')
-make_head(_module, 'DML_TOP_K_OPERATOR_DESC')
-make_head(_module, 'DML_UPSAMPLE_2D_OPERATOR_DESC')
-make_head(_module, 'DML_VALUE_SCALE_2D_OPERATOR_DESC')
-make_head(_module, 'IDMLBindingTable')
-make_head(_module, 'IDMLCommandRecorder')
-make_head(_module, 'IDMLCompiledOperator')
-make_head(_module, 'IDMLDebugDevice')
-make_head(_module, 'IDMLDevice')
-make_head(_module, 'IDMLDevice1')
-make_head(_module, 'IDMLDeviceChild')
-make_head(_module, 'IDMLDispatchable')
-make_head(_module, 'IDMLObject')
-make_head(_module, 'IDMLOperator')
-make_head(_module, 'IDMLOperatorInitializer')
-make_head(_module, 'IDMLPageable')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class Buffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Streams.IBuffer
@@ -698,36 +689,4 @@ UnicodeEncoding = Int32
 UnicodeEncoding_Utf8: UnicodeEncoding = 0
 UnicodeEncoding_Utf16LE: UnicodeEncoding = 1
 UnicodeEncoding_Utf16BE: UnicodeEncoding = 2
-make_head(_module, 'Buffer')
-make_head(_module, 'DataReader')
-make_head(_module, 'DataReaderLoadOperation')
-make_head(_module, 'DataWriter')
-make_head(_module, 'DataWriterStoreOperation')
-make_head(_module, 'FileInputStream')
-make_head(_module, 'FileOutputStream')
-make_head(_module, 'FileRandomAccessStream')
-make_head(_module, 'IBuffer')
-make_head(_module, 'IBufferFactory')
-make_head(_module, 'IBufferStatics')
-make_head(_module, 'IContentTypeProvider')
-make_head(_module, 'IDataReader')
-make_head(_module, 'IDataReaderFactory')
-make_head(_module, 'IDataReaderStatics')
-make_head(_module, 'IDataWriter')
-make_head(_module, 'IDataWriterFactory')
-make_head(_module, 'IFileRandomAccessStreamStatics')
-make_head(_module, 'IInputStream')
-make_head(_module, 'IInputStreamReference')
-make_head(_module, 'IOutputStream')
-make_head(_module, 'IPropertySetSerializer')
-make_head(_module, 'IRandomAccessStream')
-make_head(_module, 'IRandomAccessStreamReference')
-make_head(_module, 'IRandomAccessStreamReferenceStatics')
-make_head(_module, 'IRandomAccessStreamStatics')
-make_head(_module, 'IRandomAccessStreamWithContentType')
-make_head(_module, 'InMemoryRandomAccessStream')
-make_head(_module, 'InputStreamOverStream')
-make_head(_module, 'OutputStreamOverStream')
-make_head(_module, 'RandomAccessStream')
-make_head(_module, 'RandomAccessStreamOverStream')
-make_head(_module, 'RandomAccessStreamReference')
+make_ready(__name__)

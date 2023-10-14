@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.ErrorReporting
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WER_FAULT_REPORTING_NO_UI: UInt32 = 32
 WER_FAULT_REPORTING_FLAG_NO_HEAP_ON_QUEUE: UInt32 = 64
 WER_FAULT_REPORTING_DISABLE_SNAPSHOT_CRASH: UInt32 = 128
@@ -59,7 +50,7 @@ WER_RUNTIME_EXCEPTION_EVENT_FUNCTION: String = 'OutOfProcessExceptionEventCallba
 WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE_FUNCTION: String = 'OutOfProcessExceptionEventSignatureCallback'
 WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH: String = 'OutOfProcessExceptionEventDebuggerLaunchCallback'
 @winfunctype('wer.dll')
-def WerReportCreate(pwzEventType: win32more.Windows.Win32.Foundation.PWSTR, repType: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE, pReportInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_INFORMATION_head), phReportHandle: POINTER(win32more.Windows.Win32.System.ErrorReporting.HREPORT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WerReportCreate(pwzEventType: win32more.Windows.Win32.Foundation.PWSTR, repType: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE, pReportInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_INFORMATION), phReportHandle: POINTER(win32more.Windows.Win32.System.ErrorReporting.HREPORT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
 def WerReportSetParameter(hReportHandle: win32more.Windows.Win32.System.ErrorReporting.HREPORT, dwparamID: UInt32, pwzName: win32more.Windows.Win32.Foundation.PWSTR, pwzValue: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
@@ -69,7 +60,7 @@ def WerReportSetUIOption(hReportHandle: win32more.Windows.Win32.System.ErrorRepo
 @winfunctype('wer.dll')
 def WerReportSubmit(hReportHandle: win32more.Windows.Win32.System.ErrorReporting.HREPORT, consent: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT, dwFlags: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_FLAGS, pSubmitResult: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
-def WerReportAddDump(hReportHandle: win32more.Windows.Win32.System.ErrorReporting.HREPORT, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, dumpType: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE, pExceptionParam: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_EXCEPTION_INFORMATION_head), pDumpCustomOptions: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_CUSTOM_OPTIONS_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WerReportAddDump(hReportHandle: win32more.Windows.Win32.System.ErrorReporting.HREPORT, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, dumpType: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE, pExceptionParam: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_EXCEPTION_INFORMATION), pDumpCustomOptions: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_CUSTOM_OPTIONS), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
 def WerReportCloseHandle(hReportHandle: win32more.Windows.Win32.System.ErrorReporting.HREPORT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
@@ -117,9 +108,9 @@ def WerStoreGetFirstReportKey(hReportStore: win32more.Windows.Win32.System.Error
 @winfunctype('wer.dll')
 def WerStoreGetNextReportKey(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, ppszReportKey: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
-def WerStoreQueryReportMetadataV2(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, pszReportKey: win32more.Windows.Win32.Foundation.PWSTR, pReportMetadata: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_METADATA_V2_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WerStoreQueryReportMetadataV2(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, pszReportKey: win32more.Windows.Win32.Foundation.PWSTR, pReportMetadata: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_METADATA_V2)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
-def WerStoreQueryReportMetadataV3(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, pszReportKey: win32more.Windows.Win32.Foundation.PWSTR, pReportMetadata: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_METADATA_V3_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WerStoreQueryReportMetadataV3(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, pszReportKey: win32more.Windows.Win32.Foundation.PWSTR, pReportMetadata: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_METADATA_V3)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
 def WerFreeString(pwszStr: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 @winfunctype('wer.dll')
@@ -129,11 +120,11 @@ def WerStoreGetReportCount(hReportStore: win32more.Windows.Win32.System.ErrorRep
 @winfunctype('wer.dll')
 def WerStoreGetSizeOnDisk(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, pqwSizeInBytes: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
-def WerStoreQueryReportMetadataV1(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, pszReportKey: win32more.Windows.Win32.Foundation.PWSTR, pReportMetadata: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_METADATA_V1_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WerStoreQueryReportMetadataV1(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, pszReportKey: win32more.Windows.Win32.Foundation.PWSTR, pReportMetadata: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_METADATA_V1)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('wer.dll')
 def WerStoreUploadReport(hReportStore: win32more.Windows.Win32.System.ErrorReporting.HREPORTSTORE, pszReportKey: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pSubmitResult: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('faultrep.dll')
-def ReportFault(pep: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), dwOpt: UInt32) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
+def ReportFault(pep: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS), dwOpt: UInt32) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
 @winfunctype('faultrep.dll')
 def AddERExcludedApplicationA(szApplication: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('faultrep.dll')
@@ -155,11 +146,11 @@ EFaultRepRetVal_frrvErrDoubleFault: EFaultRepRetVal = 10
 HREPORT = IntPtr
 HREPORTSTORE = IntPtr
 @winfunctype_pointer
-def PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH(pContext: VoidPtr, pExceptionInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION_head), pbIsCustomDebugger: POINTER(win32more.Windows.Win32.Foundation.BOOL), pwszDebuggerLaunch: win32more.Windows.Win32.Foundation.PWSTR, pchDebuggerLaunch: POINTER(UInt32), pbIsDebuggerAutolaunch: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH(pContext: VoidPtr, pExceptionInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION), pbIsCustomDebugger: POINTER(win32more.Windows.Win32.Foundation.BOOL), pwszDebuggerLaunch: win32more.Windows.Win32.Foundation.PWSTR, pchDebuggerLaunch: POINTER(UInt32), pbIsDebuggerAutolaunch: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_WER_RUNTIME_EXCEPTION_EVENT(pContext: VoidPtr, pExceptionInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION_head), pbOwnershipClaimed: POINTER(win32more.Windows.Win32.Foundation.BOOL), pwszEventName: win32more.Windows.Win32.Foundation.PWSTR, pchSize: POINTER(UInt32), pdwSignatureCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_WER_RUNTIME_EXCEPTION_EVENT(pContext: VoidPtr, pExceptionInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION), pbOwnershipClaimed: POINTER(win32more.Windows.Win32.Foundation.BOOL), pwszEventName: win32more.Windows.Win32.Foundation.PWSTR, pchSize: POINTER(UInt32), pdwSignatureCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE(pContext: VoidPtr, pExceptionInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION_head), dwIndex: UInt32, pwszName: win32more.Windows.Win32.Foundation.PWSTR, pchName: POINTER(UInt32), pwszValue: win32more.Windows.Win32.Foundation.PWSTR, pchValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE(pContext: VoidPtr, pExceptionInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION), dwIndex: UInt32, pwszName: win32more.Windows.Win32.Foundation.PWSTR, pchName: POINTER(UInt32), pwszValue: win32more.Windows.Win32.Foundation.PWSTR, pchValue: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 REPORT_STORE_TYPES = Int32
 E_STORE_USER_ARCHIVE: REPORT_STORE_TYPES = 0
 E_STORE_USER_QUEUE: REPORT_STORE_TYPES = 1
@@ -223,7 +214,7 @@ WER_DUMP_TYPE_WerDumpTypeHeapDump: WER_DUMP_TYPE = 3
 WER_DUMP_TYPE_WerDumpTypeTriageDump: WER_DUMP_TYPE = 4
 WER_DUMP_TYPE_WerDumpTypeMax: WER_DUMP_TYPE = 5
 class WER_EXCEPTION_INFORMATION(EasyCastStructure):
-    pExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)
+    pExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
     bClientPointers: win32more.Windows.Win32.Foundation.BOOL
 WER_FAULT_REPORTING = UInt32
 WER_FAULT_REPORTING_FLAG_DISABLE_THREAD_SUSPENSION: WER_FAULT_REPORTING = 4
@@ -402,24 +393,5 @@ def pfn_ADDEREXCLUDEDAPPLICATIONA(param0: win32more.Windows.Win32.Foundation.PST
 @winfunctype_pointer
 def pfn_ADDEREXCLUDEDAPPLICATIONW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
 @winfunctype_pointer
-def pfn_REPORTFAULT(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), param1: UInt32) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
-make_head(_module, 'PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH')
-make_head(_module, 'PFN_WER_RUNTIME_EXCEPTION_EVENT')
-make_head(_module, 'PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE')
-make_head(_module, 'WER_DUMP_CUSTOM_OPTIONS')
-make_head(_module, 'WER_DUMP_CUSTOM_OPTIONS_V2')
-make_head(_module, 'WER_DUMP_CUSTOM_OPTIONS_V3')
-make_head(_module, 'WER_EXCEPTION_INFORMATION')
-make_head(_module, 'WER_REPORT_INFORMATION')
-make_head(_module, 'WER_REPORT_INFORMATION_V3')
-make_head(_module, 'WER_REPORT_INFORMATION_V4')
-make_head(_module, 'WER_REPORT_INFORMATION_V5')
-make_head(_module, 'WER_REPORT_METADATA_V1')
-make_head(_module, 'WER_REPORT_METADATA_V2')
-make_head(_module, 'WER_REPORT_METADATA_V3')
-make_head(_module, 'WER_REPORT_PARAMETER')
-make_head(_module, 'WER_REPORT_SIGNATURE')
-make_head(_module, 'WER_RUNTIME_EXCEPTION_INFORMATION')
-make_head(_module, 'pfn_ADDEREXCLUDEDAPPLICATIONA')
-make_head(_module, 'pfn_ADDEREXCLUDEDAPPLICATIONW')
-make_head(_module, 'pfn_REPORTFAULT')
+def pfn_REPORTFAULT(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS), param1: UInt32) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
+make_ready(__name__)

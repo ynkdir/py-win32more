@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Shell.Common
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 PERCEIVEDFLAG_UNDEFINED: UInt32 = 0
 PERCEIVEDFLAG_SOFTCODED: UInt32 = 1
 PERCEIVEDFLAG_HARDCODED: UInt32 = 2
@@ -52,9 +43,9 @@ class IObjectCollection(ComPtr):
     extends: win32more.Windows.Win32.UI.Shell.Common.IObjectArray
     _iid_ = Guid('{5632b1a4-e38a-400a-928a-d4cd63230295}')
     @commethod(5)
-    def AddObject(self, punk: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddObject(self, punk: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def AddFromArray(self, poaSource: win32more.Windows.Win32.UI.Shell.Common.IObjectArray_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddFromArray(self, poaSource: win32more.Windows.Win32.UI.Shell.Common.IObjectArray) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveObjectAt(self, uiIndex: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -120,10 +111,4 @@ STRRET_TYPE = Int32
 STRRET_WSTR: STRRET_TYPE = 0
 STRRET_OFFSET: STRRET_TYPE = 1
 STRRET_CSTR: STRRET_TYPE = 2
-make_head(_module, 'COMDLG_FILTERSPEC')
-make_head(_module, 'IObjectArray')
-make_head(_module, 'IObjectCollection')
-make_head(_module, 'ITEMIDLIST')
-make_head(_module, 'SHELLDETAILS')
-make_head(_module, 'SHITEMID')
-make_head(_module, 'STRRET')
+make_ready(__name__)

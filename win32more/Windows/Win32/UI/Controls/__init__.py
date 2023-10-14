@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -8,15 +8,6 @@ import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.UI.Controls
 import win32more.Windows.Win32.UI.Input.Pointer
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AEROWIZARDPARTS = Int32
 AW_TITLEBAR: AEROWIZARDPARTS = 1
 AW_HEADERAREA: AEROWIZARDPARTS = 2
@@ -2202,19 +2193,19 @@ EM_SETIMESTATUS: UInt32 = 216
 EM_GETIMESTATUS: UInt32 = 217
 EM_ENABLEFEATURE: UInt32 = 218
 @winfunctype('COMCTL32.dll')
-def CreatePropertySheetPageA(constPropSheetPagePointer: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA_head)) -> win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE: ...
+def CreatePropertySheetPageA(constPropSheetPagePointer: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)) -> win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE: ...
 @winfunctype('COMCTL32.dll')
-def CreatePropertySheetPageW(constPropSheetPagePointer: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW_head)) -> win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE: ...
+def CreatePropertySheetPageW(constPropSheetPagePointer: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)) -> win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE: ...
 @winfunctype('COMCTL32.dll')
 def DestroyPropertySheetPage(param0: win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
-def PropertySheetA(param0: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETHEADERA_V2_head)) -> IntPtr: ...
+def PropertySheetA(param0: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETHEADERA_V2)) -> IntPtr: ...
 @winfunctype('COMCTL32.dll')
-def PropertySheetW(param0: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETHEADERW_V2_head)) -> IntPtr: ...
+def PropertySheetW(param0: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETHEADERW_V2)) -> IntPtr: ...
 @winfunctype('COMCTL32.dll')
 def InitCommonControls() -> Void: ...
 @winfunctype('COMCTL32.dll')
-def InitCommonControlsEx(picce: POINTER(win32more.Windows.Win32.UI.Controls.INITCOMMONCONTROLSEX_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def InitCommonControlsEx(picce: POINTER(win32more.Windows.Win32.UI.Controls.INITCOMMONCONTROLSEX)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
 def ImageList_Create(cx: Int32, cy: Int32, flags: win32more.Windows.Win32.UI.Controls.IMAGELIST_CREATION_FLAGS, cInitial: Int32, cGrow: Int32) -> win32more.Windows.Win32.UI.Controls.HIMAGELIST: ...
 @winfunctype('COMCTL32.dll')
@@ -2242,7 +2233,7 @@ def ImageList_AddMasked(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, hb
 @winfunctype('COMCTL32.dll')
 def ImageList_DrawEx(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, i: Int32, hdcDst: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, dx: Int32, dy: Int32, rgbBk: win32more.Windows.Win32.Foundation.COLORREF, rgbFg: win32more.Windows.Win32.Foundation.COLORREF, fStyle: win32more.Windows.Win32.UI.Controls.IMAGE_LIST_DRAW_STYLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_DrawIndirect(pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ImageList_DrawIndirect(pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
 def ImageList_Remove(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, i: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
@@ -2268,21 +2259,21 @@ def ImageList_SetDragCursorImage(himlDrag: win32more.Windows.Win32.UI.Controls.H
 @winfunctype('COMCTL32.dll')
 def ImageList_DragShowNolock(fShow: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_GetDragImage(ppt: POINTER(win32more.Windows.Win32.Foundation.POINT_head), pptHotspot: POINTER(win32more.Windows.Win32.Foundation.POINT_head)) -> win32more.Windows.Win32.UI.Controls.HIMAGELIST: ...
+def ImageList_GetDragImage(ppt: POINTER(win32more.Windows.Win32.Foundation.POINT), pptHotspot: POINTER(win32more.Windows.Win32.Foundation.POINT)) -> win32more.Windows.Win32.UI.Controls.HIMAGELIST: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_Read(pstm: win32more.Windows.Win32.System.Com.IStream_head) -> win32more.Windows.Win32.UI.Controls.HIMAGELIST: ...
+def ImageList_Read(pstm: win32more.Windows.Win32.System.Com.IStream) -> win32more.Windows.Win32.UI.Controls.HIMAGELIST: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_Write(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, pstm: win32more.Windows.Win32.System.Com.IStream_head) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ImageList_Write(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, pstm: win32more.Windows.Win32.System.Com.IStream) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_ReadEx(dwFlags: UInt32, pstm: win32more.Windows.Win32.System.Com.IStream_head, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def ImageList_ReadEx(dwFlags: UInt32, pstm: win32more.Windows.Win32.System.Com.IStream, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_WriteEx(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, dwFlags: win32more.Windows.Win32.UI.Controls.IMAGE_LIST_WRITE_STREAM_FLAGS, pstm: win32more.Windows.Win32.System.Com.IStream_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def ImageList_WriteEx(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, dwFlags: win32more.Windows.Win32.UI.Controls.IMAGE_LIST_WRITE_STREAM_FLAGS, pstm: win32more.Windows.Win32.System.Com.IStream) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
 def ImageList_GetIconSize(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, cx: POINTER(Int32), cy: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
 def ImageList_SetIconSize(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, cx: Int32, cy: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_GetImageInfo(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, i: Int32, pImageInfo: POINTER(win32more.Windows.Win32.UI.Controls.IMAGEINFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ImageList_GetImageInfo(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, i: Int32, pImageInfo: POINTER(win32more.Windows.Win32.UI.Controls.IMAGEINFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
 def ImageList_Merge(himl1: win32more.Windows.Win32.UI.Controls.HIMAGELIST, i1: Int32, himl2: win32more.Windows.Win32.UI.Controls.HIMAGELIST, i2: Int32, dx: Int32, dy: Int32) -> win32more.Windows.Win32.UI.Controls.HIMAGELIST: ...
 @winfunctype('COMCTL32.dll')
@@ -2290,13 +2281,13 @@ def ImageList_Duplicate(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST) ->
 @winfunctype('COMCTL32.dll')
 def HIMAGELIST_QueryInterface(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
-def CreateToolbarEx(hwnd: win32more.Windows.Win32.Foundation.HWND, ws: UInt32, wID: UInt32, nBitmaps: Int32, hBMInst: win32more.Windows.Win32.Foundation.HINSTANCE, wBMID: UIntPtr, lpButtons: POINTER(win32more.Windows.Win32.UI.Controls.TBBUTTON_head), iNumButtons: Int32, dxButton: Int32, dyButton: Int32, dxBitmap: Int32, dyBitmap: Int32, uStructSize: UInt32) -> win32more.Windows.Win32.Foundation.HWND: ...
+def CreateToolbarEx(hwnd: win32more.Windows.Win32.Foundation.HWND, ws: UInt32, wID: UInt32, nBitmaps: Int32, hBMInst: win32more.Windows.Win32.Foundation.HINSTANCE, wBMID: UIntPtr, lpButtons: POINTER(win32more.Windows.Win32.UI.Controls.TBBUTTON), iNumButtons: Int32, dxButton: Int32, dyButton: Int32, dxBitmap: Int32, dyBitmap: Int32, uStructSize: UInt32) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMCTL32.dll')
-def CreateMappedBitmap(hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, idBitmap: IntPtr, wFlags: UInt32, lpColorMap: POINTER(win32more.Windows.Win32.UI.Controls.COLORMAP_head), iNumMaps: Int32) -> win32more.Windows.Win32.Graphics.Gdi.HBITMAP: ...
+def CreateMappedBitmap(hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, idBitmap: IntPtr, wFlags: UInt32, lpColorMap: POINTER(win32more.Windows.Win32.UI.Controls.COLORMAP), iNumMaps: Int32) -> win32more.Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('COMCTL32.dll')
-def DrawStatusTextA(hDC: win32more.Windows.Win32.Graphics.Gdi.HDC, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pszText: win32more.Windows.Win32.Foundation.PSTR, uFlags: UInt32) -> Void: ...
+def DrawStatusTextA(hDC: win32more.Windows.Win32.Graphics.Gdi.HDC, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), pszText: win32more.Windows.Win32.Foundation.PSTR, uFlags: UInt32) -> Void: ...
 @winfunctype('COMCTL32.dll')
-def DrawStatusTextW(hDC: win32more.Windows.Win32.Graphics.Gdi.HDC, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pszText: win32more.Windows.Win32.Foundation.PWSTR, uFlags: UInt32) -> Void: ...
+def DrawStatusTextW(hDC: win32more.Windows.Win32.Graphics.Gdi.HDC, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), pszText: win32more.Windows.Win32.Foundation.PWSTR, uFlags: UInt32) -> Void: ...
 @winfunctype('COMCTL32.dll')
 def CreateStatusWindowA(style: Int32, lpszText: win32more.Windows.Win32.Foundation.PSTR, hwndParent: win32more.Windows.Win32.Foundation.HWND, wID: UInt32) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMCTL32.dll')
@@ -2306,7 +2297,7 @@ def MenuHelp(uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lP
 @winfunctype('COMCTL32.dll')
 def ShowHideMenuCtl(hWnd: win32more.Windows.Win32.Foundation.HWND, uFlags: UIntPtr, lpInfo: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
-def GetEffectiveClientRect(hWnd: win32more.Windows.Win32.Foundation.HWND, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT_head), lpInfo: POINTER(Int32)) -> Void: ...
+def GetEffectiveClientRect(hWnd: win32more.Windows.Win32.Foundation.HWND, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), lpInfo: POINTER(Int32)) -> Void: ...
 @winfunctype('COMCTL32.dll')
 def MakeDragList(hLB: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
@@ -2316,7 +2307,7 @@ def LBItemFromPt(hLB: win32more.Windows.Win32.Foundation.HWND, pt: win32more.Win
 @winfunctype('COMCTL32.dll')
 def CreateUpDownControl(dwStyle: UInt32, x: Int32, y: Int32, cx: Int32, cy: Int32, hParent: win32more.Windows.Win32.Foundation.HWND, nID: Int32, hInst: win32more.Windows.Win32.Foundation.HINSTANCE, hBuddy: win32more.Windows.Win32.Foundation.HWND, nUpper: Int32, nLower: Int32, nPos: Int32) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMCTL32.dll')
-def TaskDialogIndirect(pTaskConfig: POINTER(win32more.Windows.Win32.UI.Controls.TASKDIALOGCONFIG_head), pnButton: POINTER(Int32), pnRadioButton: POINTER(Int32), pfVerificationFlagChecked: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def TaskDialogIndirect(pTaskConfig: POINTER(win32more.Windows.Win32.UI.Controls.TASKDIALOGCONFIG), pnButton: POINTER(Int32), pnRadioButton: POINTER(Int32), pfVerificationFlagChecked: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
 def TaskDialog(hwndOwner: win32more.Windows.Win32.Foundation.HWND, hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, pszWindowTitle: win32more.Windows.Win32.Foundation.PWSTR, pszMainInstruction: win32more.Windows.Win32.Foundation.PWSTR, pszContent: win32more.Windows.Win32.Foundation.PWSTR, dwCommonButtons: win32more.Windows.Win32.UI.Controls.TASKDIALOG_COMMON_BUTTON_FLAGS, pszIcon: win32more.Windows.Win32.Foundation.PWSTR, pnButton: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
@@ -2380,9 +2371,9 @@ def DPA_GetSize(hdpa: win32more.Windows.Win32.UI.Controls.HDPA) -> UInt64: ...
 @winfunctype('COMCTL32.dll')
 def DPA_Sort(hdpa: win32more.Windows.Win32.UI.Controls.HDPA, pfnCompare: win32more.Windows.Win32.UI.Controls.PFNDACOMPARE, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
-def DPA_LoadStream(phdpa: POINTER(win32more.Windows.Win32.UI.Controls.HDPA), pfn: win32more.Windows.Win32.UI.Controls.PFNDPASTREAM, pstream: win32more.Windows.Win32.System.Com.IStream_head, pvInstData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DPA_LoadStream(phdpa: POINTER(win32more.Windows.Win32.UI.Controls.HDPA), pfn: win32more.Windows.Win32.UI.Controls.PFNDPASTREAM, pstream: win32more.Windows.Win32.System.Com.IStream, pvInstData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
-def DPA_SaveStream(hdpa: win32more.Windows.Win32.UI.Controls.HDPA, pfn: win32more.Windows.Win32.UI.Controls.PFNDPASTREAM, pstream: win32more.Windows.Win32.System.Com.IStream_head, pvInstData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DPA_SaveStream(hdpa: win32more.Windows.Win32.UI.Controls.HDPA, pfn: win32more.Windows.Win32.UI.Controls.PFNDPASTREAM, pstream: win32more.Windows.Win32.System.Com.IStream, pvInstData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
 def DPA_Merge(hdpaDest: win32more.Windows.Win32.UI.Controls.HDPA, hdpaSrc: win32more.Windows.Win32.UI.Controls.HDPA, dwFlags: UInt32, pfnCompare: win32more.Windows.Win32.UI.Controls.PFNDACOMPARE, pfnMerge: win32more.Windows.Win32.UI.Controls.PFNDPAMERGE, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
@@ -2396,7 +2387,7 @@ def FlatSB_ShowScrollBar(param0: win32more.Windows.Win32.Foundation.HWND, code: 
 @winfunctype('COMCTL32.dll')
 def FlatSB_GetScrollRange(param0: win32more.Windows.Win32.Foundation.HWND, code: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, param2: POINTER(Int32), param3: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
-def FlatSB_GetScrollInfo(param0: win32more.Windows.Win32.Foundation.HWND, code: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, param2: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def FlatSB_GetScrollInfo(param0: win32more.Windows.Win32.Foundation.HWND, code: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, param2: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
 def FlatSB_GetScrollPos(param0: win32more.Windows.Win32.Foundation.HWND, code: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS) -> Int32: ...
 @winfunctype('COMCTL32.dll')
@@ -2404,7 +2395,7 @@ def FlatSB_GetScrollProp(param0: win32more.Windows.Win32.Foundation.HWND, propIn
 @winfunctype('COMCTL32.dll')
 def FlatSB_SetScrollPos(param0: win32more.Windows.Win32.Foundation.HWND, code: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, pos: Int32, fRedraw: win32more.Windows.Win32.Foundation.BOOL) -> Int32: ...
 @winfunctype('COMCTL32.dll')
-def FlatSB_SetScrollInfo(param0: win32more.Windows.Win32.Foundation.HWND, code: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, psi: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_head), fRedraw: win32more.Windows.Win32.Foundation.BOOL) -> Int32: ...
+def FlatSB_SetScrollInfo(param0: win32more.Windows.Win32.Foundation.HWND, code: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, psi: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO), fRedraw: win32more.Windows.Win32.Foundation.BOOL) -> Int32: ...
 @winfunctype('COMCTL32.dll')
 def FlatSB_SetScrollRange(param0: win32more.Windows.Win32.Foundation.HWND, code: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, min: Int32, max: Int32, fRedraw: win32more.Windows.Win32.Foundation.BOOL) -> Int32: ...
 @winfunctype('COMCTL32.dll')
@@ -2418,9 +2409,9 @@ def LoadIconMetric(hinst: win32more.Windows.Win32.Foundation.HINSTANCE, pszName:
 @winfunctype('COMCTL32.dll')
 def LoadIconWithScaleDown(hinst: win32more.Windows.Win32.Foundation.HINSTANCE, pszName: win32more.Windows.Win32.Foundation.PWSTR, cx: Int32, cy: Int32, phico: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.HICON)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMCTL32.dll')
-def DrawShadowText(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, pszText: win32more.Windows.Win32.Foundation.PWSTR, cch: UInt32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head), dwFlags: UInt32, crText: win32more.Windows.Win32.Foundation.COLORREF, crShadow: win32more.Windows.Win32.Foundation.COLORREF, ixOffset: Int32, iyOffset: Int32) -> Int32: ...
+def DrawShadowText(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, pszText: win32more.Windows.Win32.Foundation.PWSTR, cch: UInt32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT), dwFlags: UInt32, crText: win32more.Windows.Win32.Foundation.COLORREF, crShadow: win32more.Windows.Win32.Foundation.COLORREF, ixOffset: Int32, iyOffset: Int32) -> Int32: ...
 @winfunctype('COMCTL32.dll')
-def ImageList_CoCreateInstance(rclsid: POINTER(Guid), punkOuter: win32more.Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def ImageList_CoCreateInstance(rclsid: POINTER(Guid), punkOuter: win32more.Windows.Win32.System.Com.IUnknown, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
 def BeginPanningFeedback(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('UxTheme.dll')
@@ -2430,9 +2421,9 @@ def EndPanningFeedback(hwnd: win32more.Windows.Win32.Foundation.HWND, fAnimateBa
 @winfunctype('UXTHEME.dll')
 def GetThemeAnimationProperty(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iStoryboardId: Int32, iTargetId: Int32, eProperty: win32more.Windows.Win32.UI.Controls.TA_PROPERTY, pvProperty: VoidPtr, cbSize: UInt32, pcbSizeOut: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeAnimationTransform(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iStoryboardId: Int32, iTargetId: Int32, dwTransformIndex: UInt32, pTransform: POINTER(win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_head), cbSize: UInt32, pcbSizeOut: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeAnimationTransform(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iStoryboardId: Int32, iTargetId: Int32, dwTransformIndex: UInt32, pTransform: POINTER(win32more.Windows.Win32.UI.Controls.TA_TRANSFORM), cbSize: UInt32, pcbSizeOut: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeTimingFunction(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iTimingFunctionId: Int32, pTimingFunction: POINTER(win32more.Windows.Win32.UI.Controls.TA_TIMINGFUNCTION_head), cbSize: UInt32, pcbSizeOut: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeTimingFunction(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iTimingFunctionId: Int32, pTimingFunction: POINTER(win32more.Windows.Win32.UI.Controls.TA_TIMINGFUNCTION), cbSize: UInt32, pcbSizeOut: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def OpenThemeData(hwnd: win32more.Windows.Win32.Foundation.HWND, pszClassList: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.UI.Controls.HTHEME: ...
 @winfunctype('UXTHEME.dll')
@@ -2440,29 +2431,29 @@ def OpenThemeDataEx(hwnd: win32more.Windows.Win32.Foundation.HWND, pszClassList:
 @winfunctype('UXTHEME.dll')
 def CloseThemeData(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def DrawThemeBackground(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pClipRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DrawThemeBackground(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT), pClipRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def DrawThemeBackgroundEx(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pOptions: POINTER(win32more.Windows.Win32.UI.Controls.DTBGOPTS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DrawThemeBackgroundEx(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT), pOptions: POINTER(win32more.Windows.Win32.UI.Controls.DTBGOPTS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def DrawThemeText(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: Int32, dwTextFlags: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, dwTextFlags2: UInt32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DrawThemeText(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: Int32, dwTextFlags: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, dwTextFlags2: UInt32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeBackgroundContentRect(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pBoundingRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pContentRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeBackgroundContentRect(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pBoundingRect: POINTER(win32more.Windows.Win32.Foundation.RECT), pContentRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeBackgroundExtent(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pContentRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pExtentRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeBackgroundExtent(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pContentRect: POINTER(win32more.Windows.Win32.Foundation.RECT), pExtentRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeBackgroundRegion(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pRegion: POINTER(win32more.Windows.Win32.Graphics.Gdi.HRGN)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeBackgroundRegion(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT), pRegion: POINTER(win32more.Windows.Win32.Graphics.Gdi.HRGN)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemePartSize(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head), eSize: win32more.Windows.Win32.UI.Controls.THEMESIZE, psz: POINTER(win32more.Windows.Win32.Foundation.SIZE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemePartSize(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT), eSize: win32more.Windows.Win32.UI.Controls.THEMESIZE, psz: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeTextExtent(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchCharCount: Int32, dwTextFlags: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, pBoundingRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pExtentRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeTextExtent(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchCharCount: Int32, dwTextFlags: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, pBoundingRect: POINTER(win32more.Windows.Win32.Foundation.RECT), pExtentRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeTextMetrics(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, ptm: POINTER(win32more.Windows.Win32.Graphics.Gdi.TEXTMETRICW_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeTextMetrics(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, ptm: POINTER(win32more.Windows.Win32.Graphics.Gdi.TEXTMETRICW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def HitTestThemeBackground(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, dwOptions: win32more.Windows.Win32.UI.Controls.HIT_TEST_BACKGROUND_OPTIONS, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), hrgn: win32more.Windows.Win32.Graphics.Gdi.HRGN, ptTest: win32more.Windows.Win32.Foundation.POINT, pwHitTestCode: POINTER(UInt16)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HitTestThemeBackground(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, dwOptions: win32more.Windows.Win32.UI.Controls.HIT_TEST_BACKGROUND_OPTIONS, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT), hrgn: win32more.Windows.Win32.Graphics.Gdi.HRGN, ptTest: win32more.Windows.Win32.Foundation.POINT, pwHitTestCode: POINTER(UInt16)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def DrawThemeEdge(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pDestRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), uEdge: win32more.Windows.Win32.Graphics.Gdi.DRAWEDGE_FLAGS, uFlags: win32more.Windows.Win32.Graphics.Gdi.DRAW_EDGE_FLAGS, pContentRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DrawThemeEdge(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pDestRect: POINTER(win32more.Windows.Win32.Foundation.RECT), uEdge: win32more.Windows.Win32.Graphics.Gdi.DRAWEDGE_FLAGS, uFlags: win32more.Windows.Win32.Graphics.Gdi.DRAW_EDGE_FLAGS, pContentRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def DrawThemeIcon(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, iImageIndex: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DrawThemeIcon(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT), himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, iImageIndex: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def IsThemePartDefined(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('UxTheme.dll')
@@ -2480,15 +2471,15 @@ def GetThemeInt(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int
 @winfunctype('UXTHEME.dll')
 def GetThemeEnumValue(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, piVal: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemePosition(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pPoint: POINTER(win32more.Windows.Win32.Foundation.POINT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemePosition(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pPoint: POINTER(win32more.Windows.Win32.Foundation.POINT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeFont(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Int32, pFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeFont(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Int32, pFont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeRect(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeRect(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def GetThemeMargins(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Int32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pMargins: POINTER(win32more.Windows.Win32.UI.Controls.MARGINS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeMargins(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, iPropId: Int32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT), pMargins: POINTER(win32more.Windows.Win32.UI.Controls.MARGINS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetThemeIntList(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pIntList: POINTER(win32more.Windows.Win32.UI.Controls.INTLIST_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeIntList(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pIntList: POINTER(win32more.Windows.Win32.UI.Controls.INTLIST)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
 def GetThemePropertyOrigin(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, pOrigin: POINTER(win32more.Windows.Win32.UI.Controls.PROPERTYORIGIN)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
@@ -2504,7 +2495,7 @@ def GetThemeSysBool(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iBoolId:
 @winfunctype('UxTheme.dll')
 def GetThemeSysSize(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iSizeId: Int32) -> Int32: ...
 @winfunctype('UxTheme.dll')
-def GetThemeSysFont(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iFontId: Int32, plf: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetThemeSysFont(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iFontId: Int32, plf: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
 def GetThemeSysString(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iStringId: Int32, pszStringBuff: win32more.Windows.Win32.Foundation.PWSTR, cchMaxStringChars: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
@@ -2528,15 +2519,15 @@ def GetCurrentThemeName(pszThemeFileName: win32more.Windows.Win32.Foundation.PWS
 @winfunctype('UxTheme.dll')
 def GetThemeDocumentationProperty(pszThemeName: win32more.Windows.Win32.Foundation.PWSTR, pszPropertyName: win32more.Windows.Win32.Foundation.PWSTR, pszValueBuff: win32more.Windows.Win32.Foundation.PWSTR, cchMaxValChars: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def DrawThemeParentBackground(hwnd: win32more.Windows.Win32.Foundation.HWND, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DrawThemeParentBackground(hwnd: win32more.Windows.Win32.Foundation.HWND, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, prc: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
 def EnableTheming(fEnable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def DrawThemeParentBackgroundEx(hwnd: win32more.Windows.Win32.Foundation.HWND, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, dwFlags: win32more.Windows.Win32.UI.Controls.DRAW_THEME_PARENT_BACKGROUND_FLAGS, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DrawThemeParentBackgroundEx(hwnd: win32more.Windows.Win32.Foundation.HWND, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, dwFlags: win32more.Windows.Win32.UI.Controls.DRAW_THEME_PARENT_BACKGROUND_FLAGS, prc: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def SetWindowThemeAttribute(hwnd: win32more.Windows.Win32.Foundation.HWND, eAttribute: win32more.Windows.Win32.UI.Controls.WINDOWTHEMEATTRIBUTETYPE, pvAttribute: VoidPtr, cbAttribute: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def DrawThemeTextEx(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: Int32, dwTextFlags: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pOptions: POINTER(win32more.Windows.Win32.UI.Controls.DTTOPTS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DrawThemeTextEx(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPartId: Int32, iStateId: Int32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: Int32, dwTextFlags: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT), pOptions: POINTER(win32more.Windows.Win32.UI.Controls.DTTOPTS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def GetThemeBitmap(hTheme: win32more.Windows.Win32.UI.Controls.HTHEME, iPartId: Int32, iStateId: Int32, iPropId: Int32, dwFlags: win32more.Windows.Win32.UI.Controls.GET_THEME_BITMAP_FLAGS, phBitmap: POINTER(win32more.Windows.Win32.Graphics.Gdi.HBITMAP)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
@@ -2546,25 +2537,25 @@ def BufferedPaintInit() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def BufferedPaintUnInit() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def BeginBufferedPaint(hdcTarget: win32more.Windows.Win32.Graphics.Gdi.HDC, prcTarget: POINTER(win32more.Windows.Win32.Foundation.RECT_head), dwFormat: win32more.Windows.Win32.UI.Controls.BP_BUFFERFORMAT, pPaintParams: POINTER(win32more.Windows.Win32.UI.Controls.BP_PAINTPARAMS_head), phdc: POINTER(win32more.Windows.Win32.Graphics.Gdi.HDC)) -> IntPtr: ...
+def BeginBufferedPaint(hdcTarget: win32more.Windows.Win32.Graphics.Gdi.HDC, prcTarget: POINTER(win32more.Windows.Win32.Foundation.RECT), dwFormat: win32more.Windows.Win32.UI.Controls.BP_BUFFERFORMAT, pPaintParams: POINTER(win32more.Windows.Win32.UI.Controls.BP_PAINTPARAMS), phdc: POINTER(win32more.Windows.Win32.Graphics.Gdi.HDC)) -> IntPtr: ...
 @winfunctype('UXTHEME.dll')
 def EndBufferedPaint(hBufferedPaint: IntPtr, fUpdateTarget: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def GetBufferedPaintTargetRect(hBufferedPaint: IntPtr, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetBufferedPaintTargetRect(hBufferedPaint: IntPtr, prc: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
 def GetBufferedPaintTargetDC(hBufferedPaint: IntPtr) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('UxTheme.dll')
 def GetBufferedPaintDC(hBufferedPaint: IntPtr) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('UXTHEME.dll')
-def GetBufferedPaintBits(hBufferedPaint: IntPtr, ppbBuffer: POINTER(POINTER(win32more.Windows.Win32.Graphics.Gdi.RGBQUAD_head)), pcxRow: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetBufferedPaintBits(hBufferedPaint: IntPtr, ppbBuffer: POINTER(POINTER(win32more.Windows.Win32.Graphics.Gdi.RGBQUAD)), pcxRow: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
-def BufferedPaintClear(hBufferedPaint: IntPtr, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def BufferedPaintClear(hBufferedPaint: IntPtr, prc: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def BufferedPaintSetAlpha(hBufferedPaint: IntPtr, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head), alpha: Byte) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def BufferedPaintSetAlpha(hBufferedPaint: IntPtr, prc: POINTER(win32more.Windows.Win32.Foundation.RECT), alpha: Byte) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UXTHEME.dll')
 def BufferedPaintStopAllAnimations(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
-def BeginBufferedAnimation(hwnd: win32more.Windows.Win32.Foundation.HWND, hdcTarget: win32more.Windows.Win32.Graphics.Gdi.HDC, prcTarget: POINTER(win32more.Windows.Win32.Foundation.RECT_head), dwFormat: win32more.Windows.Win32.UI.Controls.BP_BUFFERFORMAT, pPaintParams: POINTER(win32more.Windows.Win32.UI.Controls.BP_PAINTPARAMS_head), pAnimationParams: POINTER(win32more.Windows.Win32.UI.Controls.BP_ANIMATIONPARAMS_head), phdcFrom: POINTER(win32more.Windows.Win32.Graphics.Gdi.HDC), phdcTo: POINTER(win32more.Windows.Win32.Graphics.Gdi.HDC)) -> IntPtr: ...
+def BeginBufferedAnimation(hwnd: win32more.Windows.Win32.Foundation.HWND, hdcTarget: win32more.Windows.Win32.Graphics.Gdi.HDC, prcTarget: POINTER(win32more.Windows.Win32.Foundation.RECT), dwFormat: win32more.Windows.Win32.UI.Controls.BP_BUFFERFORMAT, pPaintParams: POINTER(win32more.Windows.Win32.UI.Controls.BP_PAINTPARAMS), pAnimationParams: POINTER(win32more.Windows.Win32.UI.Controls.BP_ANIMATIONPARAMS), phdcFrom: POINTER(win32more.Windows.Win32.Graphics.Gdi.HDC), phdcTo: POINTER(win32more.Windows.Win32.Graphics.Gdi.HDC)) -> IntPtr: ...
 @winfunctype('UxTheme.dll')
 def EndBufferedAnimation(hbpAnimation: IntPtr, fUpdateTarget: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('UxTheme.dll')
@@ -2588,11 +2579,11 @@ def DestroySyntheticPointerDevice(device: win32more.Windows.Win32.UI.Controls.HS
 @winfunctype('USER32.dll')
 def RegisterTouchHitTestingWindow(hwnd: win32more.Windows.Win32.Foundation.HWND, value: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def EvaluateProximityToRect(controlBoundingBox: POINTER(win32more.Windows.Win32.Foundation.RECT_head), pHitTestingInput: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_INPUT_head), pProximityEval: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_PROXIMITY_EVALUATION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvaluateProximityToRect(controlBoundingBox: POINTER(win32more.Windows.Win32.Foundation.RECT), pHitTestingInput: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_INPUT), pProximityEval: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_PROXIMITY_EVALUATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def EvaluateProximityToPolygon(numVertices: UInt32, controlPolygon: POINTER(win32more.Windows.Win32.Foundation.POINT_head), pHitTestingInput: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_INPUT_head), pProximityEval: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_PROXIMITY_EVALUATION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvaluateProximityToPolygon(numVertices: UInt32, controlPolygon: POINTER(win32more.Windows.Win32.Foundation.POINT), pHitTestingInput: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_INPUT), pProximityEval: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_PROXIMITY_EVALUATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def PackTouchHitTestingProximityEvaluation(pHitTestingInput: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_INPUT_head), pProximityEval: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_PROXIMITY_EVALUATION_head)) -> win32more.Windows.Win32.Foundation.LRESULT: ...
+def PackTouchHitTestingProximityEvaluation(pHitTestingInput: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_INPUT), pProximityEval: POINTER(win32more.Windows.Win32.UI.Controls.TOUCH_HIT_TESTING_PROXIMITY_EVALUATION)) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 @winfunctype('USER32.dll')
 def GetWindowFeedbackSetting(hwnd: win32more.Windows.Win32.Foundation.HWND, feedback: win32more.Windows.Win32.UI.Controls.FEEDBACK_TYPE, dwFlags: UInt32, pSize: POINTER(UInt32), config: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -2622,9 +2613,9 @@ def DlgDirSelectComboBoxExA(hwndDlg: win32more.Windows.Win32.Foundation.HWND, lp
 @winfunctype('USER32.dll')
 def DlgDirSelectComboBoxExW(hwndDlg: win32more.Windows.Win32.Foundation.HWND, lpString: win32more.Windows.Win32.Foundation.PWSTR, cchOut: Int32, idComboBox: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def SetScrollInfo(hwnd: win32more.Windows.Win32.Foundation.HWND, nBar: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, lpsi: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_head), redraw: win32more.Windows.Win32.Foundation.BOOL) -> Int32: ...
+def SetScrollInfo(hwnd: win32more.Windows.Win32.Foundation.HWND, nBar: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, lpsi: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO), redraw: win32more.Windows.Win32.Foundation.BOOL) -> Int32: ...
 @winfunctype('USER32.dll')
-def GetComboBoxInfo(hwndCombo: win32more.Windows.Win32.Foundation.HWND, pcbi: POINTER(win32more.Windows.Win32.UI.Controls.COMBOBOXINFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetComboBoxInfo(hwndCombo: win32more.Windows.Win32.Foundation.HWND, pcbi: POINTER(win32more.Windows.Win32.UI.Controls.COMBOBOXINFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def GetListBoxInfo(hwnd: win32more.Windows.Win32.Foundation.HWND) -> UInt32: ...
 @winfunctype('USER32.dll')
@@ -2715,8 +2706,8 @@ BPBF_TOPDOWNMONODIB: BP_BUFFERFORMAT = 3
 class BP_PAINTPARAMS(EasyCastStructure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Controls.BP_PAINTPARAMS_FLAGS
-    prcExclude: POINTER(win32more.Windows.Win32.Foundation.RECT_head)
-    pBlendFunction: POINTER(win32more.Windows.Win32.Graphics.Gdi.BLENDFUNCTION_head)
+    prcExclude: POINTER(win32more.Windows.Win32.Foundation.RECT)
+    pBlendFunction: POINTER(win32more.Windows.Win32.Graphics.Gdi.BLENDFUNCTION)
 BP_PAINTPARAMS_FLAGS = UInt32
 BPPF_ERASE: BP_PAINTPARAMS_FLAGS = 1
 BPPF_NOCLIP: BP_PAINTPARAMS_FLAGS = 2
@@ -2763,7 +2754,7 @@ class CCINFOA(EasyCastStructure):
     flCtrlTypeMask: UInt32
     szTextDefault: win32more.Windows.Win32.Foundation.CHAR * 256
     cStyleFlags: Int32
-    aStyleFlags: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEFLAGA_head)
+    aStyleFlags: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEFLAGA)
     lpfnStyle: win32more.Windows.Win32.UI.Controls.LPFNCCSTYLEA
     lpfnSizeToText: win32more.Windows.Win32.UI.Controls.LPFNCCSIZETOTEXTA
     dwReserved1: UInt32
@@ -2778,7 +2769,7 @@ class CCINFOW(EasyCastStructure):
     flExtStyleDefault: UInt32
     flCtrlTypeMask: UInt32
     cStyleFlags: Int32
-    aStyleFlags: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEFLAGW_head)
+    aStyleFlags: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEFLAGW)
     szTextDefault: Char * 256
     lpfnStyle: win32more.Windows.Win32.UI.Controls.LPFNCCSTYLEW
     lpfnSizeToText: win32more.Windows.Win32.UI.Controls.LPFNCCSIZETOTEXTW
@@ -3136,7 +3127,7 @@ DTT_CALLBACK: DTTOPTS_FLAGS = 4096
 DTT_COMPOSITED: DTTOPTS_FLAGS = 8192
 DTT_VALIDBITS: DTTOPTS_FLAGS = 12287
 @winfunctype_pointer
-def DTT_CALLBACK_PROC(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: Int32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head), dwFlags: UInt32, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
+def DTT_CALLBACK_PROC(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: Int32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT), dwFlags: UInt32, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 EC_ENDOFLINE = Int32
 EC_ENDOFLINE_DETECTFROMCONTENT: EC_ENDOFLINE = 0
 EC_ENDOFLINE_CRLF: EC_ENDOFLINE = 1
@@ -3411,8 +3402,8 @@ HDI_ORDER: HDI_MASK = 128
 HDI_FILTER: HDI_MASK = 256
 HDI_STATE: HDI_MASK = 512
 class HDLAYOUT(EasyCastStructure):
-    prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head)
-    pwpos: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPOS_head)
+    prc: POINTER(win32more.Windows.Win32.Foundation.RECT)
+    pwpos: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPOS)
 HDPA = IntPtr
 HDSA = IntPtr
 class HD_TEXTFILTERA(EasyCastStructure):
@@ -3597,21 +3588,21 @@ class IImageList(ComPtr):
     @commethod(7)
     def AddMasked(self, hbmImage: win32more.Windows.Win32.Graphics.Gdi.HBITMAP, crMask: win32more.Windows.Win32.Foundation.COLORREF, pi: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Draw(self, pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Draw(self, pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Remove(self, i: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetIcon(self, i: Int32, flags: UInt32, picon: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.HICON)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def GetImageInfo(self, i: Int32, pImageInfo: POINTER(win32more.Windows.Win32.UI.Controls.IMAGEINFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetImageInfo(self, i: Int32, pImageInfo: POINTER(win32more.Windows.Win32.UI.Controls.IMAGEINFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def Copy(self, iDst: Int32, punkSrc: win32more.Windows.Win32.System.Com.IUnknown_head, iSrc: Int32, uFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Copy(self, iDst: Int32, punkSrc: win32more.Windows.Win32.System.Com.IUnknown, iSrc: Int32, uFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def Merge(self, i1: Int32, punk2: win32more.Windows.Win32.System.Com.IUnknown_head, i2: Int32, dx: Int32, dy: Int32, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Merge(self, i1: Int32, punk2: win32more.Windows.Win32.System.Com.IUnknown, i2: Int32, dx: Int32, dy: Int32, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def Clone(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def GetImageRect(self, i: Int32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetImageRect(self, i: Int32, prc: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetIconSize(self, cx: POINTER(Int32), cy: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
@@ -3635,11 +3626,11 @@ class IImageList(ComPtr):
     @commethod(26)
     def DragMove(self, x: Int32, y: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
-    def SetDragCursorImage(self, punk: win32more.Windows.Win32.System.Com.IUnknown_head, iDrag: Int32, dxHotspot: Int32, dyHotspot: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetDragCursorImage(self, punk: win32more.Windows.Win32.System.Com.IUnknown, iDrag: Int32, dxHotspot: Int32, dyHotspot: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def DragShowNolock(self, fShow: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
-    def GetDragImage(self, ppt: POINTER(win32more.Windows.Win32.Foundation.POINT_head), pptHotspot: POINTER(win32more.Windows.Win32.Foundation.POINT_head), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDragImage(self, ppt: POINTER(win32more.Windows.Win32.Foundation.POINT), pptHotspot: POINTER(win32more.Windows.Win32.Foundation.POINT), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def GetItemFlags(self, i: Int32, dwFlags: POINTER(win32more.Windows.Win32.UI.Controls.IMAGE_LIST_ITEM_FLAGS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
@@ -3654,7 +3645,7 @@ class IImageList2(ComPtr):
     @commethod(34)
     def SetOriginalSize(self, iImage: Int32, cx: Int32, cy: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
-    def SetCallback(self, punk: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetCallback(self, punk: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
     def GetCallback(self, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
@@ -3662,15 +3653,15 @@ class IImageList2(ComPtr):
     @commethod(38)
     def DiscardImages(self, iFirstImage: Int32, iLastImage: Int32, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
-    def PreloadImages(self, pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PreloadImages(self, pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
-    def GetStatistics(self, pils: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTSTATS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetStatistics(self, pils: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTSTATS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
     def Initialize(self, cx: Int32, cy: Int32, flags: win32more.Windows.Win32.UI.Controls.IMAGELIST_CREATION_FLAGS, cInitial: Int32, cGrow: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
-    def Replace2(self, i: Int32, hbmImage: win32more.Windows.Win32.Graphics.Gdi.HBITMAP, hbmMask: win32more.Windows.Win32.Graphics.Gdi.HBITMAP, punk: win32more.Windows.Win32.System.Com.IUnknown_head, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Replace2(self, i: Int32, hbmImage: win32more.Windows.Win32.Graphics.Gdi.HBITMAP, hbmMask: win32more.Windows.Win32.Graphics.Gdi.HBITMAP, punk: win32more.Windows.Win32.System.Com.IUnknown, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(43)
-    def ReplaceFromImageList(self, i: Int32, pil: win32more.Windows.Win32.UI.Controls.IImageList_head, iSrc: Int32, punk: win32more.Windows.Win32.System.Com.IUnknown_head, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ReplaceFromImageList(self, i: Int32, pil: win32more.Windows.Win32.UI.Controls.IImageList, iSrc: Int32, punk: win32more.Windows.Win32.System.Com.IUnknown, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMAGEINFO(EasyCastStructure):
     hbmImage: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
     hbmMask: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
@@ -3895,21 +3886,21 @@ SPLS_PRESSED: LOGOFFBUTTONSSTATES = 3
 @winfunctype_pointer
 def LPFNADDPROPSHEETPAGES(param0: VoidPtr, param1: win32more.Windows.Win32.UI.Controls.LPFNSVADDPROPSHEETPAGE, param2: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFNCCINFOA(acci: POINTER(win32more.Windows.Win32.UI.Controls.CCINFOA_head)) -> UInt32: ...
+def LPFNCCINFOA(acci: POINTER(win32more.Windows.Win32.UI.Controls.CCINFOA)) -> UInt32: ...
 @winfunctype_pointer
-def LPFNCCINFOW(acci: POINTER(win32more.Windows.Win32.UI.Controls.CCINFOW_head)) -> UInt32: ...
+def LPFNCCINFOW(acci: POINTER(win32more.Windows.Win32.UI.Controls.CCINFOW)) -> UInt32: ...
 @winfunctype_pointer
 def LPFNCCSIZETOTEXTA(flStyle: UInt32, flExtStyle: UInt32, hfont: win32more.Windows.Win32.Graphics.Gdi.HFONT, pszText: win32more.Windows.Win32.Foundation.PSTR) -> Int32: ...
 @winfunctype_pointer
 def LPFNCCSIZETOTEXTW(flStyle: UInt32, flExtStyle: UInt32, hfont: win32more.Windows.Win32.Graphics.Gdi.HFONT, pszText: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
 @winfunctype_pointer
-def LPFNCCSTYLEA(hwndParent: win32more.Windows.Win32.Foundation.HWND, pccs: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def LPFNCCSTYLEA(hwndParent: win32more.Windows.Win32.Foundation.HWND, pccs: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFNCCSTYLEW(hwndParent: win32more.Windows.Win32.Foundation.HWND, pccs: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def LPFNCCSTYLEW(hwndParent: win32more.Windows.Win32.Foundation.HWND, pccs: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFNPSPCALLBACKA(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: win32more.Windows.Win32.UI.Controls.PSPCB_MESSAGE, ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA_head)) -> UInt32: ...
+def LPFNPSPCALLBACKA(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: win32more.Windows.Win32.UI.Controls.PSPCB_MESSAGE, ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)) -> UInt32: ...
 @winfunctype_pointer
-def LPFNPSPCALLBACKW(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: win32more.Windows.Win32.UI.Controls.PSPCB_MESSAGE, ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW_head)) -> UInt32: ...
+def LPFNPSPCALLBACKW(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: win32more.Windows.Win32.UI.Controls.PSPCB_MESSAGE, ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)) -> UInt32: ...
 @winfunctype_pointer
 def LPFNSVADDPROPSHEETPAGE(param0: win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class LVBKIMAGEA(EasyCastStructure):
@@ -4444,7 +4435,7 @@ class NMCUSTOMTEXT(EasyCastStructure):
     hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
     lpString: win32more.Windows.Win32.Foundation.PWSTR
     nCount: Int32
-    lpRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head)
+    lpRect: POINTER(win32more.Windows.Win32.Foundation.RECT)
     uFormat: UInt32
     fLink: win32more.Windows.Win32.Foundation.BOOL
 class NMDATETIMECHANGE(EasyCastStructure):
@@ -4527,12 +4518,12 @@ class NMHEADERA(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     iButton: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_NOTIFICATION_BUTTON
-    pitem: POINTER(win32more.Windows.Win32.UI.Controls.HDITEMA_head)
+    pitem: POINTER(win32more.Windows.Win32.UI.Controls.HDITEMA)
 class NMHEADERW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     iButton: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_NOTIFICATION_BUTTON
-    pitem: POINTER(win32more.Windows.Win32.UI.Controls.HDITEMW_head)
+    pitem: POINTER(win32more.Windows.Win32.UI.Controls.HDITEMW)
 class NMIPADDRESS(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iField: Int32
@@ -4874,7 +4865,7 @@ class NMTTDISPINFOW(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 class NMTVASYNCDRAW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
-    pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS_head)
+    pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS)
     hr: win32more.Windows.Win32.Foundation.HRESULT
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     lParam: win32more.Windows.Win32.Foundation.LPARAM
@@ -5015,7 +5006,7 @@ def PFNDPAMERGE(uMsg: win32more.Windows.Win32.UI.Controls.DPAMM_MESSAGE, pvDest:
 @winfunctype_pointer
 def PFNDPAMERGECONST(uMsg: win32more.Windows.Win32.UI.Controls.DPAMM_MESSAGE, pvDest: VoidPtr, pvSrc: VoidPtr, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> VoidPtr: ...
 @winfunctype_pointer
-def PFNDPASTREAM(pinfo: POINTER(win32more.Windows.Win32.UI.Controls.DPASTREAMINFO_head), pstream: win32more.Windows.Win32.System.Com.IStream_head, pvInstData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFNDPASTREAM(pinfo: POINTER(win32more.Windows.Win32.UI.Controls.DPASTREAMINFO), pstream: win32more.Windows.Win32.System.Com.IStream, pvInstData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFNLVCOMPARE(param0: win32more.Windows.Win32.Foundation.LPARAM, param1: win32more.Windows.Win32.Foundation.LPARAM, param2: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 @winfunctype_pointer
@@ -5130,7 +5121,7 @@ class PROPSHEETHEADERA_V1(EasyCastStructure):
         nStartPage: UInt32
         pStartPage: win32more.Windows.Win32.Foundation.PSTR
     class _Anonymous3_e__Union(EasyCastUnion):
-        ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA_head)
+        ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
         phpage: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
 class PROPSHEETHEADERA_V2(EasyCastStructure):
     dwSize: UInt32
@@ -5153,7 +5144,7 @@ class PROPSHEETHEADERA_V2(EasyCastStructure):
         nStartPage: UInt32
         pStartPage: win32more.Windows.Win32.Foundation.PSTR
     class _Anonymous3_e__Union(EasyCastUnion):
-        ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA_head)
+        ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
         phpage: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
     class _Anonymous4_e__Union(EasyCastUnion):
         hbmWatermark: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
@@ -5179,7 +5170,7 @@ class PROPSHEETHEADERW_V1(EasyCastStructure):
         nStartPage: UInt32
         pStartPage: win32more.Windows.Win32.Foundation.PWSTR
     class _Anonymous3_e__Union(EasyCastUnion):
-        ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW_head)
+        ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)
         phpage: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
 class PROPSHEETHEADERW_V2(EasyCastStructure):
     dwSize: UInt32
@@ -5202,7 +5193,7 @@ class PROPSHEETHEADERW_V2(EasyCastStructure):
         nStartPage: UInt32
         pStartPage: win32more.Windows.Win32.Foundation.PWSTR
     class _Anonymous3_e__Union(EasyCastUnion):
-        ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW_head)
+        ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)
         phpage: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
     class _Anonymous4_e__Union(EasyCastUnion):
         hbmWatermark: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
@@ -5227,7 +5218,7 @@ class PROPSHEETPAGEA(EasyCastStructure):
     Anonymous3: _Anonymous3_e__Union
     class _Anonymous1_e__Union(EasyCastUnion):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
-        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head)
+        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
     class _Anonymous2_e__Union(EasyCastUnion):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
@@ -5247,7 +5238,7 @@ class PROPSHEETPAGEA_V1(EasyCastStructure):
     pcRefParent: POINTER(UInt32)
     class _Anonymous1_e__Union(EasyCastUnion):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
-        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head)
+        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
     class _Anonymous2_e__Union(EasyCastUnion):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
@@ -5266,7 +5257,7 @@ class PROPSHEETPAGEA_V2(EasyCastStructure):
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PSTR
     class _Anonymous1_e__Union(EasyCastUnion):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
-        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head)
+        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
     class _Anonymous2_e__Union(EasyCastUnion):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
@@ -5286,7 +5277,7 @@ class PROPSHEETPAGEA_V3(EasyCastStructure):
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
     class _Anonymous1_e__Union(EasyCastUnion):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
-        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head)
+        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
     class _Anonymous2_e__Union(EasyCastUnion):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
@@ -5307,7 +5298,7 @@ class PROPSHEETPAGEW(EasyCastStructure):
     Anonymous3: _Anonymous3_e__Union
     class _Anonymous1_e__Union(EasyCastUnion):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
-        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head)
+        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
     class _Anonymous2_e__Union(EasyCastUnion):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
@@ -5327,7 +5318,7 @@ class PROPSHEETPAGEW_V1(EasyCastStructure):
     pcRefParent: POINTER(UInt32)
     class _Anonymous1_e__Union(EasyCastUnion):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
-        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head)
+        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
     class _Anonymous2_e__Union(EasyCastUnion):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
@@ -5346,7 +5337,7 @@ class PROPSHEETPAGEW_V2(EasyCastStructure):
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PWSTR
     class _Anonymous1_e__Union(EasyCastUnion):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
-        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head)
+        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
     class _Anonymous2_e__Union(EasyCastUnion):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
@@ -5366,7 +5357,7 @@ class PROPSHEETPAGEW_V3(EasyCastStructure):
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
     class _Anonymous1_e__Union(EasyCastUnion):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
-        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE_head)
+        pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
     class _Anonymous2_e__Union(EasyCastUnion):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
@@ -5680,10 +5671,10 @@ class TASKDIALOGCONFIG(EasyCastStructure):
     pszMainInstruction: win32more.Windows.Win32.Foundation.PWSTR
     pszContent: win32more.Windows.Win32.Foundation.PWSTR
     cButtons: UInt32
-    pButtons: POINTER(win32more.Windows.Win32.UI.Controls.TASKDIALOG_BUTTON_head)
+    pButtons: POINTER(win32more.Windows.Win32.UI.Controls.TASKDIALOG_BUTTON)
     nDefaultButton: Int32
     cRadioButtons: UInt32
-    pRadioButtons: POINTER(win32more.Windows.Win32.UI.Controls.TASKDIALOG_BUTTON_head)
+    pRadioButtons: POINTER(win32more.Windows.Win32.UI.Controls.TASKDIALOG_BUTTON)
     nDefaultRadioButton: Int32
     pszVerificationText: win32more.Windows.Win32.Foundation.PWSTR
     pszExpandedInformation: win32more.Windows.Win32.Foundation.PWSTR
@@ -6490,7 +6481,7 @@ class TTTOOLINFOW(EasyCastStructure):
     lpReserved: VoidPtr
 class TVGETITEMPARTRECTINFO(EasyCastStructure):
     hti: win32more.Windows.Win32.UI.Controls.HTREEITEM
-    prc: POINTER(win32more.Windows.Win32.Foundation.RECT_head)
+    prc: POINTER(win32more.Windows.Win32.Foundation.RECT)
     partID: win32more.Windows.Win32.UI.Controls.TVITEMPART
 class TVHITTESTINFO(EasyCastStructure):
     pt: win32more.Windows.Win32.Foundation.POINT
@@ -6721,246 +6712,4 @@ class WTA_OPTIONS(EasyCastStructure):
 _LI_METRIC = Int32
 LIM_SMALL: _LI_METRIC = 0
 LIM_LARGE: _LI_METRIC = 1
-make_head(_module, 'BP_ANIMATIONPARAMS')
-make_head(_module, 'BP_PAINTPARAMS')
-make_head(_module, 'BUTTON_IMAGELIST')
-make_head(_module, 'BUTTON_SPLITINFO')
-make_head(_module, 'CCINFOA')
-make_head(_module, 'CCINFOW')
-make_head(_module, 'CCSTYLEA')
-make_head(_module, 'CCSTYLEFLAGA')
-make_head(_module, 'CCSTYLEFLAGW')
-make_head(_module, 'CCSTYLEW')
-make_head(_module, 'COLORMAP')
-make_head(_module, 'COLORSCHEME')
-make_head(_module, 'COMBOBOXEXITEMA')
-make_head(_module, 'COMBOBOXEXITEMW')
-make_head(_module, 'COMBOBOXINFO')
-make_head(_module, 'COMPAREITEMSTRUCT')
-make_head(_module, 'DATETIMEPICKERINFO')
-make_head(_module, 'DELETEITEMSTRUCT')
-make_head(_module, 'DPASTREAMINFO')
-make_head(_module, 'DRAGLISTINFO')
-make_head(_module, 'DRAWITEMSTRUCT')
-make_head(_module, 'DTBGOPTS')
-make_head(_module, 'DTTOPTS')
-make_head(_module, 'DTT_CALLBACK_PROC')
-make_head(_module, 'EDITBALLOONTIP')
-make_head(_module, 'EDITWORDBREAKPROCA')
-make_head(_module, 'EDITWORDBREAKPROCW')
-make_head(_module, 'HDHITTESTINFO')
-make_head(_module, 'HDITEMA')
-make_head(_module, 'HDITEMW')
-make_head(_module, 'HDLAYOUT')
-make_head(_module, 'HD_TEXTFILTERA')
-make_head(_module, 'HD_TEXTFILTERW')
-make_head(_module, 'IImageList')
-make_head(_module, 'IImageList2')
-make_head(_module, 'IMAGEINFO')
-make_head(_module, 'IMAGELISTDRAWPARAMS')
-make_head(_module, 'IMAGELISTSTATS')
-make_head(_module, 'INITCOMMONCONTROLSEX')
-make_head(_module, 'INTLIST')
-make_head(_module, 'LHITTESTINFO')
-make_head(_module, 'LITEM')
-make_head(_module, 'LPFNADDPROPSHEETPAGES')
-make_head(_module, 'LPFNCCINFOA')
-make_head(_module, 'LPFNCCINFOW')
-make_head(_module, 'LPFNCCSIZETOTEXTA')
-make_head(_module, 'LPFNCCSIZETOTEXTW')
-make_head(_module, 'LPFNCCSTYLEA')
-make_head(_module, 'LPFNCCSTYLEW')
-make_head(_module, 'LPFNPSPCALLBACKA')
-make_head(_module, 'LPFNPSPCALLBACKW')
-make_head(_module, 'LPFNSVADDPROPSHEETPAGE')
-make_head(_module, 'LVBKIMAGEA')
-make_head(_module, 'LVBKIMAGEW')
-make_head(_module, 'LVCOLUMNA')
-make_head(_module, 'LVCOLUMNW')
-make_head(_module, 'LVFINDINFOA')
-make_head(_module, 'LVFINDINFOW')
-make_head(_module, 'LVFOOTERINFO')
-make_head(_module, 'LVFOOTERITEM')
-make_head(_module, 'LVGROUP')
-make_head(_module, 'LVGROUPMETRICS')
-make_head(_module, 'LVHITTESTINFO')
-make_head(_module, 'LVINSERTGROUPSORTED')
-make_head(_module, 'LVINSERTMARK')
-make_head(_module, 'LVITEMA')
-make_head(_module, 'LVITEMINDEX')
-make_head(_module, 'LVITEMW')
-make_head(_module, 'LVSETINFOTIP')
-make_head(_module, 'LVTILEINFO')
-make_head(_module, 'LVTILEVIEWINFO')
-make_head(_module, 'MARGINS')
-make_head(_module, 'MCGRIDINFO')
-make_head(_module, 'MCHITTESTINFO')
-make_head(_module, 'MEASUREITEMSTRUCT')
-make_head(_module, 'NMBCDROPDOWN')
-make_head(_module, 'NMBCHOTITEM')
-make_head(_module, 'NMCBEDRAGBEGINA')
-make_head(_module, 'NMCBEDRAGBEGINW')
-make_head(_module, 'NMCBEENDEDITA')
-make_head(_module, 'NMCBEENDEDITW')
-make_head(_module, 'NMCHAR')
-make_head(_module, 'NMCOMBOBOXEXA')
-make_head(_module, 'NMCOMBOBOXEXW')
-make_head(_module, 'NMCUSTOMDRAW')
-make_head(_module, 'NMCUSTOMSPLITRECTINFO')
-make_head(_module, 'NMCUSTOMTEXT')
-make_head(_module, 'NMDATETIMECHANGE')
-make_head(_module, 'NMDATETIMEFORMATA')
-make_head(_module, 'NMDATETIMEFORMATQUERYA')
-make_head(_module, 'NMDATETIMEFORMATQUERYW')
-make_head(_module, 'NMDATETIMEFORMATW')
-make_head(_module, 'NMDATETIMESTRINGA')
-make_head(_module, 'NMDATETIMESTRINGW')
-make_head(_module, 'NMDATETIMEWMKEYDOWNA')
-make_head(_module, 'NMDATETIMEWMKEYDOWNW')
-make_head(_module, 'NMDAYSTATE')
-make_head(_module, 'NMHDDISPINFOA')
-make_head(_module, 'NMHDDISPINFOW')
-make_head(_module, 'NMHDFILTERBTNCLICK')
-make_head(_module, 'NMHDR')
-make_head(_module, 'NMHEADERA')
-make_head(_module, 'NMHEADERW')
-make_head(_module, 'NMIPADDRESS')
-make_head(_module, 'NMITEMACTIVATE')
-make_head(_module, 'NMKEY')
-make_head(_module, 'NMLINK')
-make_head(_module, 'NMLISTVIEW')
-make_head(_module, 'NMLVCACHEHINT')
-make_head(_module, 'NMLVCUSTOMDRAW')
-make_head(_module, 'NMLVDISPINFOA')
-make_head(_module, 'NMLVDISPINFOW')
-make_head(_module, 'NMLVEMPTYMARKUP')
-make_head(_module, 'NMLVFINDITEMA')
-make_head(_module, 'NMLVFINDITEMW')
-make_head(_module, 'NMLVGETINFOTIPA')
-make_head(_module, 'NMLVGETINFOTIPW')
-make_head(_module, 'NMLVKEYDOWN')
-make_head(_module, 'NMLVLINK')
-make_head(_module, 'NMLVODSTATECHANGE')
-make_head(_module, 'NMLVSCROLL')
-make_head(_module, 'NMMOUSE')
-make_head(_module, 'NMOBJECTNOTIFY')
-make_head(_module, 'NMPGCALCSIZE')
-make_head(_module, 'NMPGHOTITEM')
-make_head(_module, 'NMPGSCROLL')
-make_head(_module, 'NMRBAUTOSIZE')
-make_head(_module, 'NMREBAR')
-make_head(_module, 'NMREBARAUTOBREAK')
-make_head(_module, 'NMREBARCHEVRON')
-make_head(_module, 'NMREBARCHILDSIZE')
-make_head(_module, 'NMREBARSPLITTER')
-make_head(_module, 'NMSEARCHWEB')
-make_head(_module, 'NMSELCHANGE')
-make_head(_module, 'NMTBCUSTOMDRAW')
-make_head(_module, 'NMTBDISPINFOA')
-make_head(_module, 'NMTBDISPINFOW')
-make_head(_module, 'NMTBGETINFOTIPA')
-make_head(_module, 'NMTBGETINFOTIPW')
-make_head(_module, 'NMTBHOTITEM')
-make_head(_module, 'NMTBRESTORE')
-make_head(_module, 'NMTBSAVE')
-make_head(_module, 'NMTCKEYDOWN')
-make_head(_module, 'NMTOOLBARA')
-make_head(_module, 'NMTOOLBARW')
-make_head(_module, 'NMTOOLTIPSCREATED')
-make_head(_module, 'NMTRBTHUMBPOSCHANGING')
-make_head(_module, 'NMTREEVIEWA')
-make_head(_module, 'NMTREEVIEWW')
-make_head(_module, 'NMTTCUSTOMDRAW')
-make_head(_module, 'NMTTDISPINFOA')
-make_head(_module, 'NMTTDISPINFOW')
-make_head(_module, 'NMTVASYNCDRAW')
-make_head(_module, 'NMTVCUSTOMDRAW')
-make_head(_module, 'NMTVDISPINFOA')
-make_head(_module, 'NMTVDISPINFOEXA')
-make_head(_module, 'NMTVDISPINFOEXW')
-make_head(_module, 'NMTVDISPINFOW')
-make_head(_module, 'NMTVGETINFOTIPA')
-make_head(_module, 'NMTVGETINFOTIPW')
-make_head(_module, 'NMTVITEMCHANGE')
-make_head(_module, 'NMTVKEYDOWN')
-make_head(_module, 'NMTVSTATEIMAGECHANGING')
-make_head(_module, 'NMUPDOWN')
-make_head(_module, 'NMVIEWCHANGE')
-make_head(_module, 'PBRANGE')
-make_head(_module, 'PFNDACOMPARE')
-make_head(_module, 'PFNDACOMPARECONST')
-make_head(_module, 'PFNDAENUMCALLBACK')
-make_head(_module, 'PFNDAENUMCALLBACKCONST')
-make_head(_module, 'PFNDPAMERGE')
-make_head(_module, 'PFNDPAMERGECONST')
-make_head(_module, 'PFNDPASTREAM')
-make_head(_module, 'PFNLVCOMPARE')
-make_head(_module, 'PFNLVGROUPCOMPARE')
-make_head(_module, 'PFNPROPSHEETCALLBACK')
-make_head(_module, 'PFNTVCOMPARE')
-make_head(_module, 'PFTASKDIALOGCALLBACK')
-make_head(_module, 'POINTER_DEVICE_CURSOR_INFO')
-make_head(_module, 'POINTER_DEVICE_INFO')
-make_head(_module, 'POINTER_DEVICE_PROPERTY')
-make_head(_module, 'POINTER_TYPE_INFO')
-make_head(_module, 'PROPSHEETHEADERA_V1')
-make_head(_module, 'PROPSHEETHEADERA_V2')
-make_head(_module, 'PROPSHEETHEADERW_V1')
-make_head(_module, 'PROPSHEETHEADERW_V2')
-make_head(_module, 'PROPSHEETPAGEA')
-make_head(_module, 'PROPSHEETPAGEA_V1')
-make_head(_module, 'PROPSHEETPAGEA_V2')
-make_head(_module, 'PROPSHEETPAGEA_V3')
-make_head(_module, 'PROPSHEETPAGEW')
-make_head(_module, 'PROPSHEETPAGEW_V1')
-make_head(_module, 'PROPSHEETPAGEW_V2')
-make_head(_module, 'PROPSHEETPAGEW_V3')
-make_head(_module, 'PSHNOTIFY')
-make_head(_module, 'RBHITTESTINFO')
-make_head(_module, 'REBARBANDINFOA')
-make_head(_module, 'REBARBANDINFOW')
-make_head(_module, 'REBARINFO')
-make_head(_module, 'TASKDIALOGCONFIG')
-make_head(_module, 'TASKDIALOG_BUTTON')
-make_head(_module, 'TA_CUBIC_BEZIER')
-make_head(_module, 'TA_TIMINGFUNCTION')
-make_head(_module, 'TA_TRANSFORM')
-make_head(_module, 'TA_TRANSFORM_2D')
-make_head(_module, 'TA_TRANSFORM_CLIP')
-make_head(_module, 'TA_TRANSFORM_OPACITY')
-make_head(_module, 'TBADDBITMAP')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'TBBUTTON')
-if ARCH in 'X86':
-    make_head(_module, 'TBBUTTON')
-make_head(_module, 'TBBUTTONINFOA')
-make_head(_module, 'TBBUTTONINFOW')
-make_head(_module, 'TBINSERTMARK')
-make_head(_module, 'TBMETRICS')
-make_head(_module, 'TBREPLACEBITMAP')
-make_head(_module, 'TBSAVEPARAMSA')
-make_head(_module, 'TBSAVEPARAMSW')
-make_head(_module, 'TCHITTESTINFO')
-make_head(_module, 'TCITEMA')
-make_head(_module, 'TCITEMHEADERA')
-make_head(_module, 'TCITEMHEADERW')
-make_head(_module, 'TCITEMW')
-make_head(_module, 'TOUCH_HIT_TESTING_INPUT')
-make_head(_module, 'TOUCH_HIT_TESTING_PROXIMITY_EVALUATION')
-make_head(_module, 'TTGETTITLE')
-make_head(_module, 'TTHITTESTINFOA')
-make_head(_module, 'TTHITTESTINFOW')
-make_head(_module, 'TTTOOLINFOA')
-make_head(_module, 'TTTOOLINFOW')
-make_head(_module, 'TVGETITEMPARTRECTINFO')
-make_head(_module, 'TVHITTESTINFO')
-make_head(_module, 'TVINSERTSTRUCTA')
-make_head(_module, 'TVINSERTSTRUCTW')
-make_head(_module, 'TVITEMA')
-make_head(_module, 'TVITEMEXA')
-make_head(_module, 'TVITEMEXW')
-make_head(_module, 'TVITEMW')
-make_head(_module, 'TVSORTCB')
-make_head(_module, 'UDACCEL')
-make_head(_module, 'USAGE_PROPERTIES')
-make_head(_module, 'WTA_OPTIONS')
+make_ready(__name__)

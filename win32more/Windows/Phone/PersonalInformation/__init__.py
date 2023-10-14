@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Phone.PersonalInformation
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ContactAddress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IContactAddress
@@ -112,7 +103,7 @@ class ContactInformation(ComPtr):
     @winrt_mixinmethod
     def get_DisplayPicture(self: win32more.Windows.Phone.PersonalInformation.IContactInformation) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_mixinmethod
-    def GetPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def GetPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     @winrt_mixinmethod
     def ToVcardAsync(self: win32more.Windows.Phone.PersonalInformation.IContactInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     @winrt_mixinmethod
@@ -176,9 +167,9 @@ class ContactStore(ComPtr):
     @winrt_mixinmethod
     def GetChangesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactStore, baseRevisionNumber: UInt64) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Phone.PersonalInformation.ContactChangeRecord]]: ...
     @winrt_mixinmethod
-    def LoadExtendedPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactStore) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def LoadExtendedPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactStore) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     @winrt_mixinmethod
-    def SaveExtendedPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactStore, data: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SaveExtendedPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactStore, data: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def CreateMeContactAsync(self: win32more.Windows.Phone.PersonalInformation.IContactStore2, id: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Phone.PersonalInformation.StoredContact]: ...
     @winrt_classmethod
@@ -268,7 +259,7 @@ class IContactInformation(ComPtr):
     @winrt_commethod(18)
     def get_DisplayPicture(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_commethod(19)
-    def GetPropertiesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def GetPropertiesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     @winrt_commethod(20)
     def ToVcardAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     @winrt_commethod(21)
@@ -339,9 +330,9 @@ class IContactStore(ComPtr):
     @winrt_commethod(13)
     def GetChangesAsync(self, baseRevisionNumber: UInt64) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Phone.PersonalInformation.ContactChangeRecord]]: ...
     @winrt_commethod(14)
-    def LoadExtendedPropertiesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def LoadExtendedPropertiesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     @winrt_commethod(15)
-    def SaveExtendedPropertiesAsync(self, data: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SaveExtendedPropertiesAsync(self, data: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.IAsyncAction: ...
     RevisionNumber = property(get_RevisionNumber, None)
 class IContactStore2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -479,7 +470,7 @@ class IStoredContact(ComPtr):
     @winrt_commethod(9)
     def put_RemoteId(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(10)
-    def GetExtendedPropertiesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def GetExtendedPropertiesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     @winrt_commethod(11)
     def SaveAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(12)
@@ -622,7 +613,7 @@ class StoredContact(ComPtr):
     @winrt_mixinmethod
     def put_RemoteId(self: win32more.Windows.Phone.PersonalInformation.IStoredContact, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def GetExtendedPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IStoredContact) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def GetExtendedPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IStoredContact) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     @winrt_mixinmethod
     def SaveAsync(self: win32more.Windows.Phone.PersonalInformation.IStoredContact) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -654,7 +645,7 @@ class StoredContact(ComPtr):
     @winrt_mixinmethod
     def get_DisplayPicture(self: win32more.Windows.Phone.PersonalInformation.IContactInformation) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_mixinmethod
-    def GetPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def GetPropertiesAsync(self: win32more.Windows.Phone.PersonalInformation.IContactInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     @winrt_mixinmethod
     def ToVcardAsync(self: win32more.Windows.Phone.PersonalInformation.IContactInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     @winrt_mixinmethod
@@ -676,24 +667,4 @@ class StoredContact(ComPtr):
 VCardFormat = Int32
 VCardFormat_Version2_1: VCardFormat = 0
 VCardFormat_Version3: VCardFormat = 1
-make_head(_module, 'ContactAddress')
-make_head(_module, 'ContactChangeRecord')
-make_head(_module, 'ContactInformation')
-make_head(_module, 'ContactQueryOptions')
-make_head(_module, 'ContactQueryResult')
-make_head(_module, 'ContactStore')
-make_head(_module, 'IContactAddress')
-make_head(_module, 'IContactChangeRecord')
-make_head(_module, 'IContactInformation')
-make_head(_module, 'IContactInformation2')
-make_head(_module, 'IContactInformationStatics')
-make_head(_module, 'IContactQueryOptions')
-make_head(_module, 'IContactQueryResult')
-make_head(_module, 'IContactStore')
-make_head(_module, 'IContactStore2')
-make_head(_module, 'IContactStoreStatics')
-make_head(_module, 'IKnownContactPropertiesStatics')
-make_head(_module, 'IStoredContact')
-make_head(_module, 'IStoredContactFactory')
-make_head(_module, 'KnownContactProperties')
-make_head(_module, 'StoredContact')
+make_ready(__name__)

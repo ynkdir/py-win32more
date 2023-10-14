@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -23,15 +23,6 @@ import win32more.Windows.Security.Cryptography.Certificates
 import win32more.Windows.System
 import win32more.Windows.Web.Http
 import win32more.Windows.Web.Http.Filters
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class HttpBaseProtocolFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Filters.IHttpBaseProtocolFilter
@@ -297,15 +288,4 @@ class IHttpServerCustomValidationRequestedEventArgs(ComPtr):
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)
     ServerCertificateErrors = property(get_ServerCertificateErrors, None)
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
-make_head(_module, 'HttpBaseProtocolFilter')
-make_head(_module, 'HttpCacheControl')
-make_head(_module, 'HttpServerCustomValidationRequestedEventArgs')
-make_head(_module, 'IHttpBaseProtocolFilter')
-make_head(_module, 'IHttpBaseProtocolFilter2')
-make_head(_module, 'IHttpBaseProtocolFilter3')
-make_head(_module, 'IHttpBaseProtocolFilter4')
-make_head(_module, 'IHttpBaseProtocolFilter5')
-make_head(_module, 'IHttpBaseProtocolFilterStatics')
-make_head(_module, 'IHttpCacheControl')
-make_head(_module, 'IHttpFilter')
-make_head(_module, 'IHttpServerCustomValidationRequestedEventArgs')
+make_ready(__name__)

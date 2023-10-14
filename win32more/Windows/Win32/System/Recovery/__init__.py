@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Recovery
 import win32more.Windows.Win32.System.WindowsProgramming
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('KERNEL32.dll')
 def RegisterApplicationRecoveryCallback(pRecoveyCallback: win32more.Windows.Win32.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK, pvParameter: VoidPtr, dwPingInterval: UInt32, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
@@ -34,3 +25,4 @@ RESTART_NO_CRASH: REGISTER_APPLICATION_RESTART_FLAGS = 1
 RESTART_NO_HANG: REGISTER_APPLICATION_RESTART_FLAGS = 2
 RESTART_NO_PATCH: REGISTER_APPLICATION_RESTART_FLAGS = 4
 RESTART_NO_REBOOT: REGISTER_APPLICATION_RESTART_FLAGS = 8
+make_ready(__name__)

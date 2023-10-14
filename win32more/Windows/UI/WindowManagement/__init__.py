@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.System
 import win32more.Windows.UI
 import win32more.Windows.UI.Composition
 import win32more.Windows.UI.WindowManagement
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AppWindow(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IAppWindow
@@ -323,7 +314,7 @@ class DisplayRegion(ComPtr):
     @winrt_mixinmethod
     def get_WindowingEnvironment(self: win32more.Windows.UI.WindowManagement.IDisplayRegion) -> win32more.Windows.UI.WindowManagement.WindowingEnvironment: ...
     @winrt_mixinmethod
-    def add_Changed(self: win32more.Windows.UI.WindowManagement.IDisplayRegion, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.WindowManagement.DisplayRegion, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self: win32more.Windows.UI.WindowManagement.IDisplayRegion, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.WindowManagement.DisplayRegion, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Changed(self: win32more.Windows.UI.WindowManagement.IDisplayRegion, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DisplayMonitorDeviceId = property(get_DisplayMonitorDeviceId, None)
@@ -633,7 +624,7 @@ class IDisplayRegion(ComPtr):
     @winrt_commethod(10)
     def get_WindowingEnvironment(self) -> win32more.Windows.UI.WindowManagement.WindowingEnvironment: ...
     @winrt_commethod(11)
-    def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.WindowManagement.DisplayRegion, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.WindowManagement.DisplayRegion, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DisplayMonitorDeviceId = property(get_DisplayMonitorDeviceId, None)
@@ -745,46 +736,4 @@ class WindowingEnvironmentRemovedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_WindowingEnvironment(self: win32more.Windows.UI.WindowManagement.IWindowingEnvironmentRemovedEventArgs) -> win32more.Windows.UI.WindowManagement.WindowingEnvironment: ...
     WindowingEnvironment = property(get_WindowingEnvironment, None)
-make_head(_module, 'AppWindow')
-make_head(_module, 'AppWindowChangedEventArgs')
-make_head(_module, 'AppWindowCloseRequestedEventArgs')
-make_head(_module, 'AppWindowClosedEventArgs')
-make_head(_module, 'AppWindowFrame')
-make_head(_module, 'AppWindowPlacement')
-make_head(_module, 'AppWindowPresentationConfiguration')
-make_head(_module, 'AppWindowPresenter')
-make_head(_module, 'AppWindowTitleBar')
-make_head(_module, 'AppWindowTitleBarOcclusion')
-make_head(_module, 'CompactOverlayPresentationConfiguration')
-make_head(_module, 'DefaultPresentationConfiguration')
-make_head(_module, 'DisplayRegion')
-make_head(_module, 'FullScreenPresentationConfiguration')
-make_head(_module, 'IAppWindow')
-make_head(_module, 'IAppWindowChangedEventArgs')
-make_head(_module, 'IAppWindowCloseRequestedEventArgs')
-make_head(_module, 'IAppWindowClosedEventArgs')
-make_head(_module, 'IAppWindowFrame')
-make_head(_module, 'IAppWindowFrameStyle')
-make_head(_module, 'IAppWindowPlacement')
-make_head(_module, 'IAppWindowPresentationConfiguration')
-make_head(_module, 'IAppWindowPresentationConfigurationFactory')
-make_head(_module, 'IAppWindowPresenter')
-make_head(_module, 'IAppWindowStatics')
-make_head(_module, 'IAppWindowTitleBar')
-make_head(_module, 'IAppWindowTitleBarOcclusion')
-make_head(_module, 'IAppWindowTitleBarVisibility')
-make_head(_module, 'ICompactOverlayPresentationConfiguration')
-make_head(_module, 'IDefaultPresentationConfiguration')
-make_head(_module, 'IDisplayRegion')
-make_head(_module, 'IFullScreenPresentationConfiguration')
-make_head(_module, 'IWindowServicesStatics')
-make_head(_module, 'IWindowingEnvironment')
-make_head(_module, 'IWindowingEnvironmentAddedEventArgs')
-make_head(_module, 'IWindowingEnvironmentChangedEventArgs')
-make_head(_module, 'IWindowingEnvironmentRemovedEventArgs')
-make_head(_module, 'IWindowingEnvironmentStatics')
-make_head(_module, 'WindowServices')
-make_head(_module, 'WindowingEnvironment')
-make_head(_module, 'WindowingEnvironmentAddedEventArgs')
-make_head(_module, 'WindowingEnvironmentChangedEventArgs')
-make_head(_module, 'WindowingEnvironmentRemovedEventArgs')
+make_ready(__name__)

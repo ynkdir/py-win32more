@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Sensors
 import win32more.Windows.Foundation
 import win32more.Windows.System.Preview
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 HingeState = Int32
 HingeState_Unknown: HingeState = 0
 HingeState_Closed: HingeState = 1
@@ -120,10 +111,4 @@ class TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs) -> win32more.Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading: ...
     Reading = property(get_Reading, None)
-make_head(_module, 'ITwoPanelHingedDevicePosturePreview')
-make_head(_module, 'ITwoPanelHingedDevicePosturePreviewReading')
-make_head(_module, 'ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs')
-make_head(_module, 'ITwoPanelHingedDevicePosturePreviewStatics')
-make_head(_module, 'TwoPanelHingedDevicePosturePreview')
-make_head(_module, 'TwoPanelHingedDevicePosturePreviewReading')
-make_head(_module, 'TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs')
+make_ready(__name__)

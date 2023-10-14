@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.HostComputeSystem
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('computecore.dll')
 def HcsEnumerateComputeSystems(query: win32more.Windows.Win32.Foundation.PWSTR, operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
@@ -38,7 +29,7 @@ def HcsGetOperationId(operation: win32more.Windows.Win32.System.HostComputeSyste
 @winfunctype('computecore.dll')
 def HcsGetOperationResult(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, resultDocument: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
-def HcsGetOperationResultAndProcessInfo(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, processInformation: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_PROCESS_INFORMATION_head), resultDocument: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HcsGetOperationResultAndProcessInfo(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, processInformation: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_PROCESS_INFORMATION), resultDocument: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
 def HcsAddResourceToOperation(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, type: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE, uri: win32more.Windows.Win32.Foundation.PWSTR, handle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
@@ -46,13 +37,13 @@ def HcsGetProcessorCompatibilityFromSavedState(RuntimeFileName: win32more.Window
 @winfunctype('computecore.dll')
 def HcsWaitForOperationResult(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, timeoutMs: UInt32, resultDocument: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
-def HcsWaitForOperationResultAndProcessInfo(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, timeoutMs: UInt32, processInformation: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_PROCESS_INFORMATION_head), resultDocument: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HcsWaitForOperationResultAndProcessInfo(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, timeoutMs: UInt32, processInformation: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_PROCESS_INFORMATION), resultDocument: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
 def HcsSetOperationCallback(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, context: VoidPtr, callback: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_COMPLETION) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
 def HcsCancelOperation(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
-def HcsCreateComputeSystem(id: win32more.Windows.Win32.Foundation.PWSTR, configuration: win32more.Windows.Win32.Foundation.PWSTR, operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, securityDescriptor: POINTER(win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_head), computeSystem: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_SYSTEM)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HcsCreateComputeSystem(id: win32more.Windows.Win32.Foundation.PWSTR, configuration: win32more.Windows.Win32.Foundation.PWSTR, operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, securityDescriptor: POINTER(win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR), computeSystem: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_SYSTEM)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
 def HcsCreateComputeSystemInNamespace(idNamespace: win32more.Windows.Win32.Foundation.PWSTR, id: win32more.Windows.Win32.Foundation.PWSTR, configuration: win32more.Windows.Win32.Foundation.PWSTR, operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, options: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_CREATE_OPTIONS), computeSystem: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_SYSTEM)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
@@ -84,7 +75,7 @@ def HcsWaitForComputeSystemExit(computeSystem: win32more.Windows.Win32.System.Ho
 @winfunctype('computecore.dll')
 def HcsSetComputeSystemCallback(computeSystem: win32more.Windows.Win32.System.HostComputeSystem.HCS_SYSTEM, callbackOptions: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS, context: VoidPtr, callback: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_CALLBACK) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
-def HcsCreateProcess(computeSystem: win32more.Windows.Win32.System.HostComputeSystem.HCS_SYSTEM, processParameters: win32more.Windows.Win32.Foundation.PWSTR, operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, securityDescriptor: POINTER(win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_head), process: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_PROCESS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HcsCreateProcess(computeSystem: win32more.Windows.Win32.System.HostComputeSystem.HCS_SYSTEM, processParameters: win32more.Windows.Win32.Foundation.PWSTR, operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, securityDescriptor: POINTER(win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR), process: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_PROCESS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
 def HcsOpenProcess(computeSystem: win32more.Windows.Win32.System.HostComputeSystem.HCS_SYSTEM, processId: UInt32, requestedAccess: UInt32, process: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_PROCESS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computecore.dll')
@@ -150,7 +141,7 @@ HcsCreateOptions_1: HCS_CREATE_OPTIONS = 65536
 class HCS_CREATE_OPTIONS_1(EasyCastStructure):
     Version: win32more.Windows.Win32.System.HostComputeSystem.HCS_CREATE_OPTIONS
     UserToken: win32more.Windows.Win32.Foundation.HANDLE
-    SecurityDescriptor: POINTER(win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_head)
+    SecurityDescriptor: POINTER(win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR)
     CallbackOptions: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS
     CallbackContext: VoidPtr
     Callback: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_CALLBACK
@@ -159,7 +150,7 @@ class HCS_EVENT(EasyCastStructure):
     EventData: win32more.Windows.Win32.Foundation.PWSTR
     Operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION
 @winfunctype_pointer
-def HCS_EVENT_CALLBACK(event: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_head), context: VoidPtr) -> Void: ...
+def HCS_EVENT_CALLBACK(event: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT), context: VoidPtr) -> Void: ...
 HCS_EVENT_OPTIONS = Int32
 HCS_EVENT_OPTIONS_HcsEventOptionNone: HCS_EVENT_OPTIONS = 0
 HCS_EVENT_OPTIONS_HcsEventOptionEnableOperationCallbacks: HCS_EVENT_OPTIONS = 1
@@ -241,9 +232,4 @@ HCS_RESOURCE_TYPE_HcsResourceTypeNone: HCS_RESOURCE_TYPE = 0
 HCS_RESOURCE_TYPE_HcsResourceTypeFile: HCS_RESOURCE_TYPE = 1
 HCS_RESOURCE_TYPE_HcsResourceTypeJob: HCS_RESOURCE_TYPE = 2
 HCS_SYSTEM = IntPtr
-make_head(_module, 'HCS_CREATE_OPTIONS_1')
-make_head(_module, 'HCS_EVENT')
-make_head(_module, 'HCS_EVENT_CALLBACK')
-make_head(_module, 'HCS_NOTIFICATION_CALLBACK')
-make_head(_module, 'HCS_OPERATION_COMPLETION')
-make_head(_module, 'HCS_PROCESS_INFORMATION')
+make_ready(__name__)

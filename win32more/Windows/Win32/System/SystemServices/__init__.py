@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.SystemServices
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ACCESS_REASON_TYPE = Int32
 ACCESS_REASON_TYPE_AccessReasonNone: ACCESS_REASON_TYPE = 0
 ACCESS_REASON_TYPE_AccessReasonAllowedAce: ACCESS_REASON_TYPE = 65536
@@ -2456,7 +2447,7 @@ class GDI_NONREMOTE(EasyCastStructure):
     u: _u_e__Struct
     class _u_e__Struct(EasyCastUnion):
         hInproc: Int32
-        hRemote: POINTER(win32more.Windows.Win32.System.Com.DWORD_BLOB_head)
+        hRemote: POINTER(win32more.Windows.Win32.System.Com.DWORD_BLOB)
 GESTURECONFIG_FLAGS = UInt32
 GC_ALLGESTURES: GESTURECONFIG_FLAGS = 1
 GC_ZOOM: GESTURECONFIG_FLAGS = 1
@@ -3118,15 +3109,15 @@ class PACKEDEVENTINFO(EasyCastStructure):
     ulOffsets: UInt32 * 1
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
-    def PEXCEPTION_FILTER(ExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), EstablisherFrame: VoidPtr) -> Int32: ...
+    def PEXCEPTION_FILTER(ExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS), EstablisherFrame: VoidPtr) -> Int32: ...
 @winfunctype_pointer
 def PIMAGE_TLS_CALLBACK(DllHandle: VoidPtr, Reason: UInt32, Reserved: VoidPtr) -> Void: ...
 if ARCH in 'ARM64':
     @winfunctype_pointer
-    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
+    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY))) -> UInt32: ...
 if ARCH in 'X64':
     @winfunctype_pointer
-    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
+    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY))) -> UInt32: ...
 class PROCESSOR_IDLESTATE_INFO(EasyCastStructure):
     TimeCheck: UInt32
     DemotePercent: Byte
@@ -3771,7 +3762,7 @@ class remoteMETAFILEPICT(EasyCastStructure):
     mm: Int32
     xExt: Int32
     yExt: Int32
-    hMF: POINTER(win32more.Windows.Win32.System.SystemServices.userHMETAFILE_head)
+    hMF: POINTER(win32more.Windows.Win32.System.SystemServices.userHMETAFILE)
 class userBITMAP(EasyCastStructure):
     bmType: Int32
     bmWidth: Int32
@@ -3792,208 +3783,41 @@ class userHBITMAP(EasyCastStructure):
     u: _u_e__Struct
     class _u_e__Struct(EasyCastUnion):
         hInproc: Int32
-        hRemote: POINTER(win32more.Windows.Win32.System.SystemServices.userBITMAP_head)
+        hRemote: POINTER(win32more.Windows.Win32.System.SystemServices.userBITMAP)
         hInproc64: Int64
 class userHENHMETAFILE(EasyCastStructure):
     fContext: Int32
     u: _u_e__Struct
     class _u_e__Struct(EasyCastUnion):
         hInproc: Int32
-        hRemote: POINTER(win32more.Windows.Win32.System.Com.BYTE_BLOB_head)
+        hRemote: POINTER(win32more.Windows.Win32.System.Com.BYTE_BLOB)
         hInproc64: Int64
 class userHGLOBAL(EasyCastStructure):
     fContext: Int32
     u: _u_e__Struct
     class _u_e__Struct(EasyCastUnion):
         hInproc: Int32
-        hRemote: POINTER(win32more.Windows.Win32.System.Com.FLAGGED_BYTE_BLOB_head)
+        hRemote: POINTER(win32more.Windows.Win32.System.Com.FLAGGED_BYTE_BLOB)
         hInproc64: Int64
 class userHMETAFILE(EasyCastStructure):
     fContext: Int32
     u: _u_e__Struct
     class _u_e__Struct(EasyCastUnion):
         hInproc: Int32
-        hRemote: POINTER(win32more.Windows.Win32.System.Com.BYTE_BLOB_head)
+        hRemote: POINTER(win32more.Windows.Win32.System.Com.BYTE_BLOB)
         hInproc64: Int64
 class userHMETAFILEPICT(EasyCastStructure):
     fContext: Int32
     u: _u_e__Struct
     class _u_e__Struct(EasyCastUnion):
         hInproc: Int32
-        hRemote: POINTER(win32more.Windows.Win32.System.SystemServices.remoteMETAFILEPICT_head)
+        hRemote: POINTER(win32more.Windows.Win32.System.SystemServices.remoteMETAFILEPICT)
         hInproc64: Int64
 class userHPALETTE(EasyCastStructure):
     fContext: Int32
     u: _u_e__Struct
     class _u_e__Struct(EasyCastUnion):
         hInproc: Int32
-        hRemote: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGPALETTE_head)
+        hRemote: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGPALETTE)
         hInproc64: Int64
-make_head(_module, 'ANON_OBJECT_HEADER')
-make_head(_module, 'ANON_OBJECT_HEADER_BIGOBJ')
-make_head(_module, 'ANON_OBJECT_HEADER_V2')
-make_head(_module, 'APPLICATIONLAUNCH_SETTING_VALUE')
-make_head(_module, 'COMPONENT_FILTER')
-make_head(_module, 'DISPATCHER_CONTEXT_NONVOLREG_ARM64')
-make_head(_module, 'ENLISTMENT_BASIC_INFORMATION')
-make_head(_module, 'ENLISTMENT_CRM_INFORMATION')
-make_head(_module, 'FILE_NOTIFY_FULL_INFORMATION')
-make_head(_module, 'GDI_NONREMOTE')
-make_head(_module, 'HEAP_OPTIMIZE_RESOURCES_INFORMATION')
-make_head(_module, 'HIBERFILE_BUCKET')
-make_head(_module, 'IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_ARCHITECTURE_ENTRY')
-make_head(_module, 'IMAGE_ARCHITECTURE_HEADER')
-make_head(_module, 'IMAGE_ARCHIVE_MEMBER_HEADER')
-make_head(_module, 'IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA')
-make_head(_module, 'IMAGE_ARM_RUNTIME_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_AUX_SYMBOL')
-make_head(_module, 'IMAGE_AUX_SYMBOL_EX')
-make_head(_module, 'IMAGE_AUX_SYMBOL_TOKEN_DEF')
-make_head(_module, 'IMAGE_BASE_RELOCATION')
-make_head(_module, 'IMAGE_BDD_DYNAMIC_RELOCATION')
-make_head(_module, 'IMAGE_BDD_INFO')
-make_head(_module, 'IMAGE_BOUND_FORWARDER_REF')
-make_head(_module, 'IMAGE_BOUND_IMPORT_DESCRIPTOR')
-make_head(_module, 'IMAGE_CE_RUNTIME_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_DEBUG_MISC')
-make_head(_module, 'IMAGE_DOS_HEADER')
-make_head(_module, 'IMAGE_DYNAMIC_RELOCATION32')
-make_head(_module, 'IMAGE_DYNAMIC_RELOCATION32_V2')
-make_head(_module, 'IMAGE_DYNAMIC_RELOCATION64')
-make_head(_module, 'IMAGE_DYNAMIC_RELOCATION64_V2')
-make_head(_module, 'IMAGE_DYNAMIC_RELOCATION_TABLE')
-make_head(_module, 'IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER')
-make_head(_module, 'IMAGE_EXPORT_DIRECTORY')
-make_head(_module, 'IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION')
-make_head(_module, 'IMAGE_FUNCTION_OVERRIDE_HEADER')
-make_head(_module, 'IMAGE_HOT_PATCH_BASE')
-make_head(_module, 'IMAGE_HOT_PATCH_HASHES')
-make_head(_module, 'IMAGE_HOT_PATCH_INFO')
-make_head(_module, 'IMAGE_IMPORT_BY_NAME')
-make_head(_module, 'IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION')
-make_head(_module, 'IMAGE_IMPORT_DESCRIPTOR')
-make_head(_module, 'IMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION')
-make_head(_module, 'IMAGE_LINENUMBER')
-make_head(_module, 'IMAGE_OS2_HEADER')
-make_head(_module, 'IMAGE_POLICY_ENTRY')
-make_head(_module, 'IMAGE_POLICY_METADATA')
-make_head(_module, 'IMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER')
-make_head(_module, 'IMAGE_RELOCATION')
-make_head(_module, 'IMAGE_RESOURCE_DATA_ENTRY')
-make_head(_module, 'IMAGE_RESOURCE_DIRECTORY')
-make_head(_module, 'IMAGE_RESOURCE_DIRECTORY_ENTRY')
-make_head(_module, 'IMAGE_RESOURCE_DIRECTORY_STRING')
-make_head(_module, 'IMAGE_RESOURCE_DIR_STRING_U')
-make_head(_module, 'IMAGE_SEPARATE_DEBUG_HEADER')
-make_head(_module, 'IMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION')
-make_head(_module, 'IMAGE_SYMBOL')
-make_head(_module, 'IMAGE_SYMBOL_EX')
-make_head(_module, 'IMAGE_TLS_DIRECTORY32')
-make_head(_module, 'IMAGE_TLS_DIRECTORY64')
-make_head(_module, 'IMAGE_VXD_HEADER')
-make_head(_module, 'IMPORT_OBJECT_HEADER')
-make_head(_module, 'KERNEL_CET_CONTEXT')
-make_head(_module, 'KTMOBJECT_CURSOR')
-make_head(_module, 'MAXVERSIONTESTED_INFO')
-make_head(_module, 'NETWORK_APP_INSTANCE_EA')
-make_head(_module, 'NON_PAGED_DEBUG_INFO')
-make_head(_module, 'NOTIFY_USER_POWER_SETTING')
-make_head(_module, 'NT_TIB32')
-make_head(_module, 'NT_TIB64')
-make_head(_module, 'PACKEDEVENTINFO')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'PEXCEPTION_FILTER')
-make_head(_module, 'PIMAGE_TLS_CALLBACK')
-if ARCH in 'ARM64':
-    make_head(_module, 'POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK')
-if ARCH in 'X64':
-    make_head(_module, 'POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK')
-make_head(_module, 'PROCESSOR_IDLESTATE_INFO')
-make_head(_module, 'PROCESSOR_IDLESTATE_POLICY')
-make_head(_module, 'PROCESSOR_PERFSTATE_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_ASLR_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_CHILD_PROCESS_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_DEP_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_DYNAMIC_CODE_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_FONT_DISABLE_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_IMAGE_LOAD_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_SEHOP_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_USER_POINTER_AUTH_POLICY')
-make_head(_module, 'PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY')
-if ARCH in 'ARM64':
-    make_head(_module, 'PTERMINATION_HANDLER')
-if ARCH in 'X64':
-    make_head(_module, 'PTERMINATION_HANDLER')
-make_head(_module, 'PUMS_SCHEDULER_ENTRY_POINT')
-make_head(_module, 'QUOTA_LIMITS_EX')
-make_head(_module, 'RATE_QUOTA_LIMIT')
-make_head(_module, 'REARRANGE_FILE_DATA')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'REARRANGE_FILE_DATA32')
-make_head(_module, 'REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO')
-make_head(_module, 'RESOURCEMANAGER_BASIC_INFORMATION')
-make_head(_module, 'RESOURCEMANAGER_COMPLETION_INFORMATION')
-make_head(_module, 'RemHBITMAP')
-make_head(_module, 'RemHBRUSH')
-make_head(_module, 'RemHENHMETAFILE')
-make_head(_module, 'RemHGLOBAL')
-make_head(_module, 'RemHMETAFILEPICT')
-make_head(_module, 'RemHPALETTE')
-make_head(_module, 'RemotableHandle')
-make_head(_module, 'SCOPE_TABLE_AMD64')
-make_head(_module, 'SCOPE_TABLE_ARM')
-make_head(_module, 'SCOPE_TABLE_ARM64')
-make_head(_module, 'SCRUB_DATA_INPUT')
-make_head(_module, 'SCRUB_DATA_OUTPUT')
-make_head(_module, 'SCRUB_PARITY_EXTENT')
-make_head(_module, 'SCRUB_PARITY_EXTENT_DATA')
-make_head(_module, 'SECURITY_OBJECT_AI_PARAMS')
-make_head(_module, 'SERVERSILO_BASIC_INFORMATION')
-make_head(_module, 'SE_TOKEN_USER')
-make_head(_module, 'SHARED_VIRTUAL_DISK_SUPPORT')
-make_head(_module, 'SHUFFLE_FILE_DATA')
-make_head(_module, 'SILOOBJECT_BASIC_INFORMATION')
-make_head(_module, 'SUPPORTED_OS_INFO')
-make_head(_module, 'TAPE_CREATE_PARTITION')
-make_head(_module, 'TAPE_GET_DRIVE_PARAMETERS')
-make_head(_module, 'TAPE_GET_MEDIA_PARAMETERS')
-make_head(_module, 'TAPE_SET_DRIVE_PARAMETERS')
-make_head(_module, 'TAPE_SET_MEDIA_PARAMETERS')
-make_head(_module, 'TAPE_WMI_OPERATIONS')
-make_head(_module, 'TOKEN_BNO_ISOLATION_INFORMATION')
-make_head(_module, 'TOKEN_SID_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_BASIC_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_LOGPATH_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_LOG_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_OLDEST_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_RECOVERY_INFORMATION')
-make_head(_module, 'TRANSACTION_BASIC_INFORMATION')
-make_head(_module, 'TRANSACTION_BIND_INFORMATION')
-make_head(_module, 'TRANSACTION_ENLISTMENTS_INFORMATION')
-make_head(_module, 'TRANSACTION_ENLISTMENT_PAIR')
-make_head(_module, 'TRANSACTION_LIST_ENTRY')
-make_head(_module, 'TRANSACTION_LIST_INFORMATION')
-make_head(_module, 'TRANSACTION_PROPERTIES_INFORMATION')
-make_head(_module, 'TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION')
-make_head(_module, 'UMS_CREATE_THREAD_ATTRIBUTES')
-make_head(_module, 'XSAVE_CET_U_FORMAT')
-make_head(_module, 'remoteMETAFILEPICT')
-make_head(_module, 'userBITMAP')
-make_head(_module, 'userCLIPFORMAT')
-make_head(_module, 'userHBITMAP')
-make_head(_module, 'userHENHMETAFILE')
-make_head(_module, 'userHGLOBAL')
-make_head(_module, 'userHMETAFILE')
-make_head(_module, 'userHMETAFILEPICT')
-make_head(_module, 'userHPALETTE')
+make_ready(__name__)

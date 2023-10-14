@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Store
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _CurrentApp_Meta_(ComPtr.__class__):
     pass
 class CurrentApp(ComPtr, metaclass=_CurrentApp_Meta_):
@@ -590,34 +581,4 @@ class UnfulfilledConsumable(ComPtr):
     ProductId = property(get_ProductId, None)
     TransactionId = property(get_TransactionId, None)
     OfferId = property(get_OfferId, None)
-make_head(_module, 'CurrentApp')
-make_head(_module, 'CurrentAppSimulator')
-make_head(_module, 'ICurrentApp')
-make_head(_module, 'ICurrentApp2Statics')
-make_head(_module, 'ICurrentAppSimulator')
-make_head(_module, 'ICurrentAppSimulatorStaticsWithFiltering')
-make_head(_module, 'ICurrentAppSimulatorWithCampaignId')
-make_head(_module, 'ICurrentAppSimulatorWithConsumables')
-make_head(_module, 'ICurrentAppStaticsWithFiltering')
-make_head(_module, 'ICurrentAppWithCampaignId')
-make_head(_module, 'ICurrentAppWithConsumables')
-make_head(_module, 'ILicenseInformation')
-make_head(_module, 'IListingInformation')
-make_head(_module, 'IListingInformation2')
-make_head(_module, 'IProductLicense')
-make_head(_module, 'IProductLicenseWithFulfillment')
-make_head(_module, 'IProductListing')
-make_head(_module, 'IProductListing2')
-make_head(_module, 'IProductListingWithConsumables')
-make_head(_module, 'IProductListingWithMetadata')
-make_head(_module, 'IProductPurchaseDisplayProperties')
-make_head(_module, 'IProductPurchaseDisplayPropertiesFactory')
-make_head(_module, 'IPurchaseResults')
-make_head(_module, 'IUnfulfilledConsumable')
-make_head(_module, 'LicenseInformation')
-make_head(_module, 'ListingInformation')
-make_head(_module, 'ProductLicense')
-make_head(_module, 'ProductListing')
-make_head(_module, 'ProductPurchaseDisplayProperties')
-make_head(_module, 'PurchaseResults')
-make_head(_module, 'UnfulfilledConsumable')
+make_ready(__name__)

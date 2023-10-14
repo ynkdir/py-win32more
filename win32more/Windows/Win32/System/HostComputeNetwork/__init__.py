@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.HostComputeNetwork
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('computenetwork.dll')
 def HcnEnumerateNetworks(Query: win32more.Windows.Win32.Foundation.PWSTR, Networks: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ErrorRecord: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computenetwork.dll')
@@ -87,13 +78,13 @@ def HcnDeleteGuestNetworkService(Id: POINTER(Guid), ErrorRecord: POINTER(win32mo
 @winfunctype('computenetwork.dll')
 def HcnReserveGuestNetworkServicePort(GuestNetworkService: VoidPtr, Protocol: win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_PROTOCOL, Access: win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_ACCESS, Port: UInt16, PortReservationHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computenetwork.dll')
-def HcnReserveGuestNetworkServicePortRange(GuestNetworkService: VoidPtr, PortCount: UInt16, PortRangeReservation: POINTER(win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_RANGE_RESERVATION_head), PortReservationHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HcnReserveGuestNetworkServicePortRange(GuestNetworkService: VoidPtr, PortCount: UInt16, PortRangeReservation: POINTER(win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_RANGE_RESERVATION), PortReservationHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computenetwork.dll')
 def HcnReleaseGuestNetworkServicePortReservationHandle(PortReservationHandle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computenetwork.dll')
-def HcnEnumerateGuestNetworkPortReservations(ReturnCount: POINTER(UInt32), PortEntries: POINTER(POINTER(win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_RANGE_ENTRY_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HcnEnumerateGuestNetworkPortReservations(ReturnCount: POINTER(UInt32), PortEntries: POINTER(POINTER(win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_RANGE_ENTRY))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computenetwork.dll')
-def HcnFreeGuestNetworkPortReservations(PortEntries: POINTER(win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_RANGE_ENTRY_head)) -> Void: ...
+def HcnFreeGuestNetworkPortReservations(PortEntries: POINTER(win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_RANGE_ENTRY)) -> Void: ...
 @winfunctype('computenetwork.dll')
 def HcnQueryEndpointStats(Endpoint: VoidPtr, Query: win32more.Windows.Win32.Foundation.PWSTR, Stats: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ErrorRecord: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('computenetwork.dll')
@@ -136,6 +127,4 @@ class HCN_PORT_RANGE_ENTRY(EasyCastStructure):
 class HCN_PORT_RANGE_RESERVATION(EasyCastStructure):
     startingPort: UInt16
     endingPort: UInt16
-make_head(_module, 'HCN_NOTIFICATION_CALLBACK')
-make_head(_module, 'HCN_PORT_RANGE_ENTRY')
-make_head(_module, 'HCN_PORT_RANGE_RESERVATION')
+make_ready(__name__)

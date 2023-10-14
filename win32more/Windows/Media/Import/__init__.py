@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Import
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPhotoImportDeleteImportedItemsFromSourceResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Import.IPhotoImportDeleteImportedItemsFromSourceResult'
@@ -971,34 +962,4 @@ class PhotoImportVideoSegment(ComPtr):
     Date = property(get_Date, None)
     Sibling = property(get_Sibling, None)
     Sidecars = property(get_Sidecars, None)
-make_head(_module, 'IPhotoImportDeleteImportedItemsFromSourceResult')
-make_head(_module, 'IPhotoImportFindItemsResult')
-make_head(_module, 'IPhotoImportFindItemsResult2')
-make_head(_module, 'IPhotoImportImportItemsResult')
-make_head(_module, 'IPhotoImportItem')
-make_head(_module, 'IPhotoImportItem2')
-make_head(_module, 'IPhotoImportItemImportedEventArgs')
-make_head(_module, 'IPhotoImportManagerStatics')
-make_head(_module, 'IPhotoImportOperation')
-make_head(_module, 'IPhotoImportSelectionChangedEventArgs')
-make_head(_module, 'IPhotoImportSession')
-make_head(_module, 'IPhotoImportSession2')
-make_head(_module, 'IPhotoImportSidecar')
-make_head(_module, 'IPhotoImportSource')
-make_head(_module, 'IPhotoImportSourceStatics')
-make_head(_module, 'IPhotoImportStorageMedium')
-make_head(_module, 'IPhotoImportVideoSegment')
-make_head(_module, 'PhotoImportDeleteImportedItemsFromSourceResult')
-make_head(_module, 'PhotoImportFindItemsResult')
-make_head(_module, 'PhotoImportImportItemsResult')
-make_head(_module, 'PhotoImportItem')
-make_head(_module, 'PhotoImportItemImportedEventArgs')
-make_head(_module, 'PhotoImportManager')
-make_head(_module, 'PhotoImportOperation')
-make_head(_module, 'PhotoImportProgress')
-make_head(_module, 'PhotoImportSelectionChangedEventArgs')
-make_head(_module, 'PhotoImportSession')
-make_head(_module, 'PhotoImportSidecar')
-make_head(_module, 'PhotoImportSource')
-make_head(_module, 'PhotoImportStorageMedium')
-make_head(_module, 'PhotoImportVideoSegment')
+make_ready(__name__)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetManagement
@@ -8,15 +8,6 @@ import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Registry
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ACCESS_INFO_0(EasyCastStructure):
     acc0_resource_name: win32more.Windows.Win32.Foundation.PWSTR
 class ACCESS_INFO_1(EasyCastStructure):
@@ -2448,7 +2439,7 @@ def NetApiBufferSize(Buffer: VoidPtr, ByteCount: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def NetErrorLogClear(UncServerName: win32more.Windows.Win32.Foundation.PWSTR, BackupFile: win32more.Windows.Win32.Foundation.PWSTR, Reserved: POINTER(Byte)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def NetErrorLogRead(UncServerName: win32more.Windows.Win32.Foundation.PWSTR, Reserved1: win32more.Windows.Win32.Foundation.PWSTR, ErrorLogHandle: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.HLOG_head), Offset: UInt32, Reserved2: POINTER(UInt32), Reserved3: UInt32, OffsetFlag: UInt32, BufPtr: POINTER(POINTER(Byte)), PrefMaxSize: UInt32, BytesRead: POINTER(UInt32), TotalAvailable: POINTER(UInt32)) -> UInt32: ...
+def NetErrorLogRead(UncServerName: win32more.Windows.Win32.Foundation.PWSTR, Reserved1: win32more.Windows.Win32.Foundation.PWSTR, ErrorLogHandle: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.HLOG), Offset: UInt32, Reserved2: POINTER(UInt32), Reserved3: UInt32, OffsetFlag: UInt32, BufPtr: POINTER(POINTER(Byte)), PrefMaxSize: UInt32, BytesRead: POINTER(UInt32), TotalAvailable: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def NetErrorLogWrite(Reserved1: POINTER(Byte), Code: UInt32, Component: win32more.Windows.Win32.Foundation.PWSTR, Buffer: POINTER(Byte), NumBytes: UInt32, MsgBuf: POINTER(Byte), StrCount: UInt32, Reserved2: POINTER(Byte)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
@@ -2460,7 +2451,7 @@ def NetConfigSet(server: win32more.Windows.Win32.Foundation.PWSTR, reserved1: wi
 @winfunctype('NETAPI32.dll')
 def NetAuditClear(server: win32more.Windows.Win32.Foundation.PWSTR, backupfile: win32more.Windows.Win32.Foundation.PWSTR, service: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def NetAuditRead(server: win32more.Windows.Win32.Foundation.PWSTR, service: win32more.Windows.Win32.Foundation.PWSTR, auditloghandle: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.HLOG_head), offset: UInt32, reserved1: POINTER(UInt32), reserved2: UInt32, offsetflag: UInt32, bufptr: POINTER(POINTER(Byte)), prefmaxlen: UInt32, bytesread: POINTER(UInt32), totalavailable: POINTER(UInt32)) -> UInt32: ...
+def NetAuditRead(server: win32more.Windows.Win32.Foundation.PWSTR, service: win32more.Windows.Win32.Foundation.PWSTR, auditloghandle: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.HLOG), offset: UInt32, reserved1: POINTER(UInt32), reserved2: UInt32, offsetflag: UInt32, bufptr: POINTER(POINTER(Byte)), prefmaxlen: UInt32, bytesread: POINTER(UInt32), totalavailable: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def NetAuditWrite(type: UInt32, buf: POINTER(Byte), numbytes: UInt32, service: win32more.Windows.Win32.Foundation.PWSTR, reserved: POINTER(Byte)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
@@ -2486,13 +2477,13 @@ def NetProvisionComputerAccount(lpDomain: win32more.Windows.Win32.Foundation.PWS
 @winfunctype('NETAPI32.dll')
 def NetRequestOfflineDomainJoin(pProvisionBinData: POINTER(Byte), cbProvisionBinDataSize: UInt32, dwOptions: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_REQUEST_PROVISION_OPTIONS, lpWindowsPath: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def NetCreateProvisioningPackage(pProvisioningParams: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_PROVISIONING_PARAMS_head), ppPackageBinData: POINTER(POINTER(Byte)), pdwPackageBinDataSize: POINTER(UInt32), ppPackageTextData: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
+def NetCreateProvisioningPackage(pProvisioningParams: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_PROVISIONING_PARAMS), ppPackageBinData: POINTER(POINTER(Byte)), pdwPackageBinDataSize: POINTER(UInt32), ppPackageTextData: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def NetRequestProvisioningPackageInstall(pPackageBinData: POINTER(Byte), dwPackageBinDataSize: UInt32, dwProvisionOptions: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_REQUEST_PROVISION_OPTIONS, lpWindowsPath: win32more.Windows.Win32.Foundation.PWSTR, pvReserved: VoidPtr) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def NetGetAadJoinInformation(pcszTenantId: win32more.Windows.Win32.Foundation.PWSTR, ppJoinInfo: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_INFO_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NetGetAadJoinInformation(pcszTenantId: win32more.Windows.Win32.Foundation.PWSTR, ppJoinInfo: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_INFO))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('NETAPI32.dll')
-def NetFreeAadJoinInformation(pJoinInfo: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_INFO_head)) -> Void: ...
+def NetFreeAadJoinInformation(pJoinInfo: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_INFO)) -> Void: ...
 @winfunctype('NETAPI32.dll')
 def NetGetJoinInformation(lpServer: win32more.Windows.Win32.Foundation.PWSTR, lpNameBuffer: POINTER(win32more.Windows.Win32.Foundation.PWSTR), BufferType: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_JOIN_STATUS)) -> UInt32: ...
 @winfunctype('mstask.dll')
@@ -2624,7 +2615,7 @@ DEFAULT_PAGES = Int32
 DPP_ADVANCED: DEFAULT_PAGES = 1
 class DSREG_JOIN_INFO(EasyCastStructure):
     joinType: win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_TYPE
-    pJoinCertificate: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pJoinCertificate: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     pszDeviceId: win32more.Windows.Win32.Foundation.PWSTR
     pszIdpDomain: win32more.Windows.Win32.Foundation.PWSTR
     pszTenantId: win32more.Windows.Win32.Foundation.PWSTR
@@ -2634,7 +2625,7 @@ class DSREG_JOIN_INFO(EasyCastStructure):
     pszMdmTermsOfUseUrl: win32more.Windows.Win32.Foundation.PWSTR
     pszMdmComplianceUrl: win32more.Windows.Win32.Foundation.PWSTR
     pszUserSettingSyncUrl: win32more.Windows.Win32.Foundation.PWSTR
-    pUserInfo: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_USER_INFO_head)
+    pUserInfo: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_USER_INFO)
 DSREG_JOIN_TYPE = Int32
 DSREG_UNKNOWN_JOIN: DSREG_JOIN_TYPE = 0
 DSREG_DEVICE_JOIN: DSREG_JOIN_TYPE = 1
@@ -2702,35 +2693,35 @@ class IEnumNetCfgBindingInterface(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae90-306e-11d1-aacf-00805fc1270e}')
     @commethod(3)
-    def Next(self, celt: UInt32, rgelt: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingInterface_head), pceltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, celt: UInt32, rgelt: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingInterface), pceltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, celt: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppenum: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingInterface_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppenum: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingInterface)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IEnumNetCfgBindingPath(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae91-306e-11d1-aacf-00805fc1270e}')
     @commethod(3)
-    def Next(self, celt: UInt32, rgelt: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head), pceltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, celt: UInt32, rgelt: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath), pceltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, celt: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppenum: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingPath_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppenum: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingPath)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IEnumNetCfgComponent(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae92-306e-11d1-aacf-00805fc1270e}')
     @commethod(3)
-    def Next(self, celt: UInt32, rgelt: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head), pceltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, celt: UInt32, rgelt: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent), pceltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, celt: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppenum: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppenum: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfg(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae93-306e-11d1-aacf-00805fc1270e}')
@@ -2743,9 +2734,9 @@ class INetCfg(ComPtr):
     @commethod(6)
     def Cancel(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def EnumComponents(self, pguidClass: POINTER(Guid), ppenumComponent: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumComponents(self, pguidClass: POINTER(Guid), ppenumComponent: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def FindComponent(self, pszwInfId: win32more.Windows.Win32.Foundation.PWSTR, pComponent: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def FindComponent(self, pszwInfId: win32more.Windows.Win32.Foundation.PWSTR, pComponent: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def QueryNetCfgClass(self, pguidClass: POINTER(Guid), riid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgBindingInterface(ComPtr):
@@ -2754,16 +2745,16 @@ class INetCfgBindingInterface(ComPtr):
     @commethod(3)
     def GetName(self, ppszwInterfaceName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetUpperComponent(self, ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetUpperComponent(self, ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetLowerComponent(self, ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetLowerComponent(self, ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgBindingPath(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae96-306e-11d1-aacf-00805fc1270e}')
     @commethod(3)
-    def IsSamePathAs(self, pPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsSamePathAs(self, pPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def IsSubPathOf(self, pPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsSubPathOf(self, pPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsEnabled(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -2771,32 +2762,32 @@ class INetCfgBindingPath(ComPtr):
     @commethod(7)
     def GetPathToken(self, ppszwPathToken: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetOwner(self, ppComponent: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOwner(self, ppComponent: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetDepth(self, pcInterfaces: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def EnumBindingInterfaces(self, ppenumInterface: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingInterface_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumBindingInterfaces(self, ppenumInterface: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingInterface)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgClass(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae97-306e-11d1-aacf-00805fc1270e}')
     @commethod(3)
-    def FindComponent(self, pszwInfId: win32more.Windows.Win32.Foundation.PWSTR, ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def FindComponent(self, pszwInfId: win32more.Windows.Win32.Foundation.PWSTR, ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def EnumComponents(self, ppenumComponent: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumComponents(self, ppenumComponent: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgClassSetup(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae9d-306e-11d1-aacf-00805fc1270e}')
     @commethod(3)
-    def SelectAndInstall(self, hwndParent: win32more.Windows.Win32.Foundation.HWND, pOboToken: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_head), ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SelectAndInstall(self, hwndParent: win32more.Windows.Win32.Foundation.HWND, pOboToken: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN), ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Install(self, pszwInfId: win32more.Windows.Win32.Foundation.PWSTR, pOboToken: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_head), dwSetupFlags: UInt32, dwUpgradeFromBuildNo: UInt32, pszwAnswerFile: win32more.Windows.Win32.Foundation.PWSTR, pszwAnswerSections: win32more.Windows.Win32.Foundation.PWSTR, ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Install(self, pszwInfId: win32more.Windows.Win32.Foundation.PWSTR, pOboToken: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN), dwSetupFlags: UInt32, dwUpgradeFromBuildNo: UInt32, pszwAnswerFile: win32more.Windows.Win32.Foundation.PWSTR, pszwAnswerSections: win32more.Windows.Win32.Foundation.PWSTR, ppnccItem: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def DeInstall(self, pComponent: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, pOboToken: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_head), pmszwRefs: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeInstall(self, pComponent: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent, pOboToken: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN), pmszwRefs: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgClassSetup2(ComPtr):
     extends: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgClassSetup
     _iid_ = Guid('{c0e8aea0-306e-11d1-aacf-00805fc1270e}')
     @commethod(6)
-    def UpdateNonEnumeratedComponent(self, pIComp: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, dwSetupFlags: UInt32, dwUpgradeFromBuildNo: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def UpdateNonEnumeratedComponent(self, pIComp: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent, dwSetupFlags: UInt32, dwUpgradeFromBuildNo: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgComponent(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae99-306e-11d1-aacf-00805fc1270e}')
@@ -2823,62 +2814,62 @@ class INetCfgComponent(ComPtr):
     @commethod(13)
     def OpenParamKey(self, phkey: POINTER(win32more.Windows.Win32.System.Registry.HKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def RaisePropertyUi(self, hwndParent: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, punkContext: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RaisePropertyUi(self, hwndParent: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, punkContext: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgComponentBindings(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae9e-306e-11d1-aacf-00805fc1270e}')
     @commethod(3)
-    def BindTo(self, pnccItem: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def BindTo(self, pnccItem: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def UnbindFrom(self, pnccItem: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def UnbindFrom(self, pnccItem: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SupportsBindingInterface(self, dwFlags: UInt32, pszwInterfaceName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def IsBoundTo(self, pnccItem: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsBoundTo(self, pnccItem: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def IsBindableTo(self, pnccItem: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsBindableTo(self, pnccItem: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def EnumBindingPaths(self, dwFlags: UInt32, ppIEnum: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingPath_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumBindingPaths(self, dwFlags: UInt32, ppIEnum: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingPath)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def MoveBefore(self, pncbItemSrc: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head, pncbItemDest: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def MoveBefore(self, pncbItemSrc: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath, pncbItemDest: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def MoveAfter(self, pncbItemSrc: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head, pncbItemDest: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def MoveAfter(self, pncbItemSrc: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath, pncbItemDest: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgComponentControl(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{932238df-bea1-11d0-9298-00c04fc99dcf}')
     @commethod(3)
-    def Initialize(self, pIComp: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, pINetCfg: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfg_head, fInstalling: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Initialize(self, pIComp: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent, pINetCfg: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfg, fInstalling: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ApplyRegistryChanges(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def ApplyPnpChanges(self, pICallback: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgPnpReconfigCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ApplyPnpChanges(self, pICallback: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgPnpReconfigCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CancelChanges(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgComponentNotifyBinding(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{932238e1-bea1-11d0-9298-00c04fc99dcf}')
     @commethod(3)
-    def QueryBindingPath(self, dwChangeFlag: UInt32, pIPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def QueryBindingPath(self, dwChangeFlag: UInt32, pIPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def NotifyBindingPath(self, dwChangeFlag: UInt32, pIPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def NotifyBindingPath(self, dwChangeFlag: UInt32, pIPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgComponentNotifyGlobal(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{932238e2-bea1-11d0-9298-00c04fc99dcf}')
     @commethod(3)
     def GetSupportedNotifications(self, dwNotifications: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SysQueryBindingPath(self, dwChangeFlag: UInt32, pIPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SysQueryBindingPath(self, dwChangeFlag: UInt32, pIPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SysNotifyBindingPath(self, dwChangeFlag: UInt32, pIPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SysNotifyBindingPath(self, dwChangeFlag: UInt32, pIPath: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def SysNotifyComponent(self, dwChangeFlag: UInt32, pIComp: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SysNotifyComponent(self, dwChangeFlag: UInt32, pIComp: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgComponentPropertyUi(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{932238e0-bea1-11d0-9298-00c04fc99dcf}')
     @commethod(3)
-    def QueryPropertyUi(self, pUnkReserved: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def QueryPropertyUi(self, pUnkReserved: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SetContext(self, pUnkReserved: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetContext(self, pUnkReserved: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MergePropPages(self, pdwDefPages: POINTER(UInt32), pahpspPrivate: POINTER(POINTER(Byte)), pcPages: POINTER(UInt32), hwndParent: win32more.Windows.Win32.Foundation.HWND, pszStartPage: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -2902,18 +2893,18 @@ class INetCfgComponentSysPrep(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae9a-306e-11d1-aacf-00805fc1270e}')
     @commethod(3)
-    def SaveAdapterParameters(self, pncsp: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgSysPrep_head, pszwAnswerSections: win32more.Windows.Win32.Foundation.PWSTR, pAdapterInstanceGuid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SaveAdapterParameters(self, pncsp: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgSysPrep, pszwAnswerSections: win32more.Windows.Win32.Foundation.PWSTR, pAdapterInstanceGuid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RestoreAdapterParameters(self, pszwAnswerFile: win32more.Windows.Win32.Foundation.PWSTR, pszwAnswerSection: win32more.Windows.Win32.Foundation.PWSTR, pAdapterInstanceGuid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgComponentUpperEdge(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{932238e4-bea1-11d0-9298-00c04fc99dcf}')
     @commethod(3)
-    def GetInterfaceIdsForAdapter(self, pAdapter: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, pdwNumInterfaces: POINTER(UInt32), ppguidInterfaceIds: POINTER(POINTER(Guid))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInterfaceIdsForAdapter(self, pAdapter: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent, pdwNumInterfaces: POINTER(UInt32), ppguidInterfaceIds: POINTER(POINTER(Guid))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def AddInterfacesToAdapter(self, pAdapter: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, dwNumInterfaces: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddInterfacesToAdapter(self, pAdapter: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent, dwNumInterfaces: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def RemoveInterfacesFromAdapter(self, pAdapter: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, dwNumInterfaces: UInt32, pguidInterfaceIds: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RemoveInterfacesFromAdapter(self, pAdapter: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent, dwNumInterfaces: UInt32, pguidInterfaceIds: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class INetCfgLock(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c0e8ae9f-306e-11d1-aacf-00805fc1270e}')
@@ -2948,14 +2939,14 @@ class INetRasConnectionIpUiInfo(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{faedcf58-31fe-11d1-aad2-00805fc1270e}')
     @commethod(3)
-    def GetUiInfo(self, pInfo: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_IPUI_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetUiInfo(self, pInfo: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_IPUI)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IProvisioningDomain(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c96fbd50-24dd-11d8-89fb-00904b2ea9c6}')
     @commethod(3)
     def Add(self, pszwPathToFolder: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Query(self, pszwDomain: win32more.Windows.Win32.Foundation.PWSTR, pszwLanguage: win32more.Windows.Win32.Foundation.PWSTR, pszwXPathQuery: win32more.Windows.Win32.Foundation.PWSTR, Nodes: POINTER(win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Query(self, pszwDomain: win32more.Windows.Win32.Foundation.PWSTR, pszwLanguage: win32more.Windows.Win32.Foundation.PWSTR, pszwXPathQuery: win32more.Windows.Win32.Foundation.PWSTR, Nodes: POINTER(win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IProvisioningProfileWireless(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c96fbd51-24dd-11d8-89fb-00904b2ea9c6}')
@@ -3197,11 +3188,11 @@ class NET_VALIDATE_PERSISTED_FIELDS(EasyCastStructure):
     LockoutTime: win32more.Windows.Win32.Foundation.FILETIME
     BadPasswordCount: UInt32
     PasswordHistoryLength: UInt32
-    PasswordHistory: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.NET_VALIDATE_PASSWORD_HASH_head)
+    PasswordHistory: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.NET_VALIDATE_PASSWORD_HASH)
 NetProvisioning = Guid('{2aa2b5fe-b846-4d07-810c-b21ee45320e3}')
 class OBO_TOKEN(EasyCastStructure):
     Type: win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_TYPE
-    pncc: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head
+    pncc: win32more.Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent
     pszwManufacturer: win32more.Windows.Win32.Foundation.PWSTR
     pszwProduct: win32more.Windows.Win32.Foundation.PWSTR
     pszwDisplayName: win32more.Windows.Win32.Foundation.PWSTR
@@ -4356,328 +4347,4 @@ class WKSTA_USER_INFO_1101(EasyCastStructure):
     wkui1101_oth_domains: win32more.Windows.Win32.Foundation.PWSTR
 @winfunctype_pointer
 def WORKERFUNCTION(param0: VoidPtr) -> Void: ...
-make_head(_module, 'ACCESS_INFO_0')
-make_head(_module, 'ACCESS_INFO_1')
-make_head(_module, 'ACCESS_INFO_1002')
-make_head(_module, 'ACCESS_LIST')
-make_head(_module, 'ADMIN_OTHER_INFO')
-make_head(_module, 'AE_ACCLIM')
-make_head(_module, 'AE_ACLMOD')
-make_head(_module, 'AE_CLOSEFILE')
-make_head(_module, 'AE_CONNREJ')
-make_head(_module, 'AE_CONNSTART')
-make_head(_module, 'AE_CONNSTOP')
-make_head(_module, 'AE_GENERIC')
-make_head(_module, 'AE_LOCKOUT')
-make_head(_module, 'AE_NETLOGOFF')
-make_head(_module, 'AE_NETLOGON')
-make_head(_module, 'AE_RESACCESS')
-make_head(_module, 'AE_RESACCESSREJ')
-make_head(_module, 'AE_SERVICESTAT')
-make_head(_module, 'AE_SESSLOGOFF')
-make_head(_module, 'AE_SESSLOGON')
-make_head(_module, 'AE_SESSPWERR')
-make_head(_module, 'AE_SRVSTATUS')
-make_head(_module, 'AE_UASMOD')
-make_head(_module, 'AT_ENUM')
-make_head(_module, 'AT_INFO')
-make_head(_module, 'AUDIT_ENTRY')
-make_head(_module, 'CONFIG_INFO_0')
-make_head(_module, 'DSREG_JOIN_INFO')
-make_head(_module, 'DSREG_USER_INFO')
-make_head(_module, 'ERRLOG_OTHER_INFO')
-make_head(_module, 'ERROR_LOG')
-make_head(_module, 'FLAT_STRING')
-make_head(_module, 'GROUP_INFO_0')
-make_head(_module, 'GROUP_INFO_1')
-make_head(_module, 'GROUP_INFO_1002')
-make_head(_module, 'GROUP_INFO_1005')
-make_head(_module, 'GROUP_INFO_2')
-make_head(_module, 'GROUP_INFO_3')
-make_head(_module, 'GROUP_USERS_INFO_0')
-make_head(_module, 'GROUP_USERS_INFO_1')
-make_head(_module, 'HARDWARE_ADDRESS')
-make_head(_module, 'HLOG')
-make_head(_module, 'IEnumNetCfgBindingInterface')
-make_head(_module, 'IEnumNetCfgBindingPath')
-make_head(_module, 'IEnumNetCfgComponent')
-make_head(_module, 'INetCfg')
-make_head(_module, 'INetCfgBindingInterface')
-make_head(_module, 'INetCfgBindingPath')
-make_head(_module, 'INetCfgClass')
-make_head(_module, 'INetCfgClassSetup')
-make_head(_module, 'INetCfgClassSetup2')
-make_head(_module, 'INetCfgComponent')
-make_head(_module, 'INetCfgComponentBindings')
-make_head(_module, 'INetCfgComponentControl')
-make_head(_module, 'INetCfgComponentNotifyBinding')
-make_head(_module, 'INetCfgComponentNotifyGlobal')
-make_head(_module, 'INetCfgComponentPropertyUi')
-make_head(_module, 'INetCfgComponentSetup')
-make_head(_module, 'INetCfgComponentSysPrep')
-make_head(_module, 'INetCfgComponentUpperEdge')
-make_head(_module, 'INetCfgLock')
-make_head(_module, 'INetCfgPnpReconfigCallback')
-make_head(_module, 'INetCfgSysPrep')
-make_head(_module, 'INetLanConnectionUiInfo')
-make_head(_module, 'INetRasConnectionIpUiInfo')
-make_head(_module, 'IProvisioningDomain')
-make_head(_module, 'IProvisioningProfileWireless')
-make_head(_module, 'LOCALGROUP_INFO_0')
-make_head(_module, 'LOCALGROUP_INFO_1')
-make_head(_module, 'LOCALGROUP_INFO_1002')
-make_head(_module, 'LOCALGROUP_MEMBERS_INFO_0')
-make_head(_module, 'LOCALGROUP_MEMBERS_INFO_1')
-make_head(_module, 'LOCALGROUP_MEMBERS_INFO_2')
-make_head(_module, 'LOCALGROUP_MEMBERS_INFO_3')
-make_head(_module, 'LOCALGROUP_USERS_INFO_0')
-make_head(_module, 'MPR_PROTOCOL_0')
-make_head(_module, 'MSA_INFO_0')
-make_head(_module, 'MSG_INFO_0')
-make_head(_module, 'MSG_INFO_1')
-make_head(_module, 'NETLOGON_INFO_1')
-make_head(_module, 'NETLOGON_INFO_2')
-make_head(_module, 'NETLOGON_INFO_3')
-make_head(_module, 'NETLOGON_INFO_4')
-make_head(_module, 'NETSETUP_PROVISIONING_PARAMS')
-make_head(_module, 'NETWORK_NAME')
-make_head(_module, 'NET_DISPLAY_GROUP')
-make_head(_module, 'NET_DISPLAY_MACHINE')
-make_head(_module, 'NET_DISPLAY_USER')
-make_head(_module, 'NET_VALIDATE_AUTHENTICATION_INPUT_ARG')
-make_head(_module, 'NET_VALIDATE_OUTPUT_ARG')
-make_head(_module, 'NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG')
-make_head(_module, 'NET_VALIDATE_PASSWORD_HASH')
-make_head(_module, 'NET_VALIDATE_PASSWORD_RESET_INPUT_ARG')
-make_head(_module, 'NET_VALIDATE_PERSISTED_FIELDS')
-make_head(_module, 'OBO_TOKEN')
-make_head(_module, 'PRINT_OTHER_INFO')
-make_head(_module, 'RASCON_IPUI')
-make_head(_module, 'REPL_EDIR_INFO_0')
-make_head(_module, 'REPL_EDIR_INFO_1')
-make_head(_module, 'REPL_EDIR_INFO_1000')
-make_head(_module, 'REPL_EDIR_INFO_1001')
-make_head(_module, 'REPL_EDIR_INFO_2')
-make_head(_module, 'REPL_IDIR_INFO_0')
-make_head(_module, 'REPL_IDIR_INFO_1')
-make_head(_module, 'REPL_INFO_0')
-make_head(_module, 'REPL_INFO_1000')
-make_head(_module, 'REPL_INFO_1001')
-make_head(_module, 'REPL_INFO_1002')
-make_head(_module, 'REPL_INFO_1003')
-make_head(_module, 'RTR_INFO_BLOCK_HEADER')
-make_head(_module, 'RTR_TOC_ENTRY')
-make_head(_module, 'SERVER_INFO_100')
-make_head(_module, 'SERVER_INFO_1005')
-make_head(_module, 'SERVER_INFO_101')
-make_head(_module, 'SERVER_INFO_1010')
-make_head(_module, 'SERVER_INFO_1016')
-make_head(_module, 'SERVER_INFO_1017')
-make_head(_module, 'SERVER_INFO_1018')
-make_head(_module, 'SERVER_INFO_102')
-make_head(_module, 'SERVER_INFO_103')
-make_head(_module, 'SERVER_INFO_1107')
-make_head(_module, 'SERVER_INFO_1501')
-make_head(_module, 'SERVER_INFO_1502')
-make_head(_module, 'SERVER_INFO_1503')
-make_head(_module, 'SERVER_INFO_1506')
-make_head(_module, 'SERVER_INFO_1509')
-make_head(_module, 'SERVER_INFO_1510')
-make_head(_module, 'SERVER_INFO_1511')
-make_head(_module, 'SERVER_INFO_1512')
-make_head(_module, 'SERVER_INFO_1513')
-make_head(_module, 'SERVER_INFO_1514')
-make_head(_module, 'SERVER_INFO_1515')
-make_head(_module, 'SERVER_INFO_1516')
-make_head(_module, 'SERVER_INFO_1518')
-make_head(_module, 'SERVER_INFO_1520')
-make_head(_module, 'SERVER_INFO_1521')
-make_head(_module, 'SERVER_INFO_1522')
-make_head(_module, 'SERVER_INFO_1523')
-make_head(_module, 'SERVER_INFO_1524')
-make_head(_module, 'SERVER_INFO_1525')
-make_head(_module, 'SERVER_INFO_1528')
-make_head(_module, 'SERVER_INFO_1529')
-make_head(_module, 'SERVER_INFO_1530')
-make_head(_module, 'SERVER_INFO_1533')
-make_head(_module, 'SERVER_INFO_1534')
-make_head(_module, 'SERVER_INFO_1535')
-make_head(_module, 'SERVER_INFO_1536')
-make_head(_module, 'SERVER_INFO_1537')
-make_head(_module, 'SERVER_INFO_1538')
-make_head(_module, 'SERVER_INFO_1539')
-make_head(_module, 'SERVER_INFO_1540')
-make_head(_module, 'SERVER_INFO_1541')
-make_head(_module, 'SERVER_INFO_1542')
-make_head(_module, 'SERVER_INFO_1543')
-make_head(_module, 'SERVER_INFO_1544')
-make_head(_module, 'SERVER_INFO_1545')
-make_head(_module, 'SERVER_INFO_1546')
-make_head(_module, 'SERVER_INFO_1547')
-make_head(_module, 'SERVER_INFO_1548')
-make_head(_module, 'SERVER_INFO_1549')
-make_head(_module, 'SERVER_INFO_1550')
-make_head(_module, 'SERVER_INFO_1552')
-make_head(_module, 'SERVER_INFO_1553')
-make_head(_module, 'SERVER_INFO_1554')
-make_head(_module, 'SERVER_INFO_1555')
-make_head(_module, 'SERVER_INFO_1556')
-make_head(_module, 'SERVER_INFO_1557')
-make_head(_module, 'SERVER_INFO_1560')
-make_head(_module, 'SERVER_INFO_1561')
-make_head(_module, 'SERVER_INFO_1562')
-make_head(_module, 'SERVER_INFO_1563')
-make_head(_module, 'SERVER_INFO_1564')
-make_head(_module, 'SERVER_INFO_1565')
-make_head(_module, 'SERVER_INFO_1566')
-make_head(_module, 'SERVER_INFO_1567')
-make_head(_module, 'SERVER_INFO_1568')
-make_head(_module, 'SERVER_INFO_1569')
-make_head(_module, 'SERVER_INFO_1570')
-make_head(_module, 'SERVER_INFO_1571')
-make_head(_module, 'SERVER_INFO_1572')
-make_head(_module, 'SERVER_INFO_1573')
-make_head(_module, 'SERVER_INFO_1574')
-make_head(_module, 'SERVER_INFO_1575')
-make_head(_module, 'SERVER_INFO_1576')
-make_head(_module, 'SERVER_INFO_1577')
-make_head(_module, 'SERVER_INFO_1578')
-make_head(_module, 'SERVER_INFO_1579')
-make_head(_module, 'SERVER_INFO_1580')
-make_head(_module, 'SERVER_INFO_1581')
-make_head(_module, 'SERVER_INFO_1582')
-make_head(_module, 'SERVER_INFO_1583')
-make_head(_module, 'SERVER_INFO_1584')
-make_head(_module, 'SERVER_INFO_1585')
-make_head(_module, 'SERVER_INFO_1586')
-make_head(_module, 'SERVER_INFO_1587')
-make_head(_module, 'SERVER_INFO_1588')
-make_head(_module, 'SERVER_INFO_1590')
-make_head(_module, 'SERVER_INFO_1591')
-make_head(_module, 'SERVER_INFO_1592')
-make_head(_module, 'SERVER_INFO_1593')
-make_head(_module, 'SERVER_INFO_1594')
-make_head(_module, 'SERVER_INFO_1595')
-make_head(_module, 'SERVER_INFO_1596')
-make_head(_module, 'SERVER_INFO_1597')
-make_head(_module, 'SERVER_INFO_1598')
-make_head(_module, 'SERVER_INFO_1599')
-make_head(_module, 'SERVER_INFO_1600')
-make_head(_module, 'SERVER_INFO_1601')
-make_head(_module, 'SERVER_INFO_1602')
-make_head(_module, 'SERVER_INFO_402')
-make_head(_module, 'SERVER_INFO_403')
-make_head(_module, 'SERVER_INFO_502')
-make_head(_module, 'SERVER_INFO_503')
-make_head(_module, 'SERVER_INFO_598')
-make_head(_module, 'SERVER_INFO_599')
-make_head(_module, 'SERVER_TRANSPORT_INFO_0')
-make_head(_module, 'SERVER_TRANSPORT_INFO_1')
-make_head(_module, 'SERVER_TRANSPORT_INFO_2')
-make_head(_module, 'SERVER_TRANSPORT_INFO_3')
-make_head(_module, 'SERVICE_INFO_0')
-make_head(_module, 'SERVICE_INFO_1')
-make_head(_module, 'SERVICE_INFO_2')
-make_head(_module, 'SMB_COMPRESSION_INFO')
-make_head(_module, 'SMB_TREE_CONNECT_PARAMETERS')
-make_head(_module, 'SMB_USE_OPTION_COMPRESSION_PARAMETERS')
-make_head(_module, 'STD_ALERT')
-make_head(_module, 'TIME_OF_DAY_INFO')
-make_head(_module, 'TRANSPORT_INFO')
-make_head(_module, 'USER_INFO_0')
-make_head(_module, 'USER_INFO_1')
-make_head(_module, 'USER_INFO_10')
-make_head(_module, 'USER_INFO_1003')
-make_head(_module, 'USER_INFO_1005')
-make_head(_module, 'USER_INFO_1006')
-make_head(_module, 'USER_INFO_1007')
-make_head(_module, 'USER_INFO_1008')
-make_head(_module, 'USER_INFO_1009')
-make_head(_module, 'USER_INFO_1010')
-make_head(_module, 'USER_INFO_1011')
-make_head(_module, 'USER_INFO_1012')
-make_head(_module, 'USER_INFO_1013')
-make_head(_module, 'USER_INFO_1014')
-make_head(_module, 'USER_INFO_1017')
-make_head(_module, 'USER_INFO_1018')
-make_head(_module, 'USER_INFO_1020')
-make_head(_module, 'USER_INFO_1023')
-make_head(_module, 'USER_INFO_1024')
-make_head(_module, 'USER_INFO_1025')
-make_head(_module, 'USER_INFO_1051')
-make_head(_module, 'USER_INFO_1052')
-make_head(_module, 'USER_INFO_1053')
-make_head(_module, 'USER_INFO_11')
-make_head(_module, 'USER_INFO_2')
-make_head(_module, 'USER_INFO_20')
-make_head(_module, 'USER_INFO_21')
-make_head(_module, 'USER_INFO_22')
-make_head(_module, 'USER_INFO_23')
-make_head(_module, 'USER_INFO_24')
-make_head(_module, 'USER_INFO_3')
-make_head(_module, 'USER_INFO_4')
-make_head(_module, 'USER_MODALS_INFO_0')
-make_head(_module, 'USER_MODALS_INFO_1')
-make_head(_module, 'USER_MODALS_INFO_1001')
-make_head(_module, 'USER_MODALS_INFO_1002')
-make_head(_module, 'USER_MODALS_INFO_1003')
-make_head(_module, 'USER_MODALS_INFO_1004')
-make_head(_module, 'USER_MODALS_INFO_1005')
-make_head(_module, 'USER_MODALS_INFO_1006')
-make_head(_module, 'USER_MODALS_INFO_1007')
-make_head(_module, 'USER_MODALS_INFO_2')
-make_head(_module, 'USER_MODALS_INFO_3')
-make_head(_module, 'USER_OTHER_INFO')
-make_head(_module, 'USE_INFO_0')
-make_head(_module, 'USE_INFO_1')
-make_head(_module, 'USE_INFO_2')
-make_head(_module, 'USE_INFO_3')
-make_head(_module, 'USE_INFO_4')
-make_head(_module, 'USE_INFO_5')
-make_head(_module, 'USE_OPTION_DEFERRED_CONNECTION_PARAMETERS')
-make_head(_module, 'USE_OPTION_GENERIC')
-make_head(_module, 'USE_OPTION_PROPERTIES')
-make_head(_module, 'USE_OPTION_TRANSPORT_PARAMETERS')
-make_head(_module, 'WKSTA_INFO_100')
-make_head(_module, 'WKSTA_INFO_101')
-make_head(_module, 'WKSTA_INFO_1010')
-make_head(_module, 'WKSTA_INFO_1011')
-make_head(_module, 'WKSTA_INFO_1012')
-make_head(_module, 'WKSTA_INFO_1013')
-make_head(_module, 'WKSTA_INFO_1018')
-make_head(_module, 'WKSTA_INFO_102')
-make_head(_module, 'WKSTA_INFO_1023')
-make_head(_module, 'WKSTA_INFO_1027')
-make_head(_module, 'WKSTA_INFO_1028')
-make_head(_module, 'WKSTA_INFO_1032')
-make_head(_module, 'WKSTA_INFO_1033')
-make_head(_module, 'WKSTA_INFO_1041')
-make_head(_module, 'WKSTA_INFO_1042')
-make_head(_module, 'WKSTA_INFO_1043')
-make_head(_module, 'WKSTA_INFO_1044')
-make_head(_module, 'WKSTA_INFO_1045')
-make_head(_module, 'WKSTA_INFO_1046')
-make_head(_module, 'WKSTA_INFO_1047')
-make_head(_module, 'WKSTA_INFO_1048')
-make_head(_module, 'WKSTA_INFO_1049')
-make_head(_module, 'WKSTA_INFO_1050')
-make_head(_module, 'WKSTA_INFO_1051')
-make_head(_module, 'WKSTA_INFO_1052')
-make_head(_module, 'WKSTA_INFO_1053')
-make_head(_module, 'WKSTA_INFO_1054')
-make_head(_module, 'WKSTA_INFO_1055')
-make_head(_module, 'WKSTA_INFO_1056')
-make_head(_module, 'WKSTA_INFO_1057')
-make_head(_module, 'WKSTA_INFO_1058')
-make_head(_module, 'WKSTA_INFO_1059')
-make_head(_module, 'WKSTA_INFO_1060')
-make_head(_module, 'WKSTA_INFO_1061')
-make_head(_module, 'WKSTA_INFO_1062')
-make_head(_module, 'WKSTA_INFO_302')
-make_head(_module, 'WKSTA_INFO_402')
-make_head(_module, 'WKSTA_INFO_502')
-make_head(_module, 'WKSTA_TRANSPORT_INFO_0')
-make_head(_module, 'WKSTA_USER_INFO_0')
-make_head(_module, 'WKSTA_USER_INFO_1')
-make_head(_module, 'WKSTA_USER_INFO_1101')
-make_head(_module, 'WORKERFUNCTION')
+make_ready(__name__)

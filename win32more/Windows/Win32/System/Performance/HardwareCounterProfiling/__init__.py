@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Performance.HardwareCounterProfiling
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('KERNEL32.dll')
 def EnableThreadProfiling(ThreadHandle: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, HardwareCounters: UInt64, PerformanceDataHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
@@ -19,7 +10,7 @@ def DisableThreadProfiling(PerformanceDataHandle: win32more.Windows.Win32.Founda
 @winfunctype('KERNEL32.dll')
 def QueryThreadProfiling(ThreadHandle: win32more.Windows.Win32.Foundation.HANDLE, Enabled: POINTER(win32more.Windows.Win32.Foundation.BOOLEAN)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def ReadThreadProfilingData(PerformanceDataHandle: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, PerformanceData: POINTER(win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.PERFORMANCE_DATA_head)) -> UInt32: ...
+def ReadThreadProfilingData(PerformanceDataHandle: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, PerformanceData: POINTER(win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.PERFORMANCE_DATA)) -> UInt32: ...
 class HARDWARE_COUNTER_DATA(EasyCastStructure):
     Type: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_TYPE
     Reserved: UInt32
@@ -37,5 +28,4 @@ class PERFORMANCE_DATA(EasyCastStructure):
     RetryCount: UInt32
     Reserved: UInt32
     HwCounters: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_DATA * 16
-make_head(_module, 'HARDWARE_COUNTER_DATA')
-make_head(_module, 'PERFORMANCE_DATA')
+make_ready(__name__)

@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Security.Cryptography.UI
 import win32more.Windows.Win32.Security.WinTrust
 import win32more.Windows.Win32.UI.Controls
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CRYTPDLG_FLAGS_MASK: UInt32 = 4278190080
 CRYPTDLG_REVOCATION_DEFAULT: UInt32 = 0
 CRYPTDLG_REVOCATION_ONLINE: UInt32 = 2147483648
@@ -97,27 +88,27 @@ CRYPTUI_WIZ_EXPORT_FORMAT_SERIALIZED_CERT_STORE: UInt32 = 5
 @winfunctype('CRYPTUI.dll')
 def CryptUIDlgViewContext(dwContextType: UInt32, pvContext: VoidPtr, hwnd: win32more.Windows.Win32.Foundation.HWND, pwszTitle: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
-def CryptUIDlgSelectCertificateFromStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, hwnd: win32more.Windows.Win32.Foundation.HWND, pwszTitle: win32more.Windows.Win32.Foundation.PWSTR, pwszDisplayString: win32more.Windows.Win32.Foundation.PWSTR, dwDontUseColumn: UInt32, dwFlags: UInt32, pvReserved: VoidPtr) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def CryptUIDlgSelectCertificateFromStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, hwnd: win32more.Windows.Win32.Foundation.HWND, pwszTitle: win32more.Windows.Win32.Foundation.PWSTR, pwszDisplayString: win32more.Windows.Win32.Foundation.PWSTR, dwDontUseColumn: UInt32, dwFlags: UInt32, pvReserved: VoidPtr) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype('CRYPTUI.dll')
-def CertSelectionGetSerializedBlob(pcsi: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CERT_SELECTUI_INPUT_head), ppOutBuffer: POINTER(VoidPtr), pulOutBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CertSelectionGetSerializedBlob(pcsi: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CERT_SELECTUI_INPUT), ppOutBuffer: POINTER(VoidPtr), pulOutBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTUI.dll')
-def CryptUIDlgCertMgr(pCryptUICertMgr: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_CERT_MGR_STRUCT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUIDlgCertMgr(pCryptUICertMgr: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_CERT_MGR_STRUCT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
-def CryptUIWizDigitalSign(dwFlags: UInt32, hwndParent: win32more.Windows.Win32.Foundation.HWND, pwszWizardTitle: win32more.Windows.Win32.Foundation.PWSTR, pDigitalSignInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_INFO_head), ppSignContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUIWizDigitalSign(dwFlags: UInt32, hwndParent: win32more.Windows.Win32.Foundation.HWND, pwszWizardTitle: win32more.Windows.Win32.Foundation.PWSTR, pDigitalSignInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_INFO), ppSignContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
-def CryptUIWizFreeDigitalSignContext(pSignContext: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUIWizFreeDigitalSignContext(pSignContext: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
-def CryptUIDlgViewCertificateW(pCertViewInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_VIEWCERTIFICATE_STRUCTW_head), pfPropertiesChanged: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUIDlgViewCertificateW(pCertViewInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_VIEWCERTIFICATE_STRUCTW), pfPropertiesChanged: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
-def CryptUIDlgViewCertificateA(pCertViewInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_VIEWCERTIFICATE_STRUCTA_head), pfPropertiesChanged: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUIDlgViewCertificateA(pCertViewInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_VIEWCERTIFICATE_STRUCTA), pfPropertiesChanged: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
-def CryptUIWizExport(dwFlags: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_FLAGS, hwndParent: win32more.Windows.Win32.Foundation.HWND, pwszWizardTitle: win32more.Windows.Win32.Foundation.PWSTR, pExportInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_EXPORT_INFO_head), pvoid: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUIWizExport(dwFlags: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_FLAGS, hwndParent: win32more.Windows.Win32.Foundation.HWND, pwszWizardTitle: win32more.Windows.Win32.Foundation.PWSTR, pExportInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_EXPORT_INFO), pvoid: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
-def CryptUIWizImport(dwFlags: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_FLAGS, hwndParent: win32more.Windows.Win32.Foundation.HWND, pwszWizardTitle: win32more.Windows.Win32.Foundation.PWSTR, pImportSrc: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_IMPORT_SRC_INFO_head), hDestCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUIWizImport(dwFlags: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_FLAGS, hwndParent: win32more.Windows.Win32.Foundation.HWND, pwszWizardTitle: win32more.Windows.Win32.Foundation.PWSTR, pImportSrc: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_IMPORT_SRC_INFO), hDestCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class CERT_FILTER_DATA(EasyCastStructure):
     dwSize: UInt32
     cExtensionChecks: UInt32
-    arrayExtensionChecks: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CERT_FILTER_EXTENSION_MATCH_head)
+    arrayExtensionChecks: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CERT_FILTER_EXTENSION_MATCH)
     dwCheckingFlags: UInt32
 class CERT_FILTER_EXTENSION_MATCH(EasyCastStructure):
     szExtensionOID: win32more.Windows.Win32.Foundation.PSTR
@@ -126,7 +117,7 @@ class CERT_FILTER_EXTENSION_MATCH(EasyCastStructure):
     cbTestData: UInt32
 class CERT_SELECTUI_INPUT(EasyCastStructure):
     hStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
-    prgpChain: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head))
+    prgpChain: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT))
     cChain: UInt32
 class CERT_SELECT_STRUCT_A(EasyCastStructure):
     dwSize: UInt32
@@ -139,7 +130,7 @@ class CERT_SELECT_STRUCT_A(EasyCastStructure):
     arrayCertStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     szPurposeOid: win32more.Windows.Win32.Foundation.PSTR
     cCertContext: UInt32
-    arrayCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))
+    arrayCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     pfnHook: win32more.Windows.Win32.Security.Cryptography.UI.PFNCMHOOKPROC
     pfnFilter: win32more.Windows.Win32.Security.Cryptography.UI.PFNCMFILTERPROC
@@ -164,7 +155,7 @@ class CERT_SELECT_STRUCT_W(EasyCastStructure):
     arrayCertStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     szPurposeOid: win32more.Windows.Win32.Foundation.PSTR
     cCertContext: UInt32
-    arrayCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))
+    arrayCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     pfnHook: win32more.Windows.Win32.Security.Cryptography.UI.PFNCMHOOKPROC
     pfnFilter: win32more.Windows.Win32.Security.Cryptography.UI.PFNCMFILTERPROC
@@ -173,7 +164,7 @@ class CERT_SELECT_STRUCT_W(EasyCastStructure):
     hprov: UIntPtr
 class CERT_VERIFY_CERTIFICATE_TRUST(EasyCastStructure):
     cbSize: UInt32
-    pccert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pccert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     dwFlags: UInt32
     dwIgnoreErr: UInt32
     pdwErrors: POINTER(UInt32)
@@ -188,16 +179,16 @@ class CERT_VERIFY_CERTIFICATE_TRUST(EasyCastStructure):
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     pfnTrustHelper: win32more.Windows.Win32.Security.Cryptography.UI.PFNTRUSTHELPER
     pcChain: POINTER(UInt32)
-    prgChain: POINTER(POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)))
+    prgChain: POINTER(POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)))
     prgdwErrors: POINTER(POINTER(UInt32))
-    prgpbTrustInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head))
+    prgpbTrustInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB))
 class CERT_VIEWPROPERTIES_STRUCT_A(EasyCastStructure):
     dwSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
     dwFlags: win32more.Windows.Win32.Security.Cryptography.UI.CERT_VIEWPROPERTIES_STRUCT_FLAGS
     szTitle: win32more.Windows.Win32.Foundation.PSTR
-    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     arrayPurposes: POINTER(win32more.Windows.Win32.Foundation.PSTR)
     cArrayPurposes: UInt32
     cRootStores: UInt32
@@ -213,7 +204,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A(EasyCastStructure):
     dwHelpId: UInt32
     nStartPage: UInt32
     cArrayPropSheetPages: UInt32
-    arrayPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA_head)
+    arrayPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
 CERT_VIEWPROPERTIES_STRUCT_FLAGS = UInt32
 CM_ENABLEHOOK: CERT_VIEWPROPERTIES_STRUCT_FLAGS = 1
 CM_SHOW_HELP: CERT_VIEWPROPERTIES_STRUCT_FLAGS = 2
@@ -231,7 +222,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W(EasyCastStructure):
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
     dwFlags: win32more.Windows.Win32.Security.Cryptography.UI.CERT_VIEWPROPERTIES_STRUCT_FLAGS
     szTitle: win32more.Windows.Win32.Foundation.PWSTR
-    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     arrayPurposes: POINTER(win32more.Windows.Win32.Foundation.PSTR)
     cArrayPurposes: UInt32
     cRootStores: UInt32
@@ -247,7 +238,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W(EasyCastStructure):
     dwHelpId: UInt32
     nStartPage: UInt32
     cArrayPropSheetPages: UInt32
-    arrayPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA_head)
+    arrayPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
 class CRYPTUI_CERT_MGR_STRUCT(EasyCastStructure):
     dwSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
@@ -256,7 +247,7 @@ class CRYPTUI_CERT_MGR_STRUCT(EasyCastStructure):
     pszInitUsageOID: win32more.Windows.Win32.Foundation.PSTR
 class CRYPTUI_INITDIALOG_STRUCT(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
 CRYPTUI_VIEWCERTIFICATE_FLAGS = UInt32
 CRYPTUI_HIDE_HIERARCHYPAGE: CRYPTUI_VIEWCERTIFICATE_FLAGS = 1
 CRYPTUI_HIDE_DETAILPAGE: CRYPTUI_VIEWCERTIFICATE_FLAGS = 2
@@ -283,7 +274,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTA(EasyCastStructure):
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     dwFlags: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_VIEWCERTIFICATE_FLAGS
     szTitle: win32more.Windows.Win32.Foundation.PSTR
-    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     rgszPurposes: POINTER(win32more.Windows.Win32.Foundation.PSTR)
     cPurposes: UInt32
     Anonymous: _Anonymous_e__Union
@@ -295,17 +286,17 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTA(EasyCastStructure):
     cStores: UInt32
     rghStores: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     cPropSheetPages: UInt32
-    rgPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA_head)
+    rgPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
     nStartPage: UInt32
     class _Anonymous_e__Union(EasyCastUnion):
-        pCryptProviderData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)
+        pCryptProviderData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)
         hWVTStateData: win32more.Windows.Win32.Foundation.HANDLE
 class CRYPTUI_VIEWCERTIFICATE_STRUCTW(EasyCastStructure):
     dwSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     dwFlags: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_VIEWCERTIFICATE_FLAGS
     szTitle: win32more.Windows.Win32.Foundation.PWSTR
-    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     rgszPurposes: POINTER(win32more.Windows.Win32.Foundation.PSTR)
     cPurposes: UInt32
     Anonymous: _Anonymous_e__Union
@@ -317,10 +308,10 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW(EasyCastStructure):
     cStores: UInt32
     rghStores: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     cPropSheetPages: UInt32
-    rgPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW_head)
+    rgPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)
     nStartPage: UInt32
     class _Anonymous_e__Union(EasyCastUnion):
-        pCryptProviderData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA_head)
+        pCryptProviderData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)
         hWVTStateData: win32more.Windows.Win32.Foundation.HANDLE
 CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE = UInt32
 CRYPTUI_WIZ_DIGITAL_SIGN_ADD_CHAIN: CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE = 1
@@ -343,8 +334,8 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO(EasyCastStructure):
     dwPvkChoice: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_PVK_OPTION
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        pPvkFileInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO_head)
-        pPvkProvInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_INFO_head)
+        pPvkFileInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO)
+        pPvkProvInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_INFO)
 class CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT(EasyCastStructure):
     dwSize: UInt32
     cbBlob: UInt32
@@ -357,8 +348,8 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO(EasyCastStructure):
     pszHashAlg: win32more.Windows.Win32.Foundation.PSTR
     pwszSigningCertDisplayString: win32more.Windows.Win32.Foundation.PWSTR
     hAdditionalCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
-    psAuthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)
-    psUnauthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)
+    psAuthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
+    psUnauthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
 class CRYPTUI_WIZ_DIGITAL_SIGN_INFO(EasyCastStructure):
     dwSize: UInt32
     dwSubjectChoice: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT
@@ -367,14 +358,14 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO(EasyCastStructure):
     Anonymous2: _Anonymous2_e__Union
     pwszTimestampURL: win32more.Windows.Win32.Foundation.PWSTR
     dwAdditionalCertChoice: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE
-    pSignExtInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO_head)
+    pSignExtInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO)
     class _Anonymous1_e__Union(EasyCastUnion):
         pwszFileName: win32more.Windows.Win32.Foundation.PWSTR
-        pSignBlobInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO_head)
+        pSignBlobInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO)
     class _Anonymous2_e__Union(EasyCastUnion):
-        pSigningCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
-        pSigningCertStore: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO_head)
-        pSigningCertPvkInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO_head)
+        pSigningCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
+        pSigningCertStore: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO)
+        pSigningCertPvkInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO)
 class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO(EasyCastStructure):
     dwSize: UInt32
     pwszPvkFileName: win32more.Windows.Win32.Foundation.PWSTR
@@ -418,9 +409,9 @@ class CRYPTUI_WIZ_EXPORT_INFO(EasyCastStructure):
     cStores: UInt32
     rghStores: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     class _Anonymous_e__Union(EasyCastUnion):
-        pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
-        pCTLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)
-        pCRLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)
+        pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
+        pCTLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
+        pCRLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
         hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
 CRYPTUI_WIZ_EXPORT_SUBJECT = UInt32
 CRYPTUI_WIZ_EXPORT_CERT_CONTEXT: CRYPTUI_WIZ_EXPORT_SUBJECT = 1
@@ -449,9 +440,9 @@ class CRYPTUI_WIZ_IMPORT_SRC_INFO(EasyCastStructure):
     pwszPassword: win32more.Windows.Win32.Foundation.PWSTR
     class _Anonymous_e__Union(EasyCastUnion):
         pwszFileName: win32more.Windows.Win32.Foundation.PWSTR
-        pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
-        pCTLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)
-        pCRLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)
+        pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
+        pCTLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
+        pCRLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
         hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
 CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION = UInt32
 CRYPTUI_WIZ_IMPORT_SUBJECT_FILE: CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION = 1
@@ -460,7 +451,7 @@ CRYPTUI_WIZ_IMPORT_SUBJECT_CTL_CONTEXT: CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION = 3
 CRYPTUI_WIZ_IMPORT_SUBJECT_CRL_CONTEXT: CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION = 4
 CRYPTUI_WIZ_IMPORT_SUBJECT_CERT_STORE: CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION = 5
 class CTL_MODIFY_REQUEST(EasyCastStructure):
-    pccert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pccert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     dwOperation: win32more.Windows.Win32.Security.Cryptography.UI.CTL_MODIFY_REQUEST_OPERATION
     dwError: UInt32
 CTL_MODIFY_REQUEST_OPERATION = UInt32
@@ -468,37 +459,11 @@ CTL_MODIFY_REQUEST_ADD_TRUSTED: CTL_MODIFY_REQUEST_OPERATION = 3
 CTL_MODIFY_REQUEST_ADD_NOT_TRUSTED: CTL_MODIFY_REQUEST_OPERATION = 1
 CTL_MODIFY_REQUEST_REMOVE: CTL_MODIFY_REQUEST_OPERATION = 2
 @winfunctype_pointer
-def PFNCFILTERPROC(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pfInitialSelectedCert: POINTER(win32more.Windows.Win32.Foundation.BOOL), pvCallbackData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFNCFILTERPROC(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pfInitialSelectedCert: POINTER(win32more.Windows.Win32.Foundation.BOOL), pvCallbackData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFNCMFILTERPROC(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), param1: win32more.Windows.Win32.Foundation.LPARAM, param2: UInt32, param3: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFNCMFILTERPROC(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), param1: win32more.Windows.Win32.Foundation.LPARAM, param2: UInt32, param3: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFNCMHOOKPROC(hwndDialog: win32more.Windows.Win32.Foundation.HWND, message: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> UInt32: ...
 @winfunctype_pointer
-def PFNTRUSTHELPER(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), lCustData: win32more.Windows.Win32.Foundation.LPARAM, fLeafCertificate: win32more.Windows.Win32.Foundation.BOOL, pbTrustBlob: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'CERT_FILTER_DATA')
-make_head(_module, 'CERT_FILTER_EXTENSION_MATCH')
-make_head(_module, 'CERT_SELECTUI_INPUT')
-make_head(_module, 'CERT_SELECT_STRUCT_A')
-make_head(_module, 'CERT_SELECT_STRUCT_W')
-make_head(_module, 'CERT_VERIFY_CERTIFICATE_TRUST')
-make_head(_module, 'CERT_VIEWPROPERTIES_STRUCT_A')
-make_head(_module, 'CERT_VIEWPROPERTIES_STRUCT_W')
-make_head(_module, 'CRYPTUI_CERT_MGR_STRUCT')
-make_head(_module, 'CRYPTUI_INITDIALOG_STRUCT')
-make_head(_module, 'CRYPTUI_VIEWCERTIFICATE_STRUCTA')
-make_head(_module, 'CRYPTUI_VIEWCERTIFICATE_STRUCTW')
-make_head(_module, 'CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO')
-make_head(_module, 'CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO')
-make_head(_module, 'CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT')
-make_head(_module, 'CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO')
-make_head(_module, 'CRYPTUI_WIZ_DIGITAL_SIGN_INFO')
-make_head(_module, 'CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO')
-make_head(_module, 'CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO')
-make_head(_module, 'CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO')
-make_head(_module, 'CRYPTUI_WIZ_EXPORT_INFO')
-make_head(_module, 'CRYPTUI_WIZ_IMPORT_SRC_INFO')
-make_head(_module, 'CTL_MODIFY_REQUEST')
-make_head(_module, 'PFNCFILTERPROC')
-make_head(_module, 'PFNCMFILTERPROC')
-make_head(_module, 'PFNCMHOOKPROC')
-make_head(_module, 'PFNTRUSTHELPER')
+def PFNTRUSTHELPER(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), lCustData: win32more.Windows.Win32.Foundation.LPARAM, fLeafCertificate: win32more.Windows.Win32.Foundation.BOOL, pbTrustBlob: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+make_ready(__name__)

@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Input.Touch
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('USER32.dll')
-def GetTouchInputInfo(hTouchInput: win32more.Windows.Win32.UI.Input.Touch.HTOUCHINPUT, cInputs: UInt32, pInputs: POINTER(win32more.Windows.Win32.UI.Input.Touch.TOUCHINPUT_head), cbSize: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetTouchInputInfo(hTouchInput: win32more.Windows.Win32.UI.Input.Touch.HTOUCHINPUT, cInputs: UInt32, pInputs: POINTER(win32more.Windows.Win32.UI.Input.Touch.TOUCHINPUT), cbSize: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def CloseTouchInputHandle(hTouchInput: win32more.Windows.Win32.UI.Input.Touch.HTOUCHINPUT) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -24,15 +15,15 @@ def UnregisterTouchWindow(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win3
 @winfunctype('USER32.dll')
 def IsTouchWindow(hwnd: win32more.Windows.Win32.Foundation.HWND, pulFlags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def GetGestureInfo(hGestureInfo: win32more.Windows.Win32.UI.Input.Touch.HGESTUREINFO, pGestureInfo: POINTER(win32more.Windows.Win32.UI.Input.Touch.GESTUREINFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetGestureInfo(hGestureInfo: win32more.Windows.Win32.UI.Input.Touch.HGESTUREINFO, pGestureInfo: POINTER(win32more.Windows.Win32.UI.Input.Touch.GESTUREINFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def GetGestureExtraArgs(hGestureInfo: win32more.Windows.Win32.UI.Input.Touch.HGESTUREINFO, cbExtraArgs: UInt32, pExtraArgs: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def CloseGestureInfoHandle(hGestureInfo: win32more.Windows.Win32.UI.Input.Touch.HGESTUREINFO) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def SetGestureConfig(hwnd: win32more.Windows.Win32.Foundation.HWND, dwReserved: UInt32, cIDs: UInt32, pGestureConfig: POINTER(win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_head), cbSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetGestureConfig(hwnd: win32more.Windows.Win32.Foundation.HWND, dwReserved: UInt32, cIDs: UInt32, pGestureConfig: POINTER(win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG), cbSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def GetGestureConfig(hwnd: win32more.Windows.Win32.Foundation.HWND, dwReserved: UInt32, dwFlags: UInt32, pcIDs: POINTER(UInt32), pGestureConfig: POINTER(win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_head), cbSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetGestureConfig(hwnd: win32more.Windows.Win32.Foundation.HWND, dwReserved: UInt32, dwFlags: UInt32, pcIDs: POINTER(UInt32), pGestureConfig: POINTER(win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG), cbSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class GESTURECONFIG(EasyCastStructure):
     dwID: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID
     dwWant: UInt32
@@ -255,10 +246,4 @@ class _IManipulationEvents(ComPtr):
     def ManipulationDelta(self, x: Single, y: Single, translationDeltaX: Single, translationDeltaY: Single, scaleDelta: Single, expansionDelta: Single, rotationDelta: Single, cumulativeTranslationX: Single, cumulativeTranslationY: Single, cumulativeScale: Single, cumulativeExpansion: Single, cumulativeRotation: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ManipulationCompleted(self, x: Single, y: Single, cumulativeTranslationX: Single, cumulativeTranslationY: Single, cumulativeScale: Single, cumulativeExpansion: Single, cumulativeRotation: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'GESTURECONFIG')
-make_head(_module, 'GESTUREINFO')
-make_head(_module, 'GESTURENOTIFYSTRUCT')
-make_head(_module, 'IInertiaProcessor')
-make_head(_module, 'IManipulationProcessor')
-make_head(_module, 'TOUCHINPUT')
-make_head(_module, '_IManipulationEvents')
+make_ready(__name__)

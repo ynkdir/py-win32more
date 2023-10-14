@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Appointments
@@ -24,15 +24,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IUserDataAccount(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount'
@@ -303,19 +294,4 @@ class UserDataAccountStoreChangedEventArgs(ComPtr):
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStoreChangedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-make_head(_module, 'IUserDataAccount')
-make_head(_module, 'IUserDataAccount2')
-make_head(_module, 'IUserDataAccount3')
-make_head(_module, 'IUserDataAccount4')
-make_head(_module, 'IUserDataAccountManagerForUser')
-make_head(_module, 'IUserDataAccountManagerStatics')
-make_head(_module, 'IUserDataAccountManagerStatics2')
-make_head(_module, 'IUserDataAccountStore')
-make_head(_module, 'IUserDataAccountStore2')
-make_head(_module, 'IUserDataAccountStore3')
-make_head(_module, 'IUserDataAccountStoreChangedEventArgs')
-make_head(_module, 'UserDataAccount')
-make_head(_module, 'UserDataAccountManager')
-make_head(_module, 'UserDataAccountManagerForUser')
-make_head(_module, 'UserDataAccountStore')
-make_head(_module, 'UserDataAccountStoreChangedEventArgs')
+make_ready(__name__)

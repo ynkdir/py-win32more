@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WebDav
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AUTHNEXTSTEP = Int32
 AUTHNEXTSTEP_DefaultBehavior: AUTHNEXTSTEP = 0
 AUTHNEXTSTEP_RetryRequest: AUTHNEXTSTEP = 1
@@ -60,11 +51,7 @@ class DAV_CALLBACK_CRED(EasyCastStructure):
     bAuthBlobValid: win32more.Windows.Win32.Foundation.BOOL
     bSave: win32more.Windows.Win32.Foundation.BOOL
 @winfunctype_pointer
-def PFNDAVAUTHCALLBACK(lpwzServerName: win32more.Windows.Win32.Foundation.PWSTR, lpwzRemoteName: win32more.Windows.Win32.Foundation.PWSTR, dwAuthScheme: UInt32, dwFlags: UInt32, pCallbackCred: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.DAV_CALLBACK_CRED_head), NextStep: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP), pFreeCred: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK_FREECRED)) -> UInt32: ...
+def PFNDAVAUTHCALLBACK(lpwzServerName: win32more.Windows.Win32.Foundation.PWSTR, lpwzRemoteName: win32more.Windows.Win32.Foundation.PWSTR, dwAuthScheme: UInt32, dwFlags: UInt32, pCallbackCred: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.DAV_CALLBACK_CRED), NextStep: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP), pFreeCred: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK_FREECRED)) -> UInt32: ...
 @winfunctype_pointer
 def PFNDAVAUTHCALLBACK_FREECRED(pbuffer: VoidPtr) -> UInt32: ...
-make_head(_module, 'DAV_CALLBACK_AUTH_BLOB')
-make_head(_module, 'DAV_CALLBACK_AUTH_UNP')
-make_head(_module, 'DAV_CALLBACK_CRED')
-make_head(_module, 'PFNDAVAUTHCALLBACK')
-make_head(_module, 'PFNDAVAUTHCALLBACK_FREECRED')
+make_ready(__name__)

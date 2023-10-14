@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Management.MobileDeviceManagementRegistration
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 MENROLL_E_DEVICE_MESSAGE_FORMAT_ERROR: win32more.Windows.Win32.Foundation.HRESULT = -2145910783
 MENROLL_E_DEVICE_AUTHENTICATION_ERROR: win32more.Windows.Win32.Foundation.HRESULT = -2145910782
 MENROLL_E_DEVICE_AUTHORIZATION_ERROR: win32more.Windows.Win32.Foundation.HRESULT = -2145910781
@@ -88,7 +79,7 @@ def IsMdmUxWithoutAadAllowed(isEnrollmentAllowed: POINTER(win32more.Windows.Win3
 @winfunctype('MDMRegistration.dll')
 def SetManagedExternally(IsManagedExternally: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMRegistration.dll')
-def DiscoverManagementService(pszUPN: win32more.Windows.Win32.Foundation.PWSTR, ppMgmtInfo: POINTER(POINTER(win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DiscoverManagementService(pszUPN: win32more.Windows.Win32.Foundation.PWSTR, ppMgmtInfo: POINTER(POINTER(win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMRegistration.dll')
 def RegisterDeviceWithManagementUsingAADCredentials(UserToken: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMRegistration.dll')
@@ -108,7 +99,7 @@ def SetDeviceManagementConfigInfo(providerID: win32more.Windows.Win32.Foundation
 @winfunctype('MDMRegistration.dll')
 def GetManagementAppHyperlink(cchHyperlink: UInt32, pszHyperlink: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMRegistration.dll')
-def DiscoverManagementServiceEx(pszUPN: win32more.Windows.Win32.Foundation.PWSTR, pszDiscoveryServiceCandidate: win32more.Windows.Win32.Foundation.PWSTR, ppMgmtInfo: POINTER(POINTER(win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def DiscoverManagementServiceEx(pszUPN: win32more.Windows.Win32.Foundation.PWSTR, pszDiscoveryServiceCandidate: win32more.Windows.Win32.Foundation.PWSTR, ppMgmtInfo: POINTER(POINTER(win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMLocalManagement.dll')
 def RegisterDeviceWithLocalManagement(alreadyRegistered: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMLocalManagement.dll')
@@ -126,5 +117,4 @@ class MANAGEMENT_SERVICE_INFO(EasyCastStructure):
 REGISTRATION_INFORMATION_CLASS = Int32
 REGISTRATION_INFORMATION_CLASS_DeviceRegistrationBasicInfo: REGISTRATION_INFORMATION_CLASS = 1
 REGISTRATION_INFORMATION_CLASS_MaxDeviceInfoClass: REGISTRATION_INFORMATION_CLASS = 2
-make_head(_module, 'MANAGEMENT_REGISTRATION_INFO')
-make_head(_module, 'MANAGEMENT_SERVICE_INFO')
+make_ready(__name__)

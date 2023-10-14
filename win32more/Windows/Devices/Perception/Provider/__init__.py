@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Perception
@@ -22,15 +22,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Media
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IKnownPerceptionFrameKindStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics'
@@ -202,7 +193,7 @@ class IPerceptionPropertyChangeRequest(ComPtr):
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
-    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(8)
     def get_Status(self) -> win32more.Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeStatus: ...
     @winrt_commethod(9)
@@ -358,7 +349,7 @@ class PerceptionPropertyChangeRequest(ComPtr):
     @winrt_mixinmethod
     def get_Name(self: win32more.Windows.Devices.Perception.Provider.IPerceptionPropertyChangeRequest) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Devices.Perception.Provider.IPerceptionPropertyChangeRequest) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self: win32more.Windows.Devices.Perception.Provider.IPerceptionPropertyChangeRequest) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Devices.Perception.Provider.IPerceptionPropertyChangeRequest) -> win32more.Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeStatus: ...
     @winrt_mixinmethod
@@ -388,30 +379,4 @@ class PerceptionVideoFrameAllocator(ComPtr):
     def CopyFromVideoFrame(self: win32more.Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocator, frame: win32more.Windows.Media.VideoFrame) -> win32more.Windows.Devices.Perception.Provider.PerceptionFrame: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-make_head(_module, 'IKnownPerceptionFrameKindStatics')
-make_head(_module, 'IPerceptionControlGroup')
-make_head(_module, 'IPerceptionControlGroupFactory')
-make_head(_module, 'IPerceptionCorrelation')
-make_head(_module, 'IPerceptionCorrelationFactory')
-make_head(_module, 'IPerceptionCorrelationGroup')
-make_head(_module, 'IPerceptionCorrelationGroupFactory')
-make_head(_module, 'IPerceptionFaceAuthenticationGroup')
-make_head(_module, 'IPerceptionFaceAuthenticationGroupFactory')
-make_head(_module, 'IPerceptionFrame')
-make_head(_module, 'IPerceptionFrameProvider')
-make_head(_module, 'IPerceptionFrameProviderInfo')
-make_head(_module, 'IPerceptionFrameProviderManager')
-make_head(_module, 'IPerceptionFrameProviderManagerServiceStatics')
-make_head(_module, 'IPerceptionPropertyChangeRequest')
-make_head(_module, 'IPerceptionVideoFrameAllocator')
-make_head(_module, 'IPerceptionVideoFrameAllocatorFactory')
-make_head(_module, 'KnownPerceptionFrameKind')
-make_head(_module, 'PerceptionControlGroup')
-make_head(_module, 'PerceptionCorrelation')
-make_head(_module, 'PerceptionCorrelationGroup')
-make_head(_module, 'PerceptionFaceAuthenticationGroup')
-make_head(_module, 'PerceptionFrame')
-make_head(_module, 'PerceptionFrameProviderInfo')
-make_head(_module, 'PerceptionFrameProviderManagerService')
-make_head(_module, 'PerceptionPropertyChangeRequest')
-make_head(_module, 'PerceptionVideoFrameAllocator')
+make_ready(__name__)

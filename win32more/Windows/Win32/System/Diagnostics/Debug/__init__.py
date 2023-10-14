@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.WinTrust
 import win32more.Windows.Win32.Storage.FileSystem
@@ -15,15 +15,6 @@ import win32more.Windows.Win32.System.Threading
 import win32more.Windows.Win32.System.Time
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 if ARCH in 'X86':
     class ADDRESS(EasyCastStructure):
         Offset: UInt32
@@ -61,7 +52,7 @@ class AER_ROOTPORT_DESCRIPTOR_FLAGS(EasyCastUnion):
         _pack_ = 1
 class APC_CALLBACK_DATA(EasyCastStructure):
     Parameter: UIntPtr
-    ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)
+    ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)
     Reserved0: UIntPtr
     Reserved1: UIntPtr
 class API_VERSION(EasyCastStructure):
@@ -460,51 +451,51 @@ IPMI_OS_SEL_RECORD_MASK: UInt32 = 65535
 sevMax: Int32 = 4
 if ARCH in 'ARM64':
     @winfunctype('KERNEL32.dll')
-    def RtlAddFunctionTable(FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head), EntryCount: UInt32, BaseAddress: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+    def RtlAddFunctionTable(FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY), EntryCount: UInt32, BaseAddress: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 if ARCH in 'ARM64':
     @winfunctype('KERNEL32.dll')
-    def RtlDeleteFunctionTable(FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+    def RtlDeleteFunctionTable(FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 if ARCH in 'ARM64':
     @winfunctype('KERNEL32.dll')
     def RtlInstallFunctionTableCallback(TableIdentifier: UInt64, BaseAddress: UInt64, Length: UInt32, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_RUNTIME_FUNCTION_CALLBACK, Context: VoidPtr, OutOfProcessCallbackDll: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 if ARCH in 'ARM64':
     @winfunctype('ntdll.dll')
-    def RtlAddGrowableFunctionTable(DynamicTable: POINTER(VoidPtr), FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head), EntryCount: UInt32, MaximumEntryCount: UInt32, RangeBase: UIntPtr, RangeEnd: UIntPtr) -> UInt32: ...
+    def RtlAddGrowableFunctionTable(DynamicTable: POINTER(VoidPtr), FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY), EntryCount: UInt32, MaximumEntryCount: UInt32, RangeBase: UIntPtr, RangeEnd: UIntPtr) -> UInt32: ...
 if ARCH in 'ARM64':
     @winfunctype('KERNEL32.dll')
-    def RtlLookupFunctionEntry(ControlPc: UIntPtr, ImageBase: POINTER(UIntPtr), HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE_head)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head): ...
+    def RtlLookupFunctionEntry(ControlPc: UIntPtr, ImageBase: POINTER(UIntPtr), HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY): ...
 if ARCH in 'ARM64':
     @winfunctype('KERNEL32.dll')
-    def RtlVirtualUnwind(HandlerType: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE, ImageBase: UIntPtr, ControlPc: UIntPtr, FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head), ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), HandlerData: POINTER(VoidPtr), EstablisherFrame: POINTER(UIntPtr), ContextPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.KNONVOLATILE_CONTEXT_POINTERS_ARM64_head)) -> win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE: ...
+    def RtlVirtualUnwind(HandlerType: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE, ImageBase: UIntPtr, ControlPc: UIntPtr, FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY), ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), HandlerData: POINTER(VoidPtr), EstablisherFrame: POINTER(UIntPtr), ContextPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.KNONVOLATILE_CONTEXT_POINTERS_ARM64)) -> win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE: ...
 @winfunctype('KERNEL32.dll')
 def ReadProcessMemory(hProcess: win32more.Windows.Win32.Foundation.HANDLE, lpBaseAddress: VoidPtr, lpBuffer: VoidPtr, nSize: UIntPtr, lpNumberOfBytesRead: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def WriteProcessMemory(hProcess: win32more.Windows.Win32.Foundation.HANDLE, lpBaseAddress: VoidPtr, lpBuffer: VoidPtr, nSize: UIntPtr, lpNumberOfBytesWritten: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GetThreadContext(hThread: win32more.Windows.Win32.Foundation.HANDLE, lpContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetThreadContext(hThread: win32more.Windows.Win32.Foundation.HANDLE, lpContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetThreadContext(hThread: win32more.Windows.Win32.Foundation.HANDLE, lpContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetThreadContext(hThread: win32more.Windows.Win32.Foundation.HANDLE, lpContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def FlushInstructionCache(hProcess: win32more.Windows.Win32.Foundation.HANDLE, lpBaseAddress: VoidPtr, dwSize: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def Wow64GetThreadContext(hThread: win32more.Windows.Win32.Foundation.HANDLE, lpContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def Wow64GetThreadContext(hThread: win32more.Windows.Win32.Foundation.HANDLE, lpContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def Wow64SetThreadContext(hThread: win32more.Windows.Win32.Foundation.HANDLE, lpContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def Wow64SetThreadContext(hThread: win32more.Windows.Win32.Foundation.HANDLE, lpContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64':
     @winfunctype('KERNEL32.dll')
-    def RtlCaptureContext2(ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> Void: ...
+    def RtlCaptureContext2(ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> Void: ...
 if ARCH in 'X64':
     @winfunctype('KERNEL32.dll')
-    def RtlAddFunctionTable(FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head), EntryCount: UInt32, BaseAddress: UInt64) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+    def RtlAddFunctionTable(FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY), EntryCount: UInt32, BaseAddress: UInt64) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 if ARCH in 'X64':
     @winfunctype('KERNEL32.dll')
-    def RtlDeleteFunctionTable(FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+    def RtlDeleteFunctionTable(FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 if ARCH in 'X64':
     @winfunctype('KERNEL32.dll')
     def RtlInstallFunctionTableCallback(TableIdentifier: UInt64, BaseAddress: UInt64, Length: UInt32, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_RUNTIME_FUNCTION_CALLBACK, Context: VoidPtr, OutOfProcessCallbackDll: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 if ARCH in 'X64':
     @winfunctype('ntdll.dll')
-    def RtlAddGrowableFunctionTable(DynamicTable: POINTER(VoidPtr), FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head), EntryCount: UInt32, MaximumEntryCount: UInt32, RangeBase: UIntPtr, RangeEnd: UIntPtr) -> UInt32: ...
+    def RtlAddGrowableFunctionTable(DynamicTable: POINTER(VoidPtr), FunctionTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY), EntryCount: UInt32, MaximumEntryCount: UInt32, RangeBase: UIntPtr, RangeEnd: UIntPtr) -> UInt32: ...
 if ARCH in 'X64,ARM64':
     @winfunctype('ntdll.dll')
     def RtlGrowFunctionTable(DynamicTable: VoidPtr, NewEntryCount: UInt32) -> Void: ...
@@ -513,41 +504,41 @@ if ARCH in 'X64,ARM64':
     def RtlDeleteGrowableFunctionTable(DynamicTable: VoidPtr) -> Void: ...
 if ARCH in 'X64':
     @winfunctype('KERNEL32.dll')
-    def RtlLookupFunctionEntry(ControlPc: UInt64, ImageBase: POINTER(UInt64), HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE_head)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head): ...
+    def RtlLookupFunctionEntry(ControlPc: UInt64, ImageBase: POINTER(UInt64), HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY): ...
 if ARCH in 'X64,ARM64':
     @winfunctype('KERNEL32.dll')
-    def RtlUnwindEx(TargetFrame: VoidPtr, TargetIp: VoidPtr, ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head), ReturnValue: VoidPtr, ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE_head)) -> Void: ...
+    def RtlUnwindEx(TargetFrame: VoidPtr, TargetIp: VoidPtr, ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD), ReturnValue: VoidPtr, ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE)) -> Void: ...
 if ARCH in 'X64':
     @winfunctype('KERNEL32.dll')
-    def RtlVirtualUnwind(HandlerType: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE, ImageBase: UInt64, ControlPc: UInt64, FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head), ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), HandlerData: POINTER(VoidPtr), EstablisherFrame: POINTER(UInt64), ContextPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.KNONVOLATILE_CONTEXT_POINTERS_head)) -> win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE: ...
+    def RtlVirtualUnwind(HandlerType: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE, ImageBase: UInt64, ControlPc: UInt64, FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY), ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), HandlerData: POINTER(VoidPtr), EstablisherFrame: POINTER(UInt64), ContextPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.KNONVOLATILE_CONTEXT_POINTERS)) -> win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE: ...
 if ARCH in 'X64,ARM64':
     @winfunctype('imagehlp.dll')
-    def CheckSumMappedFile(BaseAddress: VoidPtr, FileLength: UInt32, HeaderSum: POINTER(UInt32), CheckSum: POINTER(UInt32)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64_head): ...
+    def CheckSumMappedFile(BaseAddress: VoidPtr, FileLength: UInt32, HeaderSum: POINTER(UInt32), CheckSum: POINTER(UInt32)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64): ...
 if ARCH in 'X64,ARM64':
     @winfunctype('imagehlp.dll')
-    def GetImageConfigInformation(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head), ImageConfigInformation: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def GetImageConfigInformation(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE), ImageConfigInformation: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
     @winfunctype('imagehlp.dll')
-    def SetImageConfigInformation(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head), ImageConfigInformation: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SetImageConfigInformation(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE), ImageConfigInformation: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
     @winfunctype('dbghelp.dll')
-    def ImageNtHeader(Base: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64_head): ...
+    def ImageNtHeader(Base: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64): ...
 if ARCH in 'X64,ARM64':
     @winfunctype('dbghelp.dll')
-    def ImageRvaToSection(NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64_head), Base: VoidPtr, Rva: UInt32) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head): ...
+    def ImageRvaToSection(NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64), Base: VoidPtr, Rva: UInt32) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER): ...
 if ARCH in 'X64,ARM64':
     @winfunctype('dbghelp.dll')
-    def ImageRvaToVa(NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64_head), Base: VoidPtr, Rva: UInt32, LastRvaSection: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head))) -> VoidPtr: ...
+    def ImageRvaToVa(NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64), Base: VoidPtr, Rva: UInt32, LastRvaSection: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER))) -> VoidPtr: ...
 @winfunctype('KERNEL32.dll')
 def RtlCaptureStackBackTrace(FramesToSkip: UInt32, FramesToCapture: UInt32, BackTrace: POINTER(VoidPtr), BackTraceHash: POINTER(UInt32)) -> UInt16: ...
 @winfunctype('KERNEL32.dll')
-def RtlCaptureContext(ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> Void: ...
+def RtlCaptureContext(ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def RtlUnwind(TargetFrame: VoidPtr, TargetIp: VoidPtr, ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head), ReturnValue: VoidPtr) -> Void: ...
+def RtlUnwind(TargetFrame: VoidPtr, TargetIp: VoidPtr, ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD), ReturnValue: VoidPtr) -> Void: ...
 @cfunctype('KERNEL32.dll')
-def RtlRestoreContext(ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head)) -> Void: ...
+def RtlRestoreContext(ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def RtlRaiseException(ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head)) -> Void: ...
+def RtlRaiseException(ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD)) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def RtlPcToFileHeader(PcValue: VoidPtr, BaseOfImage: POINTER(VoidPtr)) -> VoidPtr: ...
 @winfunctype('KERNEL32.dll')
@@ -561,7 +552,7 @@ def OutputDebugStringW(lpOutputString: win32more.Windows.Win32.Foundation.PWSTR)
 @winfunctype('KERNEL32.dll')
 def ContinueDebugEvent(dwProcessId: UInt32, dwThreadId: UInt32, dwContinueStatus: win32more.Windows.Win32.Foundation.NTSTATUS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def WaitForDebugEvent(lpDebugEvent: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT_head), dwMilliseconds: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WaitForDebugEvent(lpDebugEvent: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT), dwMilliseconds: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def DebugActiveProcess(dwProcessId: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -569,7 +560,7 @@ def DebugActiveProcessStop(dwProcessId: UInt32) -> win32more.Windows.Win32.Found
 @winfunctype('KERNEL32.dll')
 def CheckRemoteDebuggerPresent(hProcess: win32more.Windows.Win32.Foundation.HANDLE, pbDebuggerPresent: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def WaitForDebugEventEx(lpDebugEvent: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT_head), dwMilliseconds: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WaitForDebugEventEx(lpDebugEvent: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT), dwMilliseconds: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def EncodePointer(Ptr: VoidPtr) -> VoidPtr: ...
 @winfunctype('KERNEL32.dll')
@@ -587,7 +578,7 @@ def Beep(dwFreq: UInt32, dwDuration: UInt32) -> win32more.Windows.Win32.Foundati
 @winfunctype('KERNEL32.dll')
 def RaiseException(dwExceptionCode: UInt32, dwExceptionFlags: UInt32, nNumberOfArguments: UInt32, lpArguments: POINTER(UIntPtr)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def UnhandledExceptionFilter(ExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)) -> Int32: ...
+def UnhandledExceptionFilter(ExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)) -> Int32: ...
 @winfunctype('KERNEL32.dll')
 def SetUnhandledExceptionFilter(lpTopLevelExceptionFilter: win32more.Windows.Win32.System.Diagnostics.Debug.LPTOP_LEVEL_EXCEPTION_FILTER) -> win32more.Windows.Win32.System.Diagnostics.Debug.LPTOP_LEVEL_EXCEPTION_FILTER: ...
 @winfunctype('KERNEL32.dll')
@@ -603,7 +594,7 @@ def AddVectoredContinueHandler(First: UInt32, Handler: win32more.Windows.Win32.S
 @winfunctype('KERNEL32.dll')
 def RemoveVectoredContinueHandler(Handle: VoidPtr) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def RaiseFailFastException(pExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head), pContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), dwFlags: UInt32) -> Void: ...
+def RaiseFailFastException(pExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD), pContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), dwFlags: UInt32) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def FatalAppExitA(uAction: UInt32, lpMessageText: win32more.Windows.Win32.Foundation.PSTR) -> Void: ...
 @winfunctype('KERNEL32.dll')
@@ -619,13 +610,13 @@ def OpenThreadWaitChainSession(Flags: win32more.Windows.Win32.System.Diagnostics
 @winfunctype('ADVAPI32.dll')
 def CloseThreadWaitChainSession(WctHandle: VoidPtr) -> Void: ...
 @winfunctype('ADVAPI32.dll')
-def GetThreadWaitChain(WctHandle: VoidPtr, Context: UIntPtr, Flags: win32more.Windows.Win32.System.Diagnostics.Debug.WAIT_CHAIN_THREAD_OPTIONS, ThreadId: UInt32, NodeCount: POINTER(UInt32), NodeInfoArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WAITCHAIN_NODE_INFO_head), IsCycle: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetThreadWaitChain(WctHandle: VoidPtr, Context: UIntPtr, Flags: win32more.Windows.Win32.System.Diagnostics.Debug.WAIT_CHAIN_THREAD_OPTIONS, ThreadId: UInt32, NodeCount: POINTER(UInt32), NodeInfoArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WAITCHAIN_NODE_INFO), IsCycle: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def RegisterWaitChainCOMCallback(CallStateCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PCOGETCALLSTATE, ActivationStateCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PCOGETACTIVATIONSTATE) -> Void: ...
 @winfunctype('dbghelp.dll')
-def MiniDumpWriteDump(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ProcessId: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, DumpType: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE, ExceptionParam: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_EXCEPTION_INFORMATION_head), UserStreamParam: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM_INFORMATION_head), CallbackParam: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_INFORMATION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def MiniDumpWriteDump(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ProcessId: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, DumpType: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE, ExceptionParam: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_EXCEPTION_INFORMATION), UserStreamParam: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM_INFORMATION), CallbackParam: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_INFORMATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def MiniDumpReadDumpStream(BaseOfDump: VoidPtr, StreamNumber: UInt32, Dir: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_DIRECTORY_head)), StreamPointer: POINTER(VoidPtr), StreamSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def MiniDumpReadDumpStream(BaseOfDump: VoidPtr, StreamNumber: UInt32, Dir: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_DIRECTORY)), StreamPointer: POINTER(VoidPtr), StreamSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
 def BindImage(ImageName: win32more.Windows.Win32.Foundation.PSTR, DllPath: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
@@ -636,45 +627,45 @@ def ReBaseImage(CurrentImageName: win32more.Windows.Win32.Foundation.PSTR, Symbo
 def ReBaseImage64(CurrentImageName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, fReBase: win32more.Windows.Win32.Foundation.BOOL, fRebaseSysfileOk: win32more.Windows.Win32.Foundation.BOOL, fGoingDown: win32more.Windows.Win32.Foundation.BOOL, CheckImageSize: UInt32, OldImageSize: POINTER(UInt32), OldImageBase: POINTER(UInt64), NewImageSize: POINTER(UInt32), NewImageBase: POINTER(UInt64), TimeStamp: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('imagehlp.dll')
-    def CheckSumMappedFile(BaseAddress: VoidPtr, FileLength: UInt32, HeaderSum: POINTER(UInt32), CheckSum: POINTER(UInt32)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32_head): ...
+    def CheckSumMappedFile(BaseAddress: VoidPtr, FileLength: UInt32, HeaderSum: POINTER(UInt32), CheckSum: POINTER(UInt32)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32): ...
 @winfunctype('imagehlp.dll')
 def MapFileAndCheckSumA(Filename: win32more.Windows.Win32.Foundation.PSTR, HeaderSum: POINTER(UInt32), CheckSum: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('imagehlp.dll')
 def MapFileAndCheckSumW(Filename: win32more.Windows.Win32.Foundation.PWSTR, HeaderSum: POINTER(UInt32), CheckSum: POINTER(UInt32)) -> UInt32: ...
 if ARCH in 'X86':
     @winfunctype('imagehlp.dll')
-    def GetImageConfigInformation(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head), ImageConfigInformation: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY32_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def GetImageConfigInformation(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE), ImageConfigInformation: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def GetImageUnusedHeaderBytes(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head), SizeUnusedHeaderBytes: POINTER(UInt32)) -> UInt32: ...
+def GetImageUnusedHeaderBytes(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE), SizeUnusedHeaderBytes: POINTER(UInt32)) -> UInt32: ...
 if ARCH in 'X86':
     @winfunctype('imagehlp.dll')
-    def SetImageConfigInformation(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head), ImageConfigInformation: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY32_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SetImageConfigInformation(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE), ImageConfigInformation: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
 def ImageGetDigestStream(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, DigestLevel: UInt32, DigestFunction: win32more.Windows.Win32.System.Diagnostics.Debug.DIGEST_FUNCTION, DigestHandle: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def ImageAddCertificate(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, Certificate: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE_head), Index: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ImageAddCertificate(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, Certificate: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE), Index: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
 def ImageRemoveCertificate(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, Index: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
 def ImageEnumerateCertificates(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, TypeFilter: UInt16, CertificateCount: POINTER(UInt32), Indices: POINTER(UInt32), IndexCount: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def ImageGetCertificateData(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, CertificateIndex: UInt32, Certificate: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE_head), RequiredLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ImageGetCertificateData(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, CertificateIndex: UInt32, Certificate: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE), RequiredLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def ImageGetCertificateHeader(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, CertificateIndex: UInt32, Certificateheader: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ImageGetCertificateHeader(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, CertificateIndex: UInt32, Certificateheader: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def ImageLoad(DllName: win32more.Windows.Win32.Foundation.PSTR, DllPath: win32more.Windows.Win32.Foundation.PSTR) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head): ...
+def ImageLoad(DllName: win32more.Windows.Win32.Foundation.PSTR, DllPath: win32more.Windows.Win32.Foundation.PSTR) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE): ...
 @winfunctype('imagehlp.dll')
-def ImageUnload(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ImageUnload(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def MapAndLoad(ImageName: win32more.Windows.Win32.Foundation.PSTR, DllPath: win32more.Windows.Win32.Foundation.PSTR, LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head), DotDll: win32more.Windows.Win32.Foundation.BOOL, ReadOnly: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def MapAndLoad(ImageName: win32more.Windows.Win32.Foundation.PSTR, DllPath: win32more.Windows.Win32.Foundation.PSTR, LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE), DotDll: win32more.Windows.Win32.Foundation.BOOL, ReadOnly: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def UnMapAndLoad(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def UnMapAndLoad(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def TouchFileTimes(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, pSystemTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def TouchFileTimes(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, pSystemTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def UpdateDebugInfoFile(ImageFileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR, NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def UpdateDebugInfoFile(ImageFileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR, NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('imagehlp.dll')
-def UpdateDebugInfoFileEx(ImageFileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR, NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32_head), OldCheckSum: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def UpdateDebugInfoFileEx(ImageFileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR, NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32), OldCheckSum: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymFindDebugInfoFile(hProcess: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_DEBUG_FILE_CALLBACK, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('dbghelp.dll')
@@ -701,17 +692,17 @@ def FindExecutableImageEx(FileName: win32more.Windows.Win32.Foundation.PSTR, Sym
 def FindExecutableImageExW(FileName: win32more.Windows.Win32.Foundation.PWSTR, SymbolPath: win32more.Windows.Win32.Foundation.PWSTR, ImageFilePath: win32more.Windows.Win32.Foundation.PWSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_EXE_FILE_CALLBACKW, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def ImageNtHeader(Base: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32_head): ...
+    def ImageNtHeader(Base: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32): ...
 @winfunctype('dbghelp.dll')
-def ImageDirectoryEntryToDataEx(Base: VoidPtr, MappedAsImage: win32more.Windows.Win32.Foundation.BOOLEAN, DirectoryEntry: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DIRECTORY_ENTRY, Size: POINTER(UInt32), FoundHeader: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head))) -> VoidPtr: ...
+def ImageDirectoryEntryToDataEx(Base: VoidPtr, MappedAsImage: win32more.Windows.Win32.Foundation.BOOLEAN, DirectoryEntry: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DIRECTORY_ENTRY, Size: POINTER(UInt32), FoundHeader: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER))) -> VoidPtr: ...
 @winfunctype('dbghelp.dll')
 def ImageDirectoryEntryToData(Base: VoidPtr, MappedAsImage: win32more.Windows.Win32.Foundation.BOOLEAN, DirectoryEntry: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DIRECTORY_ENTRY, Size: POINTER(UInt32)) -> VoidPtr: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def ImageRvaToSection(NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32_head), Base: VoidPtr, Rva: UInt32) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head): ...
+    def ImageRvaToSection(NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32), Base: VoidPtr, Rva: UInt32) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER): ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def ImageRvaToVa(NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32_head), Base: VoidPtr, Rva: UInt32, LastRvaSection: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head))) -> VoidPtr: ...
+    def ImageRvaToVa(NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32), Base: VoidPtr, Rva: UInt32, LastRvaSection: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER))) -> VoidPtr: ...
 @winfunctype('dbghelp.dll')
 def SearchTreeForFile(RootPath: win32more.Windows.Win32.Foundation.PSTR, InputPathName: win32more.Windows.Win32.Foundation.PSTR, OutputPathBuffer: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -727,18 +718,18 @@ def UnDecorateSymbolName(name: win32more.Windows.Win32.Foundation.PSTR, outputSt
 @winfunctype('dbghelp.dll')
 def UnDecorateSymbolNameW(name: win32more.Windows.Win32.Foundation.PWSTR, outputString: win32more.Windows.Win32.Foundation.PWSTR, maxStringLength: UInt32, flags: UInt32) -> UInt32: ...
 @winfunctype('dbghelp.dll')
-def StackWalk64(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME64_head), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def StackWalk64(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME64), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def StackWalkEx(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME_EX_head), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def StackWalkEx(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME_EX), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def StackWalk2(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME_EX_head), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64, GetTargetAttributeValue: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_TARGET_ATTRIBUTE_VALUE64, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def StackWalk2(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME_EX), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64, GetTargetAttributeValue: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_TARGET_ATTRIBUTE_VALUE64, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def StackWalk(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME_head), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def StackWalk(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def ImagehlpApiVersion() -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION_head): ...
+def ImagehlpApiVersion() -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION): ...
 @winfunctype('dbghelp.dll')
-def ImagehlpApiVersionEx(AppVersion: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION_head)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION_head): ...
+def ImagehlpApiVersionEx(AppVersion: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION): ...
 @winfunctype('dbghelp.dll')
 def GetTimestampForLoadedLibrary(Module: win32more.Windows.Win32.Foundation.HMODULE) -> UInt32: ...
 @winfunctype('dbghelp.dll')
@@ -752,7 +743,7 @@ def SymGetHomeDirectory(type: UInt32, dir: win32more.Windows.Win32.Foundation.PS
 @winfunctype('dbghelp.dll')
 def SymGetHomeDirectoryW(type: UInt32, dir: win32more.Windows.Win32.Foundation.PWSTR, size: UIntPtr) -> win32more.Windows.Win32.Foundation.PWSTR: ...
 @winfunctype('dbghelp.dll')
-def SymGetOmaps(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, OmapTo: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.OMAP_head)), cOmapTo: POINTER(UInt64), OmapFrom: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.OMAP_head)), cOmapFrom: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetOmaps(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, OmapTo: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.OMAP)), cOmapTo: POINTER(UInt64), OmapFrom: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.OMAP)), cOmapFrom: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymSetOptions(SymOptions: UInt32) -> UInt32: ...
 @winfunctype('dbghelp.dll')
@@ -801,15 +792,15 @@ if ARCH in 'X86':
 @winfunctype('dbghelp.dll')
 def SymGetUnwindInfo(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, Buffer: VoidPtr, Size: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetModuleInfo64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULE64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetModuleInfo64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULE64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetModuleInfoW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULEW64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetModuleInfoW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetModuleInfo(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetModuleInfo(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetModuleInfoW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULEW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetModuleInfoW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymGetModuleBase64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64) -> UInt64: ...
 if ARCH in 'X86':
@@ -820,13 +811,13 @@ def SymEnumLines(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt
 @winfunctype('dbghelp.dll')
 def SymEnumLinesW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Obj: win32more.Windows.Win32.Foundation.PWSTR, File: win32more.Windows.Win32.Foundation.PWSTR, EnumLinesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMLINES_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineFromAddr64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, pdwDisplacement: POINTER(UInt32), Line64: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLineFromAddr64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, pdwDisplacement: POINTER(UInt32), Line64: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineFromAddrW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt64, pdwDisplacement: POINTER(UInt32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLineFromAddrW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt64, pdwDisplacement: POINTER(UInt32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineFromInlineContext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, InlineContext: UInt32, qwModuleBaseAddress: UInt64, pdwDisplacement: POINTER(UInt32), Line64: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLineFromInlineContext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, InlineContext: UInt32, qwModuleBaseAddress: UInt64, pdwDisplacement: POINTER(UInt32), Line64: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineFromInlineContextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt64, InlineContext: UInt32, qwModuleBaseAddress: UInt64, pdwDisplacement: POINTER(UInt32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLineFromInlineContextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt64, InlineContext: UInt32, qwModuleBaseAddress: UInt64, pdwDisplacement: POINTER(UInt32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymEnumSourceLines(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Obj: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR, Line: UInt32, Flags: UInt32, EnumLinesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMLINES_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -839,28 +830,28 @@ def SymCompareInlineTrace(hProcess: win32more.Windows.Win32.Foundation.HANDLE, A
 def SymQueryInlineTrace(hProcess: win32more.Windows.Win32.Foundation.HANDLE, StartAddress: UInt64, StartContext: UInt32, StartRetAddress: UInt64, CurAddress: UInt64, CurContext: POINTER(UInt32), CurFrameIndex: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetLineFromAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, pdwDisplacement: POINTER(UInt32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetLineFromAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, pdwDisplacement: POINTER(UInt32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineFromName64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModuleName: win32more.Windows.Win32.Foundation.PSTR, FileName: win32more.Windows.Win32.Foundation.PSTR, dwLineNumber: UInt32, plDisplacement: POINTER(Int32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLineFromName64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModuleName: win32more.Windows.Win32.Foundation.PSTR, FileName: win32more.Windows.Win32.Foundation.PSTR, dwLineNumber: UInt32, plDisplacement: POINTER(Int32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineFromNameW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModuleName: win32more.Windows.Win32.Foundation.PWSTR, FileName: win32more.Windows.Win32.Foundation.PWSTR, dwLineNumber: UInt32, plDisplacement: POINTER(Int32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLineFromNameW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModuleName: win32more.Windows.Win32.Foundation.PWSTR, FileName: win32more.Windows.Win32.Foundation.PWSTR, dwLineNumber: UInt32, plDisplacement: POINTER(Int32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetLineFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModuleName: win32more.Windows.Win32.Foundation.PSTR, FileName: win32more.Windows.Win32.Foundation.PSTR, dwLineNumber: UInt32, plDisplacement: POINTER(Int32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetLineFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModuleName: win32more.Windows.Win32.Foundation.PSTR, FileName: win32more.Windows.Win32.Foundation.PSTR, dwLineNumber: UInt32, plDisplacement: POINTER(Int32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineNext64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLineNext64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineNextW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLineNextW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetLineNext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetLineNext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLinePrev64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLinePrev64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLinePrevW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetLinePrevW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetLinePrev(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetLinePrev(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymGetFileLineOffsets64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModuleName: win32more.Windows.Win32.Foundation.PSTR, FileName: win32more.Windows.Win32.Foundation.PSTR, Buffer: POINTER(UInt64), BufferLines: UInt32) -> UInt32: ...
 @winfunctype('dbghelp.dll')
@@ -910,19 +901,19 @@ def SymSetSearchPath(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Search
 @winfunctype('dbghelp.dll')
 def SymSetSearchPathW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SearchPathA: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymLoadModuleEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hFile: win32more.Windows.Win32.Foundation.HANDLE, ImageName: win32more.Windows.Win32.Foundation.PSTR, ModuleName: win32more.Windows.Win32.Foundation.PSTR, BaseOfDll: UInt64, DllSize: UInt32, Data: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA_head), Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_LOAD_FLAGS) -> UInt64: ...
+def SymLoadModuleEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hFile: win32more.Windows.Win32.Foundation.HANDLE, ImageName: win32more.Windows.Win32.Foundation.PSTR, ModuleName: win32more.Windows.Win32.Foundation.PSTR, BaseOfDll: UInt64, DllSize: UInt32, Data: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA), Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_LOAD_FLAGS) -> UInt64: ...
 @winfunctype('dbghelp.dll')
-def SymLoadModuleExW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hFile: win32more.Windows.Win32.Foundation.HANDLE, ImageName: win32more.Windows.Win32.Foundation.PWSTR, ModuleName: win32more.Windows.Win32.Foundation.PWSTR, BaseOfDll: UInt64, DllSize: UInt32, Data: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA_head), Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_LOAD_FLAGS) -> UInt64: ...
+def SymLoadModuleExW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hFile: win32more.Windows.Win32.Foundation.HANDLE, ImageName: win32more.Windows.Win32.Foundation.PWSTR, ModuleName: win32more.Windows.Win32.Foundation.PWSTR, BaseOfDll: UInt64, DllSize: UInt32, Data: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA), Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_LOAD_FLAGS) -> UInt64: ...
 @winfunctype('dbghelp.dll')
 def SymUnloadModule64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
     def SymUnloadModule(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymUnDName64(sym: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64_head), UnDecName: win32more.Windows.Win32.Foundation.PSTR, UnDecNameLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymUnDName64(sym: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64), UnDecName: win32more.Windows.Win32.Foundation.PSTR, UnDecNameLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymUnDName(sym: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_head), UnDecName: win32more.Windows.Win32.Foundation.PSTR, UnDecNameLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymUnDName(sym: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL), UnDecName: win32more.Windows.Win32.Foundation.PSTR, UnDecNameLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymRegisterCallback64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, CallbackFunction: win32more.Windows.Win32.System.Diagnostics.Debug.PSYMBOL_REGISTERED_CALLBACK64, UserContext: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -936,7 +927,7 @@ if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
     def SymRegisterFunctionEntryCallback(hProcess: win32more.Windows.Win32.Foundation.HANDLE, CallbackFunction: win32more.Windows.Win32.System.Diagnostics.Debug.PSYMBOL_FUNCENTRY_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymSetContext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STACK_FRAME_head), Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymSetContext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STACK_FRAME), Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymSetScopeFromAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -946,29 +937,29 @@ def SymSetScopeFromIndex(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Ba
 @winfunctype('dbghelp.dll')
 def SymEnumProcesses(EnumProcessesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMPROCESSES_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromAddrW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromAddrW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromInlineContext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, InlineContext: UInt32, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromInlineContext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, InlineContext: UInt32, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromInlineContextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, InlineContext: UInt32, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromInlineContextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, InlineContext: UInt32, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromToken(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Token: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromToken(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Token: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromTokenW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Token: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromTokenW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Token: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymNext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, si: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymNext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, si: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymNextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, siw: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymNextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, siw: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymPrev(hProcess: win32more.Windows.Win32.Foundation.HANDLE, si: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymPrev(hProcess: win32more.Windows.Win32.Foundation.HANDLE, si: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymPrevW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, siw: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymPrevW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, siw: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PWSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PWSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymEnumSymbols(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Mask: win32more.Windows.Win32.Foundation.PSTR, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -986,17 +977,17 @@ def SymSearch(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UI
 @winfunctype('dbghelp.dll')
 def SymSearchW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, SymTag: UInt32, Mask: win32more.Windows.Win32.Foundation.PWSTR, Address: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACKW, UserContext: VoidPtr, Options: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetScope(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetScope(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetScopeW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetScopeW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromIndex(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromIndex(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromIndexW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymFromIndexW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymGetTypeInfo(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModBase: UInt64, TypeId: UInt32, GetType: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_TYPE_INFO, pInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetTypeInfoEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModBase: UInt64, Params: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_GET_TYPE_INFO_PARAMS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetTypeInfoEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModBase: UInt64, Params: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_GET_TYPE_INFO_PARAMS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymEnumTypes(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -1006,9 +997,9 @@ def SymEnumTypesByName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base
 @winfunctype('dbghelp.dll')
 def SymEnumTypesByNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, mask: win32more.Windows.Win32.Foundation.PWSTR, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetTypeFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetTypeFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetTypeFromNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PWSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetTypeFromNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PWSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymAddSymbol(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PSTR, Address: UInt64, Size: UInt32, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -1046,9 +1037,9 @@ def SymSrvGetFileIndexStringW(hProcess: win32more.Windows.Win32.Foundation.HANDL
 @winfunctype('dbghelp.dll')
 def SymSrvGetFileIndexString(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SrvPath: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR, Index: win32more.Windows.Win32.Foundation.PSTR, Size: UIntPtr, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymSrvGetFileIndexInfo(File: win32more.Windows.Win32.Foundation.PSTR, Info: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMSRV_INDEX_INFO_head), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymSrvGetFileIndexInfo(File: win32more.Windows.Win32.Foundation.PSTR, Info: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMSRV_INDEX_INFO), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymSrvGetFileIndexInfoW(File: win32more.Windows.Win32.Foundation.PWSTR, Info: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMSRV_INDEX_INFOW_head), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymSrvGetFileIndexInfoW(File: win32more.Windows.Win32.Foundation.PWSTR, Info: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMSRV_INDEX_INFOW), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymSrvStoreSupplement(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SrvPath: win32more.Windows.Win32.Foundation.PSTR, Node: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR, Flags: UInt32) -> win32more.Windows.Win32.Foundation.PSTR: ...
 @winfunctype('dbghelp.dll')
@@ -1066,15 +1057,15 @@ def DbgHelpCreateUserDump(FileName: win32more.Windows.Win32.Foundation.PSTR, Cal
 @winfunctype('dbghelp.dll')
 def DbgHelpCreateUserDumpW(FileName: win32more.Windows.Win32.Foundation.PWSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PDBGHELP_CREATE_USER_DUMP_CALLBACK, UserData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetSymFromAddr64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, pdwDisplacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetSymFromAddr64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, pdwDisplacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetSymFromAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, pdwDisplacement: POINTER(UInt32), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetSymFromAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, pdwDisplacement: POINTER(UInt32), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetSymFromName64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetSymFromName64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetSymFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetSymFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def FindFileInPath(hprocess: win32more.Windows.Win32.Foundation.HANDLE, SearchPathA: win32more.Windows.Win32.Foundation.PSTR, FileName: win32more.Windows.Win32.Foundation.PSTR, id: VoidPtr, two: UInt32, three: UInt32, flags: UInt32, FilePath: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -1097,15 +1088,15 @@ if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
     def SymLoadModule(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hFile: win32more.Windows.Win32.Foundation.HANDLE, ImageName: win32more.Windows.Win32.Foundation.PSTR, ModuleName: win32more.Windows.Win32.Foundation.PSTR, BaseOfDll: UInt32, SizeOfDll: UInt32) -> UInt32: ...
 @winfunctype('dbghelp.dll')
-def SymGetSymNext64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetSymNext64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetSymNext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetSymNext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetSymPrev64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SymGetSymPrev64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetSymPrev(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SymGetSymPrev(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SetCheckUserInterruptShared(lpStartAddress: win32more.Windows.Win32.System.Diagnostics.Debug.LPCALL_BACK_USER_INTERRUPT_ROUTINE) -> Void: ...
 @winfunctype('dbghelp.dll')
@@ -1113,7 +1104,7 @@ def GetSymLoadError() -> UInt32: ...
 @winfunctype('dbghelp.dll')
 def SetSymLoadError(error: UInt32) -> Void: ...
 @winfunctype('dbghelp.dll')
-def ReportSymbolLoadSummary(hProcess: win32more.Windows.Win32.Foundation.HANDLE, pLoadModule: win32more.Windows.Win32.Foundation.PWSTR, pSymbolData: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DBGHELP_DATA_REPORT_STRUCT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ReportSymbolLoadSummary(hProcess: win32more.Windows.Win32.Foundation.HANDLE, pLoadModule: win32more.Windows.Win32.Foundation.PWSTR, pSymbolData: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DBGHELP_DATA_REPORT_STRUCT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def RemoveInvalidModuleList(hProcess: win32more.Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('dbghelp.dll')
@@ -1133,9 +1124,9 @@ def MessageBeep(uType: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX
 @winfunctype('KERNEL32.dll')
 def FatalExit(ExitCode: Int32) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def GetThreadSelectorEntry(hThread: win32more.Windows.Win32.Foundation.HANDLE, dwSelector: UInt32, lpSelectorEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LDT_ENTRY_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetThreadSelectorEntry(hThread: win32more.Windows.Win32.Foundation.HANDLE, dwSelector: UInt32, lpSelectorEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LDT_ENTRY)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def Wow64GetThreadSelectorEntry(hThread: win32more.Windows.Win32.Foundation.HANDLE, dwSelector: UInt32, lpSelectorEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_LDT_ENTRY_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def Wow64GetThreadSelectorEntry(hThread: win32more.Windows.Win32.Foundation.HANDLE, dwSelector: UInt32, lpSelectorEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_LDT_ENTRY)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def DebugSetProcessKillOnExit(KillOnExit: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -1145,23 +1136,23 @@ def FormatMessageA(dwFlags: win32more.Windows.Win32.System.Diagnostics.Debug.FOR
 @winfunctype('KERNEL32.dll')
 def FormatMessageW(dwFlags: win32more.Windows.Win32.System.Diagnostics.Debug.FORMAT_MESSAGE_OPTIONS, lpSource: VoidPtr, dwMessageId: UInt32, dwLanguageId: UInt32, lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, nSize: UInt32, Arguments: POINTER(POINTER(SByte))) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def CopyContext(Destination: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Source: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CopyContext(Destination: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Source: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitializeContext(Buffer: VoidPtr, ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Context: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)), ContextLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def InitializeContext(Buffer: VoidPtr, ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Context: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)), ContextLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitializeContext2(Buffer: VoidPtr, ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Context: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)), ContextLength: POINTER(UInt32), XStateCompactionMask: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def InitializeContext2(Buffer: VoidPtr, ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Context: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)), ContextLength: POINTER(UInt32), XStateCompactionMask: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86,X64':
     @winfunctype('KERNEL32.dll')
     def GetEnabledXStateFeatures() -> UInt64: ...
 if ARCH in 'X86,X64':
     @winfunctype('KERNEL32.dll')
-    def GetXStateFeaturesMask(Context: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), FeatureMask: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def GetXStateFeaturesMask(Context: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), FeatureMask: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86,X64':
     @winfunctype('KERNEL32.dll')
-    def LocateXStateFeature(Context: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), FeatureId: UInt32, Length: POINTER(UInt32)) -> VoidPtr: ...
+    def LocateXStateFeature(Context: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), FeatureId: UInt32, Length: POINTER(UInt32)) -> VoidPtr: ...
 if ARCH in 'X86,X64':
     @winfunctype('KERNEL32.dll')
-    def SetXStateFeaturesMask(Context: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), FeatureMask: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def SetXStateFeaturesMask(Context: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), FeatureMask: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 BUGCHECK_ERROR = UInt32
 HARDWARE_PROFILE_UNDOCKED_STRING: BUGCHECK_ERROR = 1073807361
 HARDWARE_PROFILE_DOCKED_STRING: BUGCHECK_ERROR = 1073807362
@@ -1991,13 +1982,13 @@ if ARCH in 'ARM64':
     class DISPATCHER_CONTEXT(EasyCastStructure):
         ControlPc: UIntPtr
         ImageBase: UIntPtr
-        FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head)
+        FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY)
         EstablisherFrame: UIntPtr
         TargetPc: UIntPtr
-        ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)
+        ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)
         LanguageHandler: win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE
         HandlerData: VoidPtr
-        HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE_head)
+        HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE)
         ScopeIndex: UInt32
         ControlPcIsUnwound: win32more.Windows.Win32.Foundation.BOOLEAN
         NonVolatileRegisters: POINTER(Byte)
@@ -2005,13 +1996,13 @@ if ARCH in 'X64':
     class DISPATCHER_CONTEXT(EasyCastStructure):
         ControlPc: UInt64
         ImageBase: UInt64
-        FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head)
+        FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY)
         EstablisherFrame: UInt64
         TargetIp: UInt64
-        ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)
+        ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)
         LanguageHandler: win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE
         HandlerData: VoidPtr
-        HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE_head)
+        HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE)
         ScopeIndex: UInt32
         Fill0: UInt32
 class DUMP_FILE_ATTRIBUTES(EasyCastUnion):
@@ -2118,17 +2109,17 @@ class DebugPropertyInfo(EasyCastStructure):
     m_bstrValue: win32more.Windows.Win32.Foundation.BSTR
     m_bstrFullName: win32more.Windows.Win32.Foundation.BSTR
     m_dwAttrib: UInt32
-    m_pDebugProp: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty_head
+    m_pDebugProp: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty
 class EXCEPTION_DEBUG_INFO(EasyCastStructure):
     ExceptionRecord: win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD
     dwFirstChance: UInt32
 class EXCEPTION_POINTERS(EasyCastStructure):
-    ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head)
-    ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)
+    ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD)
+    ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)
 class EXCEPTION_RECORD(EasyCastStructure):
     ExceptionCode: win32more.Windows.Win32.Foundation.NTSTATUS
     ExceptionFlags: UInt32
-    ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD_head)
+    ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD)
     ExceptionAddress: VoidPtr
     NumberParameters: UInt32
     ExceptionInformation: UIntPtr * 15
@@ -2164,12 +2155,12 @@ class ExtendedDebugPropertyInfo(EasyCastStructure):
     pszValue: win32more.Windows.Win32.Foundation.PWSTR
     pszFullName: win32more.Windows.Win32.Foundation.PWSTR
     dwAttrib: UInt32
-    pDebugProp: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty_head
+    pDebugProp: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty
     nDISPID: UInt32
     nType: UInt32
     varValue: win32more.Windows.Win32.System.Variant.VARIANT
-    plbValue: win32more.Windows.Win32.System.Com.StructuredStorage.ILockBytes_head
-    pDebugExtProp: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugExtendedProperty_head
+    plbValue: win32more.Windows.Win32.System.Com.StructuredStorage.ILockBytes
+    pDebugExtProp: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugExtendedProperty
 FACILITY_CODE = UInt32
 FACILITY_NULL: FACILITY_CODE = 0
 FACILITY_RPC: FACILITY_CODE = 1
@@ -2341,22 +2332,22 @@ class IDebugExtendedProperty(ComPtr):
     extends: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty
     _iid_ = Guid('{51973c52-cb0c-11d0-b5c9-00a0244a0e7a}')
     @commethod(8)
-    def GetExtendedPropertyInfo(self, dwFieldSpec: UInt32, nRadix: UInt32, pExtendedPropertyInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ExtendedDebugPropertyInfo_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetExtendedPropertyInfo(self, dwFieldSpec: UInt32, nRadix: UInt32, pExtendedPropertyInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ExtendedDebugPropertyInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def EnumExtendedMembers(self, dwFieldSpec: UInt32, nRadix: UInt32, ppeepi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugExtendedPropertyInfo_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumExtendedMembers(self, dwFieldSpec: UInt32, nRadix: UInt32, ppeepi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugExtendedPropertyInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDebugProperty(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{51973c50-cb0c-11d0-b5c9-00a0244a0e7a}')
     @commethod(3)
-    def GetPropertyInfo(self, dwFieldSpec: UInt32, nRadix: UInt32, pPropertyInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DebugPropertyInfo_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPropertyInfo(self, dwFieldSpec: UInt32, nRadix: UInt32, pPropertyInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DebugPropertyInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetExtendedInfo(self, cInfos: UInt32, rgguidExtendedInfo: POINTER(Guid), rgvar: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetExtendedInfo(self, cInfos: UInt32, rgguidExtendedInfo: POINTER(Guid), rgvar: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetValueAsString(self, pszValue: win32more.Windows.Win32.Foundation.PWSTR, nRadix: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def EnumMembers(self, dwFieldSpec: UInt32, nRadix: UInt32, refiid: POINTER(Guid), ppepi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugPropertyInfo_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumMembers(self, dwFieldSpec: UInt32, nRadix: UInt32, refiid: POINTER(Guid), ppepi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugPropertyInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetParent(self, ppDebugProp: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetParent(self, ppDebugProp: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDebugPropertyEnumType_All(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{51973c55-cb0c-11d0-b5c9-00a0244a0e7a}')
@@ -2378,26 +2369,26 @@ class IEnumDebugExtendedPropertyInfo(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{51973c53-cb0c-11d0-b5c9-00a0244a0e7a}')
     @commethod(3)
-    def Next(self, celt: UInt32, rgExtendedPropertyInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ExtendedDebugPropertyInfo_head), pceltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, celt: UInt32, rgExtendedPropertyInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ExtendedDebugPropertyInfo), pceltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, celt: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, pedpe: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugExtendedPropertyInfo_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, pedpe: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugExtendedPropertyInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCount(self, pcelt: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IEnumDebugPropertyInfo(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{51973c51-cb0c-11d0-b5c9-00a0244a0e7a}')
     @commethod(3)
-    def Next(self, celt: UInt32, pi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DebugPropertyInfo_head), pcEltsfetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, celt: UInt32, pi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DebugPropertyInfo), pcEltsfetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, celt: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppepi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugPropertyInfo_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppepi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugPropertyInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCount(self, pcelt: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMAGEHLP_CBA_EVENT(EasyCastStructure):
@@ -2451,12 +2442,12 @@ if ARCH in 'X86':
     class IMAGEHLP_DUPLICATE_SYMBOL(EasyCastStructure):
         SizeOfStruct: UInt32
         NumberOfDups: UInt32
-        Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_head)
+        Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL)
         SelectedSymbol: UInt32
 class IMAGEHLP_DUPLICATE_SYMBOL64(EasyCastStructure):
     SizeOfStruct: UInt32
     NumberOfDups: UInt32
-    Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64_head)
+    Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64)
     SelectedSymbol: UInt32
 IMAGEHLP_EXTENDED_OPTIONS = Int32
 SYMOPT_EX_DISABLEACCESSTIMEUPDATE: IMAGEHLP_EXTENDED_OPTIONS = 0
@@ -2782,17 +2773,17 @@ if ARCH in 'X86':
         ImageBase: UInt32
         SizeOfImage: UInt32
         ReservedNumberOfSections: UInt32
-        ReservedSections: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head)
+        ReservedSections: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER)
         ReservedExportedNamesSize: UInt32
         ReservedExportedNames: win32more.Windows.Win32.Foundation.PSTR
         ReservedNumberOfFunctionTableEntries: UInt32
-        ReservedFunctionTableEntries: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FUNCTION_ENTRY_head)
+        ReservedFunctionTableEntries: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FUNCTION_ENTRY)
         ReservedLowestFunctionStartingAddress: UInt32
         ReservedHighestFunctionEndingAddress: UInt32
         ReservedNumberOfFpoTableEntries: UInt32
-        ReservedFpoTableEntries: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.FPO_DATA_head)
+        ReservedFpoTableEntries: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.FPO_DATA)
         SizeOfCoffSymbols: UInt32
-        CoffSymbols: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_COFF_SYMBOLS_HEADER_head)
+        CoffSymbols: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_COFF_SYMBOLS_HEADER)
         ReservedSizeOfCodeViewSymbols: UInt32
         ReservedCodeViewSymbols: VoidPtr
         ImageFilePath: win32more.Windows.Win32.Foundation.PSTR
@@ -2800,7 +2791,7 @@ if ARCH in 'X86':
         ReservedDebugFilePath: win32more.Windows.Win32.Foundation.PSTR
         ReservedTimeDateStamp: UInt32
         ReservedRomImage: win32more.Windows.Win32.Foundation.BOOL
-        ReservedDebugDirectory: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DEBUG_DIRECTORY_head)
+        ReservedDebugDirectory: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DEBUG_DIRECTORY)
         ReservedNumberOfDebugDirectories: UInt32
         ReservedOriginalFunctionTableBaseAddress: UInt32
         Reserved: UInt32 * 2
@@ -3212,7 +3203,7 @@ class IPerPropertyBrowsing2(ComPtr):
     @commethod(4)
     def MapPropertyToPage(self, dispid: Int32, pClsidPropPage: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetPredefinedStrings(self, dispid: Int32, pCaStrings: POINTER(win32more.Windows.Win32.System.Ole.CALPOLESTR_head), pCaCookies: POINTER(win32more.Windows.Win32.System.Ole.CADWORD_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPredefinedStrings(self, dispid: Int32, pCaStrings: POINTER(win32more.Windows.Win32.System.Ole.CALPOLESTR), pCaCookies: POINTER(win32more.Windows.Win32.System.Ole.CADWORD)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetPredefinedValue(self, dispid: Int32, dwCookie: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 if ARCH in 'X86':
@@ -3252,25 +3243,25 @@ if ARCH in 'X64':
         Anonymous1: _Anonymous1_e__Union
         Anonymous2: _Anonymous2_e__Union
         class _Anonymous1_e__Union(EasyCastUnion):
-            FloatingContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head) * 16
+            FloatingContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A) * 16
             Anonymous: _Anonymous_e__Struct
             class _Anonymous_e__Struct(EasyCastStructure):
-                Xmm0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm1: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm3: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm4: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm5: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm6: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm7: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm8: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm9: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm10: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm11: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm12: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm13: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm14: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
-                Xmm15: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A_head)
+                Xmm0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm1: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm3: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm4: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm5: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm6: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm7: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm8: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm9: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm10: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm11: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm12: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm13: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm14: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
+                Xmm15: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
         class _Anonymous2_e__Union(EasyCastUnion):
             IntegerContext: POINTER(UInt64) * 16
             Anonymous: _Anonymous_e__Struct
@@ -3335,10 +3326,10 @@ if ARCH in 'X64,ARM64':
         ModuleName: win32more.Windows.Win32.Foundation.PSTR
         hFile: win32more.Windows.Win32.Foundation.HANDLE
         MappedAddress: POINTER(Byte)
-        FileHeader: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64_head)
-        LastRvaSection: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head)
+        FileHeader: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64)
+        LastRvaSection: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER)
         NumberOfSections: UInt32
-        Sections: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head)
+        Sections: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER)
         Characteristics: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_CHARACTERISTICS2
         fSystemImage: win32more.Windows.Win32.Foundation.BOOLEAN
         fDOSImage: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3351,10 +3342,10 @@ if ARCH in 'X86':
         ModuleName: win32more.Windows.Win32.Foundation.PSTR
         hFile: win32more.Windows.Win32.Foundation.HANDLE
         MappedAddress: POINTER(Byte)
-        FileHeader: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32_head)
-        LastRvaSection: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head)
+        FileHeader: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32)
+        LastRvaSection: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER)
         NumberOfSections: UInt32
-        Sections: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER_head)
+        Sections: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER)
         Characteristics: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_CHARACTERISTICS2
         fSystemImage: win32more.Windows.Win32.Foundation.BOOLEAN
         fDOSImage: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3372,7 +3363,7 @@ class LOAD_DLL_DEBUG_INFO(EasyCastStructure):
 @winfunctype_pointer
 def LPCALL_BACK_USER_INTERRUPT_ROUTINE() -> UInt32: ...
 @winfunctype_pointer
-def LPTOP_LEVEL_EXCEPTION_FILTER(ExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)) -> Int32: ...
+def LPTOP_LEVEL_EXCEPTION_FILTER(ExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)) -> Int32: ...
 class M128A(EasyCastStructure):
     Low: UInt64
     High: Int64
@@ -3435,7 +3426,7 @@ class MINIDUMP_CALLBACK_OUTPUT(EasyCastStructure):
             VmReadStatus: win32more.Windows.Win32.Foundation.HRESULT
             VmReadBytesCompleted: UInt32
 @winfunctype_pointer
-def MINIDUMP_CALLBACK_ROUTINE(CallbackParam: VoidPtr, CallbackInput: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_INPUT_head), CallbackOutput: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_OUTPUT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def MINIDUMP_CALLBACK_ROUTINE(CallbackParam: VoidPtr, CallbackInput: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_INPUT), CallbackOutput: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_OUTPUT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 MINIDUMP_CALLBACK_TYPE = Int32
 MINIDUMP_CALLBACK_TYPE_ModuleCallback: MINIDUMP_CALLBACK_TYPE = 0
 MINIDUMP_CALLBACK_TYPE_ThreadCallback: MINIDUMP_CALLBACK_TYPE = 1
@@ -3474,13 +3465,13 @@ class MINIDUMP_EXCEPTION(EasyCastStructure):
 if ARCH in 'X64,ARM64':
     class MINIDUMP_EXCEPTION_INFORMATION(EasyCastStructure):
         ThreadId: UInt32
-        ExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)
+        ExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
         ClientPointers: win32more.Windows.Win32.Foundation.BOOL
         _pack_ = 4
 if ARCH in 'X86':
     class MINIDUMP_EXCEPTION_INFORMATION(EasyCastStructure):
         ThreadId: UInt32
-        ExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)
+        ExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
         ClientPointers: win32more.Windows.Win32.Foundation.BOOL
 class MINIDUMP_EXCEPTION_INFORMATION64(EasyCastStructure):
     ThreadId: UInt32
@@ -4134,12 +4125,12 @@ if ARCH in 'X86':
 if ARCH in 'X64,ARM64':
     class MINIDUMP_USER_STREAM_INFORMATION(EasyCastStructure):
         UserStreamCount: UInt32
-        UserStreamArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM_head)
+        UserStreamArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM)
         _pack_ = 4
 if ARCH in 'X86':
     class MINIDUMP_USER_STREAM_INFORMATION(EasyCastStructure):
         UserStreamCount: UInt32
-        UserStreamArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM_head)
+        UserStreamArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM)
 class MINIDUMP_VM_POST_READ_CALLBACK(EasyCastStructure):
     Offset: UInt64
     Buffer: VoidPtr
@@ -4274,10 +4265,10 @@ if ARCH in 'X86':
 def PGET_MODULE_BASE_ROUTINE64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64) -> UInt64: ...
 if ARCH in 'ARM64':
     @winfunctype_pointer
-    def PGET_RUNTIME_FUNCTION_CALLBACK(ControlPc: UInt64, Context: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head): ...
+    def PGET_RUNTIME_FUNCTION_CALLBACK(ControlPc: UInt64, Context: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY): ...
 if ARCH in 'X64':
     @winfunctype_pointer
-    def PGET_RUNTIME_FUNCTION_CALLBACK(ControlPc: UInt64, Context: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head): ...
+    def PGET_RUNTIME_FUNCTION_CALLBACK(ControlPc: UInt64, Context: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY): ...
 @winfunctype_pointer
 def PGET_TARGET_ATTRIBUTE_VALUE64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Attribute: UInt32, AttributeData: UInt64, AttributeValue: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class PHYSICAL_MEMORY_DESCRIPTOR32(EasyCastStructure):
@@ -4340,7 +4331,7 @@ def PSYMBOLSERVERGETSUPPLEMENT(param0: win32more.Windows.Win32.Foundation.PSTR, 
 @winfunctype_pointer
 def PSYMBOLSERVERGETSUPPLEMENTW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: win32more.Windows.Win32.Foundation.PWSTR, param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYMBOLSERVERGETVERSION(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PSYMBOLSERVERGETVERSION(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVERISSTORE(param0: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -4380,7 +4371,7 @@ def PSYMBOLSERVERSTORESUPPLEMENTW(param0: win32more.Windows.Win32.Foundation.PWS
 @winfunctype_pointer
 def PSYMBOLSERVERVERSION() -> UInt32: ...
 @winfunctype_pointer
-def PSYMBOLSERVERWEXPROC(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: VoidPtr, param3: UInt32, param4: UInt32, param5: win32more.Windows.Win32.Foundation.PWSTR, param6: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMSRV_EXTENDED_OUTPUT_DATA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PSYMBOLSERVERWEXPROC(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: VoidPtr, param3: UInt32, param4: UInt32, param5: win32more.Windows.Win32.Foundation.PWSTR, param6: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMSRV_EXTENDED_OUTPUT_DATA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOL_FUNCENTRY_CALLBACK(hProcess: win32more.Windows.Win32.Foundation.HANDLE, AddrBase: UInt32, UserContext: VoidPtr) -> VoidPtr: ...
 @winfunctype_pointer
@@ -4391,13 +4382,13 @@ if ARCH in 'X86':
 @winfunctype_pointer
 def PSYMBOL_REGISTERED_CALLBACK64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ActionCode: UInt32, CallbackData: UInt64, UserContext: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYM_ENUMERATESYMBOLS_CALLBACK(pSymInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_head), SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PSYM_ENUMERATESYMBOLS_CALLBACK(pSymInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO), SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYM_ENUMERATESYMBOLS_CALLBACKW(pSymInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW_head), SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PSYM_ENUMERATESYMBOLS_CALLBACKW(pSymInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW), SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYM_ENUMLINES_CALLBACK(LineInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SRCCODEINFO_head), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PSYM_ENUMLINES_CALLBACK(LineInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SRCCODEINFO), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYM_ENUMLINES_CALLBACKW(LineInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SRCCODEINFOW_head), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PSYM_ENUMLINES_CALLBACKW(LineInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SRCCODEINFOW), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype_pointer
     def PSYM_ENUMMODULES_CALLBACK(ModuleName: win32more.Windows.Win32.Foundation.PSTR, BaseOfDll: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
@@ -4408,9 +4399,9 @@ def PSYM_ENUMMODULES_CALLBACKW64(ModuleName: win32more.Windows.Win32.Foundation.
 @winfunctype_pointer
 def PSYM_ENUMPROCESSES_CALLBACK(hProcess: win32more.Windows.Win32.Foundation.HANDLE, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYM_ENUMSOURCEFILES_CALLBACK(pSourceFile: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SOURCEFILE_head), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PSYM_ENUMSOURCEFILES_CALLBACK(pSourceFile: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SOURCEFILE), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYM_ENUMSOURCEFILES_CALLBACKW(pSourceFile: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SOURCEFILEW_head), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PSYM_ENUMSOURCEFILES_CALLBACKW(pSourceFile: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SOURCEFILEW), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype_pointer
     def PSYM_ENUMSYMBOLS_CALLBACK(SymbolName: win32more.Windows.Win32.Foundation.PSTR, SymbolAddress: UInt32, SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
@@ -4423,13 +4414,13 @@ if ARCH in 'X86':
     def PSYM_ENUMSYMBOLS_CALLBACKW(SymbolName: win32more.Windows.Win32.Foundation.PWSTR, SymbolAddress: UInt32, SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype_pointer
-    def PTRANSLATE_ADDRESS_ROUTINE(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, lpaddr: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_head)) -> UInt32: ...
+    def PTRANSLATE_ADDRESS_ROUTINE(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, lpaddr: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS)) -> UInt32: ...
 @winfunctype_pointer
-def PTRANSLATE_ADDRESS_ROUTINE64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, lpaddr: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS64_head)) -> UInt64: ...
+def PTRANSLATE_ADDRESS_ROUTINE64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, lpaddr: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS64)) -> UInt64: ...
 @winfunctype_pointer
-def PVECTORED_EXCEPTION_HANDLER(ExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)) -> Int32: ...
+def PVECTORED_EXCEPTION_HANDLER(ExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)) -> Int32: ...
 @winfunctype_pointer
-def PWAITCHAINCALLBACK(WctHandle: VoidPtr, Context: UIntPtr, CallbackStatus: UInt32, NodeCount: POINTER(UInt32), NodeInfoArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WAITCHAIN_NODE_INFO_head), IsCycle: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> Void: ...
+def PWAITCHAINCALLBACK(WctHandle: VoidPtr, Context: UIntPtr, CallbackStatus: UInt32, NodeCount: POINTER(UInt32), NodeInfoArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WAITCHAIN_NODE_INFO), IsCycle: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> Void: ...
 class RIP_INFO(EasyCastStructure):
     dwError: UInt32
     dwType: win32more.Windows.Win32.System.Diagnostics.Debug.RIP_INFO_TYPE
@@ -4648,11 +4639,11 @@ if ARCH in 'X64,ARM64':
 if ARCH in 'ARM64':
     class UNWIND_HISTORY_TABLE_ENTRY(EasyCastStructure):
         ImageBase: UIntPtr
-        FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head)
+        FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY)
 if ARCH in 'X64':
     class UNWIND_HISTORY_TABLE_ENTRY(EasyCastStructure):
         ImageBase: UIntPtr
-        FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head)
+        FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY)
 VER_PLATFORM = UInt32
 VER_PLATFORM_WIN32s: VER_PLATFORM = 0
 VER_PLATFORM_WIN32_WINDOWS: VER_PLATFORM = 1
@@ -5177,406 +5168,18 @@ if ARCH in 'X64,ARM64':
         Mask: UInt64
         Length: UInt32
         Reserved1: UInt32
-        Area: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_AREA_head)
+        Area: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_AREA)
         Buffer: VoidPtr
 if ARCH in 'X86':
     class XSTATE_CONTEXT(EasyCastStructure):
         Mask: UInt64
         Length: UInt32
         Reserved1: UInt32
-        Area: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_AREA_head)
+        Area: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_AREA)
         Reserved2: UInt32
         Buffer: VoidPtr
         Reserved3: UInt32
 class XSTATE_FEATURE(EasyCastStructure):
     Offset: UInt32
     Size: UInt32
-if ARCH in 'X86':
-    make_head(_module, 'ADDRESS')
-make_head(_module, 'ADDRESS64')
-make_head(_module, 'AER_BRIDGE_DESCRIPTOR_FLAGS')
-make_head(_module, 'AER_ENDPOINT_DESCRIPTOR_FLAGS')
-make_head(_module, 'AER_ROOTPORT_DESCRIPTOR_FLAGS')
-make_head(_module, 'APC_CALLBACK_DATA')
-make_head(_module, 'API_VERSION')
-if ARCH in 'X86,X64':
-    make_head(_module, 'ARM64_NT_CONTEXT')
-make_head(_module, 'ARM64_NT_NEON128')
-if ARCH in 'ARM64':
-    make_head(_module, 'CONTEXT')
-if ARCH in 'X64':
-    make_head(_module, 'CONTEXT')
-if ARCH in 'X86':
-    make_head(_module, 'CONTEXT')
-make_head(_module, 'CPU_INFORMATION')
-make_head(_module, 'CREATE_PROCESS_DEBUG_INFO')
-make_head(_module, 'CREATE_THREAD_DEBUG_INFO')
-make_head(_module, 'DBGHELP_DATA_REPORT_STRUCT')
-make_head(_module, 'DEBUG_EVENT')
-make_head(_module, 'DIGEST_FUNCTION')
-if ARCH in 'ARM64':
-    make_head(_module, 'DISPATCHER_CONTEXT')
-if ARCH in 'X64':
-    make_head(_module, 'DISPATCHER_CONTEXT')
-make_head(_module, 'DUMP_FILE_ATTRIBUTES')
-make_head(_module, 'DUMP_HEADER32')
-make_head(_module, 'DUMP_HEADER64')
-make_head(_module, 'DebugPropertyInfo')
-make_head(_module, 'EXCEPTION_DEBUG_INFO')
-make_head(_module, 'EXCEPTION_POINTERS')
-make_head(_module, 'EXCEPTION_RECORD')
-make_head(_module, 'EXCEPTION_RECORD32')
-make_head(_module, 'EXCEPTION_RECORD64')
-make_head(_module, 'EXIT_PROCESS_DEBUG_INFO')
-make_head(_module, 'EXIT_THREAD_DEBUG_INFO')
-make_head(_module, 'ExtendedDebugPropertyInfo')
-make_head(_module, 'FPO_DATA')
-make_head(_module, 'IDebugExtendedProperty')
-make_head(_module, 'IDebugProperty')
-make_head(_module, 'IDebugPropertyEnumType_All')
-make_head(_module, 'IDebugPropertyEnumType_Arguments')
-make_head(_module, 'IDebugPropertyEnumType_Locals')
-make_head(_module, 'IDebugPropertyEnumType_LocalsPlusArgs')
-make_head(_module, 'IDebugPropertyEnumType_Registers')
-make_head(_module, 'IEnumDebugExtendedPropertyInfo')
-make_head(_module, 'IEnumDebugPropertyInfo')
-make_head(_module, 'IMAGEHLP_CBA_EVENT')
-make_head(_module, 'IMAGEHLP_CBA_EVENTW')
-make_head(_module, 'IMAGEHLP_CBA_READ_MEMORY')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_DEFERRED_SYMBOL_LOAD')
-make_head(_module, 'IMAGEHLP_DEFERRED_SYMBOL_LOAD64')
-make_head(_module, 'IMAGEHLP_DEFERRED_SYMBOL_LOADW64')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_DUPLICATE_SYMBOL')
-make_head(_module, 'IMAGEHLP_DUPLICATE_SYMBOL64')
-make_head(_module, 'IMAGEHLP_GET_TYPE_INFO_PARAMS')
-make_head(_module, 'IMAGEHLP_JIT_SYMBOLMAP')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_LINE')
-make_head(_module, 'IMAGEHLP_LINE64')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_LINEW')
-make_head(_module, 'IMAGEHLP_LINEW64')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_MODULE')
-make_head(_module, 'IMAGEHLP_MODULE64')
-make_head(_module, 'IMAGEHLP_MODULE64_EX')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_MODULEW')
-make_head(_module, 'IMAGEHLP_MODULEW64')
-make_head(_module, 'IMAGEHLP_MODULEW64_EX')
-make_head(_module, 'IMAGEHLP_STACK_FRAME')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_SYMBOL')
-make_head(_module, 'IMAGEHLP_SYMBOL64')
-make_head(_module, 'IMAGEHLP_SYMBOL64_PACKAGE')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_SYMBOLW')
-make_head(_module, 'IMAGEHLP_SYMBOLW64')
-make_head(_module, 'IMAGEHLP_SYMBOLW64_PACKAGE')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_SYMBOLW_PACKAGE')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_SYMBOL_PACKAGE')
-make_head(_module, 'IMAGEHLP_SYMBOL_SRC')
-make_head(_module, 'IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_COFF_SYMBOLS_HEADER')
-make_head(_module, 'IMAGE_COR20_HEADER')
-make_head(_module, 'IMAGE_DATA_DIRECTORY')
-make_head(_module, 'IMAGE_DEBUG_DIRECTORY')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGE_DEBUG_INFORMATION')
-make_head(_module, 'IMAGE_FILE_HEADER')
-make_head(_module, 'IMAGE_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_FUNCTION_ENTRY64')
-make_head(_module, 'IMAGE_LOAD_CONFIG_CODE_INTEGRITY')
-make_head(_module, 'IMAGE_LOAD_CONFIG_DIRECTORY32')
-make_head(_module, 'IMAGE_LOAD_CONFIG_DIRECTORY64')
-make_head(_module, 'IMAGE_NT_HEADERS32')
-make_head(_module, 'IMAGE_NT_HEADERS64')
-make_head(_module, 'IMAGE_OPTIONAL_HEADER32')
-make_head(_module, 'IMAGE_OPTIONAL_HEADER64')
-make_head(_module, 'IMAGE_ROM_HEADERS')
-make_head(_module, 'IMAGE_ROM_OPTIONAL_HEADER')
-make_head(_module, 'IMAGE_RUNTIME_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_SECTION_HEADER')
-make_head(_module, 'IObjectSafety')
-make_head(_module, 'IPMI_OS_SEL_RECORD')
-make_head(_module, 'IPerPropertyBrowsing2')
-if ARCH in 'X86':
-    make_head(_module, 'KDHELP')
-make_head(_module, 'KDHELP64')
-if ARCH in 'X64':
-    make_head(_module, 'KNONVOLATILE_CONTEXT_POINTERS')
-if ARCH in 'X86':
-    make_head(_module, 'KNONVOLATILE_CONTEXT_POINTERS')
-if ARCH in 'ARM64':
-    make_head(_module, 'KNONVOLATILE_CONTEXT_POINTERS_ARM64')
-make_head(_module, 'LDT_ENTRY')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'LOADED_IMAGE')
-if ARCH in 'X86':
-    make_head(_module, 'LOADED_IMAGE')
-make_head(_module, 'LOAD_DLL_DEBUG_INFO')
-make_head(_module, 'LPCALL_BACK_USER_INTERRUPT_ROUTINE')
-make_head(_module, 'LPTOP_LEVEL_EXCEPTION_FILTER')
-make_head(_module, 'M128A')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MINIDUMP_CALLBACK_INFORMATION')
-if ARCH in 'X86':
-    make_head(_module, 'MINIDUMP_CALLBACK_INFORMATION')
-make_head(_module, 'MINIDUMP_CALLBACK_INPUT')
-make_head(_module, 'MINIDUMP_CALLBACK_OUTPUT')
-make_head(_module, 'MINIDUMP_CALLBACK_ROUTINE')
-make_head(_module, 'MINIDUMP_DIRECTORY')
-make_head(_module, 'MINIDUMP_EXCEPTION')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MINIDUMP_EXCEPTION_INFORMATION')
-if ARCH in 'X86':
-    make_head(_module, 'MINIDUMP_EXCEPTION_INFORMATION')
-make_head(_module, 'MINIDUMP_EXCEPTION_INFORMATION64')
-make_head(_module, 'MINIDUMP_EXCEPTION_STREAM')
-make_head(_module, 'MINIDUMP_FUNCTION_TABLE_DESCRIPTOR')
-make_head(_module, 'MINIDUMP_FUNCTION_TABLE_STREAM')
-make_head(_module, 'MINIDUMP_HANDLE_DATA_STREAM')
-make_head(_module, 'MINIDUMP_HANDLE_DESCRIPTOR')
-make_head(_module, 'MINIDUMP_HANDLE_DESCRIPTOR_2')
-make_head(_module, 'MINIDUMP_HANDLE_OBJECT_INFORMATION')
-make_head(_module, 'MINIDUMP_HANDLE_OPERATION_LIST')
-make_head(_module, 'MINIDUMP_HEADER')
-make_head(_module, 'MINIDUMP_INCLUDE_MODULE_CALLBACK')
-make_head(_module, 'MINIDUMP_INCLUDE_THREAD_CALLBACK')
-make_head(_module, 'MINIDUMP_IO_CALLBACK')
-make_head(_module, 'MINIDUMP_LOCATION_DESCRIPTOR')
-make_head(_module, 'MINIDUMP_LOCATION_DESCRIPTOR64')
-make_head(_module, 'MINIDUMP_MEMORY64_LIST')
-make_head(_module, 'MINIDUMP_MEMORY_DESCRIPTOR')
-make_head(_module, 'MINIDUMP_MEMORY_DESCRIPTOR64')
-make_head(_module, 'MINIDUMP_MEMORY_INFO')
-make_head(_module, 'MINIDUMP_MEMORY_INFO_LIST')
-make_head(_module, 'MINIDUMP_MEMORY_LIST')
-make_head(_module, 'MINIDUMP_MISC_INFO')
-make_head(_module, 'MINIDUMP_MISC_INFO_2')
-make_head(_module, 'MINIDUMP_MISC_INFO_3')
-make_head(_module, 'MINIDUMP_MISC_INFO_4')
-make_head(_module, 'MINIDUMP_MISC_INFO_5')
-make_head(_module, 'MINIDUMP_MODULE')
-make_head(_module, 'MINIDUMP_MODULE_CALLBACK')
-make_head(_module, 'MINIDUMP_MODULE_LIST')
-make_head(_module, 'MINIDUMP_PROCESS_VM_COUNTERS_1')
-make_head(_module, 'MINIDUMP_PROCESS_VM_COUNTERS_2')
-make_head(_module, 'MINIDUMP_READ_MEMORY_FAILURE_CALLBACK')
-make_head(_module, 'MINIDUMP_STRING')
-make_head(_module, 'MINIDUMP_SYSTEM_BASIC_INFORMATION')
-make_head(_module, 'MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION')
-make_head(_module, 'MINIDUMP_SYSTEM_FILECACHE_INFORMATION')
-make_head(_module, 'MINIDUMP_SYSTEM_INFO')
-make_head(_module, 'MINIDUMP_SYSTEM_MEMORY_INFO_1')
-make_head(_module, 'MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION')
-make_head(_module, 'MINIDUMP_THREAD')
-if ARCH in 'ARM64':
-    make_head(_module, 'MINIDUMP_THREAD_CALLBACK')
-if ARCH in 'X86,X64':
-    make_head(_module, 'MINIDUMP_THREAD_CALLBACK')
-make_head(_module, 'MINIDUMP_THREAD_EX')
-if ARCH in 'ARM64':
-    make_head(_module, 'MINIDUMP_THREAD_EX_CALLBACK')
-if ARCH in 'X86,X64':
-    make_head(_module, 'MINIDUMP_THREAD_EX_CALLBACK')
-make_head(_module, 'MINIDUMP_THREAD_EX_LIST')
-make_head(_module, 'MINIDUMP_THREAD_INFO')
-make_head(_module, 'MINIDUMP_THREAD_INFO_LIST')
-make_head(_module, 'MINIDUMP_THREAD_LIST')
-make_head(_module, 'MINIDUMP_THREAD_NAME')
-make_head(_module, 'MINIDUMP_THREAD_NAME_LIST')
-make_head(_module, 'MINIDUMP_TOKEN_INFO_HEADER')
-make_head(_module, 'MINIDUMP_TOKEN_INFO_LIST')
-make_head(_module, 'MINIDUMP_UNLOADED_MODULE')
-make_head(_module, 'MINIDUMP_UNLOADED_MODULE_LIST')
-make_head(_module, 'MINIDUMP_USER_RECORD')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MINIDUMP_USER_STREAM')
-if ARCH in 'X86':
-    make_head(_module, 'MINIDUMP_USER_STREAM')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MINIDUMP_USER_STREAM_INFORMATION')
-if ARCH in 'X86':
-    make_head(_module, 'MINIDUMP_USER_STREAM_INFORMATION')
-make_head(_module, 'MINIDUMP_VM_POST_READ_CALLBACK')
-make_head(_module, 'MINIDUMP_VM_PRE_READ_CALLBACK')
-make_head(_module, 'MINIDUMP_VM_QUERY_CALLBACK')
-make_head(_module, 'MODLOAD_CVMISC')
-make_head(_module, 'MODLOAD_DATA')
-make_head(_module, 'MODLOAD_PDBGUID_PDBAGE')
-make_head(_module, 'MODULE_TYPE_INFO')
-make_head(_module, 'OMAP')
-make_head(_module, 'OUTPUT_DEBUG_STRING_INFO')
-make_head(_module, 'PCOGETACTIVATIONSTATE')
-make_head(_module, 'PCOGETCALLSTATE')
-make_head(_module, 'PDBGHELP_CREATE_USER_DUMP_CALLBACK')
-make_head(_module, 'PENUMDIRTREE_CALLBACK')
-make_head(_module, 'PENUMDIRTREE_CALLBACKW')
-if ARCH in 'X86':
-    make_head(_module, 'PENUMLOADED_MODULES_CALLBACK')
-make_head(_module, 'PENUMLOADED_MODULES_CALLBACK64')
-make_head(_module, 'PENUMLOADED_MODULES_CALLBACKW64')
-make_head(_module, 'PENUMSOURCEFILETOKENSCALLBACK')
-make_head(_module, 'PFINDFILEINPATHCALLBACK')
-make_head(_module, 'PFINDFILEINPATHCALLBACKW')
-make_head(_module, 'PFIND_DEBUG_FILE_CALLBACK')
-make_head(_module, 'PFIND_DEBUG_FILE_CALLBACKW')
-make_head(_module, 'PFIND_EXE_FILE_CALLBACK')
-make_head(_module, 'PFIND_EXE_FILE_CALLBACKW')
-if ARCH in 'X86':
-    make_head(_module, 'PFUNCTION_TABLE_ACCESS_ROUTINE')
-make_head(_module, 'PFUNCTION_TABLE_ACCESS_ROUTINE64')
-if ARCH in 'X86':
-    make_head(_module, 'PGET_MODULE_BASE_ROUTINE')
-make_head(_module, 'PGET_MODULE_BASE_ROUTINE64')
-if ARCH in 'ARM64':
-    make_head(_module, 'PGET_RUNTIME_FUNCTION_CALLBACK')
-if ARCH in 'X64':
-    make_head(_module, 'PGET_RUNTIME_FUNCTION_CALLBACK')
-make_head(_module, 'PGET_TARGET_ATTRIBUTE_VALUE64')
-make_head(_module, 'PHYSICAL_MEMORY_DESCRIPTOR32')
-make_head(_module, 'PHYSICAL_MEMORY_DESCRIPTOR64')
-make_head(_module, 'PHYSICAL_MEMORY_RUN32')
-make_head(_module, 'PHYSICAL_MEMORY_RUN64')
-make_head(_module, 'PIMAGEHLP_STATUS_ROUTINE')
-make_head(_module, 'PIMAGEHLP_STATUS_ROUTINE32')
-make_head(_module, 'PIMAGEHLP_STATUS_ROUTINE64')
-if ARCH in 'X86':
-    make_head(_module, 'PREAD_PROCESS_MEMORY_ROUTINE')
-make_head(_module, 'PREAD_PROCESS_MEMORY_ROUTINE64')
-make_head(_module, 'PSYMBOLSERVERBYINDEXPROC')
-make_head(_module, 'PSYMBOLSERVERBYINDEXPROCA')
-make_head(_module, 'PSYMBOLSERVERBYINDEXPROCW')
-make_head(_module, 'PSYMBOLSERVERCALLBACKPROC')
-make_head(_module, 'PSYMBOLSERVERCLOSEPROC')
-make_head(_module, 'PSYMBOLSERVERDELTANAME')
-make_head(_module, 'PSYMBOLSERVERDELTANAMEW')
-make_head(_module, 'PSYMBOLSERVERGETINDEXSTRING')
-make_head(_module, 'PSYMBOLSERVERGETINDEXSTRINGW')
-make_head(_module, 'PSYMBOLSERVERGETOPTIONDATAPROC')
-make_head(_module, 'PSYMBOLSERVERGETOPTIONSPROC')
-make_head(_module, 'PSYMBOLSERVERGETSUPPLEMENT')
-make_head(_module, 'PSYMBOLSERVERGETSUPPLEMENTW')
-make_head(_module, 'PSYMBOLSERVERGETVERSION')
-make_head(_module, 'PSYMBOLSERVERISSTORE')
-make_head(_module, 'PSYMBOLSERVERISSTOREW')
-make_head(_module, 'PSYMBOLSERVERMESSAGEPROC')
-make_head(_module, 'PSYMBOLSERVEROPENPROC')
-make_head(_module, 'PSYMBOLSERVERPINGPROC')
-make_head(_module, 'PSYMBOLSERVERPINGPROCA')
-make_head(_module, 'PSYMBOLSERVERPINGPROCW')
-make_head(_module, 'PSYMBOLSERVERPINGPROCWEX')
-make_head(_module, 'PSYMBOLSERVERPROC')
-make_head(_module, 'PSYMBOLSERVERPROCA')
-make_head(_module, 'PSYMBOLSERVERPROCW')
-make_head(_module, 'PSYMBOLSERVERSETHTTPAUTHHEADER')
-make_head(_module, 'PSYMBOLSERVERSETOPTIONSPROC')
-make_head(_module, 'PSYMBOLSERVERSETOPTIONSWPROC')
-make_head(_module, 'PSYMBOLSERVERSTOREFILE')
-make_head(_module, 'PSYMBOLSERVERSTOREFILEW')
-make_head(_module, 'PSYMBOLSERVERSTORESUPPLEMENT')
-make_head(_module, 'PSYMBOLSERVERSTORESUPPLEMENTW')
-make_head(_module, 'PSYMBOLSERVERVERSION')
-make_head(_module, 'PSYMBOLSERVERWEXPROC')
-make_head(_module, 'PSYMBOL_FUNCENTRY_CALLBACK')
-make_head(_module, 'PSYMBOL_FUNCENTRY_CALLBACK64')
-if ARCH in 'X86':
-    make_head(_module, 'PSYMBOL_REGISTERED_CALLBACK')
-make_head(_module, 'PSYMBOL_REGISTERED_CALLBACK64')
-make_head(_module, 'PSYM_ENUMERATESYMBOLS_CALLBACK')
-make_head(_module, 'PSYM_ENUMERATESYMBOLS_CALLBACKW')
-make_head(_module, 'PSYM_ENUMLINES_CALLBACK')
-make_head(_module, 'PSYM_ENUMLINES_CALLBACKW')
-if ARCH in 'X86':
-    make_head(_module, 'PSYM_ENUMMODULES_CALLBACK')
-make_head(_module, 'PSYM_ENUMMODULES_CALLBACK64')
-make_head(_module, 'PSYM_ENUMMODULES_CALLBACKW64')
-make_head(_module, 'PSYM_ENUMPROCESSES_CALLBACK')
-make_head(_module, 'PSYM_ENUMSOURCEFILES_CALLBACK')
-make_head(_module, 'PSYM_ENUMSOURCEFILES_CALLBACKW')
-if ARCH in 'X86':
-    make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK')
-make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK64')
-make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK64W')
-if ARCH in 'X86':
-    make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACKW')
-if ARCH in 'X86':
-    make_head(_module, 'PTRANSLATE_ADDRESS_ROUTINE')
-make_head(_module, 'PTRANSLATE_ADDRESS_ROUTINE64')
-make_head(_module, 'PVECTORED_EXCEPTION_HANDLER')
-make_head(_module, 'PWAITCHAINCALLBACK')
-make_head(_module, 'RIP_INFO')
-make_head(_module, 'SOURCEFILE')
-make_head(_module, 'SOURCEFILEW')
-make_head(_module, 'SRCCODEINFO')
-make_head(_module, 'SRCCODEINFOW')
-if ARCH in 'X86':
-    make_head(_module, 'STACKFRAME')
-make_head(_module, 'STACKFRAME64')
-make_head(_module, 'STACKFRAME_EX')
-make_head(_module, 'SYMADDSOURCESTREAM')
-make_head(_module, 'SYMADDSOURCESTREAMA')
-make_head(_module, 'SYMBOL_INFO')
-make_head(_module, 'SYMBOL_INFOW')
-make_head(_module, 'SYMBOL_INFO_PACKAGE')
-make_head(_module, 'SYMBOL_INFO_PACKAGEW')
-make_head(_module, 'SYMSRV_EXTENDED_OUTPUT_DATA')
-make_head(_module, 'SYMSRV_INDEX_INFO')
-make_head(_module, 'SYMSRV_INDEX_INFOW')
-make_head(_module, 'TI_FINDCHILDREN_PARAMS')
-make_head(_module, 'UNLOAD_DLL_DEBUG_INFO')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'UNWIND_HISTORY_TABLE')
-if ARCH in 'ARM64':
-    make_head(_module, 'UNWIND_HISTORY_TABLE_ENTRY')
-if ARCH in 'X64':
-    make_head(_module, 'UNWIND_HISTORY_TABLE_ENTRY')
-make_head(_module, 'WAITCHAIN_NODE_INFO')
-make_head(_module, 'WHEA_AER_BRIDGE_DESCRIPTOR')
-make_head(_module, 'WHEA_AER_ENDPOINT_DESCRIPTOR')
-make_head(_module, 'WHEA_AER_ROOTPORT_DESCRIPTOR')
-make_head(_module, 'WHEA_DEVICE_DRIVER_DESCRIPTOR')
-make_head(_module, 'WHEA_DRIVER_BUFFER_SET')
-make_head(_module, 'WHEA_ERROR_SOURCE_CONFIGURATION_DD')
-make_head(_module, 'WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER')
-make_head(_module, 'WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1')
-make_head(_module, 'WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER')
-make_head(_module, 'WHEA_ERROR_SOURCE_DESCRIPTOR')
-make_head(_module, 'WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER')
-make_head(_module, 'WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER')
-make_head(_module, 'WHEA_GENERIC_ERROR_DESCRIPTOR')
-make_head(_module, 'WHEA_GENERIC_ERROR_DESCRIPTOR_V2')
-make_head(_module, 'WHEA_IPF_CMC_DESCRIPTOR')
-make_head(_module, 'WHEA_IPF_CPE_DESCRIPTOR')
-make_head(_module, 'WHEA_IPF_MCA_DESCRIPTOR')
-make_head(_module, 'WHEA_NOTIFICATION_DESCRIPTOR')
-make_head(_module, 'WHEA_NOTIFICATION_FLAGS')
-make_head(_module, 'WHEA_PCI_SLOT_NUMBER')
-make_head(_module, 'WHEA_XPF_CMC_DESCRIPTOR')
-make_head(_module, 'WHEA_XPF_MCE_DESCRIPTOR')
-make_head(_module, 'WHEA_XPF_MC_BANK_DESCRIPTOR')
-make_head(_module, 'WHEA_XPF_NMI_DESCRIPTOR')
-make_head(_module, 'WOW64_CONTEXT')
-make_head(_module, 'WOW64_DESCRIPTOR_TABLE_ENTRY')
-make_head(_module, 'WOW64_FLOATING_SAVE_AREA')
-make_head(_module, 'WOW64_LDT_ENTRY')
-make_head(_module, 'XPF_MCE_FLAGS')
-make_head(_module, 'XPF_MC_BANK_FLAGS')
-make_head(_module, 'XSAVE_AREA')
-make_head(_module, 'XSAVE_AREA_HEADER')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'XSAVE_FORMAT')
-if ARCH in 'X86':
-    make_head(_module, 'XSAVE_FORMAT')
-make_head(_module, 'XSTATE_CONFIGURATION')
-make_head(_module, 'XSTATE_CONFIG_FEATURE_MSC_INFO')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'XSTATE_CONTEXT')
-if ARCH in 'X86':
-    make_head(_module, 'XSTATE_CONTEXT')
-make_head(_module, 'XSTATE_FEATURE')
+make_ready(__name__)

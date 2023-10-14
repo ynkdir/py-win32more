@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -23,15 +23,6 @@ import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Documents
 import win32more.Windows.UI.Xaml.Input
 import win32more.Windows.UI.Xaml.Media
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _Block_Meta_(ComPtr.__class__):
     pass
 class Block(ComPtr, metaclass=_Block_Meta_):
@@ -39,7 +30,7 @@ class Block(ComPtr, metaclass=_Block_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Documents.IBlock
     _classid_ = 'Windows.UI.Xaml.Documents.Block'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IBlockFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.Block: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IBlockFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Block: ...
     @winrt_mixinmethod
     def get_TextAlignment(self: win32more.Windows.UI.Xaml.Documents.IBlock) -> win32more.Windows.UI.Xaml.TextAlignment: ...
     @winrt_mixinmethod
@@ -277,7 +268,7 @@ class ContentLinkProvider(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProvider'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IContentLinkProviderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.ContentLinkProvider: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IContentLinkProviderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.ContentLinkProvider: ...
 class ContentLinkProviderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkProviderCollection
@@ -573,7 +564,7 @@ class IBlockFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.IBlockFactory'
     _iid_ = Guid('{07110532-4f59-4f3b-9ce5-25784c430507}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.Block: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Block: ...
 class IBlockStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IBlockStatics'
@@ -721,7 +712,7 @@ class IContentLinkProviderFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.IContentLinkProviderFactory'
     _iid_ = Guid('{57d60d3b-ef1a-4e8e-839b-d36ef3a503e0}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.ContentLinkProvider: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.ContentLinkProvider: ...
 class IContentLinkStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IContentLinkStatics'
@@ -1041,7 +1032,7 @@ class IInlineFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.IInlineFactory'
     _iid_ = Guid('{4058acd1-2f90-4b8f-99dd-4218ef5f03de}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.Inline: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Inline: ...
 class IInlineUIContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IInlineUIContainer'
@@ -1117,7 +1108,7 @@ class ISpanFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.ISpanFactory'
     _iid_ = Guid('{5b916f5c-cd2d-40c0-956a-386448322f79}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.Span: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Span: ...
 class ITextElement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.ITextElement'
@@ -1165,7 +1156,7 @@ class ITextElement(ComPtr):
     @winrt_commethod(26)
     def get_ElementEnd(self) -> win32more.Windows.UI.Xaml.Documents.TextPointer: ...
     @winrt_commethod(27)
-    def FindName(self, name: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def FindName(self, name: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Name = property(get_Name, None)
     FontSize = property(get_FontSize, put_FontSize)
     FontFamily = property(get_FontFamily, put_FontFamily)
@@ -1372,7 +1363,7 @@ class ITextHighlighterFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.ITextHighlighterFactory'
     _iid_ = Guid('{70125461-9a8f-4fa0-b235-8ffaa507bef2}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.TextHighlighter: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.TextHighlighter: ...
 class ITextHighlighterStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.ITextHighlighterStatics'
@@ -1721,7 +1712,7 @@ class Inline(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Documents.IInline
     _classid_ = 'Windows.UI.Xaml.Documents.Inline'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IInlineFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.Inline: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IInlineFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Inline: ...
 class InlineCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Documents.Inline]
@@ -1830,7 +1821,7 @@ class Span(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Documents.ISpan
     _classid_ = 'Windows.UI.Xaml.Documents.Span'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.ISpanFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.Span: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.ISpanFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Span: ...
     @winrt_mixinmethod
     def get_Inlines(self: win32more.Windows.UI.Xaml.Documents.ISpan) -> win32more.Windows.UI.Xaml.Documents.InlineCollection: ...
     @winrt_mixinmethod
@@ -1885,7 +1876,7 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     @winrt_mixinmethod
     def get_ElementEnd(self: win32more.Windows.UI.Xaml.Documents.ITextElement) -> win32more.Windows.UI.Xaml.Documents.TextPointer: ...
     @winrt_mixinmethod
-    def FindName(self: win32more.Windows.UI.Xaml.Documents.ITextElement, name: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def FindName(self: win32more.Windows.UI.Xaml.Documents.ITextElement, name: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_IsTextScaleFactorEnabled(self: win32more.Windows.UI.Xaml.Documents.ITextElement2) -> Boolean: ...
     @winrt_mixinmethod
@@ -2029,7 +2020,7 @@ class TextHighlighter(ComPtr, metaclass=_TextHighlighter_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Documents.ITextHighlighter
     _classid_ = 'Windows.UI.Xaml.Documents.TextHighlighter'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.ITextHighlighterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Documents.TextHighlighter: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.ITextHighlighterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.TextHighlighter: ...
     @winrt_mixinmethod
     def get_Ranges(self: win32more.Windows.UI.Xaml.Documents.ITextHighlighter) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Documents.TextRange]: ...
     @winrt_mixinmethod
@@ -2392,90 +2383,4 @@ class Underline(ComPtr):
 UnderlineStyle = Int32
 UnderlineStyle_None: UnderlineStyle = 0
 UnderlineStyle_Single: UnderlineStyle = 1
-make_head(_module, 'Block')
-make_head(_module, 'BlockCollection')
-make_head(_module, 'Bold')
-make_head(_module, 'ContactContentLinkProvider')
-make_head(_module, 'ContentLink')
-make_head(_module, 'ContentLinkInvokedEventArgs')
-make_head(_module, 'ContentLinkProvider')
-make_head(_module, 'ContentLinkProviderCollection')
-make_head(_module, 'Glyphs')
-make_head(_module, 'Hyperlink')
-make_head(_module, 'HyperlinkClickEventArgs')
-make_head(_module, 'IBlock')
-make_head(_module, 'IBlock2')
-make_head(_module, 'IBlockFactory')
-make_head(_module, 'IBlockStatics')
-make_head(_module, 'IBlockStatics2')
-make_head(_module, 'IBold')
-make_head(_module, 'IContactContentLinkProvider')
-make_head(_module, 'IContentLink')
-make_head(_module, 'IContentLinkInvokedEventArgs')
-make_head(_module, 'IContentLinkProvider')
-make_head(_module, 'IContentLinkProviderCollection')
-make_head(_module, 'IContentLinkProviderFactory')
-make_head(_module, 'IContentLinkStatics')
-make_head(_module, 'IGlyphs')
-make_head(_module, 'IGlyphs2')
-make_head(_module, 'IGlyphsStatics')
-make_head(_module, 'IGlyphsStatics2')
-make_head(_module, 'IHyperlink')
-make_head(_module, 'IHyperlink2')
-make_head(_module, 'IHyperlink3')
-make_head(_module, 'IHyperlink4')
-make_head(_module, 'IHyperlink5')
-make_head(_module, 'IHyperlinkClickEventArgs')
-make_head(_module, 'IHyperlinkStatics')
-make_head(_module, 'IHyperlinkStatics2')
-make_head(_module, 'IHyperlinkStatics3')
-make_head(_module, 'IHyperlinkStatics4')
-make_head(_module, 'IHyperlinkStatics5')
-make_head(_module, 'IInline')
-make_head(_module, 'IInlineFactory')
-make_head(_module, 'IInlineUIContainer')
-make_head(_module, 'IItalic')
-make_head(_module, 'ILineBreak')
-make_head(_module, 'IParagraph')
-make_head(_module, 'IParagraphStatics')
-make_head(_module, 'IPlaceContentLinkProvider')
-make_head(_module, 'IRun')
-make_head(_module, 'IRunStatics')
-make_head(_module, 'ISpan')
-make_head(_module, 'ISpanFactory')
-make_head(_module, 'ITextElement')
-make_head(_module, 'ITextElement2')
-make_head(_module, 'ITextElement3')
-make_head(_module, 'ITextElement4')
-make_head(_module, 'ITextElement5')
-make_head(_module, 'ITextElementFactory')
-make_head(_module, 'ITextElementOverrides')
-make_head(_module, 'ITextElementStatics')
-make_head(_module, 'ITextElementStatics2')
-make_head(_module, 'ITextElementStatics3')
-make_head(_module, 'ITextElementStatics4')
-make_head(_module, 'ITextHighlighter')
-make_head(_module, 'ITextHighlighterBase')
-make_head(_module, 'ITextHighlighterBaseFactory')
-make_head(_module, 'ITextHighlighterFactory')
-make_head(_module, 'ITextHighlighterStatics')
-make_head(_module, 'ITextPointer')
-make_head(_module, 'ITypography')
-make_head(_module, 'ITypographyStatics')
-make_head(_module, 'IUnderline')
-make_head(_module, 'Inline')
-make_head(_module, 'InlineCollection')
-make_head(_module, 'InlineUIContainer')
-make_head(_module, 'Italic')
-make_head(_module, 'LineBreak')
-make_head(_module, 'Paragraph')
-make_head(_module, 'PlaceContentLinkProvider')
-make_head(_module, 'Run')
-make_head(_module, 'Span')
-make_head(_module, 'TextElement')
-make_head(_module, 'TextHighlighter')
-make_head(_module, 'TextHighlighterBase')
-make_head(_module, 'TextPointer')
-make_head(_module, 'TextRange')
-make_head(_module, 'Typography')
-make_head(_module, 'Underline')
+make_ready(__name__)

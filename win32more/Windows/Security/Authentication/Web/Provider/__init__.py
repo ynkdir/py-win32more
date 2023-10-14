@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -25,15 +25,6 @@ import win32more.Windows.Security.Cryptography.Core
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.Web.Http
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IWebAccountClientView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Provider.IWebAccountClientView'
@@ -549,40 +540,4 @@ class WebProviderTokenResponse(ComPtr):
     @winrt_mixinmethod
     def get_ClientResponse(self: win32more.Windows.Security.Authentication.Web.Provider.IWebProviderTokenResponse) -> win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse: ...
     ClientResponse = property(get_ClientResponse, None)
-make_head(_module, 'IWebAccountClientView')
-make_head(_module, 'IWebAccountClientViewFactory')
-make_head(_module, 'IWebAccountManagerStatics')
-make_head(_module, 'IWebAccountManagerStatics2')
-make_head(_module, 'IWebAccountManagerStatics3')
-make_head(_module, 'IWebAccountManagerStatics4')
-make_head(_module, 'IWebAccountMapManagerStatics')
-make_head(_module, 'IWebAccountProviderAddAccountOperation')
-make_head(_module, 'IWebAccountProviderBaseReportOperation')
-make_head(_module, 'IWebAccountProviderDeleteAccountOperation')
-make_head(_module, 'IWebAccountProviderManageAccountOperation')
-make_head(_module, 'IWebAccountProviderOperation')
-make_head(_module, 'IWebAccountProviderRetrieveCookiesOperation')
-make_head(_module, 'IWebAccountProviderSignOutAccountOperation')
-make_head(_module, 'IWebAccountProviderSilentReportOperation')
-make_head(_module, 'IWebAccountProviderTokenObjects')
-make_head(_module, 'IWebAccountProviderTokenObjects2')
-make_head(_module, 'IWebAccountProviderTokenOperation')
-make_head(_module, 'IWebAccountProviderUIReportOperation')
-make_head(_module, 'IWebAccountScopeManagerStatics')
-make_head(_module, 'IWebProviderTokenRequest')
-make_head(_module, 'IWebProviderTokenRequest2')
-make_head(_module, 'IWebProviderTokenRequest3')
-make_head(_module, 'IWebProviderTokenResponse')
-make_head(_module, 'IWebProviderTokenResponseFactory')
-make_head(_module, 'WebAccountClientView')
-make_head(_module, 'WebAccountManager')
-make_head(_module, 'WebAccountProviderAddAccountOperation')
-make_head(_module, 'WebAccountProviderDeleteAccountOperation')
-make_head(_module, 'WebAccountProviderGetTokenSilentOperation')
-make_head(_module, 'WebAccountProviderManageAccountOperation')
-make_head(_module, 'WebAccountProviderRequestTokenOperation')
-make_head(_module, 'WebAccountProviderRetrieveCookiesOperation')
-make_head(_module, 'WebAccountProviderSignOutAccountOperation')
-make_head(_module, 'WebAccountProviderTriggerDetails')
-make_head(_module, 'WebProviderTokenRequest')
-make_head(_module, 'WebProviderTokenResponse')
+make_ready(__name__)

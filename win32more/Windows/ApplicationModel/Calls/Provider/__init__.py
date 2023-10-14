@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Calls.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Storage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPhoneCallOrigin(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.Provider.IPhoneCallOrigin'
@@ -136,11 +127,4 @@ class PhoneCallOriginManager(ComPtr, metaclass=_PhoneCallOriginManager_Meta_):
     def SetCallOrigin(cls: win32more.Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics, requestId: Guid, callOrigin: win32more.Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin) -> Void: ...
     _PhoneCallOriginManager_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
     _PhoneCallOriginManager_Meta_.IsCurrentAppActiveCallOriginApp = property(get_IsCurrentAppActiveCallOriginApp.__wrapped__, None)
-make_head(_module, 'IPhoneCallOrigin')
-make_head(_module, 'IPhoneCallOrigin2')
-make_head(_module, 'IPhoneCallOrigin3')
-make_head(_module, 'IPhoneCallOriginManagerStatics')
-make_head(_module, 'IPhoneCallOriginManagerStatics2')
-make_head(_module, 'IPhoneCallOriginManagerStatics3')
-make_head(_module, 'PhoneCallOrigin')
-make_head(_module, 'PhoneCallOriginManager')
+make_ready(__name__)

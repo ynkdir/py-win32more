@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Cryptography.Certificates
 import win32more.Windows.Security.Cryptography.Core
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _AsymmetricAlgorithmNames_Meta_(ComPtr.__class__):
     pass
 class AsymmetricAlgorithmNames(ComPtr, metaclass=_AsymmetricAlgorithmNames_Meta_):
@@ -1203,50 +1194,4 @@ class SymmetricKeyAlgorithmProvider(ComPtr):
     def OpenAlgorithm(cls: win32more.Windows.Security.Cryptography.Core.ISymmetricKeyAlgorithmProviderStatics, algorithm: WinRT_String) -> win32more.Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider: ...
     AlgorithmName = property(get_AlgorithmName, None)
     BlockLength = property(get_BlockLength, None)
-make_head(_module, 'AsymmetricAlgorithmNames')
-make_head(_module, 'AsymmetricKeyAlgorithmProvider')
-make_head(_module, 'CryptographicEngine')
-make_head(_module, 'CryptographicHash')
-make_head(_module, 'CryptographicKey')
-make_head(_module, 'EccCurveNames')
-make_head(_module, 'EncryptedAndAuthenticatedData')
-make_head(_module, 'HashAlgorithmNames')
-make_head(_module, 'HashAlgorithmProvider')
-make_head(_module, 'IAsymmetricAlgorithmNamesStatics')
-make_head(_module, 'IAsymmetricAlgorithmNamesStatics2')
-make_head(_module, 'IAsymmetricKeyAlgorithmProvider')
-make_head(_module, 'IAsymmetricKeyAlgorithmProvider2')
-make_head(_module, 'IAsymmetricKeyAlgorithmProviderStatics')
-make_head(_module, 'ICryptographicEngineStatics')
-make_head(_module, 'ICryptographicEngineStatics2')
-make_head(_module, 'ICryptographicKey')
-make_head(_module, 'IEccCurveNamesStatics')
-make_head(_module, 'IEncryptedAndAuthenticatedData')
-make_head(_module, 'IHashAlgorithmNamesStatics')
-make_head(_module, 'IHashAlgorithmProvider')
-make_head(_module, 'IHashAlgorithmProviderStatics')
-make_head(_module, 'IHashComputation')
-make_head(_module, 'IKeyDerivationAlgorithmNamesStatics')
-make_head(_module, 'IKeyDerivationAlgorithmNamesStatics2')
-make_head(_module, 'IKeyDerivationAlgorithmProvider')
-make_head(_module, 'IKeyDerivationAlgorithmProviderStatics')
-make_head(_module, 'IKeyDerivationParameters')
-make_head(_module, 'IKeyDerivationParameters2')
-make_head(_module, 'IKeyDerivationParametersStatics')
-make_head(_module, 'IKeyDerivationParametersStatics2')
-make_head(_module, 'IMacAlgorithmNamesStatics')
-make_head(_module, 'IMacAlgorithmProvider')
-make_head(_module, 'IMacAlgorithmProvider2')
-make_head(_module, 'IMacAlgorithmProviderStatics')
-make_head(_module, 'IPersistedKeyProviderStatics')
-make_head(_module, 'ISymmetricAlgorithmNamesStatics')
-make_head(_module, 'ISymmetricKeyAlgorithmProvider')
-make_head(_module, 'ISymmetricKeyAlgorithmProviderStatics')
-make_head(_module, 'KeyDerivationAlgorithmNames')
-make_head(_module, 'KeyDerivationAlgorithmProvider')
-make_head(_module, 'KeyDerivationParameters')
-make_head(_module, 'MacAlgorithmNames')
-make_head(_module, 'MacAlgorithmProvider')
-make_head(_module, 'PersistedKeyProvider')
-make_head(_module, 'SymmetricAlgorithmNames')
-make_head(_module, 'SymmetricKeyAlgorithmProvider')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -23,15 +23,6 @@ import win32more.Windows.UI
 import win32more.Windows.UI.Core
 import win32more.Windows.UI.Input
 import win32more.Windows.UI.Input.Inking
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 HandwritingLineHeight = Int32
 HandwritingLineHeight_Small: HandwritingLineHeight = 0
 HandwritingLineHeight_Medium: HandwritingLineHeight = 1
@@ -168,7 +159,7 @@ class IInkManager(ComPtr):
     @winrt_commethod(8)
     def ProcessPointerDown(self, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> Void: ...
     @winrt_commethod(9)
-    def ProcessPointerUpdate(self, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def ProcessPointerUpdate(self, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(10)
     def ProcessPointerUp(self, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(11)
@@ -827,7 +818,7 @@ class InkManager(ComPtr):
     @winrt_mixinmethod
     def ProcessPointerDown(self: win32more.Windows.UI.Input.Inking.IInkManager, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> Void: ...
     @winrt_mixinmethod
-    def ProcessPointerUpdate(self: win32more.Windows.UI.Input.Inking.IInkManager, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def ProcessPointerUpdate(self: win32more.Windows.UI.Input.Inking.IInkManager, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def ProcessPointerUp(self: win32more.Windows.UI.Input.Inking.IInkManager, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -1372,74 +1363,4 @@ PenHandedness_Left: PenHandedness = 1
 PenTipShape = Int32
 PenTipShape_Circle: PenTipShape = 0
 PenTipShape_Rectangle: PenTipShape = 1
-make_head(_module, 'IInkDrawingAttributes')
-make_head(_module, 'IInkDrawingAttributes2')
-make_head(_module, 'IInkDrawingAttributes3')
-make_head(_module, 'IInkDrawingAttributes4')
-make_head(_module, 'IInkDrawingAttributes5')
-make_head(_module, 'IInkDrawingAttributesPencilProperties')
-make_head(_module, 'IInkDrawingAttributesStatics')
-make_head(_module, 'IInkInputConfiguration')
-make_head(_module, 'IInkInputConfiguration2')
-make_head(_module, 'IInkInputProcessingConfiguration')
-make_head(_module, 'IInkManager')
-make_head(_module, 'IInkModelerAttributes')
-make_head(_module, 'IInkModelerAttributes2')
-make_head(_module, 'IInkPoint')
-make_head(_module, 'IInkPoint2')
-make_head(_module, 'IInkPointFactory')
-make_head(_module, 'IInkPointFactory2')
-make_head(_module, 'IInkPresenter')
-make_head(_module, 'IInkPresenter2')
-make_head(_module, 'IInkPresenter3')
-make_head(_module, 'IInkPresenterProtractor')
-make_head(_module, 'IInkPresenterProtractorFactory')
-make_head(_module, 'IInkPresenterRuler')
-make_head(_module, 'IInkPresenterRuler2')
-make_head(_module, 'IInkPresenterRulerFactory')
-make_head(_module, 'IInkPresenterStencil')
-make_head(_module, 'IInkRecognitionResult')
-make_head(_module, 'IInkRecognizer')
-make_head(_module, 'IInkRecognizerContainer')
-make_head(_module, 'IInkStroke')
-make_head(_module, 'IInkStroke2')
-make_head(_module, 'IInkStroke3')
-make_head(_module, 'IInkStroke4')
-make_head(_module, 'IInkStrokeBuilder')
-make_head(_module, 'IInkStrokeBuilder2')
-make_head(_module, 'IInkStrokeBuilder3')
-make_head(_module, 'IInkStrokeContainer')
-make_head(_module, 'IInkStrokeContainer2')
-make_head(_module, 'IInkStrokeContainer3')
-make_head(_module, 'IInkStrokeInput')
-make_head(_module, 'IInkStrokeRenderingSegment')
-make_head(_module, 'IInkStrokesCollectedEventArgs')
-make_head(_module, 'IInkStrokesErasedEventArgs')
-make_head(_module, 'IInkSynchronizer')
-make_head(_module, 'IInkUnprocessedInput')
-make_head(_module, 'IPenAndInkSettings')
-make_head(_module, 'IPenAndInkSettings2')
-make_head(_module, 'IPenAndInkSettingsStatics')
-make_head(_module, 'InkDrawingAttributes')
-make_head(_module, 'InkDrawingAttributesPencilProperties')
-make_head(_module, 'InkInputConfiguration')
-make_head(_module, 'InkInputProcessingConfiguration')
-make_head(_module, 'InkManager')
-make_head(_module, 'InkModelerAttributes')
-make_head(_module, 'InkPoint')
-make_head(_module, 'InkPresenter')
-make_head(_module, 'InkPresenterProtractor')
-make_head(_module, 'InkPresenterRuler')
-make_head(_module, 'InkRecognitionResult')
-make_head(_module, 'InkRecognizer')
-make_head(_module, 'InkRecognizerContainer')
-make_head(_module, 'InkStroke')
-make_head(_module, 'InkStrokeBuilder')
-make_head(_module, 'InkStrokeContainer')
-make_head(_module, 'InkStrokeInput')
-make_head(_module, 'InkStrokeRenderingSegment')
-make_head(_module, 'InkStrokesCollectedEventArgs')
-make_head(_module, 'InkStrokesErasedEventArgs')
-make_head(_module, 'InkSynchronizer')
-make_head(_module, 'InkUnprocessedInput')
-make_head(_module, 'PenAndInkSettings')
+make_ready(__name__)

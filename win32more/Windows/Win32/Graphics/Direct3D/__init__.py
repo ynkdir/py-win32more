@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 D3D_FL9_1_REQ_TEXTURE1D_U_DIMENSION: UInt32 = 2048
 D3D_FL9_3_REQ_TEXTURE1D_U_DIMENSION: UInt32 = 4096
 D3D_FL9_1_REQ_TEXTURE2D_U_OR_V_DIMENSION: UInt32 = 2048
@@ -726,10 +717,4 @@ class ID3DInclude(ComPtr):
     def Close(self, pData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_DESTRUCTION_CALLBACK(pData: VoidPtr) -> Void: ...
-make_head(_module, 'D3DMATRIX')
-make_head(_module, 'D3DVECTOR')
-make_head(_module, 'D3D_SHADER_MACRO')
-make_head(_module, 'ID3DBlob')
-make_head(_module, 'ID3DDestructionNotifier')
-make_head(_module, 'ID3DInclude')
-make_head(_module, 'PFN_DESTRUCTION_CALLBACK')
+make_ready(__name__)

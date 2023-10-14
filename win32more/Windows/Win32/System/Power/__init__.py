@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Power
 import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.System.Threading
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ACPI_REAL_TIME(EasyCastStructure):
     Year: UInt16
     Month: Byte
@@ -229,7 +220,7 @@ THERMAL_EVENT_VERSION: UInt32 = 1
 @winfunctype('POWRPROF.dll')
 def CallNtPowerInformation(InformationLevel: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL, InputBuffer: VoidPtr, InputBufferLength: UInt32, OutputBuffer: VoidPtr, OutputBufferLength: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('POWRPROF.dll')
-def GetPwrCapabilities(lpspc: POINTER(win32more.Windows.Win32.System.Power.SYSTEM_POWER_CAPABILITIES_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def GetPwrCapabilities(lpspc: POINTER(win32more.Windows.Win32.System.Power.SYSTEM_POWER_CAPABILITIES)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def PowerDeterminePlatformRoleEx(Version: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE_VERSION) -> win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE: ...
 @winfunctype('POWRPROF.dll')
@@ -261,19 +252,19 @@ def GetPwrDiskSpindownRange(puiMax: POINTER(UInt32), puiMin: POINTER(UInt32)) ->
 @winfunctype('POWRPROF.dll')
 def EnumPwrSchemes(lpfn: win32more.Windows.Win32.System.Power.PWRSCHEMESENUMPROC, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def ReadGlobalPwrPolicy(pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def ReadGlobalPwrPolicy(pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def ReadPwrScheme(uiID: UInt32, pPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def ReadPwrScheme(uiID: UInt32, pPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def WritePwrScheme(puiID: POINTER(UInt32), lpszSchemeName: win32more.Windows.Win32.Foundation.PWSTR, lpszDescription: win32more.Windows.Win32.Foundation.PWSTR, lpScheme: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def WritePwrScheme(puiID: POINTER(UInt32), lpszSchemeName: win32more.Windows.Win32.Foundation.PWSTR, lpszDescription: win32more.Windows.Win32.Foundation.PWSTR, lpScheme: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def WriteGlobalPwrPolicy(pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def WriteGlobalPwrPolicy(pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def DeletePwrScheme(uiID: UInt32) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def GetActivePwrScheme(puiID: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def SetActivePwrScheme(uiID: UInt32, pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY_head), pPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def SetActivePwrScheme(uiID: UInt32, pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY), pPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def IsPwrSuspendAllowed() -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
@@ -281,19 +272,19 @@ def IsPwrHibernateAllowed() -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def IsPwrShutdownAllowed() -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def IsAdminOverrideActive(papp: POINTER(win32more.Windows.Win32.System.Power.ADMINISTRATOR_POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def IsAdminOverrideActive(papp: POINTER(win32more.Windows.Win32.System.Power.ADMINISTRATOR_POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def SetSuspendState(bHibernate: win32more.Windows.Win32.Foundation.BOOLEAN, bForce: win32more.Windows.Win32.Foundation.BOOLEAN, bWakeupEventsDisabled: win32more.Windows.Win32.Foundation.BOOLEAN) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def GetCurrentPowerPolicies(pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY_head), pPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def GetCurrentPowerPolicies(pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY), pPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def CanUserWritePwrScheme() -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def ReadProcessorPwrScheme(uiID: UInt32, pMachineProcessorPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.MACHINE_PROCESSOR_POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def ReadProcessorPwrScheme(uiID: UInt32, pMachineProcessorPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.MACHINE_PROCESSOR_POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def WriteProcessorPwrScheme(uiID: UInt32, pMachineProcessorPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.MACHINE_PROCESSOR_POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def WriteProcessorPwrScheme(uiID: UInt32, pMachineProcessorPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.MACHINE_PROCESSOR_POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def ValidatePowerPolicies(pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY_head), pPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY_head)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def ValidatePowerPolicies(pGlobalPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.GLOBAL_POWER_POLICY), pPowerPolicy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
 def PowerIsSettingRangeDefined(SubKeyGuid: POINTER(Guid), SettingGuid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
@@ -393,7 +384,7 @@ def DevicePowerOpen(DebugMask: UInt32) -> win32more.Windows.Win32.Foundation.BOO
 @winfunctype('POWRPROF.dll')
 def DevicePowerClose() -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('POWRPROF.dll')
-def PowerReportThermalEvent(Event: POINTER(win32more.Windows.Win32.System.Power.THERMAL_EVENT_head)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def PowerReportThermalEvent(Event: POINTER(win32more.Windows.Win32.System.Power.THERMAL_EVENT)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('USER32.dll')
 def RegisterPowerSettingNotification(hRecipient: win32more.Windows.Win32.Foundation.HANDLE, PowerSettingGuid: POINTER(Guid), Flags: UInt32) -> win32more.Windows.Win32.System.Power.HPOWERNOTIFY: ...
 @winfunctype('USER32.dll')
@@ -409,7 +400,7 @@ def IsSystemResumeAutomatic() -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetThreadExecutionState(esFlags: win32more.Windows.Win32.System.Power.EXECUTION_STATE) -> win32more.Windows.Win32.System.Power.EXECUTION_STATE: ...
 @winfunctype('KERNEL32.dll')
-def PowerCreateRequest(Context: POINTER(win32more.Windows.Win32.System.Threading.REASON_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+def PowerCreateRequest(Context: POINTER(win32more.Windows.Win32.System.Threading.REASON_CONTEXT)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def PowerSetRequest(PowerRequest: win32more.Windows.Win32.Foundation.HANDLE, RequestType: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -419,7 +410,7 @@ def GetDevicePowerState(hDevice: win32more.Windows.Win32.Foundation.HANDLE, pfOn
 @winfunctype('KERNEL32.dll')
 def SetSystemPowerState(fSuspend: win32more.Windows.Win32.Foundation.BOOL, fForce: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GetSystemPowerStatus(lpSystemPowerStatus: POINTER(win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetSystemPowerStatus(lpSystemPowerStatus: POINTER(win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class BATTERY_CHARGER_STATUS(EasyCastStructure):
     Type: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE
     VaData: UInt32 * 1
@@ -1057,9 +1048,9 @@ class PROCESSOR_POWER_POLICY_INFO(EasyCastStructure):
     Spare: Byte * 2
     _bitfield: UInt32
 @winfunctype_pointer
-def PWRSCHEMESENUMPROC(Index: UInt32, NameSize: UInt32, Name: win32more.Windows.Win32.Foundation.PWSTR, DescriptionSize: UInt32, Description: win32more.Windows.Win32.Foundation.PWSTR, Policy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY_head), Context: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def PWRSCHEMESENUMPROC(Index: UInt32, NameSize: UInt32, Name: win32more.Windows.Win32.Foundation.PWSTR, DescriptionSize: UInt32, Description: win32more.Windows.Win32.Foundation.PWSTR, Policy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY), Context: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
-def PWRSCHEMESENUMPROC_V1(Index: UInt32, NameSize: UInt32, Name: POINTER(SByte), DescriptionSize: UInt32, Description: POINTER(SByte), Policy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY_head), Context: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+def PWRSCHEMESENUMPROC_V1(Index: UInt32, NameSize: UInt32, Name: POINTER(SByte), DescriptionSize: UInt32, Description: POINTER(SByte), Policy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY), Context: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 class RESUME_PERFORMANCE(EasyCastStructure):
     PostTimeMs: UInt32
     TotalResumeTimeMs: UInt64
@@ -1246,84 +1237,4 @@ class USER_POWER_POLICY(EasyCastStructure):
 class WAKE_ALARM_INFORMATION(EasyCastStructure):
     TimerIdentifier: UInt32
     Timeout: UInt32
-make_head(_module, 'ACPI_REAL_TIME')
-make_head(_module, 'ACPI_TIME_AND_ALARM_CAPABILITIES')
-make_head(_module, 'ADMINISTRATOR_POWER_POLICY')
-make_head(_module, 'PROCESSOR_NUMBER_PKEY')
-make_head(_module, 'BATTERY_CHARGER_STATUS')
-make_head(_module, 'BATTERY_CHARGING_SOURCE')
-make_head(_module, 'BATTERY_CHARGING_SOURCE_INFORMATION')
-make_head(_module, 'BATTERY_INFORMATION')
-make_head(_module, 'BATTERY_MANUFACTURE_DATE')
-make_head(_module, 'BATTERY_QUERY_INFORMATION')
-make_head(_module, 'BATTERY_REPORTING_SCALE')
-make_head(_module, 'BATTERY_SET_INFORMATION')
-make_head(_module, 'BATTERY_STATUS')
-make_head(_module, 'BATTERY_USB_CHARGER_STATUS')
-make_head(_module, 'BATTERY_WAIT_STATUS')
-make_head(_module, 'CM_POWER_DATA')
-make_head(_module, 'DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS')
-make_head(_module, 'EFFECTIVE_POWER_MODE_CALLBACK')
-make_head(_module, 'EMI_CHANNEL_MEASUREMENT_DATA')
-make_head(_module, 'EMI_CHANNEL_V2')
-make_head(_module, 'EMI_MEASUREMENT_DATA_V2')
-make_head(_module, 'EMI_METADATA_SIZE')
-make_head(_module, 'EMI_METADATA_V1')
-make_head(_module, 'EMI_METADATA_V2')
-make_head(_module, 'EMI_VERSION')
-make_head(_module, 'GLOBAL_MACHINE_POWER_POLICY')
-make_head(_module, 'GLOBAL_POWER_POLICY')
-make_head(_module, 'GLOBAL_USER_POWER_POLICY')
-make_head(_module, 'MACHINE_POWER_POLICY')
-make_head(_module, 'MACHINE_PROCESSOR_POWER_POLICY')
-make_head(_module, 'PDEVICE_NOTIFY_CALLBACK_ROUTINE')
-make_head(_module, 'POWERBROADCAST_SETTING')
-make_head(_module, 'POWER_ACTION_POLICY')
-make_head(_module, 'POWER_IDLE_RESILIENCY')
-make_head(_module, 'POWER_MONITOR_INVOCATION')
-make_head(_module, 'POWER_PLATFORM_INFORMATION')
-make_head(_module, 'POWER_POLICY')
-make_head(_module, 'POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES')
-make_head(_module, 'POWER_SESSION_CONNECT')
-make_head(_module, 'POWER_SESSION_RIT_STATE')
-make_head(_module, 'POWER_SESSION_TIMEOUTS')
-make_head(_module, 'POWER_SESSION_WINLOGON')
-make_head(_module, 'POWER_USER_PRESENCE')
-make_head(_module, 'PPM_IDLESTATE_EVENT')
-make_head(_module, 'PPM_IDLE_ACCOUNTING')
-make_head(_module, 'PPM_IDLE_ACCOUNTING_EX')
-make_head(_module, 'PPM_IDLE_STATE_ACCOUNTING')
-make_head(_module, 'PPM_IDLE_STATE_ACCOUNTING_EX')
-make_head(_module, 'PPM_IDLE_STATE_BUCKET_EX')
-make_head(_module, 'PPM_PERFSTATE_DOMAIN_EVENT')
-make_head(_module, 'PPM_PERFSTATE_EVENT')
-make_head(_module, 'PPM_THERMALCHANGE_EVENT')
-make_head(_module, 'PPM_THERMAL_POLICY_EVENT')
-make_head(_module, 'PPM_WMI_IDLE_STATE')
-make_head(_module, 'PPM_WMI_IDLE_STATES')
-make_head(_module, 'PPM_WMI_IDLE_STATES_EX')
-make_head(_module, 'PPM_WMI_LEGACY_PERFSTATE')
-make_head(_module, 'PPM_WMI_PERF_STATE')
-make_head(_module, 'PPM_WMI_PERF_STATES')
-make_head(_module, 'PPM_WMI_PERF_STATES_EX')
-make_head(_module, 'PROCESSOR_OBJECT_INFO')
-make_head(_module, 'PROCESSOR_OBJECT_INFO_EX')
-make_head(_module, 'PROCESSOR_POWER_INFORMATION')
-make_head(_module, 'PROCESSOR_POWER_POLICY')
-make_head(_module, 'PROCESSOR_POWER_POLICY_INFO')
-make_head(_module, 'PWRSCHEMESENUMPROC')
-make_head(_module, 'PWRSCHEMESENUMPROC_V1')
-make_head(_module, 'RESUME_PERFORMANCE')
-make_head(_module, 'SET_POWER_SETTING_VALUE')
-make_head(_module, 'SYSTEM_BATTERY_STATE')
-make_head(_module, 'SYSTEM_POWER_CAPABILITIES')
-make_head(_module, 'SYSTEM_POWER_INFORMATION')
-make_head(_module, 'SYSTEM_POWER_LEVEL')
-make_head(_module, 'SYSTEM_POWER_POLICY')
-make_head(_module, 'SYSTEM_POWER_STATUS')
-make_head(_module, 'THERMAL_EVENT')
-make_head(_module, 'THERMAL_INFORMATION')
-make_head(_module, 'THERMAL_POLICY')
-make_head(_module, 'THERMAL_WAIT_READ')
-make_head(_module, 'USER_POWER_POLICY')
-make_head(_module, 'WAKE_ALARM_INFORMATION')
+make_ready(__name__)

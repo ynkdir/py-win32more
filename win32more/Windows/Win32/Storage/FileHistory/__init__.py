@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.FileHistory
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WindowsProgramming
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 FHCFG_E_CORRUPT_CONFIG_FILE: win32more.Windows.Win32.Foundation.HRESULT = -2147220736
 FHCFG_E_CONFIG_FILE_NOT_FOUND: win32more.Windows.Win32.Foundation.HRESULT = -2147220735
 FHCFG_E_CONFIG_ALREADY_EXISTS: win32more.Windows.Win32.Foundation.HRESULT = -2147220734
@@ -129,7 +120,7 @@ class IFhConfigMgr(ComPtr):
     @commethod(6)
     def AddRemoveExcludeRule(self, Add: win32more.Windows.Win32.Foundation.BOOL, Category: win32more.Windows.Win32.Storage.FileHistory.FH_PROTECTED_ITEM_CATEGORY, Item: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetIncludeExcludeRules(self, Include: win32more.Windows.Win32.Foundation.BOOL, Category: win32more.Windows.Win32.Storage.FileHistory.FH_PROTECTED_ITEM_CATEGORY, Iterator: POINTER(win32more.Windows.Win32.Storage.FileHistory.IFhScopeIterator_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIncludeExcludeRules(self, Include: win32more.Windows.Win32.Foundation.BOOL, Category: win32more.Windows.Win32.Storage.FileHistory.FH_PROTECTED_ITEM_CATEGORY, Iterator: POINTER(win32more.Windows.Win32.Storage.FileHistory.IFhScopeIterator)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetLocalPolicy(self, LocalPolicyType: win32more.Windows.Win32.Storage.FileHistory.FH_LOCAL_POLICY_TYPE, PolicyValue: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -139,7 +130,7 @@ class IFhConfigMgr(ComPtr):
     @commethod(11)
     def SetBackupStatus(self, BackupStatus: win32more.Windows.Win32.Storage.FileHistory.FH_BACKUP_STATUS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def GetDefaultTarget(self, DefaultTarget: POINTER(win32more.Windows.Win32.Storage.FileHistory.IFhTarget_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDefaultTarget(self, DefaultTarget: POINTER(win32more.Windows.Win32.Storage.FileHistory.IFhTarget)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def ValidateTarget(self, TargetUrl: win32more.Windows.Win32.Foundation.BSTR, ValidationResult: POINTER(win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -156,7 +147,7 @@ class IFhReassociation(ComPtr):
     @commethod(4)
     def ScanTargetForConfigurations(self, TargetUrl: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetConfigurationDetails(self, Index: UInt32, UserName: POINTER(win32more.Windows.Win32.Foundation.BSTR), PcName: POINTER(win32more.Windows.Win32.Foundation.BSTR), BackupTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetConfigurationDetails(self, Index: UInt32, UserName: POINTER(win32more.Windows.Win32.Foundation.BSTR), PcName: POINTER(win32more.Windows.Win32.Foundation.BSTR), BackupTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SelectConfiguration(self, Index: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -175,7 +166,4 @@ class IFhTarget(ComPtr):
     def GetStringProperty(self, PropertyType: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE, PropertyValue: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetNumericalProperty(self, PropertyType: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE, PropertyValue: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'IFhConfigMgr')
-make_head(_module, 'IFhReassociation')
-make_head(_module, 'IFhScopeIterator')
-make_head(_module, 'IFhTarget')
+make_ready(__name__)

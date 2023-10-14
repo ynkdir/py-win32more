@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Enumeration
@@ -23,15 +23,6 @@ import win32more.Windows.Media.Devices
 import win32more.Windows.Media.Devices.Core
 import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AdvancedPhotoCaptureSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.IAdvancedPhotoCaptureSettings
@@ -273,7 +264,7 @@ class DialRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def Handled(self: win32more.Windows.Media.Devices.IDialRequestedEventArgs) -> Void: ...
     @winrt_mixinmethod
-    def get_Contact(self: win32more.Windows.Media.Devices.IDialRequestedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Contact(self: win32more.Windows.Media.Devices.IDialRequestedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Contact = property(get_Contact, None)
 class DialRequestedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -606,9 +597,9 @@ class IAdvancedVideoCaptureDeviceController(ComPtr):
     _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController'
     _iid_ = Guid('{de6ff4d3-2b96-4583-80ab-b5b01dc6a8d7}')
     @winrt_commethod(6)
-    def SetDeviceProperty(self, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def SetDeviceProperty(self, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(7)
-    def GetDeviceProperty(self, propertyId: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetDeviceProperty(self, propertyId: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
 class IAdvancedVideoCaptureDeviceController10(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Devices.IAdvancedVideoCaptureDeviceController10'
@@ -707,7 +698,7 @@ class IAdvancedVideoCaptureDeviceController5(ComPtr):
     @winrt_commethod(7)
     def GetDevicePropertyById(self, propertyId: WinRT_String, maxPropertyValueSize: win32more.Windows.Foundation.IReference[UInt32]) -> win32more.Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyResult: ...
     @winrt_commethod(8)
-    def SetDevicePropertyById(self, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Media.Devices.VideoDeviceControllerSetDevicePropertyStatus: ...
+    def SetDevicePropertyById(self, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Media.Devices.VideoDeviceControllerSetDevicePropertyStatus: ...
     @winrt_commethod(9)
     def GetDevicePropertyByExtendedId(self, extendedPropertyId: Annotated[SZArray[Byte], 'In'], maxPropertyValueSize: win32more.Windows.Foundation.IReference[UInt32]) -> win32more.Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyResult: ...
     @winrt_commethod(10)
@@ -896,7 +887,7 @@ class IDialRequestedEventArgs(ComPtr):
     @winrt_commethod(6)
     def Handled(self) -> Void: ...
     @winrt_commethod(7)
-    def get_Contact(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Contact(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Contact = property(get_Contact, None)
 class IDigitalWindowBounds(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1387,11 +1378,11 @@ class IMediaDeviceStatics(ComPtr):
     @winrt_commethod(10)
     def GetDefaultAudioRenderId(self, role: win32more.Windows.Media.Devices.AudioDeviceRole) -> WinRT_String: ...
     @winrt_commethod(11)
-    def add_DefaultAudioCaptureDeviceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DefaultAudioCaptureDeviceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_DefaultAudioCaptureDeviceChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
-    def add_DefaultAudioRenderDeviceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DefaultAudioRenderDeviceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_DefaultAudioRenderDeviceChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IModuleCommandResult(ComPtr):
@@ -1599,7 +1590,7 @@ class IVideoDeviceControllerGetDevicePropertyResult(ComPtr):
     @winrt_commethod(6)
     def get_Status(self) -> win32more.Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyStatus: ...
     @winrt_commethod(7)
-    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     Value = property(get_Value, None)
 class IVideoTemporalDenoisingControl(ComPtr):
@@ -1887,11 +1878,11 @@ class MediaDevice(ComPtr):
     @winrt_classmethod
     def GetDefaultAudioRenderId(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, role: win32more.Windows.Media.Devices.AudioDeviceRole) -> WinRT_String: ...
     @winrt_classmethod
-    def add_DefaultAudioCaptureDeviceChanged(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DefaultAudioCaptureDeviceChanged(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_DefaultAudioCaptureDeviceChanged(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def add_DefaultAudioRenderDeviceChanged(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DefaultAudioRenderDeviceChanged(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_DefaultAudioRenderDeviceChanged(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class MediaDeviceControl(ComPtr):
@@ -2154,9 +2145,9 @@ class VideoDeviceController(ComPtr):
     @winrt_mixinmethod
     def SetMediaStreamPropertiesAsync(self: win32more.Windows.Media.Devices.IMediaDeviceController, mediaStreamType: win32more.Windows.Media.Capture.MediaStreamType, mediaEncodingProperties: win32more.Windows.Media.MediaProperties.IMediaEncodingProperties) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
-    def SetDeviceProperty(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def SetDeviceProperty(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def GetDeviceProperty(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController, propertyId: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetDeviceProperty(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController, propertyId: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_LowLagPhotoSequence(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController2) -> win32more.Windows.Media.Devices.LowLagPhotoSequenceControl: ...
     @winrt_mixinmethod
@@ -2206,7 +2197,7 @@ class VideoDeviceController(ComPtr):
     @winrt_mixinmethod
     def GetDevicePropertyById(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController5, propertyId: WinRT_String, maxPropertyValueSize: win32more.Windows.Foundation.IReference[UInt32]) -> win32more.Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyResult: ...
     @winrt_mixinmethod
-    def SetDevicePropertyById(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController5, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Media.Devices.VideoDeviceControllerSetDevicePropertyStatus: ...
+    def SetDevicePropertyById(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController5, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Media.Devices.VideoDeviceControllerSetDevicePropertyStatus: ...
     @winrt_mixinmethod
     def GetDevicePropertyByExtendedId(self: win32more.Windows.Media.Devices.IAdvancedVideoCaptureDeviceController5, extendedPropertyId: Annotated[SZArray[Byte], 'In'], maxPropertyValueSize: win32more.Windows.Foundation.IReference[UInt32]) -> win32more.Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyResult: ...
     @winrt_mixinmethod
@@ -2267,7 +2258,7 @@ class VideoDeviceControllerGetDevicePropertyResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Media.Devices.IVideoDeviceControllerGetDevicePropertyResult) -> win32more.Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyStatus: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Media.Devices.IVideoDeviceControllerGetDevicePropertyResult) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self: win32more.Windows.Media.Devices.IVideoDeviceControllerGetDevicePropertyResult) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     Value = property(get_Value, None)
 VideoDeviceControllerGetDevicePropertyStatus = Int32
@@ -2379,113 +2370,4 @@ ZoomTransitionMode = Int32
 ZoomTransitionMode_Auto: ZoomTransitionMode = 0
 ZoomTransitionMode_Direct: ZoomTransitionMode = 1
 ZoomTransitionMode_Smooth: ZoomTransitionMode = 2
-make_head(_module, 'AdvancedPhotoCaptureSettings')
-make_head(_module, 'AdvancedPhotoControl')
-make_head(_module, 'AudioDeviceController')
-make_head(_module, 'AudioDeviceModule')
-make_head(_module, 'AudioDeviceModuleNotificationEventArgs')
-make_head(_module, 'AudioDeviceModulesManager')
-make_head(_module, 'CallControl')
-make_head(_module, 'CameraOcclusionInfo')
-make_head(_module, 'CameraOcclusionState')
-make_head(_module, 'CameraOcclusionStateChangedEventArgs')
-make_head(_module, 'DefaultAudioCaptureDeviceChangedEventArgs')
-make_head(_module, 'DefaultAudioRenderDeviceChangedEventArgs')
-make_head(_module, 'DialRequestedEventArgs')
-make_head(_module, 'DigitalWindowBounds')
-make_head(_module, 'DigitalWindowCapability')
-make_head(_module, 'DigitalWindowControl')
-make_head(_module, 'ExposureCompensationControl')
-make_head(_module, 'ExposureControl')
-make_head(_module, 'ExposurePriorityVideoControl')
-make_head(_module, 'FlashControl')
-make_head(_module, 'FocusControl')
-make_head(_module, 'FocusSettings')
-make_head(_module, 'HdrVideoControl')
-make_head(_module, 'IAdvancedPhotoCaptureSettings')
-make_head(_module, 'IAdvancedPhotoControl')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController10')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController11')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController2')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController3')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController4')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController5')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController6')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController7')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController8')
-make_head(_module, 'IAdvancedVideoCaptureDeviceController9')
-make_head(_module, 'IAudioDeviceController')
-make_head(_module, 'IAudioDeviceModule')
-make_head(_module, 'IAudioDeviceModuleNotificationEventArgs')
-make_head(_module, 'IAudioDeviceModulesManager')
-make_head(_module, 'IAudioDeviceModulesManagerFactory')
-make_head(_module, 'ICallControl')
-make_head(_module, 'ICallControlStatics')
-make_head(_module, 'ICameraOcclusionInfo')
-make_head(_module, 'ICameraOcclusionState')
-make_head(_module, 'ICameraOcclusionStateChangedEventArgs')
-make_head(_module, 'IDefaultAudioDeviceChangedEventArgs')
-make_head(_module, 'IDialRequestedEventArgs')
-make_head(_module, 'IDigitalWindowBounds')
-make_head(_module, 'IDigitalWindowCapability')
-make_head(_module, 'IDigitalWindowControl')
-make_head(_module, 'IExposureCompensationControl')
-make_head(_module, 'IExposureControl')
-make_head(_module, 'IExposurePriorityVideoControl')
-make_head(_module, 'IFlashControl')
-make_head(_module, 'IFlashControl2')
-make_head(_module, 'IFocusControl')
-make_head(_module, 'IFocusControl2')
-make_head(_module, 'IFocusSettings')
-make_head(_module, 'IHdrVideoControl')
-make_head(_module, 'IInfraredTorchControl')
-make_head(_module, 'IIsoSpeedControl')
-make_head(_module, 'IIsoSpeedControl2')
-make_head(_module, 'IKeypadPressedEventArgs')
-make_head(_module, 'ILowLagPhotoControl')
-make_head(_module, 'ILowLagPhotoSequenceControl')
-make_head(_module, 'IMediaDeviceControl')
-make_head(_module, 'IMediaDeviceControlCapabilities')
-make_head(_module, 'IMediaDeviceController')
-make_head(_module, 'IMediaDeviceStatics')
-make_head(_module, 'IModuleCommandResult')
-make_head(_module, 'IOpticalImageStabilizationControl')
-make_head(_module, 'IPanelBasedOptimizationControl')
-make_head(_module, 'IPhotoConfirmationControl')
-make_head(_module, 'IRedialRequestedEventArgs')
-make_head(_module, 'IRegionOfInterest')
-make_head(_module, 'IRegionOfInterest2')
-make_head(_module, 'IRegionsOfInterestControl')
-make_head(_module, 'ISceneModeControl')
-make_head(_module, 'ITorchControl')
-make_head(_module, 'IVideoDeviceController')
-make_head(_module, 'IVideoDeviceControllerGetDevicePropertyResult')
-make_head(_module, 'IVideoTemporalDenoisingControl')
-make_head(_module, 'IWhiteBalanceControl')
-make_head(_module, 'IZoomControl')
-make_head(_module, 'IZoomControl2')
-make_head(_module, 'IZoomSettings')
-make_head(_module, 'InfraredTorchControl')
-make_head(_module, 'IsoSpeedControl')
-make_head(_module, 'KeypadPressedEventArgs')
-make_head(_module, 'LowLagPhotoControl')
-make_head(_module, 'LowLagPhotoSequenceControl')
-make_head(_module, 'MediaDevice')
-make_head(_module, 'MediaDeviceControl')
-make_head(_module, 'MediaDeviceControlCapabilities')
-make_head(_module, 'ModuleCommandResult')
-make_head(_module, 'OpticalImageStabilizationControl')
-make_head(_module, 'PanelBasedOptimizationControl')
-make_head(_module, 'PhotoConfirmationControl')
-make_head(_module, 'RedialRequestedEventArgs')
-make_head(_module, 'RegionOfInterest')
-make_head(_module, 'RegionsOfInterestControl')
-make_head(_module, 'SceneModeControl')
-make_head(_module, 'TorchControl')
-make_head(_module, 'VideoDeviceController')
-make_head(_module, 'VideoDeviceControllerGetDevicePropertyResult')
-make_head(_module, 'VideoTemporalDenoisingControl')
-make_head(_module, 'WhiteBalanceControl')
-make_head(_module, 'ZoomControl')
-make_head(_module, 'ZoomSettings')
+make_ready(__name__)

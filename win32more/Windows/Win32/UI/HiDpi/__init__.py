@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.UI.Controls
 import win32more.Windows.Win32.UI.HiDpi
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 DPI_AWARENESS_CONTEXT_UNAWARE: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT = -1
 DPI_AWARENESS_CONTEXT_SYSTEM_AWARE: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT = -2
 DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE: win32more.Windows.Win32.UI.HiDpi.DPI_AWARENESS_CONTEXT = -3
@@ -33,11 +24,11 @@ def GetDialogDpiChangeBehavior(hDlg: win32more.Windows.Win32.Foundation.HWND) ->
 @winfunctype('USER32.dll')
 def GetSystemMetricsForDpi(nIndex: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX, dpi: UInt32) -> Int32: ...
 @winfunctype('USER32.dll')
-def AdjustWindowRectExForDpi(lpRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), dwStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE, bMenu: win32more.Windows.Win32.Foundation.BOOL, dwExStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE, dpi: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def AdjustWindowRectExForDpi(lpRect: POINTER(win32more.Windows.Win32.Foundation.RECT), dwStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE, bMenu: win32more.Windows.Win32.Foundation.BOOL, dwExStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE, dpi: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def LogicalToPhysicalPointForPerMonitorDPI(hWnd: win32more.Windows.Win32.Foundation.HWND, lpPoint: POINTER(win32more.Windows.Win32.Foundation.POINT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def LogicalToPhysicalPointForPerMonitorDPI(hWnd: win32more.Windows.Win32.Foundation.HWND, lpPoint: POINTER(win32more.Windows.Win32.Foundation.POINT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def PhysicalToLogicalPointForPerMonitorDPI(hWnd: win32more.Windows.Win32.Foundation.HWND, lpPoint: POINTER(win32more.Windows.Win32.Foundation.POINT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PhysicalToLogicalPointForPerMonitorDPI(hWnd: win32more.Windows.Win32.Foundation.HWND, lpPoint: POINTER(win32more.Windows.Win32.Foundation.POINT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def SystemParametersInfoForDpi(uiAction: UInt32, uiParam: UInt32, pvParam: VoidPtr, fWinIni: UInt32, dpi: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -106,3 +97,4 @@ PROCESS_DPI_AWARENESS = Int32
 PROCESS_DPI_UNAWARE: PROCESS_DPI_AWARENESS = 0
 PROCESS_SYSTEM_DPI_AWARE: PROCESS_DPI_AWARENESS = 1
 PROCESS_PER_MONITOR_DPI_AWARE: PROCESS_DPI_AWARENESS = 2
+make_ready(__name__)

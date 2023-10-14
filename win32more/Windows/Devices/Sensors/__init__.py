@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Sensors
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Display
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class Accelerometer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IAccelerometer
@@ -114,7 +105,7 @@ class AccelerometerReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.IAccelerometerReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.IAccelerometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IAccelerometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     AccelerationX = property(get_AccelerationX, None)
     AccelerationY = property(get_AccelerationY, None)
@@ -261,7 +252,7 @@ class AltimeterReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.IAltimeterReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.IAltimeterReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IAltimeterReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     AltitudeChangeInMeters = property(get_AltitudeChangeInMeters, None)
     PerformanceCount = property(get_PerformanceCount, None)
@@ -331,7 +322,7 @@ class BarometerReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.IBarometerReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.IBarometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IBarometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     StationPressureInHectopascals = property(get_StationPressureInHectopascals, None)
     PerformanceCount = property(get_PerformanceCount, None)
@@ -410,7 +401,7 @@ class CompassReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.ICompassReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.ICompassReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.ICompassReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     HeadingMagneticNorth = property(get_HeadingMagneticNorth, None)
     HeadingTrueNorth = property(get_HeadingTrueNorth, None)
@@ -501,7 +492,7 @@ class GyrometerReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.IGyrometerReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.IGyrometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IGyrometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     AngularVelocityX = property(get_AngularVelocityX, None)
     AngularVelocityY = property(get_AngularVelocityY, None)
@@ -524,7 +515,7 @@ class HingeAngleReading(ComPtr):
     @winrt_mixinmethod
     def get_AngleInDegrees(self: win32more.Windows.Devices.Sensors.IHingeAngleReading) -> Double: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.IHingeAngleReading) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IHingeAngleReading) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     AngleInDegrees = property(get_AngleInDegrees, None)
     Properties = property(get_Properties, None)
@@ -686,7 +677,7 @@ class HumanPresenceSettings(ComPtr):
     @winrt_classmethod
     def GetSupportedLockOnLeaveTimeouts(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSettingsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_classmethod
-    def add_SettingsChanged(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSettingsStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SettingsChanged(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSettingsStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_SettingsChanged(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSettingsStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SensorId = property(get_SensorId, put_SensorId)
@@ -802,7 +793,7 @@ class IAccelerometerReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class IAccelerometerReadingChangedEventArgs(ComPtr):
@@ -961,7 +952,7 @@ class IAltimeterReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class IAltimeterReadingChangedEventArgs(ComPtr):
@@ -1043,7 +1034,7 @@ class IBarometerReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class IBarometerReadingChangedEventArgs(ComPtr):
@@ -1149,7 +1140,7 @@ class ICompassReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class ICompassReadingChangedEventArgs(ComPtr):
@@ -1275,7 +1266,7 @@ class IGyrometerReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class IGyrometerReadingChangedEventArgs(ComPtr):
@@ -1308,7 +1299,7 @@ class IHingeAngleReading(ComPtr):
     @winrt_commethod(7)
     def get_AngleInDegrees(self) -> Double: ...
     @winrt_commethod(8)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     AngleInDegrees = property(get_AngleInDegrees, None)
     Properties = property(get_Properties, None)
@@ -1481,7 +1472,7 @@ class IHumanPresenceSettingsStatics(ComPtr):
     @winrt_commethod(12)
     def GetSupportedLockOnLeaveTimeouts(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(13)
-    def add_SettingsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SettingsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_SettingsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IInclinometer(ComPtr):
@@ -1582,7 +1573,7 @@ class IInclinometerReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class IInclinometerReadingChangedEventArgs(ComPtr):
@@ -1700,7 +1691,7 @@ class ILightSensorReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class ILightSensorReadingChangedEventArgs(ComPtr):
@@ -1822,7 +1813,7 @@ class IMagnetometerReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class IMagnetometerReadingChangedEventArgs(ComPtr):
@@ -1915,7 +1906,7 @@ class IOrientationSensorReading2(ComPtr):
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
 class IOrientationSensorReadingChangedEventArgs(ComPtr):
@@ -2297,7 +2288,7 @@ class InclinometerReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.IInclinometerReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.IInclinometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IInclinometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     PitchDegrees = property(get_PitchDegrees, None)
     RollDegrees = property(get_RollDegrees, None)
@@ -2375,7 +2366,7 @@ class LightSensorReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.ILightSensorReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.ILightSensorReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.ILightSensorReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     IlluminanceInLux = property(get_IlluminanceInLux, None)
     PerformanceCount = property(get_PerformanceCount, None)
@@ -2471,7 +2462,7 @@ class MagnetometerReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.IMagnetometerReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.IMagnetometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IMagnetometerReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     MagneticFieldX = property(get_MagneticFieldX, None)
     MagneticFieldY = property(get_MagneticFieldY, None)
@@ -2552,7 +2543,7 @@ class OrientationSensorReading(ComPtr):
     @winrt_mixinmethod
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.IOrientationSensorReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Sensors.IOrientationSensorReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IOrientationSensorReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     RotationMatrix = property(get_RotationMatrix, None)
     Quaternion = property(get_Quaternion, None)
@@ -2813,204 +2804,4 @@ class SimpleOrientationSensorOrientationChangedEventArgs(ComPtr):
     def get_Orientation(self: win32more.Windows.Devices.Sensors.ISimpleOrientationSensorOrientationChangedEventArgs) -> win32more.Windows.Devices.Sensors.SimpleOrientation: ...
     Timestamp = property(get_Timestamp, None)
     Orientation = property(get_Orientation, None)
-make_head(_module, 'Accelerometer')
-make_head(_module, 'AccelerometerDataThreshold')
-make_head(_module, 'AccelerometerReading')
-make_head(_module, 'AccelerometerReadingChangedEventArgs')
-make_head(_module, 'AccelerometerShakenEventArgs')
-make_head(_module, 'ActivitySensor')
-make_head(_module, 'ActivitySensorReading')
-make_head(_module, 'ActivitySensorReadingChangeReport')
-make_head(_module, 'ActivitySensorReadingChangedEventArgs')
-make_head(_module, 'ActivitySensorTriggerDetails')
-make_head(_module, 'Altimeter')
-make_head(_module, 'AltimeterReading')
-make_head(_module, 'AltimeterReadingChangedEventArgs')
-make_head(_module, 'Barometer')
-make_head(_module, 'BarometerDataThreshold')
-make_head(_module, 'BarometerReading')
-make_head(_module, 'BarometerReadingChangedEventArgs')
-make_head(_module, 'Compass')
-make_head(_module, 'CompassDataThreshold')
-make_head(_module, 'CompassReading')
-make_head(_module, 'CompassReadingChangedEventArgs')
-make_head(_module, 'Gyrometer')
-make_head(_module, 'GyrometerDataThreshold')
-make_head(_module, 'GyrometerReading')
-make_head(_module, 'GyrometerReadingChangedEventArgs')
-make_head(_module, 'HingeAngleReading')
-make_head(_module, 'HingeAngleSensor')
-make_head(_module, 'HingeAngleSensorReadingChangedEventArgs')
-make_head(_module, 'HumanPresenceFeatures')
-make_head(_module, 'HumanPresenceSensor')
-make_head(_module, 'HumanPresenceSensorReading')
-make_head(_module, 'HumanPresenceSensorReadingChangedEventArgs')
-make_head(_module, 'HumanPresenceSettings')
-make_head(_module, 'IAccelerometer')
-make_head(_module, 'IAccelerometer2')
-make_head(_module, 'IAccelerometer3')
-make_head(_module, 'IAccelerometer4')
-make_head(_module, 'IAccelerometer5')
-make_head(_module, 'IAccelerometerDataThreshold')
-make_head(_module, 'IAccelerometerDeviceId')
-make_head(_module, 'IAccelerometerReading')
-make_head(_module, 'IAccelerometerReading2')
-make_head(_module, 'IAccelerometerReadingChangedEventArgs')
-make_head(_module, 'IAccelerometerShakenEventArgs')
-make_head(_module, 'IAccelerometerStatics')
-make_head(_module, 'IAccelerometerStatics2')
-make_head(_module, 'IAccelerometerStatics3')
-make_head(_module, 'IActivitySensor')
-make_head(_module, 'IActivitySensorReading')
-make_head(_module, 'IActivitySensorReadingChangeReport')
-make_head(_module, 'IActivitySensorReadingChangedEventArgs')
-make_head(_module, 'IActivitySensorStatics')
-make_head(_module, 'IActivitySensorTriggerDetails')
-make_head(_module, 'IAltimeter')
-make_head(_module, 'IAltimeter2')
-make_head(_module, 'IAltimeterReading')
-make_head(_module, 'IAltimeterReading2')
-make_head(_module, 'IAltimeterReadingChangedEventArgs')
-make_head(_module, 'IAltimeterStatics')
-make_head(_module, 'IBarometer')
-make_head(_module, 'IBarometer2')
-make_head(_module, 'IBarometer3')
-make_head(_module, 'IBarometerDataThreshold')
-make_head(_module, 'IBarometerReading')
-make_head(_module, 'IBarometerReading2')
-make_head(_module, 'IBarometerReadingChangedEventArgs')
-make_head(_module, 'IBarometerStatics')
-make_head(_module, 'IBarometerStatics2')
-make_head(_module, 'ICompass')
-make_head(_module, 'ICompass2')
-make_head(_module, 'ICompass3')
-make_head(_module, 'ICompass4')
-make_head(_module, 'ICompassDataThreshold')
-make_head(_module, 'ICompassDeviceId')
-make_head(_module, 'ICompassReading')
-make_head(_module, 'ICompassReading2')
-make_head(_module, 'ICompassReadingChangedEventArgs')
-make_head(_module, 'ICompassReadingHeadingAccuracy')
-make_head(_module, 'ICompassStatics')
-make_head(_module, 'ICompassStatics2')
-make_head(_module, 'IGyrometer')
-make_head(_module, 'IGyrometer2')
-make_head(_module, 'IGyrometer3')
-make_head(_module, 'IGyrometer4')
-make_head(_module, 'IGyrometerDataThreshold')
-make_head(_module, 'IGyrometerDeviceId')
-make_head(_module, 'IGyrometerReading')
-make_head(_module, 'IGyrometerReading2')
-make_head(_module, 'IGyrometerReadingChangedEventArgs')
-make_head(_module, 'IGyrometerStatics')
-make_head(_module, 'IGyrometerStatics2')
-make_head(_module, 'IHingeAngleReading')
-make_head(_module, 'IHingeAngleSensor')
-make_head(_module, 'IHingeAngleSensorReadingChangedEventArgs')
-make_head(_module, 'IHingeAngleSensorStatics')
-make_head(_module, 'IHumanPresenceFeatures')
-make_head(_module, 'IHumanPresenceSensor')
-make_head(_module, 'IHumanPresenceSensorReading')
-make_head(_module, 'IHumanPresenceSensorReadingChangedEventArgs')
-make_head(_module, 'IHumanPresenceSensorStatics')
-make_head(_module, 'IHumanPresenceSettings')
-make_head(_module, 'IHumanPresenceSettingsStatics')
-make_head(_module, 'IInclinometer')
-make_head(_module, 'IInclinometer2')
-make_head(_module, 'IInclinometer3')
-make_head(_module, 'IInclinometer4')
-make_head(_module, 'IInclinometerDataThreshold')
-make_head(_module, 'IInclinometerDeviceId')
-make_head(_module, 'IInclinometerReading')
-make_head(_module, 'IInclinometerReading2')
-make_head(_module, 'IInclinometerReadingChangedEventArgs')
-make_head(_module, 'IInclinometerReadingYawAccuracy')
-make_head(_module, 'IInclinometerStatics')
-make_head(_module, 'IInclinometerStatics2')
-make_head(_module, 'IInclinometerStatics3')
-make_head(_module, 'IInclinometerStatics4')
-make_head(_module, 'ILightSensor')
-make_head(_module, 'ILightSensor2')
-make_head(_module, 'ILightSensor3')
-make_head(_module, 'ILightSensorDataThreshold')
-make_head(_module, 'ILightSensorDeviceId')
-make_head(_module, 'ILightSensorReading')
-make_head(_module, 'ILightSensorReading2')
-make_head(_module, 'ILightSensorReadingChangedEventArgs')
-make_head(_module, 'ILightSensorStatics')
-make_head(_module, 'ILightSensorStatics2')
-make_head(_module, 'IMagnetometer')
-make_head(_module, 'IMagnetometer2')
-make_head(_module, 'IMagnetometer3')
-make_head(_module, 'IMagnetometer4')
-make_head(_module, 'IMagnetometerDataThreshold')
-make_head(_module, 'IMagnetometerDeviceId')
-make_head(_module, 'IMagnetometerReading')
-make_head(_module, 'IMagnetometerReading2')
-make_head(_module, 'IMagnetometerReadingChangedEventArgs')
-make_head(_module, 'IMagnetometerStatics')
-make_head(_module, 'IMagnetometerStatics2')
-make_head(_module, 'IOrientationSensor')
-make_head(_module, 'IOrientationSensor2')
-make_head(_module, 'IOrientationSensor3')
-make_head(_module, 'IOrientationSensorDeviceId')
-make_head(_module, 'IOrientationSensorReading')
-make_head(_module, 'IOrientationSensorReading2')
-make_head(_module, 'IOrientationSensorReadingChangedEventArgs')
-make_head(_module, 'IOrientationSensorReadingYawAccuracy')
-make_head(_module, 'IOrientationSensorStatics')
-make_head(_module, 'IOrientationSensorStatics2')
-make_head(_module, 'IOrientationSensorStatics3')
-make_head(_module, 'IOrientationSensorStatics4')
-make_head(_module, 'IPedometer')
-make_head(_module, 'IPedometer2')
-make_head(_module, 'IPedometerDataThresholdFactory')
-make_head(_module, 'IPedometerReading')
-make_head(_module, 'IPedometerReadingChangedEventArgs')
-make_head(_module, 'IPedometerStatics')
-make_head(_module, 'IPedometerStatics2')
-make_head(_module, 'IProximitySensor')
-make_head(_module, 'IProximitySensorDataThresholdFactory')
-make_head(_module, 'IProximitySensorReading')
-make_head(_module, 'IProximitySensorReadingChangedEventArgs')
-make_head(_module, 'IProximitySensorStatics')
-make_head(_module, 'IProximitySensorStatics2')
-make_head(_module, 'ISensorDataThreshold')
-make_head(_module, 'ISensorDataThresholdTriggerDetails')
-make_head(_module, 'ISensorQuaternion')
-make_head(_module, 'ISensorRotationMatrix')
-make_head(_module, 'ISimpleOrientationSensor')
-make_head(_module, 'ISimpleOrientationSensor2')
-make_head(_module, 'ISimpleOrientationSensorDeviceId')
-make_head(_module, 'ISimpleOrientationSensorOrientationChangedEventArgs')
-make_head(_module, 'ISimpleOrientationSensorStatics')
-make_head(_module, 'ISimpleOrientationSensorStatics2')
-make_head(_module, 'Inclinometer')
-make_head(_module, 'InclinometerDataThreshold')
-make_head(_module, 'InclinometerReading')
-make_head(_module, 'InclinometerReadingChangedEventArgs')
-make_head(_module, 'LightSensor')
-make_head(_module, 'LightSensorDataThreshold')
-make_head(_module, 'LightSensorReading')
-make_head(_module, 'LightSensorReadingChangedEventArgs')
-make_head(_module, 'Magnetometer')
-make_head(_module, 'MagnetometerDataThreshold')
-make_head(_module, 'MagnetometerReading')
-make_head(_module, 'MagnetometerReadingChangedEventArgs')
-make_head(_module, 'OrientationSensor')
-make_head(_module, 'OrientationSensorReading')
-make_head(_module, 'OrientationSensorReadingChangedEventArgs')
-make_head(_module, 'Pedometer')
-make_head(_module, 'PedometerDataThreshold')
-make_head(_module, 'PedometerReading')
-make_head(_module, 'PedometerReadingChangedEventArgs')
-make_head(_module, 'ProximitySensor')
-make_head(_module, 'ProximitySensorDataThreshold')
-make_head(_module, 'ProximitySensorDisplayOnOffController')
-make_head(_module, 'ProximitySensorReading')
-make_head(_module, 'ProximitySensorReadingChangedEventArgs')
-make_head(_module, 'SensorDataThresholdTriggerDetails')
-make_head(_module, 'SensorQuaternion')
-make_head(_module, 'SensorRotationMatrix')
-make_head(_module, 'SimpleOrientationSensor')
-make_head(_module, 'SimpleOrientationSensorOrientationChangedEventArgs')
+make_ready(__name__)

@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System.Update
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ISystemUpdateItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Update.ISystemUpdateItem'
@@ -77,7 +68,7 @@ class ISystemUpdateManagerStatics(ComPtr):
     @winrt_commethod(7)
     def get_State(self) -> win32more.Windows.System.Update.SystemUpdateManagerState: ...
     @winrt_commethod(8)
-    def add_StateChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -198,7 +189,7 @@ class SystemUpdateManager(ComPtr, metaclass=_SystemUpdateManager_Meta_):
     @winrt_classmethod
     def get_State(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics) -> win32more.Windows.System.Update.SystemUpdateManagerState: ...
     @winrt_classmethod
-    def add_StateChanged(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_StateChanged(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -268,9 +259,4 @@ SystemUpdateManagerState_Error: SystemUpdateManagerState = 11
 SystemUpdateStartInstallAction = Int32
 SystemUpdateStartInstallAction_UpToReboot: SystemUpdateStartInstallAction = 0
 SystemUpdateStartInstallAction_AllowReboot: SystemUpdateStartInstallAction = 1
-make_head(_module, 'ISystemUpdateItem')
-make_head(_module, 'ISystemUpdateLastErrorInfo')
-make_head(_module, 'ISystemUpdateManagerStatics')
-make_head(_module, 'SystemUpdateItem')
-make_head(_module, 'SystemUpdateLastErrorInfo')
-make_head(_module, 'SystemUpdateManager')
+make_ready(__name__)

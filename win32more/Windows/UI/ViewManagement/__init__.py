@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Enumeration
@@ -23,15 +23,6 @@ import win32more.Windows.UI.Core
 import win32more.Windows.UI.Popups
 import win32more.Windows.UI.ViewManagement
 import win32more.Windows.UI.WindowManagement
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AccessibilitySettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IAccessibilitySettings
@@ -43,7 +34,7 @@ class AccessibilitySettings(ComPtr):
     @winrt_mixinmethod
     def get_HighContrastScheme(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings) -> WinRT_String: ...
     @winrt_mixinmethod
-    def add_HighContrastChanged(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.AccessibilitySettings, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HighContrastChanged(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.AccessibilitySettings, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_HighContrastChanged(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HighContrast = property(get_HighContrast, None)
@@ -95,7 +86,7 @@ class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     @winrt_mixinmethod
     def get_VisibleBounds(self: win32more.Windows.UI.ViewManagement.IApplicationView2) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
-    def add_VisibleBoundsChanged(self: win32more.Windows.UI.ViewManagement.IApplicationView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.ApplicationView, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VisibleBoundsChanged(self: win32more.Windows.UI.ViewManagement.IApplicationView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.ApplicationView, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_VisibleBoundsChanged(self: win32more.Windows.UI.ViewManagement.IApplicationView2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -353,7 +344,7 @@ class IAccessibilitySettings(ComPtr):
     @winrt_commethod(7)
     def get_HighContrastScheme(self) -> WinRT_String: ...
     @winrt_commethod(8)
-    def add_HighContrastChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.AccessibilitySettings, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HighContrastChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.AccessibilitySettings, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_HighContrastChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HighContrast = property(get_HighContrast, None)
@@ -415,7 +406,7 @@ class IApplicationView2(ComPtr):
     @winrt_commethod(8)
     def get_VisibleBounds(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(9)
-    def add_VisibleBoundsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.ApplicationView, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VisibleBoundsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.ApplicationView, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_VisibleBoundsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
@@ -754,7 +745,7 @@ class IProjectionManagerStatics(ComPtr):
     @winrt_commethod(9)
     def get_ProjectionDisplayAvailable(self) -> Boolean: ...
     @winrt_commethod(10)
-    def add_ProjectionDisplayAvailableChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ProjectionDisplayAvailableChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_ProjectionDisplayAvailableChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable, None)
@@ -795,11 +786,11 @@ class IStatusBar(ComPtr):
     @winrt_commethod(15)
     def get_OccludedRect(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(16)
-    def add_Showing(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.StatusBar, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Showing(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.StatusBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_Showing(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
-    def add_Hiding(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.StatusBar, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Hiding(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.StatusBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_Hiding(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BackgroundOpacity = property(get_BackgroundOpacity, put_BackgroundOpacity)
@@ -880,7 +871,7 @@ class IUISettings2(ComPtr):
     @winrt_commethod(6)
     def get_TextScaleFactor(self) -> Double: ...
     @winrt_commethod(7)
-    def add_TextScaleFactorChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TextScaleFactorChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_TextScaleFactorChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     TextScaleFactor = property(get_TextScaleFactor, None)
@@ -891,7 +882,7 @@ class IUISettings3(ComPtr):
     @winrt_commethod(6)
     def GetColorValue(self, desiredColor: win32more.Windows.UI.ViewManagement.UIColorType) -> win32more.Windows.UI.Color: ...
     @winrt_commethod(7)
-    def add_ColorValuesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ColorValuesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_ColorValuesChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IUISettings4(ComPtr):
@@ -901,7 +892,7 @@ class IUISettings4(ComPtr):
     @winrt_commethod(6)
     def get_AdvancedEffectsEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
-    def add_AdvancedEffectsEnabledChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AdvancedEffectsEnabledChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_AdvancedEffectsEnabledChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AdvancedEffectsEnabled = property(get_AdvancedEffectsEnabled, None)
@@ -1035,7 +1026,7 @@ class ProjectionManager(ComPtr, metaclass=_ProjectionManager_Meta_):
     @winrt_classmethod
     def get_ProjectionDisplayAvailable(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics) -> Boolean: ...
     @winrt_classmethod
-    def add_ProjectionDisplayAvailableChanged(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ProjectionDisplayAvailableChanged(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ProjectionDisplayAvailableChanged(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _ProjectionManager_Meta_.ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable.__wrapped__, None)
@@ -1067,11 +1058,11 @@ class StatusBar(ComPtr):
     @winrt_mixinmethod
     def get_OccludedRect(self: win32more.Windows.UI.ViewManagement.IStatusBar) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
-    def add_Showing(self: win32more.Windows.UI.ViewManagement.IStatusBar, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.StatusBar, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Showing(self: win32more.Windows.UI.ViewManagement.IStatusBar, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.StatusBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Showing(self: win32more.Windows.UI.ViewManagement.IStatusBar, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Hiding(self: win32more.Windows.UI.ViewManagement.IStatusBar, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.StatusBar, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Hiding(self: win32more.Windows.UI.ViewManagement.IStatusBar, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.StatusBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Hiding(self: win32more.Windows.UI.ViewManagement.IStatusBar, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -1172,19 +1163,19 @@ class UISettings(ComPtr):
     @winrt_mixinmethod
     def get_TextScaleFactor(self: win32more.Windows.UI.ViewManagement.IUISettings2) -> Double: ...
     @winrt_mixinmethod
-    def add_TextScaleFactorChanged(self: win32more.Windows.UI.ViewManagement.IUISettings2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TextScaleFactorChanged(self: win32more.Windows.UI.ViewManagement.IUISettings2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_TextScaleFactorChanged(self: win32more.Windows.UI.ViewManagement.IUISettings2, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def GetColorValue(self: win32more.Windows.UI.ViewManagement.IUISettings3, desiredColor: win32more.Windows.UI.ViewManagement.UIColorType) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
-    def add_ColorValuesChanged(self: win32more.Windows.UI.ViewManagement.IUISettings3, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ColorValuesChanged(self: win32more.Windows.UI.ViewManagement.IUISettings3, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ColorValuesChanged(self: win32more.Windows.UI.ViewManagement.IUISettings3, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def get_AdvancedEffectsEnabled(self: win32more.Windows.UI.ViewManagement.IUISettings4) -> Boolean: ...
     @winrt_mixinmethod
-    def add_AdvancedEffectsEnabledChanged(self: win32more.Windows.UI.ViewManagement.IUISettings4, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AdvancedEffectsEnabledChanged(self: win32more.Windows.UI.ViewManagement.IUISettings4, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AdvancedEffectsEnabledChanged(self: win32more.Windows.UI.ViewManagement.IUISettings4, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1265,71 +1256,4 @@ ViewSizePreference_UseMore: ViewSizePreference = 3
 ViewSizePreference_UseMinimum: ViewSizePreference = 4
 ViewSizePreference_UseNone: ViewSizePreference = 5
 ViewSizePreference_Custom: ViewSizePreference = 6
-make_head(_module, 'AccessibilitySettings')
-make_head(_module, 'ActivationViewSwitcher')
-make_head(_module, 'ApplicationView')
-make_head(_module, 'ApplicationViewConsolidatedEventArgs')
-make_head(_module, 'ApplicationViewScaling')
-make_head(_module, 'ApplicationViewSwitcher')
-make_head(_module, 'ApplicationViewTitleBar')
-make_head(_module, 'ApplicationViewTransferContext')
-make_head(_module, 'IAccessibilitySettings')
-make_head(_module, 'IActivationViewSwitcher')
-make_head(_module, 'IApplicationView')
-make_head(_module, 'IApplicationView2')
-make_head(_module, 'IApplicationView3')
-make_head(_module, 'IApplicationView4')
-make_head(_module, 'IApplicationView7')
-make_head(_module, 'IApplicationView9')
-make_head(_module, 'IApplicationViewConsolidatedEventArgs')
-make_head(_module, 'IApplicationViewConsolidatedEventArgs2')
-make_head(_module, 'IApplicationViewFullscreenStatics')
-make_head(_module, 'IApplicationViewInteropStatics')
-make_head(_module, 'IApplicationViewScaling')
-make_head(_module, 'IApplicationViewScalingStatics')
-make_head(_module, 'IApplicationViewStatics')
-make_head(_module, 'IApplicationViewStatics2')
-make_head(_module, 'IApplicationViewStatics3')
-make_head(_module, 'IApplicationViewStatics4')
-make_head(_module, 'IApplicationViewSwitcherStatics')
-make_head(_module, 'IApplicationViewSwitcherStatics2')
-make_head(_module, 'IApplicationViewSwitcherStatics3')
-make_head(_module, 'IApplicationViewTitleBar')
-make_head(_module, 'IApplicationViewTransferContext')
-make_head(_module, 'IApplicationViewTransferContextStatics')
-make_head(_module, 'IApplicationViewWithContext')
-make_head(_module, 'IInputPane')
-make_head(_module, 'IInputPane2')
-make_head(_module, 'IInputPaneControl')
-make_head(_module, 'IInputPaneStatics')
-make_head(_module, 'IInputPaneStatics2')
-make_head(_module, 'IInputPaneVisibilityEventArgs')
-make_head(_module, 'IProjectionManagerStatics')
-make_head(_module, 'IProjectionManagerStatics2')
-make_head(_module, 'IStatusBar')
-make_head(_module, 'IStatusBarProgressIndicator')
-make_head(_module, 'IStatusBarStatics')
-make_head(_module, 'IUISettings')
-make_head(_module, 'IUISettings2')
-make_head(_module, 'IUISettings3')
-make_head(_module, 'IUISettings4')
-make_head(_module, 'IUISettings5')
-make_head(_module, 'IUISettings6')
-make_head(_module, 'IUISettingsAnimationsEnabledChangedEventArgs')
-make_head(_module, 'IUISettingsAutoHideScrollBarsChangedEventArgs')
-make_head(_module, 'IUISettingsMessageDurationChangedEventArgs')
-make_head(_module, 'IUIViewSettings')
-make_head(_module, 'IUIViewSettingsStatics')
-make_head(_module, 'IViewModePreferences')
-make_head(_module, 'IViewModePreferencesStatics')
-make_head(_module, 'InputPane')
-make_head(_module, 'InputPaneVisibilityEventArgs')
-make_head(_module, 'ProjectionManager')
-make_head(_module, 'StatusBar')
-make_head(_module, 'StatusBarProgressIndicator')
-make_head(_module, 'UISettings')
-make_head(_module, 'UISettingsAnimationsEnabledChangedEventArgs')
-make_head(_module, 'UISettingsAutoHideScrollBarsChangedEventArgs')
-make_head(_module, 'UISettingsMessageDurationChangedEventArgs')
-make_head(_module, 'UIViewSettings')
-make_head(_module, 'ViewModePreferences')
+make_ready(__name__)

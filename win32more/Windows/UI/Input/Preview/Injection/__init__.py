@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.Input
 import win32more.Windows.UI.Input.Preview.Injection
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IInjectedInputGamepadInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfo'
@@ -517,22 +508,4 @@ class InputInjector(ComPtr):
     def TryCreateForAppBroadcastOnly(cls: win32more.Windows.UI.Input.Preview.Injection.IInputInjectorStatics2) -> win32more.Windows.UI.Input.Preview.Injection.InputInjector: ...
     @winrt_classmethod
     def TryCreate(cls: win32more.Windows.UI.Input.Preview.Injection.IInputInjectorStatics) -> win32more.Windows.UI.Input.Preview.Injection.InputInjector: ...
-make_head(_module, 'IInjectedInputGamepadInfo')
-make_head(_module, 'IInjectedInputGamepadInfoFactory')
-make_head(_module, 'IInjectedInputKeyboardInfo')
-make_head(_module, 'IInjectedInputMouseInfo')
-make_head(_module, 'IInjectedInputPenInfo')
-make_head(_module, 'IInjectedInputTouchInfo')
-make_head(_module, 'IInputInjector')
-make_head(_module, 'IInputInjector2')
-make_head(_module, 'IInputInjectorStatics')
-make_head(_module, 'IInputInjectorStatics2')
-make_head(_module, 'InjectedInputGamepadInfo')
-make_head(_module, 'InjectedInputKeyboardInfo')
-make_head(_module, 'InjectedInputMouseInfo')
-make_head(_module, 'InjectedInputPenInfo')
-make_head(_module, 'InjectedInputPoint')
-make_head(_module, 'InjectedInputPointerInfo')
-make_head(_module, 'InjectedInputRectangle')
-make_head(_module, 'InjectedInputTouchInfo')
-make_head(_module, 'InputInjector')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Numerics
 import win32more.Windows.UI.Composition
 import win32more.Windows.UI.Composition.Interactions
 import win32more.Windows.UI.Input
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CompositionConditionalValue(ComPtr):
     extends: win32more.Windows.UI.Composition.CompositionObject
     default_interface: win32more.Windows.UI.Composition.Interactions.ICompositionConditionalValue
@@ -967,62 +958,4 @@ VisualInteractionSourceRedirectionMode_Off: VisualInteractionSourceRedirectionMo
 VisualInteractionSourceRedirectionMode_CapableTouchpadOnly: VisualInteractionSourceRedirectionMode = 1
 VisualInteractionSourceRedirectionMode_PointerWheelOnly: VisualInteractionSourceRedirectionMode = 2
 VisualInteractionSourceRedirectionMode_CapableTouchpadAndPointerWheel: VisualInteractionSourceRedirectionMode = 3
-make_head(_module, 'CompositionConditionalValue')
-make_head(_module, 'CompositionInteractionSourceCollection')
-make_head(_module, 'ICompositionConditionalValue')
-make_head(_module, 'ICompositionConditionalValueStatics')
-make_head(_module, 'ICompositionInteractionSource')
-make_head(_module, 'ICompositionInteractionSourceCollection')
-make_head(_module, 'IInteractionSourceConfiguration')
-make_head(_module, 'IInteractionTracker')
-make_head(_module, 'IInteractionTracker2')
-make_head(_module, 'IInteractionTracker3')
-make_head(_module, 'IInteractionTracker4')
-make_head(_module, 'IInteractionTracker5')
-make_head(_module, 'IInteractionTrackerCustomAnimationStateEnteredArgs')
-make_head(_module, 'IInteractionTrackerCustomAnimationStateEnteredArgs2')
-make_head(_module, 'IInteractionTrackerIdleStateEnteredArgs')
-make_head(_module, 'IInteractionTrackerIdleStateEnteredArgs2')
-make_head(_module, 'IInteractionTrackerInertiaModifier')
-make_head(_module, 'IInteractionTrackerInertiaModifierFactory')
-make_head(_module, 'IInteractionTrackerInertiaMotion')
-make_head(_module, 'IInteractionTrackerInertiaMotionStatics')
-make_head(_module, 'IInteractionTrackerInertiaNaturalMotion')
-make_head(_module, 'IInteractionTrackerInertiaNaturalMotionStatics')
-make_head(_module, 'IInteractionTrackerInertiaRestingValue')
-make_head(_module, 'IInteractionTrackerInertiaRestingValueStatics')
-make_head(_module, 'IInteractionTrackerInertiaStateEnteredArgs')
-make_head(_module, 'IInteractionTrackerInertiaStateEnteredArgs2')
-make_head(_module, 'IInteractionTrackerInertiaStateEnteredArgs3')
-make_head(_module, 'IInteractionTrackerInteractingStateEnteredArgs')
-make_head(_module, 'IInteractionTrackerInteractingStateEnteredArgs2')
-make_head(_module, 'IInteractionTrackerOwner')
-make_head(_module, 'IInteractionTrackerRequestIgnoredArgs')
-make_head(_module, 'IInteractionTrackerStatics')
-make_head(_module, 'IInteractionTrackerStatics2')
-make_head(_module, 'IInteractionTrackerValuesChangedArgs')
-make_head(_module, 'IInteractionTrackerVector2InertiaModifier')
-make_head(_module, 'IInteractionTrackerVector2InertiaModifierFactory')
-make_head(_module, 'IInteractionTrackerVector2InertiaNaturalMotion')
-make_head(_module, 'IInteractionTrackerVector2InertiaNaturalMotionStatics')
-make_head(_module, 'IVisualInteractionSource')
-make_head(_module, 'IVisualInteractionSource2')
-make_head(_module, 'IVisualInteractionSource3')
-make_head(_module, 'IVisualInteractionSourceObjectFactory')
-make_head(_module, 'IVisualInteractionSourceStatics')
-make_head(_module, 'IVisualInteractionSourceStatics2')
-make_head(_module, 'InteractionSourceConfiguration')
-make_head(_module, 'InteractionTracker')
-make_head(_module, 'InteractionTrackerCustomAnimationStateEnteredArgs')
-make_head(_module, 'InteractionTrackerIdleStateEnteredArgs')
-make_head(_module, 'InteractionTrackerInertiaModifier')
-make_head(_module, 'InteractionTrackerInertiaMotion')
-make_head(_module, 'InteractionTrackerInertiaNaturalMotion')
-make_head(_module, 'InteractionTrackerInertiaRestingValue')
-make_head(_module, 'InteractionTrackerInertiaStateEnteredArgs')
-make_head(_module, 'InteractionTrackerInteractingStateEnteredArgs')
-make_head(_module, 'InteractionTrackerRequestIgnoredArgs')
-make_head(_module, 'InteractionTrackerValuesChangedArgs')
-make_head(_module, 'InteractionTrackerVector2InertiaModifier')
-make_head(_module, 'InteractionTrackerVector2InertiaNaturalMotion')
-make_head(_module, 'VisualInteractionSource')
+make_ready(__name__)

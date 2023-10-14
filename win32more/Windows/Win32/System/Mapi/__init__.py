@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Mapi
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 MAPI_OLE: UInt32 = 1
 MAPI_OLE_STATIC: UInt32 = 2
 MAPI_ORIG: UInt32 = 0
@@ -70,11 +61,11 @@ MAPI_E_ATTACHMENT_TOO_LARGE: UInt32 = 28
 @winfunctype('MAPI32.dll')
 def MAPIFreeBuffer(pv: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPIADDRESS(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszCaption: win32more.Windows.Win32.Foundation.PSTR, nEditFields: UInt32, lpszLabels: win32more.Windows.Win32.Foundation.PSTR, nRecips: UInt32, lpRecips: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc_head), flFlags: UInt32, ulReserved: UInt32, lpnNewRecips: POINTER(UInt32), lppNewRecips: POINTER(POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc_head))) -> UInt32: ...
+def LPMAPIADDRESS(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszCaption: win32more.Windows.Win32.Foundation.PSTR, nEditFields: UInt32, lpszLabels: win32more.Windows.Win32.Foundation.PSTR, nRecips: UInt32, lpRecips: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc), flFlags: UInt32, ulReserved: UInt32, lpnNewRecips: POINTER(UInt32), lppNewRecips: POINTER(POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc))) -> UInt32: ...
 @winfunctype_pointer
 def LPMAPIDELETEMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszMessageID: win32more.Windows.Win32.Foundation.PSTR, flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPIDETAILS(lhSession: UIntPtr, ulUIParam: UIntPtr, lpRecip: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc_head), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
+def LPMAPIDETAILS(lhSession: UIntPtr, ulUIParam: UIntPtr, lpRecip: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
 @winfunctype_pointer
 def LPMAPIFINDNEXT(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszMessageType: win32more.Windows.Win32.Foundation.PSTR, lpszSeedMessageID: win32more.Windows.Win32.Foundation.PSTR, flFlags: UInt32, ulReserved: UInt32, lpszMessageID: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype_pointer
@@ -84,17 +75,17 @@ def LPMAPILOGOFF(lhSession: UIntPtr, ulUIParam: UIntPtr, flFlags: UInt32, ulRese
 @winfunctype_pointer
 def LPMAPILOGON(ulUIParam: UIntPtr, lpszProfileName: win32more.Windows.Win32.Foundation.PSTR, lpszPassword: win32more.Windows.Win32.Foundation.PSTR, flFlags: UInt32, ulReserved: UInt32, lplhSession: POINTER(UIntPtr)) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPIREADMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszMessageID: win32more.Windows.Win32.Foundation.PSTR, flFlags: UInt32, ulReserved: UInt32, lppMessage: POINTER(POINTER(win32more.Windows.Win32.System.Mapi.MapiMessage_head))) -> UInt32: ...
+def LPMAPIREADMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszMessageID: win32more.Windows.Win32.Foundation.PSTR, flFlags: UInt32, ulReserved: UInt32, lppMessage: POINTER(POINTER(win32more.Windows.Win32.System.Mapi.MapiMessage))) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPIRESOLVENAME(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszName: win32more.Windows.Win32.Foundation.PSTR, flFlags: UInt32, ulReserved: UInt32, lppRecip: POINTER(POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc_head))) -> UInt32: ...
+def LPMAPIRESOLVENAME(lhSession: UIntPtr, ulUIParam: UIntPtr, lpszName: win32more.Windows.Win32.Foundation.PSTR, flFlags: UInt32, ulReserved: UInt32, lppRecip: POINTER(POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc))) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPISAVEMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessage_head), flFlags: UInt32, ulReserved: UInt32, lpszMessageID: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
+def LPMAPISAVEMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessage), flFlags: UInt32, ulReserved: UInt32, lpszMessageID: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype_pointer
 def LPMAPISENDDOCUMENTS(ulUIParam: UIntPtr, lpszDelimChar: win32more.Windows.Win32.Foundation.PSTR, lpszFilePaths: win32more.Windows.Win32.Foundation.PSTR, lpszFileNames: win32more.Windows.Win32.Foundation.PSTR, ulReserved: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPISENDMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessage_head), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
+def LPMAPISENDMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessage), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPISENDMAILW(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessageW_head), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
+def LPMAPISENDMAILW(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessageW), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
 class MapiFileDesc(EasyCastStructure):
     ulReserved: UInt32
     flFlags: UInt32
@@ -123,11 +114,11 @@ class MapiMessage(EasyCastStructure):
     lpszDateReceived: win32more.Windows.Win32.Foundation.PSTR
     lpszConversationID: win32more.Windows.Win32.Foundation.PSTR
     flFlags: UInt32
-    lpOriginator: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc_head)
+    lpOriginator: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc)
     nRecipCount: UInt32
-    lpRecips: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc_head)
+    lpRecips: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc)
     nFileCount: UInt32
-    lpFiles: POINTER(win32more.Windows.Win32.System.Mapi.MapiFileDesc_head)
+    lpFiles: POINTER(win32more.Windows.Win32.System.Mapi.MapiFileDesc)
 class MapiMessageW(EasyCastStructure):
     ulReserved: UInt32
     lpszSubject: win32more.Windows.Win32.Foundation.PWSTR
@@ -136,11 +127,11 @@ class MapiMessageW(EasyCastStructure):
     lpszDateReceived: win32more.Windows.Win32.Foundation.PWSTR
     lpszConversationID: win32more.Windows.Win32.Foundation.PWSTR
     flFlags: UInt32
-    lpOriginator: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDescW_head)
+    lpOriginator: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDescW)
     nRecipCount: UInt32
-    lpRecips: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDescW_head)
+    lpRecips: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDescW)
     nFileCount: UInt32
-    lpFiles: POINTER(win32more.Windows.Win32.System.Mapi.MapiFileDescW_head)
+    lpFiles: POINTER(win32more.Windows.Win32.System.Mapi.MapiFileDescW)
 class MapiRecipDesc(EasyCastStructure):
     ulReserved: UInt32
     ulRecipClass: UInt32
@@ -155,23 +146,4 @@ class MapiRecipDescW(EasyCastStructure):
     lpszAddress: win32more.Windows.Win32.Foundation.PWSTR
     ulEIDSize: UInt32
     lpEntryID: VoidPtr
-make_head(_module, 'LPMAPIADDRESS')
-make_head(_module, 'LPMAPIDELETEMAIL')
-make_head(_module, 'LPMAPIDETAILS')
-make_head(_module, 'LPMAPIFINDNEXT')
-make_head(_module, 'LPMAPIFREEBUFFER')
-make_head(_module, 'LPMAPILOGOFF')
-make_head(_module, 'LPMAPILOGON')
-make_head(_module, 'LPMAPIREADMAIL')
-make_head(_module, 'LPMAPIRESOLVENAME')
-make_head(_module, 'LPMAPISAVEMAIL')
-make_head(_module, 'LPMAPISENDDOCUMENTS')
-make_head(_module, 'LPMAPISENDMAIL')
-make_head(_module, 'LPMAPISENDMAILW')
-make_head(_module, 'MapiFileDesc')
-make_head(_module, 'MapiFileDescW')
-make_head(_module, 'MapiFileTagExt')
-make_head(_module, 'MapiMessage')
-make_head(_module, 'MapiMessageW')
-make_head(_module, 'MapiRecipDesc')
-make_head(_module, 'MapiRecipDescW')
+make_ready(__name__)

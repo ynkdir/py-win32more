@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.UI.Text
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CaretType = Int32
 CaretType_Normal: CaretType = 0
 CaretType_Null: CaretType = 1
@@ -649,9 +640,9 @@ class ITextRange(ComPtr):
     @winrt_commethod(37)
     def GetIndex(self, unit: win32more.Windows.UI.Text.TextRangeUnit) -> Int32: ...
     @winrt_commethod(38)
-    def GetPoint(self, horizontalAlign: win32more.Windows.UI.Text.HorizontalCharacterAlignment, verticalAlign: win32more.Windows.UI.Text.VerticalCharacterAlignment, options: win32more.Windows.UI.Text.PointOptions, point: POINTER(win32more.Windows.Foundation.Point_head)) -> Void: ...
+    def GetPoint(self, horizontalAlign: win32more.Windows.UI.Text.HorizontalCharacterAlignment, verticalAlign: win32more.Windows.UI.Text.VerticalCharacterAlignment, options: win32more.Windows.UI.Text.PointOptions, point: POINTER(win32more.Windows.Foundation.Point)) -> Void: ...
     @winrt_commethod(39)
-    def GetRect(self, options: win32more.Windows.UI.Text.PointOptions, rect: POINTER(win32more.Windows.Foundation.Rect_head), hit: POINTER(Int32)) -> Void: ...
+    def GetRect(self, options: win32more.Windows.UI.Text.PointOptions, rect: POINTER(win32more.Windows.Foundation.Rect), hit: POINTER(Int32)) -> Void: ...
     @winrt_commethod(40)
     def GetText(self, options: win32more.Windows.UI.Text.TextGetOptions, value: POINTER(WinRT_String)) -> Void: ...
     @winrt_commethod(41)
@@ -976,9 +967,9 @@ class RichEditTextRange(ComPtr):
     @winrt_mixinmethod
     def GetIndex(self: win32more.Windows.UI.Text.ITextRange, unit: win32more.Windows.UI.Text.TextRangeUnit) -> Int32: ...
     @winrt_mixinmethod
-    def GetPoint(self: win32more.Windows.UI.Text.ITextRange, horizontalAlign: win32more.Windows.UI.Text.HorizontalCharacterAlignment, verticalAlign: win32more.Windows.UI.Text.VerticalCharacterAlignment, options: win32more.Windows.UI.Text.PointOptions, point: POINTER(win32more.Windows.Foundation.Point_head)) -> Void: ...
+    def GetPoint(self: win32more.Windows.UI.Text.ITextRange, horizontalAlign: win32more.Windows.UI.Text.HorizontalCharacterAlignment, verticalAlign: win32more.Windows.UI.Text.VerticalCharacterAlignment, options: win32more.Windows.UI.Text.PointOptions, point: POINTER(win32more.Windows.Foundation.Point)) -> Void: ...
     @winrt_mixinmethod
-    def GetRect(self: win32more.Windows.UI.Text.ITextRange, options: win32more.Windows.UI.Text.PointOptions, rect: POINTER(win32more.Windows.Foundation.Rect_head), hit: POINTER(Int32)) -> Void: ...
+    def GetRect(self: win32more.Windows.UI.Text.ITextRange, options: win32more.Windows.UI.Text.PointOptions, rect: POINTER(win32more.Windows.Foundation.Rect), hit: POINTER(Int32)) -> Void: ...
     @winrt_mixinmethod
     def GetText(self: win32more.Windows.UI.Text.ITextRange, options: win32more.Windows.UI.Text.TextGetOptions, value: POINTER(WinRT_String)) -> Void: ...
     @winrt_mixinmethod
@@ -1227,22 +1218,4 @@ VerticalCharacterAlignment = Int32
 VerticalCharacterAlignment_Top: VerticalCharacterAlignment = 0
 VerticalCharacterAlignment_Baseline: VerticalCharacterAlignment = 1
 VerticalCharacterAlignment_Bottom: VerticalCharacterAlignment = 2
-make_head(_module, 'ContentLinkInfo')
-make_head(_module, 'FontWeight')
-make_head(_module, 'FontWeights')
-make_head(_module, 'IContentLinkInfo')
-make_head(_module, 'IFontWeights')
-make_head(_module, 'IFontWeightsStatics')
-make_head(_module, 'IRichEditTextRange')
-make_head(_module, 'ITextCharacterFormat')
-make_head(_module, 'ITextConstantsStatics')
-make_head(_module, 'ITextDocument')
-make_head(_module, 'ITextDocument2')
-make_head(_module, 'ITextDocument3')
-make_head(_module, 'ITextDocument4')
-make_head(_module, 'ITextParagraphFormat')
-make_head(_module, 'ITextRange')
-make_head(_module, 'ITextSelection')
-make_head(_module, 'RichEditTextDocument')
-make_head(_module, 'RichEditTextRange')
-make_head(_module, 'TextConstants')
+make_ready(__name__)

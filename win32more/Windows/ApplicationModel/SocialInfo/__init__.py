@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.SocialInfo
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ISocialFeedChildItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedChildItem'
@@ -408,15 +399,4 @@ class SocialUserInfo(ComPtr):
     UserName = property(get_UserName, put_UserName)
     RemoteId = property(get_RemoteId, put_RemoteId)
     TargetUri = property(get_TargetUri, put_TargetUri)
-make_head(_module, 'ISocialFeedChildItem')
-make_head(_module, 'ISocialFeedContent')
-make_head(_module, 'ISocialFeedItem')
-make_head(_module, 'ISocialFeedSharedItem')
-make_head(_module, 'ISocialItemThumbnail')
-make_head(_module, 'ISocialUserInfo')
-make_head(_module, 'SocialFeedChildItem')
-make_head(_module, 'SocialFeedContent')
-make_head(_module, 'SocialFeedItem')
-make_head(_module, 'SocialFeedSharedItem')
-make_head(_module, 'SocialItemThumbnail')
-make_head(_module, 'SocialUserInfo')
+make_ready(__name__)

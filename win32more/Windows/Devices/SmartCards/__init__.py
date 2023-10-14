@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.SmartCards
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Cryptography.Core
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CardAddedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ICardAddedEventArgs
@@ -1512,85 +1503,4 @@ SmartCardUnlockPromptingBehavior = Int32
 SmartCardUnlockPromptingBehavior_AllowUnlockPrompt: SmartCardUnlockPromptingBehavior = 0
 SmartCardUnlockPromptingBehavior_RequireUnlockPrompt: SmartCardUnlockPromptingBehavior = 1
 SmartCardUnlockPromptingBehavior_PreventUnlockPrompt: SmartCardUnlockPromptingBehavior = 2
-make_head(_module, 'CardAddedEventArgs')
-make_head(_module, 'CardRemovedEventArgs')
-make_head(_module, 'ICardAddedEventArgs')
-make_head(_module, 'ICardRemovedEventArgs')
-make_head(_module, 'IKnownSmartCardAppletIds')
-make_head(_module, 'ISmartCard')
-make_head(_module, 'ISmartCardAppletIdGroup')
-make_head(_module, 'ISmartCardAppletIdGroup2')
-make_head(_module, 'ISmartCardAppletIdGroupFactory')
-make_head(_module, 'ISmartCardAppletIdGroupRegistration')
-make_head(_module, 'ISmartCardAppletIdGroupRegistration2')
-make_head(_module, 'ISmartCardAppletIdGroupStatics')
-make_head(_module, 'ISmartCardAutomaticResponseApdu')
-make_head(_module, 'ISmartCardAutomaticResponseApdu2')
-make_head(_module, 'ISmartCardAutomaticResponseApdu3')
-make_head(_module, 'ISmartCardAutomaticResponseApduFactory')
-make_head(_module, 'ISmartCardChallengeContext')
-make_head(_module, 'ISmartCardConnect')
-make_head(_module, 'ISmartCardConnection')
-make_head(_module, 'ISmartCardCryptogramGenerator')
-make_head(_module, 'ISmartCardCryptogramGenerator2')
-make_head(_module, 'ISmartCardCryptogramGeneratorStatics')
-make_head(_module, 'ISmartCardCryptogramGeneratorStatics2')
-make_head(_module, 'ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult')
-make_head(_module, 'ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult')
-make_head(_module, 'ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult')
-make_head(_module, 'ISmartCardCryptogramMaterialCharacteristics')
-make_head(_module, 'ISmartCardCryptogramMaterialPackageCharacteristics')
-make_head(_module, 'ISmartCardCryptogramMaterialPossessionProof')
-make_head(_module, 'ISmartCardCryptogramPlacementStep')
-make_head(_module, 'ISmartCardCryptogramStorageKeyCharacteristics')
-make_head(_module, 'ISmartCardCryptogramStorageKeyInfo')
-make_head(_module, 'ISmartCardCryptogramStorageKeyInfo2')
-make_head(_module, 'ISmartCardEmulator')
-make_head(_module, 'ISmartCardEmulator2')
-make_head(_module, 'ISmartCardEmulatorApduReceivedEventArgs')
-make_head(_module, 'ISmartCardEmulatorApduReceivedEventArgs2')
-make_head(_module, 'ISmartCardEmulatorApduReceivedEventArgsWithCryptograms')
-make_head(_module, 'ISmartCardEmulatorConnectionDeactivatedEventArgs')
-make_head(_module, 'ISmartCardEmulatorConnectionProperties')
-make_head(_module, 'ISmartCardEmulatorStatics')
-make_head(_module, 'ISmartCardEmulatorStatics2')
-make_head(_module, 'ISmartCardEmulatorStatics3')
-make_head(_module, 'ISmartCardPinPolicy')
-make_head(_module, 'ISmartCardPinResetDeferral')
-make_head(_module, 'ISmartCardPinResetRequest')
-make_head(_module, 'ISmartCardProvisioning')
-make_head(_module, 'ISmartCardProvisioning2')
-make_head(_module, 'ISmartCardProvisioningStatics')
-make_head(_module, 'ISmartCardProvisioningStatics2')
-make_head(_module, 'ISmartCardReader')
-make_head(_module, 'ISmartCardReaderStatics')
-make_head(_module, 'ISmartCardTriggerDetails')
-make_head(_module, 'ISmartCardTriggerDetails2')
-make_head(_module, 'ISmartCardTriggerDetails3')
-make_head(_module, 'KnownSmartCardAppletIds')
-make_head(_module, 'SmartCard')
-make_head(_module, 'SmartCardAppletIdGroup')
-make_head(_module, 'SmartCardAppletIdGroupRegistration')
-make_head(_module, 'SmartCardAutomaticResponseApdu')
-make_head(_module, 'SmartCardChallengeContext')
-make_head(_module, 'SmartCardConnection')
-make_head(_module, 'SmartCardCryptogramGenerator')
-make_head(_module, 'SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult')
-make_head(_module, 'SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult')
-make_head(_module, 'SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult')
-make_head(_module, 'SmartCardCryptogramMaterialCharacteristics')
-make_head(_module, 'SmartCardCryptogramMaterialPackageCharacteristics')
-make_head(_module, 'SmartCardCryptogramMaterialPossessionProof')
-make_head(_module, 'SmartCardCryptogramPlacementStep')
-make_head(_module, 'SmartCardCryptogramStorageKeyCharacteristics')
-make_head(_module, 'SmartCardCryptogramStorageKeyInfo')
-make_head(_module, 'SmartCardEmulator')
-make_head(_module, 'SmartCardEmulatorApduReceivedEventArgs')
-make_head(_module, 'SmartCardEmulatorConnectionDeactivatedEventArgs')
-make_head(_module, 'SmartCardEmulatorConnectionProperties')
-make_head(_module, 'SmartCardPinPolicy')
-make_head(_module, 'SmartCardPinResetDeferral')
-make_head(_module, 'SmartCardPinResetRequest')
-make_head(_module, 'SmartCardProvisioning')
-make_head(_module, 'SmartCardReader')
-make_head(_module, 'SmartCardTriggerDetails')
+make_ready(__name__)

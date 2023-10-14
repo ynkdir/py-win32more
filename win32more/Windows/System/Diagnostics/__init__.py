@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Data.Json
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.System.Diagnostics
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class DiagnosticActionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IDiagnosticActionResult
@@ -481,38 +472,4 @@ class SystemMemoryUsageReport(ComPtr):
     TotalPhysicalSizeInBytes = property(get_TotalPhysicalSizeInBytes, None)
     AvailableSizeInBytes = property(get_AvailableSizeInBytes, None)
     CommittedSizeInBytes = property(get_CommittedSizeInBytes, None)
-make_head(_module, 'DiagnosticActionResult')
-make_head(_module, 'DiagnosticInvoker')
-make_head(_module, 'IDiagnosticActionResult')
-make_head(_module, 'IDiagnosticInvoker')
-make_head(_module, 'IDiagnosticInvoker2')
-make_head(_module, 'IDiagnosticInvokerStatics')
-make_head(_module, 'IProcessCpuUsage')
-make_head(_module, 'IProcessCpuUsageReport')
-make_head(_module, 'IProcessDiagnosticInfo')
-make_head(_module, 'IProcessDiagnosticInfo2')
-make_head(_module, 'IProcessDiagnosticInfoStatics')
-make_head(_module, 'IProcessDiagnosticInfoStatics2')
-make_head(_module, 'IProcessDiskUsage')
-make_head(_module, 'IProcessDiskUsageReport')
-make_head(_module, 'IProcessMemoryUsage')
-make_head(_module, 'IProcessMemoryUsageReport')
-make_head(_module, 'ISystemCpuUsage')
-make_head(_module, 'ISystemCpuUsageReport')
-make_head(_module, 'ISystemDiagnosticInfo')
-make_head(_module, 'ISystemDiagnosticInfoStatics')
-make_head(_module, 'ISystemDiagnosticInfoStatics2')
-make_head(_module, 'ISystemMemoryUsage')
-make_head(_module, 'ISystemMemoryUsageReport')
-make_head(_module, 'ProcessCpuUsage')
-make_head(_module, 'ProcessCpuUsageReport')
-make_head(_module, 'ProcessDiagnosticInfo')
-make_head(_module, 'ProcessDiskUsage')
-make_head(_module, 'ProcessDiskUsageReport')
-make_head(_module, 'ProcessMemoryUsage')
-make_head(_module, 'ProcessMemoryUsageReport')
-make_head(_module, 'SystemCpuUsage')
-make_head(_module, 'SystemCpuUsageReport')
-make_head(_module, 'SystemDiagnosticInfo')
-make_head(_module, 'SystemMemoryUsage')
-make_head(_module, 'SystemMemoryUsageReport')
+make_ready(__name__)

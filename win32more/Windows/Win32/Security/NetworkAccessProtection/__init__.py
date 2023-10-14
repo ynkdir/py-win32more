@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.NetworkAccessProtection
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 maxSoHAttributeCount: UInt32 = 100
 maxSoHAttributeSize: UInt32 = 4000
 minNetworkSoHSize: UInt32 = 12
@@ -106,7 +97,7 @@ class ResultCodes(EasyCastStructure):
     results: POINTER(win32more.Windows.Win32.Foundation.HRESULT)
 class SoH(EasyCastStructure):
     count: UInt16
-    attributes: POINTER(win32more.Windows.Win32.Security.NetworkAccessProtection.SoHAttribute_head)
+    attributes: POINTER(win32more.Windows.Win32.Security.NetworkAccessProtection.SoHAttribute)
 class SoHAttribute(EasyCastStructure):
     type: UInt16
     size: UInt16
@@ -116,18 +107,4 @@ class SystemHealthAgentState(EasyCastStructure):
     shaResultCodes: win32more.Windows.Win32.Security.NetworkAccessProtection.ResultCodes
     failureCategory: win32more.Windows.Win32.Security.NetworkAccessProtection.FailureCategory
     fixupInfo: win32more.Windows.Win32.Security.NetworkAccessProtection.FixupInfo
-make_head(_module, 'CorrelationId')
-make_head(_module, 'CountedString')
-make_head(_module, 'FailureCategoryMapping')
-make_head(_module, 'FixupInfo')
-make_head(_module, 'Ipv4Address')
-make_head(_module, 'Ipv6Address')
-make_head(_module, 'IsolationInfo')
-make_head(_module, 'IsolationInfoEx')
-make_head(_module, 'NapComponentRegistrationInfo')
-make_head(_module, 'NetworkSoH')
-make_head(_module, 'PrivateData')
-make_head(_module, 'ResultCodes')
-make_head(_module, 'SoH')
-make_head(_module, 'SoHAttribute')
-make_head(_module, 'SystemHealthAgentState')
+make_ready(__name__)

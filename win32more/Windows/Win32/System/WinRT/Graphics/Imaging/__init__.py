@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Imaging
 import win32more.Windows.Win32.Media.MediaFoundation
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Win32.System.WinRT.Graphics.Imaging
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CLSID_SoftwareBitmapNativeFactory: Guid = Guid('{84e65691-8602-4a84-be46-708be9cd4b74}')
 class ISoftwareBitmapNative(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -25,8 +16,7 @@ class ISoftwareBitmapNativeFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('{c3c181ec-2914-4791-af02-02d224a10b43}')
     @commethod(6)
-    def CreateFromWICBitmap(self, data: win32more.Windows.Win32.Graphics.Imaging.IWICBitmap_head, forceReadOnly: win32more.Windows.Win32.Foundation.BOOL, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateFromWICBitmap(self, data: win32more.Windows.Win32.Graphics.Imaging.IWICBitmap, forceReadOnly: win32more.Windows.Win32.Foundation.BOOL, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def CreateFromMF2DBuffer2(self, data: win32more.Windows.Win32.Media.MediaFoundation.IMF2DBuffer2_head, subtype: POINTER(Guid), width: UInt32, height: UInt32, forceReadOnly: win32more.Windows.Win32.Foundation.BOOL, minDisplayAperture: POINTER(win32more.Windows.Win32.Media.MediaFoundation.MFVideoArea_head), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'ISoftwareBitmapNative')
-make_head(_module, 'ISoftwareBitmapNativeFactory')
+    def CreateFromMF2DBuffer2(self, data: win32more.Windows.Win32.Media.MediaFoundation.IMF2DBuffer2, subtype: POINTER(Guid), width: UInt32, height: UInt32, forceReadOnly: win32more.Windows.Win32.Foundation.BOOL, minDisplayAperture: POINTER(win32more.Windows.Win32.Media.MediaFoundation.MFVideoArea), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+make_ready(__name__)

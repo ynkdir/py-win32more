@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Payments
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPaymentAddress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Payments.IPaymentAddress'
@@ -874,51 +865,4 @@ class PaymentToken(ComPtr):
     def get_JsonDetails(self: win32more.Windows.ApplicationModel.Payments.IPaymentToken) -> WinRT_String: ...
     PaymentMethodId = property(get_PaymentMethodId, None)
     JsonDetails = property(get_JsonDetails, None)
-make_head(_module, 'IPaymentAddress')
-make_head(_module, 'IPaymentCanMakePaymentResult')
-make_head(_module, 'IPaymentCanMakePaymentResultFactory')
-make_head(_module, 'IPaymentCurrencyAmount')
-make_head(_module, 'IPaymentCurrencyAmountFactory')
-make_head(_module, 'IPaymentDetails')
-make_head(_module, 'IPaymentDetailsFactory')
-make_head(_module, 'IPaymentDetailsModifier')
-make_head(_module, 'IPaymentDetailsModifierFactory')
-make_head(_module, 'IPaymentItem')
-make_head(_module, 'IPaymentItemFactory')
-make_head(_module, 'IPaymentMediator')
-make_head(_module, 'IPaymentMediator2')
-make_head(_module, 'IPaymentMerchantInfo')
-make_head(_module, 'IPaymentMerchantInfoFactory')
-make_head(_module, 'IPaymentMethodData')
-make_head(_module, 'IPaymentMethodDataFactory')
-make_head(_module, 'IPaymentOptions')
-make_head(_module, 'IPaymentRequest')
-make_head(_module, 'IPaymentRequest2')
-make_head(_module, 'IPaymentRequestChangedArgs')
-make_head(_module, 'IPaymentRequestChangedResult')
-make_head(_module, 'IPaymentRequestChangedResultFactory')
-make_head(_module, 'IPaymentRequestFactory')
-make_head(_module, 'IPaymentRequestFactory2')
-make_head(_module, 'IPaymentRequestSubmitResult')
-make_head(_module, 'IPaymentResponse')
-make_head(_module, 'IPaymentShippingOption')
-make_head(_module, 'IPaymentShippingOptionFactory')
-make_head(_module, 'IPaymentToken')
-make_head(_module, 'IPaymentTokenFactory')
-make_head(_module, 'PaymentAddress')
-make_head(_module, 'PaymentCanMakePaymentResult')
-make_head(_module, 'PaymentCurrencyAmount')
-make_head(_module, 'PaymentDetails')
-make_head(_module, 'PaymentDetailsModifier')
-make_head(_module, 'PaymentItem')
-make_head(_module, 'PaymentMediator')
-make_head(_module, 'PaymentMerchantInfo')
-make_head(_module, 'PaymentMethodData')
-make_head(_module, 'PaymentOptions')
-make_head(_module, 'PaymentRequest')
-make_head(_module, 'PaymentRequestChangedArgs')
-make_head(_module, 'PaymentRequestChangedResult')
-make_head(_module, 'PaymentRequestSubmitResult')
-make_head(_module, 'PaymentResponse')
-make_head(_module, 'PaymentShippingOption')
-make_head(_module, 'PaymentToken')
+make_ready(__name__)

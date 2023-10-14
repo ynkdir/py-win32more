@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Input
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('USER32.dll')
 def GetRawInputData(hRawInput: win32more.Windows.Win32.UI.Input.HRAWINPUT, uiCommand: win32more.Windows.Win32.UI.Input.RAW_INPUT_DATA_COMMAND_FLAGS, pData: VoidPtr, pcbSize: POINTER(UInt32), cbSizeHeader: UInt32) -> UInt32: ...
 @winfunctype('USER32.dll')
@@ -19,19 +10,19 @@ def GetRawInputDeviceInfoA(hDevice: win32more.Windows.Win32.Foundation.HANDLE, u
 @winfunctype('USER32.dll')
 def GetRawInputDeviceInfoW(hDevice: win32more.Windows.Win32.Foundation.HANDLE, uiCommand: win32more.Windows.Win32.UI.Input.RAW_INPUT_DEVICE_INFO_COMMAND, pData: VoidPtr, pcbSize: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('USER32.dll')
-def GetRawInputBuffer(pData: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUT_head), pcbSize: POINTER(UInt32), cbSizeHeader: UInt32) -> UInt32: ...
+def GetRawInputBuffer(pData: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUT), pcbSize: POINTER(UInt32), cbSizeHeader: UInt32) -> UInt32: ...
 @winfunctype('USER32.dll')
-def RegisterRawInputDevices(pRawInputDevices: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE_head), uiNumDevices: UInt32, cbSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def RegisterRawInputDevices(pRawInputDevices: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE), uiNumDevices: UInt32, cbSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def GetRegisteredRawInputDevices(pRawInputDevices: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE_head), puiNumDevices: POINTER(UInt32), cbSize: UInt32) -> UInt32: ...
+def GetRegisteredRawInputDevices(pRawInputDevices: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE), puiNumDevices: POINTER(UInt32), cbSize: UInt32) -> UInt32: ...
 @winfunctype('USER32.dll')
-def GetRawInputDeviceList(pRawInputDeviceList: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUTDEVICELIST_head), puiNumDevices: POINTER(UInt32), cbSize: UInt32) -> UInt32: ...
+def GetRawInputDeviceList(pRawInputDeviceList: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUTDEVICELIST), puiNumDevices: POINTER(UInt32), cbSize: UInt32) -> UInt32: ...
 @winfunctype('USER32.dll')
-def DefRawInputProc(paRawInput: POINTER(POINTER(win32more.Windows.Win32.UI.Input.RAWINPUT_head)), nInput: Int32, cbSizeHeader: UInt32) -> win32more.Windows.Win32.Foundation.LRESULT: ...
+def DefRawInputProc(paRawInput: POINTER(POINTER(win32more.Windows.Win32.UI.Input.RAWINPUT)), nInput: Int32, cbSizeHeader: UInt32) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 @winfunctype('USER32.dll')
-def GetCurrentInputMessageSource(inputMessageSource: POINTER(win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_SOURCE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetCurrentInputMessageSource(inputMessageSource: POINTER(win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_SOURCE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def GetCIMSSM(inputMessageSource: POINTER(win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_SOURCE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetCIMSSM(inputMessageSource: POINTER(win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_SOURCE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 HRAWINPUT = IntPtr
 INPUT_MESSAGE_DEVICE_TYPE = Int32
 IMDT_UNAVAILABLE: INPUT_MESSAGE_DEVICE_TYPE = 0
@@ -140,15 +131,4 @@ RID_DEVICE_INFO_TYPE = UInt32
 RIM_TYPEMOUSE: RID_DEVICE_INFO_TYPE = 0
 RIM_TYPEKEYBOARD: RID_DEVICE_INFO_TYPE = 1
 RIM_TYPEHID: RID_DEVICE_INFO_TYPE = 2
-make_head(_module, 'INPUT_MESSAGE_SOURCE')
-make_head(_module, 'RAWHID')
-make_head(_module, 'RAWINPUT')
-make_head(_module, 'RAWINPUTDEVICE')
-make_head(_module, 'RAWINPUTDEVICELIST')
-make_head(_module, 'RAWINPUTHEADER')
-make_head(_module, 'RAWKEYBOARD')
-make_head(_module, 'RAWMOUSE')
-make_head(_module, 'RID_DEVICE_INFO')
-make_head(_module, 'RID_DEVICE_INFO_HID')
-make_head(_module, 'RID_DEVICE_INFO_KEYBOARD')
-make_head(_module, 'RID_DEVICE_INFO_MOUSE')
+make_ready(__name__)

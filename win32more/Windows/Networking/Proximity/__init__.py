@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Networking
 import win32more.Windows.Networking.Proximity
 import win32more.Windows.Networking.Sockets
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ConnectionRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IConnectionRequestedEventArgs
@@ -83,11 +74,11 @@ class IPeerFinderStatics(ComPtr):
     @winrt_commethod(18)
     def Stop(self) -> Void: ...
     @winrt_commethod(19)
-    def add_TriggeredConnectionStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TriggeredConnectionStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(20)
     def remove_TriggeredConnectionStateChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(21)
-    def add_ConnectionRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.Networking.Proximity.ConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ConnectionRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Networking.Proximity.ConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(22)
     def remove_ConnectionRequested(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(23)
@@ -160,11 +151,11 @@ class IPeerWatcher(ComPtr):
     @winrt_commethod(11)
     def remove_Updated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
@@ -306,11 +297,11 @@ class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
     @winrt_classmethod
     def Stop(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics) -> Void: ...
     @winrt_classmethod
-    def add_TriggeredConnectionStateChanged(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TriggeredConnectionStateChanged(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_TriggeredConnectionStateChanged(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def add_ConnectionRequested(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head, win32more.Windows.Networking.Proximity.ConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ConnectionRequested(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Networking.Proximity.ConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ConnectionRequested(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -365,11 +356,11 @@ class PeerWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Windows.Networking.Proximity.IPeerWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Networking.Proximity.IPeerWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Networking.Proximity.IPeerWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Networking.Proximity.IPeerWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.Networking.Proximity.IPeerWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.Networking.Proximity.IPeerWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.Networking.Proximity.IPeerWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -467,21 +458,4 @@ class TriggeredConnectionStateChangedEventArgs(ComPtr):
     State = property(get_State, None)
     Id = property(get_Id, None)
     Socket = property(get_Socket, None)
-make_head(_module, 'ConnectionRequestedEventArgs')
-make_head(_module, 'IConnectionRequestedEventArgs')
-make_head(_module, 'IPeerFinderStatics')
-make_head(_module, 'IPeerFinderStatics2')
-make_head(_module, 'IPeerInformation')
-make_head(_module, 'IPeerInformation3')
-make_head(_module, 'IPeerInformationWithHostAndService')
-make_head(_module, 'IPeerWatcher')
-make_head(_module, 'IProximityDevice')
-make_head(_module, 'IProximityDeviceStatics')
-make_head(_module, 'IProximityMessage')
-make_head(_module, 'ITriggeredConnectionStateChangedEventArgs')
-make_head(_module, 'PeerFinder')
-make_head(_module, 'PeerInformation')
-make_head(_module, 'PeerWatcher')
-make_head(_module, 'ProximityDevice')
-make_head(_module, 'ProximityMessage')
-make_head(_module, 'TriggeredConnectionStateChangedEventArgs')
+make_ready(__name__)

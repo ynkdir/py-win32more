@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Haptics
@@ -25,15 +25,6 @@ import win32more.Windows.Perception.People
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Input.Spatial
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ISpatialGestureRecognizer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialGestureRecognizer'
@@ -1067,77 +1058,4 @@ class SpatialTappedEventArgs(ComPtr):
     def get_TapCount(self: win32more.Windows.UI.Input.Spatial.ISpatialTappedEventArgs) -> UInt32: ...
     InteractionSourceKind = property(get_InteractionSourceKind, None)
     TapCount = property(get_TapCount, None)
-make_head(_module, 'ISpatialGestureRecognizer')
-make_head(_module, 'ISpatialGestureRecognizerFactory')
-make_head(_module, 'ISpatialHoldCanceledEventArgs')
-make_head(_module, 'ISpatialHoldCompletedEventArgs')
-make_head(_module, 'ISpatialHoldStartedEventArgs')
-make_head(_module, 'ISpatialInteraction')
-make_head(_module, 'ISpatialInteractionController')
-make_head(_module, 'ISpatialInteractionController2')
-make_head(_module, 'ISpatialInteractionController3')
-make_head(_module, 'ISpatialInteractionControllerProperties')
-make_head(_module, 'ISpatialInteractionDetectedEventArgs')
-make_head(_module, 'ISpatialInteractionDetectedEventArgs2')
-make_head(_module, 'ISpatialInteractionManager')
-make_head(_module, 'ISpatialInteractionManagerStatics')
-make_head(_module, 'ISpatialInteractionManagerStatics2')
-make_head(_module, 'ISpatialInteractionSource')
-make_head(_module, 'ISpatialInteractionSource2')
-make_head(_module, 'ISpatialInteractionSource3')
-make_head(_module, 'ISpatialInteractionSource4')
-make_head(_module, 'ISpatialInteractionSourceEventArgs')
-make_head(_module, 'ISpatialInteractionSourceEventArgs2')
-make_head(_module, 'ISpatialInteractionSourceLocation')
-make_head(_module, 'ISpatialInteractionSourceLocation2')
-make_head(_module, 'ISpatialInteractionSourceLocation3')
-make_head(_module, 'ISpatialInteractionSourceProperties')
-make_head(_module, 'ISpatialInteractionSourceState')
-make_head(_module, 'ISpatialInteractionSourceState2')
-make_head(_module, 'ISpatialInteractionSourceState3')
-make_head(_module, 'ISpatialManipulationCanceledEventArgs')
-make_head(_module, 'ISpatialManipulationCompletedEventArgs')
-make_head(_module, 'ISpatialManipulationDelta')
-make_head(_module, 'ISpatialManipulationStartedEventArgs')
-make_head(_module, 'ISpatialManipulationUpdatedEventArgs')
-make_head(_module, 'ISpatialNavigationCanceledEventArgs')
-make_head(_module, 'ISpatialNavigationCompletedEventArgs')
-make_head(_module, 'ISpatialNavigationStartedEventArgs')
-make_head(_module, 'ISpatialNavigationUpdatedEventArgs')
-make_head(_module, 'ISpatialPointerInteractionSourcePose')
-make_head(_module, 'ISpatialPointerInteractionSourcePose2')
-make_head(_module, 'ISpatialPointerPose')
-make_head(_module, 'ISpatialPointerPose2')
-make_head(_module, 'ISpatialPointerPose3')
-make_head(_module, 'ISpatialPointerPoseStatics')
-make_head(_module, 'ISpatialRecognitionEndedEventArgs')
-make_head(_module, 'ISpatialRecognitionStartedEventArgs')
-make_head(_module, 'ISpatialTappedEventArgs')
-make_head(_module, 'SpatialGestureRecognizer')
-make_head(_module, 'SpatialHoldCanceledEventArgs')
-make_head(_module, 'SpatialHoldCompletedEventArgs')
-make_head(_module, 'SpatialHoldStartedEventArgs')
-make_head(_module, 'SpatialInteraction')
-make_head(_module, 'SpatialInteractionController')
-make_head(_module, 'SpatialInteractionControllerProperties')
-make_head(_module, 'SpatialInteractionDetectedEventArgs')
-make_head(_module, 'SpatialInteractionManager')
-make_head(_module, 'SpatialInteractionSource')
-make_head(_module, 'SpatialInteractionSourceEventArgs')
-make_head(_module, 'SpatialInteractionSourceLocation')
-make_head(_module, 'SpatialInteractionSourceProperties')
-make_head(_module, 'SpatialInteractionSourceState')
-make_head(_module, 'SpatialManipulationCanceledEventArgs')
-make_head(_module, 'SpatialManipulationCompletedEventArgs')
-make_head(_module, 'SpatialManipulationDelta')
-make_head(_module, 'SpatialManipulationStartedEventArgs')
-make_head(_module, 'SpatialManipulationUpdatedEventArgs')
-make_head(_module, 'SpatialNavigationCanceledEventArgs')
-make_head(_module, 'SpatialNavigationCompletedEventArgs')
-make_head(_module, 'SpatialNavigationStartedEventArgs')
-make_head(_module, 'SpatialNavigationUpdatedEventArgs')
-make_head(_module, 'SpatialPointerInteractionSourcePose')
-make_head(_module, 'SpatialPointerPose')
-make_head(_module, 'SpatialRecognitionEndedEventArgs')
-make_head(_module, 'SpatialRecognitionStartedEventArgs')
-make_head(_module, 'SpatialTappedEventArgs')
+make_ready(__name__)

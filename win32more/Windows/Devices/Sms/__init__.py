@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Sms
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CellularClass = Int32
 CellularClass_None: CellularClass = 0
 CellularClass_Gsm: CellularClass = 1
@@ -315,7 +306,7 @@ class ISmsDevice2(ComPtr):
     @winrt_commethod(14)
     def SendMessageAndGetResultAsync(self, message: win32more.Windows.Devices.Sms.ISmsMessageBase) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sms.SmsSendMessageResult]: ...
     @winrt_commethod(15)
-    def add_DeviceStatusChanged(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Sms.SmsDevice2, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DeviceStatusChanged(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Sms.SmsDevice2, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_DeviceStatusChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SmscAddress = property(get_SmscAddress, put_SmscAddress)
@@ -980,7 +971,7 @@ class SmsDevice2(ComPtr):
     @winrt_mixinmethod
     def SendMessageAndGetResultAsync(self: win32more.Windows.Devices.Sms.ISmsDevice2, message: win32more.Windows.Devices.Sms.ISmsMessageBase) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sms.SmsSendMessageResult]: ...
     @winrt_mixinmethod
-    def add_DeviceStatusChanged(self: win32more.Windows.Devices.Sms.ISmsDevice2, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Sms.SmsDevice2, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DeviceStatusChanged(self: win32more.Windows.Devices.Sms.ISmsDevice2, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Sms.SmsDevice2, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DeviceStatusChanged(self: win32more.Windows.Devices.Sms.ISmsDevice2, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -1474,56 +1465,4 @@ class SmsWapMessage(ComPtr):
     CellularClass = property(get_CellularClass, None)
     MessageClass = property(get_MessageClass, None)
     SimIccId = property(get_SimIccId, None)
-make_head(_module, 'DeleteSmsMessageOperation')
-make_head(_module, 'DeleteSmsMessagesOperation')
-make_head(_module, 'GetSmsDeviceOperation')
-make_head(_module, 'GetSmsMessageOperation')
-make_head(_module, 'GetSmsMessagesOperation')
-make_head(_module, 'ISmsAppMessage')
-make_head(_module, 'ISmsBinaryMessage')
-make_head(_module, 'ISmsBroadcastMessage')
-make_head(_module, 'ISmsDevice')
-make_head(_module, 'ISmsDevice2')
-make_head(_module, 'ISmsDevice2Statics')
-make_head(_module, 'ISmsDeviceMessageStore')
-make_head(_module, 'ISmsDeviceStatics')
-make_head(_module, 'ISmsDeviceStatics2')
-make_head(_module, 'ISmsFilterRule')
-make_head(_module, 'ISmsFilterRuleFactory')
-make_head(_module, 'ISmsFilterRules')
-make_head(_module, 'ISmsFilterRulesFactory')
-make_head(_module, 'ISmsMessage')
-make_head(_module, 'ISmsMessageBase')
-make_head(_module, 'ISmsMessageReceivedEventArgs')
-make_head(_module, 'ISmsMessageReceivedTriggerDetails')
-make_head(_module, 'ISmsMessageRegistration')
-make_head(_module, 'ISmsMessageRegistrationStatics')
-make_head(_module, 'ISmsReceivedEventDetails')
-make_head(_module, 'ISmsReceivedEventDetails2')
-make_head(_module, 'ISmsSendMessageResult')
-make_head(_module, 'ISmsStatusMessage')
-make_head(_module, 'ISmsTextMessage')
-make_head(_module, 'ISmsTextMessage2')
-make_head(_module, 'ISmsTextMessageStatics')
-make_head(_module, 'ISmsVoicemailMessage')
-make_head(_module, 'ISmsWapMessage')
-make_head(_module, 'SendSmsMessageOperation')
-make_head(_module, 'SmsAppMessage')
-make_head(_module, 'SmsBinaryMessage')
-make_head(_module, 'SmsBroadcastMessage')
-make_head(_module, 'SmsDevice')
-make_head(_module, 'SmsDevice2')
-make_head(_module, 'SmsDeviceMessageStore')
-make_head(_module, 'SmsEncodedLength')
-make_head(_module, 'SmsFilterRule')
-make_head(_module, 'SmsFilterRules')
-make_head(_module, 'SmsMessageReceivedEventArgs')
-make_head(_module, 'SmsMessageReceivedTriggerDetails')
-make_head(_module, 'SmsMessageRegistration')
-make_head(_module, 'SmsReceivedEventDetails')
-make_head(_module, 'SmsSendMessageResult')
-make_head(_module, 'SmsStatusMessage')
-make_head(_module, 'SmsTextMessage')
-make_head(_module, 'SmsTextMessage2')
-make_head(_module, 'SmsVoicemailMessage')
-make_head(_module, 'SmsWapMessage')
+make_ready(__name__)

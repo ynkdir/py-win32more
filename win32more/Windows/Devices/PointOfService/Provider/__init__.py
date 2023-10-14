@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.PointOfService
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class BarcodeScannerDisableScannerRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerDisableScannerRequest
@@ -723,56 +714,4 @@ class IBarcodeSymbologyAttributesBuilder(ComPtr):
     IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, put_IsCheckDigitValidationSupported)
     IsCheckDigitTransmissionSupported = property(get_IsCheckDigitTransmissionSupported, put_IsCheckDigitTransmissionSupported)
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, put_IsDecodeLengthSupported)
-make_head(_module, 'BarcodeScannerDisableScannerRequest')
-make_head(_module, 'BarcodeScannerDisableScannerRequestEventArgs')
-make_head(_module, 'BarcodeScannerEnableScannerRequest')
-make_head(_module, 'BarcodeScannerEnableScannerRequestEventArgs')
-make_head(_module, 'BarcodeScannerFrameReader')
-make_head(_module, 'BarcodeScannerFrameReaderFrameArrivedEventArgs')
-make_head(_module, 'BarcodeScannerGetSymbologyAttributesRequest')
-make_head(_module, 'BarcodeScannerGetSymbologyAttributesRequestEventArgs')
-make_head(_module, 'BarcodeScannerHideVideoPreviewRequest')
-make_head(_module, 'BarcodeScannerHideVideoPreviewRequestEventArgs')
-make_head(_module, 'BarcodeScannerProviderConnection')
-make_head(_module, 'BarcodeScannerProviderTriggerDetails')
-make_head(_module, 'BarcodeScannerSetActiveSymbologiesRequest')
-make_head(_module, 'BarcodeScannerSetActiveSymbologiesRequestEventArgs')
-make_head(_module, 'BarcodeScannerSetSymbologyAttributesRequest')
-make_head(_module, 'BarcodeScannerSetSymbologyAttributesRequestEventArgs')
-make_head(_module, 'BarcodeScannerStartSoftwareTriggerRequest')
-make_head(_module, 'BarcodeScannerStartSoftwareTriggerRequestEventArgs')
-make_head(_module, 'BarcodeScannerStopSoftwareTriggerRequest')
-make_head(_module, 'BarcodeScannerStopSoftwareTriggerRequestEventArgs')
-make_head(_module, 'BarcodeScannerVideoFrame')
-make_head(_module, 'BarcodeSymbologyAttributesBuilder')
-make_head(_module, 'IBarcodeScannerDisableScannerRequest')
-make_head(_module, 'IBarcodeScannerDisableScannerRequest2')
-make_head(_module, 'IBarcodeScannerDisableScannerRequestEventArgs')
-make_head(_module, 'IBarcodeScannerEnableScannerRequest')
-make_head(_module, 'IBarcodeScannerEnableScannerRequest2')
-make_head(_module, 'IBarcodeScannerEnableScannerRequestEventArgs')
-make_head(_module, 'IBarcodeScannerFrameReader')
-make_head(_module, 'IBarcodeScannerFrameReaderFrameArrivedEventArgs')
-make_head(_module, 'IBarcodeScannerGetSymbologyAttributesRequest')
-make_head(_module, 'IBarcodeScannerGetSymbologyAttributesRequest2')
-make_head(_module, 'IBarcodeScannerGetSymbologyAttributesRequestEventArgs')
-make_head(_module, 'IBarcodeScannerHideVideoPreviewRequest')
-make_head(_module, 'IBarcodeScannerHideVideoPreviewRequest2')
-make_head(_module, 'IBarcodeScannerHideVideoPreviewRequestEventArgs')
-make_head(_module, 'IBarcodeScannerProviderConnection')
-make_head(_module, 'IBarcodeScannerProviderConnection2')
-make_head(_module, 'IBarcodeScannerProviderTriggerDetails')
-make_head(_module, 'IBarcodeScannerSetActiveSymbologiesRequest')
-make_head(_module, 'IBarcodeScannerSetActiveSymbologiesRequest2')
-make_head(_module, 'IBarcodeScannerSetActiveSymbologiesRequestEventArgs')
-make_head(_module, 'IBarcodeScannerSetSymbologyAttributesRequest')
-make_head(_module, 'IBarcodeScannerSetSymbologyAttributesRequest2')
-make_head(_module, 'IBarcodeScannerSetSymbologyAttributesRequestEventArgs')
-make_head(_module, 'IBarcodeScannerStartSoftwareTriggerRequest')
-make_head(_module, 'IBarcodeScannerStartSoftwareTriggerRequest2')
-make_head(_module, 'IBarcodeScannerStartSoftwareTriggerRequestEventArgs')
-make_head(_module, 'IBarcodeScannerStopSoftwareTriggerRequest')
-make_head(_module, 'IBarcodeScannerStopSoftwareTriggerRequest2')
-make_head(_module, 'IBarcodeScannerStopSoftwareTriggerRequestEventArgs')
-make_head(_module, 'IBarcodeScannerVideoFrame')
-make_head(_module, 'IBarcodeSymbologyAttributesBuilder')
+make_ready(__name__)

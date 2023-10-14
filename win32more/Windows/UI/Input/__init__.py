@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Haptics
@@ -23,15 +23,6 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.UI.Core
 import win32more.Windows.UI.Input
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AttachableInputObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IAttachableInputObject
@@ -919,7 +910,7 @@ class IPointerPointTransform(ComPtr):
     @winrt_commethod(6)
     def get_Inverse(self) -> win32more.Windows.UI.Input.IPointerPointTransform: ...
     @winrt_commethod(7)
-    def TryTransform(self, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point_head)) -> Boolean: ...
+    def TryTransform(self, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point)) -> Boolean: ...
     @winrt_commethod(8)
     def TransformBounds(self, rect: win32more.Windows.Foundation.Rect) -> win32more.Windows.Foundation.Rect: ...
     Inverse = property(get_Inverse, None)
@@ -962,7 +953,7 @@ class IRadialController(ComPtr):
     @winrt_commethod(12)
     def remove_ScreenContactStarted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
-    def add_ScreenContactEnded(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialController, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ScreenContactEnded(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialController, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_ScreenContactEnded(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(15)
@@ -970,7 +961,7 @@ class IRadialController(ComPtr):
     @winrt_commethod(16)
     def remove_ScreenContactContinued(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(17)
-    def add_ControlLost(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialController, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ControlLost(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialController, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(18)
     def remove_ControlLost(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(19)
@@ -1134,11 +1125,11 @@ class IRadialControllerMenuItem(ComPtr):
     @winrt_commethod(6)
     def get_DisplayText(self) -> WinRT_String: ...
     @winrt_commethod(7)
-    def get_Tag(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Tag(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(8)
-    def put_Tag(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Tag(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(9)
-    def add_Invoked(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialControllerMenuItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Invoked(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialControllerMenuItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_Invoked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DisplayText = property(get_DisplayText, None)
@@ -1666,7 +1657,7 @@ class RadialController(ComPtr):
     @winrt_mixinmethod
     def remove_ScreenContactStarted(self: win32more.Windows.UI.Input.IRadialController, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_ScreenContactEnded(self: win32more.Windows.UI.Input.IRadialController, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialController, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ScreenContactEnded(self: win32more.Windows.UI.Input.IRadialController, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialController, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ScreenContactEnded(self: win32more.Windows.UI.Input.IRadialController, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1674,7 +1665,7 @@ class RadialController(ComPtr):
     @winrt_mixinmethod
     def remove_ScreenContactContinued(self: win32more.Windows.UI.Input.IRadialController, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_ControlLost(self: win32more.Windows.UI.Input.IRadialController, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialController, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ControlLost(self: win32more.Windows.UI.Input.IRadialController, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialController, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ControlLost(self: win32more.Windows.UI.Input.IRadialController, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1820,11 +1811,11 @@ class RadialControllerMenuItem(ComPtr):
     @winrt_mixinmethod
     def get_DisplayText(self: win32more.Windows.UI.Input.IRadialControllerMenuItem) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_Tag(self: win32more.Windows.UI.Input.IRadialControllerMenuItem) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Tag(self: win32more.Windows.UI.Input.IRadialControllerMenuItem) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_Tag(self: win32more.Windows.UI.Input.IRadialControllerMenuItem, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Tag(self: win32more.Windows.UI.Input.IRadialControllerMenuItem, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def add_Invoked(self: win32more.Windows.UI.Input.IRadialControllerMenuItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialControllerMenuItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Invoked(self: win32more.Windows.UI.Input.IRadialControllerMenuItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.RadialControllerMenuItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Invoked(self: win32more.Windows.UI.Input.IRadialControllerMenuItem, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -2008,112 +1999,4 @@ class TappedEventArgs(ComPtr):
     Position = property(get_Position, None)
     TapCount = property(get_TapCount, None)
     ContactCount = property(get_ContactCount, None)
-make_head(_module, 'AttachableInputObject')
-make_head(_module, 'CrossSlideThresholds')
-make_head(_module, 'CrossSlidingEventArgs')
-make_head(_module, 'DraggingEventArgs')
-make_head(_module, 'EdgeGesture')
-make_head(_module, 'EdgeGestureEventArgs')
-make_head(_module, 'GestureRecognizer')
-make_head(_module, 'HoldingEventArgs')
-make_head(_module, 'IAttachableInputObject')
-make_head(_module, 'IAttachableInputObjectFactory')
-make_head(_module, 'ICrossSlidingEventArgs')
-make_head(_module, 'ICrossSlidingEventArgs2')
-make_head(_module, 'IDraggingEventArgs')
-make_head(_module, 'IDraggingEventArgs2')
-make_head(_module, 'IEdgeGesture')
-make_head(_module, 'IEdgeGestureEventArgs')
-make_head(_module, 'IEdgeGestureStatics')
-make_head(_module, 'IGestureRecognizer')
-make_head(_module, 'IGestureRecognizer2')
-make_head(_module, 'IHoldingEventArgs')
-make_head(_module, 'IHoldingEventArgs2')
-make_head(_module, 'IInputActivationListener')
-make_head(_module, 'IInputActivationListenerActivationChangedEventArgs')
-make_head(_module, 'IKeyboardDeliveryInterceptor')
-make_head(_module, 'IKeyboardDeliveryInterceptorStatics')
-make_head(_module, 'IManipulationCompletedEventArgs')
-make_head(_module, 'IManipulationCompletedEventArgs2')
-make_head(_module, 'IManipulationInertiaStartingEventArgs')
-make_head(_module, 'IManipulationInertiaStartingEventArgs2')
-make_head(_module, 'IManipulationStartedEventArgs')
-make_head(_module, 'IManipulationStartedEventArgs2')
-make_head(_module, 'IManipulationUpdatedEventArgs')
-make_head(_module, 'IManipulationUpdatedEventArgs2')
-make_head(_module, 'IMouseWheelParameters')
-make_head(_module, 'IPointerPoint')
-make_head(_module, 'IPointerPointProperties')
-make_head(_module, 'IPointerPointProperties2')
-make_head(_module, 'IPointerPointStatics')
-make_head(_module, 'IPointerPointTransform')
-make_head(_module, 'IPointerVisualizationSettings')
-make_head(_module, 'IPointerVisualizationSettingsStatics')
-make_head(_module, 'IRadialController')
-make_head(_module, 'IRadialController2')
-make_head(_module, 'IRadialControllerButtonClickedEventArgs')
-make_head(_module, 'IRadialControllerButtonClickedEventArgs2')
-make_head(_module, 'IRadialControllerButtonHoldingEventArgs')
-make_head(_module, 'IRadialControllerButtonPressedEventArgs')
-make_head(_module, 'IRadialControllerButtonReleasedEventArgs')
-make_head(_module, 'IRadialControllerConfiguration')
-make_head(_module, 'IRadialControllerConfiguration2')
-make_head(_module, 'IRadialControllerConfigurationStatics')
-make_head(_module, 'IRadialControllerConfigurationStatics2')
-make_head(_module, 'IRadialControllerControlAcquiredEventArgs')
-make_head(_module, 'IRadialControllerControlAcquiredEventArgs2')
-make_head(_module, 'IRadialControllerMenu')
-make_head(_module, 'IRadialControllerMenuItem')
-make_head(_module, 'IRadialControllerMenuItemStatics')
-make_head(_module, 'IRadialControllerMenuItemStatics2')
-make_head(_module, 'IRadialControllerRotationChangedEventArgs')
-make_head(_module, 'IRadialControllerRotationChangedEventArgs2')
-make_head(_module, 'IRadialControllerScreenContact')
-make_head(_module, 'IRadialControllerScreenContactContinuedEventArgs')
-make_head(_module, 'IRadialControllerScreenContactContinuedEventArgs2')
-make_head(_module, 'IRadialControllerScreenContactEndedEventArgs')
-make_head(_module, 'IRadialControllerScreenContactStartedEventArgs')
-make_head(_module, 'IRadialControllerScreenContactStartedEventArgs2')
-make_head(_module, 'IRadialControllerStatics')
-make_head(_module, 'IRightTappedEventArgs')
-make_head(_module, 'IRightTappedEventArgs2')
-make_head(_module, 'ISystemButtonEventController')
-make_head(_module, 'ISystemButtonEventControllerStatics')
-make_head(_module, 'ISystemFunctionButtonEventArgs')
-make_head(_module, 'ISystemFunctionLockChangedEventArgs')
-make_head(_module, 'ISystemFunctionLockIndicatorChangedEventArgs')
-make_head(_module, 'ITappedEventArgs')
-make_head(_module, 'ITappedEventArgs2')
-make_head(_module, 'InputActivationListener')
-make_head(_module, 'InputActivationListenerActivationChangedEventArgs')
-make_head(_module, 'KeyboardDeliveryInterceptor')
-make_head(_module, 'ManipulationCompletedEventArgs')
-make_head(_module, 'ManipulationDelta')
-make_head(_module, 'ManipulationInertiaStartingEventArgs')
-make_head(_module, 'ManipulationStartedEventArgs')
-make_head(_module, 'ManipulationUpdatedEventArgs')
-make_head(_module, 'ManipulationVelocities')
-make_head(_module, 'MouseWheelParameters')
-make_head(_module, 'PointerPoint')
-make_head(_module, 'PointerPointProperties')
-make_head(_module, 'PointerVisualizationSettings')
-make_head(_module, 'RadialController')
-make_head(_module, 'RadialControllerButtonClickedEventArgs')
-make_head(_module, 'RadialControllerButtonHoldingEventArgs')
-make_head(_module, 'RadialControllerButtonPressedEventArgs')
-make_head(_module, 'RadialControllerButtonReleasedEventArgs')
-make_head(_module, 'RadialControllerConfiguration')
-make_head(_module, 'RadialControllerControlAcquiredEventArgs')
-make_head(_module, 'RadialControllerMenu')
-make_head(_module, 'RadialControllerMenuItem')
-make_head(_module, 'RadialControllerRotationChangedEventArgs')
-make_head(_module, 'RadialControllerScreenContact')
-make_head(_module, 'RadialControllerScreenContactContinuedEventArgs')
-make_head(_module, 'RadialControllerScreenContactEndedEventArgs')
-make_head(_module, 'RadialControllerScreenContactStartedEventArgs')
-make_head(_module, 'RightTappedEventArgs')
-make_head(_module, 'SystemButtonEventController')
-make_head(_module, 'SystemFunctionButtonEventArgs')
-make_head(_module, 'SystemFunctionLockChangedEventArgs')
-make_head(_module, 'SystemFunctionLockIndicatorChangedEventArgs')
-make_head(_module, 'TappedEventArgs')
+make_ready(__name__)

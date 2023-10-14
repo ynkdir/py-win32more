@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Lights
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ILampArrayBitmapEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapEffect'
@@ -520,26 +511,4 @@ class LampArrayUpdateRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def SetColorsForIndices(self: win32more.Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs, desiredColors: Annotated[SZArray[win32more.Windows.UI.Color], 'In'], lampIndexes: Annotated[SZArray[Int32], 'In']) -> Void: ...
     SinceStarted = property(get_SinceStarted, None)
-make_head(_module, 'ILampArrayBitmapEffect')
-make_head(_module, 'ILampArrayBitmapEffectFactory')
-make_head(_module, 'ILampArrayBitmapRequestedEventArgs')
-make_head(_module, 'ILampArrayBlinkEffect')
-make_head(_module, 'ILampArrayBlinkEffectFactory')
-make_head(_module, 'ILampArrayColorRampEffect')
-make_head(_module, 'ILampArrayColorRampEffectFactory')
-make_head(_module, 'ILampArrayCustomEffect')
-make_head(_module, 'ILampArrayCustomEffectFactory')
-make_head(_module, 'ILampArrayEffect')
-make_head(_module, 'ILampArrayEffectPlaylist')
-make_head(_module, 'ILampArrayEffectPlaylistStatics')
-make_head(_module, 'ILampArraySolidEffect')
-make_head(_module, 'ILampArraySolidEffectFactory')
-make_head(_module, 'ILampArrayUpdateRequestedEventArgs')
-make_head(_module, 'LampArrayBitmapEffect')
-make_head(_module, 'LampArrayBitmapRequestedEventArgs')
-make_head(_module, 'LampArrayBlinkEffect')
-make_head(_module, 'LampArrayColorRampEffect')
-make_head(_module, 'LampArrayCustomEffect')
-make_head(_module, 'LampArrayEffectPlaylist')
-make_head(_module, 'LampArraySolidEffect')
-make_head(_module, 'LampArrayUpdateRequestedEventArgs')
+make_ready(__name__)

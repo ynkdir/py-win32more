@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Management.Policies
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class INamedPolicyData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Policies.INamedPolicyData'
@@ -55,7 +46,7 @@ class INamedPolicyData(ComPtr):
     @winrt_commethod(16)
     def GetString(self) -> WinRT_String: ...
     @winrt_commethod(17)
-    def add_Changed(self, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Policies.NamedPolicyData, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Policies.NamedPolicyData, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(18)
     def remove_Changed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Area = property(get_Area, None)
@@ -106,7 +97,7 @@ class NamedPolicyData(ComPtr):
     @winrt_mixinmethod
     def GetString(self: win32more.Windows.Management.Policies.INamedPolicyData) -> WinRT_String: ...
     @winrt_mixinmethod
-    def add_Changed(self: win32more.Windows.Management.Policies.INamedPolicyData, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Policies.NamedPolicyData, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self: win32more.Windows.Management.Policies.INamedPolicyData, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Policies.NamedPolicyData, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Changed(self: win32more.Windows.Management.Policies.INamedPolicyData, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Area = property(get_Area, None)
@@ -122,7 +113,4 @@ NamedPolicyKind_Boolean: NamedPolicyKind = 2
 NamedPolicyKind_Int32: NamedPolicyKind = 3
 NamedPolicyKind_Int64: NamedPolicyKind = 4
 NamedPolicyKind_String: NamedPolicyKind = 5
-make_head(_module, 'INamedPolicyData')
-make_head(_module, 'INamedPolicyStatics')
-make_head(_module, 'NamedPolicy')
-make_head(_module, 'NamedPolicyData')
+make_ready(__name__)

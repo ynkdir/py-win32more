@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 FACILITY_EAP_MESSAGE: UInt32 = 2114
 EAP_GROUP_MASK: Int32 = 65280
 EAP_E_EAPHOST_FIRST: Int32 = -2143158272
@@ -258,65 +249,65 @@ GUID_EapHost_Help_ObtainingCerts: Guid = Guid('{f535eea3-1bdd-46ca-a2fc-a6655939
 GUID_EapHost_Help_Troubleshooting: Guid = Guid('{33307acf-0698-41ba-b014-ea0a2eb8d0a8}')
 GUID_EapHost_Cause_Method_Config_Does_Not_Support_Sso: Guid = Guid('{da18bd32-004f-41fa-ae08-0bc85e5845ac}')
 @winfunctype('eappcfg.dll')
-def EapHostPeerGetMethods(pEapMethodInfoArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_ARRAY_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerGetMethods(pEapMethodInfoArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_ARRAY), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerGetMethodProperties(dwVersion: UInt32, dwFlags: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, hUserImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE, dwEapConnDataSize: UInt32, pbEapConnData: POINTER(Byte), dwUserDataSize: UInt32, pbUserData: POINTER(Byte), pMethodPropertyArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_ARRAY_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerGetMethodProperties(dwVersion: UInt32, dwFlags: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, hUserImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE, dwEapConnDataSize: UInt32, pbEapConnData: POINTER(Byte), dwUserDataSize: UInt32, pbUserData: POINTER(Byte), pMethodPropertyArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_ARRAY), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerInvokeConfigUI(hwndParent: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwSizeOfConfigIn: UInt32, pConfigIn: POINTER(Byte), pdwSizeOfConfigOut: POINTER(UInt32), ppConfigOut: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerInvokeConfigUI(hwndParent: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwSizeOfConfigIn: UInt32, pConfigIn: POINTER(Byte), pdwSizeOfConfigOut: POINTER(UInt32), ppConfigOut: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerQueryCredentialInputFields(hUserImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwFlags: UInt32, dwEapConnDataSize: UInt32, pbEapConnData: POINTER(Byte), pEapConfigInputFieldArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerQueryCredentialInputFields(hUserImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwFlags: UInt32, dwEapConnDataSize: UInt32, pbEapConnData: POINTER(Byte), pEapConfigInputFieldArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerQueryUserBlobFromCredentialInputFields(hUserImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwFlags: UInt32, dwEapConnDataSize: UInt32, pbEapConnData: POINTER(Byte), pEapConfigInputFieldArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY_head), pdwUserBlobSize: POINTER(UInt32), ppbUserBlob: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerQueryUserBlobFromCredentialInputFields(hUserImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwFlags: UInt32, dwEapConnDataSize: UInt32, pbEapConnData: POINTER(Byte), pEapConfigInputFieldArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY), pdwUserBlobSize: POINTER(UInt32), ppbUserBlob: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerInvokeIdentityUI(dwVersion: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwFlags: UInt32, hwndParent: win32more.Windows.Win32.Foundation.HWND, dwSizeofConnectionData: UInt32, pConnectionData: POINTER(Byte), dwSizeofUserData: UInt32, pUserData: POINTER(Byte), pdwSizeOfUserDataOut: POINTER(UInt32), ppUserDataOut: POINTER(POINTER(Byte)), ppwszIdentity: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)), ppvReserved: POINTER(VoidPtr)) -> UInt32: ...
+def EapHostPeerInvokeIdentityUI(dwVersion: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwFlags: UInt32, hwndParent: win32more.Windows.Win32.Foundation.HWND, dwSizeofConnectionData: UInt32, pConnectionData: POINTER(Byte), dwSizeofUserData: UInt32, pUserData: POINTER(Byte), pdwSizeOfUserDataOut: POINTER(UInt32), ppUserDataOut: POINTER(POINTER(Byte)), ppwszIdentity: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)), ppvReserved: POINTER(VoidPtr)) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerInvokeInteractiveUI(hwndParent: win32more.Windows.Win32.Foundation.HWND, dwSizeofUIContextData: UInt32, pUIContextData: POINTER(Byte), pdwSizeOfDataFromInteractiveUI: POINTER(UInt32), ppDataFromInteractiveUI: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerInvokeInteractiveUI(hwndParent: win32more.Windows.Win32.Foundation.HWND, dwSizeofUIContextData: UInt32, pUIContextData: POINTER(Byte), pdwSizeOfDataFromInteractiveUI: POINTER(UInt32), ppDataFromInteractiveUI: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerQueryInteractiveUIInputFields(dwVersion: UInt32, dwFlags: UInt32, dwSizeofUIContextData: UInt32, pUIContextData: POINTER(Byte), pEapInteractiveUIData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)), ppvReserved: POINTER(VoidPtr)) -> UInt32: ...
+def EapHostPeerQueryInteractiveUIInputFields(dwVersion: UInt32, dwFlags: UInt32, dwSizeofUIContextData: UInt32, pUIContextData: POINTER(Byte), pEapInteractiveUIData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)), ppvReserved: POINTER(VoidPtr)) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerQueryUIBlobFromInteractiveUIInputFields(dwVersion: UInt32, dwFlags: UInt32, dwSizeofUIContextData: UInt32, pUIContextData: POINTER(Byte), pEapInteractiveUIData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_head), pdwSizeOfDataFromInteractiveUI: POINTER(UInt32), ppDataFromInteractiveUI: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)), ppvReserved: POINTER(VoidPtr)) -> UInt32: ...
+def EapHostPeerQueryUIBlobFromInteractiveUIInputFields(dwVersion: UInt32, dwFlags: UInt32, dwSizeofUIContextData: UInt32, pUIContextData: POINTER(Byte), pEapInteractiveUIData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA), pdwSizeOfDataFromInteractiveUI: POINTER(UInt32), ppDataFromInteractiveUI: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)), ppvReserved: POINTER(VoidPtr)) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerConfigXml2Blob(dwFlags: UInt32, pConfigDoc: win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head, pdwSizeOfConfigOut: POINTER(UInt32), ppConfigOut: POINTER(POINTER(Byte)), pEapMethodType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerConfigXml2Blob(dwFlags: UInt32, pConfigDoc: win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNode, pdwSizeOfConfigOut: POINTER(UInt32), ppConfigOut: POINTER(POINTER(Byte)), pEapMethodType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerCredentialsXml2Blob(dwFlags: UInt32, pCredentialsDoc: win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head, dwSizeOfConfigIn: UInt32, pConfigIn: POINTER(Byte), pdwSizeOfCredentialsOut: POINTER(UInt32), ppCredentialsOut: POINTER(POINTER(Byte)), pEapMethodType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerCredentialsXml2Blob(dwFlags: UInt32, pCredentialsDoc: win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNode, dwSizeOfConfigIn: UInt32, pConfigIn: POINTER(Byte), pdwSizeOfCredentialsOut: POINTER(UInt32), ppCredentialsOut: POINTER(POINTER(Byte)), pEapMethodType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerConfigBlob2Xml(dwFlags: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwSizeOfConfigIn: UInt32, pConfigIn: POINTER(Byte), ppConfigDoc: POINTER(win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument2_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerConfigBlob2Xml(dwFlags: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwSizeOfConfigIn: UInt32, pConfigIn: POINTER(Byte), ppConfigDoc: POINTER(win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument2), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappcfg.dll')
 def EapHostPeerFreeMemory(pData: POINTER(Byte)) -> Void: ...
 @winfunctype('eappcfg.dll')
-def EapHostPeerFreeErrorMemory(pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)) -> Void: ...
+def EapHostPeerFreeErrorMemory(pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)) -> Void: ...
 @winfunctype('eappprxy.dll')
 def EapHostPeerInitialize() -> UInt32: ...
 @winfunctype('eappprxy.dll')
 def EapHostPeerUninitialize() -> Void: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerBeginSession(dwFlags: UInt32, eapType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, pAttributeArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head), hTokenImpersonateUser: win32more.Windows.Win32.Foundation.HANDLE, dwSizeofConnectionData: UInt32, pConnectionData: POINTER(Byte), dwSizeofUserData: UInt32, pUserData: POINTER(Byte), dwMaxSendPacketSize: UInt32, pConnectionId: POINTER(Guid), func: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.NotificationHandler, pContextData: VoidPtr, pSessionId: POINTER(UInt32), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerBeginSession(dwFlags: UInt32, eapType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, pAttributeArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES), hTokenImpersonateUser: win32more.Windows.Win32.Foundation.HANDLE, dwSizeofConnectionData: UInt32, pConnectionData: POINTER(Byte), dwSizeofUserData: UInt32, pUserData: POINTER(Byte), dwMaxSendPacketSize: UInt32, pConnectionId: POINTER(Guid), func: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.NotificationHandler, pContextData: VoidPtr, pSessionId: POINTER(UInt32), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerProcessReceivedPacket(sessionHandle: UInt32, cbReceivePacket: UInt32, pReceivePacket: POINTER(Byte), pEapOutput: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerProcessReceivedPacket(sessionHandle: UInt32, cbReceivePacket: UInt32, pReceivePacket: POINTER(Byte), pEapOutput: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerGetSendPacket(sessionHandle: UInt32, pcbSendPacket: POINTER(UInt32), ppSendPacket: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerGetSendPacket(sessionHandle: UInt32, pcbSendPacket: POINTER(UInt32), ppSendPacket: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerGetResult(sessionHandle: UInt32, reason: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerMethodResultReason, ppResult: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerMethodResult_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerGetResult(sessionHandle: UInt32, reason: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerMethodResultReason, ppResult: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerMethodResult), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerGetUIContext(sessionHandle: UInt32, pdwSizeOfUIContextData: POINTER(UInt32), ppUIContextData: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerGetUIContext(sessionHandle: UInt32, pdwSizeOfUIContextData: POINTER(UInt32), ppUIContextData: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerSetUIContext(sessionHandle: UInt32, dwSizeOfUIContextData: UInt32, pUIContextData: POINTER(Byte), pEapOutput: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerSetUIContext(sessionHandle: UInt32, dwSizeOfUIContextData: UInt32, pUIContextData: POINTER(Byte), pEapOutput: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerGetResponseAttributes(sessionHandle: UInt32, pAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerGetResponseAttributes(sessionHandle: UInt32, pAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerSetResponseAttributes(sessionHandle: UInt32, pAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head), pEapOutput: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerSetResponseAttributes(sessionHandle: UInt32, pAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES), pEapOutput: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerGetAuthStatus(sessionHandle: UInt32, authParam: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams, pcbAuthData: POINTER(UInt32), ppAuthData: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerGetAuthStatus(sessionHandle: UInt32, authParam: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams, pcbAuthData: POINTER(UInt32), ppAuthData: POINTER(POINTER(Byte)), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerEndSession(sessionHandle: UInt32, ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerEndSession(sessionHandle: UInt32, ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerGetDataToUnplumbCredentials(pConnectionIdThatLastSavedCreds: POINTER(Guid), phCredentialImpersonationToken: POINTER(IntPtr), sessionHandle: UInt32, ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)), fSaveToCredMan: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UInt32: ...
+def EapHostPeerGetDataToUnplumbCredentials(pConnectionIdThatLastSavedCreds: POINTER(Guid), phCredentialImpersonationToken: POINTER(IntPtr), sessionHandle: UInt32, ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)), fSaveToCredMan: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerClearConnection(pConnectionId: POINTER(Guid), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head))) -> UInt32: ...
+def EapHostPeerClearConnection(pConnectionId: POINTER(Guid), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerFreeEapError(pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)) -> Void: ...
+def EapHostPeerFreeEapError(pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)) -> Void: ...
 @winfunctype('eappprxy.dll')
-def EapHostPeerGetIdentity(dwVersion: UInt32, dwFlags: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwSizeofConnectionData: UInt32, pConnectionData: POINTER(Byte), dwSizeofUserData: UInt32, pUserData: POINTER(Byte), hTokenImpersonateUser: win32more.Windows.Win32.Foundation.HANDLE, pfInvokeUI: POINTER(win32more.Windows.Win32.Foundation.BOOL), pdwSizeOfUserDataOut: POINTER(UInt32), ppUserDataOut: POINTER(POINTER(Byte)), ppwszIdentity: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)), ppvReserved: POINTER(POINTER(Byte))) -> UInt32: ...
+def EapHostPeerGetIdentity(dwVersion: UInt32, dwFlags: UInt32, eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE, dwSizeofConnectionData: UInt32, pConnectionData: POINTER(Byte), dwSizeofUserData: UInt32, pUserData: POINTER(Byte), hTokenImpersonateUser: win32more.Windows.Win32.Foundation.HANDLE, pfInvokeUI: POINTER(win32more.Windows.Win32.Foundation.BOOL), pdwSizeOfUserDataOut: POINTER(UInt32), ppUserDataOut: POINTER(POINTER(Byte)), ppwszIdentity: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ppEapError: POINTER(POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)), ppvReserved: POINTER(POINTER(Byte))) -> UInt32: ...
 @winfunctype('eappprxy.dll')
 def EapHostPeerGetEncryptedPassword(dwSizeofPassword: UInt32, szPassword: win32more.Windows.Win32.Foundation.PWSTR, ppszEncPassword: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype('eappprxy.dll')
@@ -344,21 +335,21 @@ class EAPHOST_IDENTITY_UI_PARAMS(EasyCastStructure):
     pUserDataOut: POINTER(Byte)
     pwszIdentity: win32more.Windows.Win32.Foundation.PWSTR
     dwError: UInt32
-    pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)
+    pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)
 class EAPHOST_INTERACTIVE_UI_PARAMS(EasyCastStructure):
     dwSizeofContextData: UInt32
     pContextData: POINTER(Byte)
     dwSizeofInteractiveUIData: UInt32
     pInteractiveUIData: POINTER(Byte)
     dwError: UInt32
-    pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)
+    pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)
 class EAP_ATTRIBUTE(EasyCastStructure):
     eaType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE
     dwLength: UInt32
     pValue: POINTER(Byte)
 class EAP_ATTRIBUTES(EasyCastStructure):
     dwNumberOfAttributes: UInt32
-    pAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_head)
+    pAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE)
 EAP_ATTRIBUTE_TYPE = Int32
 EAP_ATTRIBUTE_TYPE_eatMinimum: EAP_ATTRIBUTE_TYPE = 0
 EAP_ATTRIBUTE_TYPE_eatUserName: EAP_ATTRIBUTE_TYPE = 1
@@ -460,7 +451,7 @@ EAP_ATTRIBUTE_TYPE_eatSessionId: EAP_ATTRIBUTE_TYPE = 9004
 EAP_ATTRIBUTE_TYPE_eatReserved: EAP_ATTRIBUTE_TYPE = -1
 class EAP_AUTHENTICATOR_METHOD_ROUTINES(EasyCastStructure):
     dwSizeInBytes: UInt32
-    pEapType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE_head)
+    pEapType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE)
     EapMethodAuthenticatorInitialize: IntPtr
     EapMethodAuthenticatorBeginSession: IntPtr
     EapMethodAuthenticatorUpdateInnerMethodParams: IntPtr
@@ -478,7 +469,7 @@ EAP_AUTHENTICATOR_SEND_TIMEOUT_INTERACTIVE: EAP_AUTHENTICATOR_SEND_TIMEOUT = 2
 class EAP_CONFIG_INPUT_FIELD_ARRAY(EasyCastStructure):
     dwVersion: UInt32
     dwNumberOfFields: UInt32
-    pFields: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_DATA_head)
+    pFields: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_DATA)
 class EAP_CONFIG_INPUT_FIELD_DATA(EasyCastStructure):
     dwSize: UInt32
     Type: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE
@@ -532,32 +523,32 @@ EAP_METHOD_AUTHENTICATOR_RESPONSE_HANDLE_IDENTITY: EAP_METHOD_AUTHENTICATOR_RESP
 class EAP_METHOD_AUTHENTICATOR_RESULT(EasyCastStructure):
     fIsSuccess: win32more.Windows.Win32.Foundation.BOOL
     dwFailureReason: UInt32
-    pAuthAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head)
+    pAuthAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES)
 class EAP_METHOD_INFO(EasyCastStructure):
     eaptype: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     pwszAuthorName: win32more.Windows.Win32.Foundation.PWSTR
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     eapProperties: UInt32
-    pInnerMethodInfo: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_head)
+    pInnerMethodInfo: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO)
 class EAP_METHOD_INFO_ARRAY(EasyCastStructure):
     dwNumberOfMethods: UInt32
-    pEapMethods: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_head)
+    pEapMethods: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO)
 class EAP_METHOD_INFO_ARRAY_EX(EasyCastStructure):
     dwNumberOfMethods: UInt32
-    pEapMethods: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_EX_head)
+    pEapMethods: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_EX)
 class EAP_METHOD_INFO_EX(EasyCastStructure):
     eaptype: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     pwszAuthorName: win32more.Windows.Win32.Foundation.PWSTR
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     eapProperties: UInt32
-    pInnerMethodInfoArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_ARRAY_EX_head)
+    pInnerMethodInfoArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_ARRAY_EX)
 class EAP_METHOD_PROPERTY(EasyCastStructure):
     eapMethodPropertyType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE
     eapMethodPropertyValueType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_TYPE
     eapMethodPropertyValue: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE
 class EAP_METHOD_PROPERTY_ARRAY(EasyCastStructure):
     dwNumberOfProperties: UInt32
-    pMethodProperty: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_head)
+    pMethodProperty: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY)
 EAP_METHOD_PROPERTY_TYPE = Int32
 EAP_METHOD_PROPERTY_TYPE_emptPropCipherSuiteNegotiation: EAP_METHOD_PROPERTY_TYPE = 0
 EAP_METHOD_PROPERTY_TYPE_emptPropMutualAuth: EAP_METHOD_PROPERTY_TYPE = 1
@@ -612,7 +603,7 @@ class EAP_METHOD_TYPE(EasyCastStructure):
     dwAuthorId: UInt32
 class EAP_PEER_METHOD_ROUTINES(EasyCastStructure):
     dwVersion: UInt32
-    pEapType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_TYPE_head)
+    pEapType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_TYPE)
     EapPeerInitialize: IntPtr
     EapPeerGetIdentity: IntPtr
     EapPeerBeginSession: IntPtr
@@ -631,9 +622,9 @@ class EAP_TYPE(EasyCastStructure):
     dwVendorId: UInt32
     dwVendorType: UInt32
 class EAP_UI_DATA_FORMAT(EasyCastUnion):
-    credData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY_head)
-    credExpiryData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CRED_EXPIRY_REQ_head)
-    credLogonData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY_head)
+    credData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY)
+    credExpiryData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CRED_EXPIRY_REQ)
+    credLogonData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY)
 class EapCertificateCredential(EasyCastStructure):
     certHash: Byte * 20
     password: win32more.Windows.Win32.Foundation.PWSTR
@@ -671,10 +662,10 @@ class EapHostPeerMethodResult(EasyCastStructure):
     fSaveUserData: win32more.Windows.Win32.Foundation.BOOL
     dwSizeofUserData: UInt32
     pUserData: POINTER(Byte)
-    pAttribArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head)
+    pAttribArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES)
     isolationState: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.ISOLATION_STATE
-    pEapMethodInfo: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_head)
-    pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)
+    pEapMethodInfo: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO)
+    pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)
 EapHostPeerMethodResultReason = Int32
 EapHostPeerMethodResultReason_EapHostPeerMethodResultAltSuccessReceived: EapHostPeerMethodResultReason = 1
 EapHostPeerMethodResultReason_EapHostPeerMethodResultTimeout: EapHostPeerMethodResultReason = 2
@@ -711,9 +702,9 @@ class EapPeerMethodResult(EasyCastStructure):
     fSaveUserData: win32more.Windows.Win32.Foundation.BOOL
     dwSizeofUserData: UInt32
     pUserData: POINTER(Byte)
-    pAttribArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head)
-    pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)
-    pNgcKerbTicket: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.NgcTicketContext_head)
+    pAttribArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES)
+    pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)
+    pNgcKerbTicket: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.NgcTicketContext)
     fSaveToCredMan: win32more.Windows.Win32.Foundation.BOOL
 EapPeerMethodResultReason = Int32
 EapPeerMethodResultReason_EapPeerMethodResultUnknown: EapPeerMethodResultReason = 1
@@ -779,9 +770,9 @@ class IRouterProtocolConfig(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{66a2db16-d706-11d0-a37b-00c04fc9da04}')
     @commethod(3)
-    def AddProtocol(self, pszMachineName: win32more.Windows.Win32.Foundation.PWSTR, dwTransportId: UInt32, dwProtocolId: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, pRouter: win32more.Windows.Win32.System.Com.IUnknown_head, uReserved1: UIntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddProtocol(self, pszMachineName: win32more.Windows.Win32.Foundation.PWSTR, dwTransportId: UInt32, dwProtocolId: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, pRouter: win32more.Windows.Win32.System.Com.IUnknown, uReserved1: UIntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def RemoveProtocol(self, pszMachineName: win32more.Windows.Win32.Foundation.PWSTR, dwTransportId: UInt32, dwProtocolId: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, pRouter: win32more.Windows.Win32.System.Com.IUnknown_head, uReserved1: UIntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RemoveProtocol(self, pszMachineName: win32more.Windows.Win32.Foundation.PWSTR, dwTransportId: UInt32, dwProtocolId: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, pRouter: win32more.Windows.Win32.System.Com.IUnknown, uReserved1: UIntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 ISOLATION_STATE = Int32
 ISOLATION_STATE_UNKNOWN: ISOLATION_STATE = 0
 ISOLATION_STATE_NOT_RESTRICTED: ISOLATION_STATE = 1
@@ -835,7 +826,7 @@ class PPP_EAP_INPUT(EasyCastStructure):
     pwszIdentity: win32more.Windows.Win32.Foundation.PWSTR
     pwszPassword: win32more.Windows.Win32.Foundation.PWSTR
     bInitialId: Byte
-    pUserAttributes: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_head)
+    pUserAttributes: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE)
     fAuthenticationComplete: win32more.Windows.Win32.Foundation.BOOL
     dwAuthResultCode: UInt32
     hTokenImpersonateUser: win32more.Windows.Win32.Foundation.HANDLE
@@ -854,7 +845,7 @@ class PPP_EAP_OUTPUT(EasyCastStructure):
     dwSizeInBytes: UInt32
     Action: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION
     dwAuthResultCode: UInt32
-    pUserAttributes: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_head)
+    pUserAttributes: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE)
     fInvokeInteractiveUI: win32more.Windows.Win32.Foundation.BOOL
     pUIContextData: POINTER(Byte)
     dwSizeOfUIContextData: UInt32
@@ -864,7 +855,7 @@ class PPP_EAP_OUTPUT(EasyCastStructure):
     fSaveUserData: win32more.Windows.Win32.Foundation.BOOL
     pUserData: POINTER(Byte)
     dwSizeOfUserData: UInt32
-    pNgcKerbTicket: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.NgcTicketContext_head)
+    pNgcKerbTicket: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.NgcTicketContext)
     fSaveToCredMan: win32more.Windows.Win32.Foundation.BOOL
 class PPP_EAP_PACKET(EasyCastStructure):
     Code: Byte
@@ -972,53 +963,4 @@ RAS_AUTH_ATTRIBUTE_TYPE_raatMethodId: RAS_AUTH_ATTRIBUTE_TYPE = 9002
 RAS_AUTH_ATTRIBUTE_TYPE_raatEMSK: RAS_AUTH_ATTRIBUTE_TYPE = 9003
 RAS_AUTH_ATTRIBUTE_TYPE_raatSessionId: RAS_AUTH_ATTRIBUTE_TYPE = 9004
 RAS_AUTH_ATTRIBUTE_TYPE_raatReserved: RAS_AUTH_ATTRIBUTE_TYPE = -1
-make_head(_module, 'EAPHOST_AUTH_INFO')
-make_head(_module, 'EAPHOST_IDENTITY_UI_PARAMS')
-make_head(_module, 'EAPHOST_INTERACTIVE_UI_PARAMS')
-make_head(_module, 'EAP_ATTRIBUTE')
-make_head(_module, 'EAP_ATTRIBUTES')
-make_head(_module, 'EAP_AUTHENTICATOR_METHOD_ROUTINES')
-make_head(_module, 'EAP_CONFIG_INPUT_FIELD_ARRAY')
-make_head(_module, 'EAP_CONFIG_INPUT_FIELD_DATA')
-make_head(_module, 'EAP_CRED_EXPIRY_REQ')
-make_head(_module, 'EAP_ERROR')
-make_head(_module, 'EAP_INTERACTIVE_UI_DATA')
-make_head(_module, 'EAP_METHOD_AUTHENTICATOR_RESULT')
-make_head(_module, 'EAP_METHOD_INFO')
-make_head(_module, 'EAP_METHOD_INFO_ARRAY')
-make_head(_module, 'EAP_METHOD_INFO_ARRAY_EX')
-make_head(_module, 'EAP_METHOD_INFO_EX')
-make_head(_module, 'EAP_METHOD_PROPERTY')
-make_head(_module, 'EAP_METHOD_PROPERTY_ARRAY')
-make_head(_module, 'EAP_METHOD_PROPERTY_VALUE')
-make_head(_module, 'EAP_METHOD_PROPERTY_VALUE_BOOL')
-make_head(_module, 'EAP_METHOD_PROPERTY_VALUE_DWORD')
-make_head(_module, 'EAP_METHOD_PROPERTY_VALUE_STRING')
-make_head(_module, 'EAP_METHOD_TYPE')
-make_head(_module, 'EAP_PEER_METHOD_ROUTINES')
-make_head(_module, 'EAP_TYPE')
-make_head(_module, 'EAP_UI_DATA_FORMAT')
-make_head(_module, 'EapCertificateCredential')
-make_head(_module, 'EapCredential')
-make_head(_module, 'EapCredentialTypeData')
-make_head(_module, 'EapHostPeerMethodResult')
-make_head(_module, 'EapPacket')
-make_head(_module, 'EapPeerMethodOutput')
-make_head(_module, 'EapPeerMethodResult')
-make_head(_module, 'EapSimCredential')
-make_head(_module, 'EapUsernamePasswordCredential')
-make_head(_module, 'IAccountingProviderConfig')
-make_head(_module, 'IAuthenticationProviderConfig')
-make_head(_module, 'IEAPProviderConfig')
-make_head(_module, 'IEAPProviderConfig2')
-make_head(_module, 'IEAPProviderConfig3')
-make_head(_module, 'IRouterProtocolConfig')
-make_head(_module, 'LEGACY_IDENTITY_UI_PARAMS')
-make_head(_module, 'LEGACY_INTERACTIVE_UI_PARAMS')
-make_head(_module, 'NgcTicketContext')
-make_head(_module, 'NotificationHandler')
-make_head(_module, 'PPP_EAP_INFO')
-make_head(_module, 'PPP_EAP_INPUT')
-make_head(_module, 'PPP_EAP_OUTPUT')
-make_head(_module, 'PPP_EAP_PACKET')
-make_head(_module, 'RAS_AUTH_ATTRIBUTE')
+make_ready(__name__)

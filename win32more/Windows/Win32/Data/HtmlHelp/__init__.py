@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Data.HtmlHelp
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Search
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.Controls
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 HHWIN_PROP_TAB_AUTOHIDESHOW: UInt32 = 1
 HHWIN_PROP_ONTOP: UInt32 = 2
 HHWIN_PROP_NOTITLEBAR: UInt32 = 4
@@ -281,7 +272,7 @@ class HHNTRACK(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszCurUrl: win32more.Windows.Win32.Foundation.PSTR
     idAction: Int32
-    phhWinType: POINTER(win32more.Windows.Win32.Data.HtmlHelp.HH_WINTYPE_head)
+    phhWinType: POINTER(win32more.Windows.Win32.Data.HtmlHelp.HH_WINTYPE)
 class HHN_NOTIFY(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszUrl: win32more.Windows.Win32.Foundation.PSTR
@@ -433,9 +424,9 @@ class IITPropList(ComPtr):
     @commethod(11)
     def Set(self, PropID: UInt32, dwData: UInt32, dwOperation: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def Add(self, Prop: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, Prop: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def Get(self, PropID: UInt32, Property: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Get(self, PropID: UInt32, Property: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def Clear(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -443,9 +434,9 @@ class IITPropList(ComPtr):
     @commethod(16)
     def SetPersist(self, PropID: UInt32, fPersist: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def GetFirst(self, Property: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetFirst(self, Property: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
-    def GetNext(self, Property: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetNext(self, Property: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def GetPropCount(self, cProp: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
@@ -457,7 +448,7 @@ class IITPropList(ComPtr):
     @commethod(23)
     def GetDataSize(self, lpvHeader: VoidPtr, dwHdrSize: UInt32, dwDataSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
-    def SaveDataToStream(self, lpvHeader: VoidPtr, dwHdrSize: UInt32, pStream: win32more.Windows.Win32.System.Com.IStream_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SaveDataToStream(self, lpvHeader: VoidPtr, dwHdrSize: UInt32, pStream: win32more.Windows.Win32.System.Com.IStream) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def LoadFromMem(self, lpvData: VoidPtr, dwBufSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -490,11 +481,11 @@ class IITResultSet(ComPtr):
     @commethod(14)
     def Set(self, lRowIndex: Int32, lpvHdr: VoidPtr, lpvData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def Copy(self, pRSCopy: win32more.Windows.Win32.Data.HtmlHelp.IITResultSet_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Copy(self, pRSCopy: win32more.Windows.Win32.Data.HtmlHelp.IITResultSet) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def AppendRows(self, pResSrc: win32more.Windows.Win32.Data.HtmlHelp.IITResultSet_head, lRowSrcFirst: Int32, cSrcRows: Int32, lRowFirstDest: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AppendRows(self, pResSrc: win32more.Windows.Win32.Data.HtmlHelp.IITResultSet, lRowSrcFirst: Int32, cSrcRows: Int32, lRowFirstDest: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def Get(self, lRowIndex: Int32, lColumnIndex: Int32, Prop: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Get(self, lRowIndex: Int32, lColumnIndex: Int32, Prop: POINTER(win32more.Windows.Win32.Data.HtmlHelp.CProperty)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetKeyProp(self, KeyPropID: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -522,9 +513,9 @@ class IITResultSet(ComPtr):
     @commethod(30)
     def Pause(self, fPause: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
-    def GetRowStatus(self, lRowFirst: Int32, cRows: Int32, lpRowStatus: POINTER(win32more.Windows.Win32.Data.HtmlHelp.ROWSTATUS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetRowStatus(self, lRowFirst: Int32, cRows: Int32, lpRowStatus: POINTER(win32more.Windows.Win32.Data.HtmlHelp.ROWSTATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
-    def GetColumnStatus(self, lpColStatus: POINTER(win32more.Windows.Win32.Data.HtmlHelp.COLUMNSTATUS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetColumnStatus(self, lpColStatus: POINTER(win32more.Windows.Win32.Data.HtmlHelp.COLUMNSTATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IStemSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fe77c330-7f42-11ce-be57-00aa0051fe20}')
@@ -544,7 +535,7 @@ class IStemmerConfig(ComPtr):
     @commethod(6)
     def GetControlInfo(self, pgrfStemFlags: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def LoadExternalStemmerData(self, pStream: win32more.Windows.Win32.System.Com.IStream_head, dwExtDataType: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def LoadExternalStemmerData(self, pStream: win32more.Windows.Win32.System.Com.IStream, dwExtDataType: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWordBreakerConfig(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8fa0d5a6-dedf-11d0-9a61-00c04fb68bf7}')
@@ -561,11 +552,11 @@ class IWordBreakerConfig(ComPtr):
     @commethod(8)
     def GetControlInfo(self, pgrfBreakFlags: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def LoadExternalBreakerData(self, pStream: win32more.Windows.Win32.System.Com.IStream_head, dwExtDataType: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def LoadExternalBreakerData(self, pStream: win32more.Windows.Win32.System.Com.IStream, dwExtDataType: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def SetWordStemmer(self, rclsid: POINTER(Guid), pStemmer: win32more.Windows.Win32.System.Search.IStemmer_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetWordStemmer(self, rclsid: POINTER(Guid), pStemmer: win32more.Windows.Win32.System.Search.IStemmer) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def GetWordStemmer(self, ppStemmer: POINTER(win32more.Windows.Win32.System.Search.IStemmer_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetWordStemmer(self, ppStemmer: POINTER(win32more.Windows.Win32.System.Search.IStemmer)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFNCOLHEAPFREE(param0: VoidPtr) -> Int32: ...
 PRIORITY = Int32
@@ -577,23 +568,4 @@ class ROWSTATUS(EasyCastStructure):
     cRows: Int32
     cProperties: Int32
     cRowsTotal: Int32
-make_head(_module, 'COLUMNSTATUS')
-make_head(_module, 'CProperty')
-make_head(_module, 'HHNTRACK')
-make_head(_module, 'HHN_NOTIFY')
-make_head(_module, 'HH_AKLINK')
-make_head(_module, 'HH_ENUM_CAT')
-make_head(_module, 'HH_ENUM_IT')
-make_head(_module, 'HH_FTS_QUERY')
-make_head(_module, 'HH_GLOBAL_PROPERTY')
-make_head(_module, 'HH_POPUP')
-make_head(_module, 'HH_SET_INFOTYPE')
-make_head(_module, 'HH_WINTYPE')
-make_head(_module, 'IITDatabase')
-make_head(_module, 'IITPropList')
-make_head(_module, 'IITResultSet')
-make_head(_module, 'IStemSink')
-make_head(_module, 'IStemmerConfig')
-make_head(_module, 'IWordBreakerConfig')
-make_head(_module, 'PFNCOLHEAPFREE')
-make_head(_module, 'ROWSTATUS')
+make_ready(__name__)

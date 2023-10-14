@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Usb
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IUsbBulkInEndpointDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Usb.IUsbBulkInEndpointDescriptor'
@@ -972,53 +963,4 @@ UsbWriteOptions = UInt32
 UsbWriteOptions_None: UsbWriteOptions = 0
 UsbWriteOptions_AutoClearStall: UsbWriteOptions = 1
 UsbWriteOptions_ShortPacketTerminate: UsbWriteOptions = 2
-make_head(_module, 'IUsbBulkInEndpointDescriptor')
-make_head(_module, 'IUsbBulkInPipe')
-make_head(_module, 'IUsbBulkOutEndpointDescriptor')
-make_head(_module, 'IUsbBulkOutPipe')
-make_head(_module, 'IUsbConfiguration')
-make_head(_module, 'IUsbConfigurationDescriptor')
-make_head(_module, 'IUsbConfigurationDescriptorStatics')
-make_head(_module, 'IUsbControlRequestType')
-make_head(_module, 'IUsbDescriptor')
-make_head(_module, 'IUsbDevice')
-make_head(_module, 'IUsbDeviceClass')
-make_head(_module, 'IUsbDeviceClasses')
-make_head(_module, 'IUsbDeviceClassesStatics')
-make_head(_module, 'IUsbDeviceDescriptor')
-make_head(_module, 'IUsbDeviceStatics')
-make_head(_module, 'IUsbEndpointDescriptor')
-make_head(_module, 'IUsbEndpointDescriptorStatics')
-make_head(_module, 'IUsbInterface')
-make_head(_module, 'IUsbInterfaceDescriptor')
-make_head(_module, 'IUsbInterfaceDescriptorStatics')
-make_head(_module, 'IUsbInterfaceSetting')
-make_head(_module, 'IUsbInterruptInEndpointDescriptor')
-make_head(_module, 'IUsbInterruptInEventArgs')
-make_head(_module, 'IUsbInterruptInPipe')
-make_head(_module, 'IUsbInterruptOutEndpointDescriptor')
-make_head(_module, 'IUsbInterruptOutPipe')
-make_head(_module, 'IUsbSetupPacket')
-make_head(_module, 'IUsbSetupPacketFactory')
-make_head(_module, 'UsbBulkInEndpointDescriptor')
-make_head(_module, 'UsbBulkInPipe')
-make_head(_module, 'UsbBulkOutEndpointDescriptor')
-make_head(_module, 'UsbBulkOutPipe')
-make_head(_module, 'UsbConfiguration')
-make_head(_module, 'UsbConfigurationDescriptor')
-make_head(_module, 'UsbControlRequestType')
-make_head(_module, 'UsbDescriptor')
-make_head(_module, 'UsbDevice')
-make_head(_module, 'UsbDeviceClass')
-make_head(_module, 'UsbDeviceClasses')
-make_head(_module, 'UsbDeviceDescriptor')
-make_head(_module, 'UsbEndpointDescriptor')
-make_head(_module, 'UsbInterface')
-make_head(_module, 'UsbInterfaceDescriptor')
-make_head(_module, 'UsbInterfaceSetting')
-make_head(_module, 'UsbInterruptInEndpointDescriptor')
-make_head(_module, 'UsbInterruptInEventArgs')
-make_head(_module, 'UsbInterruptInPipe')
-make_head(_module, 'UsbInterruptOutEndpointDescriptor')
-make_head(_module, 'UsbInterruptOutPipe')
-make_head(_module, 'UsbSetupPacket')
+make_ready(__name__)

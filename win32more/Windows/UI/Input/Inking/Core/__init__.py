@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -22,15 +22,6 @@ import win32more.Windows.UI.Composition
 import win32more.Windows.UI.Core
 import win32more.Windows.UI.Input.Inking
 import win32more.Windows.UI.Input.Inking.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CoreIncrementalInkStroke(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Core.ICoreIncrementalInkStroke
@@ -287,17 +278,4 @@ class ICoreWetStrokeUpdateSourceStatics(ComPtr):
     _iid_ = Guid('{3dad9cba-1d3d-46ae-ab9d-8647486c6f90}')
     @winrt_commethod(6)
     def Create(self, inkPresenter: win32more.Windows.UI.Input.Inking.InkPresenter) -> win32more.Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource: ...
-make_head(_module, 'CoreIncrementalInkStroke')
-make_head(_module, 'CoreInkIndependentInputSource')
-make_head(_module, 'CoreInkPresenterHost')
-make_head(_module, 'CoreWetStrokeUpdateEventArgs')
-make_head(_module, 'CoreWetStrokeUpdateSource')
-make_head(_module, 'ICoreIncrementalInkStroke')
-make_head(_module, 'ICoreIncrementalInkStrokeFactory')
-make_head(_module, 'ICoreInkIndependentInputSource')
-make_head(_module, 'ICoreInkIndependentInputSource2')
-make_head(_module, 'ICoreInkIndependentInputSourceStatics')
-make_head(_module, 'ICoreInkPresenterHost')
-make_head(_module, 'ICoreWetStrokeUpdateEventArgs')
-make_head(_module, 'ICoreWetStrokeUpdateSource')
-make_head(_module, 'ICoreWetStrokeUpdateSourceStatics')
+make_ready(__name__)

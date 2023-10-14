@@ -1,25 +1,16 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.IO
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WNV_API_MAJOR_VERSION_1: UInt32 = 1
 WNV_API_MINOR_VERSION_0: UInt32 = 0
 @winfunctype('wnvapi.dll')
 def WnvOpen() -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('wnvapi.dll')
-def WnvRequestNotification(WnvHandle: win32more.Windows.Win32.Foundation.HANDLE, NotificationParam: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_PARAM_head), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head), BytesTransferred: POINTER(UInt32)) -> UInt32: ...
+def WnvRequestNotification(WnvHandle: win32more.Windows.Win32.Foundation.HANDLE, NotificationParam: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_PARAM), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), BytesTransferred: POINTER(UInt32)) -> UInt32: ...
 WNV_CA_NOTIFICATION_TYPE = Int32
 WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressAdded: WNV_CA_NOTIFICATION_TYPE = 0
 WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressDeleted: WNV_CA_NOTIFICATION_TYPE = 1
@@ -81,11 +72,4 @@ class WNV_REDIRECT_PARAM(EasyCastStructure):
     CA: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     PA: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     NewPA: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
-make_head(_module, 'WNV_CUSTOMER_ADDRESS_CHANGE_PARAM')
-make_head(_module, 'WNV_IP_ADDRESS')
-make_head(_module, 'WNV_NOTIFICATION_PARAM')
-make_head(_module, 'WNV_OBJECT_CHANGE_PARAM')
-make_head(_module, 'WNV_OBJECT_HEADER')
-make_head(_module, 'WNV_POLICY_MISMATCH_PARAM')
-make_head(_module, 'WNV_PROVIDER_ADDRESS_CHANGE_PARAM')
-make_head(_module, 'WNV_REDIRECT_PARAM')
+make_ready(__name__)

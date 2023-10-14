@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
 import win32more.Windows.Networking.Connectivity
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AttributedNetworkUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IAttributedNetworkUsage
@@ -987,7 +978,7 @@ class NetworkStateChangeEventDetails(ComPtr):
 class NetworkStatusChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{71ba143f-598e-49d0-84eb-8febaedcc195}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
 NetworkTypes = UInt32
 NetworkTypes_None: NetworkTypes = 0
 NetworkTypes_Internet: NetworkTypes = 1
@@ -1111,67 +1102,4 @@ WwanNetworkRegistrationState_Home: WwanNetworkRegistrationState = 3
 WwanNetworkRegistrationState_Roaming: WwanNetworkRegistrationState = 4
 WwanNetworkRegistrationState_Partner: WwanNetworkRegistrationState = 5
 WwanNetworkRegistrationState_Denied: WwanNetworkRegistrationState = 6
-make_head(_module, 'AttributedNetworkUsage')
-make_head(_module, 'CellularApnContext')
-make_head(_module, 'ConnectionCost')
-make_head(_module, 'ConnectionProfile')
-make_head(_module, 'ConnectionProfileFilter')
-make_head(_module, 'ConnectionSession')
-make_head(_module, 'ConnectivityInterval')
-make_head(_module, 'ConnectivityManager')
-make_head(_module, 'DataPlanStatus')
-make_head(_module, 'DataPlanUsage')
-make_head(_module, 'DataUsage')
-make_head(_module, 'IAttributedNetworkUsage')
-make_head(_module, 'ICellularApnContext')
-make_head(_module, 'ICellularApnContext2')
-make_head(_module, 'IConnectionCost')
-make_head(_module, 'IConnectionCost2')
-make_head(_module, 'IConnectionProfile')
-make_head(_module, 'IConnectionProfile2')
-make_head(_module, 'IConnectionProfile3')
-make_head(_module, 'IConnectionProfile4')
-make_head(_module, 'IConnectionProfile5')
-make_head(_module, 'IConnectionProfile6')
-make_head(_module, 'IConnectionProfileFilter')
-make_head(_module, 'IConnectionProfileFilter2')
-make_head(_module, 'IConnectionProfileFilter3')
-make_head(_module, 'IConnectionSession')
-make_head(_module, 'IConnectivityInterval')
-make_head(_module, 'IConnectivityManagerStatics')
-make_head(_module, 'IDataPlanStatus')
-make_head(_module, 'IDataPlanUsage')
-make_head(_module, 'IDataUsage')
-make_head(_module, 'IIPInformation')
-make_head(_module, 'ILanIdentifier')
-make_head(_module, 'ILanIdentifierData')
-make_head(_module, 'INetworkAdapter')
-make_head(_module, 'INetworkInformationStatics')
-make_head(_module, 'INetworkInformationStatics2')
-make_head(_module, 'INetworkItem')
-make_head(_module, 'INetworkSecuritySettings')
-make_head(_module, 'INetworkStateChangeEventDetails')
-make_head(_module, 'INetworkStateChangeEventDetails2')
-make_head(_module, 'INetworkUsage')
-make_head(_module, 'IPInformation')
-make_head(_module, 'IProviderNetworkUsage')
-make_head(_module, 'IProxyConfiguration')
-make_head(_module, 'IRoutePolicy')
-make_head(_module, 'IRoutePolicyFactory')
-make_head(_module, 'IWlanConnectionProfileDetails')
-make_head(_module, 'IWwanConnectionProfileDetails')
-make_head(_module, 'IWwanConnectionProfileDetails2')
-make_head(_module, 'LanIdentifier')
-make_head(_module, 'LanIdentifierData')
-make_head(_module, 'NetworkAdapter')
-make_head(_module, 'NetworkInformation')
-make_head(_module, 'NetworkItem')
-make_head(_module, 'NetworkSecuritySettings')
-make_head(_module, 'NetworkStateChangeEventDetails')
-make_head(_module, 'NetworkUsage')
-make_head(_module, 'NetworkUsageStates')
-make_head(_module, 'ProviderNetworkUsage')
-make_head(_module, 'ProxyConfiguration')
-make_head(_module, 'RoutePolicy')
-make_head(_module, 'WlanConnectionProfileDetails')
-make_head(_module, 'WwanConnectionProfileDetails')
+make_ready(__name__)

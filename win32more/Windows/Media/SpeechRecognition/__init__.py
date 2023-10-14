@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
 import win32more.Windows.Media.SpeechRecognition
 import win32more.Windows.Storage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ISpeechContinuousRecognitionCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionCompletedEventArgs'
@@ -765,50 +756,4 @@ class VoiceCommandSet(ComPtr):
     def SetPhraseListAsync(self: win32more.Windows.Media.SpeechRecognition.IVoiceCommandSet, phraseListName: WinRT_String, phraseList: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncAction: ...
     Language = property(get_Language, None)
     Name = property(get_Name, None)
-make_head(_module, 'ISpeechContinuousRecognitionCompletedEventArgs')
-make_head(_module, 'ISpeechContinuousRecognitionResultGeneratedEventArgs')
-make_head(_module, 'ISpeechContinuousRecognitionSession')
-make_head(_module, 'ISpeechRecognitionCompilationResult')
-make_head(_module, 'ISpeechRecognitionConstraint')
-make_head(_module, 'ISpeechRecognitionGrammarFileConstraint')
-make_head(_module, 'ISpeechRecognitionGrammarFileConstraintFactory')
-make_head(_module, 'ISpeechRecognitionHypothesis')
-make_head(_module, 'ISpeechRecognitionHypothesisGeneratedEventArgs')
-make_head(_module, 'ISpeechRecognitionListConstraint')
-make_head(_module, 'ISpeechRecognitionListConstraintFactory')
-make_head(_module, 'ISpeechRecognitionQualityDegradingEventArgs')
-make_head(_module, 'ISpeechRecognitionResult')
-make_head(_module, 'ISpeechRecognitionResult2')
-make_head(_module, 'ISpeechRecognitionSemanticInterpretation')
-make_head(_module, 'ISpeechRecognitionTopicConstraint')
-make_head(_module, 'ISpeechRecognitionTopicConstraintFactory')
-make_head(_module, 'ISpeechRecognitionVoiceCommandDefinitionConstraint')
-make_head(_module, 'ISpeechRecognizer')
-make_head(_module, 'ISpeechRecognizer2')
-make_head(_module, 'ISpeechRecognizerFactory')
-make_head(_module, 'ISpeechRecognizerStateChangedEventArgs')
-make_head(_module, 'ISpeechRecognizerStatics')
-make_head(_module, 'ISpeechRecognizerStatics2')
-make_head(_module, 'ISpeechRecognizerTimeouts')
-make_head(_module, 'ISpeechRecognizerUIOptions')
-make_head(_module, 'IVoiceCommandManager')
-make_head(_module, 'IVoiceCommandSet')
-make_head(_module, 'SpeechContinuousRecognitionCompletedEventArgs')
-make_head(_module, 'SpeechContinuousRecognitionResultGeneratedEventArgs')
-make_head(_module, 'SpeechContinuousRecognitionSession')
-make_head(_module, 'SpeechRecognitionCompilationResult')
-make_head(_module, 'SpeechRecognitionGrammarFileConstraint')
-make_head(_module, 'SpeechRecognitionHypothesis')
-make_head(_module, 'SpeechRecognitionHypothesisGeneratedEventArgs')
-make_head(_module, 'SpeechRecognitionListConstraint')
-make_head(_module, 'SpeechRecognitionQualityDegradingEventArgs')
-make_head(_module, 'SpeechRecognitionResult')
-make_head(_module, 'SpeechRecognitionSemanticInterpretation')
-make_head(_module, 'SpeechRecognitionTopicConstraint')
-make_head(_module, 'SpeechRecognitionVoiceCommandDefinitionConstraint')
-make_head(_module, 'SpeechRecognizer')
-make_head(_module, 'SpeechRecognizerStateChangedEventArgs')
-make_head(_module, 'SpeechRecognizerTimeouts')
-make_head(_module, 'SpeechRecognizerUIOptions')
-make_head(_module, 'VoiceCommandManager')
-make_head(_module, 'VoiceCommandSet')
+make_ready(__name__)

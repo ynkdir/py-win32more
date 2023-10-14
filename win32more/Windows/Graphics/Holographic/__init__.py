@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -24,15 +24,6 @@ import win32more.Windows.Graphics.Holographic
 import win32more.Windows.Perception
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.UI.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class HolographicAdapterId(EasyCastStructure):
     LowPart: UInt32
     HighPart: Int32
@@ -384,7 +375,7 @@ class HolographicSpace(ComPtr, metaclass=_HolographicSpace_Meta_):
     @winrt_mixinmethod
     def get_UserPresence(self: win32more.Windows.Graphics.Holographic.IHolographicSpace2) -> win32more.Windows.Graphics.Holographic.HolographicSpaceUserPresence: ...
     @winrt_mixinmethod
-    def add_UserPresenceChanged(self: win32more.Windows.Graphics.Holographic.IHolographicSpace2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Holographic.HolographicSpace, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UserPresenceChanged(self: win32more.Windows.Graphics.Holographic.IHolographicSpace2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Holographic.HolographicSpace, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_UserPresenceChanged(self: win32more.Windows.Graphics.Holographic.IHolographicSpace2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -402,7 +393,7 @@ class HolographicSpace(ComPtr, metaclass=_HolographicSpace_Meta_):
     @winrt_classmethod
     def get_IsAvailable(cls: win32more.Windows.Graphics.Holographic.IHolographicSpaceStatics2) -> Boolean: ...
     @winrt_classmethod
-    def add_IsAvailableChanged(cls: win32more.Windows.Graphics.Holographic.IHolographicSpaceStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsAvailableChanged(cls: win32more.Windows.Graphics.Holographic.IHolographicSpaceStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_IsAvailableChanged(cls: win32more.Windows.Graphics.Holographic.IHolographicSpaceStatics2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -872,7 +863,7 @@ class IHolographicSpace2(ComPtr):
     @winrt_commethod(6)
     def get_UserPresence(self) -> win32more.Windows.Graphics.Holographic.HolographicSpaceUserPresence: ...
     @winrt_commethod(7)
-    def add_UserPresenceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Holographic.HolographicSpace, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UserPresenceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Holographic.HolographicSpace, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_UserPresenceChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -919,7 +910,7 @@ class IHolographicSpaceStatics2(ComPtr):
     @winrt_commethod(7)
     def get_IsAvailable(self) -> Boolean: ...
     @winrt_commethod(8)
-    def add_IsAvailableChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsAvailableChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_IsAvailableChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsSupported = property(get_IsSupported, None)
@@ -975,64 +966,4 @@ class IHolographicViewConfiguration2(ComPtr):
     @winrt_commethod(6)
     def get_SupportedDepthReprojectionMethods(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Graphics.Holographic.HolographicDepthReprojectionMethod]: ...
     SupportedDepthReprojectionMethods = property(get_SupportedDepthReprojectionMethods, None)
-make_head(_module, 'HolographicAdapterId')
-make_head(_module, 'HolographicCamera')
-make_head(_module, 'HolographicCameraPose')
-make_head(_module, 'HolographicCameraRenderingParameters')
-make_head(_module, 'HolographicCameraViewportParameters')
-make_head(_module, 'HolographicDisplay')
-make_head(_module, 'HolographicFrame')
-make_head(_module, 'HolographicFrameId')
-make_head(_module, 'HolographicFramePrediction')
-make_head(_module, 'HolographicFramePresentationMonitor')
-make_head(_module, 'HolographicFramePresentationReport')
-make_head(_module, 'HolographicFrameRenderingReport')
-make_head(_module, 'HolographicFrameScanoutMonitor')
-make_head(_module, 'HolographicFrameScanoutReport')
-make_head(_module, 'HolographicQuadLayer')
-make_head(_module, 'HolographicQuadLayerUpdateParameters')
-make_head(_module, 'HolographicSpace')
-make_head(_module, 'HolographicSpaceCameraAddedEventArgs')
-make_head(_module, 'HolographicSpaceCameraRemovedEventArgs')
-make_head(_module, 'HolographicStereoTransform')
-make_head(_module, 'HolographicViewConfiguration')
-make_head(_module, 'IHolographicCamera')
-make_head(_module, 'IHolographicCamera2')
-make_head(_module, 'IHolographicCamera3')
-make_head(_module, 'IHolographicCamera4')
-make_head(_module, 'IHolographicCamera5')
-make_head(_module, 'IHolographicCamera6')
-make_head(_module, 'IHolographicCameraPose')
-make_head(_module, 'IHolographicCameraPose2')
-make_head(_module, 'IHolographicCameraRenderingParameters')
-make_head(_module, 'IHolographicCameraRenderingParameters2')
-make_head(_module, 'IHolographicCameraRenderingParameters3')
-make_head(_module, 'IHolographicCameraRenderingParameters4')
-make_head(_module, 'IHolographicCameraViewportParameters')
-make_head(_module, 'IHolographicDisplay')
-make_head(_module, 'IHolographicDisplay2')
-make_head(_module, 'IHolographicDisplay3')
-make_head(_module, 'IHolographicDisplayStatics')
-make_head(_module, 'IHolographicFrame')
-make_head(_module, 'IHolographicFrame2')
-make_head(_module, 'IHolographicFrame3')
-make_head(_module, 'IHolographicFramePrediction')
-make_head(_module, 'IHolographicFramePresentationMonitor')
-make_head(_module, 'IHolographicFramePresentationReport')
-make_head(_module, 'IHolographicFrameRenderingReport')
-make_head(_module, 'IHolographicFrameScanoutMonitor')
-make_head(_module, 'IHolographicFrameScanoutReport')
-make_head(_module, 'IHolographicQuadLayer')
-make_head(_module, 'IHolographicQuadLayerFactory')
-make_head(_module, 'IHolographicQuadLayerUpdateParameters')
-make_head(_module, 'IHolographicQuadLayerUpdateParameters2')
-make_head(_module, 'IHolographicSpace')
-make_head(_module, 'IHolographicSpace2')
-make_head(_module, 'IHolographicSpace3')
-make_head(_module, 'IHolographicSpaceCameraAddedEventArgs')
-make_head(_module, 'IHolographicSpaceCameraRemovedEventArgs')
-make_head(_module, 'IHolographicSpaceStatics')
-make_head(_module, 'IHolographicSpaceStatics2')
-make_head(_module, 'IHolographicSpaceStatics3')
-make_head(_module, 'IHolographicViewConfiguration')
-make_head(_module, 'IHolographicViewConfiguration2')
+make_ready(__name__)

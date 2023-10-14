@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -22,15 +22,6 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.System.UserProfile
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AccountPictureKind = Int32
 AccountPictureKind_SmallImage: AccountPictureKind = 0
 AccountPictureKind_LargeImage: AccountPictureKind = 1
@@ -91,15 +82,15 @@ class FirstSignInSettings(ComPtr):
     default_interface: win32more.Windows.System.UserProfile.IFirstSignInSettings
     _classid_ = 'Windows.System.UserProfile.FirstSignInSettings'
     @winrt_mixinmethod
-    def Lookup(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Lookup(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_Size(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> UInt32: ...
+    def get_Size(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> UInt32: ...
     @winrt_mixinmethod
-    def HasKey(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Boolean: ...
+    def HasKey(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> Boolean: ...
     @winrt_mixinmethod
-    def Split(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], first: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]), second: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head])) -> Void: ...
+    def Split(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], first: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]), second: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable])) -> Void: ...
     @winrt_mixinmethod
-    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.System.UserProfile.IFirstSignInSettingsStatics) -> win32more.Windows.System.UserProfile.FirstSignInSettings: ...
     Size = property(get_Size, None)
@@ -330,7 +321,7 @@ class IUserInformationStatics(ComPtr):
     @winrt_commethod(12)
     def SetAccountPicturesFromStreamsAsync(self, smallImage: win32more.Windows.Storage.Streams.IRandomAccessStream, largeImage: win32more.Windows.Storage.Streams.IRandomAccessStream, video: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.System.UserProfile.SetAccountPictureResult]: ...
     @winrt_commethod(13)
-    def add_AccountPictureChanged(self, changeHandler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AccountPictureChanged(self, changeHandler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_AccountPictureChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(15)
@@ -413,7 +404,7 @@ class UserInformation(ComPtr, metaclass=_UserInformation_Meta_):
     @winrt_classmethod
     def SetAccountPicturesFromStreamsAsync(cls: win32more.Windows.System.UserProfile.IUserInformationStatics, smallImage: win32more.Windows.Storage.Streams.IRandomAccessStream, largeImage: win32more.Windows.Storage.Streams.IRandomAccessStream, video: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.System.UserProfile.SetAccountPictureResult]: ...
     @winrt_classmethod
-    def add_AccountPictureChanged(cls: win32more.Windows.System.UserProfile.IUserInformationStatics, changeHandler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AccountPictureChanged(cls: win32more.Windows.System.UserProfile.IUserInformationStatics, changeHandler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_AccountPictureChanged(cls: win32more.Windows.System.UserProfile.IUserInformationStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -447,31 +438,4 @@ class UserProfilePersonalizationSettings(ComPtr, metaclass=_UserProfilePersonali
     @winrt_classmethod
     def IsSupported(cls: win32more.Windows.System.UserProfile.IUserProfilePersonalizationSettingsStatics) -> Boolean: ...
     _UserProfilePersonalizationSettings_Meta_.Current = property(get_Current.__wrapped__, None)
-make_head(_module, 'AdvertisingManager')
-make_head(_module, 'AdvertisingManagerForUser')
-make_head(_module, 'AssignedAccessSettings')
-make_head(_module, 'DiagnosticsSettings')
-make_head(_module, 'FirstSignInSettings')
-make_head(_module, 'GlobalizationPreferences')
-make_head(_module, 'GlobalizationPreferencesForUser')
-make_head(_module, 'IAdvertisingManagerForUser')
-make_head(_module, 'IAdvertisingManagerStatics')
-make_head(_module, 'IAdvertisingManagerStatics2')
-make_head(_module, 'IAssignedAccessSettings')
-make_head(_module, 'IAssignedAccessSettingsStatics')
-make_head(_module, 'IDiagnosticsSettings')
-make_head(_module, 'IDiagnosticsSettingsStatics')
-make_head(_module, 'IFirstSignInSettings')
-make_head(_module, 'IFirstSignInSettingsStatics')
-make_head(_module, 'IGlobalizationPreferencesForUser')
-make_head(_module, 'IGlobalizationPreferencesStatics')
-make_head(_module, 'IGlobalizationPreferencesStatics2')
-make_head(_module, 'IGlobalizationPreferencesStatics3')
-make_head(_module, 'ILockScreenImageFeedStatics')
-make_head(_module, 'ILockScreenStatics')
-make_head(_module, 'IUserInformationStatics')
-make_head(_module, 'IUserProfilePersonalizationSettings')
-make_head(_module, 'IUserProfilePersonalizationSettingsStatics')
-make_head(_module, 'LockScreen')
-make_head(_module, 'UserInformation')
-make_head(_module, 'UserProfilePersonalizationSettings')
+make_ready(__name__)

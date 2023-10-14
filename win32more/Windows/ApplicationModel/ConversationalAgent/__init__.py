@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.ConversationalAgent
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Audio
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ActivationSignalDetectionConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfiguration
@@ -290,9 +281,9 @@ class ConversationalAgentSession(ComPtr):
     @winrt_mixinmethod
     def RequestForegroundActivation(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionUpdateResponse: ...
     @winrt_mixinmethod
-    def GetAudioClientAsync(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def GetAudioClientAsync(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
-    def GetAudioClient(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetAudioClient(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def CreateAudioDeviceInputNodeAsync(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession, graph: win32more.Windows.Media.Audio.AudioGraph) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Audio.AudioDeviceInputNode]: ...
     @winrt_mixinmethod
@@ -367,9 +358,9 @@ class ConversationalAgentSignal(ComPtr):
     @winrt_mixinmethod
     def put_SignalName(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def get_SignalContext(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SignalContext(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_SignalContext(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_SignalContext(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_SignalStart(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -679,9 +670,9 @@ class IConversationalAgentSession(ComPtr):
     @winrt_commethod(25)
     def RequestForegroundActivation(self) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionUpdateResponse: ...
     @winrt_commethod(26)
-    def GetAudioClientAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def GetAudioClientAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(27)
-    def GetAudioClient(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetAudioClient(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(28)
     def CreateAudioDeviceInputNodeAsync(self, graph: win32more.Windows.Media.Audio.AudioGraph) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Audio.AudioDeviceInputNode]: ...
     @winrt_commethod(29)
@@ -759,9 +750,9 @@ class IConversationalAgentSignal(ComPtr):
     @winrt_commethod(11)
     def put_SignalName(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(12)
-    def get_SignalContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SignalContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(13)
-    def put_SignalContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_SignalContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(14)
     def get_SignalStart(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(15)
@@ -842,33 +833,4 @@ SignalDetectorResourceKind_InputHardware: SignalDetectorResourceKind = 10
 SignalDetectorResourceKind_AcousticEchoCancellation: SignalDetectorResourceKind = 11
 SignalDetectorResourceKind_ModelIdSupport: SignalDetectorResourceKind = 12
 SignalDetectorResourceKind_DataChannel: SignalDetectorResourceKind = 13
-make_head(_module, 'ActivationSignalDetectionConfiguration')
-make_head(_module, 'ActivationSignalDetectionConfigurationCreationResult')
-make_head(_module, 'ActivationSignalDetector')
-make_head(_module, 'ConversationalAgentDetectorManager')
-make_head(_module, 'ConversationalAgentSession')
-make_head(_module, 'ConversationalAgentSessionInterruptedEventArgs')
-make_head(_module, 'ConversationalAgentSignal')
-make_head(_module, 'ConversationalAgentSignalDetectedEventArgs')
-make_head(_module, 'ConversationalAgentSystemStateChangedEventArgs')
-make_head(_module, 'DetectionConfigurationAvailabilityChangedEventArgs')
-make_head(_module, 'DetectionConfigurationAvailabilityInfo')
-make_head(_module, 'IActivationSignalDetectionConfiguration')
-make_head(_module, 'IActivationSignalDetectionConfiguration2')
-make_head(_module, 'IActivationSignalDetectionConfigurationCreationResult')
-make_head(_module, 'IActivationSignalDetector')
-make_head(_module, 'IActivationSignalDetector2')
-make_head(_module, 'IConversationalAgentDetectorManager')
-make_head(_module, 'IConversationalAgentDetectorManager2')
-make_head(_module, 'IConversationalAgentDetectorManagerStatics')
-make_head(_module, 'IConversationalAgentSession')
-make_head(_module, 'IConversationalAgentSession2')
-make_head(_module, 'IConversationalAgentSessionInterruptedEventArgs')
-make_head(_module, 'IConversationalAgentSessionStatics')
-make_head(_module, 'IConversationalAgentSignal')
-make_head(_module, 'IConversationalAgentSignal2')
-make_head(_module, 'IConversationalAgentSignalDetectedEventArgs')
-make_head(_module, 'IConversationalAgentSystemStateChangedEventArgs')
-make_head(_module, 'IDetectionConfigurationAvailabilityChangedEventArgs')
-make_head(_module, 'IDetectionConfigurationAvailabilityInfo')
-make_head(_module, 'IDetectionConfigurationAvailabilityInfo2')
+make_ready(__name__)

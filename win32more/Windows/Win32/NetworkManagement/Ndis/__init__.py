@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 IOCTL_NDIS_RESERVED5: UInt32 = 1507380
 IOCTL_NDIS_RESERVED6: UInt32 = 1540152
 NDIS_OBJECT_TYPE_DEFAULT: UInt32 = 128
@@ -2389,7 +2380,7 @@ class NDIS_PNP_CAPABILITIES(EasyCastStructure):
     Flags: UInt32
     WakeUpCapabilities: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PM_WAKE_UP_CAPABILITIES
 class NDIS_PORT(EasyCastStructure):
-    Next: POINTER(win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_head)
+    Next: POINTER(win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT)
     NdisReserved: VoidPtr
     MiniportReserved: VoidPtr
     ProtocolReserved: VoidPtr
@@ -2965,107 +2956,4 @@ TUNNEL_TYPE_IPHTTPS: TUNNEL_TYPE = 15
 UDP_ENCAP_TYPE = Int32
 OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_IKE: UDP_ENCAP_TYPE = 0
 OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_OTHER: UDP_ENCAP_TYPE = 1
-make_head(_module, 'BSSID_INFO')
-make_head(_module, 'GEN_GET_NETCARD_TIME')
-make_head(_module, 'GEN_GET_TIME_CAPS')
-make_head(_module, 'IF_COUNTED_STRING_LH')
-make_head(_module, 'IF_PHYSICAL_ADDRESS_LH')
-make_head(_module, 'NDIS_802_11_AI_REQFI')
-make_head(_module, 'NDIS_802_11_AI_RESFI')
-make_head(_module, 'NDIS_802_11_ASSOCIATION_INFORMATION')
-make_head(_module, 'NDIS_802_11_AUTHENTICATION_ENCRYPTION')
-make_head(_module, 'NDIS_802_11_AUTHENTICATION_EVENT')
-make_head(_module, 'NDIS_802_11_AUTHENTICATION_REQUEST')
-make_head(_module, 'NDIS_802_11_BSSID_LIST')
-make_head(_module, 'NDIS_802_11_BSSID_LIST_EX')
-make_head(_module, 'NDIS_802_11_CAPABILITY')
-make_head(_module, 'NDIS_802_11_CONFIGURATION')
-make_head(_module, 'NDIS_802_11_CONFIGURATION_FH')
-make_head(_module, 'NDIS_802_11_FIXED_IEs')
-make_head(_module, 'NDIS_802_11_KEY')
-make_head(_module, 'NDIS_802_11_NETWORK_TYPE_LIST')
-make_head(_module, 'NDIS_802_11_NON_BCAST_SSID_LIST')
-make_head(_module, 'NDIS_802_11_PMKID')
-make_head(_module, 'NDIS_802_11_PMKID_CANDIDATE_LIST')
-make_head(_module, 'NDIS_802_11_REMOVE_KEY')
-make_head(_module, 'NDIS_802_11_SSID')
-make_head(_module, 'NDIS_802_11_STATISTICS')
-make_head(_module, 'NDIS_802_11_STATUS_INDICATION')
-make_head(_module, 'NDIS_802_11_TEST')
-make_head(_module, 'NDIS_802_11_VARIABLE_IEs')
-make_head(_module, 'NDIS_802_11_WEP')
-make_head(_module, 'NDIS_CO_DEVICE_PROFILE')
-make_head(_module, 'NDIS_CO_LINK_SPEED')
-make_head(_module, 'NDIS_GUID')
-make_head(_module, 'NDIS_HARDWARE_CROSSTIMESTAMP')
-make_head(_module, 'NDIS_INTERFACE_INFORMATION')
-make_head(_module, 'NDIS_INTERRUPT_MODERATION_PARAMETERS')
-make_head(_module, 'NDIS_IPSEC_OFFLOAD_V1')
-make_head(_module, 'NDIS_IP_OPER_STATE')
-make_head(_module, 'NDIS_IP_OPER_STATUS')
-make_head(_module, 'NDIS_IP_OPER_STATUS_INFO')
-make_head(_module, 'NDIS_IRDA_PACKET_INFO')
-make_head(_module, 'NDIS_LINK_PARAMETERS')
-make_head(_module, 'NDIS_LINK_SPEED')
-make_head(_module, 'NDIS_LINK_STATE')
-make_head(_module, 'NDIS_OBJECT_HEADER')
-make_head(_module, 'NDIS_OFFLOAD')
-make_head(_module, 'NDIS_OFFLOAD_PARAMETERS')
-make_head(_module, 'NDIS_OPER_STATE')
-make_head(_module, 'NDIS_PCI_DEVICE_CUSTOM_PROPERTIES')
-make_head(_module, 'NDIS_PM_PACKET_PATTERN')
-make_head(_module, 'NDIS_PM_WAKE_UP_CAPABILITIES')
-make_head(_module, 'NDIS_PNP_CAPABILITIES')
-make_head(_module, 'NDIS_PORT')
-make_head(_module, 'NDIS_PORT_ARRAY')
-make_head(_module, 'NDIS_PORT_AUTHENTICATION_PARAMETERS')
-make_head(_module, 'NDIS_PORT_CHARACTERISTICS')
-make_head(_module, 'NDIS_PORT_STATE')
-make_head(_module, 'NDIS_RECEIVE_HASH_PARAMETERS')
-make_head(_module, 'NDIS_RECEIVE_SCALE_CAPABILITIES')
-make_head(_module, 'NDIS_RECEIVE_SCALE_PARAMETERS')
-make_head(_module, 'NDIS_STATISTICS_INFO')
-make_head(_module, 'NDIS_STATISTICS_VALUE')
-make_head(_module, 'NDIS_STATISTICS_VALUE_EX')
-make_head(_module, 'NDIS_TCP_CONNECTION_OFFLOAD')
-make_head(_module, 'NDIS_TCP_IP_CHECKSUM_OFFLOAD')
-make_head(_module, 'NDIS_TCP_LARGE_SEND_OFFLOAD_V1')
-make_head(_module, 'NDIS_TCP_LARGE_SEND_OFFLOAD_V2')
-make_head(_module, 'NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES')
-make_head(_module, 'NDIS_TIMESTAMP_CAPABILITIES')
-make_head(_module, 'NDIS_TIMESTAMP_CAPABILITY_FLAGS')
-make_head(_module, 'NDIS_VAR_DATA_DESC')
-make_head(_module, 'NDIS_WAN_PROTOCOL_CAPS')
-make_head(_module, 'NDIS_WLAN_BSSID')
-make_head(_module, 'NDIS_WLAN_BSSID_EX')
-make_head(_module, 'NDIS_WMI_ENUM_ADAPTER')
-make_head(_module, 'NDIS_WMI_EVENT_HEADER')
-make_head(_module, 'NDIS_WMI_IPSEC_OFFLOAD_V1')
-make_head(_module, 'NDIS_WMI_METHOD_HEADER')
-make_head(_module, 'NDIS_WMI_OFFLOAD')
-make_head(_module, 'NDIS_WMI_OUTPUT_INFO')
-make_head(_module, 'NDIS_WMI_SET_HEADER')
-make_head(_module, 'NDIS_WMI_TCP_CONNECTION_OFFLOAD')
-make_head(_module, 'NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD')
-make_head(_module, 'NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1')
-make_head(_module, 'NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2')
-make_head(_module, 'NDK_ADAPTER_INFO')
-make_head(_module, 'NDK_VERSION')
-make_head(_module, 'NETWORK_ADDRESS')
-make_head(_module, 'NETWORK_ADDRESS_IP')
-make_head(_module, 'NETWORK_ADDRESS_IP6')
-make_head(_module, 'NETWORK_ADDRESS_IPX')
-make_head(_module, 'NETWORK_ADDRESS_LIST')
-make_head(_module, 'NET_IF_ALIAS_LH')
-make_head(_module, 'NET_IF_RCV_ADDRESS_LH')
-make_head(_module, 'NET_LUID_LH')
-make_head(_module, 'NET_PHYSICAL_LOCATION_LH')
-make_head(_module, 'OFFLOAD_ALGO_INFO')
-make_head(_module, 'OFFLOAD_IPSEC_ADD_SA')
-make_head(_module, 'OFFLOAD_IPSEC_ADD_UDPESP_SA')
-make_head(_module, 'OFFLOAD_IPSEC_DELETE_SA')
-make_head(_module, 'OFFLOAD_IPSEC_DELETE_UDPESP_SA')
-make_head(_module, 'OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY')
-make_head(_module, 'OFFLOAD_SECURITY_ASSOCIATION')
-make_head(_module, 'PMKID_CANDIDATE')
-make_head(_module, 'TRANSPORT_HEADER_OFFSET')
+make_ready(__name__)

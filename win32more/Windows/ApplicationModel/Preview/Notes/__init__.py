@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Preview.Notes
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class INotePlacementChangedPreviewEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotePlacementChangedPreviewEventArgs'
@@ -68,7 +59,7 @@ class INotesWindowManagerPreview(ComPtr):
     @winrt_commethod(14)
     def SetNotesThumbnailAsync(self, thumbnail: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(15)
-    def add_SystemLockStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SystemLockStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_SystemLockStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(17)
@@ -147,7 +138,7 @@ class NotesWindowManagerPreview(ComPtr):
     @winrt_mixinmethod
     def SetNotesThumbnailAsync(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview, thumbnail: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
-    def add_SystemLockStateChanged(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SystemLockStateChanged(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SystemLockStateChanged(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -181,13 +172,4 @@ class NotesWindowManagerPreviewShowNoteOptions(ComPtr):
     def put_ShowWithFocus(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewShowNoteOptions, value: Boolean) -> Void: ...
     ShowWithFocus = property(get_ShowWithFocus, put_ShowWithFocus)
 PreviewNotesContract: UInt32 = 131072
-make_head(_module, 'INotePlacementChangedPreviewEventArgs')
-make_head(_module, 'INoteVisibilityChangedPreviewEventArgs')
-make_head(_module, 'INotesWindowManagerPreview')
-make_head(_module, 'INotesWindowManagerPreview2')
-make_head(_module, 'INotesWindowManagerPreviewShowNoteOptions')
-make_head(_module, 'INotesWindowManagerPreviewStatics')
-make_head(_module, 'NotePlacementChangedPreviewEventArgs')
-make_head(_module, 'NoteVisibilityChangedPreviewEventArgs')
-make_head(_module, 'NotesWindowManagerPreview')
-make_head(_module, 'NotesWindowManagerPreviewShowNoteOptions')
+make_ready(__name__)

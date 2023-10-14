@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Input.KeyboardAndMouse
 import win32more.Windows.Win32.UI.TextServices
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ACTIVATE_KEYBOARD_LAYOUT_FLAGS = UInt32
 KLF_REORDER: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 8
 KLF_RESET: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 1073741824
@@ -156,7 +147,7 @@ SCANCODE_LWIN: UInt32 = 91
 SCANCODE_RWIN: UInt32 = 92
 SCANCODE_THAI_LAYOUT_TOGGLE: UInt32 = 41
 @winfunctype('COMCTL32.dll')
-def _TrackMouseEvent(lpEventTrack: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def _TrackMouseEvent(lpEventTrack: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def LoadKeyboardLayoutA(pwszKLID: win32more.Windows.Win32.Foundation.PSTR, Flags: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.ACTIVATE_KEYBOARD_LAYOUT_FLAGS) -> win32more.Windows.Win32.UI.TextServices.HKL: ...
 @winfunctype('USER32.dll')
@@ -176,9 +167,9 @@ def GetKeyboardLayoutList(nBuff: Int32, lpList: POINTER(win32more.Windows.Win32.
 @winfunctype('USER32.dll')
 def GetKeyboardLayout(idThread: UInt32) -> win32more.Windows.Win32.UI.TextServices.HKL: ...
 @winfunctype('USER32.dll')
-def GetMouseMovePointsEx(cbSize: UInt32, lppt: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT_head), lpptBuf: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT_head), nBufPoints: Int32, resolution: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.GET_MOUSE_MOVE_POINTS_EX_RESOLUTION) -> Int32: ...
+def GetMouseMovePointsEx(cbSize: UInt32, lppt: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT), lpptBuf: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT), nBufPoints: Int32, resolution: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.GET_MOUSE_MOVE_POINTS_EX_RESOLUTION) -> Int32: ...
 @winfunctype('USER32.dll')
-def TrackMouseEvent(lpEventTrack: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def TrackMouseEvent(lpEventTrack: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def RegisterHotKey(hWnd: win32more.Windows.Win32.Foundation.HWND, id: Int32, fsModifiers: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS, vk: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -232,9 +223,9 @@ def keybd_event(bVk: Byte, bScan: Byte, dwFlags: win32more.Windows.Win32.UI.Inpu
 @winfunctype('USER32.dll')
 def mouse_event(dwFlags: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS, dx: Int32, dy: Int32, dwData: Int32, dwExtraInfo: UIntPtr) -> Void: ...
 @winfunctype('USER32.dll')
-def SendInput(cInputs: UInt32, pInputs: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.INPUT_head), cbSize: Int32) -> UInt32: ...
+def SendInput(cInputs: UInt32, pInputs: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.INPUT), cbSize: Int32) -> UInt32: ...
 @winfunctype('USER32.dll')
-def GetLastInputInfo(plii: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.LASTINPUTINFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetLastInputInfo(plii: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.LASTINPUTINFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def MapVirtualKeyA(uCode: UInt32, uMapType: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_KEY_TYPE) -> UInt32: ...
 @winfunctype('USER32.dll')
@@ -291,24 +282,24 @@ class KBDNLSTABLES(EasyCastStructure):
     OEMIdentifier: UInt16
     LayoutInformation: UInt16
     NumOfVkToF: UInt32
-    pVkToF: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_F_head)
+    pVkToF: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_F)
     NumOfMouseVKey: Int32
     pusMouseVKey: POINTER(UInt16)
 class KBDTABLES(EasyCastStructure):
-    pCharModifiers: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MODIFIERS_head)
-    pVkToWcharTable: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_WCHAR_TABLE_head)
-    pDeadKey: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.DEADKEY_head)
-    pKeyNames: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VSC_LPWSTR_head)
-    pKeyNamesExt: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VSC_LPWSTR_head)
+    pCharModifiers: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MODIFIERS)
+    pVkToWcharTable: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_WCHAR_TABLE)
+    pDeadKey: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.DEADKEY)
+    pKeyNames: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VSC_LPWSTR)
+    pKeyNamesExt: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VSC_LPWSTR)
     pKeyNamesDead: POINTER(POINTER(UInt16))
     pusVSCtoVK: POINTER(UInt16)
     bMaxVSCtoVK: Byte
-    pVSCtoVK_E0: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VSC_VK_head)
-    pVSCtoVK_E1: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VSC_VK_head)
+    pVSCtoVK_E0: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VSC_VK)
+    pVSCtoVK_E1: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VSC_VK)
     fLocaleFlags: UInt32
     nLgMax: Byte
     cbLgEntry: Byte
-    pLigature: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.LIGATURE1_head)
+    pLigature: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.LIGATURE1)
     dwType: UInt32
     dwSubType: UInt32
 class KBDTABLE_DESC(EasyCastStructure):
@@ -363,7 +354,7 @@ MAPVK_VK_TO_CHAR: MAP_VIRTUAL_KEY_TYPE = 2
 MAPVK_VSC_TO_VK_EX: MAP_VIRTUAL_KEY_TYPE = 3
 MAPVK_VK_TO_VSC_EX: MAP_VIRTUAL_KEY_TYPE = 4
 class MODIFIERS(EasyCastStructure):
-    pVkToBit: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_BIT_head)
+    pVkToBit: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_BIT)
     wMaxModBits: UInt16
     ModNumber: Byte * 1
 class MOUSEINPUT(EasyCastStructure):
@@ -706,7 +697,7 @@ class VK_TO_WCHARS9(EasyCastStructure):
     Attributes: Byte
     wch: Char * 9
 class VK_TO_WCHAR_TABLE(EasyCastStructure):
-    pVkToWchars: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_WCHARS1_head)
+    pVkToWchars: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_WCHARS1)
     nModifications: Byte
     cbSize: Byte
 class VK_VSC(EasyCastStructure):
@@ -718,39 +709,4 @@ class VSC_LPWSTR(EasyCastStructure):
 class VSC_VK(EasyCastStructure):
     Vsc: Byte
     Vk: UInt16
-make_head(_module, 'DEADKEY')
-make_head(_module, 'HARDWAREINPUT')
-make_head(_module, 'INPUT')
-make_head(_module, 'KBDNLSTABLES')
-make_head(_module, 'KBDTABLES')
-make_head(_module, 'KBDTABLE_DESC')
-make_head(_module, 'KBDTABLE_MULTI')
-make_head(_module, 'KBD_TYPE_INFO')
-make_head(_module, 'KEYBDINPUT')
-make_head(_module, 'LASTINPUTINFO')
-make_head(_module, 'LIGATURE1')
-make_head(_module, 'LIGATURE2')
-make_head(_module, 'LIGATURE3')
-make_head(_module, 'LIGATURE4')
-make_head(_module, 'LIGATURE5')
-make_head(_module, 'MODIFIERS')
-make_head(_module, 'MOUSEINPUT')
-make_head(_module, 'MOUSEMOVEPOINT')
-make_head(_module, 'TRACKMOUSEEVENT')
-make_head(_module, 'VK_F')
-make_head(_module, 'VK_FPARAM')
-make_head(_module, 'VK_TO_BIT')
-make_head(_module, 'VK_TO_WCHARS1')
-make_head(_module, 'VK_TO_WCHARS10')
-make_head(_module, 'VK_TO_WCHARS2')
-make_head(_module, 'VK_TO_WCHARS3')
-make_head(_module, 'VK_TO_WCHARS4')
-make_head(_module, 'VK_TO_WCHARS5')
-make_head(_module, 'VK_TO_WCHARS6')
-make_head(_module, 'VK_TO_WCHARS7')
-make_head(_module, 'VK_TO_WCHARS8')
-make_head(_module, 'VK_TO_WCHARS9')
-make_head(_module, 'VK_TO_WCHAR_TABLE')
-make_head(_module, 'VK_VSC')
-make_head(_module, 'VSC_LPWSTR')
-make_head(_module, 'VSC_VK')
+make_ready(__name__)

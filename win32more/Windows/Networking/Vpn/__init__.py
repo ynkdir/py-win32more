@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Activation
@@ -25,15 +25,6 @@ import win32more.Windows.Security.Credentials
 import win32more.Windows.Security.Cryptography.Certificates
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IVpnAppId(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnAppId'
@@ -59,9 +50,9 @@ class IVpnChannel(ComPtr):
     _classid_ = 'Windows.Networking.Vpn.IVpnChannel'
     _iid_ = Guid('{4ac78d07-d1a8-4303-a091-c8d2e0915bc3}')
     @winrt_commethod(6)
-    def AssociateTransport(self, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def AssociateTransport(self, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(7)
-    def Start(self, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, routeScope: win32more.Windows.Networking.Vpn.VpnRouteAssignment, namespaceScope: win32more.Windows.Networking.Vpn.VpnNamespaceAssignment, mtuSize: UInt32, maxFrameSize: UInt32, optimizeForLowCostNetwork: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def Start(self, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, routeScope: win32more.Windows.Networking.Vpn.VpnRouteAssignment, namespaceScope: win32more.Windows.Networking.Vpn.VpnNamespaceAssignment, mtuSize: UInt32, maxFrameSize: UInt32, optimizeForLowCostNetwork: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(8)
     def Stop(self) -> Void: ...
     @winrt_commethod(9)
@@ -79,9 +70,9 @@ class IVpnChannel(ComPtr):
     @winrt_commethod(15)
     def remove_ActivityChange(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
-    def put_PlugInContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_PlugInContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(17)
-    def get_PlugInContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_PlugInContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(18)
     def get_SystemHealth(self) -> win32more.Windows.Networking.Vpn.VpnSystemHealth: ...
     @winrt_commethod(19)
@@ -89,7 +80,7 @@ class IVpnChannel(ComPtr):
     @winrt_commethod(20)
     def SetErrorMessage(self, message: WinRT_String) -> Void: ...
     @winrt_commethod(21)
-    def SetAllowedSslTlsVersions(self, tunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, useTls12: Boolean) -> Void: ...
+    def SetAllowedSslTlsVersions(self, tunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, useTls12: Boolean) -> Void: ...
     Id = property(get_Id, None)
     Configuration = property(get_Configuration, None)
     PlugInContext = property(get_PlugInContext, put_PlugInContext)
@@ -99,7 +90,7 @@ class IVpnChannel2(ComPtr):
     _classid_ = 'Windows.Networking.Vpn.IVpnChannel2'
     _iid_ = Guid('{2255d165-993b-4629-ad60-f1c3f3537f50}')
     @winrt_commethod(6)
-    def StartWithMainTransport(self, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedDomainName: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, Reserved: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def StartWithMainTransport(self, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedDomainName: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, Reserved: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(7)
     def StartExistingTransports(self, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedDomainName: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, Reserved: Boolean) -> Void: ...
     @winrt_commethod(8)
@@ -121,23 +112,23 @@ class IVpnChannel2(ComPtr):
     @winrt_commethod(16)
     def TerminateConnection(self, message: WinRT_String) -> Void: ...
     @winrt_commethod(17)
-    def StartWithTrafficFilter(self, assignedClientIpv4List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIpv6List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
+    def StartWithTrafficFilter(self, assignedClientIpv4List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIpv6List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
 class IVpnChannel4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnChannel4'
     _iid_ = Guid('{d7266ede-2937-419d-9570-486aebb81803}')
     @winrt_commethod(6)
-    def AddAndAssociateTransport(self, transport: win32more.Windows.Win32.System.WinRT.IInspectable_head, context: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def AddAndAssociateTransport(self, transport: win32more.Windows.Win32.System.WinRT.IInspectable, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(7)
-    def StartWithMultipleTransports(self, assignedClientIpv4Addresses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.HostName], assignedClientIpv6Addresses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.HostName], vpninterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, transports: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable_head], assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
+    def StartWithMultipleTransports(self, assignedClientIpv4Addresses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.HostName], assignedClientIpv6Addresses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.HostName], vpninterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, transports: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable], assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
     @winrt_commethod(8)
-    def ReplaceAndAssociateTransport(self, transport: win32more.Windows.Win32.System.WinRT.IInspectable_head, context: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def ReplaceAndAssociateTransport(self, transport: win32more.Windows.Win32.System.WinRT.IInspectable, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(9)
-    def StartReconnectingTransport(self, transport: win32more.Windows.Win32.System.WinRT.IInspectable_head, context: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def StartReconnectingTransport(self, transport: win32more.Windows.Win32.System.WinRT.IInspectable, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(10)
-    def GetSlotTypeForTransportContext(self, context: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Networking.Sockets.ControlChannelTriggerStatus: ...
+    def GetSlotTypeForTransportContext(self, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Networking.Sockets.ControlChannelTriggerStatus: ...
     @winrt_commethod(11)
-    def get_CurrentRequestTransportContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_CurrentRequestTransportContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     CurrentRequestTransportContext = property(get_CurrentRequestTransportContext, None)
 class IVpnChannel5(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -196,7 +187,7 @@ class IVpnChannelStatics(ComPtr):
     _classid_ = 'Windows.Networking.Vpn.IVpnChannelStatics'
     _iid_ = Guid('{88eb062d-e818-4ffd-98a6-363e3736c95d}')
     @winrt_commethod(6)
-    def ProcessEventAsync(self, thirdPartyPlugIn: win32more.Windows.Win32.System.WinRT.IInspectable_head, event: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def ProcessEventAsync(self, thirdPartyPlugIn: win32more.Windows.Win32.System.WinRT.IInspectable, event: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
 class IVpnCredential(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnCredential'
@@ -563,9 +554,9 @@ class IVpnPacketBuffer3(ComPtr):
     _classid_ = 'Windows.Networking.Vpn.IVpnPacketBuffer3'
     _iid_ = Guid('{e256072f-107b-4c40-b127-5bc53e0ad960}')
     @winrt_commethod(6)
-    def put_TransportContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_TransportContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(7)
-    def get_TransportContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_TransportContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     TransportContext = property(get_TransportContext, put_TransportContext)
 class IVpnPacketBufferFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -837,9 +828,9 @@ class VpnChannel(ComPtr):
     default_interface: win32more.Windows.Networking.Vpn.IVpnChannel
     _classid_ = 'Windows.Networking.Vpn.VpnChannel'
     @winrt_mixinmethod
-    def AssociateTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def AssociateTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def Start(self: win32more.Windows.Networking.Vpn.IVpnChannel, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, routeScope: win32more.Windows.Networking.Vpn.VpnRouteAssignment, namespaceScope: win32more.Windows.Networking.Vpn.VpnNamespaceAssignment, mtuSize: UInt32, maxFrameSize: UInt32, optimizeForLowCostNetwork: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def Start(self: win32more.Windows.Networking.Vpn.IVpnChannel, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, routeScope: win32more.Windows.Networking.Vpn.VpnRouteAssignment, namespaceScope: win32more.Windows.Networking.Vpn.VpnNamespaceAssignment, mtuSize: UInt32, maxFrameSize: UInt32, optimizeForLowCostNetwork: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.Vpn.IVpnChannel) -> Void: ...
     @winrt_mixinmethod
@@ -857,9 +848,9 @@ class VpnChannel(ComPtr):
     @winrt_mixinmethod
     def remove_ActivityChange(self: win32more.Windows.Networking.Vpn.IVpnChannel, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def put_PlugInContext(self: win32more.Windows.Networking.Vpn.IVpnChannel, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_PlugInContext(self: win32more.Windows.Networking.Vpn.IVpnChannel, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def get_PlugInContext(self: win32more.Windows.Networking.Vpn.IVpnChannel) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_PlugInContext(self: win32more.Windows.Networking.Vpn.IVpnChannel) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_SystemHealth(self: win32more.Windows.Networking.Vpn.IVpnChannel) -> win32more.Windows.Networking.Vpn.VpnSystemHealth: ...
     @winrt_mixinmethod
@@ -867,9 +858,9 @@ class VpnChannel(ComPtr):
     @winrt_mixinmethod
     def SetErrorMessage(self: win32more.Windows.Networking.Vpn.IVpnChannel, message: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def SetAllowedSslTlsVersions(self: win32more.Windows.Networking.Vpn.IVpnChannel, tunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, useTls12: Boolean) -> Void: ...
+    def SetAllowedSslTlsVersions(self: win32more.Windows.Networking.Vpn.IVpnChannel, tunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, useTls12: Boolean) -> Void: ...
     @winrt_mixinmethod
-    def StartWithMainTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel2, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedDomainName: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, Reserved: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def StartWithMainTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel2, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedDomainName: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, Reserved: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def StartExistingTransports(self: win32more.Windows.Networking.Vpn.IVpnChannel2, assignedClientIPv4list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIPv6list: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedDomainName: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, Reserved: Boolean) -> Void: ...
     @winrt_mixinmethod
@@ -891,19 +882,19 @@ class VpnChannel(ComPtr):
     @winrt_mixinmethod
     def TerminateConnection(self: win32more.Windows.Networking.Vpn.IVpnChannel2, message: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def StartWithTrafficFilter(self: win32more.Windows.Networking.Vpn.IVpnChannel2, assignedClientIpv4List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIpv6List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable_head, assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
+    def StartWithTrafficFilter(self: win32more.Windows.Networking.Vpn.IVpnChannel2, assignedClientIpv4List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIpv6List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, mainOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, optionalOuterTunnelTransport: win32more.Windows.Win32.System.WinRT.IInspectable, assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
     @winrt_mixinmethod
-    def AddAndAssociateTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel4, transport: win32more.Windows.Win32.System.WinRT.IInspectable_head, context: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def AddAndAssociateTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel4, transport: win32more.Windows.Win32.System.WinRT.IInspectable, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def StartWithMultipleTransports(self: win32more.Windows.Networking.Vpn.IVpnChannel4, assignedClientIpv4Addresses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.HostName], assignedClientIpv6Addresses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.HostName], vpninterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, transports: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable_head], assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
+    def StartWithMultipleTransports(self: win32more.Windows.Networking.Vpn.IVpnChannel4, assignedClientIpv4Addresses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.HostName], assignedClientIpv6Addresses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.HostName], vpninterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, transports: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable], assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
     @winrt_mixinmethod
-    def ReplaceAndAssociateTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel4, transport: win32more.Windows.Win32.System.WinRT.IInspectable_head, context: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def ReplaceAndAssociateTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel4, transport: win32more.Windows.Win32.System.WinRT.IInspectable, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def StartReconnectingTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel4, transport: win32more.Windows.Win32.System.WinRT.IInspectable_head, context: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def StartReconnectingTransport(self: win32more.Windows.Networking.Vpn.IVpnChannel4, transport: win32more.Windows.Win32.System.WinRT.IInspectable, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def GetSlotTypeForTransportContext(self: win32more.Windows.Networking.Vpn.IVpnChannel4, context: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Networking.Sockets.ControlChannelTriggerStatus: ...
+    def GetSlotTypeForTransportContext(self: win32more.Windows.Networking.Vpn.IVpnChannel4, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Networking.Sockets.ControlChannelTriggerStatus: ...
     @winrt_mixinmethod
-    def get_CurrentRequestTransportContext(self: win32more.Windows.Networking.Vpn.IVpnChannel4) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_CurrentRequestTransportContext(self: win32more.Windows.Networking.Vpn.IVpnChannel4) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def AppendVpnReceivePacketBuffer(self: win32more.Windows.Networking.Vpn.IVpnChannel5, decapsulatedPacketBuffer: win32more.Windows.Networking.Vpn.VpnPacketBuffer) -> Void: ...
     @winrt_mixinmethod
@@ -915,7 +906,7 @@ class VpnChannel(ComPtr):
     @winrt_mixinmethod
     def ActivateForeground(self: win32more.Windows.Networking.Vpn.IVpnChannel6, packageRelativeAppId: WinRT_String, sharedContext: win32more.Windows.Foundation.Collections.ValueSet) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     @winrt_classmethod
-    def ProcessEventAsync(cls: win32more.Windows.Networking.Vpn.IVpnChannelStatics, thirdPartyPlugIn: win32more.Windows.Win32.System.WinRT.IInspectable_head, event: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def ProcessEventAsync(cls: win32more.Windows.Networking.Vpn.IVpnChannelStatics, thirdPartyPlugIn: win32more.Windows.Win32.System.WinRT.IInspectable, event: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     Id = property(get_Id, None)
     Configuration = property(get_Configuration, None)
     PlugInContext = property(get_PlugInContext, put_PlugInContext)
@@ -1508,9 +1499,9 @@ class VpnPacketBuffer(ComPtr):
     @winrt_mixinmethod
     def get_AppId(self: win32more.Windows.Networking.Vpn.IVpnPacketBuffer2) -> win32more.Windows.Networking.Vpn.VpnAppId: ...
     @winrt_mixinmethod
-    def put_TransportContext(self: win32more.Windows.Networking.Vpn.IVpnPacketBuffer3, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_TransportContext(self: win32more.Windows.Networking.Vpn.IVpnPacketBuffer3, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def get_TransportContext(self: win32more.Windows.Networking.Vpn.IVpnPacketBuffer3) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_TransportContext(self: win32more.Windows.Networking.Vpn.IVpnPacketBuffer3) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Buffer = property(get_Buffer, None)
     Status = property(get_Status, put_Status)
     TransportAffinity = property(get_TransportAffinity, put_TransportAffinity)
@@ -1722,92 +1713,4 @@ class VpnTrafficFilterAssignment(ComPtr):
     TrafficFilterList = property(get_TrafficFilterList, None)
     AllowOutbound = property(get_AllowOutbound, put_AllowOutbound)
     AllowInbound = property(get_AllowInbound, put_AllowInbound)
-make_head(_module, 'IVpnAppId')
-make_head(_module, 'IVpnAppIdFactory')
-make_head(_module, 'IVpnChannel')
-make_head(_module, 'IVpnChannel2')
-make_head(_module, 'IVpnChannel4')
-make_head(_module, 'IVpnChannel5')
-make_head(_module, 'IVpnChannel6')
-make_head(_module, 'IVpnChannelActivityEventArgs')
-make_head(_module, 'IVpnChannelActivityStateChangedArgs')
-make_head(_module, 'IVpnChannelConfiguration')
-make_head(_module, 'IVpnChannelConfiguration2')
-make_head(_module, 'IVpnChannelStatics')
-make_head(_module, 'IVpnCredential')
-make_head(_module, 'IVpnCustomCheckBox')
-make_head(_module, 'IVpnCustomComboBox')
-make_head(_module, 'IVpnCustomEditBox')
-make_head(_module, 'IVpnCustomErrorBox')
-make_head(_module, 'IVpnCustomPrompt')
-make_head(_module, 'IVpnCustomPromptBooleanInput')
-make_head(_module, 'IVpnCustomPromptElement')
-make_head(_module, 'IVpnCustomPromptOptionSelector')
-make_head(_module, 'IVpnCustomPromptText')
-make_head(_module, 'IVpnCustomPromptTextInput')
-make_head(_module, 'IVpnCustomTextBox')
-make_head(_module, 'IVpnDomainNameAssignment')
-make_head(_module, 'IVpnDomainNameInfo')
-make_head(_module, 'IVpnDomainNameInfo2')
-make_head(_module, 'IVpnDomainNameInfoFactory')
-make_head(_module, 'IVpnForegroundActivatedEventArgs')
-make_head(_module, 'IVpnForegroundActivationOperation')
-make_head(_module, 'IVpnInterfaceId')
-make_head(_module, 'IVpnInterfaceIdFactory')
-make_head(_module, 'IVpnManagementAgent')
-make_head(_module, 'IVpnNamespaceAssignment')
-make_head(_module, 'IVpnNamespaceInfo')
-make_head(_module, 'IVpnNamespaceInfoFactory')
-make_head(_module, 'IVpnNativeProfile')
-make_head(_module, 'IVpnNativeProfile2')
-make_head(_module, 'IVpnPacketBuffer')
-make_head(_module, 'IVpnPacketBuffer2')
-make_head(_module, 'IVpnPacketBuffer3')
-make_head(_module, 'IVpnPacketBufferFactory')
-make_head(_module, 'IVpnPacketBufferList')
-make_head(_module, 'IVpnPacketBufferList2')
-make_head(_module, 'IVpnPickedCredential')
-make_head(_module, 'IVpnPlugIn')
-make_head(_module, 'IVpnPlugInProfile')
-make_head(_module, 'IVpnPlugInProfile2')
-make_head(_module, 'IVpnProfile')
-make_head(_module, 'IVpnRoute')
-make_head(_module, 'IVpnRouteAssignment')
-make_head(_module, 'IVpnRouteFactory')
-make_head(_module, 'IVpnSystemHealth')
-make_head(_module, 'IVpnTrafficFilter')
-make_head(_module, 'IVpnTrafficFilterAssignment')
-make_head(_module, 'IVpnTrafficFilterFactory')
-make_head(_module, 'VpnAppId')
-make_head(_module, 'VpnChannel')
-make_head(_module, 'VpnChannelActivityEventArgs')
-make_head(_module, 'VpnChannelActivityStateChangedArgs')
-make_head(_module, 'VpnChannelConfiguration')
-make_head(_module, 'VpnCredential')
-make_head(_module, 'VpnCustomCheckBox')
-make_head(_module, 'VpnCustomComboBox')
-make_head(_module, 'VpnCustomEditBox')
-make_head(_module, 'VpnCustomErrorBox')
-make_head(_module, 'VpnCustomPromptBooleanInput')
-make_head(_module, 'VpnCustomPromptOptionSelector')
-make_head(_module, 'VpnCustomPromptText')
-make_head(_module, 'VpnCustomPromptTextInput')
-make_head(_module, 'VpnCustomTextBox')
-make_head(_module, 'VpnDomainNameAssignment')
-make_head(_module, 'VpnDomainNameInfo')
-make_head(_module, 'VpnForegroundActivatedEventArgs')
-make_head(_module, 'VpnForegroundActivationOperation')
-make_head(_module, 'VpnInterfaceId')
-make_head(_module, 'VpnManagementAgent')
-make_head(_module, 'VpnNamespaceAssignment')
-make_head(_module, 'VpnNamespaceInfo')
-make_head(_module, 'VpnNativeProfile')
-make_head(_module, 'VpnPacketBuffer')
-make_head(_module, 'VpnPacketBufferList')
-make_head(_module, 'VpnPickedCredential')
-make_head(_module, 'VpnPlugInProfile')
-make_head(_module, 'VpnRoute')
-make_head(_module, 'VpnRouteAssignment')
-make_head(_module, 'VpnSystemHealth')
-make_head(_module, 'VpnTrafficFilter')
-make_head(_module, 'VpnTrafficFilterAssignment')
+make_ready(__name__)

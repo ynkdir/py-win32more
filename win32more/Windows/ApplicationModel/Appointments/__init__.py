@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Appointments
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.UI
 import win32more.Windows.UI.Popups
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class Appointment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointment
@@ -318,7 +309,7 @@ class AppointmentCalendarSyncManager(ComPtr):
     @winrt_mixinmethod
     def SyncAsync(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1085,7 +1076,7 @@ class IAppointmentCalendarSyncManager(ComPtr):
     @winrt_commethod(9)
     def SyncAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(10)
-    def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SyncStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
@@ -1524,55 +1515,4 @@ RecurrenceType = Int32
 RecurrenceType_Master: RecurrenceType = 0
 RecurrenceType_Instance: RecurrenceType = 1
 RecurrenceType_ExceptionInstance: RecurrenceType = 2
-make_head(_module, 'Appointment')
-make_head(_module, 'AppointmentCalendar')
-make_head(_module, 'AppointmentCalendarSyncManager')
-make_head(_module, 'AppointmentConflictResult')
-make_head(_module, 'AppointmentException')
-make_head(_module, 'AppointmentInvitee')
-make_head(_module, 'AppointmentManager')
-make_head(_module, 'AppointmentManagerForUser')
-make_head(_module, 'AppointmentOrganizer')
-make_head(_module, 'AppointmentProperties')
-make_head(_module, 'AppointmentRecurrence')
-make_head(_module, 'AppointmentStore')
-make_head(_module, 'AppointmentStoreChange')
-make_head(_module, 'AppointmentStoreChangeReader')
-make_head(_module, 'AppointmentStoreChangeTracker')
-make_head(_module, 'AppointmentStoreChangedDeferral')
-make_head(_module, 'AppointmentStoreChangedEventArgs')
-make_head(_module, 'AppointmentStoreNotificationTriggerDetails')
-make_head(_module, 'FindAppointmentsOptions')
-make_head(_module, 'IAppointment')
-make_head(_module, 'IAppointment2')
-make_head(_module, 'IAppointment3')
-make_head(_module, 'IAppointmentCalendar')
-make_head(_module, 'IAppointmentCalendar2')
-make_head(_module, 'IAppointmentCalendar3')
-make_head(_module, 'IAppointmentCalendarSyncManager')
-make_head(_module, 'IAppointmentCalendarSyncManager2')
-make_head(_module, 'IAppointmentConflictResult')
-make_head(_module, 'IAppointmentException')
-make_head(_module, 'IAppointmentInvitee')
-make_head(_module, 'IAppointmentManagerForUser')
-make_head(_module, 'IAppointmentManagerStatics')
-make_head(_module, 'IAppointmentManagerStatics2')
-make_head(_module, 'IAppointmentManagerStatics3')
-make_head(_module, 'IAppointmentParticipant')
-make_head(_module, 'IAppointmentPropertiesStatics')
-make_head(_module, 'IAppointmentPropertiesStatics2')
-make_head(_module, 'IAppointmentRecurrence')
-make_head(_module, 'IAppointmentRecurrence2')
-make_head(_module, 'IAppointmentRecurrence3')
-make_head(_module, 'IAppointmentStore')
-make_head(_module, 'IAppointmentStore2')
-make_head(_module, 'IAppointmentStore3')
-make_head(_module, 'IAppointmentStoreChange')
-make_head(_module, 'IAppointmentStoreChange2')
-make_head(_module, 'IAppointmentStoreChangeReader')
-make_head(_module, 'IAppointmentStoreChangeTracker')
-make_head(_module, 'IAppointmentStoreChangeTracker2')
-make_head(_module, 'IAppointmentStoreChangedDeferral')
-make_head(_module, 'IAppointmentStoreChangedEventArgs')
-make_head(_module, 'IAppointmentStoreNotificationTriggerDetails')
-make_head(_module, 'IFindAppointmentsOptions')
+make_ready(__name__)

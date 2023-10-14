@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Devices.SerialCommunication
 import win32more.Windows.Win32.Foundation
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 def DEVPKEY_DeviceInterface_Serial_UsbVendorId():
     return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=2)
 def DEVPKEY_DeviceInterface_Serial_UsbProductId():
@@ -210,22 +201,4 @@ class SERIAL_XOFF_COUNTER(EasyCastStructure):
     Timeout: UInt32
     Counter: Int32
     XoffChar: Byte
-make_head(_module, 'DEVPKEY_DeviceInterface_Serial_UsbVendorId')
-make_head(_module, 'DEVPKEY_DeviceInterface_Serial_UsbProductId')
-make_head(_module, 'DEVPKEY_DeviceInterface_Serial_PortName')
-make_head(_module, 'PSERENUM_READPORT')
-make_head(_module, 'PSERENUM_WRITEPORT')
-make_head(_module, 'SERENUM_PORT_DESC')
-make_head(_module, 'SERENUM_PORT_PARAMETERS')
-make_head(_module, 'SERIALCONFIG')
-make_head(_module, 'SERIALPERF_STATS')
-make_head(_module, 'SERIAL_BASIC_SETTINGS')
-make_head(_module, 'SERIAL_BAUD_RATE')
-make_head(_module, 'SERIAL_CHARS')
-make_head(_module, 'SERIAL_COMMPROP')
-make_head(_module, 'SERIAL_HANDFLOW')
-make_head(_module, 'SERIAL_LINE_CONTROL')
-make_head(_module, 'SERIAL_QUEUE_SIZE')
-make_head(_module, 'SERIAL_STATUS')
-make_head(_module, 'SERIAL_TIMEOUTS')
-make_head(_module, 'SERIAL_XOFF_COUNTER')
+make_ready(__name__)

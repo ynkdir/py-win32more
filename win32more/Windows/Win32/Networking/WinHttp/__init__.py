@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinHttp
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 HTTPREQUEST_PROXYSETTING_DEFAULT: UInt32 = 0
 HTTPREQUEST_PROXYSETTING_PRECONFIG: UInt32 = 0
 HTTPREQUEST_PROXYSETTING_DIRECT: UInt32 = 1
@@ -578,19 +569,19 @@ WINHTTP_FEATURE_REVERT_IMPERSONATION_SERVER_CERT: UInt32 = 75
 @winfunctype('WINHTTP.dll')
 def WinHttpSetStatusCallback(hInternet: VoidPtr, lpfnInternetCallback: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_STATUS_CALLBACK, dwNotificationFlags: UInt32, dwReserved: UIntPtr) -> win32more.Windows.Win32.Networking.WinHttp.WINHTTP_STATUS_CALLBACK: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpTimeFromSystemTime(pst: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head), pwszTime: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinHttpTimeFromSystemTime(pst: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME), pwszTime: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpTimeToSystemTime(pwszTime: win32more.Windows.Win32.Foundation.PWSTR, pst: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinHttpTimeToSystemTime(pwszTime: win32more.Windows.Win32.Foundation.PWSTR, pst: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpCrackUrl(pwszUrl: win32more.Windows.Win32.Foundation.PWSTR, dwUrlLength: UInt32, dwFlags: UInt32, lpUrlComponents: POINTER(win32more.Windows.Win32.Networking.WinHttp.URL_COMPONENTS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinHttpCrackUrl(pwszUrl: win32more.Windows.Win32.Foundation.PWSTR, dwUrlLength: UInt32, dwFlags: UInt32, lpUrlComponents: POINTER(win32more.Windows.Win32.Networking.WinHttp.URL_COMPONENTS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpCreateUrl(lpUrlComponents: POINTER(win32more.Windows.Win32.Networking.WinHttp.URL_COMPONENTS_head), dwFlags: win32more.Windows.Win32.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS, pwszUrl: win32more.Windows.Win32.Foundation.PWSTR, pdwUrlLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinHttpCreateUrl(lpUrlComponents: POINTER(win32more.Windows.Win32.Networking.WinHttp.URL_COMPONENTS), dwFlags: win32more.Windows.Win32.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS, pwszUrl: win32more.Windows.Win32.Foundation.PWSTR, pdwUrlLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpCheckPlatform() -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpGetDefaultProxyConfiguration(pProxyInfo: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinHttpGetDefaultProxyConfiguration(pProxyInfo: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpSetDefaultProxyConfiguration(pProxyInfo: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinHttpSetDefaultProxyConfiguration(pProxyInfo: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpOpen(pszAgentW: win32more.Windows.Win32.Foundation.PWSTR, dwAccessType: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE, pszProxyW: win32more.Windows.Win32.Foundation.PWSTR, pszProxyBypassW: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> VoidPtr: ...
 @winfunctype('WINHTTP.dll')
@@ -616,7 +607,7 @@ def WinHttpOpenRequest(hConnect: VoidPtr, pwszVerb: win32more.Windows.Win32.Foun
 @winfunctype('WINHTTP.dll')
 def WinHttpAddRequestHeaders(hRequest: VoidPtr, lpszHeaders: win32more.Windows.Win32.Foundation.PWSTR, dwHeadersLength: UInt32, dwModifiers: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpAddRequestHeadersEx(hRequest: VoidPtr, dwModifiers: UInt32, ullFlags: UInt64, ullExtra: UInt64, cHeaders: UInt32, pHeaders: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_EXTENDED_HEADER_head)) -> UInt32: ...
+def WinHttpAddRequestHeadersEx(hRequest: VoidPtr, dwModifiers: UInt32, ullFlags: UInt64, ullExtra: UInt64, cHeaders: UInt32, pHeaders: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_EXTENDED_HEADER)) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpSendRequest(hRequest: VoidPtr, lpszHeaders: win32more.Windows.Win32.Foundation.PWSTR, dwHeadersLength: UInt32, lpOptional: VoidPtr, dwOptionalLength: UInt32, dwTotalLength: UInt32, dwContext: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
@@ -628,39 +619,39 @@ def WinHttpReceiveResponse(hRequest: VoidPtr, lpReserved: VoidPtr) -> win32more.
 @winfunctype('WINHTTP.dll')
 def WinHttpQueryHeaders(hRequest: VoidPtr, dwInfoLevel: UInt32, pwszName: win32more.Windows.Win32.Foundation.PWSTR, lpBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32), lpdwIndex: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpQueryHeadersEx(hRequest: VoidPtr, dwInfoLevel: UInt32, ullFlags: UInt64, uiCodePage: UInt32, pdwIndex: POINTER(UInt32), pHeaderName: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_HEADER_NAME_head), pBuffer: VoidPtr, pdwBufferLength: POINTER(UInt32), ppHeaders: POINTER(POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_EXTENDED_HEADER_head)), pdwHeadersCount: POINTER(UInt32)) -> UInt32: ...
+def WinHttpQueryHeadersEx(hRequest: VoidPtr, dwInfoLevel: UInt32, ullFlags: UInt64, uiCodePage: UInt32, pdwIndex: POINTER(UInt32), pHeaderName: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_HEADER_NAME), pBuffer: VoidPtr, pdwBufferLength: POINTER(UInt32), ppHeaders: POINTER(POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_EXTENDED_HEADER)), pdwHeadersCount: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpQueryConnectionGroup(hInternet: VoidPtr, pGuidConnection: POINTER(Guid), ullFlags: UInt64, ppResult: POINTER(POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT_head))) -> UInt32: ...
+def WinHttpQueryConnectionGroup(hInternet: VoidPtr, pGuidConnection: POINTER(Guid), ullFlags: UInt64, ppResult: POINTER(POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT))) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpFreeQueryConnectionGroupResult(pResult: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT_head)) -> Void: ...
+def WinHttpFreeQueryConnectionGroupResult(pResult: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT)) -> Void: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpDetectAutoProxyConfigUrl(dwAutoDetectFlags: UInt32, ppwstrAutoConfigUrl: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpGetProxyForUrl(hSession: VoidPtr, lpcwszUrl: win32more.Windows.Win32.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head), pProxyInfo: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinHttpGetProxyForUrl(hSession: VoidPtr, lpcwszUrl: win32more.Windows.Win32.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS), pProxyInfo: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpCreateProxyResolver(hSession: VoidPtr, phResolver: POINTER(VoidPtr)) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpGetProxyForUrlEx(hResolver: VoidPtr, pcwszUrl: win32more.Windows.Win32.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head), pContext: UIntPtr) -> UInt32: ...
+def WinHttpGetProxyForUrlEx(hResolver: VoidPtr, pcwszUrl: win32more.Windows.Win32.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS), pContext: UIntPtr) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpGetProxyForUrlEx2(hResolver: VoidPtr, pcwszUrl: win32more.Windows.Win32.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head), cbInterfaceSelectionContext: UInt32, pInterfaceSelectionContext: POINTER(Byte), pContext: UIntPtr) -> UInt32: ...
+def WinHttpGetProxyForUrlEx2(hResolver: VoidPtr, pcwszUrl: win32more.Windows.Win32.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS), cbInterfaceSelectionContext: UInt32, pInterfaceSelectionContext: POINTER(Byte), pContext: UIntPtr) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpGetProxyResult(hResolver: VoidPtr, pProxyResult: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_head)) -> UInt32: ...
+def WinHttpGetProxyResult(hResolver: VoidPtr, pProxyResult: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT)) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpGetProxyResultEx(hResolver: VoidPtr, pProxyResultEx: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX_head)) -> UInt32: ...
+def WinHttpGetProxyResultEx(hResolver: VoidPtr, pProxyResultEx: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX)) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpFreeProxyResult(pProxyResult: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_head)) -> Void: ...
+def WinHttpFreeProxyResult(pProxyResult: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT)) -> Void: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpFreeProxyResultEx(pProxyResultEx: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX_head)) -> Void: ...
+def WinHttpFreeProxyResultEx(pProxyResultEx: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX)) -> Void: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpResetAutoProxy(hSession: VoidPtr, dwFlags: UInt32) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpGetIEProxyConfigForCurrentUser(pProxyConfig: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CURRENT_USER_IE_PROXY_CONFIG_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinHttpGetIEProxyConfigForCurrentUser(pProxyConfig: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CURRENT_USER_IE_PROXY_CONFIG)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpWriteProxySettings(hSession: VoidPtr, fForceUpdate: win32more.Windows.Win32.Foundation.BOOL, pWinHttpProxySettings: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head)) -> UInt32: ...
+def WinHttpWriteProxySettings(hSession: VoidPtr, fForceUpdate: win32more.Windows.Win32.Foundation.BOOL, pWinHttpProxySettings: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS)) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpReadProxySettings(hSession: VoidPtr, pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR, fFallBackToDefaultSettings: win32more.Windows.Win32.Foundation.BOOL, fSetAutoDiscoverForDefaultSettings: win32more.Windows.Win32.Foundation.BOOL, pdwSettingsVersion: POINTER(UInt32), pfDefaultSettingsAreReturned: POINTER(win32more.Windows.Win32.Foundation.BOOL), pWinHttpProxySettings: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head)) -> UInt32: ...
+def WinHttpReadProxySettings(hSession: VoidPtr, pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR, fFallBackToDefaultSettings: win32more.Windows.Win32.Foundation.BOOL, fSetAutoDiscoverForDefaultSettings: win32more.Windows.Win32.Foundation.BOOL, pdwSettingsVersion: POINTER(UInt32), pfDefaultSettingsAreReturned: POINTER(win32more.Windows.Win32.Foundation.BOOL), pWinHttpProxySettings: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS)) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpFreeProxySettings(pWinHttpProxySettings: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head)) -> Void: ...
+def WinHttpFreeProxySettings(pWinHttpProxySettings: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS)) -> Void: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpGetProxySettingsVersion(hSession: VoidPtr, pdwProxySettingsVersion: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
@@ -682,7 +673,7 @@ def WinHttpRegisterProxyChangeNotification(ullFlags: UInt64, pfnCallback: win32m
 @winfunctype('WINHTTP.dll')
 def WinHttpUnregisterProxyChangeNotification(hRegistration: VoidPtr) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpGetProxySettingsEx(hResolver: VoidPtr, ProxySettingsType: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE, pProxySettingsParam: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_PARAM_head), pContext: UIntPtr) -> UInt32: ...
+def WinHttpGetProxySettingsEx(hResolver: VoidPtr, ProxySettingsType: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE, pProxySettingsParam: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_PARAM), pContext: UIntPtr) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpGetProxySettingsResultEx(hResolver: VoidPtr, pProxySettingsEx: VoidPtr) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
@@ -714,11 +705,11 @@ class IWinHttpRequest(ComPtr):
     @commethod(16)
     def get_ResponseText(self, Body: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def get_ResponseBody(self, Body: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_ResponseBody(self, Body: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
-    def get_ResponseStream(self, Body: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_ResponseStream(self, Body: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
-    def get_Option(self, Option: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption, Value: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Option(self, Option: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption, Value: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def put_Option(self, Option: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption, Value: win32more.Windows.Win32.System.Variant.VARIANT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -737,7 +728,7 @@ class IWinHttpRequestEvents(ComPtr):
     @commethod(3)
     def OnResponseStart(self, Status: Int32, ContentType: win32more.Windows.Win32.Foundation.BSTR) -> Void: ...
     @commethod(4)
-    def OnResponseDataAvailable(self, Data: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY_head))) -> Void: ...
+    def OnResponseDataAvailable(self, Data: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY))) -> Void: ...
     @commethod(5)
     def OnResponseFinished(self) -> Void: ...
     @commethod(6)
@@ -838,7 +829,7 @@ class WINHTTP_HEADER_NAME(EasyCastUnion):
 class WINHTTP_HOST_CONNECTION_GROUP(EasyCastStructure):
     pwszHost: win32more.Windows.Win32.Foundation.PWSTR
     cConnectionGroups: UInt32
-    pConnectionGroups: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CONNECTION_GROUP_head)
+    pConnectionGroups: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CONNECTION_GROUP)
 class WINHTTP_HTTP2_RECEIVE_WINDOW(EasyCastStructure):
     ulStreamWindow: UInt32
     ulStreamWindowUpdateDelta: UInt32
@@ -874,7 +865,7 @@ class WINHTTP_PROXY_NETWORKING_KEY(EasyCastStructure):
     pbBuffer: Byte * 128
 class WINHTTP_PROXY_RESULT(EasyCastStructure):
     cEntries: UInt32
-    pEntries: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY_head)
+    pEntries: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY)
 class WINHTTP_PROXY_RESULT_ENTRY(EasyCastStructure):
     fProxy: win32more.Windows.Win32.Foundation.BOOL
     fBypass: win32more.Windows.Win32.Foundation.BOOL
@@ -883,7 +874,7 @@ class WINHTTP_PROXY_RESULT_ENTRY(EasyCastStructure):
     ProxyPort: UInt16
 class WINHTTP_PROXY_RESULT_EX(EasyCastStructure):
     cEntries: UInt32
-    pEntries: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY_head)
+    pEntries: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY)
     hProxyDetectionHandle: win32more.Windows.Win32.Foundation.HANDLE
     dwProxyInterfaceAffinity: UInt32
 class WINHTTP_PROXY_SETTINGS(EasyCastStructure):
@@ -902,7 +893,7 @@ class WINHTTP_PROXY_SETTINGS(EasyCastStructure):
     dwDetectedInterfaceIpCount: UInt32
     pdwDetectedInterfaceIp: POINTER(UInt32)
     cNetworkKeys: UInt32
-    pNetworkKeys: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_NETWORKING_KEY_head)
+    pNetworkKeys: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_NETWORKING_KEY)
 if ARCH in 'X64,ARM64':
     class WINHTTP_PROXY_SETTINGS_EX(EasyCastStructure):
         ullGenerationId: UInt64
@@ -943,7 +934,7 @@ WINHTTP_PROXY_SETTINGS_TYPE_WinHttpProxySettingsTypeWsl: WINHTTP_PROXY_SETTINGS_
 WINHTTP_PROXY_SETTINGS_TYPE_WinHttpProxySettingsTypeWsa: WINHTTP_PROXY_SETTINGS_TYPE = 2
 class WINHTTP_QUERY_CONNECTION_GROUP_RESULT(EasyCastStructure):
     cHosts: UInt32
-    pHostConnectionGroups: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_HOST_CONNECTION_GROUP_head)
+    pHostConnectionGroups: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_HOST_CONNECTION_GROUP)
 if ARCH in 'X64,ARM64':
     class WINHTTP_REQUEST_STATS(EasyCastStructure):
         ullFlags: UInt64
@@ -1122,58 +1113,4 @@ SslErrorFlag_CertWrongUsage: WinHttpRequestSslErrorFlags = 512
 SslErrorFlag_CertCNInvalid: WinHttpRequestSslErrorFlags = 4096
 SslErrorFlag_CertDateInvalid: WinHttpRequestSslErrorFlags = 8192
 SslErrorFlag_Ignore_All: WinHttpRequestSslErrorFlags = 13056
-make_head(_module, 'HTTP_VERSION_INFO')
-make_head(_module, 'IWinHttpRequest')
-make_head(_module, 'IWinHttpRequestEvents')
-make_head(_module, 'URL_COMPONENTS')
-make_head(_module, 'WINHTTP_ASYNC_RESULT')
-make_head(_module, 'WINHTTP_AUTOPROXY_OPTIONS')
-make_head(_module, 'WINHTTP_CERTIFICATE_INFO')
-make_head(_module, 'WINHTTP_CONNECTION_GROUP')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'WINHTTP_CONNECTION_INFO')
-if ARCH in 'X86':
-    make_head(_module, 'WINHTTP_CONNECTION_INFO')
-make_head(_module, 'WINHTTP_CREDS')
-make_head(_module, 'WINHTTP_CREDS_EX')
-make_head(_module, 'WINHTTP_CURRENT_USER_IE_PROXY_CONFIG')
-make_head(_module, 'WINHTTP_EXTENDED_HEADER')
-make_head(_module, 'WINHTTP_FAILED_CONNECTION_RETRIES')
-make_head(_module, 'WINHTTP_HEADER_NAME')
-make_head(_module, 'WINHTTP_HOST_CONNECTION_GROUP')
-make_head(_module, 'WINHTTP_HTTP2_RECEIVE_WINDOW')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'WINHTTP_MATCH_CONNECTION_GUID')
-if ARCH in 'X86':
-    make_head(_module, 'WINHTTP_MATCH_CONNECTION_GUID')
-make_head(_module, 'WINHTTP_PROXY_CHANGE_CALLBACK')
-make_head(_module, 'WINHTTP_PROXY_INFO')
-make_head(_module, 'WINHTTP_PROXY_NETWORKING_KEY')
-make_head(_module, 'WINHTTP_PROXY_RESULT')
-make_head(_module, 'WINHTTP_PROXY_RESULT_ENTRY')
-make_head(_module, 'WINHTTP_PROXY_RESULT_EX')
-make_head(_module, 'WINHTTP_PROXY_SETTINGS')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'WINHTTP_PROXY_SETTINGS_EX')
-if ARCH in 'X86':
-    make_head(_module, 'WINHTTP_PROXY_SETTINGS_EX')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'WINHTTP_PROXY_SETTINGS_PARAM')
-if ARCH in 'X86':
-    make_head(_module, 'WINHTTP_PROXY_SETTINGS_PARAM')
-make_head(_module, 'WINHTTP_QUERY_CONNECTION_GROUP_RESULT')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'WINHTTP_REQUEST_STATS')
-if ARCH in 'X86':
-    make_head(_module, 'WINHTTP_REQUEST_STATS')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'WINHTTP_REQUEST_TIMES')
-if ARCH in 'X86':
-    make_head(_module, 'WINHTTP_REQUEST_TIMES')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'WINHTTP_RESOLVER_CACHE_CONFIG')
-if ARCH in 'X86':
-    make_head(_module, 'WINHTTP_RESOLVER_CACHE_CONFIG')
-make_head(_module, 'WINHTTP_STATUS_CALLBACK')
-make_head(_module, 'WINHTTP_WEB_SOCKET_ASYNC_RESULT')
-make_head(_module, 'WINHTTP_WEB_SOCKET_STATUS')
+make_ready(__name__)

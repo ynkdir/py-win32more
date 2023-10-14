@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Graphics.Printing3D
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPrint3DManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrint3DManager'
@@ -53,7 +44,7 @@ class IPrint3DTask(ComPtr):
     @winrt_commethod(6)
     def get_Source(self) -> win32more.Windows.Graphics.Printing3D.Printing3D3MFPackage: ...
     @winrt_commethod(7)
-    def add_Submitting(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing3D.Print3DTask, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Submitting(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing3D.Print3DTask, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Submitting(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -589,7 +580,7 @@ class Print3DTask(ComPtr):
     @winrt_mixinmethod
     def get_Source(self: win32more.Windows.Graphics.Printing3D.IPrint3DTask) -> win32more.Windows.Graphics.Printing3D.Printing3D3MFPackage: ...
     @winrt_mixinmethod
-    def add_Submitting(self: win32more.Windows.Graphics.Printing3D.IPrint3DTask, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing3D.Print3DTask, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Submitting(self: win32more.Windows.Graphics.Printing3D.IPrint3DTask, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing3D.Print3DTask, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Submitting(self: win32more.Windows.Graphics.Printing3D.IPrint3DTask, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1141,71 +1132,4 @@ class Printing3DTextureResource(ComPtr):
     def put_Name(self: win32more.Windows.Graphics.Printing3D.IPrinting3DTextureResource, value: WinRT_String) -> Void: ...
     TextureData = property(get_TextureData, put_TextureData)
     Name = property(get_Name, put_Name)
-make_head(_module, 'IPrint3DManager')
-make_head(_module, 'IPrint3DManagerStatics')
-make_head(_module, 'IPrint3DTask')
-make_head(_module, 'IPrint3DTaskCompletedEventArgs')
-make_head(_module, 'IPrint3DTaskRequest')
-make_head(_module, 'IPrint3DTaskRequestedEventArgs')
-make_head(_module, 'IPrint3DTaskSourceChangedEventArgs')
-make_head(_module, 'IPrint3DTaskSourceRequestedArgs')
-make_head(_module, 'IPrinting3D3MFPackage')
-make_head(_module, 'IPrinting3D3MFPackage2')
-make_head(_module, 'IPrinting3D3MFPackageStatics')
-make_head(_module, 'IPrinting3DBaseMaterial')
-make_head(_module, 'IPrinting3DBaseMaterialGroup')
-make_head(_module, 'IPrinting3DBaseMaterialGroupFactory')
-make_head(_module, 'IPrinting3DBaseMaterialStatics')
-make_head(_module, 'IPrinting3DColorMaterial')
-make_head(_module, 'IPrinting3DColorMaterial2')
-make_head(_module, 'IPrinting3DColorMaterialGroup')
-make_head(_module, 'IPrinting3DColorMaterialGroupFactory')
-make_head(_module, 'IPrinting3DComponent')
-make_head(_module, 'IPrinting3DComponentWithMatrix')
-make_head(_module, 'IPrinting3DCompositeMaterial')
-make_head(_module, 'IPrinting3DCompositeMaterialGroup')
-make_head(_module, 'IPrinting3DCompositeMaterialGroup2')
-make_head(_module, 'IPrinting3DCompositeMaterialGroupFactory')
-make_head(_module, 'IPrinting3DFaceReductionOptions')
-make_head(_module, 'IPrinting3DMaterial')
-make_head(_module, 'IPrinting3DMesh')
-make_head(_module, 'IPrinting3DMeshVerificationResult')
-make_head(_module, 'IPrinting3DModel')
-make_head(_module, 'IPrinting3DModel2')
-make_head(_module, 'IPrinting3DModelTexture')
-make_head(_module, 'IPrinting3DMultiplePropertyMaterial')
-make_head(_module, 'IPrinting3DMultiplePropertyMaterialGroup')
-make_head(_module, 'IPrinting3DMultiplePropertyMaterialGroupFactory')
-make_head(_module, 'IPrinting3DTexture2CoordMaterial')
-make_head(_module, 'IPrinting3DTexture2CoordMaterialGroup')
-make_head(_module, 'IPrinting3DTexture2CoordMaterialGroup2')
-make_head(_module, 'IPrinting3DTexture2CoordMaterialGroupFactory')
-make_head(_module, 'IPrinting3DTextureResource')
-make_head(_module, 'Print3DManager')
-make_head(_module, 'Print3DTask')
-make_head(_module, 'Print3DTaskCompletedEventArgs')
-make_head(_module, 'Print3DTaskRequest')
-make_head(_module, 'Print3DTaskRequestedEventArgs')
-make_head(_module, 'Print3DTaskSourceChangedEventArgs')
-make_head(_module, 'Print3DTaskSourceRequestedArgs')
-make_head(_module, 'Printing3D3MFPackage')
-make_head(_module, 'Printing3DBaseMaterial')
-make_head(_module, 'Printing3DBaseMaterialGroup')
-make_head(_module, 'Printing3DBufferDescription')
-make_head(_module, 'Printing3DColorMaterial')
-make_head(_module, 'Printing3DColorMaterialGroup')
-make_head(_module, 'Printing3DComponent')
-make_head(_module, 'Printing3DComponentWithMatrix')
-make_head(_module, 'Printing3DCompositeMaterial')
-make_head(_module, 'Printing3DCompositeMaterialGroup')
-make_head(_module, 'Printing3DFaceReductionOptions')
-make_head(_module, 'Printing3DMaterial')
-make_head(_module, 'Printing3DMesh')
-make_head(_module, 'Printing3DMeshVerificationResult')
-make_head(_module, 'Printing3DModel')
-make_head(_module, 'Printing3DModelTexture')
-make_head(_module, 'Printing3DMultiplePropertyMaterial')
-make_head(_module, 'Printing3DMultiplePropertyMaterialGroup')
-make_head(_module, 'Printing3DTexture2CoordMaterial')
-make_head(_module, 'Printing3DTexture2CoordMaterialGroup')
-make_head(_module, 'Printing3DTextureResource')
+make_ready(__name__)

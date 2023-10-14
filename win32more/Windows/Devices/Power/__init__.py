@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Power
 import win32more.Windows.Foundation
 import win32more.Windows.System.Power
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _Battery_Meta_(ComPtr.__class__):
     pass
 class Battery(ComPtr, metaclass=_Battery_Meta_):
@@ -38,7 +29,7 @@ class Battery(ComPtr, metaclass=_Battery_Meta_):
     @winrt_mixinmethod
     def GetReport(self: win32more.Windows.Devices.Power.IBattery) -> win32more.Windows.Devices.Power.BatteryReport: ...
     @winrt_mixinmethod
-    def add_ReportUpdated(self: win32more.Windows.Devices.Power.IBattery, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Power.Battery, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReportUpdated(self: win32more.Windows.Devices.Power.IBattery, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Power.Battery, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ReportUpdated(self: win32more.Windows.Devices.Power.IBattery, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -77,7 +68,7 @@ class IBattery(ComPtr):
     @winrt_commethod(7)
     def GetReport(self) -> win32more.Windows.Devices.Power.BatteryReport: ...
     @winrt_commethod(8)
-    def add_ReportUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Power.Battery, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReportUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Power.Battery, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_ReportUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
@@ -111,8 +102,4 @@ class IBatteryStatics(ComPtr):
     @winrt_commethod(8)
     def GetDeviceSelector(self) -> WinRT_String: ...
     AggregateBattery = property(get_AggregateBattery, None)
-make_head(_module, 'Battery')
-make_head(_module, 'BatteryReport')
-make_head(_module, 'IBattery')
-make_head(_module, 'IBatteryReport')
-make_head(_module, 'IBatteryStatics')
+make_ready(__name__)

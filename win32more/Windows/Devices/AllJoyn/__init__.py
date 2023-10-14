@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.AllJoyn
@@ -23,15 +23,6 @@ import win32more.Windows.Globalization
 import win32more.Windows.Networking.Sockets
 import win32more.Windows.Security.Credentials
 import win32more.Windows.Security.Cryptography.Certificates
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AllJoynAboutData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynAboutData
@@ -97,7 +88,7 @@ class AllJoynAboutDataView(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Int32: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_AJSoftwareVersion(self: win32more.Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -620,7 +611,7 @@ class IAllJoynAboutDataView(ComPtr):
     @winrt_commethod(6)
     def get_Status(self) -> Int32: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(8)
     def get_AJSoftwareVersion(self) -> WinRT_String: ...
     @winrt_commethod(9)
@@ -1132,67 +1123,4 @@ class IAllJoynWatcherStoppedEventArgsFactory(ComPtr):
     _iid_ = Guid('{878fa5a8-2d50-47e1-904a-20bf0d48c782}')
     @winrt_commethod(6)
     def Create(self, status: Int32) -> win32more.Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs: ...
-make_head(_module, 'AllJoynAboutData')
-make_head(_module, 'AllJoynAboutDataView')
-make_head(_module, 'AllJoynAcceptSessionJoinerEventArgs')
-make_head(_module, 'AllJoynAuthenticationCompleteEventArgs')
-make_head(_module, 'AllJoynBusAttachment')
-make_head(_module, 'AllJoynBusAttachmentStateChangedEventArgs')
-make_head(_module, 'AllJoynBusObject')
-make_head(_module, 'AllJoynBusObjectStoppedEventArgs')
-make_head(_module, 'AllJoynCredentials')
-make_head(_module, 'AllJoynCredentialsRequestedEventArgs')
-make_head(_module, 'AllJoynCredentialsVerificationRequestedEventArgs')
-make_head(_module, 'AllJoynMessageInfo')
-make_head(_module, 'AllJoynProducerStoppedEventArgs')
-make_head(_module, 'AllJoynServiceInfo')
-make_head(_module, 'AllJoynServiceInfoRemovedEventArgs')
-make_head(_module, 'AllJoynSession')
-make_head(_module, 'AllJoynSessionJoinedEventArgs')
-make_head(_module, 'AllJoynSessionLostEventArgs')
-make_head(_module, 'AllJoynSessionMemberAddedEventArgs')
-make_head(_module, 'AllJoynSessionMemberRemovedEventArgs')
-make_head(_module, 'AllJoynStatus')
-make_head(_module, 'AllJoynWatcherStoppedEventArgs')
-make_head(_module, 'IAllJoynAboutData')
-make_head(_module, 'IAllJoynAboutDataView')
-make_head(_module, 'IAllJoynAboutDataViewStatics')
-make_head(_module, 'IAllJoynAcceptSessionJoiner')
-make_head(_module, 'IAllJoynAcceptSessionJoinerEventArgs')
-make_head(_module, 'IAllJoynAcceptSessionJoinerEventArgsFactory')
-make_head(_module, 'IAllJoynAuthenticationCompleteEventArgs')
-make_head(_module, 'IAllJoynBusAttachment')
-make_head(_module, 'IAllJoynBusAttachment2')
-make_head(_module, 'IAllJoynBusAttachmentFactory')
-make_head(_module, 'IAllJoynBusAttachmentStateChangedEventArgs')
-make_head(_module, 'IAllJoynBusAttachmentStatics')
-make_head(_module, 'IAllJoynBusObject')
-make_head(_module, 'IAllJoynBusObjectFactory')
-make_head(_module, 'IAllJoynBusObjectStoppedEventArgs')
-make_head(_module, 'IAllJoynBusObjectStoppedEventArgsFactory')
-make_head(_module, 'IAllJoynCredentials')
-make_head(_module, 'IAllJoynCredentialsRequestedEventArgs')
-make_head(_module, 'IAllJoynCredentialsVerificationRequestedEventArgs')
-make_head(_module, 'IAllJoynMessageInfo')
-make_head(_module, 'IAllJoynMessageInfoFactory')
-make_head(_module, 'IAllJoynProducer')
-make_head(_module, 'IAllJoynProducerStoppedEventArgs')
-make_head(_module, 'IAllJoynProducerStoppedEventArgsFactory')
-make_head(_module, 'IAllJoynServiceInfo')
-make_head(_module, 'IAllJoynServiceInfoFactory')
-make_head(_module, 'IAllJoynServiceInfoRemovedEventArgs')
-make_head(_module, 'IAllJoynServiceInfoRemovedEventArgsFactory')
-make_head(_module, 'IAllJoynServiceInfoStatics')
-make_head(_module, 'IAllJoynSession')
-make_head(_module, 'IAllJoynSessionJoinedEventArgs')
-make_head(_module, 'IAllJoynSessionJoinedEventArgsFactory')
-make_head(_module, 'IAllJoynSessionLostEventArgs')
-make_head(_module, 'IAllJoynSessionLostEventArgsFactory')
-make_head(_module, 'IAllJoynSessionMemberAddedEventArgs')
-make_head(_module, 'IAllJoynSessionMemberAddedEventArgsFactory')
-make_head(_module, 'IAllJoynSessionMemberRemovedEventArgs')
-make_head(_module, 'IAllJoynSessionMemberRemovedEventArgsFactory')
-make_head(_module, 'IAllJoynSessionStatics')
-make_head(_module, 'IAllJoynStatusStatics')
-make_head(_module, 'IAllJoynWatcherStoppedEventArgs')
-make_head(_module, 'IAllJoynWatcherStoppedEventArgsFactory')
+make_ready(__name__)

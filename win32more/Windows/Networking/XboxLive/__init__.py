@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,21 +20,12 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
 import win32more.Windows.Networking.XboxLive
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IXboxLiveDeviceAddress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveDeviceAddress'
     _iid_ = Guid('{f5bbd279-3c86-4b57-a31a-b9462408fd01}')
     @winrt_commethod(6)
-    def add_SnapshotChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.XboxLive.XboxLiveDeviceAddress, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SnapshotChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.XboxLive.XboxLiveDeviceAddress, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_SnapshotChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -302,7 +293,7 @@ class XboxLiveDeviceAddress(ComPtr, metaclass=_XboxLiveDeviceAddress_Meta_):
     default_interface: win32more.Windows.Networking.XboxLive.IXboxLiveDeviceAddress
     _classid_ = 'Windows.Networking.XboxLive.XboxLiveDeviceAddress'
     @winrt_mixinmethod
-    def add_SnapshotChanged(self: win32more.Windows.Networking.XboxLive.IXboxLiveDeviceAddress, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.XboxLive.XboxLiveDeviceAddress, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SnapshotChanged(self: win32more.Windows.Networking.XboxLive.IXboxLiveDeviceAddress, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.XboxLive.XboxLiveDeviceAddress, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SnapshotChanged(self: win32more.Windows.Networking.XboxLive.IXboxLiveDeviceAddress, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -606,25 +597,4 @@ XboxLiveSocketKind = Int32
 XboxLiveSocketKind_None: XboxLiveSocketKind = 0
 XboxLiveSocketKind_Datagram: XboxLiveSocketKind = 1
 XboxLiveSocketKind_Stream: XboxLiveSocketKind = 2
-make_head(_module, 'IXboxLiveDeviceAddress')
-make_head(_module, 'IXboxLiveDeviceAddressStatics')
-make_head(_module, 'IXboxLiveEndpointPair')
-make_head(_module, 'IXboxLiveEndpointPairCreationResult')
-make_head(_module, 'IXboxLiveEndpointPairStateChangedEventArgs')
-make_head(_module, 'IXboxLiveEndpointPairStatics')
-make_head(_module, 'IXboxLiveEndpointPairTemplate')
-make_head(_module, 'IXboxLiveEndpointPairTemplateStatics')
-make_head(_module, 'IXboxLiveInboundEndpointPairCreatedEventArgs')
-make_head(_module, 'IXboxLiveQualityOfServiceMeasurement')
-make_head(_module, 'IXboxLiveQualityOfServiceMeasurementStatics')
-make_head(_module, 'IXboxLiveQualityOfServiceMetricResult')
-make_head(_module, 'IXboxLiveQualityOfServicePrivatePayloadResult')
-make_head(_module, 'XboxLiveDeviceAddress')
-make_head(_module, 'XboxLiveEndpointPair')
-make_head(_module, 'XboxLiveEndpointPairCreationResult')
-make_head(_module, 'XboxLiveEndpointPairStateChangedEventArgs')
-make_head(_module, 'XboxLiveEndpointPairTemplate')
-make_head(_module, 'XboxLiveInboundEndpointPairCreatedEventArgs')
-make_head(_module, 'XboxLiveQualityOfServiceMeasurement')
-make_head(_module, 'XboxLiveQualityOfServiceMetricResult')
-make_head(_module, 'XboxLiveQualityOfServicePrivatePayloadResult')
+make_ready(__name__)

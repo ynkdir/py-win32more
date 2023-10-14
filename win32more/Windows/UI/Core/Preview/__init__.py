@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.UI.Core.Preview
 import win32more.Windows.UI.WindowManagement
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CoreAppWindowPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.Preview.ICoreAppWindowPreview
@@ -89,11 +80,4 @@ class SystemNavigationManagerPreview(ComPtr):
     def remove_CloseRequested(self: win32more.Windows.UI.Core.Preview.ISystemNavigationManagerPreview, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Core.Preview.ISystemNavigationManagerPreviewStatics) -> win32more.Windows.UI.Core.Preview.SystemNavigationManagerPreview: ...
-make_head(_module, 'CoreAppWindowPreview')
-make_head(_module, 'ICoreAppWindowPreview')
-make_head(_module, 'ICoreAppWindowPreviewStatics')
-make_head(_module, 'ISystemNavigationCloseRequestedPreviewEventArgs')
-make_head(_module, 'ISystemNavigationManagerPreview')
-make_head(_module, 'ISystemNavigationManagerPreviewStatics')
-make_head(_module, 'SystemNavigationCloseRequestedPreviewEventArgs')
-make_head(_module, 'SystemNavigationManagerPreview')
+make_ready(__name__)

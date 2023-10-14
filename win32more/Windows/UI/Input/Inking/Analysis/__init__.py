@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Input.Inking
 import win32more.Windows.UI.Input.Inking.Analysis
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IInkAnalysisInkBullet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet'
@@ -483,26 +474,4 @@ class InkAnalyzer(ComPtr):
     def AnalyzeAsync(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalyzer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Input.Inking.Analysis.InkAnalysisResult]: ...
     AnalysisRoot = property(get_AnalysisRoot, None)
     IsAnalyzing = property(get_IsAnalyzing, None)
-make_head(_module, 'IInkAnalysisInkBullet')
-make_head(_module, 'IInkAnalysisInkDrawing')
-make_head(_module, 'IInkAnalysisInkWord')
-make_head(_module, 'IInkAnalysisLine')
-make_head(_module, 'IInkAnalysisListItem')
-make_head(_module, 'IInkAnalysisNode')
-make_head(_module, 'IInkAnalysisParagraph')
-make_head(_module, 'IInkAnalysisResult')
-make_head(_module, 'IInkAnalysisRoot')
-make_head(_module, 'IInkAnalysisWritingRegion')
-make_head(_module, 'IInkAnalyzer')
-make_head(_module, 'IInkAnalyzerFactory')
-make_head(_module, 'InkAnalysisInkBullet')
-make_head(_module, 'InkAnalysisInkDrawing')
-make_head(_module, 'InkAnalysisInkWord')
-make_head(_module, 'InkAnalysisLine')
-make_head(_module, 'InkAnalysisListItem')
-make_head(_module, 'InkAnalysisNode')
-make_head(_module, 'InkAnalysisParagraph')
-make_head(_module, 'InkAnalysisResult')
-make_head(_module, 'InkAnalysisRoot')
-make_head(_module, 'InkAnalysisWritingRegion')
-make_head(_module, 'InkAnalyzer')
+make_ready(__name__)

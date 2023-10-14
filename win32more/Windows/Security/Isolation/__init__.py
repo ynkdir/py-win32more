@@ -12,25 +12,16 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Isolation
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class HostMessageReceivedCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{faf26ffa-8ce1-4cc1-b278-322d31a5e4a3}')
-    def Invoke(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def Invoke(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
 class IIsolatedWindowsEnvironment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironment'
@@ -63,9 +54,9 @@ class IIsolatedWindowsEnvironment2(ComPtr):
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironment2'
     _iid_ = Guid('{2d365f39-88bd-4ab4-93cf-7e2bcef337c0}')
     @winrt_commethod(6)
-    def PostMessageToReceiverAsync(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
+    def PostMessageToReceiverAsync(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
     @winrt_commethod(7)
-    def PostMessageToReceiverWithTelemetryAsync(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable_head], telemetryParameters: win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
+    def PostMessageToReceiverWithTelemetryAsync(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable], telemetryParameters: win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
 class IIsolatedWindowsEnvironment3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironment3'
@@ -379,7 +370,7 @@ class IIsolatedWindowsHostMessengerStatics(ComPtr):
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics'
     _iid_ = Guid('{06e444bb-53c0-4889-8fa3-53592e37cf21}')
     @winrt_commethod(6)
-    def PostMessageToReceiver(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def PostMessageToReceiver(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
     @winrt_commethod(7)
     def GetFileId(self, filePath: WinRT_String) -> Guid: ...
 class IIsolatedWindowsHostMessengerStatics2(ComPtr):
@@ -417,9 +408,9 @@ class IsolatedWindowsEnvironment(ComPtr):
     @winrt_mixinmethod
     def UnregisterMessageReceiver(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironment, receiverId: Guid) -> Void: ...
     @winrt_mixinmethod
-    def PostMessageToReceiverAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironment2, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
+    def PostMessageToReceiverAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironment2, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
     @winrt_mixinmethod
-    def PostMessageToReceiverWithTelemetryAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironment2, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable_head], telemetryParameters: win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
+    def PostMessageToReceiverWithTelemetryAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironment2, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable], telemetryParameters: win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult]: ...
     @winrt_mixinmethod
     def GetUserInfo(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironment3) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentUserInfo: ...
     @winrt_mixinmethod
@@ -805,59 +796,11 @@ class IsolatedWindowsHostMessenger(ComPtr):
     @winrt_classmethod
     def UnregisterHostMessageReceiver(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics2, receiverId: Guid) -> Void: ...
     @winrt_classmethod
-    def PostMessageToReceiver(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def PostMessageToReceiver(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
     @winrt_classmethod
     def GetFileId(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics, filePath: WinRT_String) -> Guid: ...
 class MessageReceivedCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f5b4c8ff-1d9d-4995-9fea-4d15257c0757}')
-    def Invoke(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
-make_head(_module, 'IIsolatedWindowsEnvironment')
-make_head(_module, 'IIsolatedWindowsEnvironment2')
-make_head(_module, 'IIsolatedWindowsEnvironment3')
-make_head(_module, 'IIsolatedWindowsEnvironment4')
-make_head(_module, 'IIsolatedWindowsEnvironmentCreateResult')
-make_head(_module, 'IIsolatedWindowsEnvironmentCreateResult2')
-make_head(_module, 'IIsolatedWindowsEnvironmentFactory')
-make_head(_module, 'IIsolatedWindowsEnvironmentFile')
-make_head(_module, 'IIsolatedWindowsEnvironmentFile2')
-make_head(_module, 'IIsolatedWindowsEnvironmentHostStatics')
-make_head(_module, 'IIsolatedWindowsEnvironmentLaunchFileResult')
-make_head(_module, 'IIsolatedWindowsEnvironmentOptions')
-make_head(_module, 'IIsolatedWindowsEnvironmentOptions2')
-make_head(_module, 'IIsolatedWindowsEnvironmentOptions3')
-make_head(_module, 'IIsolatedWindowsEnvironmentOwnerRegistrationData')
-make_head(_module, 'IIsolatedWindowsEnvironmentOwnerRegistrationResult')
-make_head(_module, 'IIsolatedWindowsEnvironmentOwnerRegistrationStatics')
-make_head(_module, 'IIsolatedWindowsEnvironmentPostMessageResult')
-make_head(_module, 'IIsolatedWindowsEnvironmentProcess')
-make_head(_module, 'IIsolatedWindowsEnvironmentShareFileRequestOptions')
-make_head(_module, 'IIsolatedWindowsEnvironmentShareFileResult')
-make_head(_module, 'IIsolatedWindowsEnvironmentShareFolderRequestOptions')
-make_head(_module, 'IIsolatedWindowsEnvironmentShareFolderResult')
-make_head(_module, 'IIsolatedWindowsEnvironmentStartProcessResult')
-make_head(_module, 'IIsolatedWindowsEnvironmentTelemetryParameters')
-make_head(_module, 'IIsolatedWindowsEnvironmentUserInfo')
-make_head(_module, 'IIsolatedWindowsEnvironmentUserInfo2')
-make_head(_module, 'IIsolatedWindowsHostMessengerStatics')
-make_head(_module, 'IIsolatedWindowsHostMessengerStatics2')
-make_head(_module, 'IsolatedWindowsEnvironment')
-make_head(_module, 'IsolatedWindowsEnvironmentCreateProgress')
-make_head(_module, 'IsolatedWindowsEnvironmentCreateResult')
-make_head(_module, 'IsolatedWindowsEnvironmentFile')
-make_head(_module, 'IsolatedWindowsEnvironmentHost')
-make_head(_module, 'IsolatedWindowsEnvironmentLaunchFileResult')
-make_head(_module, 'IsolatedWindowsEnvironmentOptions')
-make_head(_module, 'IsolatedWindowsEnvironmentOwnerRegistration')
-make_head(_module, 'IsolatedWindowsEnvironmentOwnerRegistrationData')
-make_head(_module, 'IsolatedWindowsEnvironmentOwnerRegistrationResult')
-make_head(_module, 'IsolatedWindowsEnvironmentPostMessageResult')
-make_head(_module, 'IsolatedWindowsEnvironmentProcess')
-make_head(_module, 'IsolatedWindowsEnvironmentShareFileRequestOptions')
-make_head(_module, 'IsolatedWindowsEnvironmentShareFileResult')
-make_head(_module, 'IsolatedWindowsEnvironmentShareFolderRequestOptions')
-make_head(_module, 'IsolatedWindowsEnvironmentShareFolderResult')
-make_head(_module, 'IsolatedWindowsEnvironmentStartProcessResult')
-make_head(_module, 'IsolatedWindowsEnvironmentTelemetryParameters')
-make_head(_module, 'IsolatedWindowsEnvironmentUserInfo')
-make_head(_module, 'IsolatedWindowsHostMessenger')
+    def Invoke(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
+make_ready(__name__)

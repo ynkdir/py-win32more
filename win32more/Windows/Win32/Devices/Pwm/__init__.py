@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.Pwm
 import win32more.Windows.Win32.Foundation
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 GUID_DEVINTERFACE_PWM_CONTROLLER: Guid = Guid('{60824b4c-eed1-4c9c-b49c-1b961461a819}')
 GUID_DEVINTERFACE_PWM_CONTROLLER_WSZ: String = '{60824B4C-EED1-4C9C-B49C-1B961461A819}'
 IOCTL_PWM_CONTROLLER_GET_INFO: UInt32 = 262144
@@ -58,12 +49,4 @@ class PWM_PIN_SET_POLARITY_INPUT(EasyCastStructure):
 PWM_POLARITY = Int32
 PWM_ACTIVE_HIGH: PWM_POLARITY = 0
 PWM_ACTIVE_LOW: PWM_POLARITY = 1
-make_head(_module, 'PWM_CONTROLLER_GET_ACTUAL_PERIOD_OUTPUT')
-make_head(_module, 'PWM_CONTROLLER_INFO')
-make_head(_module, 'PWM_CONTROLLER_SET_DESIRED_PERIOD_INPUT')
-make_head(_module, 'PWM_CONTROLLER_SET_DESIRED_PERIOD_OUTPUT')
-make_head(_module, 'PWM_PIN_GET_ACTIVE_DUTY_CYCLE_PERCENTAGE_OUTPUT')
-make_head(_module, 'PWM_PIN_GET_POLARITY_OUTPUT')
-make_head(_module, 'PWM_PIN_IS_STARTED_OUTPUT')
-make_head(_module, 'PWM_PIN_SET_ACTIVE_DUTY_CYCLE_PERCENTAGE_INPUT')
-make_head(_module, 'PWM_PIN_SET_POLARITY_INPUT')
+make_ready(__name__)

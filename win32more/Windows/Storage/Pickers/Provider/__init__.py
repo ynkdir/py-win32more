@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Pickers.Provider
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AddFileResult = Int32
 AddFileResult_Added: AddFileResult = 0
 AddFileResult_AlreadyAdded: AddFileResult = 1
@@ -91,7 +82,7 @@ class FileSavePickerUI(ComPtr):
     @winrt_mixinmethod
     def TrySetFileName(self: win32more.Windows.Storage.Pickers.Provider.IFileSavePickerUI, value: WinRT_String) -> win32more.Windows.Storage.Pickers.Provider.SetFileNameResult: ...
     @winrt_mixinmethod
-    def add_FileNameChanged(self: win32more.Windows.Storage.Pickers.Provider.IFileSavePickerUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Pickers.Provider.FileSavePickerUI, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FileNameChanged(self: win32more.Windows.Storage.Pickers.Provider.IFileSavePickerUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Pickers.Provider.FileSavePickerUI, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_FileNameChanged(self: win32more.Windows.Storage.Pickers.Provider.IFileSavePickerUI, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -163,7 +154,7 @@ class IFileSavePickerUI(ComPtr):
     @winrt_commethod(11)
     def TrySetFileName(self, value: WinRT_String) -> win32more.Windows.Storage.Pickers.Provider.SetFileNameResult: ...
     @winrt_commethod(12)
-    def add_FileNameChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Pickers.Provider.FileSavePickerUI, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FileNameChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Pickers.Provider.FileSavePickerUI, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_FileNameChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -276,21 +267,4 @@ class TargetFileRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.Storage.Pickers.Provider.ITargetFileRequestedEventArgs) -> win32more.Windows.Storage.Pickers.Provider.TargetFileRequest: ...
     Request = property(get_Request, None)
-make_head(_module, 'FileOpenPickerUI')
-make_head(_module, 'FileRemovedEventArgs')
-make_head(_module, 'FileSavePickerUI')
-make_head(_module, 'IFileOpenPickerUI')
-make_head(_module, 'IFileRemovedEventArgs')
-make_head(_module, 'IFileSavePickerUI')
-make_head(_module, 'IPickerClosingDeferral')
-make_head(_module, 'IPickerClosingEventArgs')
-make_head(_module, 'IPickerClosingOperation')
-make_head(_module, 'ITargetFileRequest')
-make_head(_module, 'ITargetFileRequestDeferral')
-make_head(_module, 'ITargetFileRequestedEventArgs')
-make_head(_module, 'PickerClosingDeferral')
-make_head(_module, 'PickerClosingEventArgs')
-make_head(_module, 'PickerClosingOperation')
-make_head(_module, 'TargetFileRequest')
-make_head(_module, 'TargetFileRequestDeferral')
-make_head(_module, 'TargetFileRequestedEventArgs')
+make_ready(__name__)

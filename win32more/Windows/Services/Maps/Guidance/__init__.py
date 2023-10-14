@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Geolocation
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Services.Maps
 import win32more.Windows.Services.Maps.Guidance
 import win32more.Windows.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 GuidanceAudioMeasurementSystem = Int32
 GuidanceAudioMeasurementSystem_Meters: GuidanceAudioMeasurementSystem = 0
 GuidanceAudioMeasurementSystem_MilesAndYards: GuidanceAudioMeasurementSystem = 1
@@ -230,11 +221,11 @@ class GuidanceNavigator(ComPtr, metaclass=_GuidanceNavigator_Meta_):
     @winrt_mixinmethod
     def remove_GuidanceUpdated(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_DestinationReached(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DestinationReached(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DestinationReached(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Rerouting(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Rerouting(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Rerouting(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -242,15 +233,15 @@ class GuidanceNavigator(ComPtr, metaclass=_GuidanceNavigator_Meta_):
     @winrt_mixinmethod
     def remove_Rerouted(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_RerouteFailed(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_RerouteFailed(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_RerouteFailed(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_UserLocationLost(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UserLocationLost(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_UserLocationLost(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_UserLocationRestored(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UserLocationRestored(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_UserLocationRestored(self: win32more.Windows.Services.Maps.Guidance.IGuidanceNavigator, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -545,11 +536,11 @@ class IGuidanceNavigator(ComPtr):
     @winrt_commethod(18)
     def remove_GuidanceUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(19)
-    def add_DestinationReached(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DestinationReached(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(20)
     def remove_DestinationReached(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(21)
-    def add_Rerouting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Rerouting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(22)
     def remove_Rerouting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(23)
@@ -557,15 +548,15 @@ class IGuidanceNavigator(ComPtr):
     @winrt_commethod(24)
     def remove_Rerouted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(25)
-    def add_RerouteFailed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_RerouteFailed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(26)
     def remove_RerouteFailed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(27)
-    def add_UserLocationLost(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UserLocationLost(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(28)
     def remove_UserLocationLost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(29)
-    def add_UserLocationRestored(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UserLocationRestored(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.Guidance.GuidanceNavigator, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(30)
     def remove_UserLocationRestored(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(31)
@@ -771,31 +762,4 @@ class IGuidanceUpdatedEventArgs(ComPtr):
     CurrentLocation = property(get_CurrentLocation, None)
     IsNewManeuver = property(get_IsNewManeuver, None)
     LaneInfo = property(get_LaneInfo, None)
-make_head(_module, 'GuidanceAudioNotificationRequestedEventArgs')
-make_head(_module, 'GuidanceLaneInfo')
-make_head(_module, 'GuidanceManeuver')
-make_head(_module, 'GuidanceMapMatchedCoordinate')
-make_head(_module, 'GuidanceNavigator')
-make_head(_module, 'GuidanceReroutedEventArgs')
-make_head(_module, 'GuidanceRoadSegment')
-make_head(_module, 'GuidanceRoadSignpost')
-make_head(_module, 'GuidanceRoute')
-make_head(_module, 'GuidanceTelemetryCollector')
-make_head(_module, 'GuidanceUpdatedEventArgs')
-make_head(_module, 'IGuidanceAudioNotificationRequestedEventArgs')
-make_head(_module, 'IGuidanceLaneInfo')
-make_head(_module, 'IGuidanceManeuver')
-make_head(_module, 'IGuidanceMapMatchedCoordinate')
-make_head(_module, 'IGuidanceNavigator')
-make_head(_module, 'IGuidanceNavigator2')
-make_head(_module, 'IGuidanceNavigatorStatics')
-make_head(_module, 'IGuidanceNavigatorStatics2')
-make_head(_module, 'IGuidanceReroutedEventArgs')
-make_head(_module, 'IGuidanceRoadSegment')
-make_head(_module, 'IGuidanceRoadSegment2')
-make_head(_module, 'IGuidanceRoadSignpost')
-make_head(_module, 'IGuidanceRoute')
-make_head(_module, 'IGuidanceRouteStatics')
-make_head(_module, 'IGuidanceTelemetryCollector')
-make_head(_module, 'IGuidanceTelemetryCollectorStatics')
-make_head(_module, 'IGuidanceUpdatedEventArgs')
+make_ready(__name__)

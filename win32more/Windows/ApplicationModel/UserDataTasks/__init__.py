@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.UserDataTasks
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IUserDataTask(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.IUserDataTask'
@@ -189,7 +180,7 @@ class IUserDataTaskListSyncManager(ComPtr):
     @winrt_commethod(12)
     def SyncAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(13)
-    def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_SyncStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
@@ -498,7 +489,7 @@ class UserDataTaskListSyncManager(ComPtr):
     @winrt_mixinmethod
     def SyncAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskListSyncManager) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_SyncStatusChanged(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskListSyncManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SyncStatusChanged(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskListSyncManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SyncStatusChanged(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskListSyncManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
@@ -664,26 +655,4 @@ UserDataTaskWeekOfMonth_Second: UserDataTaskWeekOfMonth = 1
 UserDataTaskWeekOfMonth_Third: UserDataTaskWeekOfMonth = 2
 UserDataTaskWeekOfMonth_Fourth: UserDataTaskWeekOfMonth = 3
 UserDataTaskWeekOfMonth_Last: UserDataTaskWeekOfMonth = 4
-make_head(_module, 'IUserDataTask')
-make_head(_module, 'IUserDataTaskBatch')
-make_head(_module, 'IUserDataTaskList')
-make_head(_module, 'IUserDataTaskListLimitedWriteOperations')
-make_head(_module, 'IUserDataTaskListSyncManager')
-make_head(_module, 'IUserDataTaskManager')
-make_head(_module, 'IUserDataTaskManagerStatics')
-make_head(_module, 'IUserDataTaskQueryOptions')
-make_head(_module, 'IUserDataTaskReader')
-make_head(_module, 'IUserDataTaskRecurrenceProperties')
-make_head(_module, 'IUserDataTaskRegenerationProperties')
-make_head(_module, 'IUserDataTaskStore')
-make_head(_module, 'UserDataTask')
-make_head(_module, 'UserDataTaskBatch')
-make_head(_module, 'UserDataTaskList')
-make_head(_module, 'UserDataTaskListLimitedWriteOperations')
-make_head(_module, 'UserDataTaskListSyncManager')
-make_head(_module, 'UserDataTaskManager')
-make_head(_module, 'UserDataTaskQueryOptions')
-make_head(_module, 'UserDataTaskReader')
-make_head(_module, 'UserDataTaskRecurrenceProperties')
-make_head(_module, 'UserDataTaskRegenerationProperties')
-make_head(_module, 'UserDataTaskStore')
+make_ready(__name__)

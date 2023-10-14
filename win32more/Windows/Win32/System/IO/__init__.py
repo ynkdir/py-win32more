@@ -1,35 +1,26 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('KERNEL32.dll')
 def CreateIoCompletionPort(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, ExistingCompletionPort: win32more.Windows.Win32.Foundation.HANDLE, CompletionKey: UIntPtr, NumberOfConcurrentThreads: UInt32) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def GetQueuedCompletionStatus(CompletionPort: win32more.Windows.Win32.Foundation.HANDLE, lpNumberOfBytesTransferred: POINTER(UInt32), lpCompletionKey: POINTER(UIntPtr), lpOverlapped: POINTER(POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)), dwMilliseconds: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetQueuedCompletionStatus(CompletionPort: win32more.Windows.Win32.Foundation.HANDLE, lpNumberOfBytesTransferred: POINTER(UInt32), lpCompletionKey: POINTER(UIntPtr), lpOverlapped: POINTER(POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)), dwMilliseconds: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GetQueuedCompletionStatusEx(CompletionPort: win32more.Windows.Win32.Foundation.HANDLE, lpCompletionPortEntries: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_ENTRY_head), ulCount: UInt32, ulNumEntriesRemoved: POINTER(UInt32), dwMilliseconds: UInt32, fAlertable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetQueuedCompletionStatusEx(CompletionPort: win32more.Windows.Win32.Foundation.HANDLE, lpCompletionPortEntries: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_ENTRY), ulCount: UInt32, ulNumEntriesRemoved: POINTER(UInt32), dwMilliseconds: UInt32, fAlertable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def PostQueuedCompletionStatus(CompletionPort: win32more.Windows.Win32.Foundation.HANDLE, dwNumberOfBytesTransferred: UInt32, dwCompletionKey: UIntPtr, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PostQueuedCompletionStatus(CompletionPort: win32more.Windows.Win32.Foundation.HANDLE, dwNumberOfBytesTransferred: UInt32, dwCompletionKey: UIntPtr, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def DeviceIoControl(hDevice: win32more.Windows.Win32.Foundation.HANDLE, dwIoControlCode: UInt32, lpInBuffer: VoidPtr, nInBufferSize: UInt32, lpOutBuffer: VoidPtr, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def DeviceIoControl(hDevice: win32more.Windows.Win32.Foundation.HANDLE, dwIoControlCode: UInt32, lpInBuffer: VoidPtr, nInBufferSize: UInt32, lpOutBuffer: VoidPtr, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GetOverlappedResult(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head), lpNumberOfBytesTransferred: POINTER(UInt32), bWait: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetOverlappedResult(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), lpNumberOfBytesTransferred: POINTER(UInt32), bWait: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def CancelIoEx(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CancelIoEx(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def CancelIo(hFile: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GetOverlappedResultEx(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head), lpNumberOfBytesTransferred: POINTER(UInt32), dwMilliseconds: UInt32, bAlertable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def GetOverlappedResultEx(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), lpNumberOfBytesTransferred: POINTER(UInt32), dwMilliseconds: UInt32, bAlertable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def CancelSynchronousIo(hThread: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -41,7 +32,7 @@ class IO_STATUS_BLOCK(EasyCastStructure):
         Status: win32more.Windows.Win32.Foundation.NTSTATUS
         Pointer: VoidPtr
 @winfunctype_pointer
-def LPOVERLAPPED_COMPLETION_ROUTINE(dwErrorCode: UInt32, dwNumberOfBytesTransfered: UInt32, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> Void: ...
+def LPOVERLAPPED_COMPLETION_ROUTINE(dwErrorCode: UInt32, dwNumberOfBytesTransfered: UInt32, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> Void: ...
 class OVERLAPPED(EasyCastStructure):
     Internal: UIntPtr
     InternalHigh: UIntPtr
@@ -55,13 +46,9 @@ class OVERLAPPED(EasyCastStructure):
             OffsetHigh: UInt32
 class OVERLAPPED_ENTRY(EasyCastStructure):
     lpCompletionKey: UIntPtr
-    lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)
+    lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)
     Internal: UIntPtr
     dwNumberOfBytesTransferred: UInt32
 @winfunctype_pointer
-def PIO_APC_ROUTINE(ApcContext: VoidPtr, IoStatusBlock: POINTER(win32more.Windows.Win32.System.IO.IO_STATUS_BLOCK_head), Reserved: UInt32) -> Void: ...
-make_head(_module, 'IO_STATUS_BLOCK')
-make_head(_module, 'LPOVERLAPPED_COMPLETION_ROUTINE')
-make_head(_module, 'OVERLAPPED')
-make_head(_module, 'OVERLAPPED_ENTRY')
-make_head(_module, 'PIO_APC_ROUTINE')
+def PIO_APC_ROUTINE(ApcContext: VoidPtr, IoStatusBlock: POINTER(win32more.Windows.Win32.System.IO.IO_STATUS_BLOCK), Reserved: UInt32) -> Void: ...
+make_ready(__name__)

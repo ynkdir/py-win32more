@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization.NumberFormatting
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CurrencyFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.ICurrencyFormatter
@@ -654,28 +645,4 @@ class SignificantDigitsNumberRounder(ComPtr):
     def put_SignificantDigits(self: win32more.Windows.Globalization.NumberFormatting.ISignificantDigitsNumberRounder, value: UInt32) -> Void: ...
     RoundingAlgorithm = property(get_RoundingAlgorithm, put_RoundingAlgorithm)
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
-make_head(_module, 'CurrencyFormatter')
-make_head(_module, 'DecimalFormatter')
-make_head(_module, 'ICurrencyFormatter')
-make_head(_module, 'ICurrencyFormatter2')
-make_head(_module, 'ICurrencyFormatterFactory')
-make_head(_module, 'IDecimalFormatterFactory')
-make_head(_module, 'IIncrementNumberRounder')
-make_head(_module, 'INumberFormatter')
-make_head(_module, 'INumberFormatter2')
-make_head(_module, 'INumberFormatterOptions')
-make_head(_module, 'INumberParser')
-make_head(_module, 'INumberRounder')
-make_head(_module, 'INumberRounderOption')
-make_head(_module, 'INumeralSystemTranslator')
-make_head(_module, 'INumeralSystemTranslatorFactory')
-make_head(_module, 'IPercentFormatterFactory')
-make_head(_module, 'IPermilleFormatterFactory')
-make_head(_module, 'ISignedZeroOption')
-make_head(_module, 'ISignificantDigitsNumberRounder')
-make_head(_module, 'ISignificantDigitsOption')
-make_head(_module, 'IncrementNumberRounder')
-make_head(_module, 'NumeralSystemTranslator')
-make_head(_module, 'PercentFormatter')
-make_head(_module, 'PermilleFormatter')
-make_head(_module, 'SignificantDigitsNumberRounder')
+make_ready(__name__)

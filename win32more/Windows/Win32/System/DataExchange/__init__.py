@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.DataExchange
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WM_DDE_FIRST: UInt32 = 992
 WM_DDE_INITIATE: UInt32 = 992
 WM_DDE_TERMINATE: UInt32 = 993
@@ -89,7 +80,7 @@ MH_CLEANUP: UInt32 = 4
 MAX_MONITORS: UInt32 = 4
 MF_MASK: UInt32 = 4278190080
 @winfunctype('USER32.dll')
-def DdeSetQualityOfService(hwndClient: win32more.Windows.Win32.Foundation.HWND, pqosNew: POINTER(win32more.Windows.Win32.Security.SECURITY_QUALITY_OF_SERVICE_head), pqosPrev: POINTER(win32more.Windows.Win32.Security.SECURITY_QUALITY_OF_SERVICE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def DdeSetQualityOfService(hwndClient: win32more.Windows.Win32.Foundation.HWND, pqosNew: POINTER(win32more.Windows.Win32.Security.SECURITY_QUALITY_OF_SERVICE), pqosPrev: POINTER(win32more.Windows.Win32.Security.SECURITY_QUALITY_OF_SERVICE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def ImpersonateDdeClientWindow(hWndClient: win32more.Windows.Win32.Foundation.HWND, hWndServer: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -107,19 +98,19 @@ def DdeInitializeW(pidInst: POINTER(UInt32), pfnCallback: win32more.Windows.Win3
 @winfunctype('USER32.dll')
 def DdeUninitialize(idInst: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def DdeConnectList(idInst: UInt32, hszService: win32more.Windows.Win32.System.DataExchange.HSZ, hszTopic: win32more.Windows.Win32.System.DataExchange.HSZ, hConvList: win32more.Windows.Win32.System.DataExchange.HCONVLIST, pCC: POINTER(win32more.Windows.Win32.System.DataExchange.CONVCONTEXT_head)) -> win32more.Windows.Win32.System.DataExchange.HCONVLIST: ...
+def DdeConnectList(idInst: UInt32, hszService: win32more.Windows.Win32.System.DataExchange.HSZ, hszTopic: win32more.Windows.Win32.System.DataExchange.HSZ, hConvList: win32more.Windows.Win32.System.DataExchange.HCONVLIST, pCC: POINTER(win32more.Windows.Win32.System.DataExchange.CONVCONTEXT)) -> win32more.Windows.Win32.System.DataExchange.HCONVLIST: ...
 @winfunctype('USER32.dll')
 def DdeQueryNextServer(hConvList: win32more.Windows.Win32.System.DataExchange.HCONVLIST, hConvPrev: win32more.Windows.Win32.System.DataExchange.HCONV) -> win32more.Windows.Win32.System.DataExchange.HCONV: ...
 @winfunctype('USER32.dll')
 def DdeDisconnectList(hConvList: win32more.Windows.Win32.System.DataExchange.HCONVLIST) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def DdeConnect(idInst: UInt32, hszService: win32more.Windows.Win32.System.DataExchange.HSZ, hszTopic: win32more.Windows.Win32.System.DataExchange.HSZ, pCC: POINTER(win32more.Windows.Win32.System.DataExchange.CONVCONTEXT_head)) -> win32more.Windows.Win32.System.DataExchange.HCONV: ...
+def DdeConnect(idInst: UInt32, hszService: win32more.Windows.Win32.System.DataExchange.HSZ, hszTopic: win32more.Windows.Win32.System.DataExchange.HSZ, pCC: POINTER(win32more.Windows.Win32.System.DataExchange.CONVCONTEXT)) -> win32more.Windows.Win32.System.DataExchange.HCONV: ...
 @winfunctype('USER32.dll')
 def DdeDisconnect(hConv: win32more.Windows.Win32.System.DataExchange.HCONV) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def DdeReconnect(hConv: win32more.Windows.Win32.System.DataExchange.HCONV) -> win32more.Windows.Win32.System.DataExchange.HCONV: ...
 @winfunctype('USER32.dll')
-def DdeQueryConvInfo(hConv: win32more.Windows.Win32.System.DataExchange.HCONV, idTransaction: UInt32, pConvInfo: POINTER(win32more.Windows.Win32.System.DataExchange.CONVINFO_head)) -> UInt32: ...
+def DdeQueryConvInfo(hConv: win32more.Windows.Win32.System.DataExchange.HCONV, idTransaction: UInt32, pConvInfo: POINTER(win32more.Windows.Win32.System.DataExchange.CONVINFO)) -> UInt32: ...
 @winfunctype('USER32.dll')
 def DdeSetUserHandle(hConv: win32more.Windows.Win32.System.DataExchange.HCONV, id: UInt32, hUser: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -163,7 +154,7 @@ def DdeKeepStringHandle(idInst: UInt32, hsz: win32more.Windows.Win32.System.Data
 @winfunctype('USER32.dll')
 def DdeCmpStringHandles(hsz1: win32more.Windows.Win32.System.DataExchange.HSZ, hsz2: win32more.Windows.Win32.System.DataExchange.HSZ) -> Int32: ...
 @winfunctype('GDI32.dll')
-def SetWinMetaFileBits(nSize: UInt32, lpMeta16Data: POINTER(Byte), hdcRef: win32more.Windows.Win32.Graphics.Gdi.HDC, lpMFP: POINTER(win32more.Windows.Win32.System.DataExchange.METAFILEPICT_head)) -> win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE: ...
+def SetWinMetaFileBits(nSize: UInt32, lpMeta16Data: POINTER(Byte), hdcRef: win32more.Windows.Win32.Graphics.Gdi.HDC, lpMFP: POINTER(win32more.Windows.Win32.System.DataExchange.METAFILEPICT)) -> win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE: ...
 @winfunctype('USER32.dll')
 def OpenClipboard(hWndNewOwner: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -454,23 +445,4 @@ class MONMSGSTRUCT(EasyCastStructure):
     dmhd: win32more.Windows.Win32.System.DataExchange.DDEML_MSG_HOOK_DATA
 @winfunctype_pointer
 def PFNCALLBACK(wType: UInt32, wFmt: UInt32, hConv: win32more.Windows.Win32.System.DataExchange.HCONV, hsz1: win32more.Windows.Win32.System.DataExchange.HSZ, hsz2: win32more.Windows.Win32.System.DataExchange.HSZ, hData: win32more.Windows.Win32.System.DataExchange.HDDEDATA, dwData1: UIntPtr, dwData2: UIntPtr) -> win32more.Windows.Win32.System.DataExchange.HDDEDATA: ...
-make_head(_module, 'CONVCONTEXT')
-make_head(_module, 'CONVINFO')
-make_head(_module, 'COPYDATASTRUCT')
-make_head(_module, 'DDEACK')
-make_head(_module, 'DDEADVISE')
-make_head(_module, 'DDEDATA')
-make_head(_module, 'DDELN')
-make_head(_module, 'DDEML_MSG_HOOK_DATA')
-make_head(_module, 'DDEPOKE')
-make_head(_module, 'DDEUP')
-make_head(_module, 'HSZPAIR')
-make_head(_module, 'METAFILEPICT')
-make_head(_module, 'MONCBSTRUCT')
-make_head(_module, 'MONCONVSTRUCT')
-make_head(_module, 'MONERRSTRUCT')
-make_head(_module, 'MONHSZSTRUCTA')
-make_head(_module, 'MONHSZSTRUCTW')
-make_head(_module, 'MONLINKSTRUCT')
-make_head(_module, 'MONMSGSTRUCT')
-make_head(_module, 'PFNCALLBACK')
+make_ready(__name__)

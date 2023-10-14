@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.CommunicationBlocking
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _CommunicationBlockingAccessManager_Meta_(ComPtr.__class__):
     pass
 class CommunicationBlockingAccessManager(ComPtr, metaclass=_CommunicationBlockingAccessManager_Meta_):
@@ -90,8 +81,4 @@ class ICommunicationBlockingAppManagerStatics2(ComPtr):
     _iid_ = Guid('{14a68edd-ed88-457a-a364-a3634d6f166d}')
     @winrt_commethod(6)
     def RequestSetAsActiveBlockingAppAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-make_head(_module, 'CommunicationBlockingAccessManager')
-make_head(_module, 'CommunicationBlockingAppManager')
-make_head(_module, 'ICommunicationBlockingAccessManagerStatics')
-make_head(_module, 'ICommunicationBlockingAppManagerStatics')
-make_head(_module, 'ICommunicationBlockingAppManagerStatics2')
+make_ready(__name__)

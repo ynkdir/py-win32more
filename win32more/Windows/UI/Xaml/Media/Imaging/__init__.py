@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Background
@@ -21,15 +21,6 @@ import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Media.Imaging
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 BitmapCreateOptions = UInt32
 BitmapCreateOptions_None: BitmapCreateOptions = 0
 BitmapCreateOptions_IgnoreImageCache: BitmapCreateOptions = 8
@@ -126,7 +117,7 @@ class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.IBitmapSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapSource'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.IBitmapSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.IBitmapSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource: ...
     @winrt_mixinmethod
     def get_PixelWidth(self: win32more.Windows.UI.Xaml.Media.Imaging.IBitmapSource) -> Int32: ...
     @winrt_mixinmethod
@@ -158,7 +149,7 @@ class DownloadProgressEventArgs(ComPtr):
 class DownloadProgressEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1abaee23-74ee-4cc7-99ba-b171e3cda61e}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs) -> Void: ...
 class IBitmapImage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImage'
@@ -284,7 +275,7 @@ class IBitmapSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapSourceFactory'
     _iid_ = Guid('{e240420e-d4a7-49a4-a0b4-a59fdd77e508}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource: ...
 class IBitmapSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapSourceStatics'
@@ -345,9 +336,9 @@ class ISurfaceImageSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory'
     _iid_ = Guid('{3ab2212a-ef65-4a5f-bfac-73993e8c12c9}')
     @winrt_commethod(6)
-    def CreateInstanceWithDimensions(self, pixelWidth: Int32, pixelHeight: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
+    def CreateInstanceWithDimensions(self, pixelWidth: Int32, pixelHeight: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
     @winrt_commethod(7)
-    def CreateInstanceWithDimensionsAndOpacity(self, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
+    def CreateInstanceWithDimensionsAndOpacity(self, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
 class ISvgImageSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSource'
@@ -382,9 +373,9 @@ class ISvgImageSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory'
     _iid_ = Guid('{c794e9e7-cf23-4d72-bf1a-dfaa16d8ea52}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
     @winrt_commethod(7)
-    def CreateInstanceWithUriSource(self, uriSource: win32more.Windows.Foundation.Uri, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
+    def CreateInstanceWithUriSource(self, uriSource: win32more.Windows.Foundation.Uri, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
 class ISvgImageSourceFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs'
@@ -445,7 +436,7 @@ class IXamlRenderingBackgroundTaskFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskFactory'
     _iid_ = Guid('{a3d1bb63-38f8-4da3-9fca-fd8128a2cbf9}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask: ...
 class IXamlRenderingBackgroundTaskOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskOverrides'
@@ -493,9 +484,9 @@ class SurfaceImageSource(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.ISurfaceImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SurfaceImageSource'
     @winrt_factorymethod
-    def CreateInstanceWithDimensions(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
+    def CreateInstanceWithDimensions(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
     @winrt_factorymethod
-    def CreateInstanceWithDimensionsAndOpacity(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
+    def CreateInstanceWithDimensionsAndOpacity(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, isOpaque: Boolean, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
 class _SvgImageSource_Meta_(ComPtr.__class__):
     pass
 class SvgImageSource(ComPtr, metaclass=_SvgImageSource_Meta_):
@@ -503,9 +494,9 @@ class SvgImageSource(ComPtr, metaclass=_SvgImageSource_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SvgImageSource'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
     @winrt_factorymethod
-    def CreateInstanceWithUriSource(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory, uriSource: win32more.Windows.Foundation.Uri, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
+    def CreateInstanceWithUriSource(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory, uriSource: win32more.Windows.Foundation.Uri, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
     @winrt_mixinmethod
     def get_UriSource(self: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSource) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -580,46 +571,7 @@ class XamlRenderingBackgroundTask(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTask
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask: ...
     @winrt_mixinmethod
     def OnRun(self: win32more.Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskOverrides, taskInstance: win32more.Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> Void: ...
-make_head(_module, 'BitmapImage')
-make_head(_module, 'BitmapSource')
-make_head(_module, 'DownloadProgressEventArgs')
-make_head(_module, 'IBitmapImage')
-make_head(_module, 'IBitmapImage2')
-make_head(_module, 'IBitmapImage3')
-make_head(_module, 'IBitmapImageFactory')
-make_head(_module, 'IBitmapImageStatics')
-make_head(_module, 'IBitmapImageStatics2')
-make_head(_module, 'IBitmapImageStatics3')
-make_head(_module, 'IBitmapSource')
-make_head(_module, 'IBitmapSourceFactory')
-make_head(_module, 'IBitmapSourceStatics')
-make_head(_module, 'IDownloadProgressEventArgs')
-make_head(_module, 'IRenderTargetBitmap')
-make_head(_module, 'IRenderTargetBitmapStatics')
-make_head(_module, 'ISoftwareBitmapSource')
-make_head(_module, 'ISurfaceImageSource')
-make_head(_module, 'ISurfaceImageSourceFactory')
-make_head(_module, 'ISvgImageSource')
-make_head(_module, 'ISvgImageSourceFactory')
-make_head(_module, 'ISvgImageSourceFailedEventArgs')
-make_head(_module, 'ISvgImageSourceOpenedEventArgs')
-make_head(_module, 'ISvgImageSourceStatics')
-make_head(_module, 'IVirtualSurfaceImageSource')
-make_head(_module, 'IVirtualSurfaceImageSourceFactory')
-make_head(_module, 'IWriteableBitmap')
-make_head(_module, 'IWriteableBitmapFactory')
-make_head(_module, 'IXamlRenderingBackgroundTask')
-make_head(_module, 'IXamlRenderingBackgroundTaskFactory')
-make_head(_module, 'IXamlRenderingBackgroundTaskOverrides')
-make_head(_module, 'RenderTargetBitmap')
-make_head(_module, 'SoftwareBitmapSource')
-make_head(_module, 'SurfaceImageSource')
-make_head(_module, 'SvgImageSource')
-make_head(_module, 'SvgImageSourceFailedEventArgs')
-make_head(_module, 'SvgImageSourceOpenedEventArgs')
-make_head(_module, 'VirtualSurfaceImageSource')
-make_head(_module, 'WriteableBitmap')
-make_head(_module, 'XamlRenderingBackgroundTask')
+make_ready(__name__)

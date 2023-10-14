@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Core
@@ -23,15 +23,6 @@ import win32more.Windows.System
 import win32more.Windows.UI
 import win32more.Windows.UI.Popups
 import win32more.Windows.UI.StartScreen
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ForegroundText = Int32
 ForegroundText_Dark: ForegroundText = 0
 ForegroundText_Light: ForegroundText = 1
@@ -719,33 +710,4 @@ class VisualElementsRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.UI.StartScreen.IVisualElementsRequestedEventArgs) -> win32more.Windows.UI.StartScreen.VisualElementsRequest: ...
     Request = property(get_Request, None)
-make_head(_module, 'IJumpList')
-make_head(_module, 'IJumpListItem')
-make_head(_module, 'IJumpListItemStatics')
-make_head(_module, 'IJumpListStatics')
-make_head(_module, 'ISecondaryTile')
-make_head(_module, 'ISecondaryTile2')
-make_head(_module, 'ISecondaryTileFactory')
-make_head(_module, 'ISecondaryTileFactory2')
-make_head(_module, 'ISecondaryTileStatics')
-make_head(_module, 'ISecondaryTileVisualElements')
-make_head(_module, 'ISecondaryTileVisualElements2')
-make_head(_module, 'ISecondaryTileVisualElements3')
-make_head(_module, 'ISecondaryTileVisualElements4')
-make_head(_module, 'IStartScreenManager')
-make_head(_module, 'IStartScreenManager2')
-make_head(_module, 'IStartScreenManagerStatics')
-make_head(_module, 'ITileMixedRealityModel')
-make_head(_module, 'ITileMixedRealityModel2')
-make_head(_module, 'IVisualElementsRequest')
-make_head(_module, 'IVisualElementsRequestDeferral')
-make_head(_module, 'IVisualElementsRequestedEventArgs')
-make_head(_module, 'JumpList')
-make_head(_module, 'JumpListItem')
-make_head(_module, 'SecondaryTile')
-make_head(_module, 'SecondaryTileVisualElements')
-make_head(_module, 'StartScreenManager')
-make_head(_module, 'TileMixedRealityModel')
-make_head(_module, 'VisualElementsRequest')
-make_head(_module, 'VisualElementsRequestDeferral')
-make_head(_module, 'VisualElementsRequestedEventArgs')
+make_ready(__name__)

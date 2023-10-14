@@ -12,20 +12,11 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.UI.Composition
 import win32more.Windows.UI.Composition.Diagnostics
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CompositionDebugHeatMaps(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Composition.Diagnostics.ICompositionDebugHeatMaps
@@ -82,8 +73,4 @@ class ICompositionDebugSettingsStatics(ComPtr):
     _iid_ = Guid('{64ec1f1e-6af8-4af8-b814-c870fd5a9505}')
     @winrt_commethod(6)
     def TryGetSettings(self, compositor: win32more.Windows.UI.Composition.Compositor) -> win32more.Windows.UI.Composition.Diagnostics.CompositionDebugSettings: ...
-make_head(_module, 'CompositionDebugHeatMaps')
-make_head(_module, 'CompositionDebugSettings')
-make_head(_module, 'ICompositionDebugHeatMaps')
-make_head(_module, 'ICompositionDebugSettings')
-make_head(_module, 'ICompositionDebugSettingsStatics')
+make_ready(__name__)

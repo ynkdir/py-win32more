@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Background
@@ -25,15 +25,6 @@ import win32more.Windows.Security.Credentials
 import win32more.Windows.Security.Cryptography.Certificates
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Web
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class BandwidthStatistics(EasyCastStructure):
     OutboundBitsPerSecond: UInt64
     InboundBitsPerSecond: UInt64
@@ -58,13 +49,13 @@ class ControlChannelTrigger(ComPtr):
     @winrt_mixinmethod
     def get_CurrentKeepAliveIntervalInMinutes(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger) -> UInt32: ...
     @winrt_mixinmethod
-    def get_TransportObject(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_TransportObject(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_KeepAliveTrigger(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger) -> win32more.Windows.ApplicationModel.Background.IBackgroundTrigger: ...
     @winrt_mixinmethod
     def get_PushNotificationTrigger(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger) -> win32more.Windows.ApplicationModel.Background.IBackgroundTrigger: ...
     @winrt_mixinmethod
-    def UsingTransport(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger, transport: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def UsingTransport(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger, transport: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def WaitForPushEnabled(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger) -> win32more.Windows.Networking.Sockets.ControlChannelTriggerStatus: ...
     @winrt_mixinmethod
@@ -227,13 +218,13 @@ class IControlChannelTrigger(ComPtr):
     @winrt_commethod(9)
     def get_CurrentKeepAliveIntervalInMinutes(self) -> UInt32: ...
     @winrt_commethod(10)
-    def get_TransportObject(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_TransportObject(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(11)
     def get_KeepAliveTrigger(self) -> win32more.Windows.ApplicationModel.Background.IBackgroundTrigger: ...
     @winrt_commethod(12)
     def get_PushNotificationTrigger(self) -> win32more.Windows.ApplicationModel.Background.IBackgroundTrigger: ...
     @winrt_commethod(13)
-    def UsingTransport(self, transport: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def UsingTransport(self, transport: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(14)
     def WaitForPushEnabled(self) -> win32more.Windows.Networking.Sockets.ControlChannelTriggerStatus: ...
     @winrt_commethod(15)
@@ -1750,98 +1741,4 @@ class WebSocketServerCustomValidationRequestedEventArgs(ComPtr):
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)
     ServerCertificateErrors = property(get_ServerCertificateErrors, None)
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
-make_head(_module, 'BandwidthStatistics')
-make_head(_module, 'ControlChannelTrigger')
-make_head(_module, 'DatagramSocket')
-make_head(_module, 'DatagramSocketControl')
-make_head(_module, 'DatagramSocketInformation')
-make_head(_module, 'DatagramSocketMessageReceivedEventArgs')
-make_head(_module, 'IControlChannelTrigger')
-make_head(_module, 'IControlChannelTrigger2')
-make_head(_module, 'IControlChannelTriggerEventDetails')
-make_head(_module, 'IControlChannelTriggerFactory')
-make_head(_module, 'IControlChannelTriggerResetEventDetails')
-make_head(_module, 'IDatagramSocket')
-make_head(_module, 'IDatagramSocket2')
-make_head(_module, 'IDatagramSocket3')
-make_head(_module, 'IDatagramSocketControl')
-make_head(_module, 'IDatagramSocketControl2')
-make_head(_module, 'IDatagramSocketControl3')
-make_head(_module, 'IDatagramSocketInformation')
-make_head(_module, 'IDatagramSocketMessageReceivedEventArgs')
-make_head(_module, 'IDatagramSocketStatics')
-make_head(_module, 'IMessageWebSocket')
-make_head(_module, 'IMessageWebSocket2')
-make_head(_module, 'IMessageWebSocket3')
-make_head(_module, 'IMessageWebSocketControl')
-make_head(_module, 'IMessageWebSocketControl2')
-make_head(_module, 'IMessageWebSocketMessageReceivedEventArgs')
-make_head(_module, 'IMessageWebSocketMessageReceivedEventArgs2')
-make_head(_module, 'IServerMessageWebSocket')
-make_head(_module, 'IServerMessageWebSocketControl')
-make_head(_module, 'IServerMessageWebSocketInformation')
-make_head(_module, 'IServerStreamWebSocket')
-make_head(_module, 'IServerStreamWebSocketInformation')
-make_head(_module, 'ISocketActivityContext')
-make_head(_module, 'ISocketActivityContextFactory')
-make_head(_module, 'ISocketActivityInformation')
-make_head(_module, 'ISocketActivityInformationStatics')
-make_head(_module, 'ISocketActivityTriggerDetails')
-make_head(_module, 'ISocketErrorStatics')
-make_head(_module, 'IStreamSocket')
-make_head(_module, 'IStreamSocket2')
-make_head(_module, 'IStreamSocket3')
-make_head(_module, 'IStreamSocketControl')
-make_head(_module, 'IStreamSocketControl2')
-make_head(_module, 'IStreamSocketControl3')
-make_head(_module, 'IStreamSocketControl4')
-make_head(_module, 'IStreamSocketInformation')
-make_head(_module, 'IStreamSocketInformation2')
-make_head(_module, 'IStreamSocketListener')
-make_head(_module, 'IStreamSocketListener2')
-make_head(_module, 'IStreamSocketListener3')
-make_head(_module, 'IStreamSocketListenerConnectionReceivedEventArgs')
-make_head(_module, 'IStreamSocketListenerControl')
-make_head(_module, 'IStreamSocketListenerControl2')
-make_head(_module, 'IStreamSocketListenerInformation')
-make_head(_module, 'IStreamSocketStatics')
-make_head(_module, 'IStreamWebSocket')
-make_head(_module, 'IStreamWebSocket2')
-make_head(_module, 'IStreamWebSocketControl')
-make_head(_module, 'IStreamWebSocketControl2')
-make_head(_module, 'IWebSocket')
-make_head(_module, 'IWebSocketClosedEventArgs')
-make_head(_module, 'IWebSocketControl')
-make_head(_module, 'IWebSocketControl2')
-make_head(_module, 'IWebSocketErrorStatics')
-make_head(_module, 'IWebSocketInformation')
-make_head(_module, 'IWebSocketInformation2')
-make_head(_module, 'IWebSocketServerCustomValidationRequestedEventArgs')
-make_head(_module, 'MessageWebSocket')
-make_head(_module, 'MessageWebSocketControl')
-make_head(_module, 'MessageWebSocketInformation')
-make_head(_module, 'MessageWebSocketMessageReceivedEventArgs')
-make_head(_module, 'RoundTripTimeStatistics')
-make_head(_module, 'ServerMessageWebSocket')
-make_head(_module, 'ServerMessageWebSocketControl')
-make_head(_module, 'ServerMessageWebSocketInformation')
-make_head(_module, 'ServerStreamWebSocket')
-make_head(_module, 'ServerStreamWebSocketInformation')
-make_head(_module, 'SocketActivityContext')
-make_head(_module, 'SocketActivityInformation')
-make_head(_module, 'SocketActivityTriggerDetails')
-make_head(_module, 'SocketError')
-make_head(_module, 'StreamSocket')
-make_head(_module, 'StreamSocketControl')
-make_head(_module, 'StreamSocketInformation')
-make_head(_module, 'StreamSocketListener')
-make_head(_module, 'StreamSocketListenerConnectionReceivedEventArgs')
-make_head(_module, 'StreamSocketListenerControl')
-make_head(_module, 'StreamSocketListenerInformation')
-make_head(_module, 'StreamWebSocket')
-make_head(_module, 'StreamWebSocketControl')
-make_head(_module, 'StreamWebSocketInformation')
-make_head(_module, 'WebSocketClosedEventArgs')
-make_head(_module, 'WebSocketError')
-make_head(_module, 'WebSocketKeepAlive')
-make_head(_module, 'WebSocketServerCustomValidationRequestedEventArgs')
+make_ready(__name__)

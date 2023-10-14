@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.AccessCache
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AccessCacheOptions = UInt32
 AccessCacheOptions_None: AccessCacheOptions = 0
 AccessCacheOptions_DisallowUserInput: AccessCacheOptions = 1
@@ -241,15 +232,4 @@ class StorageItemMostRecentlyUsedList(ComPtr):
     def AddOrReplaceWithMetadataAndVisibility(self: win32more.Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList2, token: WinRT_String, file: win32more.Windows.Storage.IStorageItem, metadata: WinRT_String, visibility: win32more.Windows.Storage.AccessCache.RecentStorageItemVisibility) -> Void: ...
     Entries = property(get_Entries, None)
     MaximumItemsAllowed = property(get_MaximumItemsAllowed, None)
-make_head(_module, 'AccessListEntry')
-make_head(_module, 'AccessListEntryView')
-make_head(_module, 'IItemRemovedEventArgs')
-make_head(_module, 'IStorageApplicationPermissionsStatics')
-make_head(_module, 'IStorageApplicationPermissionsStatics2')
-make_head(_module, 'IStorageItemAccessList')
-make_head(_module, 'IStorageItemMostRecentlyUsedList')
-make_head(_module, 'IStorageItemMostRecentlyUsedList2')
-make_head(_module, 'ItemRemovedEventArgs')
-make_head(_module, 'StorageApplicationPermissions')
-make_head(_module, 'StorageItemAccessList')
-make_head(_module, 'StorageItemMostRecentlyUsedList')
+make_ready(__name__)

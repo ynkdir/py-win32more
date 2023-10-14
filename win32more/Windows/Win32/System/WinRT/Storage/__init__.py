@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT.Storage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 HANDLE_ACCESS_OPTIONS = Int32
 HAO_NONE: HANDLE_ACCESS_OPTIONS = 0
 HAO_READ_ATTRIBUTES: HANDLE_ACCESS_OPTIONS = 128
@@ -53,12 +44,12 @@ class IStorageFolderHandleAccess(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{df19938f-5462-48a0-be65-d2a3271a08d6}')
     @commethod(3)
-    def Create(self, fileName: win32more.Windows.Win32.Foundation.PWSTR, creationOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_CREATION_OPTIONS, accessOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS, sharingOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_SHARING_OPTIONS, options: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_OPTIONS, oplockBreakingHandler: win32more.Windows.Win32.System.WinRT.Storage.IOplockBreakingHandler_head, interopHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, fileName: win32more.Windows.Win32.Foundation.PWSTR, creationOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_CREATION_OPTIONS, accessOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS, sharingOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_SHARING_OPTIONS, options: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_OPTIONS, oplockBreakingHandler: win32more.Windows.Win32.System.WinRT.Storage.IOplockBreakingHandler, interopHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IStorageItemHandleAccess(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5ca296b2-2c25-4d22-b785-b885c8201e6a}')
     @commethod(3)
-    def Create(self, accessOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS, sharingOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_SHARING_OPTIONS, options: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_OPTIONS, oplockBreakingHandler: win32more.Windows.Win32.System.WinRT.Storage.IOplockBreakingHandler_head, interopHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Create(self, accessOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS, sharingOptions: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_SHARING_OPTIONS, options: win32more.Windows.Win32.System.WinRT.Storage.HANDLE_OPTIONS, oplockBreakingHandler: win32more.Windows.Win32.System.WinRT.Storage.IOplockBreakingHandler, interopHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IUnbufferedFileHandleOplockCallback(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d1019a0e-6243-4329-8497-2e75894d7710}')
@@ -68,12 +59,7 @@ class IUnbufferedFileHandleProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a65c9109-42ab-4b94-a7b1-dd2e4e68515e}')
     @commethod(3)
-    def OpenUnbufferedFileHandle(self, oplockBreakCallback: win32more.Windows.Win32.System.WinRT.Storage.IUnbufferedFileHandleOplockCallback_head, fileHandle: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OpenUnbufferedFileHandle(self, oplockBreakCallback: win32more.Windows.Win32.System.WinRT.Storage.IUnbufferedFileHandleOplockCallback, fileHandle: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CloseUnbufferedFileHandle(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'IOplockBreakingHandler')
-make_head(_module, 'IRandomAccessStreamFileAccessMode')
-make_head(_module, 'IStorageFolderHandleAccess')
-make_head(_module, 'IStorageItemHandleAccess')
-make_head(_module, 'IUnbufferedFileHandleOplockCallback')
-make_head(_module, 'IUnbufferedFileHandleProvider')
+make_ready(__name__)

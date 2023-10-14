@@ -1,16 +1,7 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class APP_LOCAL_DEVICE_ID(EasyCastStructure):
     value: Byte * 32
 TRUE: win32more.Windows.Win32.Foundation.BOOL = 1
@@ -10273,20 +10264,4 @@ ERROR_VHD_CHANGE_TRACKING_DISABLED: WIN32_ERROR = 3225026602
 ERROR_VHD_MISSING_CHANGE_TRACKING_INFORMATION: WIN32_ERROR = 3225026608
 ERROR_QUERY_STORAGE_ERROR: WIN32_ERROR = 2151284737
 WPARAM = UIntPtr
-make_head(_module, 'APP_LOCAL_DEVICE_ID')
-make_head(_module, 'DECIMAL')
-make_head(_module, 'FARPROC')
-make_head(_module, 'FILETIME')
-make_head(_module, 'FLOAT128')
-make_head(_module, 'LUID')
-make_head(_module, 'NEARPROC')
-make_head(_module, 'PAPCFUNC')
-make_head(_module, 'POINT')
-make_head(_module, 'POINTL')
-make_head(_module, 'POINTS')
-make_head(_module, 'PROC')
-make_head(_module, 'RECT')
-make_head(_module, 'RECTL')
-make_head(_module, 'SIZE')
-make_head(_module, 'SYSTEMTIME')
-make_head(_module, 'UNICODE_STRING')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -22,15 +22,6 @@ import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Controls
 import win32more.Windows.UI.Xaml.Controls.Primitives
 import win32more.Windows.UI.Xaml.Hosting
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class DesignerAppExitedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesignerAppExitedEventArgs
@@ -85,7 +76,7 @@ class DesktopWindowXamlSource(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource
     _classid_ = 'Windows.UI.Xaml.Hosting.DesktopWindowXamlSource'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Hosting.DesktopWindowXamlSource: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Hosting.DesktopWindowXamlSource: ...
     @winrt_mixinmethod
     def get_Content(self: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource) -> win32more.Windows.UI.Xaml.UIElement: ...
     @winrt_mixinmethod
@@ -218,7 +209,7 @@ class IDesktopWindowXamlSourceFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory'
     _iid_ = Guid('{5cd61dc0-2561-56e1-8e75-6e44173805e3}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Hosting.DesktopWindowXamlSource: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Hosting.DesktopWindowXamlSource: ...
 class IDesktopWindowXamlSourceGotFocusEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs'
@@ -357,7 +348,7 @@ class IXamlUIPresenterHost3(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Hosting.IXamlUIPresenterHost3'
     _iid_ = Guid('{b14292bf-7320-41bb-9f26-4d6fd34db45a}')
     @winrt_commethod(6)
-    def ResolveDictionaryResource(self, dictionary: win32more.Windows.UI.Xaml.ResourceDictionary, dictionaryKey: win32more.Windows.Win32.System.WinRT.IInspectable_head, suggestedValue: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def ResolveDictionaryResource(self, dictionary: win32more.Windows.UI.Xaml.ResourceDictionary, dictionaryKey: win32more.Windows.Win32.System.WinRT.IInspectable, suggestedValue: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
 class IXamlUIPresenterStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Hosting.IXamlUIPresenterStatics'
@@ -464,38 +455,4 @@ class XamlUIPresenter(ComPtr, metaclass=_XamlUIPresenter_Meta_):
     ThemeKey = property(get_ThemeKey, put_ThemeKey)
     ThemeResourcesXaml = property(get_ThemeResourcesXaml, put_ThemeResourcesXaml)
     _XamlUIPresenter_Meta_.CompleteTimelinesAutomatically = property(get_CompleteTimelinesAutomatically.__wrapped__, put_CompleteTimelinesAutomatically.__wrapped__)
-make_head(_module, 'DesignerAppExitedEventArgs')
-make_head(_module, 'DesignerAppManager')
-make_head(_module, 'DesignerAppView')
-make_head(_module, 'DesktopWindowXamlSource')
-make_head(_module, 'DesktopWindowXamlSourceGotFocusEventArgs')
-make_head(_module, 'DesktopWindowXamlSourceTakeFocusRequestedEventArgs')
-make_head(_module, 'ElementCompositionPreview')
-make_head(_module, 'IDesignerAppExitedEventArgs')
-make_head(_module, 'IDesignerAppManager')
-make_head(_module, 'IDesignerAppManagerFactory')
-make_head(_module, 'IDesignerAppView')
-make_head(_module, 'IDesktopWindowXamlSource')
-make_head(_module, 'IDesktopWindowXamlSourceFactory')
-make_head(_module, 'IDesktopWindowXamlSourceGotFocusEventArgs')
-make_head(_module, 'IDesktopWindowXamlSourceTakeFocusRequestedEventArgs')
-make_head(_module, 'IElementCompositionPreview')
-make_head(_module, 'IElementCompositionPreviewStatics')
-make_head(_module, 'IElementCompositionPreviewStatics2')
-make_head(_module, 'IElementCompositionPreviewStatics3')
-make_head(_module, 'IWindowsXamlManager')
-make_head(_module, 'IWindowsXamlManagerStatics')
-make_head(_module, 'IXamlSourceFocusNavigationRequest')
-make_head(_module, 'IXamlSourceFocusNavigationRequestFactory')
-make_head(_module, 'IXamlSourceFocusNavigationResult')
-make_head(_module, 'IXamlSourceFocusNavigationResultFactory')
-make_head(_module, 'IXamlUIPresenter')
-make_head(_module, 'IXamlUIPresenterHost')
-make_head(_module, 'IXamlUIPresenterHost2')
-make_head(_module, 'IXamlUIPresenterHost3')
-make_head(_module, 'IXamlUIPresenterStatics')
-make_head(_module, 'IXamlUIPresenterStatics2')
-make_head(_module, 'WindowsXamlManager')
-make_head(_module, 'XamlSourceFocusNavigationRequest')
-make_head(_module, 'XamlSourceFocusNavigationResult')
-make_head(_module, 'XamlUIPresenter')
+make_ready(__name__)

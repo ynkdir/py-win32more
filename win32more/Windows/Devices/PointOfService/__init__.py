@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.PointOfService
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class BarcodeScanner(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IBarcodeScanner
@@ -564,7 +555,7 @@ class CashDrawerCloseAlarm(ComPtr):
     @winrt_mixinmethod
     def get_BeepDelay(self: win32more.Windows.Devices.PointOfService.ICashDrawerCloseAlarm) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
-    def add_AlarmTimeoutExpired(self: win32more.Windows.Devices.PointOfService.ICashDrawerCloseAlarm, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.CashDrawerCloseAlarm, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AlarmTimeoutExpired(self: win32more.Windows.Devices.PointOfService.ICashDrawerCloseAlarm, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.CashDrawerCloseAlarm, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AlarmTimeoutExpired(self: win32more.Windows.Devices.PointOfService.ICashDrawerCloseAlarm, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -732,7 +723,7 @@ class ClaimedCashDrawer(ComPtr):
     @winrt_mixinmethod
     def UpdateStatisticsAsync(self: win32more.Windows.Devices.PointOfService.IClaimedCashDrawer, statistics: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_ReleaseDeviceRequested(self: win32more.Windows.Devices.PointOfService.IClaimedCashDrawer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedCashDrawer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReleaseDeviceRequested(self: win32more.Windows.Devices.PointOfService.IClaimedCashDrawer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedCashDrawer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ReleaseDeviceRequested(self: win32more.Windows.Devices.PointOfService.IClaimedCashDrawer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -829,7 +820,7 @@ class ClaimedLineDisplay(ComPtr):
     @winrt_mixinmethod
     def RetainDevice(self: win32more.Windows.Devices.PointOfService.IClaimedLineDisplay) -> Void: ...
     @winrt_mixinmethod
-    def add_ReleaseDeviceRequested(self: win32more.Windows.Devices.PointOfService.IClaimedLineDisplay, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedLineDisplay, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReleaseDeviceRequested(self: win32more.Windows.Devices.PointOfService.IClaimedLineDisplay, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedLineDisplay, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ReleaseDeviceRequested(self: win32more.Windows.Devices.PointOfService.IClaimedLineDisplay, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1742,7 +1733,7 @@ class ICashDrawerCloseAlarm(ComPtr):
     @winrt_commethod(13)
     def get_BeepDelay(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(14)
-    def add_AlarmTimeoutExpired(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.CashDrawerCloseAlarm, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AlarmTimeoutExpired(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.CashDrawerCloseAlarm, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_AlarmTimeoutExpired(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
@@ -1927,7 +1918,7 @@ class IClaimedCashDrawer(ComPtr):
     @winrt_commethod(15)
     def UpdateStatisticsAsync(self, statistics: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(16)
-    def add_ReleaseDeviceRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedCashDrawer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReleaseDeviceRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedCashDrawer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_ReleaseDeviceRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
@@ -1975,7 +1966,7 @@ class IClaimedLineDisplay(ComPtr):
     @winrt_commethod(14)
     def RetainDevice(self) -> Void: ...
     @winrt_commethod(15)
-    def add_ReleaseDeviceRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedLineDisplay, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReleaseDeviceRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedLineDisplay, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_ReleaseDeviceRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
@@ -4758,175 +4749,4 @@ UnifiedPosPowerReportingType = Int32
 UnifiedPosPowerReportingType_UnknownPowerReportingType: UnifiedPosPowerReportingType = 0
 UnifiedPosPowerReportingType_Standard: UnifiedPosPowerReportingType = 1
 UnifiedPosPowerReportingType_Advanced: UnifiedPosPowerReportingType = 2
-make_head(_module, 'BarcodeScanner')
-make_head(_module, 'BarcodeScannerCapabilities')
-make_head(_module, 'BarcodeScannerDataReceivedEventArgs')
-make_head(_module, 'BarcodeScannerErrorOccurredEventArgs')
-make_head(_module, 'BarcodeScannerImagePreviewReceivedEventArgs')
-make_head(_module, 'BarcodeScannerReport')
-make_head(_module, 'BarcodeScannerStatusUpdatedEventArgs')
-make_head(_module, 'BarcodeSymbologies')
-make_head(_module, 'BarcodeSymbologyAttributes')
-make_head(_module, 'CashDrawer')
-make_head(_module, 'CashDrawerCapabilities')
-make_head(_module, 'CashDrawerCloseAlarm')
-make_head(_module, 'CashDrawerClosedEventArgs')
-make_head(_module, 'CashDrawerEventSource')
-make_head(_module, 'CashDrawerOpenedEventArgs')
-make_head(_module, 'CashDrawerStatus')
-make_head(_module, 'CashDrawerStatusUpdatedEventArgs')
-make_head(_module, 'ClaimedBarcodeScanner')
-make_head(_module, 'ClaimedBarcodeScannerClosedEventArgs')
-make_head(_module, 'ClaimedCashDrawer')
-make_head(_module, 'ClaimedCashDrawerClosedEventArgs')
-make_head(_module, 'ClaimedJournalPrinter')
-make_head(_module, 'ClaimedLineDisplay')
-make_head(_module, 'ClaimedLineDisplayClosedEventArgs')
-make_head(_module, 'ClaimedMagneticStripeReader')
-make_head(_module, 'ClaimedMagneticStripeReaderClosedEventArgs')
-make_head(_module, 'ClaimedPosPrinter')
-make_head(_module, 'ClaimedPosPrinterClosedEventArgs')
-make_head(_module, 'ClaimedReceiptPrinter')
-make_head(_module, 'ClaimedSlipPrinter')
-make_head(_module, 'IBarcodeScanner')
-make_head(_module, 'IBarcodeScanner2')
-make_head(_module, 'IBarcodeScannerCapabilities')
-make_head(_module, 'IBarcodeScannerCapabilities1')
-make_head(_module, 'IBarcodeScannerCapabilities2')
-make_head(_module, 'IBarcodeScannerDataReceivedEventArgs')
-make_head(_module, 'IBarcodeScannerErrorOccurredEventArgs')
-make_head(_module, 'IBarcodeScannerImagePreviewReceivedEventArgs')
-make_head(_module, 'IBarcodeScannerReport')
-make_head(_module, 'IBarcodeScannerReportFactory')
-make_head(_module, 'IBarcodeScannerStatics')
-make_head(_module, 'IBarcodeScannerStatics2')
-make_head(_module, 'IBarcodeScannerStatusUpdatedEventArgs')
-make_head(_module, 'IBarcodeSymbologiesStatics')
-make_head(_module, 'IBarcodeSymbologiesStatics2')
-make_head(_module, 'IBarcodeSymbologyAttributes')
-make_head(_module, 'ICashDrawer')
-make_head(_module, 'ICashDrawerCapabilities')
-make_head(_module, 'ICashDrawerCloseAlarm')
-make_head(_module, 'ICashDrawerEventSource')
-make_head(_module, 'ICashDrawerEventSourceEventArgs')
-make_head(_module, 'ICashDrawerStatics')
-make_head(_module, 'ICashDrawerStatics2')
-make_head(_module, 'ICashDrawerStatus')
-make_head(_module, 'ICashDrawerStatusUpdatedEventArgs')
-make_head(_module, 'IClaimedBarcodeScanner')
-make_head(_module, 'IClaimedBarcodeScanner1')
-make_head(_module, 'IClaimedBarcodeScanner2')
-make_head(_module, 'IClaimedBarcodeScanner3')
-make_head(_module, 'IClaimedBarcodeScanner4')
-make_head(_module, 'IClaimedBarcodeScannerClosedEventArgs')
-make_head(_module, 'IClaimedCashDrawer')
-make_head(_module, 'IClaimedCashDrawer2')
-make_head(_module, 'IClaimedCashDrawerClosedEventArgs')
-make_head(_module, 'IClaimedJournalPrinter')
-make_head(_module, 'IClaimedLineDisplay')
-make_head(_module, 'IClaimedLineDisplay2')
-make_head(_module, 'IClaimedLineDisplay3')
-make_head(_module, 'IClaimedLineDisplayClosedEventArgs')
-make_head(_module, 'IClaimedLineDisplayStatics')
-make_head(_module, 'IClaimedMagneticStripeReader')
-make_head(_module, 'IClaimedMagneticStripeReader2')
-make_head(_module, 'IClaimedMagneticStripeReaderClosedEventArgs')
-make_head(_module, 'IClaimedPosPrinter')
-make_head(_module, 'IClaimedPosPrinter2')
-make_head(_module, 'IClaimedPosPrinterClosedEventArgs')
-make_head(_module, 'IClaimedReceiptPrinter')
-make_head(_module, 'IClaimedSlipPrinter')
-make_head(_module, 'ICommonClaimedPosPrinterStation')
-make_head(_module, 'ICommonPosPrintStationCapabilities')
-make_head(_module, 'ICommonReceiptSlipCapabilities')
-make_head(_module, 'IJournalPrintJob')
-make_head(_module, 'IJournalPrinterCapabilities')
-make_head(_module, 'IJournalPrinterCapabilities2')
-make_head(_module, 'ILineDisplay')
-make_head(_module, 'ILineDisplay2')
-make_head(_module, 'ILineDisplayAttributes')
-make_head(_module, 'ILineDisplayCapabilities')
-make_head(_module, 'ILineDisplayCursor')
-make_head(_module, 'ILineDisplayCursorAttributes')
-make_head(_module, 'ILineDisplayCustomGlyphs')
-make_head(_module, 'ILineDisplayMarquee')
-make_head(_module, 'ILineDisplayStatics')
-make_head(_module, 'ILineDisplayStatics2')
-make_head(_module, 'ILineDisplayStatisticsCategorySelector')
-make_head(_module, 'ILineDisplayStatusUpdatedEventArgs')
-make_head(_module, 'ILineDisplayStoredBitmap')
-make_head(_module, 'ILineDisplayWindow')
-make_head(_module, 'ILineDisplayWindow2')
-make_head(_module, 'IMagneticStripeReader')
-make_head(_module, 'IMagneticStripeReaderAamvaCardDataReceivedEventArgs')
-make_head(_module, 'IMagneticStripeReaderBankCardDataReceivedEventArgs')
-make_head(_module, 'IMagneticStripeReaderCapabilities')
-make_head(_module, 'IMagneticStripeReaderCardTypesStatics')
-make_head(_module, 'IMagneticStripeReaderEncryptionAlgorithmsStatics')
-make_head(_module, 'IMagneticStripeReaderErrorOccurredEventArgs')
-make_head(_module, 'IMagneticStripeReaderReport')
-make_head(_module, 'IMagneticStripeReaderStatics')
-make_head(_module, 'IMagneticStripeReaderStatics2')
-make_head(_module, 'IMagneticStripeReaderStatusUpdatedEventArgs')
-make_head(_module, 'IMagneticStripeReaderTrackData')
-make_head(_module, 'IMagneticStripeReaderVendorSpecificCardDataReceivedEventArgs')
-make_head(_module, 'IPosPrinter')
-make_head(_module, 'IPosPrinter2')
-make_head(_module, 'IPosPrinterCapabilities')
-make_head(_module, 'IPosPrinterCharacterSetIdsStatics')
-make_head(_module, 'IPosPrinterFontProperty')
-make_head(_module, 'IPosPrinterJob')
-make_head(_module, 'IPosPrinterPrintOptions')
-make_head(_module, 'IPosPrinterReleaseDeviceRequestedEventArgs')
-make_head(_module, 'IPosPrinterStatics')
-make_head(_module, 'IPosPrinterStatics2')
-make_head(_module, 'IPosPrinterStatus')
-make_head(_module, 'IPosPrinterStatusUpdatedEventArgs')
-make_head(_module, 'IReceiptOrSlipJob')
-make_head(_module, 'IReceiptPrintJob')
-make_head(_module, 'IReceiptPrintJob2')
-make_head(_module, 'IReceiptPrinterCapabilities')
-make_head(_module, 'IReceiptPrinterCapabilities2')
-make_head(_module, 'ISlipPrintJob')
-make_head(_module, 'ISlipPrinterCapabilities')
-make_head(_module, 'ISlipPrinterCapabilities2')
-make_head(_module, 'IUnifiedPosErrorData')
-make_head(_module, 'IUnifiedPosErrorDataFactory')
-make_head(_module, 'JournalPrintJob')
-make_head(_module, 'JournalPrinterCapabilities')
-make_head(_module, 'LineDisplay')
-make_head(_module, 'LineDisplayAttributes')
-make_head(_module, 'LineDisplayCapabilities')
-make_head(_module, 'LineDisplayCursor')
-make_head(_module, 'LineDisplayCursorAttributes')
-make_head(_module, 'LineDisplayCustomGlyphs')
-make_head(_module, 'LineDisplayMarquee')
-make_head(_module, 'LineDisplayStatisticsCategorySelector')
-make_head(_module, 'LineDisplayStatusUpdatedEventArgs')
-make_head(_module, 'LineDisplayStoredBitmap')
-make_head(_module, 'LineDisplayWindow')
-make_head(_module, 'MagneticStripeReader')
-make_head(_module, 'MagneticStripeReaderAamvaCardDataReceivedEventArgs')
-make_head(_module, 'MagneticStripeReaderBankCardDataReceivedEventArgs')
-make_head(_module, 'MagneticStripeReaderCapabilities')
-make_head(_module, 'MagneticStripeReaderCardTypes')
-make_head(_module, 'MagneticStripeReaderEncryptionAlgorithms')
-make_head(_module, 'MagneticStripeReaderErrorOccurredEventArgs')
-make_head(_module, 'MagneticStripeReaderReport')
-make_head(_module, 'MagneticStripeReaderStatusUpdatedEventArgs')
-make_head(_module, 'MagneticStripeReaderTrackData')
-make_head(_module, 'MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs')
-make_head(_module, 'PosPrinter')
-make_head(_module, 'PosPrinterCapabilities')
-make_head(_module, 'PosPrinterCharacterSetIds')
-make_head(_module, 'PosPrinterFontProperty')
-make_head(_module, 'PosPrinterPrintOptions')
-make_head(_module, 'PosPrinterReleaseDeviceRequestedEventArgs')
-make_head(_module, 'PosPrinterStatus')
-make_head(_module, 'PosPrinterStatusUpdatedEventArgs')
-make_head(_module, 'ReceiptPrintJob')
-make_head(_module, 'ReceiptPrinterCapabilities')
-make_head(_module, 'SizeUInt32')
-make_head(_module, 'SlipPrintJob')
-make_head(_module, 'SlipPrinterCapabilities')
-make_head(_module, 'UnifiedPosErrorData')
+make_ready(__name__)

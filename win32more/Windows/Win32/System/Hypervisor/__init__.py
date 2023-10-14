@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.HostComputeSystem
 import win32more.Windows.Win32.System.Hypervisor
 import win32more.Windows.Win32.System.Power
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 HVSOCKET_CONNECT_TIMEOUT: UInt32 = 1
 HVSOCKET_CONNECT_TIMEOUT_MAX: UInt32 = 300000
 HVSOCKET_CONNECTED_SUSPEND: UInt32 = 4
@@ -65,11 +56,11 @@ def WHvMapGpaRange2(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PAR
 @winfunctype('WinHvPlatform.dll')
 def WHvUnmapGpaRange(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, GuestAddress: UInt64, SizeInBytes: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvTranslateGva(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Gva: UInt64, TranslateFlags: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS, TranslationResult: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_head), Gpa: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvTranslateGva(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Gva: UInt64, TranslateFlags: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS, TranslationResult: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT), Gpa: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvCreateVirtualProcessor(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvCreateVirtualProcessor2(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Properties: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_PROPERTY_head), PropertyCount: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvCreateVirtualProcessor2(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Properties: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_PROPERTY), PropertyCount: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvDeleteVirtualProcessor(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
@@ -77,15 +68,15 @@ def WHvRunVirtualProcessor(Partition: win32more.Windows.Win32.System.Hypervisor.
 @winfunctype('WinHvPlatform.dll')
 def WHvCancelRunVirtualProcessor(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvGetVirtualProcessorRegisters(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvGetVirtualProcessorRegisters(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvSetVirtualProcessorRegisters(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvSetVirtualProcessorRegisters(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvGetVirtualProcessorInterruptControllerState(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, State: VoidPtr, StateSize: UInt32, WrittenSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvSetVirtualProcessorInterruptControllerState(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, State: VoidPtr, StateSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvRequestInterrupt(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Interrupt: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_CONTROL_head), InterruptControlSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvRequestInterrupt(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Interrupt: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_CONTROL), InterruptControlSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvGetVirtualProcessorXsaveState(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Buffer: VoidPtr, BufferSizeInBytes: UInt32, BytesWritten: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
@@ -101,11 +92,11 @@ def WHvGetVirtualProcessorInterruptControllerState2(Partition: win32more.Windows
 @winfunctype('WinHvPlatform.dll')
 def WHvSetVirtualProcessorInterruptControllerState2(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, State: VoidPtr, StateSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvRegisterPartitionDoorbellEvent(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, MatchData: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_DOORBELL_MATCH_DATA_head), EventHandle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvRegisterPartitionDoorbellEvent(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, MatchData: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_DOORBELL_MATCH_DATA), EventHandle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvUnregisterPartitionDoorbellEvent(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, MatchData: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_DOORBELL_MATCH_DATA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvUnregisterPartitionDoorbellEvent(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, MatchData: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_DOORBELL_MATCH_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvAdviseGpaRange(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, GpaRanges: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_RANGE_ENTRY_head), GpaRangesCount: UInt32, Advice: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE, AdviceBuffer: VoidPtr, AdviceBufferSizeInBytes: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvAdviseGpaRange(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, GpaRanges: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_RANGE_ENTRY), GpaRangesCount: UInt32, Advice: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE, AdviceBuffer: VoidPtr, AdviceBufferSizeInBytes: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvReadGpaRange(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, GuestAddress: UInt64, Controls: win32more.Windows.Win32.System.Hypervisor.WHV_ACCESS_GPA_CONTROLS, Data: VoidPtr, DataSizeInBytes: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
@@ -125,35 +116,35 @@ def WHvDeleteVpciDevice(Partition: win32more.Windows.Win32.System.Hypervisor.WHV
 @winfunctype('WinHvPlatform.dll')
 def WHvGetVpciDeviceProperty(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, PropertyCode: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE, PropertyBuffer: VoidPtr, PropertyBufferSizeInBytes: UInt32, WrittenSizeInBytes: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvGetVpciDeviceNotification(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Notification: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_head), NotificationSizeInBytes: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvGetVpciDeviceNotification(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Notification: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION), NotificationSizeInBytes: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvMapVpciDeviceMmioRanges(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, MappingCount: POINTER(UInt32), Mappings: POINTER(POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_MAPPING_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvMapVpciDeviceMmioRanges(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, MappingCount: POINTER(UInt32), Mappings: POINTER(POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_MAPPING))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvUnmapVpciDeviceMmioRanges(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvSetVpciDevicePowerState(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, PowerState: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvReadVpciDeviceRegister(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Register: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_head), Data: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvReadVpciDeviceRegister(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Register: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER), Data: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvWriteVpciDeviceRegister(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Register: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_head), Data: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvWriteVpciDeviceRegister(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Register: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER), Data: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvMapVpciDeviceInterrupt(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Index: UInt32, MessageCount: UInt32, Target: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_head), MsiAddress: POINTER(UInt64), MsiData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvMapVpciDeviceInterrupt(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Index: UInt32, MessageCount: UInt32, Target: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET), MsiAddress: POINTER(UInt64), MsiData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvUnmapVpciDeviceInterrupt(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Index: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvRetargetVpciDeviceInterrupt(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, MsiAddress: UInt64, MsiData: UInt32, Target: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvRetargetVpciDeviceInterrupt(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, MsiAddress: UInt64, MsiData: UInt32, Target: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvRequestVpciDeviceInterrupt(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, MsiAddress: UInt64, MsiData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvGetVpciDeviceInterruptTarget(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Index: UInt32, MultiMessageNumber: UInt32, Target: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_head), TargetSizeInBytes: UInt32, BytesWritten: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvGetVpciDeviceInterruptTarget(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, LogicalDeviceId: UInt64, Index: UInt32, MultiMessageNumber: UInt32, Target: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET), TargetSizeInBytes: UInt32, BytesWritten: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvCreateTrigger(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Parameters: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_PARAMETERS_head), TriggerHandle: POINTER(VoidPtr), EventHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvCreateTrigger(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Parameters: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_PARAMETERS), TriggerHandle: POINTER(VoidPtr), EventHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvUpdateTriggerParameters(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Parameters: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_PARAMETERS_head), TriggerHandle: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvUpdateTriggerParameters(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Parameters: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_PARAMETERS), TriggerHandle: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvDeleteTrigger(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, TriggerHandle: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvCreateNotificationPort(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Parameters: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_PARAMETERS_head), EventHandle: win32more.Windows.Win32.Foundation.HANDLE, PortHandle: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvCreateNotificationPort(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Parameters: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_PARAMETERS), EventHandle: win32more.Windows.Win32.Foundation.HANDLE, PortHandle: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvSetNotificationPortProperty(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, PortHandle: VoidPtr, PropertyCode: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_PROPERTY_CODE, PropertyValue: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
@@ -161,7 +152,7 @@ def WHvDeleteNotificationPort(Partition: win32more.Windows.Win32.System.Hypervis
 @winfunctype('WinHvPlatform.dll')
 def WHvPostVirtualProcessorSynicMessage(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, SintIndex: UInt32, Message: VoidPtr, MessageSizeInBytes: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
-def WHvGetVirtualProcessorCpuidOutput(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Eax: UInt32, Ecx: UInt32, CpuidOutput: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_CPUID_OUTPUT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvGetVirtualProcessorCpuidOutput(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, VpIndex: UInt32, Eax: UInt32, Ecx: UInt32, CpuidOutput: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_CPUID_OUTPUT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
 def WHvGetInterruptTargetVpSet(Partition: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE, Destination: UInt64, DestinationMode: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_DESTINATION_MODE, TargetVps: POINTER(UInt32), VpCount: UInt32, TargetVpCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvPlatform.dll')
@@ -173,13 +164,13 @@ def WHvCompletePartitionMigration(Partition: win32more.Windows.Win32.System.Hype
 @winfunctype('WinHvPlatform.dll')
 def WHvAcceptPartitionMigration(MigrationHandle: win32more.Windows.Win32.Foundation.HANDLE, Partition: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvEmulation.dll')
-def WHvEmulatorCreateEmulator(Callbacks: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_CALLBACKS_head), Emulator: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvEmulatorCreateEmulator(Callbacks: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_CALLBACKS), Emulator: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvEmulation.dll')
 def WHvEmulatorDestroyEmulator(Emulator: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvEmulation.dll')
-def WHvEmulatorTryIoEmulation(Emulator: VoidPtr, Context: VoidPtr, VpContext: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VP_EXIT_CONTEXT_head), IoInstructionContext: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_X64_IO_PORT_ACCESS_CONTEXT_head), EmulatorReturnStatus: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_STATUS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvEmulatorTryIoEmulation(Emulator: VoidPtr, Context: VoidPtr, VpContext: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VP_EXIT_CONTEXT), IoInstructionContext: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_X64_IO_PORT_ACCESS_CONTEXT), EmulatorReturnStatus: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WinHvEmulation.dll')
-def WHvEmulatorTryMmioEmulation(Emulator: VoidPtr, Context: VoidPtr, VpContext: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VP_EXIT_CONTEXT_head), MmioInstructionContext: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_CONTEXT_head), EmulatorReturnStatus: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_STATUS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHvEmulatorTryMmioEmulation(Emulator: VoidPtr, Context: VoidPtr, VpContext: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_VP_EXIT_CONTEXT), MmioInstructionContext: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_CONTEXT), EmulatorReturnStatus: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('vmdevicehost.dll')
 def HdvInitializeDeviceHost(computeSystem: win32more.Windows.Win32.System.HostComputeSystem.HCS_SYSTEM, deviceHostHandle: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('vmdevicehost.dll')
@@ -219,7 +210,7 @@ def ReleaseSavedStateFiles(vmSavedStateDumpHandle: VoidPtr) -> win32more.Windows
 @winfunctype('VmSavedStateDumpProvider.dll')
 def GetGuestEnabledVirtualTrustLevels(vmSavedStateDumpHandle: VoidPtr, virtualTrustLevels: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
-def GetGuestOsInfo(vmSavedStateDumpHandle: VoidPtr, virtualTrustLevel: Byte, guestOsInfo: POINTER(win32more.Windows.Win32.System.Hypervisor.GUEST_OS_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetGuestOsInfo(vmSavedStateDumpHandle: VoidPtr, virtualTrustLevel: Byte, guestOsInfo: POINTER(win32more.Windows.Win32.System.Hypervisor.GUEST_OS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
 def GetVpCount(vmSavedStateDumpHandle: VoidPtr, vpCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
@@ -243,7 +234,7 @@ def ForceNestedHostMode(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, hostMode:
 @winfunctype('VmSavedStateDumpProvider.dll')
 def InKernelSpace(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, inKernelSpace: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
-def GetRegisterValue(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, registerId: UInt32, registerValue: POINTER(win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_REGISTER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetRegisterValue(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, registerId: UInt32, registerValue: POINTER(win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_REGISTER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
 def GetPagingMode(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, pagingMode: POINTER(win32more.Windows.Win32.System.Hypervisor.PAGING_MODE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
@@ -253,7 +244,7 @@ def ReadGuestPhysicalAddress(vmSavedStateDumpHandle: VoidPtr, physicalAddress: U
 @winfunctype('VmSavedStateDumpProvider.dll')
 def GuestVirtualAddressToPhysicalAddress(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, virtualAddress: UInt64, physicalAddress: POINTER(UInt64), unmappedRegionSize: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
-def GetGuestPhysicalMemoryChunks(vmSavedStateDumpHandle: VoidPtr, memoryChunkPageSize: POINTER(UInt64), memoryChunks: POINTER(win32more.Windows.Win32.System.Hypervisor.GPA_MEMORY_CHUNK_head), memoryChunkCount: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetGuestPhysicalMemoryChunks(vmSavedStateDumpHandle: VoidPtr, memoryChunkPageSize: POINTER(UInt64), memoryChunks: POINTER(win32more.Windows.Win32.System.Hypervisor.GPA_MEMORY_CHUNK), memoryChunkCount: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
 def GuestPhysicalAddressToRawSavedMemoryOffset(vmSavedStateDumpHandle: VoidPtr, physicalAddress: UInt64, rawSavedMemoryOffset: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
@@ -291,14 +282,14 @@ def GetSavedStateSymbolFieldInfo(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, 
 @winfunctype('VmSavedStateDumpProvider.dll')
 def ScanMemoryForDosImages(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, startAddress: UInt64, endAddress: UInt64, callbackContext: VoidPtr, foundImageCallback: win32more.Windows.Win32.System.Hypervisor.FOUND_IMAGE_CALLBACK, standaloneAddress: POINTER(UInt64), standaloneAddressCount: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
-def CallStackUnwind(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, imageInfo: POINTER(win32more.Windows.Win32.System.Hypervisor.MODULE_INFO_head), imageInfoCount: UInt32, frameCount: UInt32, callStack: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CallStackUnwind(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, imageInfo: POINTER(win32more.Windows.Win32.System.Hypervisor.MODULE_INFO), imageInfoCount: UInt32, frameCount: UInt32, callStack: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class DOS_IMAGE_INFO(EasyCastStructure):
     PdbName: win32more.Windows.Win32.Foundation.PSTR
     ImageBaseAddress: UInt64
     ImageSize: UInt32
     Timestamp: UInt32
 @winfunctype_pointer
-def FOUND_IMAGE_CALLBACK(Context: VoidPtr, ImageInfo: POINTER(win32more.Windows.Win32.System.Hypervisor.DOS_IMAGE_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def FOUND_IMAGE_CALLBACK(Context: VoidPtr, ImageInfo: POINTER(win32more.Windows.Win32.System.Hypervisor.DOS_IMAGE_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class GPA_MEMORY_CHUNK(EasyCastStructure):
     GuestPhysicalStartPageIndex: UInt64
     PageCount: UInt64
@@ -355,7 +346,7 @@ HDV_PCI_BAR3: HDV_PCI_BAR_SELECTOR = 3
 HDV_PCI_BAR4: HDV_PCI_BAR_SELECTOR = 4
 HDV_PCI_BAR5: HDV_PCI_BAR_SELECTOR = 5
 @winfunctype_pointer
-def HDV_PCI_DEVICE_GET_DETAILS(deviceContext: VoidPtr, pnpId: POINTER(win32more.Windows.Win32.System.Hypervisor.HDV_PCI_PNP_ID_head), probedBarsCount: UInt32, probedBars: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HDV_PCI_DEVICE_GET_DETAILS(deviceContext: VoidPtr, pnpId: POINTER(win32more.Windows.Win32.System.Hypervisor.HDV_PCI_PNP_ID), probedBarsCount: UInt32, probedBars: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def HDV_PCI_DEVICE_INITIALIZE(deviceContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class HDV_PCI_DEVICE_INTERFACE(EasyCastStructure):
@@ -741,23 +732,23 @@ class WHV_EMULATOR_CALLBACKS(EasyCastStructure):
     WHvEmulatorSetVirtualProcessorRegisters: win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK
     WHvEmulatorTranslateGvaPage: win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK
 @winfunctype_pointer
-def WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK(Context: VoidPtr, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK(Context: VoidPtr, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class WHV_EMULATOR_IO_ACCESS_INFO(EasyCastStructure):
     Direction: Byte
     Port: UInt16
     AccessSize: UInt16
     Data: UInt32
 @winfunctype_pointer
-def WHV_EMULATOR_IO_PORT_CALLBACK(Context: VoidPtr, IoAccess: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_IO_ACCESS_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHV_EMULATOR_IO_PORT_CALLBACK(Context: VoidPtr, IoAccess: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_IO_ACCESS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class WHV_EMULATOR_MEMORY_ACCESS_INFO(EasyCastStructure):
     GpaAddress: UInt64
     Direction: Byte
     AccessSize: Byte
     Data: Byte * 8
 @winfunctype_pointer
-def WHV_EMULATOR_MEMORY_CALLBACK(Context: VoidPtr, MemoryAccess: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_MEMORY_ACCESS_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHV_EMULATOR_MEMORY_CALLBACK(Context: VoidPtr, MemoryAccess: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_MEMORY_ACCESS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK(Context: VoidPtr, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK(Context: VoidPtr, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class WHV_EMULATOR_STATUS(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
@@ -1672,115 +1663,4 @@ class WHV_X64_XMM_CONTROL_STATUS_REGISTER(EasyCastUnion):
                 LastFpDp: UInt32
                 LastFpDs: UInt16
                 Reserved: UInt16
-make_head(_module, 'DOS_IMAGE_INFO')
-make_head(_module, 'FOUND_IMAGE_CALLBACK')
-make_head(_module, 'GPA_MEMORY_CHUNK')
-make_head(_module, 'GUEST_OS_INFO')
-make_head(_module, 'GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK')
-make_head(_module, 'HDV_PCI_DEVICE_GET_DETAILS')
-make_head(_module, 'HDV_PCI_DEVICE_INITIALIZE')
-make_head(_module, 'HDV_PCI_DEVICE_INTERFACE')
-make_head(_module, 'HDV_PCI_DEVICE_SET_CONFIGURATION')
-make_head(_module, 'HDV_PCI_DEVICE_START')
-make_head(_module, 'HDV_PCI_DEVICE_STOP')
-make_head(_module, 'HDV_PCI_DEVICE_TEARDOWN')
-make_head(_module, 'HDV_PCI_PNP_ID')
-make_head(_module, 'HDV_PCI_READ_CONFIG_SPACE')
-make_head(_module, 'HDV_PCI_READ_INTERCEPTED_MEMORY')
-make_head(_module, 'HDV_PCI_WRITE_CONFIG_SPACE')
-make_head(_module, 'HDV_PCI_WRITE_INTERCEPTED_MEMORY')
-make_head(_module, 'HVSOCKET_ADDRESS_INFO')
-make_head(_module, 'MODULE_INFO')
-make_head(_module, 'SOCKADDR_HV')
-make_head(_module, 'VIRTUAL_PROCESSOR_REGISTER')
-make_head(_module, 'VM_GENCOUNTER')
-make_head(_module, 'WHV_ACCESS_GPA_CONTROLS')
-make_head(_module, 'WHV_ADVISE_GPA_RANGE')
-make_head(_module, 'WHV_ADVISE_GPA_RANGE_POPULATE')
-make_head(_module, 'WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS')
-make_head(_module, 'WHV_CAPABILITY')
-make_head(_module, 'WHV_CAPABILITY_FEATURES')
-make_head(_module, 'WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP')
-make_head(_module, 'WHV_CPUID_OUTPUT')
-make_head(_module, 'WHV_DOORBELL_MATCH_DATA')
-make_head(_module, 'WHV_EMULATOR_CALLBACKS')
-make_head(_module, 'WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK')
-make_head(_module, 'WHV_EMULATOR_IO_ACCESS_INFO')
-make_head(_module, 'WHV_EMULATOR_IO_PORT_CALLBACK')
-make_head(_module, 'WHV_EMULATOR_MEMORY_ACCESS_INFO')
-make_head(_module, 'WHV_EMULATOR_MEMORY_CALLBACK')
-make_head(_module, 'WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK')
-make_head(_module, 'WHV_EMULATOR_STATUS')
-make_head(_module, 'WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK')
-make_head(_module, 'WHV_EXTENDED_VM_EXITS')
-make_head(_module, 'WHV_HYPERCALL_CONTEXT')
-make_head(_module, 'WHV_INTERNAL_ACTIVITY_REGISTER')
-make_head(_module, 'WHV_INTERRUPT_CONTROL')
-make_head(_module, 'WHV_MEMORY_ACCESS_CONTEXT')
-make_head(_module, 'WHV_MEMORY_ACCESS_INFO')
-make_head(_module, 'WHV_MEMORY_RANGE_ENTRY')
-make_head(_module, 'WHV_MSR_ACTION_ENTRY')
-make_head(_module, 'WHV_NOTIFICATION_PORT_PARAMETERS')
-make_head(_module, 'WHV_PARTITION_MEMORY_COUNTERS')
-make_head(_module, 'WHV_PARTITION_PROPERTY')
-make_head(_module, 'WHV_PROCESSOR_APIC_COUNTERS')
-make_head(_module, 'WHV_PROCESSOR_EVENT_COUNTERS')
-make_head(_module, 'WHV_PROCESSOR_FEATURES')
-make_head(_module, 'WHV_PROCESSOR_FEATURES1')
-make_head(_module, 'WHV_PROCESSOR_FEATURES_BANKS')
-make_head(_module, 'WHV_PROCESSOR_INTERCEPT_COUNTER')
-make_head(_module, 'WHV_PROCESSOR_INTERCEPT_COUNTERS')
-make_head(_module, 'WHV_PROCESSOR_PERFMON_FEATURES')
-make_head(_module, 'WHV_PROCESSOR_RUNTIME_COUNTERS')
-make_head(_module, 'WHV_PROCESSOR_SYNTHETIC_FEATURES_COUNTERS')
-make_head(_module, 'WHV_PROCESSOR_XSAVE_FEATURES')
-make_head(_module, 'WHV_REGISTER_VALUE')
-make_head(_module, 'WHV_RUN_VP_CANCELED_CONTEXT')
-make_head(_module, 'WHV_RUN_VP_EXIT_CONTEXT')
-make_head(_module, 'WHV_SCHEDULER_FEATURES')
-make_head(_module, 'WHV_SRIOV_RESOURCE_DESCRIPTOR')
-make_head(_module, 'WHV_SYNIC_EVENT_PARAMETERS')
-make_head(_module, 'WHV_SYNIC_SINT_DELIVERABLE_CONTEXT')
-make_head(_module, 'WHV_SYNTHETIC_PROCESSOR_FEATURES')
-make_head(_module, 'WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS')
-make_head(_module, 'WHV_TRANSLATE_GVA_RESULT')
-make_head(_module, 'WHV_TRIGGER_PARAMETERS')
-make_head(_module, 'WHV_UINT128')
-make_head(_module, 'WHV_VIRTUAL_PROCESSOR_PROPERTY')
-make_head(_module, 'WHV_VPCI_DEVICE_NOTIFICATION')
-make_head(_module, 'WHV_VPCI_DEVICE_REGISTER')
-make_head(_module, 'WHV_VPCI_HARDWARE_IDS')
-make_head(_module, 'WHV_VPCI_INTERRUPT_TARGET')
-make_head(_module, 'WHV_VPCI_MMIO_MAPPING')
-make_head(_module, 'WHV_VPCI_PROBED_BARS')
-make_head(_module, 'WHV_VP_EXCEPTION_CONTEXT')
-make_head(_module, 'WHV_VP_EXCEPTION_INFO')
-make_head(_module, 'WHV_VP_EXIT_CONTEXT')
-make_head(_module, 'WHV_X64_APIC_EOI_CONTEXT')
-make_head(_module, 'WHV_X64_APIC_INIT_SIPI_CONTEXT')
-make_head(_module, 'WHV_X64_APIC_SMI_CONTEXT')
-make_head(_module, 'WHV_X64_APIC_WRITE_CONTEXT')
-make_head(_module, 'WHV_X64_CPUID_ACCESS_CONTEXT')
-make_head(_module, 'WHV_X64_CPUID_RESULT')
-make_head(_module, 'WHV_X64_CPUID_RESULT2')
-make_head(_module, 'WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER')
-make_head(_module, 'WHV_X64_FP_CONTROL_STATUS_REGISTER')
-make_head(_module, 'WHV_X64_FP_REGISTER')
-make_head(_module, 'WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT')
-make_head(_module, 'WHV_X64_INTERRUPT_STATE_REGISTER')
-make_head(_module, 'WHV_X64_IO_PORT_ACCESS_CONTEXT')
-make_head(_module, 'WHV_X64_IO_PORT_ACCESS_INFO')
-make_head(_module, 'WHV_X64_MSR_ACCESS_CONTEXT')
-make_head(_module, 'WHV_X64_MSR_ACCESS_INFO')
-make_head(_module, 'WHV_X64_MSR_EXIT_BITMAP')
-make_head(_module, 'WHV_X64_PENDING_DEBUG_EXCEPTION')
-make_head(_module, 'WHV_X64_PENDING_EXCEPTION_EVENT')
-make_head(_module, 'WHV_X64_PENDING_EXT_INT_EVENT')
-make_head(_module, 'WHV_X64_PENDING_INTERRUPTION_REGISTER')
-make_head(_module, 'WHV_X64_RDTSC_CONTEXT')
-make_head(_module, 'WHV_X64_RDTSC_INFO')
-make_head(_module, 'WHV_X64_SEGMENT_REGISTER')
-make_head(_module, 'WHV_X64_TABLE_REGISTER')
-make_head(_module, 'WHV_X64_UNSUPPORTED_FEATURE_CONTEXT')
-make_head(_module, 'WHV_X64_VP_EXECUTION_STATE')
-make_head(_module, 'WHV_X64_XMM_CONTROL_STATUS_REGISTER')
+make_ready(__name__)

@@ -1,30 +1,21 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.AI.MachineLearning.WinML
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT.ML
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ILearningModelDeviceFactoryNative(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1e9b31a1-662e-4ae0-af67-f63bb337e634}')
     @commethod(3)
-    def CreateFromD3D12CommandQueue(self, value: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue_head, result: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateFromD3D12CommandQueue(self, value: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue, result: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ILearningModelOperatorProviderNative(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1adaa23a-eb67-41f3-aad8-5d984e9bacd4}')
     @commethod(3)
-    def GetRegistry(self, ppOperatorRegistry: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorRegistry_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetRegistry(self, ppOperatorRegistry: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorRegistry)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ILearningModelSessionOptionsNative(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c71e953f-37b4-4564-8658-d8396866db0d}')
@@ -41,15 +32,10 @@ class ITensorNative(ComPtr):
     @commethod(3)
     def GetBuffer(self, value: POINTER(POINTER(Byte)), capacity: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetD3D12Resource(self, result: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetD3D12Resource(self, result: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITensorStaticsNative(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{39d055a4-66f6-4ebc-95d9-7a29ebe7690a}')
     @commethod(3)
-    def CreateFromD3D12Resource(self, value: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, shape: POINTER(Int64), shapeCount: Int32, result: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'ILearningModelDeviceFactoryNative')
-make_head(_module, 'ILearningModelOperatorProviderNative')
-make_head(_module, 'ILearningModelSessionOptionsNative')
-make_head(_module, 'ILearningModelSessionOptionsNative1')
-make_head(_module, 'ITensorNative')
-make_head(_module, 'ITensorStaticsNative')
+    def CreateFromD3D12Resource(self, value: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, shape: POINTER(Int64), shapeCount: Int32, result: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+make_ready(__name__)

@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.Usb
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ALTERNATE_INTERFACE(EasyCastStructure):
     InterfaceNumber: UInt16
     AlternateInterfaceNumber: UInt16
@@ -563,7 +554,7 @@ def WinUsb_GetAssociatedInterface(InterfaceHandle: win32more.Windows.Win32.Devic
 @winfunctype('WINUSB.dll')
 def WinUsb_GetDescriptor(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, DescriptorType: Byte, Index: Byte, LanguageID: UInt16, Buffer: POINTER(Byte), BufferLength: UInt32, LengthTransferred: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_QueryInterfaceSettings(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, AlternateInterfaceNumber: Byte, UsbAltInterfaceDescriptor: POINTER(win32more.Windows.Win32.Devices.Usb.USB_INTERFACE_DESCRIPTOR_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_QueryInterfaceSettings(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, AlternateInterfaceNumber: Byte, UsbAltInterfaceDescriptor: POINTER(win32more.Windows.Win32.Devices.Usb.USB_INTERFACE_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
 def WinUsb_QueryDeviceInformation(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, InformationType: UInt32, BufferLength: POINTER(UInt32), Buffer: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
@@ -571,19 +562,19 @@ def WinUsb_SetCurrentAlternateSetting(InterfaceHandle: win32more.Windows.Win32.D
 @winfunctype('WINUSB.dll')
 def WinUsb_GetCurrentAlternateSetting(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, SettingNumber: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_QueryPipe(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, AlternateInterfaceNumber: Byte, PipeIndex: Byte, PipeInformation: POINTER(win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_INFORMATION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_QueryPipe(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, AlternateInterfaceNumber: Byte, PipeIndex: Byte, PipeInformation: POINTER(win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_INFORMATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_QueryPipeEx(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, AlternateSettingNumber: Byte, PipeIndex: Byte, PipeInformationEx: POINTER(win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_INFORMATION_EX_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_QueryPipeEx(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, AlternateSettingNumber: Byte, PipeIndex: Byte, PipeInformationEx: POINTER(win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_INFORMATION_EX)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
 def WinUsb_SetPipePolicy(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PipeID: Byte, PolicyType: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY, ValueLength: UInt32, Value: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
 def WinUsb_GetPipePolicy(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PipeID: Byte, PolicyType: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY, ValueLength: POINTER(UInt32), Value: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_ReadPipe(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PipeID: Byte, Buffer: POINTER(Byte), BufferLength: UInt32, LengthTransferred: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_ReadPipe(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PipeID: Byte, Buffer: POINTER(Byte), BufferLength: UInt32, LengthTransferred: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_WritePipe(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PipeID: Byte, Buffer: POINTER(Byte), BufferLength: UInt32, LengthTransferred: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_WritePipe(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PipeID: Byte, Buffer: POINTER(Byte), BufferLength: UInt32, LengthTransferred: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_ControlTransfer(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, SetupPacket: win32more.Windows.Win32.Devices.Usb.WINUSB_SETUP_PACKET, Buffer: POINTER(Byte), BufferLength: UInt32, LengthTransferred: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_ControlTransfer(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, SetupPacket: win32more.Windows.Win32.Devices.Usb.WINUSB_SETUP_PACKET, Buffer: POINTER(Byte), BufferLength: UInt32, LengthTransferred: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
 def WinUsb_ResetPipe(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PipeID: Byte) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
@@ -595,11 +586,11 @@ def WinUsb_SetPowerPolicy(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.W
 @winfunctype('WINUSB.dll')
 def WinUsb_GetPowerPolicy(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PolicyType: win32more.Windows.Win32.Devices.Usb.WINUSB_POWER_POLICY, ValueLength: POINTER(UInt32), Value: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_GetOverlappedResult(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head), lpNumberOfBytesTransferred: POINTER(UInt32), bWait: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_GetOverlappedResult(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), lpNumberOfBytesTransferred: POINTER(UInt32), bWait: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_ParseConfigurationDescriptor(ConfigurationDescriptor: POINTER(win32more.Windows.Win32.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR_head), StartPosition: VoidPtr, InterfaceNumber: Int32, AlternateSetting: Int32, InterfaceClass: Int32, InterfaceSubClass: Int32, InterfaceProtocol: Int32) -> POINTER(win32more.Windows.Win32.Devices.Usb.USB_INTERFACE_DESCRIPTOR_head): ...
+def WinUsb_ParseConfigurationDescriptor(ConfigurationDescriptor: POINTER(win32more.Windows.Win32.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR), StartPosition: VoidPtr, InterfaceNumber: Int32, AlternateSetting: Int32, InterfaceClass: Int32, InterfaceSubClass: Int32, InterfaceProtocol: Int32) -> POINTER(win32more.Windows.Win32.Devices.Usb.USB_INTERFACE_DESCRIPTOR): ...
 @winfunctype('WINUSB.dll')
-def WinUsb_ParseDescriptors(DescriptorBuffer: VoidPtr, TotalLength: UInt32, StartPosition: VoidPtr, DescriptorType: Int32) -> POINTER(win32more.Windows.Win32.Devices.Usb.USB_COMMON_DESCRIPTOR_head): ...
+def WinUsb_ParseDescriptors(DescriptorBuffer: VoidPtr, TotalLength: UInt32, StartPosition: VoidPtr, DescriptorType: Int32) -> POINTER(win32more.Windows.Win32.Devices.Usb.USB_COMMON_DESCRIPTOR): ...
 @winfunctype('WINUSB.dll')
 def WinUsb_GetCurrentFrameNumber(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, CurrentFrameNumber: POINTER(UInt32), TimeStamp: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
@@ -609,19 +600,19 @@ def WinUsb_RegisterIsochBuffer(InterfaceHandle: win32more.Windows.Win32.Devices.
 @winfunctype('WINUSB.dll')
 def WinUsb_UnregisterIsochBuffer(IsochBufferHandle: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_WriteIsochPipe(BufferHandle: VoidPtr, Offset: UInt32, Length: UInt32, FrameNumber: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_WriteIsochPipe(BufferHandle: VoidPtr, Offset: UInt32, Length: UInt32, FrameNumber: POINTER(UInt32), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_ReadIsochPipe(BufferHandle: VoidPtr, Offset: UInt32, Length: UInt32, FrameNumber: POINTER(UInt32), NumberOfPackets: UInt32, IsoPacketDescriptors: POINTER(win32more.Windows.Win32.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR_head), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_ReadIsochPipe(BufferHandle: VoidPtr, Offset: UInt32, Length: UInt32, FrameNumber: POINTER(UInt32), NumberOfPackets: UInt32, IsoPacketDescriptors: POINTER(win32more.Windows.Win32.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_WriteIsochPipeAsap(BufferHandle: VoidPtr, Offset: UInt32, Length: UInt32, ContinueStream: win32more.Windows.Win32.Foundation.BOOL, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_WriteIsochPipeAsap(BufferHandle: VoidPtr, Offset: UInt32, Length: UInt32, ContinueStream: win32more.Windows.Win32.Foundation.BOOL, Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_ReadIsochPipeAsap(BufferHandle: VoidPtr, Offset: UInt32, Length: UInt32, ContinueStream: win32more.Windows.Win32.Foundation.BOOL, NumberOfPackets: UInt32, IsoPacketDescriptors: POINTER(win32more.Windows.Win32.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR_head), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_ReadIsochPipeAsap(BufferHandle: VoidPtr, Offset: UInt32, Length: UInt32, ContinueStream: win32more.Windows.Win32.Foundation.BOOL, NumberOfPackets: UInt32, IsoPacketDescriptors: POINTER(win32more.Windows.Win32.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_StartTrackingForTimeSync(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, StartTrackingInfo: POINTER(win32more.Windows.Win32.Devices.Usb.USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_StartTrackingForTimeSync(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, StartTrackingInfo: POINTER(win32more.Windows.Win32.Devices.Usb.USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_GetCurrentFrameNumberAndQpc(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, FrameQpcInfo: POINTER(win32more.Windows.Win32.Devices.Usb.USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_GetCurrentFrameNumberAndQpc(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, FrameQpcInfo: POINTER(win32more.Windows.Win32.Devices.Usb.USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_StopTrackingForTimeSync(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, StopTrackingInfo: POINTER(win32more.Windows.Win32.Devices.Usb.USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def WinUsb_StopTrackingForTimeSync(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, StopTrackingInfo: POINTER(win32more.Windows.Win32.Devices.Usb.USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class BM_REQUEST_TYPE(EasyCastUnion):
     s: _BM
     B: Byte
@@ -2010,7 +2001,7 @@ class _URB_BULK_OR_INTERRUPT_TRANSFER(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
 class _URB_CONTROL_DESCRIPTOR_REQUEST(EasyCastStructure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
@@ -2019,7 +2010,7 @@ class _URB_CONTROL_DESCRIPTOR_REQUEST(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     Reserved1: UInt16
     Index: Byte
@@ -2033,7 +2024,7 @@ class _URB_CONTROL_FEATURE_REQUEST(EasyCastStructure):
     Reserved3: UInt32
     Reserved4: VoidPtr
     Reserved5: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     Reserved0: UInt16
     FeatureSelector: UInt16
@@ -2046,7 +2037,7 @@ class _URB_CONTROL_GET_CONFIGURATION_REQUEST(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     Reserved1: Byte * 8
 class _URB_CONTROL_GET_INTERFACE_REQUEST(EasyCastStructure):
@@ -2056,7 +2047,7 @@ class _URB_CONTROL_GET_INTERFACE_REQUEST(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     Reserved1: Byte * 4
     Interface: UInt16
@@ -2068,7 +2059,7 @@ class _URB_CONTROL_GET_STATUS_REQUEST(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     Reserved1: Byte * 4
     Index: UInt16
@@ -2080,7 +2071,7 @@ class _URB_CONTROL_TRANSFER(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     SetupPacket: Byte * 8
 class _URB_CONTROL_TRANSFER_EX(EasyCastStructure):
@@ -2100,7 +2091,7 @@ class _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     RequestTypeReservedBits: Byte
     Request: Byte
@@ -2136,7 +2127,7 @@ class _URB_ISOCH_TRANSFER(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     StartFrame: UInt32
     NumberOfPackets: UInt32
@@ -2148,7 +2139,7 @@ class _URB_OPEN_STATIC_STREAMS(EasyCastStructure):
     NumberOfStreams: UInt32
     StreamInfoVersion: UInt16
     StreamInfoSize: UInt16
-    Streams: POINTER(win32more.Windows.Win32.Devices.Usb.USBD_STREAM_INFORMATION_head)
+    Streams: POINTER(win32more.Windows.Win32.Devices.Usb.USBD_STREAM_INFORMATION)
 class _URB_OS_FEATURE_DESCRIPTOR_REQUEST(EasyCastStructure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     Reserved: VoidPtr
@@ -2156,7 +2147,7 @@ class _URB_OS_FEATURE_DESCRIPTOR_REQUEST(EasyCastStructure):
     TransferBufferLength: UInt32
     TransferBuffer: VoidPtr
     TransferBufferMDL: VoidPtr
-    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB_head)
+    UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     _bitfield: Byte
     Reserved2: Byte
@@ -2170,7 +2161,7 @@ class _URB_PIPE_REQUEST(EasyCastStructure):
     Reserved: UInt32
 class _URB_SELECT_CONFIGURATION(EasyCastStructure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
-    ConfigurationDescriptor: POINTER(win32more.Windows.Win32.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR_head)
+    ConfigurationDescriptor: POINTER(win32more.Windows.Win32.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR)
     ConfigurationHandle: VoidPtr
     Interface: win32more.Windows.Win32.Devices.Usb.USBD_INTERFACE_INFORMATION
 class _URB_SELECT_INTERFACE(EasyCastStructure):
@@ -2180,188 +2171,4 @@ class _URB_SELECT_INTERFACE(EasyCastStructure):
 class _URB_SET_FRAME_LENGTH(EasyCastStructure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     FrameLengthDelta: Int32
-make_head(_module, 'ALTERNATE_INTERFACE')
-make_head(_module, 'BM_REQUEST_TYPE')
-make_head(_module, 'CHANNEL_INFO')
-make_head(_module, 'DEVICE_DESCRIPTOR')
-make_head(_module, 'DRV_VERSION')
-make_head(_module, 'HCD_ISO_STAT_COUNTERS')
-make_head(_module, 'HCD_STAT_COUNTERS')
-make_head(_module, 'HCD_STAT_INFORMATION_1')
-make_head(_module, 'HCD_STAT_INFORMATION_2')
-make_head(_module, 'HUB_DEVICE_CONFIG_INFO')
-make_head(_module, 'IO_BLOCK')
-make_head(_module, 'IO_BLOCK_EX')
-make_head(_module, 'OS_STRING')
-make_head(_module, 'PACKET_PARAMETERS')
-make_head(_module, 'RAW_RESET_PORT_PARAMETERS')
-make_head(_module, 'RAW_ROOTPORT_FEATURE')
-make_head(_module, 'RAW_ROOTPORT_PARAMETERS')
-make_head(_module, 'URB')
-make_head(_module, 'USBD_DEVICE_INFORMATION')
-make_head(_module, 'USBD_ENDPOINT_OFFLOAD_INFORMATION')
-make_head(_module, 'USBD_INTERFACE_INFORMATION')
-make_head(_module, 'USBD_ISO_PACKET_DESCRIPTOR')
-make_head(_module, 'USBD_PIPE_INFORMATION')
-make_head(_module, 'USBD_STREAM_INFORMATION')
-make_head(_module, 'USBD_VERSION_INFORMATION')
-make_head(_module, 'USBFN_BUS_CONFIGURATION_INFO')
-make_head(_module, 'USBFN_CLASS_INFORMATION_PACKET')
-make_head(_module, 'USBFN_CLASS_INFORMATION_PACKET_EX')
-make_head(_module, 'USBFN_CLASS_INTERFACE')
-make_head(_module, 'USBFN_CLASS_INTERFACE_EX')
-make_head(_module, 'USBFN_INTERFACE_INFO')
-make_head(_module, 'USBFN_NOTIFICATION')
-make_head(_module, 'USBFN_PIPE_INFORMATION')
-make_head(_module, 'USBFN_USB_STRING')
-make_head(_module, 'USBSCAN_GET_DESCRIPTOR')
-make_head(_module, 'USBSCAN_PIPE_CONFIGURATION')
-make_head(_module, 'USBSCAN_PIPE_INFORMATION')
-make_head(_module, 'USBSCAN_TIMEOUT')
-make_head(_module, 'USBUSER_BANDWIDTH_INFO_REQUEST')
-make_head(_module, 'USBUSER_BUS_STATISTICS_0_REQUEST')
-make_head(_module, 'USBUSER_CLOSE_RAW_DEVICE')
-make_head(_module, 'USBUSER_CONTROLLER_INFO_0')
-make_head(_module, 'USBUSER_CONTROLLER_UNICODE_NAME')
-make_head(_module, 'USBUSER_GET_DRIVER_VERSION')
-make_head(_module, 'USBUSER_GET_USB2HW_VERSION')
-make_head(_module, 'USBUSER_OPEN_RAW_DEVICE')
-make_head(_module, 'USBUSER_PASS_THRU_REQUEST')
-make_head(_module, 'USBUSER_POWER_INFO_REQUEST')
-make_head(_module, 'USBUSER_RAW_RESET_ROOT_PORT')
-make_head(_module, 'USBUSER_REFRESH_HCT_REG')
-make_head(_module, 'USBUSER_REQUEST_HEADER')
-make_head(_module, 'USBUSER_ROOTPORT_FEATURE_REQUEST')
-make_head(_module, 'USBUSER_ROOTPORT_PARAMETERS')
-make_head(_module, 'USBUSER_SEND_ONE_PACKET')
-make_head(_module, 'USBUSER_SEND_RAW_COMMAND')
-make_head(_module, 'USB_20_PORT_CHANGE')
-make_head(_module, 'USB_20_PORT_STATUS')
-make_head(_module, 'USB_30_HUB_DESCRIPTOR')
-make_head(_module, 'USB_30_PORT_CHANGE')
-make_head(_module, 'USB_30_PORT_STATUS')
-make_head(_module, 'USB_ACQUIRE_INFO')
-make_head(_module, 'USB_BANDWIDTH_INFO')
-make_head(_module, 'USB_BOS_DESCRIPTOR')
-make_head(_module, 'USB_BUS_NOTIFICATION')
-make_head(_module, 'USB_BUS_STATISTICS_0')
-make_head(_module, 'USB_CLOSE_RAW_DEVICE_PARAMETERS')
-make_head(_module, 'USB_COMMON_DESCRIPTOR')
-make_head(_module, 'USB_COMPOSITE_DEVICE_INFO')
-make_head(_module, 'USB_COMPOSITE_FUNCTION_INFO')
-make_head(_module, 'USB_CONFIGURATION_DESCRIPTOR')
-make_head(_module, 'USB_CONFIGURATION_POWER_DESCRIPTOR')
-make_head(_module, 'USB_CONNECTION_NOTIFICATION')
-make_head(_module, 'USB_CONTROLLER_DEVICE_INFO')
-make_head(_module, 'USB_CONTROLLER_INFO_0')
-make_head(_module, 'USB_CYCLE_PORT_PARAMS')
-make_head(_module, 'USB_DEFAULT_PIPE_SETUP_PACKET')
-make_head(_module, 'USB_DESCRIPTOR_REQUEST')
-make_head(_module, 'USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED')
-make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CHARACTERISTICS')
-make_head(_module, 'USB_DEVICE_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_INFO')
-make_head(_module, 'USB_DEVICE_NODE_INFO')
-make_head(_module, 'USB_DEVICE_PERFORMANCE_INFO')
-make_head(_module, 'USB_DEVICE_QUALIFIER_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_STATE')
-make_head(_module, 'USB_DEVICE_STATUS')
-make_head(_module, 'USB_DRIVER_VERSION_PARAMETERS')
-make_head(_module, 'USB_ENDPOINT_DESCRIPTOR')
-make_head(_module, 'USB_ENDPOINT_STATUS')
-make_head(_module, 'USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION')
-make_head(_module, 'USB_FUNCTION_SUSPEND_OPTIONS')
-make_head(_module, 'USB_HCD_DRIVERKEY_NAME')
-make_head(_module, 'USB_HIGH_SPEED_MAXPACKET')
-make_head(_module, 'USB_HUB_30_PORT_REMOTE_WAKE_MASK')
-make_head(_module, 'USB_HUB_CAPABILITIES')
-make_head(_module, 'USB_HUB_CAPABILITIES_EX')
-make_head(_module, 'USB_HUB_CAP_FLAGS')
-make_head(_module, 'USB_HUB_CHANGE')
-make_head(_module, 'USB_HUB_DESCRIPTOR')
-make_head(_module, 'USB_HUB_DEVICE_INFO')
-make_head(_module, 'USB_HUB_DEVICE_UXD_SETTINGS')
-make_head(_module, 'USB_HUB_INFORMATION')
-make_head(_module, 'USB_HUB_INFORMATION_EX')
-make_head(_module, 'USB_HUB_NAME')
-make_head(_module, 'USB_HUB_PORT_INFORMATION')
-make_head(_module, 'USB_HUB_STATUS')
-make_head(_module, 'USB_HUB_STATUS_AND_CHANGE')
-make_head(_module, 'USB_IDLE_CALLBACK')
-make_head(_module, 'USB_IDLE_CALLBACK_INFO')
-make_head(_module, 'USB_ID_STRING')
-make_head(_module, 'USB_INTERFACE_ASSOCIATION_DESCRIPTOR')
-make_head(_module, 'USB_INTERFACE_DESCRIPTOR')
-make_head(_module, 'USB_INTERFACE_POWER_DESCRIPTOR')
-make_head(_module, 'USB_INTERFACE_STATUS')
-make_head(_module, 'USB_MI_PARENT_INFORMATION')
-make_head(_module, 'USB_NODE_CONNECTION_ATTRIBUTES')
-make_head(_module, 'USB_NODE_CONNECTION_DRIVERKEY_NAME')
-make_head(_module, 'USB_NODE_CONNECTION_INFORMATION')
-make_head(_module, 'USB_NODE_CONNECTION_INFORMATION_EX')
-make_head(_module, 'USB_NODE_CONNECTION_INFORMATION_EX_V2')
-make_head(_module, 'USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS')
-make_head(_module, 'USB_NODE_CONNECTION_NAME')
-make_head(_module, 'USB_NODE_INFORMATION')
-make_head(_module, 'USB_NOTIFICATION')
-make_head(_module, 'USB_OPEN_RAW_DEVICE_PARAMETERS')
-make_head(_module, 'USB_PASS_THRU_PARAMETERS')
-make_head(_module, 'USB_PIPE_INFO')
-make_head(_module, 'USB_PORT_CHANGE')
-make_head(_module, 'USB_PORT_CONNECTOR_PROPERTIES')
-make_head(_module, 'USB_PORT_EXT_STATUS')
-make_head(_module, 'USB_PORT_EXT_STATUS_AND_CHANGE')
-make_head(_module, 'USB_PORT_PROPERTIES')
-make_head(_module, 'USB_PORT_STATUS')
-make_head(_module, 'USB_PORT_STATUS_AND_CHANGE')
-make_head(_module, 'USB_POWER_INFO')
-make_head(_module, 'USB_PROTOCOLS')
-make_head(_module, 'USB_ROOT_HUB_NAME')
-make_head(_module, 'USB_SEND_RAW_COMMAND_PARAMETERS')
-make_head(_module, 'USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION')
-make_head(_module, 'USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION')
-make_head(_module, 'USB_STRING_DESCRIPTOR')
-make_head(_module, 'USB_SUPERSPEEDPLUS_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR')
-make_head(_module, 'USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR')
-make_head(_module, 'USB_TOPOLOGY_ADDRESS')
-make_head(_module, 'USB_TRANSPORT_CHARACTERISTICS')
-make_head(_module, 'USB_TRANSPORT_CHARACTERISTICS_CHANGE_NOTIFICATION')
-make_head(_module, 'USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION')
-make_head(_module, 'USB_TRANSPORT_CHARACTERISTICS_CHANGE_UNREGISTRATION')
-make_head(_module, 'USB_UNICODE_NAME')
-make_head(_module, 'USB_USB2HW_VERSION_PARAMETERS')
-make_head(_module, 'WINUSB_PIPE_INFORMATION')
-make_head(_module, 'WINUSB_PIPE_INFORMATION_EX')
-make_head(_module, 'WINUSB_SETUP_PACKET')
-make_head(_module, '_URB_BULK_OR_INTERRUPT_TRANSFER')
-make_head(_module, '_URB_CONTROL_DESCRIPTOR_REQUEST')
-make_head(_module, '_URB_CONTROL_FEATURE_REQUEST')
-make_head(_module, '_URB_CONTROL_GET_CONFIGURATION_REQUEST')
-make_head(_module, '_URB_CONTROL_GET_INTERFACE_REQUEST')
-make_head(_module, '_URB_CONTROL_GET_STATUS_REQUEST')
-make_head(_module, '_URB_CONTROL_TRANSFER')
-make_head(_module, '_URB_CONTROL_TRANSFER_EX')
-make_head(_module, '_URB_CONTROL_VENDOR_OR_CLASS_REQUEST')
-make_head(_module, '_URB_FRAME_LENGTH_CONTROL')
-make_head(_module, '_URB_GET_CURRENT_FRAME_NUMBER')
-make_head(_module, '_URB_GET_FRAME_LENGTH')
-make_head(_module, '_URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS')
-make_head(_module, '_URB_HCD_AREA')
-make_head(_module, '_URB_HEADER')
-make_head(_module, '_URB_ISOCH_TRANSFER')
-make_head(_module, '_URB_OPEN_STATIC_STREAMS')
-make_head(_module, '_URB_OS_FEATURE_DESCRIPTOR_REQUEST')
-make_head(_module, '_URB_PIPE_REQUEST')
-make_head(_module, '_URB_SELECT_CONFIGURATION')
-make_head(_module, '_URB_SELECT_INTERFACE')
-make_head(_module, '_URB_SET_FRAME_LENGTH')
+make_ready(__name__)

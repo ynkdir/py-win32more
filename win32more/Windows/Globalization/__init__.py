@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _ApplicationLanguages_Meta_(ComPtr.__class__):
     pass
 class ApplicationLanguages(ComPtr, metaclass=_ApplicationLanguages_Meta_):
@@ -2254,44 +2245,4 @@ class NumeralSystemIdentifiers(ComPtr, metaclass=_NumeralSystemIdentifiers_Meta_
     _NumeralSystemIdentifiers_Meta_.Thai = property(get_Thai.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Tibt = property(get_Tibt.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Vaii = property(get_Vaii.__wrapped__, None)
-make_head(_module, 'ApplicationLanguages')
-make_head(_module, 'Calendar')
-make_head(_module, 'CalendarIdentifiers')
-make_head(_module, 'ClockIdentifiers')
-make_head(_module, 'CurrencyAmount')
-make_head(_module, 'CurrencyIdentifiers')
-make_head(_module, 'GeographicRegion')
-make_head(_module, 'IApplicationLanguagesStatics')
-make_head(_module, 'IApplicationLanguagesStatics2')
-make_head(_module, 'ICalendar')
-make_head(_module, 'ICalendarFactory')
-make_head(_module, 'ICalendarFactory2')
-make_head(_module, 'ICalendarIdentifiersStatics')
-make_head(_module, 'ICalendarIdentifiersStatics2')
-make_head(_module, 'ICalendarIdentifiersStatics3')
-make_head(_module, 'IClockIdentifiersStatics')
-make_head(_module, 'ICurrencyAmount')
-make_head(_module, 'ICurrencyAmountFactory')
-make_head(_module, 'ICurrencyIdentifiersStatics')
-make_head(_module, 'ICurrencyIdentifiersStatics2')
-make_head(_module, 'ICurrencyIdentifiersStatics3')
-make_head(_module, 'IGeographicRegion')
-make_head(_module, 'IGeographicRegionFactory')
-make_head(_module, 'IGeographicRegionStatics')
-make_head(_module, 'IJapanesePhoneme')
-make_head(_module, 'IJapanesePhoneticAnalyzerStatics')
-make_head(_module, 'ILanguage')
-make_head(_module, 'ILanguage2')
-make_head(_module, 'ILanguage3')
-make_head(_module, 'ILanguageExtensionSubtags')
-make_head(_module, 'ILanguageFactory')
-make_head(_module, 'ILanguageStatics')
-make_head(_module, 'ILanguageStatics2')
-make_head(_module, 'ILanguageStatics3')
-make_head(_module, 'INumeralSystemIdentifiersStatics')
-make_head(_module, 'INumeralSystemIdentifiersStatics2')
-make_head(_module, 'ITimeZoneOnCalendar')
-make_head(_module, 'JapanesePhoneme')
-make_head(_module, 'JapanesePhoneticAnalyzer')
-make_head(_module, 'Language')
-make_head(_module, 'NumeralSystemIdentifiers')
+make_ready(__name__)

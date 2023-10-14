@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.DataTransfer
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Printing
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPrintDocumentSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintDocumentSource'
@@ -132,11 +123,11 @@ class IPrintTask(ComPtr):
     @winrt_commethod(8)
     def get_Options(self) -> win32more.Windows.Graphics.Printing.PrintTaskOptions: ...
     @winrt_commethod(9)
-    def add_Previewing(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Previewing(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_Previewing(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_Submitting(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Submitting(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_Submitting(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
@@ -771,11 +762,11 @@ class PrintTask(ComPtr):
     @winrt_mixinmethod
     def get_Options(self: win32more.Windows.Graphics.Printing.IPrintTask) -> win32more.Windows.Graphics.Printing.PrintTaskOptions: ...
     @winrt_mixinmethod
-    def add_Previewing(self: win32more.Windows.Graphics.Printing.IPrintTask, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Previewing(self: win32more.Windows.Graphics.Printing.IPrintTask, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Previewing(self: win32more.Windows.Graphics.Printing.IPrintTask, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Submitting(self: win32more.Windows.Graphics.Printing.IPrintTask, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Submitting(self: win32more.Windows.Graphics.Printing.IPrintTask, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Submitting(self: win32more.Windows.Graphics.Printing.IPrintTask, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1001,44 +992,4 @@ class StandardPrintTaskOptions(ComPtr, metaclass=_StandardPrintTaskOptions_Meta_
     _StandardPrintTaskOptions_Meta_.Copies = property(get_Copies.__wrapped__, None)
     _StandardPrintTaskOptions_Meta_.NUp = property(get_NUp.__wrapped__, None)
     _StandardPrintTaskOptions_Meta_.InputBin = property(get_InputBin.__wrapped__, None)
-make_head(_module, 'IPrintDocumentSource')
-make_head(_module, 'IPrintManager')
-make_head(_module, 'IPrintManagerStatic')
-make_head(_module, 'IPrintManagerStatic2')
-make_head(_module, 'IPrintPageInfo')
-make_head(_module, 'IPrintPageRange')
-make_head(_module, 'IPrintPageRangeFactory')
-make_head(_module, 'IPrintPageRangeOptions')
-make_head(_module, 'IPrintTask')
-make_head(_module, 'IPrintTask2')
-make_head(_module, 'IPrintTaskCompletedEventArgs')
-make_head(_module, 'IPrintTaskOptions')
-make_head(_module, 'IPrintTaskOptions2')
-make_head(_module, 'IPrintTaskOptionsCore')
-make_head(_module, 'IPrintTaskOptionsCoreProperties')
-make_head(_module, 'IPrintTaskOptionsCoreUIConfiguration')
-make_head(_module, 'IPrintTaskProgressingEventArgs')
-make_head(_module, 'IPrintTaskRequest')
-make_head(_module, 'IPrintTaskRequestedDeferral')
-make_head(_module, 'IPrintTaskRequestedEventArgs')
-make_head(_module, 'IPrintTaskSourceRequestedArgs')
-make_head(_module, 'IPrintTaskSourceRequestedDeferral')
-make_head(_module, 'IPrintTaskTargetDeviceSupport')
-make_head(_module, 'IStandardPrintTaskOptionsStatic')
-make_head(_module, 'IStandardPrintTaskOptionsStatic2')
-make_head(_module, 'IStandardPrintTaskOptionsStatic3')
-make_head(_module, 'PrintManager')
-make_head(_module, 'PrintPageDescription')
-make_head(_module, 'PrintPageInfo')
-make_head(_module, 'PrintPageRange')
-make_head(_module, 'PrintPageRangeOptions')
-make_head(_module, 'PrintTask')
-make_head(_module, 'PrintTaskCompletedEventArgs')
-make_head(_module, 'PrintTaskOptions')
-make_head(_module, 'PrintTaskProgressingEventArgs')
-make_head(_module, 'PrintTaskRequest')
-make_head(_module, 'PrintTaskRequestedDeferral')
-make_head(_module, 'PrintTaskRequestedEventArgs')
-make_head(_module, 'PrintTaskSourceRequestedArgs')
-make_head(_module, 'PrintTaskSourceRequestedDeferral')
-make_head(_module, 'StandardPrintTaskOptions')
+make_ready(__name__)

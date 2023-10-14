@@ -1,23 +1,14 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Compression
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 COMPRESS_ALGORITHM_INVALID: UInt32 = 0
 COMPRESS_ALGORITHM_NULL: UInt32 = 1
 COMPRESS_ALGORITHM_MAX: UInt32 = 6
 COMPRESS_RAW: UInt32 = 536870912
 @winfunctype('Cabinet.dll')
-def CreateCompressor(Algorithm: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM, AllocationRoutines: POINTER(win32more.Windows.Win32.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES_head), CompressorHandle: POINTER(win32more.Windows.Win32.Storage.Compression.COMPRESSOR_HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CreateCompressor(Algorithm: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM, AllocationRoutines: POINTER(win32more.Windows.Win32.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES), CompressorHandle: POINTER(win32more.Windows.Win32.Storage.Compression.COMPRESSOR_HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('Cabinet.dll')
 def SetCompressorInformation(CompressorHandle: win32more.Windows.Win32.Storage.Compression.COMPRESSOR_HANDLE, CompressInformationClass: win32more.Windows.Win32.Storage.Compression.COMPRESS_INFORMATION_CLASS, CompressInformation: VoidPtr, CompressInformationSize: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('Cabinet.dll')
@@ -29,7 +20,7 @@ def ResetCompressor(CompressorHandle: win32more.Windows.Win32.Storage.Compressio
 @winfunctype('Cabinet.dll')
 def CloseCompressor(CompressorHandle: win32more.Windows.Win32.Storage.Compression.COMPRESSOR_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('Cabinet.dll')
-def CreateDecompressor(Algorithm: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM, AllocationRoutines: POINTER(win32more.Windows.Win32.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES_head), DecompressorHandle: POINTER(IntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CreateDecompressor(Algorithm: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM, AllocationRoutines: POINTER(win32more.Windows.Win32.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES), DecompressorHandle: POINTER(IntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('Cabinet.dll')
 def SetDecompressorInformation(DecompressorHandle: IntPtr, CompressInformationClass: win32more.Windows.Win32.Storage.Compression.COMPRESS_INFORMATION_CLASS, CompressInformation: VoidPtr, CompressInformationSize: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('Cabinet.dll')
@@ -58,6 +49,4 @@ COMPRESS_INFORMATION_CLASS_LEVEL: COMPRESS_INFORMATION_CLASS = 2
 def PFN_COMPRESS_ALLOCATE(UserContext: VoidPtr, Size: UIntPtr) -> VoidPtr: ...
 @cfunctype_pointer
 def PFN_COMPRESS_FREE(UserContext: VoidPtr, Memory: VoidPtr) -> Void: ...
-make_head(_module, 'COMPRESS_ALLOCATION_ROUTINES')
-make_head(_module, 'PFN_COMPRESS_ALLOCATE')
-make_head(_module, 'PFN_COMPRESS_FREE')
+make_ready(__name__)

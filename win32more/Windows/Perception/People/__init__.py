@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -22,15 +22,6 @@ import win32more.Windows.Perception.People
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.UI.Input
 import win32more.Windows.UI.Input.Spatial
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class EyesPose(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.People.IEyesPose
@@ -121,7 +112,7 @@ class HandPose(ComPtr):
     default_interface: win32more.Windows.Perception.People.IHandPose
     _classid_ = 'Windows.Perception.People.HandPose'
     @winrt_mixinmethod
-    def TryGetJoint(self: win32more.Windows.Perception.People.IHandPose, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem, joint: win32more.Windows.Perception.People.HandJointKind, jointPose: POINTER(win32more.Windows.Perception.People.JointPose_head)) -> Boolean: ...
+    def TryGetJoint(self: win32more.Windows.Perception.People.IHandPose, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem, joint: win32more.Windows.Perception.People.HandJointKind, jointPose: POINTER(win32more.Windows.Perception.People.JointPose)) -> Boolean: ...
     @winrt_mixinmethod
     def TryGetJoints(self: win32more.Windows.Perception.People.IHandPose, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem, joints: Annotated[SZArray[win32more.Windows.Perception.People.HandJointKind], 'In'], jointPoses: Annotated[SZArray[win32more.Windows.Perception.People.JointPose], 'Out']) -> Boolean: ...
     @winrt_mixinmethod
@@ -205,7 +196,7 @@ class IHandPose(ComPtr):
     _classid_ = 'Windows.Perception.People.IHandPose'
     _iid_ = Guid('{4d98e79a-bb08-5d09-91de-df0dd3fae46c}')
     @winrt_commethod(6)
-    def TryGetJoint(self, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem, joint: win32more.Windows.Perception.People.HandJointKind, jointPose: POINTER(win32more.Windows.Perception.People.JointPose_head)) -> Boolean: ...
+    def TryGetJoint(self, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem, joint: win32more.Windows.Perception.People.HandJointKind, jointPose: POINTER(win32more.Windows.Perception.People.JointPose)) -> Boolean: ...
     @winrt_commethod(7)
     def TryGetJoints(self, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem, joints: Annotated[SZArray[win32more.Windows.Perception.People.HandJointKind], 'In'], jointPoses: Annotated[SZArray[win32more.Windows.Perception.People.JointPose], 'Out']) -> Boolean: ...
     @winrt_commethod(8)
@@ -233,16 +224,4 @@ class JointPose(EasyCastStructure):
 JointPoseAccuracy = Int32
 JointPoseAccuracy_High: JointPoseAccuracy = 0
 JointPoseAccuracy_Approximate: JointPoseAccuracy = 1
-make_head(_module, 'EyesPose')
-make_head(_module, 'HandMeshObserver')
-make_head(_module, 'HandMeshVertex')
-make_head(_module, 'HandMeshVertexState')
-make_head(_module, 'HandPose')
-make_head(_module, 'HeadPose')
-make_head(_module, 'IEyesPose')
-make_head(_module, 'IEyesPoseStatics')
-make_head(_module, 'IHandMeshObserver')
-make_head(_module, 'IHandMeshVertexState')
-make_head(_module, 'IHandPose')
-make_head(_module, 'IHeadPose')
-make_head(_module, 'JointPose')
+make_ready(__name__)

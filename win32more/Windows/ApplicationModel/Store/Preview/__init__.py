@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Store.Preview
@@ -23,15 +23,6 @@ import win32more.Windows.Security.Credentials
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.UI.Xaml
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 DeliveryOptimizationDownloadMode = Int32
 DeliveryOptimizationDownloadMode_Simple: DeliveryOptimizationDownloadMode = 0
 DeliveryOptimizationDownloadMode_HttpOnly: DeliveryOptimizationDownloadMode = 1
@@ -431,24 +422,4 @@ class WebAuthenticationCoreManagerHelper(ComPtr):
     def RequestTokenWithUIElementHostingAsync(cls: win32more.Windows.ApplicationModel.Store.Preview.IWebAuthenticationCoreManagerHelper, request: win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest, uiElement: win32more.Windows.UI.Xaml.UIElement) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Web.Core.WebTokenRequestResult]: ...
     @winrt_classmethod
     def RequestTokenWithUIElementHostingAndWebAccountAsync(cls: win32more.Windows.ApplicationModel.Store.Preview.IWebAuthenticationCoreManagerHelper, request: win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest, webAccount: win32more.Windows.Security.Credentials.WebAccount, uiElement: win32more.Windows.UI.Xaml.UIElement) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Web.Core.WebTokenRequestResult]: ...
-make_head(_module, 'DeliveryOptimizationSettings')
-make_head(_module, 'IDeliveryOptimizationSettings')
-make_head(_module, 'IDeliveryOptimizationSettingsStatics')
-make_head(_module, 'IStoreConfigurationStatics')
-make_head(_module, 'IStoreConfigurationStatics2')
-make_head(_module, 'IStoreConfigurationStatics3')
-make_head(_module, 'IStoreConfigurationStatics4')
-make_head(_module, 'IStoreConfigurationStatics5')
-make_head(_module, 'IStoreHardwareManufacturerInfo')
-make_head(_module, 'IStorePreview')
-make_head(_module, 'IStorePreviewProductInfo')
-make_head(_module, 'IStorePreviewPurchaseResults')
-make_head(_module, 'IStorePreviewSkuInfo')
-make_head(_module, 'IWebAuthenticationCoreManagerHelper')
-make_head(_module, 'StoreConfiguration')
-make_head(_module, 'StoreHardwareManufacturerInfo')
-make_head(_module, 'StorePreview')
-make_head(_module, 'StorePreviewProductInfo')
-make_head(_module, 'StorePreviewPurchaseResults')
-make_head(_module, 'StorePreviewSkuInfo')
-make_head(_module, 'WebAuthenticationCoreManagerHelper')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Background
@@ -23,15 +23,6 @@ import win32more.Windows.Security.Credentials
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.UI.Popups
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class DeviceAccessChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Enumeration.IDeviceAccessChangedEventArgs
@@ -101,7 +92,7 @@ class DeviceInformation(ComPtr):
     @winrt_mixinmethod
     def get_EnclosureLocation(self: win32more.Windows.Devices.Enumeration.IDeviceInformation) -> win32more.Windows.Devices.Enumeration.EnclosureLocation: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Enumeration.IDeviceInformation) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Enumeration.IDeviceInformation) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def Update(self: win32more.Windows.Devices.Enumeration.IDeviceInformation, updateInfo: win32more.Windows.Devices.Enumeration.DeviceInformationUpdate) -> Void: ...
     @winrt_mixinmethod
@@ -222,7 +213,7 @@ class DeviceInformationUpdate(ComPtr):
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.Devices.Enumeration.IDeviceInformationUpdate) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Enumeration.IDeviceInformationUpdate) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Enumeration.IDeviceInformationUpdate) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.Devices.Enumeration.IDeviceInformationUpdate2) -> win32more.Windows.Devices.Enumeration.DeviceInformationKind: ...
     Id = property(get_Id, None)
@@ -313,7 +304,7 @@ class DevicePicker(ComPtr):
     @winrt_mixinmethod
     def remove_DisconnectButtonClicked(self: win32more.Windows.Devices.Enumeration.IDevicePicker, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_DevicePickerDismissed(self: win32more.Windows.Devices.Enumeration.IDevicePicker, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DevicePickerDismissed(self: win32more.Windows.Devices.Enumeration.IDevicePicker, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DevicePickerDismissed(self: win32more.Windows.Devices.Enumeration.IDevicePicker, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -459,11 +450,11 @@ class DeviceWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.Devices.Enumeration.IDeviceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Devices.Enumeration.IDeviceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Devices.Enumeration.IDeviceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Devices.Enumeration.IDeviceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.Devices.Enumeration.IDeviceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.Devices.Enumeration.IDeviceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.Devices.Enumeration.IDeviceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -586,7 +577,7 @@ class IDeviceInformation(ComPtr):
     @winrt_commethod(10)
     def get_EnclosureLocation(self) -> win32more.Windows.Devices.Enumeration.EnclosureLocation: ...
     @winrt_commethod(11)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(12)
     def Update(self, updateInfo: win32more.Windows.Devices.Enumeration.DeviceInformationUpdate) -> Void: ...
     @winrt_commethod(13)
@@ -706,7 +697,7 @@ class IDeviceInformationUpdate(ComPtr):
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
 class IDeviceInformationUpdate2(ComPtr):
@@ -774,7 +765,7 @@ class IDevicePicker(ComPtr):
     @winrt_commethod(12)
     def remove_DisconnectButtonClicked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
-    def add_DevicePickerDismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DevicePickerDismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_DevicePickerDismissed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(15)
@@ -872,11 +863,11 @@ class IDeviceWatcher(ComPtr):
     @winrt_commethod(11)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
@@ -940,56 +931,4 @@ Panel_Top: Panel = 3
 Panel_Bottom: Panel = 4
 Panel_Left: Panel = 5
 Panel_Right: Panel = 6
-make_head(_module, 'DeviceAccessChangedEventArgs')
-make_head(_module, 'DeviceAccessInformation')
-make_head(_module, 'DeviceConnectionChangeTriggerDetails')
-make_head(_module, 'DeviceDisconnectButtonClickedEventArgs')
-make_head(_module, 'DeviceInformation')
-make_head(_module, 'DeviceInformationCollection')
-make_head(_module, 'DeviceInformationCustomPairing')
-make_head(_module, 'DeviceInformationPairing')
-make_head(_module, 'DeviceInformationUpdate')
-make_head(_module, 'DevicePairingRequestedEventArgs')
-make_head(_module, 'DevicePairingResult')
-make_head(_module, 'DevicePicker')
-make_head(_module, 'DevicePickerAppearance')
-make_head(_module, 'DevicePickerFilter')
-make_head(_module, 'DeviceSelectedEventArgs')
-make_head(_module, 'DeviceThumbnail')
-make_head(_module, 'DeviceUnpairingResult')
-make_head(_module, 'DeviceWatcher')
-make_head(_module, 'DeviceWatcherEvent')
-make_head(_module, 'DeviceWatcherTriggerDetails')
-make_head(_module, 'EnclosureLocation')
-make_head(_module, 'IDeviceAccessChangedEventArgs')
-make_head(_module, 'IDeviceAccessChangedEventArgs2')
-make_head(_module, 'IDeviceAccessInformation')
-make_head(_module, 'IDeviceAccessInformationStatics')
-make_head(_module, 'IDeviceConnectionChangeTriggerDetails')
-make_head(_module, 'IDeviceDisconnectButtonClickedEventArgs')
-make_head(_module, 'IDeviceInformation')
-make_head(_module, 'IDeviceInformation2')
-make_head(_module, 'IDeviceInformationCustomPairing')
-make_head(_module, 'IDeviceInformationPairing')
-make_head(_module, 'IDeviceInformationPairing2')
-make_head(_module, 'IDeviceInformationPairingStatics')
-make_head(_module, 'IDeviceInformationPairingStatics2')
-make_head(_module, 'IDeviceInformationStatics')
-make_head(_module, 'IDeviceInformationStatics2')
-make_head(_module, 'IDeviceInformationUpdate')
-make_head(_module, 'IDeviceInformationUpdate2')
-make_head(_module, 'IDevicePairingRequestedEventArgs')
-make_head(_module, 'IDevicePairingRequestedEventArgs2')
-make_head(_module, 'IDevicePairingResult')
-make_head(_module, 'IDevicePairingSettings')
-make_head(_module, 'IDevicePicker')
-make_head(_module, 'IDevicePickerAppearance')
-make_head(_module, 'IDevicePickerFilter')
-make_head(_module, 'IDeviceSelectedEventArgs')
-make_head(_module, 'IDeviceUnpairingResult')
-make_head(_module, 'IDeviceWatcher')
-make_head(_module, 'IDeviceWatcher2')
-make_head(_module, 'IDeviceWatcherEvent')
-make_head(_module, 'IDeviceWatcherTriggerDetails')
-make_head(_module, 'IEnclosureLocation')
-make_head(_module, 'IEnclosureLocation2')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Activation
@@ -24,15 +24,6 @@ import win32more.Windows.Graphics.Printing.Workflow
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPrintWorkflowBackgroundSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowBackgroundSession'
@@ -785,65 +776,4 @@ class PrintWorkflowXpsDataAvailableEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowXpsDataAvailableEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Operation = property(get_Operation, None)
-make_head(_module, 'IPrintWorkflowBackgroundSession')
-make_head(_module, 'IPrintWorkflowBackgroundSetupRequestedEventArgs')
-make_head(_module, 'IPrintWorkflowConfiguration')
-make_head(_module, 'IPrintWorkflowConfiguration2')
-make_head(_module, 'IPrintWorkflowForegroundSession')
-make_head(_module, 'IPrintWorkflowForegroundSetupRequestedEventArgs')
-make_head(_module, 'IPrintWorkflowJobActivatedEventArgs')
-make_head(_module, 'IPrintWorkflowJobBackgroundSession')
-make_head(_module, 'IPrintWorkflowJobNotificationEventArgs')
-make_head(_module, 'IPrintWorkflowJobStartingEventArgs')
-make_head(_module, 'IPrintWorkflowJobTriggerDetails')
-make_head(_module, 'IPrintWorkflowJobUISession')
-make_head(_module, 'IPrintWorkflowObjectModelSourceFileContent')
-make_head(_module, 'IPrintWorkflowObjectModelSourceFileContentFactory')
-make_head(_module, 'IPrintWorkflowObjectModelTargetPackage')
-make_head(_module, 'IPrintWorkflowPdlConverter')
-make_head(_module, 'IPrintWorkflowPdlConverter2')
-make_head(_module, 'IPrintWorkflowPdlDataAvailableEventArgs')
-make_head(_module, 'IPrintWorkflowPdlModificationRequestedEventArgs')
-make_head(_module, 'IPrintWorkflowPdlModificationRequestedEventArgs2')
-make_head(_module, 'IPrintWorkflowPdlSourceContent')
-make_head(_module, 'IPrintWorkflowPdlTargetStream')
-make_head(_module, 'IPrintWorkflowPrinterJob')
-make_head(_module, 'IPrintWorkflowSourceContent')
-make_head(_module, 'IPrintWorkflowSpoolStreamContent')
-make_head(_module, 'IPrintWorkflowStreamTarget')
-make_head(_module, 'IPrintWorkflowSubmittedEventArgs')
-make_head(_module, 'IPrintWorkflowSubmittedOperation')
-make_head(_module, 'IPrintWorkflowTarget')
-make_head(_module, 'IPrintWorkflowTriggerDetails')
-make_head(_module, 'IPrintWorkflowUIActivatedEventArgs')
-make_head(_module, 'IPrintWorkflowUILauncher')
-make_head(_module, 'IPrintWorkflowXpsDataAvailableEventArgs')
-make_head(_module, 'PrintWorkflowBackgroundSession')
-make_head(_module, 'PrintWorkflowBackgroundSetupRequestedEventArgs')
-make_head(_module, 'PrintWorkflowConfiguration')
-make_head(_module, 'PrintWorkflowForegroundSession')
-make_head(_module, 'PrintWorkflowForegroundSetupRequestedEventArgs')
-make_head(_module, 'PrintWorkflowJobActivatedEventArgs')
-make_head(_module, 'PrintWorkflowJobBackgroundSession')
-make_head(_module, 'PrintWorkflowJobNotificationEventArgs')
-make_head(_module, 'PrintWorkflowJobStartingEventArgs')
-make_head(_module, 'PrintWorkflowJobTriggerDetails')
-make_head(_module, 'PrintWorkflowJobUISession')
-make_head(_module, 'PrintWorkflowObjectModelSourceFileContent')
-make_head(_module, 'PrintWorkflowObjectModelTargetPackage')
-make_head(_module, 'PrintWorkflowPdlConverter')
-make_head(_module, 'PrintWorkflowPdlDataAvailableEventArgs')
-make_head(_module, 'PrintWorkflowPdlModificationRequestedEventArgs')
-make_head(_module, 'PrintWorkflowPdlSourceContent')
-make_head(_module, 'PrintWorkflowPdlTargetStream')
-make_head(_module, 'PrintWorkflowPrinterJob')
-make_head(_module, 'PrintWorkflowSourceContent')
-make_head(_module, 'PrintWorkflowSpoolStreamContent')
-make_head(_module, 'PrintWorkflowStreamTarget')
-make_head(_module, 'PrintWorkflowSubmittedEventArgs')
-make_head(_module, 'PrintWorkflowSubmittedOperation')
-make_head(_module, 'PrintWorkflowTarget')
-make_head(_module, 'PrintWorkflowTriggerDetails')
-make_head(_module, 'PrintWorkflowUIActivatedEventArgs')
-make_head(_module, 'PrintWorkflowUILauncher')
-make_head(_module, 'PrintWorkflowXpsDataAvailableEventArgs')
+make_ready(__name__)

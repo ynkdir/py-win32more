@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Activation
@@ -39,15 +39,6 @@ import win32more.Windows.Storage.Search
 import win32more.Windows.System
 import win32more.Windows.UI.Notifications
 import win32more.Windows.UI.ViewManagement
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ActivatedEventsContract: UInt32 = 65536
 ActivationCameraSettingsContract: UInt32 = 65536
 ActivationKind = Int32
@@ -270,9 +261,9 @@ class CameraSettingsActivatedEventArgs(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs
     _classid_ = 'Windows.ApplicationModel.Activation.CameraSettingsActivatedEventArgs'
     @winrt_mixinmethod
-    def get_VideoDeviceController(self: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_VideoDeviceController(self: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_VideoDeviceExtension(self: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_VideoDeviceExtension(self: win32more.Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ActivationKind: ...
     @winrt_mixinmethod
@@ -810,9 +801,9 @@ class ICameraSettingsActivatedEventArgs(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs'
     _iid_ = Guid('{fb67a508-2dad-490a-9170-dca036eb114b}')
     @winrt_commethod(6)
-    def get_VideoDeviceController(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_VideoDeviceController(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(7)
-    def get_VideoDeviceExtension(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_VideoDeviceExtension(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     VideoDeviceController = property(get_VideoDeviceController, None)
     VideoDeviceExtension = property(get_VideoDeviceExtension, None)
 class ICommandLineActivatedEventArgs(ComPtr):
@@ -1061,7 +1052,7 @@ class ILockScreenActivatedEventArgs(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs'
     _iid_ = Guid('{3ca77966-6108-4a41-8220-ee7d133c8532}')
     @winrt_commethod(6)
-    def get_Info(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Info(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Info = property(get_Info, None)
 class ILockScreenCallActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1134,7 +1125,7 @@ class IRestrictedLaunchActivatedEventArgs(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs'
     _iid_ = Guid('{e0b7ac81-bfc3-4344-a5da-19fd5a27baae}')
     @winrt_commethod(6)
-    def get_SharedContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SharedContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     SharedContext = property(get_SharedContext, None)
 class ISearchActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1167,7 +1158,7 @@ class ISplashScreen(ComPtr):
     @winrt_commethod(6)
     def get_ImageLocation(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(7)
-    def add_Dismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Activation.SplashScreen, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Dismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Activation.SplashScreen, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Dismissed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageLocation = property(get_ImageLocation, None)
@@ -1282,7 +1273,7 @@ class LockScreenActivatedEventArgs(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs
     _classid_ = 'Windows.ApplicationModel.Activation.LockScreenActivatedEventArgs'
     @winrt_mixinmethod
-    def get_Info(self: win32more.Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Info(self: win32more.Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ActivationKind: ...
     @winrt_mixinmethod
@@ -1474,7 +1465,7 @@ class RestrictedLaunchActivatedEventArgs(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs
     _classid_ = 'Windows.ApplicationModel.Activation.RestrictedLaunchActivatedEventArgs'
     @winrt_mixinmethod
-    def get_SharedContext(self: win32more.Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SharedContext(self: win32more.Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ActivationKind: ...
     @winrt_mixinmethod
@@ -1545,7 +1536,7 @@ class SplashScreen(ComPtr):
     @winrt_mixinmethod
     def get_ImageLocation(self: win32more.Windows.ApplicationModel.Activation.ISplashScreen) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
-    def add_Dismissed(self: win32more.Windows.ApplicationModel.Activation.ISplashScreen, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Activation.SplashScreen, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Dismissed(self: win32more.Windows.ApplicationModel.Activation.ISplashScreen, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Activation.SplashScreen, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Dismissed(self: win32more.Windows.ApplicationModel.Activation.ISplashScreen, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageLocation = property(get_ImageLocation, None)
@@ -1696,116 +1687,4 @@ class WebAuthenticationBrokerContinuationEventArgs(ComPtr):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
 WebUISearchActivatedEventsContract: UInt32 = 65536
-make_head(_module, 'AppointmentsProviderAddAppointmentActivatedEventArgs')
-make_head(_module, 'AppointmentsProviderRemoveAppointmentActivatedEventArgs')
-make_head(_module, 'AppointmentsProviderReplaceAppointmentActivatedEventArgs')
-make_head(_module, 'AppointmentsProviderShowAppointmentDetailsActivatedEventArgs')
-make_head(_module, 'AppointmentsProviderShowTimeFrameActivatedEventArgs')
-make_head(_module, 'BackgroundActivatedEventArgs')
-make_head(_module, 'BarcodeScannerPreviewActivatedEventArgs')
-make_head(_module, 'CachedFileUpdaterActivatedEventArgs')
-make_head(_module, 'CameraSettingsActivatedEventArgs')
-make_head(_module, 'CommandLineActivatedEventArgs')
-make_head(_module, 'CommandLineActivationOperation')
-make_head(_module, 'ContactCallActivatedEventArgs')
-make_head(_module, 'ContactMapActivatedEventArgs')
-make_head(_module, 'ContactMessageActivatedEventArgs')
-make_head(_module, 'ContactPanelActivatedEventArgs')
-make_head(_module, 'ContactPickerActivatedEventArgs')
-make_head(_module, 'ContactPostActivatedEventArgs')
-make_head(_module, 'ContactVideoCallActivatedEventArgs')
-make_head(_module, 'DeviceActivatedEventArgs')
-make_head(_module, 'DevicePairingActivatedEventArgs')
-make_head(_module, 'DialReceiverActivatedEventArgs')
-make_head(_module, 'FileActivatedEventArgs')
-make_head(_module, 'FileOpenPickerActivatedEventArgs')
-make_head(_module, 'FileOpenPickerContinuationEventArgs')
-make_head(_module, 'FileSavePickerActivatedEventArgs')
-make_head(_module, 'FileSavePickerContinuationEventArgs')
-make_head(_module, 'FolderPickerContinuationEventArgs')
-make_head(_module, 'IActivatedEventArgs')
-make_head(_module, 'IActivatedEventArgsWithUser')
-make_head(_module, 'IApplicationViewActivatedEventArgs')
-make_head(_module, 'IAppointmentsProviderActivatedEventArgs')
-make_head(_module, 'IAppointmentsProviderAddAppointmentActivatedEventArgs')
-make_head(_module, 'IAppointmentsProviderRemoveAppointmentActivatedEventArgs')
-make_head(_module, 'IAppointmentsProviderReplaceAppointmentActivatedEventArgs')
-make_head(_module, 'IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs')
-make_head(_module, 'IAppointmentsProviderShowTimeFrameActivatedEventArgs')
-make_head(_module, 'IBackgroundActivatedEventArgs')
-make_head(_module, 'IBarcodeScannerPreviewActivatedEventArgs')
-make_head(_module, 'ICachedFileUpdaterActivatedEventArgs')
-make_head(_module, 'ICameraSettingsActivatedEventArgs')
-make_head(_module, 'ICommandLineActivatedEventArgs')
-make_head(_module, 'ICommandLineActivationOperation')
-make_head(_module, 'IContactActivatedEventArgs')
-make_head(_module, 'IContactCallActivatedEventArgs')
-make_head(_module, 'IContactMapActivatedEventArgs')
-make_head(_module, 'IContactMessageActivatedEventArgs')
-make_head(_module, 'IContactPanelActivatedEventArgs')
-make_head(_module, 'IContactPickerActivatedEventArgs')
-make_head(_module, 'IContactPostActivatedEventArgs')
-make_head(_module, 'IContactVideoCallActivatedEventArgs')
-make_head(_module, 'IContactsProviderActivatedEventArgs')
-make_head(_module, 'IContinuationActivatedEventArgs')
-make_head(_module, 'IDeviceActivatedEventArgs')
-make_head(_module, 'IDevicePairingActivatedEventArgs')
-make_head(_module, 'IDialReceiverActivatedEventArgs')
-make_head(_module, 'IFileActivatedEventArgs')
-make_head(_module, 'IFileActivatedEventArgsWithCallerPackageFamilyName')
-make_head(_module, 'IFileActivatedEventArgsWithNeighboringFiles')
-make_head(_module, 'IFileOpenPickerActivatedEventArgs')
-make_head(_module, 'IFileOpenPickerActivatedEventArgs2')
-make_head(_module, 'IFileOpenPickerContinuationEventArgs')
-make_head(_module, 'IFileSavePickerActivatedEventArgs')
-make_head(_module, 'IFileSavePickerActivatedEventArgs2')
-make_head(_module, 'IFileSavePickerContinuationEventArgs')
-make_head(_module, 'IFolderPickerContinuationEventArgs')
-make_head(_module, 'ILaunchActivatedEventArgs')
-make_head(_module, 'ILaunchActivatedEventArgs2')
-make_head(_module, 'ILockScreenActivatedEventArgs')
-make_head(_module, 'ILockScreenCallActivatedEventArgs')
-make_head(_module, 'IPhoneCallActivatedEventArgs')
-make_head(_module, 'IPickerReturnedActivatedEventArgs')
-make_head(_module, 'IPrelaunchActivatedEventArgs')
-make_head(_module, 'IPrint3DWorkflowActivatedEventArgs')
-make_head(_module, 'IPrintTaskSettingsActivatedEventArgs')
-make_head(_module, 'IProtocolActivatedEventArgs')
-make_head(_module, 'IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData')
-make_head(_module, 'IProtocolForResultsActivatedEventArgs')
-make_head(_module, 'IRestrictedLaunchActivatedEventArgs')
-make_head(_module, 'ISearchActivatedEventArgs')
-make_head(_module, 'ISearchActivatedEventArgsWithLinguisticDetails')
-make_head(_module, 'IShareTargetActivatedEventArgs')
-make_head(_module, 'ISplashScreen')
-make_head(_module, 'IStartupTaskActivatedEventArgs')
-make_head(_module, 'ITileActivatedInfo')
-make_head(_module, 'IToastNotificationActivatedEventArgs')
-make_head(_module, 'IUserDataAccountProviderActivatedEventArgs')
-make_head(_module, 'IViewSwitcherProvider')
-make_head(_module, 'IVoiceCommandActivatedEventArgs')
-make_head(_module, 'IWalletActionActivatedEventArgs')
-make_head(_module, 'IWebAccountProviderActivatedEventArgs')
-make_head(_module, 'IWebAuthenticationBrokerContinuationEventArgs')
-make_head(_module, 'LaunchActivatedEventArgs')
-make_head(_module, 'LockScreenActivatedEventArgs')
-make_head(_module, 'LockScreenCallActivatedEventArgs')
-make_head(_module, 'LockScreenComponentActivatedEventArgs')
-make_head(_module, 'PhoneCallActivatedEventArgs')
-make_head(_module, 'PickerReturnedActivatedEventArgs')
-make_head(_module, 'Print3DWorkflowActivatedEventArgs')
-make_head(_module, 'PrintTaskSettingsActivatedEventArgs')
-make_head(_module, 'ProtocolActivatedEventArgs')
-make_head(_module, 'ProtocolForResultsActivatedEventArgs')
-make_head(_module, 'RestrictedLaunchActivatedEventArgs')
-make_head(_module, 'SearchActivatedEventArgs')
-make_head(_module, 'ShareTargetActivatedEventArgs')
-make_head(_module, 'SplashScreen')
-make_head(_module, 'StartupTaskActivatedEventArgs')
-make_head(_module, 'TileActivatedInfo')
-make_head(_module, 'ToastNotificationActivatedEventArgs')
-make_head(_module, 'UserDataAccountProviderActivatedEventArgs')
-make_head(_module, 'VoiceCommandActivatedEventArgs')
-make_head(_module, 'WalletActionActivatedEventArgs')
-make_head(_module, 'WebAccountProviderActivatedEventArgs')
-make_head(_module, 'WebAuthenticationBrokerContinuationEventArgs')
+make_ready(__name__)

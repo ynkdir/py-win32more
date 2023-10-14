@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.Geolocation
 import win32more.Windows.Win32.Devices.Sensors
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 GNSS_DRIVER_VERSION_1: UInt32 = 1
 GNSS_DRIVER_VERSION_2: UInt32 = 2
 GNSS_DRIVER_VERSION_3: UInt32 = 3
@@ -595,14 +586,14 @@ class ICivicAddressReportFactory(ComPtr):
     extends: win32more.Windows.Win32.Devices.Geolocation.ILocationReportFactory
     _iid_ = Guid('{bf773b93-c64f-4bee-beb2-67c0b8df66e0}')
     @commethod(15)
-    def get_CivicAddressReport(self, pVal: POINTER(win32more.Windows.Win32.Devices.Geolocation.IDispCivicAddressReport_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_CivicAddressReport(self, pVal: POINTER(win32more.Windows.Win32.Devices.Geolocation.IDispCivicAddressReport)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDefaultLocation(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a65af77e-969a-4a2e-8aca-33bb7cbb1235}')
     @commethod(3)
-    def SetReport(self, reportType: POINTER(Guid), pLocationReport: win32more.Windows.Win32.Devices.Geolocation.ILocationReport_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetReport(self, reportType: POINTER(Guid), pLocationReport: win32more.Windows.Win32.Devices.Geolocation.ILocationReport) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetReport(self, reportType: POINTER(Guid), ppLocationReport: POINTER(win32more.Windows.Win32.Devices.Geolocation.ILocationReport_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetReport(self, reportType: POINTER(Guid), ppLocationReport: POINTER(win32more.Windows.Win32.Devices.Geolocation.ILocationReport)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDispCivicAddressReport(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{16ff1a34-9e30-42c3-b44d-e22513b5767a}')
@@ -654,16 +645,16 @@ class ILatLongReportFactory(ComPtr):
     extends: win32more.Windows.Win32.Devices.Geolocation.ILocationReportFactory
     _iid_ = Guid('{3f0804cb-b114-447d-83dd-390174ebb082}')
     @commethod(15)
-    def get_LatLongReport(self, pVal: POINTER(win32more.Windows.Win32.Devices.Geolocation.IDispLatLongReport_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_LatLongReport(self, pVal: POINTER(win32more.Windows.Win32.Devices.Geolocation.IDispLatLongReport)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ILocation(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ab2ece69-56d9-4f28-b525-de1b0ee44237}')
     @commethod(3)
-    def RegisterForReport(self, pEvents: win32more.Windows.Win32.Devices.Geolocation.ILocationEvents_head, reportType: POINTER(Guid), dwRequestedReportInterval: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RegisterForReport(self, pEvents: win32more.Windows.Win32.Devices.Geolocation.ILocationEvents, reportType: POINTER(Guid), dwRequestedReportInterval: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnregisterForReport(self, reportType: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetReport(self, reportType: POINTER(Guid), ppLocationReport: POINTER(win32more.Windows.Win32.Devices.Geolocation.ILocationReport_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetReport(self, reportType: POINTER(Guid), ppLocationReport: POINTER(win32more.Windows.Win32.Devices.Geolocation.ILocationReport)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetReportStatus(self, reportType: POINTER(Guid), pStatus: POINTER(win32more.Windows.Win32.Devices.Geolocation.LOCATION_REPORT_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -680,7 +671,7 @@ class ILocationEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{cae02bbf-798b-4508-a207-35a7906dc73d}')
     @commethod(3)
-    def OnLocationChanged(self, reportType: POINTER(Guid), pLocationReport: win32more.Windows.Win32.Devices.Geolocation.ILocationReport_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnLocationChanged(self, reportType: POINTER(Guid), pLocationReport: win32more.Windows.Win32.Devices.Geolocation.ILocationReport) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnStatusChanged(self, reportType: POINTER(Guid), newStatus: win32more.Windows.Win32.Devices.Geolocation.LOCATION_REPORT_STATUS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ILocationPower(ComPtr):
@@ -696,9 +687,9 @@ class ILocationReport(ComPtr):
     @commethod(3)
     def GetSensorID(self, pSensorID: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetTimestamp(self, pCreationTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetTimestamp(self, pCreationTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetValue(self, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetValue(self, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ILocationReportFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{2daec322-90b2-47e4-bb08-0da841935a6b}')
@@ -733,69 +724,4 @@ class _ICivicAddressReportFactoryEvents(ComPtr):
 class _ILatLongReportFactoryEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{16ee6cb7-ab3c-424b-849f-269be551fcbc}')
-make_head(_module, 'GNSS_AGNSS_INJECT')
-make_head(_module, 'GNSS_AGNSS_INJECTBLOB')
-make_head(_module, 'GNSS_AGNSS_INJECTPOSITION')
-make_head(_module, 'GNSS_AGNSS_INJECTTIME')
-make_head(_module, 'GNSS_AGNSS_REQUEST_PARAM')
-make_head(_module, 'GNSS_BREADCRUMBING_ALERT_DATA')
-make_head(_module, 'GNSS_BREADCRUMBING_PARAM')
-make_head(_module, 'GNSS_BREADCRUMB_LIST')
-make_head(_module, 'GNSS_BREADCRUMB_V1')
-make_head(_module, 'GNSS_CHIPSETINFO')
-make_head(_module, 'GNSS_CONTINUOUSTRACKING_PARAM')
-make_head(_module, 'GNSS_CP_NI_INFO')
-make_head(_module, 'GNSS_CWTESTDATA')
-make_head(_module, 'GNSS_DEVICE_CAPABILITY')
-make_head(_module, 'GNSS_DISTANCETRACKING_PARAM')
-make_head(_module, 'GNSS_DRIVERCOMMAND_PARAM')
-make_head(_module, 'GNSS_DRIVER_REQUEST_DATA')
-make_head(_module, 'GNSS_ERRORINFO')
-make_head(_module, 'GNSS_EVENT')
-make_head(_module, 'GNSS_EVENT_2')
-make_head(_module, 'GNSS_FIXDATA')
-make_head(_module, 'GNSS_FIXDATA_2')
-make_head(_module, 'GNSS_FIXDATA_ACCURACY')
-make_head(_module, 'GNSS_FIXDATA_ACCURACY_2')
-make_head(_module, 'GNSS_FIXDATA_BASIC')
-make_head(_module, 'GNSS_FIXDATA_BASIC_2')
-make_head(_module, 'GNSS_FIXDATA_SATELLITE')
-make_head(_module, 'GNSS_FIXSESSION_PARAM')
-make_head(_module, 'GNSS_GEOFENCES_TRACKINGSTATUS_DATA')
-make_head(_module, 'GNSS_GEOFENCE_ALERT_DATA')
-make_head(_module, 'GNSS_GEOFENCE_CREATE_PARAM')
-make_head(_module, 'GNSS_GEOFENCE_CREATE_RESPONSE')
-make_head(_module, 'GNSS_GEOFENCE_DELETE_PARAM')
-make_head(_module, 'GNSS_GEOREGION')
-make_head(_module, 'GNSS_GEOREGION_CIRCLE')
-make_head(_module, 'GNSS_LKGFIX_PARAM')
-make_head(_module, 'GNSS_NI_REQUEST_PARAM')
-make_head(_module, 'GNSS_NI_RESPONSE')
-make_head(_module, 'GNSS_NMEA_DATA')
-make_head(_module, 'GNSS_PLATFORM_CAPABILITY')
-make_head(_module, 'GNSS_SATELLITEINFO')
-make_head(_module, 'GNSS_SELFTESTCONFIG')
-make_head(_module, 'GNSS_SELFTESTRESULT')
-make_head(_module, 'GNSS_SINGLESHOT_PARAM')
-make_head(_module, 'GNSS_STOPFIXSESSION_PARAM')
-make_head(_module, 'GNSS_SUPL_CERT_CONFIG')
-make_head(_module, 'GNSS_SUPL_HSLP_CONFIG')
-make_head(_module, 'GNSS_SUPL_NI_INFO')
-make_head(_module, 'GNSS_SUPL_VERSION')
-make_head(_module, 'GNSS_SUPL_VERSION_2')
-make_head(_module, 'GNSS_V2UPL_CONFIG')
-make_head(_module, 'GNSS_V2UPL_NI_INFO')
-make_head(_module, 'ICivicAddressReport')
-make_head(_module, 'ICivicAddressReportFactory')
-make_head(_module, 'IDefaultLocation')
-make_head(_module, 'IDispCivicAddressReport')
-make_head(_module, 'IDispLatLongReport')
-make_head(_module, 'ILatLongReport')
-make_head(_module, 'ILatLongReportFactory')
-make_head(_module, 'ILocation')
-make_head(_module, 'ILocationEvents')
-make_head(_module, 'ILocationPower')
-make_head(_module, 'ILocationReport')
-make_head(_module, 'ILocationReportFactory')
-make_head(_module, '_ICivicAddressReportFactoryEvents')
-make_head(_module, '_ILatLongReportFactoryEvents')
+make_ready(__name__)

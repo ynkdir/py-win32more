@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Dxgi.Common
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 _FACDXGI: UInt32 = 2170
 DXGI_CPU_ACCESS_NONE: UInt32 = 0
 DXGI_CPU_ACCESS_DYNAMIC: UInt32 = 1
@@ -226,12 +217,4 @@ class DXGI_RGB(EasyCastStructure):
 class DXGI_SAMPLE_DESC(EasyCastStructure):
     Count: UInt32
     Quality: UInt32
-make_head(_module, 'DXGI_GAMMA_CONTROL')
-make_head(_module, 'DXGI_GAMMA_CONTROL_CAPABILITIES')
-make_head(_module, 'DXGI_JPEG_AC_HUFFMAN_TABLE')
-make_head(_module, 'DXGI_JPEG_DC_HUFFMAN_TABLE')
-make_head(_module, 'DXGI_JPEG_QUANTIZATION_TABLE')
-make_head(_module, 'DXGI_MODE_DESC')
-make_head(_module, 'DXGI_RATIONAL')
-make_head(_module, 'DXGI_RGB')
-make_head(_module, 'DXGI_SAMPLE_DESC')
+make_ready(__name__)

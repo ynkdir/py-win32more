@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI
 import win32more.Windows.UI.ViewManagement.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CoreFrameworkInputView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputView
@@ -86,7 +77,7 @@ class CoreInputView(ComPtr):
     @winrt_mixinmethod
     def remove_XYFocusTransferringFromPrimaryView(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputView2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_XYFocusTransferredToPrimaryView(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_XYFocusTransferredToPrimaryView(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_XYFocusTransferredToPrimaryView(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputView2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -108,7 +99,7 @@ class CoreInputView(ComPtr):
     @winrt_mixinmethod
     def IsKindSupported(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputView5, type: win32more.Windows.UI.ViewManagement.Core.CoreInputViewKind) -> Boolean: ...
     @winrt_mixinmethod
-    def add_SupportedKindsChanged(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputView5, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SupportedKindsChanged(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputView5, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SupportedKindsChanged(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputView5, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -271,7 +262,7 @@ class ICoreInputView2(ComPtr):
     @winrt_commethod(7)
     def remove_XYFocusTransferringFromPrimaryView(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_XYFocusTransferredToPrimaryView(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_XYFocusTransferredToPrimaryView(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_XYFocusTransferredToPrimaryView(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -305,7 +296,7 @@ class ICoreInputView5(ComPtr):
     @winrt_commethod(6)
     def IsKindSupported(self, type: win32more.Windows.UI.ViewManagement.Core.CoreInputViewKind) -> Boolean: ...
     @winrt_commethod(7)
-    def add_SupportedKindsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SupportedKindsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_SupportedKindsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -429,33 +420,4 @@ class UISettingsController(ComPtr):
     def SetTextScaleFactor(self: win32more.Windows.UI.ViewManagement.Core.IUISettingsController, value: Double) -> Void: ...
     @winrt_classmethod
     def RequestDefaultAsync(cls: win32more.Windows.UI.ViewManagement.Core.IUISettingsControllerStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.ViewManagement.Core.UISettingsController]: ...
-make_head(_module, 'CoreFrameworkInputView')
-make_head(_module, 'CoreFrameworkInputViewAnimationStartingEventArgs')
-make_head(_module, 'CoreFrameworkInputViewOcclusionsChangedEventArgs')
-make_head(_module, 'CoreInputView')
-make_head(_module, 'CoreInputViewAnimationStartingEventArgs')
-make_head(_module, 'CoreInputViewHidingEventArgs')
-make_head(_module, 'CoreInputViewOcclusion')
-make_head(_module, 'CoreInputViewOcclusionsChangedEventArgs')
-make_head(_module, 'CoreInputViewShowingEventArgs')
-make_head(_module, 'CoreInputViewTransferringXYFocusEventArgs')
-make_head(_module, 'ICoreFrameworkInputView')
-make_head(_module, 'ICoreFrameworkInputViewAnimationStartingEventArgs')
-make_head(_module, 'ICoreFrameworkInputViewOcclusionsChangedEventArgs')
-make_head(_module, 'ICoreFrameworkInputViewStatics')
-make_head(_module, 'ICoreInputView')
-make_head(_module, 'ICoreInputView2')
-make_head(_module, 'ICoreInputView3')
-make_head(_module, 'ICoreInputView4')
-make_head(_module, 'ICoreInputView5')
-make_head(_module, 'ICoreInputViewAnimationStartingEventArgs')
-make_head(_module, 'ICoreInputViewHidingEventArgs')
-make_head(_module, 'ICoreInputViewOcclusion')
-make_head(_module, 'ICoreInputViewOcclusionsChangedEventArgs')
-make_head(_module, 'ICoreInputViewShowingEventArgs')
-make_head(_module, 'ICoreInputViewStatics')
-make_head(_module, 'ICoreInputViewStatics2')
-make_head(_module, 'ICoreInputViewTransferringXYFocusEventArgs')
-make_head(_module, 'IUISettingsController')
-make_head(_module, 'IUISettingsControllerStatics')
-make_head(_module, 'UISettingsController')
+make_ready(__name__)

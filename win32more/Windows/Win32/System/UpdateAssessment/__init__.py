@@ -1,23 +1,14 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.UpdateAssessment
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IWaaSAssessor(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2347bbef-1a3b-45a4-902d-3e09c269b45e}')
     @commethod(3)
-    def GetOSUpdateAssessment(self, result: POINTER(win32more.Windows.Win32.System.UpdateAssessment.OSUpdateAssessment_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOSUpdateAssessment(self, result: POINTER(win32more.Windows.Win32.System.UpdateAssessment.OSUpdateAssessment)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class OSUpdateAssessment(EasyCastStructure):
     isEndOfSupport: win32more.Windows.Win32.Foundation.BOOL
     assessmentForCurrent: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessment
@@ -52,6 +43,4 @@ UpdateImpactLevel_Low: UpdateImpactLevel = 1
 UpdateImpactLevel_Medium: UpdateImpactLevel = 2
 UpdateImpactLevel_High: UpdateImpactLevel = 3
 WaaSAssessor = Guid('{098ef871-fa9f-46af-8958-c083515d7c9c}')
-make_head(_module, 'IWaaSAssessor')
-make_head(_module, 'OSUpdateAssessment')
-make_head(_module, 'UpdateAssessment')
+make_ready(__name__)

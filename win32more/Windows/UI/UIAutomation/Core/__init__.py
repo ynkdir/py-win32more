@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.UI.UIAutomation
 import win32more.Windows.UI.UIAutomation.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AutomationAnnotationTypeRegistration(EasyCastStructure):
     LocalId: Int32
 class AutomationRemoteOperationOperandId(EasyCastStructure):
@@ -44,7 +35,7 @@ class AutomationRemoteOperationResult(ComPtr):
     @winrt_mixinmethod
     def HasOperand(self: win32more.Windows.UI.UIAutomation.Core.IAutomationRemoteOperationResult, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Boolean: ...
     @winrt_mixinmethod
-    def GetOperand(self: win32more.Windows.UI.UIAutomation.Core.IAutomationRemoteOperationResult, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetOperand(self: win32more.Windows.UI.UIAutomation.Core.IAutomationRemoteOperationResult, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     ErrorLocation = property(get_ErrorLocation, None)
@@ -84,11 +75,11 @@ class CoreAutomationRemoteOperationContext(ComPtr):
     default_interface: win32more.Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext
     _classid_ = 'Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext'
     @winrt_mixinmethod
-    def GetOperand(self: win32more.Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetOperand(self: win32more.Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def SetOperand(self: win32more.Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def SetOperand(self: win32more.Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def SetOperand2(self: win32more.Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: win32more.Windows.Win32.System.WinRT.IInspectable_head, operandInterfaceId: Guid) -> Void: ...
+    def SetOperand2(self: win32more.Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: win32more.Windows.Win32.System.WinRT.IInspectable, operandInterfaceId: Guid) -> Void: ...
 class IAutomationRemoteOperationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.UIAutomation.Core.IAutomationRemoteOperationResult'
@@ -102,7 +93,7 @@ class IAutomationRemoteOperationResult(ComPtr):
     @winrt_commethod(9)
     def HasOperand(self, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Boolean: ...
     @winrt_commethod(10)
-    def GetOperand(self, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetOperand(self, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     ErrorLocation = property(get_ErrorLocation, None)
@@ -146,11 +137,11 @@ class ICoreAutomationRemoteOperationContext(ComPtr):
     _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext'
     _iid_ = Guid('{b9af9cbb-3d3e-5918-a16b-7861626a3aeb}')
     @winrt_commethod(6)
-    def GetOperand(self, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetOperand(self, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(7)
-    def SetOperand(self, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def SetOperand(self, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(8)
-    def SetOperand2(self, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: win32more.Windows.Win32.System.WinRT.IInspectable_head, operandInterfaceId: Guid) -> Void: ...
+    def SetOperand2(self, id: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: win32more.Windows.Win32.System.WinRT.IInspectable, operandInterfaceId: Guid) -> Void: ...
 class ICoreAutomationRemoteOperationExtensionProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationExtensionProvider'
@@ -168,7 +159,7 @@ class IRemoteAutomationClientSession(ComPtr):
     @winrt_commethod(7)
     def Stop(self) -> Void: ...
     @winrt_commethod(8)
-    def CreateWindowAsync(self, remoteWindowId: UInt64, remoteProcessId: UInt32, parentAutomationElement: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.UIAutomation.Core.RemoteAutomationWindow]: ...
+    def CreateWindowAsync(self, remoteWindowId: UInt64, remoteProcessId: UInt32, parentAutomationElement: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.UIAutomation.Core.RemoteAutomationWindow]: ...
     @winrt_commethod(9)
     def get_SessionId(self) -> Guid: ...
     @winrt_commethod(10)
@@ -216,7 +207,7 @@ class IRemoteAutomationWindow(ComPtr):
     _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationWindow'
     _iid_ = Guid('{7c607689-496d-512a-9bd5-c050cfaf1428}')
     @winrt_commethod(6)
-    def get_AutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_AutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(7)
     def UnregisterAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     AutomationProvider = property(get_AutomationProvider, None)
@@ -233,7 +224,7 @@ class RemoteAutomationClientSession(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession) -> Void: ...
     @winrt_mixinmethod
-    def CreateWindowAsync(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession, remoteWindowId: UInt64, remoteProcessId: UInt32, parentAutomationElement: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.UIAutomation.Core.RemoteAutomationWindow]: ...
+    def CreateWindowAsync(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession, remoteWindowId: UInt64, remoteProcessId: UInt32, parentAutomationElement: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.UIAutomation.Core.RemoteAutomationWindow]: ...
     @winrt_mixinmethod
     def get_SessionId(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession) -> Guid: ...
     @winrt_mixinmethod
@@ -272,31 +263,8 @@ class RemoteAutomationWindow(ComPtr):
     default_interface: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationWindow
     _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationWindow'
     @winrt_mixinmethod
-    def get_AutomationProvider(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationWindow) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_AutomationProvider(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationWindow) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def UnregisterAsync(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationWindow) -> win32more.Windows.Foundation.IAsyncAction: ...
     AutomationProvider = property(get_AutomationProvider, None)
-make_head(_module, 'AutomationAnnotationTypeRegistration')
-make_head(_module, 'AutomationRemoteOperationOperandId')
-make_head(_module, 'AutomationRemoteOperationResult')
-make_head(_module, 'CoreAutomationRegistrar')
-make_head(_module, 'CoreAutomationRemoteOperation')
-make_head(_module, 'CoreAutomationRemoteOperationContext')
-make_head(_module, 'IAutomationRemoteOperationResult')
-make_head(_module, 'ICoreAutomationConnectionBoundObjectProvider')
-make_head(_module, 'ICoreAutomationRegistrarStatics')
-make_head(_module, 'ICoreAutomationRemoteOperation')
-make_head(_module, 'ICoreAutomationRemoteOperation2')
-make_head(_module, 'ICoreAutomationRemoteOperationContext')
-make_head(_module, 'ICoreAutomationRemoteOperationExtensionProvider')
-make_head(_module, 'IRemoteAutomationClientSession')
-make_head(_module, 'IRemoteAutomationClientSessionFactory')
-make_head(_module, 'IRemoteAutomationConnectionRequestedEventArgs')
-make_head(_module, 'IRemoteAutomationDisconnectedEventArgs')
-make_head(_module, 'IRemoteAutomationServerStatics')
-make_head(_module, 'IRemoteAutomationWindow')
-make_head(_module, 'RemoteAutomationClientSession')
-make_head(_module, 'RemoteAutomationConnectionRequestedEventArgs')
-make_head(_module, 'RemoteAutomationDisconnectedEventArgs')
-make_head(_module, 'RemoteAutomationServer')
-make_head(_module, 'RemoteAutomationWindow')
+make_ready(__name__)

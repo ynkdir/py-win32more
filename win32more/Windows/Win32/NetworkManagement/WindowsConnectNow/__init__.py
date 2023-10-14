@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsConnectNow
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WCN_E_PEER_NOT_FOUND: win32more.Windows.Win32.Foundation.HRESULT = -2147206143
 WCN_E_AUTHENTICATION_FAILED: win32more.Windows.Win32.Foundation.HRESULT = -2147206142
 WCN_E_CONNECTION_REJECTED: win32more.Windows.Win32.Foundation.HRESULT = -2147206141
@@ -120,7 +111,7 @@ class IWCNDevice(ComPtr):
     @commethod(3)
     def SetPassword(self, Type: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_PASSWORD_TYPE, dwPasswordLength: UInt32, pbPassword: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Connect(self, pNotify: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.IWCNConnectNotify_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Connect(self, pNotify: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.IWCNConnectNotify) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetAttribute(self, AttributeType: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_ATTRIBUTE_TYPE, dwMaxBufferSize: UInt32, pbBuffer: POINTER(Byte), pdwBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -132,9 +123,9 @@ class IWCNDevice(ComPtr):
     @commethod(9)
     def SetNetworkProfile(self, pszProfileXml: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetVendorExtension(self, pVendorExtSpec: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VENDOR_EXTENSION_SPEC_head), dwMaxBufferSize: UInt32, pbBuffer: POINTER(Byte), pdwBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetVendorExtension(self, pVendorExtSpec: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VENDOR_EXTENSION_SPEC), dwMaxBufferSize: UInt32, pbBuffer: POINTER(Byte), pdwBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def SetVendorExtension(self, pVendorExtSpec: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VENDOR_EXTENSION_SPEC_head), cbBuffer: UInt32, pbBuffer: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetVendorExtension(self, pVendorExtSpec: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VENDOR_EXTENSION_SPEC), cbBuffer: UInt32, pbBuffer: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Unadvise(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -369,11 +360,4 @@ class WCN_VENDOR_EXTENSION_SPEC(EasyCastStructure):
     SubType: UInt32
     Index: UInt32
     Flags: UInt32
-make_head(_module, 'PKEY_WCN_DeviceType_Category')
-make_head(_module, 'PKEY_WCN_DeviceType_SubCategoryOUI')
-make_head(_module, 'PKEY_WCN_DeviceType_SubCategory')
-make_head(_module, 'PKEY_WCN_SSID')
-make_head(_module, 'IWCNConnectNotify')
-make_head(_module, 'IWCNDevice')
-make_head(_module, 'WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE')
-make_head(_module, 'WCN_VENDOR_EXTENSION_SPEC')
+make_ready(__name__)

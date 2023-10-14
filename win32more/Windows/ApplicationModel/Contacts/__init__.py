@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Contacts
@@ -24,15 +24,6 @@ import win32more.Windows.System
 import win32more.Windows.UI
 import win32more.Windows.UI.Popups
 import win32more.Windows.UI.ViewManagement
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AggregateContactManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IAggregateContactManager
@@ -973,7 +964,7 @@ class ContactListSyncManager(ComPtr):
     @winrt_mixinmethod
     def SyncAsync(self: win32more.Windows.ApplicationModel.Contacts.IContactListSyncManager) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Contacts.IContactListSyncManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Contacts.ContactListSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Contacts.IContactListSyncManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Contacts.ContactListSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Contacts.IContactListSyncManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2240,7 +2231,7 @@ class IContactListSyncManager(ComPtr):
     @winrt_commethod(9)
     def SyncAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(10)
-    def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Contacts.ContactListSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Contacts.ContactListSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SyncStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
@@ -2831,126 +2822,4 @@ class PinnedContactManager(ComPtr):
 PinnedContactSurface = Int32
 PinnedContactSurface_StartMenu: PinnedContactSurface = 0
 PinnedContactSurface_Taskbar: PinnedContactSurface = 1
-make_head(_module, 'AggregateContactManager')
-make_head(_module, 'Contact')
-make_head(_module, 'ContactAddress')
-make_head(_module, 'ContactAnnotation')
-make_head(_module, 'ContactAnnotationList')
-make_head(_module, 'ContactAnnotationStore')
-make_head(_module, 'ContactBatch')
-make_head(_module, 'ContactCardDelayedDataLoader')
-make_head(_module, 'ContactCardOptions')
-make_head(_module, 'ContactChange')
-make_head(_module, 'ContactChangeReader')
-make_head(_module, 'ContactChangeTracker')
-make_head(_module, 'ContactChangedDeferral')
-make_head(_module, 'ContactChangedEventArgs')
-make_head(_module, 'ContactConnectedServiceAccount')
-make_head(_module, 'ContactDate')
-make_head(_module, 'ContactEmail')
-make_head(_module, 'ContactField')
-make_head(_module, 'ContactFieldFactory')
-make_head(_module, 'ContactGroup')
-make_head(_module, 'ContactInformation')
-make_head(_module, 'ContactInstantMessageField')
-make_head(_module, 'ContactJobInfo')
-make_head(_module, 'ContactLaunchActionVerbs')
-make_head(_module, 'ContactList')
-make_head(_module, 'ContactListLimitedWriteOperations')
-make_head(_module, 'ContactListSyncConstraints')
-make_head(_module, 'ContactListSyncManager')
-make_head(_module, 'ContactLocationField')
-make_head(_module, 'ContactManager')
-make_head(_module, 'ContactManagerForUser')
-make_head(_module, 'ContactMatchReason')
-make_head(_module, 'ContactPanel')
-make_head(_module, 'ContactPanelClosingEventArgs')
-make_head(_module, 'ContactPanelLaunchFullAppRequestedEventArgs')
-make_head(_module, 'ContactPhone')
-make_head(_module, 'ContactPicker')
-make_head(_module, 'ContactQueryOptions')
-make_head(_module, 'ContactQueryTextSearch')
-make_head(_module, 'ContactReader')
-make_head(_module, 'ContactSignificantOther')
-make_head(_module, 'ContactStore')
-make_head(_module, 'ContactStoreNotificationTriggerDetails')
-make_head(_module, 'ContactWebsite')
-make_head(_module, 'FullContactCardOptions')
-make_head(_module, 'IAggregateContactManager')
-make_head(_module, 'IAggregateContactManager2')
-make_head(_module, 'IContact')
-make_head(_module, 'IContact2')
-make_head(_module, 'IContact3')
-make_head(_module, 'IContactAddress')
-make_head(_module, 'IContactAnnotation')
-make_head(_module, 'IContactAnnotation2')
-make_head(_module, 'IContactAnnotationList')
-make_head(_module, 'IContactAnnotationStore')
-make_head(_module, 'IContactAnnotationStore2')
-make_head(_module, 'IContactBatch')
-make_head(_module, 'IContactCardDelayedDataLoader')
-make_head(_module, 'IContactCardOptions')
-make_head(_module, 'IContactCardOptions2')
-make_head(_module, 'IContactChange')
-make_head(_module, 'IContactChangeReader')
-make_head(_module, 'IContactChangeTracker')
-make_head(_module, 'IContactChangeTracker2')
-make_head(_module, 'IContactChangedDeferral')
-make_head(_module, 'IContactChangedEventArgs')
-make_head(_module, 'IContactConnectedServiceAccount')
-make_head(_module, 'IContactDate')
-make_head(_module, 'IContactEmail')
-make_head(_module, 'IContactField')
-make_head(_module, 'IContactFieldFactory')
-make_head(_module, 'IContactGroup')
-make_head(_module, 'IContactInformation')
-make_head(_module, 'IContactInstantMessageField')
-make_head(_module, 'IContactInstantMessageFieldFactory')
-make_head(_module, 'IContactJobInfo')
-make_head(_module, 'IContactLaunchActionVerbsStatics')
-make_head(_module, 'IContactList')
-make_head(_module, 'IContactList2')
-make_head(_module, 'IContactList3')
-make_head(_module, 'IContactListLimitedWriteOperations')
-make_head(_module, 'IContactListSyncConstraints')
-make_head(_module, 'IContactListSyncManager')
-make_head(_module, 'IContactListSyncManager2')
-make_head(_module, 'IContactLocationField')
-make_head(_module, 'IContactLocationFieldFactory')
-make_head(_module, 'IContactManagerForUser')
-make_head(_module, 'IContactManagerForUser2')
-make_head(_module, 'IContactManagerStatics')
-make_head(_module, 'IContactManagerStatics2')
-make_head(_module, 'IContactManagerStatics3')
-make_head(_module, 'IContactManagerStatics4')
-make_head(_module, 'IContactManagerStatics5')
-make_head(_module, 'IContactMatchReason')
-make_head(_module, 'IContactName')
-make_head(_module, 'IContactPanel')
-make_head(_module, 'IContactPanelClosingEventArgs')
-make_head(_module, 'IContactPanelLaunchFullAppRequestedEventArgs')
-make_head(_module, 'IContactPhone')
-make_head(_module, 'IContactPicker')
-make_head(_module, 'IContactPicker2')
-make_head(_module, 'IContactPicker3')
-make_head(_module, 'IContactPickerStatics')
-make_head(_module, 'IContactQueryOptions')
-make_head(_module, 'IContactQueryOptionsFactory')
-make_head(_module, 'IContactQueryTextSearch')
-make_head(_module, 'IContactReader')
-make_head(_module, 'IContactSignificantOther')
-make_head(_module, 'IContactSignificantOther2')
-make_head(_module, 'IContactStore')
-make_head(_module, 'IContactStore2')
-make_head(_module, 'IContactStore3')
-make_head(_module, 'IContactStoreNotificationTriggerDetails')
-make_head(_module, 'IContactWebsite')
-make_head(_module, 'IContactWebsite2')
-make_head(_module, 'IFullContactCardOptions')
-make_head(_module, 'IKnownContactFieldStatics')
-make_head(_module, 'IPinnedContactIdsQueryResult')
-make_head(_module, 'IPinnedContactManager')
-make_head(_module, 'IPinnedContactManagerStatics')
-make_head(_module, 'KnownContactField')
-make_head(_module, 'PinnedContactIdsQueryResult')
-make_head(_module, 'PinnedContactManager')
+make_ready(__name__)

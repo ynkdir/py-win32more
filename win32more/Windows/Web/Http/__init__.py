@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -23,15 +23,6 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.Web.Http
 import win32more.Windows.Web.Http.Filters
 import win32more.Windows.Web.Http.Headers
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class HttpBufferContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpContent
@@ -419,7 +410,7 @@ class HttpRequestMessage(ComPtr):
     @winrt_mixinmethod
     def put_Method(self: win32more.Windows.Web.Http.IHttpRequestMessage, value: win32more.Windows.Web.Http.HttpMethod) -> Void: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Web.Http.IHttpRequestMessage) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Web.Http.IHttpRequestMessage) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_RequestUri(self: win32more.Windows.Web.Http.IHttpRequestMessage) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -941,7 +932,7 @@ class IHttpRequestMessage(ComPtr):
     @winrt_commethod(10)
     def put_Method(self, value: win32more.Windows.Web.Http.HttpMethod) -> Void: ...
     @winrt_commethod(11)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(12)
     def get_RequestUri(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(13)
@@ -1065,51 +1056,4 @@ class IHttpTransportInformation(ComPtr):
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)
     ServerCertificateErrors = property(get_ServerCertificateErrors, None)
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
-make_head(_module, 'HttpBufferContent')
-make_head(_module, 'HttpClient')
-make_head(_module, 'HttpCookie')
-make_head(_module, 'HttpCookieCollection')
-make_head(_module, 'HttpCookieManager')
-make_head(_module, 'HttpFormUrlEncodedContent')
-make_head(_module, 'HttpGetBufferResult')
-make_head(_module, 'HttpGetInputStreamResult')
-make_head(_module, 'HttpGetStringResult')
-make_head(_module, 'HttpMethod')
-make_head(_module, 'HttpMultipartContent')
-make_head(_module, 'HttpMultipartFormDataContent')
-make_head(_module, 'HttpProgress')
-make_head(_module, 'HttpRequestMessage')
-make_head(_module, 'HttpRequestResult')
-make_head(_module, 'HttpResponseMessage')
-make_head(_module, 'HttpStreamContent')
-make_head(_module, 'HttpStringContent')
-make_head(_module, 'HttpTransportInformation')
-make_head(_module, 'IHttpBufferContentFactory')
-make_head(_module, 'IHttpClient')
-make_head(_module, 'IHttpClient2')
-make_head(_module, 'IHttpClient3')
-make_head(_module, 'IHttpClientFactory')
-make_head(_module, 'IHttpContent')
-make_head(_module, 'IHttpCookie')
-make_head(_module, 'IHttpCookieFactory')
-make_head(_module, 'IHttpCookieManager')
-make_head(_module, 'IHttpFormUrlEncodedContentFactory')
-make_head(_module, 'IHttpGetBufferResult')
-make_head(_module, 'IHttpGetInputStreamResult')
-make_head(_module, 'IHttpGetStringResult')
-make_head(_module, 'IHttpMethod')
-make_head(_module, 'IHttpMethodFactory')
-make_head(_module, 'IHttpMethodStatics')
-make_head(_module, 'IHttpMultipartContent')
-make_head(_module, 'IHttpMultipartContentFactory')
-make_head(_module, 'IHttpMultipartFormDataContent')
-make_head(_module, 'IHttpMultipartFormDataContentFactory')
-make_head(_module, 'IHttpRequestMessage')
-make_head(_module, 'IHttpRequestMessage2')
-make_head(_module, 'IHttpRequestMessageFactory')
-make_head(_module, 'IHttpRequestResult')
-make_head(_module, 'IHttpResponseMessage')
-make_head(_module, 'IHttpResponseMessageFactory')
-make_head(_module, 'IHttpStreamContentFactory')
-make_head(_module, 'IHttpStringContentFactory')
-make_head(_module, 'IHttpTransportInformation')
+make_ready(__name__)

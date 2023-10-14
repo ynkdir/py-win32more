@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.UI.Composition
 import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Media
 import win32more.Windows.UI.Xaml.Shapes
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class Ellipse(ComPtr):
     extends: win32more.Windows.UI.Xaml.Shapes.Shape
     default_interface: win32more.Windows.UI.Xaml.Shapes.IEllipse
@@ -92,7 +83,7 @@ class IPathFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Shapes.IPathFactory'
     _iid_ = Guid('{2340a4e3-5a86-4fc6-9a50-cbb93b828766}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Shapes.Path: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Shapes.Path: ...
 class IPathStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Shapes.IPathStatics'
@@ -245,7 +236,7 @@ class IShapeFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Shapes.IShapeFactory'
     _iid_ = Guid('{4b717613-f6aa-48d5-9588-e1d188eacbc9}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Shapes.Shape: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Shapes.Shape: ...
 class IShapeStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Shapes.IShapeStatics'
@@ -330,7 +321,7 @@ class Path(ComPtr, metaclass=_Path_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Shapes.IPath
     _classid_ = 'Windows.UI.Xaml.Shapes.Path'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Shapes.IPathFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Shapes.Path: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Shapes.IPathFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Shapes.Path: ...
     @winrt_mixinmethod
     def get_Data(self: win32more.Windows.UI.Xaml.Shapes.IPath) -> win32more.Windows.UI.Xaml.Media.Geometry: ...
     @winrt_mixinmethod
@@ -418,7 +409,7 @@ class Shape(ComPtr, metaclass=_Shape_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Shapes.IShape
     _classid_ = 'Windows.UI.Xaml.Shapes.Shape'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Shapes.IShapeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Shapes.Shape: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Shapes.IShapeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Shapes.Shape: ...
     @winrt_mixinmethod
     def get_Fill(self: win32more.Windows.UI.Xaml.Shapes.IShape) -> win32more.Windows.UI.Xaml.Media.Brush: ...
     @winrt_mixinmethod
@@ -512,26 +503,4 @@ class Shape(ComPtr, metaclass=_Shape_Meta_):
     _Shape_Meta_.StrokeDashCapProperty = property(get_StrokeDashCapProperty.__wrapped__, None)
     _Shape_Meta_.StrokeDashArrayProperty = property(get_StrokeDashArrayProperty.__wrapped__, None)
     _Shape_Meta_.StretchProperty = property(get_StretchProperty.__wrapped__, None)
-make_head(_module, 'Ellipse')
-make_head(_module, 'IEllipse')
-make_head(_module, 'ILine')
-make_head(_module, 'ILineStatics')
-make_head(_module, 'IPath')
-make_head(_module, 'IPathFactory')
-make_head(_module, 'IPathStatics')
-make_head(_module, 'IPolygon')
-make_head(_module, 'IPolygonStatics')
-make_head(_module, 'IPolyline')
-make_head(_module, 'IPolylineStatics')
-make_head(_module, 'IRectangle')
-make_head(_module, 'IRectangleStatics')
-make_head(_module, 'IShape')
-make_head(_module, 'IShape2')
-make_head(_module, 'IShapeFactory')
-make_head(_module, 'IShapeStatics')
-make_head(_module, 'Line')
-make_head(_module, 'Path')
-make_head(_module, 'Polygon')
-make_head(_module, 'Polyline')
-make_head(_module, 'Rectangle')
-make_head(_module, 'Shape')
+make_ready(__name__)

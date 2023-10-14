@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.System.Profile
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _AnalyticsInfo_Meta_(ComPtr.__class__):
     pass
 class AnalyticsInfo(ComPtr, metaclass=_AnalyticsInfo_Meta_):
@@ -228,7 +219,7 @@ class IPlatformDiagnosticsAndUsageDataSettingsStatics(ComPtr):
     @winrt_commethod(6)
     def get_CollectionLevel(self) -> win32more.Windows.System.Profile.PlatformDataCollectionLevel: ...
     @winrt_commethod(7)
-    def add_CollectionLevelChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CollectionLevelChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_CollectionLevelChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -241,7 +232,7 @@ class IRetailInfoStatics(ComPtr):
     @winrt_commethod(6)
     def get_IsDemoModeEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     IsDemoModeEnabled = property(get_IsDemoModeEnabled, None)
     Properties = property(get_Properties, None)
 class ISharedModeSettingsStatics(ComPtr):
@@ -265,7 +256,7 @@ class ISmartAppControlPolicyStatics(ComPtr):
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
-    def add_Changed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsEnabled = property(get_IsEnabled, None)
@@ -294,7 +285,7 @@ class ISystemSetupInfoStatics(ComPtr):
     @winrt_commethod(6)
     def get_OutOfBoxExperienceState(self) -> win32more.Windows.System.Profile.SystemOutOfBoxExperienceState: ...
     @winrt_commethod(7)
-    def add_OutOfBoxExperienceStateChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_OutOfBoxExperienceStateChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_OutOfBoxExperienceStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     OutOfBoxExperienceState = property(get_OutOfBoxExperienceState, None)
@@ -321,7 +312,7 @@ class IWindowsIntegrityPolicyStatics(ComPtr):
     @winrt_commethod(9)
     def get_IsDisableSupported(self) -> Boolean: ...
     @winrt_commethod(10)
-    def add_PolicyChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PolicyChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_PolicyChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsEnabled = property(get_IsEnabled, None)
@@ -412,7 +403,7 @@ class PlatformDiagnosticsAndUsageDataSettings(ComPtr, metaclass=_PlatformDiagnos
     @winrt_classmethod
     def get_CollectionLevel(cls: win32more.Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics) -> win32more.Windows.System.Profile.PlatformDataCollectionLevel: ...
     @winrt_classmethod
-    def add_CollectionLevelChanged(cls: win32more.Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CollectionLevelChanged(cls: win32more.Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_CollectionLevelChanged(cls: win32more.Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -429,7 +420,7 @@ class RetailInfo(ComPtr, metaclass=_RetailInfo_Meta_):
     @winrt_classmethod
     def get_IsDemoModeEnabled(cls: win32more.Windows.System.Profile.IRetailInfoStatics) -> Boolean: ...
     @winrt_classmethod
-    def get_Properties(cls: win32more.Windows.System.Profile.IRetailInfoStatics) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(cls: win32more.Windows.System.Profile.IRetailInfoStatics) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     _RetailInfo_Meta_.IsDemoModeEnabled = property(get_IsDemoModeEnabled.__wrapped__, None)
     _RetailInfo_Meta_.Properties = property(get_Properties.__wrapped__, None)
 class _SharedModeSettings_Meta_(ComPtr.__class__):
@@ -451,7 +442,7 @@ class SmartAppControlPolicy(ComPtr, metaclass=_SmartAppControlPolicy_Meta_):
     @winrt_classmethod
     def get_IsEnabled(cls: win32more.Windows.System.Profile.ISmartAppControlPolicyStatics) -> Boolean: ...
     @winrt_classmethod
-    def add_Changed(cls: win32more.Windows.System.Profile.ISmartAppControlPolicyStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(cls: win32more.Windows.System.Profile.ISmartAppControlPolicyStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_Changed(cls: win32more.Windows.System.Profile.ISmartAppControlPolicyStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _SmartAppControlPolicy_Meta_.IsEnabled = property(get_IsEnabled.__wrapped__, None)
@@ -489,7 +480,7 @@ class SystemSetupInfo(ComPtr, metaclass=_SystemSetupInfo_Meta_):
     @winrt_classmethod
     def get_OutOfBoxExperienceState(cls: win32more.Windows.System.Profile.ISystemSetupInfoStatics) -> win32more.Windows.System.Profile.SystemOutOfBoxExperienceState: ...
     @winrt_classmethod
-    def add_OutOfBoxExperienceStateChanged(cls: win32more.Windows.System.Profile.ISystemSetupInfoStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_OutOfBoxExperienceStateChanged(cls: win32more.Windows.System.Profile.ISystemSetupInfoStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_OutOfBoxExperienceStateChanged(cls: win32more.Windows.System.Profile.ISystemSetupInfoStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _SystemSetupInfo_Meta_.OutOfBoxExperienceState = property(get_OutOfBoxExperienceState.__wrapped__, None)
@@ -520,45 +511,11 @@ class WindowsIntegrityPolicy(ComPtr, metaclass=_WindowsIntegrityPolicy_Meta_):
     @winrt_classmethod
     def get_IsDisableSupported(cls: win32more.Windows.System.Profile.IWindowsIntegrityPolicyStatics) -> Boolean: ...
     @winrt_classmethod
-    def add_PolicyChanged(cls: win32more.Windows.System.Profile.IWindowsIntegrityPolicyStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PolicyChanged(cls: win32more.Windows.System.Profile.IWindowsIntegrityPolicyStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_PolicyChanged(cls: win32more.Windows.System.Profile.IWindowsIntegrityPolicyStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _WindowsIntegrityPolicy_Meta_.IsEnabled = property(get_IsEnabled.__wrapped__, None)
     _WindowsIntegrityPolicy_Meta_.IsEnabledForTrial = property(get_IsEnabledForTrial.__wrapped__, None)
     _WindowsIntegrityPolicy_Meta_.CanDisable = property(get_CanDisable.__wrapped__, None)
     _WindowsIntegrityPolicy_Meta_.IsDisableSupported = property(get_IsDisableSupported.__wrapped__, None)
-make_head(_module, 'AnalyticsInfo')
-make_head(_module, 'AnalyticsVersionInfo')
-make_head(_module, 'AppApplicability')
-make_head(_module, 'EducationSettings')
-make_head(_module, 'HardwareIdentification')
-make_head(_module, 'HardwareToken')
-make_head(_module, 'IAnalyticsInfoStatics')
-make_head(_module, 'IAnalyticsInfoStatics2')
-make_head(_module, 'IAnalyticsVersionInfo')
-make_head(_module, 'IAnalyticsVersionInfo2')
-make_head(_module, 'IAppApplicabilityStatics')
-make_head(_module, 'IEducationSettingsStatics')
-make_head(_module, 'IHardwareIdentificationStatics')
-make_head(_module, 'IHardwareToken')
-make_head(_module, 'IKnownRetailInfoPropertiesStatics')
-make_head(_module, 'IPlatformDiagnosticsAndUsageDataSettingsStatics')
-make_head(_module, 'IRetailInfoStatics')
-make_head(_module, 'ISharedModeSettingsStatics')
-make_head(_module, 'ISharedModeSettingsStatics2')
-make_head(_module, 'ISmartAppControlPolicyStatics')
-make_head(_module, 'ISystemIdentificationInfo')
-make_head(_module, 'ISystemIdentificationStatics')
-make_head(_module, 'ISystemSetupInfoStatics')
-make_head(_module, 'IUnsupportedAppRequirement')
-make_head(_module, 'IWindowsIntegrityPolicyStatics')
-make_head(_module, 'KnownRetailInfoProperties')
-make_head(_module, 'PlatformDiagnosticsAndUsageDataSettings')
-make_head(_module, 'RetailInfo')
-make_head(_module, 'SharedModeSettings')
-make_head(_module, 'SmartAppControlPolicy')
-make_head(_module, 'SystemIdentification')
-make_head(_module, 'SystemIdentificationInfo')
-make_head(_module, 'SystemSetupInfo')
-make_head(_module, 'UnsupportedAppRequirement')
-make_head(_module, 'WindowsIntegrityPolicy')
+make_ready(__name__)

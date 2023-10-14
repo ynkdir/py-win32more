@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -27,15 +27,6 @@ import win32more.Windows.UI.Xaml.Input
 import win32more.Windows.UI.Xaml.Interop
 import win32more.Windows.UI.Xaml.Media
 import win32more.Windows.UI.Xaml.Media.Animation
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AnimationDirection = Int32
 AnimationDirection_Left: AnimationDirection = 0
 AnimationDirection_Top: AnimationDirection = 1
@@ -96,7 +87,7 @@ class ButtonBase(ComPtr, metaclass=_ButtonBase_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ButtonBase'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase: ...
     @winrt_mixinmethod
     def get_ClickMode(self: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase) -> win32more.Windows.UI.Xaml.Controls.ClickMode: ...
     @winrt_mixinmethod
@@ -110,9 +101,9 @@ class ButtonBase(ComPtr, metaclass=_ButtonBase_Meta_):
     @winrt_mixinmethod
     def put_Command(self: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase, value: win32more.Windows.UI.Xaml.Input.ICommand) -> Void: ...
     @winrt_mixinmethod
-    def get_CommandParameter(self: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_CommandParameter(self: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_CommandParameter(self: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_CommandParameter(self: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def add_Click(self: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase, handler: win32more.Windows.UI.Xaml.RoutedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -197,7 +188,7 @@ class CarouselPanel(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CarouselPanel'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanelFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.CarouselPanel: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanelFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.CarouselPanel: ...
     @winrt_mixinmethod
     def get_CanVerticallyScroll(self: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel) -> Boolean: ...
     @winrt_mixinmethod
@@ -219,9 +210,9 @@ class CarouselPanel(ComPtr):
     @winrt_mixinmethod
     def get_VerticalOffset(self: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel) -> Double: ...
     @winrt_mixinmethod
-    def get_ScrollOwner(self: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_ScrollOwner(self: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_ScrollOwner(self: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_ScrollOwner(self: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def LineUp(self: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel) -> Void: ...
     @winrt_mixinmethod
@@ -257,11 +248,11 @@ class CarouselPanel(ComPtr):
     @winrt_mixinmethod
     def get_AreVerticalSnapPointsRegular(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo) -> Boolean: ...
     @winrt_mixinmethod
-    def add_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -286,7 +277,7 @@ class ColorPickerSlider(ComPtr, metaclass=_ColorPickerSlider_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IColorPickerSlider
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IColorPickerSliderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IColorPickerSliderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider: ...
     @winrt_mixinmethod
     def get_ColorChannel(self: win32more.Windows.UI.Xaml.Controls.Primitives.IColorPickerSlider) -> win32more.Windows.UI.Xaml.Controls.ColorPickerHsvChannel: ...
     @winrt_mixinmethod
@@ -302,7 +293,7 @@ class ColorSpectrum(ComPtr, metaclass=_ColorSpectrum_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IColorSpectrum
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ColorSpectrum'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IColorSpectrumFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ColorSpectrum: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IColorSpectrumFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ColorSpectrum: ...
     @winrt_mixinmethod
     def get_Color(self: win32more.Windows.UI.Xaml.Controls.Primitives.IColorSpectrum) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -411,7 +402,7 @@ class CommandBarFlyoutCommandBar(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBar
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBar'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBar: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBar: ...
     @winrt_mixinmethod
     def get_FlyoutTemplateSettings(self: win32more.Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBar) -> win32more.Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBarTemplateSettings: ...
     FlyoutTemplateSettings = property(get_FlyoutTemplateSettings, None)
@@ -527,7 +518,7 @@ class DragCompletedEventArgs(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IDragCompletedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs'
     @winrt_factorymethod
-    def CreateInstanceWithHorizontalChangeVerticalChangeAndCanceled(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IDragCompletedEventArgsFactory, horizontalChange: Double, verticalChange: Double, canceled: Boolean, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs: ...
+    def CreateInstanceWithHorizontalChangeVerticalChangeAndCanceled(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IDragCompletedEventArgsFactory, horizontalChange: Double, verticalChange: Double, canceled: Boolean, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs: ...
     @winrt_mixinmethod
     def get_HorizontalChange(self: win32more.Windows.UI.Xaml.Controls.Primitives.IDragCompletedEventArgs) -> Double: ...
     @winrt_mixinmethod
@@ -540,13 +531,13 @@ class DragCompletedEventArgs(ComPtr):
 class DragCompletedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{36b28888-19ac-4b4e-9137-a6cf2b023883}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs) -> Void: ...
 class DragDeltaEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IDragDeltaEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs'
     @winrt_factorymethod
-    def CreateInstanceWithHorizontalChangeAndVerticalChange(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IDragDeltaEventArgsFactory, horizontalChange: Double, verticalChange: Double, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs: ...
+    def CreateInstanceWithHorizontalChangeAndVerticalChange(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IDragDeltaEventArgsFactory, horizontalChange: Double, verticalChange: Double, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs: ...
     @winrt_mixinmethod
     def get_HorizontalChange(self: win32more.Windows.UI.Xaml.Controls.Primitives.IDragDeltaEventArgs) -> Double: ...
     @winrt_mixinmethod
@@ -556,13 +547,13 @@ class DragDeltaEventArgs(ComPtr):
 class DragDeltaEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4ac24f9f-ac28-49e9-9189-dccffeb66472}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs) -> Void: ...
 class DragStartedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IDragStartedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs'
     @winrt_factorymethod
-    def CreateInstanceWithHorizontalOffsetAndVerticalOffset(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IDragStartedEventArgsFactory, horizontalOffset: Double, verticalOffset: Double, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs: ...
+    def CreateInstanceWithHorizontalOffsetAndVerticalOffset(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IDragStartedEventArgsFactory, horizontalOffset: Double, verticalOffset: Double, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs: ...
     @winrt_mixinmethod
     def get_HorizontalOffset(self: win32more.Windows.UI.Xaml.Controls.Primitives.IDragStartedEventArgs) -> Double: ...
     @winrt_mixinmethod
@@ -572,7 +563,7 @@ class DragStartedEventArgs(ComPtr):
 class DragStartedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d2eea48a-c65a-495d-a2f1-72c66989142d}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs) -> Void: ...
 EdgeTransitionLocation = Int32
 EdgeTransitionLocation_Left: EdgeTransitionLocation = 0
 EdgeTransitionLocation_Top: EdgeTransitionLocation = 1
@@ -585,21 +576,21 @@ class FlyoutBase(ComPtr, metaclass=_FlyoutBase_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.FlyoutBase'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase: ...
     @winrt_mixinmethod
     def get_Placement(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode: ...
     @winrt_mixinmethod
     def put_Placement(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, value: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode) -> Void: ...
     @winrt_mixinmethod
-    def add_Opened(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Opened(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Opened(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Closed(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Closed(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Opening(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Opening(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Opening(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -755,7 +746,7 @@ class FlyoutShowOptions(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutShowOptions
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutShowOptionsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutShowOptionsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions: ...
     @winrt_mixinmethod
     def get_Position(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutShowOptions) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Point]: ...
     @winrt_mixinmethod
@@ -795,7 +786,7 @@ class GridViewItemPresenter(ComPtr, metaclass=_GridViewItemPresenter_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.GridViewItemPresenter'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.GridViewItemPresenter: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.GridViewItemPresenter: ...
     @winrt_mixinmethod
     def get_SelectionCheckMarkVisualEnabled(self: win32more.Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenter) -> Boolean: ...
     @winrt_mixinmethod
@@ -1051,9 +1042,9 @@ class IButtonBase(ComPtr):
     @winrt_commethod(11)
     def put_Command(self, value: win32more.Windows.UI.Xaml.Input.ICommand) -> Void: ...
     @winrt_commethod(12)
-    def get_CommandParameter(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_CommandParameter(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(13)
-    def put_CommandParameter(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_CommandParameter(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(14)
     def add_Click(self, handler: win32more.Windows.UI.Xaml.RoutedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
@@ -1068,7 +1059,7 @@ class IButtonBaseFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IButtonBaseFactory'
     _iid_ = Guid('{389b7c71-5220-42b2-9992-2690c1a6702f}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase: ...
 class IButtonBaseStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IButtonBaseStatics'
@@ -1166,9 +1157,9 @@ class ICarouselPanel(ComPtr):
     @winrt_commethod(15)
     def get_VerticalOffset(self) -> Double: ...
     @winrt_commethod(16)
-    def get_ScrollOwner(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_ScrollOwner(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(17)
-    def put_ScrollOwner(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_ScrollOwner(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(18)
     def LineUp(self) -> Void: ...
     @winrt_commethod(19)
@@ -1213,7 +1204,7 @@ class ICarouselPanelFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ICarouselPanelFactory'
     _iid_ = Guid('{c1109404-9ae1-440e-a0dd-bbb6e2293cbe}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.CarouselPanel: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.CarouselPanel: ...
 class IColorPickerSlider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IColorPickerSlider'
@@ -1228,7 +1219,7 @@ class IColorPickerSliderFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IColorPickerSliderFactory'
     _iid_ = Guid('{06d879a2-8c07-4b1e-a940-9fbce8f49639}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider: ...
 class IColorPickerSliderStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IColorPickerSliderStatics'
@@ -1299,7 +1290,7 @@ class IColorSpectrumFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IColorSpectrumFactory'
     _iid_ = Guid('{90c7e61e-904d-42ab-b44f-e68dbf0cdee9}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ColorSpectrum: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ColorSpectrum: ...
 class IColorSpectrumStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IColorSpectrumStatics'
@@ -1369,7 +1360,7 @@ class ICommandBarFlyoutCommandBarFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBarFactory'
     _iid_ = Guid('{f8236f9f-5559-5697-8e6f-20d70ca17dd0}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBar: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBar: ...
 class ICommandBarFlyoutCommandBarTemplateSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBarTemplateSettings'
@@ -1504,7 +1495,7 @@ class IDragCompletedEventArgsFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IDragCompletedEventArgsFactory'
     _iid_ = Guid('{36a7d99d-148c-495f-a0fc-afc871d62f33}')
     @winrt_commethod(6)
-    def CreateInstanceWithHorizontalChangeVerticalChangeAndCanceled(self, horizontalChange: Double, verticalChange: Double, canceled: Boolean, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs: ...
+    def CreateInstanceWithHorizontalChangeVerticalChangeAndCanceled(self, horizontalChange: Double, verticalChange: Double, canceled: Boolean, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs: ...
 class IDragDeltaEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IDragDeltaEventArgs'
@@ -1520,7 +1511,7 @@ class IDragDeltaEventArgsFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IDragDeltaEventArgsFactory'
     _iid_ = Guid('{46e7a1ef-ae15-44a6-8a04-95b0bf9ab876}')
     @winrt_commethod(6)
-    def CreateInstanceWithHorizontalChangeAndVerticalChange(self, horizontalChange: Double, verticalChange: Double, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs: ...
+    def CreateInstanceWithHorizontalChangeAndVerticalChange(self, horizontalChange: Double, verticalChange: Double, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs: ...
 class IDragStartedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IDragStartedEventArgs'
@@ -1536,7 +1527,7 @@ class IDragStartedEventArgsFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IDragStartedEventArgsFactory'
     _iid_ = Guid('{5eefe579-c706-4781-a308-c9e7f4c6a1d7}')
     @winrt_commethod(6)
-    def CreateInstanceWithHorizontalOffsetAndVerticalOffset(self, horizontalOffset: Double, verticalOffset: Double, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs: ...
+    def CreateInstanceWithHorizontalOffsetAndVerticalOffset(self, horizontalOffset: Double, verticalOffset: Double, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs: ...
 class IFlyoutBase(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IFlyoutBase'
@@ -1546,15 +1537,15 @@ class IFlyoutBase(ComPtr):
     @winrt_commethod(7)
     def put_Placement(self, value: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode) -> Void: ...
     @winrt_commethod(8)
-    def add_Opened(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Opened(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_Opened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_Closed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_Opening(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Opening(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_Opening(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -1661,7 +1652,7 @@ class IFlyoutBaseFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseFactory'
     _iid_ = Guid('{1c3363d7-fca7-407e-920e-70e15e9f0bf1}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase: ...
 class IFlyoutBaseOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseOverrides'
@@ -1768,7 +1759,7 @@ class IFlyoutShowOptionsFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IFlyoutShowOptionsFactory'
     _iid_ = Guid('{ce596f61-2eb4-5b4e-af69-f9af42320eee}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions: ...
 class IGeneratorPositionHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IGeneratorPositionHelper'
@@ -1898,7 +1889,7 @@ class IGridViewItemPresenterFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenterFactory'
     _iid_ = Guid('{53c12178-63bb-4a65-a3f1-ab114cfc6ffe}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.GridViewItemPresenter: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.GridViewItemPresenter: ...
 class IGridViewItemPresenterStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenterStatics'
@@ -2052,7 +2043,7 @@ class ILayoutInformationStatics(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ILayoutInformationStatics'
     _iid_ = Guid('{cf06cf99-58e9-4682-8326-50caab65ed7c}')
     @winrt_commethod(6)
-    def GetLayoutExceptionElement(self, dispatcher: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.UI.Xaml.UIElement: ...
+    def GetLayoutExceptionElement(self, dispatcher: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.UI.Xaml.UIElement: ...
     @winrt_commethod(7)
     def GetLayoutSlot(self, element: win32more.Windows.UI.Xaml.FrameworkElement) -> win32more.Windows.Foundation.Rect: ...
 class ILayoutInformationStatics2(ComPtr):
@@ -2377,7 +2368,7 @@ class IListViewItemPresenterFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IListViewItemPresenterFactory'
     _iid_ = Guid('{e0777cfd-f7e4-4a67-9ac0-a994fcacd020}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenter: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenter: ...
 class IListViewItemPresenterStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IListViewItemPresenterStatics'
@@ -2587,17 +2578,17 @@ class ILoopingSelector(ComPtr):
     @winrt_commethod(7)
     def put_ShouldLoop(self, value: Boolean) -> Void: ...
     @winrt_commethod(8)
-    def get_Items(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Items(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(9)
-    def put_Items(self, value: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def put_Items(self, value: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
     @winrt_commethod(10)
     def get_SelectedIndex(self) -> Int32: ...
     @winrt_commethod(11)
     def put_SelectedIndex(self, value: Int32) -> Void: ...
     @winrt_commethod(12)
-    def get_SelectedItem(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SelectedItem(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(13)
-    def put_SelectedItem(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_SelectedItem(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(14)
     def get_ItemWidth(self) -> Int32: ...
     @winrt_commethod(15)
@@ -2682,7 +2673,7 @@ class INavigationViewItemPresenterFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenterFactory'
     _iid_ = Guid('{bb062c50-4a36-52e7-9459-e89d02f3fc42}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter: ...
 class INavigationViewItemPresenterStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenterStatics'
@@ -2715,9 +2706,9 @@ class IOrientedVirtualizingPanel(ComPtr):
     @winrt_commethod(15)
     def get_VerticalOffset(self) -> Double: ...
     @winrt_commethod(16)
-    def get_ScrollOwner(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_ScrollOwner(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(17)
-    def put_ScrollOwner(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_ScrollOwner(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(18)
     def LineUp(self) -> Void: ...
     @winrt_commethod(19)
@@ -2770,7 +2761,7 @@ class IPickerFlyoutBaseFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBaseFactory'
     _iid_ = Guid('{7ec27a53-9502-4beb-b342-00566c8f16b0}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase: ...
 class IPickerFlyoutBaseOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBaseOverrides'
@@ -2799,7 +2790,7 @@ class IPivotHeaderItemFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IPivotHeaderItemFactory'
     _iid_ = Guid('{14308b37-185b-4117-bc77-dda2eb261b99}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.PivotHeaderItem: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.PivotHeaderItem: ...
 class IPivotHeaderPanel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IPivotHeaderPanel'
@@ -2837,11 +2828,11 @@ class IPopup(ComPtr):
     @winrt_commethod(17)
     def put_IsLightDismissEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(18)
-    def add_Opened(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Opened(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_Opened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(20)
-    def add_Closed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(21)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Child = property(get_Child, put_Child)
@@ -2886,7 +2877,7 @@ class IPopup4(ComPtr):
     @winrt_commethod(10)
     def get_ActualPlacement(self) -> win32more.Windows.UI.Xaml.Controls.Primitives.PopupPlacementMode: ...
     @winrt_commethod(11)
-    def add_ActualPlacementChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ActualPlacementChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_ActualPlacementChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PlacementTarget = property(get_PlacementTarget, put_PlacementTarget)
@@ -3014,7 +3005,7 @@ class IRangeBaseFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IRangeBaseFactory'
     _iid_ = Guid('{389b7c71-5220-42b2-9992-2690c1a67030}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase: ...
 class IRangeBaseOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IRangeBaseOverrides'
@@ -3133,11 +3124,11 @@ class IScrollSnapPointsInfo(ComPtr):
     @winrt_commethod(7)
     def get_AreVerticalSnapPointsRegular(self) -> Boolean: ...
     @winrt_commethod(8)
-    def add_HorizontalSnapPointsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HorizontalSnapPointsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_HorizontalSnapPointsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_VerticalSnapPointsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VerticalSnapPointsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_VerticalSnapPointsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
@@ -3155,13 +3146,13 @@ class ISelector(ComPtr):
     @winrt_commethod(7)
     def put_SelectedIndex(self, value: Int32) -> Void: ...
     @winrt_commethod(8)
-    def get_SelectedItem(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SelectedItem(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(9)
-    def put_SelectedItem(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_SelectedItem(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(10)
-    def get_SelectedValue(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SelectedValue(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(11)
-    def put_SelectedValue(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_SelectedValue(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(12)
     def get_SelectedValuePath(self) -> WinRT_String: ...
     @winrt_commethod(13)
@@ -3197,7 +3188,7 @@ class ISelectorItemFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ISelectorItemFactory'
     _iid_ = Guid('{b9363945-c86a-4b1e-9440-1879378d5313}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem: ...
 class ISelectorItemStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ISelectorItemStatics'
@@ -3345,7 +3336,7 @@ class IToggleButtonFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IToggleButtonFactory'
     _iid_ = Guid('{d56aa2fc-fc7f-449c-9855-7a1055d668a8}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton: ...
 class IToggleButtonOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IToggleButtonOverrides'
@@ -3422,7 +3413,7 @@ class ItemsChangedEventArgs(ComPtr):
 class ItemsChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{178257be-a304-482f-8bf0-b9d2e39612a3}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventArgs) -> Void: ...
 class _JumpListItemBackgroundConverter_Meta_(ComPtr.__class__):
     pass
 class JumpListItemBackgroundConverter(ComPtr, metaclass=_JumpListItemBackgroundConverter_Meta_):
@@ -3440,9 +3431,9 @@ class JumpListItemBackgroundConverter(ComPtr, metaclass=_JumpListItemBackgroundC
     @winrt_mixinmethod
     def put_Disabled(self: win32more.Windows.UI.Xaml.Controls.Primitives.IJumpListItemBackgroundConverter, value: win32more.Windows.UI.Xaml.Media.Brush) -> Void: ...
     @winrt_mixinmethod
-    def Convert(self: win32more.Windows.UI.Xaml.Data.IValueConverter, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, targetType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable_head, language: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Convert(self: win32more.Windows.UI.Xaml.Data.IValueConverter, value: win32more.Windows.Win32.System.WinRT.IInspectable, targetType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable, language: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def ConvertBack(self: win32more.Windows.UI.Xaml.Data.IValueConverter, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, targetType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable_head, language: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def ConvertBack(self: win32more.Windows.UI.Xaml.Data.IValueConverter, value: win32more.Windows.Win32.System.WinRT.IInspectable, targetType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable, language: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_classmethod
     def get_EnabledProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IJumpListItemBackgroundConverterStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
@@ -3468,9 +3459,9 @@ class JumpListItemForegroundConverter(ComPtr, metaclass=_JumpListItemForegroundC
     @winrt_mixinmethod
     def put_Disabled(self: win32more.Windows.UI.Xaml.Controls.Primitives.IJumpListItemForegroundConverter, value: win32more.Windows.UI.Xaml.Media.Brush) -> Void: ...
     @winrt_mixinmethod
-    def Convert(self: win32more.Windows.UI.Xaml.Data.IValueConverter, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, targetType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable_head, language: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Convert(self: win32more.Windows.UI.Xaml.Data.IValueConverter, value: win32more.Windows.Win32.System.WinRT.IInspectable, targetType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable, language: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def ConvertBack(self: win32more.Windows.UI.Xaml.Data.IValueConverter, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, targetType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable_head, language: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def ConvertBack(self: win32more.Windows.UI.Xaml.Data.IValueConverter, value: win32more.Windows.Win32.System.WinRT.IInspectable, targetType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable, language: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_classmethod
     def get_EnabledProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IJumpListItemForegroundConverterStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
@@ -3486,7 +3477,7 @@ class LayoutInformation(ComPtr):
     @winrt_classmethod
     def GetAvailableSize(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ILayoutInformationStatics2, element: win32more.Windows.UI.Xaml.UIElement) -> win32more.Windows.Foundation.Size: ...
     @winrt_classmethod
-    def GetLayoutExceptionElement(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ILayoutInformationStatics, dispatcher: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.UI.Xaml.UIElement: ...
+    def GetLayoutExceptionElement(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ILayoutInformationStatics, dispatcher: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.UI.Xaml.UIElement: ...
     @winrt_classmethod
     def GetLayoutSlot(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ILayoutInformationStatics, element: win32more.Windows.UI.Xaml.FrameworkElement) -> win32more.Windows.Foundation.Rect: ...
 class _ListViewItemPresenter_Meta_(ComPtr.__class__):
@@ -3496,7 +3487,7 @@ class ListViewItemPresenter(ComPtr, metaclass=_ListViewItemPresenter_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IListViewItemPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenter'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IListViewItemPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenter: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IListViewItemPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenter: ...
     @winrt_mixinmethod
     def get_SelectionCheckMarkVisualEnabled(self: win32more.Windows.UI.Xaml.Controls.Primitives.IListViewItemPresenter) -> Boolean: ...
     @winrt_mixinmethod
@@ -3993,17 +3984,17 @@ class LoopingSelector(ComPtr, metaclass=_LoopingSelector_Meta_):
     @winrt_mixinmethod
     def put_ShouldLoop(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector, value: Boolean) -> Void: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Items(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
-    def put_Items(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector, value: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def put_Items(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector, value: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
     @winrt_mixinmethod
     def get_SelectedIndex(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector) -> Int32: ...
     @winrt_mixinmethod
     def put_SelectedIndex(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector, value: Int32) -> Void: ...
     @winrt_mixinmethod
-    def get_SelectedItem(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SelectedItem(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_SelectedItem(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_SelectedItem(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_ItemWidth(self: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelector) -> Int32: ...
     @winrt_mixinmethod
@@ -4061,11 +4052,11 @@ class LoopingSelectorPanel(ComPtr):
     @winrt_mixinmethod
     def get_AreVerticalSnapPointsRegular(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo) -> Boolean: ...
     @winrt_mixinmethod
-    def add_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -4095,7 +4086,7 @@ class NavigationViewItemPresenter(ComPtr, metaclass=_NavigationViewItemPresenter
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter: ...
     @winrt_mixinmethod
     def get_Icon(self: win32more.Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenter) -> win32more.Windows.UI.Xaml.Controls.IconElement: ...
     @winrt_mixinmethod
@@ -4129,9 +4120,9 @@ class OrientedVirtualizingPanel(ComPtr):
     @winrt_mixinmethod
     def get_VerticalOffset(self: win32more.Windows.UI.Xaml.Controls.Primitives.IOrientedVirtualizingPanel) -> Double: ...
     @winrt_mixinmethod
-    def get_ScrollOwner(self: win32more.Windows.UI.Xaml.Controls.Primitives.IOrientedVirtualizingPanel) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_ScrollOwner(self: win32more.Windows.UI.Xaml.Controls.Primitives.IOrientedVirtualizingPanel) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_ScrollOwner(self: win32more.Windows.UI.Xaml.Controls.Primitives.IOrientedVirtualizingPanel, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_ScrollOwner(self: win32more.Windows.UI.Xaml.Controls.Primitives.IOrientedVirtualizingPanel, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def LineUp(self: win32more.Windows.UI.Xaml.Controls.Primitives.IOrientedVirtualizingPanel) -> Void: ...
     @winrt_mixinmethod
@@ -4167,11 +4158,11 @@ class OrientedVirtualizingPanel(ComPtr):
     @winrt_mixinmethod
     def get_AreVerticalSnapPointsRegular(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo) -> Boolean: ...
     @winrt_mixinmethod
-    def add_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -4198,7 +4189,7 @@ class PickerFlyoutBase(ComPtr, metaclass=_PickerFlyoutBase_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBase
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase: ...
     @winrt_mixinmethod
     def OnConfirmed(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBaseOverrides) -> Void: ...
     @winrt_mixinmethod
@@ -4215,7 +4206,7 @@ class PivotHeaderItem(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPivotHeaderItem
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.PivotHeaderItem'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IPivotHeaderItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.PivotHeaderItem: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IPivotHeaderItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.PivotHeaderItem: ...
 class PivotHeaderPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Canvas
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPivotHeaderPanel
@@ -4233,11 +4224,11 @@ class PivotPanel(ComPtr):
     @winrt_mixinmethod
     def get_AreVerticalSnapPointsRegular(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo) -> Boolean: ...
     @winrt_mixinmethod
-    def add_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_HorizontalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_VerticalSnapPointsChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -4285,11 +4276,11 @@ class Popup(ComPtr, metaclass=_Popup_Meta_):
     @winrt_mixinmethod
     def put_IsLightDismissEnabled(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup, value: Boolean) -> Void: ...
     @winrt_mixinmethod
-    def add_Opened(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Opened(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Opened(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Closed(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Closed(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -4313,7 +4304,7 @@ class Popup(ComPtr, metaclass=_Popup_Meta_):
     @winrt_mixinmethod
     def get_ActualPlacement(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup4) -> win32more.Windows.UI.Xaml.Controls.Primitives.PopupPlacementMode: ...
     @winrt_mixinmethod
-    def add_ActualPlacementChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup4, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ActualPlacementChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup4, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ActualPlacementChanged(self: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup4, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -4417,7 +4408,7 @@ class RangeBase(ComPtr, metaclass=_RangeBase_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IRangeBase
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.RangeBase'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IRangeBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IRangeBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase: ...
     @winrt_mixinmethod
     def get_Minimum(self: win32more.Windows.UI.Xaml.Controls.Primitives.IRangeBase) -> Double: ...
     @winrt_mixinmethod
@@ -4481,7 +4472,7 @@ class RangeBaseValueChangedEventArgs(ComPtr):
 class RangeBaseValueChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e3906fd9-4d1b-4ac8-a43c-c3b908742799}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs) -> Void: ...
 class _RepeatButton_Meta_(ComPtr.__class__):
     pass
 class RepeatButton(ComPtr, metaclass=_RepeatButton_Meta_):
@@ -4557,7 +4548,7 @@ class ScrollEventArgs(ComPtr):
 class ScrollEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8860b0a4-a383-4c83-b306-a1c39d7db87f}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs) -> Void: ...
 ScrollEventType = Int32
 ScrollEventType_SmallDecrement: ScrollEventType = 0
 ScrollEventType_SmallIncrement: ScrollEventType = 1
@@ -4583,13 +4574,13 @@ class Selector(ComPtr, metaclass=_Selector_Meta_):
     @winrt_mixinmethod
     def put_SelectedIndex(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector, value: Int32) -> Void: ...
     @winrt_mixinmethod
-    def get_SelectedItem(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SelectedItem(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_SelectedItem(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_SelectedItem(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def get_SelectedValue(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_SelectedValue(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_SelectedValue(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_SelectedValue(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_SelectedValuePath(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelector) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -4631,7 +4622,7 @@ class SelectorItem(ComPtr, metaclass=_SelectorItem_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ISelectorItem
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.SelectorItem'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ISelectorItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ISelectorItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem: ...
     @winrt_mixinmethod
     def get_IsSelected(self: win32more.Windows.UI.Xaml.Controls.Primitives.ISelectorItem) -> Boolean: ...
     @winrt_mixinmethod
@@ -4748,7 +4739,7 @@ class ToggleButton(ComPtr, metaclass=_ToggleButton_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IToggleButton
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ToggleButton'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IToggleButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IToggleButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton: ...
     @winrt_mixinmethod
     def get_IsChecked(self: win32more.Windows.UI.Xaml.Controls.Primitives.IToggleButton) -> win32more.Windows.Foundation.IReference[Boolean]: ...
     @winrt_mixinmethod
@@ -4817,191 +4808,4 @@ class ToolTipTemplateSettings(ComPtr):
     def get_FromVerticalOffset(self: win32more.Windows.UI.Xaml.Controls.Primitives.IToolTipTemplateSettings) -> Double: ...
     FromHorizontalOffset = property(get_FromHorizontalOffset, None)
     FromVerticalOffset = property(get_FromVerticalOffset, None)
-make_head(_module, 'AppBarButtonTemplateSettings')
-make_head(_module, 'AppBarTemplateSettings')
-make_head(_module, 'AppBarToggleButtonTemplateSettings')
-make_head(_module, 'ButtonBase')
-make_head(_module, 'CalendarPanel')
-make_head(_module, 'CalendarViewTemplateSettings')
-make_head(_module, 'CarouselPanel')
-make_head(_module, 'ColorPickerSlider')
-make_head(_module, 'ColorSpectrum')
-make_head(_module, 'ComboBoxTemplateSettings')
-make_head(_module, 'CommandBarFlyoutCommandBar')
-make_head(_module, 'CommandBarFlyoutCommandBarTemplateSettings')
-make_head(_module, 'CommandBarTemplateSettings')
-make_head(_module, 'DragCompletedEventArgs')
-make_head(_module, 'DragDeltaEventArgs')
-make_head(_module, 'DragStartedEventArgs')
-make_head(_module, 'FlyoutBase')
-make_head(_module, 'FlyoutBaseClosingEventArgs')
-make_head(_module, 'FlyoutShowOptions')
-make_head(_module, 'GeneratorPosition')
-make_head(_module, 'GeneratorPositionHelper')
-make_head(_module, 'GridViewItemPresenter')
-make_head(_module, 'GridViewItemTemplateSettings')
-make_head(_module, 'IAppBarButtonTemplateSettings')
-make_head(_module, 'IAppBarTemplateSettings')
-make_head(_module, 'IAppBarTemplateSettings2')
-make_head(_module, 'IAppBarToggleButtonTemplateSettings')
-make_head(_module, 'IButtonBase')
-make_head(_module, 'IButtonBaseFactory')
-make_head(_module, 'IButtonBaseStatics')
-make_head(_module, 'ICalendarPanel')
-make_head(_module, 'ICalendarViewTemplateSettings')
-make_head(_module, 'ICarouselPanel')
-make_head(_module, 'ICarouselPanelFactory')
-make_head(_module, 'IColorPickerSlider')
-make_head(_module, 'IColorPickerSliderFactory')
-make_head(_module, 'IColorPickerSliderStatics')
-make_head(_module, 'IColorSpectrum')
-make_head(_module, 'IColorSpectrumFactory')
-make_head(_module, 'IColorSpectrumStatics')
-make_head(_module, 'IComboBoxTemplateSettings')
-make_head(_module, 'IComboBoxTemplateSettings2')
-make_head(_module, 'ICommandBarFlyoutCommandBar')
-make_head(_module, 'ICommandBarFlyoutCommandBarFactory')
-make_head(_module, 'ICommandBarFlyoutCommandBarTemplateSettings')
-make_head(_module, 'ICommandBarTemplateSettings')
-make_head(_module, 'ICommandBarTemplateSettings2')
-make_head(_module, 'ICommandBarTemplateSettings3')
-make_head(_module, 'ICommandBarTemplateSettings4')
-make_head(_module, 'IDragCompletedEventArgs')
-make_head(_module, 'IDragCompletedEventArgsFactory')
-make_head(_module, 'IDragDeltaEventArgs')
-make_head(_module, 'IDragDeltaEventArgsFactory')
-make_head(_module, 'IDragStartedEventArgs')
-make_head(_module, 'IDragStartedEventArgsFactory')
-make_head(_module, 'IFlyoutBase')
-make_head(_module, 'IFlyoutBase2')
-make_head(_module, 'IFlyoutBase3')
-make_head(_module, 'IFlyoutBase4')
-make_head(_module, 'IFlyoutBase5')
-make_head(_module, 'IFlyoutBase6')
-make_head(_module, 'IFlyoutBaseClosingEventArgs')
-make_head(_module, 'IFlyoutBaseFactory')
-make_head(_module, 'IFlyoutBaseOverrides')
-make_head(_module, 'IFlyoutBaseOverrides4')
-make_head(_module, 'IFlyoutBaseStatics')
-make_head(_module, 'IFlyoutBaseStatics2')
-make_head(_module, 'IFlyoutBaseStatics3')
-make_head(_module, 'IFlyoutBaseStatics5')
-make_head(_module, 'IFlyoutBaseStatics6')
-make_head(_module, 'IFlyoutShowOptions')
-make_head(_module, 'IFlyoutShowOptionsFactory')
-make_head(_module, 'IGeneratorPositionHelper')
-make_head(_module, 'IGeneratorPositionHelperStatics')
-make_head(_module, 'IGridViewItemPresenter')
-make_head(_module, 'IGridViewItemPresenterFactory')
-make_head(_module, 'IGridViewItemPresenterStatics')
-make_head(_module, 'IGridViewItemTemplateSettings')
-make_head(_module, 'IItemsChangedEventArgs')
-make_head(_module, 'IJumpListItemBackgroundConverter')
-make_head(_module, 'IJumpListItemBackgroundConverterStatics')
-make_head(_module, 'IJumpListItemForegroundConverter')
-make_head(_module, 'IJumpListItemForegroundConverterStatics')
-make_head(_module, 'ILayoutInformation')
-make_head(_module, 'ILayoutInformationStatics')
-make_head(_module, 'ILayoutInformationStatics2')
-make_head(_module, 'IListViewItemPresenter')
-make_head(_module, 'IListViewItemPresenter2')
-make_head(_module, 'IListViewItemPresenter3')
-make_head(_module, 'IListViewItemPresenter4')
-make_head(_module, 'IListViewItemPresenterFactory')
-make_head(_module, 'IListViewItemPresenterStatics')
-make_head(_module, 'IListViewItemPresenterStatics2')
-make_head(_module, 'IListViewItemPresenterStatics3')
-make_head(_module, 'IListViewItemPresenterStatics4')
-make_head(_module, 'IListViewItemTemplateSettings')
-make_head(_module, 'ILoopingSelector')
-make_head(_module, 'ILoopingSelectorItem')
-make_head(_module, 'ILoopingSelectorPanel')
-make_head(_module, 'ILoopingSelectorStatics')
-make_head(_module, 'IMenuFlyoutItemTemplateSettings')
-make_head(_module, 'IMenuFlyoutPresenterTemplateSettings')
-make_head(_module, 'INavigationViewItemPresenter')
-make_head(_module, 'INavigationViewItemPresenterFactory')
-make_head(_module, 'INavigationViewItemPresenterStatics')
-make_head(_module, 'IOrientedVirtualizingPanel')
-make_head(_module, 'IOrientedVirtualizingPanelFactory')
-make_head(_module, 'IPickerFlyoutBase')
-make_head(_module, 'IPickerFlyoutBaseFactory')
-make_head(_module, 'IPickerFlyoutBaseOverrides')
-make_head(_module, 'IPickerFlyoutBaseStatics')
-make_head(_module, 'IPivotHeaderItem')
-make_head(_module, 'IPivotHeaderItemFactory')
-make_head(_module, 'IPivotHeaderPanel')
-make_head(_module, 'IPivotPanel')
-make_head(_module, 'IPopup')
-make_head(_module, 'IPopup2')
-make_head(_module, 'IPopup3')
-make_head(_module, 'IPopup4')
-make_head(_module, 'IPopupStatics')
-make_head(_module, 'IPopupStatics2')
-make_head(_module, 'IPopupStatics3')
-make_head(_module, 'IPopupStatics4')
-make_head(_module, 'IProgressBarTemplateSettings')
-make_head(_module, 'IProgressRingTemplateSettings')
-make_head(_module, 'IRangeBase')
-make_head(_module, 'IRangeBaseFactory')
-make_head(_module, 'IRangeBaseOverrides')
-make_head(_module, 'IRangeBaseStatics')
-make_head(_module, 'IRangeBaseValueChangedEventArgs')
-make_head(_module, 'IRepeatButton')
-make_head(_module, 'IRepeatButtonStatics')
-make_head(_module, 'IScrollBar')
-make_head(_module, 'IScrollBarStatics')
-make_head(_module, 'IScrollEventArgs')
-make_head(_module, 'IScrollSnapPointsInfo')
-make_head(_module, 'ISelector')
-make_head(_module, 'ISelectorFactory')
-make_head(_module, 'ISelectorItem')
-make_head(_module, 'ISelectorItemFactory')
-make_head(_module, 'ISelectorItemStatics')
-make_head(_module, 'ISelectorStatics')
-make_head(_module, 'ISettingsFlyoutTemplateSettings')
-make_head(_module, 'ISplitViewTemplateSettings')
-make_head(_module, 'IThumb')
-make_head(_module, 'IThumbStatics')
-make_head(_module, 'ITickBar')
-make_head(_module, 'ITickBarStatics')
-make_head(_module, 'IToggleButton')
-make_head(_module, 'IToggleButtonFactory')
-make_head(_module, 'IToggleButtonOverrides')
-make_head(_module, 'IToggleButtonStatics')
-make_head(_module, 'IToggleSwitchTemplateSettings')
-make_head(_module, 'IToolTipTemplateSettings')
-make_head(_module, 'ItemsChangedEventArgs')
-make_head(_module, 'JumpListItemBackgroundConverter')
-make_head(_module, 'JumpListItemForegroundConverter')
-make_head(_module, 'LayoutInformation')
-make_head(_module, 'ListViewItemPresenter')
-make_head(_module, 'ListViewItemTemplateSettings')
-make_head(_module, 'LoopingSelector')
-make_head(_module, 'LoopingSelectorItem')
-make_head(_module, 'LoopingSelectorPanel')
-make_head(_module, 'MenuFlyoutItemTemplateSettings')
-make_head(_module, 'MenuFlyoutPresenterTemplateSettings')
-make_head(_module, 'NavigationViewItemPresenter')
-make_head(_module, 'OrientedVirtualizingPanel')
-make_head(_module, 'PickerFlyoutBase')
-make_head(_module, 'PivotHeaderItem')
-make_head(_module, 'PivotHeaderPanel')
-make_head(_module, 'PivotPanel')
-make_head(_module, 'Popup')
-make_head(_module, 'ProgressBarTemplateSettings')
-make_head(_module, 'ProgressRingTemplateSettings')
-make_head(_module, 'RangeBase')
-make_head(_module, 'RangeBaseValueChangedEventArgs')
-make_head(_module, 'RepeatButton')
-make_head(_module, 'ScrollBar')
-make_head(_module, 'ScrollEventArgs')
-make_head(_module, 'Selector')
-make_head(_module, 'SelectorItem')
-make_head(_module, 'SettingsFlyoutTemplateSettings')
-make_head(_module, 'SplitViewTemplateSettings')
-make_head(_module, 'Thumb')
-make_head(_module, 'TickBar')
-make_head(_module, 'ToggleButton')
-make_head(_module, 'ToggleSwitchTemplateSettings')
-make_head(_module, 'ToolTipTemplateSettings')
+make_ready(__name__)

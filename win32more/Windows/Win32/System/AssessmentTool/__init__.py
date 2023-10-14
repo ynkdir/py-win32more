@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
@@ -8,15 +8,6 @@ import win32more.Windows.Win32.System.AssessmentTool
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.Accessibility
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CAccessiblityWinSAT = Guid('{6e18f9c6-a3eb-495a-89b7-956482e19f7a}')
 CInitiateWinSAT = Guid('{489331dc-f5e0-4528-9fda-45331bf4a571}')
 CProvideWinSATVisuals = Guid('{9f377d7e-e551-44f8-9f94-9db392b03b7b}')
@@ -32,9 +23,9 @@ class IInitiateWinSATAssessment(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d983fc50-f5bf-49d5-b5ed-cccb18aa7fc1}')
     @commethod(3)
-    def InitiateAssessment(self, cmdLine: win32more.Windows.Win32.Foundation.PWSTR, pCallbacks: win32more.Windows.Win32.System.AssessmentTool.IWinSATInitiateEvents_head, callerHwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def InitiateAssessment(self, cmdLine: win32more.Windows.Win32.Foundation.PWSTR, pCallbacks: win32more.Windows.Win32.System.AssessmentTool.IWinSATInitiateEvents, callerHwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def InitiateFormalAssessment(self, pCallbacks: win32more.Windows.Win32.System.AssessmentTool.IWinSATInitiateEvents_head, callerHwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def InitiateFormalAssessment(self, pCallbacks: win32more.Windows.Win32.System.AssessmentTool.IWinSATInitiateEvents, callerHwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CancelAssessment(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IProvideWinSATAssessmentInfo(ComPtr):
@@ -50,11 +41,11 @@ class IProvideWinSATResultsInfo(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{f8334d5d-568e-4075-875f-9df341506640}')
     @commethod(7)
-    def GetAssessmentInfo(self, assessment: win32more.Windows.Win32.System.AssessmentTool.WINSAT_ASSESSMENT_TYPE, ppinfo: POINTER(win32more.Windows.Win32.System.AssessmentTool.IProvideWinSATAssessmentInfo_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAssessmentInfo(self, assessment: win32more.Windows.Win32.System.AssessmentTool.WINSAT_ASSESSMENT_TYPE, ppinfo: POINTER(win32more.Windows.Win32.System.AssessmentTool.IProvideWinSATAssessmentInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_AssessmentState(self, state: POINTER(win32more.Windows.Win32.System.AssessmentTool.WINSAT_ASSESSMENT_STATE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def get_AssessmentDateTime(self, fileTime: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_AssessmentDateTime(self, fileTime: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_SystemRating(self, level: POINTER(Single)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -68,7 +59,7 @@ class IQueryAllWinSATAssessments(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{0b89ed1d-6398-4fea-87fc-567d8d19176f}')
     @commethod(7)
-    def get_AllXML(self, xPath: win32more.Windows.Win32.Foundation.BSTR, namespaces: win32more.Windows.Win32.Foundation.BSTR, ppDomNodeList: POINTER(win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_AllXML(self, xPath: win32more.Windows.Win32.Foundation.BSTR, namespaces: win32more.Windows.Win32.Foundation.BSTR, ppDomNodeList: POINTER(win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IQueryOEMWinSATCustomization(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{bc9a6a9f-ad4e-420e-9953-b34671e9df22}')
@@ -78,9 +69,9 @@ class IQueryRecentWinSATAssessment(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{f8ad5d1f-3b47-4bdc-9375-7c6b1da4eca7}')
     @commethod(7)
-    def get_XML(self, xPath: win32more.Windows.Win32.Foundation.BSTR, namespaces: win32more.Windows.Win32.Foundation.BSTR, ppDomNodeList: POINTER(win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_XML(self, xPath: win32more.Windows.Win32.Foundation.BSTR, namespaces: win32more.Windows.Win32.Foundation.BSTR, ppDomNodeList: POINTER(win32more.Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def get_Info(self, ppWinSATAssessmentInfo: POINTER(win32more.Windows.Win32.System.AssessmentTool.IProvideWinSATResultsInfo_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Info(self, ppWinSATAssessmentInfo: POINTER(win32more.Windows.Win32.System.AssessmentTool.IProvideWinSATResultsInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWinSATInitiateEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{262a1918-ba0d-41d5-92c2-fab4633ee74f}')
@@ -110,12 +101,4 @@ WINSAT_OEM_DATA_VALID: WINSAT_OEM_CUSTOMIZATION_STATE = 0
 WINSAT_OEM_DATA_NON_SYS_CONFIG_MATCH: WINSAT_OEM_CUSTOMIZATION_STATE = 1
 WINSAT_OEM_DATA_INVALID: WINSAT_OEM_CUSTOMIZATION_STATE = 2
 WINSAT_OEM_NO_DATA_SUPPLIED: WINSAT_OEM_CUSTOMIZATION_STATE = 3
-make_head(_module, 'IAccessibleWinSAT')
-make_head(_module, 'IInitiateWinSATAssessment')
-make_head(_module, 'IProvideWinSATAssessmentInfo')
-make_head(_module, 'IProvideWinSATResultsInfo')
-make_head(_module, 'IProvideWinSATVisuals')
-make_head(_module, 'IQueryAllWinSATAssessments')
-make_head(_module, 'IQueryOEMWinSATCustomization')
-make_head(_module, 'IQueryRecentWinSATAssessment')
-make_head(_module, 'IWinSATInitiateEvents')
+make_ready(__name__)

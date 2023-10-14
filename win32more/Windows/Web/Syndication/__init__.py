@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Data.Xml.Dom
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Credentials
 import win32more.Windows.Web.Syndication
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ISyndicationAttribute(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationAttribute'
@@ -1201,40 +1192,4 @@ class TransferProgress(EasyCastStructure):
     TotalBytesToSend: UInt32
     BytesRetrieved: UInt32
     TotalBytesToRetrieve: UInt32
-make_head(_module, 'ISyndicationAttribute')
-make_head(_module, 'ISyndicationAttributeFactory')
-make_head(_module, 'ISyndicationCategory')
-make_head(_module, 'ISyndicationCategoryFactory')
-make_head(_module, 'ISyndicationClient')
-make_head(_module, 'ISyndicationClientFactory')
-make_head(_module, 'ISyndicationContent')
-make_head(_module, 'ISyndicationContentFactory')
-make_head(_module, 'ISyndicationErrorStatics')
-make_head(_module, 'ISyndicationFeed')
-make_head(_module, 'ISyndicationFeedFactory')
-make_head(_module, 'ISyndicationGenerator')
-make_head(_module, 'ISyndicationGeneratorFactory')
-make_head(_module, 'ISyndicationItem')
-make_head(_module, 'ISyndicationItemFactory')
-make_head(_module, 'ISyndicationLink')
-make_head(_module, 'ISyndicationLinkFactory')
-make_head(_module, 'ISyndicationNode')
-make_head(_module, 'ISyndicationNodeFactory')
-make_head(_module, 'ISyndicationPerson')
-make_head(_module, 'ISyndicationPersonFactory')
-make_head(_module, 'ISyndicationText')
-make_head(_module, 'ISyndicationTextFactory')
-make_head(_module, 'RetrievalProgress')
-make_head(_module, 'SyndicationAttribute')
-make_head(_module, 'SyndicationCategory')
-make_head(_module, 'SyndicationClient')
-make_head(_module, 'SyndicationContent')
-make_head(_module, 'SyndicationError')
-make_head(_module, 'SyndicationFeed')
-make_head(_module, 'SyndicationGenerator')
-make_head(_module, 'SyndicationItem')
-make_head(_module, 'SyndicationLink')
-make_head(_module, 'SyndicationNode')
-make_head(_module, 'SyndicationPerson')
-make_head(_module, 'SyndicationText')
-make_head(_module, 'TransferProgress')
+make_ready(__name__)

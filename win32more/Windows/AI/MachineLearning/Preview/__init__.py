@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.AI.MachineLearning.Preview
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 FeatureElementKindPreview = Int32
 FeatureElementKindPreview_Undefined: FeatureElementKindPreview = 0
 FeatureElementKindPreview_Float: FeatureElementKindPreview = 1
@@ -94,9 +85,9 @@ class ILearningModelBindingPreview(ComPtr):
     _classid_ = 'Windows.AI.MachineLearning.Preview.ILearningModelBindingPreview'
     _iid_ = Guid('{93c901e8-6c78-4b4f-aec1-a6bb9e691624}')
     @winrt_commethod(6)
-    def Bind(self, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def Bind(self, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(7)
-    def BindWithProperties(self, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, metadata: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
+    def BindWithProperties(self, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable, metadata: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
     @winrt_commethod(8)
     def Clear(self) -> Void: ...
 class ILearningModelBindingPreviewFactory(ComPtr):
@@ -140,7 +131,7 @@ class ILearningModelEvaluationResultPreview(ComPtr):
     @winrt_commethod(6)
     def get_CorrelationId(self) -> WinRT_String: ...
     @winrt_commethod(7)
-    def get_Outputs(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Outputs(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     CorrelationId = property(get_CorrelationId, None)
     Outputs = property(get_Outputs, None)
 class ILearningModelPreview(ComPtr):
@@ -150,7 +141,7 @@ class ILearningModelPreview(ComPtr):
     @winrt_commethod(6)
     def EvaluateAsync(self, binding: win32more.Windows.AI.MachineLearning.Preview.LearningModelBindingPreview, correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview]: ...
     @winrt_commethod(7)
-    def EvaluateFeaturesAsync(self, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview]: ...
+    def EvaluateFeaturesAsync(self, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview]: ...
     @winrt_commethod(8)
     def get_Description(self) -> win32more.Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview: ...
     @winrt_commethod(9)
@@ -277,21 +268,21 @@ class LearningModelBindingPreview(ComPtr):
     @winrt_factorymethod
     def CreateFromModel(cls: win32more.Windows.AI.MachineLearning.Preview.ILearningModelBindingPreviewFactory, model: win32more.Windows.AI.MachineLearning.Preview.LearningModelPreview) -> win32more.Windows.AI.MachineLearning.Preview.LearningModelBindingPreview: ...
     @winrt_mixinmethod
-    def Bind(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelBindingPreview, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def Bind(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelBindingPreview, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def BindWithProperties(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelBindingPreview, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, metadata: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
+    def BindWithProperties(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelBindingPreview, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable, metadata: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
     @winrt_mixinmethod
     def Clear(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelBindingPreview) -> Void: ...
     @winrt_mixinmethod
-    def Lookup(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Lookup(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_Size(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> UInt32: ...
+    def get_Size(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> UInt32: ...
     @winrt_mixinmethod
-    def HasKey(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Boolean: ...
+    def HasKey(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> Boolean: ...
     @winrt_mixinmethod
-    def Split(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], first: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]), second: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head])) -> Void: ...
+    def Split(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], first: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]), second: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable])) -> Void: ...
     @winrt_mixinmethod
-    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
 class LearningModelDescriptionPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -335,7 +326,7 @@ class LearningModelEvaluationResultPreview(ComPtr):
     @winrt_mixinmethod
     def get_CorrelationId(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_Outputs(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Outputs(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     CorrelationId = property(get_CorrelationId, None)
     Outputs = property(get_Outputs, None)
 LearningModelFeatureKindPreview = Int32
@@ -351,7 +342,7 @@ class LearningModelPreview(ComPtr):
     @winrt_mixinmethod
     def EvaluateAsync(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelPreview, binding: win32more.Windows.AI.MachineLearning.Preview.LearningModelBindingPreview, correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview]: ...
     @winrt_mixinmethod
-    def EvaluateFeaturesAsync(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelPreview, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview]: ...
+    def EvaluateFeaturesAsync(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelPreview, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview]: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelPreview) -> win32more.Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview: ...
     @winrt_mixinmethod
@@ -450,25 +441,4 @@ class TensorVariableDescriptorPreview(ComPtr):
     Description = property(get_Description, None)
     ModelFeatureKind = property(get_ModelFeatureKind, None)
     IsRequired = property(get_IsRequired, None)
-make_head(_module, 'IImageVariableDescriptorPreview')
-make_head(_module, 'IInferencingOptionsPreview')
-make_head(_module, 'ILearningModelBindingPreview')
-make_head(_module, 'ILearningModelBindingPreviewFactory')
-make_head(_module, 'ILearningModelDescriptionPreview')
-make_head(_module, 'ILearningModelEvaluationResultPreview')
-make_head(_module, 'ILearningModelPreview')
-make_head(_module, 'ILearningModelPreviewStatics')
-make_head(_module, 'ILearningModelVariableDescriptorPreview')
-make_head(_module, 'IMapVariableDescriptorPreview')
-make_head(_module, 'ISequenceVariableDescriptorPreview')
-make_head(_module, 'ITensorVariableDescriptorPreview')
-make_head(_module, 'ImageVariableDescriptorPreview')
-make_head(_module, 'InferencingOptionsPreview')
-make_head(_module, 'LearningModelBindingPreview')
-make_head(_module, 'LearningModelDescriptionPreview')
-make_head(_module, 'LearningModelEvaluationResultPreview')
-make_head(_module, 'LearningModelPreview')
-make_head(_module, 'LearningModelVariableDescriptorPreview')
-make_head(_module, 'MapVariableDescriptorPreview')
-make_head(_module, 'SequenceVariableDescriptorPreview')
-make_head(_module, 'TensorVariableDescriptorPreview')
+make_ready(__name__)

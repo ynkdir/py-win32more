@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.System.Ole
 import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 EVCCBF_LASTNOTIFICATION: UInt32 = 1
 STATEBITS_FLAT: UInt32 = 1
 REC_S_IDIDTHEUPDATES: win32more.Windows.Win32.Foundation.HRESULT = 266240
@@ -46,7 +37,7 @@ class IADesktopP2(ComPtr):
     @commethod(5)
     def UpdateAllDesktopSubscriptions(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def MakeDynamicChanges(self, pOleObj: win32more.Windows.Win32.System.Ole.IOleObject_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def MakeDynamicChanges(self, pOleObj: win32more.Windows.Win32.System.Ole.IOleObject) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IActiveDesktopP(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{52502ee0-ec80-11d0-89ab-00c04fc2972d}')
@@ -62,16 +53,16 @@ class IBriefcaseInitiator(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{99180164-da16-101a-935c-444553540000}')
     @commethod(3)
-    def IsMonikerInBriefcase(self, pmk: win32more.Windows.Win32.System.Com.IMoniker_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsMonikerInBriefcase(self, pmk: win32more.Windows.Win32.System.Com.IMoniker) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IEmptyVolumeCache(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8fce5227-04da-11d1-a004-00805f8abe06}')
     @commethod(3)
     def Initialize(self, hkRegKey: win32more.Windows.Win32.System.Registry.HKEY, pcwszVolume: win32more.Windows.Win32.Foundation.PWSTR, ppwszDisplayName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ppwszDescription: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pdwFlags: POINTER(win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetSpaceUsed(self, pdwlSpaceUsed: POINTER(UInt64), picb: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSpaceUsed(self, pdwlSpaceUsed: POINTER(UInt64), picb: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Purge(self, dwlSpaceToFree: UInt64, picb: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Purge(self, dwlSpaceToFree: UInt64, picb: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def ShowProperties(self, hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -92,14 +83,14 @@ class IReconcilableObject(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{99180162-da16-101a-935c-444553540000}')
     @commethod(3)
-    def Reconcile(self, pInitiator: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.IReconcileInitiator_head, dwFlags: UInt32, hwndOwner: win32more.Windows.Win32.Foundation.HWND, hwndProgressFeedback: win32more.Windows.Win32.Foundation.HWND, ulcInput: UInt32, rgpmkOtherInput: POINTER(win32more.Windows.Win32.System.Com.IMoniker_head), plOutIndex: POINTER(Int32), pstgNewResidues: win32more.Windows.Win32.System.Com.StructuredStorage.IStorage_head, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Reconcile(self, pInitiator: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.IReconcileInitiator, dwFlags: UInt32, hwndOwner: win32more.Windows.Win32.Foundation.HWND, hwndProgressFeedback: win32more.Windows.Win32.Foundation.HWND, ulcInput: UInt32, rgpmkOtherInput: POINTER(win32more.Windows.Win32.System.Com.IMoniker), plOutIndex: POINTER(Int32), pstgNewResidues: win32more.Windows.Win32.System.Com.StructuredStorage.IStorage, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetProgressFeedbackMaxEstimate(self, pulProgressMax: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IReconcileInitiator(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{99180161-da16-101a-935c-444553540000}')
     @commethod(3)
-    def SetAbortCallback(self, punkForAbort: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetAbortCallback(self, punkForAbort: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetProgressFeedback(self, ulProgress: UInt32, ulProgressMax: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 RECONCILEF = Int32
@@ -111,11 +102,4 @@ RECONCILEF_RESUMERECONCILIATION: RECONCILEF = 16
 RECONCILEF_YOUMAYDOTHEUPDATES: RECONCILEF = 32
 RECONCILEF_ONLYYOUWERECHANGED: RECONCILEF = 64
 ALL_RECONCILE_FLAGS: RECONCILEF = 127
-make_head(_module, 'IADesktopP2')
-make_head(_module, 'IActiveDesktopP')
-make_head(_module, 'IBriefcaseInitiator')
-make_head(_module, 'IEmptyVolumeCache')
-make_head(_module, 'IEmptyVolumeCache2')
-make_head(_module, 'IEmptyVolumeCacheCallBack')
-make_head(_module, 'IReconcilableObject')
-make_head(_module, 'IReconcileInitiator')
+make_ready(__name__)

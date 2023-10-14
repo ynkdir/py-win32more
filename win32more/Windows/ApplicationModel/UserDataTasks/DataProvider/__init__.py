@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.UserDataTasks
 import win32more.Windows.ApplicationModel.UserDataTasks.DataProvider
 import win32more.Windows.Foundation
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IUserDataTaskDataProviderConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderConnection'
@@ -317,27 +308,4 @@ class UserDataTaskListSyncManagerSyncRequestEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSyncManagerSyncRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-make_head(_module, 'IUserDataTaskDataProviderConnection')
-make_head(_module, 'IUserDataTaskDataProviderTriggerDetails')
-make_head(_module, 'IUserDataTaskListCompleteTaskRequest')
-make_head(_module, 'IUserDataTaskListCompleteTaskRequestEventArgs')
-make_head(_module, 'IUserDataTaskListCreateOrUpdateTaskRequest')
-make_head(_module, 'IUserDataTaskListCreateOrUpdateTaskRequestEventArgs')
-make_head(_module, 'IUserDataTaskListDeleteTaskRequest')
-make_head(_module, 'IUserDataTaskListDeleteTaskRequestEventArgs')
-make_head(_module, 'IUserDataTaskListSkipOccurrenceRequest')
-make_head(_module, 'IUserDataTaskListSkipOccurrenceRequestEventArgs')
-make_head(_module, 'IUserDataTaskListSyncManagerSyncRequest')
-make_head(_module, 'IUserDataTaskListSyncManagerSyncRequestEventArgs')
-make_head(_module, 'UserDataTaskDataProviderConnection')
-make_head(_module, 'UserDataTaskDataProviderTriggerDetails')
-make_head(_module, 'UserDataTaskListCompleteTaskRequest')
-make_head(_module, 'UserDataTaskListCompleteTaskRequestEventArgs')
-make_head(_module, 'UserDataTaskListCreateOrUpdateTaskRequest')
-make_head(_module, 'UserDataTaskListCreateOrUpdateTaskRequestEventArgs')
-make_head(_module, 'UserDataTaskListDeleteTaskRequest')
-make_head(_module, 'UserDataTaskListDeleteTaskRequestEventArgs')
-make_head(_module, 'UserDataTaskListSkipOccurrenceRequest')
-make_head(_module, 'UserDataTaskListSkipOccurrenceRequestEventArgs')
-make_head(_module, 'UserDataTaskListSyncManagerSyncRequest')
-make_head(_module, 'UserDataTaskListSyncManagerSyncRequestEventArgs')
+make_ready(__name__)

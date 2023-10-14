@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.Enumeration.Pnp
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPnpObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.Pnp.IPnpObject'
@@ -37,7 +28,7 @@ class IPnpObject(ComPtr):
     @winrt_commethod(7)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(8)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(9)
     def Update(self, updateInfo: win32more.Windows.Devices.Enumeration.Pnp.PnpObjectUpdate) -> Void: ...
     Type = property(get_Type, None)
@@ -66,7 +57,7 @@ class IPnpObjectUpdate(ComPtr):
     @winrt_commethod(7)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(8)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Type = property(get_Type, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
@@ -87,11 +78,11 @@ class IPnpObjectWatcher(ComPtr):
     @winrt_commethod(11)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
@@ -110,7 +101,7 @@ class PnpObject(ComPtr):
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObject) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObject) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObject) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def Update(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObject, updateInfo: win32more.Windows.Devices.Enumeration.Pnp.PnpObjectUpdate) -> Void: ...
     @winrt_classmethod
@@ -160,7 +151,7 @@ class PnpObjectUpdate(ComPtr):
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Type = property(get_Type, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
@@ -181,11 +172,11 @@ class PnpObjectWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -195,11 +186,4 @@ class PnpObjectWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher) -> Void: ...
     Status = property(get_Status, None)
-make_head(_module, 'IPnpObject')
-make_head(_module, 'IPnpObjectStatics')
-make_head(_module, 'IPnpObjectUpdate')
-make_head(_module, 'IPnpObjectWatcher')
-make_head(_module, 'PnpObject')
-make_head(_module, 'PnpObjectCollection')
-make_head(_module, 'PnpObjectUpdate')
-make_head(_module, 'PnpObjectWatcher')
+make_ready(__name__)

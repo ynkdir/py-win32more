@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Display
@@ -24,15 +24,6 @@ import win32more.Windows.Graphics
 import win32more.Windows.Graphics.DirectX
 import win32more.Windows.Graphics.DirectX.Direct3D11
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class DisplayAdapter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayAdapter
@@ -52,7 +43,7 @@ class DisplayAdapter(ComPtr):
     @winrt_mixinmethod
     def get_PciRevision(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> UInt32: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_classmethod
     def FromId(cls: win32more.Windows.Devices.Display.Core.IDisplayAdapterStatics, id: win32more.Windows.Graphics.DisplayAdapterId) -> win32more.Windows.Devices.Display.Core.DisplayAdapter: ...
     Id = property(get_Id, None)
@@ -231,7 +222,7 @@ class DisplayModeInfo(ComPtr):
     @winrt_mixinmethod
     def IsWireFormatSupported(self: win32more.Windows.Devices.Display.Core.IDisplayModeInfo, wireFormat: win32more.Windows.Devices.Display.Core.DisplayWireFormat) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayModeInfo) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayModeInfo) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_PhysicalPresentationRate(self: win32more.Windows.Devices.Display.Core.IDisplayModeInfo2) -> win32more.Windows.Devices.Display.Core.DisplayPresentationRate: ...
     SourceResolution = property(get_SourceResolution, None)
@@ -296,7 +287,7 @@ class DisplayPath(ComPtr):
     @winrt_mixinmethod
     def ApplyPropertiesFromMode(self: win32more.Windows.Devices.Display.Core.IDisplayPath, modeResult: win32more.Windows.Devices.Display.Core.DisplayModeInfo) -> Void: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayPath) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayPath) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_PhysicalPresentationRate(self: win32more.Windows.Devices.Display.Core.IDisplayPath2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Display.Core.DisplayPresentationRate]: ...
     @winrt_mixinmethod
@@ -358,9 +349,9 @@ class DisplayPrimaryDescription(ComPtr):
     @winrt_mixinmethod
     def get_MultisampleDescription(self: win32more.Windows.Devices.Display.Core.IDisplayPrimaryDescription) -> win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayPrimaryDescription) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayPrimaryDescription) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_classmethod
-    def CreateWithProperties(cls: win32more.Windows.Devices.Display.Core.IDisplayPrimaryDescriptionStatics, extraProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]], width: UInt32, height: UInt32, pixelFormat: win32more.Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: win32more.Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> win32more.Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
+    def CreateWithProperties(cls: win32more.Windows.Devices.Display.Core.IDisplayPrimaryDescriptionStatics, extraProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]], width: UInt32, height: UInt32, pixelFormat: win32more.Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: win32more.Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> win32more.Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
     Width = property(get_Width, None)
     Height = property(get_Height, None)
     Format = property(get_Format, None)
@@ -393,7 +384,7 @@ class DisplaySource(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Devices.Display.Core.IDisplaySource2) -> win32more.Windows.Devices.Display.Core.DisplaySourceStatus: ...
     @winrt_mixinmethod
-    def add_StatusChanged(self: win32more.Windows.Devices.Display.Core.IDisplaySource2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Display.Core.DisplaySource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusChanged(self: win32more.Windows.Devices.Display.Core.IDisplaySource2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Display.Core.DisplaySource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StatusChanged(self: win32more.Windows.Devices.Display.Core.IDisplaySource2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AdapterId = property(get_AdapterId, None)
@@ -418,7 +409,7 @@ class DisplayState(ComPtr):
     @winrt_mixinmethod
     def get_Views(self: win32more.Windows.Devices.Display.Core.IDisplayState) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Display.Core.DisplayView]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayState) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayState) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def ConnectTarget(self: win32more.Windows.Devices.Display.Core.IDisplayState, target: win32more.Windows.Devices.Display.Core.DisplayTarget) -> win32more.Windows.Devices.Display.Core.DisplayPath: ...
     @winrt_mixinmethod
@@ -499,7 +490,7 @@ class DisplayTarget(ComPtr):
     @winrt_mixinmethod
     def TryGetMonitor(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> win32more.Windows.Devices.Display.DisplayMonitor: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_IsStale(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> Boolean: ...
     @winrt_mixinmethod
@@ -571,7 +562,7 @@ class DisplayView(ComPtr):
     @winrt_mixinmethod
     def SetPrimaryPath(self: win32more.Windows.Devices.Display.Core.IDisplayView, path: win32more.Windows.Devices.Display.Core.DisplayPath) -> Void: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayView) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayView) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Paths = property(get_Paths, None)
     ContentResolution = property(get_ContentResolution, put_ContentResolution)
     Properties = property(get_Properties, None)
@@ -592,9 +583,9 @@ class DisplayWireFormat(ComPtr):
     @winrt_mixinmethod
     def get_HdrMetadata(self: win32more.Windows.Devices.Display.Core.IDisplayWireFormat) -> win32more.Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayWireFormat) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayWireFormat) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_classmethod
-    def CreateWithProperties(cls: win32more.Windows.Devices.Display.Core.IDisplayWireFormatStatics, extraProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]], pixelEncoding: win32more.Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: win32more.Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: win32more.Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: win32more.Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> win32more.Windows.Devices.Display.Core.DisplayWireFormat: ...
+    def CreateWithProperties(cls: win32more.Windows.Devices.Display.Core.IDisplayWireFormatStatics, extraProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]], pixelEncoding: win32more.Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: win32more.Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: win32more.Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: win32more.Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> win32more.Windows.Devices.Display.Core.DisplayWireFormat: ...
     PixelEncoding = property(get_PixelEncoding, None)
     BitsPerChannel = property(get_BitsPerChannel, None)
     ColorSpace = property(get_ColorSpace, None)
@@ -638,7 +629,7 @@ class IDisplayAdapter(ComPtr):
     @winrt_commethod(12)
     def get_PciRevision(self) -> UInt32: ...
     @winrt_commethod(13)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Id = property(get_Id, None)
     DeviceInterfacePath = property(get_DeviceInterfacePath, None)
     SourceCount = property(get_SourceCount, None)
@@ -807,7 +798,7 @@ class IDisplayModeInfo(ComPtr):
     @winrt_commethod(13)
     def IsWireFormatSupported(self, wireFormat: win32more.Windows.Devices.Display.Core.DisplayWireFormat) -> Boolean: ...
     @winrt_commethod(14)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     SourceResolution = property(get_SourceResolution, None)
     IsStereo = property(get_IsStereo, None)
     SourcePixelFormat = property(get_SourcePixelFormat, None)
@@ -873,7 +864,7 @@ class IDisplayPath(ComPtr):
     @winrt_commethod(28)
     def ApplyPropertiesFromMode(self, modeResult: win32more.Windows.Devices.Display.Core.DisplayModeInfo) -> Void: ...
     @winrt_commethod(29)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     View = property(get_View, None)
     Target = property(get_Target, None)
     Status = property(get_Status, None)
@@ -913,7 +904,7 @@ class IDisplayPrimaryDescription(ComPtr):
     @winrt_commethod(11)
     def get_MultisampleDescription(self) -> win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription: ...
     @winrt_commethod(12)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Width = property(get_Width, None)
     Height = property(get_Height, None)
     Format = property(get_Format, None)
@@ -932,7 +923,7 @@ class IDisplayPrimaryDescriptionStatics(ComPtr):
     _classid_ = 'Windows.Devices.Display.Core.IDisplayPrimaryDescriptionStatics'
     _iid_ = Guid('{e60e4cfb-36c9-56dd-8fa1-6ff8c4e0ff07}')
     @winrt_commethod(6)
-    def CreateWithProperties(self, extraProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]], width: UInt32, height: UInt32, pixelFormat: win32more.Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: win32more.Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> win32more.Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
+    def CreateWithProperties(self, extraProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]], width: UInt32, height: UInt32, pixelFormat: win32more.Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: win32more.Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> win32more.Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
 class IDisplayScanout(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayScanout'
@@ -956,7 +947,7 @@ class IDisplaySource2(ComPtr):
     @winrt_commethod(6)
     def get_Status(self) -> win32more.Windows.Devices.Display.Core.DisplaySourceStatus: ...
     @winrt_commethod(7)
-    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Display.Core.DisplaySource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Display.Core.DisplaySource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
@@ -973,7 +964,7 @@ class IDisplayState(ComPtr):
     @winrt_commethod(9)
     def get_Views(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Display.Core.DisplayView]: ...
     @winrt_commethod(10)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(11)
     def ConnectTarget(self, target: win32more.Windows.Devices.Display.Core.DisplayTarget) -> win32more.Windows.Devices.Display.Core.DisplayPath: ...
     @winrt_commethod(12)
@@ -1036,7 +1027,7 @@ class IDisplayTarget(ComPtr):
     @winrt_commethod(15)
     def TryGetMonitor(self) -> win32more.Windows.Devices.Display.DisplayMonitor: ...
     @winrt_commethod(16)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(17)
     def get_IsStale(self) -> Boolean: ...
     @winrt_commethod(18)
@@ -1108,7 +1099,7 @@ class IDisplayView(ComPtr):
     @winrt_commethod(9)
     def SetPrimaryPath(self, path: win32more.Windows.Devices.Display.Core.DisplayPath) -> Void: ...
     @winrt_commethod(10)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Paths = property(get_Paths, None)
     ContentResolution = property(get_ContentResolution, put_ContentResolution)
     Properties = property(get_Properties, None)
@@ -1127,7 +1118,7 @@ class IDisplayWireFormat(ComPtr):
     @winrt_commethod(10)
     def get_HdrMetadata(self) -> win32more.Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata: ...
     @winrt_commethod(11)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PixelEncoding = property(get_PixelEncoding, None)
     BitsPerChannel = property(get_BitsPerChannel, None)
     ColorSpace = property(get_ColorSpace, None)
@@ -1145,63 +1136,5 @@ class IDisplayWireFormatStatics(ComPtr):
     _classid_ = 'Windows.Devices.Display.Core.IDisplayWireFormatStatics'
     _iid_ = Guid('{c575a22d-c3e6-5f7a-bdfb-87c6ab8661d5}')
     @winrt_commethod(6)
-    def CreateWithProperties(self, extraProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]], pixelEncoding: win32more.Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: win32more.Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: win32more.Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: win32more.Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> win32more.Windows.Devices.Display.Core.DisplayWireFormat: ...
-make_head(_module, 'DisplayAdapter')
-make_head(_module, 'DisplayDevice')
-make_head(_module, 'DisplayFence')
-make_head(_module, 'DisplayManager')
-make_head(_module, 'DisplayManagerChangedEventArgs')
-make_head(_module, 'DisplayManagerDisabledEventArgs')
-make_head(_module, 'DisplayManagerEnabledEventArgs')
-make_head(_module, 'DisplayManagerPathsFailedOrInvalidatedEventArgs')
-make_head(_module, 'DisplayManagerResultWithState')
-make_head(_module, 'DisplayModeInfo')
-make_head(_module, 'DisplayPath')
-make_head(_module, 'DisplayPresentationRate')
-make_head(_module, 'DisplayPrimaryDescription')
-make_head(_module, 'DisplayScanout')
-make_head(_module, 'DisplaySource')
-make_head(_module, 'DisplayState')
-make_head(_module, 'DisplayStateOperationResult')
-make_head(_module, 'DisplaySurface')
-make_head(_module, 'DisplayTarget')
-make_head(_module, 'DisplayTask')
-make_head(_module, 'DisplayTaskPool')
-make_head(_module, 'DisplayTaskResult')
-make_head(_module, 'DisplayView')
-make_head(_module, 'DisplayWireFormat')
-make_head(_module, 'IDisplayAdapter')
-make_head(_module, 'IDisplayAdapterStatics')
-make_head(_module, 'IDisplayDevice')
-make_head(_module, 'IDisplayDevice2')
-make_head(_module, 'IDisplayFence')
-make_head(_module, 'IDisplayManager')
-make_head(_module, 'IDisplayManagerChangedEventArgs')
-make_head(_module, 'IDisplayManagerDisabledEventArgs')
-make_head(_module, 'IDisplayManagerEnabledEventArgs')
-make_head(_module, 'IDisplayManagerPathsFailedOrInvalidatedEventArgs')
-make_head(_module, 'IDisplayManagerResultWithState')
-make_head(_module, 'IDisplayManagerStatics')
-make_head(_module, 'IDisplayModeInfo')
-make_head(_module, 'IDisplayModeInfo2')
-make_head(_module, 'IDisplayPath')
-make_head(_module, 'IDisplayPath2')
-make_head(_module, 'IDisplayPrimaryDescription')
-make_head(_module, 'IDisplayPrimaryDescriptionFactory')
-make_head(_module, 'IDisplayPrimaryDescriptionStatics')
-make_head(_module, 'IDisplayScanout')
-make_head(_module, 'IDisplaySource')
-make_head(_module, 'IDisplaySource2')
-make_head(_module, 'IDisplayState')
-make_head(_module, 'IDisplayStateOperationResult')
-make_head(_module, 'IDisplaySurface')
-make_head(_module, 'IDisplayTarget')
-make_head(_module, 'IDisplayTask')
-make_head(_module, 'IDisplayTask2')
-make_head(_module, 'IDisplayTaskPool')
-make_head(_module, 'IDisplayTaskPool2')
-make_head(_module, 'IDisplayTaskResult')
-make_head(_module, 'IDisplayView')
-make_head(_module, 'IDisplayWireFormat')
-make_head(_module, 'IDisplayWireFormatFactory')
-make_head(_module, 'IDisplayWireFormatStatics')
+    def CreateWithProperties(self, extraProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]], pixelEncoding: win32more.Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: win32more.Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: win32more.Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: win32more.Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> win32more.Windows.Devices.Display.Core.DisplayWireFormat: ...
+make_ready(__name__)

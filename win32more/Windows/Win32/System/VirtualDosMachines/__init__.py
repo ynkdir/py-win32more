@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.Kernel
 import win32more.Windows.Win32.System.VirtualDosMachines
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 VDMCONTEXT_i386: UInt32 = 65536
 VDMCONTEXT_i486: UInt32 = 65536
 VDM_KGDT_R3_CODE: UInt32 = 24
@@ -110,7 +101,7 @@ VDMADDR_V86: UInt32 = 2
 VDMADDR_PM16: UInt32 = 4
 VDMADDR_PM32: UInt32 = 16
 @winfunctype_pointer
-def DEBUGEVENTPROC(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT_head), param1: VoidPtr) -> UInt32: ...
+def DEBUGEVENTPROC(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT), param1: VoidPtr) -> UInt32: ...
 class GLOBALENTRY(EasyCastStructure):
     dwSize: UInt32
     dwAddress: UInt32
@@ -223,10 +214,10 @@ def VDMENUMTASKWOWPROC(param0: UInt32, param1: win32more.Windows.Win32.System.Vi
 def VDMGETADDREXPRESSIONPROC(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: POINTER(UInt16), param3: POINTER(UInt32), param4: POINTER(UInt16)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
-    def VDMGETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMCONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def VDMGETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMCONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype_pointer
-    def VDMGETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def VDMGETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def VDMGETDBGFLAGSPROC(param0: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype_pointer
@@ -241,14 +232,14 @@ def VDMGETSELECTORMODULEPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, 
 def VDMGETSYMBOLPROC(param0: win32more.Windows.Win32.Foundation.PSTR, param1: UInt16, param2: UInt32, param3: win32more.Windows.Win32.Foundation.BOOL, param4: win32more.Windows.Win32.Foundation.BOOL, param5: win32more.Windows.Win32.Foundation.PSTR, param6: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
-    def VDMGETTHREADSELECTORENTRYPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: UInt32, param3: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMLDT_ENTRY_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def VDMGETTHREADSELECTORENTRYPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: UInt32, param3: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMLDT_ENTRY)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype_pointer
-    def VDMGETTHREADSELECTORENTRYPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: UInt32, param3: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LDT_ENTRY_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def VDMGETTHREADSELECTORENTRYPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: UInt32, param3: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LDT_ENTRY)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def VDMGLOBALFIRSTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.GLOBALENTRY_head), param3: UInt16, param4: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param5: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def VDMGLOBALFIRSTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.GLOBALENTRY), param3: UInt16, param4: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param5: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def VDMGLOBALNEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.GLOBALENTRY_head), param3: UInt16, param4: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param5: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def VDMGLOBALNEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.GLOBALENTRY), param3: UInt16, param4: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param5: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def VDMISMODULELOADEDPROC(param0: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -269,17 +260,17 @@ if ARCH in 'X64,ARM64':
             class _Bits_e__Struct(EasyCastStructure):
                 _bitfield: UInt32
 @winfunctype_pointer
-def VDMMODULEFIRSTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.MODULEENTRY_head), param3: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param4: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def VDMMODULEFIRSTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.MODULEENTRY), param3: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param4: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def VDMMODULENEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.MODULEENTRY_head), param3: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param4: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def VDMMODULENEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.MODULEENTRY), param3: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param4: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def VDMPROCESSEXCEPTIONPROC(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def VDMPROCESSEXCEPTIONPROC(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
-    def VDMSETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMCONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def VDMSETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMCONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype_pointer
-    def VDMSETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def VDMSETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def VDMSETDBGFLAGSPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -293,52 +284,4 @@ class VDM_SEGINFO(EasyCastStructure):
     Type: UInt16
     ModuleName: win32more.Windows.Win32.Foundation.CHAR * 9
     FileName: win32more.Windows.Win32.Foundation.CHAR * 255
-make_head(_module, 'DEBUGEVENTPROC')
-make_head(_module, 'GLOBALENTRY')
-make_head(_module, 'IMAGE_NOTE')
-make_head(_module, 'MODULEENTRY')
-make_head(_module, 'PROCESSENUMPROC')
-make_head(_module, 'SEGMENT_NOTE')
-make_head(_module, 'TASKENUMPROC')
-make_head(_module, 'TASKENUMPROCEX')
-make_head(_module, 'TEMP_BP_NOTE')
-make_head(_module, 'VDMBREAKTHREADPROC')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'VDMCONTEXT')
-make_head(_module, 'VDMCONTEXT_WITHOUT_XSAVE')
-make_head(_module, 'VDMDETECTWOWPROC')
-make_head(_module, 'VDMENUMPROCESSWOWPROC')
-make_head(_module, 'VDMENUMTASKWOWEXPROC')
-make_head(_module, 'VDMENUMTASKWOWPROC')
-make_head(_module, 'VDMGETADDREXPRESSIONPROC')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'VDMGETCONTEXTPROC')
-if ARCH in 'X86':
-    make_head(_module, 'VDMGETCONTEXTPROC')
-make_head(_module, 'VDMGETDBGFLAGSPROC')
-make_head(_module, 'VDMGETMODULESELECTORPROC')
-make_head(_module, 'VDMGETPOINTERPROC')
-make_head(_module, 'VDMGETSEGMENTINFOPROC')
-make_head(_module, 'VDMGETSELECTORMODULEPROC')
-make_head(_module, 'VDMGETSYMBOLPROC')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'VDMGETTHREADSELECTORENTRYPROC')
-if ARCH in 'X86':
-    make_head(_module, 'VDMGETTHREADSELECTORENTRYPROC')
-make_head(_module, 'VDMGLOBALFIRSTPROC')
-make_head(_module, 'VDMGLOBALNEXTPROC')
-make_head(_module, 'VDMISMODULELOADEDPROC')
-make_head(_module, 'VDMKILLWOWPROC')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'VDMLDT_ENTRY')
-make_head(_module, 'VDMMODULEFIRSTPROC')
-make_head(_module, 'VDMMODULENEXTPROC')
-make_head(_module, 'VDMPROCESSEXCEPTIONPROC')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'VDMSETCONTEXTPROC')
-if ARCH in 'X86':
-    make_head(_module, 'VDMSETCONTEXTPROC')
-make_head(_module, 'VDMSETDBGFLAGSPROC')
-make_head(_module, 'VDMSTARTTASKINWOWPROC')
-make_head(_module, 'VDMTERMINATETASKINWOWPROC')
-make_head(_module, 'VDM_SEGINFO')
+make_ready(__name__)

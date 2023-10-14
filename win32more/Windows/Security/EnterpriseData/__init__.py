@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Networking
 import win32more.Windows.Security.EnterpriseData
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class BufferProtectUnprotectResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IBufferProtectUnprotectResult
@@ -435,7 +426,7 @@ class IProtectionPolicyManagerStatics2(ComPtr):
     @winrt_commethod(11)
     def IsProtectionUnderLockRequired(self, identity: WinRT_String) -> Boolean: ...
     @winrt_commethod(12)
-    def add_PolicyChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PolicyChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_PolicyChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -650,7 +641,7 @@ class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     @winrt_classmethod
     def IsProtectionUnderLockRequired(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2, identity: WinRT_String) -> Boolean: ...
     @winrt_classmethod
-    def add_PolicyChanged(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PolicyChanged(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_PolicyChanged(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -698,45 +689,4 @@ class ThreadNetworkContext(ComPtr):
     _classid_ = 'Windows.Security.EnterpriseData.ThreadNetworkContext'
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-make_head(_module, 'BufferProtectUnprotectResult')
-make_head(_module, 'DataProtectionInfo')
-make_head(_module, 'DataProtectionManager')
-make_head(_module, 'FileProtectionInfo')
-make_head(_module, 'FileProtectionManager')
-make_head(_module, 'FileRevocationManager')
-make_head(_module, 'FileUnprotectOptions')
-make_head(_module, 'IBufferProtectUnprotectResult')
-make_head(_module, 'IDataProtectionInfo')
-make_head(_module, 'IDataProtectionManagerStatics')
-make_head(_module, 'IFileProtectionInfo')
-make_head(_module, 'IFileProtectionInfo2')
-make_head(_module, 'IFileProtectionManagerStatics')
-make_head(_module, 'IFileProtectionManagerStatics2')
-make_head(_module, 'IFileProtectionManagerStatics3')
-make_head(_module, 'IFileRevocationManagerStatics')
-make_head(_module, 'IFileUnprotectOptions')
-make_head(_module, 'IFileUnprotectOptionsFactory')
-make_head(_module, 'IProtectedAccessResumedEventArgs')
-make_head(_module, 'IProtectedAccessSuspendingEventArgs')
-make_head(_module, 'IProtectedContainerExportResult')
-make_head(_module, 'IProtectedContainerImportResult')
-make_head(_module, 'IProtectedContentRevokedEventArgs')
-make_head(_module, 'IProtectedFileCreateResult')
-make_head(_module, 'IProtectionPolicyAuditInfo')
-make_head(_module, 'IProtectionPolicyAuditInfoFactory')
-make_head(_module, 'IProtectionPolicyManager')
-make_head(_module, 'IProtectionPolicyManager2')
-make_head(_module, 'IProtectionPolicyManagerStatics')
-make_head(_module, 'IProtectionPolicyManagerStatics2')
-make_head(_module, 'IProtectionPolicyManagerStatics3')
-make_head(_module, 'IProtectionPolicyManagerStatics4')
-make_head(_module, 'IThreadNetworkContext')
-make_head(_module, 'ProtectedAccessResumedEventArgs')
-make_head(_module, 'ProtectedAccessSuspendingEventArgs')
-make_head(_module, 'ProtectedContainerExportResult')
-make_head(_module, 'ProtectedContainerImportResult')
-make_head(_module, 'ProtectedContentRevokedEventArgs')
-make_head(_module, 'ProtectedFileCreateResult')
-make_head(_module, 'ProtectionPolicyAuditInfo')
-make_head(_module, 'ProtectionPolicyManager')
-make_head(_module, 'ThreadNetworkContext')
+make_ready(__name__)

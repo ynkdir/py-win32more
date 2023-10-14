@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.XboxLive.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class GameSaveBlobGetResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveBlobGetResult
@@ -329,26 +320,4 @@ class IGameSaveProviderStatics(ComPtr):
     def GetForUserAsync(self, user: win32more.Windows.System.User, serviceConfigId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult]: ...
     @winrt_commethod(7)
     def GetSyncOnDemandForUserAsync(self, user: win32more.Windows.System.User, serviceConfigId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult]: ...
-make_head(_module, 'GameSaveBlobGetResult')
-make_head(_module, 'GameSaveBlobInfo')
-make_head(_module, 'GameSaveBlobInfoGetResult')
-make_head(_module, 'GameSaveBlobInfoQuery')
-make_head(_module, 'GameSaveContainer')
-make_head(_module, 'GameSaveContainerInfo')
-make_head(_module, 'GameSaveContainerInfoGetResult')
-make_head(_module, 'GameSaveContainerInfoQuery')
-make_head(_module, 'GameSaveOperationResult')
-make_head(_module, 'GameSaveProvider')
-make_head(_module, 'GameSaveProviderGetResult')
-make_head(_module, 'IGameSaveBlobGetResult')
-make_head(_module, 'IGameSaveBlobInfo')
-make_head(_module, 'IGameSaveBlobInfoGetResult')
-make_head(_module, 'IGameSaveBlobInfoQuery')
-make_head(_module, 'IGameSaveContainer')
-make_head(_module, 'IGameSaveContainerInfo')
-make_head(_module, 'IGameSaveContainerInfoGetResult')
-make_head(_module, 'IGameSaveContainerInfoQuery')
-make_head(_module, 'IGameSaveOperationResult')
-make_head(_module, 'IGameSaveProvider')
-make_head(_module, 'IGameSaveProviderGetResult')
-make_head(_module, 'IGameSaveProviderStatics')
+make_ready(__name__)

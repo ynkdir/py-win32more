@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Core
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.UI
 import win32more.Windows.UI.Shell
 import win32more.Windows.UI.StartScreen
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AdaptiveCardBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.AdaptiveCardBuilder'
@@ -60,7 +51,7 @@ class FocusSessionManager(ComPtr, metaclass=_FocusSessionManager_Meta_):
     @winrt_mixinmethod
     def DeactivateFocus(self: win32more.Windows.UI.Shell.IFocusSessionManager) -> Void: ...
     @winrt_mixinmethod
-    def add_IsFocusActiveChanged(self: win32more.Windows.UI.Shell.IFocusSessionManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.FocusSessionManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsFocusActiveChanged(self: win32more.Windows.UI.Shell.IFocusSessionManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.FocusSessionManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsFocusActiveChanged(self: win32more.Windows.UI.Shell.IFocusSessionManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -105,7 +96,7 @@ class IFocusSessionManager(ComPtr):
     @winrt_commethod(10)
     def DeactivateFocus(self) -> Void: ...
     @winrt_commethod(11)
-    def add_IsFocusActiveChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.FocusSessionManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsFocusActiveChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.FocusSessionManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_IsFocusActiveChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsFocusActive = property(get_IsFocusActive, None)
@@ -283,22 +274,4 @@ class TaskbarManager(ComPtr):
     def GetDefault(cls: win32more.Windows.UI.Shell.ITaskbarManagerStatics) -> win32more.Windows.UI.Shell.TaskbarManager: ...
     IsSupported = property(get_IsSupported, None)
     IsPinningAllowed = property(get_IsPinningAllowed, None)
-make_head(_module, 'AdaptiveCardBuilder')
-make_head(_module, 'FocusSession')
-make_head(_module, 'FocusSessionManager')
-make_head(_module, 'IAdaptiveCard')
-make_head(_module, 'IAdaptiveCardBuilderStatics')
-make_head(_module, 'IFocusSession')
-make_head(_module, 'IFocusSessionManager')
-make_head(_module, 'IFocusSessionManagerStatics')
-make_head(_module, 'ISecurityAppManager')
-make_head(_module, 'IShareWindowCommandEventArgs')
-make_head(_module, 'IShareWindowCommandSource')
-make_head(_module, 'IShareWindowCommandSourceStatics')
-make_head(_module, 'ITaskbarManager')
-make_head(_module, 'ITaskbarManager2')
-make_head(_module, 'ITaskbarManagerStatics')
-make_head(_module, 'SecurityAppManager')
-make_head(_module, 'ShareWindowCommandEventArgs')
-make_head(_module, 'ShareWindowCommandSource')
-make_head(_module, 'TaskbarManager')
+make_ready(__name__)

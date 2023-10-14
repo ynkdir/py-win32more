@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Enumeration
@@ -29,15 +29,6 @@ import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.WindowManagement
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AudioMediaFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.Frames.IAudioMediaFrame
@@ -176,7 +167,7 @@ class IMediaFrameFormat(ComPtr):
     @winrt_commethod(8)
     def get_FrameRate(self) -> win32more.Windows.Media.MediaProperties.MediaRatio: ...
     @winrt_commethod(9)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(10)
     def get_VideoFormat(self) -> win32more.Windows.Media.Capture.Frames.VideoMediaFrameFormat: ...
     MajorType = property(get_MajorType, None)
@@ -227,7 +218,7 @@ class IMediaFrameReference(ComPtr):
     @winrt_commethod(9)
     def get_Duration(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(10)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(11)
     def get_BufferMediaFrame(self) -> win32more.Windows.Media.Capture.Frames.BufferMediaFrame: ...
     @winrt_commethod(12)
@@ -264,7 +255,7 @@ class IMediaFrameSource(ComPtr):
     @winrt_commethod(10)
     def SetFormatAsync(self, format: win32more.Windows.Media.Capture.Frames.MediaFrameFormat) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(11)
-    def add_FormatChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Capture.Frames.MediaFrameSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FormatChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Capture.Frames.MediaFrameSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_FormatChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
@@ -280,7 +271,7 @@ class IMediaFrameSourceController(ComPtr):
     @winrt_commethod(6)
     def GetPropertyAsync(self, propertyId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult]: ...
     @winrt_commethod(7)
-    def SetPropertyAsync(self, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
+    def SetPropertyAsync(self, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
     @winrt_commethod(8)
     def get_VideoDeviceController(self) -> win32more.Windows.Media.Devices.VideoDeviceController: ...
     VideoDeviceController = property(get_VideoDeviceController, None)
@@ -306,7 +297,7 @@ class IMediaFrameSourceGetPropertyResult(ComPtr):
     @winrt_commethod(6)
     def get_Status(self) -> win32more.Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyStatus: ...
     @winrt_commethod(7)
-    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     Value = property(get_Value, None)
 class IMediaFrameSourceGroup(ComPtr):
@@ -347,7 +338,7 @@ class IMediaFrameSourceInfo(ComPtr):
     @winrt_commethod(10)
     def get_DeviceInformation(self) -> win32more.Windows.Devices.Enumeration.DeviceInformation: ...
     @winrt_commethod(11)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(12)
     def get_CoordinateSystem(self) -> win32more.Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     Id = property(get_Id, None)
@@ -484,7 +475,7 @@ class MediaFrameFormat(ComPtr):
     @winrt_mixinmethod
     def get_FrameRate(self: win32more.Windows.Media.Capture.Frames.IMediaFrameFormat) -> win32more.Windows.Media.MediaProperties.MediaRatio: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Media.Capture.Frames.IMediaFrameFormat) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Media.Capture.Frames.IMediaFrameFormat) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_VideoFormat(self: win32more.Windows.Media.Capture.Frames.IMediaFrameFormat) -> win32more.Windows.Media.Capture.Frames.VideoMediaFrameFormat: ...
     @winrt_mixinmethod
@@ -538,7 +529,7 @@ class MediaFrameReference(ComPtr):
     @winrt_mixinmethod
     def get_Duration(self: win32more.Windows.Media.Capture.Frames.IMediaFrameReference) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Media.Capture.Frames.IMediaFrameReference) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Media.Capture.Frames.IMediaFrameReference) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_BufferMediaFrame(self: win32more.Windows.Media.Capture.Frames.IMediaFrameReference) -> win32more.Windows.Media.Capture.Frames.BufferMediaFrame: ...
     @winrt_mixinmethod
@@ -573,7 +564,7 @@ class MediaFrameSource(ComPtr):
     @winrt_mixinmethod
     def SetFormatAsync(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSource, format: win32more.Windows.Media.Capture.Frames.MediaFrameFormat) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
-    def add_FormatChanged(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Capture.Frames.MediaFrameSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FormatChanged(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Capture.Frames.MediaFrameSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_FormatChanged(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -589,7 +580,7 @@ class MediaFrameSourceController(ComPtr):
     @winrt_mixinmethod
     def GetPropertyAsync(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceController, propertyId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult]: ...
     @winrt_mixinmethod
-    def SetPropertyAsync(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceController, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
+    def SetPropertyAsync(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceController, propertyId: WinRT_String, propertyValue: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
     @winrt_mixinmethod
     def get_VideoDeviceController(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceController) -> win32more.Windows.Media.Devices.VideoDeviceController: ...
     @winrt_mixinmethod
@@ -607,7 +598,7 @@ class MediaFrameSourceGetPropertyResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceGetPropertyResult) -> win32more.Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyStatus: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceGetPropertyResult) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceGetPropertyResult) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     Value = property(get_Value, None)
 MediaFrameSourceGetPropertyStatus = Int32
@@ -651,7 +642,7 @@ class MediaFrameSourceInfo(ComPtr):
     @winrt_mixinmethod
     def get_DeviceInformation(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceInfo) -> win32more.Windows.Devices.Enumeration.DeviceInformation: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceInfo) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Properties(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceInfo) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_CoordinateSystem(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceInfo) -> win32more.Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_mixinmethod
@@ -769,52 +760,4 @@ class VideoMediaFrameFormat(ComPtr):
     DepthFormat = property(get_DepthFormat, None)
     Width = property(get_Width, None)
     Height = property(get_Height, None)
-make_head(_module, 'AudioMediaFrame')
-make_head(_module, 'BufferMediaFrame')
-make_head(_module, 'DepthMediaFrame')
-make_head(_module, 'DepthMediaFrameFormat')
-make_head(_module, 'IAudioMediaFrame')
-make_head(_module, 'IBufferMediaFrame')
-make_head(_module, 'IDepthMediaFrame')
-make_head(_module, 'IDepthMediaFrame2')
-make_head(_module, 'IDepthMediaFrameFormat')
-make_head(_module, 'IInfraredMediaFrame')
-make_head(_module, 'IMediaFrameArrivedEventArgs')
-make_head(_module, 'IMediaFrameFormat')
-make_head(_module, 'IMediaFrameFormat2')
-make_head(_module, 'IMediaFrameReader')
-make_head(_module, 'IMediaFrameReader2')
-make_head(_module, 'IMediaFrameReference')
-make_head(_module, 'IMediaFrameReference2')
-make_head(_module, 'IMediaFrameSource')
-make_head(_module, 'IMediaFrameSourceController')
-make_head(_module, 'IMediaFrameSourceController2')
-make_head(_module, 'IMediaFrameSourceController3')
-make_head(_module, 'IMediaFrameSourceGetPropertyResult')
-make_head(_module, 'IMediaFrameSourceGroup')
-make_head(_module, 'IMediaFrameSourceGroupStatics')
-make_head(_module, 'IMediaFrameSourceInfo')
-make_head(_module, 'IMediaFrameSourceInfo2')
-make_head(_module, 'IMediaFrameSourceInfo3')
-make_head(_module, 'IMediaFrameSourceInfo4')
-make_head(_module, 'IMultiSourceMediaFrameArrivedEventArgs')
-make_head(_module, 'IMultiSourceMediaFrameReader')
-make_head(_module, 'IMultiSourceMediaFrameReader2')
-make_head(_module, 'IMultiSourceMediaFrameReference')
-make_head(_module, 'IVideoMediaFrame')
-make_head(_module, 'IVideoMediaFrameFormat')
-make_head(_module, 'InfraredMediaFrame')
-make_head(_module, 'MediaFrameArrivedEventArgs')
-make_head(_module, 'MediaFrameFormat')
-make_head(_module, 'MediaFrameReader')
-make_head(_module, 'MediaFrameReference')
-make_head(_module, 'MediaFrameSource')
-make_head(_module, 'MediaFrameSourceController')
-make_head(_module, 'MediaFrameSourceGetPropertyResult')
-make_head(_module, 'MediaFrameSourceGroup')
-make_head(_module, 'MediaFrameSourceInfo')
-make_head(_module, 'MultiSourceMediaFrameArrivedEventArgs')
-make_head(_module, 'MultiSourceMediaFrameReader')
-make_head(_module, 'MultiSourceMediaFrameReference')
-make_head(_module, 'VideoMediaFrame')
-make_head(_module, 'VideoMediaFrameFormat')
+make_ready(__name__)

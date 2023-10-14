@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
@@ -8,15 +8,6 @@ import win32more.Windows.Win32.NetworkManagement.WiFi
 import win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.RemoteDesktop
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 L2_REASON_CODE_DOT11_AC_BASE: UInt32 = 131072
 L2_REASON_CODE_DOT11_MSM_BASE: UInt32 = 196608
 L2_REASON_CODE_DOT11_SECURITY_BASE: UInt32 = 262144
@@ -803,13 +794,13 @@ def WlanOpenHandle(dwClientVersion: UInt32, pReserved: VoidPtr, pdwNegotiatedVer
 @winfunctype('wlanapi.dll')
 def WlanCloseHandle(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanEnumInterfaces(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, ppInterfaceList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_INFO_LIST_head))) -> UInt32: ...
+def WlanEnumInterfaces(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, ppInterfaceList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_INFO_LIST))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanSetAutoConfigParameter(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, OpCode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE, dwDataSize: UInt32, pData: VoidPtr, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanQueryAutoConfigParameter(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, OpCode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE, pReserved: VoidPtr, pdwDataSize: POINTER(UInt32), ppData: POINTER(VoidPtr), pWlanOpcodeValueType: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE)) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanGetInterfaceCapability(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pReserved: VoidPtr, ppCapability: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_CAPABILITY_head))) -> UInt32: ...
+def WlanGetInterfaceCapability(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pReserved: VoidPtr, ppCapability: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_CAPABILITY))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanSetInterface(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), OpCode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE, dwDataSize: UInt32, pData: VoidPtr, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
@@ -817,17 +808,17 @@ def WlanQueryInterface(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE,
 @winfunctype('wlanapi.dll')
 def WlanIhvControl(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), Type: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_IHV_CONTROL_TYPE, dwInBufferSize: UInt32, pInBuffer: VoidPtr, dwOutBufferSize: UInt32, pOutBuffer: VoidPtr, pdwBytesReturned: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanScan(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID_head), pIeData: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_RAW_DATA_head), pReserved: VoidPtr) -> UInt32: ...
+def WlanScan(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID), pIeData: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_RAW_DATA), pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanGetAvailableNetworkList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), dwFlags: UInt32, pReserved: VoidPtr, ppAvailableNetworkList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_head))) -> UInt32: ...
+def WlanGetAvailableNetworkList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), dwFlags: UInt32, pReserved: VoidPtr, ppAvailableNetworkList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanGetAvailableNetworkList2(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), dwFlags: UInt32, pReserved: VoidPtr, ppAvailableNetworkList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_V2_head))) -> UInt32: ...
+def WlanGetAvailableNetworkList2(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), dwFlags: UInt32, pReserved: VoidPtr, ppAvailableNetworkList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_LIST_V2))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanGetNetworkBssList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID_head), dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE, bSecurityEnabled: win32more.Windows.Win32.Foundation.BOOL, pReserved: VoidPtr, ppWlanBssList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_BSS_LIST_head))) -> UInt32: ...
+def WlanGetNetworkBssList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID), dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE, bSecurityEnabled: win32more.Windows.Win32.Foundation.BOOL, pReserved: VoidPtr, ppWlanBssList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_BSS_LIST))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanConnect(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pConnectionParameters: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_head), pReserved: VoidPtr) -> UInt32: ...
+def WlanConnect(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pConnectionParameters: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS), pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanConnect2(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pConnectionParameters: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_V2_head), pReserved: VoidPtr) -> UInt32: ...
+def WlanConnect2(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pConnectionParameters: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_PARAMETERS_V2), pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanDisconnect(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
@@ -845,7 +836,7 @@ def WlanDeleteProfile(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, 
 @winfunctype('wlanapi.dll')
 def WlanRenameProfile(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), strOldProfileName: win32more.Windows.Win32.Foundation.PWSTR, strNewProfileName: win32more.Windows.Win32.Foundation.PWSTR, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanGetProfileList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pReserved: VoidPtr, ppProfileList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_PROFILE_INFO_LIST_head))) -> UInt32: ...
+def WlanGetProfileList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pReserved: VoidPtr, ppProfileList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_PROFILE_INFO_LIST))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanSetProfileList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), dwItems: UInt32, strProfileNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
@@ -855,21 +846,21 @@ def WlanSetProfileCustomUserData(hClientHandle: win32more.Windows.Win32.Foundati
 @winfunctype('wlanapi.dll')
 def WlanGetProfileCustomUserData(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), strProfileName: win32more.Windows.Win32.Foundation.PWSTR, pReserved: VoidPtr, pdwDataSize: POINTER(UInt32), ppData: POINTER(POINTER(Byte))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanSetFilterList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, wlanFilterListType: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE, pNetworkList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_NETWORK_LIST_head), pReserved: VoidPtr) -> UInt32: ...
+def WlanSetFilterList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, wlanFilterListType: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE, pNetworkList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_NETWORK_LIST), pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanGetFilterList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, wlanFilterListType: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE, pReserved: VoidPtr, ppNetworkList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_NETWORK_LIST_head))) -> UInt32: ...
+def WlanGetFilterList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, wlanFilterListType: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE, pReserved: VoidPtr, ppNetworkList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_NETWORK_LIST))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanSetPsdIEDataList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, strFormat: win32more.Windows.Win32.Foundation.PWSTR, pPsdIEDataList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST_head), pReserved: VoidPtr) -> UInt32: ...
+def WlanSetPsdIEDataList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, strFormat: win32more.Windows.Win32.Foundation.PWSTR, pPsdIEDataList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST), pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanSaveTemporaryProfile(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), strProfileName: win32more.Windows.Win32.Foundation.PWSTR, strAllUserProfileSecurity: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, bOverWrite: win32more.Windows.Win32.Foundation.BOOL, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanDeviceServiceCommand(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), pDeviceServiceGuid: POINTER(Guid), dwOpCode: UInt32, dwInBufferSize: UInt32, pInBuffer: VoidPtr, dwOutBufferSize: UInt32, pOutBuffer: VoidPtr, pdwBytesReturned: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanGetSupportedDeviceServices(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), ppDevSvcGuidList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST_head))) -> UInt32: ...
+def WlanGetSupportedDeviceServices(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pInterfaceGuid: POINTER(Guid), ppDevSvcGuidList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanRegisterDeviceServiceNotification(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pDevSvcGuidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST_head)) -> UInt32: ...
+def WlanRegisterDeviceServiceNotification(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pDevSvcGuidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_DEVICE_SERVICE_GUID_LIST)) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanExtractPsdIEDataList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, dwIeDataSize: UInt32, pRawIeData: POINTER(Byte), strFormat: win32more.Windows.Win32.Foundation.PWSTR, pReserved: VoidPtr, ppPsdIEDataList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST_head))) -> UInt32: ...
+def WlanExtractPsdIEDataList(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, dwIeDataSize: UInt32, pRawIeData: POINTER(Byte), strFormat: win32more.Windows.Win32.Foundation.PWSTR, pReserved: VoidPtr, ppPsdIEDataList: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_RAW_DATA_LIST))) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanReasonCodeToString(dwReasonCode: UInt32, dwBufferSize: UInt32, pStringBuffer: win32more.Windows.Win32.Foundation.PWSTR, pReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
@@ -899,7 +890,7 @@ def WlanHostedNetworkInitSettings(hClientHandle: win32more.Windows.Win32.Foundat
 @winfunctype('wlanapi.dll')
 def WlanHostedNetworkRefreshSecuritySettings(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, pFailReason: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON), pvReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
-def WlanHostedNetworkQueryStatus(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, ppWlanHostedNetworkStatus: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATUS_head)), pvReserved: VoidPtr) -> UInt32: ...
+def WlanHostedNetworkQueryStatus(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, ppWlanHostedNetworkStatus: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATUS)), pvReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
 def WlanHostedNetworkSetSecondaryKey(hClientHandle: win32more.Windows.Win32.Foundation.HANDLE, dwKeyLength: UInt32, pucKeyData: POINTER(Byte), bIsPassPhrase: win32more.Windows.Win32.Foundation.BOOL, bPersistent: win32more.Windows.Win32.Foundation.BOOL, pFailReason: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON), pvReserved: VoidPtr) -> UInt32: ...
 @winfunctype('wlanapi.dll')
@@ -1032,35 +1023,35 @@ def DOT11EXTIHV_ADAPTER_RESET(hIhvExtAdapter: win32more.Windows.Win32.Foundation
 @winfunctype_pointer
 def DOT11EXTIHV_CONTROL(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, dwInBufferSize: UInt32, pInBuffer: POINTER(Byte), dwOutBufferSize: UInt32, pOutBuffer: POINTER(Byte), pdwBytesReturned: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_CREATE_DISCOVERY_PROFILES(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, bInsecure: win32more.Windows.Win32.Foundation.BOOL, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pConnectableBssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pIhvDiscoveryProfileList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
+def DOT11EXTIHV_CREATE_DISCOVERY_PROFILES(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, bInsecure: win32more.Windows.Win32.Foundation.BOOL, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS), pConnectableBssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_LIST), pIhvDiscoveryProfileList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_LIST), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXTIHV_DEINIT_ADAPTER(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype_pointer
 def DOT11EXTIHV_DEINIT_SERVICE() -> Void: ...
 @winfunctype_pointer
-def DOT11EXTIHV_GET_VERSION_INFO(pDot11IHVVersionInfo: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_IHV_VERSION_INFO_head)) -> UInt32: ...
+def DOT11EXTIHV_GET_VERSION_INFO(pDot11IHVVersionInfo: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_IHV_VERSION_INFO)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_INIT_ADAPTER(pDot11Adapter: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADAPTER_head), hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, phIhvExtAdapter: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+def DOT11EXTIHV_INIT_ADAPTER(pDot11Adapter: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADAPTER), hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, phIhvExtAdapter: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_INIT_SERVICE(dwVerNumUsed: UInt32, pDot11ExtAPI: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_APIS_head), pvReserved: VoidPtr, pDot11IHVHandlers: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_HANDLERS_head)) -> UInt32: ...
+def DOT11EXTIHV_INIT_SERVICE(dwVerNumUsed: UInt32, pDot11ExtAPI: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_APIS), pvReserved: VoidPtr, pDot11IHVHandlers: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_HANDLERS)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_INIT_VIRTUAL_STATION(pDot11ExtVSAPI: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_APIS_head), pvReserved: VoidPtr) -> UInt32: ...
+def DOT11EXTIHV_INIT_VIRTUAL_STATION(pDot11ExtVSAPI: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_APIS), pvReserved: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXTIHV_IS_UI_REQUEST_PENDING(guidUIRequest: Guid, pbIsRequestPending: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_ONEX_INDICATE_RESULT(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, msOneXResult: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT, pDot11MsOneXResultParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT_PARAMS_head)) -> UInt32: ...
+def DOT11EXTIHV_ONEX_INDICATE_RESULT(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, msOneXResult: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT, pDot11MsOneXResultParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT_PARAMS)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_PERFORM_CAPABILITY_MATCH(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pConnectableBssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
+def DOT11EXTIHV_PERFORM_CAPABILITY_MATCH(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS), pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE), pConnectableBssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_LIST), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_PERFORM_POST_ASSOCIATE(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, hSecuritySessionID: win32more.Windows.Win32.Foundation.HANDLE, pPortState: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PORT_STATE_head), uDot11AssocParamsBytes: UInt32, pDot11AssocParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_COMPLETION_PARAMETERS_head)) -> UInt32: ...
+def DOT11EXTIHV_PERFORM_POST_ASSOCIATE(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, hSecuritySessionID: win32more.Windows.Win32.Foundation.HANDLE, pPortState: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PORT_STATE), uDot11AssocParamsBytes: UInt32, pDot11AssocParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_COMPLETION_PARAMETERS)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_PERFORM_PRE_ASSOCIATE(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, hConnectSession: win32more.Windows.Win32.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pConnectableBssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
+def DOT11EXTIHV_PERFORM_PRE_ASSOCIATE(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, hConnectSession: win32more.Windows.Win32.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS), pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE), pConnectableBssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_LIST), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_PROCESS_SESSION_CHANGE(uEventType: UInt32, pSessionNotification: POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTSSESSION_NOTIFICATION_head)) -> UInt32: ...
+def DOT11EXTIHV_PROCESS_SESSION_CHANGE(uEventType: UInt32, pSessionNotification: POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTSSESSION_NOTIFICATION)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXTIHV_PROCESS_UI_RESPONSE(guidUIRequest: Guid, dwByteCount: UInt32, pvResponseBuffer: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_QUERY_UI_REQUEST(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, connectionPhase: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE, ppIhvUIRequest: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head))) -> UInt32: ...
+def DOT11EXTIHV_QUERY_UI_REQUEST(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, connectionPhase: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE, ppIhvUIRequest: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST))) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXTIHV_RECEIVE_INDICATION(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, indicationType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE, uBufferLength: UInt32, pvBuffer: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
@@ -1070,7 +1061,7 @@ def DOT11EXTIHV_SEND_PACKET_COMPLETION(hSendCompletion: win32more.Windows.Win32.
 @winfunctype_pointer
 def DOT11EXTIHV_STOP_POST_ASSOCIATE(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, pPeer: POINTER(POINTER(Byte)), dot11AssocStatus: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXTIHV_VALIDATE_PROFILE(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
+def DOT11EXTIHV_VALIDATE_PROFILE(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS), pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_ALLOCATE_BUFFER(dwByteCount: UInt32, ppvBuffer: POINTER(VoidPtr)) -> UInt32: ...
 class DOT11EXT_APIS(EasyCastStructure):
@@ -1111,7 +1102,7 @@ class DOT11EXT_IHV_DISCOVERY_PROFILE(EasyCastStructure):
     IhvSecurityProfile: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE
 class DOT11EXT_IHV_DISCOVERY_PROFILE_LIST(EasyCastStructure):
     dwCount: UInt32
-    pIhvDiscoveryProfiles: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_head)
+    pIhvDiscoveryProfiles: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE)
 class DOT11EXT_IHV_HANDLERS(EasyCastStructure):
     Dot11ExtIhvDeinitService: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_SERVICE
     Dot11ExtIhvInitAdapter: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_INIT_ADAPTER
@@ -1144,9 +1135,9 @@ class DOT11EXT_IHV_PARAMS(EasyCastStructure):
     dwProfileTypeFlags: UInt32
     interfaceGuid: Guid
 class DOT11EXT_IHV_PROFILE_PARAMS(EasyCastStructure):
-    pSsidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SSID_LIST_head)
+    pSsidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SSID_LIST)
     BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
-    pMSSecuritySettings: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSSECURITY_SETTINGS_head)
+    pMSSecuritySettings: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSSECURITY_SETTINGS)
 class DOT11EXT_IHV_SECURITY_PROFILE(EasyCastStructure):
     pszXmlFragmentIhvSecurity: win32more.Windows.Win32.Foundation.PWSTR
     bUseMSOnex: win32more.Windows.Win32.Foundation.BOOL
@@ -1162,7 +1153,7 @@ class DOT11EXT_IHV_UI_REQUEST(EasyCastStructure):
 @winfunctype_pointer
 def DOT11EXT_NIC_SPECIFIC_EXTENSION(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, dwInBufferSize: UInt32, pvInBuffer: VoidPtr, pdwOutBufferSize: POINTER(UInt32), pvOutBuffer: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXT_ONEX_START(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pEapAttributes: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head)) -> UInt32: ...
+def DOT11EXT_ONEX_START(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pEapAttributes: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_ONEX_STOP(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype_pointer
@@ -1178,25 +1169,25 @@ def DOT11EXT_RELEASE_VIRTUAL_STATION(hDot11PrimaryHandle: win32more.Windows.Win3
 @winfunctype_pointer
 def DOT11EXT_REQUEST_VIRTUAL_STATION(hDot11PrimaryHandle: win32more.Windows.Win32.Foundation.HANDLE, pvReserved: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXT_SEND_NOTIFICATION(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pNotificationData: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.L2_NOTIFICATION_DATA_head)) -> UInt32: ...
+def DOT11EXT_SEND_NOTIFICATION(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pNotificationData: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.L2_NOTIFICATION_DATA)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_SEND_PACKET(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, uPacketLen: UInt32, pvPacket: VoidPtr, hSendCompletion: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXT_SEND_UI_REQUEST(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pIhvUIRequest: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head)) -> UInt32: ...
+def DOT11EXT_SEND_UI_REQUEST(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pIhvUIRequest: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_SET_AUTH_ALGORITHM(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, dwAuthAlgo: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXT_SET_CURRENT_PROFILE(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, hConnectSession: win32more.Windows.Win32.Foundation.HANDLE, pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head)) -> UInt32: ...
+def DOT11EXT_SET_CURRENT_PROFILE(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, hConnectSession: win32more.Windows.Win32.Foundation.HANDLE, pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE)) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXT_SET_DEFAULT_KEY(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pKey: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_DEFAULT_KEY_VALUE_head), dot11Direction: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION) -> UInt32: ...
+def DOT11EXT_SET_DEFAULT_KEY(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pKey: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_DEFAULT_KEY_VALUE), dot11Direction: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_SET_DEFAULT_KEY_ID(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, uDefaultKeyId: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXT_SET_ETHERTYPE_HANDLING(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, uMaxBackLog: UInt32, uNumOfExemption: UInt32, pExemption: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION_head), uNumOfRegistration: UInt32, pusRegistration: POINTER(UInt16)) -> UInt32: ...
+def DOT11EXT_SET_ETHERTYPE_HANDLING(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, uMaxBackLog: UInt32, uNumOfExemption: UInt32, pExemption: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION), uNumOfRegistration: UInt32, pusRegistration: POINTER(UInt16)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_SET_EXCLUDE_UNENCRYPTED(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, bExcludeUnencrypted: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXT_SET_KEY_MAPPING_KEY(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pKey: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_head)) -> UInt32: ...
+def DOT11EXT_SET_KEY_MAPPING_KEY(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, pKey: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_KEY_MAPPING_KEY_VALUE)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, dwMulticastCipherAlgo: UInt32) -> UInt32: ...
 @winfunctype_pointer
@@ -1204,7 +1195,7 @@ def DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA(hDot11SvcHandle: win32more.Windows.Win
 @winfunctype_pointer
 def DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, dwUnicastCipherAlgo: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, hConnectSession: win32more.Windows.Win32.Foundation.HANDLE, dwNumProperties: UInt32, pProperties: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_AP_PROPERTY_head), pvReserved: VoidPtr) -> UInt32: ...
+def DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, hConnectSession: win32more.Windows.Win32.Foundation.HANDLE, dwNumProperties: UInt32, pProperties: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_AP_PROPERTY), pvReserved: VoidPtr) -> UInt32: ...
 class DOT11EXT_VIRTUAL_STATION_APIS(EasyCastStructure):
     Dot11ExtRequestVirtualStation: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_REQUEST_VIRTUAL_STATION
     Dot11ExtReleaseVirtualStation: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_RELEASE_VIRTUAL_STATION
@@ -1578,7 +1569,7 @@ DOT11_DS_UNCHANGED: DOT11_DS_INFO = 1
 DOT11_DS_UNKNOWN: DOT11_DS_INFO = 2
 class DOT11_EAP_RESULT(EasyCastStructure):
     dwFailureReasonCode: UInt32
-    pAttribArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head)
+    pAttribArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES)
 class DOT11_ENCAP_ENTRY(EasyCastStructure):
     usEtherType: UInt16
     usEncapType: UInt16
@@ -1599,9 +1590,9 @@ class DOT11_EXTAP_ATTRIBUTES(EasyCastStructure):
     uNumSupportedCountryOrRegionStrings: UInt32
     pSupportedCountryOrRegionStrings: POINTER(Byte)
     uInfraNumSupportedUcastAlgoPairs: UInt32
-    pInfraSupportedUcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)
+    pInfraSupportedUcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
     uInfraNumSupportedMcastAlgoPairs: UInt32
-    pInfraSupportedMcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)
+    pInfraSupportedMcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
 class DOT11_EXTSTA_ATTRIBUTES(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uScanSSIDListSize: UInt32
@@ -1620,18 +1611,18 @@ class DOT11_EXTSTA_ATTRIBUTES(EasyCastStructure):
     uNumSupportedCountryOrRegionStrings: UInt32
     pSupportedCountryOrRegionStrings: POINTER(Byte)
     uInfraNumSupportedUcastAlgoPairs: UInt32
-    pInfraSupportedUcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)
+    pInfraSupportedUcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
     uInfraNumSupportedMcastAlgoPairs: UInt32
-    pInfraSupportedMcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)
+    pInfraSupportedMcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
     uAdhocNumSupportedUcastAlgoPairs: UInt32
-    pAdhocSupportedUcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)
+    pAdhocSupportedUcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
     uAdhocNumSupportedMcastAlgoPairs: UInt32
-    pAdhocSupportedMcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)
+    pAdhocSupportedMcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
     bAutoPowerSaveMode: win32more.Windows.Win32.Foundation.BOOLEAN
     uMaxNetworkOffloadListSize: UInt32
     bMFPCapable: win32more.Windows.Win32.Foundation.BOOLEAN
     uInfraNumSupportedMcastMgmtAlgoPairs: UInt32
-    pInfraSupportedMcastMgmtAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR_head)
+    pInfraSupportedMcastMgmtAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
     bNeighborReportSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     bAPChannelReportSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     bActionFramesSupported: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1939,7 +1930,7 @@ class DOT11_MSONEX_RESULT_PARAMS(EasyCastStructure):
     dwMPPESendKeyLen: UInt32
     pbMPPERecvKey: POINTER(Byte)
     dwMPPERecvKeyLen: UInt32
-    pDot11EapResult: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_EAP_RESULT_head)
+    pDot11EapResult: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_EAP_RESULT)
 class DOT11_MSSECURITY_SETTINGS(EasyCastStructure):
     dot11AuthAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     dot11CipherAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
@@ -2813,11 +2804,11 @@ class IDot11AdHocInterface(ComPtr):
     @commethod(7)
     def IsRadioOn(self, pfIsRadioOn: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetActiveNetwork(self, ppNetwork: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetActiveNetwork(self, ppNetwork: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetIEnumSecuritySettings(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIEnumSecuritySettings(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetIEnumDot11AdHocNetworks(self, pFilterGuid: POINTER(Guid), ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIEnumDot11AdHocNetworks(self, pFilterGuid: POINTER(Guid), ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetStatus(self, pState: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocInterfaceNotificationSink(ComPtr):
@@ -2829,24 +2820,24 @@ class IDot11AdHocManager(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8f10cc26-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
-    def CreateNetwork(self, Name: win32more.Windows.Win32.Foundation.PWSTR, Password: win32more.Windows.Win32.Foundation.PWSTR, GeographicalId: Int32, pInterface: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head, pSecurity: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head, pContextGuid: POINTER(Guid), pIAdHoc: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateNetwork(self, Name: win32more.Windows.Win32.Foundation.PWSTR, Password: win32more.Windows.Win32.Foundation.PWSTR, GeographicalId: Int32, pInterface: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface, pSecurity: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings, pContextGuid: POINTER(Guid), pIAdHoc: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CommitCreatedNetwork(self, pIAdHoc: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head, fSaveProfile: win32more.Windows.Win32.Foundation.BOOLEAN, fMakeSavedProfileUserSpecific: win32more.Windows.Win32.Foundation.BOOLEAN) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CommitCreatedNetwork(self, pIAdHoc: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork, fSaveProfile: win32more.Windows.Win32.Foundation.BOOLEAN, fMakeSavedProfileUserSpecific: win32more.Windows.Win32.Foundation.BOOLEAN) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetIEnumDot11AdHocNetworks(self, pContextGuid: POINTER(Guid), ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIEnumDot11AdHocNetworks(self, pContextGuid: POINTER(Guid), ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetIEnumDot11AdHocInterfaces(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetIEnumDot11AdHocInterfaces(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetNetwork(self, NetworkSignature: POINTER(Guid), pNetwork: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetNetwork(self, NetworkSignature: POINTER(Guid), pNetwork: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocManagerNotificationSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8f10cc27-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
-    def OnNetworkAdd(self, pIAdHocNetwork: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnNetworkAdd(self, pIAdHocNetwork: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnNetworkRemove(self, Signature: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def OnInterfaceAdd(self, pIAdHocInterface: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnInterfaceAdd(self, pIAdHocInterface: win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnInterfaceRemove(self, Signature: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocNetwork(ComPtr):
@@ -2865,13 +2856,13 @@ class IDot11AdHocNetwork(ComPtr):
     @commethod(8)
     def GetSignalQuality(self, puStrengthValue: POINTER(UInt32), puStrengthMax: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetSecuritySetting(self, pAdHocSecuritySetting: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSecuritySetting(self, pAdHocSecuritySetting: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetContextGuid(self, pContextGuid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetSignature(self, pSignature: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def GetInterface(self, pAdHocInterface: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInterface(self, pAdHocInterface: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Connect(self, Passphrase: win32more.Windows.Win32.Foundation.PWSTR, GeographicalId: Int32, fSaveProfile: win32more.Windows.Win32.Foundation.BOOLEAN, fMakeSavedProfileUserSpecific: win32more.Windows.Win32.Foundation.BOOLEAN) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -2894,35 +2885,35 @@ class IEnumDot11AdHocInterfaces(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8f10cc2c-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
-    def Next(self, cElt: UInt32, rgElt: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head), pcEltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, cElt: UInt32, rgElt: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface), pcEltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, cElt: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IEnumDot11AdHocNetworks(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8f10cc28-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
-    def Next(self, cElt: UInt32, rgElt: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head), pcEltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, cElt: UInt32, rgElt: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork), pcEltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, cElt: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IEnumDot11AdHocSecuritySettings(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8f10cc2d-cf0d-42a0-acbe-e2de7007384d}')
     @commethod(3)
-    def Next(self, cElt: UInt32, rgElt: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head), pcEltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, cElt: UInt32, rgElt: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings), pcEltFetched: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Skip(self, cElt: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class L2_NOTIFICATION_DATA(EasyCastStructure):
     NotificationSource: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES
     NotificationCode: UInt32
@@ -3164,19 +3155,19 @@ WLAN_CONNECTION_NOTIFICATION_CONSOLE_USER_PROFILE: WLAN_CONNECTION_NOTIFICATION_
 class WLAN_CONNECTION_PARAMETERS(EasyCastStructure):
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfile: win32more.Windows.Win32.Foundation.PWSTR
-    pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID_head)
-    pDesiredBssidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSSID_LIST_head)
+    pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID)
+    pDesiredBssidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSSID_LIST)
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dwFlags: UInt32
 class WLAN_CONNECTION_PARAMETERS_V2(EasyCastStructure):
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfile: win32more.Windows.Win32.Foundation.PWSTR
-    pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID_head)
+    pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID)
     pDot11Hessid: POINTER(Byte)
-    pDesiredBssidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSSID_LIST_head)
+    pDesiredBssidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSSID_LIST)
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dwFlags: UInt32
-    pDot11AccessNetworkOptions: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS_head)
+    pDot11AccessNetworkOptions: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS)
 class WLAN_COUNTRY_OR_REGION_STRING_LIST(EasyCastStructure):
     dwNumberOfItems: UInt32
     pCountryOrRegionStringList: Byte * 3
@@ -3382,7 +3373,7 @@ wlan_notification_acm_scan_list_refresh: WLAN_NOTIFICATION_ACM = 26
 wlan_notification_acm_operational_state_change: WLAN_NOTIFICATION_ACM = 27
 wlan_notification_acm_end: WLAN_NOTIFICATION_ACM = 28
 @winfunctype_pointer
-def WLAN_NOTIFICATION_CALLBACK(param0: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.L2_NOTIFICATION_DATA_head), param1: VoidPtr) -> Void: ...
+def WLAN_NOTIFICATION_CALLBACK(param0: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.L2_NOTIFICATION_DATA), param1: VoidPtr) -> Void: ...
 WLAN_NOTIFICATION_MSM = Int32
 wlan_notification_msm_start: WLAN_NOTIFICATION_MSM = 0
 wlan_notification_msm_associating: WLAN_NOTIFICATION_MSM = 1
@@ -3516,395 +3507,4 @@ WL_DISPLAY_PAGES = Int32
 WL_DISPLAY_PAGES_WLConnectionPage: WL_DISPLAY_PAGES = 0
 WL_DISPLAY_PAGES_WLSecurityPage: WL_DISPLAY_PAGES = 1
 WL_DISPLAY_PAGES_WLAdvPage: WL_DISPLAY_PAGES = 2
-make_head(_module, 'DEVPKEY_PciRootBus_SecondaryInterface')
-make_head(_module, 'DEVPKEY_PciRootBus_CurrentSpeedAndMode')
-make_head(_module, 'DEVPKEY_PciRootBus_SupportedSpeedsAndModes')
-make_head(_module, 'DEVPKEY_PciRootBus_DeviceIDMessagingCapable')
-make_head(_module, 'DEVPKEY_PciRootBus_SecondaryBusWidth')
-make_head(_module, 'DEVPKEY_PciRootBus_ExtendedConfigAvailable')
-make_head(_module, 'DEVPKEY_PciRootBus_ExtendedPCIConfigOpRegionSupport')
-make_head(_module, 'DEVPKEY_PciRootBus_ASPMSupport')
-make_head(_module, 'DEVPKEY_PciRootBus_ClockPowerManagementSupport')
-make_head(_module, 'DEVPKEY_PciRootBus_PCISegmentGroupsSupport')
-make_head(_module, 'DEVPKEY_PciRootBus_MSISupport')
-make_head(_module, 'DEVPKEY_PciRootBus_PCIExpressNativeHotPlugControl')
-make_head(_module, 'DEVPKEY_PciRootBus_SHPCNativeHotPlugControl')
-make_head(_module, 'DEVPKEY_PciRootBus_PCIExpressNativePMEControl')
-make_head(_module, 'DEVPKEY_PciRootBus_PCIExpressAERControl')
-make_head(_module, 'DEVPKEY_PciRootBus_PCIExpressCapabilityControl')
-make_head(_module, 'DEVPKEY_PciRootBus_NativePciExpressControl')
-make_head(_module, 'DEVPKEY_PciRootBus_SystemMsiSupport')
-make_head(_module, 'DEVPKEY_WiFiDirect_DeviceAddress')
-make_head(_module, 'DEVPKEY_WiFiDirect_InterfaceAddress')
-make_head(_module, 'DEVPKEY_WiFiDirect_InterfaceGuid')
-make_head(_module, 'DEVPKEY_WiFiDirect_GroupId')
-make_head(_module, 'DEVPKEY_WiFiDirect_IsConnected')
-make_head(_module, 'DEVPKEY_WiFiDirect_IsVisible')
-make_head(_module, 'DEVPKEY_WiFiDirect_IsLegacyDevice')
-make_head(_module, 'DEVPKEY_WiFiDirect_MiracastVersion')
-make_head(_module, 'DEVPKEY_WiFiDirect_IsMiracastLCPSupported')
-make_head(_module, 'DEVPKEY_WiFiDirect_Services')
-make_head(_module, 'DEVPKEY_WiFiDirect_SupportedChannelList')
-make_head(_module, 'DEVPKEY_WiFiDirect_InformationElements')
-make_head(_module, 'DEVPKEY_WiFiDirect_DeviceAddressCopy')
-make_head(_module, 'DEVPKEY_WiFiDirect_IsRecentlyAssociated')
-make_head(_module, 'DEVPKEY_WiFiDirect_Service_Aeps')
-make_head(_module, 'DEVPKEY_WiFiDirect_NoMiracastAutoProject')
-make_head(_module, 'DEVPKEY_InfraCast_Supported')
-make_head(_module, 'DEVPKEY_InfraCast_StreamSecuritySupported')
-make_head(_module, 'DEVPKEY_InfraCast_AccessPointBssid')
-make_head(_module, 'DEVPKEY_InfraCast_SinkHostName')
-make_head(_module, 'DEVPKEY_InfraCast_ChallengeAep')
-make_head(_module, 'DEVPKEY_WiFiDirect_IsDMGCapable')
-make_head(_module, 'DEVPKEY_InfraCast_DevnodeAep')
-make_head(_module, 'DEVPKEY_WiFiDirect_FoundWsbService')
-make_head(_module, 'DEVPKEY_InfraCast_HostName_ResolutionMode')
-make_head(_module, 'DEVPKEY_InfraCast_SinkIpAddress')
-make_head(_module, 'DEVPKEY_WiFiDirect_TransientAssociation')
-make_head(_module, 'DEVPKEY_WiFiDirect_LinkQuality')
-make_head(_module, 'DEVPKEY_InfraCast_PinSupported')
-make_head(_module, 'DEVPKEY_InfraCast_RtspTcpConnectionParametersSupported')
-make_head(_module, 'DEVPKEY_WiFiDirect_Miracast_SessionMgmtControlPort')
-make_head(_module, 'DEVPKEY_WiFiDirect_RtspTcpConnectionParametersSupported')
-make_head(_module, 'DEVPKEY_WiFiDirectServices_ServiceAddress')
-make_head(_module, 'DEVPKEY_WiFiDirectServices_ServiceName')
-make_head(_module, 'DEVPKEY_WiFiDirectServices_ServiceInformation')
-make_head(_module, 'DEVPKEY_WiFiDirectServices_AdvertisementId')
-make_head(_module, 'DEVPKEY_WiFiDirectServices_ServiceConfigMethods')
-make_head(_module, 'DEVPKEY_WiFiDirectServices_RequestServiceInformation')
-make_head(_module, 'DEVPKEY_WiFi_InterfaceGuid')
-make_head(_module, 'DOT11EXTIHV_ADAPTER_RESET')
-make_head(_module, 'DOT11EXTIHV_CONTROL')
-make_head(_module, 'DOT11EXTIHV_CREATE_DISCOVERY_PROFILES')
-make_head(_module, 'DOT11EXTIHV_DEINIT_ADAPTER')
-make_head(_module, 'DOT11EXTIHV_DEINIT_SERVICE')
-make_head(_module, 'DOT11EXTIHV_GET_VERSION_INFO')
-make_head(_module, 'DOT11EXTIHV_INIT_ADAPTER')
-make_head(_module, 'DOT11EXTIHV_INIT_SERVICE')
-make_head(_module, 'DOT11EXTIHV_INIT_VIRTUAL_STATION')
-make_head(_module, 'DOT11EXTIHV_IS_UI_REQUEST_PENDING')
-make_head(_module, 'DOT11EXTIHV_ONEX_INDICATE_RESULT')
-make_head(_module, 'DOT11EXTIHV_PERFORM_CAPABILITY_MATCH')
-make_head(_module, 'DOT11EXTIHV_PERFORM_POST_ASSOCIATE')
-make_head(_module, 'DOT11EXTIHV_PERFORM_PRE_ASSOCIATE')
-make_head(_module, 'DOT11EXTIHV_PROCESS_SESSION_CHANGE')
-make_head(_module, 'DOT11EXTIHV_PROCESS_UI_RESPONSE')
-make_head(_module, 'DOT11EXTIHV_QUERY_UI_REQUEST')
-make_head(_module, 'DOT11EXTIHV_RECEIVE_INDICATION')
-make_head(_module, 'DOT11EXTIHV_RECEIVE_PACKET')
-make_head(_module, 'DOT11EXTIHV_SEND_PACKET_COMPLETION')
-make_head(_module, 'DOT11EXTIHV_STOP_POST_ASSOCIATE')
-make_head(_module, 'DOT11EXTIHV_VALIDATE_PROFILE')
-make_head(_module, 'DOT11EXT_ALLOCATE_BUFFER')
-make_head(_module, 'DOT11EXT_APIS')
-make_head(_module, 'DOT11EXT_FREE_BUFFER')
-make_head(_module, 'DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA')
-make_head(_module, 'DOT11EXT_IHV_CONNECTIVITY_PROFILE')
-make_head(_module, 'DOT11EXT_IHV_DISCOVERY_PROFILE')
-make_head(_module, 'DOT11EXT_IHV_DISCOVERY_PROFILE_LIST')
-make_head(_module, 'DOT11EXT_IHV_HANDLERS')
-make_head(_module, 'DOT11EXT_IHV_PARAMS')
-make_head(_module, 'DOT11EXT_IHV_PROFILE_PARAMS')
-make_head(_module, 'DOT11EXT_IHV_SECURITY_PROFILE')
-make_head(_module, 'DOT11EXT_IHV_SSID_LIST')
-make_head(_module, 'DOT11EXT_IHV_UI_REQUEST')
-make_head(_module, 'DOT11EXT_NIC_SPECIFIC_EXTENSION')
-make_head(_module, 'DOT11EXT_ONEX_START')
-make_head(_module, 'DOT11EXT_ONEX_STOP')
-make_head(_module, 'DOT11EXT_POST_ASSOCIATE_COMPLETION')
-make_head(_module, 'DOT11EXT_PRE_ASSOCIATE_COMPLETION')
-make_head(_module, 'DOT11EXT_PROCESS_ONEX_PACKET')
-make_head(_module, 'DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES')
-make_head(_module, 'DOT11EXT_RELEASE_VIRTUAL_STATION')
-make_head(_module, 'DOT11EXT_REQUEST_VIRTUAL_STATION')
-make_head(_module, 'DOT11EXT_SEND_NOTIFICATION')
-make_head(_module, 'DOT11EXT_SEND_PACKET')
-make_head(_module, 'DOT11EXT_SEND_UI_REQUEST')
-make_head(_module, 'DOT11EXT_SET_AUTH_ALGORITHM')
-make_head(_module, 'DOT11EXT_SET_CURRENT_PROFILE')
-make_head(_module, 'DOT11EXT_SET_DEFAULT_KEY')
-make_head(_module, 'DOT11EXT_SET_DEFAULT_KEY_ID')
-make_head(_module, 'DOT11EXT_SET_ETHERTYPE_HANDLING')
-make_head(_module, 'DOT11EXT_SET_EXCLUDE_UNENCRYPTED')
-make_head(_module, 'DOT11EXT_SET_KEY_MAPPING_KEY')
-make_head(_module, 'DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM')
-make_head(_module, 'DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA')
-make_head(_module, 'DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM')
-make_head(_module, 'DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES')
-make_head(_module, 'DOT11EXT_VIRTUAL_STATION_APIS')
-make_head(_module, 'DOT11EXT_VIRTUAL_STATION_AP_PROPERTY')
-make_head(_module, 'DOT11_ACCESSNETWORKOPTIONS')
-make_head(_module, 'DOT11_ADAPTER')
-make_head(_module, 'DOT11_ADDITIONAL_IE')
-make_head(_module, 'DOT11_ANQP_QUERY_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_AP_JOIN_REQUEST')
-make_head(_module, 'DOT11_ASSOCIATION_COMPLETION_PARAMETERS')
-make_head(_module, 'DOT11_ASSOCIATION_INFO_EX')
-make_head(_module, 'DOT11_ASSOCIATION_INFO_LIST')
-make_head(_module, 'DOT11_ASSOCIATION_PARAMS')
-make_head(_module, 'DOT11_ASSOCIATION_START_PARAMETERS')
-make_head(_module, 'DOT11_AUTH_ALGORITHM_LIST')
-make_head(_module, 'DOT11_AUTH_CIPHER_PAIR')
-make_head(_module, 'DOT11_AUTH_CIPHER_PAIR_LIST')
-make_head(_module, 'DOT11_AVAILABLE_CHANNEL_LIST')
-make_head(_module, 'DOT11_AVAILABLE_FREQUENCY_LIST')
-make_head(_module, 'DOT11_BSSID_CANDIDATE')
-make_head(_module, 'DOT11_BSSID_LIST')
-make_head(_module, 'DOT11_BSS_DESCRIPTION')
-make_head(_module, 'DOT11_BSS_ENTRY')
-make_head(_module, 'DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO')
-make_head(_module, 'DOT11_BSS_LIST')
-make_head(_module, 'DOT11_BYTE_ARRAY')
-make_head(_module, 'DOT11_CAN_SUSTAIN_AP_PARAMETERS')
-make_head(_module, 'DOT11_CHANNEL_HINT')
-make_head(_module, 'DOT11_CIPHER_ALGORITHM_LIST')
-make_head(_module, 'DOT11_CIPHER_DEFAULT_KEY_VALUE')
-make_head(_module, 'DOT11_CIPHER_KEY_MAPPING_KEY_VALUE')
-make_head(_module, 'DOT11_CONNECTION_COMPLETION_PARAMETERS')
-make_head(_module, 'DOT11_CONNECTION_START_PARAMETERS')
-make_head(_module, 'DOT11_COUNTERS_ENTRY')
-make_head(_module, 'DOT11_COUNTRY_OR_REGION_STRING_LIST')
-make_head(_module, 'DOT11_CURRENT_OFFLOAD_CAPABILITY')
-make_head(_module, 'DOT11_CURRENT_OPERATION_MODE')
-make_head(_module, 'DOT11_CURRENT_OPTIONAL_CAPABILITY')
-make_head(_module, 'DOT11_DATA_RATE_MAPPING_ENTRY')
-make_head(_module, 'DOT11_DATA_RATE_MAPPING_TABLE')
-make_head(_module, 'DOT11_DEFAULT_WEP_OFFLOAD')
-make_head(_module, 'DOT11_DEFAULT_WEP_UPLOAD')
-make_head(_module, 'DOT11_DISASSOCIATE_PEER_REQUEST')
-make_head(_module, 'DOT11_DISASSOCIATION_PARAMETERS')
-make_head(_module, 'DOT11_DIVERSITY_SELECTION_RX')
-make_head(_module, 'DOT11_DIVERSITY_SELECTION_RX_LIST')
-make_head(_module, 'DOT11_EAP_RESULT')
-make_head(_module, 'DOT11_ENCAP_ENTRY')
-make_head(_module, 'DOT11_ERP_PHY_ATTRIBUTES')
-make_head(_module, 'DOT11_EXTAP_ATTRIBUTES')
-make_head(_module, 'DOT11_EXTSTA_ATTRIBUTES')
-make_head(_module, 'DOT11_EXTSTA_CAPABILITY')
-make_head(_module, 'DOT11_EXTSTA_RECV_CONTEXT')
-make_head(_module, 'DOT11_EXTSTA_SEND_CONTEXT')
-make_head(_module, 'DOT11_FRAGMENT_DESCRIPTOR')
-make_head(_module, 'DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_HOPPING_PATTERN_ENTRY')
-make_head(_module, 'DOT11_HOPPING_PATTERN_ENTRY_LIST')
-make_head(_module, 'DOT11_HRDSSS_PHY_ATTRIBUTES')
-make_head(_module, 'DOT11_IBSS_PARAMS')
-make_head(_module, 'DOT11_IHV_VERSION_INFO')
-make_head(_module, 'DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS')
-make_head(_module, 'DOT11_INCOMING_ASSOC_DECISION')
-make_head(_module, 'DOT11_INCOMING_ASSOC_DECISION_V2')
-make_head(_module, 'DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS')
-make_head(_module, 'DOT11_INCOMING_ASSOC_STARTED_PARAMETERS')
-make_head(_module, 'DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_IV48_COUNTER')
-make_head(_module, 'DOT11_JOIN_REQUEST')
-make_head(_module, 'DOT11_KEY_ALGO_BIP')
-make_head(_module, 'DOT11_KEY_ALGO_BIP_GMAC_256')
-make_head(_module, 'DOT11_KEY_ALGO_CCMP')
-make_head(_module, 'DOT11_KEY_ALGO_GCMP')
-make_head(_module, 'DOT11_KEY_ALGO_GCMP_256')
-make_head(_module, 'DOT11_KEY_ALGO_TKIP_MIC')
-make_head(_module, 'DOT11_LINK_QUALITY_ENTRY')
-make_head(_module, 'DOT11_LINK_QUALITY_PARAMETERS')
-make_head(_module, 'DOT11_MAC_ADDRESS_LIST')
-make_head(_module, 'DOT11_MAC_FRAME_STATISTICS')
-make_head(_module, 'DOT11_MAC_INFO')
-make_head(_module, 'DOT11_MAC_PARAMETERS')
-make_head(_module, 'DOT11_MANUFACTURING_CALLBACK_PARAMETERS')
-make_head(_module, 'DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC')
-make_head(_module, 'DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX')
-make_head(_module, 'DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX')
-make_head(_module, 'DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS')
-make_head(_module, 'DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS')
-make_head(_module, 'DOT11_MANUFACTURING_TEST')
-make_head(_module, 'DOT11_MANUFACTURING_TEST_QUERY_DATA')
-make_head(_module, 'DOT11_MANUFACTURING_TEST_SET_DATA')
-make_head(_module, 'DOT11_MANUFACTURING_TEST_SLEEP')
-make_head(_module, 'DOT11_MD_CAPABILITY_ENTRY_LIST')
-make_head(_module, 'DOT11_MPDU_MAX_LENGTH_INDICATION')
-make_head(_module, 'DOT11_MSONEX_RESULT_PARAMS')
-make_head(_module, 'DOT11_MSSECURITY_SETTINGS')
-make_head(_module, 'DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY')
-make_head(_module, 'DOT11_NETWORK')
-make_head(_module, 'DOT11_NETWORK_LIST')
-make_head(_module, 'DOT11_NIC_SPECIFIC_EXTENSION')
-make_head(_module, 'DOT11_OFDM_PHY_ATTRIBUTES')
-make_head(_module, 'DOT11_OFFLOAD_CAPABILITY')
-make_head(_module, 'DOT11_OFFLOAD_NETWORK')
-make_head(_module, 'DOT11_OFFLOAD_NETWORK_LIST_INFO')
-make_head(_module, 'DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS')
-make_head(_module, 'DOT11_OI')
-make_head(_module, 'DOT11_OPERATION_MODE_CAPABILITY')
-make_head(_module, 'DOT11_OPTIONAL_CAPABILITY')
-make_head(_module, 'DOT11_PEER_INFO')
-make_head(_module, 'DOT11_PEER_INFO_LIST')
-make_head(_module, 'DOT11_PEER_STATISTICS')
-make_head(_module, 'DOT11_PER_MSDU_COUNTERS')
-make_head(_module, 'DOT11_PHY_ATTRIBUTES')
-make_head(_module, 'DOT11_PHY_FRAME_STATISTICS')
-make_head(_module, 'DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS')
-make_head(_module, 'DOT11_PHY_ID_LIST')
-make_head(_module, 'DOT11_PHY_STATE_PARAMETERS')
-make_head(_module, 'DOT11_PHY_TYPE_INFO')
-make_head(_module, 'DOT11_PHY_TYPE_LIST')
-make_head(_module, 'DOT11_PMKID_CANDIDATE_LIST_PARAMETERS')
-make_head(_module, 'DOT11_PMKID_ENTRY')
-make_head(_module, 'DOT11_PMKID_LIST')
-make_head(_module, 'DOT11_PORT_STATE')
-make_head(_module, 'DOT11_PORT_STATE_NOTIFICATION')
-make_head(_module, 'DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO')
-make_head(_module, 'DOT11_POWER_MGMT_MODE')
-make_head(_module, 'DOT11_POWER_MGMT_MODE_STATUS_INFO')
-make_head(_module, 'DOT11_PRIVACY_EXEMPTION')
-make_head(_module, 'DOT11_PRIVACY_EXEMPTION_LIST')
-make_head(_module, 'DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_QOS_PARAMS')
-make_head(_module, 'DOT11_QOS_TX_DURATION')
-make_head(_module, 'DOT11_QOS_TX_MEDIUM_TIME')
-make_head(_module, 'DOT11_RATE_SET')
-make_head(_module, 'DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS')
-make_head(_module, 'DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS')
-make_head(_module, 'DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS')
-make_head(_module, 'DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS')
-make_head(_module, 'DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS')
-make_head(_module, 'DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS')
-make_head(_module, 'DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS')
-make_head(_module, 'DOT11_RECV_EXTENSION_INFO')
-make_head(_module, 'DOT11_RECV_EXTENSION_INFO_V2')
-make_head(_module, 'DOT11_RECV_SENSITIVITY')
-make_head(_module, 'DOT11_RECV_SENSITIVITY_LIST')
-make_head(_module, 'DOT11_REG_DOMAINS_SUPPORT_VALUE')
-make_head(_module, 'DOT11_REG_DOMAIN_VALUE')
-make_head(_module, 'DOT11_RESET_REQUEST')
-make_head(_module, 'DOT11_ROAMING_COMPLETION_PARAMETERS')
-make_head(_module, 'DOT11_ROAMING_START_PARAMETERS')
-make_head(_module, 'DOT11_RSSI_RANGE')
-make_head(_module, 'DOT11_SCAN_REQUEST')
-make_head(_module, 'DOT11_SCAN_REQUEST_V2')
-make_head(_module, 'DOT11_SECURITY_PACKET_HEADER')
-make_head(_module, 'DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS')
-make_head(_module, 'DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS')
-make_head(_module, 'DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS')
-make_head(_module, 'DOT11_SEND_INVITATION_REQUEST_PARAMETERS')
-make_head(_module, 'DOT11_SEND_INVITATION_RESPONSE_PARAMETERS')
-make_head(_module, 'DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS')
-make_head(_module, 'DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS')
-make_head(_module, 'DOT11_SSID')
-make_head(_module, 'DOT11_SSID_LIST')
-make_head(_module, 'DOT11_START_REQUEST')
-make_head(_module, 'DOT11_STATISTICS')
-make_head(_module, 'DOT11_STATUS_INDICATION')
-make_head(_module, 'DOT11_STOP_AP_PARAMETERS')
-make_head(_module, 'DOT11_SUPPORTED_ANTENNA')
-make_head(_module, 'DOT11_SUPPORTED_ANTENNA_LIST')
-make_head(_module, 'DOT11_SUPPORTED_DATA_RATES_VALUE')
-make_head(_module, 'DOT11_SUPPORTED_DATA_RATES_VALUE_V2')
-make_head(_module, 'DOT11_SUPPORTED_DSSS_CHANNEL')
-make_head(_module, 'DOT11_SUPPORTED_DSSS_CHANNEL_LIST')
-make_head(_module, 'DOT11_SUPPORTED_OFDM_FREQUENCY')
-make_head(_module, 'DOT11_SUPPORTED_OFDM_FREQUENCY_LIST')
-make_head(_module, 'DOT11_SUPPORTED_PHY_TYPES')
-make_head(_module, 'DOT11_SUPPORTED_POWER_LEVELS')
-make_head(_module, 'DOT11_TKIPMIC_FAILURE_PARAMETERS')
-make_head(_module, 'DOT11_UPDATE_IE')
-make_head(_module, 'DOT11_VENUEINFO')
-make_head(_module, 'DOT11_VWIFI_ATTRIBUTES')
-make_head(_module, 'DOT11_VWIFI_COMBINATION')
-make_head(_module, 'DOT11_VWIFI_COMBINATION_V2')
-make_head(_module, 'DOT11_VWIFI_COMBINATION_V3')
-make_head(_module, 'DOT11_WEP_OFFLOAD')
-make_head(_module, 'DOT11_WEP_UPLOAD')
-make_head(_module, 'DOT11_WFD_ADDITIONAL_IE')
-make_head(_module, 'DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR')
-make_head(_module, 'DOT11_WFD_ADVERTISED_SERVICE_LIST')
-make_head(_module, 'DOT11_WFD_ADVERTISEMENT_ID')
-make_head(_module, 'DOT11_WFD_ATTRIBUTES')
-make_head(_module, 'DOT11_WFD_CHANNEL')
-make_head(_module, 'DOT11_WFD_CONFIGURATION_TIMEOUT')
-make_head(_module, 'DOT11_WFD_DEVICE_CAPABILITY_CONFIG')
-make_head(_module, 'DOT11_WFD_DEVICE_ENTRY')
-make_head(_module, 'DOT11_WFD_DEVICE_INFO')
-make_head(_module, 'DOT11_WFD_DEVICE_LISTEN_CHANNEL')
-make_head(_module, 'DOT11_WFD_DEVICE_TYPE')
-make_head(_module, 'DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS')
-make_head(_module, 'DOT11_WFD_DISCOVER_DEVICE_FILTER')
-make_head(_module, 'DOT11_WFD_DISCOVER_REQUEST')
-make_head(_module, 'DOT11_WFD_GO_INTENT')
-make_head(_module, 'DOT11_WFD_GROUP_ID')
-make_head(_module, 'DOT11_WFD_GROUP_JOIN_PARAMETERS')
-make_head(_module, 'DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG')
-make_head(_module, 'DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2')
-make_head(_module, 'DOT11_WFD_GROUP_START_PARAMETERS')
-make_head(_module, 'DOT11_WFD_INVITATION_FLAGS')
-make_head(_module, 'DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST')
-make_head(_module, 'DOT11_WFD_SERVICE_HASH_LIST')
-make_head(_module, 'DOT11_WFD_SESSION_ID')
-make_head(_module, 'DOT11_WFD_SESSION_INFO')
-make_head(_module, 'DOT11_WME_AC_PARAMETERS')
-make_head(_module, 'DOT11_WME_AC_PARAMETERS_LIST')
-make_head(_module, 'DOT11_WME_UPDATE_IE')
-make_head(_module, 'DOT11_WPA_TSC')
-make_head(_module, 'DOT11_WPS_DEVICE_NAME')
-make_head(_module, 'IDot11AdHocInterface')
-make_head(_module, 'IDot11AdHocInterfaceNotificationSink')
-make_head(_module, 'IDot11AdHocManager')
-make_head(_module, 'IDot11AdHocManagerNotificationSink')
-make_head(_module, 'IDot11AdHocNetwork')
-make_head(_module, 'IDot11AdHocNetworkNotificationSink')
-make_head(_module, 'IDot11AdHocSecuritySettings')
-make_head(_module, 'IEnumDot11AdHocInterfaces')
-make_head(_module, 'IEnumDot11AdHocNetworks')
-make_head(_module, 'IEnumDot11AdHocSecuritySettings')
-make_head(_module, 'L2_NOTIFICATION_DATA')
-make_head(_module, 'ONEX_AUTH_PARAMS')
-make_head(_module, 'ONEX_EAP_ERROR')
-make_head(_module, 'ONEX_RESULT_UPDATE_DATA')
-make_head(_module, 'ONEX_STATUS')
-make_head(_module, 'ONEX_USER_INFO')
-make_head(_module, 'ONEX_VARIABLE_BLOB')
-make_head(_module, 'WDIAG_IHV_WLAN_ID')
-make_head(_module, 'WFDSVC_CONNECTION_CAPABILITY')
-make_head(_module, 'WFD_GROUP_ID')
-make_head(_module, 'WFD_OPEN_SESSION_COMPLETE_CALLBACK')
-make_head(_module, 'WLAN_ASSOCIATION_ATTRIBUTES')
-make_head(_module, 'WLAN_AUTH_CIPHER_PAIR_LIST')
-make_head(_module, 'WLAN_AVAILABLE_NETWORK')
-make_head(_module, 'WLAN_AVAILABLE_NETWORK_LIST')
-make_head(_module, 'WLAN_AVAILABLE_NETWORK_LIST_V2')
-make_head(_module, 'WLAN_AVAILABLE_NETWORK_V2')
-make_head(_module, 'WLAN_BSS_ENTRY')
-make_head(_module, 'WLAN_BSS_LIST')
-make_head(_module, 'WLAN_CONNECTION_ATTRIBUTES')
-make_head(_module, 'WLAN_CONNECTION_NOTIFICATION_DATA')
-make_head(_module, 'WLAN_CONNECTION_PARAMETERS')
-make_head(_module, 'WLAN_CONNECTION_PARAMETERS_V2')
-make_head(_module, 'WLAN_COUNTRY_OR_REGION_STRING_LIST')
-make_head(_module, 'WLAN_DEVICE_SERVICE_GUID_LIST')
-make_head(_module, 'WLAN_DEVICE_SERVICE_NOTIFICATION_DATA')
-make_head(_module, 'WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS')
-make_head(_module, 'WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE')
-make_head(_module, 'WLAN_HOSTED_NETWORK_PEER_STATE')
-make_head(_module, 'WLAN_HOSTED_NETWORK_RADIO_STATE')
-make_head(_module, 'WLAN_HOSTED_NETWORK_SECURITY_SETTINGS')
-make_head(_module, 'WLAN_HOSTED_NETWORK_STATE_CHANGE')
-make_head(_module, 'WLAN_HOSTED_NETWORK_STATUS')
-make_head(_module, 'WLAN_INTERFACE_CAPABILITY')
-make_head(_module, 'WLAN_INTERFACE_INFO')
-make_head(_module, 'WLAN_INTERFACE_INFO_LIST')
-make_head(_module, 'WLAN_MAC_FRAME_STATISTICS')
-make_head(_module, 'WLAN_MSM_NOTIFICATION_DATA')
-make_head(_module, 'WLAN_NOTIFICATION_CALLBACK')
-make_head(_module, 'WLAN_PHY_FRAME_STATISTICS')
-make_head(_module, 'WLAN_PHY_RADIO_STATE')
-make_head(_module, 'WLAN_PROFILE_INFO')
-make_head(_module, 'WLAN_PROFILE_INFO_LIST')
-make_head(_module, 'WLAN_RADIO_STATE')
-make_head(_module, 'WLAN_RATE_SET')
-make_head(_module, 'WLAN_RAW_DATA')
-make_head(_module, 'WLAN_RAW_DATA_LIST')
-make_head(_module, 'WLAN_SECURITY_ATTRIBUTES')
-make_head(_module, 'WLAN_STATISTICS')
+make_ready(__name__)

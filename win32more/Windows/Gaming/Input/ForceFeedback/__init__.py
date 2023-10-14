@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Gaming.Input.ForceFeedback
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ConditionForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
@@ -276,16 +267,4 @@ class RampForceEffect(ComPtr):
     def SetParametersWithEnvelope(self: win32more.Windows.Gaming.Input.ForceFeedback.IRampForceEffect, startVector: win32more.Windows.Foundation.Numerics.Vector3, endVector: win32more.Windows.Foundation.Numerics.Vector3, attackGain: Single, sustainGain: Single, releaseGain: Single, startDelay: win32more.Windows.Foundation.TimeSpan, attackDuration: win32more.Windows.Foundation.TimeSpan, sustainDuration: win32more.Windows.Foundation.TimeSpan, releaseDuration: win32more.Windows.Foundation.TimeSpan, repeatCount: UInt32) -> Void: ...
     Gain = property(get_Gain, put_Gain)
     State = property(get_State, None)
-make_head(_module, 'ConditionForceEffect')
-make_head(_module, 'ConstantForceEffect')
-make_head(_module, 'ForceFeedbackMotor')
-make_head(_module, 'IConditionForceEffect')
-make_head(_module, 'IConditionForceEffectFactory')
-make_head(_module, 'IConstantForceEffect')
-make_head(_module, 'IForceFeedbackEffect')
-make_head(_module, 'IForceFeedbackMotor')
-make_head(_module, 'IPeriodicForceEffect')
-make_head(_module, 'IPeriodicForceEffectFactory')
-make_head(_module, 'IRampForceEffect')
-make_head(_module, 'PeriodicForceEffect')
-make_head(_module, 'RampForceEffect')
+make_ready(__name__)

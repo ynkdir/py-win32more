@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Data.Xml.Dom
@@ -23,15 +23,6 @@ import win32more.Windows.Networking
 import win32more.Windows.Networking.Connectivity
 import win32more.Windows.Networking.NetworkOperators
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 DataClasses = UInt32
 DataClasses_None: DataClasses = 0
 DataClasses_Gprs: DataClasses = 1
@@ -75,7 +66,7 @@ class ESim(ComPtr):
     @winrt_mixinmethod
     def ResetAsync(self: win32more.Windows.Networking.NetworkOperators.IESim) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.ESimOperationResult]: ...
     @winrt_mixinmethod
-    def add_ProfileChanged(self: win32more.Windows.Networking.NetworkOperators.IESim, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESim, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ProfileChanged(self: win32more.Windows.Networking.NetworkOperators.IESim, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESim, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ProfileChanged(self: win32more.Windows.Networking.NetworkOperators.IESim, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -156,7 +147,7 @@ class ESimManager(ComPtr, metaclass=_ESimManager_Meta_):
     @winrt_classmethod
     def TryCreateESimWatcher(cls: win32more.Windows.Networking.NetworkOperators.IESimManagerStatics) -> win32more.Windows.Networking.NetworkOperators.ESimWatcher: ...
     @winrt_classmethod
-    def add_ServiceInfoChanged(cls: win32more.Windows.Networking.NetworkOperators.IESimManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ServiceInfoChanged(cls: win32more.Windows.Networking.NetworkOperators.IESimManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ServiceInfoChanged(cls: win32more.Windows.Networking.NetworkOperators.IESimManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _ESimManager_Meta_.ServiceInfo = property(get_ServiceInfo.__wrapped__, None)
@@ -272,7 +263,7 @@ class ESimProfileMetadata(ComPtr):
     @winrt_mixinmethod
     def PostponeInstallAsync(self: win32more.Windows.Networking.NetworkOperators.IESimProfileMetadata) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.ESimOperationResult]: ...
     @winrt_mixinmethod
-    def add_StateChanged(self: win32more.Windows.Networking.NetworkOperators.IESimProfileMetadata, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimProfileMetadata, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(self: win32more.Windows.Networking.NetworkOperators.IESimProfileMetadata, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimProfileMetadata, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StateChanged(self: win32more.Windows.Networking.NetworkOperators.IESimProfileMetadata, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsConfirmationCodeRequired = property(get_IsConfirmationCodeRequired, None)
@@ -353,7 +344,7 @@ class ESimWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Added(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -361,7 +352,7 @@ class ESimWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -467,7 +458,7 @@ class IESim(ComPtr):
     @winrt_commethod(15)
     def ResetAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.ESimOperationResult]: ...
     @winrt_commethod(16)
-    def add_ProfileChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESim, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ProfileChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESim, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_ProfileChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AvailableMemoryInBytes = property(get_AvailableMemoryInBytes, None)
@@ -547,7 +538,7 @@ class IESimManagerStatics(ComPtr):
     @winrt_commethod(7)
     def TryCreateESimWatcher(self) -> win32more.Windows.Networking.NetworkOperators.ESimWatcher: ...
     @winrt_commethod(8)
-    def add_ServiceInfoChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ServiceInfoChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_ServiceInfoChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ServiceInfo = property(get_ServiceInfo, None)
@@ -626,7 +617,7 @@ class IESimProfileMetadata(ComPtr):
     @winrt_commethod(16)
     def PostponeInstallAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.ESimOperationResult]: ...
     @winrt_commethod(17)
-    def add_StateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimProfileMetadata, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimProfileMetadata, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(18)
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsConfirmationCodeRequired = property(get_IsConfirmationCodeRequired, None)
@@ -688,7 +679,7 @@ class IESimWatcher(ComPtr):
     @winrt_commethod(10)
     def remove_Added(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
@@ -696,7 +687,7 @@ class IESimWatcher(ComPtr):
     @winrt_commethod(14)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(15)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.ESimWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(17)
@@ -911,11 +902,11 @@ class IMobileBroadbandAccountWatcher(ComPtr):
     @winrt_commethod(11)
     def remove_AccountRemoved(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_EnumerationCompleted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_Stopped(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
@@ -1373,7 +1364,7 @@ class IMobileBroadbandModem3(ComPtr):
     @winrt_commethod(7)
     def get_IsInEmergencyCallMode(self) -> Boolean: ...
     @winrt_commethod(8)
-    def add_IsInEmergencyCallModeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandModem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsInEmergencyCallModeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandModem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_IsInEmergencyCallModeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsInEmergencyCallMode = property(get_IsInEmergencyCallMode, None)
@@ -2144,11 +2135,11 @@ class MobileBroadbandAccountWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_AccountRemoved(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2578,7 +2569,7 @@ class MobileBroadbandModem(ComPtr):
     @winrt_mixinmethod
     def get_IsInEmergencyCallMode(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModem3) -> Boolean: ...
     @winrt_mixinmethod
-    def add_IsInEmergencyCallModeChanged(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModem3, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandModem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsInEmergencyCallModeChanged(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModem3, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandModem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsInEmergencyCallModeChanged(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModem3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -3297,201 +3288,4 @@ class UssdSession(ComPtr):
     def CreateFromNetworkAccountId(cls: win32more.Windows.Networking.NetworkOperators.IUssdSessionStatics, networkAccountId: WinRT_String) -> win32more.Windows.Networking.NetworkOperators.UssdSession: ...
     @winrt_classmethod
     def CreateFromNetworkInterfaceId(cls: win32more.Windows.Networking.NetworkOperators.IUssdSessionStatics, networkInterfaceId: WinRT_String) -> win32more.Windows.Networking.NetworkOperators.UssdSession: ...
-make_head(_module, 'ESim')
-make_head(_module, 'ESimAddedEventArgs')
-make_head(_module, 'ESimDiscoverEvent')
-make_head(_module, 'ESimDiscoverResult')
-make_head(_module, 'ESimDownloadProfileMetadataResult')
-make_head(_module, 'ESimManager')
-make_head(_module, 'ESimOperationResult')
-make_head(_module, 'ESimPolicy')
-make_head(_module, 'ESimProfile')
-make_head(_module, 'ESimProfileInstallProgress')
-make_head(_module, 'ESimProfileMetadata')
-make_head(_module, 'ESimProfilePolicy')
-make_head(_module, 'ESimRemovedEventArgs')
-make_head(_module, 'ESimServiceInfo')
-make_head(_module, 'ESimUpdatedEventArgs')
-make_head(_module, 'ESimWatcher')
-make_head(_module, 'FdnAccessManager')
-make_head(_module, 'HotspotAuthenticationContext')
-make_head(_module, 'HotspotAuthenticationEventDetails')
-make_head(_module, 'HotspotCredentialsAuthenticationResult')
-make_head(_module, 'IESim')
-make_head(_module, 'IESim2')
-make_head(_module, 'IESim3')
-make_head(_module, 'IESimAddedEventArgs')
-make_head(_module, 'IESimDiscoverEvent')
-make_head(_module, 'IESimDiscoverResult')
-make_head(_module, 'IESimDownloadProfileMetadataResult')
-make_head(_module, 'IESimManagerStatics')
-make_head(_module, 'IESimOperationResult')
-make_head(_module, 'IESimPolicy')
-make_head(_module, 'IESimProfile')
-make_head(_module, 'IESimProfileMetadata')
-make_head(_module, 'IESimProfilePolicy')
-make_head(_module, 'IESimRemovedEventArgs')
-make_head(_module, 'IESimServiceInfo')
-make_head(_module, 'IESimUpdatedEventArgs')
-make_head(_module, 'IESimWatcher')
-make_head(_module, 'IFdnAccessManagerStatics')
-make_head(_module, 'IHotspotAuthenticationContext')
-make_head(_module, 'IHotspotAuthenticationContext2')
-make_head(_module, 'IHotspotAuthenticationContextStatics')
-make_head(_module, 'IHotspotAuthenticationEventDetails')
-make_head(_module, 'IHotspotCredentialsAuthenticationResult')
-make_head(_module, 'IKnownCSimFilePathsStatics')
-make_head(_module, 'IKnownRuimFilePathsStatics')
-make_head(_module, 'IKnownSimFilePathsStatics')
-make_head(_module, 'IKnownUSimFilePathsStatics')
-make_head(_module, 'IMobileBroadbandAccount')
-make_head(_module, 'IMobileBroadbandAccount2')
-make_head(_module, 'IMobileBroadbandAccount3')
-make_head(_module, 'IMobileBroadbandAccountEventArgs')
-make_head(_module, 'IMobileBroadbandAccountStatics')
-make_head(_module, 'IMobileBroadbandAccountUpdatedEventArgs')
-make_head(_module, 'IMobileBroadbandAccountWatcher')
-make_head(_module, 'IMobileBroadbandAntennaSar')
-make_head(_module, 'IMobileBroadbandAntennaSarFactory')
-make_head(_module, 'IMobileBroadbandCellCdma')
-make_head(_module, 'IMobileBroadbandCellGsm')
-make_head(_module, 'IMobileBroadbandCellLte')
-make_head(_module, 'IMobileBroadbandCellNR')
-make_head(_module, 'IMobileBroadbandCellTdscdma')
-make_head(_module, 'IMobileBroadbandCellUmts')
-make_head(_module, 'IMobileBroadbandCellsInfo')
-make_head(_module, 'IMobileBroadbandCellsInfo2')
-make_head(_module, 'IMobileBroadbandCurrentSlotIndexChangedEventArgs')
-make_head(_module, 'IMobileBroadbandDeviceInformation')
-make_head(_module, 'IMobileBroadbandDeviceInformation2')
-make_head(_module, 'IMobileBroadbandDeviceInformation3')
-make_head(_module, 'IMobileBroadbandDeviceInformation4')
-make_head(_module, 'IMobileBroadbandDeviceService')
-make_head(_module, 'IMobileBroadbandDeviceServiceCommandResult')
-make_head(_module, 'IMobileBroadbandDeviceServiceCommandSession')
-make_head(_module, 'IMobileBroadbandDeviceServiceDataReceivedEventArgs')
-make_head(_module, 'IMobileBroadbandDeviceServiceDataSession')
-make_head(_module, 'IMobileBroadbandDeviceServiceInformation')
-make_head(_module, 'IMobileBroadbandDeviceServiceTriggerDetails')
-make_head(_module, 'IMobileBroadbandDeviceServiceTriggerDetails2')
-make_head(_module, 'IMobileBroadbandModem')
-make_head(_module, 'IMobileBroadbandModem2')
-make_head(_module, 'IMobileBroadbandModem3')
-make_head(_module, 'IMobileBroadbandModem4')
-make_head(_module, 'IMobileBroadbandModemConfiguration')
-make_head(_module, 'IMobileBroadbandModemConfiguration2')
-make_head(_module, 'IMobileBroadbandModemIsolation')
-make_head(_module, 'IMobileBroadbandModemIsolationFactory')
-make_head(_module, 'IMobileBroadbandModemStatics')
-make_head(_module, 'IMobileBroadbandNetwork')
-make_head(_module, 'IMobileBroadbandNetwork2')
-make_head(_module, 'IMobileBroadbandNetwork3')
-make_head(_module, 'IMobileBroadbandNetworkRegistrationStateChange')
-make_head(_module, 'IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails')
-make_head(_module, 'IMobileBroadbandPco')
-make_head(_module, 'IMobileBroadbandPcoDataChangeTriggerDetails')
-make_head(_module, 'IMobileBroadbandPin')
-make_head(_module, 'IMobileBroadbandPinLockStateChange')
-make_head(_module, 'IMobileBroadbandPinLockStateChangeTriggerDetails')
-make_head(_module, 'IMobileBroadbandPinManager')
-make_head(_module, 'IMobileBroadbandPinOperationResult')
-make_head(_module, 'IMobileBroadbandRadioStateChange')
-make_head(_module, 'IMobileBroadbandRadioStateChangeTriggerDetails')
-make_head(_module, 'IMobileBroadbandSarManager')
-make_head(_module, 'IMobileBroadbandSlotInfo')
-make_head(_module, 'IMobileBroadbandSlotInfo2')
-make_head(_module, 'IMobileBroadbandSlotInfoChangedEventArgs')
-make_head(_module, 'IMobileBroadbandSlotManager')
-make_head(_module, 'IMobileBroadbandTransmissionStateChangedEventArgs')
-make_head(_module, 'IMobileBroadbandUicc')
-make_head(_module, 'IMobileBroadbandUiccApp')
-make_head(_module, 'IMobileBroadbandUiccAppReadRecordResult')
-make_head(_module, 'IMobileBroadbandUiccAppRecordDetailsResult')
-make_head(_module, 'IMobileBroadbandUiccAppsResult')
-make_head(_module, 'INetworkOperatorDataUsageTriggerDetails')
-make_head(_module, 'INetworkOperatorNotificationEventDetails')
-make_head(_module, 'INetworkOperatorTetheringAccessPointConfiguration')
-make_head(_module, 'INetworkOperatorTetheringAccessPointConfiguration2')
-make_head(_module, 'INetworkOperatorTetheringClient')
-make_head(_module, 'INetworkOperatorTetheringClientManager')
-make_head(_module, 'INetworkOperatorTetheringEntitlementCheck')
-make_head(_module, 'INetworkOperatorTetheringManager')
-make_head(_module, 'INetworkOperatorTetheringManagerStatics')
-make_head(_module, 'INetworkOperatorTetheringManagerStatics2')
-make_head(_module, 'INetworkOperatorTetheringManagerStatics3')
-make_head(_module, 'INetworkOperatorTetheringManagerStatics4')
-make_head(_module, 'INetworkOperatorTetheringOperationResult')
-make_head(_module, 'IProvisionFromXmlDocumentResults')
-make_head(_module, 'IProvisionedProfile')
-make_head(_module, 'IProvisioningAgent')
-make_head(_module, 'IProvisioningAgentStaticMethods')
-make_head(_module, 'ITetheringEntitlementCheckTriggerDetails')
-make_head(_module, 'IUssdMessage')
-make_head(_module, 'IUssdMessageFactory')
-make_head(_module, 'IUssdReply')
-make_head(_module, 'IUssdSession')
-make_head(_module, 'IUssdSessionStatics')
-make_head(_module, 'KnownCSimFilePaths')
-make_head(_module, 'KnownRuimFilePaths')
-make_head(_module, 'KnownSimFilePaths')
-make_head(_module, 'KnownUSimFilePaths')
-make_head(_module, 'MobileBroadbandAccount')
-make_head(_module, 'MobileBroadbandAccountEventArgs')
-make_head(_module, 'MobileBroadbandAccountUpdatedEventArgs')
-make_head(_module, 'MobileBroadbandAccountWatcher')
-make_head(_module, 'MobileBroadbandAntennaSar')
-make_head(_module, 'MobileBroadbandCellCdma')
-make_head(_module, 'MobileBroadbandCellGsm')
-make_head(_module, 'MobileBroadbandCellLte')
-make_head(_module, 'MobileBroadbandCellNR')
-make_head(_module, 'MobileBroadbandCellTdscdma')
-make_head(_module, 'MobileBroadbandCellUmts')
-make_head(_module, 'MobileBroadbandCellsInfo')
-make_head(_module, 'MobileBroadbandCurrentSlotIndexChangedEventArgs')
-make_head(_module, 'MobileBroadbandDeviceInformation')
-make_head(_module, 'MobileBroadbandDeviceService')
-make_head(_module, 'MobileBroadbandDeviceServiceCommandResult')
-make_head(_module, 'MobileBroadbandDeviceServiceCommandSession')
-make_head(_module, 'MobileBroadbandDeviceServiceDataReceivedEventArgs')
-make_head(_module, 'MobileBroadbandDeviceServiceDataSession')
-make_head(_module, 'MobileBroadbandDeviceServiceInformation')
-make_head(_module, 'MobileBroadbandDeviceServiceTriggerDetails')
-make_head(_module, 'MobileBroadbandModem')
-make_head(_module, 'MobileBroadbandModemConfiguration')
-make_head(_module, 'MobileBroadbandModemIsolation')
-make_head(_module, 'MobileBroadbandNetwork')
-make_head(_module, 'MobileBroadbandNetworkRegistrationStateChange')
-make_head(_module, 'MobileBroadbandNetworkRegistrationStateChangeTriggerDetails')
-make_head(_module, 'MobileBroadbandPco')
-make_head(_module, 'MobileBroadbandPcoDataChangeTriggerDetails')
-make_head(_module, 'MobileBroadbandPin')
-make_head(_module, 'MobileBroadbandPinLockStateChange')
-make_head(_module, 'MobileBroadbandPinLockStateChangeTriggerDetails')
-make_head(_module, 'MobileBroadbandPinManager')
-make_head(_module, 'MobileBroadbandPinOperationResult')
-make_head(_module, 'MobileBroadbandRadioStateChange')
-make_head(_module, 'MobileBroadbandRadioStateChangeTriggerDetails')
-make_head(_module, 'MobileBroadbandSarManager')
-make_head(_module, 'MobileBroadbandSlotInfo')
-make_head(_module, 'MobileBroadbandSlotInfoChangedEventArgs')
-make_head(_module, 'MobileBroadbandSlotManager')
-make_head(_module, 'MobileBroadbandTransmissionStateChangedEventArgs')
-make_head(_module, 'MobileBroadbandUicc')
-make_head(_module, 'MobileBroadbandUiccApp')
-make_head(_module, 'MobileBroadbandUiccAppReadRecordResult')
-make_head(_module, 'MobileBroadbandUiccAppRecordDetailsResult')
-make_head(_module, 'MobileBroadbandUiccAppsResult')
-make_head(_module, 'NetworkOperatorDataUsageTriggerDetails')
-make_head(_module, 'NetworkOperatorNotificationEventDetails')
-make_head(_module, 'NetworkOperatorTetheringAccessPointConfiguration')
-make_head(_module, 'NetworkOperatorTetheringClient')
-make_head(_module, 'NetworkOperatorTetheringManager')
-make_head(_module, 'NetworkOperatorTetheringOperationResult')
-make_head(_module, 'ProfileUsage')
-make_head(_module, 'ProvisionFromXmlDocumentResults')
-make_head(_module, 'ProvisionedProfile')
-make_head(_module, 'ProvisioningAgent')
-make_head(_module, 'TetheringEntitlementCheckTriggerDetails')
-make_head(_module, 'UssdMessage')
-make_head(_module, 'UssdReply')
-make_head(_module, 'UssdSession')
+make_ready(__name__)

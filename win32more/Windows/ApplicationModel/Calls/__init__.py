@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Calls
@@ -22,15 +22,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CallAnswerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.ICallAnswerEventArgs
@@ -120,7 +111,7 @@ class ILockScreenCallUI(ComPtr):
     @winrt_commethod(8)
     def remove_EndRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
-    def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.LockScreenCallUI, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.LockScreenCallUI, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
@@ -140,15 +131,15 @@ class IPhoneCall(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneCall'
     _iid_ = Guid('{c14ed0f8-c17d-59d2-9628-66e545b6cd21}')
     @winrt_commethod(6)
-    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_AudioDeviceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioDeviceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_AudioDeviceChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_IsMutedChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsMutedChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_IsMutedChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
@@ -439,7 +430,7 @@ class IPhoneCallManagerStatics2(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2'
     _iid_ = Guid('{c7e3c8bc-2370-431c-98fd-43be5f03086d}')
     @winrt_commethod(6)
-    def add_CallStateChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CallStateChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_CallStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -530,7 +521,7 @@ class IPhoneLine(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneLine'
     _iid_ = Guid('{27c66f30-6a69-34ca-a2ba-65302530c311}')
     @winrt_commethod(6)
-    def add_LineChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLine, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LineChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLine, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_LineChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -621,7 +612,7 @@ class IPhoneLineConfiguration(ComPtr):
     @winrt_commethod(6)
     def get_IsVideoCallingEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
-    def get_ExtendedProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_ExtendedProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     IsVideoCallingEnabled = property(get_IsVideoCallingEnabled, None)
     ExtendedProperties = property(get_ExtendedProperties, None)
 class IPhoneLineDialResult(ComPtr):
@@ -673,13 +664,13 @@ class IPhoneLineTransportDevice2(ComPtr):
     @winrt_commethod(6)
     def get_AudioRoutingStatus(self) -> win32more.Windows.ApplicationModel.Calls.TransportDeviceAudioRoutingStatus: ...
     @winrt_commethod(7)
-    def add_AudioRoutingStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineTransportDevice, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioRoutingStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineTransportDevice, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_AudioRoutingStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
     def get_InBandRingingEnabled(self) -> Boolean: ...
     @winrt_commethod(10)
-    def add_InBandRingingEnabledChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineTransportDevice, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InBandRingingEnabledChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineTransportDevice, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_InBandRingingEnabledChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AudioRoutingStatus = property(get_AudioRoutingStatus, None)
@@ -715,11 +706,11 @@ class IPhoneLineWatcher(ComPtr):
     @winrt_commethod(13)
     def remove_LineUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
@@ -885,7 +876,7 @@ class LockScreenCallUI(ComPtr):
     @winrt_mixinmethod
     def remove_EndRequested(self: win32more.Windows.ApplicationModel.Calls.ILockScreenCallUI, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Closed(self: win32more.Windows.ApplicationModel.Calls.ILockScreenCallUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.LockScreenCallUI, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self: win32more.Windows.ApplicationModel.Calls.ILockScreenCallUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.LockScreenCallUI, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Closed(self: win32more.Windows.ApplicationModel.Calls.ILockScreenCallUI, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -909,15 +900,15 @@ class PhoneCall(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneCall
     _classid_ = 'Windows.ApplicationModel.Calls.PhoneCall'
     @winrt_mixinmethod
-    def add_StatusChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StatusChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_AudioDeviceChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioDeviceChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AudioDeviceChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_IsMutedChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsMutedChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneCall, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsMutedChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneCall, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1232,7 +1223,7 @@ class PhoneCallManager(ComPtr, metaclass=_PhoneCallManager_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallManager'
     @winrt_classmethod
-    def add_CallStateChanged(cls: win32more.Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CallStateChanged(cls: win32more.Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_CallStateChanged(cls: win32more.Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -1337,7 +1328,7 @@ class PhoneLine(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneLine
     _classid_ = 'Windows.ApplicationModel.Calls.PhoneLine'
     @winrt_mixinmethod
-    def add_LineChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLine, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLine, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LineChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLine, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLine, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_LineChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLine, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1422,7 +1413,7 @@ class PhoneLineConfiguration(ComPtr):
     @winrt_mixinmethod
     def get_IsVideoCallingEnabled(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineConfiguration) -> Boolean: ...
     @winrt_mixinmethod
-    def get_ExtendedProperties(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineConfiguration) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_ExtendedProperties(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineConfiguration) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     IsVideoCallingEnabled = property(get_IsVideoCallingEnabled, None)
     ExtendedProperties = property(get_ExtendedProperties, None)
 class PhoneLineDialResult(ComPtr):
@@ -1477,13 +1468,13 @@ class PhoneLineTransportDevice(ComPtr):
     @winrt_mixinmethod
     def get_AudioRoutingStatus(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineTransportDevice2) -> win32more.Windows.ApplicationModel.Calls.TransportDeviceAudioRoutingStatus: ...
     @winrt_mixinmethod
-    def add_AudioRoutingStatusChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineTransportDevice2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineTransportDevice, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioRoutingStatusChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineTransportDevice2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineTransportDevice, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AudioRoutingStatusChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineTransportDevice2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def get_InBandRingingEnabled(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineTransportDevice2) -> Boolean: ...
     @winrt_mixinmethod
-    def add_InBandRingingEnabledChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineTransportDevice2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineTransportDevice, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InBandRingingEnabledChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineTransportDevice2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineTransportDevice, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_InBandRingingEnabledChanged(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineTransportDevice2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -1517,11 +1508,11 @@ class PhoneLineWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_LineUpdated(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Calls.PhoneLineWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1686,84 +1677,4 @@ VoipPhoneCallState_Held: VoipPhoneCallState = 1
 VoipPhoneCallState_Active: VoipPhoneCallState = 2
 VoipPhoneCallState_Incoming: VoipPhoneCallState = 3
 VoipPhoneCallState_Outgoing: VoipPhoneCallState = 4
-make_head(_module, 'CallAnswerEventArgs')
-make_head(_module, 'CallRejectEventArgs')
-make_head(_module, 'CallStateChangeEventArgs')
-make_head(_module, 'ICallAnswerEventArgs')
-make_head(_module, 'ICallRejectEventArgs')
-make_head(_module, 'ICallStateChangeEventArgs')
-make_head(_module, 'ILockScreenCallEndCallDeferral')
-make_head(_module, 'ILockScreenCallEndRequestedEventArgs')
-make_head(_module, 'ILockScreenCallUI')
-make_head(_module, 'IMuteChangeEventArgs')
-make_head(_module, 'IPhoneCall')
-make_head(_module, 'IPhoneCallBlockingStatics')
-make_head(_module, 'IPhoneCallHistoryEntry')
-make_head(_module, 'IPhoneCallHistoryEntryAddress')
-make_head(_module, 'IPhoneCallHistoryEntryAddressFactory')
-make_head(_module, 'IPhoneCallHistoryEntryQueryOptions')
-make_head(_module, 'IPhoneCallHistoryEntryReader')
-make_head(_module, 'IPhoneCallHistoryManagerForUser')
-make_head(_module, 'IPhoneCallHistoryManagerStatics')
-make_head(_module, 'IPhoneCallHistoryManagerStatics2')
-make_head(_module, 'IPhoneCallHistoryStore')
-make_head(_module, 'IPhoneCallInfo')
-make_head(_module, 'IPhoneCallManagerStatics')
-make_head(_module, 'IPhoneCallManagerStatics2')
-make_head(_module, 'IPhoneCallStatics')
-make_head(_module, 'IPhoneCallStore')
-make_head(_module, 'IPhoneCallVideoCapabilities')
-make_head(_module, 'IPhoneCallVideoCapabilitiesManagerStatics')
-make_head(_module, 'IPhoneCallsResult')
-make_head(_module, 'IPhoneDialOptions')
-make_head(_module, 'IPhoneLine')
-make_head(_module, 'IPhoneLine2')
-make_head(_module, 'IPhoneLine3')
-make_head(_module, 'IPhoneLineCellularDetails')
-make_head(_module, 'IPhoneLineConfiguration')
-make_head(_module, 'IPhoneLineDialResult')
-make_head(_module, 'IPhoneLineStatics')
-make_head(_module, 'IPhoneLineTransportDevice')
-make_head(_module, 'IPhoneLineTransportDevice2')
-make_head(_module, 'IPhoneLineTransportDeviceStatics')
-make_head(_module, 'IPhoneLineWatcher')
-make_head(_module, 'IPhoneLineWatcherEventArgs')
-make_head(_module, 'IPhoneVoicemail')
-make_head(_module, 'IVoipCallCoordinator')
-make_head(_module, 'IVoipCallCoordinator2')
-make_head(_module, 'IVoipCallCoordinator3')
-make_head(_module, 'IVoipCallCoordinator4')
-make_head(_module, 'IVoipCallCoordinatorStatics')
-make_head(_module, 'IVoipPhoneCall')
-make_head(_module, 'IVoipPhoneCall2')
-make_head(_module, 'IVoipPhoneCall3')
-make_head(_module, 'LockScreenCallEndCallDeferral')
-make_head(_module, 'LockScreenCallEndRequestedEventArgs')
-make_head(_module, 'LockScreenCallUI')
-make_head(_module, 'MuteChangeEventArgs')
-make_head(_module, 'PhoneCall')
-make_head(_module, 'PhoneCallBlocking')
-make_head(_module, 'PhoneCallHistoryEntry')
-make_head(_module, 'PhoneCallHistoryEntryAddress')
-make_head(_module, 'PhoneCallHistoryEntryQueryOptions')
-make_head(_module, 'PhoneCallHistoryEntryReader')
-make_head(_module, 'PhoneCallHistoryManager')
-make_head(_module, 'PhoneCallHistoryManagerForUser')
-make_head(_module, 'PhoneCallHistoryStore')
-make_head(_module, 'PhoneCallInfo')
-make_head(_module, 'PhoneCallManager')
-make_head(_module, 'PhoneCallStore')
-make_head(_module, 'PhoneCallVideoCapabilities')
-make_head(_module, 'PhoneCallVideoCapabilitiesManager')
-make_head(_module, 'PhoneCallsResult')
-make_head(_module, 'PhoneDialOptions')
-make_head(_module, 'PhoneLine')
-make_head(_module, 'PhoneLineCellularDetails')
-make_head(_module, 'PhoneLineConfiguration')
-make_head(_module, 'PhoneLineDialResult')
-make_head(_module, 'PhoneLineTransportDevice')
-make_head(_module, 'PhoneLineWatcher')
-make_head(_module, 'PhoneLineWatcherEventArgs')
-make_head(_module, 'PhoneVoicemail')
-make_head(_module, 'VoipCallCoordinator')
-make_head(_module, 'VoipPhoneCall')
+make_ready(__name__)

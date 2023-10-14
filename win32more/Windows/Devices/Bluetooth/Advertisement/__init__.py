@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Bluetooth
@@ -20,15 +20,6 @@ import win32more.Windows.Devices.Bluetooth.Advertisement
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class BluetoothLEAdvertisement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisement
@@ -741,34 +732,4 @@ class IBluetoothLEManufacturerDataFactory(ComPtr):
     _iid_ = Guid('{c09b39f8-319a-441e-8de5-66a81e877a6c}')
     @winrt_commethod(6)
     def Create(self, companyId: UInt16, data: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData: ...
-make_head(_module, 'BluetoothLEAdvertisement')
-make_head(_module, 'BluetoothLEAdvertisementBytePattern')
-make_head(_module, 'BluetoothLEAdvertisementDataSection')
-make_head(_module, 'BluetoothLEAdvertisementDataTypes')
-make_head(_module, 'BluetoothLEAdvertisementFilter')
-make_head(_module, 'BluetoothLEAdvertisementPublisher')
-make_head(_module, 'BluetoothLEAdvertisementPublisherStatusChangedEventArgs')
-make_head(_module, 'BluetoothLEAdvertisementReceivedEventArgs')
-make_head(_module, 'BluetoothLEAdvertisementWatcher')
-make_head(_module, 'BluetoothLEAdvertisementWatcherStoppedEventArgs')
-make_head(_module, 'BluetoothLEManufacturerData')
-make_head(_module, 'IBluetoothLEAdvertisement')
-make_head(_module, 'IBluetoothLEAdvertisementBytePattern')
-make_head(_module, 'IBluetoothLEAdvertisementBytePatternFactory')
-make_head(_module, 'IBluetoothLEAdvertisementDataSection')
-make_head(_module, 'IBluetoothLEAdvertisementDataSectionFactory')
-make_head(_module, 'IBluetoothLEAdvertisementDataTypesStatics')
-make_head(_module, 'IBluetoothLEAdvertisementFilter')
-make_head(_module, 'IBluetoothLEAdvertisementPublisher')
-make_head(_module, 'IBluetoothLEAdvertisementPublisher2')
-make_head(_module, 'IBluetoothLEAdvertisementPublisherFactory')
-make_head(_module, 'IBluetoothLEAdvertisementPublisherStatusChangedEventArgs')
-make_head(_module, 'IBluetoothLEAdvertisementPublisherStatusChangedEventArgs2')
-make_head(_module, 'IBluetoothLEAdvertisementReceivedEventArgs')
-make_head(_module, 'IBluetoothLEAdvertisementReceivedEventArgs2')
-make_head(_module, 'IBluetoothLEAdvertisementWatcher')
-make_head(_module, 'IBluetoothLEAdvertisementWatcher2')
-make_head(_module, 'IBluetoothLEAdvertisementWatcherFactory')
-make_head(_module, 'IBluetoothLEAdvertisementWatcherStoppedEventArgs')
-make_head(_module, 'IBluetoothLEManufacturerData')
-make_head(_module, 'IBluetoothLEManufacturerDataFactory')
+make_ready(__name__)

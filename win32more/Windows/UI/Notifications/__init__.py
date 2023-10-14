@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.UI.Notifications
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AdaptiveNotificationContentKind = Int32
 AdaptiveNotificationContentKind_Text: AdaptiveNotificationContentKind = 0
 class AdaptiveNotificationText(ComPtr):
@@ -709,7 +700,7 @@ class IToastNotification(ComPtr):
     @winrt_commethod(10)
     def remove_Dismissed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_Activated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotification, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Activated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotification, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_Activated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
@@ -863,7 +854,7 @@ class IToastNotificationManagerForUser3(ComPtr):
     @winrt_commethod(6)
     def get_NotificationMode(self) -> win32more.Windows.UI.Notifications.ToastNotificationMode: ...
     @winrt_commethod(7)
-    def add_NotificationModeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotificationManagerForUser, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NotificationModeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotificationManagerForUser, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_NotificationModeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     NotificationMode = property(get_NotificationMode, None)
@@ -1587,7 +1578,7 @@ class ToastNotification(ComPtr):
     @winrt_mixinmethod
     def remove_Dismissed(self: win32more.Windows.UI.Notifications.IToastNotification, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Activated(self: win32more.Windows.UI.Notifications.IToastNotification, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotification, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Activated(self: win32more.Windows.UI.Notifications.IToastNotification, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotification, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Activated(self: win32more.Windows.UI.Notifications.IToastNotification, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1721,7 +1712,7 @@ class ToastNotificationManagerForUser(ComPtr):
     @winrt_mixinmethod
     def get_NotificationMode(self: win32more.Windows.UI.Notifications.IToastNotificationManagerForUser3) -> win32more.Windows.UI.Notifications.ToastNotificationMode: ...
     @winrt_mixinmethod
-    def add_NotificationModeChanged(self: win32more.Windows.UI.Notifications.IToastNotificationManagerForUser3, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotificationManagerForUser, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NotificationModeChanged(self: win32more.Windows.UI.Notifications.IToastNotificationManagerForUser3, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotificationManagerForUser, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_NotificationModeChanged(self: win32more.Windows.UI.Notifications.IToastNotificationManagerForUser3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     History = property(get_History, None)
@@ -1797,106 +1788,4 @@ class UserNotificationChangedEventArgs(ComPtr):
 UserNotificationChangedKind = Int32
 UserNotificationChangedKind_Added: UserNotificationChangedKind = 0
 UserNotificationChangedKind_Removed: UserNotificationChangedKind = 1
-make_head(_module, 'AdaptiveNotificationText')
-make_head(_module, 'BadgeNotification')
-make_head(_module, 'BadgeUpdateManager')
-make_head(_module, 'BadgeUpdateManagerForUser')
-make_head(_module, 'BadgeUpdater')
-make_head(_module, 'IAdaptiveNotificationContent')
-make_head(_module, 'IAdaptiveNotificationText')
-make_head(_module, 'IBadgeNotification')
-make_head(_module, 'IBadgeNotificationFactory')
-make_head(_module, 'IBadgeUpdateManagerForUser')
-make_head(_module, 'IBadgeUpdateManagerStatics')
-make_head(_module, 'IBadgeUpdateManagerStatics2')
-make_head(_module, 'IBadgeUpdater')
-make_head(_module, 'IKnownAdaptiveNotificationHintsStatics')
-make_head(_module, 'IKnownAdaptiveNotificationTextStylesStatics')
-make_head(_module, 'IKnownNotificationBindingsStatics')
-make_head(_module, 'INotification')
-make_head(_module, 'INotificationBinding')
-make_head(_module, 'INotificationData')
-make_head(_module, 'INotificationDataFactory')
-make_head(_module, 'INotificationVisual')
-make_head(_module, 'IScheduledTileNotification')
-make_head(_module, 'IScheduledTileNotificationFactory')
-make_head(_module, 'IScheduledToastNotification')
-make_head(_module, 'IScheduledToastNotification2')
-make_head(_module, 'IScheduledToastNotification3')
-make_head(_module, 'IScheduledToastNotification4')
-make_head(_module, 'IScheduledToastNotificationFactory')
-make_head(_module, 'IScheduledToastNotificationShowingEventArgs')
-make_head(_module, 'IShownTileNotification')
-make_head(_module, 'ITileFlyoutNotification')
-make_head(_module, 'ITileFlyoutNotificationFactory')
-make_head(_module, 'ITileFlyoutUpdateManagerStatics')
-make_head(_module, 'ITileFlyoutUpdater')
-make_head(_module, 'ITileNotification')
-make_head(_module, 'ITileNotificationFactory')
-make_head(_module, 'ITileUpdateManagerForUser')
-make_head(_module, 'ITileUpdateManagerStatics')
-make_head(_module, 'ITileUpdateManagerStatics2')
-make_head(_module, 'ITileUpdater')
-make_head(_module, 'ITileUpdater2')
-make_head(_module, 'IToastActivatedEventArgs')
-make_head(_module, 'IToastActivatedEventArgs2')
-make_head(_module, 'IToastCollection')
-make_head(_module, 'IToastCollectionFactory')
-make_head(_module, 'IToastCollectionManager')
-make_head(_module, 'IToastDismissedEventArgs')
-make_head(_module, 'IToastFailedEventArgs')
-make_head(_module, 'IToastNotification')
-make_head(_module, 'IToastNotification2')
-make_head(_module, 'IToastNotification3')
-make_head(_module, 'IToastNotification4')
-make_head(_module, 'IToastNotification6')
-make_head(_module, 'IToastNotificationActionTriggerDetail')
-make_head(_module, 'IToastNotificationFactory')
-make_head(_module, 'IToastNotificationHistory')
-make_head(_module, 'IToastNotificationHistory2')
-make_head(_module, 'IToastNotificationHistoryChangedTriggerDetail')
-make_head(_module, 'IToastNotificationHistoryChangedTriggerDetail2')
-make_head(_module, 'IToastNotificationManagerForUser')
-make_head(_module, 'IToastNotificationManagerForUser2')
-make_head(_module, 'IToastNotificationManagerForUser3')
-make_head(_module, 'IToastNotificationManagerStatics')
-make_head(_module, 'IToastNotificationManagerStatics2')
-make_head(_module, 'IToastNotificationManagerStatics4')
-make_head(_module, 'IToastNotificationManagerStatics5')
-make_head(_module, 'IToastNotifier')
-make_head(_module, 'IToastNotifier2')
-make_head(_module, 'IToastNotifier3')
-make_head(_module, 'IUserNotification')
-make_head(_module, 'IUserNotificationChangedEventArgs')
-make_head(_module, 'KnownAdaptiveNotificationHints')
-make_head(_module, 'KnownAdaptiveNotificationTextStyles')
-make_head(_module, 'KnownNotificationBindings')
-make_head(_module, 'Notification')
-make_head(_module, 'NotificationBinding')
-make_head(_module, 'NotificationData')
-make_head(_module, 'NotificationVisual')
-make_head(_module, 'ScheduledTileNotification')
-make_head(_module, 'ScheduledToastNotification')
-make_head(_module, 'ScheduledToastNotificationShowingEventArgs')
-make_head(_module, 'ShownTileNotification')
-make_head(_module, 'TileFlyoutNotification')
-make_head(_module, 'TileFlyoutUpdateManager')
-make_head(_module, 'TileFlyoutUpdater')
-make_head(_module, 'TileNotification')
-make_head(_module, 'TileUpdateManager')
-make_head(_module, 'TileUpdateManagerForUser')
-make_head(_module, 'TileUpdater')
-make_head(_module, 'ToastActivatedEventArgs')
-make_head(_module, 'ToastCollection')
-make_head(_module, 'ToastCollectionManager')
-make_head(_module, 'ToastDismissedEventArgs')
-make_head(_module, 'ToastFailedEventArgs')
-make_head(_module, 'ToastNotification')
-make_head(_module, 'ToastNotificationActionTriggerDetail')
-make_head(_module, 'ToastNotificationHistory')
-make_head(_module, 'ToastNotificationHistoryChangedTriggerDetail')
-make_head(_module, 'ToastNotificationManager')
-make_head(_module, 'ToastNotificationManagerForUser')
-make_head(_module, 'ToastNotifier')
-make_head(_module, 'UserNotification')
-make_head(_module, 'UserNotificationChangedEventArgs')
+make_ready(__name__)

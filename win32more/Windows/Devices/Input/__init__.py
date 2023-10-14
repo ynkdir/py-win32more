@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Haptics
 import win32more.Windows.Devices.Input
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IKeyboardCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Input.IKeyboardCapabilities'
@@ -82,7 +73,7 @@ class IPenButtonListener(ComPtr):
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
-    def add_IsSupportedChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenButtonListener, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsSupportedChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenButtonListener, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_IsSupportedChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -130,7 +121,7 @@ class IPenDockListener(ComPtr):
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
-    def add_IsSupportedChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenDockListener, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsSupportedChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenDockListener, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_IsSupportedChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -271,7 +262,7 @@ class PenButtonListener(ComPtr):
     @winrt_mixinmethod
     def IsSupported(self: win32more.Windows.Devices.Input.IPenButtonListener) -> Boolean: ...
     @winrt_mixinmethod
-    def add_IsSupportedChanged(self: win32more.Windows.Devices.Input.IPenButtonListener, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenButtonListener, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsSupportedChanged(self: win32more.Windows.Devices.Input.IPenButtonListener, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenButtonListener, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsSupportedChanged(self: win32more.Windows.Devices.Input.IPenButtonListener, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -307,7 +298,7 @@ class PenDockListener(ComPtr):
     @winrt_mixinmethod
     def IsSupported(self: win32more.Windows.Devices.Input.IPenDockListener) -> Boolean: ...
     @winrt_mixinmethod
-    def add_IsSupportedChanged(self: win32more.Windows.Devices.Input.IPenDockListener, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenDockListener, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsSupportedChanged(self: win32more.Windows.Devices.Input.IPenDockListener, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenDockListener, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsSupportedChanged(self: win32more.Windows.Devices.Input.IPenDockListener, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -394,40 +385,4 @@ class TouchCapabilities(ComPtr):
     def get_Contacts(self: win32more.Windows.Devices.Input.ITouchCapabilities) -> UInt32: ...
     TouchPresent = property(get_TouchPresent, None)
     Contacts = property(get_Contacts, None)
-make_head(_module, 'IKeyboardCapabilities')
-make_head(_module, 'IMouseCapabilities')
-make_head(_module, 'IMouseDevice')
-make_head(_module, 'IMouseDeviceStatics')
-make_head(_module, 'IMouseEventArgs')
-make_head(_module, 'IPenButtonListener')
-make_head(_module, 'IPenButtonListenerStatics')
-make_head(_module, 'IPenDevice')
-make_head(_module, 'IPenDevice2')
-make_head(_module, 'IPenDeviceStatics')
-make_head(_module, 'IPenDockListener')
-make_head(_module, 'IPenDockListenerStatics')
-make_head(_module, 'IPenDockedEventArgs')
-make_head(_module, 'IPenTailButtonClickedEventArgs')
-make_head(_module, 'IPenTailButtonDoubleClickedEventArgs')
-make_head(_module, 'IPenTailButtonLongPressedEventArgs')
-make_head(_module, 'IPenUndockedEventArgs')
-make_head(_module, 'IPointerDevice')
-make_head(_module, 'IPointerDevice2')
-make_head(_module, 'IPointerDeviceStatics')
-make_head(_module, 'ITouchCapabilities')
-make_head(_module, 'KeyboardCapabilities')
-make_head(_module, 'MouseCapabilities')
-make_head(_module, 'MouseDelta')
-make_head(_module, 'MouseDevice')
-make_head(_module, 'MouseEventArgs')
-make_head(_module, 'PenButtonListener')
-make_head(_module, 'PenDevice')
-make_head(_module, 'PenDockListener')
-make_head(_module, 'PenDockedEventArgs')
-make_head(_module, 'PenTailButtonClickedEventArgs')
-make_head(_module, 'PenTailButtonDoubleClickedEventArgs')
-make_head(_module, 'PenTailButtonLongPressedEventArgs')
-make_head(_module, 'PenUndockedEventArgs')
-make_head(_module, 'PointerDevice')
-make_head(_module, 'PointerDeviceUsage')
-make_head(_module, 'TouchCapabilities')
+make_ready(__name__)

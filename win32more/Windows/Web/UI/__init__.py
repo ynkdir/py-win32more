@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.DataTransfer
@@ -23,15 +23,6 @@ import win32more.Windows.UI
 import win32more.Windows.Web
 import win32more.Windows.Web.Http
 import win32more.Windows.Web.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IWebViewControl(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.UI.IWebViewControl'
@@ -123,7 +114,7 @@ class IWebViewControl(ComPtr):
     @winrt_commethod(48)
     def remove_LongRunningScriptDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(49)
-    def add_UnsafeContentWarningDisplaying(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.IWebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UnsafeContentWarningDisplaying(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.IWebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(50)
     def remove_UnsafeContentWarningDisplaying(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(51)
@@ -143,7 +134,7 @@ class IWebViewControl(ComPtr):
     @winrt_commethod(58)
     def remove_NewWindowRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(59)
-    def add_ContainsFullScreenElementChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.IWebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ContainsFullScreenElementChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.IWebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(60)
     def remove_ContainsFullScreenElementChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(61)
@@ -555,34 +546,4 @@ class WebViewControlWebResourceRequestedEventArgs(ComPtr):
     def get_Response(self: win32more.Windows.Web.UI.IWebViewControlWebResourceRequestedEventArgs) -> win32more.Windows.Web.Http.HttpResponseMessage: ...
     Request = property(get_Request, None)
     Response = property(get_Response, put_Response)
-make_head(_module, 'IWebViewControl')
-make_head(_module, 'IWebViewControl2')
-make_head(_module, 'IWebViewControlContentLoadingEventArgs')
-make_head(_module, 'IWebViewControlDOMContentLoadedEventArgs')
-make_head(_module, 'IWebViewControlDeferredPermissionRequest')
-make_head(_module, 'IWebViewControlLongRunningScriptDetectedEventArgs')
-make_head(_module, 'IWebViewControlNavigationCompletedEventArgs')
-make_head(_module, 'IWebViewControlNavigationStartingEventArgs')
-make_head(_module, 'IWebViewControlNewWindowRequestedEventArgs')
-make_head(_module, 'IWebViewControlNewWindowRequestedEventArgs2')
-make_head(_module, 'IWebViewControlPermissionRequest')
-make_head(_module, 'IWebViewControlPermissionRequestedEventArgs')
-make_head(_module, 'IWebViewControlScriptNotifyEventArgs')
-make_head(_module, 'IWebViewControlSettings')
-make_head(_module, 'IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs')
-make_head(_module, 'IWebViewControlUnviewableContentIdentifiedEventArgs')
-make_head(_module, 'IWebViewControlWebResourceRequestedEventArgs')
-make_head(_module, 'WebViewControlContentLoadingEventArgs')
-make_head(_module, 'WebViewControlDOMContentLoadedEventArgs')
-make_head(_module, 'WebViewControlDeferredPermissionRequest')
-make_head(_module, 'WebViewControlLongRunningScriptDetectedEventArgs')
-make_head(_module, 'WebViewControlNavigationCompletedEventArgs')
-make_head(_module, 'WebViewControlNavigationStartingEventArgs')
-make_head(_module, 'WebViewControlNewWindowRequestedEventArgs')
-make_head(_module, 'WebViewControlPermissionRequest')
-make_head(_module, 'WebViewControlPermissionRequestedEventArgs')
-make_head(_module, 'WebViewControlScriptNotifyEventArgs')
-make_head(_module, 'WebViewControlSettings')
-make_head(_module, 'WebViewControlUnsupportedUriSchemeIdentifiedEventArgs')
-make_head(_module, 'WebViewControlUnviewableContentIdentifiedEventArgs')
-make_head(_module, 'WebViewControlWebResourceRequestedEventArgs')
+make_ready(__name__)

@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.EventCollector
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 EC_VARIANT_TYPE_MASK: UInt32 = 127
 EC_VARIANT_TYPE_ARRAY: UInt32 = 128
 EC_READ_ACCESS: UInt32 = 1
@@ -26,9 +17,9 @@ def EcEnumNextSubscription(SubscriptionEnum: IntPtr, SubscriptionNameBufferSize:
 @winfunctype('WecApi.dll')
 def EcOpenSubscription(SubscriptionName: win32more.Windows.Win32.Foundation.PWSTR, AccessMask: UInt32, Flags: UInt32) -> IntPtr: ...
 @winfunctype('WecApi.dll')
-def EcSetSubscriptionProperty(Subscription: IntPtr, PropertyId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_PROPERTY_ID, Flags: UInt32, PropertyValue: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EcSetSubscriptionProperty(Subscription: IntPtr, PropertyId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_PROPERTY_ID, Flags: UInt32, PropertyValue: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
-def EcGetSubscriptionProperty(Subscription: IntPtr, PropertyId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_PROPERTY_ID, Flags: UInt32, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT_head), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EcGetSubscriptionProperty(Subscription: IntPtr, PropertyId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_PROPERTY_ID, Flags: UInt32, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
 def EcSaveSubscription(Subscription: IntPtr, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
@@ -36,15 +27,15 @@ def EcDeleteSubscription(SubscriptionName: win32more.Windows.Win32.Foundation.PW
 @winfunctype('WecApi.dll')
 def EcGetObjectArraySize(ObjectArray: IntPtr, ObjectArraySize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
-def EcSetObjectArrayProperty(ObjectArray: IntPtr, PropertyId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_PROPERTY_ID, ArrayIndex: UInt32, Flags: UInt32, PropertyValue: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EcSetObjectArrayProperty(ObjectArray: IntPtr, PropertyId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_PROPERTY_ID, ArrayIndex: UInt32, Flags: UInt32, PropertyValue: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
-def EcGetObjectArrayProperty(ObjectArray: IntPtr, PropertyId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_PROPERTY_ID, ArrayIndex: UInt32, Flags: UInt32, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT_head), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EcGetObjectArrayProperty(ObjectArray: IntPtr, PropertyId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_PROPERTY_ID, ArrayIndex: UInt32, Flags: UInt32, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
 def EcInsertObjectArrayElement(ObjectArray: IntPtr, ArrayIndex: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
 def EcRemoveObjectArrayElement(ObjectArray: IntPtr, ArrayIndex: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
-def EcGetSubscriptionRunTimeStatus(SubscriptionName: win32more.Windows.Win32.Foundation.PWSTR, StatusInfoId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID, EventSourceName: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32, StatusValueBufferSize: UInt32, StatusValueBuffer: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT_head), StatusValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EcGetSubscriptionRunTimeStatus(SubscriptionName: win32more.Windows.Win32.Foundation.PWSTR, StatusInfoId: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID, EventSourceName: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32, StatusValueBufferSize: UInt32, StatusValueBuffer: POINTER(win32more.Windows.Win32.System.EventCollector.EC_VARIANT), StatusValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
 def EcRetrySubscription(SubscriptionName: win32more.Windows.Win32.Foundation.PWSTR, EventSourceName: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WecApi.dll')
@@ -138,4 +129,4 @@ EC_VARIANT_TYPE_EcVarTypeUInt32: EC_VARIANT_TYPE = 2
 EC_VARIANT_TYPE_EcVarTypeDateTime: EC_VARIANT_TYPE = 3
 EC_VARIANT_TYPE_EcVarTypeString: EC_VARIANT_TYPE = 4
 EC_VARIANT_TYPE_EcVarObjectArrayPropertyHandle: EC_VARIANT_TYPE = 5
-make_head(_module, 'EC_VARIANT')
+make_ready(__name__)

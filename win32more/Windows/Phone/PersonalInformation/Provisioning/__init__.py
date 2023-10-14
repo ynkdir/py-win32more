@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -20,15 +20,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Phone.PersonalInformation
 import win32more.Windows.Phone.PersonalInformation.Provisioning
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ContactPartnerProvisioningManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.PersonalInformation.Provisioning.ContactPartnerProvisioningManager'
@@ -59,16 +50,12 @@ class IMessagePartnerProvisioningManagerStatics(ComPtr):
     @winrt_commethod(6)
     def ImportSmsToSystemAsync(self, incoming: Boolean, read: Boolean, body: WinRT_String, sender: WinRT_String, recipients: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: win32more.Windows.Foundation.DateTime) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
-    def ImportMmsToSystemAsync(self, incoming: Boolean, read: Boolean, subject: WinRT_String, sender: WinRT_String, recipients: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: win32more.Windows.Foundation.DateTime, attachments: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def ImportMmsToSystemAsync(self, incoming: Boolean, read: Boolean, subject: WinRT_String, sender: WinRT_String, recipients: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: win32more.Windows.Foundation.DateTime, attachments: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class MessagePartnerProvisioningManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.PersonalInformation.Provisioning.MessagePartnerProvisioningManager'
     @winrt_classmethod
     def ImportSmsToSystemAsync(cls: win32more.Windows.Phone.PersonalInformation.Provisioning.IMessagePartnerProvisioningManagerStatics, incoming: Boolean, read: Boolean, body: WinRT_String, sender: WinRT_String, recipients: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: win32more.Windows.Foundation.DateTime) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
-    def ImportMmsToSystemAsync(cls: win32more.Windows.Phone.PersonalInformation.Provisioning.IMessagePartnerProvisioningManagerStatics, incoming: Boolean, read: Boolean, subject: WinRT_String, sender: WinRT_String, recipients: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: win32more.Windows.Foundation.DateTime, attachments: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.IAsyncAction: ...
-make_head(_module, 'ContactPartnerProvisioningManager')
-make_head(_module, 'IContactPartnerProvisioningManagerStatics')
-make_head(_module, 'IContactPartnerProvisioningManagerStatics2')
-make_head(_module, 'IMessagePartnerProvisioningManagerStatics')
-make_head(_module, 'MessagePartnerProvisioningManager')
+    def ImportMmsToSystemAsync(cls: win32more.Windows.Phone.PersonalInformation.Provisioning.IMessagePartnerProvisioningManagerStatics, incoming: Boolean, read: Boolean, subject: WinRT_String, sender: WinRT_String, recipients: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String], deliveryTime: win32more.Windows.Foundation.DateTime, attachments: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+make_ready(__name__)

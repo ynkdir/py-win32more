@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Management.Update
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPreviewBuildsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IPreviewBuildsManager'
@@ -104,7 +95,7 @@ class IWindowsUpdate(ComPtr):
     @winrt_commethod(27)
     def get_ActionProgress(self) -> win32more.Windows.Management.Update.WindowsUpdateActionProgress: ...
     @winrt_commethod(28)
-    def GetPropertyValue(self, propertyName: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetPropertyValue(self, propertyName: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(29)
     def AcceptEula(self) -> Void: ...
     ProviderId = property(get_ProviderId, None)
@@ -295,11 +286,11 @@ class IWindowsUpdateManager(ComPtr):
     _classid_ = 'Windows.Management.Update.IWindowsUpdateManager'
     _iid_ = Guid('{5dd966c0-a71a-5602-bbd0-09a70e4573fa}')
     @winrt_commethod(6)
-    def add_ScanningStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Update.WindowsUpdateManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ScanningStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Update.WindowsUpdateManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ScanningStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_WorkingStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Update.WindowsUpdateManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_WorkingStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Update.WindowsUpdateManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_WorkingStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -485,7 +476,7 @@ class WindowsUpdate(ComPtr):
     @winrt_mixinmethod
     def get_ActionProgress(self: win32more.Windows.Management.Update.IWindowsUpdate) -> win32more.Windows.Management.Update.WindowsUpdateActionProgress: ...
     @winrt_mixinmethod
-    def GetPropertyValue(self: win32more.Windows.Management.Update.IWindowsUpdate, propertyName: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def GetPropertyValue(self: win32more.Windows.Management.Update.IWindowsUpdate, propertyName: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def AcceptEula(self: win32more.Windows.Management.Update.IWindowsUpdate) -> Void: ...
     ProviderId = property(get_ProviderId, None)
@@ -720,11 +711,11 @@ class WindowsUpdateManager(ComPtr):
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Management.Update.IWindowsUpdateManagerFactory, clientId: WinRT_String) -> win32more.Windows.Management.Update.WindowsUpdateManager: ...
     @winrt_mixinmethod
-    def add_ScanningStateChanged(self: win32more.Windows.Management.Update.IWindowsUpdateManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Update.WindowsUpdateManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ScanningStateChanged(self: win32more.Windows.Management.Update.IWindowsUpdateManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Update.WindowsUpdateManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ScanningStateChanged(self: win32more.Windows.Management.Update.IWindowsUpdateManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_WorkingStateChanged(self: win32more.Windows.Management.Update.IWindowsUpdateManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Update.WindowsUpdateManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_WorkingStateChanged(self: win32more.Windows.Management.Update.IWindowsUpdateManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Management.Update.WindowsUpdateManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_WorkingStateChanged(self: win32more.Windows.Management.Update.IWindowsUpdateManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -829,39 +820,4 @@ class WindowsUpdateScanCompletedEventArgs(ComPtr):
     Succeeded = property(get_Succeeded, None)
     ExtendedError = property(get_ExtendedError, None)
     Updates = property(get_Updates, None)
-make_head(_module, 'IPreviewBuildsManager')
-make_head(_module, 'IPreviewBuildsManagerStatics')
-make_head(_module, 'IPreviewBuildsState')
-make_head(_module, 'IWindowsUpdate')
-make_head(_module, 'IWindowsUpdateActionCompletedEventArgs')
-make_head(_module, 'IWindowsUpdateActionProgress')
-make_head(_module, 'IWindowsUpdateActionResult')
-make_head(_module, 'IWindowsUpdateAdministrator')
-make_head(_module, 'IWindowsUpdateAdministratorStatics')
-make_head(_module, 'IWindowsUpdateApprovalData')
-make_head(_module, 'IWindowsUpdateAttentionRequiredInfo')
-make_head(_module, 'IWindowsUpdateAttentionRequiredReasonChangedEventArgs')
-make_head(_module, 'IWindowsUpdateGetAdministratorResult')
-make_head(_module, 'IWindowsUpdateItem')
-make_head(_module, 'IWindowsUpdateManager')
-make_head(_module, 'IWindowsUpdateManagerFactory')
-make_head(_module, 'IWindowsUpdateProgressChangedEventArgs')
-make_head(_module, 'IWindowsUpdateRestartRequestOptions')
-make_head(_module, 'IWindowsUpdateRestartRequestOptionsFactory')
-make_head(_module, 'IWindowsUpdateScanCompletedEventArgs')
-make_head(_module, 'PreviewBuildsManager')
-make_head(_module, 'PreviewBuildsState')
-make_head(_module, 'WindowsUpdate')
-make_head(_module, 'WindowsUpdateActionCompletedEventArgs')
-make_head(_module, 'WindowsUpdateActionProgress')
-make_head(_module, 'WindowsUpdateActionResult')
-make_head(_module, 'WindowsUpdateAdministrator')
-make_head(_module, 'WindowsUpdateApprovalData')
-make_head(_module, 'WindowsUpdateAttentionRequiredInfo')
-make_head(_module, 'WindowsUpdateAttentionRequiredReasonChangedEventArgs')
-make_head(_module, 'WindowsUpdateGetAdministratorResult')
-make_head(_module, 'WindowsUpdateItem')
-make_head(_module, 'WindowsUpdateManager')
-make_head(_module, 'WindowsUpdateProgressChangedEventArgs')
-make_head(_module, 'WindowsUpdateRestartRequestOptions')
-make_head(_module, 'WindowsUpdateScanCompletedEventArgs')
+make_ready(__name__)

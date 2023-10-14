@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -29,21 +29,12 @@ import win32more.Windows.Media.Render
 import win32more.Windows.Media.Transcoding
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AudioCaptureEffectsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager
     _classid_ = 'Windows.Media.Effects.AudioCaptureEffectsManager'
     @winrt_mixinmethod
-    def add_AudioCaptureEffectsChanged(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioCaptureEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioCaptureEffectsChanged(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioCaptureEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AudioCaptureEffectsChanged(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -106,7 +97,7 @@ class AudioRenderEffectsManager(ComPtr):
     default_interface: win32more.Windows.Media.Effects.IAudioRenderEffectsManager
     _classid_ = 'Windows.Media.Effects.AudioRenderEffectsManager'
     @winrt_mixinmethod
-    def add_AudioRenderEffectsChanged(self: win32more.Windows.Media.Effects.IAudioRenderEffectsManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioRenderEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioRenderEffectsChanged(self: win32more.Windows.Media.Effects.IAudioRenderEffectsManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioRenderEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AudioRenderEffectsChanged(self: win32more.Windows.Media.Effects.IAudioRenderEffectsManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -139,7 +130,7 @@ class IAudioCaptureEffectsManager(ComPtr):
     _classid_ = 'Windows.Media.Effects.IAudioCaptureEffectsManager'
     _iid_ = Guid('{8f85c271-038d-4393-8298-540110608eef}')
     @winrt_commethod(6)
-    def add_AudioCaptureEffectsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioCaptureEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioCaptureEffectsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioCaptureEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AudioCaptureEffectsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -186,7 +177,7 @@ class IAudioRenderEffectsManager(ComPtr):
     _classid_ = 'Windows.Media.Effects.IAudioRenderEffectsManager'
     _iid_ = Guid('{4dc98966-8751-42b2-bfcb-39ca7864bd47}')
     @winrt_commethod(6)
-    def add_AudioRenderEffectsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioRenderEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioRenderEffectsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioRenderEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AudioRenderEffectsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -558,37 +549,4 @@ class VideoTransformSphericalProjection(ComPtr):
     ProjectionMode = property(get_ProjectionMode, put_ProjectionMode)
     HorizontalFieldOfViewInDegrees = property(get_HorizontalFieldOfViewInDegrees, put_HorizontalFieldOfViewInDegrees)
     ViewOrientation = property(get_ViewOrientation, put_ViewOrientation)
-make_head(_module, 'AudioCaptureEffectsManager')
-make_head(_module, 'AudioEffect')
-make_head(_module, 'AudioEffectDefinition')
-make_head(_module, 'AudioEffectsManager')
-make_head(_module, 'AudioRenderEffectsManager')
-make_head(_module, 'CompositeVideoFrameContext')
-make_head(_module, 'IAudioCaptureEffectsManager')
-make_head(_module, 'IAudioEffect')
-make_head(_module, 'IAudioEffectDefinition')
-make_head(_module, 'IAudioEffectDefinitionFactory')
-make_head(_module, 'IAudioEffectsManagerStatics')
-make_head(_module, 'IAudioRenderEffectsManager')
-make_head(_module, 'IAudioRenderEffectsManager2')
-make_head(_module, 'IBasicAudioEffect')
-make_head(_module, 'IBasicVideoEffect')
-make_head(_module, 'ICompositeVideoFrameContext')
-make_head(_module, 'IProcessAudioFrameContext')
-make_head(_module, 'IProcessVideoFrameContext')
-make_head(_module, 'ISlowMotionEffectDefinition')
-make_head(_module, 'IVideoCompositor')
-make_head(_module, 'IVideoCompositorDefinition')
-make_head(_module, 'IVideoCompositorDefinitionFactory')
-make_head(_module, 'IVideoEffectDefinition')
-make_head(_module, 'IVideoEffectDefinitionFactory')
-make_head(_module, 'IVideoTransformEffectDefinition')
-make_head(_module, 'IVideoTransformEffectDefinition2')
-make_head(_module, 'IVideoTransformSphericalProjection')
-make_head(_module, 'ProcessAudioFrameContext')
-make_head(_module, 'ProcessVideoFrameContext')
-make_head(_module, 'SlowMotionEffectDefinition')
-make_head(_module, 'VideoCompositorDefinition')
-make_head(_module, 'VideoEffectDefinition')
-make_head(_module, 'VideoTransformEffectDefinition')
-make_head(_module, 'VideoTransformSphericalProjection')
+make_ready(__name__)

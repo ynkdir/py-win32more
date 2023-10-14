@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.AppService
@@ -22,15 +22,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
 import win32more.Windows.Media.SpeechRecognition
 import win32more.Windows.Storage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IVoiceCommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.IVoiceCommand'
@@ -83,9 +74,9 @@ class IVoiceCommandContentTile(ComPtr):
     @winrt_commethod(15)
     def put_Image(self, value: win32more.Windows.Storage.IStorageFile) -> Void: ...
     @winrt_commethod(16)
-    def get_AppContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_AppContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(17)
-    def put_AppContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_AppContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(18)
     def get_AppLaunchArgument(self) -> WinRT_String: ...
     @winrt_commethod(19)
@@ -274,9 +265,9 @@ class VoiceCommandContentTile(ComPtr):
     @winrt_mixinmethod
     def put_Image(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile, value: win32more.Windows.Storage.IStorageFile) -> Void: ...
     @winrt_mixinmethod
-    def get_AppContext(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_AppContext(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_AppContext(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_AppContext(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_AppLaunchArgument(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -409,25 +400,4 @@ class VoiceCommandUserMessage(ComPtr):
     def put_SpokenMessage(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandUserMessage, value: WinRT_String) -> Void: ...
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
     SpokenMessage = property(get_SpokenMessage, put_SpokenMessage)
-make_head(_module, 'IVoiceCommand')
-make_head(_module, 'IVoiceCommandCompletedEventArgs')
-make_head(_module, 'IVoiceCommandConfirmationResult')
-make_head(_module, 'IVoiceCommandContentTile')
-make_head(_module, 'IVoiceCommandDefinition')
-make_head(_module, 'IVoiceCommandDefinitionManagerStatics')
-make_head(_module, 'IVoiceCommandDisambiguationResult')
-make_head(_module, 'IVoiceCommandResponse')
-make_head(_module, 'IVoiceCommandResponseStatics')
-make_head(_module, 'IVoiceCommandServiceConnection')
-make_head(_module, 'IVoiceCommandServiceConnectionStatics')
-make_head(_module, 'IVoiceCommandUserMessage')
-make_head(_module, 'VoiceCommand')
-make_head(_module, 'VoiceCommandCompletedEventArgs')
-make_head(_module, 'VoiceCommandConfirmationResult')
-make_head(_module, 'VoiceCommandContentTile')
-make_head(_module, 'VoiceCommandDefinition')
-make_head(_module, 'VoiceCommandDefinitionManager')
-make_head(_module, 'VoiceCommandDisambiguationResult')
-make_head(_module, 'VoiceCommandResponse')
-make_head(_module, 'VoiceCommandServiceConnection')
-make_head(_module, 'VoiceCommandUserMessage')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Networking
 import win32more.Windows.Networking.Connectivity
 import win32more.Windows.Networking.ServiceDiscovery.Dnssd
 import win32more.Windows.Networking.Sockets
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class DnssdRegistrationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdRegistrationResult
@@ -120,11 +111,11 @@ class DnssdServiceWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Added(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -209,11 +200,11 @@ class IDnssdServiceWatcher(ComPtr):
     @winrt_commethod(7)
     def remove_Added(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
@@ -223,11 +214,4 @@ class IDnssdServiceWatcher(ComPtr):
     @winrt_commethod(14)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-make_head(_module, 'DnssdRegistrationResult')
-make_head(_module, 'DnssdServiceInstance')
-make_head(_module, 'DnssdServiceInstanceCollection')
-make_head(_module, 'DnssdServiceWatcher')
-make_head(_module, 'IDnssdRegistrationResult')
-make_head(_module, 'IDnssdServiceInstance')
-make_head(_module, 'IDnssdServiceInstanceFactory')
-make_head(_module, 'IDnssdServiceWatcher')
+make_ready(__name__)

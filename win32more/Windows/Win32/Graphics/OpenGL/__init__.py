@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Graphics.OpenGL
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 GL_VERSION_1_1: UInt32 = 1
 GL_ACCUM: UInt32 = 256
 GL_LOAD: UInt32 = 257
@@ -717,15 +708,15 @@ GLU_END: UInt32 = 100102
 GLU_ERROR: UInt32 = 100103
 GLU_EDGE_FLAG: UInt32 = 100104
 @winfunctype('GDI32.dll')
-def ChoosePixelFormat(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, ppfd: POINTER(win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head)) -> Int32: ...
+def ChoosePixelFormat(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, ppfd: POINTER(win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR)) -> Int32: ...
 @winfunctype('GDI32.dll')
-def DescribePixelFormat(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPixelFormat: Int32, nBytes: UInt32, ppfd: POINTER(win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head)) -> Int32: ...
+def DescribePixelFormat(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iPixelFormat: Int32, nBytes: UInt32, ppfd: POINTER(win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR)) -> Int32: ...
 @winfunctype('GDI32.dll')
 def GetPixelFormat(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> Int32: ...
 @winfunctype('GDI32.dll')
-def SetPixelFormat(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, format: Int32, ppfd: POINTER(win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetPixelFormat(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, format: Int32, ppfd: POINTER(win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
-def GetEnhMetaFilePixelFormat(hemf: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE, cbBuffer: UInt32, ppfd: POINTER(win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head)) -> UInt32: ...
+def GetEnhMetaFilePixelFormat(hemf: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE, cbBuffer: UInt32, ppfd: POINTER(win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR)) -> UInt32: ...
 @winfunctype('OPENGL32.dll')
 def wglCopyContext(param0: win32more.Windows.Win32.Graphics.OpenGL.HGLRC, param1: win32more.Windows.Win32.Graphics.OpenGL.HGLRC, param2: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')
@@ -751,11 +742,11 @@ def wglUseFontBitmapsW(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1:
 @winfunctype('GDI32.dll')
 def SwapBuffers(param0: win32more.Windows.Win32.Graphics.Gdi.HDC) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')
-def wglUseFontOutlinesA(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32, param4: Single, param5: Single, param6: Int32, param7: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLYPHMETRICSFLOAT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def wglUseFontOutlinesA(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32, param4: Single, param5: Single, param6: Int32, param7: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLYPHMETRICSFLOAT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')
-def wglUseFontOutlinesW(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32, param4: Single, param5: Single, param6: Int32, param7: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLYPHMETRICSFLOAT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def wglUseFontOutlinesW(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32, param4: Single, param5: Single, param6: Int32, param7: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLYPHMETRICSFLOAT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')
-def wglDescribeLayerPlane(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: Int32, param2: Int32, param3: UInt32, param4: POINTER(win32more.Windows.Win32.Graphics.OpenGL.LAYERPLANEDESCRIPTOR_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def wglDescribeLayerPlane(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: Int32, param2: Int32, param3: UInt32, param4: POINTER(win32more.Windows.Win32.Graphics.OpenGL.LAYERPLANEDESCRIPTOR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')
 def wglSetLayerPaletteEntries(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: Int32, param2: Int32, param3: Int32, param4: POINTER(win32more.Windows.Win32.Foundation.COLORREF)) -> Int32: ...
 @winfunctype('OPENGL32.dll')
@@ -1697,39 +1688,4 @@ class PIXELFORMATDESCRIPTOR(EasyCastStructure):
 class POINTFLOAT(EasyCastStructure):
     x: Single
     y: Single
-make_head(_module, 'EMRPIXELFORMAT')
-make_head(_module, 'GLUnurbsErrorProc')
-make_head(_module, 'GLUquadricErrorProc')
-make_head(_module, 'GLUtessBeginDataProc')
-make_head(_module, 'GLUtessBeginProc')
-make_head(_module, 'GLUtessCombineDataProc')
-make_head(_module, 'GLUtessCombineProc')
-make_head(_module, 'GLUtessEdgeFlagDataProc')
-make_head(_module, 'GLUtessEdgeFlagProc')
-make_head(_module, 'GLUtessEndDataProc')
-make_head(_module, 'GLUtessEndProc')
-make_head(_module, 'GLUtessErrorDataProc')
-make_head(_module, 'GLUtessErrorProc')
-make_head(_module, 'GLUtessVertexDataProc')
-make_head(_module, 'GLUtessVertexProc')
-make_head(_module, 'GLYPHMETRICSFLOAT')
-make_head(_module, 'LAYERPLANEDESCRIPTOR')
-make_head(_module, 'PFNGLADDSWAPHINTRECTWINPROC')
-make_head(_module, 'PFNGLARRAYELEMENTARRAYEXTPROC')
-make_head(_module, 'PFNGLARRAYELEMENTEXTPROC')
-make_head(_module, 'PFNGLCOLORPOINTEREXTPROC')
-make_head(_module, 'PFNGLCOLORSUBTABLEEXTPROC')
-make_head(_module, 'PFNGLCOLORTABLEEXTPROC')
-make_head(_module, 'PFNGLDRAWARRAYSEXTPROC')
-make_head(_module, 'PFNGLDRAWRANGEELEMENTSWINPROC')
-make_head(_module, 'PFNGLEDGEFLAGPOINTEREXTPROC')
-make_head(_module, 'PFNGLGETCOLORTABLEEXTPROC')
-make_head(_module, 'PFNGLGETCOLORTABLEPARAMETERFVEXTPROC')
-make_head(_module, 'PFNGLGETCOLORTABLEPARAMETERIVEXTPROC')
-make_head(_module, 'PFNGLGETPOINTERVEXTPROC')
-make_head(_module, 'PFNGLINDEXPOINTEREXTPROC')
-make_head(_module, 'PFNGLNORMALPOINTEREXTPROC')
-make_head(_module, 'PFNGLTEXCOORDPOINTEREXTPROC')
-make_head(_module, 'PFNGLVERTEXPOINTEREXTPROC')
-make_head(_module, 'PIXELFORMATDESCRIPTOR')
-make_head(_module, 'POINTFLOAT')
+make_ready(__name__)

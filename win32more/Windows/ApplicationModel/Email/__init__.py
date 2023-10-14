@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Appointments
@@ -22,15 +22,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Cryptography.Certificates
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class EmailAttachment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailAttachment
@@ -798,7 +789,7 @@ class EmailMailboxSyncManager(ComPtr):
     @winrt_mixinmethod
     def SyncAsync(self: win32more.Windows.ApplicationModel.Email.IEmailMailboxSyncManager) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Email.IEmailMailboxSyncManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Email.EmailMailboxSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Email.IEmailMailboxSyncManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Email.EmailMailboxSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SyncStatusChanged(self: win32more.Windows.ApplicationModel.Email.IEmailMailboxSyncManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2005,7 +1996,7 @@ class IEmailMailboxSyncManager(ComPtr):
     @winrt_commethod(9)
     def SyncAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(10)
-    def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Email.EmailMailboxSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Email.EmailMailboxSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SyncStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
@@ -2441,92 +2432,4 @@ class IEmailStoreNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.IEmailStoreNotificationTriggerDetails'
     _iid_ = Guid('{ce17563c-46e6-43c9-96f7-facf7dd710cb}')
-make_head(_module, 'EmailAttachment')
-make_head(_module, 'EmailConversation')
-make_head(_module, 'EmailConversationBatch')
-make_head(_module, 'EmailConversationReader')
-make_head(_module, 'EmailFolder')
-make_head(_module, 'EmailIrmInfo')
-make_head(_module, 'EmailIrmTemplate')
-make_head(_module, 'EmailItemCounts')
-make_head(_module, 'EmailMailbox')
-make_head(_module, 'EmailMailboxAction')
-make_head(_module, 'EmailMailboxAutoReply')
-make_head(_module, 'EmailMailboxAutoReplySettings')
-make_head(_module, 'EmailMailboxCapabilities')
-make_head(_module, 'EmailMailboxChange')
-make_head(_module, 'EmailMailboxChangeReader')
-make_head(_module, 'EmailMailboxChangeTracker')
-make_head(_module, 'EmailMailboxChangedDeferral')
-make_head(_module, 'EmailMailboxChangedEventArgs')
-make_head(_module, 'EmailMailboxCreateFolderResult')
-make_head(_module, 'EmailMailboxPolicies')
-make_head(_module, 'EmailMailboxSyncManager')
-make_head(_module, 'EmailManager')
-make_head(_module, 'EmailManagerForUser')
-make_head(_module, 'EmailMeetingInfo')
-make_head(_module, 'EmailMessage')
-make_head(_module, 'EmailMessageBatch')
-make_head(_module, 'EmailMessageReader')
-make_head(_module, 'EmailQueryOptions')
-make_head(_module, 'EmailQueryTextSearch')
-make_head(_module, 'EmailRecipient')
-make_head(_module, 'EmailRecipientResolutionResult')
-make_head(_module, 'EmailStore')
-make_head(_module, 'EmailStoreNotificationTriggerDetails')
-make_head(_module, 'IEmailAttachment')
-make_head(_module, 'IEmailAttachment2')
-make_head(_module, 'IEmailAttachmentFactory')
-make_head(_module, 'IEmailAttachmentFactory2')
-make_head(_module, 'IEmailConversation')
-make_head(_module, 'IEmailConversationBatch')
-make_head(_module, 'IEmailConversationReader')
-make_head(_module, 'IEmailFolder')
-make_head(_module, 'IEmailIrmInfo')
-make_head(_module, 'IEmailIrmInfoFactory')
-make_head(_module, 'IEmailIrmTemplate')
-make_head(_module, 'IEmailIrmTemplateFactory')
-make_head(_module, 'IEmailItemCounts')
-make_head(_module, 'IEmailMailbox')
-make_head(_module, 'IEmailMailbox2')
-make_head(_module, 'IEmailMailbox3')
-make_head(_module, 'IEmailMailbox4')
-make_head(_module, 'IEmailMailbox5')
-make_head(_module, 'IEmailMailboxAction')
-make_head(_module, 'IEmailMailboxAutoReply')
-make_head(_module, 'IEmailMailboxAutoReplySettings')
-make_head(_module, 'IEmailMailboxCapabilities')
-make_head(_module, 'IEmailMailboxCapabilities2')
-make_head(_module, 'IEmailMailboxCapabilities3')
-make_head(_module, 'IEmailMailboxChange')
-make_head(_module, 'IEmailMailboxChangeReader')
-make_head(_module, 'IEmailMailboxChangeTracker')
-make_head(_module, 'IEmailMailboxChangedDeferral')
-make_head(_module, 'IEmailMailboxChangedEventArgs')
-make_head(_module, 'IEmailMailboxCreateFolderResult')
-make_head(_module, 'IEmailMailboxPolicies')
-make_head(_module, 'IEmailMailboxPolicies2')
-make_head(_module, 'IEmailMailboxPolicies3')
-make_head(_module, 'IEmailMailboxSyncManager')
-make_head(_module, 'IEmailMailboxSyncManager2')
-make_head(_module, 'IEmailManagerForUser')
-make_head(_module, 'IEmailManagerStatics')
-make_head(_module, 'IEmailManagerStatics2')
-make_head(_module, 'IEmailManagerStatics3')
-make_head(_module, 'IEmailMeetingInfo')
-make_head(_module, 'IEmailMeetingInfo2')
-make_head(_module, 'IEmailMessage')
-make_head(_module, 'IEmailMessage2')
-make_head(_module, 'IEmailMessage3')
-make_head(_module, 'IEmailMessage4')
-make_head(_module, 'IEmailMessageBatch')
-make_head(_module, 'IEmailMessageReader')
-make_head(_module, 'IEmailQueryOptions')
-make_head(_module, 'IEmailQueryOptionsFactory')
-make_head(_module, 'IEmailQueryTextSearch')
-make_head(_module, 'IEmailRecipient')
-make_head(_module, 'IEmailRecipientFactory')
-make_head(_module, 'IEmailRecipientResolutionResult')
-make_head(_module, 'IEmailRecipientResolutionResult2')
-make_head(_module, 'IEmailStore')
-make_head(_module, 'IEmailStoreNotificationTriggerDetails')
+make_ready(__name__)

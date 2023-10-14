@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Haptics
@@ -22,15 +22,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.Input
 import win32more.Windows.Gaming.Input.ForceFeedback
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class _ArcadeStick_Meta_(ComPtr.__class__):
     pass
 class ArcadeStick(ComPtr, metaclass=_ArcadeStick_Meta_):
@@ -857,37 +848,4 @@ class UINavigationReading(EasyCastStructure):
     Timestamp: UInt64
     RequiredButtons: win32more.Windows.Gaming.Input.RequiredUINavigationButtons
     OptionalButtons: win32more.Windows.Gaming.Input.OptionalUINavigationButtons
-make_head(_module, 'ArcadeStick')
-make_head(_module, 'ArcadeStickReading')
-make_head(_module, 'FlightStick')
-make_head(_module, 'FlightStickReading')
-make_head(_module, 'Gamepad')
-make_head(_module, 'GamepadReading')
-make_head(_module, 'GamepadVibration')
-make_head(_module, 'Headset')
-make_head(_module, 'IArcadeStick')
-make_head(_module, 'IArcadeStickStatics')
-make_head(_module, 'IArcadeStickStatics2')
-make_head(_module, 'IFlightStick')
-make_head(_module, 'IFlightStickStatics')
-make_head(_module, 'IGameController')
-make_head(_module, 'IGameControllerBatteryInfo')
-make_head(_module, 'IGamepad')
-make_head(_module, 'IGamepad2')
-make_head(_module, 'IGamepadStatics')
-make_head(_module, 'IGamepadStatics2')
-make_head(_module, 'IHeadset')
-make_head(_module, 'IRacingWheel')
-make_head(_module, 'IRacingWheelStatics')
-make_head(_module, 'IRacingWheelStatics2')
-make_head(_module, 'IRawGameController')
-make_head(_module, 'IRawGameController2')
-make_head(_module, 'IRawGameControllerStatics')
-make_head(_module, 'IUINavigationController')
-make_head(_module, 'IUINavigationControllerStatics')
-make_head(_module, 'IUINavigationControllerStatics2')
-make_head(_module, 'RacingWheel')
-make_head(_module, 'RacingWheelReading')
-make_head(_module, 'RawGameController')
-make_head(_module, 'UINavigationController')
-make_head(_module, 'UINavigationReading')
+make_ready(__name__)

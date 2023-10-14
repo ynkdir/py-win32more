@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.DistributedFileSystem
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 FSCTL_DFS_BASE: UInt32 = 6
 DFS_VOLUME_STATES: UInt32 = 15
 DFS_VOLUME_STATE_OK: UInt32 = 1
@@ -89,7 +80,7 @@ def NetDfsGetFtContainerSecurity(DomainName: win32more.Windows.Win32.Foundation.
 @winfunctype('NETAPI32.dll')
 def NetDfsSetFtContainerSecurity(DomainName: win32more.Windows.Win32.Foundation.PWSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def NetDfsGetSupportedNamespaceVersion(Origin: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN, pName: win32more.Windows.Win32.Foundation.PWSTR, ppVersionInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_SUPPORTED_NAMESPACE_VERSION_INFO_head))) -> UInt32: ...
+def NetDfsGetSupportedNamespaceVersion(Origin: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN, pName: win32more.Windows.Win32.Foundation.PWSTR, ppVersionInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_SUPPORTED_NAMESPACE_VERSION_INFO))) -> UInt32: ...
 class DFS_GET_PKT_ENTRY_STATE_ARG(EasyCastStructure):
     DfsEntryPathLen: UInt16
     ServerNameLen: UInt16
@@ -150,7 +141,7 @@ class DFS_INFO_3(EasyCastStructure):
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
     NumberOfStorages: UInt32
-    Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)
+    Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO)
 class DFS_INFO_300(EasyCastStructure):
     Flags: UInt32
     DfsName: win32more.Windows.Win32.Foundation.PWSTR
@@ -168,7 +159,7 @@ class DFS_INFO_4(EasyCastStructure):
     Timeout: UInt32
     Guid: Guid
     NumberOfStorages: UInt32
-    Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)
+    Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO)
 if ARCH in 'X64,ARM64':
     class DFS_INFO_4_32(EasyCastStructure):
         EntryPath: UInt32
@@ -200,7 +191,7 @@ class DFS_INFO_6(EasyCastStructure):
     PropertyFlags: UInt32
     MetadataSize: UInt32
     NumberOfStorages: UInt32
-    Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1_head)
+    Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1)
 class DFS_INFO_7(EasyCastStructure):
     GenerationGuid: Guid
 class DFS_INFO_8(EasyCastStructure):
@@ -225,7 +216,7 @@ class DFS_INFO_9(EasyCastStructure):
     SdLengthReserved: UInt32
     pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
     NumberOfStorages: UInt32
-    Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1_head)
+    Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1)
 DFS_NAMESPACE_VERSION_ORIGIN = Int32
 DFS_NAMESPACE_VERSION_ORIGIN_COMBINED: DFS_NAMESPACE_VERSION_ORIGIN = 0
 DFS_NAMESPACE_VERSION_ORIGIN_SERVER: DFS_NAMESPACE_VERSION_ORIGIN = 1
@@ -268,41 +259,4 @@ DFS_TARGET_PRIORITY_CLASS_DfsGlobalHighPriorityClass: DFS_TARGET_PRIORITY_CLASS 
 DFS_TARGET_PRIORITY_CLASS_DfsSiteCostHighPriorityClass: DFS_TARGET_PRIORITY_CLASS = 2
 DFS_TARGET_PRIORITY_CLASS_DfsSiteCostLowPriorityClass: DFS_TARGET_PRIORITY_CLASS = 3
 DFS_TARGET_PRIORITY_CLASS_DfsGlobalLowPriorityClass: DFS_TARGET_PRIORITY_CLASS = 4
-make_head(_module, 'DFS_GET_PKT_ENTRY_STATE_ARG')
-make_head(_module, 'DFS_INFO_1')
-make_head(_module, 'DFS_INFO_100')
-make_head(_module, 'DFS_INFO_101')
-make_head(_module, 'DFS_INFO_102')
-make_head(_module, 'DFS_INFO_103')
-make_head(_module, 'DFS_INFO_104')
-make_head(_module, 'DFS_INFO_105')
-make_head(_module, 'DFS_INFO_106')
-make_head(_module, 'DFS_INFO_107')
-make_head(_module, 'DFS_INFO_150')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DFS_INFO_1_32')
-make_head(_module, 'DFS_INFO_2')
-make_head(_module, 'DFS_INFO_200')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DFS_INFO_2_32')
-make_head(_module, 'DFS_INFO_3')
-make_head(_module, 'DFS_INFO_300')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DFS_INFO_3_32')
-make_head(_module, 'DFS_INFO_4')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DFS_INFO_4_32')
-make_head(_module, 'DFS_INFO_5')
-make_head(_module, 'DFS_INFO_50')
-make_head(_module, 'DFS_INFO_6')
-make_head(_module, 'DFS_INFO_7')
-make_head(_module, 'DFS_INFO_8')
-make_head(_module, 'DFS_INFO_9')
-make_head(_module, 'DFS_SITELIST_INFO')
-make_head(_module, 'DFS_SITENAME_INFO')
-make_head(_module, 'DFS_STORAGE_INFO')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DFS_STORAGE_INFO_0_32')
-make_head(_module, 'DFS_STORAGE_INFO_1')
-make_head(_module, 'DFS_SUPPORTED_NAMESPACE_VERSION_INFO')
-make_head(_module, 'DFS_TARGET_PRIORITY')
+make_ready(__name__)

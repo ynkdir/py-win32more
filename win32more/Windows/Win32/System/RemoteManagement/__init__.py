@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.RemoteManagement
 import win32more.Windows.Win32.System.Variant
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WSMAN_FLAG_REQUESTED_API_VERSION_1_0: UInt32 = 0
 WSMAN_FLAG_REQUESTED_API_VERSION_1_1: UInt32 = 1
 WSMAN_OPERATION_INFOV1: UInt32 = 0
@@ -568,11 +559,11 @@ def WSManDeinitialize(apiHandle: win32more.Windows.Win32.System.RemoteManagement
 @winfunctype('WsmSvc.dll')
 def WSManGetErrorMessage(apiHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_API_HANDLE, flags: UInt32, languageCode: win32more.Windows.Win32.Foundation.PWSTR, errorCode: UInt32, messageLength: UInt32, message: win32more.Windows.Win32.Foundation.PWSTR, messageLengthUsed: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManCreateSession(apiHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_API_HANDLE, connection: win32more.Windows.Win32.Foundation.PWSTR, flags: UInt32, serverAuthenticationCredentials: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS_head), proxyInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PROXY_INFO_head), session: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE)) -> UInt32: ...
+def WSManCreateSession(apiHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_API_HANDLE, connection: win32more.Windows.Win32.Foundation.PWSTR, flags: UInt32, serverAuthenticationCredentials: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS), proxyInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PROXY_INFO), session: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE)) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
 def WSManCloseSession(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, flags: UInt32) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManSetSessionOption(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, option: win32more.Windows.Win32.System.RemoteManagement.WSManSessionOption, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head)) -> UInt32: ...
+def WSManSetSessionOption(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, option: win32more.Windows.Win32.System.RemoteManagement.WSManSessionOption, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA)) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
 def WSManGetSessionOptionAsDword(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, option: win32more.Windows.Win32.System.RemoteManagement.WSManSessionOption, value: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
@@ -580,60 +571,60 @@ def WSManGetSessionOptionAsString(session: win32more.Windows.Win32.System.Remote
 @winfunctype('WsmSvc.dll')
 def WSManCloseOperation(operationHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE, flags: UInt32) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManCreateShell(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, flags: UInt32, resourceUri: win32more.Windows.Win32.Foundation.PWSTR, startupInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head), options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET_head), createXml: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), shell: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE)) -> Void: ...
+def WSManCreateShell(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, flags: UInt32, resourceUri: win32more.Windows.Win32.Foundation.PWSTR, startupInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11), options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET), createXml: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), shell: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManRunShellCommand(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, commandLine: win32more.Windows.Win32.Foundation.PWSTR, args: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head), options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET_head), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), command: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE)) -> Void: ...
+def WSManRunShellCommand(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, commandLine: win32more.Windows.Win32.Foundation.PWSTR, args: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_ARG_SET), options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), command: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManSignalShell(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, code: win32more.Windows.Win32.Foundation.PWSTR, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), signalOperation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE)) -> Void: ...
+def WSManSignalShell(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, code: win32more.Windows.Win32.Foundation.PWSTR, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), signalOperation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManReceiveShellOutput(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, desiredStreamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET_head), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), receiveOperation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE)) -> Void: ...
+def WSManReceiveShellOutput(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, desiredStreamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), receiveOperation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManSendShellInput(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, streamId: win32more.Windows.Win32.Foundation.PWSTR, streamData: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head), endOfStream: win32more.Windows.Win32.Foundation.BOOL, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), sendOperation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE)) -> Void: ...
+def WSManSendShellInput(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, streamId: win32more.Windows.Win32.Foundation.PWSTR, streamData: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA), endOfStream: win32more.Windows.Win32.Foundation.BOOL, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), sendOperation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManCloseCommand(commandHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head)) -> Void: ...
+def WSManCloseCommand(commandHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManCloseShell(shellHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head)) -> Void: ...
+def WSManCloseShell(shellHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManCreateShellEx(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, flags: UInt32, resourceUri: win32more.Windows.Win32.Foundation.PWSTR, shellId: win32more.Windows.Win32.Foundation.PWSTR, startupInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head), options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET_head), createXml: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), shell: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE)) -> Void: ...
+def WSManCreateShellEx(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, flags: UInt32, resourceUri: win32more.Windows.Win32.Foundation.PWSTR, shellId: win32more.Windows.Win32.Foundation.PWSTR, startupInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11), options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET), createXml: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), shell: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManRunShellCommandEx(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, commandId: win32more.Windows.Win32.Foundation.PWSTR, commandLine: win32more.Windows.Win32.Foundation.PWSTR, args: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head), options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET_head), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), command: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE)) -> Void: ...
+def WSManRunShellCommandEx(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, commandId: win32more.Windows.Win32.Foundation.PWSTR, commandLine: win32more.Windows.Win32.Foundation.PWSTR, args: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_ARG_SET), options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), command: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManDisconnectShell(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, disconnectInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_DISCONNECT_INFO_head), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head)) -> Void: ...
+def WSManDisconnectShell(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, disconnectInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_DISCONNECT_INFO), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManReconnectShell(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head)) -> Void: ...
+def WSManReconnectShell(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManReconnectShellCommand(commandHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head)) -> Void: ...
+def WSManReconnectShellCommand(commandHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, flags: UInt32, async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManConnectShell(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, flags: UInt32, resourceUri: win32more.Windows.Win32.Foundation.PWSTR, shellID: win32more.Windows.Win32.Foundation.PWSTR, options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET_head), connectXml: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), shell: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE)) -> Void: ...
+def WSManConnectShell(session: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SESSION_HANDLE, flags: UInt32, resourceUri: win32more.Windows.Win32.Foundation.PWSTR, shellID: win32more.Windows.Win32.Foundation.PWSTR, options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET), connectXml: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), shell: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManConnectShellCommand(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, commandID: win32more.Windows.Win32.Foundation.PWSTR, options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET_head), connectXml: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC_head), command: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE)) -> Void: ...
+def WSManConnectShellCommand(shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, flags: UInt32, commandID: win32more.Windows.Win32.Foundation.PWSTR, options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET), connectXml: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA), async_: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_ASYNC), command: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE)) -> Void: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginReportContext(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, context: VoidPtr) -> UInt32: ...
+def WSManPluginReportContext(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, context: VoidPtr) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginReceiveResult(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, stream: win32more.Windows.Win32.Foundation.PWSTR, streamResult: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head), commandState: win32more.Windows.Win32.Foundation.PWSTR, exitCode: UInt32) -> UInt32: ...
+def WSManPluginReceiveResult(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, stream: win32more.Windows.Win32.Foundation.PWSTR, streamResult: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA), commandState: win32more.Windows.Win32.Foundation.PWSTR, exitCode: UInt32) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginOperationComplete(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, errorCode: UInt32, extendedInformation: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+def WSManPluginOperationComplete(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, errorCode: UInt32, extendedInformation: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginGetOperationParameters(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head)) -> UInt32: ...
+def WSManPluginGetOperationParameters(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA)) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginGetConfiguration(pluginContext: VoidPtr, flags: UInt32, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head)) -> UInt32: ...
+def WSManPluginGetConfiguration(pluginContext: VoidPtr, flags: UInt32, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA)) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
 def WSManPluginReportCompletion(pluginContext: VoidPtr, flags: UInt32) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginFreeRequestDetails(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head)) -> UInt32: ...
+def WSManPluginFreeRequestDetails(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST)) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginAuthzUserComplete(senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32, userAuthorizationContext: VoidPtr, impersonationToken: win32more.Windows.Win32.Foundation.HANDLE, userIsAdministrator: win32more.Windows.Win32.Foundation.BOOL, errorCode: UInt32, extendedErrorInformation: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+def WSManPluginAuthzUserComplete(senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS), flags: UInt32, userAuthorizationContext: VoidPtr, impersonationToken: win32more.Windows.Win32.Foundation.HANDLE, userIsAdministrator: win32more.Windows.Win32.Foundation.BOOL, errorCode: UInt32, extendedErrorInformation: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginAuthzOperationComplete(senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32, userAuthorizationContext: VoidPtr, errorCode: UInt32, extendedErrorInformation: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+def WSManPluginAuthzOperationComplete(senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS), flags: UInt32, userAuthorizationContext: VoidPtr, errorCode: UInt32, extendedErrorInformation: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
-def WSManPluginAuthzQueryQuotaComplete(senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32, quota: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_AUTHZ_QUOTA_head), errorCode: UInt32, extendedErrorInformation: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+def WSManPluginAuthzQueryQuotaComplete(senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS), flags: UInt32, quota: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_AUTHZ_QUOTA), errorCode: UInt32, extendedErrorInformation: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 class IWSMan(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{190d8637-5cd3-496d-ad24-69636bb5a3b5}')
     @commethod(7)
-    def CreateSession(self, connection: win32more.Windows.Win32.Foundation.BSTR, flags: Int32, connectionOptions: win32more.Windows.Win32.System.Com.IDispatch_head, session: POINTER(win32more.Windows.Win32.System.Com.IDispatch_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateSession(self, connection: win32more.Windows.Win32.Foundation.BSTR, flags: Int32, connectionOptions: win32more.Windows.Win32.System.Com.IDispatch, session: POINTER(win32more.Windows.Win32.System.Com.IDispatch)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def CreateConnectionOptions(self, connectionOptions: POINTER(win32more.Windows.Win32.System.Com.IDispatch_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateConnectionOptions(self, connectionOptions: POINTER(win32more.Windows.Win32.System.Com.IDispatch)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_CommandLine(self, value: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -686,7 +677,7 @@ class IWSManEx(ComPtr):
     extends: win32more.Windows.Win32.System.RemoteManagement.IWSMan
     _iid_ = Guid('{2d53bdaa-798e-49e6-a1aa-74d01256f411}')
     @commethod(11)
-    def CreateResourceLocator(self, strResourceLocator: win32more.Windows.Win32.Foundation.BSTR, newResourceLocator: POINTER(win32more.Windows.Win32.System.Com.IDispatch_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateResourceLocator(self, strResourceLocator: win32more.Windows.Win32.Foundation.BSTR, newResourceLocator: POINTER(win32more.Windows.Win32.System.Com.IDispatch)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def SessionFlagUTF8(self, flags: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -751,7 +742,7 @@ class IWSManInternal(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{04ae2b1d-9954-4d99-94a9-a961e72c3a13}')
     @commethod(7)
-    def ConfigSDDL(self, session: win32more.Windows.Win32.System.Com.IDispatch_head, resourceUri: win32more.Windows.Win32.System.Variant.VARIANT, flags: Int32, resource: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ConfigSDDL(self, session: win32more.Windows.Win32.System.Com.IDispatch, resourceUri: win32more.Windows.Win32.System.Variant.VARIANT, flags: Int32, resource: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWSManResourceLocator(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{a7a1ba28-de41-466a-ad0a-c4059ead7428}')
@@ -798,7 +789,7 @@ class IWSManSession(ComPtr):
     @commethod(11)
     def Invoke(self, actionUri: win32more.Windows.Win32.Foundation.BSTR, resourceUri: win32more.Windows.Win32.System.Variant.VARIANT, parameters: win32more.Windows.Win32.Foundation.BSTR, flags: Int32, result: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def Enumerate(self, resourceUri: win32more.Windows.Win32.System.Variant.VARIANT, filter: win32more.Windows.Win32.Foundation.BSTR, dialect: win32more.Windows.Win32.Foundation.BSTR, flags: Int32, resultSet: POINTER(win32more.Windows.Win32.System.Com.IDispatch_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Enumerate(self, resourceUri: win32more.Windows.Win32.System.Variant.VARIANT, filter: win32more.Windows.Win32.Foundation.BSTR, dialect: win32more.Windows.Win32.Foundation.BSTR, flags: Int32, resultSet: POINTER(win32more.Windows.Win32.System.Com.IDispatch)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Identify(self, flags: Int32, result: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -854,7 +845,7 @@ class WSMAN_ENVIRONMENT_VARIABLE(EasyCastStructure):
     value: win32more.Windows.Win32.Foundation.PWSTR
 class WSMAN_ENVIRONMENT_VARIABLE_SET(EasyCastStructure):
     varsCount: UInt32
-    vars: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_head)
+    vars: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE)
 class WSMAN_ERROR(EasyCastStructure):
     code: UInt32
     errorDetail: win32more.Windows.Win32.Foundation.PWSTR
@@ -892,47 +883,47 @@ class WSMAN_OPTION(EasyCastStructure):
     mustComply: win32more.Windows.Win32.Foundation.BOOL
 class WSMAN_OPTION_SET(EasyCastStructure):
     optionsCount: UInt32
-    options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_head)
+    options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION)
     optionsMustUnderstand: win32more.Windows.Win32.Foundation.BOOL
 class WSMAN_OPTION_SETEX(EasyCastStructure):
     optionsCount: UInt32
-    options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_head)
+    options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION)
     optionsMustUnderstand: win32more.Windows.Win32.Foundation.BOOL
     optionTypes: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
 @winfunctype_pointer
-def WSMAN_PLUGIN_AUTHORIZE_OPERATION(pluginContext: VoidPtr, senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32, operation: UInt32, action: win32more.Windows.Win32.Foundation.PWSTR, resourceUri: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
+def WSMAN_PLUGIN_AUTHORIZE_OPERATION(pluginContext: VoidPtr, senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS), flags: UInt32, operation: UInt32, action: win32more.Windows.Win32.Foundation.PWSTR, resourceUri: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 @winfunctype_pointer
-def WSMAN_PLUGIN_AUTHORIZE_QUERY_QUOTA(pluginContext: VoidPtr, senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32) -> Void: ...
+def WSMAN_PLUGIN_AUTHORIZE_QUERY_QUOTA(pluginContext: VoidPtr, senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS), flags: UInt32) -> Void: ...
 @winfunctype_pointer
 def WSMAN_PLUGIN_AUTHORIZE_RELEASE_CONTEXT(userAuthorizationContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def WSMAN_PLUGIN_AUTHORIZE_USER(pluginContext: VoidPtr, senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32) -> Void: ...
+def WSMAN_PLUGIN_AUTHORIZE_USER(pluginContext: VoidPtr, senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS), flags: UInt32) -> Void: ...
 @winfunctype_pointer
-def WSMAN_PLUGIN_COMMAND(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, shellContext: VoidPtr, commandLine: win32more.Windows.Win32.Foundation.PWSTR, arguments: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_ARG_SET_head)) -> Void: ...
+def WSMAN_PLUGIN_COMMAND(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, shellContext: VoidPtr, commandLine: win32more.Windows.Win32.Foundation.PWSTR, arguments: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_ARG_SET)) -> Void: ...
 @winfunctype_pointer
-def WSMAN_PLUGIN_CONNECT(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, inboundConnectInformation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head)) -> Void: ...
+def WSMAN_PLUGIN_CONNECT(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, inboundConnectInformation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA)) -> Void: ...
 @winfunctype_pointer
-def WSMAN_PLUGIN_RECEIVE(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, streamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET_head)) -> Void: ...
+def WSMAN_PLUGIN_RECEIVE(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, streamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET)) -> Void: ...
 @winfunctype_pointer
 def WSMAN_PLUGIN_RELEASE_COMMAND_CONTEXT(shellContext: VoidPtr, commandContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def WSMAN_PLUGIN_RELEASE_SHELL_CONTEXT(shellContext: VoidPtr) -> Void: ...
 class WSMAN_PLUGIN_REQUEST(EasyCastStructure):
-    senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head)
+    senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS)
     locale: win32more.Windows.Win32.Foundation.PWSTR
     resourceUri: win32more.Windows.Win32.Foundation.PWSTR
-    operationInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_INFO_head)
+    operationInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_INFO)
     shutdownNotification: win32more.Windows.Win32.Foundation.BOOL
     shutdownNotificationHandle: win32more.Windows.Win32.Foundation.HANDLE
     dataLocale: win32more.Windows.Win32.Foundation.PWSTR
 @winfunctype_pointer
-def WSMAN_PLUGIN_SEND(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, stream: win32more.Windows.Win32.Foundation.PWSTR, inboundData: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head)) -> Void: ...
+def WSMAN_PLUGIN_SEND(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, stream: win32more.Windows.Win32.Foundation.PWSTR, inboundData: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA)) -> Void: ...
 @winfunctype_pointer
-def WSMAN_PLUGIN_SHELL(pluginContext: VoidPtr, requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, startupInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11_head), inboundShellInformation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_head)) -> Void: ...
+def WSMAN_PLUGIN_SHELL(pluginContext: VoidPtr, requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, startupInfo: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V11), inboundShellInformation: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA)) -> Void: ...
 @winfunctype_pointer
 def WSMAN_PLUGIN_SHUTDOWN(pluginContext: VoidPtr, flags: UInt32, reason: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def WSMAN_PLUGIN_SIGNAL(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST_head), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, code: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
+def WSMAN_PLUGIN_SIGNAL(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, code: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 @winfunctype_pointer
 def WSMAN_PLUGIN_STARTUP(flags: UInt32, applicationIdentification: win32more.Windows.Win32.Foundation.PWSTR, extraInfo: win32more.Windows.Win32.Foundation.PWSTR, pluginContext: POINTER(VoidPtr)) -> UInt32: ...
 class WSMAN_PROXY_INFO(EasyCastStructure):
@@ -949,11 +940,11 @@ class WSMAN_RESPONSE_DATA(EasyCastUnion):
     createData: win32more.Windows.Win32.System.RemoteManagement.WSMAN_CREATE_SHELL_DATA
 class WSMAN_SELECTOR_SET(EasyCastStructure):
     numberKeys: UInt32
-    keys: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_KEY_head)
+    keys: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_KEY)
 class WSMAN_SENDER_DETAILS(EasyCastStructure):
     senderName: win32more.Windows.Win32.Foundation.PWSTR
     authenticationMechanism: win32more.Windows.Win32.Foundation.PWSTR
-    certificateDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_CERTIFICATE_DETAILS_head)
+    certificateDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_CERTIFICATE_DETAILS)
     clientToken: win32more.Windows.Win32.Foundation.HANDLE
     httpURL: win32more.Windows.Win32.Foundation.PWSTR
 WSMAN_SESSION_HANDLE = IntPtr
@@ -961,16 +952,16 @@ class WSMAN_SHELL_ASYNC(EasyCastStructure):
     operationContext: VoidPtr
     completionFunction: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_COMPLETION_FUNCTION
 @winfunctype_pointer
-def WSMAN_SHELL_COMPLETION_FUNCTION(operationContext: VoidPtr, flags: UInt32, error: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ERROR_head), shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, operationHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_RESPONSE_DATA_head)) -> Void: ...
+def WSMAN_SHELL_COMPLETION_FUNCTION(operationContext: VoidPtr, flags: UInt32, error: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ERROR), shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, operationHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_RESPONSE_DATA)) -> Void: ...
 class WSMAN_SHELL_DISCONNECT_INFO(EasyCastStructure):
     idleTimeoutMs: UInt32
 WSMAN_SHELL_HANDLE = IntPtr
 class WSMAN_SHELL_STARTUP_INFO_V10(EasyCastStructure):
-    inputStreamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET_head)
-    outputStreamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET_head)
+    inputStreamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET)
+    outputStreamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET)
     idleTimeoutMs: UInt32
     workingDirectory: win32more.Windows.Win32.Foundation.PWSTR
-    variableSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_SET_head)
+    variableSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_SET)
 class WSMAN_SHELL_STARTUP_INFO_V11(EasyCastStructure):
     Base: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V10
     name: win32more.Windows.Win32.Foundation.PWSTR
@@ -1079,62 +1070,4 @@ WSMAN_FLAG_DELETE_SERVER_SESSION: WSManShellFlag = 2
 WSMAN_FLAG_SERVER_BUFFERING_MODE_DROP: WSManShellFlag = 4
 WSMAN_FLAG_SERVER_BUFFERING_MODE_BLOCK: WSManShellFlag = 8
 WSMAN_FLAG_RECEIVE_DELAY_OUTPUT_STREAM: WSManShellFlag = 16
-make_head(_module, 'IWSMan')
-make_head(_module, 'IWSManConnectionOptions')
-make_head(_module, 'IWSManConnectionOptionsEx')
-make_head(_module, 'IWSManConnectionOptionsEx2')
-make_head(_module, 'IWSManEnumerator')
-make_head(_module, 'IWSManEx')
-make_head(_module, 'IWSManEx2')
-make_head(_module, 'IWSManEx3')
-make_head(_module, 'IWSManInternal')
-make_head(_module, 'IWSManResourceLocator')
-make_head(_module, 'IWSManResourceLocatorInternal')
-make_head(_module, 'IWSManSession')
-make_head(_module, 'WSMAN_AUTHENTICATION_CREDENTIALS')
-make_head(_module, 'WSMAN_AUTHZ_QUOTA')
-make_head(_module, 'WSMAN_CERTIFICATE_DETAILS')
-make_head(_module, 'WSMAN_COMMAND_ARG_SET')
-make_head(_module, 'WSMAN_CONNECT_DATA')
-make_head(_module, 'WSMAN_CREATE_SHELL_DATA')
-make_head(_module, 'WSMAN_DATA')
-make_head(_module, 'WSMAN_DATA_BINARY')
-make_head(_module, 'WSMAN_DATA_TEXT')
-make_head(_module, 'WSMAN_ENVIRONMENT_VARIABLE')
-make_head(_module, 'WSMAN_ENVIRONMENT_VARIABLE_SET')
-make_head(_module, 'WSMAN_ERROR')
-make_head(_module, 'WSMAN_FILTER')
-make_head(_module, 'WSMAN_FRAGMENT')
-make_head(_module, 'WSMAN_KEY')
-make_head(_module, 'WSMAN_OPERATION_INFO')
-make_head(_module, 'WSMAN_OPERATION_INFOEX')
-make_head(_module, 'WSMAN_OPTION')
-make_head(_module, 'WSMAN_OPTION_SET')
-make_head(_module, 'WSMAN_OPTION_SETEX')
-make_head(_module, 'WSMAN_PLUGIN_AUTHORIZE_OPERATION')
-make_head(_module, 'WSMAN_PLUGIN_AUTHORIZE_QUERY_QUOTA')
-make_head(_module, 'WSMAN_PLUGIN_AUTHORIZE_RELEASE_CONTEXT')
-make_head(_module, 'WSMAN_PLUGIN_AUTHORIZE_USER')
-make_head(_module, 'WSMAN_PLUGIN_COMMAND')
-make_head(_module, 'WSMAN_PLUGIN_CONNECT')
-make_head(_module, 'WSMAN_PLUGIN_RECEIVE')
-make_head(_module, 'WSMAN_PLUGIN_RELEASE_COMMAND_CONTEXT')
-make_head(_module, 'WSMAN_PLUGIN_RELEASE_SHELL_CONTEXT')
-make_head(_module, 'WSMAN_PLUGIN_REQUEST')
-make_head(_module, 'WSMAN_PLUGIN_SEND')
-make_head(_module, 'WSMAN_PLUGIN_SHELL')
-make_head(_module, 'WSMAN_PLUGIN_SHUTDOWN')
-make_head(_module, 'WSMAN_PLUGIN_SIGNAL')
-make_head(_module, 'WSMAN_PLUGIN_STARTUP')
-make_head(_module, 'WSMAN_PROXY_INFO')
-make_head(_module, 'WSMAN_RECEIVE_DATA_RESULT')
-make_head(_module, 'WSMAN_RESPONSE_DATA')
-make_head(_module, 'WSMAN_SELECTOR_SET')
-make_head(_module, 'WSMAN_SENDER_DETAILS')
-make_head(_module, 'WSMAN_SHELL_ASYNC')
-make_head(_module, 'WSMAN_SHELL_COMPLETION_FUNCTION')
-make_head(_module, 'WSMAN_SHELL_DISCONNECT_INFO')
-make_head(_module, 'WSMAN_SHELL_STARTUP_INFO_V10')
-make_head(_module, 'WSMAN_SHELL_STARTUP_INFO_V11')
-make_head(_module, 'WSMAN_STREAM_ID_SET')
-make_head(_module, 'WSMAN_USERNAME_PASSWORD_CREDS')
+make_ready(__name__)

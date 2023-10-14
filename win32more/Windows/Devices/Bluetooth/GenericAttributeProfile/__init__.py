@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Bluetooth
@@ -21,15 +21,6 @@ import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class GattCharacteristic(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristic
@@ -566,7 +557,7 @@ class GattLocalCharacteristic(ComPtr):
     @winrt_mixinmethod
     def get_SubscribedClients(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient]: ...
     @winrt_mixinmethod
-    def add_SubscribedClientsChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SubscribedClientsChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SubscribedClientsChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1122,7 +1113,7 @@ class GattSession(ComPtr):
     @winrt_mixinmethod
     def get_SessionStatus(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSessionStatus: ...
     @winrt_mixinmethod
-    def add_MaxPduSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MaxPduSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_MaxPduSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1165,7 +1156,7 @@ class GattSubscribedClient(ComPtr):
     @winrt_mixinmethod
     def get_MaxNotificationSize(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient) -> UInt16: ...
     @winrt_mixinmethod
-    def add_MaxNotificationSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MaxNotificationSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_MaxNotificationSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Session = property(get_Session, None)
@@ -1783,7 +1774,7 @@ class IGattLocalCharacteristic(ComPtr):
     @winrt_commethod(15)
     def get_SubscribedClients(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient]: ...
     @winrt_commethod(16)
-    def add_SubscribedClientsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SubscribedClientsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_SubscribedClientsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
@@ -2336,7 +2327,7 @@ class IGattSession(ComPtr):
     @winrt_commethod(11)
     def get_SessionStatus(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSessionStatus: ...
     @winrt_commethod(12)
-    def add_MaxPduSizeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MaxPduSizeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_MaxPduSizeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -2373,7 +2364,7 @@ class IGattSubscribedClient(ComPtr):
     @winrt_commethod(7)
     def get_MaxNotificationSize(self) -> UInt16: ...
     @winrt_commethod(8)
-    def add_MaxNotificationSizeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MaxNotificationSizeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_MaxNotificationSizeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Session = property(get_Session, None)
@@ -2433,97 +2424,4 @@ class IGattWriteResult(ComPtr):
     def get_ProtocolError(self) -> win32more.Windows.Foundation.IReference[Byte]: ...
     Status = property(get_Status, None)
     ProtocolError = property(get_ProtocolError, None)
-make_head(_module, 'GattCharacteristic')
-make_head(_module, 'GattCharacteristicUuids')
-make_head(_module, 'GattCharacteristicsResult')
-make_head(_module, 'GattClientNotificationResult')
-make_head(_module, 'GattDescriptor')
-make_head(_module, 'GattDescriptorUuids')
-make_head(_module, 'GattDescriptorsResult')
-make_head(_module, 'GattDeviceService')
-make_head(_module, 'GattDeviceServicesResult')
-make_head(_module, 'GattLocalCharacteristic')
-make_head(_module, 'GattLocalCharacteristicParameters')
-make_head(_module, 'GattLocalCharacteristicResult')
-make_head(_module, 'GattLocalDescriptor')
-make_head(_module, 'GattLocalDescriptorParameters')
-make_head(_module, 'GattLocalDescriptorResult')
-make_head(_module, 'GattLocalService')
-make_head(_module, 'GattPresentationFormat')
-make_head(_module, 'GattPresentationFormatTypes')
-make_head(_module, 'GattProtocolError')
-make_head(_module, 'GattReadClientCharacteristicConfigurationDescriptorResult')
-make_head(_module, 'GattReadRequest')
-make_head(_module, 'GattReadRequestedEventArgs')
-make_head(_module, 'GattReadResult')
-make_head(_module, 'GattReliableWriteTransaction')
-make_head(_module, 'GattRequestStateChangedEventArgs')
-make_head(_module, 'GattServiceProvider')
-make_head(_module, 'GattServiceProviderAdvertisementStatusChangedEventArgs')
-make_head(_module, 'GattServiceProviderAdvertisingParameters')
-make_head(_module, 'GattServiceProviderResult')
-make_head(_module, 'GattServiceUuids')
-make_head(_module, 'GattSession')
-make_head(_module, 'GattSessionStatusChangedEventArgs')
-make_head(_module, 'GattSubscribedClient')
-make_head(_module, 'GattValueChangedEventArgs')
-make_head(_module, 'GattWriteRequest')
-make_head(_module, 'GattWriteRequestedEventArgs')
-make_head(_module, 'GattWriteResult')
-make_head(_module, 'IGattCharacteristic')
-make_head(_module, 'IGattCharacteristic2')
-make_head(_module, 'IGattCharacteristic3')
-make_head(_module, 'IGattCharacteristicStatics')
-make_head(_module, 'IGattCharacteristicUuidsStatics')
-make_head(_module, 'IGattCharacteristicUuidsStatics2')
-make_head(_module, 'IGattCharacteristicsResult')
-make_head(_module, 'IGattClientNotificationResult')
-make_head(_module, 'IGattClientNotificationResult2')
-make_head(_module, 'IGattDescriptor')
-make_head(_module, 'IGattDescriptor2')
-make_head(_module, 'IGattDescriptorStatics')
-make_head(_module, 'IGattDescriptorUuidsStatics')
-make_head(_module, 'IGattDescriptorsResult')
-make_head(_module, 'IGattDeviceService')
-make_head(_module, 'IGattDeviceService2')
-make_head(_module, 'IGattDeviceService3')
-make_head(_module, 'IGattDeviceServiceStatics')
-make_head(_module, 'IGattDeviceServiceStatics2')
-make_head(_module, 'IGattDeviceServicesResult')
-make_head(_module, 'IGattLocalCharacteristic')
-make_head(_module, 'IGattLocalCharacteristicParameters')
-make_head(_module, 'IGattLocalCharacteristicResult')
-make_head(_module, 'IGattLocalDescriptor')
-make_head(_module, 'IGattLocalDescriptorParameters')
-make_head(_module, 'IGattLocalDescriptorResult')
-make_head(_module, 'IGattLocalService')
-make_head(_module, 'IGattPresentationFormat')
-make_head(_module, 'IGattPresentationFormatStatics')
-make_head(_module, 'IGattPresentationFormatStatics2')
-make_head(_module, 'IGattPresentationFormatTypesStatics')
-make_head(_module, 'IGattProtocolErrorStatics')
-make_head(_module, 'IGattReadClientCharacteristicConfigurationDescriptorResult')
-make_head(_module, 'IGattReadClientCharacteristicConfigurationDescriptorResult2')
-make_head(_module, 'IGattReadRequest')
-make_head(_module, 'IGattReadRequestedEventArgs')
-make_head(_module, 'IGattReadResult')
-make_head(_module, 'IGattReadResult2')
-make_head(_module, 'IGattReliableWriteTransaction')
-make_head(_module, 'IGattReliableWriteTransaction2')
-make_head(_module, 'IGattRequestStateChangedEventArgs')
-make_head(_module, 'IGattServiceProvider')
-make_head(_module, 'IGattServiceProviderAdvertisementStatusChangedEventArgs')
-make_head(_module, 'IGattServiceProviderAdvertisingParameters')
-make_head(_module, 'IGattServiceProviderAdvertisingParameters2')
-make_head(_module, 'IGattServiceProviderResult')
-make_head(_module, 'IGattServiceProviderStatics')
-make_head(_module, 'IGattServiceUuidsStatics')
-make_head(_module, 'IGattServiceUuidsStatics2')
-make_head(_module, 'IGattSession')
-make_head(_module, 'IGattSessionStatics')
-make_head(_module, 'IGattSessionStatusChangedEventArgs')
-make_head(_module, 'IGattSubscribedClient')
-make_head(_module, 'IGattValueChangedEventArgs')
-make_head(_module, 'IGattWriteRequest')
-make_head(_module, 'IGattWriteRequestedEventArgs')
-make_head(_module, 'IGattWriteResult')
+make_ready(__name__)

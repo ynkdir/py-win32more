@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DXCore
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 _FACDXCORE: UInt32 = 2176
 DXCORE_ADAPTER_ATTRIBUTE_D3D11_GRAPHICS: Guid = Guid('{8c47866b-7583-450d-f0f0-6bada895af4b}')
 DXCORE_ADAPTER_ATTRIBUTE_D3D12_GRAPHICS: Guid = Guid('{0c9ece4d-2f6e-4f01-8c96-e89e331b47b1}')
@@ -98,11 +89,11 @@ class IDXCoreAdapterFactory(ComPtr):
     @commethod(3)
     def CreateAdapterList(self, numAttributes: UInt32, filterAttributes: POINTER(Guid), riid: POINTER(Guid), ppvAdapterList: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetAdapterByLuid(self, adapterLUID: POINTER(win32more.Windows.Win32.Foundation.LUID_head), riid: POINTER(Guid), ppvAdapter: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAdapterByLuid(self, adapterLUID: POINTER(win32more.Windows.Win32.Foundation.LUID), riid: POINTER(Guid), ppvAdapter: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsNotificationTypeSupported(self, notificationType: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType) -> Boolean: ...
     @commethod(6)
-    def RegisterEventNotification(self, dxCoreObject: win32more.Windows.Win32.System.Com.IUnknown_head, notificationType: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType, callbackFunction: win32more.Windows.Win32.Graphics.DXCore.PFN_DXCORE_NOTIFICATION_CALLBACK, callbackContext: VoidPtr, eventCookie: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RegisterEventNotification(self, dxCoreObject: win32more.Windows.Win32.System.Com.IUnknown, notificationType: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType, callbackFunction: win32more.Windows.Win32.Graphics.DXCore.PFN_DXCORE_NOTIFICATION_CALLBACK, callbackContext: VoidPtr, eventCookie: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def UnregisterEventNotification(self, eventCookie: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDXCoreAdapterList(ComPtr):
@@ -121,12 +112,5 @@ class IDXCoreAdapterList(ComPtr):
     @commethod(8)
     def IsAdapterPreferenceSupported(self, preference: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference) -> Boolean: ...
 @winfunctype_pointer
-def PFN_DXCORE_NOTIFICATION_CALLBACK(notificationType: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType, object: win32more.Windows.Win32.System.Com.IUnknown_head, context: VoidPtr) -> Void: ...
-make_head(_module, 'DXCoreAdapterMemoryBudget')
-make_head(_module, 'DXCoreAdapterMemoryBudgetNodeSegmentGroup')
-make_head(_module, 'DXCoreHardwareID')
-make_head(_module, 'DXCoreHardwareIDParts')
-make_head(_module, 'IDXCoreAdapter')
-make_head(_module, 'IDXCoreAdapterFactory')
-make_head(_module, 'IDXCoreAdapterList')
-make_head(_module, 'PFN_DXCORE_NOTIFICATION_CALLBACK')
+def PFN_DXCORE_NOTIFICATION_CALLBACK(notificationType: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType, object: win32more.Windows.Win32.System.Com.IUnknown, context: VoidPtr) -> Void: ...
+make_ready(__name__)

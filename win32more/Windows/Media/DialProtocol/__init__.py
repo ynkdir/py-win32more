@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Enumeration
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.DialProtocol
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Popups
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class DialApp(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.DialProtocol.IDialApp
@@ -115,7 +106,7 @@ class DialDevicePicker(ComPtr):
     @winrt_mixinmethod
     def remove_DisconnectButtonClicked(self: win32more.Windows.Media.DialProtocol.IDialDevicePicker, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_DialDevicePickerDismissed(self: win32more.Windows.Media.DialProtocol.IDialDevicePicker, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.DialProtocol.DialDevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DialDevicePickerDismissed(self: win32more.Windows.Media.DialProtocol.IDialDevicePicker, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.DialProtocol.DialDevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DialDevicePickerDismissed(self: win32more.Windows.Media.DialProtocol.IDialDevicePicker, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -227,7 +218,7 @@ class IDialDevicePicker(ComPtr):
     @winrt_commethod(11)
     def remove_DisconnectButtonClicked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_DialDevicePickerDismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.DialProtocol.DialDevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DialDevicePickerDismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.DialProtocol.DialDevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_DialDevicePickerDismissed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -296,23 +287,4 @@ class IDialReceiverAppStatics(ComPtr):
     @winrt_commethod(6)
     def get_Current(self) -> win32more.Windows.Media.DialProtocol.DialReceiverApp: ...
     Current = property(get_Current, None)
-make_head(_module, 'DialApp')
-make_head(_module, 'DialAppStateDetails')
-make_head(_module, 'DialDevice')
-make_head(_module, 'DialDevicePicker')
-make_head(_module, 'DialDevicePickerFilter')
-make_head(_module, 'DialDeviceSelectedEventArgs')
-make_head(_module, 'DialDisconnectButtonClickedEventArgs')
-make_head(_module, 'DialReceiverApp')
-make_head(_module, 'IDialApp')
-make_head(_module, 'IDialAppStateDetails')
-make_head(_module, 'IDialDevice')
-make_head(_module, 'IDialDevice2')
-make_head(_module, 'IDialDevicePicker')
-make_head(_module, 'IDialDevicePickerFilter')
-make_head(_module, 'IDialDeviceSelectedEventArgs')
-make_head(_module, 'IDialDeviceStatics')
-make_head(_module, 'IDialDisconnectButtonClickedEventArgs')
-make_head(_module, 'IDialReceiverApp')
-make_head(_module, 'IDialReceiverApp2')
-make_head(_module, 'IDialReceiverAppStatics')
+make_ready(__name__)

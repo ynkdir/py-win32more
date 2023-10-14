@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Authentication.OnlineId
 import win32more.Windows.System
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CredentialPromptType = Int32
 CredentialPromptType_PromptIfNeeded: CredentialPromptType = 0
 CredentialPromptType_RetypeCredentials: CredentialPromptType = 1
@@ -335,22 +326,4 @@ class UserIdentity(ComPtr):
     LastName = property(get_LastName, None)
     IsBetaAccount = property(get_IsBetaAccount, None)
     IsConfirmedPC = property(get_IsConfirmedPC, None)
-make_head(_module, 'IOnlineIdAuthenticator')
-make_head(_module, 'IOnlineIdServiceTicket')
-make_head(_module, 'IOnlineIdServiceTicketRequest')
-make_head(_module, 'IOnlineIdServiceTicketRequestFactory')
-make_head(_module, 'IOnlineIdSystemAuthenticatorForUser')
-make_head(_module, 'IOnlineIdSystemAuthenticatorStatics')
-make_head(_module, 'IOnlineIdSystemIdentity')
-make_head(_module, 'IOnlineIdSystemTicketResult')
-make_head(_module, 'IUserIdentity')
-make_head(_module, 'OnlineIdAuthenticator')
-make_head(_module, 'OnlineIdServiceTicket')
-make_head(_module, 'OnlineIdServiceTicketRequest')
-make_head(_module, 'OnlineIdSystemAuthenticator')
-make_head(_module, 'OnlineIdSystemAuthenticatorForUser')
-make_head(_module, 'OnlineIdSystemIdentity')
-make_head(_module, 'OnlineIdSystemTicketResult')
-make_head(_module, 'SignOutUserOperation')
-make_head(_module, 'UserAuthenticationOperation')
-make_head(_module, 'UserIdentity')
+make_ready(__name__)

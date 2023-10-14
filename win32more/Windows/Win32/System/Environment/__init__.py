@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Environment
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ENCLAVE_RUNTIME_POLICY_ALLOW_FULL_DEBUG: UInt32 = 1
 ENCLAVE_RUNTIME_POLICY_ALLOW_DYNAMIC_DEBUG: UInt32 = 2
 ENCLAVE_UNSEAL_FLAG_STALE_KEY: UInt32 = 1
@@ -99,9 +90,9 @@ def EnclaveVerifyAttestationReport(EnclaveType: UInt32, Report: VoidPtr, ReportS
 @winfunctype('vertdll.dll')
 def EnclaveSealData(DataToEncrypt: VoidPtr, DataToEncryptSize: UInt32, IdentityPolicy: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY, RuntimePolicy: UInt32, ProtectedBlob: VoidPtr, BufferSize: UInt32, ProtectedBlobSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('vertdll.dll')
-def EnclaveUnsealData(ProtectedBlob: VoidPtr, ProtectedBlobSize: UInt32, DecryptedData: VoidPtr, BufferSize: UInt32, DecryptedDataSize: POINTER(UInt32), SealingIdentity: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_IDENTITY_head), UnsealingFlags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def EnclaveUnsealData(ProtectedBlob: VoidPtr, ProtectedBlobSize: UInt32, DecryptedData: VoidPtr, BufferSize: UInt32, DecryptedDataSize: POINTER(UInt32), SealingIdentity: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_IDENTITY), UnsealingFlags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('vertdll.dll')
-def EnclaveGetEnclaveInformation(InformationSize: UInt32, EnclaveInformation: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_INFORMATION_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def EnclaveGetEnclaveInformation(InformationSize: UInt32, EnclaveInformation: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_INFORMATION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ENCLAVE_IDENTITY(EasyCastStructure):
     OwnerId: Byte * 32
     UniqueId: Byte * 32
@@ -138,42 +129,42 @@ class ENCLAVE_VBS_BASIC_KEY_REQUEST(EasyCastStructure):
 def VBS_BASIC_ENCLAVE_BASIC_CALL_COMMIT_PAGES(EnclaveAddress: VoidPtr, NumberOfBytes: UIntPtr, SourceAddress: VoidPtr, PageProtection: UInt32) -> Int32: ...
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
-    def VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64_head)) -> Int32: ...
+    def VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64)) -> Int32: ...
 if ARCH in 'X86':
     @winfunctype_pointer
-    def VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32_head)) -> Int32: ...
+    def VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32)) -> Int32: ...
 @winfunctype_pointer
 def VBS_BASIC_ENCLAVE_BASIC_CALL_DECOMMIT_PAGES(EnclaveAddress: VoidPtr, NumberOfBytes: UIntPtr) -> Int32: ...
 @winfunctype_pointer
-def VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_KEY(KeyRequest: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_VBS_BASIC_KEY_REQUEST_head), RequestedKeySize: UInt32, ReturnedKey: POINTER(Byte)) -> Int32: ...
+def VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_KEY(KeyRequest: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_VBS_BASIC_KEY_REQUEST), RequestedKeySize: UInt32, ReturnedKey: POINTER(Byte)) -> Int32: ...
 @winfunctype_pointer
 def VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_RANDOM_DATA(Buffer: POINTER(Byte), NumberOfBytes: UInt32, Generation: POINTER(UInt64)) -> Int32: ...
 @winfunctype_pointer
 def VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_REPORT(EnclaveData: POINTER(Byte), Report: VoidPtr, BufferSize: UInt32, OutputSize: POINTER(UInt32)) -> Int32: ...
 @winfunctype_pointer
-def VBS_BASIC_ENCLAVE_BASIC_CALL_GET_ENCLAVE_INFORMATION(EnclaveInfo: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_INFORMATION_head)) -> Int32: ...
+def VBS_BASIC_ENCLAVE_BASIC_CALL_GET_ENCLAVE_INFORMATION(EnclaveInfo: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_INFORMATION)) -> Int32: ...
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
-    def VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64_head)) -> Int32: ...
+    def VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64)) -> Int32: ...
 if ARCH in 'X86':
     @winfunctype_pointer
-    def VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32_head)) -> Int32: ...
+    def VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32)) -> Int32: ...
 @winfunctype_pointer
 def VBS_BASIC_ENCLAVE_BASIC_CALL_PROTECT_PAGES(EnclaveAddress: VoidPtr, NumberOfytes: UIntPtr, PageProtection: UInt32) -> Int32: ...
 @winfunctype_pointer
 def VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_ENCLAVE(ReturnValue: UIntPtr) -> Void: ...
 if ARCH in 'X64':
     @winfunctype_pointer
-    def VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION(ExceptionRecord: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_EXCEPTION_AMD64_head)) -> Int32: ...
+    def VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION(ExceptionRecord: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_EXCEPTION_AMD64)) -> Int32: ...
 if ARCH in 'X86,ARM64':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION(ExceptionRecord: VoidPtr) -> Int32: ...
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
-    def VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64_head)) -> Int32: ...
+    def VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64)) -> Int32: ...
 if ARCH in 'X86':
     @winfunctype_pointer
-    def VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32_head)) -> Int32: ...
+    def VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32)) -> Int32: ...
 @winfunctype_pointer
 def VBS_BASIC_ENCLAVE_BASIC_CALL_VERIFY_REPORT(Report: VoidPtr, ReportSize: UInt32) -> Int32: ...
 class VBS_BASIC_ENCLAVE_EXCEPTION_AMD64(EasyCastStructure):
@@ -240,39 +231,4 @@ class VBS_ENCLAVE_REPORT_VARDATA_HEADER(EasyCastStructure):
     DataType: UInt32
     Size: UInt32
     _pack_ = 1
-make_head(_module, 'ENCLAVE_IDENTITY')
-make_head(_module, 'ENCLAVE_INFORMATION')
-make_head(_module, 'ENCLAVE_VBS_BASIC_KEY_REQUEST')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_COMMIT_PAGES')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD')
-if ARCH in 'X86':
-    make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_DECOMMIT_PAGES')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_KEY')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_RANDOM_DATA')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_REPORT')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_GET_ENCLAVE_INFORMATION')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD')
-if ARCH in 'X86':
-    make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_PROTECT_PAGES')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_ENCLAVE')
-if ARCH in 'X64':
-    make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION')
-if ARCH in 'X86,ARM64':
-    make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD')
-if ARCH in 'X86':
-    make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD')
-make_head(_module, 'VBS_BASIC_ENCLAVE_BASIC_CALL_VERIFY_REPORT')
-make_head(_module, 'VBS_BASIC_ENCLAVE_EXCEPTION_AMD64')
-make_head(_module, 'VBS_BASIC_ENCLAVE_SYSCALL_PAGE')
-make_head(_module, 'VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32')
-make_head(_module, 'VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64')
-make_head(_module, 'VBS_ENCLAVE_REPORT')
-make_head(_module, 'VBS_ENCLAVE_REPORT_MODULE')
-make_head(_module, 'VBS_ENCLAVE_REPORT_PKG_HEADER')
-make_head(_module, 'VBS_ENCLAVE_REPORT_VARDATA_HEADER')
+make_ready(__name__)

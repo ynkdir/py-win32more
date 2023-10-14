@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Management.Deployment
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AddPackageByAppInstallerOptions = UInt32
 AddPackageByAppInstallerOptions_None: AddPackageByAppInstallerOptions = 0
 AddPackageByAppInstallerOptions_InstallAllResources: AddPackageByAppInstallerOptions = 32
@@ -1474,61 +1465,4 @@ class UpdateSharedPackageContainerResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Management.Deployment.IUpdateSharedPackageContainerResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-make_head(_module, 'AddPackageOptions')
-make_head(_module, 'AppInstallerManager')
-make_head(_module, 'AutoUpdateSettingsOptions')
-make_head(_module, 'CreateSharedPackageContainerOptions')
-make_head(_module, 'CreateSharedPackageContainerResult')
-make_head(_module, 'DeleteSharedPackageContainerOptions')
-make_head(_module, 'DeleteSharedPackageContainerResult')
-make_head(_module, 'DeploymentProgress')
-make_head(_module, 'DeploymentResult')
-make_head(_module, 'FindSharedPackageContainerOptions')
-make_head(_module, 'IAddPackageOptions')
-make_head(_module, 'IAppInstallerManager')
-make_head(_module, 'IAppInstallerManagerStatics')
-make_head(_module, 'IAutoUpdateSettingsOptions')
-make_head(_module, 'IAutoUpdateSettingsOptionsStatics')
-make_head(_module, 'ICreateSharedPackageContainerOptions')
-make_head(_module, 'ICreateSharedPackageContainerResult')
-make_head(_module, 'IDeleteSharedPackageContainerOptions')
-make_head(_module, 'IDeleteSharedPackageContainerResult')
-make_head(_module, 'IDeploymentResult')
-make_head(_module, 'IDeploymentResult2')
-make_head(_module, 'IFindSharedPackageContainerOptions')
-make_head(_module, 'IPackageAllUserProvisioningOptions')
-make_head(_module, 'IPackageManager')
-make_head(_module, 'IPackageManager10')
-make_head(_module, 'IPackageManager2')
-make_head(_module, 'IPackageManager3')
-make_head(_module, 'IPackageManager4')
-make_head(_module, 'IPackageManager5')
-make_head(_module, 'IPackageManager6')
-make_head(_module, 'IPackageManager7')
-make_head(_module, 'IPackageManager8')
-make_head(_module, 'IPackageManager9')
-make_head(_module, 'IPackageManagerDebugSettings')
-make_head(_module, 'IPackageUserInformation')
-make_head(_module, 'IPackageVolume')
-make_head(_module, 'IPackageVolume2')
-make_head(_module, 'IRegisterPackageOptions')
-make_head(_module, 'ISharedPackageContainer')
-make_head(_module, 'ISharedPackageContainerManager')
-make_head(_module, 'ISharedPackageContainerManagerStatics')
-make_head(_module, 'ISharedPackageContainerMember')
-make_head(_module, 'ISharedPackageContainerMemberFactory')
-make_head(_module, 'IStagePackageOptions')
-make_head(_module, 'IUpdateSharedPackageContainerOptions')
-make_head(_module, 'IUpdateSharedPackageContainerResult')
-make_head(_module, 'PackageAllUserProvisioningOptions')
-make_head(_module, 'PackageManager')
-make_head(_module, 'PackageManagerDebugSettings')
-make_head(_module, 'PackageUserInformation')
-make_head(_module, 'PackageVolume')
-make_head(_module, 'RegisterPackageOptions')
-make_head(_module, 'SharedPackageContainer')
-make_head(_module, 'SharedPackageContainerManager')
-make_head(_module, 'SharedPackageContainerMember')
-make_head(_module, 'StagePackageOptions')
-make_head(_module, 'UpdateSharedPackageContainerOptions')
-make_head(_module, 'UpdateSharedPackageContainerResult')
+make_ready(__name__)

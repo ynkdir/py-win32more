@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.AI.MachineLearning
@@ -24,15 +24,6 @@ import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Media
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IImageFeatureDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.MachineLearning.IImageFeatureDescriptor'
@@ -102,9 +93,9 @@ class ILearningModelBinding(ComPtr):
     _classid_ = 'Windows.AI.MachineLearning.ILearningModelBinding'
     _iid_ = Guid('{ea312f20-168f-4f8c-94fe-2e7ac31b4aa8}')
     @winrt_commethod(6)
-    def Bind(self, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def Bind(self, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(7)
-    def BindWithProperties(self, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, props: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
+    def BindWithProperties(self, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable, props: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
     @winrt_commethod(8)
     def Clear(self) -> Void: ...
 class ILearningModelBindingFactory(ComPtr):
@@ -146,7 +137,7 @@ class ILearningModelEvaluationResult(ComPtr):
     @winrt_commethod(8)
     def get_Succeeded(self) -> Boolean: ...
     @winrt_commethod(9)
-    def get_Outputs(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Outputs(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     CorrelationId = property(get_CorrelationId, None)
     ErrorStatus = property(get_ErrorStatus, None)
     Succeeded = property(get_Succeeded, None)
@@ -191,11 +182,11 @@ class ILearningModelSession(ComPtr):
     @winrt_commethod(9)
     def EvaluateAsync(self, bindings: win32more.Windows.AI.MachineLearning.LearningModelBinding, correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult]: ...
     @winrt_commethod(10)
-    def EvaluateFeaturesAsync(self, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult]: ...
+    def EvaluateFeaturesAsync(self, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult]: ...
     @winrt_commethod(11)
     def Evaluate(self, bindings: win32more.Windows.AI.MachineLearning.LearningModelBinding, correlationId: WinRT_String) -> win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult: ...
     @winrt_commethod(12)
-    def EvaluateFeatures(self, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], correlationId: WinRT_String) -> win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult: ...
+    def EvaluateFeatures(self, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], correlationId: WinRT_String) -> win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult: ...
     Model = property(get_Model, None)
     Device = property(get_Device, None)
     EvaluationProperties = property(get_EvaluationProperties, None)
@@ -726,21 +717,21 @@ class LearningModelBinding(ComPtr):
     @winrt_factorymethod
     def CreateFromSession(cls: win32more.Windows.AI.MachineLearning.ILearningModelBindingFactory, session: win32more.Windows.AI.MachineLearning.LearningModelSession) -> win32more.Windows.AI.MachineLearning.LearningModelBinding: ...
     @winrt_mixinmethod
-    def Bind(self: win32more.Windows.AI.MachineLearning.ILearningModelBinding, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def Bind(self: win32more.Windows.AI.MachineLearning.ILearningModelBinding, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
-    def BindWithProperties(self: win32more.Windows.AI.MachineLearning.ILearningModelBinding, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable_head, props: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
+    def BindWithProperties(self: win32more.Windows.AI.MachineLearning.ILearningModelBinding, name: WinRT_String, value: win32more.Windows.Win32.System.WinRT.IInspectable, props: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
     @winrt_mixinmethod
     def Clear(self: win32more.Windows.AI.MachineLearning.ILearningModelBinding) -> Void: ...
     @winrt_mixinmethod
-    def Lookup(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Lookup(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_Size(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> UInt32: ...
+    def get_Size(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]) -> UInt32: ...
     @winrt_mixinmethod
-    def HasKey(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Boolean: ...
+    def HasKey(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], key: WinRT_String) -> Boolean: ...
     @winrt_mixinmethod
-    def Split(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], first: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]), second: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head])) -> Void: ...
+    def Split(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], first: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]), second: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable])) -> Void: ...
     @winrt_mixinmethod
-    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
 class LearningModelDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -773,7 +764,7 @@ class LearningModelEvaluationResult(ComPtr):
     @winrt_mixinmethod
     def get_Succeeded(self: win32more.Windows.AI.MachineLearning.ILearningModelEvaluationResult) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Outputs(self: win32more.Windows.AI.MachineLearning.ILearningModelEvaluationResult) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_Outputs(self: win32more.Windows.AI.MachineLearning.ILearningModelEvaluationResult) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     CorrelationId = property(get_CorrelationId, None)
     ErrorStatus = property(get_ErrorStatus, None)
     Succeeded = property(get_Succeeded, None)
@@ -806,11 +797,11 @@ class LearningModelSession(ComPtr):
     @winrt_mixinmethod
     def EvaluateAsync(self: win32more.Windows.AI.MachineLearning.ILearningModelSession, bindings: win32more.Windows.AI.MachineLearning.LearningModelBinding, correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult]: ...
     @winrt_mixinmethod
-    def EvaluateFeaturesAsync(self: win32more.Windows.AI.MachineLearning.ILearningModelSession, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult]: ...
+    def EvaluateFeaturesAsync(self: win32more.Windows.AI.MachineLearning.ILearningModelSession, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], correlationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult]: ...
     @winrt_mixinmethod
     def Evaluate(self: win32more.Windows.AI.MachineLearning.ILearningModelSession, bindings: win32more.Windows.AI.MachineLearning.LearningModelBinding, correlationId: WinRT_String) -> win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult: ...
     @winrt_mixinmethod
-    def EvaluateFeatures(self: win32more.Windows.AI.MachineLearning.ILearningModelSession, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head], correlationId: WinRT_String) -> win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult: ...
+    def EvaluateFeatures(self: win32more.Windows.AI.MachineLearning.ILearningModelSession, features: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], correlationId: WinRT_String) -> win32more.Windows.AI.MachineLearning.LearningModelEvaluationResult: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Model = property(get_Model, None)
@@ -1316,91 +1307,4 @@ class TensorUInt8Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
     Shape = property(get_Shape, None)
     Kind = property(get_Kind, None)
-make_head(_module, 'IImageFeatureDescriptor')
-make_head(_module, 'IImageFeatureDescriptor2')
-make_head(_module, 'IImageFeatureValue')
-make_head(_module, 'IImageFeatureValueStatics')
-make_head(_module, 'ILearningModel')
-make_head(_module, 'ILearningModelBinding')
-make_head(_module, 'ILearningModelBindingFactory')
-make_head(_module, 'ILearningModelDevice')
-make_head(_module, 'ILearningModelDeviceFactory')
-make_head(_module, 'ILearningModelDeviceStatics')
-make_head(_module, 'ILearningModelEvaluationResult')
-make_head(_module, 'ILearningModelFeatureDescriptor')
-make_head(_module, 'ILearningModelFeatureValue')
-make_head(_module, 'ILearningModelOperatorProvider')
-make_head(_module, 'ILearningModelSession')
-make_head(_module, 'ILearningModelSessionFactory')
-make_head(_module, 'ILearningModelSessionFactory2')
-make_head(_module, 'ILearningModelSessionOptions')
-make_head(_module, 'ILearningModelSessionOptions2')
-make_head(_module, 'ILearningModelSessionOptions3')
-make_head(_module, 'ILearningModelStatics')
-make_head(_module, 'IMapFeatureDescriptor')
-make_head(_module, 'ISequenceFeatureDescriptor')
-make_head(_module, 'ITensor')
-make_head(_module, 'ITensorBoolean')
-make_head(_module, 'ITensorBooleanStatics')
-make_head(_module, 'ITensorBooleanStatics2')
-make_head(_module, 'ITensorDouble')
-make_head(_module, 'ITensorDoubleStatics')
-make_head(_module, 'ITensorDoubleStatics2')
-make_head(_module, 'ITensorFeatureDescriptor')
-make_head(_module, 'ITensorFloat')
-make_head(_module, 'ITensorFloat16Bit')
-make_head(_module, 'ITensorFloat16BitStatics')
-make_head(_module, 'ITensorFloat16BitStatics2')
-make_head(_module, 'ITensorFloatStatics')
-make_head(_module, 'ITensorFloatStatics2')
-make_head(_module, 'ITensorInt16Bit')
-make_head(_module, 'ITensorInt16BitStatics')
-make_head(_module, 'ITensorInt16BitStatics2')
-make_head(_module, 'ITensorInt32Bit')
-make_head(_module, 'ITensorInt32BitStatics')
-make_head(_module, 'ITensorInt32BitStatics2')
-make_head(_module, 'ITensorInt64Bit')
-make_head(_module, 'ITensorInt64BitStatics')
-make_head(_module, 'ITensorInt64BitStatics2')
-make_head(_module, 'ITensorInt8Bit')
-make_head(_module, 'ITensorInt8BitStatics')
-make_head(_module, 'ITensorInt8BitStatics2')
-make_head(_module, 'ITensorString')
-make_head(_module, 'ITensorStringStatics')
-make_head(_module, 'ITensorStringStatics2')
-make_head(_module, 'ITensorUInt16Bit')
-make_head(_module, 'ITensorUInt16BitStatics')
-make_head(_module, 'ITensorUInt16BitStatics2')
-make_head(_module, 'ITensorUInt32Bit')
-make_head(_module, 'ITensorUInt32BitStatics')
-make_head(_module, 'ITensorUInt32BitStatics2')
-make_head(_module, 'ITensorUInt64Bit')
-make_head(_module, 'ITensorUInt64BitStatics')
-make_head(_module, 'ITensorUInt64BitStatics2')
-make_head(_module, 'ITensorUInt8Bit')
-make_head(_module, 'ITensorUInt8BitStatics')
-make_head(_module, 'ITensorUInt8BitStatics2')
-make_head(_module, 'ImageFeatureDescriptor')
-make_head(_module, 'ImageFeatureValue')
-make_head(_module, 'LearningModel')
-make_head(_module, 'LearningModelBinding')
-make_head(_module, 'LearningModelDevice')
-make_head(_module, 'LearningModelEvaluationResult')
-make_head(_module, 'LearningModelSession')
-make_head(_module, 'LearningModelSessionOptions')
-make_head(_module, 'MapFeatureDescriptor')
-make_head(_module, 'SequenceFeatureDescriptor')
-make_head(_module, 'TensorBoolean')
-make_head(_module, 'TensorDouble')
-make_head(_module, 'TensorFeatureDescriptor')
-make_head(_module, 'TensorFloat')
-make_head(_module, 'TensorFloat16Bit')
-make_head(_module, 'TensorInt16Bit')
-make_head(_module, 'TensorInt32Bit')
-make_head(_module, 'TensorInt64Bit')
-make_head(_module, 'TensorInt8Bit')
-make_head(_module, 'TensorString')
-make_head(_module, 'TensorUInt16Bit')
-make_head(_module, 'TensorUInt32Bit')
-make_head(_module, 'TensorUInt64Bit')
-make_head(_module, 'TensorUInt8Bit')
+make_ready(__name__)

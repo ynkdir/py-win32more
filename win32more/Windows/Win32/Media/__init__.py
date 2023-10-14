@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Multimedia
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 TIMERR_NOERROR: UInt32 = 0
 TIMERR_NOCANDO: UInt32 = 97
 TIMERR_STRUCT: UInt32 = 129
@@ -116,11 +107,11 @@ TIME_CALLBACK_EVENT_SET: UInt32 = 16
 TIME_CALLBACK_EVENT_PULSE: UInt32 = 32
 TIME_KILL_SYNCHRONOUS: UInt32 = 256
 @winfunctype('WINMM.dll')
-def timeGetSystemTime(pmmt: POINTER(win32more.Windows.Win32.Media.MMTIME_head), cbmmt: UInt32) -> UInt32: ...
+def timeGetSystemTime(pmmt: POINTER(win32more.Windows.Win32.Media.MMTIME), cbmmt: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def timeGetTime() -> UInt32: ...
 @winfunctype('WINMM.dll')
-def timeGetDevCaps(ptc: POINTER(win32more.Windows.Win32.Media.TIMECAPS_head), cbtc: UInt32) -> UInt32: ...
+def timeGetDevCaps(ptc: POINTER(win32more.Windows.Win32.Media.TIMECAPS), cbtc: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def timeBeginPeriod(uPeriod: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -197,12 +188,4 @@ TIMECODE_SAMPLE_FLAGS = UInt32
 ED_DEVCAP_TIMECODE_READ: TIMECODE_SAMPLE_FLAGS = 4121
 ED_DEVCAP_ATN_READ: TIMECODE_SAMPLE_FLAGS = 5047
 ED_DEVCAP_RTC_READ: TIMECODE_SAMPLE_FLAGS = 5050
-make_head(_module, 'IReferenceClock')
-make_head(_module, 'IReferenceClock2')
-make_head(_module, 'IReferenceClockTimerControl')
-make_head(_module, 'LPDRVCALLBACK')
-make_head(_module, 'LPTIMECALLBACK')
-make_head(_module, 'MMTIME')
-make_head(_module, 'TIMECAPS')
-make_head(_module, 'TIMECODE')
-make_head(_module, 'TIMECODE_SAMPLE')
+make_ready(__name__)

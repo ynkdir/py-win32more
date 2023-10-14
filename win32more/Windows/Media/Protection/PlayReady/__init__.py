@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Media.Core
 import win32more.Windows.Media.Protection
 import win32more.Windows.Media.Protection.PlayReady
 import win32more.Windows.Storage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class INDClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.PlayReady.INDClient'
@@ -47,7 +38,7 @@ class INDClient(ComPtr):
     @winrt_commethod(11)
     def remove_LicenseFetchCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_ReRegistrationNeeded(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.PlayReady.NDClient, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReRegistrationNeeded(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.PlayReady.NDClient, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_ReRegistrationNeeded(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -733,7 +724,7 @@ class NDClient(ComPtr):
     @winrt_mixinmethod
     def remove_LicenseFetchCompleted(self: win32more.Windows.Media.Protection.PlayReady.INDClient, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_ReRegistrationNeeded(self: win32more.Windows.Media.Protection.PlayReady.INDClient, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.PlayReady.NDClient, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReRegistrationNeeded(self: win32more.Windows.Media.Protection.PlayReady.INDClient, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.PlayReady.NDClient, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ReRegistrationNeeded(self: win32more.Windows.Media.Protection.PlayReady.INDClient, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1422,86 +1413,4 @@ class PlayReadyStatics(ComPtr, metaclass=_PlayReadyStatics_Meta_):
     _PlayReadyStatics_Meta_.RevocationServiceRequestType = property(get_RevocationServiceRequestType.__wrapped__, None)
     _PlayReadyStatics_Meta_.MediaProtectionSystemId = property(get_MediaProtectionSystemId.__wrapped__, None)
     _PlayReadyStatics_Meta_.PlayReadySecurityVersion = property(get_PlayReadySecurityVersion.__wrapped__, None)
-make_head(_module, 'INDClient')
-make_head(_module, 'INDClientFactory')
-make_head(_module, 'INDClosedCaptionDataReceivedEventArgs')
-make_head(_module, 'INDCustomData')
-make_head(_module, 'INDCustomDataFactory')
-make_head(_module, 'INDDownloadEngine')
-make_head(_module, 'INDDownloadEngineNotifier')
-make_head(_module, 'INDLicenseFetchCompletedEventArgs')
-make_head(_module, 'INDLicenseFetchDescriptor')
-make_head(_module, 'INDLicenseFetchDescriptorFactory')
-make_head(_module, 'INDLicenseFetchResult')
-make_head(_module, 'INDMessenger')
-make_head(_module, 'INDProximityDetectionCompletedEventArgs')
-make_head(_module, 'INDRegistrationCompletedEventArgs')
-make_head(_module, 'INDSendResult')
-make_head(_module, 'INDStartResult')
-make_head(_module, 'INDStorageFileHelper')
-make_head(_module, 'INDStreamParser')
-make_head(_module, 'INDStreamParserNotifier')
-make_head(_module, 'INDTCPMessengerFactory')
-make_head(_module, 'INDTransmitterProperties')
-make_head(_module, 'IPlayReadyContentHeader')
-make_head(_module, 'IPlayReadyContentHeader2')
-make_head(_module, 'IPlayReadyContentHeaderFactory')
-make_head(_module, 'IPlayReadyContentHeaderFactory2')
-make_head(_module, 'IPlayReadyContentResolver')
-make_head(_module, 'IPlayReadyDomain')
-make_head(_module, 'IPlayReadyDomainIterableFactory')
-make_head(_module, 'IPlayReadyDomainJoinServiceRequest')
-make_head(_module, 'IPlayReadyDomainLeaveServiceRequest')
-make_head(_module, 'IPlayReadyITADataGenerator')
-make_head(_module, 'IPlayReadyIndividualizationServiceRequest')
-make_head(_module, 'IPlayReadyLicense')
-make_head(_module, 'IPlayReadyLicense2')
-make_head(_module, 'IPlayReadyLicenseAcquisitionServiceRequest')
-make_head(_module, 'IPlayReadyLicenseAcquisitionServiceRequest2')
-make_head(_module, 'IPlayReadyLicenseAcquisitionServiceRequest3')
-make_head(_module, 'IPlayReadyLicenseIterableFactory')
-make_head(_module, 'IPlayReadyLicenseManagement')
-make_head(_module, 'IPlayReadyLicenseSession')
-make_head(_module, 'IPlayReadyLicenseSession2')
-make_head(_module, 'IPlayReadyLicenseSessionFactory')
-make_head(_module, 'IPlayReadyMeteringReportServiceRequest')
-make_head(_module, 'IPlayReadyRevocationServiceRequest')
-make_head(_module, 'IPlayReadySecureStopIterableFactory')
-make_head(_module, 'IPlayReadySecureStopServiceRequest')
-make_head(_module, 'IPlayReadySecureStopServiceRequestFactory')
-make_head(_module, 'IPlayReadyServiceRequest')
-make_head(_module, 'IPlayReadySoapMessage')
-make_head(_module, 'IPlayReadyStatics')
-make_head(_module, 'IPlayReadyStatics2')
-make_head(_module, 'IPlayReadyStatics3')
-make_head(_module, 'IPlayReadyStatics4')
-make_head(_module, 'IPlayReadyStatics5')
-make_head(_module, 'NDClient')
-make_head(_module, 'NDCustomData')
-make_head(_module, 'NDDownloadEngineNotifier')
-make_head(_module, 'NDLicenseFetchDescriptor')
-make_head(_module, 'NDStorageFileHelper')
-make_head(_module, 'NDStreamParserNotifier')
-make_head(_module, 'NDTCPMessenger')
-make_head(_module, 'PlayReadyContentHeader')
-make_head(_module, 'PlayReadyContentResolver')
-make_head(_module, 'PlayReadyDomain')
-make_head(_module, 'PlayReadyDomainIterable')
-make_head(_module, 'PlayReadyDomainIterator')
-make_head(_module, 'PlayReadyDomainJoinServiceRequest')
-make_head(_module, 'PlayReadyDomainLeaveServiceRequest')
-make_head(_module, 'PlayReadyITADataGenerator')
-make_head(_module, 'PlayReadyIndividualizationServiceRequest')
-make_head(_module, 'PlayReadyLicense')
-make_head(_module, 'PlayReadyLicenseAcquisitionServiceRequest')
-make_head(_module, 'PlayReadyLicenseIterable')
-make_head(_module, 'PlayReadyLicenseIterator')
-make_head(_module, 'PlayReadyLicenseManagement')
-make_head(_module, 'PlayReadyLicenseSession')
-make_head(_module, 'PlayReadyMeteringReportServiceRequest')
-make_head(_module, 'PlayReadyRevocationServiceRequest')
-make_head(_module, 'PlayReadySecureStopIterable')
-make_head(_module, 'PlayReadySecureStopIterator')
-make_head(_module, 'PlayReadySecureStopServiceRequest')
-make_head(_module, 'PlayReadySoapMessage')
-make_head(_module, 'PlayReadyStatics')
+make_ready(__name__)

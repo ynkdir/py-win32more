@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel
@@ -26,15 +26,6 @@ import win32more.Windows.System.Diagnostics
 import win32more.Windows.System.RemoteSystems
 import win32more.Windows.UI.Popups
 import win32more.Windows.UI.ViewManagement
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AppActivationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppActivationResult
@@ -83,11 +74,11 @@ class AppDiagnosticInfoWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.System.IAppDiagnosticInfoWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.System.IAppDiagnosticInfoWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppDiagnosticInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.System.IAppDiagnosticInfoWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppDiagnosticInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.System.IAppDiagnosticInfoWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.System.IAppDiagnosticInfoWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppDiagnosticInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.System.IAppDiagnosticInfoWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppDiagnosticInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.System.IAppDiagnosticInfoWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -215,11 +206,11 @@ class AppResourceGroupInfoWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.System.IAppResourceGroupInfoWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.System.IAppResourceGroupInfoWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppResourceGroupInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.System.IAppResourceGroupInfoWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppResourceGroupInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.System.IAppResourceGroupInfoWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.System.IAppResourceGroupInfoWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppResourceGroupInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.System.IAppResourceGroupInfoWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppResourceGroupInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.System.IAppResourceGroupInfoWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -374,7 +365,7 @@ class DispatcherQueue(ComPtr):
     @winrt_mixinmethod
     def remove_ShutdownStarting(self: win32more.Windows.System.IDispatcherQueue, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_ShutdownCompleted(self: win32more.Windows.System.IDispatcherQueue, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueue, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ShutdownCompleted(self: win32more.Windows.System.IDispatcherQueue, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueue, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ShutdownCompleted(self: win32more.Windows.System.IDispatcherQueue, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -426,7 +417,7 @@ class DispatcherQueueTimer(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.System.IDispatcherQueueTimer) -> Void: ...
     @winrt_mixinmethod
-    def add_Tick(self: win32more.Windows.System.IDispatcherQueueTimer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueueTimer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Tick(self: win32more.Windows.System.IDispatcherQueueTimer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueueTimer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Tick(self: win32more.Windows.System.IDispatcherQueueTimer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Interval = property(get_Interval, put_Interval)
@@ -510,11 +501,11 @@ class IAppDiagnosticInfoWatcher(ComPtr):
     @winrt_commethod(9)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppDiagnosticInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppDiagnosticInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppDiagnosticInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppDiagnosticInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -628,11 +619,11 @@ class IAppResourceGroupInfoWatcher(ComPtr):
     @winrt_commethod(9)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppResourceGroupInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppResourceGroupInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppResourceGroupInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.AppResourceGroupInfoWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -794,7 +785,7 @@ class IDispatcherQueue(ComPtr):
     @winrt_commethod(10)
     def remove_ShutdownStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_ShutdownCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueue, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ShutdownCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueue, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_ShutdownCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IDispatcherQueue2(ComPtr):
@@ -850,7 +841,7 @@ class IDispatcherQueueTimer(ComPtr):
     @winrt_commethod(12)
     def Stop(self) -> Void: ...
     @winrt_commethod(13)
-    def add_Tick(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueueTimer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Tick(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueueTimer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_Tick(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Interval = property(get_Interval, put_Interval)
@@ -1095,11 +1086,11 @@ class IMemoryManagerStatics(ComPtr):
     @winrt_commethod(8)
     def get_AppMemoryUsageLevel(self) -> win32more.Windows.System.AppMemoryUsageLevel: ...
     @winrt_commethod(9)
-    def add_AppMemoryUsageIncreased(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AppMemoryUsageIncreased(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_AppMemoryUsageIncreased(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_AppMemoryUsageDecreased(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AppMemoryUsageDecreased(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_AppMemoryUsageDecreased(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
@@ -1257,7 +1248,7 @@ class IUser(ComPtr):
     @winrt_commethod(8)
     def get_Type(self) -> win32more.Windows.System.UserType: ...
     @winrt_commethod(9)
-    def GetPropertyAsync(self, value: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def GetPropertyAsync(self, value: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(10)
     def GetPropertiesAsync(self, values: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IPropertySet]: ...
     @winrt_commethod(11)
@@ -1402,11 +1393,11 @@ class IUserWatcher(ComPtr):
     @winrt_commethod(18)
     def remove_AuthenticationStatusChanging(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(19)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.UserWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.UserWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(20)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(21)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.UserWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.UserWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(22)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
@@ -1637,11 +1628,11 @@ class MemoryManager(ComPtr, metaclass=_MemoryManager_Meta_):
     @winrt_classmethod
     def get_AppMemoryUsageLevel(cls: win32more.Windows.System.IMemoryManagerStatics) -> win32more.Windows.System.AppMemoryUsageLevel: ...
     @winrt_classmethod
-    def add_AppMemoryUsageIncreased(cls: win32more.Windows.System.IMemoryManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AppMemoryUsageIncreased(cls: win32more.Windows.System.IMemoryManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_AppMemoryUsageIncreased(cls: win32more.Windows.System.IMemoryManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def add_AppMemoryUsageDecreased(cls: win32more.Windows.System.IMemoryManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AppMemoryUsageDecreased(cls: win32more.Windows.System.IMemoryManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_AppMemoryUsageDecreased(cls: win32more.Windows.System.IMemoryManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -1797,7 +1788,7 @@ class User(ComPtr):
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.System.IUser) -> win32more.Windows.System.UserType: ...
     @winrt_mixinmethod
-    def GetPropertyAsync(self: win32more.Windows.System.IUser, value: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def GetPropertyAsync(self: win32more.Windows.System.IUser, value: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def GetPropertiesAsync(self: win32more.Windows.System.IUser, values: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IPropertySet]: ...
     @winrt_mixinmethod
@@ -1948,11 +1939,11 @@ class UserWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_AuthenticationStatusChanging(self: win32more.Windows.System.IUserWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.System.IUserWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.UserWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.System.IUserWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.UserWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.System.IUserWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.System.IUserWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.UserWatcher, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.System.IUserWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.UserWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.System.IUserWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
@@ -2145,129 +2136,4 @@ VirtualKeyModifiers_Control: VirtualKeyModifiers = 1
 VirtualKeyModifiers_Menu: VirtualKeyModifiers = 2
 VirtualKeyModifiers_Shift: VirtualKeyModifiers = 4
 VirtualKeyModifiers_Windows: VirtualKeyModifiers = 8
-make_head(_module, 'AppActivationResult')
-make_head(_module, 'AppDiagnosticInfo')
-make_head(_module, 'AppDiagnosticInfoWatcher')
-make_head(_module, 'AppDiagnosticInfoWatcherEventArgs')
-make_head(_module, 'AppExecutionStateChangeResult')
-make_head(_module, 'AppMemoryReport')
-make_head(_module, 'AppMemoryUsageLimitChangingEventArgs')
-make_head(_module, 'AppResourceGroupBackgroundTaskReport')
-make_head(_module, 'AppResourceGroupInfo')
-make_head(_module, 'AppResourceGroupInfoWatcher')
-make_head(_module, 'AppResourceGroupInfoWatcherEventArgs')
-make_head(_module, 'AppResourceGroupInfoWatcherExecutionStateChangedEventArgs')
-make_head(_module, 'AppResourceGroupMemoryReport')
-make_head(_module, 'AppResourceGroupStateReport')
-make_head(_module, 'AppUriHandlerHost')
-make_head(_module, 'AppUriHandlerRegistration')
-make_head(_module, 'AppUriHandlerRegistrationManager')
-make_head(_module, 'DateTimeSettings')
-make_head(_module, 'DispatcherQueue')
-make_head(_module, 'DispatcherQueueController')
-make_head(_module, 'DispatcherQueueShutdownStartingEventArgs')
-make_head(_module, 'DispatcherQueueTimer')
-make_head(_module, 'FolderLauncherOptions')
-make_head(_module, 'IAppActivationResult')
-make_head(_module, 'IAppDiagnosticInfo')
-make_head(_module, 'IAppDiagnosticInfo2')
-make_head(_module, 'IAppDiagnosticInfo3')
-make_head(_module, 'IAppDiagnosticInfoStatics')
-make_head(_module, 'IAppDiagnosticInfoStatics2')
-make_head(_module, 'IAppDiagnosticInfoWatcher')
-make_head(_module, 'IAppDiagnosticInfoWatcherEventArgs')
-make_head(_module, 'IAppExecutionStateChangeResult')
-make_head(_module, 'IAppMemoryReport')
-make_head(_module, 'IAppMemoryReport2')
-make_head(_module, 'IAppMemoryUsageLimitChangingEventArgs')
-make_head(_module, 'IAppResourceGroupBackgroundTaskReport')
-make_head(_module, 'IAppResourceGroupInfo')
-make_head(_module, 'IAppResourceGroupInfo2')
-make_head(_module, 'IAppResourceGroupInfoWatcher')
-make_head(_module, 'IAppResourceGroupInfoWatcherEventArgs')
-make_head(_module, 'IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs')
-make_head(_module, 'IAppResourceGroupMemoryReport')
-make_head(_module, 'IAppResourceGroupStateReport')
-make_head(_module, 'IAppUriHandlerHost')
-make_head(_module, 'IAppUriHandlerHost2')
-make_head(_module, 'IAppUriHandlerHostFactory')
-make_head(_module, 'IAppUriHandlerRegistration')
-make_head(_module, 'IAppUriHandlerRegistration2')
-make_head(_module, 'IAppUriHandlerRegistrationManager')
-make_head(_module, 'IAppUriHandlerRegistrationManager2')
-make_head(_module, 'IAppUriHandlerRegistrationManagerStatics')
-make_head(_module, 'IAppUriHandlerRegistrationManagerStatics2')
-make_head(_module, 'IDateTimeSettingsStatics')
-make_head(_module, 'IDispatcherQueue')
-make_head(_module, 'IDispatcherQueue2')
-make_head(_module, 'IDispatcherQueueController')
-make_head(_module, 'IDispatcherQueueControllerStatics')
-make_head(_module, 'IDispatcherQueueShutdownStartingEventArgs')
-make_head(_module, 'IDispatcherQueueStatics')
-make_head(_module, 'IDispatcherQueueTimer')
-make_head(_module, 'IFolderLauncherOptions')
-make_head(_module, 'IKnownUserPropertiesStatics')
-make_head(_module, 'IKnownUserPropertiesStatics2')
-make_head(_module, 'ILaunchUriResult')
-make_head(_module, 'ILauncherOptions')
-make_head(_module, 'ILauncherOptions2')
-make_head(_module, 'ILauncherOptions3')
-make_head(_module, 'ILauncherOptions4')
-make_head(_module, 'ILauncherStatics')
-make_head(_module, 'ILauncherStatics2')
-make_head(_module, 'ILauncherStatics3')
-make_head(_module, 'ILauncherStatics4')
-make_head(_module, 'ILauncherStatics5')
-make_head(_module, 'ILauncherUIOptions')
-make_head(_module, 'ILauncherViewOptions')
-make_head(_module, 'IMemoryManagerStatics')
-make_head(_module, 'IMemoryManagerStatics2')
-make_head(_module, 'IMemoryManagerStatics3')
-make_head(_module, 'IMemoryManagerStatics4')
-make_head(_module, 'IProcessLauncherOptions')
-make_head(_module, 'IProcessLauncherResult')
-make_head(_module, 'IProcessLauncherStatics')
-make_head(_module, 'IProcessMemoryReport')
-make_head(_module, 'IProtocolForResultsOperation')
-make_head(_module, 'IRemoteLauncherOptions')
-make_head(_module, 'IRemoteLauncherStatics')
-make_head(_module, 'IShutdownManagerStatics')
-make_head(_module, 'IShutdownManagerStatics2')
-make_head(_module, 'ITimeZoneSettingsStatics')
-make_head(_module, 'ITimeZoneSettingsStatics2')
-make_head(_module, 'IUser')
-make_head(_module, 'IUser2')
-make_head(_module, 'IUserAuthenticationStatusChangeDeferral')
-make_head(_module, 'IUserAuthenticationStatusChangingEventArgs')
-make_head(_module, 'IUserChangedEventArgs')
-make_head(_module, 'IUserChangedEventArgs2')
-make_head(_module, 'IUserDeviceAssociationChangedEventArgs')
-make_head(_module, 'IUserDeviceAssociationStatics')
-make_head(_module, 'IUserPicker')
-make_head(_module, 'IUserPickerStatics')
-make_head(_module, 'IUserStatics')
-make_head(_module, 'IUserStatics2')
-make_head(_module, 'IUserWatcher')
-make_head(_module, 'KnownUserProperties')
-make_head(_module, 'LaunchUriResult')
-make_head(_module, 'Launcher')
-make_head(_module, 'LauncherOptions')
-make_head(_module, 'LauncherUIOptions')
-make_head(_module, 'MemoryManager')
-make_head(_module, 'ProcessLauncher')
-make_head(_module, 'ProcessLauncherOptions')
-make_head(_module, 'ProcessLauncherResult')
-make_head(_module, 'ProcessMemoryReport')
-make_head(_module, 'ProtocolForResultsOperation')
-make_head(_module, 'RemoteLauncher')
-make_head(_module, 'RemoteLauncherOptions')
-make_head(_module, 'ShutdownManager')
-make_head(_module, 'TimeZoneSettings')
-make_head(_module, 'User')
-make_head(_module, 'UserAuthenticationStatusChangeDeferral')
-make_head(_module, 'UserAuthenticationStatusChangingEventArgs')
-make_head(_module, 'UserChangedEventArgs')
-make_head(_module, 'UserDeviceAssociation')
-make_head(_module, 'UserDeviceAssociationChangedEventArgs')
-make_head(_module, 'UserPicker')
-make_head(_module, 'UserWatcher')
+make_ready(__name__)

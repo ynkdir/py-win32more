@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Chat
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Security.Credentials
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class ChatCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatCapabilities
@@ -570,7 +561,7 @@ class ChatMessageTransportConfiguration(ComPtr):
     @winrt_mixinmethod
     def get_SupportedVideoFormat(self: win32more.Windows.ApplicationModel.Chat.IChatMessageTransportConfiguration) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_mixinmethod
-    def get_ExtendedProperties(self: win32more.Windows.ApplicationModel.Chat.IChatMessageTransportConfiguration) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_ExtendedProperties(self: win32more.Windows.ApplicationModel.Chat.IChatMessageTransportConfiguration) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     MaxAttachmentCount = property(get_MaxAttachmentCount, None)
     MaxMessageSizeInKilobytes = property(get_MaxMessageSizeInKilobytes, None)
     MaxRecipientCount = property(get_MaxRecipientCount, None)
@@ -1287,7 +1278,7 @@ class IChatMessageTransportConfiguration(ComPtr):
     @winrt_commethod(9)
     def get_SupportedVideoFormat(self) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_commethod(10)
-    def get_ExtendedProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_ExtendedProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     MaxAttachmentCount = property(get_MaxAttachmentCount, None)
     MaxMessageSizeInKilobytes = property(get_MaxMessageSizeInKilobytes, None)
     MaxRecipientCount = property(get_MaxRecipientCount, None)
@@ -1466,7 +1457,7 @@ class IRcsManagerStatics2(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Chat.IRcsManagerStatics2'
     _iid_ = Guid('{cd49ad18-ad8a-42aa-8eeb-a798a8808959}')
     @winrt_commethod(6)
-    def add_TransportListChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TransportListChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_TransportListChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IRcsServiceKindSupportedChangedEventArgs(ComPtr):
@@ -1481,7 +1472,7 @@ class IRcsTransport(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Chat.IRcsTransport'
     _iid_ = Guid('{fea34759-f37c-4319-8546-ec84d21d30ff}')
     @winrt_commethod(6)
-    def get_ExtendedProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_ExtendedProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(7)
     def get_IsActive(self) -> Boolean: ...
     @winrt_commethod(8)
@@ -1600,7 +1591,7 @@ class RcsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.RcsManager'
     @winrt_classmethod
-    def add_TransportListChanged(cls: win32more.Windows.ApplicationModel.Chat.IRcsManagerStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TransportListChanged(cls: win32more.Windows.ApplicationModel.Chat.IRcsManagerStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_TransportListChanged(cls: win32more.Windows.ApplicationModel.Chat.IRcsManagerStatics2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -1628,7 +1619,7 @@ class RcsTransport(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Chat.IRcsTransport
     _classid_ = 'Windows.ApplicationModel.Chat.RcsTransport'
     @winrt_mixinmethod
-    def get_ExtendedProperties(self: win32more.Windows.ApplicationModel.Chat.IRcsTransport) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def get_ExtendedProperties(self: win32more.Windows.ApplicationModel.Chat.IRcsTransport) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
     def get_IsActive(self: win32more.Windows.ApplicationModel.Chat.IRcsTransport) -> Boolean: ...
     @winrt_mixinmethod
@@ -1685,91 +1676,4 @@ class RemoteParticipantComposingChangedEventArgs(ComPtr):
     TransportId = property(get_TransportId, None)
     ParticipantAddress = property(get_ParticipantAddress, None)
     IsComposing = property(get_IsComposing, None)
-make_head(_module, 'ChatCapabilities')
-make_head(_module, 'ChatCapabilitiesManager')
-make_head(_module, 'ChatConversation')
-make_head(_module, 'ChatConversationReader')
-make_head(_module, 'ChatConversationThreadingInfo')
-make_head(_module, 'ChatMessage')
-make_head(_module, 'ChatMessageAttachment')
-make_head(_module, 'ChatMessageBlocking')
-make_head(_module, 'ChatMessageChange')
-make_head(_module, 'ChatMessageChangeReader')
-make_head(_module, 'ChatMessageChangeTracker')
-make_head(_module, 'ChatMessageChangedDeferral')
-make_head(_module, 'ChatMessageChangedEventArgs')
-make_head(_module, 'ChatMessageManager')
-make_head(_module, 'ChatMessageNotificationTriggerDetails')
-make_head(_module, 'ChatMessageReader')
-make_head(_module, 'ChatMessageStore')
-make_head(_module, 'ChatMessageStoreChangedEventArgs')
-make_head(_module, 'ChatMessageTransport')
-make_head(_module, 'ChatMessageTransportConfiguration')
-make_head(_module, 'ChatMessageValidationResult')
-make_head(_module, 'ChatQueryOptions')
-make_head(_module, 'ChatRecipientDeliveryInfo')
-make_head(_module, 'ChatSearchReader')
-make_head(_module, 'ChatSyncConfiguration')
-make_head(_module, 'ChatSyncManager')
-make_head(_module, 'IChatCapabilities')
-make_head(_module, 'IChatCapabilitiesManagerStatics')
-make_head(_module, 'IChatCapabilitiesManagerStatics2')
-make_head(_module, 'IChatConversation')
-make_head(_module, 'IChatConversation2')
-make_head(_module, 'IChatConversationReader')
-make_head(_module, 'IChatConversationThreadingInfo')
-make_head(_module, 'IChatItem')
-make_head(_module, 'IChatMessage')
-make_head(_module, 'IChatMessage2')
-make_head(_module, 'IChatMessage3')
-make_head(_module, 'IChatMessage4')
-make_head(_module, 'IChatMessageAttachment')
-make_head(_module, 'IChatMessageAttachment2')
-make_head(_module, 'IChatMessageAttachmentFactory')
-make_head(_module, 'IChatMessageBlockingStatic')
-make_head(_module, 'IChatMessageChange')
-make_head(_module, 'IChatMessageChangeReader')
-make_head(_module, 'IChatMessageChangeTracker')
-make_head(_module, 'IChatMessageChangedDeferral')
-make_head(_module, 'IChatMessageChangedEventArgs')
-make_head(_module, 'IChatMessageManager2Statics')
-make_head(_module, 'IChatMessageManagerStatic')
-make_head(_module, 'IChatMessageManagerStatics3')
-make_head(_module, 'IChatMessageNotificationTriggerDetails')
-make_head(_module, 'IChatMessageNotificationTriggerDetails2')
-make_head(_module, 'IChatMessageReader')
-make_head(_module, 'IChatMessageReader2')
-make_head(_module, 'IChatMessageStore')
-make_head(_module, 'IChatMessageStore2')
-make_head(_module, 'IChatMessageStore3')
-make_head(_module, 'IChatMessageStoreChangedEventArgs')
-make_head(_module, 'IChatMessageTransport')
-make_head(_module, 'IChatMessageTransport2')
-make_head(_module, 'IChatMessageTransportConfiguration')
-make_head(_module, 'IChatMessageValidationResult')
-make_head(_module, 'IChatQueryOptions')
-make_head(_module, 'IChatRecipientDeliveryInfo')
-make_head(_module, 'IChatSearchReader')
-make_head(_module, 'IChatSyncConfiguration')
-make_head(_module, 'IChatSyncManager')
-make_head(_module, 'IRcsEndUserMessage')
-make_head(_module, 'IRcsEndUserMessageAction')
-make_head(_module, 'IRcsEndUserMessageAvailableEventArgs')
-make_head(_module, 'IRcsEndUserMessageAvailableTriggerDetails')
-make_head(_module, 'IRcsEndUserMessageManager')
-make_head(_module, 'IRcsManagerStatics')
-make_head(_module, 'IRcsManagerStatics2')
-make_head(_module, 'IRcsServiceKindSupportedChangedEventArgs')
-make_head(_module, 'IRcsTransport')
-make_head(_module, 'IRcsTransportConfiguration')
-make_head(_module, 'IRemoteParticipantComposingChangedEventArgs')
-make_head(_module, 'RcsEndUserMessage')
-make_head(_module, 'RcsEndUserMessageAction')
-make_head(_module, 'RcsEndUserMessageAvailableEventArgs')
-make_head(_module, 'RcsEndUserMessageAvailableTriggerDetails')
-make_head(_module, 'RcsEndUserMessageManager')
-make_head(_module, 'RcsManager')
-make_head(_module, 'RcsServiceKindSupportedChangedEventArgs')
-make_head(_module, 'RcsTransport')
-make_head(_module, 'RcsTransportConfiguration')
-make_head(_module, 'RemoteParticipantComposingChangedEventArgs')
+make_ready(__name__)

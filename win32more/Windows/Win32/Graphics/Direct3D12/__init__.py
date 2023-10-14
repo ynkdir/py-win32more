@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D12
 import win32more.Windows.Win32.Graphics.Dxgi.Common
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 D3D12_SHADER_COMPONENT_MAPPING_ALWAYS_SET_BIT_AVOIDING_ZEROMEM_MISTAKES: UInt32 = 4096
 D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING: UInt32 = 5768
 D3D12_16BIT_INDEX_STRIP_CUT_VALUE: UInt32 = 65535
@@ -486,15 +477,15 @@ D3D_SHADER_FEATURE_WRITEABLE_MSAA_TEXTURES: UInt32 = 1073741824
 D3D12ExperimentalShaderModels: Guid = Guid('{76f5573e-f13a-40f5-b297-81ce9e18933f}')
 D3D12TiledResourceTier4: Guid = Guid('{c9c4725f-a81a-4f56-8c5b-c51039d694fb}')
 @winfunctype('d3d12.dll')
-def D3D12SerializeRootSignature(pRootSignature: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head), Version: win32more.Windows.Win32.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION, ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head), ppErrorBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def D3D12SerializeRootSignature(pRootSignature: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC), Version: win32more.Windows.Win32.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION, ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob), ppErrorBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('d3d12.dll')
 def D3D12CreateRootSignatureDeserializer(pSrcData: VoidPtr, SrcDataSizeInBytes: UIntPtr, pRootSignatureDeserializerInterface: POINTER(Guid), ppRootSignatureDeserializer: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('d3d12.dll')
-def D3D12SerializeVersionedRootSignature(pRootSignature: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head), ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head), ppErrorBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def D3D12SerializeVersionedRootSignature(pRootSignature: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC), ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob), ppErrorBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('d3d12.dll')
 def D3D12CreateVersionedRootSignatureDeserializer(pSrcData: VoidPtr, SrcDataSizeInBytes: UIntPtr, pRootSignatureDeserializerInterface: POINTER(Guid), ppRootSignatureDeserializer: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('d3d12.dll')
-def D3D12CreateDevice(pAdapter: win32more.Windows.Win32.System.Com.IUnknown_head, MinimumFeatureLevel: win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL, riid: POINTER(Guid), ppDevice: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def D3D12CreateDevice(pAdapter: win32more.Windows.Win32.System.Com.IUnknown, MinimumFeatureLevel: win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL, riid: POINTER(Guid), ppDevice: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('d3d12.dll')
 def D3D12GetDebugInterface(riid: POINTER(Guid), ppvDebug: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('d3d12.dll')
@@ -508,25 +499,25 @@ class D3D12_AUTO_BREADCRUMB_NODE(EasyCastStructure):
     pCommandListDebugNameW: win32more.Windows.Win32.Foundation.PWSTR
     pCommandQueueDebugNameA: POINTER(Byte)
     pCommandQueueDebugNameW: win32more.Windows.Win32.Foundation.PWSTR
-    pCommandList: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList_head
-    pCommandQueue: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue_head
+    pCommandList: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList
+    pCommandQueue: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue
     BreadcrumbCount: UInt32
     pLastBreadcrumbValue: POINTER(UInt32)
     pCommandHistory: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_OP)
-    pNext: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)
+    pNext: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE)
 class D3D12_AUTO_BREADCRUMB_NODE1(EasyCastStructure):
     pCommandListDebugNameA: POINTER(Byte)
     pCommandListDebugNameW: win32more.Windows.Win32.Foundation.PWSTR
     pCommandQueueDebugNameA: POINTER(Byte)
     pCommandQueueDebugNameW: win32more.Windows.Win32.Foundation.PWSTR
-    pCommandList: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList_head
-    pCommandQueue: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue_head
+    pCommandList: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList
+    pCommandQueue: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue
     BreadcrumbCount: UInt32
     pLastBreadcrumbValue: POINTER(UInt32)
     pCommandHistory: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_OP)
-    pNext: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1_head)
+    pNext: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1)
     BreadcrumbContextsCount: UInt32
-    pBreadcrumbContexts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_BREADCRUMB_CONTEXT_head)
+    pBreadcrumbContexts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_BREADCRUMB_CONTEXT)
 D3D12_AUTO_BREADCRUMB_OP = Int32
 D3D12_AUTO_BREADCRUMB_OP_SETMARKER: D3D12_AUTO_BREADCRUMB_OP = 0
 D3D12_AUTO_BREADCRUMB_OP_BEGINEVENT: D3D12_AUTO_BREADCRUMB_OP = 1
@@ -615,9 +606,9 @@ class D3D12_BARRIER_GROUP(EasyCastStructure):
     NumBarriers: UInt32
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        pGlobalBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GLOBAL_BARRIER_head)
-        pTextureBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_BARRIER_head)
-        pBufferBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUFFER_BARRIER_head)
+        pGlobalBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GLOBAL_BARRIER)
+        pTextureBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_BARRIER)
+        pBufferBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUFFER_BARRIER)
 D3D12_BARRIER_LAYOUT = Int32
 D3D12_BARRIER_LAYOUT_UNDEFINED: D3D12_BARRIER_LAYOUT = -1
 D3D12_BARRIER_LAYOUT_COMMON: D3D12_BARRIER_LAYOUT = 0
@@ -730,7 +721,7 @@ class D3D12_BUFFER_BARRIER(EasyCastStructure):
     SyncAfter: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_SYNC
     AccessBefore: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS
     AccessAfter: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS
-    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Offset: UInt64
     Size: UInt64
 class D3D12_BUFFER_RTV(EasyCastStructure):
@@ -766,8 +757,8 @@ class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         InstanceDescs: UInt64
-        pGeometryDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC_head)
-        ppGeometryDescs: POINTER(POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC_head))
+        pGeometryDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC)
+        ppGeometryDescs: POINTER(POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC))
 class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER(EasyCastStructure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE
     NumDescs: UInt32
@@ -828,7 +819,7 @@ D3D12_COMMAND_RECORDER_FLAG_NONE: D3D12_COMMAND_RECORDER_FLAGS = 0
 class D3D12_COMMAND_SIGNATURE_DESC(EasyCastStructure):
     ByteStride: UInt32
     NumArgumentDescs: UInt32
-    pArgumentDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_DESC_head)
+    pArgumentDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_DESC)
     NodeMask: UInt32
 D3D12_COMPARISON_FUNC = Int32
 D3D12_COMPARISON_FUNC_NONE: D3D12_COMPARISON_FUNC = 0
@@ -841,7 +832,7 @@ D3D12_COMPARISON_FUNC_NOT_EQUAL: D3D12_COMPARISON_FUNC = 6
 D3D12_COMPARISON_FUNC_GREATER_EQUAL: D3D12_COMPARISON_FUNC = 7
 D3D12_COMPARISON_FUNC_ALWAYS: D3D12_COMPARISON_FUNC = 8
 class D3D12_COMPUTE_PIPELINE_STATE_DESC(EasyCastStructure):
-    pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature_head
+    pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature
     CS: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_BYTECODE
     NodeMask: UInt32
     CachedPSO: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CACHED_PIPELINE_STATE
@@ -1015,7 +1006,7 @@ D3D12_DEVICE_FLAG_AUTO_DEBUG_NAME_ENABLED: D3D12_DEVICE_FLAGS = 512
 D3D12_DEVICE_FLAG_FORCE_LEGACY_STATE_VALIDATION: D3D12_DEVICE_FLAGS = 1024
 class D3D12_DEVICE_REMOVED_EXTENDED_DATA(EasyCastStructure):
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_FLAGS
-    pHeadAutoBreadcrumbNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)
+    pHeadAutoBreadcrumbNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE)
 class D3D12_DEVICE_REMOVED_EXTENDED_DATA1(EasyCastStructure):
     DeviceRemovedReason: win32more.Windows.Win32.Foundation.HRESULT
     AutoBreadcrumbsOutput: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT
@@ -1031,7 +1022,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA3(EasyCastStructure):
     DeviceState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_DEVICE_STATE
 class D3D12_DISCARD_REGION(EasyCastStructure):
     NumRects: UInt32
-    pRects: POINTER(win32more.Windows.Win32.Foundation.RECT_head)
+    pRects: POINTER(win32more.Windows.Win32.Foundation.RECT)
     FirstSubresource: UInt32
     NumSubresources: UInt32
 class D3D12_DISPATCH_ARGUMENTS(EasyCastStructure):
@@ -1065,13 +1056,13 @@ class D3D12_DRED_ALLOCATION_NODE(EasyCastStructure):
     ObjectNameA: POINTER(Byte)
     ObjectNameW: win32more.Windows.Win32.Foundation.PWSTR
     AllocationType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_TYPE
-    pNext: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)
+    pNext: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE)
 class D3D12_DRED_ALLOCATION_NODE1(EasyCastStructure):
     ObjectNameA: POINTER(Byte)
     ObjectNameW: win32more.Windows.Win32.Foundation.PWSTR
     AllocationType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_TYPE
-    pNext: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)
-    pObject: win32more.Windows.Win32.System.Com.IUnknown_head
+    pNext: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1)
+    pObject: win32more.Windows.Win32.System.Com.IUnknown
 D3D12_DRED_ALLOCATION_TYPE = Int32
 D3D12_DRED_ALLOCATION_TYPE_COMMAND_QUEUE: D3D12_DRED_ALLOCATION_TYPE = 19
 D3D12_DRED_ALLOCATION_TYPE_COMMAND_ALLOCATOR: D3D12_DRED_ALLOCATION_TYPE = 20
@@ -1103,9 +1094,9 @@ D3D12_DRED_ALLOCATION_TYPE_VIDEO_ENCODER: D3D12_DRED_ALLOCATION_TYPE = 48
 D3D12_DRED_ALLOCATION_TYPE_VIDEO_ENCODER_HEAP: D3D12_DRED_ALLOCATION_TYPE = 49
 D3D12_DRED_ALLOCATION_TYPE_INVALID: D3D12_DRED_ALLOCATION_TYPE = -1
 class D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT(EasyCastStructure):
-    pHeadAutoBreadcrumbNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE_head)
+    pHeadAutoBreadcrumbNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE)
 class D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1(EasyCastStructure):
-    pHeadAutoBreadcrumbNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1_head)
+    pHeadAutoBreadcrumbNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_AUTO_BREADCRUMB_NODE1)
 class D3D12_DRED_BREADCRUMB_CONTEXT(EasyCastStructure):
     BreadcrumbIndex: UInt32
     pContextString: win32more.Windows.Win32.Foundation.PWSTR
@@ -1126,16 +1117,16 @@ D3D12_DRED_PAGE_FAULT_FLAGS = Int32
 D3D12_DRED_PAGE_FAULT_FLAGS_NONE: D3D12_DRED_PAGE_FAULT_FLAGS = 0
 class D3D12_DRED_PAGE_FAULT_OUTPUT(EasyCastStructure):
     PageFaultVA: UInt64
-    pHeadExistingAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)
-    pHeadRecentFreedAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE_head)
+    pHeadExistingAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE)
+    pHeadRecentFreedAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE)
 class D3D12_DRED_PAGE_FAULT_OUTPUT1(EasyCastStructure):
     PageFaultVA: UInt64
-    pHeadExistingAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)
-    pHeadRecentFreedAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)
+    pHeadExistingAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1)
+    pHeadRecentFreedAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1)
 class D3D12_DRED_PAGE_FAULT_OUTPUT2(EasyCastStructure):
     PageFaultVA: UInt64
-    pHeadExistingAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)
-    pHeadRecentFreedAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1_head)
+    pHeadExistingAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1)
+    pHeadRecentFreedAllocationNode: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ALLOCATION_NODE1)
     PageFaultFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_FLAGS
 D3D12_DRED_VERSION = Int32
 D3D12_DRED_VERSION_1_0: D3D12_DRED_VERSION = 1
@@ -1163,7 +1154,7 @@ D3D12_DSV_FLAG_READ_ONLY_STENCIL: D3D12_DSV_FLAGS = 2
 class D3D12_DXIL_LIBRARY_DESC(EasyCastStructure):
     DXILLibrary: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_BYTECODE
     NumExports: UInt32
-    pExports: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_EXPORT_DESC_head)
+    pExports: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_EXPORT_DESC)
 class D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION(EasyCastStructure):
     SubobjectToAssociate: win32more.Windows.Win32.Foundation.PWSTR
     NumExports: UInt32
@@ -1172,9 +1163,9 @@ D3D12_ELEMENTS_LAYOUT = Int32
 D3D12_ELEMENTS_LAYOUT_ARRAY: D3D12_ELEMENTS_LAYOUT = 0
 D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS: D3D12_ELEMENTS_LAYOUT = 1
 class D3D12_EXISTING_COLLECTION_DESC(EasyCastStructure):
-    pExistingCollection: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12StateObject_head
+    pExistingCollection: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12StateObject
     NumExports: UInt32
-    pExports: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_EXPORT_DESC_head)
+    pExports: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_EXPORT_DESC)
 class D3D12_EXPORT_DESC(EasyCastStructure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     ExportToRename: win32more.Windows.Win32.Foundation.PWSTR
@@ -1531,7 +1522,7 @@ class D3D12_GLOBAL_BARRIER(EasyCastStructure):
     AccessBefore: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS
     AccessAfter: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS
 class D3D12_GLOBAL_ROOT_SIGNATURE(EasyCastStructure):
-    pGlobalRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature_head
+    pGlobalRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature
 D3D12_GPU_BASED_VALIDATION_FLAGS = Int32
 D3D12_GPU_BASED_VALIDATION_FLAGS_NONE: D3D12_GPU_BASED_VALIDATION_FLAGS = 0
 D3D12_GPU_BASED_VALIDATION_FLAGS_DISABLE_STATE_TRACKING: D3D12_GPU_BASED_VALIDATION_FLAGS = 1
@@ -1560,7 +1551,7 @@ class D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(EasyCastStructure):
     SizeInBytes: UInt64
     StrideInBytes: UInt64
 class D3D12_GRAPHICS_PIPELINE_STATE_DESC(EasyCastStructure):
-    pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature_head
+    pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature
     VS: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_BYTECODE
     PS: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_BYTECODE
     DS: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_BYTECODE
@@ -1713,7 +1704,7 @@ class D3D12_INPUT_ELEMENT_DESC(EasyCastStructure):
     InputSlotClass: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INPUT_CLASSIFICATION
     InstanceDataStepRate: UInt32
 class D3D12_INPUT_LAYOUT_DESC(EasyCastStructure):
-    pInputElementDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INPUT_ELEMENT_DESC_head)
+    pInputElementDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INPUT_ELEMENT_DESC)
     NumElements: UInt32
 class D3D12_LIBRARY_DESC(EasyCastStructure):
     Creator: win32more.Windows.Win32.Foundation.PSTR
@@ -1728,7 +1719,7 @@ D3D12_LINE_RASTERIZATION_MODE_ALPHA_ANTIALIASED: D3D12_LINE_RASTERIZATION_MODE =
 D3D12_LINE_RASTERIZATION_MODE_QUADRILATERAL_WIDE: D3D12_LINE_RASTERIZATION_MODE = 2
 D3D12_LINE_RASTERIZATION_MODE_QUADRILATERAL_NARROW: D3D12_LINE_RASTERIZATION_MODE = 3
 class D3D12_LOCAL_ROOT_SIGNATURE(EasyCastStructure):
-    pLocalRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature_head
+    pLocalRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature
 D3D12_LOGIC_OP = Int32
 D3D12_LOGIC_OP_CLEAR: D3D12_LOGIC_OP = 0
 D3D12_LOGIC_OP_SET: D3D12_LOGIC_OP = 1
@@ -3097,10 +3088,10 @@ class D3D12_RENDER_PASS_ENDING_ACCESS_PRESERVE_LOCAL_PARAMETERS(EasyCastStructur
     AdditionalWidth: UInt32
     AdditionalHeight: UInt32
 class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS(EasyCastStructure):
-    pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
-    pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
+    pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     SubresourceCount: UInt32
-    pSubresourceParameters: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS_head)
+    pSubresourceParameters: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS)
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ResolveMode: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOLVE_MODE
     PreserveResolveSource: win32more.Windows.Win32.Foundation.BOOL
@@ -3174,8 +3165,8 @@ D3D12_RESOLVE_MODE_AVERAGE: D3D12_RESOLVE_MODE = 3
 D3D12_RESOLVE_MODE_ENCODE_SAMPLER_FEEDBACK: D3D12_RESOLVE_MODE = 4
 D3D12_RESOLVE_MODE_DECODE_SAMPLER_FEEDBACK: D3D12_RESOLVE_MODE = 5
 class D3D12_RESOURCE_ALIASING_BARRIER(EasyCastStructure):
-    pResourceBefore: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
-    pResourceAfter: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    pResourceBefore: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
+    pResourceAfter: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
 class D3D12_RESOURCE_ALLOCATION_INFO(EasyCastStructure):
     SizeInBytes: UInt64
     Alignment: UInt64
@@ -3275,12 +3266,12 @@ D3D12_RESOURCE_STATE_VIDEO_PROCESS_WRITE: D3D12_RESOURCE_STATES = 524288
 D3D12_RESOURCE_STATE_VIDEO_ENCODE_READ: D3D12_RESOURCE_STATES = 2097152
 D3D12_RESOURCE_STATE_VIDEO_ENCODE_WRITE: D3D12_RESOURCE_STATES = 8388608
 class D3D12_RESOURCE_TRANSITION_BARRIER(EasyCastStructure):
-    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Subresource: UInt32
     StateBefore: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES
     StateAfter: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES
 class D3D12_RESOURCE_UAV_BARRIER(EasyCastStructure):
-    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
 D3D12_RLDO_FLAGS = Int32
 D3D12_RLDO_NONE: D3D12_RLDO_FLAGS = 0
 D3D12_RLDO_SUMMARY: D3D12_RLDO_FLAGS = 1
@@ -3304,10 +3295,10 @@ D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE: D3D12_ROOT_DESCRIPT
 D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC: D3D12_ROOT_DESCRIPTOR_FLAGS = 8
 class D3D12_ROOT_DESCRIPTOR_TABLE(EasyCastStructure):
     NumDescriptorRanges: UInt32
-    pDescriptorRanges: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE_head)
+    pDescriptorRanges: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE)
 class D3D12_ROOT_DESCRIPTOR_TABLE1(EasyCastStructure):
     NumDescriptorRanges: UInt32
-    pDescriptorRanges: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE1_head)
+    pDescriptorRanges: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_RANGE1)
 class D3D12_ROOT_PARAMETER(EasyCastStructure):
     ParameterType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_TYPE
     Anonymous: _Anonymous_e__Union
@@ -3332,21 +3323,21 @@ D3D12_ROOT_PARAMETER_TYPE_SRV: D3D12_ROOT_PARAMETER_TYPE = 3
 D3D12_ROOT_PARAMETER_TYPE_UAV: D3D12_ROOT_PARAMETER_TYPE = 4
 class D3D12_ROOT_SIGNATURE_DESC(EasyCastStructure):
     NumParameters: UInt32
-    pParameters: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_head)
+    pParameters: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER)
     NumStaticSamplers: UInt32
-    pStaticSamplers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC_head)
+    pStaticSamplers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC)
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_FLAGS
 class D3D12_ROOT_SIGNATURE_DESC1(EasyCastStructure):
     NumParameters: UInt32
-    pParameters: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER1_head)
+    pParameters: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER1)
     NumStaticSamplers: UInt32
-    pStaticSamplers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC_head)
+    pStaticSamplers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC)
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_FLAGS
 class D3D12_ROOT_SIGNATURE_DESC2(EasyCastStructure):
     NumParameters: UInt32
-    pParameters: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER1_head)
+    pParameters: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER1)
     NumStaticSamplers: UInt32
-    pStaticSamplers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC1_head)
+    pStaticSamplers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATIC_SAMPLER_DESC1)
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_FLAGS
 D3D12_ROOT_SIGNATURE_FLAGS = Int32
 D3D12_ROOT_SIGNATURE_FLAG_NONE: D3D12_ROOT_SIGNATURE_FLAGS = 0
@@ -3640,7 +3631,7 @@ class D3D12_STATE_OBJECT_CONFIG(EasyCastStructure):
 class D3D12_STATE_OBJECT_DESC(EasyCastStructure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_OBJECT_TYPE
     NumSubobjects: UInt32
-    pSubobjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_head)
+    pSubobjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT)
 D3D12_STATE_OBJECT_FLAGS = Int32
 D3D12_STATE_OBJECT_FLAG_NONE: D3D12_STATE_OBJECT_FLAGS = 0
 D3D12_STATE_OBJECT_FLAG_ALLOW_LOCAL_DEPENDENCIES_ON_EXTERNAL_DEFINITIONS: D3D12_STATE_OBJECT_FLAGS = 1
@@ -3715,13 +3706,13 @@ class D3D12_STREAM_OUTPUT_BUFFER_VIEW(EasyCastStructure):
     SizeInBytes: UInt64
     BufferFilledSizeLocation: UInt64
 class D3D12_STREAM_OUTPUT_DESC(EasyCastStructure):
-    pSODeclaration: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SO_DECLARATION_ENTRY_head)
+    pSODeclaration: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SO_DECLARATION_ENTRY)
     NumEntries: UInt32
     pBufferStrides: POINTER(UInt32)
     NumStrides: UInt32
     RasterizedStream: UInt32
 class D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION(EasyCastStructure):
-    pSubobjectToAssociate: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT_head)
+    pSubobjectToAssociate: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_SUBOBJECT)
     NumExports: UInt32
     pExports: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
 class D3D12_SUBRESOURCE_DATA(EasyCastStructure):
@@ -3863,14 +3854,14 @@ class D3D12_TEXTURE_BARRIER(EasyCastStructure):
     AccessAfter: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS
     LayoutBefore: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT
     LayoutAfter: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT
-    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Subresources: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_SUBRESOURCE_RANGE
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_BARRIER_FLAGS
 D3D12_TEXTURE_BARRIER_FLAGS = Int32
 D3D12_TEXTURE_BARRIER_FLAG_NONE: D3D12_TEXTURE_BARRIER_FLAGS = 0
 D3D12_TEXTURE_BARRIER_FLAG_DISCARD: D3D12_TEXTURE_BARRIER_FLAGS = 1
 class D3D12_TEXTURE_COPY_LOCATION(EasyCastStructure):
-    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_COPY_TYPE
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
@@ -3980,7 +3971,7 @@ class D3D12_VIEW_INSTANCE_LOCATION(EasyCastStructure):
     RenderTargetArrayIndex: UInt32
 class D3D12_VIEW_INSTANCING_DESC(EasyCastStructure):
     ViewInstanceCount: UInt32
-    pViewInstanceLocations: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VIEW_INSTANCE_LOCATION_head)
+    pViewInstanceLocations: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VIEW_INSTANCE_LOCATION)
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VIEW_INSTANCING_FLAGS
 D3D12_VIEW_INSTANCING_FLAGS = Int32
 D3D12_VIEW_INSTANCING_FLAG_NONE: D3D12_VIEW_INSTANCING_FLAGS = 0
@@ -4031,11 +4022,11 @@ class ID3D12CommandQueue(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     _iid_ = Guid('{0ec870a6-5d7e-4c22-8cfc-5baae07616ed}')
     @commethod(8)
-    def UpdateTileMappings(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, NumResourceRegions: UInt32, pResourceRegionStartCoordinates: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head), pResourceRegionSizes: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head), pHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Heap_head, NumRanges: UInt32, pRangeFlags: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_RANGE_FLAGS), pHeapRangeStartOffsets: POINTER(UInt32), pRangeTileCounts: POINTER(UInt32), Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_MAPPING_FLAGS) -> Void: ...
+    def UpdateTileMappings(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, NumResourceRegions: UInt32, pResourceRegionStartCoordinates: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE), pResourceRegionSizes: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE), pHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Heap, NumRanges: UInt32, pRangeFlags: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_RANGE_FLAGS), pHeapRangeStartOffsets: POINTER(UInt32), pRangeTileCounts: POINTER(UInt32), Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_MAPPING_FLAGS) -> Void: ...
     @commethod(9)
-    def CopyTileMappings(self, pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pDstRegionStartCoordinate: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head), pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pSrcRegionStartCoordinate: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head), pRegionSize: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head), Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_MAPPING_FLAGS) -> Void: ...
+    def CopyTileMappings(self, pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pDstRegionStartCoordinate: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE), pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pSrcRegionStartCoordinate: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE), pRegionSize: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE), Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_MAPPING_FLAGS) -> Void: ...
     @commethod(10)
-    def ExecuteCommandLists(self, NumCommandLists: UInt32, ppCommandLists: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandList_head)) -> Void: ...
+    def ExecuteCommandLists(self, NumCommandLists: UInt32, ppCommandLists: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandList)) -> Void: ...
     @commethod(11)
     def SetMarker(self, Metadata: UInt32, pData: VoidPtr, Size: UInt32) -> Void: ...
     @commethod(12)
@@ -4043,9 +4034,9 @@ class ID3D12CommandQueue(ComPtr):
     @commethod(13)
     def EndEvent(self) -> Void: ...
     @commethod(14)
-    def Signal(self, pFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, Value: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Signal(self, pFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence, Value: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def Wait(self, pFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, Value: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Wait(self, pFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence, Value: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetTimestampFrequency(self, pFrequency: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
@@ -4059,7 +4050,7 @@ class ID3D12DSRDeviceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{51ee7783-6426-4428-b182-42f3541fca71}')
     @commethod(3)
-    def CreateDSRDevice(self, pD3D12Device: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, NodeMask: UInt32, riid: POINTER(Guid), ppvDSRDevice: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateDSRDevice(self, pD3D12Device: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device, NodeMask: UInt32, riid: POINTER(Guid), ppvDSRDevice: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12Debug(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{344488b7-6846-474b-b989-f027448245e0}')
@@ -4107,7 +4098,7 @@ class ID3D12DebugCommandList(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{09e0bf36-54ac-484f-8847-4baeeab6053f}')
     @commethod(3)
-    def AssertResourceState(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, State: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def AssertResourceState(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Subresource: UInt32, State: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
     def SetFeatureMask(self, Mask: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_FEATURE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -4116,7 +4107,7 @@ class ID3D12DebugCommandList1(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{102ca951-311b-4b01-b11f-ecb83e061b37}')
     @commethod(3)
-    def AssertResourceState(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, State: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def AssertResourceState(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Subresource: UInt32, State: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
     def SetDebugParameter(self, Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, pData: VoidPtr, DataSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -4132,21 +4123,21 @@ class ID3D12DebugCommandList3(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DebugCommandList2
     _iid_ = Guid('{197d5e15-4d37-4d34-af78-724cd70fdb1f}')
     @commethod(8)
-    def AssertResourceAccess(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, Access: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS) -> Void: ...
+    def AssertResourceAccess(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Subresource: UInt32, Access: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS) -> Void: ...
     @commethod(9)
-    def AssertTextureLayout(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, Layout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT) -> Void: ...
+    def AssertTextureLayout(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Subresource: UInt32, Layout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT) -> Void: ...
 class ID3D12DebugCommandQueue(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{09e0bf36-54ac-484f-8847-4baeeab6053a}')
     @commethod(3)
-    def AssertResourceState(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, State: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def AssertResourceState(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Subresource: UInt32, State: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class ID3D12DebugCommandQueue1(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DebugCommandQueue
     _iid_ = Guid('{16be35a2-bfd6-49f2-bcae-eaae4aff862d}')
     @commethod(4)
-    def AssertResourceAccess(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, Access: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS) -> Void: ...
+    def AssertResourceAccess(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Subresource: UInt32, Access: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS) -> Void: ...
     @commethod(5)
-    def AssertTextureLayout(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, Layout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT) -> Void: ...
+    def AssertTextureLayout(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Subresource: UInt32, Layout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT) -> Void: ...
 class ID3D12DebugDevice(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3febd6dd-4973-4787-8194-e45f9e28923e}')
@@ -4187,75 +4178,75 @@ class ID3D12Device(ComPtr):
     @commethod(7)
     def GetNodeCount(self) -> UInt32: ...
     @commethod(8)
-    def CreateCommandQueue(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head), riid: POINTER(Guid), ppCommandQueue: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommandQueue(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC), riid: POINTER(Guid), ppCommandQueue: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CreateCommandAllocator(self, type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE, riid: POINTER(Guid), ppCommandAllocator: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def CreateGraphicsPipelineState(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC_head), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateGraphicsPipelineState(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def CreateComputePipelineState(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateComputePipelineState(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def CreateCommandList(self, nodeMask: UInt32, type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE, pCommandAllocator: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandAllocator_head, pInitialState: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState_head, riid: POINTER(Guid), ppCommandList: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommandList(self, nodeMask: UInt32, type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE, pCommandAllocator: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandAllocator, pInitialState: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState, riid: POINTER(Guid), ppCommandList: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def CheckFeatureSupport(self, Feature: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_FEATURE, pFeatureSupportData: VoidPtr, FeatureSupportDataSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def CreateDescriptorHeap(self, pDescriptorHeapDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC_head), riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateDescriptorHeap(self, pDescriptorHeapDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC), riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetDescriptorHandleIncrementSize(self, DescriptorHeapType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE) -> UInt32: ...
     @commethod(16)
     def CreateRootSignature(self, nodeMask: UInt32, pBlobWithRootSignature: VoidPtr, blobLengthInBytes: UIntPtr, riid: POINTER(Guid), ppvRootSignature: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def CreateConstantBufferView(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CONSTANT_BUFFER_VIEW_DESC_head), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
+    def CreateConstantBufferView(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CONSTANT_BUFFER_VIEW_DESC), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(18)
-    def CreateShaderResourceView(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_RESOURCE_VIEW_DESC_head), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
+    def CreateShaderResourceView(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_RESOURCE_VIEW_DESC), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(19)
-    def CreateUnorderedAccessView(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pCounterResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_UNORDERED_ACCESS_VIEW_DESC_head), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
+    def CreateUnorderedAccessView(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pCounterResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_UNORDERED_ACCESS_VIEW_DESC), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(20)
-    def CreateRenderTargetView(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_TARGET_VIEW_DESC_head), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
+    def CreateRenderTargetView(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_TARGET_VIEW_DESC), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(21)
-    def CreateDepthStencilView(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VIEW_DESC_head), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
+    def CreateDepthStencilView(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VIEW_DESC), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(22)
-    def CreateSampler(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SAMPLER_DESC_head), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
+    def CreateSampler(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SAMPLER_DESC), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(23)
-    def CopyDescriptors(self, NumDestDescriptorRanges: UInt32, pDestDescriptorRangeStarts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head), pDestDescriptorRangeSizes: POINTER(UInt32), NumSrcDescriptorRanges: UInt32, pSrcDescriptorRangeStarts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head), pSrcDescriptorRangeSizes: POINTER(UInt32), DescriptorHeapsType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE) -> Void: ...
+    def CopyDescriptors(self, NumDestDescriptorRanges: UInt32, pDestDescriptorRangeStarts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE), pDestDescriptorRangeSizes: POINTER(UInt32), NumSrcDescriptorRanges: UInt32, pSrcDescriptorRangeStarts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE), pSrcDescriptorRangeSizes: POINTER(UInt32), DescriptorHeapsType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE) -> Void: ...
     @commethod(24)
     def CopyDescriptorsSimple(self, NumDescriptors: UInt32, DestDescriptorRangeStart: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, SrcDescriptorRangeStart: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, DescriptorHeapsType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_TYPE) -> Void: ...
     @commethod(25)
-    def GetResourceAllocationInfo(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
+    def GetResourceAllocationInfo(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
     @commethod(26)
     def GetCustomHeapProperties(self, nodeMask: UInt32, heapType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_TYPE) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES: ...
     @commethod(27)
-    def CreateCommittedResource(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head), HeapFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), InitialResourceState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), riidResource: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommittedResource(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES), HeapFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC), InitialResourceState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), riidResource: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
-    def CreateHeap(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_DESC_head), riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateHeap(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_DESC), riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
-    def CreatePlacedResource(self, pHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Heap_head, HeapOffset: UInt64, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), InitialState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreatePlacedResource(self, pHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Heap, HeapOffset: UInt64, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC), InitialState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
-    def CreateReservedResource(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), InitialState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateReservedResource(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC), InitialState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
-    def CreateSharedHandle(self, pObject: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild_head, pAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES_head), Access: UInt32, Name: win32more.Windows.Win32.Foundation.PWSTR, pHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateSharedHandle(self, pObject: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild, pAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES), Access: UInt32, Name: win32more.Windows.Win32.Foundation.PWSTR, pHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
     def OpenSharedHandle(self, NTHandle: win32more.Windows.Win32.Foundation.HANDLE, riid: POINTER(Guid), ppvObj: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def OpenSharedHandleByName(self, Name: win32more.Windows.Win32.Foundation.PWSTR, Access: UInt32, pNTHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
-    def MakeResident(self, NumObjects: UInt32, ppObjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def MakeResident(self, NumObjects: UInt32, ppObjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
-    def Evict(self, NumObjects: UInt32, ppObjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Evict(self, NumObjects: UInt32, ppObjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
     def CreateFence(self, InitialValue: UInt64, Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_FENCE_FLAGS, riid: POINTER(Guid), ppFence: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def GetDeviceRemovedReason(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
-    def GetCopyableFootprints(self, pResourceDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), FirstSubresource: UInt32, NumSubresources: UInt32, BaseOffset: UInt64, pLayouts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head), pNumRows: POINTER(UInt32), pRowSizeInBytes: POINTER(UInt64), pTotalBytes: POINTER(UInt64)) -> Void: ...
+    def GetCopyableFootprints(self, pResourceDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC), FirstSubresource: UInt32, NumSubresources: UInt32, BaseOffset: UInt64, pLayouts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT), pNumRows: POINTER(UInt32), pRowSizeInBytes: POINTER(UInt64), pTotalBytes: POINTER(UInt64)) -> Void: ...
     @commethod(39)
-    def CreateQueryHeap(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_QUERY_HEAP_DESC_head), riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateQueryHeap(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_QUERY_HEAP_DESC), riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
     def SetStablePowerState(self, Enable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
-    def CreateCommandSignature(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_SIGNATURE_DESC_head), pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature_head, riid: POINTER(Guid), ppvCommandSignature: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommandSignature(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_SIGNATURE_DESC), pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature, riid: POINTER(Guid), ppvCommandSignature: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
-    def GetResourceTiling(self, pTiledResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pNumTilesForEntireResource: POINTER(UInt32), pPackedMipDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PACKED_MIP_INFO_head), pStandardTileShapeForNonPackedMips: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_SHAPE_head), pNumSubresourceTilings: POINTER(UInt32), FirstSubresourceTilingToGet: UInt32, pSubresourceTilingsForNonPackedMips: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SUBRESOURCE_TILING_head)) -> Void: ...
+    def GetResourceTiling(self, pTiledResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pNumTilesForEntireResource: POINTER(UInt32), pPackedMipDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PACKED_MIP_INFO), pStandardTileShapeForNonPackedMips: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_SHAPE), pNumSubresourceTilings: POINTER(UInt32), FirstSubresourceTilingToGet: UInt32, pSubresourceTilingsForNonPackedMips: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SUBRESOURCE_TILING)) -> Void: ...
     @commethod(43)
     def GetAdapterLuid(self) -> win32more.Windows.Win32.Foundation.LUID: ...
 class ID3D12Device1(ComPtr):
@@ -4264,33 +4255,33 @@ class ID3D12Device1(ComPtr):
     @commethod(44)
     def CreatePipelineLibrary(self, pLibraryBlob: VoidPtr, BlobLength: UIntPtr, riid: POINTER(Guid), ppPipelineLibrary: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
-    def SetEventOnMultipleFenceCompletion(self, ppFences: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head), pFenceValues: POINTER(UInt64), NumFences: UInt32, Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_MULTIPLE_FENCE_WAIT_FLAGS, hEvent: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetEventOnMultipleFenceCompletion(self, ppFences: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence), pFenceValues: POINTER(UInt64), NumFences: UInt32, Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_MULTIPLE_FENCE_WAIT_FLAGS, hEvent: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(46)
-    def SetResidencyPriority(self, NumObjects: UInt32, ppObjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable_head), pPriorities: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESIDENCY_PRIORITY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetResidencyPriority(self, NumObjects: UInt32, ppObjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable), pPriorities: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESIDENCY_PRIORITY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12Device10(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device9
     _iid_ = Guid('{517f8718-aa66-49f9-b02b-a7ab89c06031}')
     @commethod(76)
-    def CreateCommittedResource3(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head), HeapFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), InitialLayout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, NumCastableFormats: UInt32, pCastableFormats: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), riidResource: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommittedResource3(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES), HeapFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1), InitialLayout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession, NumCastableFormats: UInt32, pCastableFormats: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), riidResource: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(77)
-    def CreatePlacedResource2(self, pHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Heap_head, HeapOffset: UInt64, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), InitialLayout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), NumCastableFormats: UInt32, pCastableFormats: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreatePlacedResource2(self, pHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Heap, HeapOffset: UInt64, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1), InitialLayout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), NumCastableFormats: UInt32, pCastableFormats: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(78)
-    def CreateReservedResource2(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), InitialLayout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, NumCastableFormats: UInt32, pCastableFormats: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateReservedResource2(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC), InitialLayout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession, NumCastableFormats: UInt32, pCastableFormats: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12Device11(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device10
     _iid_ = Guid('{5405c344-d457-444e-b4dd-2366e45aee39}')
     @commethod(79)
-    def CreateSampler2(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SAMPLER_DESC2_head), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
+    def CreateSampler2(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SAMPLER_DESC2), DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
 class ID3D12Device12(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device11
     _iid_ = Guid('{5af5c532-4c91-4cd0-b541-15a405395fc5}')
     @commethod(80)
-    def GetResourceAllocationInfo3(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), pNumCastableFormats: POINTER(UInt32), ppCastableFormats: POINTER(POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT)), pResourceAllocationInfo1: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
+    def GetResourceAllocationInfo3(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1), pNumCastableFormats: POINTER(UInt32), ppCastableFormats: POINTER(POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT)), pResourceAllocationInfo1: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
 class ID3D12Device2(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device1
     _iid_ = Guid('{30baa41e-b15b-475c-a0bb-1af5c5b64328}')
     @commethod(47)
-    def CreatePipelineState(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreatePipelineState(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12Device3(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device2
     _iid_ = Guid('{81dadc15-2bad-4392-93c5-101345c4aa98}')
@@ -4299,41 +4290,41 @@ class ID3D12Device3(ComPtr):
     @commethod(49)
     def OpenExistingHeapFromFileMapping(self, hFileMapping: win32more.Windows.Win32.Foundation.HANDLE, riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(50)
-    def EnqueueMakeResident(self, Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESIDENCY_FLAGS, NumObjects: UInt32, ppObjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable_head), pFenceToSignal: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, FenceValueToSignal: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnqueueMakeResident(self, Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESIDENCY_FLAGS, NumObjects: UInt32, ppObjects: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable), pFenceToSignal: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence, FenceValueToSignal: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12Device4(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device3
     _iid_ = Guid('{e865df17-a9ee-46f9-a463-3098315aa2e5}')
     @commethod(51)
     def CreateCommandList1(self, nodeMask: UInt32, type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE, flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_LIST_FLAGS, riid: POINTER(Guid), ppCommandList: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(52)
-    def CreateProtectedResourceSession(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC_head), riid: POINTER(Guid), ppSession: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateProtectedResourceSession(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC), riid: POINTER(Guid), ppSession: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(53)
-    def CreateCommittedResource1(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head), HeapFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), InitialResourceState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, riidResource: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommittedResource1(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES), HeapFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC), InitialResourceState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession, riidResource: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(54)
-    def CreateHeap1(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_DESC_head), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateHeap1(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_DESC), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession, riid: POINTER(Guid), ppvHeap: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(55)
-    def CreateReservedResource1(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), InitialState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateReservedResource1(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC), InitialState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession, riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(56)
-    def GetResourceAllocationInfo1(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), pResourceAllocationInfo1: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
+    def GetResourceAllocationInfo1(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC), pResourceAllocationInfo1: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
 class ID3D12Device5(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device4
     _iid_ = Guid('{8b4f173b-2fea-4b80-8f58-4307191ab95d}')
     @commethod(57)
-    def CreateLifetimeTracker(self, pOwner: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12LifetimeOwner_head, riid: POINTER(Guid), ppvTracker: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateLifetimeTracker(self, pOwner: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12LifetimeOwner, riid: POINTER(Guid), ppvTracker: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(58)
     def RemoveDevice(self) -> Void: ...
     @commethod(59)
-    def EnumerateMetaCommands(self, pNumMetaCommands: POINTER(UInt32), pDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_META_COMMAND_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumerateMetaCommands(self, pNumMetaCommands: POINTER(UInt32), pDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_META_COMMAND_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(60)
-    def EnumerateMetaCommandParameters(self, CommandId: POINTER(Guid), Stage: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_STAGE, pTotalStructureSizeInBytes: POINTER(UInt32), pParameterCount: POINTER(UInt32), pParameterDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumerateMetaCommandParameters(self, CommandId: POINTER(Guid), Stage: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_STAGE, pTotalStructureSizeInBytes: POINTER(UInt32), pParameterCount: POINTER(UInt32), pParameterDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(61)
     def CreateMetaCommand(self, CommandId: POINTER(Guid), NodeMask: UInt32, pCreationParametersData: VoidPtr, CreationParametersDataSizeInBytes: UIntPtr, riid: POINTER(Guid), ppMetaCommand: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(62)
-    def CreateStateObject(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head), riid: POINTER(Guid), ppStateObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateStateObject(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC), riid: POINTER(Guid), ppStateObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(63)
-    def GetRaytracingAccelerationStructurePrebuildInfo(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head), pInfo: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head)) -> Void: ...
+    def GetRaytracingAccelerationStructurePrebuildInfo(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS), pInfo: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO)) -> Void: ...
     @commethod(64)
-    def CheckDriverMatchingIdentifier(self, SerializedDataType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_TYPE, pIdentifierToCheck: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS: ...
+    def CheckDriverMatchingIdentifier(self, SerializedDataType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_TYPE, pIdentifierToCheck: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS: ...
 class ID3D12Device6(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device5
     _iid_ = Guid('{c70b221b-40e4-4a17-89af-025a0727a6dc}')
@@ -4343,31 +4334,31 @@ class ID3D12Device7(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device6
     _iid_ = Guid('{5c014b53-68a1-4b9b-8bd1-dd6046b9358b}')
     @commethod(66)
-    def AddToStateObject(self, pAddition: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head), pStateObjectToGrowFrom: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12StateObject_head, riid: POINTER(Guid), ppNewStateObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddToStateObject(self, pAddition: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC), pStateObjectToGrowFrom: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12StateObject, riid: POINTER(Guid), ppNewStateObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(67)
-    def CreateProtectedResourceSession1(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head), riid: POINTER(Guid), ppSession: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateProtectedResourceSession1(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1), riid: POINTER(Guid), ppSession: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12Device8(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device7
     _iid_ = Guid('{9218e6bb-f944-4f7e-a75c-b1b2c7b701f3}')
     @commethod(68)
-    def GetResourceAllocationInfo2(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), pResourceAllocationInfo1: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
+    def GetResourceAllocationInfo2(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1), pResourceAllocationInfo1: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1)) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
     @commethod(69)
-    def CreateCommittedResource2(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head), HeapFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), InitialResourceState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, riidResource: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommittedResource2(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES), HeapFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1), InitialResourceState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), pProtectedSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession, riidResource: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(70)
-    def CreatePlacedResource1(self, pHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Heap_head, HeapOffset: UInt64, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), InitialState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreatePlacedResource1(self, pHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Heap, HeapOffset: UInt64, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1), InitialState: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE), riid: POINTER(Guid), ppvResource: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(71)
-    def CreateSamplerFeedbackUnorderedAccessView(self, pTargetedResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pFeedbackResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
+    def CreateSamplerFeedbackUnorderedAccessView(self, pTargetedResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pFeedbackResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, DestDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(72)
-    def GetCopyableFootprints1(self, pResourceDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), FirstSubresource: UInt32, NumSubresources: UInt32, BaseOffset: UInt64, pLayouts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head), pNumRows: POINTER(UInt32), pRowSizeInBytes: POINTER(UInt64), pTotalBytes: POINTER(UInt64)) -> Void: ...
+    def GetCopyableFootprints1(self, pResourceDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1), FirstSubresource: UInt32, NumSubresources: UInt32, BaseOffset: UInt64, pLayouts: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT), pNumRows: POINTER(UInt32), pRowSizeInBytes: POINTER(UInt64), pTotalBytes: POINTER(UInt64)) -> Void: ...
 class ID3D12Device9(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device8
     _iid_ = Guid('{4c80e962-f032-4f60-bc9e-ebc2cfa1d83c}')
     @commethod(73)
-    def CreateShaderCacheSession(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC_head), riid: POINTER(Guid), ppvSession: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateShaderCacheSession(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC), riid: POINTER(Guid), ppvSession: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(74)
     def ShaderCacheControl(self, Kinds: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_CACHE_KIND_FLAGS, Control: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_CACHE_CONTROL_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(75)
-    def CreateCommandQueue1(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head), CreatorID: POINTER(Guid), riid: POINTER(Guid), ppCommandQueue: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateCommandQueue1(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC), CreatorID: POINTER(Guid), riid: POINTER(Guid), ppCommandQueue: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12DeviceChild(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Object
     _iid_ = Guid('{905db94b-a00c-4140-9df5-2b64ca9ea357}')
@@ -4381,7 +4372,7 @@ class ID3D12DeviceConfiguration(ComPtr):
     @commethod(4)
     def GetEnabledExperimentalFeatures(self, pGuids: POINTER(Guid), NumGuids: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SerializeVersionedRootSignature(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head), ppResult: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head), ppError: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SerializeVersionedRootSignature(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC), ppResult: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob), ppError: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CreateVersionedRootSignatureDeserializer(self, pBlob: VoidPtr, Size: UIntPtr, riid: POINTER(Guid), ppvDeserializer: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12DeviceFactory(ComPtr):
@@ -4400,26 +4391,26 @@ class ID3D12DeviceFactory(ComPtr):
     @commethod(8)
     def EnableExperimentalFeatures(self, NumFeatures: UInt32, pIIDs: POINTER(Guid), pConfigurationStructs: VoidPtr, pConfigurationStructSizes: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def CreateDevice(self, adapter: win32more.Windows.Win32.System.Com.IUnknown_head, FeatureLevel: win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL, riid: POINTER(Guid), ppvDevice: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateDevice(self, adapter: win32more.Windows.Win32.System.Com.IUnknown, FeatureLevel: win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL, riid: POINTER(Guid), ppvDevice: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12DeviceRemovedExtendedData(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{98931d33-5ae8-4791-aa3c-1a73a2934e71}')
     @commethod(3)
-    def GetAutoBreadcrumbsOutput(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAutoBreadcrumbsOutput(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetPageFaultAllocationOutput(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPageFaultAllocationOutput(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12DeviceRemovedExtendedData1(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData
     _iid_ = Guid('{9727a022-cf1d-4dda-9eba-effa653fc506}')
     @commethod(5)
-    def GetAutoBreadcrumbsOutput1(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAutoBreadcrumbsOutput1(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetPageFaultAllocationOutput1(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPageFaultAllocationOutput1(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12DeviceRemovedExtendedData2(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1
     _iid_ = Guid('{67fc5816-e4ca-4915-bf18-42541272da54}')
     @commethod(7)
-    def GetPageFaultAllocationOutput2(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPageFaultAllocationOutput2(self, pOutput: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetDeviceState(self) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_DEVICE_STATE: ...
 class ID3D12DeviceRemovedExtendedDataSettings(ComPtr):
@@ -4459,33 +4450,33 @@ class ID3D12FunctionParameterReflection(ComPtr):
     extends: None
     _iid_ = Guid('{ec25f42d-7006-4f2b-b33e-02cc3375733f}')
     @commethod(0)
-    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PARAMETER_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PARAMETER_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12FunctionReflection(ComPtr):
     extends: None
     _iid_ = Guid('{1108795c-2772-4ba9-b2a8-d464dc7e2799}')
     @commethod(0)
-    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_FUNCTION_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_FUNCTION_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(1)
-    def GetConstantBufferByIndex(self, BufferIndex: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head: ...
+    def GetConstantBufferByIndex(self, BufferIndex: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer: ...
     @commethod(2)
-    def GetConstantBufferByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head: ...
+    def GetConstantBufferByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer: ...
     @commethod(3)
-    def GetResourceBindingDesc(self, ResourceIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetResourceBindingDesc(self, ResourceIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetVariableByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head: ...
+    def GetVariableByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable: ...
     @commethod(5)
-    def GetResourceBindingDescByName(self, Name: win32more.Windows.Win32.Foundation.PSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetResourceBindingDescByName(self, Name: win32more.Windows.Win32.Foundation.PSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetFunctionParameter(self, ParameterIndex: Int32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12FunctionParameterReflection_head: ...
+    def GetFunctionParameter(self, ParameterIndex: Int32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12FunctionParameterReflection: ...
 class ID3D12GraphicsCommandList(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandList
     _iid_ = Guid('{5b160d0f-ac1b-4185-8ba8-b3ae42a5a455}')
     @commethod(9)
     def Close(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def Reset(self, pAllocator: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandAllocator_head, pInitialState: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Reset(self, pAllocator: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandAllocator, pInitialState: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def ClearState(self, pPipelineState: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState_head) -> Void: ...
+    def ClearState(self, pPipelineState: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState) -> Void: ...
     @commethod(12)
     def DrawInstanced(self, VertexCountPerInstance: UInt32, InstanceCount: UInt32, StartVertexLocation: UInt32, StartInstanceLocation: UInt32) -> Void: ...
     @commethod(13)
@@ -4493,37 +4484,37 @@ class ID3D12GraphicsCommandList(ComPtr):
     @commethod(14)
     def Dispatch(self, ThreadGroupCountX: UInt32, ThreadGroupCountY: UInt32, ThreadGroupCountZ: UInt32) -> Void: ...
     @commethod(15)
-    def CopyBufferRegion(self, pDstBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, DstOffset: UInt64, pSrcBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, SrcOffset: UInt64, NumBytes: UInt64) -> Void: ...
+    def CopyBufferRegion(self, pDstBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, DstOffset: UInt64, pSrcBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, SrcOffset: UInt64, NumBytes: UInt64) -> Void: ...
     @commethod(16)
-    def CopyTextureRegion(self, pDst: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION_head), DstX: UInt32, DstY: UInt32, DstZ: UInt32, pSrc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION_head), pSrcBox: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BOX_head)) -> Void: ...
+    def CopyTextureRegion(self, pDst: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION), DstX: UInt32, DstY: UInt32, DstZ: UInt32, pSrc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_COPY_LOCATION), pSrcBox: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BOX)) -> Void: ...
     @commethod(17)
-    def CopyResource(self, pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head) -> Void: ...
+    def CopyResource(self, pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource) -> Void: ...
     @commethod(18)
-    def CopyTiles(self, pTiledResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pTileRegionStartCoordinate: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE_head), pTileRegionSize: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE_head), pBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, BufferStartOffsetInBytes: UInt64, Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_COPY_FLAGS) -> Void: ...
+    def CopyTiles(self, pTiledResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pTileRegionStartCoordinate: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILED_RESOURCE_COORDINATE), pTileRegionSize: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_REGION_SIZE), pBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, BufferStartOffsetInBytes: UInt64, Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TILE_COPY_FLAGS) -> Void: ...
     @commethod(19)
-    def ResolveSubresource(self, pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, DstSubresource: UInt32, pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, SrcSubresource: UInt32, Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT) -> Void: ...
+    def ResolveSubresource(self, pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, DstSubresource: UInt32, pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, SrcSubresource: UInt32, Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT) -> Void: ...
     @commethod(20)
     def IASetPrimitiveTopology(self, PrimitiveTopology: win32more.Windows.Win32.Graphics.Direct3D.D3D_PRIMITIVE_TOPOLOGY) -> Void: ...
     @commethod(21)
-    def RSSetViewports(self, NumViewports: UInt32, pViewports: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VIEWPORT_head)) -> Void: ...
+    def RSSetViewports(self, NumViewports: UInt32, pViewports: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VIEWPORT)) -> Void: ...
     @commethod(22)
-    def RSSetScissorRects(self, NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> Void: ...
+    def RSSetScissorRects(self, NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> Void: ...
     @commethod(23)
     def OMSetBlendFactor(self, BlendFactor: POINTER(Single)) -> Void: ...
     @commethod(24)
     def OMSetStencilRef(self, StencilRef: UInt32) -> Void: ...
     @commethod(25)
-    def SetPipelineState(self, pPipelineState: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState_head) -> Void: ...
+    def SetPipelineState(self, pPipelineState: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState) -> Void: ...
     @commethod(26)
-    def ResourceBarrier(self, NumBarriers: UInt32, pBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_head)) -> Void: ...
+    def ResourceBarrier(self, NumBarriers: UInt32, pBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER)) -> Void: ...
     @commethod(27)
-    def ExecuteBundle(self, pCommandList: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList_head) -> Void: ...
+    def ExecuteBundle(self, pCommandList: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList) -> Void: ...
     @commethod(28)
-    def SetDescriptorHeaps(self, NumDescriptorHeaps: UInt32, ppDescriptorHeaps: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DescriptorHeap_head)) -> Void: ...
+    def SetDescriptorHeaps(self, NumDescriptorHeaps: UInt32, ppDescriptorHeaps: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DescriptorHeap)) -> Void: ...
     @commethod(29)
-    def SetComputeRootSignature(self, pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature_head) -> Void: ...
+    def SetComputeRootSignature(self, pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature) -> Void: ...
     @commethod(30)
-    def SetGraphicsRootSignature(self, pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature_head) -> Void: ...
+    def SetGraphicsRootSignature(self, pRootSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12RootSignature) -> Void: ...
     @commethod(31)
     def SetComputeRootDescriptorTable(self, RootParameterIndex: UInt32, BaseDescriptor: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(32)
@@ -4549,31 +4540,31 @@ class ID3D12GraphicsCommandList(ComPtr):
     @commethod(42)
     def SetGraphicsRootUnorderedAccessView(self, RootParameterIndex: UInt32, BufferLocation: UInt64) -> Void: ...
     @commethod(43)
-    def IASetIndexBuffer(self, pView: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INDEX_BUFFER_VIEW_head)) -> Void: ...
+    def IASetIndexBuffer(self, pView: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INDEX_BUFFER_VIEW)) -> Void: ...
     @commethod(44)
-    def IASetVertexBuffers(self, StartSlot: UInt32, NumViews: UInt32, pViews: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERTEX_BUFFER_VIEW_head)) -> Void: ...
+    def IASetVertexBuffers(self, StartSlot: UInt32, NumViews: UInt32, pViews: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERTEX_BUFFER_VIEW)) -> Void: ...
     @commethod(45)
-    def SOSetTargets(self, StartSlot: UInt32, NumViews: UInt32, pViews: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_BUFFER_VIEW_head)) -> Void: ...
+    def SOSetTargets(self, StartSlot: UInt32, NumViews: UInt32, pViews: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_STREAM_OUTPUT_BUFFER_VIEW)) -> Void: ...
     @commethod(46)
-    def OMSetRenderTargets(self, NumRenderTargetDescriptors: UInt32, pRenderTargetDescriptors: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head), RTsSingleHandleToDescriptorRange: win32more.Windows.Win32.Foundation.BOOL, pDepthStencilDescriptor: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE_head)) -> Void: ...
+    def OMSetRenderTargets(self, NumRenderTargetDescriptors: UInt32, pRenderTargetDescriptors: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE), RTsSingleHandleToDescriptorRange: win32more.Windows.Win32.Foundation.BOOL, pDepthStencilDescriptor: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE)) -> Void: ...
     @commethod(47)
-    def ClearDepthStencilView(self, DepthStencilView: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, ClearFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_FLAGS, Depth: Single, Stencil: Byte, NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> Void: ...
+    def ClearDepthStencilView(self, DepthStencilView: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, ClearFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_FLAGS, Depth: Single, Stencil: Byte, NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> Void: ...
     @commethod(48)
-    def ClearRenderTargetView(self, RenderTargetView: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, ColorRGBA: POINTER(Single), NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> Void: ...
+    def ClearRenderTargetView(self, RenderTargetView: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, ColorRGBA: POINTER(Single), NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> Void: ...
     @commethod(49)
-    def ClearUnorderedAccessViewUint(self, ViewGPUHandleInCurrentHeap: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE, ViewCPUHandle: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Values: POINTER(UInt32), NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> Void: ...
+    def ClearUnorderedAccessViewUint(self, ViewGPUHandleInCurrentHeap: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE, ViewCPUHandle: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Values: POINTER(UInt32), NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> Void: ...
     @commethod(50)
-    def ClearUnorderedAccessViewFloat(self, ViewGPUHandleInCurrentHeap: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE, ViewCPUHandle: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Values: POINTER(Single), NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT_head)) -> Void: ...
+    def ClearUnorderedAccessViewFloat(self, ViewGPUHandleInCurrentHeap: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE, ViewCPUHandle: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Values: POINTER(Single), NumRects: UInt32, pRects: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> Void: ...
     @commethod(51)
-    def DiscardResource(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pRegion: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DISCARD_REGION_head)) -> Void: ...
+    def DiscardResource(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pRegion: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DISCARD_REGION)) -> Void: ...
     @commethod(52)
-    def BeginQuery(self, pQueryHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12QueryHeap_head, Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_QUERY_TYPE, Index: UInt32) -> Void: ...
+    def BeginQuery(self, pQueryHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12QueryHeap, Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_QUERY_TYPE, Index: UInt32) -> Void: ...
     @commethod(53)
-    def EndQuery(self, pQueryHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12QueryHeap_head, Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_QUERY_TYPE, Index: UInt32) -> Void: ...
+    def EndQuery(self, pQueryHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12QueryHeap, Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_QUERY_TYPE, Index: UInt32) -> Void: ...
     @commethod(54)
-    def ResolveQueryData(self, pQueryHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12QueryHeap_head, Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_QUERY_TYPE, StartIndex: UInt32, NumQueries: UInt32, pDestinationBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, AlignedDestinationBufferOffset: UInt64) -> Void: ...
+    def ResolveQueryData(self, pQueryHeap: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12QueryHeap, Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_QUERY_TYPE, StartIndex: UInt32, NumQueries: UInt32, pDestinationBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, AlignedDestinationBufferOffset: UInt64) -> Void: ...
     @commethod(55)
-    def SetPredication(self, pBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, AlignedBufferOffset: UInt64, Operation: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PREDICATION_OP) -> Void: ...
+    def SetPredication(self, pBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, AlignedBufferOffset: UInt64, Operation: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PREDICATION_OP) -> Void: ...
     @commethod(56)
     def SetMarker(self, Metadata: UInt32, pData: VoidPtr, Size: UInt32) -> Void: ...
     @commethod(57)
@@ -4581,60 +4572,60 @@ class ID3D12GraphicsCommandList(ComPtr):
     @commethod(58)
     def EndEvent(self) -> Void: ...
     @commethod(59)
-    def ExecuteIndirect(self, pCommandSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandSignature_head, MaxCommandCount: UInt32, pArgumentBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, ArgumentBufferOffset: UInt64, pCountBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, CountBufferOffset: UInt64) -> Void: ...
+    def ExecuteIndirect(self, pCommandSignature: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12CommandSignature, MaxCommandCount: UInt32, pArgumentBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, ArgumentBufferOffset: UInt64, pCountBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, CountBufferOffset: UInt64) -> Void: ...
 class ID3D12GraphicsCommandList1(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList
     _iid_ = Guid('{553103fb-1fe7-4557-bb38-946d7d0e7ca7}')
     @commethod(60)
-    def AtomicCopyBufferUINT(self, pDstBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, DstOffset: UInt64, pSrcBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, SrcOffset: UInt64, Dependencies: UInt32, ppDependentResources: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head), pDependentSubresourceRanges: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64_head)) -> Void: ...
+    def AtomicCopyBufferUINT(self, pDstBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, DstOffset: UInt64, pSrcBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, SrcOffset: UInt64, Dependencies: UInt32, ppDependentResources: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource), pDependentSubresourceRanges: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64)) -> Void: ...
     @commethod(61)
-    def AtomicCopyBufferUINT64(self, pDstBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, DstOffset: UInt64, pSrcBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, SrcOffset: UInt64, Dependencies: UInt32, ppDependentResources: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head), pDependentSubresourceRanges: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64_head)) -> Void: ...
+    def AtomicCopyBufferUINT64(self, pDstBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, DstOffset: UInt64, pSrcBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, SrcOffset: UInt64, Dependencies: UInt32, ppDependentResources: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource), pDependentSubresourceRanges: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SUBRESOURCE_RANGE_UINT64)) -> Void: ...
     @commethod(62)
     def OMSetDepthBounds(self, Min: Single, Max: Single) -> Void: ...
     @commethod(63)
-    def SetSamplePositions(self, NumSamplesPerPixel: UInt32, NumPixels: UInt32, pSamplePositions: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SAMPLE_POSITION_head)) -> Void: ...
+    def SetSamplePositions(self, NumSamplesPerPixel: UInt32, NumPixels: UInt32, pSamplePositions: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SAMPLE_POSITION)) -> Void: ...
     @commethod(64)
-    def ResolveSubresourceRegion(self, pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, DstSubresource: UInt32, DstX: UInt32, DstY: UInt32, pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, SrcSubresource: UInt32, pSrcRect: POINTER(win32more.Windows.Win32.Foundation.RECT_head), Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, ResolveMode: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOLVE_MODE) -> Void: ...
+    def ResolveSubresourceRegion(self, pDstResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, DstSubresource: UInt32, DstX: UInt32, DstY: UInt32, pSrcResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, SrcSubresource: UInt32, pSrcRect: POINTER(win32more.Windows.Win32.Foundation.RECT), Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, ResolveMode: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOLVE_MODE) -> Void: ...
     @commethod(65)
     def SetViewInstanceMask(self, Mask: UInt32) -> Void: ...
 class ID3D12GraphicsCommandList2(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList1
     _iid_ = Guid('{38c3e585-ff17-412c-9150-4fc6f9d72a28}')
     @commethod(66)
-    def WriteBufferImmediate(self, Count: UInt32, pParams: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head), pModes: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE)) -> Void: ...
+    def WriteBufferImmediate(self, Count: UInt32, pParams: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER), pModes: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE)) -> Void: ...
 class ID3D12GraphicsCommandList3(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList2
     _iid_ = Guid('{6fda83a7-b84c-4e38-9ac8-c7bd22016b3d}')
     @commethod(67)
-    def SetProtectedResourceSession(self, pProtectedResourceSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head) -> Void: ...
+    def SetProtectedResourceSession(self, pProtectedResourceSession: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession) -> Void: ...
 class ID3D12GraphicsCommandList4(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList3
     _iid_ = Guid('{8754318e-d3a9-4541-98cf-645b50dc4874}')
     @commethod(68)
-    def BeginRenderPass(self, NumRenderTargets: UInt32, pRenderTargets: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_RENDER_TARGET_DESC_head), pDepthStencil: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_DEPTH_STENCIL_DESC_head), Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_FLAGS) -> Void: ...
+    def BeginRenderPass(self, NumRenderTargets: UInt32, pRenderTargets: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_RENDER_TARGET_DESC), pDepthStencil: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_DEPTH_STENCIL_DESC), Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_FLAGS) -> Void: ...
     @commethod(69)
     def EndRenderPass(self) -> Void: ...
     @commethod(70)
-    def InitializeMetaCommand(self, pMetaCommand: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12MetaCommand_head, pInitializationParametersData: VoidPtr, InitializationParametersDataSizeInBytes: UIntPtr) -> Void: ...
+    def InitializeMetaCommand(self, pMetaCommand: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12MetaCommand, pInitializationParametersData: VoidPtr, InitializationParametersDataSizeInBytes: UIntPtr) -> Void: ...
     @commethod(71)
-    def ExecuteMetaCommand(self, pMetaCommand: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12MetaCommand_head, pExecutionParametersData: VoidPtr, ExecutionParametersDataSizeInBytes: UIntPtr) -> Void: ...
+    def ExecuteMetaCommand(self, pMetaCommand: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12MetaCommand, pExecutionParametersData: VoidPtr, ExecutionParametersDataSizeInBytes: UIntPtr) -> Void: ...
     @commethod(72)
-    def BuildRaytracingAccelerationStructure(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC_head), NumPostbuildInfoDescs: UInt32, pPostbuildInfoDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head)) -> Void: ...
+    def BuildRaytracingAccelerationStructure(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC), NumPostbuildInfoDescs: UInt32, pPostbuildInfoDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC)) -> Void: ...
     @commethod(73)
-    def EmitRaytracingAccelerationStructurePostbuildInfo(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC_head), NumSourceAccelerationStructures: UInt32, pSourceAccelerationStructureData: POINTER(UInt64)) -> Void: ...
+    def EmitRaytracingAccelerationStructurePostbuildInfo(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC), NumSourceAccelerationStructures: UInt32, pSourceAccelerationStructureData: POINTER(UInt64)) -> Void: ...
     @commethod(74)
     def CopyRaytracingAccelerationStructure(self, DestAccelerationStructureData: UInt64, SourceAccelerationStructureData: UInt64, Mode: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE) -> Void: ...
     @commethod(75)
-    def SetPipelineState1(self, pStateObject: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12StateObject_head) -> Void: ...
+    def SetPipelineState1(self, pStateObject: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12StateObject) -> Void: ...
     @commethod(76)
-    def DispatchRays(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DISPATCH_RAYS_DESC_head)) -> Void: ...
+    def DispatchRays(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DISPATCH_RAYS_DESC)) -> Void: ...
 class ID3D12GraphicsCommandList5(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList4
     _iid_ = Guid('{55050859-4024-474c-87f5-6472eaee44ea}')
     @commethod(77)
     def RSSetShadingRate(self, baseShadingRate: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADING_RATE, combiners: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADING_RATE_COMBINER)) -> Void: ...
     @commethod(78)
-    def RSSetShadingRateImage(self, shadingRateImage: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head) -> Void: ...
+    def RSSetShadingRateImage(self, shadingRateImage: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource) -> Void: ...
 class ID3D12GraphicsCommandList6(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList5
     _iid_ = Guid('{c3827890-e548-4cfa-96cf-5689a9370f80}')
@@ -4644,7 +4635,7 @@ class ID3D12GraphicsCommandList7(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList6
     _iid_ = Guid('{dd171223-8b61-4769-90e3-160ccde4e2c1}')
     @commethod(80)
-    def Barrier(self, NumBarrierGroups: UInt32, pBarrierGroups: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_GROUP_head)) -> Void: ...
+    def Barrier(self, NumBarrierGroups: UInt32, pBarrierGroups: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_GROUP)) -> Void: ...
 class ID3D12GraphicsCommandList8(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList7
     _iid_ = Guid('{ee936ef9-599d-4d28-938e-23c4ad05ce51}')
@@ -4675,7 +4666,7 @@ class ID3D12InfoQueue(ComPtr):
     @commethod(4)
     def ClearStoredMessages(self) -> Void: ...
     @commethod(5)
-    def GetMessage(self, MessageIndex: UInt64, pMessage: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE_head), pMessageByteLength: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetMessage(self, MessageIndex: UInt64, pMessage: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE), pMessageByteLength: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetNumMessagesAllowedByStorageFilter(self) -> UInt64: ...
     @commethod(7)
@@ -4689,9 +4680,9 @@ class ID3D12InfoQueue(ComPtr):
     @commethod(11)
     def GetMessageCountLimit(self) -> UInt64: ...
     @commethod(12)
-    def AddStorageFilterEntries(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddStorageFilterEntries(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def GetStorageFilter(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head), pFilterByteLength: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetStorageFilter(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER), pFilterByteLength: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def ClearStorageFilter(self) -> Void: ...
     @commethod(15)
@@ -4699,15 +4690,15 @@ class ID3D12InfoQueue(ComPtr):
     @commethod(16)
     def PushCopyOfStorageFilter(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def PushStorageFilter(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PushStorageFilter(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def PopStorageFilter(self) -> Void: ...
     @commethod(19)
     def GetStorageFilterStackSize(self) -> UInt32: ...
     @commethod(20)
-    def AddRetrievalFilterEntries(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddRetrievalFilterEntries(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
-    def GetRetrievalFilter(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head), pFilterByteLength: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetRetrievalFilter(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER), pFilterByteLength: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def ClearRetrievalFilter(self) -> Void: ...
     @commethod(23)
@@ -4715,7 +4706,7 @@ class ID3D12InfoQueue(ComPtr):
     @commethod(24)
     def PushCopyOfRetrievalFilter(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def PushRetrievalFilter(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PushRetrievalFilter(self, pFilter: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INFO_QUEUE_FILTER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def PopRetrievalFilter(self) -> Void: ...
     @commethod(27)
@@ -4751,9 +4742,9 @@ class ID3D12LibraryReflection(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8e349d19-54db-4a56-9dc9-119d87bdb804}')
     @commethod(3)
-    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_LIBRARY_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_LIBRARY_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetFunctionByIndex(self, FunctionIndex: Int32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12FunctionReflection_head: ...
+    def GetFunctionByIndex(self, FunctionIndex: Int32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12FunctionReflection: ...
 class ID3D12LifetimeOwner(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e667af9f-cd56-4f46-83ce-032e595d70a8}')
@@ -4763,12 +4754,12 @@ class ID3D12LifetimeTracker(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     _iid_ = Guid('{3fd03d36-4eb1-424a-a582-494ecb8ba813}')
     @commethod(8)
-    def DestroyOwnedObject(self, pObject: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DestroyOwnedObject(self, pObject: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12ManualWriteTrackingResource(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{86ca3b85-49ad-4b6e-aed5-eddb18540f41}')
     @commethod(3)
-    def TrackWrite(self, Subresource: UInt32, pWrittenRange: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RANGE_head)) -> Void: ...
+    def TrackWrite(self, Subresource: UInt32, pWrittenRange: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RANGE)) -> Void: ...
 class ID3D12MetaCommand(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     _iid_ = Guid('{dbb84c27-36ce-4fc9-b801-f048c46ac570}')
@@ -4782,7 +4773,7 @@ class ID3D12Object(ComPtr):
     @commethod(4)
     def SetPrivateData(self, guid: POINTER(Guid), DataSize: UInt32, pData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetPrivateDataInterface(self, guid: POINTER(Guid), pData: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetPrivateDataInterface(self, guid: POINTER(Guid), pData: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetName(self, Name: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12Pageable(ComPtr):
@@ -4792,11 +4783,11 @@ class ID3D12PipelineLibrary(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     _iid_ = Guid('{c64226a8-9201-46af-b4cc-53fb9ff7414f}')
     @commethod(8)
-    def StorePipeline(self, pName: win32more.Windows.Win32.Foundation.PWSTR, pPipeline: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def StorePipeline(self, pName: win32more.Windows.Win32.Foundation.PWSTR, pPipeline: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineState) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def LoadGraphicsPipeline(self, pName: win32more.Windows.Win32.Foundation.PWSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC_head), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def LoadGraphicsPipeline(self, pName: win32more.Windows.Win32.Foundation.PWSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GRAPHICS_PIPELINE_STATE_DESC), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def LoadComputePipeline(self, pName: win32more.Windows.Win32.Foundation.PWSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def LoadComputePipeline(self, pName: win32more.Windows.Win32.Foundation.PWSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetSerializedSize(self) -> UIntPtr: ...
     @commethod(12)
@@ -4805,12 +4796,12 @@ class ID3D12PipelineLibrary1(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12PipelineLibrary
     _iid_ = Guid('{80eabf42-2568-4e5e-bd82-c37f86961dc3}')
     @commethod(13)
-    def LoadPipeline(self, pName: win32more.Windows.Win32.Foundation.PWSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def LoadPipeline(self, pName: win32more.Windows.Win32.Foundation.PWSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC), riid: POINTER(Guid), ppPipelineState: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12PipelineState(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     _iid_ = Guid('{765a30f3-f624-4c6f-a828-ace948622445}')
     @commethod(8)
-    def GetCachedBlob(self, ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetCachedBlob(self, ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12ProtectedResourceSession(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedSession
     _iid_ = Guid('{6cd696f4-f289-40cc-8091-5a6c0a099c3d}')
@@ -4835,19 +4826,19 @@ class ID3D12Resource(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     _iid_ = Guid('{696442be-a72e-4059-bc79-5b5c98040fad}')
     @commethod(8)
-    def Map(self, Subresource: UInt32, pReadRange: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RANGE_head), ppData: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Map(self, Subresource: UInt32, pReadRange: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RANGE), ppData: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def Unmap(self, Subresource: UInt32, pWrittenRange: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RANGE_head)) -> Void: ...
+    def Unmap(self, Subresource: UInt32, pWrittenRange: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RANGE)) -> Void: ...
     @commethod(10)
     def GetDesc(self) -> win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC: ...
     @commethod(11)
     def GetGPUVirtualAddress(self) -> UInt64: ...
     @commethod(12)
-    def WriteToSubresource(self, DstSubresource: UInt32, pDstBox: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BOX_head), pSrcData: VoidPtr, SrcRowPitch: UInt32, SrcDepthPitch: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def WriteToSubresource(self, DstSubresource: UInt32, pDstBox: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BOX), pSrcData: VoidPtr, SrcRowPitch: UInt32, SrcDepthPitch: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def ReadFromSubresource(self, pDstData: VoidPtr, DstRowPitch: UInt32, DstDepthPitch: UInt32, SrcSubresource: UInt32, pSrcBox: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BOX_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ReadFromSubresource(self, pDstData: VoidPtr, DstRowPitch: UInt32, DstDepthPitch: UInt32, SrcSubresource: UInt32, pSrcBox: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BOX)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def GetHeapProperties(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head), pHeapFlags: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetHeapProperties(self, pHeapProperties: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES), pHeapFlags: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12Resource1(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     _iid_ = Guid('{9d5e227a-4430-4161-88b3-3eca6bb16e19}')
@@ -4865,7 +4856,7 @@ class ID3D12RootSignatureDeserializer(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{34ab647b-3cc8-46ac-841b-c0965645c046}')
     @commethod(3)
-    def GetRootSignatureDesc(self) -> POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head): ...
+    def GetRootSignatureDesc(self) -> POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC): ...
 class ID3D12SDKConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e9eb5314-33aa-42b2-a718-d77f58b1f1c7}')
@@ -4893,23 +4884,23 @@ class ID3D12ShaderReflection(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5a58797d-a72c-478d-8ba2-efc6b0efe88e}')
     @commethod(3)
-    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetConstantBufferByIndex(self, Index: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head: ...
+    def GetConstantBufferByIndex(self, Index: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer: ...
     @commethod(5)
-    def GetConstantBufferByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head: ...
+    def GetConstantBufferByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer: ...
     @commethod(6)
-    def GetResourceBindingDesc(self, ResourceIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetResourceBindingDesc(self, ResourceIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetInputParameterDesc(self, ParameterIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInputParameterDesc(self, ParameterIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetOutputParameterDesc(self, ParameterIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOutputParameterDesc(self, ParameterIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetPatchConstantParameterDesc(self, ParameterIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPatchConstantParameterDesc(self, ParameterIndex: UInt32, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SIGNATURE_PARAMETER_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetVariableByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head: ...
+    def GetVariableByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable: ...
     @commethod(11)
-    def GetResourceBindingDescByName(self, Name: win32more.Windows.Win32.Foundation.PSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetResourceBindingDescByName(self, Name: win32more.Windows.Win32.Foundation.PSTR, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetMovInstructionCount(self) -> UInt32: ...
     @commethod(13)
@@ -4934,54 +4925,54 @@ class ID3D12ShaderReflectionConstantBuffer(ComPtr):
     extends: None
     _iid_ = Guid('{c59598b4-48b3-4869-b9b1-b1618b14a8b7}')
     @commethod(0)
-    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_BUFFER_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_BUFFER_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(1)
-    def GetVariableByIndex(self, Index: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head: ...
+    def GetVariableByIndex(self, Index: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable: ...
     @commethod(2)
-    def GetVariableByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head: ...
+    def GetVariableByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable: ...
 class ID3D12ShaderReflectionType(ComPtr):
     extends: None
     _iid_ = Guid('{e913c351-783d-48ca-a1d1-4f306284ad56}')
     @commethod(0)
-    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_TYPE_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_TYPE_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(1)
-    def GetMemberTypeByIndex(self, Index: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head: ...
+    def GetMemberTypeByIndex(self, Index: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType: ...
     @commethod(2)
-    def GetMemberTypeByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head: ...
+    def GetMemberTypeByName(self, Name: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType: ...
     @commethod(3)
     def GetMemberTypeName(self, Index: UInt32) -> win32more.Windows.Win32.Foundation.PSTR: ...
     @commethod(4)
-    def IsEqual(self, pType: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsEqual(self, pType: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetSubType(self) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head: ...
+    def GetSubType(self) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType: ...
     @commethod(6)
-    def GetBaseClass(self) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head: ...
+    def GetBaseClass(self) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType: ...
     @commethod(7)
     def GetNumInterfaces(self) -> UInt32: ...
     @commethod(8)
-    def GetInterfaceByIndex(self, uIndex: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head: ...
+    def GetInterfaceByIndex(self, uIndex: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType: ...
     @commethod(9)
-    def IsOfType(self, pType: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsOfType(self, pType: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def ImplementsInterface(self, pBase: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ImplementsInterface(self, pBase: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID3D12ShaderReflectionVariable(ComPtr):
     extends: None
     _iid_ = Guid('{8337a8a6-a216-444a-b2f4-314733a73aea}')
     @commethod(0)
-    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_VARIABLE_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_VARIABLE_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(1)
-    def GetType(self) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head: ...
+    def GetType(self) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType: ...
     @commethod(2)
-    def GetBuffer(self) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head: ...
+    def GetBuffer(self) -> win32more.Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer: ...
     @commethod(3)
     def GetInterfaceSlot(self, uArrayIndex: UInt32) -> UInt32: ...
 class ID3D12SharingContract(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0adf7d52-929c-4e61-addb-ffed30de66ef}')
     @commethod(3)
-    def Present(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, window: win32more.Windows.Win32.Foundation.HWND) -> Void: ...
+    def Present(self, pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, Subresource: UInt32, window: win32more.Windows.Win32.Foundation.HWND) -> Void: ...
     @commethod(4)
-    def SharedFenceSignal(self, pFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, FenceValue: UInt64) -> Void: ...
+    def SharedFenceSignal(self, pFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence, FenceValue: UInt64) -> Void: ...
     @commethod(5)
     def BeginCapturableWork(self, guid: POINTER(Guid)) -> Void: ...
     @commethod(6)
@@ -5022,18 +5013,18 @@ class ID3D12VersionedRootSignatureDeserializer(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7f91ce67-090c-4bb7-b78e-ed8ff2e31da0}')
     @commethod(3)
-    def GetRootSignatureDescAtVersion(self, convertToVersion: win32more.Windows.Win32.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION, ppDesc: POINTER(POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetRootSignatureDescAtVersion(self, convertToVersion: win32more.Windows.Win32.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION, ppDesc: POINTER(POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetUnconvertedRootSignatureDesc(self) -> POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head): ...
+    def GetUnconvertedRootSignatureDesc(self) -> POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC): ...
 class ID3D12VirtualizationGuestDevice(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{bc66d368-7373-4943-8757-fc87dc79e476}')
     @commethod(3)
-    def ShareWithHost(self, pObject: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild_head, pHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ShareWithHost(self, pObject: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild, pHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CreateFenceFd(self, pFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, FenceValue: UInt64, pFenceFd: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateFenceFd(self, pFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence, FenceValue: UInt64, pFenceFd: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_D3D12_CREATE_DEVICE(param0: win32more.Windows.Win32.System.Com.IUnknown_head, param1: win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL, param2: POINTER(Guid), param3: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_D3D12_CREATE_DEVICE(param0: win32more.Windows.Win32.System.Com.IUnknown, param1: win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL, param2: POINTER(Guid), param3: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER(pSrcData: VoidPtr, SrcDataSizeInBytes: UIntPtr, pRootSignatureDeserializerInterface: POINTER(Guid), ppRootSignatureDeserializer: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -5043,359 +5034,7 @@ def PFN_D3D12_GET_DEBUG_INTERFACE(param0: POINTER(Guid), param1: POINTER(VoidPtr
 @winfunctype_pointer
 def PFN_D3D12_GET_INTERFACE(param0: POINTER(Guid), param1: POINTER(Guid), param2: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_D3D12_SERIALIZE_ROOT_SIGNATURE(pRootSignature: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head), Version: win32more.Windows.Win32.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION, ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head), ppErrorBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_D3D12_SERIALIZE_ROOT_SIGNATURE(pRootSignature: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC), Version: win32more.Windows.Win32.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION, ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob), ppErrorBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_D3D12_SERIALIZE_VERSIONED_ROOT_SIGNATURE(pRootSignature: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head), ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head), ppErrorBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'D3D12MessageFunc')
-make_head(_module, 'D3D12_AUTO_BREADCRUMB_NODE')
-make_head(_module, 'D3D12_AUTO_BREADCRUMB_NODE1')
-make_head(_module, 'D3D12_BARRIER_GROUP')
-make_head(_module, 'D3D12_BARRIER_SUBRESOURCE_RANGE')
-make_head(_module, 'D3D12_BLEND_DESC')
-make_head(_module, 'D3D12_BOX')
-make_head(_module, 'D3D12_BUFFER_BARRIER')
-make_head(_module, 'D3D12_BUFFER_RTV')
-make_head(_module, 'D3D12_BUFFER_SRV')
-make_head(_module, 'D3D12_BUFFER_UAV')
-make_head(_module, 'D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC')
-make_head(_module, 'D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS')
-make_head(_module, 'D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_TOOLS_VISUALIZATION_HEADER')
-make_head(_module, 'D3D12_CACHED_PIPELINE_STATE')
-make_head(_module, 'D3D12_CLEAR_VALUE')
-make_head(_module, 'D3D12_COMMAND_QUEUE_DESC')
-make_head(_module, 'D3D12_COMMAND_SIGNATURE_DESC')
-make_head(_module, 'D3D12_COMPUTE_PIPELINE_STATE_DESC')
-make_head(_module, 'D3D12_CONSTANT_BUFFER_VIEW_DESC')
-make_head(_module, 'D3D12_CPU_DESCRIPTOR_HANDLE')
-make_head(_module, 'D3D12_DEBUG_COMMAND_LIST_GPU_BASED_VALIDATION_SETTINGS')
-make_head(_module, 'D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS')
-make_head(_module, 'D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR')
-make_head(_module, 'D3D12_DEPTH_STENCILOP_DESC')
-make_head(_module, 'D3D12_DEPTH_STENCILOP_DESC1')
-make_head(_module, 'D3D12_DEPTH_STENCIL_DESC')
-make_head(_module, 'D3D12_DEPTH_STENCIL_DESC1')
-make_head(_module, 'D3D12_DEPTH_STENCIL_DESC2')
-make_head(_module, 'D3D12_DEPTH_STENCIL_VALUE')
-make_head(_module, 'D3D12_DEPTH_STENCIL_VIEW_DESC')
-make_head(_module, 'D3D12_DESCRIPTOR_HEAP_DESC')
-make_head(_module, 'D3D12_DESCRIPTOR_RANGE')
-make_head(_module, 'D3D12_DESCRIPTOR_RANGE1')
-make_head(_module, 'D3D12_DEVICE_CONFIGURATION_DESC')
-make_head(_module, 'D3D12_DEVICE_REMOVED_EXTENDED_DATA')
-make_head(_module, 'D3D12_DEVICE_REMOVED_EXTENDED_DATA1')
-make_head(_module, 'D3D12_DEVICE_REMOVED_EXTENDED_DATA2')
-make_head(_module, 'D3D12_DEVICE_REMOVED_EXTENDED_DATA3')
-make_head(_module, 'D3D12_DISCARD_REGION')
-make_head(_module, 'D3D12_DISPATCH_ARGUMENTS')
-make_head(_module, 'D3D12_DISPATCH_MESH_ARGUMENTS')
-make_head(_module, 'D3D12_DISPATCH_RAYS_DESC')
-make_head(_module, 'D3D12_DRAW_ARGUMENTS')
-make_head(_module, 'D3D12_DRAW_INDEXED_ARGUMENTS')
-make_head(_module, 'D3D12_DRED_ALLOCATION_NODE')
-make_head(_module, 'D3D12_DRED_ALLOCATION_NODE1')
-make_head(_module, 'D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT')
-make_head(_module, 'D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1')
-make_head(_module, 'D3D12_DRED_BREADCRUMB_CONTEXT')
-make_head(_module, 'D3D12_DRED_PAGE_FAULT_OUTPUT')
-make_head(_module, 'D3D12_DRED_PAGE_FAULT_OUTPUT1')
-make_head(_module, 'D3D12_DRED_PAGE_FAULT_OUTPUT2')
-make_head(_module, 'D3D12_DXIL_LIBRARY_DESC')
-make_head(_module, 'D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION')
-make_head(_module, 'D3D12_EXISTING_COLLECTION_DESC')
-make_head(_module, 'D3D12_EXPORT_DESC')
-make_head(_module, 'D3D12_FEATURE_DATA_ARCHITECTURE')
-make_head(_module, 'D3D12_FEATURE_DATA_ARCHITECTURE1')
-make_head(_module, 'D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY')
-make_head(_module, 'D3D12_FEATURE_DATA_CROSS_NODE')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS1')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS10')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS11')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS12')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS13')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS14')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS15')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS16')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS17')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS18')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS19')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS2')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS3')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS4')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS5')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS6')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS7')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS8')
-make_head(_module, 'D3D12_FEATURE_DATA_D3D12_OPTIONS9')
-make_head(_module, 'D3D12_FEATURE_DATA_DISPLAYABLE')
-make_head(_module, 'D3D12_FEATURE_DATA_EXISTING_HEAPS')
-make_head(_module, 'D3D12_FEATURE_DATA_FEATURE_LEVELS')
-make_head(_module, 'D3D12_FEATURE_DATA_FORMAT_INFO')
-make_head(_module, 'D3D12_FEATURE_DATA_FORMAT_SUPPORT')
-make_head(_module, 'D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT')
-make_head(_module, 'D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS')
-make_head(_module, 'D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_SUPPORT')
-make_head(_module, 'D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES')
-make_head(_module, 'D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT')
-make_head(_module, 'D3D12_FEATURE_DATA_QUERY_META_COMMAND')
-make_head(_module, 'D3D12_FEATURE_DATA_ROOT_SIGNATURE')
-make_head(_module, 'D3D12_FEATURE_DATA_SERIALIZATION')
-make_head(_module, 'D3D12_FEATURE_DATA_SHADER_CACHE')
-make_head(_module, 'D3D12_FEATURE_DATA_SHADER_MODEL')
-make_head(_module, 'D3D12_FUNCTION_DESC')
-make_head(_module, 'D3D12_GLOBAL_BARRIER')
-make_head(_module, 'D3D12_GLOBAL_ROOT_SIGNATURE')
-make_head(_module, 'D3D12_GPU_DESCRIPTOR_HANDLE')
-make_head(_module, 'D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE')
-make_head(_module, 'D3D12_GPU_VIRTUAL_ADDRESS_RANGE')
-make_head(_module, 'D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE')
-make_head(_module, 'D3D12_GRAPHICS_PIPELINE_STATE_DESC')
-make_head(_module, 'D3D12_HEAP_DESC')
-make_head(_module, 'D3D12_HEAP_PROPERTIES')
-make_head(_module, 'D3D12_HIT_GROUP_DESC')
-make_head(_module, 'D3D12_INDEX_BUFFER_VIEW')
-make_head(_module, 'D3D12_INDIRECT_ARGUMENT_DESC')
-make_head(_module, 'D3D12_INFO_QUEUE_FILTER')
-make_head(_module, 'D3D12_INFO_QUEUE_FILTER_DESC')
-make_head(_module, 'D3D12_INPUT_ELEMENT_DESC')
-make_head(_module, 'D3D12_INPUT_LAYOUT_DESC')
-make_head(_module, 'D3D12_LIBRARY_DESC')
-make_head(_module, 'D3D12_LOCAL_ROOT_SIGNATURE')
-make_head(_module, 'D3D12_MEMCPY_DEST')
-make_head(_module, 'D3D12_MESSAGE')
-make_head(_module, 'D3D12_META_COMMAND_DESC')
-make_head(_module, 'D3D12_META_COMMAND_PARAMETER_DESC')
-make_head(_module, 'D3D12_MIP_REGION')
-make_head(_module, 'D3D12_NODE_MASK')
-make_head(_module, 'D3D12_PACKED_MIP_INFO')
-make_head(_module, 'D3D12_PARAMETER_DESC')
-make_head(_module, 'D3D12_PIPELINE_STATE_STREAM_DESC')
-make_head(_module, 'D3D12_PLACED_SUBRESOURCE_FOOTPRINT')
-make_head(_module, 'D3D12_PROTECTED_RESOURCE_SESSION_DESC')
-make_head(_module, 'D3D12_PROTECTED_RESOURCE_SESSION_DESC1')
-make_head(_module, 'D3D12_QUERY_DATA_PIPELINE_STATISTICS')
-make_head(_module, 'D3D12_QUERY_DATA_PIPELINE_STATISTICS1')
-make_head(_module, 'D3D12_QUERY_DATA_SO_STATISTICS')
-make_head(_module, 'D3D12_QUERY_HEAP_DESC')
-make_head(_module, 'D3D12_RANGE')
-make_head(_module, 'D3D12_RANGE_UINT64')
-make_head(_module, 'D3D12_RASTERIZER_DESC')
-make_head(_module, 'D3D12_RASTERIZER_DESC1')
-make_head(_module, 'D3D12_RASTERIZER_DESC2')
-make_head(_module, 'D3D12_RAYTRACING_AABB')
-make_head(_module, 'D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC')
-make_head(_module, 'D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_CURRENT_SIZE_DESC')
-make_head(_module, 'D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC')
-make_head(_module, 'D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_SERIALIZATION_DESC')
-make_head(_module, 'D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_TOOLS_VISUALIZATION_DESC')
-make_head(_module, 'D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO')
-make_head(_module, 'D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV')
-make_head(_module, 'D3D12_RAYTRACING_GEOMETRY_AABBS_DESC')
-make_head(_module, 'D3D12_RAYTRACING_GEOMETRY_DESC')
-make_head(_module, 'D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC')
-make_head(_module, 'D3D12_RAYTRACING_INSTANCE_DESC')
-make_head(_module, 'D3D12_RAYTRACING_PIPELINE_CONFIG')
-make_head(_module, 'D3D12_RAYTRACING_PIPELINE_CONFIG1')
-make_head(_module, 'D3D12_RAYTRACING_SHADER_CONFIG')
-make_head(_module, 'D3D12_RENDER_PASS_BEGINNING_ACCESS')
-make_head(_module, 'D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS')
-make_head(_module, 'D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS')
-make_head(_module, 'D3D12_RENDER_PASS_DEPTH_STENCIL_DESC')
-make_head(_module, 'D3D12_RENDER_PASS_ENDING_ACCESS')
-make_head(_module, 'D3D12_RENDER_PASS_ENDING_ACCESS_PRESERVE_LOCAL_PARAMETERS')
-make_head(_module, 'D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS')
-make_head(_module, 'D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS')
-make_head(_module, 'D3D12_RENDER_PASS_RENDER_TARGET_DESC')
-make_head(_module, 'D3D12_RENDER_TARGET_BLEND_DESC')
-make_head(_module, 'D3D12_RENDER_TARGET_VIEW_DESC')
-make_head(_module, 'D3D12_RESOURCE_ALIASING_BARRIER')
-make_head(_module, 'D3D12_RESOURCE_ALLOCATION_INFO')
-make_head(_module, 'D3D12_RESOURCE_ALLOCATION_INFO1')
-make_head(_module, 'D3D12_RESOURCE_BARRIER')
-make_head(_module, 'D3D12_RESOURCE_DESC')
-make_head(_module, 'D3D12_RESOURCE_DESC1')
-make_head(_module, 'D3D12_RESOURCE_TRANSITION_BARRIER')
-make_head(_module, 'D3D12_RESOURCE_UAV_BARRIER')
-make_head(_module, 'D3D12_ROOT_CONSTANTS')
-make_head(_module, 'D3D12_ROOT_DESCRIPTOR')
-make_head(_module, 'D3D12_ROOT_DESCRIPTOR1')
-make_head(_module, 'D3D12_ROOT_DESCRIPTOR_TABLE')
-make_head(_module, 'D3D12_ROOT_DESCRIPTOR_TABLE1')
-make_head(_module, 'D3D12_ROOT_PARAMETER')
-make_head(_module, 'D3D12_ROOT_PARAMETER1')
-make_head(_module, 'D3D12_ROOT_SIGNATURE_DESC')
-make_head(_module, 'D3D12_ROOT_SIGNATURE_DESC1')
-make_head(_module, 'D3D12_ROOT_SIGNATURE_DESC2')
-make_head(_module, 'D3D12_RT_FORMAT_ARRAY')
-make_head(_module, 'D3D12_SAMPLER_DESC')
-make_head(_module, 'D3D12_SAMPLER_DESC2')
-make_head(_module, 'D3D12_SAMPLE_POSITION')
-make_head(_module, 'D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER')
-make_head(_module, 'D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER')
-make_head(_module, 'D3D12_SHADER_BUFFER_DESC')
-make_head(_module, 'D3D12_SHADER_BYTECODE')
-make_head(_module, 'D3D12_SHADER_CACHE_SESSION_DESC')
-make_head(_module, 'D3D12_SHADER_DESC')
-make_head(_module, 'D3D12_SHADER_INPUT_BIND_DESC')
-make_head(_module, 'D3D12_SHADER_RESOURCE_VIEW_DESC')
-make_head(_module, 'D3D12_SHADER_TYPE_DESC')
-make_head(_module, 'D3D12_SHADER_VARIABLE_DESC')
-make_head(_module, 'D3D12_SIGNATURE_PARAMETER_DESC')
-make_head(_module, 'D3D12_SO_DECLARATION_ENTRY')
-make_head(_module, 'D3D12_STATE_OBJECT_CONFIG')
-make_head(_module, 'D3D12_STATE_OBJECT_DESC')
-make_head(_module, 'D3D12_STATE_SUBOBJECT')
-make_head(_module, 'D3D12_STATIC_SAMPLER_DESC')
-make_head(_module, 'D3D12_STATIC_SAMPLER_DESC1')
-make_head(_module, 'D3D12_STREAM_OUTPUT_BUFFER_VIEW')
-make_head(_module, 'D3D12_STREAM_OUTPUT_DESC')
-make_head(_module, 'D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION')
-make_head(_module, 'D3D12_SUBRESOURCE_DATA')
-make_head(_module, 'D3D12_SUBRESOURCE_FOOTPRINT')
-make_head(_module, 'D3D12_SUBRESOURCE_INFO')
-make_head(_module, 'D3D12_SUBRESOURCE_RANGE_UINT64')
-make_head(_module, 'D3D12_SUBRESOURCE_TILING')
-make_head(_module, 'D3D12_TEX1D_ARRAY_DSV')
-make_head(_module, 'D3D12_TEX1D_ARRAY_RTV')
-make_head(_module, 'D3D12_TEX1D_ARRAY_SRV')
-make_head(_module, 'D3D12_TEX1D_ARRAY_UAV')
-make_head(_module, 'D3D12_TEX1D_DSV')
-make_head(_module, 'D3D12_TEX1D_RTV')
-make_head(_module, 'D3D12_TEX1D_SRV')
-make_head(_module, 'D3D12_TEX1D_UAV')
-make_head(_module, 'D3D12_TEX2DMS_ARRAY_DSV')
-make_head(_module, 'D3D12_TEX2DMS_ARRAY_RTV')
-make_head(_module, 'D3D12_TEX2DMS_ARRAY_SRV')
-make_head(_module, 'D3D12_TEX2DMS_ARRAY_UAV')
-make_head(_module, 'D3D12_TEX2DMS_DSV')
-make_head(_module, 'D3D12_TEX2DMS_RTV')
-make_head(_module, 'D3D12_TEX2DMS_SRV')
-make_head(_module, 'D3D12_TEX2DMS_UAV')
-make_head(_module, 'D3D12_TEX2D_ARRAY_DSV')
-make_head(_module, 'D3D12_TEX2D_ARRAY_RTV')
-make_head(_module, 'D3D12_TEX2D_ARRAY_SRV')
-make_head(_module, 'D3D12_TEX2D_ARRAY_UAV')
-make_head(_module, 'D3D12_TEX2D_DSV')
-make_head(_module, 'D3D12_TEX2D_RTV')
-make_head(_module, 'D3D12_TEX2D_SRV')
-make_head(_module, 'D3D12_TEX2D_UAV')
-make_head(_module, 'D3D12_TEX3D_RTV')
-make_head(_module, 'D3D12_TEX3D_SRV')
-make_head(_module, 'D3D12_TEX3D_UAV')
-make_head(_module, 'D3D12_TEXCUBE_ARRAY_SRV')
-make_head(_module, 'D3D12_TEXCUBE_SRV')
-make_head(_module, 'D3D12_TEXTURE_BARRIER')
-make_head(_module, 'D3D12_TEXTURE_COPY_LOCATION')
-make_head(_module, 'D3D12_TILED_RESOURCE_COORDINATE')
-make_head(_module, 'D3D12_TILE_REGION_SIZE')
-make_head(_module, 'D3D12_TILE_SHAPE')
-make_head(_module, 'D3D12_UNORDERED_ACCESS_VIEW_DESC')
-make_head(_module, 'D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA')
-make_head(_module, 'D3D12_VERSIONED_ROOT_SIGNATURE_DESC')
-make_head(_module, 'D3D12_VERTEX_BUFFER_VIEW')
-make_head(_module, 'D3D12_VIEWPORT')
-make_head(_module, 'D3D12_VIEW_INSTANCE_LOCATION')
-make_head(_module, 'D3D12_VIEW_INSTANCING_DESC')
-make_head(_module, 'D3D12_WRITEBUFFERIMMEDIATE_PARAMETER')
-make_head(_module, 'ID3D12CommandAllocator')
-make_head(_module, 'ID3D12CommandList')
-make_head(_module, 'ID3D12CommandQueue')
-make_head(_module, 'ID3D12CommandSignature')
-make_head(_module, 'ID3D12DSRDeviceFactory')
-make_head(_module, 'ID3D12Debug')
-make_head(_module, 'ID3D12Debug1')
-make_head(_module, 'ID3D12Debug2')
-make_head(_module, 'ID3D12Debug3')
-make_head(_module, 'ID3D12Debug4')
-make_head(_module, 'ID3D12Debug5')
-make_head(_module, 'ID3D12Debug6')
-make_head(_module, 'ID3D12DebugCommandList')
-make_head(_module, 'ID3D12DebugCommandList1')
-make_head(_module, 'ID3D12DebugCommandList2')
-make_head(_module, 'ID3D12DebugCommandList3')
-make_head(_module, 'ID3D12DebugCommandQueue')
-make_head(_module, 'ID3D12DebugCommandQueue1')
-make_head(_module, 'ID3D12DebugDevice')
-make_head(_module, 'ID3D12DebugDevice1')
-make_head(_module, 'ID3D12DebugDevice2')
-make_head(_module, 'ID3D12DescriptorHeap')
-make_head(_module, 'ID3D12Device')
-make_head(_module, 'ID3D12Device1')
-make_head(_module, 'ID3D12Device10')
-make_head(_module, 'ID3D12Device11')
-make_head(_module, 'ID3D12Device12')
-make_head(_module, 'ID3D12Device2')
-make_head(_module, 'ID3D12Device3')
-make_head(_module, 'ID3D12Device4')
-make_head(_module, 'ID3D12Device5')
-make_head(_module, 'ID3D12Device6')
-make_head(_module, 'ID3D12Device7')
-make_head(_module, 'ID3D12Device8')
-make_head(_module, 'ID3D12Device9')
-make_head(_module, 'ID3D12DeviceChild')
-make_head(_module, 'ID3D12DeviceConfiguration')
-make_head(_module, 'ID3D12DeviceFactory')
-make_head(_module, 'ID3D12DeviceRemovedExtendedData')
-make_head(_module, 'ID3D12DeviceRemovedExtendedData1')
-make_head(_module, 'ID3D12DeviceRemovedExtendedData2')
-make_head(_module, 'ID3D12DeviceRemovedExtendedDataSettings')
-make_head(_module, 'ID3D12DeviceRemovedExtendedDataSettings1')
-make_head(_module, 'ID3D12DeviceRemovedExtendedDataSettings2')
-make_head(_module, 'ID3D12Fence')
-make_head(_module, 'ID3D12Fence1')
-make_head(_module, 'ID3D12FunctionParameterReflection')
-make_head(_module, 'ID3D12FunctionReflection')
-make_head(_module, 'ID3D12GraphicsCommandList')
-make_head(_module, 'ID3D12GraphicsCommandList1')
-make_head(_module, 'ID3D12GraphicsCommandList2')
-make_head(_module, 'ID3D12GraphicsCommandList3')
-make_head(_module, 'ID3D12GraphicsCommandList4')
-make_head(_module, 'ID3D12GraphicsCommandList5')
-make_head(_module, 'ID3D12GraphicsCommandList6')
-make_head(_module, 'ID3D12GraphicsCommandList7')
-make_head(_module, 'ID3D12GraphicsCommandList8')
-make_head(_module, 'ID3D12GraphicsCommandList9')
-make_head(_module, 'ID3D12Heap')
-make_head(_module, 'ID3D12Heap1')
-make_head(_module, 'ID3D12InfoQueue')
-make_head(_module, 'ID3D12InfoQueue1')
-make_head(_module, 'ID3D12LibraryReflection')
-make_head(_module, 'ID3D12LifetimeOwner')
-make_head(_module, 'ID3D12LifetimeTracker')
-make_head(_module, 'ID3D12ManualWriteTrackingResource')
-make_head(_module, 'ID3D12MetaCommand')
-make_head(_module, 'ID3D12Object')
-make_head(_module, 'ID3D12Pageable')
-make_head(_module, 'ID3D12PipelineLibrary')
-make_head(_module, 'ID3D12PipelineLibrary1')
-make_head(_module, 'ID3D12PipelineState')
-make_head(_module, 'ID3D12ProtectedResourceSession')
-make_head(_module, 'ID3D12ProtectedResourceSession1')
-make_head(_module, 'ID3D12ProtectedSession')
-make_head(_module, 'ID3D12QueryHeap')
-make_head(_module, 'ID3D12Resource')
-make_head(_module, 'ID3D12Resource1')
-make_head(_module, 'ID3D12Resource2')
-make_head(_module, 'ID3D12RootSignature')
-make_head(_module, 'ID3D12RootSignatureDeserializer')
-make_head(_module, 'ID3D12SDKConfiguration')
-make_head(_module, 'ID3D12SDKConfiguration1')
-make_head(_module, 'ID3D12ShaderCacheSession')
-make_head(_module, 'ID3D12ShaderReflection')
-make_head(_module, 'ID3D12ShaderReflectionConstantBuffer')
-make_head(_module, 'ID3D12ShaderReflectionType')
-make_head(_module, 'ID3D12ShaderReflectionVariable')
-make_head(_module, 'ID3D12SharingContract')
-make_head(_module, 'ID3D12StateObject')
-make_head(_module, 'ID3D12StateObjectProperties')
-make_head(_module, 'ID3D12SwapChainAssistant')
-make_head(_module, 'ID3D12Tools')
-make_head(_module, 'ID3D12VersionedRootSignatureDeserializer')
-make_head(_module, 'ID3D12VirtualizationGuestDevice')
-make_head(_module, 'PFN_D3D12_CREATE_DEVICE')
-make_head(_module, 'PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER')
-make_head(_module, 'PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER')
-make_head(_module, 'PFN_D3D12_GET_DEBUG_INTERFACE')
-make_head(_module, 'PFN_D3D12_GET_INTERFACE')
-make_head(_module, 'PFN_D3D12_SERIALIZE_ROOT_SIGNATURE')
-make_head(_module, 'PFN_D3D12_SERIALIZE_VERSIONED_ROOT_SIGNATURE')
+def PFN_D3D12_SERIALIZE_VERSIONED_ROOT_SIGNATURE(pRootSignature: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC), ppBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob), ppErrorBlob: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+make_ready(__name__)

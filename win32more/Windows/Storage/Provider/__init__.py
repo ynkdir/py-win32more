@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -21,15 +21,6 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.Provider
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 CachedFileOptions = UInt32
 CachedFileOptions_None: CachedFileOptions = 0
 CachedFileOptions_RequireUpdateOnAccess: CachedFileOptions = 1
@@ -58,7 +49,7 @@ class CachedFileUpdaterUI(ComPtr):
     @winrt_mixinmethod
     def remove_FileUpdateRequested(self: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_UIRequested(self: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.CachedFileUpdaterUI, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UIRequested(self: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.CachedFileUpdaterUI, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_UIRequested(self: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -137,7 +128,7 @@ class ICachedFileUpdaterUI(ComPtr):
     @winrt_commethod(10)
     def remove_FileUpdateRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_UIRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.CachedFileUpdaterUI, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UIRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.CachedFileUpdaterUI, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_UIRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
@@ -384,7 +375,7 @@ class IStorageProviderStatusUISource(ComPtr):
     @winrt_commethod(6)
     def GetStatusUI(self) -> win32more.Windows.Storage.Provider.StorageProviderStatusUI: ...
     @winrt_commethod(7)
-    def add_StatusUIChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderStatusUISource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusUIChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderStatusUISource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_StatusUIChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IStorageProviderStatusUISourceFactory(ComPtr):
@@ -883,47 +874,4 @@ WriteActivationMode = Int32
 WriteActivationMode_ReadOnly: WriteActivationMode = 0
 WriteActivationMode_NotNeeded: WriteActivationMode = 1
 WriteActivationMode_AfterWrite: WriteActivationMode = 2
-make_head(_module, 'CachedFileUpdater')
-make_head(_module, 'CachedFileUpdaterUI')
-make_head(_module, 'FileUpdateRequest')
-make_head(_module, 'FileUpdateRequestDeferral')
-make_head(_module, 'FileUpdateRequestedEventArgs')
-make_head(_module, 'ICachedFileUpdaterStatics')
-make_head(_module, 'ICachedFileUpdaterUI')
-make_head(_module, 'ICachedFileUpdaterUI2')
-make_head(_module, 'IFileUpdateRequest')
-make_head(_module, 'IFileUpdateRequest2')
-make_head(_module, 'IFileUpdateRequestDeferral')
-make_head(_module, 'IFileUpdateRequestedEventArgs')
-make_head(_module, 'IStorageProviderFileTypeInfo')
-make_head(_module, 'IStorageProviderFileTypeInfoFactory')
-make_head(_module, 'IStorageProviderGetContentInfoForPathResult')
-make_head(_module, 'IStorageProviderGetPathForContentUriResult')
-make_head(_module, 'IStorageProviderItemPropertiesStatics')
-make_head(_module, 'IStorageProviderItemProperty')
-make_head(_module, 'IStorageProviderItemPropertyDefinition')
-make_head(_module, 'IStorageProviderItemPropertySource')
-make_head(_module, 'IStorageProviderMoreInfoUI')
-make_head(_module, 'IStorageProviderPropertyCapabilities')
-make_head(_module, 'IStorageProviderQuotaUI')
-make_head(_module, 'IStorageProviderStatusUI')
-make_head(_module, 'IStorageProviderStatusUISource')
-make_head(_module, 'IStorageProviderStatusUISourceFactory')
-make_head(_module, 'IStorageProviderSyncRootInfo')
-make_head(_module, 'IStorageProviderSyncRootInfo2')
-make_head(_module, 'IStorageProviderSyncRootInfo3')
-make_head(_module, 'IStorageProviderSyncRootManagerStatics')
-make_head(_module, 'IStorageProviderSyncRootManagerStatics2')
-make_head(_module, 'IStorageProviderUICommand')
-make_head(_module, 'IStorageProviderUriSource')
-make_head(_module, 'StorageProviderFileTypeInfo')
-make_head(_module, 'StorageProviderGetContentInfoForPathResult')
-make_head(_module, 'StorageProviderGetPathForContentUriResult')
-make_head(_module, 'StorageProviderItemProperties')
-make_head(_module, 'StorageProviderItemProperty')
-make_head(_module, 'StorageProviderItemPropertyDefinition')
-make_head(_module, 'StorageProviderMoreInfoUI')
-make_head(_module, 'StorageProviderQuotaUI')
-make_head(_module, 'StorageProviderStatusUI')
-make_head(_module, 'StorageProviderSyncRootInfo')
-make_head(_module, 'StorageProviderSyncRootManager')
+make_ready(__name__)

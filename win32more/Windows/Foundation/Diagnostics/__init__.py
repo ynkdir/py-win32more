@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Diagnostics
 import win32more.Windows.Storage
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AsyncCausalityTracer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.AsyncCausalityTracer'
@@ -233,7 +224,7 @@ class ILoggingChannel(ComPtr):
     @winrt_commethod(12)
     def LogValuePairWithLevel(self, value1: WinRT_String, value2: Int32, level: win32more.Windows.Foundation.Diagnostics.LoggingLevel) -> Void: ...
     @winrt_commethod(13)
-    def add_LoggingEnabled(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Foundation.Diagnostics.ILoggingChannel, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LoggingEnabled(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Foundation.Diagnostics.ILoggingChannel, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_LoggingEnabled(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Name = property(get_Name, None)
@@ -685,7 +676,7 @@ class LoggingChannel(ComPtr):
     @winrt_mixinmethod
     def LogValuePairWithLevel(self: win32more.Windows.Foundation.Diagnostics.ILoggingChannel, value1: WinRT_String, value2: Int32, level: win32more.Windows.Foundation.Diagnostics.LoggingLevel) -> Void: ...
     @winrt_mixinmethod
-    def add_LoggingEnabled(self: win32more.Windows.Foundation.Diagnostics.ILoggingChannel, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Foundation.Diagnostics.ILoggingChannel, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LoggingEnabled(self: win32more.Windows.Foundation.Diagnostics.ILoggingChannel, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Foundation.Diagnostics.ILoggingChannel, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_LoggingEnabled(self: win32more.Windows.Foundation.Diagnostics.ILoggingChannel, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1078,38 +1069,4 @@ class TracingStatusChangedEventArgs(ComPtr):
     def get_TraceLevel(self: win32more.Windows.Foundation.Diagnostics.ITracingStatusChangedEventArgs) -> win32more.Windows.Foundation.Diagnostics.CausalityTraceLevel: ...
     Enabled = property(get_Enabled, None)
     TraceLevel = property(get_TraceLevel, None)
-make_head(_module, 'AsyncCausalityTracer')
-make_head(_module, 'ErrorDetails')
-make_head(_module, 'FileLoggingSession')
-make_head(_module, 'IAsyncCausalityTracerStatics')
-make_head(_module, 'IErrorDetails')
-make_head(_module, 'IErrorDetailsStatics')
-make_head(_module, 'IErrorReportingSettings')
-make_head(_module, 'IFileLoggingSession')
-make_head(_module, 'IFileLoggingSessionFactory')
-make_head(_module, 'ILogFileGeneratedEventArgs')
-make_head(_module, 'ILoggingActivity')
-make_head(_module, 'ILoggingActivity2')
-make_head(_module, 'ILoggingActivityFactory')
-make_head(_module, 'ILoggingChannel')
-make_head(_module, 'ILoggingChannel2')
-make_head(_module, 'ILoggingChannelFactory')
-make_head(_module, 'ILoggingChannelFactory2')
-make_head(_module, 'ILoggingChannelOptions')
-make_head(_module, 'ILoggingChannelOptionsFactory')
-make_head(_module, 'ILoggingFields')
-make_head(_module, 'ILoggingOptions')
-make_head(_module, 'ILoggingOptionsFactory')
-make_head(_module, 'ILoggingSession')
-make_head(_module, 'ILoggingSessionFactory')
-make_head(_module, 'ILoggingTarget')
-make_head(_module, 'ITracingStatusChangedEventArgs')
-make_head(_module, 'LogFileGeneratedEventArgs')
-make_head(_module, 'LoggingActivity')
-make_head(_module, 'LoggingChannel')
-make_head(_module, 'LoggingChannelOptions')
-make_head(_module, 'LoggingFields')
-make_head(_module, 'LoggingOptions')
-make_head(_module, 'LoggingSession')
-make_head(_module, 'RuntimeBrokerErrorSettings')
-make_head(_module, 'TracingStatusChangedEventArgs')
+make_ready(__name__)

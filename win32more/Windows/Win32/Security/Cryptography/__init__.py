@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.System.Variant
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ALG_ID = UInt32
 CALG_MD2: ALG_ID = 32769
 CALG_MD4: ALG_ID = 32770
@@ -73,7 +64,7 @@ CALG_THIRDPARTY_HASH: ALG_ID = 36864
 class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA(EasyCastStructure):
     cbSize: UInt32
     dwRegPolicySettings: UInt32
-    pSignerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO_head)
+    pSignerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO)
 class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS(EasyCastStructure):
     cbSize: UInt32
     fCommercial: win32more.Windows.Win32.Foundation.BOOL
@@ -3016,9 +3007,9 @@ def CryptDuplicateHash(hHash: UIntPtr, pdwReserved: POINTER(UInt32), dwFlags: UI
 @winfunctype('bcrypt.dll')
 def BCryptOpenAlgorithmProvider(phAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_ALG_HANDLE), pszAlgId: win32more.Windows.Win32.Foundation.PWSTR, pszImplementation: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.Security.Cryptography.BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptEnumAlgorithms(dwAlgOperations: win32more.Windows.Win32.Security.Cryptography.BCRYPT_OPERATION, pAlgCount: POINTER(UInt32), ppAlgList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_ALGORITHM_IDENTIFIER_head)), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptEnumAlgorithms(dwAlgOperations: win32more.Windows.Win32.Security.Cryptography.BCRYPT_OPERATION, pAlgCount: POINTER(UInt32), ppAlgList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_ALGORITHM_IDENTIFIER)), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptEnumProviders(pszAlgId: win32more.Windows.Win32.Foundation.PWSTR, pImplCount: POINTER(UInt32), ppImplList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_PROVIDER_NAME_head)), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptEnumProviders(pszAlgId: win32more.Windows.Win32.Foundation.PWSTR, pImplCount: POINTER(UInt32), ppImplList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_PROVIDER_NAME)), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptGetProperty(hObject: win32more.Windows.Win32.Security.Cryptography.BCRYPT_HANDLE, pszProperty: win32more.Windows.Win32.Foundation.PWSTR, pbOutput: POINTER(Byte), cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
@@ -3056,9 +3047,9 @@ def BCryptVerifySignature(hKey: win32more.Windows.Win32.Security.Cryptography.BC
 @winfunctype('bcrypt.dll')
 def BCryptSecretAgreement(hPrivKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, hPubKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, phAgreedSecret: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_SECRET_HANDLE), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptDeriveKey(hSharedSecret: win32more.Windows.Win32.Security.Cryptography.BCRYPT_SECRET_HANDLE, pwszKDF: win32more.Windows.Win32.Foundation.PWSTR, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptDeriveKey(hSharedSecret: win32more.Windows.Win32.Security.Cryptography.BCRYPT_SECRET_HANDLE, pwszKDF: win32more.Windows.Win32.Foundation.PWSTR, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptKeyDerivation(hKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptKeyDerivation(hKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptCreateHash(hAlgorithm: win32more.Windows.Win32.Security.Cryptography.BCRYPT_ALG_HANDLE, phHash: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_HASH_HANDLE), pbHashObject: POINTER(Byte), cbHashObject: UInt32, pbSecret: POINTER(Byte), cbSecret: UInt32, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
@@ -3082,31 +3073,31 @@ def BCryptDeriveKeyCapi(hHash: win32more.Windows.Win32.Security.Cryptography.BCR
 @winfunctype('bcrypt.dll')
 def BCryptDeriveKeyPBKDF2(hPrf: win32more.Windows.Win32.Security.Cryptography.BCRYPT_ALG_HANDLE, pbPassword: POINTER(Byte), cbPassword: UInt32, pbSalt: POINTER(Byte), cbSalt: UInt32, cIterations: UInt64, pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptQueryProviderRegistration(pszProvider: win32more.Windows.Win32.Foundation.PWSTR, dwMode: win32more.Windows.Win32.Security.Cryptography.BCRYPT_QUERY_PROVIDER_MODE, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDER_REG_head))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptQueryProviderRegistration(pszProvider: win32more.Windows.Win32.Foundation.PWSTR, dwMode: win32more.Windows.Win32.Security.Cryptography.BCRYPT_QUERY_PROVIDER_MODE, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDER_REG))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptEnumRegisteredProviders(pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDERS_head))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptEnumRegisteredProviders(pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDERS))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptCreateContext(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptCreateContext(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptDeleteContext(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptEnumContexts(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXTS_head))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptEnumContexts(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXTS))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptConfigureContext(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptConfigureContext(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptQueryContextConfiguration(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG_head))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptQueryContextConfiguration(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptAddContextFunction(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, dwPosition: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptRemoveContextFunction(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptEnumContextFunctions(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_FUNCTIONS_head))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptEnumContextFunctions(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_FUNCTIONS))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptConfigureContextFunction(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_FUNCTION_CONFIG_head)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptConfigureContextFunction(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_FUNCTION_CONFIG)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptQueryContextFunctionConfiguration(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_FUNCTION_CONFIG_head))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptQueryContextFunctionConfiguration(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_FUNCTION_CONFIG))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptEnumContextFunctionProviders(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_FUNCTION_PROVIDERS_head))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptEnumContextFunctionProviders(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_FUNCTION_PROVIDERS))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptSetContextFunctionProperty(dwTable: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE, pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pszProperty: win32more.Windows.Win32.Foundation.PWSTR, cbValue: UInt32, pbValue: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
@@ -3116,19 +3107,19 @@ def BCryptRegisterConfigChangeNotify(phEvent: POINTER(win32more.Windows.Win32.Fo
 @winfunctype('bcrypt.dll')
 def BCryptUnregisterConfigChangeNotify(hEvent: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptResolveProviders(pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: UInt32, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pszProvider: win32more.Windows.Win32.Foundation.PWSTR, dwMode: win32more.Windows.Win32.Security.Cryptography.BCRYPT_QUERY_PROVIDER_MODE, dwFlags: win32more.Windows.Win32.Security.Cryptography.BCRYPT_RESOLVE_PROVIDERS_FLAGS, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDER_REFS_head))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptResolveProviders(pszContext: win32more.Windows.Win32.Foundation.PWSTR, dwInterface: UInt32, pszFunction: win32more.Windows.Win32.Foundation.PWSTR, pszProvider: win32more.Windows.Win32.Foundation.PWSTR, dwMode: win32more.Windows.Win32.Security.Cryptography.BCRYPT_QUERY_PROVIDER_MODE, dwFlags: win32more.Windows.Win32.Security.Cryptography.BCRYPT_RESOLVE_PROVIDERS_FLAGS, pcbBuffer: POINTER(UInt32), ppBuffer: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDER_REFS))) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptGetFipsAlgorithmMode(pfEnabled: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ncrypt.dll')
 def NCryptOpenStorageProvider(phProvider: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROV_HANDLE), pszProviderName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptEnumAlgorithms(hProvider: win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROV_HANDLE, dwAlgOperations: win32more.Windows.Win32.Security.Cryptography.NCRYPT_OPERATION, pdwAlgCount: POINTER(UInt32), ppAlgList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.NCryptAlgorithmName_head)), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptEnumAlgorithms(hProvider: win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROV_HANDLE, dwAlgOperations: win32more.Windows.Win32.Security.Cryptography.NCRYPT_OPERATION, pdwAlgCount: POINTER(UInt32), ppAlgList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.NCryptAlgorithmName)), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
 def NCryptIsAlgSupported(hProvider: win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROV_HANDLE, pszAlgId: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptEnumKeys(hProvider: win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROV_HANDLE, pszScope: win32more.Windows.Win32.Foundation.PWSTR, ppKeyName: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.NCryptKeyName_head)), ppEnumState: POINTER(VoidPtr), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptEnumKeys(hProvider: win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROV_HANDLE, pszScope: win32more.Windows.Win32.Foundation.PWSTR, ppKeyName: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.NCryptKeyName)), ppEnumState: POINTER(VoidPtr), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptEnumStorageProviders(pdwProviderCount: POINTER(UInt32), ppProviderList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.NCryptProviderName_head)), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptEnumStorageProviders(pdwProviderCount: POINTER(UInt32), ppProviderList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.NCryptProviderName)), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
 def NCryptFreeBuffer(pvInput: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
@@ -3146,9 +3137,9 @@ def NCryptEncrypt(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY
 @winfunctype('ncrypt.dll')
 def NCryptDecrypt(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, pbInput: POINTER(Byte), cbInput: UInt32, pPaddingInfo: VoidPtr, pbOutput: POINTER(Byte), cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptImportKey(hProvider: win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROV_HANDLE, hImportKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, pszBlobType: win32more.Windows.Win32.Foundation.PWSTR, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE), pbData: POINTER(Byte), cbData: UInt32, dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptImportKey(hProvider: win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROV_HANDLE, hImportKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, pszBlobType: win32more.Windows.Win32.Foundation.PWSTR, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE), pbData: POINTER(Byte), cbData: UInt32, dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptExportKey(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, hExportKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, pszBlobType: win32more.Windows.Win32.Foundation.PWSTR, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), pbOutput: POINTER(Byte), cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptExportKey(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, hExportKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, pszBlobType: win32more.Windows.Win32.Foundation.PWSTR, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), pbOutput: POINTER(Byte), cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
 def NCryptSignHash(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, pPaddingInfo: VoidPtr, pbHashValue: POINTER(Byte), cbHashValue: UInt32, pbSignature: POINTER(Byte), cbSignature: UInt32, pcbResult: POINTER(UInt32), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
@@ -3166,25 +3157,25 @@ def NCryptNotifyChangeKey(hProvider: win32more.Windows.Win32.Security.Cryptograp
 @winfunctype('ncrypt.dll')
 def NCryptSecretAgreement(hPrivKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, hPubKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, phAgreedSecret: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_SECRET_HANDLE), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptDeriveKey(hSharedSecret: win32more.Windows.Win32.Security.Cryptography.NCRYPT_SECRET_HANDLE, pwszKDF: win32more.Windows.Win32.Foundation.PWSTR, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptDeriveKey(hSharedSecret: win32more.Windows.Win32.Security.Cryptography.NCRYPT_SECRET_HANDLE, pwszKDF: win32more.Windows.Win32.Foundation.PWSTR, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptKeyDerivation(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptKeyDerivation(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), pbDerivedKey: POINTER(Byte), cbDerivedKey: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptCreateClaim(hSubjectKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, hAuthorityKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwClaimType: UInt32, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), pbClaimBlob: POINTER(Byte), cbClaimBlob: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptCreateClaim(hSubjectKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, hAuthorityKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwClaimType: UInt32, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), pbClaimBlob: POINTER(Byte), cbClaimBlob: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptVerifyClaim(hSubjectKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, hAuthorityKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwClaimType: UInt32, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), pbClaimBlob: POINTER(Byte), cbClaimBlob: UInt32, pOutput: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptVerifyClaim(hSubjectKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, hAuthorityKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwClaimType: UInt32, pParameterList: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), pbClaimBlob: POINTER(Byte), cbClaimBlob: UInt32, pOutput: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBufferDesc), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPT32.dll')
 def CryptFormatObject(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFormatType: UInt32, dwFormatStrType: UInt32, pFormatStruct: VoidPtr, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pbFormat: VoidPtr, pcbFormat: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptEncodeObjectEx(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pvStructInfo: VoidPtr, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCODE_OBJECT_FLAGS, pEncodePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCODE_PARA_head), pvEncoded: VoidPtr, pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptEncodeObjectEx(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pvStructInfo: VoidPtr, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCODE_OBJECT_FLAGS, pEncodePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCODE_PARA), pvEncoded: VoidPtr, pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptEncodeObject(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pvStructInfo: VoidPtr, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptDecodeObjectEx(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pbEncoded: POINTER(Byte), cbEncoded: UInt32, dwFlags: UInt32, pDecodePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_DECODE_PARA_head), pvStructInfo: VoidPtr, pcbStructInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptDecodeObjectEx(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pbEncoded: POINTER(Byte), cbEncoded: UInt32, dwFlags: UInt32, pDecodePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_DECODE_PARA), pvStructInfo: VoidPtr, pcbStructInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptDecodeObject(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pbEncoded: POINTER(Byte), cbEncoded: UInt32, dwFlags: UInt32, pvStructInfo: VoidPtr, pcbStructInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptInstallOIDFunctionAddress(hModule: win32more.Windows.Win32.Foundation.HMODULE, dwEncodingType: UInt32, pszFuncName: win32more.Windows.Win32.Foundation.PSTR, cFuncEntry: UInt32, rgFuncEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_FUNC_ENTRY_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptInstallOIDFunctionAddress(hModule: win32more.Windows.Win32.Foundation.HMODULE, dwEncodingType: UInt32, pszFuncName: win32more.Windows.Win32.Foundation.PSTR, cFuncEntry: UInt32, rgFuncEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_FUNC_ENTRY), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptInitOIDFunctionSet(pszFuncName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32) -> VoidPtr: ...
 @winfunctype('CRYPT32.dll')
@@ -3210,21 +3201,21 @@ def CryptGetOIDFunctionValue(dwEncodingType: UInt32, pszFuncName: win32more.Wind
 @winfunctype('CRYPT32.dll')
 def CryptEnumOIDFunction(dwEncodingType: UInt32, pszFuncName: win32more.Windows.Win32.Foundation.PSTR, pszOID: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvArg: VoidPtr, pfnEnumOIDFunc: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_ENUM_OID_FUNC) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptFindOIDInfo(dwKeyType: UInt32, pvKey: VoidPtr, dwGroupId: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_INFO_head): ...
+def CryptFindOIDInfo(dwKeyType: UInt32, pvKey: VoidPtr, dwGroupId: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_INFO): ...
 @winfunctype('CRYPT32.dll')
-def CryptRegisterOIDInfo(pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_INFO_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptRegisterOIDInfo(pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_INFO), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptUnregisterOIDInfo(pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUnregisterOIDInfo(pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptEnumOIDInfo(dwGroupId: UInt32, dwFlags: UInt32, pvArg: VoidPtr, pfnEnumOIDInfo: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_ENUM_OID_INFO) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptFindLocalizedName(pwszCryptName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.PWSTR: ...
 @winfunctype('CRYPT32.dll')
-def CryptMsgOpenToEncode(dwMsgEncodingType: UInt32, dwFlags: UInt32, dwMsgType: win32more.Windows.Win32.Security.Cryptography.CRYPT_MSG_TYPE, pvMsgEncodeInfo: VoidPtr, pszInnerContentObjID: win32more.Windows.Win32.Foundation.PSTR, pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_STREAM_INFO_head)) -> VoidPtr: ...
+def CryptMsgOpenToEncode(dwMsgEncodingType: UInt32, dwFlags: UInt32, dwMsgType: win32more.Windows.Win32.Security.Cryptography.CRYPT_MSG_TYPE, pvMsgEncodeInfo: VoidPtr, pszInnerContentObjID: win32more.Windows.Win32.Foundation.PSTR, pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_STREAM_INFO)) -> VoidPtr: ...
 @winfunctype('CRYPT32.dll')
 def CryptMsgCalculateEncodedLength(dwMsgEncodingType: UInt32, dwFlags: UInt32, dwMsgType: UInt32, pvMsgEncodeInfo: VoidPtr, pszInnerContentObjID: win32more.Windows.Win32.Foundation.PSTR, cbData: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CryptMsgOpenToDecode(dwMsgEncodingType: UInt32, dwFlags: UInt32, dwMsgType: UInt32, hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, pRecipientInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head), pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_STREAM_INFO_head)) -> VoidPtr: ...
+def CryptMsgOpenToDecode(dwMsgEncodingType: UInt32, dwFlags: UInt32, dwMsgType: UInt32, hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, pRecipientInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO), pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_STREAM_INFO)) -> VoidPtr: ...
 @winfunctype('CRYPT32.dll')
 def CryptMsgDuplicate(hCryptMsg: VoidPtr) -> VoidPtr: ...
 @winfunctype('CRYPT32.dll')
@@ -3236,13 +3227,13 @@ def CryptMsgGetParam(hCryptMsg: VoidPtr, dwParamType: UInt32, dwIndex: UInt32, p
 @winfunctype('CRYPT32.dll')
 def CryptMsgControl(hCryptMsg: VoidPtr, dwFlags: UInt32, dwCtrlType: UInt32, pvCtrlPara: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptMsgVerifyCountersignatureEncoded(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwEncodingType: UInt32, pbSignerInfo: POINTER(Byte), cbSignerInfo: UInt32, pbSignerInfoCountersignature: POINTER(Byte), cbSignerInfoCountersignature: UInt32, pciCountersigner: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptMsgVerifyCountersignatureEncoded(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwEncodingType: UInt32, pbSignerInfo: POINTER(Byte), cbSignerInfo: UInt32, pbSignerInfoCountersignature: POINTER(Byte), cbSignerInfoCountersignature: UInt32, pciCountersigner: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptMsgVerifyCountersignatureEncodedEx(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwEncodingType: UInt32, pbSignerInfo: POINTER(Byte), cbSignerInfo: UInt32, pbSignerInfoCountersignature: POINTER(Byte), cbSignerInfoCountersignature: UInt32, dwSignerType: UInt32, pvSigner: VoidPtr, dwFlags: UInt32, pvExtra: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptMsgCountersign(hCryptMsg: VoidPtr, dwIndex: UInt32, cCountersigners: UInt32, rgCountersigners: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_ENCODE_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptMsgCountersign(hCryptMsg: VoidPtr, dwIndex: UInt32, cCountersigners: UInt32, rgCountersigners: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_ENCODE_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptMsgCountersignEncoded(dwEncodingType: UInt32, pbSignerInfo: POINTER(Byte), cbSignerInfo: UInt32, cCountersigners: UInt32, rgCountersigners: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_ENCODE_INFO_head), pbCountersignature: POINTER(Byte), pcbCountersignature: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptMsgCountersignEncoded(dwEncodingType: UInt32, pbSignerInfo: POINTER(Byte), cbSignerInfo: UInt32, cCountersigners: UInt32, rgCountersigners: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_ENCODE_INFO), pbCountersignature: POINTER(Byte), pcbCountersignature: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertOpenStore(lpszStoreProvider: win32more.Windows.Win32.Foundation.PSTR, dwEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_OPEN_STORE_FLAGS, pvPara: VoidPtr) -> win32more.Windows.Win32.Security.Cryptography.HCERTSTORE: ...
 @winfunctype('CRYPT32.dll')
@@ -3252,103 +3243,103 @@ def CertSaveStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCER
 @winfunctype('CRYPT32.dll')
 def CertCloseStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetSubjectCertificateFromStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def CertGetSubjectCertificateFromStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertEnumCertificatesInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPrevCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def CertEnumCertificatesInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPrevCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertFindCertificateInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFindFlags: UInt32, dwFindType: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_FLAGS, pvFindPara: VoidPtr, pPrevCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def CertFindCertificateInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFindFlags: UInt32, dwFindType: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_FLAGS, pvFindPara: VoidPtr, pPrevCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertGetIssuerCertificateFromStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pSubjectContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pPrevIssuerContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pdwFlags: POINTER(UInt32)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def CertGetIssuerCertificateFromStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pSubjectContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pPrevIssuerContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pdwFlags: POINTER(UInt32)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertVerifySubjectCertificateContext(pSubject: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pIssuer: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pdwFlags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertVerifySubjectCertificateContext(pSubject: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pIssuer: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pdwFlags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertDuplicateCertificateContext(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def CertDuplicateCertificateContext(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertCreateCertificateContext(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCertEncoded: POINTER(Byte), cbCertEncoded: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def CertCreateCertificateContext(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCertEncoded: POINTER(Byte), cbCertEncoded: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertFreeCertificateContext(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertFreeCertificateContext(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSetCertificateContextProperty(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSetCertificateContextProperty(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetCertificateContextProperty(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwPropId: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertGetCertificateContextProperty(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwPropId: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertEnumCertificateContextProperties(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwPropId: UInt32) -> UInt32: ...
+def CertEnumCertificateContextProperties(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwPropId: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CertCreateCTLEntryFromCertificateContextProperties(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), cOptAttr: UInt32, rgOptAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head), dwFlags: UInt32, pvReserved: VoidPtr, pCtlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY_head), pcbCtlEntry: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertCreateCTLEntryFromCertificateContextProperties(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), cOptAttr: UInt32, rgOptAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE), dwFlags: UInt32, pvReserved: VoidPtr, pCtlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY), pcbCtlEntry: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSetCertificateContextPropertiesFromCTLEntry(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pCtlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSetCertificateContextPropertiesFromCTLEntry(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pCtlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetCRLFromStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pIssuerContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), pdwFlags: POINTER(UInt32)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head): ...
+def CertGetCRLFromStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pIssuerContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), pdwFlags: POINTER(UInt32)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertEnumCRLsInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head): ...
+def CertEnumCRLsInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertFindCRLInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFindFlags: UInt32, dwFindType: UInt32, pvFindPara: VoidPtr, pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head): ...
+def CertFindCRLInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFindFlags: UInt32, dwFindType: UInt32, pvFindPara: VoidPtr, pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertDuplicateCRLContext(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head): ...
+def CertDuplicateCRLContext(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertCreateCRLContext(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCrlEncoded: POINTER(Byte), cbCrlEncoded: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head): ...
+def CertCreateCRLContext(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCrlEncoded: POINTER(Byte), cbCrlEncoded: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertFreeCRLContext(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertFreeCRLContext(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSetCRLContextProperty(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSetCRLContextProperty(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetCRLContextProperty(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwPropId: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertGetCRLContextProperty(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwPropId: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertEnumCRLContextProperties(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwPropId: UInt32) -> UInt32: ...
+def CertEnumCRLContextProperties(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwPropId: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CertFindCertificateInCRL(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwFlags: UInt32, pvReserved: VoidPtr, ppCrlEntry: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertFindCertificateInCRL(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwFlags: UInt32, pvReserved: VoidPtr, ppCrlEntry: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertIsValidCRLForCertificate(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pCrl: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertIsValidCRLForCertificate(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pCrl: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddEncodedCertificateToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCertEncoded: POINTER(Byte), cbCertEncoded: UInt32, dwAddDisposition: UInt32, ppCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddEncodedCertificateToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCertEncoded: POINTER(Byte), cbCertEncoded: UInt32, dwAddDisposition: UInt32, ppCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddCertificateContextToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddCertificateContextToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertAddSerializedElementToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pbElement: POINTER(Byte), cbElement: UInt32, dwAddDisposition: UInt32, dwFlags: UInt32, dwContextTypeFlags: UInt32, pdwContextType: POINTER(UInt32), ppvContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertDeleteCertificateFromStore(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertDeleteCertificateFromStore(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddEncodedCRLToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCrlEncoded: POINTER(Byte), cbCrlEncoded: UInt32, dwAddDisposition: UInt32, ppCrlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddEncodedCRLToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCrlEncoded: POINTER(Byte), cbCrlEncoded: UInt32, dwAddDisposition: UInt32, ppCrlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddCRLContextToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddCRLContextToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertDeleteCRLFromStore(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertDeleteCRLFromStore(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSerializeCertificateStoreElement(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwFlags: UInt32, pbElement: POINTER(Byte), pcbElement: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSerializeCertificateStoreElement(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwFlags: UInt32, pbElement: POINTER(Byte), pcbElement: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSerializeCRLStoreElement(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwFlags: UInt32, pbElement: POINTER(Byte), pcbElement: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSerializeCRLStoreElement(pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwFlags: UInt32, pbElement: POINTER(Byte), pcbElement: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertDuplicateCTLContext(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head): ...
+def CertDuplicateCTLContext(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertCreateCTLContext(dwMsgAndCertEncodingType: UInt32, pbCtlEncoded: POINTER(Byte), cbCtlEncoded: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head): ...
+def CertCreateCTLContext(dwMsgAndCertEncodingType: UInt32, pbCtlEncoded: POINTER(Byte), cbCtlEncoded: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertFreeCTLContext(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertFreeCTLContext(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSetCTLContextProperty(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSetCTLContextProperty(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetCTLContextProperty(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwPropId: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertGetCTLContextProperty(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwPropId: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertEnumCTLContextProperties(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwPropId: UInt32) -> UInt32: ...
+def CertEnumCTLContextProperties(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwPropId: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CertEnumCTLsInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPrevCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head): ...
+def CertEnumCTLsInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPrevCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertFindSubjectInCTL(dwEncodingType: UInt32, dwSubjectType: UInt32, pvSubject: VoidPtr, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwFlags: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY_head): ...
+def CertFindSubjectInCTL(dwEncodingType: UInt32, dwSubjectType: UInt32, pvSubject: VoidPtr, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwFlags: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY): ...
 @winfunctype('CRYPT32.dll')
-def CertFindCTLInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwMsgAndCertEncodingType: UInt32, dwFindFlags: UInt32, dwFindType: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_TYPE, pvFindPara: VoidPtr, pPrevCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head): ...
+def CertFindCTLInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwMsgAndCertEncodingType: UInt32, dwFindFlags: UInt32, dwFindType: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_TYPE, pvFindPara: VoidPtr, pPrevCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertAddEncodedCTLToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwMsgAndCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCtlEncoded: POINTER(Byte), cbCtlEncoded: UInt32, dwAddDisposition: UInt32, ppCtlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddEncodedCTLToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwMsgAndCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbCtlEncoded: POINTER(Byte), cbCtlEncoded: UInt32, dwAddDisposition: UInt32, ppCtlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddCTLContextToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddCTLContextToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSerializeCTLStoreElement(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwFlags: UInt32, pbElement: POINTER(Byte), pcbElement: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSerializeCTLStoreElement(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwFlags: UInt32, pbElement: POINTER(Byte), pcbElement: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertDeleteCTLFromStore(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertDeleteCTLFromStore(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddCertificateLinkToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddCertificateLinkToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddCRLLinkToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddCRLLinkToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddCTLLinkToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddCTLLinkToStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwAddDisposition: UInt32, ppStoreContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertAddStoreToCollection(hCollectionStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, hSiblingStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwUpdateFlags: UInt32, dwPriority: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
@@ -3360,11 +3351,11 @@ def CertSetStoreProperty(hCertStore: win32more.Windows.Win32.Security.Cryptograp
 @winfunctype('CRYPT32.dll')
 def CertGetStoreProperty(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwPropId: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertCreateContext(dwContextType: UInt32, dwEncodingType: UInt32, pbEncoded: POINTER(Byte), cbEncoded: UInt32, dwFlags: UInt32, pCreatePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CREATE_CONTEXT_PARA_head)) -> VoidPtr: ...
+def CertCreateContext(dwContextType: UInt32, dwEncodingType: UInt32, pbEncoded: POINTER(Byte), cbEncoded: UInt32, dwFlags: UInt32, pCreatePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CREATE_CONTEXT_PARA)) -> VoidPtr: ...
 @winfunctype('CRYPT32.dll')
-def CertRegisterSystemStore(pvSystemStore: VoidPtr, dwFlags: UInt32, pStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SYSTEM_STORE_INFO_head), pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertRegisterSystemStore(pvSystemStore: VoidPtr, dwFlags: UInt32, pStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SYSTEM_STORE_INFO), pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertRegisterPhysicalStore(pvSystemStore: VoidPtr, dwFlags: UInt32, pwszStoreName: win32more.Windows.Win32.Foundation.PWSTR, pStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PHYSICAL_STORE_INFO_head), pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertRegisterPhysicalStore(pvSystemStore: VoidPtr, dwFlags: UInt32, pwszStoreName: win32more.Windows.Win32.Foundation.PWSTR, pStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PHYSICAL_STORE_INFO), pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertUnregisterSystemStore(pvSystemStore: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
@@ -3376,47 +3367,47 @@ def CertEnumSystemStore(dwFlags: UInt32, pvSystemStoreLocationPara: VoidPtr, pvA
 @winfunctype('CRYPT32.dll')
 def CertEnumPhysicalStore(pvSystemStore: VoidPtr, dwFlags: UInt32, pvArg: VoidPtr, pfnEnum: win32more.Windows.Win32.Security.Cryptography.PFN_CERT_ENUM_PHYSICAL_STORE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetEnhancedKeyUsage(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwFlags: UInt32, pUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE_head), pcbUsage: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertGetEnhancedKeyUsage(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwFlags: UInt32, pUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE), pcbUsage: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSetEnhancedKeyUsage(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSetEnhancedKeyUsage(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertAddEnhancedKeyUsageIdentifier(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pszUsageIdentifier: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertAddEnhancedKeyUsageIdentifier(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pszUsageIdentifier: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertRemoveEnhancedKeyUsageIdentifier(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pszUsageIdentifier: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertRemoveEnhancedKeyUsageIdentifier(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pszUsageIdentifier: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetValidUsages(cCerts: UInt32, rghCerts: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), cNumOIDs: POINTER(Int32), rghOIDs: POINTER(win32more.Windows.Win32.Foundation.PSTR), pcbOIDs: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertGetValidUsages(cCerts: UInt32, rghCerts: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), cNumOIDs: POINTER(Int32), rghOIDs: POINTER(win32more.Windows.Win32.Foundation.PSTR), pcbOIDs: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptMsgGetAndVerifySigner(hCryptMsg: VoidPtr, cSignerStore: UInt32, rghSignerStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE), dwFlags: UInt32, ppSigner: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), pdwSignerIndex: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptMsgGetAndVerifySigner(hCryptMsg: VoidPtr, cSignerStore: UInt32, rghSignerStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE), dwFlags: UInt32, ppSigner: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), pdwSignerIndex: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptMsgSignCTL(dwMsgEncodingType: UInt32, pbCtlContent: POINTER(Byte), cbCtlContent: UInt32, pSignInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNED_ENCODE_INFO_head), dwFlags: UInt32, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptMsgSignCTL(dwMsgEncodingType: UInt32, pbCtlContent: POINTER(Byte), cbCtlContent: UInt32, pSignInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNED_ENCODE_INFO), dwFlags: UInt32, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptMsgEncodeAndSignCTL(dwMsgEncodingType: UInt32, pCtlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_INFO_head), pSignInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNED_ENCODE_INFO_head), dwFlags: UInt32, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptMsgEncodeAndSignCTL(dwMsgEncodingType: UInt32, pCtlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_INFO), pSignInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNED_ENCODE_INFO), dwFlags: UInt32, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertFindSubjectInSortedCTL(pSubjectIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwFlags: UInt32, pvReserved: VoidPtr, pEncodedAttributes: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertFindSubjectInSortedCTL(pSubjectIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwFlags: UInt32, pvReserved: VoidPtr, pEncodedAttributes: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertEnumSubjectInSortedCTL(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), ppvNextSubject: POINTER(VoidPtr), pSubjectIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pEncodedAttributes: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertEnumSubjectInSortedCTL(pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), ppvNextSubject: POINTER(VoidPtr), pSubjectIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), pEncodedAttributes: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertVerifyCTLUsage(dwEncodingType: UInt32, dwSubjectType: UInt32, pvSubject: VoidPtr, pSubjectUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE_head), dwFlags: UInt32, pVerifyUsagePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_VERIFY_USAGE_PARA_head), pVerifyUsageStatus: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_VERIFY_USAGE_STATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertVerifyCTLUsage(dwEncodingType: UInt32, dwSubjectType: UInt32, pvSubject: VoidPtr, pSubjectUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE), dwFlags: UInt32, pVerifyUsagePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_VERIFY_USAGE_PARA), pVerifyUsageStatus: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_VERIFY_USAGE_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertVerifyRevocation(dwEncodingType: UInt32, dwRevType: UInt32, cContext: UInt32, rgpvContext: POINTER(VoidPtr), dwFlags: UInt32, pRevPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_PARA_head), pRevStatus: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_STATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertVerifyRevocation(dwEncodingType: UInt32, dwRevType: UInt32, cContext: UInt32, rgpvContext: POINTER(VoidPtr), dwFlags: UInt32, pRevPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_PARA), pRevStatus: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertCompareIntegerBlob(pInt1: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pInt2: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertCompareIntegerBlob(pInt1: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), pInt2: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertCompareCertificate(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertId1: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head), pCertId2: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertCompareCertificate(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertId1: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO), pCertId2: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertCompareCertificateName(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertName1: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pCertName2: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertCompareCertificateName(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertName1: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), pCertName2: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertIsRDNAttrsInCertificateName(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFlags: UInt32, pCertName: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pRDN: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertIsRDNAttrsInCertificateName(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFlags: UInt32, pCertName: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), pRDN: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertComparePublicKeyInfo(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pPublicKey1: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pPublicKey2: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertComparePublicKeyInfo(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pPublicKey1: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pPublicKey2: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetPublicKeyLength(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pPublicKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head)) -> UInt32: ...
+def CertGetPublicKeyLength(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pPublicKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO)) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CryptVerifyCertificateSignature(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pPublicKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptVerifyCertificateSignature(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pPublicKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptVerifyCertificateSignatureEx(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwSubjectType: UInt32, pvSubject: VoidPtr, dwIssuerType: UInt32, pvIssuer: VoidPtr, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_CERT_FLAGS, pvExtra: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertIsStrongHashToSign(pStrongSignPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head), pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertIsStrongHashToSign(pStrongSignPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA), pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptHashToBeSigned(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
@@ -3424,101 +3415,101 @@ def CryptHashCertificate(hCryptProv: win32more.Windows.Win32.Security.Cryptograp
 @winfunctype('CRYPT32.dll')
 def CryptHashCertificate2(pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pvReserved: VoidPtr, pbEncoded: POINTER(Byte), cbEncoded: UInt32, pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptSignCertificate(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbEncodedToBeSigned: POINTER(Byte), cbEncodedToBeSigned: UInt32, pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pvHashAuxInfo: VoidPtr, pbSignature: POINTER(Byte), pcbSignature: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptSignCertificate(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pbEncodedToBeSigned: POINTER(Byte), cbEncodedToBeSigned: UInt32, pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pvHashAuxInfo: VoidPtr, pbSignature: POINTER(Byte), pcbSignature: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptSignAndEncodeCertificate(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pvStructInfo: VoidPtr, pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pvHashAuxInfo: VoidPtr, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptSignAndEncodeCertificate(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, lpszStructType: win32more.Windows.Win32.Foundation.PSTR, pvStructInfo: VoidPtr, pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pvHashAuxInfo: VoidPtr, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertVerifyTimeValidity(pTimeToVerify: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)) -> Int32: ...
+def CertVerifyTimeValidity(pTimeToVerify: POINTER(win32more.Windows.Win32.Foundation.FILETIME), pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)) -> Int32: ...
 @winfunctype('CRYPT32.dll')
-def CertVerifyCRLTimeValidity(pTimeToVerify: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), pCrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_INFO_head)) -> Int32: ...
+def CertVerifyCRLTimeValidity(pTimeToVerify: POINTER(win32more.Windows.Win32.Foundation.FILETIME), pCrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_INFO)) -> Int32: ...
 @winfunctype('CRYPT32.dll')
-def CertVerifyValidityNesting(pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head), pIssuerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertVerifyValidityNesting(pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO), pIssuerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertVerifyCRLRevocation(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head), cCrlInfo: UInt32, rgpCrlInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_INFO_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertVerifyCRLRevocation(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO), cCrlInfo: UInt32, rgpCrlInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_INFO))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertAlgIdToOID(dwAlgId: UInt32) -> win32more.Windows.Win32.Foundation.PSTR: ...
 @winfunctype('CRYPT32.dll')
 def CertOIDToAlgId(pszObjId: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CertFindExtension(pszObjId: win32more.Windows.Win32.Foundation.PSTR, cExtensions: UInt32, rgExtensions: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head): ...
+def CertFindExtension(pszObjId: win32more.Windows.Win32.Foundation.PSTR, cExtensions: UInt32, rgExtensions: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION): ...
 @winfunctype('CRYPT32.dll')
-def CertFindAttribute(pszObjId: win32more.Windows.Win32.Foundation.PSTR, cAttr: UInt32, rgAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head): ...
+def CertFindAttribute(pszObjId: win32more.Windows.Win32.Foundation.PSTR, cAttr: UInt32, rgAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE): ...
 @winfunctype('CRYPT32.dll')
-def CertFindRDNAttr(pszObjId: win32more.Windows.Win32.Foundation.PSTR, pName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_NAME_INFO_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN_ATTR_head): ...
+def CertFindRDNAttr(pszObjId: win32more.Windows.Win32.Foundation.PSTR, pName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_NAME_INFO)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN_ATTR): ...
 @winfunctype('CRYPT32.dll')
-def CertGetIntendedKeyUsage(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head), pbKeyUsage: POINTER(Byte), cbKeyUsage: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertGetIntendedKeyUsage(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO), pbKeyUsage: POINTER(Byte), cbKeyUsage: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptInstallDefaultContext(hCryptProv: UIntPtr, dwDefaultType: win32more.Windows.Win32.Security.Cryptography.CRYPT_DEFAULT_CONTEXT_TYPE, pvDefaultPara: VoidPtr, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_DEFAULT_CONTEXT_FLAGS, pvReserved: VoidPtr, phDefaultContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptUninstallDefaultContext(hDefaultContext: VoidPtr, dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptExportPublicKeyInfo(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptExportPublicKeyInfo(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptExportPublicKeyInfoEx(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPublicKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptExportPublicKeyInfoEx(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPublicKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptExportPublicKeyInfoFromBCryptKeyHandle(hBCryptKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPublicKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptExportPublicKeyInfoFromBCryptKeyHandle(hBCryptKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPublicKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptImportPublicKeyInfo(hCryptProv: UIntPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptImportPublicKeyInfo(hCryptProv: UIntPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptImportPublicKeyInfoEx(hCryptProv: UIntPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), aiKeyAlg: win32more.Windows.Win32.Security.Cryptography.ALG_ID, dwFlags: UInt32, pvAuxInfo: VoidPtr, phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptImportPublicKeyInfoEx(hCryptProv: UIntPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), aiKeyAlg: win32more.Windows.Win32.Security.Cryptography.ALG_ID, dwFlags: UInt32, pvAuxInfo: VoidPtr, phKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptImportPublicKeyInfoEx2(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_IMPORT_PUBLIC_KEY_FLAGS, pvAuxInfo: VoidPtr, phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptImportPublicKeyInfoEx2(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_IMPORT_PUBLIC_KEY_FLAGS, pvAuxInfo: VoidPtr, phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptAcquireCertificatePrivateKey(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_ACQUIRE_FLAGS, pvParameters: VoidPtr, phCryptProvOrNCryptKey: POINTER(win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE), pdwKeySpec: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC), pfCallerFreeProvOrNCryptKey: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptAcquireCertificatePrivateKey(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_ACQUIRE_FLAGS, pvParameters: VoidPtr, phCryptProvOrNCryptKey: POINTER(win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE), pdwKeySpec: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC), pfCallerFreeProvOrNCryptKey: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptFindCertificateKeyProvInfo(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_FIND_FLAGS, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptFindCertificateKeyProvInfo(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_FIND_FLAGS, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptImportPKCS8(sPrivateKeyAndParams: win32more.Windows.Win32.Security.Cryptography.CRYPT_PKCS8_IMPORT_PARAMS, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_FLAGS, phCryptProv: POINTER(UIntPtr), pvAuxInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptExportPKCS8(hCryptProv: UIntPtr, dwKeySpec: UInt32, pszPrivateKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pbPrivateKeyBlob: POINTER(Byte), pcbPrivateKeyBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptHashPublicKeyInfo(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID, dwFlags: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptHashPublicKeyInfo(hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID, dwFlags: UInt32, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertRDNValueToStrA(dwValueType: UInt32, pValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), psz: win32more.Windows.Win32.Foundation.PSTR, csz: UInt32) -> UInt32: ...
+def CertRDNValueToStrA(dwValueType: UInt32, pValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), psz: win32more.Windows.Win32.Foundation.PSTR, csz: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CertRDNValueToStrW(dwValueType: UInt32, pValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), psz: win32more.Windows.Win32.Foundation.PWSTR, csz: UInt32) -> UInt32: ...
+def CertRDNValueToStrW(dwValueType: UInt32, pValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), psz: win32more.Windows.Win32.Foundation.PWSTR, csz: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CertNameToStrA(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pName: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), dwStrType: win32more.Windows.Win32.Security.Cryptography.CERT_STRING_TYPE, psz: win32more.Windows.Win32.Foundation.PSTR, csz: UInt32) -> UInt32: ...
+def CertNameToStrA(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pName: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), dwStrType: win32more.Windows.Win32.Security.Cryptography.CERT_STRING_TYPE, psz: win32more.Windows.Win32.Foundation.PSTR, csz: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CertNameToStrW(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pName: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), dwStrType: win32more.Windows.Win32.Security.Cryptography.CERT_STRING_TYPE, psz: win32more.Windows.Win32.Foundation.PWSTR, csz: UInt32) -> UInt32: ...
+def CertNameToStrW(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pName: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), dwStrType: win32more.Windows.Win32.Security.Cryptography.CERT_STRING_TYPE, psz: win32more.Windows.Win32.Foundation.PWSTR, csz: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
 def CertStrToNameA(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszX500: win32more.Windows.Win32.Foundation.PSTR, dwStrType: win32more.Windows.Win32.Security.Cryptography.CERT_STRING_TYPE, pvReserved: VoidPtr, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32), ppszError: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertStrToNameW(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszX500: win32more.Windows.Win32.Foundation.PWSTR, dwStrType: win32more.Windows.Win32.Security.Cryptography.CERT_STRING_TYPE, pvReserved: VoidPtr, pbEncoded: POINTER(Byte), pcbEncoded: POINTER(UInt32), ppszError: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetNameStringA(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwType: UInt32, dwFlags: UInt32, pvTypePara: VoidPtr, pszNameString: win32more.Windows.Win32.Foundation.PSTR, cchNameString: UInt32) -> UInt32: ...
+def CertGetNameStringA(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwType: UInt32, dwFlags: UInt32, pvTypePara: VoidPtr, pszNameString: win32more.Windows.Win32.Foundation.PSTR, cchNameString: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CertGetNameStringW(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwType: UInt32, dwFlags: UInt32, pvTypePara: VoidPtr, pszNameString: win32more.Windows.Win32.Foundation.PWSTR, cchNameString: UInt32) -> UInt32: ...
+def CertGetNameStringW(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwType: UInt32, dwFlags: UInt32, pvTypePara: VoidPtr, pszNameString: win32more.Windows.Win32.Foundation.PWSTR, cchNameString: UInt32) -> UInt32: ...
 @winfunctype('CRYPT32.dll')
-def CryptSignMessage(pSignPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_SIGN_MESSAGE_PARA_head), fDetachedSignature: win32more.Windows.Win32.Foundation.BOOL, cToBeSigned: UInt32, rgpbToBeSigned: POINTER(POINTER(Byte)), rgcbToBeSigned: POINTER(UInt32), pbSignedBlob: POINTER(Byte), pcbSignedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptSignMessage(pSignPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_SIGN_MESSAGE_PARA), fDetachedSignature: win32more.Windows.Win32.Foundation.BOOL, cToBeSigned: UInt32, rgpbToBeSigned: POINTER(POINTER(Byte)), rgcbToBeSigned: POINTER(UInt32), pbSignedBlob: POINTER(Byte), pcbSignedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptVerifyMessageSignature(pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_MESSAGE_PARA_head), dwSignerIndex: UInt32, pbSignedBlob: POINTER(Byte), cbSignedBlob: UInt32, pbDecoded: POINTER(Byte), pcbDecoded: POINTER(UInt32), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptVerifyMessageSignature(pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_MESSAGE_PARA), dwSignerIndex: UInt32, pbSignedBlob: POINTER(Byte), cbSignedBlob: UInt32, pbDecoded: POINTER(Byte), pcbDecoded: POINTER(UInt32), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptGetMessageSignerCount(dwMsgEncodingType: UInt32, pbSignedBlob: POINTER(Byte), cbSignedBlob: UInt32) -> Int32: ...
 @winfunctype('CRYPT32.dll')
 def CryptGetMessageCertificates(dwMsgAndCertEncodingType: UInt32, hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwFlags: UInt32, pbSignedBlob: POINTER(Byte), cbSignedBlob: UInt32) -> win32more.Windows.Win32.Security.Cryptography.HCERTSTORE: ...
 @winfunctype('CRYPT32.dll')
-def CryptVerifyDetachedMessageSignature(pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_MESSAGE_PARA_head), dwSignerIndex: UInt32, pbDetachedSignBlob: POINTER(Byte), cbDetachedSignBlob: UInt32, cToBeSigned: UInt32, rgpbToBeSigned: POINTER(POINTER(Byte)), rgcbToBeSigned: POINTER(UInt32), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptVerifyDetachedMessageSignature(pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_MESSAGE_PARA), dwSignerIndex: UInt32, pbDetachedSignBlob: POINTER(Byte), cbDetachedSignBlob: UInt32, cToBeSigned: UInt32, rgpbToBeSigned: POINTER(POINTER(Byte)), rgcbToBeSigned: POINTER(UInt32), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptEncryptMessage(pEncryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCRYPT_MESSAGE_PARA_head), cRecipientCert: UInt32, rgpRecipientCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), pbToBeEncrypted: POINTER(Byte), cbToBeEncrypted: UInt32, pbEncryptedBlob: POINTER(Byte), pcbEncryptedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptEncryptMessage(pEncryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCRYPT_MESSAGE_PARA), cRecipientCert: UInt32, rgpRecipientCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), pbToBeEncrypted: POINTER(Byte), cbToBeEncrypted: UInt32, pbEncryptedBlob: POINTER(Byte), pcbEncryptedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptDecryptMessage(pDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_DECRYPT_MESSAGE_PARA_head), pbEncryptedBlob: POINTER(Byte), cbEncryptedBlob: UInt32, pbDecrypted: POINTER(Byte), pcbDecrypted: POINTER(UInt32), ppXchgCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptDecryptMessage(pDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_DECRYPT_MESSAGE_PARA), pbEncryptedBlob: POINTER(Byte), cbEncryptedBlob: UInt32, pbDecrypted: POINTER(Byte), pcbDecrypted: POINTER(UInt32), ppXchgCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptSignAndEncryptMessage(pSignPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_SIGN_MESSAGE_PARA_head), pEncryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCRYPT_MESSAGE_PARA_head), cRecipientCert: UInt32, rgpRecipientCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), pbToBeSignedAndEncrypted: POINTER(Byte), cbToBeSignedAndEncrypted: UInt32, pbSignedAndEncryptedBlob: POINTER(Byte), pcbSignedAndEncryptedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptSignAndEncryptMessage(pSignPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_SIGN_MESSAGE_PARA), pEncryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCRYPT_MESSAGE_PARA), cRecipientCert: UInt32, rgpRecipientCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), pbToBeSignedAndEncrypted: POINTER(Byte), cbToBeSignedAndEncrypted: UInt32, pbSignedAndEncryptedBlob: POINTER(Byte), pcbSignedAndEncryptedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptDecryptAndVerifyMessageSignature(pDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_DECRYPT_MESSAGE_PARA_head), pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_MESSAGE_PARA_head), dwSignerIndex: UInt32, pbEncryptedBlob: POINTER(Byte), cbEncryptedBlob: UInt32, pbDecrypted: POINTER(Byte), pcbDecrypted: POINTER(UInt32), ppXchgCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptDecryptAndVerifyMessageSignature(pDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_DECRYPT_MESSAGE_PARA), pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_MESSAGE_PARA), dwSignerIndex: UInt32, pbEncryptedBlob: POINTER(Byte), cbEncryptedBlob: UInt32, pbDecrypted: POINTER(Byte), pcbDecrypted: POINTER(UInt32), ppXchgCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptDecodeMessage(dwMsgTypeFlags: UInt32, pDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_DECRYPT_MESSAGE_PARA_head), pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_MESSAGE_PARA_head), dwSignerIndex: UInt32, pbEncodedBlob: POINTER(Byte), cbEncodedBlob: UInt32, dwPrevInnerContentType: UInt32, pdwMsgType: POINTER(UInt32), pdwInnerContentType: POINTER(UInt32), pbDecoded: POINTER(Byte), pcbDecoded: POINTER(UInt32), ppXchgCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptDecodeMessage(dwMsgTypeFlags: UInt32, pDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_DECRYPT_MESSAGE_PARA), pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_MESSAGE_PARA), dwSignerIndex: UInt32, pbEncodedBlob: POINTER(Byte), cbEncodedBlob: UInt32, dwPrevInnerContentType: UInt32, pdwMsgType: POINTER(UInt32), pdwInnerContentType: POINTER(UInt32), pbDecoded: POINTER(Byte), pcbDecoded: POINTER(UInt32), ppXchgCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptHashMessage(pHashPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_HASH_MESSAGE_PARA_head), fDetachedHash: win32more.Windows.Win32.Foundation.BOOL, cToBeHashed: UInt32, rgpbToBeHashed: POINTER(POINTER(Byte)), rgcbToBeHashed: POINTER(UInt32), pbHashedBlob: POINTER(Byte), pcbHashedBlob: POINTER(UInt32), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptHashMessage(pHashPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_HASH_MESSAGE_PARA), fDetachedHash: win32more.Windows.Win32.Foundation.BOOL, cToBeHashed: UInt32, rgpbToBeHashed: POINTER(POINTER(Byte)), rgcbToBeHashed: POINTER(UInt32), pbHashedBlob: POINTER(Byte), pcbHashedBlob: POINTER(UInt32), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptVerifyMessageHash(pHashPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_HASH_MESSAGE_PARA_head), pbHashedBlob: POINTER(Byte), cbHashedBlob: UInt32, pbToBeHashed: POINTER(Byte), pcbToBeHashed: POINTER(UInt32), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptVerifyMessageHash(pHashPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_HASH_MESSAGE_PARA), pbHashedBlob: POINTER(Byte), cbHashedBlob: UInt32, pbToBeHashed: POINTER(Byte), pcbToBeHashed: POINTER(UInt32), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptVerifyDetachedMessageHash(pHashPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_HASH_MESSAGE_PARA_head), pbDetachedHashBlob: POINTER(Byte), cbDetachedHashBlob: UInt32, cToBeHashed: UInt32, rgpbToBeHashed: POINTER(POINTER(Byte)), rgcbToBeHashed: POINTER(UInt32), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptVerifyDetachedMessageHash(pHashPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_HASH_MESSAGE_PARA), pbDetachedHashBlob: POINTER(Byte), cbDetachedHashBlob: UInt32, cToBeHashed: UInt32, rgpbToBeHashed: POINTER(POINTER(Byte)), rgcbToBeHashed: POINTER(UInt32), pbComputedHash: POINTER(Byte), pcbComputedHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptSignMessageWithKey(pSignPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_SIGN_MESSAGE_PARA_head), pbToBeSigned: POINTER(Byte), cbToBeSigned: UInt32, pbSignedBlob: POINTER(Byte), pcbSignedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptSignMessageWithKey(pSignPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_SIGN_MESSAGE_PARA), pbToBeSigned: POINTER(Byte), cbToBeSigned: UInt32, pbSignedBlob: POINTER(Byte), pcbSignedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptVerifyMessageSignatureWithKey(pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_VERIFY_MESSAGE_PARA_head), pPublicKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pbSignedBlob: POINTER(Byte), cbSignedBlob: UInt32, pbDecoded: POINTER(Byte), pcbDecoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptVerifyMessageSignatureWithKey(pVerifyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_VERIFY_MESSAGE_PARA), pPublicKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pbSignedBlob: POINTER(Byte), cbSignedBlob: UInt32, pbDecoded: POINTER(Byte), pcbDecoded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertOpenSystemStoreA(hProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, szSubsystemProtocol: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Security.Cryptography.HCERTSTORE: ...
 @winfunctype('CRYPT32.dll')
@@ -3528,7 +3519,7 @@ def CertAddEncodedCertificateToSystemStoreA(szCertStoreName: win32more.Windows.W
 @winfunctype('CRYPT32.dll')
 def CertAddEncodedCertificateToSystemStoreW(szCertStoreName: win32more.Windows.Win32.Foundation.PWSTR, pbCertEncoded: POINTER(Byte), cbCertEncoded: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
-def FindCertsByIssuer(pCertChains: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_head), pcbCertChains: POINTER(UInt32), pcCertChains: POINTER(UInt32), pbEncodedIssuerName: POINTER(Byte), cbEncodedIssuerName: UInt32, pwszPurpose: win32more.Windows.Win32.Foundation.PWSTR, dwKeySpec: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def FindCertsByIssuer(pCertChains: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN), pcbCertChains: POINTER(UInt32), pcCertChains: POINTER(UInt32), pbEncodedIssuerName: POINTER(Byte), cbEncodedIssuerName: UInt32, pwszPurpose: win32more.Windows.Win32.Foundation.PWSTR, dwKeySpec: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPT32.dll')
 def CryptQueryObject(dwObjectType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_OBJECT_TYPE, pvObject: VoidPtr, dwExpectedContentTypeFlags: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_CONTENT_TYPE_FLAGS, dwExpectedFormatTypeFlags: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_FORMAT_TYPE_FLAGS, dwFlags: UInt32, pdwMsgAndCertEncodingType: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE), pdwContentType: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_CONTENT_TYPE), pdwFormatType: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_FORMAT_TYPE), phCertStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE), phMsg: POINTER(VoidPtr), ppvContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
@@ -3546,41 +3537,41 @@ def CryptGetAsyncParam(hAsync: win32more.Windows.Win32.Security.Cryptography.HCR
 @winfunctype('CRYPT32.dll')
 def CryptCloseAsyncHandle(hAsync: win32more.Windows.Win32.Security.Cryptography.HCRYPTASYNC) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTNET.dll')
-def CryptRetrieveObjectByUrlA(pszUrl: win32more.Windows.Win32.Foundation.PSTR, pszObjectOid: win32more.Windows.Win32.Foundation.PSTR, dwRetrievalFlags: UInt32, dwTimeout: UInt32, ppvObject: POINTER(VoidPtr), hAsyncRetrieve: win32more.Windows.Win32.Security.Cryptography.HCRYPTASYNC, pCredentials: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CREDENTIALS_head), pvVerify: VoidPtr, pAuxInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_RETRIEVE_AUX_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptRetrieveObjectByUrlA(pszUrl: win32more.Windows.Win32.Foundation.PSTR, pszObjectOid: win32more.Windows.Win32.Foundation.PSTR, dwRetrievalFlags: UInt32, dwTimeout: UInt32, ppvObject: POINTER(VoidPtr), hAsyncRetrieve: win32more.Windows.Win32.Security.Cryptography.HCRYPTASYNC, pCredentials: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CREDENTIALS), pvVerify: VoidPtr, pAuxInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_RETRIEVE_AUX_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTNET.dll')
-def CryptRetrieveObjectByUrlW(pszUrl: win32more.Windows.Win32.Foundation.PWSTR, pszObjectOid: win32more.Windows.Win32.Foundation.PSTR, dwRetrievalFlags: UInt32, dwTimeout: UInt32, ppvObject: POINTER(VoidPtr), hAsyncRetrieve: win32more.Windows.Win32.Security.Cryptography.HCRYPTASYNC, pCredentials: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CREDENTIALS_head), pvVerify: VoidPtr, pAuxInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_RETRIEVE_AUX_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptRetrieveObjectByUrlW(pszUrl: win32more.Windows.Win32.Foundation.PWSTR, pszObjectOid: win32more.Windows.Win32.Foundation.PSTR, dwRetrievalFlags: UInt32, dwTimeout: UInt32, ppvObject: POINTER(VoidPtr), hAsyncRetrieve: win32more.Windows.Win32.Security.Cryptography.HCRYPTASYNC, pCredentials: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_CREDENTIALS), pvVerify: VoidPtr, pAuxInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_RETRIEVE_AUX_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTNET.dll')
 def CryptInstallCancelRetrieval(pfnCancel: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_CANCEL_RETRIEVAL, pvArg: VoidPtr, dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTNET.dll')
 def CryptUninstallCancelRetrieval(dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTNET.dll')
-def CryptGetObjectUrl(pszUrlOid: win32more.Windows.Win32.Foundation.PSTR, pvPara: VoidPtr, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_GET_URL_FLAGS, pUrlArray: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_URL_ARRAY_head), pcbUrlArray: POINTER(UInt32), pUrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_URL_INFO_head), pcbUrlInfo: POINTER(UInt32), pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptGetObjectUrl(pszUrlOid: win32more.Windows.Win32.Foundation.PSTR, pvPara: VoidPtr, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_GET_URL_FLAGS, pUrlArray: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_URL_ARRAY), pcbUrlArray: POINTER(UInt32), pUrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_URL_INFO), pcbUrlInfo: POINTER(UInt32), pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertCreateSelfSignCertificate(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, pSubjectIssuerBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_CREATE_SELFSIGN_FLAGS, pKeyProvInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_INFO_head), pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pStartTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head), pEndTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head), pExtensions: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSIONS_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def CertCreateSelfSignCertificate(hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, pSubjectIssuerBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_CREATE_SELFSIGN_FLAGS, pKeyProvInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_INFO), pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pStartTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME), pEndTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME), pExtensions: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSIONS)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CryptGetKeyIdentifierProperty(pKeyIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), dwPropId: UInt32, dwFlags: UInt32, pwszComputerName: win32more.Windows.Win32.Foundation.PWSTR, pvReserved: VoidPtr, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptGetKeyIdentifierProperty(pKeyIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), dwPropId: UInt32, dwFlags: UInt32, pwszComputerName: win32more.Windows.Win32.Foundation.PWSTR, pvReserved: VoidPtr, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptSetKeyIdentifierProperty(pKeyIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), dwPropId: UInt32, dwFlags: UInt32, pwszComputerName: win32more.Windows.Win32.Foundation.PWSTR, pvReserved: VoidPtr, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptSetKeyIdentifierProperty(pKeyIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), dwPropId: UInt32, dwFlags: UInt32, pwszComputerName: win32more.Windows.Win32.Foundation.PWSTR, pvReserved: VoidPtr, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptEnumKeyIdentifierProperties(pKeyIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), dwPropId: UInt32, dwFlags: UInt32, pwszComputerName: win32more.Windows.Win32.Foundation.PWSTR, pvReserved: VoidPtr, pvArg: VoidPtr, pfnEnum: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_ENUM_KEYID_PROP) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptEnumKeyIdentifierProperties(pKeyIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), dwPropId: UInt32, dwFlags: UInt32, pwszComputerName: win32more.Windows.Win32.Foundation.PWSTR, pvReserved: VoidPtr, pvArg: VoidPtr, pfnEnum: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_ENUM_KEYID_PROP) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptCreateKeyIdentifierFromCSP(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPubKeyOID: win32more.Windows.Win32.Foundation.PSTR, pPubKeyStruc: POINTER(win32more.Windows.Win32.Security.Cryptography.PUBLICKEYSTRUC_head), cbPubKeyStruc: UInt32, dwFlags: UInt32, pvReserved: VoidPtr, pbHash: POINTER(Byte), pcbHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptCreateKeyIdentifierFromCSP(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPubKeyOID: win32more.Windows.Win32.Foundation.PSTR, pPubKeyStruc: POINTER(win32more.Windows.Win32.Security.Cryptography.PUBLICKEYSTRUC), cbPubKeyStruc: UInt32, dwFlags: UInt32, pvReserved: VoidPtr, pbHash: POINTER(Byte), pcbHash: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertCreateCertificateChainEngine(pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_ENGINE_CONFIG_head), phChainEngine: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertCreateCertificateChainEngine(pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_ENGINE_CONFIG), phChainEngine: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CertFreeCertificateChainEngine(hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE) -> Void: ...
 @winfunctype('CRYPT32.dll')
 def CertResyncCertificateChainEngine(hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertGetCertificateChain(hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), hAdditionalStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA_head), dwFlags: UInt32, pvReserved: VoidPtr, ppChainContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertGetCertificateChain(hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME), hAdditionalStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA), dwFlags: UInt32, pvReserved: VoidPtr, ppChainContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertFreeCertificateChain(pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head)) -> Void: ...
+def CertFreeCertificateChain(pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)) -> Void: ...
 @winfunctype('CRYPT32.dll')
-def CertDuplicateCertificateChain(pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head): ...
+def CertDuplicateCertificateChain(pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertFindChainInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFindFlags: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_CHAIN_IN_STORE_FLAGS, dwFindType: UInt32, pvFindPara: VoidPtr, pPrevChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head): ...
+def CertFindChainInStore(hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, dwFindFlags: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_CHAIN_IN_STORE_FLAGS, dwFindType: UInt32, pvFindPara: VoidPtr, pPrevChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertVerifyCertificateChainPolicy(pszPolicyOID: win32more.Windows.Win32.Foundation.PSTR, pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head), pPolicyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_POLICY_PARA_head), pPolicyStatus: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_POLICY_STATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertVerifyCertificateChainPolicy(pszPolicyOID: win32more.Windows.Win32.Foundation.PSTR, pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT), pPolicyPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_POLICY_PARA), pPolicyStatus: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_POLICY_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptStringToBinaryA(pszString: win32more.Windows.Win32.Foundation.PSTR, cchString: UInt32, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_STRING, pbBinary: POINTER(Byte), pcbBinary: POINTER(UInt32), pdwSkip: POINTER(UInt32), pdwFlags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
@@ -3590,43 +3581,43 @@ def CryptBinaryToStringA(pbBinary: POINTER(Byte), cbBinary: UInt32, dwFlags: win
 @winfunctype('CRYPT32.dll')
 def CryptBinaryToStringW(pbBinary: POINTER(Byte), cbBinary: UInt32, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_STRING, pszString: win32more.Windows.Win32.Foundation.PWSTR, pcchString: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def PFXImportCertStore(pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), szPassword: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_FLAGS) -> win32more.Windows.Win32.Security.Cryptography.HCERTSTORE: ...
+def PFXImportCertStore(pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), szPassword: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_FLAGS) -> win32more.Windows.Win32.Security.Cryptography.HCERTSTORE: ...
 @winfunctype('CRYPT32.dll')
-def PFXIsPFXBlob(pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFXIsPFXBlob(pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def PFXVerifyPassword(pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), szPassword: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFXVerifyPassword(pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), szPassword: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def PFXExportCertStoreEx(hStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), szPassword: win32more.Windows.Win32.Foundation.PWSTR, pvPara: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFXExportCertStoreEx(hStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), szPassword: win32more.Windows.Win32.Foundation.PWSTR, pvPara: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def PFXExportCertStore(hStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), szPassword: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFXExportCertStore(hStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pPFX: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), szPassword: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertOpenServerOcspResponse(pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head), dwFlags: UInt32, pOpenPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_OPEN_PARA_head)) -> VoidPtr: ...
+def CertOpenServerOcspResponse(pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT), dwFlags: UInt32, pOpenPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_OPEN_PARA)) -> VoidPtr: ...
 @winfunctype('CRYPT32.dll')
 def CertAddRefServerOcspResponse(hServerOcspResponse: VoidPtr) -> Void: ...
 @winfunctype('CRYPT32.dll')
 def CertCloseServerOcspResponse(hServerOcspResponse: VoidPtr, dwFlags: UInt32) -> Void: ...
 @winfunctype('CRYPT32.dll')
-def CertGetServerOcspResponseContext(hServerOcspResponse: VoidPtr, dwFlags: UInt32, pvReserved: VoidPtr) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_CONTEXT_head): ...
+def CertGetServerOcspResponseContext(hServerOcspResponse: VoidPtr, dwFlags: UInt32, pvReserved: VoidPtr) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_CONTEXT): ...
 @winfunctype('CRYPT32.dll')
-def CertAddRefServerOcspResponseContext(pServerOcspResponseContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_CONTEXT_head)) -> Void: ...
+def CertAddRefServerOcspResponseContext(pServerOcspResponseContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_CONTEXT)) -> Void: ...
 @winfunctype('CRYPT32.dll')
-def CertFreeServerOcspResponseContext(pServerOcspResponseContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_CONTEXT_head)) -> Void: ...
+def CertFreeServerOcspResponseContext(pServerOcspResponseContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_CONTEXT)) -> Void: ...
 @winfunctype('CRYPT32.dll')
-def CertRetrieveLogoOrBiometricInfo(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), lpszLogoOrBiometricType: win32more.Windows.Win32.Foundation.PSTR, dwRetrievalFlags: UInt32, dwTimeout: UInt32, dwFlags: UInt32, pvReserved: VoidPtr, ppbData: POINTER(POINTER(Byte)), pcbData: POINTER(UInt32), ppwszMimeType: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertRetrieveLogoOrBiometricInfo(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), lpszLogoOrBiometricType: win32more.Windows.Win32.Foundation.PSTR, dwRetrievalFlags: UInt32, dwTimeout: UInt32, dwFlags: UInt32, pvReserved: VoidPtr, ppbData: POINTER(POINTER(Byte)), pcbData: POINTER(UInt32), ppwszMimeType: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertSelectCertificateChains(pSelectionContext: POINTER(Guid), dwFlags: UInt32, pChainParameters: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CHAIN_PARA_head), cCriteria: UInt32, rgpCriteria: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CRITERIA_head), hStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pcSelection: POINTER(UInt32), pprgpSelection: POINTER(POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head)))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertSelectCertificateChains(pSelectionContext: POINTER(Guid), dwFlags: UInt32, pChainParameters: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CHAIN_PARA), cCriteria: UInt32, rgpCriteria: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CRITERIA), hStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pcSelection: POINTER(UInt32), pprgpSelection: POINTER(POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertFreeCertificateChainList(prgpSelection: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head))) -> Void: ...
+def CertFreeCertificateChainList(prgpSelection: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT))) -> Void: ...
 @winfunctype('CRYPT32.dll')
-def CryptRetrieveTimeStamp(wszUrl: win32more.Windows.Win32.Foundation.PWSTR, dwRetrievalFlags: UInt32, dwTimeout: UInt32, pszHashId: win32more.Windows.Win32.Foundation.PSTR, pPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_PARA_head), pbData: POINTER(Byte), cbData: UInt32, ppTsContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_CONTEXT_head)), ppTsSigner: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), phStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptRetrieveTimeStamp(wszUrl: win32more.Windows.Win32.Foundation.PWSTR, dwRetrievalFlags: UInt32, dwTimeout: UInt32, pszHashId: win32more.Windows.Win32.Foundation.PSTR, pPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_PARA), pbData: POINTER(Byte), cbData: UInt32, ppTsContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_CONTEXT)), ppTsSigner: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), phStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptVerifyTimeStampSignature(pbTSContentInfo: POINTER(Byte), cbTSContentInfo: UInt32, pbData: POINTER(Byte), cbData: UInt32, hAdditionalStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, ppTsContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_CONTEXT_head)), ppTsSigner: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), phStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptVerifyTimeStampSignature(pbTSContentInfo: POINTER(Byte), cbTSContentInfo: UInt32, pbData: POINTER(Byte), cbData: UInt32, hAdditionalStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, ppTsContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_CONTEXT)), ppTsSigner: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), phStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CertIsWeakHash(dwHashUseType: UInt32, pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, dwChainFlags: UInt32, pSignerChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head), pTimeStamp: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), pwszFileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CertIsWeakHash(dwHashUseType: UInt32, pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, dwChainFlags: UInt32, pSignerChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT), pTimeStamp: POINTER(win32more.Windows.Win32.Foundation.FILETIME), pwszFileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptProtectData(pDataIn: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), szDataDescr: win32more.Windows.Win32.Foundation.PWSTR, pOptionalEntropy: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pvReserved: VoidPtr, pPromptStruct: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTPROTECT_PROMPTSTRUCT_head), dwFlags: UInt32, pDataOut: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptProtectData(pDataIn: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), szDataDescr: win32more.Windows.Win32.Foundation.PWSTR, pOptionalEntropy: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), pvReserved: VoidPtr, pPromptStruct: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTPROTECT_PROMPTSTRUCT), dwFlags: UInt32, pDataOut: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
-def CryptUnprotectData(pDataIn: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppszDataDescr: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pOptionalEntropy: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pvReserved: VoidPtr, pPromptStruct: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTPROTECT_PROMPTSTRUCT_head), dwFlags: UInt32, pDataOut: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CryptUnprotectData(pDataIn: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), ppszDataDescr: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pOptionalEntropy: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), pvReserved: VoidPtr, pPromptStruct: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTPROTECT_PROMPTSTRUCT), dwFlags: UInt32, pDataOut: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
 def CryptUpdateProtectedState(pOldSid: win32more.Windows.Win32.Foundation.PSID, pwszOldPassword: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pdwSuccessCount: POINTER(UInt32), pdwFailureCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPT32.dll')
@@ -3642,17 +3633,17 @@ def NCryptCreateProtectionDescriptor(pwszDescriptorString: win32more.Windows.Win
 @winfunctype('ncrypt.dll')
 def NCryptCloseProtectionDescriptor(hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptGetProtectionDescriptorInfo(hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, pMemPara: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALLOC_PARA_head), dwInfoType: UInt32, ppvInfo: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptGetProtectionDescriptorInfo(hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, pMemPara: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALLOC_PARA), dwInfoType: UInt32, ppvInfo: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptProtectSecret(hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, dwFlags: UInt32, pbData: POINTER(Byte), cbData: UInt32, pMemPara: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALLOC_PARA_head), hWnd: win32more.Windows.Win32.Foundation.HWND, ppbProtectedBlob: POINTER(POINTER(Byte)), pcbProtectedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptProtectSecret(hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, dwFlags: UInt32, pbData: POINTER(Byte), cbData: UInt32, pMemPara: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALLOC_PARA), hWnd: win32more.Windows.Win32.Foundation.HWND, ppbProtectedBlob: POINTER(POINTER(Byte)), pcbProtectedBlob: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptUnprotectSecret(phDescriptor: POINTER(win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS, pbProtectedBlob: POINTER(Byte), cbProtectedBlob: UInt32, pMemPara: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALLOC_PARA_head), hWnd: win32more.Windows.Win32.Foundation.HWND, ppbData: POINTER(POINTER(Byte)), pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptUnprotectSecret(phDescriptor: POINTER(win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE), dwFlags: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS, pbProtectedBlob: POINTER(Byte), cbProtectedBlob: UInt32, pMemPara: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALLOC_PARA), hWnd: win32more.Windows.Win32.Foundation.HWND, ppbData: POINTER(POINTER(Byte)), pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptStreamOpenToProtect(hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, dwFlags: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROTECT_STREAM_INFO_head), phStream: POINTER(win32more.Windows.Win32.Security.NCRYPT_STREAM_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptStreamOpenToProtect(hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, dwFlags: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROTECT_STREAM_INFO), phStream: POINTER(win32more.Windows.Win32.Security.NCRYPT_STREAM_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptStreamOpenToUnprotect(pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROTECT_STREAM_INFO_head), dwFlags: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, phStream: POINTER(win32more.Windows.Win32.Security.NCRYPT_STREAM_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptStreamOpenToUnprotect(pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROTECT_STREAM_INFO), dwFlags: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, phStream: POINTER(win32more.Windows.Win32.Security.NCRYPT_STREAM_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
-def NCryptStreamOpenToUnprotectEx(pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROTECT_STREAM_INFO_EX_head), dwFlags: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, phStream: POINTER(win32more.Windows.Win32.Security.NCRYPT_STREAM_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def NCryptStreamOpenToUnprotectEx(pStreamInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.NCRYPT_PROTECT_STREAM_INFO_EX), dwFlags: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, phStream: POINTER(win32more.Windows.Win32.Security.NCRYPT_STREAM_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
 def NCryptStreamUpdate(hStream: win32more.Windows.Win32.Security.NCRYPT_STREAM_HANDLE, pbData: POINTER(Byte), cbData: UIntPtr, fFinal: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ncrypt.dll')
@@ -3660,93 +3651,93 @@ def NCryptStreamClose(hStream: win32more.Windows.Win32.Security.NCRYPT_STREAM_HA
 @winfunctype('Mssign32.dll')
 def SignError() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerFreeSignerContext(pSignerContext: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerFreeSignerContext(pSignerContext: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerSign(pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pSignerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_head), pSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO_head), pProviderInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerSign(pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO), pSignerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT), pSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO), pProviderInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES), pSipData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerSignEx(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pSignerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_head), pSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO_head), pProviderInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerSignEx(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO), pSignerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT), pSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO), pProviderInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerSignEx2(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pSignerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_head), pSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO_head), pProviderInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO_head), dwTimestampFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pszTimestampAlgorithmOid: win32more.Windows.Win32.Foundation.PSTR, pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)), pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head), pReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerSignEx2(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO), pSignerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT), pSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO), pProviderInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO), dwTimestampFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pszTimestampAlgorithmOid: win32more.Windows.Win32.Foundation.PSTR, pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT)), pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA), pReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerSignEx3(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pSignerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_head), pSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO_head), pProviderInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO_head), dwTimestampFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pszTimestampAlgorithmOid: win32more.Windows.Win32.Foundation.PSTR, pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)), pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head), pDigestSignInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_DIGEST_SIGN_INFO_head), pReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerSignEx3(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO), pSignerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT), pSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_INFO), pProviderInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_PROVIDER_INFO), dwTimestampFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pszTimestampAlgorithmOid: win32more.Windows.Win32.Foundation.PSTR, pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT)), pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA), pDigestSignInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_DIGEST_SIGN_INFO), pReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerTimeStamp(pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerTimeStamp(pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES), pSipData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerTimeStampEx(dwFlags: UInt32, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerTimeStampEx(dwFlags: UInt32, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerTimeStampEx2(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, dwAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerTimeStampEx2(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, dwAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Mssign32.dll')
-def SignerTimeStampEx3(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, dwIndex: UInt32, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO_head), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, pszAlgorithmOid: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT_head)), pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA_head), pReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignerTimeStampEx3(dwFlags: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS, dwIndex: UInt32, pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_INFO), pwszHttpTimeStamp: win32more.Windows.Win32.Foundation.PWSTR, pszAlgorithmOid: win32more.Windows.Win32.Foundation.PWSTR, psRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES), pSipData: VoidPtr, ppSignerContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CONTEXT)), pCryptoPolicy: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_PARA), pReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
 def CryptXmlClose(hCryptXml: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlGetTransforms(ppConfig: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlGetTransforms(ppConfig: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlOpenToEncode(pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG_head), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, wszId: win32more.Windows.Win32.Foundation.PWSTR, rgProperty: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY_head), cProperty: UInt32, pEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB_head), phSignature: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlOpenToEncode(pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, wszId: win32more.Windows.Win32.Foundation.PWSTR, rgProperty: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY), cProperty: UInt32, pEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB), phSignature: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlOpenToDecode(pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG_head), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, rgProperty: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY_head), cProperty: UInt32, pEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB_head), phCryptXml: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlOpenToDecode(pConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, rgProperty: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY), cProperty: UInt32, pEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB), phCryptXml: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlAddObject(hSignatureOrObject: VoidPtr, dwFlags: UInt32, rgProperty: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY_head), cProperty: UInt32, pEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB_head), ppObject: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_OBJECT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlAddObject(hSignatureOrObject: VoidPtr, dwFlags: UInt32, rgProperty: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY), cProperty: UInt32, pEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB), ppObject: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_OBJECT))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlCreateReference(hCryptXml: VoidPtr, dwFlags: UInt32, wszId: win32more.Windows.Win32.Foundation.PWSTR, wszURI: win32more.Windows.Win32.Foundation.PWSTR, wszType: win32more.Windows.Win32.Foundation.PWSTR, pDigestMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), cTransform: UInt32, rgTransform: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), phReference: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlCreateReference(hCryptXml: VoidPtr, dwFlags: UInt32, wszId: win32more.Windows.Win32.Foundation.PWSTR, wszURI: win32more.Windows.Win32.Foundation.PWSTR, wszType: win32more.Windows.Win32.Foundation.PWSTR, pDigestMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), cTransform: UInt32, rgTransform: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), phReference: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlDigestReference(hReference: VoidPtr, dwFlags: UInt32, pDataProviderIn: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_PROVIDER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlDigestReference(hReference: VoidPtr, dwFlags: UInt32, pDataProviderIn: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_PROVIDER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
 def CryptXmlSetHMACSecret(hSignature: VoidPtr, pbSecret: POINTER(Byte), cbSecret: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlSign(hSignature: VoidPtr, hKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, dwKeyInfoSpec: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEYINFO_SPEC, pvKeyInfoSpec: VoidPtr, pSignatureMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), pCanonicalization: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlSign(hSignature: VoidPtr, hKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, dwKeyInfoSpec: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEYINFO_SPEC, pvKeyInfoSpec: VoidPtr, pSignatureMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), pCanonicalization: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlImportPublicKey(dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, pKeyValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE_head), phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlImportPublicKey(dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, pKeyValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE), phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
 def CryptXmlVerifySignature(hSignature: VoidPtr, hKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlGetDocContext(hCryptXml: VoidPtr, ppStruct: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DOC_CTXT_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlGetDocContext(hCryptXml: VoidPtr, ppStruct: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DOC_CTXT))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlGetSignature(hCryptXml: VoidPtr, ppStruct: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_SIGNATURE_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlGetSignature(hCryptXml: VoidPtr, ppStruct: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_SIGNATURE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlGetReference(hCryptXml: VoidPtr, ppStruct: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCE_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlGetReference(hCryptXml: VoidPtr, ppStruct: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlGetStatus(hCryptXml: VoidPtr, pStatus: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_STATUS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlGetStatus(hCryptXml: VoidPtr, pStatus: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_STATUS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlEncode(hCryptXml: VoidPtr, dwCharset: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET, rgProperty: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY_head), cProperty: UInt32, pvCallbackState: VoidPtr, pfnWrite: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlEncode(hCryptXml: VoidPtr, dwCharset: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET, rgProperty: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY), cProperty: UInt32, pvCallbackState: VoidPtr, pfnWrite: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlGetAlgorithmInfo(pXmlAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, ppAlgInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlGetAlgorithmInfo(pXmlAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_FLAGS, ppAlgInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CRYPTXML.dll')
-def CryptXmlFindAlgorithmInfo(dwFindByType: UInt32, pvFindBy: VoidPtr, dwGroupId: UInt32, dwFlags: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head): ...
+def CryptXmlFindAlgorithmInfo(dwFindByType: UInt32, pvFindBy: VoidPtr, dwGroupId: UInt32, dwFlags: UInt32) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO): ...
 @winfunctype('CRYPTXML.dll')
 def CryptXmlEnumAlgorithmInfo(dwGroupId: UInt32, dwFlags: UInt32, pvArg: VoidPtr, pfnEnumAlgInfo: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_ENUM_ALG_INFO) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def GetToken(cPolicyChain: UInt32, pPolicyChain: POINTER(win32more.Windows.Win32.Security.Cryptography.POLICY_ELEMENT_head), securityToken: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.GENERIC_XML_TOKEN_head)), phProofTokenCrypto: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetToken(cPolicyChain: UInt32, pPolicyChain: POINTER(win32more.Windows.Win32.Security.Cryptography.POLICY_ELEMENT), securityToken: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.GENERIC_XML_TOKEN)), phProofTokenCrypto: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
 def ManageCardSpace() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
 def ImportInformationCard(fileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def Encrypt(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), fOAEP: win32more.Windows.Win32.Foundation.BOOL, cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def Encrypt(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), fOAEP: win32more.Windows.Win32.Foundation.BOOL, cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def Decrypt(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), fOAEP: win32more.Windows.Win32.Foundation.BOOL, cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def Decrypt(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), fOAEP: win32more.Windows.Win32.Foundation.BOOL, cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def SignHash(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), cbHash: UInt32, pHash: POINTER(Byte), hashAlgOid: win32more.Windows.Win32.Foundation.PWSTR, pcbSig: POINTER(UInt32), ppSig: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def SignHash(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), cbHash: UInt32, pHash: POINTER(Byte), hashAlgOid: win32more.Windows.Win32.Foundation.PWSTR, pcbSig: POINTER(UInt32), ppSig: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def VerifyHash(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), cbHash: UInt32, pHash: POINTER(Byte), hashAlgOid: win32more.Windows.Win32.Foundation.PWSTR, cbSig: UInt32, pSig: POINTER(Byte), pfVerified: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def VerifyHash(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), cbHash: UInt32, pHash: POINTER(Byte), hashAlgOid: win32more.Windows.Win32.Foundation.PWSTR, cbSig: UInt32, pSig: POINTER(Byte), pfVerified: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def GetCryptoTransform(hSymmetricCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), mode: UInt32, padding: win32more.Windows.Win32.Security.Cryptography.PaddingMode, feedbackSize: UInt32, direction: win32more.Windows.Win32.Security.Cryptography.Direction, cbIV: UInt32, pIV: POINTER(Byte), pphTransform: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetCryptoTransform(hSymmetricCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), mode: UInt32, padding: win32more.Windows.Win32.Security.Cryptography.PaddingMode, feedbackSize: UInt32, direction: win32more.Windows.Win32.Security.Cryptography.Direction, cbIV: UInt32, pIV: POINTER(Byte), pphTransform: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def GetKeyedHash(hSymmetricCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), pphHash: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GetKeyedHash(hSymmetricCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), pphHash: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def TransformBlock(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def TransformBlock(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def TransformFinalBlock(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def TransformFinalBlock(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def HashCore(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), cbInData: UInt32, pInData: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HashCore(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), cbInData: UInt32, pInData: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def HashFinal(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def HashFinal(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), cbInData: UInt32, pInData: POINTER(Byte), pcbOutData: POINTER(UInt32), ppOutData: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def FreeToken(pAllocMemory: POINTER(win32more.Windows.Win32.Security.Cryptography.GENERIC_XML_TOKEN_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def FreeToken(pAllocMemory: POINTER(win32more.Windows.Win32.Security.Cryptography.GENERIC_XML_TOKEN)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('infocardapi.dll')
-def CloseCryptoHandle(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CloseCryptoHandle(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
-def GenerateDerivedKey(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), cbLabel: UInt32, pLabel: POINTER(Byte), cbNonce: UInt32, pNonce: POINTER(Byte), derivedKeyLength: UInt32, offset: UInt32, algId: win32more.Windows.Win32.Foundation.PWSTR, pcbKey: POINTER(UInt32), ppKey: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def GenerateDerivedKey(hCrypto: POINTER(win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE), cbLabel: UInt32, pLabel: POINTER(Byte), cbNonce: UInt32, pNonce: POINTER(Byte), derivedKeyLength: UInt32, offset: UInt32, algId: win32more.Windows.Win32.Foundation.PWSTR, pcbKey: POINTER(UInt32), ppKey: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
 def GetBrowserToken(dwParamType: UInt32, pParam: VoidPtr, pcbToken: POINTER(UInt32), ppToken: POINTER(POINTER(Byte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 BCRYPTGENRANDOM_FLAGS = UInt32
@@ -3883,7 +3874,7 @@ class BCRYPT_OID(EasyCastStructure):
     pbOID: POINTER(Byte)
 class BCRYPT_OID_LIST(EasyCastStructure):
     dwOIDCount: UInt32
-    pOIDs: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_OID_head)
+    pOIDs: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_OID)
 BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS = UInt32
 BCRYPT_ALG_HANDLE_HMAC_FLAG: BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS = 8
 BCRYPT_PROV_DISPATCH: BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS = 1
@@ -3932,7 +3923,7 @@ class BCryptBuffer(EasyCastStructure):
 class BCryptBufferDesc(EasyCastStructure):
     ulVersion: UInt32
     cBuffers: UInt32
-    pBuffers: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBuffer_head)
+    pBuffers: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBuffer)
 CASetupProperty = Int32
 ENUM_SETUPPROP_INVALID: CASetupProperty = -1
 ENUM_SETUPPROP_CATYPE: CASetupProperty = 0
@@ -3963,7 +3954,7 @@ ENUM_CEPSETUPPROP_URL: CEPSetupProperty = 2
 ENUM_CEPSETUPPROP_KEYBASED_RENEWAL: CEPSetupProperty = 3
 class CERTIFICATE_CHAIN_BLOB(EasyCastStructure):
     certCount: UInt32
-    rawCertificates: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rawCertificates: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class CERT_ACCESS_DESCRIPTION(EasyCastStructure):
     pszAccessMethod: win32more.Windows.Win32.Foundation.PSTR
     AccessLocation: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY
@@ -3971,7 +3962,7 @@ class CERT_ALT_NAME_ENTRY(EasyCastStructure):
     dwAltNameChoice: UInt32
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        pOtherName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OTHER_NAME_head)
+        pOtherName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OTHER_NAME)
         pwszRfc822Name: win32more.Windows.Win32.Foundation.PWSTR
         pwszDNSName: win32more.Windows.Win32.Foundation.PWSTR
         DirectoryName: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -3980,10 +3971,10 @@ class CERT_ALT_NAME_ENTRY(EasyCastStructure):
         pszRegisteredID: win32more.Windows.Win32.Foundation.PSTR
 class CERT_ALT_NAME_INFO(EasyCastStructure):
     cAltEntry: UInt32
-    rgAltEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY_head)
+    rgAltEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY)
 class CERT_AUTHORITY_INFO_ACCESS(EasyCastStructure):
     cAccDescr: UInt32
-    rgAccDescr: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ACCESS_DESCRIPTION_head)
+    rgAccDescr: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ACCESS_DESCRIPTION)
 class CERT_AUTHORITY_KEY_ID2_INFO(EasyCastStructure):
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     AuthorityCertIssuer: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO
@@ -4001,7 +3992,7 @@ class CERT_BASIC_CONSTRAINTS_INFO(EasyCastStructure):
     fPathLenConstraint: win32more.Windows.Win32.Foundation.BOOL
     dwPathLenConstraint: UInt32
     cSubtreesConstraint: UInt32
-    rgSubtreesConstraint: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgSubtreesConstraint: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class CERT_BIOMETRIC_DATA(EasyCastStructure):
     dwTypeOfBiometricDataChoice: win32more.Windows.Win32.Security.Cryptography.CERT_BIOMETRIC_DATA_TYPE
     Anonymous: _Anonymous_e__Union
@@ -4014,29 +4005,29 @@ CERT_BIOMETRIC_PREDEFINED_DATA_CHOICE: CERT_BIOMETRIC_DATA_TYPE = 1
 CERT_BIOMETRIC_OID_DATA_CHOICE: CERT_BIOMETRIC_DATA_TYPE = 2
 class CERT_BIOMETRIC_EXT_INFO(EasyCastStructure):
     cBiometricData: UInt32
-    rgBiometricData: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_BIOMETRIC_DATA_head)
+    rgBiometricData: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_BIOMETRIC_DATA)
 class CERT_CHAIN(EasyCastStructure):
     cCerts: UInt32
-    certs: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    certs: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     keyLocatorInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_INFO
 class CERT_CHAIN_CONTEXT(EasyCastStructure):
     cbSize: UInt32
     TrustStatus: win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_STATUS
     cChain: UInt32
-    rgpChain: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SIMPLE_CHAIN_head))
+    rgpChain: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SIMPLE_CHAIN))
     cLowerQualityChainContext: UInt32
-    rgpLowerQualityChainContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head))
+    rgpLowerQualityChainContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT))
     fHasRevocationFreshnessTime: win32more.Windows.Win32.Foundation.BOOL
     dwRevocationFreshnessTime: UInt32
     dwCreateFlags: UInt32
     ChainId: Guid
 class CERT_CHAIN_ELEMENT(EasyCastStructure):
     cbSize: UInt32
-    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     TrustStatus: win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_STATUS
-    pRevocationInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_INFO_head)
-    pIssuanceUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE_head)
-    pApplicationUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE_head)
+    pRevocationInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_INFO)
+    pIssuanceUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE)
+    pApplicationUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE)
     pwszExtendedErrorInfo: win32more.Windows.Win32.Foundation.PWSTR
 class CERT_CHAIN_ENGINE_CONFIG(EasyCastStructure):
     cbSize: UInt32
@@ -4058,7 +4049,7 @@ class CERT_CHAIN_FIND_BY_ISSUER_PARA(EasyCastStructure):
     dwKeySpec: UInt32
     dwAcquirePrivateKeyFlags: UInt32
     cIssuer: UInt32
-    rgIssuer: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgIssuer: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     pfnFindCallback: win32more.Windows.Win32.Security.Cryptography.PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK
     pvFindArg: VoidPtr
 class CERT_CHAIN_PARA(EasyCastStructure):
@@ -4097,7 +4088,7 @@ class CERT_CONTEXT(EasyCastStructure):
     dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE
     pbCertEncoded: POINTER(Byte)
     cbCertEncoded: UInt32
-    pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)
+    pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)
     hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
 CERT_CONTROL_STORE_FLAGS = UInt32
 CERT_STORE_CTRL_COMMIT_FORCE_FLAG: CERT_CONTROL_STORE_FLAGS = 1
@@ -4113,8 +4104,8 @@ CERT_CREATE_SELFSIGN_FLAGS = UInt32
 CERT_CREATE_SELFSIGN_NO_KEY_INFO: CERT_CREATE_SELFSIGN_FLAGS = 2
 CERT_CREATE_SELFSIGN_NO_SIGN: CERT_CREATE_SELFSIGN_FLAGS = 1
 class CERT_CRL_CONTEXT_PAIR(EasyCastStructure):
-    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
-    pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)
+    pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
+    pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
 class CERT_DH_PARAMETERS(EasyCastStructure):
     p: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     g: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -4131,7 +4122,7 @@ class CERT_EXTENSION(EasyCastStructure):
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
 class CERT_EXTENSIONS(EasyCastStructure):
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 CERT_FIND_CHAIN_IN_STORE_FLAGS = UInt32
 CERT_CHAIN_FIND_BY_ISSUER_COMPARE_KEY_FLAG: CERT_FIND_CHAIN_IN_STORE_FLAGS = 1
 CERT_CHAIN_FIND_BY_ISSUER_COMPLEX_CHAIN_FLAG: CERT_FIND_CHAIN_IN_STORE_FLAGS = 2
@@ -4226,7 +4217,7 @@ class CERT_INFO(EasyCastStructure):
     IssuerUniqueId: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     SubjectUniqueId: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class CERT_ISSUER_SERIAL_NUMBER(EasyCastStructure):
     Issuer: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -4237,7 +4228,7 @@ class CERT_KEYGEN_REQUEST_INFO(EasyCastStructure):
 class CERT_KEY_ATTRIBUTES_INFO(EasyCastStructure):
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     IntendedKeyUsage: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
-    pPrivateKeyUsagePeriod: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PRIVATE_KEY_VALIDITY_head)
+    pPrivateKeyUsagePeriod: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PRIVATE_KEY_VALIDITY)
 class CERT_KEY_CONTEXT(EasyCastStructure):
     cbSize: UInt32
     Anonymous: _Anonymous_e__Union
@@ -4251,14 +4242,14 @@ AT_SIGNATURE: CERT_KEY_SPEC = 2
 CERT_NCRYPT_KEY_SPEC: CERT_KEY_SPEC = 4294967295
 class CERT_KEY_USAGE_RESTRICTION_INFO(EasyCastStructure):
     cCertPolicyId: UInt32
-    rgCertPolicyId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_ID_head)
+    rgCertPolicyId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_ID)
     RestrictedKeyUsage: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
 class CERT_LDAP_STORE_OPENED_PARA(EasyCastStructure):
     pvLdapSessionHandle: VoidPtr
     pwszLdapUrl: win32more.Windows.Win32.Foundation.PWSTR
 class CERT_LOGOTYPE_AUDIO(EasyCastStructure):
     LogotypeDetails: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_DETAILS
-    pLogotypeAudioInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_AUDIO_INFO_head)
+    pLogotypeAudioInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_AUDIO_INFO)
 class CERT_LOGOTYPE_AUDIO_INFO(EasyCastStructure):
     dwFileSize: UInt32
     dwPlayTime: UInt32
@@ -4271,23 +4262,23 @@ CERT_LOGOTYPE_BITS_IMAGE_RESOLUTION_CHOICE: CERT_LOGOTYPE_CHOICE = 1
 CERT_LOGOTYPE_TABLE_SIZE_IMAGE_RESOLUTION_CHOICE: CERT_LOGOTYPE_CHOICE = 2
 class CERT_LOGOTYPE_DATA(EasyCastStructure):
     cLogotypeImage: UInt32
-    rgLogotypeImage: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE_head)
+    rgLogotypeImage: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE)
     cLogotypeAudio: UInt32
-    rgLogotypeAudio: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_AUDIO_head)
+    rgLogotypeAudio: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_AUDIO)
 class CERT_LOGOTYPE_DETAILS(EasyCastStructure):
     pwszMimeType: win32more.Windows.Win32.Foundation.PWSTR
     cHashedUrl: UInt32
-    rgHashedUrl: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_HASHED_URL_head)
+    rgHashedUrl: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_HASHED_URL)
 class CERT_LOGOTYPE_EXT_INFO(EasyCastStructure):
     cCommunityLogo: UInt32
-    rgCommunityLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO_head)
-    pIssuerLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO_head)
-    pSubjectLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO_head)
+    rgCommunityLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO)
+    pIssuerLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO)
+    pSubjectLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO)
     cOtherLogo: UInt32
-    rgOtherLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OTHER_LOGOTYPE_INFO_head)
+    rgOtherLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OTHER_LOGOTYPE_INFO)
 class CERT_LOGOTYPE_IMAGE(EasyCastStructure):
     LogotypeDetails: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_DETAILS
-    pLogotypeImageInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE_INFO_head)
+    pLogotypeImageInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE_INFO)
 class CERT_LOGOTYPE_IMAGE_INFO(EasyCastStructure):
     dwLogotypeImageInfoChoice: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE_INFO_TYPE
     dwFileSize: UInt32
@@ -4306,22 +4297,22 @@ class CERT_LOGOTYPE_INFO(EasyCastStructure):
     dwLogotypeInfoChoice: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_OPTION
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        pLogotypeDirectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_DATA_head)
-        pLogotypeIndirectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_REFERENCE_head)
+        pLogotypeDirectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_DATA)
+        pLogotypeIndirectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_REFERENCE)
 CERT_LOGOTYPE_OPTION = UInt32
 CERT_LOGOTYPE_DIRECT_INFO_CHOICE: CERT_LOGOTYPE_OPTION = 1
 CERT_LOGOTYPE_INDIRECT_INFO_CHOICE: CERT_LOGOTYPE_OPTION = 2
 class CERT_LOGOTYPE_REFERENCE(EasyCastStructure):
     cHashedUrl: UInt32
-    rgHashedUrl: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_HASHED_URL_head)
+    rgHashedUrl: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_HASHED_URL)
 class CERT_NAME_CONSTRAINTS_INFO(EasyCastStructure):
     cPermittedSubtree: UInt32
-    rgPermittedSubtree: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_GENERAL_SUBTREE_head)
+    rgPermittedSubtree: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_GENERAL_SUBTREE)
     cExcludedSubtree: UInt32
-    rgExcludedSubtree: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_GENERAL_SUBTREE_head)
+    rgExcludedSubtree: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_GENERAL_SUBTREE)
 class CERT_NAME_INFO(EasyCastStructure):
     cRDN: UInt32
-    rgRDN: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN_head)
+    rgRDN: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN)
 class CERT_NAME_VALUE(EasyCastStructure):
     dwValueType: UInt32
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -4344,7 +4335,7 @@ class CERT_OR_CRL_BLOB(EasyCastStructure):
     pbEncoded: POINTER(Byte)
 class CERT_OR_CRL_BUNDLE(EasyCastStructure):
     cItem: UInt32
-    rgItem: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OR_CRL_BLOB_head)
+    rgItem: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OR_CRL_BLOB)
 class CERT_OTHER_LOGOTYPE_INFO(EasyCastStructure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     LogotypeInfo: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO
@@ -4364,13 +4355,13 @@ class CERT_PHYSICAL_STORE_INFO(EasyCastStructure):
     dwPriority: UInt32
 class CERT_POLICIES_INFO(EasyCastStructure):
     cPolicyInfo: UInt32
-    rgPolicyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_INFO_head)
+    rgPolicyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_INFO)
 class CERT_POLICY95_QUALIFIER1(EasyCastStructure):
     pszPracticesReference: win32more.Windows.Win32.Foundation.PWSTR
     pszNoticeIdentifier: win32more.Windows.Win32.Foundation.PSTR
     pszNSINoticeIdentifier: win32more.Windows.Win32.Foundation.PSTR
     cCPSURLs: UInt32
-    rgCPSURLs: POINTER(win32more.Windows.Win32.Security.Cryptography.CPS_URLS_head)
+    rgCPSURLs: POINTER(win32more.Windows.Win32.Security.Cryptography.CPS_URLS)
 class CERT_POLICY_CONSTRAINTS_INFO(EasyCastStructure):
     fRequireExplicitPolicy: win32more.Windows.Win32.Foundation.BOOL
     dwRequireExplicitPolicySkipCerts: UInt32
@@ -4382,13 +4373,13 @@ class CERT_POLICY_ID(EasyCastStructure):
 class CERT_POLICY_INFO(EasyCastStructure):
     pszPolicyIdentifier: win32more.Windows.Win32.Foundation.PSTR
     cPolicyQualifier: UInt32
-    rgPolicyQualifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_QUALIFIER_INFO_head)
+    rgPolicyQualifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_QUALIFIER_INFO)
 class CERT_POLICY_MAPPING(EasyCastStructure):
     pszIssuerDomainPolicy: win32more.Windows.Win32.Foundation.PSTR
     pszSubjectDomainPolicy: win32more.Windows.Win32.Foundation.PSTR
 class CERT_POLICY_MAPPINGS_INFO(EasyCastStructure):
     cPolicyMapping: UInt32
-    rgPolicyMapping: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_MAPPING_head)
+    rgPolicyMapping: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_MAPPING)
 class CERT_POLICY_QUALIFIER_INFO(EasyCastStructure):
     pszPolicyQualifierId: win32more.Windows.Win32.Foundation.PSTR
     Qualifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -4397,7 +4388,7 @@ class CERT_POLICY_QUALIFIER_NOTICE_REFERENCE(EasyCastStructure):
     cNoticeNumbers: UInt32
     rgNoticeNumbers: POINTER(Int32)
 class CERT_POLICY_QUALIFIER_USER_NOTICE(EasyCastStructure):
-    pNoticeReference: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_QUALIFIER_NOTICE_REFERENCE_head)
+    pNoticeReference: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_QUALIFIER_NOTICE_REFERENCE)
     pszDisplayText: win32more.Windows.Win32.Foundation.PWSTR
 class CERT_PRIVATE_KEY_VALIDITY(EasyCastStructure):
     NotBefore: win32more.Windows.Win32.Foundation.FILETIME
@@ -4410,7 +4401,7 @@ class CERT_QC_STATEMENT(EasyCastStructure):
     StatementInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
 class CERT_QC_STATEMENTS_EXT_INFO(EasyCastStructure):
     cStatement: UInt32
-    rgStatement: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_QC_STATEMENT_head)
+    rgStatement: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_QC_STATEMENT)
 CERT_QUERY_CONTENT_TYPE = UInt32
 CERT_QUERY_CONTENT_CERT: CERT_QUERY_CONTENT_TYPE = 1
 CERT_QUERY_CONTENT_CTL: CERT_QUERY_CONTENT_TYPE = 2
@@ -4460,7 +4451,7 @@ CERT_QUERY_OBJECT_FILE: CERT_QUERY_OBJECT_TYPE = 1
 CERT_QUERY_OBJECT_BLOB: CERT_QUERY_OBJECT_TYPE = 2
 class CERT_RDN(EasyCastStructure):
     cRDNAttr: UInt32
-    rgRDNAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN_ATTR_head)
+    rgRDNAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN_ATTR)
 class CERT_RDN_ATTR(EasyCastStructure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     dwValueType: UInt32
@@ -4495,21 +4486,21 @@ class CERT_REQUEST_INFO(EasyCastStructure):
     Subject: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SubjectPublicKeyInfo: win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO
     cAttribute: UInt32
-    rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
 class CERT_REVOCATION_CHAIN_PARA(EasyCastStructure):
     cbSize: UInt32
     hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE
     hAdditionalStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
     dwChainFlags: UInt32
     dwUrlRetrievalTimeout: UInt32
-    pftCurrentTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
-    pftCacheResync: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
+    pftCurrentTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
+    pftCacheResync: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
     cbMaxUrlRetrievalByteCount: UInt32
 class CERT_REVOCATION_CRL_INFO(EasyCastStructure):
     cbSize: UInt32
-    pBaseCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)
-    pDeltaCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)
-    pCrlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY_head)
+    pBaseCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
+    pDeltaCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
+    pCrlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY)
     fDeltaCrlEntry: win32more.Windows.Win32.Foundation.BOOL
 class CERT_REVOCATION_INFO(EasyCastStructure):
     cbSize: UInt32
@@ -4518,14 +4509,14 @@ class CERT_REVOCATION_INFO(EasyCastStructure):
     pvOidSpecificInfo: VoidPtr
     fHasFreshnessTime: win32more.Windows.Win32.Foundation.BOOL
     dwFreshnessTime: UInt32
-    pCrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_CRL_INFO_head)
+    pCrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_CRL_INFO)
 class CERT_REVOCATION_PARA(EasyCastStructure):
     cbSize: UInt32
-    pIssuerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pIssuerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     cCertStore: UInt32
     rgCertStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     hCrlStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
-    pftTimeToUse: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
+    pftTimeToUse: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
 class CERT_REVOCATION_STATUS(EasyCastStructure):
     cbSize: UInt32
     dwIndex: UInt32
@@ -4548,9 +4539,9 @@ CERT_ROOT_PROGRAM_FLAG_ORG: CERT_ROOT_PROGRAM_FLAGS = 128
 CERT_ROOT_PROGRAM_FLAG_SUBJECT_LOGO: CERT_ROOT_PROGRAM_FLAGS = 32
 class CERT_SELECT_CHAIN_PARA(EasyCastStructure):
     hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE
-    pTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
+    pTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
     hAdditionalStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
-    pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA_head)
+    pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA)
     dwFlags: UInt32
 class CERT_SELECT_CRITERIA(EasyCastStructure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CRITERIA_TYPE
@@ -4587,8 +4578,8 @@ class CERT_SIMPLE_CHAIN(EasyCastStructure):
     cbSize: UInt32
     TrustStatus: win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_STATUS
     cElement: UInt32
-    rgpElement: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_ELEMENT_head))
-    pTrustListInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_LIST_INFO_head)
+    rgpElement: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_ELEMENT))
+    pTrustListInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_LIST_INFO)
     fHasRevocationFreshnessTime: win32more.Windows.Win32.Foundation.BOOL
     dwRevocationFreshnessTime: UInt32
 class CERT_STORE_PROV_FIND_INFO(EasyCastStructure):
@@ -4632,7 +4623,7 @@ class CERT_STRONG_SIGN_PARA(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         pvInfo: VoidPtr
-        pSerializedInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_SERIALIZED_INFO_head)
+        pSerializedInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_SERIALIZED_INFO)
         pszOID: win32more.Windows.Win32.Foundation.PSTR
 class CERT_STRONG_SIGN_SERIALIZED_INFO(EasyCastStructure):
     dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_FLAGS
@@ -4668,8 +4659,8 @@ class CERT_TPM_SPECIFICATION_INFO(EasyCastStructure):
     dwRevision: UInt32
 class CERT_TRUST_LIST_INFO(EasyCastStructure):
     cbSize: UInt32
-    pCtlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY_head)
-    pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head)
+    pCtlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY)
+    pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
 class CERT_TRUST_STATUS(EasyCastStructure):
     dwErrorStatus: UInt32
     dwInfoStatus: UInt32
@@ -4681,7 +4672,7 @@ class CERT_X942_DH_PARAMETERS(EasyCastStructure):
     g: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     q: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     j: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-    pValidationParams: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_X942_DH_VALIDATION_PARAMS_head)
+    pValidationParams: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_X942_DH_VALIDATION_PARAMS)
 class CERT_X942_DH_VALIDATION_PARAMS(EasyCastStructure):
     seed: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     pgenCounter: UInt32
@@ -4701,32 +4692,32 @@ class CMC_ADD_ATTRIBUTES_INFO(EasyCastStructure):
     cCertReference: UInt32
     rgdwCertReference: POINTER(UInt32)
     cAttribute: UInt32
-    rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
 class CMC_ADD_EXTENSIONS_INFO(EasyCastStructure):
     dwCmcDataReference: UInt32
     cCertReference: UInt32
     rgdwCertReference: POINTER(UInt32)
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class CMC_DATA_INFO(EasyCastStructure):
     cTaggedAttribute: UInt32
-    rgTaggedAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_ATTRIBUTE_head)
+    rgTaggedAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_ATTRIBUTE)
     cTaggedRequest: UInt32
-    rgTaggedRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_REQUEST_head)
+    rgTaggedRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_REQUEST)
     cTaggedContentInfo: UInt32
-    rgTaggedContentInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CONTENT_INFO_head)
+    rgTaggedContentInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CONTENT_INFO)
     cTaggedOtherMsg: UInt32
-    rgTaggedOtherMsg: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_OTHER_MSG_head)
+    rgTaggedOtherMsg: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_OTHER_MSG)
 class CMC_PEND_INFO(EasyCastStructure):
     PendToken: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     PendTime: win32more.Windows.Win32.Foundation.FILETIME
 class CMC_RESPONSE_INFO(EasyCastStructure):
     cTaggedAttribute: UInt32
-    rgTaggedAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_ATTRIBUTE_head)
+    rgTaggedAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_ATTRIBUTE)
     cTaggedContentInfo: UInt32
-    rgTaggedContentInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CONTENT_INFO_head)
+    rgTaggedContentInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CONTENT_INFO)
     cTaggedOtherMsg: UInt32
-    rgTaggedOtherMsg: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_OTHER_MSG_head)
+    rgTaggedOtherMsg: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_OTHER_MSG)
 class CMC_STATUS_INFO(EasyCastStructure):
     dwStatus: UInt32
     cBodyList: UInt32
@@ -4736,7 +4727,7 @@ class CMC_STATUS_INFO(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         dwFailInfo: UInt32
-        pPendInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_PEND_INFO_head)
+        pPendInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_PEND_INFO)
 class CMC_TAGGED_ATTRIBUTE(EasyCastStructure):
     dwBodyPartID: UInt32
     Attribute: win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE
@@ -4754,15 +4745,15 @@ class CMC_TAGGED_REQUEST(EasyCastStructure):
     dwTaggedRequestChoice: UInt32
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        pTaggedCertRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CERT_REQUEST_head)
+        pTaggedCertRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CERT_REQUEST)
 CMSCEPSetup = Guid('{aa4f5c02-8e7c-49c4-94fa-67a5cc5eadb4}')
 class CMSG_CMS_RECIPIENT_INFO(EasyCastStructure):
     dwRecipientChoice: UInt32
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_INFO_head)
-        pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_INFO_head)
-        pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_INFO_head)
+        pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_INFO)
+        pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_INFO)
+        pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_INFO)
 class CMSG_CMS_SIGNER_INFO(EasyCastStructure):
     dwVersion: UInt32
     SignerId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
@@ -4787,7 +4778,7 @@ class CMSG_CONTENT_ENCRYPT_INFO(EasyCastStructure):
     ContentEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvEncryptionAuxInfo: VoidPtr
     cRecipients: UInt32
-    rgCmsRecipients: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCODE_INFO_head)
+    rgCmsRecipients: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCODE_INFO)
     pfnAlloc: win32more.Windows.Win32.Security.Cryptography.PFN_CMSG_ALLOC
     pfnFree: win32more.Windows.Win32.Security.Cryptography.PFN_CMSG_FREE
     dwEncryptFlags: UInt32
@@ -4820,7 +4811,7 @@ class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA(EasyCastStructure):
     cbSize: UInt32
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
-    pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_INFO_head)
+    pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_INFO)
     dwRecipientIndex: UInt32
     dwRecipientEncryptedKeyIndex: UInt32
     OriginatorPublicKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
@@ -4831,7 +4822,7 @@ class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA(EasyCastStructure):
     cbSize: UInt32
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
-    pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_INFO_head)
+    pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_INFO)
     dwRecipientIndex: UInt32
     class _Anonymous_e__Union(EasyCastUnion):
         hCryptProv: UIntPtr
@@ -4839,7 +4830,7 @@ class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA(EasyCastStructure):
 class CMSG_CTRL_MAIL_LIST_DECRYPT_PARA(EasyCastStructure):
     cbSize: UInt32
     hCryptProv: UIntPtr
-    pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_INFO_head)
+    pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_INFO)
     dwRecipientIndex: UInt32
     dwKeyChoice: UInt32
     Anonymous: _Anonymous_e__Union
@@ -4862,7 +4853,7 @@ class CMSG_ENVELOPED_ENCODE_INFO(EasyCastStructure):
     ContentEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvEncryptionAuxInfo: VoidPtr
     cRecipients: UInt32
-    rgpRecipients: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head))
+    rgpRecipients: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO))
 class CMSG_HASHED_ENCODE_INFO(EasyCastStructure):
     cbSize: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
@@ -4876,7 +4867,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO(EasyCastStructure):
     dwOriginatorChoice: win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_ORIGINATOR
     Anonymous: _Anonymous_e__Union
     cKeyAgreeKeyEncryptInfo: UInt32
-    rgpKeyAgreeKeyEncryptInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_KEY_ENCRYPT_INFO_head))
+    rgpKeyAgreeKeyEncryptInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_KEY_ENCRYPT_INFO))
     dwFlags: UInt32
     class _Anonymous_e__Union(EasyCastUnion):
         OriginatorCertId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
@@ -4902,10 +4893,10 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     UserKeyingMaterial: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cRecipientEncryptedKeys: UInt32
-    rgpRecipientEncryptedKeys: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO_head))
+    rgpRecipientEncryptedKeys: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO))
     class _Anonymous_e__Union(EasyCastUnion):
-        pEphemeralAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head)
-        pSenderId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ID_head)
+        pEphemeralAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER)
+        pSenderId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ID)
 class CMSG_KEY_AGREE_RECIPIENT_INFO(EasyCastStructure):
     dwVersion: UInt32
     dwOriginatorChoice: win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_ORIGINATOR
@@ -4913,7 +4904,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO(EasyCastStructure):
     UserKeyingMaterial: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     cRecipientEncryptedKeys: UInt32
-    rgpRecipientEncryptedKeys: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCRYPTED_KEY_INFO_head))
+    rgpRecipientEncryptedKeys: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCRYPTED_KEY_INFO))
     class _Anonymous_e__Union(EasyCastUnion):
         OriginatorCertId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
         OriginatorPublicKeyInfo: win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO
@@ -4950,7 +4941,7 @@ class CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Date: win32more.Windows.Win32.Foundation.FILETIME
-    pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE_head)
+    pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
     class _Anonymous_e__Union(EasyCastUnion):
         hKeyEncryptionKey: UIntPtr
         pvKeyEncryptionKey: VoidPtr
@@ -4960,7 +4951,7 @@ class CMSG_MAIL_LIST_RECIPIENT_INFO(EasyCastStructure):
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     EncryptedKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Date: win32more.Windows.Win32.Foundation.FILETIME
-    pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE_head)
+    pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
 class CMSG_RC2_AUX_INFO(EasyCastStructure):
     cbSize: UInt32
     dwBitLen: UInt32
@@ -4971,20 +4962,20 @@ class CMSG_RECIPIENT_ENCODE_INFO(EasyCastStructure):
     dwRecipientChoice: UInt32
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO_head)
-        pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO_head)
-        pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO_head)
+        pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO)
+        pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO)
+        pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO)
 class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO(EasyCastStructure):
     cbSize: UInt32
     RecipientPublicKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     RecipientId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
     Date: win32more.Windows.Win32.Foundation.FILETIME
-    pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE_head)
+    pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
 class CMSG_RECIPIENT_ENCRYPTED_KEY_INFO(EasyCastStructure):
     RecipientId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
     EncryptedKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Date: win32more.Windows.Win32.Foundation.FILETIME
-    pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE_head)
+    pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
 class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO(EasyCastStructure):
     cbSize: UInt32
     SignedInfo: win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNED_ENCODE_INFO
@@ -4992,22 +4983,22 @@ class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO(EasyCastStructure):
 class CMSG_SIGNED_ENCODE_INFO(EasyCastStructure):
     cbSize: UInt32
     cSigners: UInt32
-    rgSigners: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_ENCODE_INFO_head)
+    rgSigners: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_ENCODE_INFO)
     cCertEncoded: UInt32
-    rgCertEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgCertEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     cCrlEncoded: UInt32
-    rgCrlEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgCrlEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class CMSG_SIGNER_ENCODE_INFO(EasyCastStructure):
     cbSize: UInt32
-    pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)
+    pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvHashAuxInfo: VoidPtr
     cAuthAttr: UInt32
-    rgAuthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgAuthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
     cUnauthAttr: UInt32
-    rgUnauthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgUnauthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
     class _Anonymous_e__Union(EasyCastUnion):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
@@ -5040,13 +5031,13 @@ class CMS_KEY_INFO(EasyCastStructure):
     cbOID: UInt32
 class CPS_URLS(EasyCastStructure):
     pszURL: win32more.Windows.Win32.Foundation.PWSTR
-    pAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head)
-    pDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    pAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER)
+    pDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class CRL_CONTEXT(EasyCastStructure):
     dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE
     pbCrlEncoded: POINTER(Byte)
     cbCrlEncoded: UInt32
-    pCrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_INFO_head)
+    pCrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_INFO)
     hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
 class CRL_DIST_POINT(EasyCastStructure):
     DistPointName: win32more.Windows.Win32.Security.Cryptography.CRL_DIST_POINT_NAME
@@ -5054,7 +5045,7 @@ class CRL_DIST_POINT(EasyCastStructure):
     CRLIssuer: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO
 class CRL_DIST_POINTS_INFO(EasyCastStructure):
     cDistPoint: UInt32
-    rgDistPoint: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_DIST_POINT_head)
+    rgDistPoint: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_DIST_POINT)
 class CRL_DIST_POINT_NAME(EasyCastStructure):
     dwDistPointNameChoice: UInt32
     Anonymous: _Anonymous_e__Union
@@ -5064,10 +5055,10 @@ class CRL_ENTRY(EasyCastStructure):
     SerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     RevocationDate: win32more.Windows.Win32.Foundation.FILETIME
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class CRL_FIND_ISSUED_FOR_PARA(EasyCastStructure):
-    pSubjectCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
-    pIssuerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pSubjectCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
+    pIssuerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
 class CRL_INFO(EasyCastStructure):
     dwVersion: UInt32
     SignatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
@@ -5075,9 +5066,9 @@ class CRL_INFO(EasyCastStructure):
     ThisUpdate: win32more.Windows.Win32.Foundation.FILETIME
     NextUpdate: win32more.Windows.Win32.Foundation.FILETIME
     cCRLEntry: UInt32
-    rgCRLEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY_head)
+    rgCRLEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY)
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class CRL_ISSUING_DIST_POINT(EasyCastStructure):
     DistPointName: win32more.Windows.Win32.Security.Cryptography.CRL_DIST_POINT_NAME
     fOnlyContainsUserCerts: win32more.Windows.Win32.Foundation.BOOL
@@ -5085,13 +5076,13 @@ class CRL_ISSUING_DIST_POINT(EasyCastStructure):
     OnlySomeReasonFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     fIndirectCRL: win32more.Windows.Win32.Foundation.BOOL
 class CRL_REVOCATION_INFO(EasyCastStructure):
-    pCrlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY_head)
-    pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head)
-    pCrlIssuerChain: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head)
+    pCrlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY)
+    pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
+    pCrlIssuerChain: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)
 class CROSS_CERT_DIST_POINTS_INFO(EasyCastStructure):
     dwSyncDeltaTime: UInt32
     cDistPoint: UInt32
-    rgDistPoint: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO_head)
+    rgDistPoint: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO)
 class CRYPTNET_URL_CACHE_FLUSH_INFO(EasyCastStructure):
     cbSize: UInt32
     dwExemptSeconds: UInt32
@@ -5153,10 +5144,10 @@ class CRYPT_ASYNC_RETRIEVAL_COMPLETION(EasyCastStructure):
 class CRYPT_ATTRIBUTE(EasyCastStructure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     cValue: UInt32
-    rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class CRYPT_ATTRIBUTES(EasyCastStructure):
     cAttr: UInt32
-    rgAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
 class CRYPT_ATTRIBUTE_TYPE_VALUE(EasyCastStructure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5166,14 +5157,14 @@ class CRYPT_BIT_BLOB(EasyCastStructure):
     cUnusedBits: UInt32
 class CRYPT_BLOB_ARRAY(EasyCastStructure):
     cBlob: UInt32
-    rgBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class CRYPT_CONTENT_INFO(EasyCastStructure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Content: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
 class CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY(EasyCastStructure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     cValue: UInt32
-    rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class CRYPT_CONTEXTS(EasyCastStructure):
     cContexts: UInt32
     rgpszContexts: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
@@ -5262,11 +5253,11 @@ CRYPT_FIND_SILENT_KEYSET_FLAG: CRYPT_FIND_FLAGS = 64
 class CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO(EasyCastStructure):
     cbSize: UInt32
     iDeltaCrlIndicator: Int32
-    pftCacheResync: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
-    pLastSyncTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
-    pMaxAgeTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
-    pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_CHAIN_PARA_head)
-    pDeltaCrlIndicator: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    pftCacheResync: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
+    pLastSyncTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
+    pMaxAgeTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
+    pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_CHAIN_PARA)
+    pDeltaCrlIndicator: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 CRYPT_GET_URL_FLAGS = UInt32
 CRYPT_GET_URL_FROM_PROPERTY: CRYPT_GET_URL_FLAGS = 1
 CRYPT_GET_URL_FROM_EXTENSION: CRYPT_GET_URL_FLAGS = 2
@@ -5290,7 +5281,7 @@ CRYPT_PROCESS_ISOLATE: CRYPT_IMAGE_REF_FLAGS = 65536
 class CRYPT_IMAGE_REG(EasyCastStructure):
     pszImage: win32more.Windows.Win32.Foundation.PWSTR
     cInterfaces: UInt32
-    rgpInterfaces: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTERFACE_REG_head))
+    rgpInterfaces: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTERFACE_REG))
 CRYPT_IMPORT_PUBLIC_KEY_FLAGS = UInt32
 CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG: CRYPT_IMPORT_PUBLIC_KEY_FLAGS = 2147483648
 CRYPT_OID_INFO_PUBKEY_ENCRYPT_KEY_FLAG: CRYPT_IMPORT_PUBLIC_KEY_FLAGS = 1073741824
@@ -5349,7 +5340,7 @@ class CRYPT_KEY_PROV_INFO(EasyCastStructure):
     dwProvType: UInt32
     dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_FLAGS
     cProvParam: UInt32
-    rgProvParam: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_PARAM_head)
+    rgProvParam: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_PARAM)
     dwKeySpec: UInt32
 class CRYPT_KEY_PROV_PARAM(EasyCastStructure):
     dwParam: UInt32
@@ -5436,7 +5427,7 @@ class CRYPT_PRIVATE_KEY_INFO(EasyCastStructure):
     Version: UInt32
     Algorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     PrivateKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-    pAttributes: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)
+    pAttributes: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
 class CRYPT_PROPERTY_REF(EasyCastStructure):
     pszProperty: win32more.Windows.Win32.Foundation.PWSTR
     cbValue: UInt32
@@ -5449,17 +5440,17 @@ class CRYPT_PROVIDER_REF(EasyCastStructure):
     pszFunction: win32more.Windows.Win32.Foundation.PWSTR
     pszProvider: win32more.Windows.Win32.Foundation.PWSTR
     cProperties: UInt32
-    rgpProperties: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROPERTY_REF_head))
-    pUM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF_head)
-    pKM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF_head)
+    rgpProperties: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROPERTY_REF))
+    pUM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF)
+    pKM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF)
 class CRYPT_PROVIDER_REFS(EasyCastStructure):
     cProviders: UInt32
-    rgpProviders: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDER_REF_head))
+    rgpProviders: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDER_REF))
 class CRYPT_PROVIDER_REG(EasyCastStructure):
     cAliases: UInt32
     rgpszAliases: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-    pUM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REG_head)
-    pKM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REG_head)
+    pUM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REG)
+    pKM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REG)
 class CRYPT_PSOURCE_ALGORITHM(EasyCastStructure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     EncodingParameters: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5474,17 +5465,17 @@ class CRYPT_RC4_KEY_STATE(EasyCastStructure):
     j: Byte
 class CRYPT_RETRIEVE_AUX_INFO(EasyCastStructure):
     cbSize: UInt32
-    pLastSyncTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
+    pLastSyncTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
     dwMaxUrlRetrievalByteCount: UInt32
-    pPreFetchInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTNET_URL_CACHE_PRE_FETCH_INFO_head)
-    pFlushInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTNET_URL_CACHE_FLUSH_INFO_head)
-    ppResponseInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTNET_URL_CACHE_RESPONSE_INFO_head))
+    pPreFetchInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTNET_URL_CACHE_PRE_FETCH_INFO)
+    pFlushInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTNET_URL_CACHE_FLUSH_INFO)
+    ppResponseInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPTNET_URL_CACHE_RESPONSE_INFO))
     pwszCacheFileNamePrefix: win32more.Windows.Win32.Foundation.PWSTR
-    pftCacheResync: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
+    pftCacheResync: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
     fProxyCacheRetrieval: win32more.Windows.Win32.Foundation.BOOL
     dwHttpStatusCode: UInt32
     ppwszErrorResponseHeaders: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-    ppErrorContentBlob: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head))
+    ppErrorContentBlob: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB))
 class CRYPT_RSAES_OAEP_PARAMETERS(EasyCastStructure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     MaskGenAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_MASK_GEN_ALGORITHM
@@ -5496,7 +5487,7 @@ class CRYPT_RSA_SSA_PSS_PARAMETERS(EasyCastStructure):
     dwTrailerField: UInt32
 class CRYPT_SEQUENCE_OF_ANY(EasyCastStructure):
     cValue: UInt32
-    rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 CRYPT_SET_HASH_PARAM = UInt32
 HP_HMAC_INFO: CRYPT_SET_HASH_PARAM = 5
 HP_HASHVAL: CRYPT_SET_HASH_PARAM = 2
@@ -5521,17 +5512,17 @@ PP_SMARTCARD_READER: CRYPT_SET_PROV_PARAM_ID = 43
 class CRYPT_SIGN_MESSAGE_PARA(EasyCastStructure):
     cbSize: UInt32
     dwMsgEncodingType: UInt32
-    pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvHashAuxInfo: VoidPtr
     cMsgCert: UInt32
-    rgpMsgCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))
+    rgpMsgCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))
     cMsgCrl: UInt32
-    rgpMsgCrl: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head))
+    rgpMsgCrl: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT))
     cAuthAttr: UInt32
-    rgAuthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgAuthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
     cUnauthAttr: UInt32
-    rgUnauthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgUnauthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
     dwFlags: UInt32
     dwInnerContentType: UInt32
 class CRYPT_SMART_CARD_ROOT_INFO(EasyCastStructure):
@@ -5539,7 +5530,7 @@ class CRYPT_SMART_CARD_ROOT_INFO(EasyCastStructure):
     luid: win32more.Windows.Win32.Security.Cryptography.ROOT_INFO_LUID
 class CRYPT_SMIME_CAPABILITIES(EasyCastStructure):
     cCapability: UInt32
-    rgCapability: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_SMIME_CAPABILITY_head)
+    rgCapability: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_SMIME_CAPABILITY)
 class CRYPT_SMIME_CAPABILITY(EasyCastStructure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Parameters: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5565,7 +5556,7 @@ class CRYPT_TIMESTAMP_ACCURACY(EasyCastStructure):
 class CRYPT_TIMESTAMP_CONTEXT(EasyCastStructure):
     cbEncoded: UInt32
     pbEncoded: POINTER(Byte)
-    pTimeStamp: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_INFO_head)
+    pTimeStamp: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_INFO)
 class CRYPT_TIMESTAMP_INFO(EasyCastStructure):
     dwVersion: UInt32
     pszTSAPolicyId: win32more.Windows.Win32.Foundation.PSTR
@@ -5573,18 +5564,18 @@ class CRYPT_TIMESTAMP_INFO(EasyCastStructure):
     HashedMessage: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     ftTime: win32more.Windows.Win32.Foundation.FILETIME
-    pvAccuracy: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_ACCURACY_head)
+    pvAccuracy: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_ACCURACY)
     fOrdering: win32more.Windows.Win32.Foundation.BOOL
     Nonce: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Tsa: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class CRYPT_TIMESTAMP_PARA(EasyCastStructure):
     pszTSAPolicyId: win32more.Windows.Win32.Foundation.PSTR
     fRequestCerts: win32more.Windows.Win32.Foundation.BOOL
     Nonce: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class CRYPT_TIMESTAMP_REQUEST(EasyCastStructure):
     dwVersion: win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_VERSION
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
@@ -5593,7 +5584,7 @@ class CRYPT_TIMESTAMP_REQUEST(EasyCastStructure):
     Nonce: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     fCertReq: win32more.Windows.Win32.Foundation.BOOL
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class CRYPT_TIMESTAMP_RESPONSE(EasyCastStructure):
     dwStatus: win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_RESPONSE_STATUS
     cFreeText: UInt32
@@ -5614,7 +5605,7 @@ class CRYPT_TIME_STAMP_REQUEST_INFO(EasyCastStructure):
     pszContentType: win32more.Windows.Win32.Foundation.PSTR
     Content: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cAttribute: UInt32
-    rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
 class CRYPT_URL_ARRAY(EasyCastStructure):
     cUrl: UInt32
     rgwszUrl: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
@@ -5690,9 +5681,9 @@ class CRYPT_XML_DATA_PROVIDER(EasyCastStructure):
 class CRYPT_XML_DOC_CTXT(EasyCastStructure):
     cbSize: UInt32
     hDocCtxt: VoidPtr
-    pTransformsConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG_head)
+    pTransformsConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG)
     cSignature: UInt32
-    rgpSignature: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_SIGNATURE_head))
+    rgpSignature: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_SIGNATURE))
 CRYPT_XML_FLAGS = UInt32
 CRYPT_XML_FLAG_DISABLE_EXTENSIONS: CRYPT_XML_FLAGS = 268435456
 CRYPT_XML_FLAG_NO_SERIALIZE: CRYPT_XML_FLAGS = 2147483648
@@ -5709,9 +5700,9 @@ class CRYPT_XML_KEYINFO_PARAM(EasyCastStructure):
     SKI: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     wszSubjectName: win32more.Windows.Win32.Foundation.PWSTR
     cCertificate: UInt32
-    rgCertificate: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgCertificate: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     cCRL: UInt32
-    rgCRL: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgCRL: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 CRYPT_XML_KEYINFO_SPEC = Int32
 CRYPT_XML_KEYINFO_SPEC_NONE: CRYPT_XML_KEYINFO_SPEC = 0
 CRYPT_XML_KEYINFO_SPEC_ENCODED: CRYPT_XML_KEYINFO_SPEC = 1
@@ -5739,7 +5730,7 @@ class CRYPT_XML_KEY_INFO(EasyCastStructure):
     cbSize: UInt32
     wszId: win32more.Windows.Win32.Foundation.PWSTR
     cKeyInfo: UInt32
-    rgKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_INFO_ITEM_head)
+    rgKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_INFO_ITEM)
     hVerifyKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE
 class CRYPT_XML_KEY_INFO_ITEM(EasyCastStructure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEYINFO_TYPE
@@ -5793,26 +5784,26 @@ class CRYPT_XML_REFERENCE(EasyCastStructure):
     DigestMethod: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM
     DigestValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cTransform: UInt32
-    rgTransform: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head)
+    rgTransform: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM)
 class CRYPT_XML_REFERENCES(EasyCastStructure):
     cReference: UInt32
-    rgpReference: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCE_head))
+    rgpReference: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCE))
 class CRYPT_XML_SIGNATURE(EasyCastStructure):
     cbSize: UInt32
     hSignature: VoidPtr
     wszId: win32more.Windows.Win32.Foundation.PWSTR
     SignedInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_SIGNED_INFO
     SignatureValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-    pKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_INFO_head)
+    pKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_INFO)
     cObject: UInt32
-    rgpObject: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_OBJECT_head))
+    rgpObject: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_OBJECT))
 class CRYPT_XML_SIGNED_INFO(EasyCastStructure):
     cbSize: UInt32
     wszId: win32more.Windows.Win32.Foundation.PWSTR
     Canonicalization: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM
     SignatureMethod: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM
     cReference: UInt32
-    rgpReference: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCE_head))
+    rgpReference: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCE))
     Encoded: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB
 class CRYPT_XML_STATUS(EasyCastStructure):
     cbSize: UInt32
@@ -5835,7 +5826,7 @@ CRYPT_XML_STATUS_OPENED_TO_ENCODE: CRYPT_XML_STATUS_INFO_STATUS = 2147483648
 class CRYPT_XML_TRANSFORM_CHAIN_CONFIG(EasyCastStructure):
     cbSize: UInt32
     cTransformInfo: UInt32
-    rgpTransformInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_INFO_head))
+    rgpTransformInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_INFO))
 CRYPT_XML_TRANSFORM_FLAGS = UInt32
 CRYPT_XML_TRANSFORM_ON_STREAM: CRYPT_XML_TRANSFORM_FLAGS = 1
 CRYPT_XML_TRANSFORM_ON_NODESET: CRYPT_XML_TRANSFORM_FLAGS = 2
@@ -5848,7 +5839,7 @@ class CRYPT_XML_TRANSFORM_INFO(EasyCastStructure):
     pfnCreateTransform: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_CREATE_TRANSFORM
 class CRYPT_XML_X509DATA(EasyCastStructure):
     cX509Data: UInt32
-    rgX509Data: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_ITEM_head)
+    rgX509Data: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_ITEM)
 class CRYPT_XML_X509DATA_ITEM(EasyCastStructure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_TYPE
     Anonymous: _Anonymous_e__Union
@@ -5873,7 +5864,7 @@ class CTL_CONTEXT(EasyCastStructure):
     dwMsgAndCertEncodingType: UInt32
     pbCtlEncoded: POINTER(Byte)
     cbCtlEncoded: UInt32
-    pCtlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_INFO_head)
+    pCtlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_INFO)
     hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
     hCryptMsg: VoidPtr
     pbCtlContent: POINTER(Byte)
@@ -5881,17 +5872,17 @@ class CTL_CONTEXT(EasyCastStructure):
 class CTL_ENTRY(EasyCastStructure):
     SubjectIdentifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cAttribute: UInt32
-    rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+    rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
 class CTL_FIND_SUBJECT_PARA(EasyCastStructure):
     cbSize: UInt32
-    pUsagePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_FIND_USAGE_PARA_head)
+    pUsagePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_FIND_USAGE_PARA)
     dwSubjectType: UInt32
     pvSubject: VoidPtr
 class CTL_FIND_USAGE_PARA(EasyCastStructure):
     cbSize: UInt32
     SubjectUsage: win32more.Windows.Win32.Security.Cryptography.CTL_USAGE
     ListIdentifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-    pSigner: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head)
+    pSigner: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)
 class CTL_INFO(EasyCastStructure):
     dwVersion: UInt32
     SubjectUsage: win32more.Windows.Win32.Security.Cryptography.CTL_USAGE
@@ -5901,9 +5892,9 @@ class CTL_INFO(EasyCastStructure):
     NextUpdate: win32more.Windows.Win32.Foundation.FILETIME
     SubjectAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     cCTLEntry: UInt32
-    rgCTLEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY_head)
+    rgCTLEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY)
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class CTL_USAGE(EasyCastStructure):
     cUsageIdentifier: UInt32
     rgpszUsageIdentifier: POINTER(win32more.Windows.Win32.Foundation.PSTR)
@@ -5921,9 +5912,9 @@ class CTL_VERIFY_USAGE_STATUS(EasyCastStructure):
     cbSize: UInt32
     dwError: UInt32
     dwFlags: UInt32
-    ppCtl: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head))
+    ppCtl: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT))
     dwCtlEntryIndex: UInt32
-    ppSigner: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))
+    ppSigner: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))
     dwSignerIndex: UInt32
 CertKeyType = UInt32
 CertKeyType_KeyTypeOther: CertKeyType = 0
@@ -5938,25 +5929,25 @@ CertKeyType_KeyTypeSelfSigned: CertKeyType = 8
 @winfunctype_pointer
 def CryptXmlDllCloseDigest(hDigest: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def CryptXmlDllCreateDigest(pDigestMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), pcbSize: POINTER(UInt32), phDigest: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlDllCreateDigest(pDigestMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), pcbSize: POINTER(UInt32), phDigest: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def CryptXmlDllCreateKey(pEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB_head), phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlDllCreateKey(pEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB), phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def CryptXmlDllDigestData(hDigest: VoidPtr, pbData: POINTER(Byte), cbData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def CryptXmlDllEncodeAlgorithm(pAlgInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head), dwCharset: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET, pvCallbackState: VoidPtr, pfnWrite: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlDllEncodeAlgorithm(pAlgInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO), dwCharset: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET, pvCallbackState: VoidPtr, pfnWrite: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def CryptXmlDllEncodeKeyValue(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwCharset: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET, pvCallbackState: VoidPtr, pfnWrite: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def CryptXmlDllFinalizeDigest(hDigest: VoidPtr, pbDigest: POINTER(Byte), cbDigest: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def CryptXmlDllGetAlgorithmInfo(pXmlAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), ppAlgInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlDllGetAlgorithmInfo(pXmlAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), ppAlgInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def CryptXmlDllGetInterface(dwFlags: UInt32, pMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head), pInterface: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CRYPTOGRAPHIC_INTERFACE_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlDllGetInterface(dwFlags: UInt32, pMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO), pInterface: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CRYPTOGRAPHIC_INTERFACE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def CryptXmlDllSignData(pSignatureMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, pbInput: POINTER(Byte), cbInput: UInt32, pbOutput: POINTER(Byte), cbOutput: UInt32, pcbResult: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlDllSignData(pSignatureMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), hCryptProvOrNCryptKey: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, pbInput: POINTER(Byte), cbInput: UInt32, pbOutput: POINTER(Byte), cbOutput: UInt32, pcbResult: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def CryptXmlDllVerifySignature(pSignatureMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), hKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pbInput: POINTER(Byte), cbInput: UInt32, pbSignature: POINTER(Byte), cbSignature: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CryptXmlDllVerifySignature(pSignatureMethod: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), hKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pbInput: POINTER(Byte), cbInput: UInt32, pbSignature: POINTER(Byte), cbSignature: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DSAFIPSVERSION_ENUM = Int32
 DSA_FIPS186_2: DSAFIPSVERSION_ENUM = 0
 DSA_FIPS186_3: DSAFIPSVERSION_ENUM = 1
@@ -6037,25 +6028,25 @@ class ICertSrvSetup(ComPtr):
     @commethod(9)
     def InitializeDefaults(self, bServer: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bClient: win32more.Windows.Win32.Foundation.VARIANT_BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetCASetupProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CASetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetCASetupProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CASetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def SetCASetupProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CASetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetCASetupProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CASetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def IsPropertyEditable(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CASetupProperty, pbEditable: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def GetSupportedCATypes(self, pCATypes: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSupportedCATypes(self, pCATypes: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def GetProviderNameList(self, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProviderNameList(self, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def GetKeyLengthList(self, bstrProviderName: win32more.Windows.Win32.Foundation.BSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetKeyLengthList(self, bstrProviderName: win32more.Windows.Win32.Foundation.BSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def GetHashAlgorithmList(self, bstrProviderName: win32more.Windows.Win32.Foundation.BSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetHashAlgorithmList(self, bstrProviderName: win32more.Windows.Win32.Foundation.BSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def GetPrivateKeyContainerList(self, bstrProviderName: win32more.Windows.Win32.Foundation.BSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPrivateKeyContainerList(self, bstrProviderName: win32more.Windows.Win32.Foundation.BSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
-    def GetExistingCACertificates(self, ppVal: POINTER(win32more.Windows.Win32.Security.Cryptography.ICertSrvSetupKeyInformationCollection_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetExistingCACertificates(self, ppVal: POINTER(win32more.Windows.Win32.Security.Cryptography.ICertSrvSetupKeyInformationCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
-    def CAImportPFX(self, bstrFileName: win32more.Windows.Win32.Foundation.BSTR, bstrPasswd: win32more.Windows.Win32.Foundation.BSTR, bOverwriteExistingKey: win32more.Windows.Win32.Foundation.VARIANT_BOOL, ppVal: POINTER(win32more.Windows.Win32.Security.Cryptography.ICertSrvSetupKeyInformation_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CAImportPFX(self, bstrFileName: win32more.Windows.Win32.Foundation.BSTR, bstrPasswd: win32more.Windows.Win32.Foundation.BSTR, bOverwriteExistingKey: win32more.Windows.Win32.Foundation.VARIANT_BOOL, ppVal: POINTER(win32more.Windows.Win32.Security.Cryptography.ICertSrvSetupKeyInformation)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def SetCADistinguishedName(self, bstrCADN: win32more.Windows.Win32.Foundation.BSTR, bIgnoreUnicode: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bOverwriteExistingKey: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bOverwriteExistingCAInDS: win32more.Windows.Win32.Foundation.VARIANT_BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -6094,20 +6085,20 @@ class ICertSrvSetupKeyInformation(ComPtr):
     @commethod(16)
     def put_HashAlgorithm(self, bstrVal: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def get_ExistingCACertificate(self, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_ExistingCACertificate(self, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def put_ExistingCACertificate(self, varVal: win32more.Windows.Win32.System.Variant.VARIANT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICertSrvSetupKeyInformationCollection(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{e65c8b00-e58f-41f9-a9ec-a28d7427c844}')
     @commethod(7)
-    def get__NewEnum(self, ppVal: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get__NewEnum(self, ppVal: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def get_Item(self, Index: Int32, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Item(self, Index: Int32, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, pVal: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def Add(self, pIKeyInformation: win32more.Windows.Win32.Security.Cryptography.ICertSrvSetupKeyInformation_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, pIKeyInformation: win32more.Windows.Win32.Security.Cryptography.ICertSrvSetupKeyInformation) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICertificateEnrollmentPolicyServerSetup(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{859252cc-238c-4a88-b8fd-a37e7d04e68b}')
@@ -6116,13 +6107,13 @@ class ICertificateEnrollmentPolicyServerSetup(ComPtr):
     @commethod(8)
     def InitializeInstallDefaults(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CEPSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CEPSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def SetProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CEPSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CEPSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Install(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def UnInstall(self, pAuthKeyBasedRenewal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def UnInstall(self, pAuthKeyBasedRenewal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICertificateEnrollmentServerSetup(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{70027fdb-9dd9-4921-8944-b35cb31bd2ec}')
@@ -6131,15 +6122,15 @@ class ICertificateEnrollmentServerSetup(ComPtr):
     @commethod(8)
     def InitializeInstallDefaults(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CESSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CESSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def SetProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CESSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.CESSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def SetApplicationPoolCredentials(self, bstrUsername: win32more.Windows.Win32.Foundation.BSTR, bstrPassword: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Install(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def UnInstall(self, pCAConfig: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), pAuthentication: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def UnInstall(self, pCAConfig: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), pAuthentication: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMSCEPSetup(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{4f7761bb-9f3b-4592-9ee0-9a73259c313e}')
@@ -6150,17 +6141,17 @@ class IMSCEPSetup(ComPtr):
     @commethod(9)
     def InitializeDefaults(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def GetMSCEPSetupProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.MSCEPSetupProperty, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetMSCEPSetupProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.MSCEPSetupProperty, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def SetMSCEPSetupProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.MSCEPSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetMSCEPSetupProperty(self, propertyId: win32more.Windows.Win32.Security.Cryptography.MSCEPSetupProperty, pPropertyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def SetAccountInformation(self, bstrUserName: win32more.Windows.Win32.Foundation.BSTR, bstrPassword: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def IsMSCEPStoreEmpty(self, pbEmpty: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def GetProviderNameList(self, bExchange: win32more.Windows.Win32.Foundation.VARIANT_BOOL, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProviderNameList(self, bExchange: win32more.Windows.Win32.Foundation.VARIANT_BOOL, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def GetKeyLengthList(self, bExchange: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bstrProviderName: win32more.Windows.Win32.Foundation.BSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetKeyLengthList(self, bExchange: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bstrProviderName: win32more.Windows.Win32.Foundation.BSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def Install(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
@@ -6365,18 +6356,18 @@ class OCSP_BASIC_RESPONSE_ENTRY(EasyCastStructure):
     ThisUpdate: win32more.Windows.Win32.Foundation.FILETIME
     NextUpdate: win32more.Windows.Win32.Foundation.FILETIME
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
     class _Anonymous_e__Union(EasyCastUnion):
-        pRevokedInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_BASIC_REVOKED_INFO_head)
+        pRevokedInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_BASIC_REVOKED_INFO)
 class OCSP_BASIC_RESPONSE_INFO(EasyCastStructure):
     dwVersion: UInt32
     dwResponderIdChoice: UInt32
     Anonymous: _Anonymous_e__Union
     ProducedAt: win32more.Windows.Win32.Foundation.FILETIME
     cResponseEntry: UInt32
-    rgResponseEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_BASIC_RESPONSE_ENTRY_head)
+    rgResponseEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_BASIC_RESPONSE_ENTRY)
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
     class _Anonymous_e__Union(EasyCastUnion):
         ByNameResponderId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
         ByKeyResponderId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -6394,14 +6385,14 @@ class OCSP_CERT_ID(EasyCastStructure):
 class OCSP_REQUEST_ENTRY(EasyCastStructure):
     CertId: win32more.Windows.Win32.Security.Cryptography.OCSP_CERT_ID
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class OCSP_REQUEST_INFO(EasyCastStructure):
     dwVersion: UInt32
-    pRequestorName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY_head)
+    pRequestorName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY)
     cRequestEntry: UInt32
-    rgRequestEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_REQUEST_ENTRY_head)
+    rgRequestEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_REQUEST_ENTRY)
     cExtension: UInt32
-    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION_head)
+    rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 class OCSP_RESPONSE_INFO(EasyCastStructure):
     dwStatus: UInt32
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
@@ -6410,122 +6401,122 @@ class OCSP_SIGNATURE_INFO(EasyCastStructure):
     SignatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     Signature: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     cCertEncoded: UInt32
-    rgCertEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    rgCertEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class OCSP_SIGNED_REQUEST_INFO(EasyCastStructure):
     ToBeSigned: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-    pOptionalSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_SIGNATURE_INFO_head)
+    pOptionalSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_SIGNATURE_INFO)
 @winfunctype_pointer
 def PCRYPT_DECRYPT_PRIVATE_KEY_FUNC(Algorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER, EncryptedPrivateKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB, pbClearTextKey: POINTER(Byte), pcbClearTextKey: POINTER(UInt32), pVoidDecryptFunc: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC(pAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pClearTextPrivateKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pbEncryptedKey: POINTER(Byte), pcbEncryptedKey: POINTER(UInt32), pVoidEncryptFunc: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC(pAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pClearTextPrivateKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), pbEncryptedKey: POINTER(Byte), pcbEncryptedKey: POINTER(UInt32), pVoidEncryptFunc: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PCRYPT_RESOLVE_HCRYPTPROV_FUNC(pPrivateKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PRIVATE_KEY_INFO_head), phCryptProv: POINTER(UIntPtr), pVoidResolveFunc: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PCRYPT_RESOLVE_HCRYPTPROV_FUNC(pPrivateKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PRIVATE_KEY_INFO), phCryptProv: POINTER(UIntPtr), pVoidResolveFunc: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFNCryptStreamOutputCallback(pvCallbackCtxt: VoidPtr, pbData: POINTER(Byte), cbData: UIntPtr, fFinal: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFNCryptStreamOutputCallbackEx(pvCallbackCtxt: VoidPtr, pbData: POINTER(Byte), cbData: UIntPtr, hDescriptor: win32more.Windows.Win32.Security.NCRYPT_DESCRIPTOR_HANDLE, fFinal: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_AUTHENTICODE_DIGEST_SIGN(pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_AUTHENTICODE_DIGEST_SIGN(pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_AUTHENTICODE_DIGEST_SIGN_EX(pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), hCertChainStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_AUTHENTICODE_DIGEST_SIGN_EX(pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), hCertChainStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE(pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)), hCertChainStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE(pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), ppSignerCert: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)), hCertChainStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE(pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE(pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), digestAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID, pbToBeSignedDigest: POINTER(Byte), cbToBeSignedDigest: UInt32, hFile: win32more.Windows.Win32.Foundation.HANDLE, pSignedDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_CANCEL_ASYNC_RETRIEVAL_FUNC(hAsyncRetrieve: win32more.Windows.Win32.Security.Cryptography.HCRYPTASYNC) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pvFindArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pvFindArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CERT_CREATE_CONTEXT_SORT_FUNC(cbTotalEncoded: UInt32, cbRemainEncoded: UInt32, cEntry: UInt32, pvSort: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_DLL_OPEN_STORE_PROV_FUNC(lpszStoreProvider: win32more.Windows.Win32.Foundation.PSTR, dwEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_OPEN_STORE_FLAGS, pvPara: VoidPtr, hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pStoreProvInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_INFO_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_DLL_OPEN_STORE_PROV_FUNC(lpszStoreProvider: win32more.Windows.Win32.Foundation.PSTR, dwEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY, dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_OPEN_STORE_FLAGS, pvPara: VoidPtr, hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE, pStoreProvInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_ENUM_PHYSICAL_STORE(pvSystemStore: VoidPtr, dwFlags: UInt32, pwszStoreName: win32more.Windows.Win32.Foundation.PWSTR, pStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PHYSICAL_STORE_INFO_head), pvReserved: VoidPtr, pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_ENUM_PHYSICAL_STORE(pvSystemStore: VoidPtr, dwFlags: UInt32, pwszStoreName: win32more.Windows.Win32.Foundation.PWSTR, pStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PHYSICAL_STORE_INFO), pvReserved: VoidPtr, pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_ENUM_SYSTEM_STORE(pvSystemStore: VoidPtr, dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_SYSTEM_STORE_FLAGS, pStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SYSTEM_STORE_INFO_head), pvReserved: VoidPtr, pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_ENUM_SYSTEM_STORE(pvSystemStore: VoidPtr, dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_SYSTEM_STORE_FLAGS, pStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SYSTEM_STORE_INFO), pvReserved: VoidPtr, pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CERT_ENUM_SYSTEM_STORE_LOCATION(pwszStoreLocation: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pvReserved: VoidPtr, pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_IS_WEAK_HASH(dwHashUseType: UInt32, pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, dwChainFlags: UInt32, pSignerChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head), pTimeStamp: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head), pwszFileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_IS_WEAK_HASH(dwHashUseType: UInt32, pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, dwChainFlags: UInt32, pSignerChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT), pTimeStamp: POINTER(win32more.Windows.Win32.Foundation.FILETIME), pwszFileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK(pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT_head), pServerOcspResponseContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_CONTEXT_head), pNewCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), pvArg: VoidPtr, dwWriteOcspFileError: UInt32) -> Void: ...
+def PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK(pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT), pServerOcspResponseContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_SERVER_OCSP_RESPONSE_CONTEXT), pNewCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), pvArg: VoidPtr, dwWriteOcspFileError: UInt32) -> Void: ...
 @winfunctype_pointer
 def PFN_CERT_STORE_PROV_CLOSE(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, dwFlags: UInt32) -> Void: ...
 @winfunctype_pointer
 def PFN_CERT_STORE_PROV_CONTROL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, dwFlags: UInt32, dwCtrlType: UInt32, pvCtrlPara: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_DELETE_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_DELETE_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_DELETE_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_DELETE_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_DELETE_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_DELETE_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_FIND_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pFindInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FIND_INFO_head), pPrevCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwFlags: UInt32, ppvStoreProvFindInfo: POINTER(VoidPtr), ppProvCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_FIND_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pFindInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FIND_INFO), pPrevCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwFlags: UInt32, ppvStoreProvFindInfo: POINTER(VoidPtr), ppProvCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_FIND_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pFindInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FIND_INFO_head), pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwFlags: UInt32, ppvStoreProvFindInfo: POINTER(VoidPtr), ppProvCrlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_FIND_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pFindInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FIND_INFO), pPrevCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwFlags: UInt32, ppvStoreProvFindInfo: POINTER(VoidPtr), ppProvCrlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_FIND_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pFindInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FIND_INFO_head), pPrevCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwFlags: UInt32, ppvStoreProvFindInfo: POINTER(VoidPtr), ppProvCtlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_FIND_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pFindInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FIND_INFO), pPrevCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwFlags: UInt32, ppvStoreProvFindInfo: POINTER(VoidPtr), ppProvCtlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_FREE_FIND_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pvStoreProvFindInfo: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_FREE_FIND_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pvStoreProvFindInfo: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_FREE_FIND_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), pvStoreProvFindInfo: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_FREE_FIND_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), pvStoreProvFindInfo: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_FREE_FIND_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), pvStoreProvFindInfo: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_FREE_FIND_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), pvStoreProvFindInfo: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_GET_CERT_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_GET_CERT_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_GET_CRL_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_GET_CRL_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_GET_CTL_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_GET_CTL_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr, pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_READ_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pStoreCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwFlags: UInt32, ppProvCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_READ_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pStoreCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwFlags: UInt32, ppProvCertContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_READ_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pStoreCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwFlags: UInt32, ppProvCrlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_READ_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pStoreCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwFlags: UInt32, ppProvCrlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_READ_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pStoreCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwFlags: UInt32, ppProvCtlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_READ_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pStoreCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwFlags: UInt32, ppProvCtlContext: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_SET_CERT_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_SET_CERT_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_SET_CRL_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_SET_CRL_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_SET_CTL_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_SET_CTL_PROPERTY(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwPropId: UInt32, dwFlags: UInt32, pvData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_WRITE_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_WRITE_CERT(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_WRITE_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_WRITE_CRL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CERT_STORE_PROV_WRITE_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT_head), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CERT_STORE_PROV_WRITE_CTL(hStoreProv: win32more.Windows.Win32.Security.Cryptography.HCERTSTOREPROV, pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CMSG_ALLOC(cb: UIntPtr) -> VoidPtr: ...
 @winfunctype_pointer
-def PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY(pCNGContentDecryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CNG_CONTENT_DECRYPT_INFO_head), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY(pCNGContentDecryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CNG_CONTENT_DECRYPT_INFO), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_CNG_IMPORT_KEY_AGREE(pCNGContentDecryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CNG_CONTENT_DECRYPT_INFO_head), pKeyAgreeDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_KEY_AGREE_DECRYPT_PARA_head), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_CNG_IMPORT_KEY_AGREE(pCNGContentDecryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CNG_CONTENT_DECRYPT_INFO), pKeyAgreeDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_KEY_AGREE_DECRYPT_PARA), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_CNG_IMPORT_KEY_TRANS(pCNGContentDecryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CNG_CONTENT_DECRYPT_INFO_head), pKeyTransDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_KEY_TRANS_DECRYPT_PARA_head), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_CNG_IMPORT_KEY_TRANS(pCNGContentDecryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CNG_CONTENT_DECRYPT_INFO), pKeyTransDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_KEY_TRANS_DECRYPT_PARA), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_EXPORT_ENCRYPT_KEY(hCryptProv: UIntPtr, hEncryptKey: UIntPtr, pPublicKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pbData: POINTER(Byte), pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_EXPORT_ENCRYPT_KEY(hCryptProv: UIntPtr, hEncryptKey: UIntPtr, pPublicKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pbData: POINTER(Byte), pcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_EXPORT_KEY_AGREE(pContentEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CONTENT_ENCRYPT_INFO_head), pKeyAgreeEncodeInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO_head), pKeyAgreeEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_ENCRYPT_INFO_head), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_EXPORT_KEY_AGREE(pContentEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CONTENT_ENCRYPT_INFO), pKeyAgreeEncodeInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO), pKeyAgreeEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_ENCRYPT_INFO), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_EXPORT_KEY_TRANS(pContentEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CONTENT_ENCRYPT_INFO_head), pKeyTransEncodeInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO_head), pKeyTransEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_ENCRYPT_INFO_head), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_EXPORT_KEY_TRANS(pContentEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CONTENT_ENCRYPT_INFO), pKeyTransEncodeInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO), pKeyTransEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_ENCRYPT_INFO), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_EXPORT_MAIL_LIST(pContentEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CONTENT_ENCRYPT_INFO_head), pMailListEncodeInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO_head), pMailListEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_ENCRYPT_INFO_head), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_EXPORT_MAIL_LIST(pContentEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CONTENT_ENCRYPT_INFO), pMailListEncodeInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO), pMailListEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_ENCRYPT_INFO), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CMSG_FREE(pv: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY(pContentEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CONTENT_ENCRYPT_INFO_head), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY(pContentEncryptInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CONTENT_ENCRYPT_INFO), dwFlags: UInt32, pvReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_GEN_ENCRYPT_KEY(phCryptProv: POINTER(UIntPtr), paiEncrypt: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pvEncryptAuxInfo: VoidPtr, pPublicKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pfnAlloc: win32more.Windows.Win32.Security.Cryptography.PFN_CMSG_ALLOC, phEncryptKey: POINTER(UIntPtr), ppbEncryptParameters: POINTER(POINTER(Byte)), pcbEncryptParameters: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_GEN_ENCRYPT_KEY(phCryptProv: POINTER(UIntPtr), paiEncrypt: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pvEncryptAuxInfo: VoidPtr, pPublicKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pfnAlloc: win32more.Windows.Win32.Security.Cryptography.PFN_CMSG_ALLOC, phEncryptKey: POINTER(UIntPtr), ppbEncryptParameters: POINTER(POINTER(Byte)), pcbEncryptParameters: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_IMPORT_ENCRYPT_KEY(hCryptProv: UIntPtr, dwKeySpec: UInt32, paiEncrypt: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), paiPubKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pbEncodedKey: POINTER(Byte), cbEncodedKey: UInt32, phEncryptKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_IMPORT_ENCRYPT_KEY(hCryptProv: UIntPtr, dwKeySpec: UInt32, paiEncrypt: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), paiPubKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pbEncodedKey: POINTER(Byte), cbEncodedKey: UInt32, phEncryptKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_IMPORT_KEY_AGREE(pContentEncryptionAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pKeyAgreeDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_KEY_AGREE_DECRYPT_PARA_head), dwFlags: UInt32, pvReserved: VoidPtr, phContentEncryptKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_IMPORT_KEY_AGREE(pContentEncryptionAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pKeyAgreeDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_KEY_AGREE_DECRYPT_PARA), dwFlags: UInt32, pvReserved: VoidPtr, phContentEncryptKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_IMPORT_KEY_TRANS(pContentEncryptionAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pKeyTransDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_KEY_TRANS_DECRYPT_PARA_head), dwFlags: UInt32, pvReserved: VoidPtr, phContentEncryptKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_IMPORT_KEY_TRANS(pContentEncryptionAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pKeyTransDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_KEY_TRANS_DECRYPT_PARA), dwFlags: UInt32, pvReserved: VoidPtr, phContentEncryptKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CMSG_IMPORT_MAIL_LIST(pContentEncryptionAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pMailListDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_MAIL_LIST_DECRYPT_PARA_head), dwFlags: UInt32, pvReserved: VoidPtr, phContentEncryptKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CMSG_IMPORT_MAIL_LIST(pContentEncryptionAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pMailListDecryptPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_CTRL_MAIL_LIST_DECRYPT_PARA), dwFlags: UInt32, pvReserved: VoidPtr, phContentEncryptKey: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CMSG_STREAM_OUTPUT(pvArg: VoidPtr, pbData: POINTER(Byte), cbData: UInt32, fFinal: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -6537,57 +6528,57 @@ def PFN_CRYPT_ASYNC_RETRIEVAL_COMPLETION_FUNC(pvCompletion: VoidPtr, dwCompletio
 @winfunctype_pointer
 def PFN_CRYPT_CANCEL_RETRIEVAL(dwFlags: UInt32, pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CRYPT_ENUM_KEYID_PROP(pKeyIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), dwFlags: UInt32, pvReserved: VoidPtr, pvArg: VoidPtr, cProp: UInt32, rgdwPropId: POINTER(UInt32), rgpvData: POINTER(VoidPtr), rgcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_ENUM_KEYID_PROP(pKeyIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), dwFlags: UInt32, pvReserved: VoidPtr, pvArg: VoidPtr, cProp: UInt32, rgdwPropId: POINTER(UInt32), rgpvData: POINTER(VoidPtr), rgcbData: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CRYPT_ENUM_OID_FUNC(dwEncodingType: UInt32, pszFuncName: win32more.Windows.Win32.Foundation.PSTR, pszOID: win32more.Windows.Win32.Foundation.PSTR, cValue: UInt32, rgdwValueType: POINTER(UInt32), rgpwszValueName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), rgpbValueData: POINTER(POINTER(Byte)), rgcbValueData: POINTER(UInt32), pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CRYPT_ENUM_OID_INFO(pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_INFO_head), pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_ENUM_OID_INFO(pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OID_INFO), pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC(hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPublicKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC(hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPublicKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC(hBCryptKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPublicKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC(hBCryptKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pszPublicKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pcbInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), ppvDecodedSignPara: POINTER(VoidPtr), ppwszCNGHashAlgid: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), ppvDecodedSignPara: POINTER(VoidPtr), ppwszCNGHashAlgid: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CRYPT_FREE(pv: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def PFN_CRYPT_GET_SIGNER_CERTIFICATE(pvGetArg: VoidPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pSignerId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO_head), hMsgCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head): ...
+def PFN_CRYPT_GET_SIGNER_CERTIFICATE(pvGetArg: VoidPtr, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pSignerId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO), hMsgCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE) -> POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT): ...
 @winfunctype_pointer
-def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH(pContext: VoidPtr, rgIdentifierOrNameList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)), dwIdentifierOrNameListCount: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH(pContext: VoidPtr, rgIdentifierOrNameList: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)), dwIdentifierOrNameListCount: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE(pPluginContext: VoidPtr, pbData: POINTER(Byte)) -> Void: ...
 @winfunctype_pointer
-def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER(pPluginContext: VoidPtr, pIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> Void: ...
+def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER(pPluginContext: VoidPtr, pIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)) -> Void: ...
 @winfunctype_pointer
 def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD(pPluginContext: VoidPtr, pwszPassword: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 @winfunctype_pointer
-def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET(pPluginContext: VoidPtr, pIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), dwNameType: UInt32, pNameBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), ppbContent: POINTER(POINTER(Byte)), pcbContent: POINTER(UInt32), ppwszPassword: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ppIdentifier: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET(pPluginContext: VoidPtr, pIdentifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), dwNameType: UInt32, pNameBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB), ppbContent: POINTER(POINTER(Byte)), pcbContent: POINTER(UInt32), ppwszPassword: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ppIdentifier: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE(pfnFlush: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH, pContext: VoidPtr, pdwExpectedObjectCount: POINTER(UInt32), ppFuncTable: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE_head)), ppPluginContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE(pfnFlush: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH, pContext: VoidPtr, pdwExpectedObjectCount: POINTER(UInt32), ppFuncTable: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE)), ppPluginContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE(dwReason: win32more.Windows.Win32.Security.Cryptography.CRYPT_OBJECT_LOCATOR_RELEASE_REASON, pPluginContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def PFN_CRYPT_SIGN_AND_ENCODE_HASH_FUNC(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pvDecodedSignPara: VoidPtr, pwszCNGPubKeyAlgid: win32more.Windows.Win32.Foundation.PWSTR, pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, pbComputedHash: POINTER(Byte), cbComputedHash: UInt32, pbSignature: POINTER(Byte), pcbSignature: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_SIGN_AND_ENCODE_HASH_FUNC(hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE, dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pvDecodedSignPara: VoidPtr, pwszCNGPubKeyAlgid: win32more.Windows.Win32.Foundation.PWSTR, pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, pbComputedHash: POINTER(Byte), cbComputedHash: UInt32, pbSignature: POINTER(Byte), pcbSignature: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pPubKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pvDecodedSignPara: VoidPtr, pwszCNGPubKeyAlgid: win32more.Windows.Win32.Foundation.PWSTR, pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, pbComputedHash: POINTER(Byte), cbComputedHash: UInt32, pbSignature: POINTER(Byte), cbSignature: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pPubKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), pSignatureAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER), pvDecodedSignPara: VoidPtr, pwszCNGPubKeyAlgid: win32more.Windows.Win32.Foundation.PWSTR, pwszCNGHashAlgid: win32more.Windows.Win32.Foundation.PWSTR, pbComputedHash: POINTER(Byte), cbComputedHash: UInt32, pbSignature: POINTER(Byte), cbSignature: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_CRYPT_XML_CREATE_TRANSFORM(pTransform: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_head), pProviderIn: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_PROVIDER_head), pProviderOut: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_PROVIDER_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def PFN_CRYPT_XML_CREATE_TRANSFORM(pTransform: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM), pProviderIn: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_PROVIDER), pProviderOut: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_PROVIDER)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_CRYPT_XML_DATA_PROVIDER_CLOSE(pvCallbackState: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_CRYPT_XML_DATA_PROVIDER_READ(pvCallbackState: VoidPtr, pbData: POINTER(Byte), cbData: UInt32, pcbRead: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_CRYPT_XML_ENUM_ALG_INFO(pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head), pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_CRYPT_XML_ENUM_ALG_INFO(pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO), pvArg: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_CRYPT_XML_WRITE_CALLBACK(pvCallbackState: VoidPtr, pbData: POINTER(Byte), cbData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PFN_EXPORT_PRIV_KEY_FUNC(hCryptProv: UIntPtr, dwKeySpec: UInt32, pszPrivateKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pPrivateKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PRIVATE_KEY_INFO_head), pcbPrivateKeyInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_EXPORT_PRIV_KEY_FUNC(hCryptProv: UIntPtr, dwKeySpec: UInt32, pszPrivateKeyObjId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pvAuxInfo: VoidPtr, pPrivateKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PRIVATE_KEY_INFO), pcbPrivateKeyInfo: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_FREE_ENCODED_OBJECT_FUNC(pszObjectOid: win32more.Windows.Win32.Foundation.PSTR, pObject: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_BLOB_ARRAY_head), pvFreeContext: VoidPtr) -> Void: ...
+def PFN_FREE_ENCODED_OBJECT_FUNC(pszObjectOid: win32more.Windows.Win32.Foundation.PSTR, pObject: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_BLOB_ARRAY), pvFreeContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
-def PFN_IMPORT_PRIV_KEY_FUNC(hCryptProv: UIntPtr, pPrivateKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PRIVATE_KEY_INFO_head), dwFlags: UInt32, pvAuxInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_IMPORT_PRIV_KEY_FUNC(hCryptProv: UIntPtr, pPrivateKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PRIVATE_KEY_INFO), dwFlags: UInt32, pvAuxInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head), dwFlags: UInt32, pvAuxInfo: VoidPtr, phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC(dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE, pInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO), dwFlags: UInt32, pvAuxInfo: VoidPtr, phKey: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_NCRYPT_ALLOC(cbSize: UIntPtr) -> VoidPtr: ...
 @winfunctype_pointer
@@ -6693,8 +6684,8 @@ class SIGNER_CERT(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     class _Anonymous_e__Union(EasyCastUnion):
         pwszSpcFile: win32more.Windows.Win32.Foundation.PWSTR
-        pCertStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_STORE_INFO_head)
-        pSpcChainInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SPC_CHAIN_INFO_head)
+        pCertStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_STORE_INFO)
+        pSpcChainInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SPC_CHAIN_INFO)
 SIGNER_CERT_CHOICE = UInt32
 SIGNER_CERT_SPC_FILE: SIGNER_CERT_CHOICE = 1
 SIGNER_CERT_STORE: SIGNER_CERT_CHOICE = 2
@@ -6706,7 +6697,7 @@ SIGNER_CERT_POLICY_SPC: SIGNER_CERT_POLICY = 4
 SIGNER_CERT_POLICY_CHAIN_NO_ROOT: SIGNER_CERT_POLICY = 8
 class SIGNER_CERT_STORE_INFO(EasyCastStructure):
     cbSize: UInt32
-    pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)
+    pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     dwCertPolicy: win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_POLICY
     hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
 class SIGNER_CONTEXT(EasyCastStructure):
@@ -6717,7 +6708,7 @@ class SIGNER_DIGEST_SIGN_INFO(EasyCastStructure):
     cbSize: UInt32
     dwDigestSignChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     dwReserved: UInt32
     dwReserved2: UInt32
     dwReserved3: UInt32
@@ -6729,12 +6720,12 @@ class SIGNER_DIGEST_SIGN_INFO(EasyCastStructure):
 class SIGNER_DIGEST_SIGN_INFO_V1(EasyCastStructure):
     cbSize: UInt32
     pfnAuthenticodeDigestSign: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
-    pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class SIGNER_DIGEST_SIGN_INFO_V2(EasyCastStructure):
     cbSize: UInt32
     pfnAuthenticodeDigestSign: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
     pfnAuthenticodeDigestSignEx: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_EX
-    pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 class SIGNER_FILE_INFO(EasyCastStructure):
     cbSize: UInt32
     pwszFileName: win32more.Windows.Win32.Foundation.PWSTR
@@ -6760,10 +6751,10 @@ class SIGNER_SIGNATURE_INFO(EasyCastStructure):
     algidHash: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwAttrChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_ATTRIBUTE_CHOICE
     Anonymous: _Anonymous_e__Union
-    psAuthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)
-    psUnauthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)
+    psAuthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
+    psUnauthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
     class _Anonymous_e__Union(EasyCastUnion):
-        pAttrAuthcode: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_ATTR_AUTHCODE_head)
+        pAttrAuthcode: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_ATTR_AUTHCODE)
 SIGNER_SIGN_FLAGS = UInt32
 SIG_APPEND: SIGNER_SIGN_FLAGS = 4096
 SPC_INC_PE_RESOURCES_FLAG: SIGNER_SIGN_FLAGS = 128
@@ -6788,8 +6779,8 @@ class SIGNER_SUBJECT_INFO(EasyCastStructure):
     dwSubjectChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_CHOICE
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
-        pSignerFileInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_FILE_INFO_head)
-        pSignerBlobInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_BLOB_INFO_head)
+        pSignerFileInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_FILE_INFO)
+        pSignerBlobInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_BLOB_INFO)
 SIGNER_TIMESTAMP_FLAGS = UInt32
 SIGNER_TIMESTAMP_AUTHENTICODE: SIGNER_TIMESTAMP_FLAGS = 1
 SIGNER_TIMESTAMP_RFC3161: SIGNER_TIMESTAMP_FLAGS = 2
@@ -6815,497 +6806,4 @@ class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS(EasyCastStructure):
     cbSize: UInt32
     lError: Int32
     wszErrorText: Char * 512
-make_head(_module, 'AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA')
-make_head(_module, 'AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS')
-make_head(_module, 'AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA')
-make_head(_module, 'BCRYPT_ALGORITHM_IDENTIFIER')
-make_head(_module, 'BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO')
-make_head(_module, 'BCRYPT_DH_KEY_BLOB')
-make_head(_module, 'BCRYPT_DH_PARAMETER_HEADER')
-make_head(_module, 'BCRYPT_DSA_KEY_BLOB')
-make_head(_module, 'BCRYPT_DSA_KEY_BLOB_V2')
-make_head(_module, 'BCRYPT_DSA_PARAMETER_HEADER')
-make_head(_module, 'BCRYPT_DSA_PARAMETER_HEADER_V2')
-make_head(_module, 'BCRYPT_ECCFULLKEY_BLOB')
-make_head(_module, 'BCRYPT_ECCKEY_BLOB')
-make_head(_module, 'BCRYPT_ECC_CURVE_NAMES')
-make_head(_module, 'BCRYPT_INTERFACE_VERSION')
-make_head(_module, 'BCRYPT_KEY_BLOB')
-make_head(_module, 'BCRYPT_KEY_DATA_BLOB_HEADER')
-make_head(_module, 'BCRYPT_KEY_LENGTHS_STRUCT')
-make_head(_module, 'BCRYPT_MULTI_HASH_OPERATION')
-make_head(_module, 'BCRYPT_MULTI_OBJECT_LENGTH_STRUCT')
-make_head(_module, 'BCRYPT_OAEP_PADDING_INFO')
-make_head(_module, 'BCRYPT_OID')
-make_head(_module, 'BCRYPT_OID_LIST')
-make_head(_module, 'BCRYPT_PKCS1_PADDING_INFO')
-make_head(_module, 'BCRYPT_PROVIDER_NAME')
-make_head(_module, 'BCRYPT_PSS_PADDING_INFO')
-make_head(_module, 'BCRYPT_RSAKEY_BLOB')
-make_head(_module, 'BCryptBuffer')
-make_head(_module, 'BCryptBufferDesc')
-make_head(_module, 'CERTIFICATE_CHAIN_BLOB')
-make_head(_module, 'CERT_ACCESS_DESCRIPTION')
-make_head(_module, 'CERT_ALT_NAME_ENTRY')
-make_head(_module, 'CERT_ALT_NAME_INFO')
-make_head(_module, 'CERT_AUTHORITY_INFO_ACCESS')
-make_head(_module, 'CERT_AUTHORITY_KEY_ID2_INFO')
-make_head(_module, 'CERT_AUTHORITY_KEY_ID_INFO')
-make_head(_module, 'CERT_BASIC_CONSTRAINTS2_INFO')
-make_head(_module, 'CERT_BASIC_CONSTRAINTS_INFO')
-make_head(_module, 'CERT_BIOMETRIC_DATA')
-make_head(_module, 'CERT_BIOMETRIC_EXT_INFO')
-make_head(_module, 'CERT_CHAIN')
-make_head(_module, 'CERT_CHAIN_CONTEXT')
-make_head(_module, 'CERT_CHAIN_ELEMENT')
-make_head(_module, 'CERT_CHAIN_ENGINE_CONFIG')
-make_head(_module, 'CERT_CHAIN_FIND_BY_ISSUER_PARA')
-make_head(_module, 'CERT_CHAIN_PARA')
-make_head(_module, 'CERT_CHAIN_POLICY_PARA')
-make_head(_module, 'CERT_CHAIN_POLICY_STATUS')
-make_head(_module, 'CERT_CONTEXT')
-make_head(_module, 'CERT_CREATE_CONTEXT_PARA')
-make_head(_module, 'CERT_CRL_CONTEXT_PAIR')
-make_head(_module, 'CERT_DH_PARAMETERS')
-make_head(_module, 'CERT_DSS_PARAMETERS')
-make_head(_module, 'CERT_ECC_SIGNATURE')
-make_head(_module, 'CERT_EXTENSION')
-make_head(_module, 'CERT_EXTENSIONS')
-make_head(_module, 'CERT_FORTEZZA_DATA_PROP')
-make_head(_module, 'CERT_GENERAL_SUBTREE')
-make_head(_module, 'CERT_HASHED_URL')
-make_head(_module, 'CERT_ID')
-make_head(_module, 'CERT_INFO')
-make_head(_module, 'CERT_ISSUER_SERIAL_NUMBER')
-make_head(_module, 'CERT_KEYGEN_REQUEST_INFO')
-make_head(_module, 'CERT_KEY_ATTRIBUTES_INFO')
-make_head(_module, 'CERT_KEY_CONTEXT')
-make_head(_module, 'CERT_KEY_USAGE_RESTRICTION_INFO')
-make_head(_module, 'CERT_LDAP_STORE_OPENED_PARA')
-make_head(_module, 'CERT_LOGOTYPE_AUDIO')
-make_head(_module, 'CERT_LOGOTYPE_AUDIO_INFO')
-make_head(_module, 'CERT_LOGOTYPE_DATA')
-make_head(_module, 'CERT_LOGOTYPE_DETAILS')
-make_head(_module, 'CERT_LOGOTYPE_EXT_INFO')
-make_head(_module, 'CERT_LOGOTYPE_IMAGE')
-make_head(_module, 'CERT_LOGOTYPE_IMAGE_INFO')
-make_head(_module, 'CERT_LOGOTYPE_INFO')
-make_head(_module, 'CERT_LOGOTYPE_REFERENCE')
-make_head(_module, 'CERT_NAME_CONSTRAINTS_INFO')
-make_head(_module, 'CERT_NAME_INFO')
-make_head(_module, 'CERT_NAME_VALUE')
-make_head(_module, 'CERT_OR_CRL_BLOB')
-make_head(_module, 'CERT_OR_CRL_BUNDLE')
-make_head(_module, 'CERT_OTHER_LOGOTYPE_INFO')
-make_head(_module, 'CERT_OTHER_NAME')
-make_head(_module, 'CERT_PAIR')
-make_head(_module, 'CERT_PHYSICAL_STORE_INFO')
-make_head(_module, 'CERT_POLICIES_INFO')
-make_head(_module, 'CERT_POLICY95_QUALIFIER1')
-make_head(_module, 'CERT_POLICY_CONSTRAINTS_INFO')
-make_head(_module, 'CERT_POLICY_ID')
-make_head(_module, 'CERT_POLICY_INFO')
-make_head(_module, 'CERT_POLICY_MAPPING')
-make_head(_module, 'CERT_POLICY_MAPPINGS_INFO')
-make_head(_module, 'CERT_POLICY_QUALIFIER_INFO')
-make_head(_module, 'CERT_POLICY_QUALIFIER_NOTICE_REFERENCE')
-make_head(_module, 'CERT_POLICY_QUALIFIER_USER_NOTICE')
-make_head(_module, 'CERT_PRIVATE_KEY_VALIDITY')
-make_head(_module, 'CERT_PUBLIC_KEY_INFO')
-make_head(_module, 'CERT_QC_STATEMENT')
-make_head(_module, 'CERT_QC_STATEMENTS_EXT_INFO')
-make_head(_module, 'CERT_RDN')
-make_head(_module, 'CERT_RDN_ATTR')
-make_head(_module, 'CERT_REGISTRY_STORE_CLIENT_GPT_PARA')
-make_head(_module, 'CERT_REGISTRY_STORE_ROAMING_PARA')
-make_head(_module, 'CERT_REQUEST_INFO')
-make_head(_module, 'CERT_REVOCATION_CHAIN_PARA')
-make_head(_module, 'CERT_REVOCATION_CRL_INFO')
-make_head(_module, 'CERT_REVOCATION_INFO')
-make_head(_module, 'CERT_REVOCATION_PARA')
-make_head(_module, 'CERT_REVOCATION_STATUS')
-make_head(_module, 'CERT_SELECT_CHAIN_PARA')
-make_head(_module, 'CERT_SELECT_CRITERIA')
-make_head(_module, 'CERT_SERVER_OCSP_RESPONSE_CONTEXT')
-make_head(_module, 'CERT_SERVER_OCSP_RESPONSE_OPEN_PARA')
-make_head(_module, 'CERT_SIGNED_CONTENT_INFO')
-make_head(_module, 'CERT_SIMPLE_CHAIN')
-make_head(_module, 'CERT_STORE_PROV_FIND_INFO')
-make_head(_module, 'CERT_STORE_PROV_INFO')
-make_head(_module, 'CERT_STRONG_SIGN_PARA')
-make_head(_module, 'CERT_STRONG_SIGN_SERIALIZED_INFO')
-make_head(_module, 'CERT_SUPPORTED_ALGORITHM_INFO')
-make_head(_module, 'CERT_SYSTEM_STORE_INFO')
-make_head(_module, 'CERT_SYSTEM_STORE_RELOCATE_PARA')
-make_head(_module, 'CERT_TEMPLATE_EXT')
-make_head(_module, 'CERT_TPM_SPECIFICATION_INFO')
-make_head(_module, 'CERT_TRUST_LIST_INFO')
-make_head(_module, 'CERT_TRUST_STATUS')
-make_head(_module, 'CERT_USAGE_MATCH')
-make_head(_module, 'CERT_X942_DH_PARAMETERS')
-make_head(_module, 'CERT_X942_DH_VALIDATION_PARAMS')
-make_head(_module, 'CLAIMLIST')
-make_head(_module, 'CMC_ADD_ATTRIBUTES_INFO')
-make_head(_module, 'CMC_ADD_EXTENSIONS_INFO')
-make_head(_module, 'CMC_DATA_INFO')
-make_head(_module, 'CMC_PEND_INFO')
-make_head(_module, 'CMC_RESPONSE_INFO')
-make_head(_module, 'CMC_STATUS_INFO')
-make_head(_module, 'CMC_TAGGED_ATTRIBUTE')
-make_head(_module, 'CMC_TAGGED_CERT_REQUEST')
-make_head(_module, 'CMC_TAGGED_CONTENT_INFO')
-make_head(_module, 'CMC_TAGGED_OTHER_MSG')
-make_head(_module, 'CMC_TAGGED_REQUEST')
-make_head(_module, 'CMSG_CMS_RECIPIENT_INFO')
-make_head(_module, 'CMSG_CMS_SIGNER_INFO')
-make_head(_module, 'CMSG_CNG_CONTENT_DECRYPT_INFO')
-make_head(_module, 'CMSG_CONTENT_ENCRYPT_INFO')
-make_head(_module, 'CMSG_CTRL_ADD_SIGNER_UNAUTH_ATTR_PARA')
-make_head(_module, 'CMSG_CTRL_DECRYPT_PARA')
-make_head(_module, 'CMSG_CTRL_DEL_SIGNER_UNAUTH_ATTR_PARA')
-make_head(_module, 'CMSG_CTRL_KEY_AGREE_DECRYPT_PARA')
-make_head(_module, 'CMSG_CTRL_KEY_TRANS_DECRYPT_PARA')
-make_head(_module, 'CMSG_CTRL_MAIL_LIST_DECRYPT_PARA')
-make_head(_module, 'CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA')
-make_head(_module, 'CMSG_ENCRYPTED_ENCODE_INFO')
-make_head(_module, 'CMSG_ENVELOPED_ENCODE_INFO')
-make_head(_module, 'CMSG_HASHED_ENCODE_INFO')
-make_head(_module, 'CMSG_KEY_AGREE_ENCRYPT_INFO')
-make_head(_module, 'CMSG_KEY_AGREE_KEY_ENCRYPT_INFO')
-make_head(_module, 'CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO')
-make_head(_module, 'CMSG_KEY_AGREE_RECIPIENT_INFO')
-make_head(_module, 'CMSG_KEY_TRANS_ENCRYPT_INFO')
-make_head(_module, 'CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO')
-make_head(_module, 'CMSG_KEY_TRANS_RECIPIENT_INFO')
-make_head(_module, 'CMSG_MAIL_LIST_ENCRYPT_INFO')
-make_head(_module, 'CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO')
-make_head(_module, 'CMSG_MAIL_LIST_RECIPIENT_INFO')
-make_head(_module, 'CMSG_RC2_AUX_INFO')
-make_head(_module, 'CMSG_RC4_AUX_INFO')
-make_head(_module, 'CMSG_RECIPIENT_ENCODE_INFO')
-make_head(_module, 'CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO')
-make_head(_module, 'CMSG_RECIPIENT_ENCRYPTED_KEY_INFO')
-make_head(_module, 'CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO')
-make_head(_module, 'CMSG_SIGNED_ENCODE_INFO')
-make_head(_module, 'CMSG_SIGNER_ENCODE_INFO')
-make_head(_module, 'CMSG_SIGNER_INFO')
-make_head(_module, 'CMSG_SP3_COMPATIBLE_AUX_INFO')
-make_head(_module, 'CMSG_STREAM_INFO')
-make_head(_module, 'CMS_DH_KEY_INFO')
-make_head(_module, 'CMS_KEY_INFO')
-make_head(_module, 'CPS_URLS')
-make_head(_module, 'CRL_CONTEXT')
-make_head(_module, 'CRL_DIST_POINT')
-make_head(_module, 'CRL_DIST_POINTS_INFO')
-make_head(_module, 'CRL_DIST_POINT_NAME')
-make_head(_module, 'CRL_ENTRY')
-make_head(_module, 'CRL_FIND_ISSUED_FOR_PARA')
-make_head(_module, 'CRL_INFO')
-make_head(_module, 'CRL_ISSUING_DIST_POINT')
-make_head(_module, 'CRL_REVOCATION_INFO')
-make_head(_module, 'CROSS_CERT_DIST_POINTS_INFO')
-make_head(_module, 'CRYPTNET_URL_CACHE_FLUSH_INFO')
-make_head(_module, 'CRYPTNET_URL_CACHE_PRE_FETCH_INFO')
-make_head(_module, 'CRYPTNET_URL_CACHE_RESPONSE_INFO')
-make_head(_module, 'CRYPTPROTECT_PROMPTSTRUCT')
-make_head(_module, 'CRYPT_3DES_KEY_STATE')
-make_head(_module, 'CRYPT_AES_128_KEY_STATE')
-make_head(_module, 'CRYPT_AES_256_KEY_STATE')
-make_head(_module, 'CRYPT_ALGORITHM_IDENTIFIER')
-make_head(_module, 'CRYPT_ASYNC_RETRIEVAL_COMPLETION')
-make_head(_module, 'CRYPT_ATTRIBUTE')
-make_head(_module, 'CRYPT_ATTRIBUTES')
-make_head(_module, 'CRYPT_ATTRIBUTE_TYPE_VALUE')
-make_head(_module, 'CRYPT_BIT_BLOB')
-make_head(_module, 'CRYPT_BLOB_ARRAY')
-make_head(_module, 'CRYPT_CONTENT_INFO')
-make_head(_module, 'CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY')
-make_head(_module, 'CRYPT_CONTEXTS')
-make_head(_module, 'CRYPT_CONTEXT_CONFIG')
-make_head(_module, 'CRYPT_CONTEXT_FUNCTIONS')
-make_head(_module, 'CRYPT_CONTEXT_FUNCTION_CONFIG')
-make_head(_module, 'CRYPT_CONTEXT_FUNCTION_PROVIDERS')
-make_head(_module, 'CRYPT_CREDENTIALS')
-make_head(_module, 'CRYPT_CSP_PROVIDER')
-make_head(_module, 'CRYPT_DECODE_PARA')
-make_head(_module, 'CRYPT_DECRYPT_MESSAGE_PARA')
-make_head(_module, 'CRYPT_DEFAULT_CONTEXT_MULTI_OID_PARA')
-make_head(_module, 'CRYPT_DES_KEY_STATE')
-make_head(_module, 'CRYPT_ECC_CMS_SHARED_INFO')
-make_head(_module, 'CRYPT_ECC_PRIVATE_KEY_INFO')
-make_head(_module, 'CRYPT_ENCODE_PARA')
-make_head(_module, 'CRYPT_ENCRYPTED_PRIVATE_KEY_INFO')
-make_head(_module, 'CRYPT_ENCRYPT_MESSAGE_PARA')
-make_head(_module, 'CRYPT_ENROLLMENT_NAME_VALUE_PAIR')
-make_head(_module, 'CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO')
-make_head(_module, 'CRYPT_HASH_INFO')
-make_head(_module, 'CRYPT_HASH_MESSAGE_PARA')
-make_head(_module, 'CRYPT_IMAGE_REF')
-make_head(_module, 'CRYPT_IMAGE_REG')
-make_head(_module, 'CRYPT_INTEGER_BLOB')
-make_head(_module, 'CRYPT_INTERFACE_REG')
-make_head(_module, 'CRYPT_KEY_PROV_INFO')
-make_head(_module, 'CRYPT_KEY_PROV_PARAM')
-make_head(_module, 'CRYPT_KEY_SIGN_MESSAGE_PARA')
-make_head(_module, 'CRYPT_KEY_VERIFY_MESSAGE_PARA')
-make_head(_module, 'CRYPT_MASK_GEN_ALGORITHM')
-make_head(_module, 'CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE')
-make_head(_module, 'CRYPT_OBJID_TABLE')
-make_head(_module, 'CRYPT_OID_FUNC_ENTRY')
-make_head(_module, 'CRYPT_OID_INFO')
-make_head(_module, 'CRYPT_PASSWORD_CREDENTIALSA')
-make_head(_module, 'CRYPT_PASSWORD_CREDENTIALSW')
-make_head(_module, 'CRYPT_PKCS12_PBE_PARAMS')
-make_head(_module, 'CRYPT_PKCS8_EXPORT_PARAMS')
-make_head(_module, 'CRYPT_PKCS8_IMPORT_PARAMS')
-make_head(_module, 'CRYPT_PRIVATE_KEY_INFO')
-make_head(_module, 'CRYPT_PROPERTY_REF')
-make_head(_module, 'CRYPT_PROVIDERS')
-make_head(_module, 'CRYPT_PROVIDER_REF')
-make_head(_module, 'CRYPT_PROVIDER_REFS')
-make_head(_module, 'CRYPT_PROVIDER_REG')
-make_head(_module, 'CRYPT_PSOURCE_ALGORITHM')
-make_head(_module, 'CRYPT_RC2_CBC_PARAMETERS')
-make_head(_module, 'CRYPT_RC4_KEY_STATE')
-make_head(_module, 'CRYPT_RETRIEVE_AUX_INFO')
-make_head(_module, 'CRYPT_RSAES_OAEP_PARAMETERS')
-make_head(_module, 'CRYPT_RSA_SSA_PSS_PARAMETERS')
-make_head(_module, 'CRYPT_SEQUENCE_OF_ANY')
-make_head(_module, 'CRYPT_SIGN_MESSAGE_PARA')
-make_head(_module, 'CRYPT_SMART_CARD_ROOT_INFO')
-make_head(_module, 'CRYPT_SMIME_CAPABILITIES')
-make_head(_module, 'CRYPT_SMIME_CAPABILITY')
-make_head(_module, 'CRYPT_TIMESTAMP_ACCURACY')
-make_head(_module, 'CRYPT_TIMESTAMP_CONTEXT')
-make_head(_module, 'CRYPT_TIMESTAMP_INFO')
-make_head(_module, 'CRYPT_TIMESTAMP_PARA')
-make_head(_module, 'CRYPT_TIMESTAMP_REQUEST')
-make_head(_module, 'CRYPT_TIMESTAMP_RESPONSE')
-make_head(_module, 'CRYPT_TIME_STAMP_REQUEST_INFO')
-make_head(_module, 'CRYPT_URL_ARRAY')
-make_head(_module, 'CRYPT_URL_INFO')
-make_head(_module, 'CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO')
-make_head(_module, 'CRYPT_VERIFY_CERT_SIGN_WEAK_HASH_INFO')
-make_head(_module, 'CRYPT_VERIFY_MESSAGE_PARA')
-make_head(_module, 'CRYPT_X942_OTHER_INFO')
-make_head(_module, 'CRYPT_XML_ALGORITHM')
-make_head(_module, 'CRYPT_XML_ALGORITHM_INFO')
-make_head(_module, 'CRYPT_XML_BLOB')
-make_head(_module, 'CRYPT_XML_CRYPTOGRAPHIC_INTERFACE')
-make_head(_module, 'CRYPT_XML_DATA_BLOB')
-make_head(_module, 'CRYPT_XML_DATA_PROVIDER')
-make_head(_module, 'CRYPT_XML_DOC_CTXT')
-make_head(_module, 'CRYPT_XML_ISSUER_SERIAL')
-make_head(_module, 'CRYPT_XML_KEYINFO_PARAM')
-make_head(_module, 'CRYPT_XML_KEY_DSA_KEY_VALUE')
-make_head(_module, 'CRYPT_XML_KEY_ECDSA_KEY_VALUE')
-make_head(_module, 'CRYPT_XML_KEY_INFO')
-make_head(_module, 'CRYPT_XML_KEY_INFO_ITEM')
-make_head(_module, 'CRYPT_XML_KEY_RSA_KEY_VALUE')
-make_head(_module, 'CRYPT_XML_KEY_VALUE')
-make_head(_module, 'CRYPT_XML_OBJECT')
-make_head(_module, 'CRYPT_XML_PROPERTY')
-make_head(_module, 'CRYPT_XML_REFERENCE')
-make_head(_module, 'CRYPT_XML_REFERENCES')
-make_head(_module, 'CRYPT_XML_SIGNATURE')
-make_head(_module, 'CRYPT_XML_SIGNED_INFO')
-make_head(_module, 'CRYPT_XML_STATUS')
-make_head(_module, 'CRYPT_XML_TRANSFORM_CHAIN_CONFIG')
-make_head(_module, 'CRYPT_XML_TRANSFORM_INFO')
-make_head(_module, 'CRYPT_XML_X509DATA')
-make_head(_module, 'CRYPT_XML_X509DATA_ITEM')
-make_head(_module, 'CTL_ANY_SUBJECT_INFO')
-make_head(_module, 'CTL_CONTEXT')
-make_head(_module, 'CTL_ENTRY')
-make_head(_module, 'CTL_FIND_SUBJECT_PARA')
-make_head(_module, 'CTL_FIND_USAGE_PARA')
-make_head(_module, 'CTL_INFO')
-make_head(_module, 'CTL_USAGE')
-make_head(_module, 'CTL_USAGE_MATCH')
-make_head(_module, 'CTL_VERIFY_USAGE_PARA')
-make_head(_module, 'CTL_VERIFY_USAGE_STATUS')
-make_head(_module, 'CryptXmlDllCloseDigest')
-make_head(_module, 'CryptXmlDllCreateDigest')
-make_head(_module, 'CryptXmlDllCreateKey')
-make_head(_module, 'CryptXmlDllDigestData')
-make_head(_module, 'CryptXmlDllEncodeAlgorithm')
-make_head(_module, 'CryptXmlDllEncodeKeyValue')
-make_head(_module, 'CryptXmlDllFinalizeDigest')
-make_head(_module, 'CryptXmlDllGetAlgorithmInfo')
-make_head(_module, 'CryptXmlDllGetInterface')
-make_head(_module, 'CryptXmlDllSignData')
-make_head(_module, 'CryptXmlDllVerifySignature')
-make_head(_module, 'DSSSEED')
-make_head(_module, 'ENDPOINTADDRESS')
-make_head(_module, 'ENDPOINTADDRESS2')
-make_head(_module, 'EV_EXTRA_CERT_CHAIN_POLICY_PARA')
-make_head(_module, 'EV_EXTRA_CERT_CHAIN_POLICY_STATUS')
-make_head(_module, 'GENERIC_XML_TOKEN')
-make_head(_module, 'HMAC_INFO')
-make_head(_module, 'HTTPSPolicyCallbackData')
-make_head(_module, 'ICertSrvSetup')
-make_head(_module, 'ICertSrvSetupKeyInformation')
-make_head(_module, 'ICertSrvSetupKeyInformationCollection')
-make_head(_module, 'ICertificateEnrollmentPolicyServerSetup')
-make_head(_module, 'ICertificateEnrollmentServerSetup')
-make_head(_module, 'IMSCEPSetup')
-make_head(_module, 'INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS')
-make_head(_module, 'INFORMATIONCARD_CRYPTO_HANDLE')
-make_head(_module, 'INFORMATIONCARD_HASH_CRYPTO_PARAMETERS')
-make_head(_module, 'INFORMATIONCARD_SYMMETRIC_CRYPTO_PARAMETERS')
-make_head(_module, 'INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS')
-make_head(_module, 'KEY_TYPE_SUBTYPE')
-make_head(_module, 'NCRYPT_ALLOC_PARA')
-make_head(_module, 'NCRYPT_CIPHER_PADDING_INFO')
-make_head(_module, 'NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE')
-make_head(_module, 'NCRYPT_EXPORTED_ISOLATED_KEY_HEADER')
-make_head(_module, 'NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES')
-make_head(_module, 'NCRYPT_KEY_ACCESS_POLICY_BLOB')
-make_head(_module, 'NCRYPT_KEY_ATTEST_PADDING_INFO')
-make_head(_module, 'NCRYPT_KEY_BLOB_HEADER')
-make_head(_module, 'NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO')
-make_head(_module, 'NCRYPT_PCP_RAW_POLICYDIGEST_INFO')
-make_head(_module, 'NCRYPT_PCP_TPM_FW_VERSION_INFO')
-make_head(_module, 'NCRYPT_PCP_TPM_WEB_AUTHN_ATTESTATION_STATEMENT')
-make_head(_module, 'NCRYPT_PLATFORM_ATTEST_PADDING_INFO')
-make_head(_module, 'NCRYPT_PROTECT_STREAM_INFO')
-make_head(_module, 'NCRYPT_PROTECT_STREAM_INFO_EX')
-make_head(_module, 'NCRYPT_SUPPORTED_LENGTHS')
-make_head(_module, 'NCRYPT_TPM_LOADABLE_KEY_BLOB_HEADER')
-make_head(_module, 'NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT')
-make_head(_module, 'NCRYPT_UI_POLICY')
-make_head(_module, 'NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS')
-make_head(_module, 'NCRYPT_VSM_KEY_ATTESTATION_STATEMENT')
-make_head(_module, 'NCryptAlgorithmName')
-make_head(_module, 'NCryptKeyName')
-make_head(_module, 'NCryptProviderName')
-make_head(_module, 'OCSP_BASIC_RESPONSE_ENTRY')
-make_head(_module, 'OCSP_BASIC_RESPONSE_INFO')
-make_head(_module, 'OCSP_BASIC_REVOKED_INFO')
-make_head(_module, 'OCSP_BASIC_SIGNED_RESPONSE_INFO')
-make_head(_module, 'OCSP_CERT_ID')
-make_head(_module, 'OCSP_REQUEST_ENTRY')
-make_head(_module, 'OCSP_REQUEST_INFO')
-make_head(_module, 'OCSP_RESPONSE_INFO')
-make_head(_module, 'OCSP_SIGNATURE_INFO')
-make_head(_module, 'OCSP_SIGNED_REQUEST_INFO')
-make_head(_module, 'PCRYPT_DECRYPT_PRIVATE_KEY_FUNC')
-make_head(_module, 'PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC')
-make_head(_module, 'PCRYPT_RESOLVE_HCRYPTPROV_FUNC')
-make_head(_module, 'PFNCryptStreamOutputCallback')
-make_head(_module, 'PFNCryptStreamOutputCallbackEx')
-make_head(_module, 'PFN_AUTHENTICODE_DIGEST_SIGN')
-make_head(_module, 'PFN_AUTHENTICODE_DIGEST_SIGN_EX')
-make_head(_module, 'PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE')
-make_head(_module, 'PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE')
-make_head(_module, 'PFN_CANCEL_ASYNC_RETRIEVAL_FUNC')
-make_head(_module, 'PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK')
-make_head(_module, 'PFN_CERT_CREATE_CONTEXT_SORT_FUNC')
-make_head(_module, 'PFN_CERT_DLL_OPEN_STORE_PROV_FUNC')
-make_head(_module, 'PFN_CERT_ENUM_PHYSICAL_STORE')
-make_head(_module, 'PFN_CERT_ENUM_SYSTEM_STORE')
-make_head(_module, 'PFN_CERT_ENUM_SYSTEM_STORE_LOCATION')
-make_head(_module, 'PFN_CERT_IS_WEAK_HASH')
-make_head(_module, 'PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK')
-make_head(_module, 'PFN_CERT_STORE_PROV_CLOSE')
-make_head(_module, 'PFN_CERT_STORE_PROV_CONTROL')
-make_head(_module, 'PFN_CERT_STORE_PROV_DELETE_CERT')
-make_head(_module, 'PFN_CERT_STORE_PROV_DELETE_CRL')
-make_head(_module, 'PFN_CERT_STORE_PROV_DELETE_CTL')
-make_head(_module, 'PFN_CERT_STORE_PROV_FIND_CERT')
-make_head(_module, 'PFN_CERT_STORE_PROV_FIND_CRL')
-make_head(_module, 'PFN_CERT_STORE_PROV_FIND_CTL')
-make_head(_module, 'PFN_CERT_STORE_PROV_FREE_FIND_CERT')
-make_head(_module, 'PFN_CERT_STORE_PROV_FREE_FIND_CRL')
-make_head(_module, 'PFN_CERT_STORE_PROV_FREE_FIND_CTL')
-make_head(_module, 'PFN_CERT_STORE_PROV_GET_CERT_PROPERTY')
-make_head(_module, 'PFN_CERT_STORE_PROV_GET_CRL_PROPERTY')
-make_head(_module, 'PFN_CERT_STORE_PROV_GET_CTL_PROPERTY')
-make_head(_module, 'PFN_CERT_STORE_PROV_READ_CERT')
-make_head(_module, 'PFN_CERT_STORE_PROV_READ_CRL')
-make_head(_module, 'PFN_CERT_STORE_PROV_READ_CTL')
-make_head(_module, 'PFN_CERT_STORE_PROV_SET_CERT_PROPERTY')
-make_head(_module, 'PFN_CERT_STORE_PROV_SET_CRL_PROPERTY')
-make_head(_module, 'PFN_CERT_STORE_PROV_SET_CTL_PROPERTY')
-make_head(_module, 'PFN_CERT_STORE_PROV_WRITE_CERT')
-make_head(_module, 'PFN_CERT_STORE_PROV_WRITE_CRL')
-make_head(_module, 'PFN_CERT_STORE_PROV_WRITE_CTL')
-make_head(_module, 'PFN_CMSG_ALLOC')
-make_head(_module, 'PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY')
-make_head(_module, 'PFN_CMSG_CNG_IMPORT_KEY_AGREE')
-make_head(_module, 'PFN_CMSG_CNG_IMPORT_KEY_TRANS')
-make_head(_module, 'PFN_CMSG_EXPORT_ENCRYPT_KEY')
-make_head(_module, 'PFN_CMSG_EXPORT_KEY_AGREE')
-make_head(_module, 'PFN_CMSG_EXPORT_KEY_TRANS')
-make_head(_module, 'PFN_CMSG_EXPORT_MAIL_LIST')
-make_head(_module, 'PFN_CMSG_FREE')
-make_head(_module, 'PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY')
-make_head(_module, 'PFN_CMSG_GEN_ENCRYPT_KEY')
-make_head(_module, 'PFN_CMSG_IMPORT_ENCRYPT_KEY')
-make_head(_module, 'PFN_CMSG_IMPORT_KEY_AGREE')
-make_head(_module, 'PFN_CMSG_IMPORT_KEY_TRANS')
-make_head(_module, 'PFN_CMSG_IMPORT_MAIL_LIST')
-make_head(_module, 'PFN_CMSG_STREAM_OUTPUT')
-make_head(_module, 'PFN_CRYPT_ALLOC')
-make_head(_module, 'PFN_CRYPT_ASYNC_PARAM_FREE_FUNC')
-make_head(_module, 'PFN_CRYPT_ASYNC_RETRIEVAL_COMPLETION_FUNC')
-make_head(_module, 'PFN_CRYPT_CANCEL_RETRIEVAL')
-make_head(_module, 'PFN_CRYPT_ENUM_KEYID_PROP')
-make_head(_module, 'PFN_CRYPT_ENUM_OID_FUNC')
-make_head(_module, 'PFN_CRYPT_ENUM_OID_INFO')
-make_head(_module, 'PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC')
-make_head(_module, 'PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC')
-make_head(_module, 'PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC')
-make_head(_module, 'PFN_CRYPT_FREE')
-make_head(_module, 'PFN_CRYPT_GET_SIGNER_CERTIFICATE')
-make_head(_module, 'PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH')
-make_head(_module, 'PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE')
-make_head(_module, 'PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER')
-make_head(_module, 'PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD')
-make_head(_module, 'PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET')
-make_head(_module, 'PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE')
-make_head(_module, 'PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE')
-make_head(_module, 'PFN_CRYPT_SIGN_AND_ENCODE_HASH_FUNC')
-make_head(_module, 'PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC')
-make_head(_module, 'PFN_CRYPT_XML_CREATE_TRANSFORM')
-make_head(_module, 'PFN_CRYPT_XML_DATA_PROVIDER_CLOSE')
-make_head(_module, 'PFN_CRYPT_XML_DATA_PROVIDER_READ')
-make_head(_module, 'PFN_CRYPT_XML_ENUM_ALG_INFO')
-make_head(_module, 'PFN_CRYPT_XML_WRITE_CALLBACK')
-make_head(_module, 'PFN_EXPORT_PRIV_KEY_FUNC')
-make_head(_module, 'PFN_FREE_ENCODED_OBJECT_FUNC')
-make_head(_module, 'PFN_IMPORT_PRIV_KEY_FUNC')
-make_head(_module, 'PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC')
-make_head(_module, 'PFN_NCRYPT_ALLOC')
-make_head(_module, 'PFN_NCRYPT_FREE')
-make_head(_module, 'PKCS12_PBES2_EXPORT_PARAMS')
-make_head(_module, 'POLICY_ELEMENT')
-make_head(_module, 'PRIVKEYVER3')
-make_head(_module, 'PROV_ENUMALGS')
-make_head(_module, 'PROV_ENUMALGS_EX')
-make_head(_module, 'PUBKEY')
-make_head(_module, 'PUBKEYVER3')
-make_head(_module, 'PUBLICKEYSTRUC')
-make_head(_module, 'RECIPIENTPOLICY')
-make_head(_module, 'RECIPIENTPOLICY2')
-make_head(_module, 'ROOT_INFO_LUID')
-make_head(_module, 'RSAPUBKEY')
-make_head(_module, 'SCHANNEL_ALG')
-make_head(_module, 'SIGNER_ATTR_AUTHCODE')
-make_head(_module, 'SIGNER_BLOB_INFO')
-make_head(_module, 'SIGNER_CERT')
-make_head(_module, 'SIGNER_CERT_STORE_INFO')
-make_head(_module, 'SIGNER_CONTEXT')
-make_head(_module, 'SIGNER_DIGEST_SIGN_INFO')
-make_head(_module, 'SIGNER_DIGEST_SIGN_INFO_V1')
-make_head(_module, 'SIGNER_DIGEST_SIGN_INFO_V2')
-make_head(_module, 'SIGNER_FILE_INFO')
-make_head(_module, 'SIGNER_PROVIDER_INFO')
-make_head(_module, 'SIGNER_SIGNATURE_INFO')
-make_head(_module, 'SIGNER_SPC_CHAIN_INFO')
-make_head(_module, 'SIGNER_SUBJECT_INFO')
-make_head(_module, 'SSL_ECCKEY_BLOB')
-make_head(_module, 'SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS')
-make_head(_module, 'SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA')
-make_head(_module, 'SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_PARA')
-make_head(_module, 'SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS')
+make_ready(__name__)

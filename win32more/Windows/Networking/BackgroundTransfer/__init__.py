@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Background
@@ -24,15 +24,6 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Notifications
 import win32more.Windows.Web
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class BackgroundDownloadProgress(EasyCastStructure):
     BytesReceived: UInt64
     TotalBytesToReceive: UInt64
@@ -894,57 +885,4 @@ class UploadOperation(ComPtr):
     CostPolicy = property(get_CostPolicy, put_CostPolicy)
     Priority = property(get_Priority, put_Priority)
     TransferGroup = property(get_TransferGroup, None)
-make_head(_module, 'BackgroundDownloadProgress')
-make_head(_module, 'BackgroundDownloader')
-make_head(_module, 'BackgroundTransferCompletionGroup')
-make_head(_module, 'BackgroundTransferCompletionGroupTriggerDetails')
-make_head(_module, 'BackgroundTransferContentPart')
-make_head(_module, 'BackgroundTransferError')
-make_head(_module, 'BackgroundTransferFileRange')
-make_head(_module, 'BackgroundTransferGroup')
-make_head(_module, 'BackgroundTransferRangesDownloadedEventArgs')
-make_head(_module, 'BackgroundUploadProgress')
-make_head(_module, 'BackgroundUploader')
-make_head(_module, 'ContentPrefetcher')
-make_head(_module, 'DownloadOperation')
-make_head(_module, 'IBackgroundDownloader')
-make_head(_module, 'IBackgroundDownloader2')
-make_head(_module, 'IBackgroundDownloader3')
-make_head(_module, 'IBackgroundDownloaderFactory')
-make_head(_module, 'IBackgroundDownloaderStaticMethods')
-make_head(_module, 'IBackgroundDownloaderStaticMethods2')
-make_head(_module, 'IBackgroundDownloaderUserConsent')
-make_head(_module, 'IBackgroundTransferBase')
-make_head(_module, 'IBackgroundTransferCompletionGroup')
-make_head(_module, 'IBackgroundTransferCompletionGroupTriggerDetails')
-make_head(_module, 'IBackgroundTransferContentPart')
-make_head(_module, 'IBackgroundTransferContentPartFactory')
-make_head(_module, 'IBackgroundTransferErrorStaticMethods')
-make_head(_module, 'IBackgroundTransferGroup')
-make_head(_module, 'IBackgroundTransferGroupStatics')
-make_head(_module, 'IBackgroundTransferOperation')
-make_head(_module, 'IBackgroundTransferOperationPriority')
-make_head(_module, 'IBackgroundTransferRangesDownloadedEventArgs')
-make_head(_module, 'IBackgroundUploader')
-make_head(_module, 'IBackgroundUploader2')
-make_head(_module, 'IBackgroundUploader3')
-make_head(_module, 'IBackgroundUploaderFactory')
-make_head(_module, 'IBackgroundUploaderStaticMethods')
-make_head(_module, 'IBackgroundUploaderStaticMethods2')
-make_head(_module, 'IBackgroundUploaderUserConsent')
-make_head(_module, 'IContentPrefetcher')
-make_head(_module, 'IContentPrefetcherTime')
-make_head(_module, 'IDownloadOperation')
-make_head(_module, 'IDownloadOperation2')
-make_head(_module, 'IDownloadOperation3')
-make_head(_module, 'IDownloadOperation4')
-make_head(_module, 'IDownloadOperation5')
-make_head(_module, 'IResponseInformation')
-make_head(_module, 'IUnconstrainedTransferRequestResult')
-make_head(_module, 'IUploadOperation')
-make_head(_module, 'IUploadOperation2')
-make_head(_module, 'IUploadOperation3')
-make_head(_module, 'IUploadOperation4')
-make_head(_module, 'ResponseInformation')
-make_head(_module, 'UnconstrainedTransferRequestResult')
-make_head(_module, 'UploadOperation')
+make_ready(__name__)

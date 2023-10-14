@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.RemoteAssistance
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 DISPID_EVENT_ON_STATE_CHANGED: UInt32 = 5
 DISPID_EVENT_ON_TERMINATION: UInt32 = 6
 DISPID_EVENT_ON_CONTEXT_DATA: UInt32 = 7
@@ -24,7 +15,7 @@ class IRendezvousApplication(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4f4d070b-a275-49fb-b10d-8ec26387b50d}')
     @commethod(3)
-    def SetRendezvousSession(self, pRendezvousSession: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetRendezvousSession(self, pRendezvousSession: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IRendezvousSession(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9ba4b1dd-8b0c-48b7-9e7c-2f25857c8df5}')
@@ -55,6 +46,4 @@ RSS_CANCELLED: RENDEZVOUS_SESSION_STATE = 5
 RSS_DECLINED: RENDEZVOUS_SESSION_STATE = 6
 RSS_TERMINATED: RENDEZVOUS_SESSION_STATE = 7
 RendezvousApplication = Guid('{0b7e019a-b5de-47fa-8966-9082f82fb192}')
-make_head(_module, 'DRendezvousSessionEvents')
-make_head(_module, 'IRendezvousApplication')
-make_head(_module, 'IRendezvousSession')
+make_ready(__name__)

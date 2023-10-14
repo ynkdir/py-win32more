@@ -1,23 +1,14 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.JobObjects
 import win32more.Windows.Win32.System.Threading
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('KERNEL32.dll')
 def IsProcessInJob(ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE, JobHandle: win32more.Windows.Win32.Foundation.HANDLE, Result: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def CreateJobObjectW(lpJobAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+def CreateJobObjectW(lpJobAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES), lpName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def FreeMemoryJobObject(Buffer: VoidPtr) -> Void: ...
 @winfunctype('KERNEL32.dll')
@@ -29,19 +20,19 @@ def TerminateJobObject(hJob: win32more.Windows.Win32.Foundation.HANDLE, uExitCod
 @winfunctype('KERNEL32.dll')
 def SetInformationJobObject(hJob: win32more.Windows.Win32.Foundation.HANDLE, JobObjectInformationClass: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS, lpJobObjectInformation: VoidPtr, cbJobObjectInformationLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetIoRateControlInformationJobObject(hJob: win32more.Windows.Win32.Foundation.HANDLE, IoRateControlInfo: POINTER(win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_RATE_CONTROL_INFORMATION_head)) -> UInt32: ...
+def SetIoRateControlInformationJobObject(hJob: win32more.Windows.Win32.Foundation.HANDLE, IoRateControlInfo: POINTER(win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_RATE_CONTROL_INFORMATION)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def QueryInformationJobObject(hJob: win32more.Windows.Win32.Foundation.HANDLE, JobObjectInformationClass: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS, lpJobObjectInformation: VoidPtr, cbJobObjectInformationLength: UInt32, lpReturnLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def QueryIoRateControlInformationJobObject(hJob: win32more.Windows.Win32.Foundation.HANDLE, VolumeName: win32more.Windows.Win32.Foundation.PWSTR, InfoBlocks: POINTER(POINTER(win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_RATE_CONTROL_INFORMATION_head)), InfoBlockCount: POINTER(UInt32)) -> UInt32: ...
+def QueryIoRateControlInformationJobObject(hJob: win32more.Windows.Win32.Foundation.HANDLE, VolumeName: win32more.Windows.Win32.Foundation.PWSTR, InfoBlocks: POINTER(POINTER(win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_RATE_CONTROL_INFORMATION)), InfoBlockCount: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('USER32.dll')
 def UserHandleGrantAccess(hUserHandle: win32more.Windows.Win32.Foundation.HANDLE, hJob: win32more.Windows.Win32.Foundation.HANDLE, bGrant: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def CreateJobObjectA(lpJobAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+def CreateJobObjectA(lpJobAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES), lpName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def OpenJobObjectA(dwDesiredAccess: UInt32, bInheritHandle: win32more.Windows.Win32.Foundation.BOOL, lpName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def CreateJobSet(NumJob: UInt32, UserJobSet: POINTER(win32more.Windows.Win32.System.JobObjects.JOB_SET_ARRAY_head), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CreateJobSet(NumJob: UInt32, UserJobSet: POINTER(win32more.Windows.Win32.System.JobObjects.JOB_SET_ARRAY), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 JOBOBJECTINFOCLASS = Int32
 JOBOBJECTINFOCLASS_JobObjectBasicAccountingInformation: JOBOBJECTINFOCLASS = 1
 JOBOBJECTINFOCLASS_JobObjectBasicLimitInformation: JOBOBJECTINFOCLASS = 2
@@ -292,9 +283,9 @@ JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL_ToleranceIntervalLong: JOBOBJECT_RATE_
 class JOBOBJECT_SECURITY_LIMIT_INFORMATION(EasyCastStructure):
     SecurityLimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_SECURITY
     JobToken: win32more.Windows.Win32.Foundation.HANDLE
-    SidsToDisable: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS_head)
-    PrivilegesToDelete: POINTER(win32more.Windows.Win32.Security.TOKEN_PRIVILEGES_head)
-    RestrictedSids: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS_head)
+    SidsToDisable: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS)
+    PrivilegesToDelete: POINTER(win32more.Windows.Win32.Security.TOKEN_PRIVILEGES)
+    RestrictedSids: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS)
 JOB_OBJECT_CPU_RATE_CONTROL = UInt32
 JOB_OBJECT_CPU_RATE_CONTROL_ENABLE: JOB_OBJECT_CPU_RATE_CONTROL = 1
 JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED: JOB_OBJECT_CPU_RATE_CONTROL = 2
@@ -364,26 +355,4 @@ class JOB_SET_ARRAY(EasyCastStructure):
     JobHandle: win32more.Windows.Win32.Foundation.HANDLE
     MemberLevel: UInt32
     Flags: UInt32
-make_head(_module, 'JOBOBJECT_ASSOCIATE_COMPLETION_PORT')
-make_head(_module, 'JOBOBJECT_BASIC_ACCOUNTING_INFORMATION')
-make_head(_module, 'JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION')
-make_head(_module, 'JOBOBJECT_BASIC_LIMIT_INFORMATION')
-make_head(_module, 'JOBOBJECT_BASIC_PROCESS_ID_LIST')
-make_head(_module, 'JOBOBJECT_BASIC_UI_RESTRICTIONS')
-make_head(_module, 'JOBOBJECT_CPU_RATE_CONTROL_INFORMATION')
-make_head(_module, 'JOBOBJECT_END_OF_JOB_TIME_INFORMATION')
-make_head(_module, 'JOBOBJECT_EXTENDED_LIMIT_INFORMATION')
-make_head(_module, 'JOBOBJECT_IO_ATTRIBUTION_INFORMATION')
-make_head(_module, 'JOBOBJECT_IO_ATTRIBUTION_STATS')
-make_head(_module, 'JOBOBJECT_IO_RATE_CONTROL_INFORMATION')
-make_head(_module, 'JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1')
-make_head(_module, 'JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V2')
-make_head(_module, 'JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V3')
-make_head(_module, 'JOBOBJECT_JOBSET_INFORMATION')
-make_head(_module, 'JOBOBJECT_LIMIT_VIOLATION_INFORMATION')
-make_head(_module, 'JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2')
-make_head(_module, 'JOBOBJECT_NET_RATE_CONTROL_INFORMATION')
-make_head(_module, 'JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION')
-make_head(_module, 'JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2')
-make_head(_module, 'JOBOBJECT_SECURITY_LIMIT_INFORMATION')
-make_head(_module, 'JOB_SET_ARRAY')
+make_ready(__name__)

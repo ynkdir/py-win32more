@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -25,15 +25,6 @@ import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Controls.Primitives
 import win32more.Windows.UI.Xaml.Media
 import win32more.Windows.UI.Xaml.Media.Media3D
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AcrylicBackgroundSource = Int32
 AcrylicBackgroundSource_HostBackdrop: AcrylicBackgroundSource = 0
 AcrylicBackgroundSource_Backdrop: AcrylicBackgroundSource = 1
@@ -44,7 +35,7 @@ class AcrylicBrush(ComPtr, metaclass=_AcrylicBrush_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.IAcrylicBrush
     _classid_ = 'Windows.UI.Xaml.Media.AcrylicBrush'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IAcrylicBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.AcrylicBrush: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IAcrylicBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.AcrylicBrush: ...
     @winrt_mixinmethod
     def get_BackgroundSource(self: win32more.Windows.UI.Xaml.Media.IAcrylicBrush) -> win32more.Windows.UI.Xaml.Media.AcrylicBackgroundSource: ...
     @winrt_mixinmethod
@@ -211,7 +202,7 @@ class Brush(ComPtr, metaclass=_Brush_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.IBrush
     _classid_ = 'Windows.UI.Xaml.Media.Brush'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Brush: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Brush: ...
     @winrt_mixinmethod
     def get_Opacity(self: win32more.Windows.UI.Xaml.Media.IBrush) -> Double: ...
     @winrt_mixinmethod
@@ -281,7 +272,7 @@ class CacheMode(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.ICacheMode
     _classid_ = 'Windows.UI.Xaml.Media.CacheMode'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.ICacheModeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.CacheMode: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.ICacheModeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.CacheMode: ...
 ColorInterpolationMode = Int32
 ColorInterpolationMode_ScRgbLinearInterpolation: ColorInterpolationMode = 0
 ColorInterpolationMode_SRgbLinearInterpolation: ColorInterpolationMode = 1
@@ -374,11 +365,11 @@ class CompositionTarget(ComPtr):
     @winrt_classmethod
     def remove_Rendered(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def add_Rendering(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Rendering(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_Rendering(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def add_SurfaceContentsLost(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SurfaceContentsLost(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_SurfaceContentsLost(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class DoubleCollection(ComPtr):
@@ -464,7 +455,7 @@ class FontFamily(ComPtr, metaclass=_FontFamily_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.IFontFamily
     _classid_ = 'Windows.UI.Xaml.Media.FontFamily'
     @winrt_factorymethod
-    def CreateInstanceWithName(cls: win32more.Windows.UI.Xaml.Media.IFontFamilyFactory, familyName: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.FontFamily: ...
+    def CreateInstanceWithName(cls: win32more.Windows.UI.Xaml.Media.IFontFamilyFactory, familyName: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.FontFamily: ...
     @winrt_mixinmethod
     def get_Source(self: win32more.Windows.UI.Xaml.Media.IFontFamily) -> WinRT_String: ...
     @winrt_classmethod
@@ -476,19 +467,19 @@ class GeneralTransform(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.IGeneralTransform
     _classid_ = 'Windows.UI.Xaml.Media.GeneralTransform'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IGeneralTransformFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.GeneralTransform: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IGeneralTransformFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.GeneralTransform: ...
     @winrt_mixinmethod
     def get_Inverse(self: win32more.Windows.UI.Xaml.Media.IGeneralTransform) -> win32more.Windows.UI.Xaml.Media.GeneralTransform: ...
     @winrt_mixinmethod
     def TransformPoint(self: win32more.Windows.UI.Xaml.Media.IGeneralTransform, point: win32more.Windows.Foundation.Point) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
-    def TryTransform(self: win32more.Windows.UI.Xaml.Media.IGeneralTransform, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point_head)) -> Boolean: ...
+    def TryTransform(self: win32more.Windows.UI.Xaml.Media.IGeneralTransform, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point)) -> Boolean: ...
     @winrt_mixinmethod
     def TransformBounds(self: win32more.Windows.UI.Xaml.Media.IGeneralTransform, rect: win32more.Windows.Foundation.Rect) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
     def get_InverseCore(self: win32more.Windows.UI.Xaml.Media.IGeneralTransformOverrides) -> win32more.Windows.UI.Xaml.Media.GeneralTransform: ...
     @winrt_mixinmethod
-    def TryTransformCore(self: win32more.Windows.UI.Xaml.Media.IGeneralTransformOverrides, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point_head)) -> Boolean: ...
+    def TryTransformCore(self: win32more.Windows.UI.Xaml.Media.IGeneralTransformOverrides, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point)) -> Boolean: ...
     @winrt_mixinmethod
     def TransformBoundsCore(self: win32more.Windows.UI.Xaml.Media.IGeneralTransformOverrides, rect: win32more.Windows.Foundation.Rect) -> win32more.Windows.Foundation.Rect: ...
     Inverse = property(get_Inverse, None)
@@ -580,7 +571,7 @@ class GradientBrush(ComPtr, metaclass=_GradientBrush_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.IGradientBrush
     _classid_ = 'Windows.UI.Xaml.Media.GradientBrush'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IGradientBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.GradientBrush: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IGradientBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.GradientBrush: ...
     @winrt_mixinmethod
     def get_SpreadMethod(self: win32more.Windows.UI.Xaml.Media.IGradientBrush) -> win32more.Windows.UI.Xaml.Media.GradientSpreadMethod: ...
     @winrt_mixinmethod
@@ -717,7 +708,7 @@ class IAcrylicBrushFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IAcrylicBrushFactory'
     _iid_ = Guid('{81a32568-f6cc-4013-8363-928ae23b7a61}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.AcrylicBrush: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.AcrylicBrush: ...
 class IAcrylicBrushStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IAcrylicBrushStatics'
@@ -852,7 +843,7 @@ class IBrushFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IBrushFactory'
     _iid_ = Guid('{399658a2-14fb-4b8f-83e6-6e3dab12069b}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Brush: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Brush: ...
 class IBrushOverrides2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IBrushOverrides2'
@@ -881,7 +872,7 @@ class ICacheModeFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.ICacheModeFactory'
     _iid_ = Guid('{eb1f8c5b-0abb-4e70-b8a8-620d0d953ab2}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.CacheMode: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.CacheMode: ...
 class ICompositeTransform(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.ICompositeTransform'
@@ -971,11 +962,11 @@ class ICompositionTargetStatics(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.ICompositionTargetStatics'
     _iid_ = Guid('{2b1af03d-1ed2-4b59-bd00-7594ee92832b}')
     @winrt_commethod(6)
-    def add_Rendering(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Rendering(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Rendering(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_SurfaceContentsLost(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SurfaceContentsLost(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_SurfaceContentsLost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICompositionTargetStatics3(ComPtr):
@@ -1030,7 +1021,7 @@ class IFontFamilyFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IFontFamilyFactory'
     _iid_ = Guid('{d5603377-3dae-4dcd-af09-f9498e9ec659}')
     @winrt_commethod(6)
-    def CreateInstanceWithName(self, familyName: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.FontFamily: ...
+    def CreateInstanceWithName(self, familyName: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.FontFamily: ...
 class IFontFamilyStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IFontFamilyStatics2'
@@ -1047,7 +1038,7 @@ class IGeneralTransform(ComPtr):
     @winrt_commethod(7)
     def TransformPoint(self, point: win32more.Windows.Foundation.Point) -> win32more.Windows.Foundation.Point: ...
     @winrt_commethod(8)
-    def TryTransform(self, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point_head)) -> Boolean: ...
+    def TryTransform(self, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point)) -> Boolean: ...
     @winrt_commethod(9)
     def TransformBounds(self, rect: win32more.Windows.Foundation.Rect) -> win32more.Windows.Foundation.Rect: ...
     Inverse = property(get_Inverse, None)
@@ -1056,7 +1047,7 @@ class IGeneralTransformFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IGeneralTransformFactory'
     _iid_ = Guid('{7a25c930-29c4-4e31-b6f9-dedd52e4df1b}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.GeneralTransform: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.GeneralTransform: ...
 class IGeneralTransformOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IGeneralTransformOverrides'
@@ -1064,7 +1055,7 @@ class IGeneralTransformOverrides(ComPtr):
     @winrt_commethod(6)
     def get_InverseCore(self) -> win32more.Windows.UI.Xaml.Media.GeneralTransform: ...
     @winrt_commethod(7)
-    def TryTransformCore(self, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point_head)) -> Boolean: ...
+    def TryTransformCore(self, inPoint: win32more.Windows.Foundation.Point, outPoint: POINTER(win32more.Windows.Foundation.Point)) -> Boolean: ...
     @winrt_commethod(8)
     def TransformBoundsCore(self, rect: win32more.Windows.Foundation.Rect) -> win32more.Windows.Foundation.Rect: ...
     InverseCore = property(get_InverseCore, None)
@@ -1150,7 +1141,7 @@ class IGradientBrushFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IGradientBrushFactory'
     _iid_ = Guid('{ed4779ca-45bd-4131-b625-be86e07c6112}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.GradientBrush: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.GradientBrush: ...
 class IGradientBrushStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IGradientBrushStatics'
@@ -1639,7 +1630,7 @@ class IProjectionFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IProjectionFactory'
     _iid_ = Guid('{c4f29cab-60ad-4f24-bd27-9d69c3127c9a}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Projection: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Projection: ...
 class IQuadraticBezierSegment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IQuadraticBezierSegment'
@@ -1707,7 +1698,7 @@ class IRevealBackgroundBrushFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IRevealBackgroundBrushFactory'
     _iid_ = Guid('{8c56bcaa-02a5-4f45-8506-8d39228f5d3f}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.RevealBackgroundBrush: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.RevealBackgroundBrush: ...
 class IRevealBorderBrush(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IRevealBorderBrush'
@@ -1717,7 +1708,7 @@ class IRevealBorderBrushFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IRevealBorderBrushFactory'
     _iid_ = Guid('{94c25298-f5f8-4482-a25c-6758501a8626}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.RevealBorderBrush: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.RevealBorderBrush: ...
 class IRevealBrush(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IRevealBrush'
@@ -1742,7 +1733,7 @@ class IRevealBrushFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IRevealBrushFactory'
     _iid_ = Guid('{9d9379ce-e3a0-4aaf-be37-ea9d9dd43105}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.RevealBrush: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.RevealBrush: ...
 class IRevealBrushStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IRevealBrushStatics'
@@ -1917,7 +1908,7 @@ class IThemeShadowFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IThemeShadowFactory'
     _iid_ = Guid('{2e71465d-0f67-590e-831b-7e5e2a32b778}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.ThemeShadow: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.ThemeShadow: ...
 class ITileBrush(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.ITileBrush'
@@ -1942,7 +1933,7 @@ class ITileBrushFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.ITileBrushFactory'
     _iid_ = Guid('{aa159f7c-ed6a-4fb3-b014-b5c7e379a4de}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.TileBrush: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.TileBrush: ...
 class ITileBrushStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.ITileBrushStatics'
@@ -2098,7 +2089,7 @@ class IXamlCompositionBrushBaseFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IXamlCompositionBrushBaseFactory'
     _iid_ = Guid('{394f0823-2451-4ed8-bd24-488149b3428d}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.XamlCompositionBrushBase: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.XamlCompositionBrushBase: ...
 class IXamlCompositionBrushBaseOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IXamlCompositionBrushBaseOverrides'
@@ -2132,7 +2123,7 @@ class IXamlLightFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.IXamlLightFactory'
     _iid_ = Guid('{87ded768-3055-43b8-8ef6-798dc4c2329a}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.XamlLight: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.XamlLight: ...
 class IXamlLightOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IXamlLightOverrides'
@@ -2721,7 +2712,7 @@ class Projection(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.IProjection
     _classid_ = 'Windows.UI.Xaml.Media.Projection'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IProjectionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Projection: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IProjectionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Projection: ...
 class _QuadraticBezierSegment_Meta_(ComPtr.__class__):
     pass
 class QuadraticBezierSegment(ComPtr, metaclass=_QuadraticBezierSegment_Meta_):
@@ -2755,7 +2746,7 @@ class RateChangedRoutedEventArgs(ComPtr):
 class RateChangedRoutedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{08e9a257-ae05-489b-8839-28c6225d2349}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Media.RateChangedRoutedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Media.RateChangedRoutedEventArgs) -> Void: ...
 class _RectangleGeometry_Meta_(ComPtr.__class__):
     pass
 class RectangleGeometry(ComPtr, metaclass=_RectangleGeometry_Meta_):
@@ -2791,13 +2782,13 @@ class RevealBackgroundBrush(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.IRevealBackgroundBrush
     _classid_ = 'Windows.UI.Xaml.Media.RevealBackgroundBrush'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IRevealBackgroundBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.RevealBackgroundBrush: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IRevealBackgroundBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.RevealBackgroundBrush: ...
 class RevealBorderBrush(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.RevealBrush
     default_interface: win32more.Windows.UI.Xaml.Media.IRevealBorderBrush
     _classid_ = 'Windows.UI.Xaml.Media.RevealBorderBrush'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IRevealBorderBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.RevealBorderBrush: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IRevealBorderBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.RevealBorderBrush: ...
 class _RevealBrush_Meta_(ComPtr.__class__):
     pass
 class RevealBrush(ComPtr, metaclass=_RevealBrush_Meta_):
@@ -2805,7 +2796,7 @@ class RevealBrush(ComPtr, metaclass=_RevealBrush_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.IRevealBrush
     _classid_ = 'Windows.UI.Xaml.Media.RevealBrush'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IRevealBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.RevealBrush: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IRevealBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.RevealBrush: ...
     @winrt_mixinmethod
     def get_Color(self: win32more.Windows.UI.Xaml.Media.IRevealBrush) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -3000,7 +2991,7 @@ class ThemeShadow(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.IThemeShadow
     _classid_ = 'Windows.UI.Xaml.Media.ThemeShadow'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IThemeShadowFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.ThemeShadow: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IThemeShadowFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.ThemeShadow: ...
     @winrt_mixinmethod
     def get_Receivers(self: win32more.Windows.UI.Xaml.Media.IThemeShadow) -> win32more.Windows.UI.Xaml.UIElementWeakCollection: ...
     Receivers = property(get_Receivers, None)
@@ -3011,7 +3002,7 @@ class TileBrush(ComPtr, metaclass=_TileBrush_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.ITileBrush
     _classid_ = 'Windows.UI.Xaml.Media.TileBrush'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.ITileBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.TileBrush: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.ITileBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.TileBrush: ...
     @winrt_mixinmethod
     def get_AlignmentX(self: win32more.Windows.UI.Xaml.Media.ITileBrush) -> win32more.Windows.UI.Xaml.Media.AlignmentX: ...
     @winrt_mixinmethod
@@ -3115,7 +3106,7 @@ class TimelineMarkerRoutedEventArgs(ComPtr):
 class TimelineMarkerRoutedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{72e2fa9c-6dea-4cbe-a159-06ce95fbeced}')
-    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable_head, e: win32more.Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs) -> Void: ...
+    def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs) -> Void: ...
 class Transform(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.GeneralTransform
     default_interface: win32more.Windows.UI.Xaml.Media.ITransform
@@ -3227,7 +3218,7 @@ class XamlCompositionBrushBase(ComPtr, metaclass=_XamlCompositionBrushBase_Meta_
     default_interface: win32more.Windows.UI.Xaml.Media.IXamlCompositionBrushBase
     _classid_ = 'Windows.UI.Xaml.Media.XamlCompositionBrushBase'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IXamlCompositionBrushBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.XamlCompositionBrushBase: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IXamlCompositionBrushBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.XamlCompositionBrushBase: ...
     @winrt_mixinmethod
     def get_FallbackColor(self: win32more.Windows.UI.Xaml.Media.IXamlCompositionBrushBase) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -3250,7 +3241,7 @@ class XamlLight(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.IXamlLight
     _classid_ = 'Windows.UI.Xaml.Media.XamlLight'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IXamlLightFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.XamlLight: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.IXamlLightFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.XamlLight: ...
     @winrt_mixinmethod
     def get_CompositionLight(self: win32more.Windows.UI.Xaml.Media.IXamlLightProtected) -> win32more.Windows.UI.Composition.CompositionLight: ...
     @winrt_mixinmethod
@@ -3270,202 +3261,4 @@ class XamlLight(ComPtr):
     @winrt_classmethod
     def RemoveTargetBrush(cls: win32more.Windows.UI.Xaml.Media.IXamlLightStatics, lightId: WinRT_String, brush: win32more.Windows.UI.Xaml.Media.Brush) -> Void: ...
     CompositionLight = property(get_CompositionLight, put_CompositionLight)
-make_head(_module, 'AcrylicBrush')
-make_head(_module, 'ArcSegment')
-make_head(_module, 'BezierSegment')
-make_head(_module, 'BitmapCache')
-make_head(_module, 'Brush')
-make_head(_module, 'BrushCollection')
-make_head(_module, 'CacheMode')
-make_head(_module, 'CompositeTransform')
-make_head(_module, 'CompositionTarget')
-make_head(_module, 'DoubleCollection')
-make_head(_module, 'EllipseGeometry')
-make_head(_module, 'FontFamily')
-make_head(_module, 'GeneralTransform')
-make_head(_module, 'Geometry')
-make_head(_module, 'GeometryCollection')
-make_head(_module, 'GeometryGroup')
-make_head(_module, 'GradientBrush')
-make_head(_module, 'GradientStop')
-make_head(_module, 'GradientStopCollection')
-make_head(_module, 'IAcrylicBrush')
-make_head(_module, 'IAcrylicBrush2')
-make_head(_module, 'IAcrylicBrushFactory')
-make_head(_module, 'IAcrylicBrushStatics')
-make_head(_module, 'IAcrylicBrushStatics2')
-make_head(_module, 'IArcSegment')
-make_head(_module, 'IArcSegmentStatics')
-make_head(_module, 'IBezierSegment')
-make_head(_module, 'IBezierSegmentStatics')
-make_head(_module, 'IBitmapCache')
-make_head(_module, 'IBrush')
-make_head(_module, 'IBrushFactory')
-make_head(_module, 'IBrushOverrides2')
-make_head(_module, 'IBrushStatics')
-make_head(_module, 'ICacheMode')
-make_head(_module, 'ICacheModeFactory')
-make_head(_module, 'ICompositeTransform')
-make_head(_module, 'ICompositeTransformStatics')
-make_head(_module, 'ICompositionTarget')
-make_head(_module, 'ICompositionTargetStatics')
-make_head(_module, 'ICompositionTargetStatics3')
-make_head(_module, 'IEllipseGeometry')
-make_head(_module, 'IEllipseGeometryStatics')
-make_head(_module, 'IFontFamily')
-make_head(_module, 'IFontFamilyFactory')
-make_head(_module, 'IFontFamilyStatics2')
-make_head(_module, 'IGeneralTransform')
-make_head(_module, 'IGeneralTransformFactory')
-make_head(_module, 'IGeneralTransformOverrides')
-make_head(_module, 'IGeometry')
-make_head(_module, 'IGeometryFactory')
-make_head(_module, 'IGeometryGroup')
-make_head(_module, 'IGeometryGroupStatics')
-make_head(_module, 'IGeometryStatics')
-make_head(_module, 'IGradientBrush')
-make_head(_module, 'IGradientBrushFactory')
-make_head(_module, 'IGradientBrushStatics')
-make_head(_module, 'IGradientStop')
-make_head(_module, 'IGradientStopStatics')
-make_head(_module, 'IImageBrush')
-make_head(_module, 'IImageBrushStatics')
-make_head(_module, 'IImageSource')
-make_head(_module, 'IImageSourceFactory')
-make_head(_module, 'ILineGeometry')
-make_head(_module, 'ILineGeometryStatics')
-make_head(_module, 'ILineSegment')
-make_head(_module, 'ILineSegmentStatics')
-make_head(_module, 'ILinearGradientBrush')
-make_head(_module, 'ILinearGradientBrushFactory')
-make_head(_module, 'ILinearGradientBrushStatics')
-make_head(_module, 'ILoadedImageSourceLoadCompletedEventArgs')
-make_head(_module, 'ILoadedImageSurface')
-make_head(_module, 'ILoadedImageSurfaceStatics')
-make_head(_module, 'IMatrix3DProjection')
-make_head(_module, 'IMatrix3DProjectionStatics')
-make_head(_module, 'IMatrixHelper')
-make_head(_module, 'IMatrixHelperStatics')
-make_head(_module, 'IMatrixTransform')
-make_head(_module, 'IMatrixTransformStatics')
-make_head(_module, 'IMediaTransportControlsThumbnailRequestedEventArgs')
-make_head(_module, 'IPartialMediaFailureDetectedEventArgs')
-make_head(_module, 'IPartialMediaFailureDetectedEventArgs2')
-make_head(_module, 'IPathFigure')
-make_head(_module, 'IPathFigureStatics')
-make_head(_module, 'IPathGeometry')
-make_head(_module, 'IPathGeometryStatics')
-make_head(_module, 'IPathSegment')
-make_head(_module, 'IPathSegmentFactory')
-make_head(_module, 'IPlaneProjection')
-make_head(_module, 'IPlaneProjectionStatics')
-make_head(_module, 'IPolyBezierSegment')
-make_head(_module, 'IPolyBezierSegmentStatics')
-make_head(_module, 'IPolyLineSegment')
-make_head(_module, 'IPolyLineSegmentStatics')
-make_head(_module, 'IPolyQuadraticBezierSegment')
-make_head(_module, 'IPolyQuadraticBezierSegmentStatics')
-make_head(_module, 'IProjection')
-make_head(_module, 'IProjectionFactory')
-make_head(_module, 'IQuadraticBezierSegment')
-make_head(_module, 'IQuadraticBezierSegmentStatics')
-make_head(_module, 'IRateChangedRoutedEventArgs')
-make_head(_module, 'IRectangleGeometry')
-make_head(_module, 'IRectangleGeometryStatics')
-make_head(_module, 'IRenderedEventArgs')
-make_head(_module, 'IRenderingEventArgs')
-make_head(_module, 'IRevealBackgroundBrush')
-make_head(_module, 'IRevealBackgroundBrushFactory')
-make_head(_module, 'IRevealBorderBrush')
-make_head(_module, 'IRevealBorderBrushFactory')
-make_head(_module, 'IRevealBrush')
-make_head(_module, 'IRevealBrushFactory')
-make_head(_module, 'IRevealBrushStatics')
-make_head(_module, 'IRotateTransform')
-make_head(_module, 'IRotateTransformStatics')
-make_head(_module, 'IScaleTransform')
-make_head(_module, 'IScaleTransformStatics')
-make_head(_module, 'IShadow')
-make_head(_module, 'IShadowFactory')
-make_head(_module, 'ISkewTransform')
-make_head(_module, 'ISkewTransformStatics')
-make_head(_module, 'ISolidColorBrush')
-make_head(_module, 'ISolidColorBrushFactory')
-make_head(_module, 'ISolidColorBrushStatics')
-make_head(_module, 'IThemeShadow')
-make_head(_module, 'IThemeShadowFactory')
-make_head(_module, 'ITileBrush')
-make_head(_module, 'ITileBrushFactory')
-make_head(_module, 'ITileBrushStatics')
-make_head(_module, 'ITimelineMarker')
-make_head(_module, 'ITimelineMarkerRoutedEventArgs')
-make_head(_module, 'ITimelineMarkerStatics')
-make_head(_module, 'ITransform')
-make_head(_module, 'ITransformFactory')
-make_head(_module, 'ITransformGroup')
-make_head(_module, 'ITransformGroupStatics')
-make_head(_module, 'ITranslateTransform')
-make_head(_module, 'ITranslateTransformStatics')
-make_head(_module, 'IVisualTreeHelper')
-make_head(_module, 'IVisualTreeHelperStatics')
-make_head(_module, 'IVisualTreeHelperStatics2')
-make_head(_module, 'IVisualTreeHelperStatics3')
-make_head(_module, 'IXamlCompositionBrushBase')
-make_head(_module, 'IXamlCompositionBrushBaseFactory')
-make_head(_module, 'IXamlCompositionBrushBaseOverrides')
-make_head(_module, 'IXamlCompositionBrushBaseProtected')
-make_head(_module, 'IXamlCompositionBrushBaseStatics')
-make_head(_module, 'IXamlLight')
-make_head(_module, 'IXamlLightFactory')
-make_head(_module, 'IXamlLightOverrides')
-make_head(_module, 'IXamlLightProtected')
-make_head(_module, 'IXamlLightStatics')
-make_head(_module, 'ImageBrush')
-make_head(_module, 'ImageSource')
-make_head(_module, 'LineGeometry')
-make_head(_module, 'LineSegment')
-make_head(_module, 'LinearGradientBrush')
-make_head(_module, 'LoadedImageSourceLoadCompletedEventArgs')
-make_head(_module, 'LoadedImageSurface')
-make_head(_module, 'Matrix')
-make_head(_module, 'Matrix3DProjection')
-make_head(_module, 'MatrixHelper')
-make_head(_module, 'MatrixTransform')
-make_head(_module, 'MediaTransportControlsThumbnailRequestedEventArgs')
-make_head(_module, 'PartialMediaFailureDetectedEventArgs')
-make_head(_module, 'PathFigure')
-make_head(_module, 'PathFigureCollection')
-make_head(_module, 'PathGeometry')
-make_head(_module, 'PathSegment')
-make_head(_module, 'PathSegmentCollection')
-make_head(_module, 'PlaneProjection')
-make_head(_module, 'PointCollection')
-make_head(_module, 'PolyBezierSegment')
-make_head(_module, 'PolyLineSegment')
-make_head(_module, 'PolyQuadraticBezierSegment')
-make_head(_module, 'Projection')
-make_head(_module, 'QuadraticBezierSegment')
-make_head(_module, 'RateChangedRoutedEventArgs')
-make_head(_module, 'RectangleGeometry')
-make_head(_module, 'RenderedEventArgs')
-make_head(_module, 'RenderingEventArgs')
-make_head(_module, 'RevealBackgroundBrush')
-make_head(_module, 'RevealBorderBrush')
-make_head(_module, 'RevealBrush')
-make_head(_module, 'RotateTransform')
-make_head(_module, 'ScaleTransform')
-make_head(_module, 'Shadow')
-make_head(_module, 'SkewTransform')
-make_head(_module, 'SolidColorBrush')
-make_head(_module, 'ThemeShadow')
-make_head(_module, 'TileBrush')
-make_head(_module, 'TimelineMarker')
-make_head(_module, 'TimelineMarkerCollection')
-make_head(_module, 'TimelineMarkerRoutedEventArgs')
-make_head(_module, 'Transform')
-make_head(_module, 'TransformCollection')
-make_head(_module, 'TransformGroup')
-make_head(_module, 'TranslateTransform')
-make_head(_module, 'VisualTreeHelper')
-make_head(_module, 'XamlCompositionBrushBase')
-make_head(_module, 'XamlLight')
+make_ready(__name__)

@@ -12,22 +12,13 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.Midi
 import win32more.Windows.Foundation
 import win32more.Windows.Storage.Streams
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IMidiChannelPressureMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Midi.IMidiChannelPressureMessage'
@@ -705,54 +696,4 @@ class MidiTuneRequestMessage(ComPtr):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-make_head(_module, 'IMidiChannelPressureMessage')
-make_head(_module, 'IMidiChannelPressureMessageFactory')
-make_head(_module, 'IMidiControlChangeMessage')
-make_head(_module, 'IMidiControlChangeMessageFactory')
-make_head(_module, 'IMidiInPort')
-make_head(_module, 'IMidiInPortStatics')
-make_head(_module, 'IMidiMessage')
-make_head(_module, 'IMidiMessageReceivedEventArgs')
-make_head(_module, 'IMidiNoteOffMessage')
-make_head(_module, 'IMidiNoteOffMessageFactory')
-make_head(_module, 'IMidiNoteOnMessage')
-make_head(_module, 'IMidiNoteOnMessageFactory')
-make_head(_module, 'IMidiOutPort')
-make_head(_module, 'IMidiOutPortStatics')
-make_head(_module, 'IMidiPitchBendChangeMessage')
-make_head(_module, 'IMidiPitchBendChangeMessageFactory')
-make_head(_module, 'IMidiPolyphonicKeyPressureMessage')
-make_head(_module, 'IMidiPolyphonicKeyPressureMessageFactory')
-make_head(_module, 'IMidiProgramChangeMessage')
-make_head(_module, 'IMidiProgramChangeMessageFactory')
-make_head(_module, 'IMidiSongPositionPointerMessage')
-make_head(_module, 'IMidiSongPositionPointerMessageFactory')
-make_head(_module, 'IMidiSongSelectMessage')
-make_head(_module, 'IMidiSongSelectMessageFactory')
-make_head(_module, 'IMidiSynthesizer')
-make_head(_module, 'IMidiSynthesizerStatics')
-make_head(_module, 'IMidiSystemExclusiveMessageFactory')
-make_head(_module, 'IMidiTimeCodeMessage')
-make_head(_module, 'IMidiTimeCodeMessageFactory')
-make_head(_module, 'MidiActiveSensingMessage')
-make_head(_module, 'MidiChannelPressureMessage')
-make_head(_module, 'MidiContinueMessage')
-make_head(_module, 'MidiControlChangeMessage')
-make_head(_module, 'MidiInPort')
-make_head(_module, 'MidiMessageReceivedEventArgs')
-make_head(_module, 'MidiNoteOffMessage')
-make_head(_module, 'MidiNoteOnMessage')
-make_head(_module, 'MidiOutPort')
-make_head(_module, 'MidiPitchBendChangeMessage')
-make_head(_module, 'MidiPolyphonicKeyPressureMessage')
-make_head(_module, 'MidiProgramChangeMessage')
-make_head(_module, 'MidiSongPositionPointerMessage')
-make_head(_module, 'MidiSongSelectMessage')
-make_head(_module, 'MidiStartMessage')
-make_head(_module, 'MidiStopMessage')
-make_head(_module, 'MidiSynthesizer')
-make_head(_module, 'MidiSystemExclusiveMessage')
-make_head(_module, 'MidiSystemResetMessage')
-make_head(_module, 'MidiTimeCodeMessage')
-make_head(_module, 'MidiTimingClockMessage')
-make_head(_module, 'MidiTuneRequestMessage')
+make_ready(__name__)

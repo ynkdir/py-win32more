@@ -12,21 +12,12 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.System.Threading
 import win32more.Windows.System.Threading.Core
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IPreallocatedWorkItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Threading.Core.IPreallocatedWorkItem'
@@ -95,9 +86,4 @@ class SignalNotifier(ComPtr):
     def AttachToSemaphore(cls: win32more.Windows.System.Threading.Core.ISignalNotifierStatics, name: WinRT_String, handler: win32more.Windows.System.Threading.Core.SignalHandler) -> win32more.Windows.System.Threading.Core.SignalNotifier: ...
     @winrt_classmethod
     def AttachToSemaphoreWithTimeout(cls: win32more.Windows.System.Threading.Core.ISignalNotifierStatics, name: WinRT_String, handler: win32more.Windows.System.Threading.Core.SignalHandler, timeout: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.System.Threading.Core.SignalNotifier: ...
-make_head(_module, 'IPreallocatedWorkItem')
-make_head(_module, 'IPreallocatedWorkItemFactory')
-make_head(_module, 'ISignalNotifier')
-make_head(_module, 'ISignalNotifierStatics')
-make_head(_module, 'PreallocatedWorkItem')
-make_head(_module, 'SignalNotifier')
+make_ready(__name__)

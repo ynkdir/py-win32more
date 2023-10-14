@@ -1,18 +1,9 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Devices.DeviceAccess
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 ED_BASE: Int32 = 4096
 DEV_PORT_SIM: UInt32 = 1
 DEV_PORT_COM1: UInt32 = 2
@@ -59,7 +50,7 @@ ED_AUDIO_24: Int32 = 8388608
 ED_VIDEO: Int32 = 33554432
 CLSID_DeviceIoControl: Guid = Guid('{12d3e372-874b-457d-9fdf-73977778686c}')
 @winfunctype('deviceaccess.dll')
-def CreateDeviceAccessInstance(deviceInterfacePath: win32more.Windows.Win32.Foundation.PWSTR, desiredAccess: UInt32, createAsync: POINTER(win32more.Windows.Win32.Devices.DeviceAccess.ICreateDeviceAccessAsync_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreateDeviceAccessInstance(deviceInterfacePath: win32more.Windows.Win32.Foundation.PWSTR, desiredAccess: UInt32, createAsync: POINTER(win32more.Windows.Win32.Devices.DeviceAccess.ICreateDeviceAccessAsync)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICreateDeviceAccessAsync(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3474628f-683d-42d2-abcb-db018c6503bc}')
@@ -77,7 +68,7 @@ class IDeviceIoControl(ComPtr):
     @commethod(3)
     def DeviceIoControlSync(self, ioControlCode: UInt32, inputBuffer: POINTER(Byte), inputBufferSize: UInt32, outputBuffer: POINTER(Byte), outputBufferSize: UInt32, bytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def DeviceIoControlAsync(self, ioControlCode: UInt32, inputBuffer: POINTER(Byte), inputBufferSize: UInt32, outputBuffer: POINTER(Byte), outputBufferSize: UInt32, requestCompletionCallback: win32more.Windows.Win32.Devices.DeviceAccess.IDeviceRequestCompletionCallback_head, cancelContext: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeviceIoControlAsync(self, ioControlCode: UInt32, inputBuffer: POINTER(Byte), inputBufferSize: UInt32, outputBuffer: POINTER(Byte), outputBufferSize: UInt32, requestCompletionCallback: win32more.Windows.Win32.Devices.DeviceAccess.IDeviceRequestCompletionCallback, cancelContext: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CancelOperation(self, cancelContext: UIntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDeviceRequestCompletionCallback(ComPtr):
@@ -85,6 +76,4 @@ class IDeviceRequestCompletionCallback(ComPtr):
     _iid_ = Guid('{999bad24-9acd-45bb-8669-2a2fc0288b04}')
     @commethod(3)
     def Invoke(self, requestResult: win32more.Windows.Win32.Foundation.HRESULT, bytesReturned: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'ICreateDeviceAccessAsync')
-make_head(_module, 'IDeviceIoControl')
-make_head(_module, 'IDeviceRequestCompletionCallback')
+make_ready(__name__)

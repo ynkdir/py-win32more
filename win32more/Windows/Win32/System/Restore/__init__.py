@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Restore
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 MIN_EVENT: UInt32 = 100
 BEGIN_NESTED_SYSTEM_CHANGE_NORP: UInt32 = 104
 MAX_EVENT: UInt32 = 104
@@ -34,9 +25,9 @@ MAX_RPT: UInt32 = 18
 MAX_DESC: UInt32 = 64
 MAX_DESC_W: UInt32 = 256
 @winfunctype('sfc.dll')
-def SRSetRestorePointA(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Restore.RESTOREPOINTINFOA_head), pSMgrStatus: POINTER(win32more.Windows.Win32.System.Restore.STATEMGRSTATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SRSetRestorePointA(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Restore.RESTOREPOINTINFOA), pSMgrStatus: POINTER(win32more.Windows.Win32.System.Restore.STATEMGRSTATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('sfc.dll')
-def SRSetRestorePointW(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Restore.RESTOREPOINTINFOW_head), pSMgrStatus: POINTER(win32more.Windows.Win32.System.Restore.STATEMGRSTATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SRSetRestorePointW(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Restore.RESTOREPOINTINFOW), pSMgrStatus: POINTER(win32more.Windows.Win32.System.Restore.STATEMGRSTATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SrClient.dll')
 def SRRemoveRestorePoint(dwRPNum: UInt32) -> UInt32: ...
 class RESTOREPOINTINFOA(EasyCastStructure):
@@ -73,7 +64,4 @@ class STATEMGRSTATUS(EasyCastStructure):
     nStatus: win32more.Windows.Win32.Foundation.WIN32_ERROR
     llSequenceNumber: Int64
     _pack_ = 1
-make_head(_module, 'RESTOREPOINTINFOA')
-make_head(_module, 'RESTOREPOINTINFOEX')
-make_head(_module, 'RESTOREPOINTINFOW')
-make_head(_module, 'STATEMGRSTATUS')
+make_ready(__name__)

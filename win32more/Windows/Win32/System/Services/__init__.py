@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.System.Services
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 SERVICE_ALL_ACCESS: UInt32 = 983551
 SC_MANAGER_ALL_ACCESS: UInt32 = 983103
 SERVICES_ACTIVE_DATABASEW: String = 'ServicesActive'
@@ -158,7 +149,7 @@ def ChangeServiceConfig2W(hService: win32more.Windows.Win32.Security.SC_HANDLE, 
 @winfunctype('ADVAPI32.dll')
 def CloseServiceHandle(hSCObject: win32more.Windows.Win32.Security.SC_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def ControlService(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwControl: UInt32, lpServiceStatus: POINTER(win32more.Windows.Win32.System.Services.SERVICE_STATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ControlService(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwControl: UInt32, lpServiceStatus: POINTER(win32more.Windows.Win32.System.Services.SERVICE_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def CreateServiceA(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, lpServiceName: win32more.Windows.Win32.Foundation.PSTR, lpDisplayName: win32more.Windows.Win32.Foundation.PSTR, dwDesiredAccess: UInt32, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwStartType: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE, dwErrorControl: win32more.Windows.Win32.System.Services.SERVICE_ERROR, lpBinaryPathName: win32more.Windows.Win32.Foundation.PSTR, lpLoadOrderGroup: win32more.Windows.Win32.Foundation.PSTR, lpdwTagId: POINTER(UInt32), lpDependencies: win32more.Windows.Win32.Foundation.PSTR, lpServiceStartName: win32more.Windows.Win32.Foundation.PSTR, lpPassword: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Security.SC_HANDLE: ...
 @winfunctype('ADVAPI32.dll')
@@ -166,13 +157,13 @@ def CreateServiceW(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, lpSer
 @winfunctype('ADVAPI32.dll')
 def DeleteService(hService: win32more.Windows.Win32.Security.SC_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def EnumDependentServicesA(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSA_head), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EnumDependentServicesA(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSA), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def EnumDependentServicesW(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSW_head), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EnumDependentServicesW(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSW), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def EnumServicesStatusA(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSA_head), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EnumServicesStatusA(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSA), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def EnumServicesStatusW(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSW_head), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EnumServicesStatusW(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSW), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def EnumServicesStatusExA(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, InfoLevel: win32more.Windows.Win32.System.Services.SC_ENUM_TYPE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(Byte), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32), pszGroupName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -198,21 +189,21 @@ def OpenServiceA(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, lpServi
 @winfunctype('ADVAPI32.dll')
 def OpenServiceW(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, dwDesiredAccess: UInt32) -> win32more.Windows.Win32.Security.SC_HANDLE: ...
 @winfunctype('ADVAPI32.dll')
-def QueryServiceConfigA(hService: win32more.Windows.Win32.Security.SC_HANDLE, lpServiceConfig: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_CONFIGA_head), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QueryServiceConfigA(hService: win32more.Windows.Win32.Security.SC_HANDLE, lpServiceConfig: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_CONFIGA), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def QueryServiceConfigW(hService: win32more.Windows.Win32.Security.SC_HANDLE, lpServiceConfig: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_CONFIGW_head), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QueryServiceConfigW(hService: win32more.Windows.Win32.Security.SC_HANDLE, lpServiceConfig: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_CONFIGW), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def QueryServiceConfig2A(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwInfoLevel: win32more.Windows.Win32.System.Services.SERVICE_CONFIG, lpBuffer: POINTER(Byte), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def QueryServiceConfig2W(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwInfoLevel: win32more.Windows.Win32.System.Services.SERVICE_CONFIG, lpBuffer: POINTER(Byte), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def QueryServiceLockStatusA(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, lpLockStatus: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_LOCK_STATUSA_head), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QueryServiceLockStatusA(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, lpLockStatus: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_LOCK_STATUSA), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def QueryServiceLockStatusW(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, lpLockStatus: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_LOCK_STATUSW_head), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QueryServiceLockStatusW(hSCManager: win32more.Windows.Win32.Security.SC_HANDLE, lpLockStatus: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_LOCK_STATUSW), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def QueryServiceObjectSecurity(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwSecurityInformation: UInt32, lpSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def QueryServiceStatus(hService: win32more.Windows.Win32.Security.SC_HANDLE, lpServiceStatus: POINTER(win32more.Windows.Win32.System.Services.SERVICE_STATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def QueryServiceStatus(hService: win32more.Windows.Win32.Security.SC_HANDLE, lpServiceStatus: POINTER(win32more.Windows.Win32.System.Services.SERVICE_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def QueryServiceStatusEx(hService: win32more.Windows.Win32.Security.SC_HANDLE, InfoLevel: win32more.Windows.Win32.System.Services.SC_STATUS_TYPE, lpBuffer: POINTER(Byte), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -226,11 +217,11 @@ def RegisterServiceCtrlHandlerExW(lpServiceName: win32more.Windows.Win32.Foundat
 @winfunctype('ADVAPI32.dll')
 def SetServiceObjectSecurity(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwSecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, lpSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def SetServiceStatus(hServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_HANDLE, lpServiceStatus: POINTER(win32more.Windows.Win32.System.Services.SERVICE_STATUS_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetServiceStatus(hServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_HANDLE, lpServiceStatus: POINTER(win32more.Windows.Win32.System.Services.SERVICE_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def StartServiceCtrlDispatcherA(lpServiceStartTable: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TABLE_ENTRYA_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def StartServiceCtrlDispatcherA(lpServiceStartTable: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TABLE_ENTRYA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def StartServiceCtrlDispatcherW(lpServiceStartTable: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TABLE_ENTRYW_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def StartServiceCtrlDispatcherW(lpServiceStartTable: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TABLE_ENTRYW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def StartServiceA(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwNumServiceArgs: UInt32, lpServiceArgVectors: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -238,9 +229,9 @@ def StartServiceW(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwNumSer
 @winfunctype('ADVAPI32.dll')
 def UnlockServiceDatabase(ScLock: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def NotifyServiceStatusChangeA(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwNotifyMask: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY, pNotifyBuffer: POINTER(win32more.Windows.Win32.System.Services.SERVICE_NOTIFY_2A_head)) -> UInt32: ...
+def NotifyServiceStatusChangeA(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwNotifyMask: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY, pNotifyBuffer: POINTER(win32more.Windows.Win32.System.Services.SERVICE_NOTIFY_2A)) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
-def NotifyServiceStatusChangeW(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwNotifyMask: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY, pNotifyBuffer: POINTER(win32more.Windows.Win32.System.Services.SERVICE_NOTIFY_2W_head)) -> UInt32: ...
+def NotifyServiceStatusChangeW(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwNotifyMask: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY, pNotifyBuffer: POINTER(win32more.Windows.Win32.System.Services.SERVICE_NOTIFY_2W)) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def ControlServiceExA(hService: win32more.Windows.Win32.Security.SC_HANDLE, dwControl: UInt32, dwInfoLevel: UInt32, pControlParams: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -400,13 +391,13 @@ class SERVICE_FAILURE_ACTIONSA(EasyCastStructure):
     lpRebootMsg: win32more.Windows.Win32.Foundation.PSTR
     lpCommand: win32more.Windows.Win32.Foundation.PSTR
     cActions: UInt32
-    lpsaActions: POINTER(win32more.Windows.Win32.System.Services.SC_ACTION_head)
+    lpsaActions: POINTER(win32more.Windows.Win32.System.Services.SC_ACTION)
 class SERVICE_FAILURE_ACTIONSW(EasyCastStructure):
     dwResetPeriod: UInt32
     lpRebootMsg: win32more.Windows.Win32.Foundation.PWSTR
     lpCommand: win32more.Windows.Win32.Foundation.PWSTR
     cActions: UInt32
-    lpsaActions: POINTER(win32more.Windows.Win32.System.Services.SC_ACTION_head)
+    lpsaActions: POINTER(win32more.Windows.Win32.System.Services.SC_ACTION)
 class SERVICE_FAILURE_ACTIONS_FLAG(EasyCastStructure):
     fFailureActionsOnNonCrashFailures: win32more.Windows.Win32.Foundation.BOOL
 class SERVICE_LAUNCH_PROTECTED_INFO(EasyCastStructure):
@@ -519,7 +510,7 @@ class SERVICE_TRIGGER(EasyCastStructure):
     dwAction: win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_ACTION
     pTriggerSubtype: POINTER(Guid)
     cDataItems: UInt32
-    pDataItems: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_head)
+    pDataItems: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_SPECIFIC_DATA_ITEM)
 SERVICE_TRIGGER_ACTION = UInt32
 SERVICE_TRIGGER_ACTION_SERVICE_START: SERVICE_TRIGGER_ACTION = 1
 SERVICE_TRIGGER_ACTION_SERVICE_STOP: SERVICE_TRIGGER_ACTION = 2
@@ -527,7 +518,7 @@ class SERVICE_TRIGGER_CUSTOM_STATE_ID(EasyCastStructure):
     Data: UInt32 * 2
 class SERVICE_TRIGGER_INFO(EasyCastStructure):
     cTriggers: UInt32
-    pTriggers: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_head)
+    pTriggers: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TRIGGER)
     pReserved: POINTER(Byte)
 class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM(EasyCastStructure):
     dwDataType: win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE
@@ -547,50 +538,4 @@ SERVICE_TRIGGER_TYPE_FIREWALL_PORT_EVENT: SERVICE_TRIGGER_TYPE = 4
 SERVICE_TRIGGER_TYPE_GROUP_POLICY: SERVICE_TRIGGER_TYPE = 5
 SERVICE_TRIGGER_TYPE_IP_ADDRESS_AVAILABILITY: SERVICE_TRIGGER_TYPE = 2
 SERVICE_TRIGGER_TYPE_NETWORK_ENDPOINT: SERVICE_TRIGGER_TYPE = 6
-make_head(_module, 'ENUM_SERVICE_STATUSA')
-make_head(_module, 'ENUM_SERVICE_STATUSW')
-make_head(_module, 'ENUM_SERVICE_STATUS_PROCESSA')
-make_head(_module, 'ENUM_SERVICE_STATUS_PROCESSW')
-make_head(_module, 'HANDLER_FUNCTION')
-make_head(_module, 'HANDLER_FUNCTION_EX')
-make_head(_module, 'LPHANDLER_FUNCTION')
-make_head(_module, 'LPHANDLER_FUNCTION_EX')
-make_head(_module, 'LPSERVICE_MAIN_FUNCTIONA')
-make_head(_module, 'LPSERVICE_MAIN_FUNCTIONW')
-make_head(_module, 'PFN_SC_NOTIFY_CALLBACK')
-make_head(_module, 'PSC_NOTIFICATION_CALLBACK')
-make_head(_module, 'QUERY_SERVICE_CONFIGA')
-make_head(_module, 'QUERY_SERVICE_CONFIGW')
-make_head(_module, 'QUERY_SERVICE_LOCK_STATUSA')
-make_head(_module, 'QUERY_SERVICE_LOCK_STATUSW')
-make_head(_module, 'SC_ACTION')
-make_head(_module, 'SERVICE_CONTROL_STATUS_REASON_PARAMSA')
-make_head(_module, 'SERVICE_CONTROL_STATUS_REASON_PARAMSW')
-make_head(_module, 'SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM')
-make_head(_module, 'SERVICE_DELAYED_AUTO_START_INFO')
-make_head(_module, 'SERVICE_DESCRIPTIONA')
-make_head(_module, 'SERVICE_DESCRIPTIONW')
-make_head(_module, 'SERVICE_FAILURE_ACTIONSA')
-make_head(_module, 'SERVICE_FAILURE_ACTIONSW')
-make_head(_module, 'SERVICE_FAILURE_ACTIONS_FLAG')
-make_head(_module, 'SERVICE_LAUNCH_PROTECTED_INFO')
-make_head(_module, 'SERVICE_MAIN_FUNCTIONA')
-make_head(_module, 'SERVICE_MAIN_FUNCTIONW')
-make_head(_module, 'SERVICE_NOTIFY_1')
-make_head(_module, 'SERVICE_NOTIFY_2A')
-make_head(_module, 'SERVICE_NOTIFY_2W')
-make_head(_module, 'SERVICE_PREFERRED_NODE_INFO')
-make_head(_module, 'SERVICE_PRESHUTDOWN_INFO')
-make_head(_module, 'SERVICE_REQUIRED_PRIVILEGES_INFOA')
-make_head(_module, 'SERVICE_REQUIRED_PRIVILEGES_INFOW')
-make_head(_module, 'SERVICE_SID_INFO')
-make_head(_module, 'SERVICE_START_REASON')
-make_head(_module, 'SERVICE_STATUS')
-make_head(_module, 'SERVICE_STATUS_PROCESS')
-make_head(_module, 'SERVICE_TABLE_ENTRYA')
-make_head(_module, 'SERVICE_TABLE_ENTRYW')
-make_head(_module, 'SERVICE_TIMECHANGE_INFO')
-make_head(_module, 'SERVICE_TRIGGER')
-make_head(_module, 'SERVICE_TRIGGER_CUSTOM_STATE_ID')
-make_head(_module, 'SERVICE_TRIGGER_INFO')
-make_head(_module, 'SERVICE_TRIGGER_SPECIFIC_DATA_ITEM')
+make_ready(__name__)

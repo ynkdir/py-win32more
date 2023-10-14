@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Devices.Enumeration
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Casting
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Popups
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class CastingConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingConnection
@@ -43,7 +34,7 @@ class CastingConnection(ComPtr):
     @winrt_mixinmethod
     def put_Source(self: win32more.Windows.Media.Casting.ICastingConnection, value: win32more.Windows.Media.Casting.CastingSource) -> Void: ...
     @winrt_mixinmethod
-    def add_StateChanged(self: win32more.Windows.Media.Casting.ICastingConnection, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Casting.CastingConnection, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(self: win32more.Windows.Media.Casting.ICastingConnection, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Casting.CastingConnection, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StateChanged(self: win32more.Windows.Media.Casting.ICastingConnection, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -123,7 +114,7 @@ class CastingDevicePicker(ComPtr):
     @winrt_mixinmethod
     def remove_CastingDeviceSelected(self: win32more.Windows.Media.Casting.ICastingDevicePicker, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_CastingDevicePickerDismissed(self: win32more.Windows.Media.Casting.ICastingDevicePicker, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Casting.CastingDevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CastingDevicePickerDismissed(self: win32more.Windows.Media.Casting.ICastingDevicePicker, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Casting.CastingDevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CastingDevicePickerDismissed(self: win32more.Windows.Media.Casting.ICastingDevicePicker, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -190,7 +181,7 @@ class ICastingConnection(ComPtr):
     @winrt_commethod(9)
     def put_Source(self, value: win32more.Windows.Media.Casting.CastingSource) -> Void: ...
     @winrt_commethod(10)
-    def add_StateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Casting.CastingConnection, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Casting.CastingConnection, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
@@ -244,7 +235,7 @@ class ICastingDevicePicker(ComPtr):
     @winrt_commethod(9)
     def remove_CastingDeviceSelected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_CastingDevicePickerDismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Casting.CastingDevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CastingDevicePickerDismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Casting.CastingDevicePicker, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_CastingDevicePickerDismissed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
@@ -305,18 +296,4 @@ class ICastingSource(ComPtr):
     @winrt_commethod(7)
     def put_PreferredSourceUri(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
     PreferredSourceUri = property(get_PreferredSourceUri, put_PreferredSourceUri)
-make_head(_module, 'CastingConnection')
-make_head(_module, 'CastingConnectionErrorOccurredEventArgs')
-make_head(_module, 'CastingDevice')
-make_head(_module, 'CastingDevicePicker')
-make_head(_module, 'CastingDevicePickerFilter')
-make_head(_module, 'CastingDeviceSelectedEventArgs')
-make_head(_module, 'CastingSource')
-make_head(_module, 'ICastingConnection')
-make_head(_module, 'ICastingConnectionErrorOccurredEventArgs')
-make_head(_module, 'ICastingDevice')
-make_head(_module, 'ICastingDevicePicker')
-make_head(_module, 'ICastingDevicePickerFilter')
-make_head(_module, 'ICastingDeviceSelectedEventArgs')
-make_head(_module, 'ICastingDeviceStatics')
-make_head(_module, 'ICastingSource')
+make_ready(__name__)

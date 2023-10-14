@@ -1,20 +1,11 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Isolation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Registry
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WDAG_CLIPBOARD_TAG: String = 'CrossIsolatedEnvironmentContent'
 @winfunctype('KERNEL32.dll')
 def GetAppContainerNamedObjectPath(Token: win32more.Windows.Win32.Foundation.HANDLE, AppContainerSid: win32more.Windows.Win32.Foundation.PSID, ObjectPathLength: UInt32, ObjectPath: win32more.Windows.Win32.Foundation.PWSTR, ReturnLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
@@ -27,7 +18,7 @@ def IsProcessInIsolatedWindowsEnvironment(isProcessInIsolatedWindowsEnvironment:
 @winfunctype('IsolatedWindowsEnvironmentUtils.dll')
 def IsCrossIsolatedEnvironmentClipboardContent(isCrossIsolatedEnvironmentClipboardContent: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
-def CreateAppContainerProfile(pszAppContainerName: win32more.Windows.Win32.Foundation.PWSTR, pszDisplayName: win32more.Windows.Win32.Foundation.PWSTR, pszDescription: win32more.Windows.Win32.Foundation.PWSTR, pCapabilities: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES_head), dwCapabilityCount: UInt32, ppSidAppContainerSid: POINTER(win32more.Windows.Win32.Foundation.PSID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreateAppContainerProfile(pszAppContainerName: win32more.Windows.Win32.Foundation.PWSTR, pszDisplayName: win32more.Windows.Win32.Foundation.PWSTR, pszDescription: win32more.Windows.Win32.Foundation.PWSTR, pCapabilities: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES), dwCapabilityCount: UInt32, ppSidAppContainerSid: POINTER(win32more.Windows.Win32.Foundation.PSID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
 def DeleteAppContainerProfile(pszAppContainerName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
@@ -42,10 +33,9 @@ class IIsolatedAppLauncher(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f686878f-7b42-4cc4-96fb-f4f3b6e3d24d}')
     @commethod(3)
-    def Launch(self, appUserModelId: win32more.Windows.Win32.Foundation.PWSTR, arguments: win32more.Windows.Win32.Foundation.PWSTR, telemetryParameters: POINTER(win32more.Windows.Win32.Security.Isolation.IsolatedAppLauncherTelemetryParameters_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Launch(self, appUserModelId: win32more.Windows.Win32.Foundation.PWSTR, arguments: win32more.Windows.Win32.Foundation.PWSTR, telemetryParameters: POINTER(win32more.Windows.Win32.Security.Isolation.IsolatedAppLauncherTelemetryParameters)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IsolatedAppLauncher = Guid('{bc812430-e75e-4fd1-9641-1f9f1e2d9a1f}')
 class IsolatedAppLauncherTelemetryParameters(EasyCastStructure):
     EnableForLaunch: win32more.Windows.Win32.Foundation.BOOL
     CorrelationGUID: Guid
-make_head(_module, 'IIsolatedAppLauncher')
-make_head(_module, 'IsolatedAppLauncherTelemetryParameters')
+make_ready(__name__)

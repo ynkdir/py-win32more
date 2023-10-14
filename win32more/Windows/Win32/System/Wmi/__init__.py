@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.System.Wmi
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 MI_FLAG_ANY: UInt32 = 127
 MI_FLAG_VERSION: UInt32 = 469762048
 MI_FLAG_ADOPT: UInt32 = 2147483648
@@ -81,7 +72,7 @@ WBEMS_DISPID_CONNECTION_READY: UInt32 = 5
 WBEM_NO_WAIT: Int32 = 0
 WBEM_INFINITE: Int32 = -1
 @cfunctype('mi.dll')
-def MI_Application_InitializeV1(flags: UInt32, applicationID: POINTER(UInt16), extendedError: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)), application: POINTER(win32more.Windows.Win32.System.Wmi.MI_Application_head)) -> win32more.Windows.Win32.System.Wmi.MI_Result: ...
+def MI_Application_InitializeV1(flags: UInt32, applicationID: POINTER(UInt16), extendedError: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)), application: POINTER(win32more.Windows.Win32.System.Wmi.MI_Application)) -> win32more.Windows.Win32.System.Wmi.MI_Result: ...
 CIMTYPE_ENUMERATION = Int32
 CIM_ILLEGAL: CIMTYPE_ENUMERATION = 4095
 CIM_EMPTY: CIMTYPE_ENUMERATION = 0
@@ -108,22 +99,22 @@ class IEnumWbemClassObject(ComPtr):
     @commethod(3)
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Next(self, lTimeout: Int32, uCount: UInt32, apObjects: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head), puReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, lTimeout: Int32, uCount: UInt32, apObjects: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject), puReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def NextAsync(self, uCount: UInt32, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def NextAsync(self, uCount: UInt32, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Skip(self, lTimeout: Int32, nCount: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMofCompiler(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6daf974e-2e37-11d2-aec9-00c04fb68820}')
     @commethod(3)
-    def CompileFile(self, FileName: win32more.Windows.Win32.Foundation.PWSTR, ServerAndNamespace: win32more.Windows.Win32.Foundation.PWSTR, User: win32more.Windows.Win32.Foundation.PWSTR, Authority: win32more.Windows.Win32.Foundation.PWSTR, Password: win32more.Windows.Win32.Foundation.PWSTR, lOptionFlags: Int32, lClassFlags: Int32, lInstanceFlags: Int32, pInfo: POINTER(win32more.Windows.Win32.System.Wmi.WBEM_COMPILE_STATUS_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CompileFile(self, FileName: win32more.Windows.Win32.Foundation.PWSTR, ServerAndNamespace: win32more.Windows.Win32.Foundation.PWSTR, User: win32more.Windows.Win32.Foundation.PWSTR, Authority: win32more.Windows.Win32.Foundation.PWSTR, Password: win32more.Windows.Win32.Foundation.PWSTR, lOptionFlags: Int32, lClassFlags: Int32, lInstanceFlags: Int32, pInfo: POINTER(win32more.Windows.Win32.System.Wmi.WBEM_COMPILE_STATUS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CompileBuffer(self, BuffSize: Int32, pBuffer: POINTER(Byte), ServerAndNamespace: win32more.Windows.Win32.Foundation.PWSTR, User: win32more.Windows.Win32.Foundation.PWSTR, Authority: win32more.Windows.Win32.Foundation.PWSTR, Password: win32more.Windows.Win32.Foundation.PWSTR, lOptionFlags: Int32, lClassFlags: Int32, lInstanceFlags: Int32, pInfo: POINTER(win32more.Windows.Win32.System.Wmi.WBEM_COMPILE_STATUS_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CompileBuffer(self, BuffSize: Int32, pBuffer: POINTER(Byte), ServerAndNamespace: win32more.Windows.Win32.Foundation.PWSTR, User: win32more.Windows.Win32.Foundation.PWSTR, Authority: win32more.Windows.Win32.Foundation.PWSTR, Password: win32more.Windows.Win32.Foundation.PWSTR, lOptionFlags: Int32, lClassFlags: Int32, lInstanceFlags: Int32, pInfo: POINTER(win32more.Windows.Win32.System.Wmi.WBEM_COMPILE_STATUS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def CreateBMOF(self, TextFileName: win32more.Windows.Win32.Foundation.PWSTR, BMOFFileName: win32more.Windows.Win32.Foundation.PWSTR, ServerAndNamespace: win32more.Windows.Win32.Foundation.PWSTR, lOptionFlags: Int32, lClassFlags: Int32, lInstanceFlags: Int32, pInfo: POINTER(win32more.Windows.Win32.System.Wmi.WBEM_COMPILE_STATUS_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateBMOF(self, TextFileName: win32more.Windows.Win32.Foundation.PWSTR, BMOFFileName: win32more.Windows.Win32.Foundation.PWSTR, ServerAndNamespace: win32more.Windows.Win32.Foundation.PWSTR, lOptionFlags: Int32, lClassFlags: Int32, lInstanceFlags: Int32, pInfo: POINTER(win32more.Windows.Win32.System.Wmi.WBEM_COMPILE_STATUS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemDateTime(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{5e97458a-cf77-11d3-b38f-00105a1f473a}')
@@ -211,9 +202,9 @@ class ISWbemEventSource(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{27d54d92-0ebe-11d2-8b22-00600806d9b6}')
     @commethod(7)
-    def NextEvent(self, iTimeoutMs: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def NextEvent(self, iTimeoutMs: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemLastError(ComPtr):
     extends: win32more.Windows.Win32.System.Wmi.ISWbemObject
     _iid_ = Guid('{d962db84-d4bb-11d1-8b09-00600806d9b6}')
@@ -221,9 +212,9 @@ class ISWbemLocator(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{76a6415b-cb41-11d1-8b02-00600806d9b6}')
     @commethod(7)
-    def ConnectServer(self, strServer: win32more.Windows.Win32.Foundation.BSTR, strNamespace: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, strAuthority: win32more.Windows.Win32.Foundation.BSTR, iSecurityFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemServices: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemServices_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ConnectServer(self, strServer: win32more.Windows.Win32.Foundation.BSTR, strNamespace: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, strAuthority: win32more.Windows.Win32.Foundation.BSTR, iSecurityFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemServices: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemServices)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemMethod(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{422e8e90-d955-11d1-8b09-00600806d9b6}')
@@ -232,110 +223,110 @@ class ISWbemMethod(ComPtr):
     @commethod(8)
     def get_Origin(self, strOrigin: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def get_InParameters(self, objWbemInParameters: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_InParameters(self, objWbemInParameters: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def get_OutParameters(self, objWbemOutParameters: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_OutParameters(self, objWbemOutParameters: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def get_Qualifiers_(self, objWbemQualifierSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifierSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Qualifiers_(self, objWbemQualifierSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifierSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemMethodSet(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{c93ba292-d955-11d1-8b09-00600806d9b6}')
     @commethod(7)
-    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Item(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemMethod: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemMethod_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Item(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemMethod: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemMethod)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, iCount: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemNamedValue(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{76a64164-cb41-11d1-8b02-00600806d9b6}')
     @commethod(7)
-    def get_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def put_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def put_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Name(self, strName: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemNamedValueSet(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{cf2376ea-ce8c-11d1-8b05-00600806d9b6}')
     @commethod(7)
-    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Item(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValue: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemNamedValue_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Item(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValue: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemNamedValue)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, iCount: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def Add(self, strName: win32more.Windows.Win32.Foundation.BSTR, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), iFlags: Int32, objWbemNamedValue: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemNamedValue_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, strName: win32more.Windows.Win32.Foundation.BSTR, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), iFlags: Int32, objWbemNamedValue: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemNamedValue)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def Clone(self, objWbemNamedValueSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemNamedValueSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, objWbemNamedValueSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemNamedValueSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def DeleteAll(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemObject(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{76a6415a-cb41-11d1-8b02-00600806d9b6}')
     @commethod(7)
-    def Put_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectPath: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectPath_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Put_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectPath: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectPath)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def PutAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PutAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def Delete_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Delete_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def DeleteAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeleteAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def Instances_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Instances_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def InstancesAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def InstancesAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def Subclasses_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Subclasses_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def SubclassesAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SubclassesAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def Associators_(self, strAssocClass: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strResultRole: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredAssocQualifier: win32more.Windows.Win32.Foundation.BSTR, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Associators_(self, strAssocClass: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strResultRole: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredAssocQualifier: win32more.Windows.Win32.Foundation.BSTR, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def AssociatorsAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strAssocClass: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strResultRole: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredAssocQualifier: win32more.Windows.Win32.Foundation.BSTR, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AssociatorsAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strAssocClass: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strResultRole: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredAssocQualifier: win32more.Windows.Win32.Foundation.BSTR, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def References_(self, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def References_(self, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
-    def ReferencesAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ReferencesAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
-    def ExecMethod_(self, strMethodName: win32more.Windows.Win32.Foundation.BSTR, objWbemInParameters: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemOutParameters: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecMethod_(self, strMethodName: win32more.Windows.Win32.Foundation.BSTR, objWbemInParameters: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemOutParameters: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
-    def ExecMethodAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strMethodName: win32more.Windows.Win32.Foundation.BSTR, objWbemInParameters: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecMethodAsync_(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strMethodName: win32more.Windows.Win32.Foundation.BSTR, objWbemInParameters: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
-    def Clone_(self, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone_(self, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def GetObjectText_(self, iFlags: Int32, strObjectText: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
-    def SpawnDerivedClass_(self, iFlags: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SpawnDerivedClass_(self, iFlags: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
-    def SpawnInstance_(self, iFlags: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SpawnInstance_(self, iFlags: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def CompareTo_(self, objWbemObject: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, bResult: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CompareTo_(self, objWbemObject: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, bResult: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
-    def get_Qualifiers_(self, objWbemQualifierSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifierSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Qualifiers_(self, objWbemQualifierSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifierSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
-    def get_Properties_(self, objWbemPropertySet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPropertySet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Properties_(self, objWbemPropertySet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPropertySet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
-    def get_Methods_(self, objWbemMethodSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemMethodSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Methods_(self, objWbemMethodSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemMethodSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
-    def get_Derivation_(self, strClassNameArray: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Derivation_(self, strClassNameArray: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
-    def get_Path_(self, objWbemObjectPath: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectPath_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Path_(self, objWbemObjectPath: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectPath)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
-    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemObjectEx(ComPtr):
     extends: win32more.Windows.Win32.System.Wmi.ISWbemObject
     _iid_ = Guid('{269ad56a-8a67-4129-bc8c-0506dcfe9880}')
     @commethod(32)
-    def Refresh_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Refresh_(self, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
-    def get_SystemProperties_(self, objWbemPropertySet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPropertySet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_SystemProperties_(self, objWbemPropertySet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPropertySet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
-    def GetText_(self, iObjectTextFormat: win32more.Windows.Win32.System.Wmi.WbemObjectTextFormatEnum, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, bsText: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetText_(self, iObjectTextFormat: win32more.Windows.Win32.System.Wmi.WbemObjectTextFormatEnum, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, bsText: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
-    def SetFromText_(self, bsText: win32more.Windows.Win32.Foundation.BSTR, iObjectTextFormat: win32more.Windows.Win32.System.Wmi.WbemObjectTextFormatEnum, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetFromText_(self, bsText: win32more.Windows.Win32.Foundation.BSTR, iObjectTextFormat: win32more.Windows.Win32.System.Wmi.WbemObjectTextFormatEnum, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemObjectPath(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{5791bc27-ce9c-11d1-97bf-0000f81e849c}')
@@ -374,9 +365,9 @@ class ISWbemObjectPath(ComPtr):
     @commethod(23)
     def SetAsSingleton(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
-    def get_Keys(self, objWbemNamedValueSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemNamedValueSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Keys(self, objWbemNamedValueSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemNamedValueSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def get_Locale(self, strLocale: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
@@ -389,15 +380,15 @@ class ISWbemObjectSet(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{76a6415f-cb41-11d1-8b02-00600806d9b6}')
     @commethod(7)
-    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Item(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Item(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, iCount: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def ItemIndex(self, lIndex: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ItemIndex(self, lIndex: Int32, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemPrivilege(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{26ee67bd-5804-11d2-8b4a-00600806d9b6}')
@@ -415,26 +406,26 @@ class ISWbemPrivilegeSet(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{26ee67bf-5804-11d2-8b4a-00600806d9b6}')
     @commethod(7)
-    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Item(self, iPrivilege: win32more.Windows.Win32.System.Wmi.WbemPrivilegeEnum, objWbemPrivilege: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPrivilege_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Item(self, iPrivilege: win32more.Windows.Win32.System.Wmi.WbemPrivilegeEnum, objWbemPrivilege: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPrivilege)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, iCount: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def Add(self, iPrivilege: win32more.Windows.Win32.System.Wmi.WbemPrivilegeEnum, bIsEnabled: win32more.Windows.Win32.Foundation.VARIANT_BOOL, objWbemPrivilege: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPrivilege_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, iPrivilege: win32more.Windows.Win32.System.Wmi.WbemPrivilegeEnum, bIsEnabled: win32more.Windows.Win32.Foundation.VARIANT_BOOL, objWbemPrivilege: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPrivilege)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, iPrivilege: win32more.Windows.Win32.System.Wmi.WbemPrivilegeEnum) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteAll(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def AddAsString(self, strPrivilege: win32more.Windows.Win32.Foundation.BSTR, bIsEnabled: win32more.Windows.Win32.Foundation.VARIANT_BOOL, objWbemPrivilege: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPrivilege_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddAsString(self, strPrivilege: win32more.Windows.Win32.Foundation.BSTR, bIsEnabled: win32more.Windows.Win32.Foundation.VARIANT_BOOL, objWbemPrivilege: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPrivilege)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemProperty(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{1a388f98-d4ba-11d1-8b09-00600806d9b6}')
     @commethod(7)
-    def get_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def put_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def put_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Name(self, strName: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -444,29 +435,29 @@ class ISWbemProperty(ComPtr):
     @commethod(12)
     def get_CIMType(self, iCimType: POINTER(win32more.Windows.Win32.System.Wmi.WbemCimtypeEnum)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def get_Qualifiers_(self, objWbemQualifierSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifierSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Qualifiers_(self, objWbemQualifierSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifierSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_IsArray(self, bIsArray: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{dea0a7b2-d4ba-11d1-8b09-00600806d9b6}')
     @commethod(7)
-    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Item(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemProperty: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemProperty_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Item(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemProperty: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemProperty)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, iCount: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def Add(self, strName: win32more.Windows.Win32.Foundation.BSTR, iCIMType: win32more.Windows.Win32.System.Wmi.WbemCimtypeEnum, bIsArray: win32more.Windows.Win32.Foundation.VARIANT_BOOL, iFlags: Int32, objWbemProperty: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemProperty_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, strName: win32more.Windows.Win32.Foundation.BSTR, iCIMType: win32more.Windows.Win32.System.Wmi.WbemCimtypeEnum, bIsArray: win32more.Windows.Win32.Foundation.VARIANT_BOOL, iFlags: Int32, objWbemProperty: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemProperty)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemQualifier(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{79b05932-d3b7-11d1-8b06-00600806d9b6}')
     @commethod(7)
-    def get_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def put_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def put_Value(self, varValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Name(self, strName: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -489,13 +480,13 @@ class ISWbemQualifierSet(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{9b16ed16-d3df-11d1-8b08-00600806d9b6}')
     @commethod(7)
-    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Item(self, name: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemQualifier: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifier_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Item(self, name: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemQualifier: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifier)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, iCount: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def Add(self, strName: win32more.Windows.Win32.Foundation.BSTR, varVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), bPropagatesToSubclass: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bPropagatesToInstance: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bIsOverridable: win32more.Windows.Win32.Foundation.VARIANT_BOOL, iFlags: Int32, objWbemQualifier: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifier_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, strName: win32more.Windows.Win32.Foundation.BSTR, varVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), bPropagatesToSubclass: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bPropagatesToInstance: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bIsOverridable: win32more.Windows.Win32.Foundation.VARIANT_BOOL, iFlags: Int32, objWbemQualifier: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemQualifier)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, strName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemRefreshableItem(ComPtr):
@@ -504,28 +495,28 @@ class ISWbemRefreshableItem(ComPtr):
     @commethod(7)
     def get_Index(self, iIndex: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def get_Refresher(self, objWbemRefresher: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemRefresher_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Refresher(self, objWbemRefresher: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemRefresher)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_IsSet(self, bIsSet: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def get_Object(self, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectEx_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Object(self, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectEx)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def get_ObjectSet(self, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_ObjectSet(self, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Remove(self, iFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemRefresher(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{14d8250e-d9c2-11d3-b38f-00105a1f473a}')
     @commethod(7)
-    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get__NewEnum(self, pUnk: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Item(self, iIndex: Int32, objWbemRefreshableItem: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemRefreshableItem_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Item(self, iIndex: Int32, objWbemRefreshableItem: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemRefreshableItem)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, iCount: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def Add(self, objWbemServices: win32more.Windows.Win32.System.Wmi.ISWbemServicesEx_head, bsInstancePath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemRefreshableItem: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemRefreshableItem_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, objWbemServices: win32more.Windows.Win32.System.Wmi.ISWbemServicesEx, bsInstancePath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemRefreshableItem: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemRefreshableItem)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def AddEnum(self, objWbemServices: win32more.Windows.Win32.System.Wmi.ISWbemServicesEx_head, bsClassName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemRefreshableItem: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemRefreshableItem_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddEnum(self, objWbemServices: win32more.Windows.Win32.System.Wmi.ISWbemServicesEx, bsClassName: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemRefreshableItem: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemRefreshableItem)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Remove(self, iIndex: Int32, iFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -548,55 +539,55 @@ class ISWbemSecurity(ComPtr):
     @commethod(10)
     def put_AuthenticationLevel(self, iAuthenticationLevel: win32more.Windows.Win32.System.Wmi.WbemAuthenticationLevelEnum) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def get_Privileges(self, objWbemPrivilegeSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPrivilegeSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Privileges(self, objWbemPrivilegeSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemPrivilegeSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemServices(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{76a6415c-cb41-11d1-8b02-00600806d9b6}')
     @commethod(7)
-    def Get(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Get(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def Delete(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Delete(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def DeleteAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeleteAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def InstancesOf(self, strClass: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def InstancesOf(self, strClass: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def InstancesOfAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strClass: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def InstancesOfAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strClass: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def SubclassesOf(self, strSuperclass: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SubclassesOf(self, strSuperclass: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def SubclassesOfAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strSuperclass: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SubclassesOfAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strSuperclass: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def ExecQuery(self, strQuery: win32more.Windows.Win32.Foundation.BSTR, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecQuery(self, strQuery: win32more.Windows.Win32.Foundation.BSTR, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def ExecQueryAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strQuery: win32more.Windows.Win32.Foundation.BSTR, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, lFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecQueryAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strQuery: win32more.Windows.Win32.Foundation.BSTR, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, lFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def AssociatorsOf(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strAssocClass: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strResultRole: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredAssocQualifier: win32more.Windows.Win32.Foundation.BSTR, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AssociatorsOf(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strAssocClass: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strResultRole: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredAssocQualifier: win32more.Windows.Win32.Foundation.BSTR, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
-    def AssociatorsOfAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strAssocClass: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strResultRole: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredAssocQualifier: win32more.Windows.Win32.Foundation.BSTR, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AssociatorsOfAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strAssocClass: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strResultRole: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredAssocQualifier: win32more.Windows.Win32.Foundation.BSTR, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
-    def ReferencesTo(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ReferencesTo(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectSet: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
-    def ReferencesToAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ReferencesToAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strResultClass: win32more.Windows.Win32.Foundation.BSTR, strRole: win32more.Windows.Win32.Foundation.BSTR, bClassesOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, bSchemaOnly: win32more.Windows.Win32.Foundation.VARIANT_BOOL, strRequiredQualifier: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
-    def ExecNotificationQuery(self, strQuery: win32more.Windows.Win32.Foundation.BSTR, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemEventSource: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemEventSource_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecNotificationQuery(self, strQuery: win32more.Windows.Win32.Foundation.BSTR, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemEventSource: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemEventSource)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
-    def ExecNotificationQueryAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strQuery: win32more.Windows.Win32.Foundation.BSTR, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecNotificationQueryAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strQuery: win32more.Windows.Win32.Foundation.BSTR, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
-    def ExecMethod(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strMethodName: win32more.Windows.Win32.Foundation.BSTR, objWbemInParameters: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemOutParameters: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecMethod(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strMethodName: win32more.Windows.Win32.Foundation.BSTR, objWbemInParameters: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemOutParameters: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
-    def ExecMethodAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch_head, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strMethodName: win32more.Windows.Win32.Foundation.BSTR, objWbemInParameters: win32more.Windows.Win32.System.Com.IDispatch_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecMethodAsync(self, objWbemSink: win32more.Windows.Win32.System.Com.IDispatch, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strMethodName: win32more.Windows.Win32.Foundation.BSTR, objWbemInParameters: win32more.Windows.Win32.System.Com.IDispatch, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Security_(self, objWbemSecurity: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemSecurity)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemServicesEx(ComPtr):
     extends: win32more.Windows.Win32.System.Wmi.ISWbemServices
     _iid_ = Guid('{d2f68443-85dc-427e-91d8-366554cc754c}')
     @commethod(26)
-    def Put(self, objWbemObject: win32more.Windows.Win32.System.Wmi.ISWbemObjectEx_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemObjectPath: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectPath_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Put(self, objWbemObject: win32more.Windows.Win32.System.Wmi.ISWbemObjectEx, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemObjectPath: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObjectPath)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
-    def PutAsync(self, objWbemSink: win32more.Windows.Win32.System.Wmi.ISWbemSink_head, objWbemObject: win32more.Windows.Win32.System.Wmi.ISWbemObjectEx_head, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PutAsync(self, objWbemSink: win32more.Windows.Win32.System.Wmi.ISWbemSink, objWbemObject: win32more.Windows.Win32.System.Wmi.ISWbemObjectEx, iFlags: Int32, objWbemNamedValueSet: win32more.Windows.Win32.System.Com.IDispatch, objWbemAsyncContext: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISWbemSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{75718c9f-f029-11d1-a1ac-00c04fb6c223}')
@@ -609,16 +600,16 @@ class IUnsecuredApartment(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1cfaba8c-1523-11d1-ad79-00c04fd8fdff}')
     @commethod(3)
-    def CreateObjectStub(self, pObject: win32more.Windows.Win32.System.Com.IUnknown_head, ppStub: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateObjectStub(self, pObject: win32more.Windows.Win32.System.Com.IUnknown, ppStub: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWMIExtension(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{adc1f06e-5c7e-11d2-8b74-00104b2afb41}')
     @commethod(7)
     def get_WMIObjectPath(self, strWMIObjectPath: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetWMIObject(self, objWMIObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetWMIObject(self, objWMIObject: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetWMIServices(self, objWMIServices: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemServices_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetWMIServices(self, objWMIServices: POINTER(win32more.Windows.Win32.System.Wmi.ISWbemServices)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemAddressResolution(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f7ce2e12-8c90-11d1-9e7b-00c04fc324a8}')
@@ -642,96 +633,96 @@ class IWbemCallResult(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{44aca675-e8fc-11d0-a07c-00c04fb68820}')
     @commethod(3)
-    def GetResultObject(self, lTimeout: Int32, ppResultObject: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetResultObject(self, lTimeout: Int32, ppResultObject: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetResultString(self, lTimeout: Int32, pstrResultString: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetResultServices(self, lTimeout: Int32, ppServices: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetResultServices(self, lTimeout: Int32, ppServices: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetCallStatus(self, lTimeout: Int32, plStatus: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemClassObject(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{dc12a681-737f-11cf-884d-00aa004b2e24}')
     @commethod(3)
-    def GetQualifierSet(self, ppQualSet: POINTER(win32more.Windows.Win32.System.Wmi.IWbemQualifierSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetQualifierSet(self, ppQualSet: POINTER(win32more.Windows.Win32.System.Wmi.IWbemQualifierSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Get(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), pType: POINTER(Int32), plFlavor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Get(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), pType: POINTER(Int32), plFlavor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Put(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), Type: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Put(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), Type: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Delete(self, wszName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetNames(self, wszQualifierName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_CONDITION_FLAG_TYPE, pQualifierVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), pNames: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetNames(self, wszQualifierName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_CONDITION_FLAG_TYPE, pQualifierVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), pNames: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def BeginEnumeration(self, lEnumFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def Next(self, lFlags: Int32, strName: POINTER(win32more.Windows.Win32.Foundation.BSTR), pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), pType: POINTER(Int32), plFlavor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, lFlags: Int32, strName: POINTER(win32more.Windows.Win32.Foundation.BSTR), pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), pType: POINTER(Int32), plFlavor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def EndEnumeration(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def GetPropertyQualifierSet(self, wszProperty: win32more.Windows.Win32.Foundation.PWSTR, ppQualSet: POINTER(win32more.Windows.Win32.System.Wmi.IWbemQualifierSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetPropertyQualifierSet(self, wszProperty: win32more.Windows.Win32.Foundation.PWSTR, ppQualSet: POINTER(win32more.Windows.Win32.System.Wmi.IWbemQualifierSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def Clone(self, ppCopy: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppCopy: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetObjectText(self, lFlags: Int32, pstrObjectText: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def SpawnDerivedClass(self, lFlags: Int32, ppNewClass: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SpawnDerivedClass(self, lFlags: Int32, ppNewClass: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def SpawnInstance(self, lFlags: Int32, ppNewInstance: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SpawnInstance(self, lFlags: Int32, ppNewInstance: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def CompareTo(self, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_COMPARISON_FLAG, pCompareTo: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CompareTo(self, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_COMPARISON_FLAG, pCompareTo: win32more.Windows.Win32.System.Wmi.IWbemClassObject) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetPropertyOrigin(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, pstrClassName: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def InheritsFrom(self, strAncestor: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
-    def GetMethod(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, ppInSignature: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head), ppOutSignature: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetMethod(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, ppInSignature: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject), ppOutSignature: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
-    def PutMethod(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pInSignature: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, pOutSignature: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PutMethod(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pInSignature: win32more.Windows.Win32.System.Wmi.IWbemClassObject, pOutSignature: win32more.Windows.Win32.System.Wmi.IWbemClassObject) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def DeleteMethod(self, wszName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def BeginMethodEnumeration(self, lEnumFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
-    def NextMethod(self, lFlags: Int32, pstrName: POINTER(win32more.Windows.Win32.Foundation.BSTR), ppInSignature: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head), ppOutSignature: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def NextMethod(self, lFlags: Int32, pstrName: POINTER(win32more.Windows.Win32.Foundation.BSTR), ppInSignature: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject), ppOutSignature: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def EndMethodEnumeration(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def GetMethodQualifierSet(self, wszMethod: win32more.Windows.Win32.Foundation.PWSTR, ppQualSet: POINTER(win32more.Windows.Win32.System.Wmi.IWbemQualifierSet_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetMethodQualifierSet(self, wszMethod: win32more.Windows.Win32.Foundation.PWSTR, ppQualSet: POINTER(win32more.Windows.Win32.System.Wmi.IWbemQualifierSet)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def GetMethodOrigin(self, wszMethodName: win32more.Windows.Win32.Foundation.PWSTR, pstrClassName: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemClientConnectionTransport(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a889c72a-fcc1-4a9e-af61-ed071333fb5b}')
     @commethod(3)
-    def Open(self, strAddressType: win32more.Windows.Win32.Foundation.BSTR, dwBinaryAddressLength: UInt32, abBinaryAddress: POINTER(Byte), strObject: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, riid: POINTER(Guid), pInterface: POINTER(VoidPtr), pCallRes: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Open(self, strAddressType: win32more.Windows.Win32.Foundation.BSTR, dwBinaryAddressLength: UInt32, abBinaryAddress: POINTER(Byte), strObject: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, riid: POINTER(Guid), pInterface: POINTER(VoidPtr), pCallRes: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def OpenAsync(self, strAddressType: win32more.Windows.Win32.Foundation.BSTR, dwBinaryAddressLength: UInt32, abBinaryAddress: POINTER(Byte), strObject: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, riid: POINTER(Guid), pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OpenAsync(self, strAddressType: win32more.Windows.Win32.Foundation.BSTR, dwBinaryAddressLength: UInt32, abBinaryAddress: POINTER(Byte), strObject: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, riid: POINTER(Guid), pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def Cancel(self, lFlags: Int32, pHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Cancel(self, lFlags: Int32, pHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemClientTransport(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f7ce2e11-8c90-11d1-9e7b-00c04fc324a8}')
     @commethod(3)
-    def ConnectServer(self, strAddressType: win32more.Windows.Win32.Foundation.BSTR, dwBinaryAddressLength: UInt32, abBinaryAddress: POINTER(Byte), strNetworkResource: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, lSecurityFlags: Int32, strAuthority: win32more.Windows.Win32.Foundation.BSTR, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ConnectServer(self, strAddressType: win32more.Windows.Win32.Foundation.BSTR, dwBinaryAddressLength: UInt32, abBinaryAddress: POINTER(Byte), strNetworkResource: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, lSecurityFlags: Int32, strAuthority: win32more.Windows.Win32.Foundation.BSTR, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemConfigureRefresher(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{49353c92-516b-11d1-aea6-00c04fb68820}')
     @commethod(3)
-    def AddObjectByPath(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, wszPath: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppRefreshable: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head), plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddObjectByPath(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, wszPath: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext, ppRefreshable: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject), plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def AddObjectByTemplate(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, pTemplate: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppRefreshable: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head), plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddObjectByTemplate(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, pTemplate: win32more.Windows.Win32.System.Wmi.IWbemClassObject, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext, ppRefreshable: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject), plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def AddRefresher(self, pRefresher: win32more.Windows.Win32.System.Wmi.IWbemRefresher_head, lFlags: Int32, plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddRefresher(self, pRefresher: win32more.Windows.Win32.System.Wmi.IWbemRefresher, lFlags: Int32, plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Remove(self, lId: Int32, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def AddEnum(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, wszClassName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IWbemHiPerfEnum_head), plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddEnum(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, wszClassName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IWbemHiPerfEnum), plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemConnectorLogin(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d8ec9cb1-b135-4f10-8b1b-c7188bb0d186}')
     @commethod(3)
-    def ConnectorLogin(self, wszNetworkResource: win32more.Windows.Win32.Foundation.PWSTR, wszPreferredLocale: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, riid: POINTER(Guid), pInterface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ConnectorLogin(self, wszNetworkResource: win32more.Windows.Win32.Foundation.PWSTR, wszPreferredLocale: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, riid: POINTER(Guid), pInterface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemConstructClassObject(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9ef76194-70d5-11d1-ad90-00c04fd8fdff}')
@@ -747,19 +738,19 @@ class IWbemContext(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{44aca674-e8fc-11d0-a07c-00c04fb68820}')
     @commethod(3)
-    def Clone(self, ppNewCopy: POINTER(win32more.Windows.Win32.System.Wmi.IWbemContext_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Clone(self, ppNewCopy: POINTER(win32more.Windows.Win32.System.Wmi.IWbemContext)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetNames(self, lFlags: Int32, pNames: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetNames(self, lFlags: Int32, pNames: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def BeginEnumeration(self, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Next(self, lFlags: Int32, pstrName: POINTER(win32more.Windows.Win32.Foundation.BSTR), pValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, lFlags: Int32, pstrName: POINTER(win32more.Windows.Win32.Foundation.BSTR), pValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def EndEnumeration(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def SetValue(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetValue(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetValue(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetValue(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def DeleteValue(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -768,26 +759,26 @@ class IWbemDecoupledBasicEventProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Wmi.IWbemDecoupledRegistrar
     _iid_ = Guid('{86336d20-ca11-4786-9ef1-bc8a946b42fc}')
     @commethod(5)
-    def GetSink(self, a_Flags: Int32, a_Context: win32more.Windows.Win32.System.Wmi.IWbemContext_head, a_Sink: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSink(self, a_Flags: Int32, a_Context: win32more.Windows.Win32.System.Wmi.IWbemContext, a_Sink: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectSink)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetService(self, a_Flags: Int32, a_Context: win32more.Windows.Win32.System.Wmi.IWbemContext_head, a_Service: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetService(self, a_Flags: Int32, a_Context: win32more.Windows.Win32.System.Wmi.IWbemContext, a_Service: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemDecoupledRegistrar(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1005cbcf-e64f-4646-bcd3-3a089d8a84b4}')
     @commethod(3)
-    def Register(self, a_Flags: Int32, a_Context: win32more.Windows.Win32.System.Wmi.IWbemContext_head, a_User: win32more.Windows.Win32.Foundation.PWSTR, a_Locale: win32more.Windows.Win32.Foundation.PWSTR, a_Scope: win32more.Windows.Win32.Foundation.PWSTR, a_Registration: win32more.Windows.Win32.Foundation.PWSTR, pIUnknown: win32more.Windows.Win32.System.Com.IUnknown_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Register(self, a_Flags: Int32, a_Context: win32more.Windows.Win32.System.Wmi.IWbemContext, a_User: win32more.Windows.Win32.Foundation.PWSTR, a_Locale: win32more.Windows.Win32.Foundation.PWSTR, a_Scope: win32more.Windows.Win32.Foundation.PWSTR, a_Registration: win32more.Windows.Win32.Foundation.PWSTR, pIUnknown: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnRegister(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemEventConsumerProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e246107a-b06e-11d0-ad61-00c04fd8fdff}')
     @commethod(3)
-    def FindConsumer(self, pLogicalConsumer: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, ppConsumer: POINTER(win32more.Windows.Win32.System.Wmi.IWbemUnboundObjectSink_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def FindConsumer(self, pLogicalConsumer: win32more.Windows.Win32.System.Wmi.IWbemClassObject, ppConsumer: POINTER(win32more.Windows.Win32.System.Wmi.IWbemUnboundObjectSink)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemEventProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e245105b-b06e-11d0-ad61-00c04fd8fdff}')
     @commethod(3)
-    def ProvideEvents(self, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ProvideEvents(self, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemEventProviderQuerySink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{580acaf8-fa1c-11d0-ad72-00c04fd8fdff}')
@@ -808,35 +799,35 @@ class IWbemEventSink(ComPtr):
     @commethod(6)
     def IsActive(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetRestrictedSink(self, lNumQueries: Int32, awszQueries: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pCallback: win32more.Windows.Win32.System.Com.IUnknown_head, ppSink: POINTER(win32more.Windows.Win32.System.Wmi.IWbemEventSink_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetRestrictedSink(self, lNumQueries: Int32, awszQueries: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pCallback: win32more.Windows.Win32.System.Com.IUnknown, ppSink: POINTER(win32more.Windows.Win32.System.Wmi.IWbemEventSink)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetBatchingParameters(self, lFlags: Int32, dwMaxBufferSize: UInt32, dwMaxSendLatency: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemHiPerfEnum(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2705c288-79ae-11d2-b348-00105a1f8177}')
     @commethod(3)
-    def AddObjects(self, lFlags: Int32, uNumObjects: UInt32, apIds: POINTER(Int32), apObj: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectAccess_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddObjects(self, lFlags: Int32, uNumObjects: UInt32, apIds: POINTER(Int32), apObj: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectAccess)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RemoveObjects(self, lFlags: Int32, uNumObjects: UInt32, apIds: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetObjects(self, lFlags: Int32, uNumObjects: UInt32, apObj: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectAccess_head), puReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetObjects(self, lFlags: Int32, uNumObjects: UInt32, apObj: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectAccess), puReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def RemoveAll(self, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemHiPerfProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{49353c93-516b-11d1-aea6-00c04fb68820}')
     @commethod(3)
-    def QueryInstances(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, wszClass: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def QueryInstances(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, wszClass: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CreateRefresher(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, lFlags: Int32, ppRefresher: POINTER(win32more.Windows.Win32.System.Wmi.IWbemRefresher_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateRefresher(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, lFlags: Int32, ppRefresher: POINTER(win32more.Windows.Win32.System.Wmi.IWbemRefresher)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def CreateRefreshableObject(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, pTemplate: win32more.Windows.Win32.System.Wmi.IWbemObjectAccess_head, pRefresher: win32more.Windows.Win32.System.Wmi.IWbemRefresher_head, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppRefreshable: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectAccess_head), plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateRefreshableObject(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, pTemplate: win32more.Windows.Win32.System.Wmi.IWbemObjectAccess, pRefresher: win32more.Windows.Win32.System.Wmi.IWbemRefresher, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext, ppRefreshable: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectAccess), plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def StopRefreshing(self, pRefresher: win32more.Windows.Win32.System.Wmi.IWbemRefresher_head, lId: Int32, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def StopRefreshing(self, pRefresher: win32more.Windows.Win32.System.Wmi.IWbemRefresher, lId: Int32, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def CreateRefreshableEnum(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, wszClass: win32more.Windows.Win32.Foundation.PWSTR, pRefresher: win32more.Windows.Win32.System.Wmi.IWbemRefresher_head, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pHiPerfEnum: win32more.Windows.Win32.System.Wmi.IWbemHiPerfEnum_head, plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateRefreshableEnum(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, wszClass: win32more.Windows.Win32.Foundation.PWSTR, pRefresher: win32more.Windows.Win32.System.Wmi.IWbemRefresher, lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext, pHiPerfEnum: win32more.Windows.Win32.System.Wmi.IWbemHiPerfEnum, plId: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetObjects(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, lNumObjects: Int32, apObj: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectAccess_head), lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetObjects(self, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, lNumObjects: Int32, apObj: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectAccess), lFlags: Int32, pContext: win32more.Windows.Win32.System.Wmi.IWbemContext) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemLevel1Login(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f309ad18-d86a-11d0-a075-00c04fb68820}')
@@ -845,14 +836,14 @@ class IWbemLevel1Login(ComPtr):
     @commethod(4)
     def RequestChallenge(self, wszNetworkResource: win32more.Windows.Win32.Foundation.PWSTR, wszUser: win32more.Windows.Win32.Foundation.PWSTR, Nonce: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def WBEMLogin(self, wszPreferredLocale: win32more.Windows.Win32.Foundation.PWSTR, AccessToken: POINTER(Byte), lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def WBEMLogin(self, wszPreferredLocale: win32more.Windows.Win32.Foundation.PWSTR, AccessToken: POINTER(Byte), lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def NTLMLogin(self, wszNetworkResource: win32more.Windows.Win32.Foundation.PWSTR, wszPreferredLocale: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def NTLMLogin(self, wszNetworkResource: win32more.Windows.Win32.Foundation.PWSTR, wszPreferredLocale: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemLocator(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{dc12a687-737f-11cf-884d-00aa004b2e24}')
     @commethod(3)
-    def ConnectServer(self, strNetworkResource: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, lSecurityFlags: Int32, strAuthority: win32more.Windows.Win32.Foundation.BSTR, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ConnectServer(self, strNetworkResource: win32more.Windows.Win32.Foundation.BSTR, strUser: win32more.Windows.Win32.Foundation.BSTR, strPassword: win32more.Windows.Win32.Foundation.BSTR, strLocale: win32more.Windows.Win32.Foundation.BSTR, lSecurityFlags: Int32, strAuthority: win32more.Windows.Win32.Foundation.BSTR, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemObjectAccess(ComPtr):
     extends: win32more.Windows.Win32.System.Wmi.IWbemClassObject
     _iid_ = Guid('{49353c9a-516b-11d1-aea6-00c04fb68820}')
@@ -880,29 +871,29 @@ class IWbemObjectSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7c857801-7381-11cf-884d-00aa004b2e24}')
     @commethod(3)
-    def Indicate(self, lObjectCount: Int32, apObjArray: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Indicate(self, lObjectCount: Int32, apObjArray: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SetStatus(self, lFlags: Int32, hResult: win32more.Windows.Win32.Foundation.HRESULT, strParam: win32more.Windows.Win32.Foundation.BSTR, pObjParam: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetStatus(self, lFlags: Int32, hResult: win32more.Windows.Win32.Foundation.HRESULT, strParam: win32more.Windows.Win32.Foundation.BSTR, pObjParam: win32more.Windows.Win32.System.Wmi.IWbemClassObject) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemObjectSinkEx(ComPtr):
     extends: win32more.Windows.Win32.System.Wmi.IWbemObjectSink
     _iid_ = Guid('{e7d35cfa-348b-485e-b524-252725d697ca}')
     @commethod(5)
     def WriteMessage(self, uChannel: UInt32, strMessage: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def WriteError(self, pObjError: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, puReturned: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def WriteError(self, pObjError: win32more.Windows.Win32.System.Wmi.IWbemClassObject, puReturned: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def PromptUser(self, strMessage: win32more.Windows.Win32.Foundation.BSTR, uPromptType: Byte, puReturned: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def WriteProgress(self, strActivity: win32more.Windows.Win32.Foundation.BSTR, strCurrentOperation: win32more.Windows.Win32.Foundation.BSTR, strStatusDescription: win32more.Windows.Win32.Foundation.BSTR, uPercentComplete: UInt32, uSecondsRemaining: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def WriteStreamParameter(self, strName: win32more.Windows.Win32.Foundation.BSTR, vtValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), ulType: UInt32, ulFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def WriteStreamParameter(self, strName: win32more.Windows.Win32.Foundation.BSTR, vtValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), ulType: UInt32, ulFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemObjectTextSrc(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{bfbf883a-cad7-11d3-a11b-00105a1f515a}')
     @commethod(3)
-    def GetText(self, lFlags: Int32, pObj: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, uObjTextFormat: UInt32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, strText: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetText(self, lFlags: Int32, pObj: win32more.Windows.Win32.System.Wmi.IWbemClassObject, uObjTextFormat: UInt32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, strText: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CreateFromText(self, lFlags: Int32, strText: win32more.Windows.Win32.Foundation.BSTR, uObjTextFormat: UInt32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pNewObj: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateFromText(self, lFlags: Int32, strText: win32more.Windows.Win32.Foundation.BSTR, uObjTextFormat: UInt32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pNewObj: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemPath(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3bc15af2-736c-477e-9e51-238af8667dcc}')
@@ -933,7 +924,7 @@ class IWbemPath(ComPtr):
     @commethod(15)
     def SetScopeFromText(self, uIndex: UInt32, pszText: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def GetScope(self, uIndex: UInt32, puClassNameBufSize: POINTER(UInt32), pszClass: win32more.Windows.Win32.Foundation.PWSTR, pKeyList: POINTER(win32more.Windows.Win32.System.Wmi.IWbemPathKeyList_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetScope(self, uIndex: UInt32, puClassNameBufSize: POINTER(UInt32), pszClass: win32more.Windows.Win32.Foundation.PWSTR, pKeyList: POINTER(win32more.Windows.Win32.System.Wmi.IWbemPathKeyList)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetScopeAsText(self, uIndex: UInt32, puTextBufSize: POINTER(UInt32), pszText: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -945,7 +936,7 @@ class IWbemPath(ComPtr):
     @commethod(21)
     def GetClassName(self, puBuffLength: POINTER(UInt32), pszName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
-    def GetKeyList(self, pOut: POINTER(win32more.Windows.Win32.System.Wmi.IWbemPathKeyList_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetKeyList(self, pOut: POINTER(win32more.Windows.Win32.System.Wmi.IWbemPathKeyList)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def CreateClassPart(self, lFlags: Int32, Name: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
@@ -966,11 +957,11 @@ class IWbemPathKeyList(ComPtr):
     @commethod(4)
     def SetKey(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, uFlags: UInt32, uCimType: UInt32, pKeyVal: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetKey2(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, uFlags: UInt32, uCimType: UInt32, pKeyVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetKey2(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, uFlags: UInt32, uCimType: UInt32, pKeyVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetKey(self, uKeyIx: UInt32, uFlags: UInt32, puNameBufSize: POINTER(UInt32), pszKeyName: win32more.Windows.Win32.Foundation.PWSTR, puKeyValBufSize: POINTER(UInt32), pKeyVal: VoidPtr, puApparentCimType: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetKey2(self, uKeyIx: UInt32, uFlags: UInt32, puNameBufSize: POINTER(UInt32), pszKeyName: win32more.Windows.Win32.Foundation.PWSTR, pKeyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), puApparentCimType: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetKey2(self, uKeyIx: UInt32, uFlags: UInt32, puNameBufSize: POINTER(UInt32), pszKeyName: win32more.Windows.Win32.Foundation.PWSTR, pKeyValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), puApparentCimType: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RemoveKey(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, uFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -985,19 +976,19 @@ class IWbemPropertyProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ce61e841-65bc-11d0-b6bd-00aa003240c7}')
     @commethod(3)
-    def GetProperty(self, lFlags: Int32, strLocale: win32more.Windows.Win32.Foundation.BSTR, strClassMapping: win32more.Windows.Win32.Foundation.BSTR, strInstMapping: win32more.Windows.Win32.Foundation.BSTR, strPropMapping: win32more.Windows.Win32.Foundation.BSTR, pvValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProperty(self, lFlags: Int32, strLocale: win32more.Windows.Win32.Foundation.BSTR, strClassMapping: win32more.Windows.Win32.Foundation.BSTR, strInstMapping: win32more.Windows.Win32.Foundation.BSTR, strPropMapping: win32more.Windows.Win32.Foundation.BSTR, pvValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def PutProperty(self, lFlags: Int32, strLocale: win32more.Windows.Win32.Foundation.BSTR, strClassMapping: win32more.Windows.Win32.Foundation.BSTR, strInstMapping: win32more.Windows.Win32.Foundation.BSTR, strPropMapping: win32more.Windows.Win32.Foundation.BSTR, pvValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PutProperty(self, lFlags: Int32, strLocale: win32more.Windows.Win32.Foundation.BSTR, strClassMapping: win32more.Windows.Win32.Foundation.BSTR, strInstMapping: win32more.Windows.Win32.Foundation.BSTR, strPropMapping: win32more.Windows.Win32.Foundation.BSTR, pvValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemProviderIdentity(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{631f7d97-d993-11d2-b339-00105a1f4aaf}')
     @commethod(3)
-    def SetRegistrationObject(self, lFlags: Int32, pProvReg: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetRegistrationObject(self, lFlags: Int32, pProvReg: win32more.Windows.Win32.System.Wmi.IWbemClassObject) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemProviderInit(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1be41572-91dd-11d1-aeb2-00c04fb68820}')
     @commethod(3)
-    def Initialize(self, wszUser: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, wszNamespace: win32more.Windows.Win32.Foundation.PWSTR, wszLocale: win32more.Windows.Win32.Foundation.PWSTR, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices_head, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pInitSink: win32more.Windows.Win32.System.Wmi.IWbemProviderInitSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Initialize(self, wszUser: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, wszNamespace: win32more.Windows.Win32.Foundation.PWSTR, wszLocale: win32more.Windows.Win32.Foundation.PWSTR, pNamespace: win32more.Windows.Win32.System.Wmi.IWbemServices, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pInitSink: win32more.Windows.Win32.System.Wmi.IWbemProviderInitSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemProviderInitSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1be41571-91dd-11d1-aeb2-00c04fb68820}')
@@ -1007,17 +998,17 @@ class IWbemQualifierSet(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{dc12a680-737f-11cf-884d-00aa004b2e24}')
     @commethod(3)
-    def Get(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), plFlavor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Get(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, lFlags: Int32, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), plFlavor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Put(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), lFlavor: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Put(self, wszName: win32more.Windows.Win32.Foundation.PWSTR, pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), lFlavor: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Delete(self, wszName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetNames(self, lFlags: Int32, pNames: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetNames(self, lFlags: Int32, pNames: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def BeginEnumeration(self, lFlags: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def Next(self, lFlags: Int32, pstrName: POINTER(win32more.Windows.Win32.Foundation.BSTR), pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT_head), plFlavor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Next(self, lFlags: Int32, pstrName: POINTER(win32more.Windows.Win32.Foundation.BSTR), pVal: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), plFlavor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def EndEnumeration(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemQuery(ComPtr):
@@ -1046,56 +1037,56 @@ class IWbemServices(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9556dc99-828c-11cf-a37e-00aa003240c7}')
     @commethod(3)
-    def OpenNamespace(self, strNamespace: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppWorkingNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices_head), ppResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OpenNamespace(self, strNamespace: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppWorkingNamespace: POINTER(win32more.Windows.Win32.System.Wmi.IWbemServices), ppResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CancelAsyncCall(self, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CancelAsyncCall(self, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def QueryObjectSink(self, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, ppResponseHandler: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def QueryObjectSink(self, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, ppResponseHandler: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectSink)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetObject(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppObject: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head), ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetObject(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppObject: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject), ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetObjectAsync(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetObjectAsync(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def PutClass(self, pObject: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PutClass(self, pObject: win32more.Windows.Win32.System.Wmi.IWbemClassObject, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def PutClassAsync(self, pObject: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PutClassAsync(self, pObject: win32more.Windows.Win32.System.Wmi.IWbemClassObject, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def DeleteClass(self, strClass: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeleteClass(self, strClass: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def DeleteClassAsync(self, strClass: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeleteClassAsync(self, strClass: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def CreateClassEnum(self, strSuperclass: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateClassEnum(self, strSuperclass: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def CreateClassEnumAsync(self, strSuperclass: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateClassEnumAsync(self, strSuperclass: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
-    def PutInstance(self, pInst: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PutInstance(self, pInst: win32more.Windows.Win32.System.Wmi.IWbemClassObject, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def PutInstanceAsync(self, pInst: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PutInstanceAsync(self, pInst: win32more.Windows.Win32.System.Wmi.IWbemClassObject, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
-    def DeleteInstance(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeleteInstance(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def DeleteInstanceAsync(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeleteInstanceAsync(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
-    def CreateInstanceEnum(self, strFilter: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateInstanceEnum(self, strFilter: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
-    def CreateInstanceEnumAsync(self, strFilter: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateInstanceEnumAsync(self, strFilter: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
-    def ExecQuery(self, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, strQuery: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecQuery(self, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, strQuery: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
-    def ExecQueryAsync(self, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, strQuery: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecQueryAsync(self, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, strQuery: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
-    def ExecNotificationQuery(self, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, strQuery: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecNotificationQuery(self, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, strQuery: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, ppEnum: POINTER(win32more.Windows.Win32.System.Wmi.IEnumWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
-    def ExecNotificationQueryAsync(self, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, strQuery: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecNotificationQueryAsync(self, strQueryLanguage: win32more.Windows.Win32.Foundation.BSTR, strQuery: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
-    def ExecMethod(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strMethodName: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pInParams: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, ppOutParams: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head), ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecMethod(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strMethodName: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pInParams: win32more.Windows.Win32.System.Wmi.IWbemClassObject, ppOutParams: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject), ppCallResult: POINTER(win32more.Windows.Win32.System.Wmi.IWbemCallResult)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def ExecMethodAsync(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strMethodName: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head, pInParams: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ExecMethodAsync(self, strObjectPath: win32more.Windows.Win32.Foundation.BSTR, strMethodName: win32more.Windows.Win32.Foundation.BSTR, lFlags: win32more.Windows.Win32.System.Wmi.WBEM_GENERIC_FLAG_TYPE, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext, pInParams: win32more.Windows.Win32.System.Wmi.IWbemClassObject, pResponseHandler: win32more.Windows.Win32.System.Wmi.IWbemObjectSink) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemShutdown(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b7b31df9-d515-11d3-a11c-00105a1f515a}')
     @commethod(3)
-    def Shutdown(self, uReason: Int32, uMaxMilliseconds: UInt32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Shutdown(self, uReason: Int32, uMaxMilliseconds: UInt32, pCtx: win32more.Windows.Win32.System.Wmi.IWbemContext) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemStatusCodeText(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{eb87e1bc-3233-11d2-aec9-00c04fb68820}')
@@ -1112,16 +1103,16 @@ class IWbemUnboundObjectSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e246107b-b06e-11d0-ad61-00c04fd8fdff}')
     @commethod(3)
-    def IndicateToConsumer(self, pLogicalConsumer: win32more.Windows.Win32.System.Wmi.IWbemClassObject_head, lNumObjects: Int32, apObjects: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IndicateToConsumer(self, pLogicalConsumer: win32more.Windows.Win32.System.Wmi.IWbemClassObject, lNumObjects: Int32, apObjects: POINTER(win32more.Windows.Win32.System.Wmi.IWbemClassObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWbemUnsecuredApartment(ComPtr):
     extends: win32more.Windows.Win32.System.Wmi.IUnsecuredApartment
     _iid_ = Guid('{31739d04-3471-4cf4-9a7c-57a44ae71956}')
     @commethod(4)
-    def CreateSinkStub(self, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head, dwFlags: UInt32, wszReserved: win32more.Windows.Win32.Foundation.PWSTR, ppStub: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectSink_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateSinkStub(self, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink, dwFlags: UInt32, wszReserved: win32more.Windows.Win32.Foundation.PWSTR, ppStub: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectSink)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class MI_Application(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ApplicationFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ApplicationFT)
 class MI_ApplicationFT(EasyCastStructure):
     Close: IntPtr
     NewSession: IntPtr
@@ -1175,8 +1166,8 @@ class MI_Char16Field(EasyCastStructure):
     exists: Byte
     flags: Byte
 class MI_Class(EasyCastStructure):
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassFT_head)
-    classDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassFT)
+    classDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl)
     namespaceName: POINTER(UInt16)
     serverName: POINTER(UInt16)
     reserved: IntPtr * 4
@@ -1184,18 +1175,18 @@ class MI_ClassDecl(EasyCastStructure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
-    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier_head))
+    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier))
     numQualifiers: UInt32
-    properties: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertyDecl_head))
+    properties: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertyDecl))
     numProperties: UInt32
     size: UInt32
     superClass: POINTER(UInt16)
-    superClassDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl_head)
-    methods: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_MethodDecl_head))
+    superClassDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl)
+    methods: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_MethodDecl))
     numMethods: UInt32
-    schema: POINTER(win32more.Windows.Win32.System.Wmi.MI_SchemaDecl_head)
-    providerFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ProviderFT_head)
-    owningClass: POINTER(win32more.Windows.Win32.System.Wmi.MI_Class_head)
+    schema: POINTER(win32more.Windows.Win32.System.Wmi.MI_SchemaDecl)
+    providerFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ProviderFT)
+    owningClass: POINTER(win32more.Windows.Win32.System.Wmi.MI_Class)
 class MI_ClassFT(EasyCastStructure):
     GetClassNameA: IntPtr
     GetNameSpace: IntPtr
@@ -1212,16 +1203,16 @@ class MI_ClassFT(EasyCastStructure):
     Delete: IntPtr
     Clone: IntPtr
 class MI_ClientFT_V1(EasyCastStructure):
-    applicationFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ApplicationFT_head)
-    sessionFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_SessionFT_head)
-    operationFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationFT_head)
-    hostedProviderFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_HostedProviderFT_head)
-    serializerFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_SerializerFT_head)
-    deserializerFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_DeserializerFT_head)
-    subscribeDeliveryOptionsFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_SubscriptionDeliveryOptionsFT_head)
-    destinationOptionsFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_DestinationOptionsFT_head)
-    operationOptionsFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationOptionsFT_head)
-    utilitiesFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_UtilitiesFT_head)
+    applicationFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ApplicationFT)
+    sessionFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_SessionFT)
+    operationFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationFT)
+    hostedProviderFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_HostedProviderFT)
+    serializerFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_SerializerFT)
+    deserializerFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_DeserializerFT)
+    subscribeDeliveryOptionsFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_SubscriptionDeliveryOptionsFT)
+    destinationOptionsFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_DestinationOptionsFT)
+    operationOptionsFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationOptionsFT)
+    utilitiesFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_UtilitiesFT)
 class MI_ConstBooleanA(EasyCastStructure):
     data: POINTER(Byte)
     size: UInt32
@@ -1245,7 +1236,7 @@ class MI_ConstChar16Field(EasyCastStructure):
     exists: Byte
     flags: Byte
 class MI_ConstDatetimeA(EasyCastStructure):
-    data: POINTER(win32more.Windows.Win32.System.Wmi.MI_Datetime_head)
+    data: POINTER(win32more.Windows.Win32.System.Wmi.MI_Datetime)
     size: UInt32
 class MI_ConstDatetimeAField(EasyCastStructure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstDatetimeA
@@ -1256,14 +1247,14 @@ class MI_ConstDatetimeField(EasyCastStructure):
     exists: Byte
     flags: Byte
 class MI_ConstInstanceA(EasyCastStructure):
-    data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head))
+    data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance))
     size: UInt32
 class MI_ConstInstanceAField(EasyCastStructure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstInstanceA
     exists: Byte
     flags: Byte
 class MI_ConstInstanceField(EasyCastStructure):
-    value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)
+    value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     exists: Byte
     flags: Byte
 class MI_ConstReal32A(EasyCastStructure):
@@ -1289,14 +1280,14 @@ class MI_ConstReal64Field(EasyCastStructure):
     exists: Byte
     flags: Byte
 class MI_ConstReferenceA(EasyCastStructure):
-    data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head))
+    data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance))
     size: UInt32
 class MI_ConstReferenceAField(EasyCastStructure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstReferenceA
     exists: Byte
     flags: Byte
 class MI_ConstReferenceField(EasyCastStructure):
-    value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)
+    value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     exists: Byte
     flags: Byte
 class MI_ConstSint16A(EasyCastStructure):
@@ -1399,7 +1390,7 @@ class MI_ConstUint8Field(EasyCastStructure):
     exists: Byte
     flags: Byte
 class MI_Context(EasyCastStructure):
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ContextFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ContextFT)
     reserved: IntPtr * 3
 class MI_ContextFT(EasyCastStructure):
     PostResult: IntPtr
@@ -1439,7 +1430,7 @@ class MI_Datetime(EasyCastStructure):
         timestamp: win32more.Windows.Win32.System.Wmi.MI_Timestamp
         interval: win32more.Windows.Win32.System.Wmi.MI_Interval
 class MI_DatetimeA(EasyCastStructure):
-    data: POINTER(win32more.Windows.Win32.System.Wmi.MI_Datetime_head)
+    data: POINTER(win32more.Windows.Win32.System.Wmi.MI_Datetime)
     size: UInt32
 class MI_DatetimeAField(EasyCastStructure):
     value: win32more.Windows.Win32.System.Wmi.MI_DatetimeA
@@ -1460,11 +1451,11 @@ class MI_DeserializerFT(EasyCastStructure):
     DeserializeInstance: IntPtr
     Instance_GetClassName: IntPtr
 @winfunctype_pointer
-def MI_Deserializer_ClassObjectNeeded(context: VoidPtr, serverName: POINTER(UInt16), namespaceName: POINTER(UInt16), className: POINTER(UInt16), requestedClassObject: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Class_head))) -> win32more.Windows.Win32.System.Wmi.MI_Result: ...
+def MI_Deserializer_ClassObjectNeeded(context: VoidPtr, serverName: POINTER(UInt16), namespaceName: POINTER(UInt16), className: POINTER(UInt16), requestedClassObject: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Class))) -> win32more.Windows.Win32.System.Wmi.MI_Result: ...
 class MI_DestinationOptions(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_DestinationOptionsFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_DestinationOptionsFT)
 class MI_DestinationOptionsFT(EasyCastStructure):
     Delete: IntPtr
     SetString: IntPtr
@@ -1524,10 +1515,10 @@ class MI_FeatureDecl(EasyCastStructure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
-    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier_head))
+    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier))
     numQualifiers: UInt32
 class MI_Filter(EasyCastStructure):
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_FilterFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_FilterFT)
     reserved: IntPtr * 3
 class MI_FilterFT(EasyCastStructure):
     Evaluate: IntPtr
@@ -1535,18 +1526,18 @@ class MI_FilterFT(EasyCastStructure):
 class MI_HostedProvider(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_HostedProviderFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_HostedProviderFT)
 class MI_HostedProviderFT(EasyCastStructure):
     Close: IntPtr
     GetApplication: IntPtr
 class MI_Instance(EasyCastStructure):
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_InstanceFT_head)
-    classDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_InstanceFT)
+    classDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl)
     serverName: POINTER(UInt16)
     nameSpace: POINTER(UInt16)
     reserved: IntPtr * 4
 class MI_InstanceA(EasyCastStructure):
-    data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head))
+    data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance))
     size: UInt32
 class MI_InstanceAField(EasyCastStructure):
     value: win32more.Windows.Win32.System.Wmi.MI_InstanceA
@@ -1575,7 +1566,7 @@ class MI_InstanceFT(EasyCastStructure):
     SetServerName: IntPtr
     GetClass: IntPtr
 class MI_InstanceField(EasyCastStructure):
-    value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)
+    value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     exists: Byte
     flags: Byte
 class MI_Interval(EasyCastStructure):
@@ -1593,71 +1584,71 @@ MI_LOCALE_TYPE_REQUESTED_DATA: MI_LocaleType = 1
 MI_LOCALE_TYPE_CLOSEST_UI: MI_LocaleType = 2
 MI_LOCALE_TYPE_CLOSEST_DATA: MI_LocaleType = 3
 @cfunctype_pointer
-def MI_MainFunction(server: POINTER(win32more.Windows.Win32.System.Wmi.MI_Server_head)) -> POINTER(win32more.Windows.Win32.System.Wmi.MI_Module_head): ...
+def MI_MainFunction(server: POINTER(win32more.Windows.Win32.System.Wmi.MI_Server)) -> POINTER(win32more.Windows.Win32.System.Wmi.MI_Module): ...
 class MI_MethodDecl(EasyCastStructure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
-    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier_head))
+    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier))
     numQualifiers: UInt32
-    parameters: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_ParameterDecl_head))
+    parameters: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_ParameterDecl))
     numParameters: UInt32
     size: UInt32
     returnType: UInt32
     origin: POINTER(UInt16)
     propagator: POINTER(UInt16)
-    schema: POINTER(win32more.Windows.Win32.System.Wmi.MI_SchemaDecl_head)
+    schema: POINTER(win32more.Windows.Win32.System.Wmi.MI_SchemaDecl)
     function: win32more.Windows.Win32.System.Wmi.MI_MethodDecl_Invoke
 @winfunctype_pointer
-def MI_MethodDecl_Invoke(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), methodName: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), parameters: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)) -> Void: ...
+def MI_MethodDecl_Invoke(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), methodName: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), parameters: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)) -> Void: ...
 class MI_Module(EasyCastStructure):
     version: UInt32
     generatorVersion: UInt32
     flags: UInt32
     charSize: UInt32
-    schemaDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_SchemaDecl_head)
+    schemaDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_SchemaDecl)
     Load: win32more.Windows.Win32.System.Wmi.MI_Module_Load
     Unload: win32more.Windows.Win32.System.Wmi.MI_Module_Unload
-    dynamicProviderFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ProviderFT_head)
+    dynamicProviderFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ProviderFT)
 @winfunctype_pointer
-def MI_Module_Load(self: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Module_Self)), context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head)) -> Void: ...
+def MI_Module_Load(self: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Module_Self)), context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context)) -> Void: ...
 MI_Module_Self = IntPtr
 @winfunctype_pointer
-def MI_Module_Unload(self: POINTER(win32more.Windows.Win32.System.Wmi.MI_Module_Self), context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head)) -> Void: ...
+def MI_Module_Unload(self: POINTER(win32more.Windows.Win32.System.Wmi.MI_Module_Self), context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context)) -> Void: ...
 class MI_ObjectDecl(EasyCastStructure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
-    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier_head))
+    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier))
     numQualifiers: UInt32
-    properties: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertyDecl_head))
+    properties: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertyDecl))
     numProperties: UInt32
     size: UInt32
 class MI_Operation(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationFT)
 @winfunctype_pointer
-def MI_OperationCallback_Class(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation_head), callbackContext: VoidPtr, classResult: POINTER(win32more.Windows.Win32.System.Wmi.MI_Class_head), moreResults: Byte, resultCode: win32more.Windows.Win32.System.Wmi.MI_Result, errorString: POINTER(UInt16), errorDetails: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), resultAcknowledgement: IntPtr) -> Void: ...
+def MI_OperationCallback_Class(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, classResult: POINTER(win32more.Windows.Win32.System.Wmi.MI_Class), moreResults: Byte, resultCode: win32more.Windows.Win32.System.Wmi.MI_Result, errorString: POINTER(UInt16), errorDetails: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), resultAcknowledgement: IntPtr) -> Void: ...
 @winfunctype_pointer
-def MI_OperationCallback_Indication(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation_head), callbackContext: VoidPtr, instance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), bookmark: POINTER(UInt16), machineID: POINTER(UInt16), moreResults: Byte, resultCode: win32more.Windows.Win32.System.Wmi.MI_Result, errorString: POINTER(UInt16), errorDetails: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), resultAcknowledgement: IntPtr) -> Void: ...
+def MI_OperationCallback_Indication(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, instance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), bookmark: POINTER(UInt16), machineID: POINTER(UInt16), moreResults: Byte, resultCode: win32more.Windows.Win32.System.Wmi.MI_Result, errorString: POINTER(UInt16), errorDetails: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), resultAcknowledgement: IntPtr) -> Void: ...
 @winfunctype_pointer
-def MI_OperationCallback_Instance(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation_head), callbackContext: VoidPtr, instance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), moreResults: Byte, resultCode: win32more.Windows.Win32.System.Wmi.MI_Result, errorString: POINTER(UInt16), errorDetails: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), resultAcknowledgement: IntPtr) -> Void: ...
+def MI_OperationCallback_Instance(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, instance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), moreResults: Byte, resultCode: win32more.Windows.Win32.System.Wmi.MI_Result, errorString: POINTER(UInt16), errorDetails: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), resultAcknowledgement: IntPtr) -> Void: ...
 @winfunctype_pointer
-def MI_OperationCallback_PromptUser(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation_head), callbackContext: VoidPtr, message: POINTER(UInt16), promptType: win32more.Windows.Win32.System.Wmi.MI_PromptType, promptUserResult: IntPtr) -> Void: ...
+def MI_OperationCallback_PromptUser(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, message: POINTER(UInt16), promptType: win32more.Windows.Win32.System.Wmi.MI_PromptType, promptUserResult: IntPtr) -> Void: ...
 MI_OperationCallback_ResponseType = Int32
 MI_OperationCallback_ResponseType_No: MI_OperationCallback_ResponseType = 0
 MI_OperationCallback_ResponseType_Yes: MI_OperationCallback_ResponseType = 1
 MI_OperationCallback_ResponseType_NoToAll: MI_OperationCallback_ResponseType = 2
 MI_OperationCallback_ResponseType_YesToAll: MI_OperationCallback_ResponseType = 3
 @winfunctype_pointer
-def MI_OperationCallback_StreamedParameter(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation_head), callbackContext: VoidPtr, parameterName: POINTER(UInt16), resultType: win32more.Windows.Win32.System.Wmi.MI_Type, result: POINTER(win32more.Windows.Win32.System.Wmi.MI_Value_head), resultAcknowledgement: IntPtr) -> Void: ...
+def MI_OperationCallback_StreamedParameter(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, parameterName: POINTER(UInt16), resultType: win32more.Windows.Win32.System.Wmi.MI_Type, result: POINTER(win32more.Windows.Win32.System.Wmi.MI_Value), resultAcknowledgement: IntPtr) -> Void: ...
 @winfunctype_pointer
-def MI_OperationCallback_WriteError(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation_head), callbackContext: VoidPtr, instance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), writeErrorResult: IntPtr) -> Void: ...
+def MI_OperationCallback_WriteError(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, instance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), writeErrorResult: IntPtr) -> Void: ...
 @winfunctype_pointer
-def MI_OperationCallback_WriteMessage(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation_head), callbackContext: VoidPtr, channel: UInt32, message: POINTER(UInt16)) -> Void: ...
+def MI_OperationCallback_WriteMessage(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, channel: UInt32, message: POINTER(UInt16)) -> Void: ...
 @winfunctype_pointer
-def MI_OperationCallback_WriteProgress(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation_head), callbackContext: VoidPtr, activity: POINTER(UInt16), currentOperation: POINTER(UInt16), statusDescription: POINTER(UInt16), percentageComplete: UInt32, secondsRemaining: UInt32) -> Void: ...
+def MI_OperationCallback_WriteProgress(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, activity: POINTER(UInt16), currentOperation: POINTER(UInt16), statusDescription: POINTER(UInt16), percentageComplete: UInt32, secondsRemaining: UInt32) -> Void: ...
 class MI_OperationCallbacks(EasyCastStructure):
     callbackContext: VoidPtr
     promptUser: win32more.Windows.Win32.System.Wmi.MI_OperationCallback_PromptUser
@@ -1678,7 +1669,7 @@ class MI_OperationFT(EasyCastStructure):
 class MI_OperationOptions(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationOptionsFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationOptionsFT)
 class MI_OperationOptionsFT(EasyCastStructure):
     Delete: IntPtr
     SetString: IntPtr
@@ -1697,7 +1688,7 @@ class MI_ParameterDecl(EasyCastStructure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
-    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier_head))
+    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier))
     numQualifiers: UInt32
     type: UInt32
     className: POINTER(UInt16)
@@ -1706,7 +1697,7 @@ class MI_ParameterDecl(EasyCastStructure):
 class MI_ParameterSet(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ParameterSetFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ParameterSetFT)
 class MI_ParameterSetFT(EasyCastStructure):
     GetMethodReturnType: IntPtr
     GetParameterCount: IntPtr
@@ -1719,7 +1710,7 @@ class MI_PropertyDecl(EasyCastStructure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
-    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier_head))
+    qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier))
     numQualifiers: UInt32
     type: UInt32
     className: POINTER(UInt16)
@@ -1729,7 +1720,7 @@ class MI_PropertyDecl(EasyCastStructure):
     propagator: POINTER(UInt16)
     value: VoidPtr
 class MI_PropertySet(EasyCastStructure):
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySetFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySetFT)
     reserved: IntPtr * 3
 class MI_PropertySetFT(EasyCastStructure):
     GetElementCount: IntPtr
@@ -1759,33 +1750,33 @@ class MI_ProviderFT(EasyCastStructure):
     Unsubscribe: win32more.Windows.Win32.System.Wmi.MI_ProviderFT_Unsubscribe
     Invoke: win32more.Windows.Win32.System.Wmi.MI_ProviderFT_Invoke
 @winfunctype_pointer
-def MI_ProviderFT_AssociatorInstances(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), resultClass: POINTER(UInt16), role: POINTER(UInt16), resultRole: POINTER(UInt16), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet_head), keysOnly: Byte, filter: POINTER(win32more.Windows.Win32.System.Wmi.MI_Filter_head)) -> Void: ...
+def MI_ProviderFT_AssociatorInstances(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), resultClass: POINTER(UInt16), role: POINTER(UInt16), resultRole: POINTER(UInt16), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet), keysOnly: Byte, filter: POINTER(win32more.Windows.Win32.System.Wmi.MI_Filter)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_CreateInstance(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), newInstance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)) -> Void: ...
+def MI_ProviderFT_CreateInstance(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), newInstance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_DeleteInstance(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)) -> Void: ...
+def MI_ProviderFT_DeleteInstance(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_DisableIndications(self: VoidPtr, indicationsContext: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16)) -> Void: ...
+def MI_ProviderFT_DisableIndications(self: VoidPtr, indicationsContext: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_EnableIndications(self: VoidPtr, indicationsContext: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16)) -> Void: ...
+def MI_ProviderFT_EnableIndications(self: VoidPtr, indicationsContext: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_EnumerateInstances(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet_head), keysOnly: Byte, filter: POINTER(win32more.Windows.Win32.System.Wmi.MI_Filter_head)) -> Void: ...
+def MI_ProviderFT_EnumerateInstances(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet), keysOnly: Byte, filter: POINTER(win32more.Windows.Win32.System.Wmi.MI_Filter)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_GetInstance(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet_head)) -> Void: ...
+def MI_ProviderFT_GetInstance(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_Invoke(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), methodName: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), inputParameters: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)) -> Void: ...
+def MI_ProviderFT_Invoke(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), methodName: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), inputParameters: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_Load(self: POINTER(VoidPtr), selfModule: POINTER(win32more.Windows.Win32.System.Wmi.MI_Module_Self), context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head)) -> Void: ...
+def MI_ProviderFT_Load(self: POINTER(VoidPtr), selfModule: POINTER(win32more.Windows.Win32.System.Wmi.MI_Module_Self), context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_ModifyInstance(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), modifiedInstance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet_head)) -> Void: ...
+def MI_ProviderFT_ModifyInstance(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), modifiedInstance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_ReferenceInstances(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head), role: POINTER(UInt16), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet_head), keysOnly: Byte, filter: POINTER(win32more.Windows.Win32.System.Wmi.MI_Filter_head)) -> Void: ...
+def MI_ProviderFT_ReferenceInstances(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), role: POINTER(UInt16), propertySet: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySet), keysOnly: Byte, filter: POINTER(win32more.Windows.Win32.System.Wmi.MI_Filter)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_Subscribe(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), filter: POINTER(win32more.Windows.Win32.System.Wmi.MI_Filter_head), bookmark: POINTER(UInt16), subscriptionID: UInt64, subscriptionSelf: POINTER(VoidPtr)) -> Void: ...
+def MI_ProviderFT_Subscribe(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), filter: POINTER(win32more.Windows.Win32.System.Wmi.MI_Filter), bookmark: POINTER(UInt16), subscriptionID: UInt64, subscriptionSelf: POINTER(VoidPtr)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_Unload(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head)) -> Void: ...
+def MI_ProviderFT_Unload(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context)) -> Void: ...
 @winfunctype_pointer
-def MI_ProviderFT_Unsubscribe(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context_head), nameSpace: POINTER(UInt16), className: POINTER(UInt16), subscriptionID: UInt64, subscriptionSelf: VoidPtr) -> Void: ...
+def MI_ProviderFT_Unsubscribe(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), subscriptionID: UInt64, subscriptionSelf: VoidPtr) -> Void: ...
 class MI_Qualifier(EasyCastStructure):
     name: POINTER(UInt16)
     type: UInt32
@@ -1801,7 +1792,7 @@ class MI_QualifierDecl(EasyCastStructure):
 class MI_QualifierSet(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_QualifierSetFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_QualifierSetFT)
 class MI_QualifierSetFT(EasyCastStructure):
     GetQualifierCount: IntPtr
     GetQualifierAt: IntPtr
@@ -1829,14 +1820,14 @@ class MI_Real64Field(EasyCastStructure):
     exists: Byte
     flags: Byte
 class MI_ReferenceA(EasyCastStructure):
-    data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head))
+    data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance))
     size: UInt32
 class MI_ReferenceAField(EasyCastStructure):
     value: win32more.Windows.Win32.System.Wmi.MI_ReferenceA
     exists: Byte
     flags: Byte
 class MI_ReferenceField(EasyCastStructure):
-    value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)
+    value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     exists: Byte
     flags: Byte
 MI_Result = Int32
@@ -1868,9 +1859,9 @@ MI_RESULT_CONTINUATION_ON_ERROR_NOT_SUPPORTED: MI_Result = 26
 MI_RESULT_SERVER_LIMITS_EXCEEDED: MI_Result = 27
 MI_RESULT_SERVER_IS_SHUTTING_DOWN: MI_Result = 28
 class MI_SchemaDecl(EasyCastStructure):
-    qualifierDecls: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_QualifierDecl_head))
+    qualifierDecls: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_QualifierDecl))
     numQualifierDecls: UInt32
-    classDecls: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl_head))
+    classDecls: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl))
     numClassDecls: UInt32
 class MI_Serializer(EasyCastStructure):
     reserved1: UInt64
@@ -1880,18 +1871,18 @@ class MI_SerializerFT(EasyCastStructure):
     SerializeClass: IntPtr
     SerializeInstance: IntPtr
 class MI_Server(EasyCastStructure):
-    serverFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ServerFT_head)
-    contextFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ContextFT_head)
-    instanceFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_InstanceFT_head)
-    propertySetFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySetFT_head)
-    filterFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_FilterFT_head)
+    serverFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ServerFT)
+    contextFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ContextFT)
+    instanceFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_InstanceFT)
+    propertySetFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySetFT)
+    filterFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_FilterFT)
 class MI_ServerFT(EasyCastStructure):
     GetVersion: IntPtr
     GetSystemName: IntPtr
 class MI_Session(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_SessionFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_SessionFT)
 class MI_SessionCallbacks(EasyCastStructure):
     callbackContext: VoidPtr
     writeMessage: IntPtr
@@ -1970,7 +1961,7 @@ class MI_StringField(EasyCastStructure):
 class MI_SubscriptionDeliveryOptions(EasyCastStructure):
     reserved1: UInt64
     reserved2: IntPtr
-    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_SubscriptionDeliveryOptionsFT_head)
+    ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_SubscriptionDeliveryOptionsFT)
 class MI_SubscriptionDeliveryOptionsFT(EasyCastStructure):
     SetString: IntPtr
     SetNumber: IntPtr
@@ -2107,8 +2098,8 @@ class MI_Value(EasyCastUnion):
     char16: UInt16
     datetime: win32more.Windows.Win32.System.Wmi.MI_Datetime
     string: POINTER(UInt16)
-    instance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)
-    reference: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance_head)
+    instance: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
+    reference: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     booleana: win32more.Windows.Win32.System.Wmi.MI_BooleanA
     uint8a: win32more.Windows.Win32.System.Wmi.MI_Uint8A
     sint8a: win32more.Windows.Win32.System.Wmi.MI_Sint8A
@@ -2139,12 +2130,12 @@ class SWbemAnalysisMatrixList(EasyCastStructure):
     m_uVersion: UInt32
     m_uMatrixType: UInt32
     m_uNumMatrices: UInt32
-    m_pMatrices: POINTER(win32more.Windows.Win32.System.Wmi.SWbemAnalysisMatrix_head)
+    m_pMatrices: POINTER(win32more.Windows.Win32.System.Wmi.SWbemAnalysisMatrix)
 class SWbemAssocQueryInf(EasyCastStructure):
     m_uVersion: UInt32
     m_uAnalysisType: UInt32
     m_uFeatureMask: UInt32
-    m_pPath: win32more.Windows.Win32.System.Wmi.IWbemPath_head
+    m_pPath: win32more.Windows.Win32.System.Wmi.IWbemPath
     m_pszPath: win32more.Windows.Win32.Foundation.PWSTR
     m_pszQueryText: win32more.Windows.Win32.Foundation.PWSTR
     m_pszResultClass: win32more.Windows.Win32.Foundation.PWSTR
@@ -2196,13 +2187,13 @@ class SWbemRpnEncodedQuery(EasyCastStructure):
     m_uDetectedArraySize: UInt32
     m_puDetectedFeatures: POINTER(UInt32)
     m_uSelectListSize: UInt32
-    m_ppSelectList: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.SWbemQueryQualifiedName_head))
+    m_ppSelectList: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.SWbemQueryQualifiedName))
     m_uFromTargetType: UInt32
     m_pszOptionalFromPath: win32more.Windows.Win32.Foundation.PWSTR
     m_uFromListSize: UInt32
     m_ppszFromList: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     m_uWhereClauseSize: UInt32
-    m_ppRpnWhereClause: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.SWbemRpnQueryToken_head))
+    m_ppRpnWhereClause: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.SWbemRpnQueryToken))
     m_dblWithinPolling: Double
     m_dblWithinWindow: Double
     m_uOrderByListSize: UInt32
@@ -2213,8 +2204,8 @@ class SWbemRpnQueryToken(EasyCastStructure):
     m_uTokenType: UInt32
     m_uSubexpressionShape: UInt32
     m_uOperator: UInt32
-    m_pRightIdent: POINTER(win32more.Windows.Win32.System.Wmi.SWbemQueryQualifiedName_head)
-    m_pLeftIdent: POINTER(win32more.Windows.Win32.System.Wmi.SWbemQueryQualifiedName_head)
+    m_pRightIdent: POINTER(win32more.Windows.Win32.System.Wmi.SWbemQueryQualifiedName)
+    m_pLeftIdent: POINTER(win32more.Windows.Win32.System.Wmi.SWbemQueryQualifiedName)
     m_uConstApparentType: UInt32
     m_Const: win32more.Windows.Win32.System.Wmi.SWbemRpnConst
     m_uConst2ApparentType: UInt32
@@ -2999,264 +2990,4 @@ WbemTimeout = Int32
 WbemTimeout_wbemTimeoutInfinite: WbemTimeout = -1
 WbemUnauthenticatedLocator = Guid('{443e7b79-de31-11d2-b340-00104bcc4b4a}')
 WbemUninitializedClassObject = Guid('{7a0227f6-7108-11d1-ad90-00c04fd8fdff}')
-make_head(_module, 'IEnumWbemClassObject')
-make_head(_module, 'IMofCompiler')
-make_head(_module, 'ISWbemDateTime')
-make_head(_module, 'ISWbemEventSource')
-make_head(_module, 'ISWbemLastError')
-make_head(_module, 'ISWbemLocator')
-make_head(_module, 'ISWbemMethod')
-make_head(_module, 'ISWbemMethodSet')
-make_head(_module, 'ISWbemNamedValue')
-make_head(_module, 'ISWbemNamedValueSet')
-make_head(_module, 'ISWbemObject')
-make_head(_module, 'ISWbemObjectEx')
-make_head(_module, 'ISWbemObjectPath')
-make_head(_module, 'ISWbemObjectSet')
-make_head(_module, 'ISWbemPrivilege')
-make_head(_module, 'ISWbemPrivilegeSet')
-make_head(_module, 'ISWbemProperty')
-make_head(_module, 'ISWbemPropertySet')
-make_head(_module, 'ISWbemQualifier')
-make_head(_module, 'ISWbemQualifierSet')
-make_head(_module, 'ISWbemRefreshableItem')
-make_head(_module, 'ISWbemRefresher')
-make_head(_module, 'ISWbemSecurity')
-make_head(_module, 'ISWbemServices')
-make_head(_module, 'ISWbemServicesEx')
-make_head(_module, 'ISWbemSink')
-make_head(_module, 'ISWbemSinkEvents')
-make_head(_module, 'IUnsecuredApartment')
-make_head(_module, 'IWMIExtension')
-make_head(_module, 'IWbemAddressResolution')
-make_head(_module, 'IWbemBackupRestore')
-make_head(_module, 'IWbemBackupRestoreEx')
-make_head(_module, 'IWbemCallResult')
-make_head(_module, 'IWbemClassObject')
-make_head(_module, 'IWbemClientConnectionTransport')
-make_head(_module, 'IWbemClientTransport')
-make_head(_module, 'IWbemConfigureRefresher')
-make_head(_module, 'IWbemConnectorLogin')
-make_head(_module, 'IWbemConstructClassObject')
-make_head(_module, 'IWbemContext')
-make_head(_module, 'IWbemDecoupledBasicEventProvider')
-make_head(_module, 'IWbemDecoupledRegistrar')
-make_head(_module, 'IWbemEventConsumerProvider')
-make_head(_module, 'IWbemEventProvider')
-make_head(_module, 'IWbemEventProviderQuerySink')
-make_head(_module, 'IWbemEventProviderSecurity')
-make_head(_module, 'IWbemEventSink')
-make_head(_module, 'IWbemHiPerfEnum')
-make_head(_module, 'IWbemHiPerfProvider')
-make_head(_module, 'IWbemLevel1Login')
-make_head(_module, 'IWbemLocator')
-make_head(_module, 'IWbemObjectAccess')
-make_head(_module, 'IWbemObjectSink')
-make_head(_module, 'IWbemObjectSinkEx')
-make_head(_module, 'IWbemObjectTextSrc')
-make_head(_module, 'IWbemPath')
-make_head(_module, 'IWbemPathKeyList')
-make_head(_module, 'IWbemPropertyProvider')
-make_head(_module, 'IWbemProviderIdentity')
-make_head(_module, 'IWbemProviderInit')
-make_head(_module, 'IWbemProviderInitSink')
-make_head(_module, 'IWbemQualifierSet')
-make_head(_module, 'IWbemQuery')
-make_head(_module, 'IWbemRefresher')
-make_head(_module, 'IWbemServices')
-make_head(_module, 'IWbemShutdown')
-make_head(_module, 'IWbemStatusCodeText')
-make_head(_module, 'IWbemTransport')
-make_head(_module, 'IWbemUnboundObjectSink')
-make_head(_module, 'IWbemUnsecuredApartment')
-make_head(_module, 'MI_Application')
-make_head(_module, 'MI_ApplicationFT')
-make_head(_module, 'MI_Array')
-make_head(_module, 'MI_ArrayField')
-make_head(_module, 'MI_BooleanA')
-make_head(_module, 'MI_BooleanAField')
-make_head(_module, 'MI_BooleanField')
-make_head(_module, 'MI_CancelCallback')
-make_head(_module, 'MI_Char16A')
-make_head(_module, 'MI_Char16AField')
-make_head(_module, 'MI_Char16Field')
-make_head(_module, 'MI_Class')
-make_head(_module, 'MI_ClassDecl')
-make_head(_module, 'MI_ClassFT')
-make_head(_module, 'MI_ClientFT_V1')
-make_head(_module, 'MI_ConstBooleanA')
-make_head(_module, 'MI_ConstBooleanAField')
-make_head(_module, 'MI_ConstBooleanField')
-make_head(_module, 'MI_ConstChar16A')
-make_head(_module, 'MI_ConstChar16AField')
-make_head(_module, 'MI_ConstChar16Field')
-make_head(_module, 'MI_ConstDatetimeA')
-make_head(_module, 'MI_ConstDatetimeAField')
-make_head(_module, 'MI_ConstDatetimeField')
-make_head(_module, 'MI_ConstInstanceA')
-make_head(_module, 'MI_ConstInstanceAField')
-make_head(_module, 'MI_ConstInstanceField')
-make_head(_module, 'MI_ConstReal32A')
-make_head(_module, 'MI_ConstReal32AField')
-make_head(_module, 'MI_ConstReal32Field')
-make_head(_module, 'MI_ConstReal64A')
-make_head(_module, 'MI_ConstReal64AField')
-make_head(_module, 'MI_ConstReal64Field')
-make_head(_module, 'MI_ConstReferenceA')
-make_head(_module, 'MI_ConstReferenceAField')
-make_head(_module, 'MI_ConstReferenceField')
-make_head(_module, 'MI_ConstSint16A')
-make_head(_module, 'MI_ConstSint16AField')
-make_head(_module, 'MI_ConstSint16Field')
-make_head(_module, 'MI_ConstSint32A')
-make_head(_module, 'MI_ConstSint32AField')
-make_head(_module, 'MI_ConstSint32Field')
-make_head(_module, 'MI_ConstSint64A')
-make_head(_module, 'MI_ConstSint64AField')
-make_head(_module, 'MI_ConstSint64Field')
-make_head(_module, 'MI_ConstSint8A')
-make_head(_module, 'MI_ConstSint8AField')
-make_head(_module, 'MI_ConstSint8Field')
-make_head(_module, 'MI_ConstStringA')
-make_head(_module, 'MI_ConstStringAField')
-make_head(_module, 'MI_ConstStringField')
-make_head(_module, 'MI_ConstUint16A')
-make_head(_module, 'MI_ConstUint16AField')
-make_head(_module, 'MI_ConstUint16Field')
-make_head(_module, 'MI_ConstUint32A')
-make_head(_module, 'MI_ConstUint32AField')
-make_head(_module, 'MI_ConstUint32Field')
-make_head(_module, 'MI_ConstUint64A')
-make_head(_module, 'MI_ConstUint64AField')
-make_head(_module, 'MI_ConstUint64Field')
-make_head(_module, 'MI_ConstUint8A')
-make_head(_module, 'MI_ConstUint8AField')
-make_head(_module, 'MI_ConstUint8Field')
-make_head(_module, 'MI_Context')
-make_head(_module, 'MI_ContextFT')
-make_head(_module, 'MI_Datetime')
-make_head(_module, 'MI_DatetimeA')
-make_head(_module, 'MI_DatetimeAField')
-make_head(_module, 'MI_DatetimeField')
-make_head(_module, 'MI_Deserializer')
-make_head(_module, 'MI_DeserializerFT')
-make_head(_module, 'MI_Deserializer_ClassObjectNeeded')
-make_head(_module, 'MI_DestinationOptions')
-make_head(_module, 'MI_DestinationOptionsFT')
-make_head(_module, 'MI_FeatureDecl')
-make_head(_module, 'MI_Filter')
-make_head(_module, 'MI_FilterFT')
-make_head(_module, 'MI_HostedProvider')
-make_head(_module, 'MI_HostedProviderFT')
-make_head(_module, 'MI_Instance')
-make_head(_module, 'MI_InstanceA')
-make_head(_module, 'MI_InstanceAField')
-make_head(_module, 'MI_InstanceExFT')
-make_head(_module, 'MI_InstanceFT')
-make_head(_module, 'MI_InstanceField')
-make_head(_module, 'MI_Interval')
-make_head(_module, 'MI_MainFunction')
-make_head(_module, 'MI_MethodDecl')
-make_head(_module, 'MI_MethodDecl_Invoke')
-make_head(_module, 'MI_Module')
-make_head(_module, 'MI_Module_Load')
-make_head(_module, 'MI_Module_Unload')
-make_head(_module, 'MI_ObjectDecl')
-make_head(_module, 'MI_Operation')
-make_head(_module, 'MI_OperationCallback_Class')
-make_head(_module, 'MI_OperationCallback_Indication')
-make_head(_module, 'MI_OperationCallback_Instance')
-make_head(_module, 'MI_OperationCallback_PromptUser')
-make_head(_module, 'MI_OperationCallback_StreamedParameter')
-make_head(_module, 'MI_OperationCallback_WriteError')
-make_head(_module, 'MI_OperationCallback_WriteMessage')
-make_head(_module, 'MI_OperationCallback_WriteProgress')
-make_head(_module, 'MI_OperationCallbacks')
-make_head(_module, 'MI_OperationFT')
-make_head(_module, 'MI_OperationOptions')
-make_head(_module, 'MI_OperationOptionsFT')
-make_head(_module, 'MI_ParameterDecl')
-make_head(_module, 'MI_ParameterSet')
-make_head(_module, 'MI_ParameterSetFT')
-make_head(_module, 'MI_PropertyDecl')
-make_head(_module, 'MI_PropertySet')
-make_head(_module, 'MI_PropertySetFT')
-make_head(_module, 'MI_ProviderFT')
-make_head(_module, 'MI_ProviderFT_AssociatorInstances')
-make_head(_module, 'MI_ProviderFT_CreateInstance')
-make_head(_module, 'MI_ProviderFT_DeleteInstance')
-make_head(_module, 'MI_ProviderFT_DisableIndications')
-make_head(_module, 'MI_ProviderFT_EnableIndications')
-make_head(_module, 'MI_ProviderFT_EnumerateInstances')
-make_head(_module, 'MI_ProviderFT_GetInstance')
-make_head(_module, 'MI_ProviderFT_Invoke')
-make_head(_module, 'MI_ProviderFT_Load')
-make_head(_module, 'MI_ProviderFT_ModifyInstance')
-make_head(_module, 'MI_ProviderFT_ReferenceInstances')
-make_head(_module, 'MI_ProviderFT_Subscribe')
-make_head(_module, 'MI_ProviderFT_Unload')
-make_head(_module, 'MI_ProviderFT_Unsubscribe')
-make_head(_module, 'MI_Qualifier')
-make_head(_module, 'MI_QualifierDecl')
-make_head(_module, 'MI_QualifierSet')
-make_head(_module, 'MI_QualifierSetFT')
-make_head(_module, 'MI_Real32A')
-make_head(_module, 'MI_Real32AField')
-make_head(_module, 'MI_Real32Field')
-make_head(_module, 'MI_Real64A')
-make_head(_module, 'MI_Real64AField')
-make_head(_module, 'MI_Real64Field')
-make_head(_module, 'MI_ReferenceA')
-make_head(_module, 'MI_ReferenceAField')
-make_head(_module, 'MI_ReferenceField')
-make_head(_module, 'MI_SchemaDecl')
-make_head(_module, 'MI_Serializer')
-make_head(_module, 'MI_SerializerFT')
-make_head(_module, 'MI_Server')
-make_head(_module, 'MI_ServerFT')
-make_head(_module, 'MI_Session')
-make_head(_module, 'MI_SessionCallbacks')
-make_head(_module, 'MI_SessionFT')
-make_head(_module, 'MI_Sint16A')
-make_head(_module, 'MI_Sint16AField')
-make_head(_module, 'MI_Sint16Field')
-make_head(_module, 'MI_Sint32A')
-make_head(_module, 'MI_Sint32AField')
-make_head(_module, 'MI_Sint32Field')
-make_head(_module, 'MI_Sint64A')
-make_head(_module, 'MI_Sint64AField')
-make_head(_module, 'MI_Sint64Field')
-make_head(_module, 'MI_Sint8A')
-make_head(_module, 'MI_Sint8AField')
-make_head(_module, 'MI_Sint8Field')
-make_head(_module, 'MI_StringA')
-make_head(_module, 'MI_StringAField')
-make_head(_module, 'MI_StringField')
-make_head(_module, 'MI_SubscriptionDeliveryOptions')
-make_head(_module, 'MI_SubscriptionDeliveryOptionsFT')
-make_head(_module, 'MI_Timestamp')
-make_head(_module, 'MI_Uint16A')
-make_head(_module, 'MI_Uint16AField')
-make_head(_module, 'MI_Uint16Field')
-make_head(_module, 'MI_Uint32A')
-make_head(_module, 'MI_Uint32AField')
-make_head(_module, 'MI_Uint32Field')
-make_head(_module, 'MI_Uint64A')
-make_head(_module, 'MI_Uint64AField')
-make_head(_module, 'MI_Uint64Field')
-make_head(_module, 'MI_Uint8A')
-make_head(_module, 'MI_Uint8AField')
-make_head(_module, 'MI_Uint8Field')
-make_head(_module, 'MI_UserCredentials')
-make_head(_module, 'MI_UsernamePasswordCreds')
-make_head(_module, 'MI_UtilitiesFT')
-make_head(_module, 'MI_Value')
-make_head(_module, 'SWbemAnalysisMatrix')
-make_head(_module, 'SWbemAnalysisMatrixList')
-make_head(_module, 'SWbemAssocQueryInf')
-make_head(_module, 'SWbemQueryQualifiedName')
-make_head(_module, 'SWbemRpnConst')
-make_head(_module, 'SWbemRpnEncodedQuery')
-make_head(_module, 'SWbemRpnQueryToken')
-make_head(_module, 'SWbemRpnTokenList')
-make_head(_module, 'WBEM_COMPILE_STATUS_INFO')
+make_ready(__name__)

@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.AppService
@@ -37,15 +37,6 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.FileProperties
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 AudioDecoderDegradation = Int32
 AudioDecoderDegradation_None: AudioDecoderDegradation = 0
 AudioDecoderDegradation_DownmixTo2Channels: AudioDecoderDegradation = 1
@@ -924,7 +915,7 @@ class IMediaBindingEventArgs(ComPtr):
     _classid_ = 'Windows.Media.Core.IMediaBindingEventArgs'
     _iid_ = Guid('{b61cb25a-1b6d-4630-a86d-2f0837f712e5}')
     @winrt_commethod(6)
-    def add_Canceled(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaBindingEventArgs, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Canceled(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaBindingEventArgs, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Canceled(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -1152,7 +1143,7 @@ class IMediaStreamSample(ComPtr):
     _classid_ = 'Windows.Media.Core.IMediaStreamSample'
     _iid_ = Guid('{5c8db627-4b80-4361-9837-6cb7481ad9d6}')
     @winrt_commethod(6)
-    def add_Processed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSample, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Processed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSample, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Processed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -1237,7 +1228,7 @@ class IMediaStreamSource(ComPtr):
     @winrt_commethod(9)
     def remove_Starting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_Paused(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Paused(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_Paused(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
@@ -1443,23 +1434,23 @@ class IMseSourceBuffer(ComPtr):
     _classid_ = 'Windows.Media.Core.IMseSourceBuffer'
     _iid_ = Guid('{0c1aa3e3-df8d-4079-a3fe-6849184b4e2f}')
     @winrt_commethod(6)
-    def add_UpdateStarting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UpdateStarting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_UpdateStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_Updated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Updated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_Updated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_UpdateEnded(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UpdateEnded(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_UpdateEnded(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_ErrorOccurred(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ErrorOccurred(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_ErrorOccurred(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_Aborted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Aborted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_Aborted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
@@ -1503,11 +1494,11 @@ class IMseSourceBufferList(ComPtr):
     _classid_ = 'Windows.Media.Core.IMseSourceBufferList'
     _iid_ = Guid('{95fae8e7-a8e7-4ebf-8927-145e940ba511}')
     @winrt_commethod(6)
-    def add_SourceBufferAdded(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBufferList, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SourceBufferAdded(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBufferList, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_SourceBufferAdded(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_SourceBufferRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBufferList, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SourceBufferRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBufferList, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_SourceBufferRemoved(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -1518,15 +1509,15 @@ class IMseStreamSource(ComPtr):
     _classid_ = 'Windows.Media.Core.IMseStreamSource'
     _iid_ = Guid('{b0b4198d-02f4-4923-88dd-81bc3f360ffa}')
     @winrt_commethod(6)
-    def add_Opened(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Opened(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Opened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_Ended(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Ended(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_Ended(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
@@ -1609,7 +1600,7 @@ class ISingleSelectMediaTrackList(ComPtr):
     _classid_ = 'Windows.Media.Core.ISingleSelectMediaTrackList'
     _iid_ = Guid('{77206f1f-c34f-494f-8077-2bad9ff4ecf1}')
     @winrt_commethod(6)
-    def add_SelectedIndexChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.ISingleSelectMediaTrackList, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SelectedIndexChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.ISingleSelectMediaTrackList, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_SelectedIndexChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -2198,7 +2189,7 @@ class MediaBindingEventArgs(ComPtr):
     default_interface: win32more.Windows.Media.Core.IMediaBindingEventArgs
     _classid_ = 'Windows.Media.Core.MediaBindingEventArgs'
     @winrt_mixinmethod
-    def add_Canceled(self: win32more.Windows.Media.Core.IMediaBindingEventArgs, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaBindingEventArgs, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Canceled(self: win32more.Windows.Media.Core.IMediaBindingEventArgs, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaBindingEventArgs, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Canceled(self: win32more.Windows.Media.Core.IMediaBindingEventArgs, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2353,7 +2344,7 @@ class MediaStreamSample(ComPtr):
     default_interface: win32more.Windows.Media.Core.IMediaStreamSample
     _classid_ = 'Windows.Media.Core.MediaStreamSample'
     @winrt_mixinmethod
-    def add_Processed(self: win32more.Windows.Media.Core.IMediaStreamSample, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSample, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Processed(self: win32more.Windows.Media.Core.IMediaStreamSample, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSample, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Processed(self: win32more.Windows.Media.Core.IMediaStreamSample, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2399,24 +2390,24 @@ class MediaStreamSample(ComPtr):
     Direct3D11Surface = property(get_Direct3D11Surface, None)
 class MediaStreamSamplePropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]
+    default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
     _classid_ = 'Windows.Media.Core.MediaStreamSamplePropertySet'
     @winrt_mixinmethod
-    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: Guid) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> UInt32: ...
+    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> UInt32: ...
     @winrt_mixinmethod
-    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: Guid) -> Boolean: ...
+    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> Boolean: ...
     @winrt_mixinmethod
-    def GetView(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]: ...
+    def GetView(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_mixinmethod
-    def Insert(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: Guid, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
+    def Insert(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def Remove(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head], key: Guid) -> Void: ...
+    def Remove(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> Void: ...
     @winrt_mixinmethod
-    def Clear(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    def Clear(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
     @winrt_mixinmethod
-    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
 class MediaStreamSampleProtectionProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -2451,7 +2442,7 @@ class MediaStreamSource(ComPtr):
     @winrt_mixinmethod
     def remove_Starting(self: win32more.Windows.Media.Core.IMediaStreamSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Paused(self: win32more.Windows.Media.Core.IMediaStreamSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Paused(self: win32more.Windows.Media.Core.IMediaStreamSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Paused(self: win32more.Windows.Media.Core.IMediaStreamSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2652,23 +2643,23 @@ class MseSourceBuffer(ComPtr):
     default_interface: win32more.Windows.Media.Core.IMseSourceBuffer
     _classid_ = 'Windows.Media.Core.MseSourceBuffer'
     @winrt_mixinmethod
-    def add_UpdateStarting(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UpdateStarting(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_UpdateStarting(self: win32more.Windows.Media.Core.IMseSourceBuffer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Updated(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Updated(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Windows.Media.Core.IMseSourceBuffer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_UpdateEnded(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UpdateEnded(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_UpdateEnded(self: win32more.Windows.Media.Core.IMseSourceBuffer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_ErrorOccurred(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ErrorOccurred(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ErrorOccurred(self: win32more.Windows.Media.Core.IMseSourceBuffer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Aborted(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Aborted(self: win32more.Windows.Media.Core.IMseSourceBuffer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBuffer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Aborted(self: win32more.Windows.Media.Core.IMseSourceBuffer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2712,11 +2703,11 @@ class MseSourceBufferList(ComPtr):
     default_interface: win32more.Windows.Media.Core.IMseSourceBufferList
     _classid_ = 'Windows.Media.Core.MseSourceBufferList'
     @winrt_mixinmethod
-    def add_SourceBufferAdded(self: win32more.Windows.Media.Core.IMseSourceBufferList, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBufferList, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SourceBufferAdded(self: win32more.Windows.Media.Core.IMseSourceBufferList, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBufferList, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SourceBufferAdded(self: win32more.Windows.Media.Core.IMseSourceBufferList, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_SourceBufferRemoved(self: win32more.Windows.Media.Core.IMseSourceBufferList, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBufferList, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SourceBufferRemoved(self: win32more.Windows.Media.Core.IMseSourceBufferList, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseSourceBufferList, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SourceBufferRemoved(self: win32more.Windows.Media.Core.IMseSourceBufferList, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2729,15 +2720,15 @@ class MseStreamSource(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.MseStreamSource: ...
     @winrt_mixinmethod
-    def add_Opened(self: win32more.Windows.Media.Core.IMseStreamSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Opened(self: win32more.Windows.Media.Core.IMseStreamSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Opened(self: win32more.Windows.Media.Core.IMseStreamSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Ended(self: win32more.Windows.Media.Core.IMseStreamSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Ended(self: win32more.Windows.Media.Core.IMseStreamSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Ended(self: win32more.Windows.Media.Core.IMseStreamSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Closed(self: win32more.Windows.Media.Core.IMseStreamSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Closed(self: win32more.Windows.Media.Core.IMseStreamSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MseStreamSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Closed(self: win32more.Windows.Media.Core.IMseStreamSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -3520,187 +3511,4 @@ class VideoTrackSupportInfo(ComPtr):
     def get_MediaSourceStatus(self: win32more.Windows.Media.Core.IVideoTrackSupportInfo) -> win32more.Windows.Media.Core.MediaSourceStatus: ...
     DecoderStatus = property(get_DecoderStatus, None)
     MediaSourceStatus = property(get_MediaSourceStatus, None)
-make_head(_module, 'AudioStreamDescriptor')
-make_head(_module, 'AudioTrack')
-make_head(_module, 'AudioTrackOpenFailedEventArgs')
-make_head(_module, 'AudioTrackSupportInfo')
-make_head(_module, 'ChapterCue')
-make_head(_module, 'CodecInfo')
-make_head(_module, 'CodecQuery')
-make_head(_module, 'CodecSubtypes')
-make_head(_module, 'DataCue')
-make_head(_module, 'FaceDetectedEventArgs')
-make_head(_module, 'FaceDetectionEffect')
-make_head(_module, 'FaceDetectionEffectDefinition')
-make_head(_module, 'FaceDetectionEffectFrame')
-make_head(_module, 'HighDynamicRangeControl')
-make_head(_module, 'HighDynamicRangeOutput')
-make_head(_module, 'IAudioStreamDescriptor')
-make_head(_module, 'IAudioStreamDescriptor2')
-make_head(_module, 'IAudioStreamDescriptor3')
-make_head(_module, 'IAudioStreamDescriptorFactory')
-make_head(_module, 'IAudioTrack')
-make_head(_module, 'IAudioTrackOpenFailedEventArgs')
-make_head(_module, 'IAudioTrackSupportInfo')
-make_head(_module, 'IChapterCue')
-make_head(_module, 'ICodecInfo')
-make_head(_module, 'ICodecQuery')
-make_head(_module, 'ICodecSubtypesStatics')
-make_head(_module, 'IDataCue')
-make_head(_module, 'IDataCue2')
-make_head(_module, 'IFaceDetectedEventArgs')
-make_head(_module, 'IFaceDetectionEffect')
-make_head(_module, 'IFaceDetectionEffectDefinition')
-make_head(_module, 'IFaceDetectionEffectFrame')
-make_head(_module, 'IHighDynamicRangeControl')
-make_head(_module, 'IHighDynamicRangeOutput')
-make_head(_module, 'IImageCue')
-make_head(_module, 'IInitializeMediaStreamSourceRequestedEventArgs')
-make_head(_module, 'ILowLightFusionResult')
-make_head(_module, 'ILowLightFusionStatics')
-make_head(_module, 'IMediaBinder')
-make_head(_module, 'IMediaBindingEventArgs')
-make_head(_module, 'IMediaBindingEventArgs2')
-make_head(_module, 'IMediaBindingEventArgs3')
-make_head(_module, 'IMediaCue')
-make_head(_module, 'IMediaCueEventArgs')
-make_head(_module, 'IMediaSource')
-make_head(_module, 'IMediaSource2')
-make_head(_module, 'IMediaSource3')
-make_head(_module, 'IMediaSource4')
-make_head(_module, 'IMediaSource5')
-make_head(_module, 'IMediaSourceAppServiceConnection')
-make_head(_module, 'IMediaSourceAppServiceConnectionFactory')
-make_head(_module, 'IMediaSourceError')
-make_head(_module, 'IMediaSourceOpenOperationCompletedEventArgs')
-make_head(_module, 'IMediaSourceStateChangedEventArgs')
-make_head(_module, 'IMediaSourceStatics')
-make_head(_module, 'IMediaSourceStatics2')
-make_head(_module, 'IMediaSourceStatics3')
-make_head(_module, 'IMediaSourceStatics4')
-make_head(_module, 'IMediaStreamDescriptor')
-make_head(_module, 'IMediaStreamDescriptor2')
-make_head(_module, 'IMediaStreamSample')
-make_head(_module, 'IMediaStreamSample2')
-make_head(_module, 'IMediaStreamSampleProtectionProperties')
-make_head(_module, 'IMediaStreamSampleStatics')
-make_head(_module, 'IMediaStreamSampleStatics2')
-make_head(_module, 'IMediaStreamSource')
-make_head(_module, 'IMediaStreamSource2')
-make_head(_module, 'IMediaStreamSource3')
-make_head(_module, 'IMediaStreamSource4')
-make_head(_module, 'IMediaStreamSourceClosedEventArgs')
-make_head(_module, 'IMediaStreamSourceClosedRequest')
-make_head(_module, 'IMediaStreamSourceFactory')
-make_head(_module, 'IMediaStreamSourceSampleRenderedEventArgs')
-make_head(_module, 'IMediaStreamSourceSampleRequest')
-make_head(_module, 'IMediaStreamSourceSampleRequestDeferral')
-make_head(_module, 'IMediaStreamSourceSampleRequestedEventArgs')
-make_head(_module, 'IMediaStreamSourceStartingEventArgs')
-make_head(_module, 'IMediaStreamSourceStartingRequest')
-make_head(_module, 'IMediaStreamSourceStartingRequestDeferral')
-make_head(_module, 'IMediaStreamSourceSwitchStreamsRequest')
-make_head(_module, 'IMediaStreamSourceSwitchStreamsRequestDeferral')
-make_head(_module, 'IMediaStreamSourceSwitchStreamsRequestedEventArgs')
-make_head(_module, 'IMediaTrack')
-make_head(_module, 'IMseSourceBuffer')
-make_head(_module, 'IMseSourceBufferList')
-make_head(_module, 'IMseStreamSource')
-make_head(_module, 'IMseStreamSource2')
-make_head(_module, 'IMseStreamSourceStatics')
-make_head(_module, 'ISceneAnalysisEffect')
-make_head(_module, 'ISceneAnalysisEffectFrame')
-make_head(_module, 'ISceneAnalysisEffectFrame2')
-make_head(_module, 'ISceneAnalyzedEventArgs')
-make_head(_module, 'ISingleSelectMediaTrackList')
-make_head(_module, 'ISpeechCue')
-make_head(_module, 'ITimedMetadataStreamDescriptor')
-make_head(_module, 'ITimedMetadataStreamDescriptorFactory')
-make_head(_module, 'ITimedMetadataTrack')
-make_head(_module, 'ITimedMetadataTrack2')
-make_head(_module, 'ITimedMetadataTrackError')
-make_head(_module, 'ITimedMetadataTrackFactory')
-make_head(_module, 'ITimedMetadataTrackFailedEventArgs')
-make_head(_module, 'ITimedMetadataTrackProvider')
-make_head(_module, 'ITimedTextBouten')
-make_head(_module, 'ITimedTextCue')
-make_head(_module, 'ITimedTextLine')
-make_head(_module, 'ITimedTextRegion')
-make_head(_module, 'ITimedTextRuby')
-make_head(_module, 'ITimedTextSource')
-make_head(_module, 'ITimedTextSourceResolveResultEventArgs')
-make_head(_module, 'ITimedTextSourceStatics')
-make_head(_module, 'ITimedTextSourceStatics2')
-make_head(_module, 'ITimedTextStyle')
-make_head(_module, 'ITimedTextStyle2')
-make_head(_module, 'ITimedTextStyle3')
-make_head(_module, 'ITimedTextSubformat')
-make_head(_module, 'IVideoStabilizationEffect')
-make_head(_module, 'IVideoStabilizationEffectEnabledChangedEventArgs')
-make_head(_module, 'IVideoStreamDescriptor')
-make_head(_module, 'IVideoStreamDescriptor2')
-make_head(_module, 'IVideoStreamDescriptorFactory')
-make_head(_module, 'IVideoTrack')
-make_head(_module, 'IVideoTrackOpenFailedEventArgs')
-make_head(_module, 'IVideoTrackSupportInfo')
-make_head(_module, 'ImageCue')
-make_head(_module, 'InitializeMediaStreamSourceRequestedEventArgs')
-make_head(_module, 'LowLightFusion')
-make_head(_module, 'LowLightFusionResult')
-make_head(_module, 'MediaBinder')
-make_head(_module, 'MediaBindingEventArgs')
-make_head(_module, 'MediaCueEventArgs')
-make_head(_module, 'MediaSource')
-make_head(_module, 'MediaSourceAppServiceConnection')
-make_head(_module, 'MediaSourceError')
-make_head(_module, 'MediaSourceOpenOperationCompletedEventArgs')
-make_head(_module, 'MediaSourceStateChangedEventArgs')
-make_head(_module, 'MediaStreamSample')
-make_head(_module, 'MediaStreamSamplePropertySet')
-make_head(_module, 'MediaStreamSampleProtectionProperties')
-make_head(_module, 'MediaStreamSource')
-make_head(_module, 'MediaStreamSourceClosedEventArgs')
-make_head(_module, 'MediaStreamSourceClosedRequest')
-make_head(_module, 'MediaStreamSourceSampleRenderedEventArgs')
-make_head(_module, 'MediaStreamSourceSampleRequest')
-make_head(_module, 'MediaStreamSourceSampleRequestDeferral')
-make_head(_module, 'MediaStreamSourceSampleRequestedEventArgs')
-make_head(_module, 'MediaStreamSourceStartingEventArgs')
-make_head(_module, 'MediaStreamSourceStartingRequest')
-make_head(_module, 'MediaStreamSourceStartingRequestDeferral')
-make_head(_module, 'MediaStreamSourceSwitchStreamsRequest')
-make_head(_module, 'MediaStreamSourceSwitchStreamsRequestDeferral')
-make_head(_module, 'MediaStreamSourceSwitchStreamsRequestedEventArgs')
-make_head(_module, 'MseSourceBuffer')
-make_head(_module, 'MseSourceBufferList')
-make_head(_module, 'MseStreamSource')
-make_head(_module, 'MseTimeRange')
-make_head(_module, 'SceneAnalysisEffect')
-make_head(_module, 'SceneAnalysisEffectDefinition')
-make_head(_module, 'SceneAnalysisEffectFrame')
-make_head(_module, 'SceneAnalyzedEventArgs')
-make_head(_module, 'SpeechCue')
-make_head(_module, 'TimedMetadataStreamDescriptor')
-make_head(_module, 'TimedMetadataTrack')
-make_head(_module, 'TimedMetadataTrackError')
-make_head(_module, 'TimedMetadataTrackFailedEventArgs')
-make_head(_module, 'TimedTextBouten')
-make_head(_module, 'TimedTextCue')
-make_head(_module, 'TimedTextDouble')
-make_head(_module, 'TimedTextLine')
-make_head(_module, 'TimedTextPadding')
-make_head(_module, 'TimedTextPoint')
-make_head(_module, 'TimedTextRegion')
-make_head(_module, 'TimedTextRuby')
-make_head(_module, 'TimedTextSize')
-make_head(_module, 'TimedTextSource')
-make_head(_module, 'TimedTextSourceResolveResultEventArgs')
-make_head(_module, 'TimedTextStyle')
-make_head(_module, 'TimedTextSubformat')
-make_head(_module, 'VideoStabilizationEffect')
-make_head(_module, 'VideoStabilizationEffectDefinition')
-make_head(_module, 'VideoStabilizationEffectEnabledChangedEventArgs')
-make_head(_module, 'VideoStreamDescriptor')
-make_head(_module, 'VideoTrack')
-make_head(_module, 'VideoTrackOpenFailedEventArgs')
-make_head(_module, 'VideoTrackSupportInfo')
+make_ready(__name__)

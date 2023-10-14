@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting
 import win32more.Windows.Win32.System.Memory
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 PSS_PERF_RESOLUTION: UInt32 = 1000000
 @winfunctype('KERNEL32.dll')
 def PssCaptureSnapshot(ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE, CaptureFlags: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_CAPTURE_FLAGS, ThreadContextFlags: UInt32, SnapshotHandle: POINTER(win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS)) -> UInt32: ...
@@ -26,7 +17,7 @@ def PssWalkSnapshot(SnapshotHandle: win32more.Windows.Win32.System.Diagnostics.P
 @winfunctype('KERNEL32.dll')
 def PssDuplicateSnapshot(SourceProcessHandle: win32more.Windows.Win32.Foundation.HANDLE, SnapshotHandle: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS, TargetProcessHandle: win32more.Windows.Win32.Foundation.HANDLE, TargetSnapshotHandle: POINTER(win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSS), Flags: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_DUPLICATE_FLAGS) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def PssWalkMarkerCreate(Allocator: POINTER(win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_ALLOCATOR_head), WalkMarkerHandle: POINTER(win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSSWALK)) -> UInt32: ...
+def PssWalkMarkerCreate(Allocator: POINTER(win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_ALLOCATOR), WalkMarkerHandle: POINTER(win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSSWALK)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def PssWalkMarkerFree(WalkMarkerHandle: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSSWALK) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
@@ -225,7 +216,7 @@ class PSS_THREAD_ENTRY(EasyCastStructure):
     Flags: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_THREAD_FLAGS
     SuspendCount: UInt16
     SizeOfContextRecord: UInt16
-    ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)
+    ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)
 PSS_THREAD_FLAGS = Int32
 PSS_THREAD_FLAGS_NONE: PSS_THREAD_FLAGS = 0
 PSS_THREAD_FLAGS_TERMINATED: PSS_THREAD_FLAGS = 1
@@ -255,16 +246,4 @@ PSS_WALK_AUXILIARY_PAGES: PSS_WALK_INFORMATION_CLASS = 0
 PSS_WALK_VA_SPACE: PSS_WALK_INFORMATION_CLASS = 1
 PSS_WALK_HANDLES: PSS_WALK_INFORMATION_CLASS = 2
 PSS_WALK_THREADS: PSS_WALK_INFORMATION_CLASS = 3
-make_head(_module, 'PSS_ALLOCATOR')
-make_head(_module, 'PSS_AUXILIARY_PAGES_INFORMATION')
-make_head(_module, 'PSS_AUXILIARY_PAGE_ENTRY')
-make_head(_module, 'PSS_HANDLE_ENTRY')
-make_head(_module, 'PSS_HANDLE_INFORMATION')
-make_head(_module, 'PSS_HANDLE_TRACE_INFORMATION')
-make_head(_module, 'PSS_PERFORMANCE_COUNTERS')
-make_head(_module, 'PSS_PROCESS_INFORMATION')
-make_head(_module, 'PSS_THREAD_ENTRY')
-make_head(_module, 'PSS_THREAD_INFORMATION')
-make_head(_module, 'PSS_VA_CLONE_INFORMATION')
-make_head(_module, 'PSS_VA_SPACE_ENTRY')
-make_head(_module, 'PSS_VA_SPACE_INFORMATION')
+make_ready(__name__)

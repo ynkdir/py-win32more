@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.XAudio2
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 FXEQ_MIN_FRAMERATE: UInt32 = 22000
 FXEQ_MAX_FRAMERATE: UInt32 = 48000
 FXEQ_MIN_FREQUENCY_CENTER: Single = 20
@@ -239,15 +230,15 @@ X3DAUDIO_CALCULATE_EMITTER_ANGLE: UInt32 = 64
 X3DAUDIO_CALCULATE_ZEROCENTER: UInt32 = 65536
 X3DAUDIO_CALCULATE_REDIRECT_TO_LFE: UInt32 = 131072
 @cfunctype('XAudio2_8.dll')
-def CreateFX(clsid: POINTER(Guid), pEffect: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head), pInitDat: VoidPtr, InitDataByteSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreateFX(clsid: POINTER(Guid), pEffect: POINTER(win32more.Windows.Win32.System.Com.IUnknown), pInitDat: VoidPtr, InitDataByteSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XAudio2_8.dll')
-def XAudio2CreateWithVersionInfo(ppXAudio2: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2_head), Flags: UInt32, XAudio2Processor: UInt32, ntddiVersion: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def XAudio2CreateWithVersionInfo(ppXAudio2: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2), Flags: UInt32, XAudio2Processor: UInt32, ntddiVersion: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XAudio2_8.dll')
-def CreateAudioVolumeMeter(ppApo: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreateAudioVolumeMeter(ppApo: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XAudio2_8.dll')
-def CreateAudioReverb(ppApo: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreateAudioReverb(ppApo: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('HrtfApo.dll')
-def CreateHrtfApo(init: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfApoInit_head), xApo: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAPO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreateHrtfApo(init: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfApoInit), xApo: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAPO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 AudioReverb = Guid('{c2633b16-471b-4498-b8c5-4f0959e2ec09}')
 AudioVolumeMeter = Guid('{4fc3b166-972a-40cf-bc37-7db03db2fba3}')
 class FXECHO_INITDATA(EasyCastStructure):
@@ -285,8 +276,8 @@ class FXREVERB_PARAMETERS(EasyCastStructure):
     _pack_ = 1
 FXReverb = Guid('{7d9aca56-cb68-4807-b632-b137352e8596}')
 class HrtfApoInit(EasyCastStructure):
-    distanceDecay: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecay_head)
-    directivity: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivity_head)
+    distanceDecay: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecay)
+    directivity: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivity)
 class HrtfDirectivity(EasyCastStructure):
     type: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType
     scaling: Single
@@ -325,21 +316,21 @@ class IXAPO(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a410b984-9839-4819-a0be-2856ae6b3adb}')
     @commethod(3)
-    def GetRegistrationProperties(self, ppRegistrationProperties: POINTER(POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_REGISTRATION_PROPERTIES_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetRegistrationProperties(self, ppRegistrationProperties: POINTER(POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_REGISTRATION_PROPERTIES))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def IsInputFormatSupported(self, pOutputFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head), pRequestedInputFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head), ppSupportedInputFormat: POINTER(POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsInputFormatSupported(self, pOutputFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), pRequestedInputFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), ppSupportedInputFormat: POINTER(POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def IsOutputFormatSupported(self, pInputFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head), pRequestedOutputFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head), ppSupportedOutputFormat: POINTER(POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def IsOutputFormatSupported(self, pInputFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), pRequestedOutputFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), ppSupportedOutputFormat: POINTER(POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Initialize(self, pData: VoidPtr, DataByteSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Reset(self) -> Void: ...
     @commethod(8)
-    def LockForProcess(self, InputLockedParameterCount: UInt32, pInputLockedParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS_head), OutputLockedParameterCount: UInt32, pOutputLockedParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def LockForProcess(self, InputLockedParameterCount: UInt32, pInputLockedParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS), OutputLockedParameterCount: UInt32, pOutputLockedParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def UnlockForProcess(self) -> Void: ...
     @commethod(10)
-    def Process(self, InputProcessParameterCount: UInt32, pInputProcessParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS_head), OutputProcessParameterCount: UInt32, pOutputProcessParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS_head), IsEnabled: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
+    def Process(self, InputProcessParameterCount: UInt32, pInputProcessParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS), OutputProcessParameterCount: UInt32, pOutputProcessParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS), IsEnabled: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
     @commethod(11)
     def CalcInputFrames(self, OutputFrameCount: UInt32) -> UInt32: ...
     @commethod(12)
@@ -348,9 +339,9 @@ class IXAPOHrtfParameters(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{15b3cd66-e9de-4464-b6e6-2bc3cf63d455}')
     @commethod(3)
-    def SetSourcePosition(self, position: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfPosition_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetSourcePosition(self, position: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfPosition)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SetSourceOrientation(self, orientation: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfOrientation_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetSourceOrientation(self, orientation: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfOrientation)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetSourceGain(self, gain: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -366,15 +357,15 @@ class IXAudio2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2b02e3cf-2e0b-4ec3-be45-1b2a3fe7210d}')
     @commethod(3)
-    def RegisterForCallbacks(self, pCallback: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2EngineCallback_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RegisterForCallbacks(self, pCallback: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2EngineCallback) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def UnregisterForCallbacks(self, pCallback: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2EngineCallback_head) -> Void: ...
+    def UnregisterForCallbacks(self, pCallback: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2EngineCallback) -> Void: ...
     @commethod(5)
-    def CreateSourceVoice(self, ppSourceVoice: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2SourceVoice_head), pSourceFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head), Flags: UInt32, MaxFrequencyRatio: Single, pCallback: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2VoiceCallback_head, pSendList: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head), pEffectChain: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateSourceVoice(self, ppSourceVoice: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2SourceVoice), pSourceFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), Flags: UInt32, MaxFrequencyRatio: Single, pCallback: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2VoiceCallback, pSendList: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS), pEffectChain: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def CreateSubmixVoice(self, ppSubmixVoice: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2SubmixVoice_head), InputChannels: UInt32, InputSampleRate: UInt32, Flags: UInt32, ProcessingStage: UInt32, pSendList: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head), pEffectChain: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateSubmixVoice(self, ppSubmixVoice: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2SubmixVoice), InputChannels: UInt32, InputSampleRate: UInt32, Flags: UInt32, ProcessingStage: UInt32, pSendList: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS), pEffectChain: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def CreateMasteringVoice(self, ppMasteringVoice: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2MasteringVoice_head), InputChannels: UInt32, InputSampleRate: UInt32, Flags: UInt32, szDeviceId: win32more.Windows.Win32.Foundation.PWSTR, pEffectChain: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head), StreamCategory: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateMasteringVoice(self, ppMasteringVoice: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2MasteringVoice), InputChannels: UInt32, InputSampleRate: UInt32, Flags: UInt32, szDeviceId: win32more.Windows.Win32.Foundation.PWSTR, pEffectChain: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN), StreamCategory: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def StartEngine(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -382,9 +373,9 @@ class IXAudio2(ComPtr):
     @commethod(10)
     def CommitChanges(self, OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def GetPerformanceData(self, pPerfData: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_PERFORMANCE_DATA_head)) -> Void: ...
+    def GetPerformanceData(self, pPerfData: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_PERFORMANCE_DATA)) -> Void: ...
     @commethod(12)
-    def SetDebugConfiguration(self, pDebugConfiguration: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION_head), pReserved: VoidPtr) -> Void: ...
+    def SetDebugConfiguration(self, pDebugConfiguration: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION), pReserved: VoidPtr) -> Void: ...
 class IXAudio2EngineCallback(ComPtr):
     extends: None
     @commethod(0)
@@ -411,7 +402,7 @@ class IXAudio2SourceVoice(ComPtr):
     @commethod(20)
     def Stop(self, Flags: UInt32, OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
-    def SubmitSourceBuffer(self, pBuffer: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_BUFFER_head), pBufferWMA: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_BUFFER_WMA_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SubmitSourceBuffer(self, pBuffer: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_BUFFER), pBufferWMA: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_BUFFER_WMA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def FlushSourceBuffers(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
@@ -419,7 +410,7 @@ class IXAudio2SourceVoice(ComPtr):
     @commethod(24)
     def ExitLoop(self, OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
-    def GetState(self, pVoiceState: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_STATE_head), Flags: UInt32) -> Void: ...
+    def GetState(self, pVoiceState: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_STATE), Flags: UInt32) -> Void: ...
     @commethod(26)
     def SetFrequencyRatio(self, Ratio: Single, OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
@@ -431,11 +422,11 @@ class IXAudio2SubmixVoice(ComPtr):
 class IXAudio2Voice(ComPtr):
     extends: None
     @commethod(0)
-    def GetVoiceDetails(self, pVoiceDetails: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_DETAILS_head)) -> Void: ...
+    def GetVoiceDetails(self, pVoiceDetails: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_DETAILS)) -> Void: ...
     @commethod(1)
-    def SetOutputVoices(self, pSendList: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetOutputVoices(self, pSendList: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(2)
-    def SetEffectChain(self, pEffectChain: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetEffectChain(self, pEffectChain: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(3)
     def EnableEffect(self, EffectIndex: UInt32, OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -447,13 +438,13 @@ class IXAudio2Voice(ComPtr):
     @commethod(7)
     def GetEffectParameters(self, EffectIndex: UInt32, pParameters: VoidPtr, ParametersByteSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def SetFilterParameters(self, pParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head), OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetFilterParameters(self, pParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS), OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetFilterParameters(self, pParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head)) -> Void: ...
+    def GetFilterParameters(self, pParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS)) -> Void: ...
     @commethod(10)
-    def SetOutputFilterParameters(self, pDestinationVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice_head, pParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head), OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetOutputFilterParameters(self, pDestinationVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice, pParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS), OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def GetOutputFilterParameters(self, pDestinationVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice_head, pParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head)) -> Void: ...
+    def GetOutputFilterParameters(self, pDestinationVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice, pParameters: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS)) -> Void: ...
     @commethod(12)
     def SetVolume(self, Volume: Single, OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -463,9 +454,9 @@ class IXAudio2Voice(ComPtr):
     @commethod(15)
     def GetChannelVolumes(self, Channels: UInt32, pVolumes: POINTER(Single)) -> Void: ...
     @commethod(16)
-    def SetOutputMatrix(self, pDestinationVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice_head, SourceChannels: UInt32, DestinationChannels: UInt32, pLevelMatrix: POINTER(Single), OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetOutputMatrix(self, pDestinationVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice, SourceChannels: UInt32, DestinationChannels: UInt32, pLevelMatrix: POINTER(Single), OperationSet: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def GetOutputMatrix(self, pDestinationVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice_head, SourceChannels: UInt32, DestinationChannels: UInt32, pLevelMatrix: POINTER(Single)) -> Void: ...
+    def GetOutputMatrix(self, pDestinationVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice, SourceChannels: UInt32, DestinationChannels: UInt32, pLevelMatrix: POINTER(Single)) -> Void: ...
     @commethod(18)
     def DestroyVoice(self) -> Void: ...
 class IXAudio2VoiceCallback(ComPtr):
@@ -488,7 +479,7 @@ XAPO_BUFFER_FLAGS = Int32
 XAPO_BUFFER_SILENT: XAPO_BUFFER_FLAGS = 0
 XAPO_BUFFER_VALID: XAPO_BUFFER_FLAGS = 1
 class XAPO_LOCKFORPROCESS_PARAMETERS(EasyCastStructure):
-    pFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX_head)
+    pFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     MaxFrameCount: UInt32
     _pack_ = 1
 class XAPO_PROCESS_BUFFER_PARAMETERS(EasyCastStructure):
@@ -579,10 +570,10 @@ class XAUDIO2_DEBUG_CONFIGURATION(EasyCastStructure):
     _pack_ = 1
 class XAUDIO2_EFFECT_CHAIN(EasyCastStructure):
     EffectCount: UInt32
-    pEffectDescriptors: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_DESCRIPTOR_head)
+    pEffectDescriptors: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_DESCRIPTOR)
     _pack_ = 1
 class XAUDIO2_EFFECT_DESCRIPTOR(EasyCastStructure):
-    pEffect: win32more.Windows.Win32.System.Com.IUnknown_head
+    pEffect: win32more.Windows.Win32.System.Com.IUnknown
     InitialState: win32more.Windows.Win32.Foundation.BOOL
     OutputChannels: UInt32
     _pack_ = 1
@@ -616,7 +607,7 @@ class XAUDIO2_PERFORMANCE_DATA(EasyCastStructure):
     _pack_ = 1
 class XAUDIO2_SEND_DESCRIPTOR(EasyCastStructure):
     Flags: UInt32
-    pOutputVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice_head
+    pOutputVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice
     _pack_ = 1
 class XAUDIO2_VOICE_DETAILS(EasyCastStructure):
     CreationFlags: UInt32
@@ -626,50 +617,11 @@ class XAUDIO2_VOICE_DETAILS(EasyCastStructure):
     _pack_ = 1
 class XAUDIO2_VOICE_SENDS(EasyCastStructure):
     SendCount: UInt32
-    pSends: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_SEND_DESCRIPTOR_head)
+    pSends: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_SEND_DESCRIPTOR)
     _pack_ = 1
 class XAUDIO2_VOICE_STATE(EasyCastStructure):
     pCurrentBufferContext: VoidPtr
     BuffersQueued: UInt32
     SamplesPlayed: UInt64
     _pack_ = 1
-make_head(_module, 'FXECHO_INITDATA')
-make_head(_module, 'FXECHO_PARAMETERS')
-make_head(_module, 'FXEQ_PARAMETERS')
-make_head(_module, 'FXMASTERINGLIMITER_PARAMETERS')
-make_head(_module, 'FXREVERB_PARAMETERS')
-make_head(_module, 'HrtfApoInit')
-make_head(_module, 'HrtfDirectivity')
-make_head(_module, 'HrtfDirectivityCardioid')
-make_head(_module, 'HrtfDirectivityCone')
-make_head(_module, 'HrtfDistanceDecay')
-make_head(_module, 'HrtfOrientation')
-make_head(_module, 'HrtfPosition')
-make_head(_module, 'IXAPO')
-make_head(_module, 'IXAPOHrtfParameters')
-make_head(_module, 'IXAPOParameters')
-make_head(_module, 'IXAudio2')
-make_head(_module, 'IXAudio2EngineCallback')
-make_head(_module, 'IXAudio2Extension')
-make_head(_module, 'IXAudio2MasteringVoice')
-make_head(_module, 'IXAudio2SourceVoice')
-make_head(_module, 'IXAudio2SubmixVoice')
-make_head(_module, 'IXAudio2Voice')
-make_head(_module, 'IXAudio2VoiceCallback')
-make_head(_module, 'XAPO_LOCKFORPROCESS_PARAMETERS')
-make_head(_module, 'XAPO_PROCESS_BUFFER_PARAMETERS')
-make_head(_module, 'XAPO_REGISTRATION_PROPERTIES')
-make_head(_module, 'XAUDIO2FX_REVERB_I3DL2_PARAMETERS')
-make_head(_module, 'XAUDIO2FX_REVERB_PARAMETERS')
-make_head(_module, 'XAUDIO2FX_VOLUMEMETER_LEVELS')
-make_head(_module, 'XAUDIO2_BUFFER')
-make_head(_module, 'XAUDIO2_BUFFER_WMA')
-make_head(_module, 'XAUDIO2_DEBUG_CONFIGURATION')
-make_head(_module, 'XAUDIO2_EFFECT_CHAIN')
-make_head(_module, 'XAUDIO2_EFFECT_DESCRIPTOR')
-make_head(_module, 'XAUDIO2_FILTER_PARAMETERS')
-make_head(_module, 'XAUDIO2_PERFORMANCE_DATA')
-make_head(_module, 'XAUDIO2_SEND_DESCRIPTOR')
-make_head(_module, 'XAUDIO2_VOICE_DETAILS')
-make_head(_module, 'XAUDIO2_VOICE_SENDS')
-make_head(_module, 'XAUDIO2_VOICE_STATE')
+make_ready(__name__)

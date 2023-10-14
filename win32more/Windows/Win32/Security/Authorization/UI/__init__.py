@@ -1,21 +1,12 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authorization
 import win32more.Windows.Win32.Security.Authorization.UI
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Controls
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 SI_EDIT_PERMS: Int32 = 0
 SI_EDIT_OWNER: Int32 = 1
 SI_CONTAINER: Int32 = 4
@@ -45,50 +36,50 @@ SECURITY_OBJECT_ID_SHARE: UInt32 = 2
 SECURITY_OBJECT_ID_CENTRAL_POLICY: UInt32 = 3
 SECURITY_OBJECT_ID_CENTRAL_ACCESS_RULE: UInt32 = 4
 @winfunctype('ACLUI.dll')
-def CreateSecurityPage(psi: win32more.Windows.Win32.Security.Authorization.UI.ISecurityInformation_head) -> win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE: ...
+def CreateSecurityPage(psi: win32more.Windows.Win32.Security.Authorization.UI.ISecurityInformation) -> win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE: ...
 @winfunctype('ACLUI.dll')
-def EditSecurity(hwndOwner: win32more.Windows.Win32.Foundation.HWND, psi: win32more.Windows.Win32.Security.Authorization.UI.ISecurityInformation_head) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EditSecurity(hwndOwner: win32more.Windows.Win32.Foundation.HWND, psi: win32more.Windows.Win32.Security.Authorization.UI.ISecurityInformation) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ACLUI.dll')
-def EditSecurityAdvanced(hwndOwner: win32more.Windows.Win32.Foundation.HWND, psi: win32more.Windows.Win32.Security.Authorization.UI.ISecurityInformation_head, uSIPage: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def EditSecurityAdvanced(hwndOwner: win32more.Windows.Win32.Foundation.HWND, psi: win32more.Windows.Win32.Security.Authorization.UI.ISecurityInformation, uSIPage: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class EFFPERM_RESULT_LIST(EasyCastStructure):
     fEvaluated: win32more.Windows.Win32.Foundation.BOOLEAN
     cObjectTypeListLength: UInt32
-    pObjectTypeList: POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST_head)
+    pObjectTypeList: POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST)
     pGrantedAccessList: POINTER(UInt32)
 class IEffectivePermission(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3853dc76-9f35-407c-88a1-d19344365fbc}')
     @commethod(3)
-    def GetEffectivePermission(self, pguidObjectType: POINTER(Guid), pUserSid: win32more.Windows.Win32.Foundation.PSID, pszServerName: win32more.Windows.Win32.Foundation.PWSTR, pSD: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, ppObjectTypeList: POINTER(POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST_head)), pcObjectTypeListLength: POINTER(UInt32), ppGrantedAccessList: POINTER(POINTER(UInt32)), pcGrantedAccessListLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetEffectivePermission(self, pguidObjectType: POINTER(Guid), pUserSid: win32more.Windows.Win32.Foundation.PSID, pszServerName: win32more.Windows.Win32.Foundation.PWSTR, pSD: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, ppObjectTypeList: POINTER(POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST)), pcObjectTypeListLength: POINTER(UInt32), ppGrantedAccessList: POINTER(POINTER(UInt32)), pcGrantedAccessListLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IEffectivePermission2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{941fabca-dd47-4fca-90bb-b0e10255f20d}')
     @commethod(3)
-    def ComputeEffectivePermissionWithSecondarySecurity(self, pSid: win32more.Windows.Win32.Foundation.PSID, pDeviceSid: win32more.Windows.Win32.Foundation.PSID, pszServerName: win32more.Windows.Win32.Foundation.PWSTR, pSecurityObjects: POINTER(win32more.Windows.Win32.Security.Authorization.UI.SECURITY_OBJECT_head), dwSecurityObjectCount: UInt32, pUserGroups: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS_head), pAuthzUserGroupsOperations: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION), pDeviceGroups: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS_head), pAuthzDeviceGroupsOperations: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION), pAuthzUserClaims: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTES_INFORMATION_head), pAuthzUserClaimsOperations: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION), pAuthzDeviceClaims: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTES_INFORMATION_head), pAuthzDeviceClaimsOperations: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION), pEffpermResultLists: POINTER(win32more.Windows.Win32.Security.Authorization.UI.EFFPERM_RESULT_LIST_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ComputeEffectivePermissionWithSecondarySecurity(self, pSid: win32more.Windows.Win32.Foundation.PSID, pDeviceSid: win32more.Windows.Win32.Foundation.PSID, pszServerName: win32more.Windows.Win32.Foundation.PWSTR, pSecurityObjects: POINTER(win32more.Windows.Win32.Security.Authorization.UI.SECURITY_OBJECT), dwSecurityObjectCount: UInt32, pUserGroups: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS), pAuthzUserGroupsOperations: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION), pDeviceGroups: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS), pAuthzDeviceGroupsOperations: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION), pAuthzUserClaims: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTES_INFORMATION), pAuthzUserClaimsOperations: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION), pAuthzDeviceClaims: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTES_INFORMATION), pAuthzDeviceClaimsOperations: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION), pEffpermResultLists: POINTER(win32more.Windows.Win32.Security.Authorization.UI.EFFPERM_RESULT_LIST)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISecurityInformation(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{965fc360-16ff-11d0-91cb-00aa00bbb723}')
     @commethod(3)
-    def GetObjectInformation(self, pObjectInfo: POINTER(win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetObjectInformation(self, pObjectInfo: POINTER(win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSecurity(self, RequestedInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, ppSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR), fDefault: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetSecurity(self, SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetAccessRights(self, pguidObjectType: POINTER(Guid), dwFlags: win32more.Windows.Win32.Security.Authorization.UI.SECURITY_INFO_PAGE_FLAGS, ppAccess: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.UI.SI_ACCESS_head)), pcAccesses: POINTER(UInt32), piDefaultAccess: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAccessRights(self, pguidObjectType: POINTER(Guid), dwFlags: win32more.Windows.Win32.Security.Authorization.UI.SECURITY_INFO_PAGE_FLAGS, ppAccess: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.UI.SI_ACCESS)), pcAccesses: POINTER(UInt32), piDefaultAccess: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def MapGeneric(self, pguidObjectType: POINTER(Guid), pAceFlags: POINTER(Byte), pMask: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetInheritTypes(self, ppInheritTypes: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.UI.SI_INHERIT_TYPE_head)), pcInheritTypes: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInheritTypes(self, ppInheritTypes: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.UI.SI_INHERIT_TYPE)), pcInheritTypes: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def PropertySheetPageCallback(self, hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: win32more.Windows.Win32.UI.Controls.PSPCB_MESSAGE, uPage: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISecurityInformation2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c3ccfdb4-6f88-11d2-a3ce-00c04fb1782a}')
     @commethod(3)
-    def IsDaclCanonical(self, pDacl: POINTER(win32more.Windows.Win32.Security.ACL_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+    def IsDaclCanonical(self, pDacl: POINTER(win32more.Windows.Win32.Security.ACL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
-    def LookupSids(self, cSids: UInt32, rgpSids: POINTER(win32more.Windows.Win32.Foundation.PSID), ppdo: POINTER(win32more.Windows.Win32.System.Com.IDataObject_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def LookupSids(self, cSids: UInt32, rgpSids: POINTER(win32more.Windows.Win32.Foundation.PSID), ppdo: POINTER(win32more.Windows.Win32.System.Com.IDataObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISecurityInformation3(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e2cdc9cc-31bd-4f8f-8c8b-b641af516a1a}')
@@ -100,12 +91,12 @@ class ISecurityInformation4(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ea961070-cd14-4621-ace4-f63c03e583e4}')
     @commethod(3)
-    def GetSecondarySecurity(self, pSecurityObjects: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.UI.SECURITY_OBJECT_head)), pSecurityObjectCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSecondarySecurity(self, pSecurityObjects: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.UI.SECURITY_OBJECT)), pSecurityObjectCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISecurityObjectTypeInfo(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fc3066eb-79ef-444b-9111-d18a75ebf2fa}')
     @commethod(3)
-    def GetInheritSource(self, si: UInt32, pACL: POINTER(win32more.Windows.Win32.Security.ACL_head), ppInheritArray: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.INHERITED_FROMA_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInheritSource(self, si: UInt32, pACL: POINTER(win32more.Windows.Win32.Security.ACL), ppInheritArray: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.INHERITED_FROMA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 SECURITY_INFO_PAGE_FLAGS = UInt32
 SI_ADVANCED: SECURITY_INFO_PAGE_FLAGS = 16
 SI_EDIT_AUDITS: SECURITY_INFO_PAGE_FLAGS = 2
@@ -173,17 +164,4 @@ SI_PAGE_OWNER: SI_PAGE_TYPE = 3
 SI_PAGE_EFFECTIVE: SI_PAGE_TYPE = 4
 SI_PAGE_TAKEOWNERSHIP: SI_PAGE_TYPE = 5
 SI_PAGE_SHARE: SI_PAGE_TYPE = 6
-make_head(_module, 'EFFPERM_RESULT_LIST')
-make_head(_module, 'IEffectivePermission')
-make_head(_module, 'IEffectivePermission2')
-make_head(_module, 'ISecurityInformation')
-make_head(_module, 'ISecurityInformation2')
-make_head(_module, 'ISecurityInformation3')
-make_head(_module, 'ISecurityInformation4')
-make_head(_module, 'ISecurityObjectTypeInfo')
-make_head(_module, 'SECURITY_OBJECT')
-make_head(_module, 'SID_INFO')
-make_head(_module, 'SID_INFO_LIST')
-make_head(_module, 'SI_ACCESS')
-make_head(_module, 'SI_INHERIT_TYPE')
-make_head(_module, 'SI_OBJECT_INFO')
+make_ready(__name__)

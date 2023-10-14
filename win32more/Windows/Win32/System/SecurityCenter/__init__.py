@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.SecurityCenter
 import win32more.Windows.Win32.System.Threading
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 @winfunctype('WSCAPI.dll')
 def WscRegisterForChanges(Reserved: VoidPtr, phCallbackRegistration: POINTER(win32more.Windows.Win32.Foundation.HANDLE), lpCallbackAddress: win32more.Windows.Win32.System.Threading.LPTHREAD_START_ROUTINE, pContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WSCAPI.dll')
@@ -39,7 +30,7 @@ class IWSCProductList(ComPtr):
     @commethod(8)
     def get_Count(self, pVal: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def get_Item(self, index: UInt32, pVal: POINTER(win32more.Windows.Win32.System.SecurityCenter.IWscProduct_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def get_Item(self, index: UInt32, pVal: POINTER(win32more.Windows.Win32.System.SecurityCenter.IWscProduct)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWscProduct(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{8c38232e-3a45-4a27-92b0-1a16a975f669}')
@@ -111,8 +102,4 @@ WSC_SECURITY_PROVIDER_HEALTH_SNOOZE: WSC_SECURITY_PROVIDER_HEALTH = 3
 WSC_SECURITY_SIGNATURE_STATUS = Int32
 WSC_SECURITY_PRODUCT_OUT_OF_DATE: WSC_SECURITY_SIGNATURE_STATUS = 0
 WSC_SECURITY_PRODUCT_UP_TO_DATE: WSC_SECURITY_SIGNATURE_STATUS = 1
-make_head(_module, 'IWSCDefaultProduct')
-make_head(_module, 'IWSCProductList')
-make_head(_module, 'IWscProduct')
-make_head(_module, 'IWscProduct2')
-make_head(_module, 'IWscProduct3')
+make_ready(__name__)

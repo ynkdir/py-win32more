@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
@@ -23,15 +23,6 @@ import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Controls
 import win32more.Windows.UI.Xaml.Controls.Primitives
 import win32more.Windows.UI.Xaml.Media.Animation
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class AddDeleteThemeTransition(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IAddDeleteThemeTransition
@@ -59,7 +50,7 @@ class BasicConnectedAnimationConfiguration(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfiguration
     _classid_ = 'Windows.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration: ...
 class _BeginStoryboard_Meta_(ComPtr.__class__):
     pass
 class BeginStoryboard(ComPtr, metaclass=_BeginStoryboard_Meta_):
@@ -184,7 +175,7 @@ class ColorKeyFrame(ComPtr, metaclass=_ColorKeyFrame_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IColorKeyFrame
     _classid_ = 'Windows.UI.Xaml.Media.Animation.ColorKeyFrame'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IColorKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.ColorKeyFrame: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IColorKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.ColorKeyFrame: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Windows.UI.Xaml.Media.Animation.IColorKeyFrame) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -262,7 +253,7 @@ class ConnectedAnimation(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IConnectedAnimation
     _classid_ = 'Windows.UI.Xaml.Media.Animation.ConnectedAnimation'
     @winrt_mixinmethod
-    def add_Completed(self: win32more.Windows.UI.Xaml.Media.Animation.IConnectedAnimation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Media.Animation.ConnectedAnimation, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self: win32more.Windows.UI.Xaml.Media.Animation.IConnectedAnimation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Media.Animation.ConnectedAnimation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Completed(self: win32more.Windows.UI.Xaml.Media.Animation.IConnectedAnimation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -384,7 +375,7 @@ class DirectConnectedAnimationConfiguration(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfiguration
     _classid_ = 'Windows.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration: ...
 class DiscreteColorKeyFrame(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.Animation.ColorKeyFrame
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IDiscreteColorKeyFrame
@@ -483,7 +474,7 @@ class DoubleKeyFrame(ComPtr, metaclass=_DoubleKeyFrame_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IDoubleKeyFrame
     _classid_ = 'Windows.UI.Xaml.Media.Animation.DoubleKeyFrame'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IDoubleKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.DoubleKeyFrame: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IDoubleKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.DoubleKeyFrame: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Windows.UI.Xaml.Media.Animation.IDoubleKeyFrame) -> Double: ...
     @winrt_mixinmethod
@@ -894,7 +885,7 @@ class GravityConnectedAnimationConfiguration(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfiguration
     _classid_ = 'Windows.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration: ...
     @winrt_mixinmethod
     def get_IsShadowEnabled(self: win32more.Windows.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfiguration2) -> Boolean: ...
     @winrt_mixinmethod
@@ -929,7 +920,7 @@ class IBasicConnectedAnimationConfigurationFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfigurationFactory'
     _iid_ = Guid('{95e6844a-4377-503c-bee2-11dfcd5570e6}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration: ...
 class IBeginStoryboard(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IBeginStoryboard'
@@ -1060,7 +1051,7 @@ class IColorKeyFrameFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IColorKeyFrameFactory'
     _iid_ = Guid('{769bd88a-9cfb-4a7d-96c4-a1e7de6fdb4b}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.ColorKeyFrame: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.ColorKeyFrame: ...
 class IColorKeyFrameStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IColorKeyFrameStatics'
@@ -1099,7 +1090,7 @@ class IConnectedAnimation(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IConnectedAnimation'
     _iid_ = Guid('{3518628c-f387-4c25-ac98-44e86c3cadf0}')
     @winrt_commethod(6)
-    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Media.Animation.ConnectedAnimation, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Media.Animation.ConnectedAnimation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -1234,7 +1225,7 @@ class IDirectConnectedAnimationConfigurationFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfigurationFactory'
     _iid_ = Guid('{059263e9-d2b3-5a77-9cf4-e26d8b542608}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration: ...
 class IDiscreteColorKeyFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IDiscreteColorKeyFrame'
@@ -1337,7 +1328,7 @@ class IDoubleKeyFrameFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IDoubleKeyFrameFactory'
     _iid_ = Guid('{ac97dec3-7538-40b9-b152-696f7fbf4722}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.DoubleKeyFrame: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.DoubleKeyFrame: ...
 class IDoubleKeyFrameStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IDoubleKeyFrameStatics'
@@ -1719,7 +1710,7 @@ class IGravityConnectedAnimationConfigurationFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfigurationFactory'
     _iid_ = Guid('{e822c41f-3656-5090-92f5-c217eaacb682}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration: ...
 class IKeySpline(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IKeySpline'
@@ -1781,7 +1772,7 @@ class INavigationTransitionInfoFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.INavigationTransitionInfoFactory'
     _iid_ = Guid('{edf4f8d5-af63-4fab-9d4a-87927f82dd6b}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
 class INavigationTransitionInfoOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.INavigationTransitionInfoOverrides'
@@ -1814,9 +1805,9 @@ class IObjectKeyFrame(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IObjectKeyFrame'
     _iid_ = Guid('{9852a851-8593-48ee-a6a4-d5d4720f029a}')
     @winrt_commethod(6)
-    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(7)
-    def put_Value(self, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Value(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_commethod(8)
     def get_KeyTime(self) -> win32more.Windows.UI.Xaml.Media.Animation.KeyTime: ...
     @winrt_commethod(9)
@@ -1828,7 +1819,7 @@ class IObjectKeyFrameFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IObjectKeyFrameFactory'
     _iid_ = Guid('{1626143e-3e6d-44d8-9b9a-04aea70f8492}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.ObjectKeyFrame: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.ObjectKeyFrame: ...
 class IObjectKeyFrameStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IObjectKeyFrameStatics'
@@ -1941,7 +1932,7 @@ class IPointKeyFrameFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IPointKeyFrameFactory'
     _iid_ = Guid('{cb214bdf-426a-4392-8355-c2ae52852623}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.PointKeyFrame: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.PointKeyFrame: ...
 class IPointKeyFrameStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IPointKeyFrameStatics'
@@ -2567,7 +2558,7 @@ class ITimeline(ComPtr):
     @winrt_commethod(17)
     def put_RepeatBehavior(self, value: win32more.Windows.UI.Xaml.Media.Animation.RepeatBehavior) -> Void: ...
     @winrt_commethod(18)
-    def add_Completed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoReverse = property(get_AutoReverse, put_AutoReverse)
@@ -2581,7 +2572,7 @@ class ITimelineFactory(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Animation.ITimelineFactory'
     _iid_ = Guid('{1d56bb07-bda4-478b-8ada-eb04d580cd5e}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.Timeline: ...
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.Timeline: ...
 class ITimelineStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.ITimelineStatics'
@@ -2680,7 +2671,7 @@ class NavigationTransitionInfo(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.INavigationTransitionInfo
     _classid_ = 'Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.INavigationTransitionInfoFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.INavigationTransitionInfoFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
     @winrt_mixinmethod
     def GetNavigationStateCore(self: win32more.Windows.UI.Xaml.Media.Animation.INavigationTransitionInfoOverrides) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -2711,11 +2702,11 @@ class ObjectKeyFrame(ComPtr, metaclass=_ObjectKeyFrame_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IObjectKeyFrame
     _classid_ = 'Windows.UI.Xaml.Media.Animation.ObjectKeyFrame'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IObjectKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.ObjectKeyFrame: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IObjectKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.ObjectKeyFrame: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.UI.Xaml.Media.Animation.IObjectKeyFrame) -> win32more.Windows.Win32.System.WinRT.IInspectable_head: ...
+    def get_Value(self: win32more.Windows.UI.Xaml.Media.Animation.IObjectKeyFrame) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
-    def put_Value(self: win32more.Windows.UI.Xaml.Media.Animation.IObjectKeyFrame, value: win32more.Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    def put_Value(self: win32more.Windows.UI.Xaml.Media.Animation.IObjectKeyFrame, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_KeyTime(self: win32more.Windows.UI.Xaml.Media.Animation.IObjectKeyFrame) -> win32more.Windows.UI.Xaml.Media.Animation.KeyTime: ...
     @winrt_mixinmethod
@@ -2851,7 +2842,7 @@ class PointKeyFrame(ComPtr, metaclass=_PointKeyFrame_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.IPointKeyFrame
     _classid_ = 'Windows.UI.Xaml.Media.Animation.PointKeyFrame'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IPointKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.PointKeyFrame: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.IPointKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.PointKeyFrame: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Windows.UI.Xaml.Media.Animation.IPointKeyFrame) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
@@ -3508,7 +3499,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Media.Animation.ITimeline
     _classid_ = 'Windows.UI.Xaml.Media.Animation.Timeline'
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.ITimelineFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable_head)) -> win32more.Windows.UI.Xaml.Media.Animation.Timeline: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Animation.ITimelineFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Animation.Timeline: ...
     @winrt_mixinmethod
     def get_AutoReverse(self: win32more.Windows.UI.Xaml.Media.Animation.ITimeline) -> Boolean: ...
     @winrt_mixinmethod
@@ -3534,7 +3525,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     @winrt_mixinmethod
     def put_RepeatBehavior(self: win32more.Windows.UI.Xaml.Media.Animation.ITimeline, value: win32more.Windows.UI.Xaml.Media.Animation.RepeatBehavior) -> Void: ...
     @winrt_mixinmethod
-    def add_Completed(self: win32more.Windows.UI.Xaml.Media.Animation.ITimeline, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self: win32more.Windows.UI.Xaml.Media.Animation.ITimeline, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Completed(self: win32more.Windows.UI.Xaml.Media.Animation.ITimeline, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -3636,247 +3627,4 @@ class TransitionCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Xaml.Media.Animation.Transition]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Xaml.Media.Animation.Transition]: ...
     Size = property(get_Size, None)
-make_head(_module, 'AddDeleteThemeTransition')
-make_head(_module, 'BackEase')
-make_head(_module, 'BasicConnectedAnimationConfiguration')
-make_head(_module, 'BeginStoryboard')
-make_head(_module, 'BounceEase')
-make_head(_module, 'CircleEase')
-make_head(_module, 'ColorAnimation')
-make_head(_module, 'ColorAnimationUsingKeyFrames')
-make_head(_module, 'ColorKeyFrame')
-make_head(_module, 'ColorKeyFrameCollection')
-make_head(_module, 'CommonNavigationTransitionInfo')
-make_head(_module, 'ConnectedAnimation')
-make_head(_module, 'ConnectedAnimationConfiguration')
-make_head(_module, 'ConnectedAnimationService')
-make_head(_module, 'ContentThemeTransition')
-make_head(_module, 'ContinuumNavigationTransitionInfo')
-make_head(_module, 'CubicEase')
-make_head(_module, 'DirectConnectedAnimationConfiguration')
-make_head(_module, 'DiscreteColorKeyFrame')
-make_head(_module, 'DiscreteDoubleKeyFrame')
-make_head(_module, 'DiscreteObjectKeyFrame')
-make_head(_module, 'DiscretePointKeyFrame')
-make_head(_module, 'DoubleAnimation')
-make_head(_module, 'DoubleAnimationUsingKeyFrames')
-make_head(_module, 'DoubleKeyFrame')
-make_head(_module, 'DoubleKeyFrameCollection')
-make_head(_module, 'DragItemThemeAnimation')
-make_head(_module, 'DragOverThemeAnimation')
-make_head(_module, 'DrillInNavigationTransitionInfo')
-make_head(_module, 'DrillInThemeAnimation')
-make_head(_module, 'DrillOutThemeAnimation')
-make_head(_module, 'DropTargetItemThemeAnimation')
-make_head(_module, 'EasingColorKeyFrame')
-make_head(_module, 'EasingDoubleKeyFrame')
-make_head(_module, 'EasingFunctionBase')
-make_head(_module, 'EasingPointKeyFrame')
-make_head(_module, 'EdgeUIThemeTransition')
-make_head(_module, 'ElasticEase')
-make_head(_module, 'EntranceNavigationTransitionInfo')
-make_head(_module, 'EntranceThemeTransition')
-make_head(_module, 'ExponentialEase')
-make_head(_module, 'FadeInThemeAnimation')
-make_head(_module, 'FadeOutThemeAnimation')
-make_head(_module, 'GravityConnectedAnimationConfiguration')
-make_head(_module, 'IAddDeleteThemeTransition')
-make_head(_module, 'IBackEase')
-make_head(_module, 'IBackEaseStatics')
-make_head(_module, 'IBasicConnectedAnimationConfiguration')
-make_head(_module, 'IBasicConnectedAnimationConfigurationFactory')
-make_head(_module, 'IBeginStoryboard')
-make_head(_module, 'IBeginStoryboardStatics')
-make_head(_module, 'IBounceEase')
-make_head(_module, 'IBounceEaseStatics')
-make_head(_module, 'ICircleEase')
-make_head(_module, 'IColorAnimation')
-make_head(_module, 'IColorAnimationStatics')
-make_head(_module, 'IColorAnimationUsingKeyFrames')
-make_head(_module, 'IColorAnimationUsingKeyFramesStatics')
-make_head(_module, 'IColorKeyFrame')
-make_head(_module, 'IColorKeyFrameFactory')
-make_head(_module, 'IColorKeyFrameStatics')
-make_head(_module, 'ICommonNavigationTransitionInfo')
-make_head(_module, 'ICommonNavigationTransitionInfoStatics')
-make_head(_module, 'IConnectedAnimation')
-make_head(_module, 'IConnectedAnimation2')
-make_head(_module, 'IConnectedAnimation3')
-make_head(_module, 'IConnectedAnimationConfiguration')
-make_head(_module, 'IConnectedAnimationConfigurationFactory')
-make_head(_module, 'IConnectedAnimationService')
-make_head(_module, 'IConnectedAnimationServiceStatics')
-make_head(_module, 'IContentThemeTransition')
-make_head(_module, 'IContentThemeTransitionStatics')
-make_head(_module, 'IContinuumNavigationTransitionInfo')
-make_head(_module, 'IContinuumNavigationTransitionInfoStatics')
-make_head(_module, 'ICubicEase')
-make_head(_module, 'IDirectConnectedAnimationConfiguration')
-make_head(_module, 'IDirectConnectedAnimationConfigurationFactory')
-make_head(_module, 'IDiscreteColorKeyFrame')
-make_head(_module, 'IDiscreteDoubleKeyFrame')
-make_head(_module, 'IDiscreteObjectKeyFrame')
-make_head(_module, 'IDiscretePointKeyFrame')
-make_head(_module, 'IDoubleAnimation')
-make_head(_module, 'IDoubleAnimationStatics')
-make_head(_module, 'IDoubleAnimationUsingKeyFrames')
-make_head(_module, 'IDoubleAnimationUsingKeyFramesStatics')
-make_head(_module, 'IDoubleKeyFrame')
-make_head(_module, 'IDoubleKeyFrameFactory')
-make_head(_module, 'IDoubleKeyFrameStatics')
-make_head(_module, 'IDragItemThemeAnimation')
-make_head(_module, 'IDragItemThemeAnimationStatics')
-make_head(_module, 'IDragOverThemeAnimation')
-make_head(_module, 'IDragOverThemeAnimationStatics')
-make_head(_module, 'IDrillInNavigationTransitionInfo')
-make_head(_module, 'IDrillInThemeAnimation')
-make_head(_module, 'IDrillInThemeAnimationStatics')
-make_head(_module, 'IDrillOutThemeAnimation')
-make_head(_module, 'IDrillOutThemeAnimationStatics')
-make_head(_module, 'IDropTargetItemThemeAnimation')
-make_head(_module, 'IDropTargetItemThemeAnimationStatics')
-make_head(_module, 'IEasingColorKeyFrame')
-make_head(_module, 'IEasingColorKeyFrameStatics')
-make_head(_module, 'IEasingDoubleKeyFrame')
-make_head(_module, 'IEasingDoubleKeyFrameStatics')
-make_head(_module, 'IEasingFunctionBase')
-make_head(_module, 'IEasingFunctionBaseFactory')
-make_head(_module, 'IEasingFunctionBaseStatics')
-make_head(_module, 'IEasingPointKeyFrame')
-make_head(_module, 'IEasingPointKeyFrameStatics')
-make_head(_module, 'IEdgeUIThemeTransition')
-make_head(_module, 'IEdgeUIThemeTransitionStatics')
-make_head(_module, 'IElasticEase')
-make_head(_module, 'IElasticEaseStatics')
-make_head(_module, 'IEntranceNavigationTransitionInfo')
-make_head(_module, 'IEntranceNavigationTransitionInfoStatics')
-make_head(_module, 'IEntranceThemeTransition')
-make_head(_module, 'IEntranceThemeTransitionStatics')
-make_head(_module, 'IExponentialEase')
-make_head(_module, 'IExponentialEaseStatics')
-make_head(_module, 'IFadeInThemeAnimation')
-make_head(_module, 'IFadeInThemeAnimationStatics')
-make_head(_module, 'IFadeOutThemeAnimation')
-make_head(_module, 'IFadeOutThemeAnimationStatics')
-make_head(_module, 'IGravityConnectedAnimationConfiguration')
-make_head(_module, 'IGravityConnectedAnimationConfiguration2')
-make_head(_module, 'IGravityConnectedAnimationConfigurationFactory')
-make_head(_module, 'IKeySpline')
-make_head(_module, 'IKeyTimeHelper')
-make_head(_module, 'IKeyTimeHelperStatics')
-make_head(_module, 'ILinearColorKeyFrame')
-make_head(_module, 'ILinearDoubleKeyFrame')
-make_head(_module, 'ILinearPointKeyFrame')
-make_head(_module, 'INavigationThemeTransition')
-make_head(_module, 'INavigationThemeTransitionStatics')
-make_head(_module, 'INavigationTransitionInfo')
-make_head(_module, 'INavigationTransitionInfoFactory')
-make_head(_module, 'INavigationTransitionInfoOverrides')
-make_head(_module, 'IObjectAnimationUsingKeyFrames')
-make_head(_module, 'IObjectAnimationUsingKeyFramesStatics')
-make_head(_module, 'IObjectKeyFrame')
-make_head(_module, 'IObjectKeyFrameFactory')
-make_head(_module, 'IObjectKeyFrameStatics')
-make_head(_module, 'IPaneThemeTransition')
-make_head(_module, 'IPaneThemeTransitionStatics')
-make_head(_module, 'IPointAnimation')
-make_head(_module, 'IPointAnimationStatics')
-make_head(_module, 'IPointAnimationUsingKeyFrames')
-make_head(_module, 'IPointAnimationUsingKeyFramesStatics')
-make_head(_module, 'IPointKeyFrame')
-make_head(_module, 'IPointKeyFrameFactory')
-make_head(_module, 'IPointKeyFrameStatics')
-make_head(_module, 'IPointerDownThemeAnimation')
-make_head(_module, 'IPointerDownThemeAnimationStatics')
-make_head(_module, 'IPointerUpThemeAnimation')
-make_head(_module, 'IPointerUpThemeAnimationStatics')
-make_head(_module, 'IPopInThemeAnimation')
-make_head(_module, 'IPopInThemeAnimationStatics')
-make_head(_module, 'IPopOutThemeAnimation')
-make_head(_module, 'IPopOutThemeAnimationStatics')
-make_head(_module, 'IPopupThemeTransition')
-make_head(_module, 'IPopupThemeTransitionStatics')
-make_head(_module, 'IPowerEase')
-make_head(_module, 'IPowerEaseStatics')
-make_head(_module, 'IQuadraticEase')
-make_head(_module, 'IQuarticEase')
-make_head(_module, 'IQuinticEase')
-make_head(_module, 'IReorderThemeTransition')
-make_head(_module, 'IRepeatBehaviorHelper')
-make_head(_module, 'IRepeatBehaviorHelperStatics')
-make_head(_module, 'IRepositionThemeAnimation')
-make_head(_module, 'IRepositionThemeAnimationStatics')
-make_head(_module, 'IRepositionThemeTransition')
-make_head(_module, 'IRepositionThemeTransition2')
-make_head(_module, 'IRepositionThemeTransitionStatics2')
-make_head(_module, 'ISineEase')
-make_head(_module, 'ISlideNavigationTransitionInfo')
-make_head(_module, 'ISlideNavigationTransitionInfo2')
-make_head(_module, 'ISlideNavigationTransitionInfoStatics2')
-make_head(_module, 'ISplineColorKeyFrame')
-make_head(_module, 'ISplineColorKeyFrameStatics')
-make_head(_module, 'ISplineDoubleKeyFrame')
-make_head(_module, 'ISplineDoubleKeyFrameStatics')
-make_head(_module, 'ISplinePointKeyFrame')
-make_head(_module, 'ISplinePointKeyFrameStatics')
-make_head(_module, 'ISplitCloseThemeAnimation')
-make_head(_module, 'ISplitCloseThemeAnimationStatics')
-make_head(_module, 'ISplitOpenThemeAnimation')
-make_head(_module, 'ISplitOpenThemeAnimationStatics')
-make_head(_module, 'IStoryboard')
-make_head(_module, 'IStoryboardStatics')
-make_head(_module, 'ISuppressNavigationTransitionInfo')
-make_head(_module, 'ISwipeBackThemeAnimation')
-make_head(_module, 'ISwipeBackThemeAnimationStatics')
-make_head(_module, 'ISwipeHintThemeAnimation')
-make_head(_module, 'ISwipeHintThemeAnimationStatics')
-make_head(_module, 'ITimeline')
-make_head(_module, 'ITimelineFactory')
-make_head(_module, 'ITimelineStatics')
-make_head(_module, 'ITransition')
-make_head(_module, 'ITransitionFactory')
-make_head(_module, 'KeySpline')
-make_head(_module, 'KeyTime')
-make_head(_module, 'KeyTimeHelper')
-make_head(_module, 'LinearColorKeyFrame')
-make_head(_module, 'LinearDoubleKeyFrame')
-make_head(_module, 'LinearPointKeyFrame')
-make_head(_module, 'NavigationThemeTransition')
-make_head(_module, 'NavigationTransitionInfo')
-make_head(_module, 'ObjectAnimationUsingKeyFrames')
-make_head(_module, 'ObjectKeyFrame')
-make_head(_module, 'ObjectKeyFrameCollection')
-make_head(_module, 'PaneThemeTransition')
-make_head(_module, 'PointAnimation')
-make_head(_module, 'PointAnimationUsingKeyFrames')
-make_head(_module, 'PointKeyFrame')
-make_head(_module, 'PointKeyFrameCollection')
-make_head(_module, 'PointerDownThemeAnimation')
-make_head(_module, 'PointerUpThemeAnimation')
-make_head(_module, 'PopInThemeAnimation')
-make_head(_module, 'PopOutThemeAnimation')
-make_head(_module, 'PopupThemeTransition')
-make_head(_module, 'PowerEase')
-make_head(_module, 'QuadraticEase')
-make_head(_module, 'QuarticEase')
-make_head(_module, 'QuinticEase')
-make_head(_module, 'ReorderThemeTransition')
-make_head(_module, 'RepeatBehavior')
-make_head(_module, 'RepeatBehaviorHelper')
-make_head(_module, 'RepositionThemeAnimation')
-make_head(_module, 'RepositionThemeTransition')
-make_head(_module, 'SineEase')
-make_head(_module, 'SlideNavigationTransitionInfo')
-make_head(_module, 'SplineColorKeyFrame')
-make_head(_module, 'SplineDoubleKeyFrame')
-make_head(_module, 'SplinePointKeyFrame')
-make_head(_module, 'SplitCloseThemeAnimation')
-make_head(_module, 'SplitOpenThemeAnimation')
-make_head(_module, 'Storyboard')
-make_head(_module, 'SuppressNavigationTransitionInfo')
-make_head(_module, 'SwipeBackThemeAnimation')
-make_head(_module, 'SwipeHintThemeAnimation')
-make_head(_module, 'Timeline')
-make_head(_module, 'TimelineCollection')
-make_head(_module, 'Transition')
-make_head(_module, 'TransitionCollection')
+make_ready(__name__)

@@ -1,17 +1,8 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.EventLog
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 EVT_VARIANT_TYPE_MASK: UInt32 = 127
 EVT_VARIANT_TYPE_ARRAY: UInt32 = 128
 EVT_READ_ACCESS: UInt32 = 1
@@ -39,11 +30,11 @@ def EvtCreateRenderContext(ValuePathsCount: UInt32, ValuePaths: POINTER(win32mor
 @winfunctype('wevtapi.dll')
 def EvtRender(Context: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Fragment: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Flags: UInt32, BufferSize: UInt32, Buffer: VoidPtr, BufferUsed: POINTER(UInt32), PropertyCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
-def EvtFormatMessage(PublisherMetadata: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Event: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, MessageId: UInt32, ValueCount: UInt32, Values: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head), Flags: UInt32, BufferSize: UInt32, Buffer: win32more.Windows.Win32.Foundation.PWSTR, BufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtFormatMessage(PublisherMetadata: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Event: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, MessageId: UInt32, ValueCount: UInt32, Values: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT), Flags: UInt32, BufferSize: UInt32, Buffer: win32more.Windows.Win32.Foundation.PWSTR, BufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
 def EvtOpenLog(Session: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Path: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32) -> win32more.Windows.Win32.System.EventLog.EVT_HANDLE: ...
 @winfunctype('wevtapi.dll')
-def EvtGetLogInfo(Log: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_LOG_PROPERTY_ID, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtGetLogInfo(Log: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_LOG_PROPERTY_ID, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
 def EvtClearLog(Session: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, ChannelPath: win32more.Windows.Win32.Foundation.PWSTR, TargetFilePath: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
@@ -59,9 +50,9 @@ def EvtOpenChannelConfig(Session: win32more.Windows.Win32.System.EventLog.EVT_HA
 @winfunctype('wevtapi.dll')
 def EvtSaveChannelConfig(ChannelConfig: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
-def EvtSetChannelConfigProperty(ChannelConfig: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_CHANNEL_CONFIG_PROPERTY_ID, Flags: UInt32, PropertyValue: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtSetChannelConfigProperty(ChannelConfig: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_CHANNEL_CONFIG_PROPERTY_ID, Flags: UInt32, PropertyValue: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
-def EvtGetChannelConfigProperty(ChannelConfig: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_CHANNEL_CONFIG_PROPERTY_ID, Flags: UInt32, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtGetChannelConfigProperty(ChannelConfig: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_CHANNEL_CONFIG_PROPERTY_ID, Flags: UInt32, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
 def EvtOpenPublisherEnum(Session: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Flags: UInt32) -> win32more.Windows.Win32.System.EventLog.EVT_HANDLE: ...
 @winfunctype('wevtapi.dll')
@@ -69,25 +60,25 @@ def EvtNextPublisherId(PublisherEnum: win32more.Windows.Win32.System.EventLog.EV
 @winfunctype('wevtapi.dll')
 def EvtOpenPublisherMetadata(Session: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PublisherId: win32more.Windows.Win32.Foundation.PWSTR, LogFilePath: win32more.Windows.Win32.Foundation.PWSTR, Locale: UInt32, Flags: UInt32) -> win32more.Windows.Win32.System.EventLog.EVT_HANDLE: ...
 @winfunctype('wevtapi.dll')
-def EvtGetPublisherMetadataProperty(PublisherMetadata: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_PUBLISHER_METADATA_PROPERTY_ID, Flags: UInt32, PublisherMetadataPropertyBufferSize: UInt32, PublisherMetadataPropertyBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head), PublisherMetadataPropertyBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtGetPublisherMetadataProperty(PublisherMetadata: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_PUBLISHER_METADATA_PROPERTY_ID, Flags: UInt32, PublisherMetadataPropertyBufferSize: UInt32, PublisherMetadataPropertyBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT), PublisherMetadataPropertyBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
 def EvtOpenEventMetadataEnum(PublisherMetadata: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Flags: UInt32) -> win32more.Windows.Win32.System.EventLog.EVT_HANDLE: ...
 @winfunctype('wevtapi.dll')
 def EvtNextEventMetadata(EventMetadataEnum: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Flags: UInt32) -> win32more.Windows.Win32.System.EventLog.EVT_HANDLE: ...
 @winfunctype('wevtapi.dll')
-def EvtGetEventMetadataProperty(EventMetadata: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_EVENT_METADATA_PROPERTY_ID, Flags: UInt32, EventMetadataPropertyBufferSize: UInt32, EventMetadataPropertyBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head), EventMetadataPropertyBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtGetEventMetadataProperty(EventMetadata: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_EVENT_METADATA_PROPERTY_ID, Flags: UInt32, EventMetadataPropertyBufferSize: UInt32, EventMetadataPropertyBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT), EventMetadataPropertyBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
 def EvtGetObjectArraySize(ObjectArray: IntPtr, ObjectArraySize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
-def EvtGetObjectArrayProperty(ObjectArray: IntPtr, PropertyId: UInt32, ArrayIndex: UInt32, Flags: UInt32, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtGetObjectArrayProperty(ObjectArray: IntPtr, PropertyId: UInt32, ArrayIndex: UInt32, Flags: UInt32, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
-def EvtGetQueryInfo(QueryOrSubscription: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_QUERY_PROPERTY_ID, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtGetQueryInfo(QueryOrSubscription: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_QUERY_PROPERTY_ID, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
 def EvtCreateBookmark(BookmarkXml: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.EventLog.EVT_HANDLE: ...
 @winfunctype('wevtapi.dll')
 def EvtUpdateBookmark(Bookmark: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, Event: win32more.Windows.Win32.System.EventLog.EVT_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('wevtapi.dll')
-def EvtGetEventInfo(Event: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_EVENT_PROPERTY_ID, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT_head), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def EvtGetEventInfo(Event: win32more.Windows.Win32.System.EventLog.EVT_HANDLE, PropertyId: win32more.Windows.Win32.System.EventLog.EVT_EVENT_PROPERTY_ID, PropertyValueBufferSize: UInt32, PropertyValueBuffer: POINTER(win32more.Windows.Win32.System.EventLog.EVT_VARIANT), PropertyValueBufferUsed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ClearEventLogA(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, lpBackupFileName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -353,7 +344,7 @@ class EVT_VARIANT(EasyCastStructure):
         SingleVal: Single
         DoubleVal: Double
         FileTimeVal: UInt64
-        SysTimeVal: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head)
+        SysTimeVal: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)
         GuidVal: POINTER(Guid)
         StringVal: win32more.Windows.Win32.Foundation.PWSTR
         AnsiStringVal: win32more.Windows.Win32.Foundation.PSTR
@@ -371,8 +362,8 @@ class EVT_VARIANT(EasyCastStructure):
         UInt64Arr: POINTER(UInt64)
         SingleArr: POINTER(Single)
         DoubleArr: POINTER(Double)
-        FileTimeArr: POINTER(win32more.Windows.Win32.Foundation.FILETIME_head)
-        SysTimeArr: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME_head)
+        FileTimeArr: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
+        SysTimeArr: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)
         GuidArr: POINTER(Guid)
         StringArr: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
         AnsiStringArr: POINTER(win32more.Windows.Win32.Foundation.PSTR)
@@ -416,9 +407,4 @@ EVENTLOG_AUDIT_SUCCESS: REPORT_EVENT_TYPE = 8
 EVENTLOG_ERROR_TYPE: REPORT_EVENT_TYPE = 1
 EVENTLOG_INFORMATION_TYPE: REPORT_EVENT_TYPE = 4
 EVENTLOG_WARNING_TYPE: REPORT_EVENT_TYPE = 2
-make_head(_module, 'EVENTLOGRECORD')
-make_head(_module, 'EVENTLOG_FULL_INFORMATION')
-make_head(_module, 'EVENTSFORLOGFILE')
-make_head(_module, 'EVT_RPC_LOGIN')
-make_head(_module, 'EVT_SUBSCRIBE_CALLBACK')
-make_head(_module, 'EVT_VARIANT')
+make_ready(__name__)

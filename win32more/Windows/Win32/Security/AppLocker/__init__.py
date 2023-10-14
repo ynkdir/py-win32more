@@ -1,19 +1,10 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.AppLocker
 import win32more.Windows.Win32.Security.Cryptography
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 SAFER_SCOPEID_MACHINE: UInt32 = 1
 SAFER_SCOPEID_USER: UInt32 = 2
 SAFER_LEVELID_FULLYTRUSTED: UInt32 = 262144
@@ -64,7 +55,7 @@ def SaferCreateLevel(dwScopeId: UInt32, dwLevelId: UInt32, OpenFlags: UInt32, pL
 @winfunctype('ADVAPI32.dll')
 def SaferCloseLevel(hLevelHandle: win32more.Windows.Win32.Security.SAFER_LEVEL_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def SaferIdentifyLevel(dwNumProperties: UInt32, pCodeProperties: POINTER(win32more.Windows.Win32.Security.AppLocker.SAFER_CODE_PROPERTIES_V2_head), pLevelHandle: POINTER(win32more.Windows.Win32.Security.SAFER_LEVEL_HANDLE), lpReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SaferIdentifyLevel(dwNumProperties: UInt32, pCodeProperties: POINTER(win32more.Windows.Win32.Security.AppLocker.SAFER_CODE_PROPERTIES_V2), pLevelHandle: POINTER(win32more.Windows.Win32.Security.SAFER_LEVEL_HANDLE), lpReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def SaferComputeTokenFromLevel(LevelHandle: win32more.Windows.Win32.Security.SAFER_LEVEL_HANDLE, InAccessToken: win32more.Windows.Win32.Foundation.HANDLE, OutAccessToken: POINTER(win32more.Windows.Win32.Foundation.HANDLE), dwFlags: win32more.Windows.Win32.Security.AppLocker.SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS, lpReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -170,10 +161,4 @@ class SAFER_URLZONE_IDENTIFICATION(EasyCastStructure):
     header: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_HEADER
     UrlZoneId: UInt32
     dwSaferFlags: UInt32
-make_head(_module, 'SAFER_CODE_PROPERTIES_V1')
-make_head(_module, 'SAFER_CODE_PROPERTIES_V2')
-make_head(_module, 'SAFER_HASH_IDENTIFICATION')
-make_head(_module, 'SAFER_HASH_IDENTIFICATION2')
-make_head(_module, 'SAFER_IDENTIFICATION_HEADER')
-make_head(_module, 'SAFER_PATHNAME_IDENTIFICATION')
-make_head(_module, 'SAFER_URLZONE_IDENTIFICATION')
+make_ready(__name__)

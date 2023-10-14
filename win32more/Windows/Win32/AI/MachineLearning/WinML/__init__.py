@@ -1,24 +1,15 @@
 from __future__ import annotations
 from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_head, press, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
 import win32more.Windows.Win32.AI.MachineLearning.WinML
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
 import win32more.Windows.Win32.System.Com
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 WINML_TENSOR_DIMENSION_COUNT_MAX: UInt32 = 4
 @winfunctype('winml.dll')
-def WinMLCreateRuntime(runtime: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLRuntime_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def WinMLCreateRuntime(runtime: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLRuntime)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('windows.ai.machinelearning.dll')
-def MLCreateOperatorRegistry(registry: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorRegistry_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def MLCreateOperatorRegistry(registry: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorRegistry)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMLOperatorAttributes(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4b1b1759-ec40-466c-aab4-beb5347fd24c}')
@@ -34,20 +25,20 @@ class IMLOperatorKernel(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{11c4b4a0-b467-4eaa-a1a6-b961d8d0ed79}')
     @commethod(3)
-    def Compute(self, context: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorKernelContext_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Compute(self, context: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorKernelContext) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMLOperatorKernelContext(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{82536a28-f022-4769-9d3f-8b278f84c0c3}')
     @commethod(3)
-    def GetInputTensor(self, inputIndex: UInt32, tensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTensor_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInputTensor(self, inputIndex: UInt32, tensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTensor)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetOutputTensor(self, outputIndex: UInt32, dimensionCount: UInt32, dimensionSizes: POINTER(UInt32), tensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTensor_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOutputTensor(self, outputIndex: UInt32, dimensionCount: UInt32, dimensionSizes: POINTER(UInt32), tensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTensor)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetOutputTensor(self, outputIndex: UInt32, tensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTensor_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOutputTensor(self, outputIndex: UInt32, tensor: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTensor)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def AllocateTemporaryData(self, size: UIntPtr, data: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AllocateTemporaryData(self, size: UIntPtr, data: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetExecutionInterface(self, executionObject: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> Void: ...
+    def GetExecutionInterface(self, executionObject: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> Void: ...
 class IMLOperatorKernelCreationContext(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorAttributes
     _iid_ = Guid('{5459b53d-a0fc-4665-addd-70171ef7e631}')
@@ -60,27 +51,27 @@ class IMLOperatorKernelCreationContext(ComPtr):
     @commethod(10)
     def IsOutputValid(self, outputIndex: UInt32) -> Boolean: ...
     @commethod(11)
-    def GetInputEdgeDescription(self, inputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInputEdgeDescription(self, inputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def GetOutputEdgeDescription(self, outputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetOutputEdgeDescription(self, outputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def HasTensorShapeDescription(self) -> Boolean: ...
     @commethod(14)
-    def GetTensorShapeDescription(self, shapeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTensorShapeDescription_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetTensorShapeDescription(self, shapeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTensorShapeDescription)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
-    def GetExecutionInterface(self, executionObject: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> Void: ...
+    def GetExecutionInterface(self, executionObject: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> Void: ...
 class IMLOperatorKernelFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ef15ad6f-0dc9-4908-ab35-a575a30dfbf8}')
     @commethod(3)
-    def CreateKernel(self, context: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorKernelCreationContext_head, kernel: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorKernel_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateKernel(self, context: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorKernelCreationContext, kernel: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorKernel)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMLOperatorRegistry(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2af9dd2d-b516-4672-9ab5-530c208493ad}')
     @commethod(3)
-    def RegisterOperatorSetSchema(self, operatorSetId: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSetId_head), baselineVersion: Int32, schema: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaDescription_head)), schemaCount: UInt32, typeInferrer: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTypeInferrer_head, shapeInferrer: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorShapeInferrer_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RegisterOperatorSetSchema(self, operatorSetId: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSetId), baselineVersion: Int32, schema: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaDescription)), schemaCount: UInt32, typeInferrer: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTypeInferrer, shapeInferrer: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorShapeInferrer) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def RegisterOperatorKernel(self, operatorKernel: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelDescription_head), operatorKernelFactory: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorKernelFactory_head, shapeInferrer: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorShapeInferrer_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RegisterOperatorKernel(self, operatorKernel: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelDescription), operatorKernelFactory: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorKernelFactory, shapeInferrer: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorShapeInferrer) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMLOperatorShapeInferenceContext(ComPtr):
     extends: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorAttributes
     _iid_ = Guid('{105b6b29-5408-4a68-9959-09b5955a3492}')
@@ -93,7 +84,7 @@ class IMLOperatorShapeInferenceContext(ComPtr):
     @commethod(10)
     def IsOutputValid(self, outputIndex: UInt32) -> Boolean: ...
     @commethod(11)
-    def GetInputEdgeDescription(self, inputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInputEdgeDescription(self, inputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetInputTensorDimensionCount(self, inputIndex: UInt32, dimensionCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -104,7 +95,7 @@ class IMLOperatorShapeInferrer(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{540be5be-a6c9-40ee-83f6-d2b8b40a7798}')
     @commethod(3)
-    def InferOutputShapes(self, context: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorShapeInferenceContext_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def InferOutputShapes(self, context: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorShapeInferenceContext) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMLOperatorTensor(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7fe41f41-f430-440e-aece-54416dc8b9db}')
@@ -121,7 +112,7 @@ class IMLOperatorTensor(ComPtr):
     @commethod(8)
     def GetData(self) -> VoidPtr: ...
     @commethod(9)
-    def GetDataInterface(self, dataInterface: POINTER(win32more.Windows.Win32.System.Com.IUnknown_head)) -> Void: ...
+    def GetDataInterface(self, dataInterface: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> Void: ...
 class IMLOperatorTensorShapeDescription(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f20e8cbe-3b28-4248-be95-f96fbc6e4643}')
@@ -147,48 +138,48 @@ class IMLOperatorTypeInferenceContext(ComPtr):
     @commethod(10)
     def IsOutputValid(self, outputIndex: UInt32) -> Boolean: ...
     @commethod(11)
-    def GetInputEdgeDescription(self, inputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetInputEdgeDescription(self, inputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def SetOutputEdgeDescription(self, outputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetOutputEdgeDescription(self, outputIndex: UInt32, edgeDescription: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMLOperatorTypeInferrer(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{781aeb48-9bcb-4797-bf77-8bf455217beb}')
     @commethod(3)
-    def InferOutputTypes(self, context: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTypeInferenceContext_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def InferOutputTypes(self, context: win32more.Windows.Win32.AI.MachineLearning.WinML.IMLOperatorTypeInferenceContext) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWinMLEvaluationContext(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{95848f9e-583d-4054-af12-916387cd8426}')
     @commethod(3)
-    def BindValue(self, pDescriptor: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_DESC_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def BindValue(self, pDescriptor: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetValueByName(self, Name: win32more.Windows.Win32.Foundation.PWSTR, pDescriptor: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_DESC_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetValueByName(self, Name: win32more.Windows.Win32.Foundation.PWSTR, pDescriptor: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_DESC))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Clear(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWinMLModel(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e2eeb6a9-f31f-4055-a521-e30b5b33664a}')
     @commethod(3)
-    def GetDescription(self, ppDescription: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_MODEL_DESC_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDescription(self, ppDescription: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_MODEL_DESC))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnumerateMetadata(self, Index: UInt32, pKey: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pValue: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def EnumerateModelInputs(self, Index: UInt32, ppInputDescriptor: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_VARIABLE_DESC_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumerateModelInputs(self, Index: UInt32, ppInputDescriptor: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_VARIABLE_DESC))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def EnumerateModelOutputs(self, Index: UInt32, ppOutputDescriptor: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_VARIABLE_DESC_head))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumerateModelOutputs(self, Index: UInt32, ppOutputDescriptor: POINTER(POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_VARIABLE_DESC))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWinMLRuntime(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a0425329-40ae-48d9-bce3-829ef7b8a41a}')
     @commethod(3)
-    def LoadModel(self, Path: win32more.Windows.Win32.Foundation.PWSTR, ppModel: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLModel_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def LoadModel(self, Path: win32more.Windows.Win32.Foundation.PWSTR, ppModel: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLModel)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def CreateEvaluationContext(self, device: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, ppContext: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLEvaluationContext_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateEvaluationContext(self, device: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Device, ppContext: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLEvaluationContext)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def EvaluateModel(self, pContext: win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLEvaluationContext_head) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EvaluateModel(self, pContext: win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLEvaluationContext) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IWinMLRuntimeFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a807b84d-4ae5-4bc0-a76a-941aa246bd41}')
     @commethod(3)
-    def CreateRuntime(self, RuntimeType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_RUNTIME_TYPE, ppRuntime: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLRuntime_head)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateRuntime(self, RuntimeType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_RUNTIME_TYPE, ppRuntime: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLRuntime)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class MLOperatorAttribute(EasyCastStructure):
     name: win32more.Windows.Win32.Foundation.PSTR
     type: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType
@@ -222,7 +213,7 @@ MLOperatorEdgeType_Undefined: MLOperatorEdgeType = 0
 MLOperatorEdgeType_Tensor: MLOperatorEdgeType = 1
 class MLOperatorEdgeTypeConstraint(EasyCastStructure):
     typeLabel: win32more.Windows.Win32.Foundation.PSTR
-    allowedTypes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription_head)
+    allowedTypes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)
     allowedTypeCount: UInt32
 MLOperatorExecutionType = UInt32
 MLOperatorExecutionType_Undefined: MLOperatorExecutionType = 0
@@ -233,9 +224,9 @@ class MLOperatorKernelDescription(EasyCastStructure):
     name: win32more.Windows.Win32.Foundation.PSTR
     minimumOperatorSetVersion: Int32
     executionType: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorExecutionType
-    typeConstraints: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeTypeConstraint_head)
+    typeConstraints: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeTypeConstraint)
     typeConstraintCount: UInt32
-    defaultAttributes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeNameValue_head)
+    defaultAttributes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeNameValue)
     defaultAttributeCount: UInt32
     options: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelOptions
     executionOptions: UInt32
@@ -249,15 +240,15 @@ MLOperatorParameterOptions_Variadic: MLOperatorParameterOptions = 2
 class MLOperatorSchemaDescription(EasyCastStructure):
     name: win32more.Windows.Win32.Foundation.PSTR
     operatorSetVersionAtLastChange: Int32
-    inputs: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeDescription_head)
+    inputs: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeDescription)
     inputCount: UInt32
-    outputs: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeDescription_head)
+    outputs: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeDescription)
     outputCount: UInt32
-    typeConstraints: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeTypeConstraint_head)
+    typeConstraints: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeTypeConstraint)
     typeConstraintCount: UInt32
-    attributes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttribute_head)
+    attributes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttribute)
     attributeCount: UInt32
-    defaultAttributes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeNameValue_head)
+    defaultAttributes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeNameValue)
     defaultAttributeCount: UInt32
 class MLOperatorSchemaEdgeDescription(EasyCastStructure):
     options: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorParameterOptions
@@ -350,7 +341,7 @@ class WINML_RESOURCE_BINDING_DESC(EasyCastStructure):
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
     pShape: POINTER(Int64)
-    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head
+    pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
 WINML_RUNTIME_TYPE = Int32
 WINML_RUNTIME_CNTK: WINML_RUNTIME_TYPE = 0
 class WINML_SEQUENCE_BINDING_DESC(EasyCastStructure):
@@ -402,39 +393,4 @@ class WINML_VARIABLE_DESC(EasyCastStructure):
         Sequence: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_SEQUENCE_VARIABLE_DESC
         Map: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_MAP_VARIABLE_DESC
         Image: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_IMAGE_VARIABLE_DESC
-make_head(_module, 'IMLOperatorAttributes')
-make_head(_module, 'IMLOperatorKernel')
-make_head(_module, 'IMLOperatorKernelContext')
-make_head(_module, 'IMLOperatorKernelCreationContext')
-make_head(_module, 'IMLOperatorKernelFactory')
-make_head(_module, 'IMLOperatorRegistry')
-make_head(_module, 'IMLOperatorShapeInferenceContext')
-make_head(_module, 'IMLOperatorShapeInferrer')
-make_head(_module, 'IMLOperatorTensor')
-make_head(_module, 'IMLOperatorTensorShapeDescription')
-make_head(_module, 'IMLOperatorTypeInferenceContext')
-make_head(_module, 'IMLOperatorTypeInferrer')
-make_head(_module, 'IWinMLEvaluationContext')
-make_head(_module, 'IWinMLModel')
-make_head(_module, 'IWinMLRuntime')
-make_head(_module, 'IWinMLRuntimeFactory')
-make_head(_module, 'MLOperatorAttribute')
-make_head(_module, 'MLOperatorAttributeNameValue')
-make_head(_module, 'MLOperatorEdgeDescription')
-make_head(_module, 'MLOperatorEdgeTypeConstraint')
-make_head(_module, 'MLOperatorKernelDescription')
-make_head(_module, 'MLOperatorSchemaDescription')
-make_head(_module, 'MLOperatorSchemaEdgeDescription')
-make_head(_module, 'MLOperatorSetId')
-make_head(_module, 'WINML_BINDING_DESC')
-make_head(_module, 'WINML_IMAGE_BINDING_DESC')
-make_head(_module, 'WINML_IMAGE_VARIABLE_DESC')
-make_head(_module, 'WINML_MAP_BINDING_DESC')
-make_head(_module, 'WINML_MAP_VARIABLE_DESC')
-make_head(_module, 'WINML_MODEL_DESC')
-make_head(_module, 'WINML_RESOURCE_BINDING_DESC')
-make_head(_module, 'WINML_SEQUENCE_BINDING_DESC')
-make_head(_module, 'WINML_SEQUENCE_VARIABLE_DESC')
-make_head(_module, 'WINML_TENSOR_BINDING_DESC')
-make_head(_module, 'WINML_TENSOR_VARIABLE_DESC')
-make_head(_module, 'WINML_VARIABLE_DESC')
+make_ready(__name__)

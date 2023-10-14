@@ -12,7 +12,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
+from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel
@@ -21,15 +21,6 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Services.Store
 import win32more.Windows.System
 import win32more.Windows.Web.Http
-import sys
-_module = sys.modules[__name__]
-def __getattr__(name):
-    try:
-        prototype = globals()[f'{name}_head']
-    except KeyError:
-        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, press(prototype))
-    return getattr(_module, name)
 class IStoreAcquireLicenseResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Store.IStoreAcquireLicenseResult'
@@ -162,7 +153,7 @@ class IStoreContext(ComPtr):
     @winrt_commethod(6)
     def get_User(self) -> win32more.Windows.System.User: ...
     @winrt_commethod(7)
-    def add_OfflineLicensesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StoreContext, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_OfflineLicensesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StoreContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_OfflineLicensesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -309,7 +300,7 @@ class IStorePackageLicense(ComPtr):
     _classid_ = 'Windows.Services.Store.IStorePackageLicense'
     _iid_ = Guid('{0c465714-14e1-4973-bd14-f77724271e99}')
     @winrt_commethod(6)
-    def add_LicenseLost(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StorePackageLicense, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LicenseLost(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StorePackageLicense, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_LicenseLost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -513,7 +504,7 @@ class IStoreQueueItem(ComPtr):
     @winrt_commethod(11)
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StoreQueueItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StoreQueueItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ProductId = property(get_ProductId, None)
@@ -839,7 +830,7 @@ class StoreContext(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.Services.Store.IStoreContext) -> win32more.Windows.System.User: ...
     @winrt_mixinmethod
-    def add_OfflineLicensesChanged(self: win32more.Windows.Services.Store.IStoreContext, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StoreContext, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_OfflineLicensesChanged(self: win32more.Windows.Services.Store.IStoreContext, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StoreContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_OfflineLicensesChanged(self: win32more.Windows.Services.Store.IStoreContext, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -980,7 +971,7 @@ class StorePackageLicense(ComPtr):
     default_interface: win32more.Windows.Services.Store.IStorePackageLicense
     _classid_ = 'Windows.Services.Store.StorePackageLicense'
     @winrt_mixinmethod
-    def add_LicenseLost(self: win32more.Windows.Services.Store.IStorePackageLicense, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StorePackageLicense, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LicenseLost(self: win32more.Windows.Services.Store.IStorePackageLicense, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StorePackageLicense, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_LicenseLost(self: win32more.Windows.Services.Store.IStorePackageLicense, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1205,7 +1196,7 @@ class StoreQueueItem(ComPtr):
     @winrt_mixinmethod
     def remove_Completed(self: win32more.Windows.Services.Store.IStoreQueueItem, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_StatusChanged(self: win32more.Windows.Services.Store.IStoreQueueItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StoreQueueItem, win32more.Windows.Win32.System.WinRT.IInspectable_head]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusChanged(self: win32more.Windows.Services.Store.IStoreQueueItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Store.StoreQueueItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StatusChanged(self: win32more.Windows.Services.Store.IStoreQueueItem, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1420,75 +1411,4 @@ class StoreVideo(ComPtr):
     Height = property(get_Height, None)
     Caption = property(get_Caption, None)
     PreviewImage = property(get_PreviewImage, None)
-make_head(_module, 'IStoreAcquireLicenseResult')
-make_head(_module, 'IStoreAppLicense')
-make_head(_module, 'IStoreAppLicense2')
-make_head(_module, 'IStoreAvailability')
-make_head(_module, 'IStoreCanAcquireLicenseResult')
-make_head(_module, 'IStoreCollectionData')
-make_head(_module, 'IStoreConsumableResult')
-make_head(_module, 'IStoreContext')
-make_head(_module, 'IStoreContext2')
-make_head(_module, 'IStoreContext3')
-make_head(_module, 'IStoreContext4')
-make_head(_module, 'IStoreContextStatics')
-make_head(_module, 'IStoreImage')
-make_head(_module, 'IStoreLicense')
-make_head(_module, 'IStorePackageInstallOptions')
-make_head(_module, 'IStorePackageLicense')
-make_head(_module, 'IStorePackageUpdate')
-make_head(_module, 'IStorePackageUpdateResult')
-make_head(_module, 'IStorePackageUpdateResult2')
-make_head(_module, 'IStorePrice')
-make_head(_module, 'IStoreProduct')
-make_head(_module, 'IStoreProductOptions')
-make_head(_module, 'IStoreProductPagedQueryResult')
-make_head(_module, 'IStoreProductQueryResult')
-make_head(_module, 'IStoreProductResult')
-make_head(_module, 'IStorePurchaseProperties')
-make_head(_module, 'IStorePurchasePropertiesFactory')
-make_head(_module, 'IStorePurchaseResult')
-make_head(_module, 'IStoreQueueItem')
-make_head(_module, 'IStoreQueueItem2')
-make_head(_module, 'IStoreQueueItemCompletedEventArgs')
-make_head(_module, 'IStoreQueueItemStatus')
-make_head(_module, 'IStoreRateAndReviewResult')
-make_head(_module, 'IStoreRequestHelperStatics')
-make_head(_module, 'IStoreSendRequestResult')
-make_head(_module, 'IStoreSendRequestResult2')
-make_head(_module, 'IStoreSku')
-make_head(_module, 'IStoreSubscriptionInfo')
-make_head(_module, 'IStoreUninstallStorePackageResult')
-make_head(_module, 'IStoreVideo')
-make_head(_module, 'StoreAcquireLicenseResult')
-make_head(_module, 'StoreAppLicense')
-make_head(_module, 'StoreAvailability')
-make_head(_module, 'StoreCanAcquireLicenseResult')
-make_head(_module, 'StoreCollectionData')
-make_head(_module, 'StoreConsumableResult')
-make_head(_module, 'StoreContext')
-make_head(_module, 'StoreImage')
-make_head(_module, 'StoreLicense')
-make_head(_module, 'StorePackageInstallOptions')
-make_head(_module, 'StorePackageLicense')
-make_head(_module, 'StorePackageUpdate')
-make_head(_module, 'StorePackageUpdateResult')
-make_head(_module, 'StorePackageUpdateStatus')
-make_head(_module, 'StorePrice')
-make_head(_module, 'StoreProduct')
-make_head(_module, 'StoreProductOptions')
-make_head(_module, 'StoreProductPagedQueryResult')
-make_head(_module, 'StoreProductQueryResult')
-make_head(_module, 'StoreProductResult')
-make_head(_module, 'StorePurchaseProperties')
-make_head(_module, 'StorePurchaseResult')
-make_head(_module, 'StoreQueueItem')
-make_head(_module, 'StoreQueueItemCompletedEventArgs')
-make_head(_module, 'StoreQueueItemStatus')
-make_head(_module, 'StoreRateAndReviewResult')
-make_head(_module, 'StoreRequestHelper')
-make_head(_module, 'StoreSendRequestResult')
-make_head(_module, 'StoreSku')
-make_head(_module, 'StoreSubscriptionInfo')
-make_head(_module, 'StoreUninstallStorePackageResult')
-make_head(_module, 'StoreVideo')
+make_ready(__name__)
