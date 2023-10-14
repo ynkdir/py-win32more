@@ -121,7 +121,8 @@ class TestEasyCast(unittest.TestCase):
     def test_callable_to_cfunctype(self):
         @commit
         @cfunctype_pointer
-        def f() -> Void: ...
+        def f() -> Void:
+            ...
 
         @functype
         def g(f: f) -> py_object:
@@ -139,7 +140,8 @@ class TestEasyCast(unittest.TestCase):
     def test_callable_to_winfunctype(self):
         @commit
         @winfunctype_pointer
-        def f() -> Void: ...
+        def f() -> Void:
+            ...
 
         @functype
         def g(f: f) -> py_object:

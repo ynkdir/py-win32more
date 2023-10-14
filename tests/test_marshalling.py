@@ -25,6 +25,7 @@ from win32more import (
     commethod,
 )
 
+
 def commit(prototype):
     return prototype.__commit__()
 
