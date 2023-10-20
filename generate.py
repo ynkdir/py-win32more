@@ -36,6 +36,7 @@ BASE_EXPORTS = [
     "Int64",
     "IntPtr",
     "MissingType",
+    "POINTER",
     "SByte",
     "SUCCEEDED",
     "Single",
@@ -49,9 +50,9 @@ BASE_EXPORTS = [
     "cfunctype",
     "cfunctype_pointer",
     "commethod",
+    "make_ready",
     "winfunctype",
     "winfunctype_pointer",
-    "make_ready",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -958,6 +959,7 @@ class Preprocessor:
 
     def patch_namespace_one(self, meta: Metadata, namespace: str) -> None:
         for td in meta:
+            td["Module"] = td["Namespace"]
             td["Namespace"] = namespace
             for ii in td.interface_implementations:
                 ii.interface.type_reference["Namespace"] = namespace
@@ -1192,33 +1194,8 @@ class PyGenerator:
 
     def emit_header(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
-        writer.write(self.emit_import_annotations())
-        writer.write(self.emit_import_ctypes())
-        writer.write(self.emit_import_base())
-        writer.write(self.emit_import_namespaces(import_namespaces))
-        return writer.getvalue()
-
-    def emit_header_one(self) -> str:
-        writer = StringIO()
-        writer.write(self.emit_import_annotations())
-        writer.write(self.emit_import_ctypes())
-        writer.write(self.emit_include_base())
-        return writer.getvalue()
-
-    def emit_import_annotations(self) -> str:
-        return "from __future__ import annotations\n"
-
-    def emit_import_ctypes(self) -> str:
-        return "from ctypes import POINTER\n"
-
-    def emit_import_base(self) -> str:
-        return f"from {PACKAGE_NAME} import {BASE_EXPORTS_CSV}\n"
-
-    def emit_include_base(self) -> str:
-        return (Path(__file__).parent / f"{PACKAGE_NAME}\\__init__.py").read_text()
-
-    def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
-        writer = StringIO()
+        writer.write("from __future__ import annotations\n")
+        writer.write(f"from {PACKAGE_NAME} import {BASE_EXPORTS_CSV}\n")
         for namespace in sorted(import_namespaces):
             writer.write(f"import {PACKAGE_NAME}.{namespace}\n")
         return writer.getvalue()
@@ -1354,8 +1331,12 @@ def generate(meta: Metadata) -> None:
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
     pg = PyGenerator()
-    writer.write(pg.emit_header_one())
+    writer.write(pg.emit_header())
+    module = ''
     for td in meta:
+        if td["Module"] != module:
+            module = td["Module"]
+            writer.write(f"\n\n# {module}\n")
         writer.write(pg.emit(td))
     writer.write("make_ready(__name__)\n")
 
@@ -1364,15 +1345,6 @@ def xopen(path: str) -> TextIO | lzma.LZMAFile:
     if path.endswith(".xz"):
         return lzma.open(path)
     return open(path)
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Metadata to Python generator")
-    parser.add_argument("-o", "--one", help="out to one file")
-    parser.add_argument("-s", "--selector", help="selector.txt")
-    parser.add_argument("metadata", help="metadata.json")
-    args = parser.parse_args()
-    build(args.metadata, args.selector, args.one)
 
 
 def build(metadata, selector=None, one=None) -> None:
@@ -1394,12 +1366,21 @@ def build(metadata, selector=None, one=None) -> None:
     pp.patch_name_conflict(meta)
     pp.patch_keyword_name(meta)
 
-    if one is not None:
-        pp.patch_namespace_one(meta, "_module")
-        with open(one, "w") as writer:
-            generate_one(meta, writer)
-    else:
-        generate(meta)
+    if one is None:
+        return generate(meta)
+
+    pp.patch_namespace_one(meta, "_module")
+    with open(one, "w") as writer:
+        generate_one(meta, writer)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Metadata to Python generator")
+    parser.add_argument("-o", "--one", help="out to one file")
+    parser.add_argument("-s", "--selector", help="selector.txt")
+    parser.add_argument("metadata", help="metadata.json")
+    args = parser.parse_args()
+    build(args.metadata, args.selector, args.one)
 
 
 if __name__ == "__main__":
