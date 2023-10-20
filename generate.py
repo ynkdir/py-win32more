@@ -62,7 +62,7 @@ is_onefile = False
 
 
 def abs_pkg(name: str) -> str:
-    return name if is_onefile else f"{PACKAGE_NAME}.{name}"
+    return name.split('.')[-1] if is_onefile else f"{PACKAGE_NAME}.{name}"
 
 
 class TType:
@@ -1084,7 +1084,7 @@ class PyGenerator:
         type_field, *value_fields = td.fields
         writer.write(f"{td.name} = {type_field.signature.pytype}\n")
         for fd in value_fields:
-            writer.write(f"{fd.name}: {td.name} = {fd.default_value.value}\n")
+            writer.write(f"{fd.name}: {abs_pkg(td.fullname)} = {fd.default_value.value}\n")
         return writer.getvalue()
 
     def emit_native_typedef(self, td: TypeDefinition) -> str:
