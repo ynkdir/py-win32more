@@ -58,6 +58,12 @@ BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
 JsonType: TypeAlias = Any
 
+is_onefile = False
+
+
+def abs_pkg(name: str) -> str:
+    return name if is_onefile else f"{PACKAGE_NAME}.{name}"
+
 
 class TType:
     def __init__(self, js: JsonType) -> None:
@@ -87,7 +93,7 @@ class TType:
 
     @property
     def fullname(self) -> str:
-        return f"{self.namespace}.{self.name}"
+        return self.name if is_onefile else f"{self.namespace}.{self.name}"
 
     @property
     def type(self) -> TType:
@@ -121,7 +127,7 @@ class TType:
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "VoidPtr"
             elif self.type.is_struct:
-                return f"POINTER({PACKAGE_NAME}.{self.type.fullname})"
+                return f"POINTER({abs_pkg(self.type.fullname)})"
             else:
                 return f"POINTER({self.type.pytype})"
         elif self.kind == "Array":
@@ -135,9 +141,9 @@ class TType:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                 return "MissingType"
             elif self.is_com:
-                return f"{PACKAGE_NAME}.{self.fullname}"
+                return f"{abs_pkg(self.fullname)}"
             else:
-                return f"{PACKAGE_NAME}.{self.fullname}"
+                return f"{abs_pkg(self.fullname)}"
         else:
             raise NotImplementedError()
 
@@ -472,19 +478,19 @@ class FieldDefinition:
             return f"Guid('{guid}')"
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, pid = self.custom_attributes.get_property_key()
-            return f"{PACKAGE_NAME}.{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
+            return f"{abs_pkg(self.signature.fullname)}(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             self.signature.kind == "Type"
             and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
         ):
             guid, pid = self.custom_attributes.get_property_key()
-            return f"{PACKAGE_NAME}.{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
+            return f"{abs_pkg(self.signature.fullname)}(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             self.signature.kind == "Type"
             and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY"
         ):
             value = self.custom_attributes.get_constant()
-            return f"{PACKAGE_NAME}.{self.signature.fullname}({value})"
+            return f"{abs_pkg(self.signature.fullname)}({value})"
         else:
             # FIXME:
             raise NotImplementedError()
@@ -957,17 +963,6 @@ class Preprocessor:
         for nested_type in td.nested_types:
             self.patch_keyword_name_td(nested_type)
 
-    def patch_namespace_one(self, meta: Metadata, namespace: str) -> None:
-        for td in meta:
-            td["Module"] = td["Namespace"]
-            td["Namespace"] = namespace
-            for ii in td.interface_implementations:
-                ii.interface.type_reference["Namespace"] = namespace
-            for t in td.enumerate_types():
-                t = t.get_element_type()
-                if t.kind == "Type" and t.namespace != "System" and t.namespace != "":
-                    t["Namespace"] = namespace
-
 
 class PyGenerator:
     def emit(self, td: TypeDefinition) -> str:
@@ -1178,7 +1173,7 @@ class PyGenerator:
         if not td.interface_implementations:
             return "None"
         base = td.interface_implementations[0].interface.type_reference.fullname
-        return f"{PACKAGE_NAME}.{base}"
+        return f"{abs_pkg(base)}"
 
     def emit_attribute(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1326,19 +1321,23 @@ def generate(meta: Metadata) -> None:
             writer.write(pg.emit_header(import_namespaces))
             for td in meta_group_by_namespace:
                 writer.write(pg.emit(td))
-            writer.write("make_ready(__name__)\n")
+            writer.write("\n\nmake_ready(__name__)\n")
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
+    global is_onefile
+    is_onefile = True
+
     pg = PyGenerator()
-    writer.write(pg.emit_header())
+    writer.write(pg.emit_header(set()))
     module = ''
     for td in meta:
-        if td["Module"] != module:
-            module = td["Module"]
+        ns = td["Namespace"]
+        if ns != module:
+            module = ns
             writer.write(f"\n\n# {module}\n")
         writer.write(pg.emit(td))
-    writer.write("make_ready(__name__)\n")
+    writer.write("\n\nmake_ready(__name__)\n")
 
 
 def xopen(path: str) -> TextIO | lzma.LZMAFile:
@@ -1369,7 +1368,6 @@ def build(metadata, selector=None, one=None) -> None:
     if one is None:
         return generate(meta)
 
-    pp.patch_namespace_one(meta, "_module")
     with open(one, "w") as writer:
         generate_one(meta, writer)
 
